@@ -430,6 +430,25 @@ namespace dawn::native {
     }
 
 
+    static_assert(sizeof(DawnWGSLBlocklist) == sizeof(WGPUDawnWGSLBlocklist), "sizeof mismatch for DawnWGSLBlocklist");
+    static_assert(alignof(DawnWGSLBlocklist) == alignof(WGPUDawnWGSLBlocklist), "alignof mismatch for DawnWGSLBlocklist");
+
+    static_assert(offsetof(DawnWGSLBlocklist, blocklistedFeatureCount) == offsetof(WGPUDawnWGSLBlocklist, blocklistedFeatureCount),
+                 "offsetof mismatch for DawnWGSLBlocklist::blocklistedFeatureCount");
+    static_assert(offsetof(DawnWGSLBlocklist, blocklistedFeatures) == offsetof(WGPUDawnWGSLBlocklist, blocklistedFeatures),
+                 "offsetof mismatch for DawnWGSLBlocklist::blocklistedFeatures");
+
+    bool DawnWGSLBlocklist::operator==(const DawnWGSLBlocklist& rhs) const {
+        return (nextInChain == rhs.nextInChain) && std::tie(
+            blocklistedFeatureCount,
+            blocklistedFeatures
+        ) == std::tie(
+            rhs.blocklistedFeatureCount,
+            rhs.blocklistedFeatures
+        );
+    }
+
+
     static_assert(sizeof(DawnAdapterPropertiesPowerPreference) == sizeof(WGPUDawnAdapterPropertiesPowerPreference), "sizeof mismatch for DawnAdapterPropertiesPowerPreference");
     static_assert(alignof(DawnAdapterPropertiesPowerPreference) == alignof(WGPUDawnAdapterPropertiesPowerPreference), "alignof mismatch for DawnAdapterPropertiesPowerPreference");
 
@@ -471,6 +490,21 @@ namespace dawn::native {
             isolationKey
         ) == std::tie(
             rhs.isolationKey
+        );
+    }
+
+
+    static_assert(sizeof(DawnComputePipelineFullSubgroups) == sizeof(WGPUDawnComputePipelineFullSubgroups), "sizeof mismatch for DawnComputePipelineFullSubgroups");
+    static_assert(alignof(DawnComputePipelineFullSubgroups) == alignof(WGPUDawnComputePipelineFullSubgroups), "alignof mismatch for DawnComputePipelineFullSubgroups");
+
+    static_assert(offsetof(DawnComputePipelineFullSubgroups, requiresFullSubgroups) == offsetof(WGPUDawnComputePipelineFullSubgroups, requiresFullSubgroups),
+                 "offsetof mismatch for DawnComputePipelineFullSubgroups::requiresFullSubgroups");
+
+    bool DawnComputePipelineFullSubgroups::operator==(const DawnComputePipelineFullSubgroups& rhs) const {
+        return (nextInChain == rhs.nextInChain) && std::tie(
+            requiresFullSubgroups
+        ) == std::tie(
+            rhs.requiresFullSubgroups
         );
     }
 
@@ -592,6 +626,29 @@ namespace dawn::native {
             rhs.enabledToggles,
             rhs.disabledToggleCount,
             rhs.disabledToggles
+        );
+    }
+
+
+    static_assert(sizeof(DawnWireWGSLControl) == sizeof(WGPUDawnWireWGSLControl), "sizeof mismatch for DawnWireWGSLControl");
+    static_assert(alignof(DawnWireWGSLControl) == alignof(WGPUDawnWireWGSLControl), "alignof mismatch for DawnWireWGSLControl");
+
+    static_assert(offsetof(DawnWireWGSLControl, enableExperimental) == offsetof(WGPUDawnWireWGSLControl, enableExperimental),
+                 "offsetof mismatch for DawnWireWGSLControl::enableExperimental");
+    static_assert(offsetof(DawnWireWGSLControl, enableUnsafe) == offsetof(WGPUDawnWireWGSLControl, enableUnsafe),
+                 "offsetof mismatch for DawnWireWGSLControl::enableUnsafe");
+    static_assert(offsetof(DawnWireWGSLControl, enableTesting) == offsetof(WGPUDawnWireWGSLControl, enableTesting),
+                 "offsetof mismatch for DawnWireWGSLControl::enableTesting");
+
+    bool DawnWireWGSLControl::operator==(const DawnWireWGSLControl& rhs) const {
+        return (nextInChain == rhs.nextInChain) && std::tie(
+            enableExperimental,
+            enableUnsafe,
+            enableTesting
+        ) == std::tie(
+            rhs.enableExperimental,
+            rhs.enableUnsafe,
+            rhs.enableTesting
         );
     }
 
@@ -850,6 +907,25 @@ namespace dawn::native {
             rhs.maxComputeWorkgroupSizeY,
             rhs.maxComputeWorkgroupSizeZ,
             rhs.maxComputeWorkgroupsPerDimension
+        );
+    }
+
+
+    static_assert(sizeof(MemoryHeapInfo) == sizeof(WGPUMemoryHeapInfo), "sizeof mismatch for MemoryHeapInfo");
+    static_assert(alignof(MemoryHeapInfo) == alignof(WGPUMemoryHeapInfo), "alignof mismatch for MemoryHeapInfo");
+
+    static_assert(offsetof(MemoryHeapInfo, properties) == offsetof(WGPUMemoryHeapInfo, properties),
+                 "offsetof mismatch for MemoryHeapInfo::properties");
+    static_assert(offsetof(MemoryHeapInfo, size) == offsetof(WGPUMemoryHeapInfo, size),
+                 "offsetof mismatch for MemoryHeapInfo::size");
+
+    bool MemoryHeapInfo::operator==(const MemoryHeapInfo& rhs) const {
+        return  std::tie(
+            properties,
+            size
+        ) == std::tie(
+            rhs.properties,
+            rhs.size
         );
     }
 
@@ -1221,6 +1297,31 @@ namespace dawn::native {
     }
 
 
+    static_assert(sizeof(RequestAdapterCallbackInfo) == sizeof(WGPURequestAdapterCallbackInfo), "sizeof mismatch for RequestAdapterCallbackInfo");
+    static_assert(alignof(RequestAdapterCallbackInfo) == alignof(WGPURequestAdapterCallbackInfo), "alignof mismatch for RequestAdapterCallbackInfo");
+
+    static_assert(offsetof(RequestAdapterCallbackInfo, nextInChain) == offsetof(WGPURequestAdapterCallbackInfo, nextInChain),
+            "offsetof mismatch for RequestAdapterCallbackInfo::nextInChain");
+    static_assert(offsetof(RequestAdapterCallbackInfo, mode) == offsetof(WGPURequestAdapterCallbackInfo, mode),
+                 "offsetof mismatch for RequestAdapterCallbackInfo::mode");
+    static_assert(offsetof(RequestAdapterCallbackInfo, callback) == offsetof(WGPURequestAdapterCallbackInfo, callback),
+                 "offsetof mismatch for RequestAdapterCallbackInfo::callback");
+    static_assert(offsetof(RequestAdapterCallbackInfo, userdata) == offsetof(WGPURequestAdapterCallbackInfo, userdata),
+                 "offsetof mismatch for RequestAdapterCallbackInfo::userdata");
+
+    bool RequestAdapterCallbackInfo::operator==(const RequestAdapterCallbackInfo& rhs) const {
+        return (nextInChain == rhs.nextInChain) && std::tie(
+            mode,
+            callback,
+            userdata
+        ) == std::tie(
+            rhs.mode,
+            rhs.callback,
+            rhs.userdata
+        );
+    }
+
+
     static_assert(sizeof(RequestAdapterOptions) == sizeof(WGPURequestAdapterOptions), "sizeof mismatch for RequestAdapterOptions");
     static_assert(alignof(RequestAdapterOptions) == alignof(WGPURequestAdapterOptions), "alignof mismatch for RequestAdapterOptions");
 
@@ -1328,23 +1429,6 @@ namespace dawn::native {
     }
 
 
-    static_assert(sizeof(ShaderModuleDescriptor) == sizeof(WGPUShaderModuleDescriptor), "sizeof mismatch for ShaderModuleDescriptor");
-    static_assert(alignof(ShaderModuleDescriptor) == alignof(WGPUShaderModuleDescriptor), "alignof mismatch for ShaderModuleDescriptor");
-
-    static_assert(offsetof(ShaderModuleDescriptor, nextInChain) == offsetof(WGPUShaderModuleDescriptor, nextInChain),
-            "offsetof mismatch for ShaderModuleDescriptor::nextInChain");
-    static_assert(offsetof(ShaderModuleDescriptor, label) == offsetof(WGPUShaderModuleDescriptor, label),
-                 "offsetof mismatch for ShaderModuleDescriptor::label");
-
-    bool ShaderModuleDescriptor::operator==(const ShaderModuleDescriptor& rhs) const {
-        return (nextInChain == rhs.nextInChain) && std::tie(
-            label
-        ) == std::tie(
-            rhs.label
-        );
-    }
-
-
     static_assert(sizeof(ShaderModuleSPIRVDescriptor) == sizeof(WGPUShaderModuleSPIRVDescriptor), "sizeof mismatch for ShaderModuleSPIRVDescriptor");
     static_assert(alignof(ShaderModuleSPIRVDescriptor) == alignof(WGPUShaderModuleSPIRVDescriptor), "alignof mismatch for ShaderModuleSPIRVDescriptor");
 
@@ -1379,15 +1463,15 @@ namespace dawn::native {
     }
 
 
-    static_assert(sizeof(SharedFenceDescriptor) == sizeof(WGPUSharedFenceDescriptor), "sizeof mismatch for SharedFenceDescriptor");
-    static_assert(alignof(SharedFenceDescriptor) == alignof(WGPUSharedFenceDescriptor), "alignof mismatch for SharedFenceDescriptor");
+    static_assert(sizeof(ShaderModuleDescriptor) == sizeof(WGPUShaderModuleDescriptor), "sizeof mismatch for ShaderModuleDescriptor");
+    static_assert(alignof(ShaderModuleDescriptor) == alignof(WGPUShaderModuleDescriptor), "alignof mismatch for ShaderModuleDescriptor");
 
-    static_assert(offsetof(SharedFenceDescriptor, nextInChain) == offsetof(WGPUSharedFenceDescriptor, nextInChain),
-            "offsetof mismatch for SharedFenceDescriptor::nextInChain");
-    static_assert(offsetof(SharedFenceDescriptor, label) == offsetof(WGPUSharedFenceDescriptor, label),
-                 "offsetof mismatch for SharedFenceDescriptor::label");
+    static_assert(offsetof(ShaderModuleDescriptor, nextInChain) == offsetof(WGPUShaderModuleDescriptor, nextInChain),
+            "offsetof mismatch for ShaderModuleDescriptor::nextInChain");
+    static_assert(offsetof(ShaderModuleDescriptor, label) == offsetof(WGPUShaderModuleDescriptor, label),
+                 "offsetof mismatch for ShaderModuleDescriptor::label");
 
-    bool SharedFenceDescriptor::operator==(const SharedFenceDescriptor& rhs) const {
+    bool ShaderModuleDescriptor::operator==(const ShaderModuleDescriptor& rhs) const {
         return (nextInChain == rhs.nextInChain) && std::tie(
             label
         ) == std::tie(
@@ -1426,23 +1510,6 @@ namespace dawn::native {
     }
 
 
-    static_assert(sizeof(SharedFenceExportInfo) == sizeof(WGPUSharedFenceExportInfo), "sizeof mismatch for SharedFenceExportInfo");
-    static_assert(alignof(SharedFenceExportInfo) == alignof(WGPUSharedFenceExportInfo), "alignof mismatch for SharedFenceExportInfo");
-
-    static_assert(offsetof(SharedFenceExportInfo, nextInChain) == offsetof(WGPUSharedFenceExportInfo, nextInChain),
-            "offsetof mismatch for SharedFenceExportInfo::nextInChain");
-    static_assert(offsetof(SharedFenceExportInfo, type) == offsetof(WGPUSharedFenceExportInfo, type),
-                 "offsetof mismatch for SharedFenceExportInfo::type");
-
-    bool SharedFenceExportInfo::operator==(const SharedFenceExportInfo& rhs) const {
-        return (nextInChain == rhs.nextInChain) && std::tie(
-            type
-        ) == std::tie(
-            rhs.type
-        );
-    }
-
-
     static_assert(sizeof(SharedFenceMTLSharedEventDescriptor) == sizeof(WGPUSharedFenceMTLSharedEventDescriptor), "sizeof mismatch for SharedFenceMTLSharedEventDescriptor");
     static_assert(alignof(SharedFenceMTLSharedEventDescriptor) == alignof(WGPUSharedFenceMTLSharedEventDescriptor), "alignof mismatch for SharedFenceMTLSharedEventDescriptor");
 
@@ -1469,6 +1536,40 @@ namespace dawn::native {
             sharedEvent
         ) == std::tie(
             rhs.sharedEvent
+        );
+    }
+
+
+    static_assert(sizeof(SharedFenceDescriptor) == sizeof(WGPUSharedFenceDescriptor), "sizeof mismatch for SharedFenceDescriptor");
+    static_assert(alignof(SharedFenceDescriptor) == alignof(WGPUSharedFenceDescriptor), "alignof mismatch for SharedFenceDescriptor");
+
+    static_assert(offsetof(SharedFenceDescriptor, nextInChain) == offsetof(WGPUSharedFenceDescriptor, nextInChain),
+            "offsetof mismatch for SharedFenceDescriptor::nextInChain");
+    static_assert(offsetof(SharedFenceDescriptor, label) == offsetof(WGPUSharedFenceDescriptor, label),
+                 "offsetof mismatch for SharedFenceDescriptor::label");
+
+    bool SharedFenceDescriptor::operator==(const SharedFenceDescriptor& rhs) const {
+        return (nextInChain == rhs.nextInChain) && std::tie(
+            label
+        ) == std::tie(
+            rhs.label
+        );
+    }
+
+
+    static_assert(sizeof(SharedFenceExportInfo) == sizeof(WGPUSharedFenceExportInfo), "sizeof mismatch for SharedFenceExportInfo");
+    static_assert(alignof(SharedFenceExportInfo) == alignof(WGPUSharedFenceExportInfo), "alignof mismatch for SharedFenceExportInfo");
+
+    static_assert(offsetof(SharedFenceExportInfo, nextInChain) == offsetof(WGPUSharedFenceExportInfo, nextInChain),
+            "offsetof mismatch for SharedFenceExportInfo::nextInChain");
+    static_assert(offsetof(SharedFenceExportInfo, type) == offsetof(WGPUSharedFenceExportInfo, type),
+                 "offsetof mismatch for SharedFenceExportInfo::type");
+
+    bool SharedFenceExportInfo::operator==(const SharedFenceExportInfo& rhs) const {
+        return (nextInChain == rhs.nextInChain) && std::tie(
+            type
+        ) == std::tie(
+            rhs.type
         );
     }
 
@@ -1563,6 +1664,51 @@ namespace dawn::native {
     }
 
 
+    static_assert(sizeof(SharedTextureMemoryDXGISharedHandleDescriptor) == sizeof(WGPUSharedTextureMemoryDXGISharedHandleDescriptor), "sizeof mismatch for SharedTextureMemoryDXGISharedHandleDescriptor");
+    static_assert(alignof(SharedTextureMemoryDXGISharedHandleDescriptor) == alignof(WGPUSharedTextureMemoryDXGISharedHandleDescriptor), "alignof mismatch for SharedTextureMemoryDXGISharedHandleDescriptor");
+
+    static_assert(offsetof(SharedTextureMemoryDXGISharedHandleDescriptor, handle) == offsetof(WGPUSharedTextureMemoryDXGISharedHandleDescriptor, handle),
+                 "offsetof mismatch for SharedTextureMemoryDXGISharedHandleDescriptor::handle");
+
+    bool SharedTextureMemoryDXGISharedHandleDescriptor::operator==(const SharedTextureMemoryDXGISharedHandleDescriptor& rhs) const {
+        return (nextInChain == rhs.nextInChain) && std::tie(
+            handle
+        ) == std::tie(
+            rhs.handle
+        );
+    }
+
+
+    static_assert(sizeof(SharedTextureMemoryEGLImageDescriptor) == sizeof(WGPUSharedTextureMemoryEGLImageDescriptor), "sizeof mismatch for SharedTextureMemoryEGLImageDescriptor");
+    static_assert(alignof(SharedTextureMemoryEGLImageDescriptor) == alignof(WGPUSharedTextureMemoryEGLImageDescriptor), "alignof mismatch for SharedTextureMemoryEGLImageDescriptor");
+
+    static_assert(offsetof(SharedTextureMemoryEGLImageDescriptor, image) == offsetof(WGPUSharedTextureMemoryEGLImageDescriptor, image),
+                 "offsetof mismatch for SharedTextureMemoryEGLImageDescriptor::image");
+
+    bool SharedTextureMemoryEGLImageDescriptor::operator==(const SharedTextureMemoryEGLImageDescriptor& rhs) const {
+        return (nextInChain == rhs.nextInChain) && std::tie(
+            image
+        ) == std::tie(
+            rhs.image
+        );
+    }
+
+
+    static_assert(sizeof(SharedTextureMemoryIOSurfaceDescriptor) == sizeof(WGPUSharedTextureMemoryIOSurfaceDescriptor), "sizeof mismatch for SharedTextureMemoryIOSurfaceDescriptor");
+    static_assert(alignof(SharedTextureMemoryIOSurfaceDescriptor) == alignof(WGPUSharedTextureMemoryIOSurfaceDescriptor), "alignof mismatch for SharedTextureMemoryIOSurfaceDescriptor");
+
+    static_assert(offsetof(SharedTextureMemoryIOSurfaceDescriptor, ioSurface) == offsetof(WGPUSharedTextureMemoryIOSurfaceDescriptor, ioSurface),
+                 "offsetof mismatch for SharedTextureMemoryIOSurfaceDescriptor::ioSurface");
+
+    bool SharedTextureMemoryIOSurfaceDescriptor::operator==(const SharedTextureMemoryIOSurfaceDescriptor& rhs) const {
+        return (nextInChain == rhs.nextInChain) && std::tie(
+            ioSurface
+        ) == std::tie(
+            rhs.ioSurface
+        );
+    }
+
+
     static_assert(sizeof(SharedTextureMemoryAHardwareBufferDescriptor) == sizeof(WGPUSharedTextureMemoryAHardwareBufferDescriptor), "sizeof mismatch for SharedTextureMemoryAHardwareBufferDescriptor");
     static_assert(alignof(SharedTextureMemoryAHardwareBufferDescriptor) == alignof(WGPUSharedTextureMemoryAHardwareBufferDescriptor), "alignof mismatch for SharedTextureMemoryAHardwareBufferDescriptor");
 
@@ -1624,67 +1770,25 @@ namespace dawn::native {
     }
 
 
-    static_assert(sizeof(SharedTextureMemoryDmaBufDescriptor) == sizeof(WGPUSharedTextureMemoryDmaBufDescriptor), "sizeof mismatch for SharedTextureMemoryDmaBufDescriptor");
-    static_assert(alignof(SharedTextureMemoryDmaBufDescriptor) == alignof(WGPUSharedTextureMemoryDmaBufDescriptor), "alignof mismatch for SharedTextureMemoryDmaBufDescriptor");
+    static_assert(sizeof(SharedTextureMemoryDmaBufPlane) == sizeof(WGPUSharedTextureMemoryDmaBufPlane), "sizeof mismatch for SharedTextureMemoryDmaBufPlane");
+    static_assert(alignof(SharedTextureMemoryDmaBufPlane) == alignof(WGPUSharedTextureMemoryDmaBufPlane), "alignof mismatch for SharedTextureMemoryDmaBufPlane");
 
-    static_assert(offsetof(SharedTextureMemoryDmaBufDescriptor, memoryFD) == offsetof(WGPUSharedTextureMemoryDmaBufDescriptor, memoryFD),
-                 "offsetof mismatch for SharedTextureMemoryDmaBufDescriptor::memoryFD");
-    static_assert(offsetof(SharedTextureMemoryDmaBufDescriptor, allocationSize) == offsetof(WGPUSharedTextureMemoryDmaBufDescriptor, allocationSize),
-                 "offsetof mismatch for SharedTextureMemoryDmaBufDescriptor::allocationSize");
-    static_assert(offsetof(SharedTextureMemoryDmaBufDescriptor, drmModifier) == offsetof(WGPUSharedTextureMemoryDmaBufDescriptor, drmModifier),
-                 "offsetof mismatch for SharedTextureMemoryDmaBufDescriptor::drmModifier");
-    static_assert(offsetof(SharedTextureMemoryDmaBufDescriptor, planeCount) == offsetof(WGPUSharedTextureMemoryDmaBufDescriptor, planeCount),
-                 "offsetof mismatch for SharedTextureMemoryDmaBufDescriptor::planeCount");
-    static_assert(offsetof(SharedTextureMemoryDmaBufDescriptor, planeOffsets) == offsetof(WGPUSharedTextureMemoryDmaBufDescriptor, planeOffsets),
-                 "offsetof mismatch for SharedTextureMemoryDmaBufDescriptor::planeOffsets");
-    static_assert(offsetof(SharedTextureMemoryDmaBufDescriptor, planeStrides) == offsetof(WGPUSharedTextureMemoryDmaBufDescriptor, planeStrides),
-                 "offsetof mismatch for SharedTextureMemoryDmaBufDescriptor::planeStrides");
+    static_assert(offsetof(SharedTextureMemoryDmaBufPlane, fd) == offsetof(WGPUSharedTextureMemoryDmaBufPlane, fd),
+                 "offsetof mismatch for SharedTextureMemoryDmaBufPlane::fd");
+    static_assert(offsetof(SharedTextureMemoryDmaBufPlane, offset) == offsetof(WGPUSharedTextureMemoryDmaBufPlane, offset),
+                 "offsetof mismatch for SharedTextureMemoryDmaBufPlane::offset");
+    static_assert(offsetof(SharedTextureMemoryDmaBufPlane, stride) == offsetof(WGPUSharedTextureMemoryDmaBufPlane, stride),
+                 "offsetof mismatch for SharedTextureMemoryDmaBufPlane::stride");
 
-    bool SharedTextureMemoryDmaBufDescriptor::operator==(const SharedTextureMemoryDmaBufDescriptor& rhs) const {
-        return (nextInChain == rhs.nextInChain) && std::tie(
-            memoryFD,
-            allocationSize,
-            drmModifier,
-            planeCount,
-            planeOffsets,
-            planeStrides
+    bool SharedTextureMemoryDmaBufPlane::operator==(const SharedTextureMemoryDmaBufPlane& rhs) const {
+        return  std::tie(
+            fd,
+            offset,
+            stride
         ) == std::tie(
-            rhs.memoryFD,
-            rhs.allocationSize,
-            rhs.drmModifier,
-            rhs.planeCount,
-            rhs.planeOffsets,
-            rhs.planeStrides
-        );
-    }
-
-
-    static_assert(sizeof(SharedTextureMemoryDXGISharedHandleDescriptor) == sizeof(WGPUSharedTextureMemoryDXGISharedHandleDescriptor), "sizeof mismatch for SharedTextureMemoryDXGISharedHandleDescriptor");
-    static_assert(alignof(SharedTextureMemoryDXGISharedHandleDescriptor) == alignof(WGPUSharedTextureMemoryDXGISharedHandleDescriptor), "alignof mismatch for SharedTextureMemoryDXGISharedHandleDescriptor");
-
-    static_assert(offsetof(SharedTextureMemoryDXGISharedHandleDescriptor, handle) == offsetof(WGPUSharedTextureMemoryDXGISharedHandleDescriptor, handle),
-                 "offsetof mismatch for SharedTextureMemoryDXGISharedHandleDescriptor::handle");
-
-    bool SharedTextureMemoryDXGISharedHandleDescriptor::operator==(const SharedTextureMemoryDXGISharedHandleDescriptor& rhs) const {
-        return (nextInChain == rhs.nextInChain) && std::tie(
-            handle
-        ) == std::tie(
-            rhs.handle
-        );
-    }
-
-
-    static_assert(sizeof(SharedTextureMemoryEGLImageDescriptor) == sizeof(WGPUSharedTextureMemoryEGLImageDescriptor), "sizeof mismatch for SharedTextureMemoryEGLImageDescriptor");
-    static_assert(alignof(SharedTextureMemoryEGLImageDescriptor) == alignof(WGPUSharedTextureMemoryEGLImageDescriptor), "alignof mismatch for SharedTextureMemoryEGLImageDescriptor");
-
-    static_assert(offsetof(SharedTextureMemoryEGLImageDescriptor, image) == offsetof(WGPUSharedTextureMemoryEGLImageDescriptor, image),
-                 "offsetof mismatch for SharedTextureMemoryEGLImageDescriptor::image");
-
-    bool SharedTextureMemoryEGLImageDescriptor::operator==(const SharedTextureMemoryEGLImageDescriptor& rhs) const {
-        return (nextInChain == rhs.nextInChain) && std::tie(
-            image
-        ) == std::tie(
-            rhs.image
+            rhs.fd,
+            rhs.offset,
+            rhs.stride
         );
     }
 
@@ -1718,36 +1822,33 @@ namespace dawn::native {
     }
 
 
-    static_assert(sizeof(SharedTextureMemoryIOSurfaceDescriptor) == sizeof(WGPUSharedTextureMemoryIOSurfaceDescriptor), "sizeof mismatch for SharedTextureMemoryIOSurfaceDescriptor");
-    static_assert(alignof(SharedTextureMemoryIOSurfaceDescriptor) == alignof(WGPUSharedTextureMemoryIOSurfaceDescriptor), "alignof mismatch for SharedTextureMemoryIOSurfaceDescriptor");
-
-    static_assert(offsetof(SharedTextureMemoryIOSurfaceDescriptor, ioSurface) == offsetof(WGPUSharedTextureMemoryIOSurfaceDescriptor, ioSurface),
-                 "offsetof mismatch for SharedTextureMemoryIOSurfaceDescriptor::ioSurface");
-
-    bool SharedTextureMemoryIOSurfaceDescriptor::operator==(const SharedTextureMemoryIOSurfaceDescriptor& rhs) const {
-        return (nextInChain == rhs.nextInChain) && std::tie(
-            ioSurface
-        ) == std::tie(
-            rhs.ioSurface
-        );
-    }
-
-
     static_assert(sizeof(SharedTextureMemoryOpaqueFDDescriptor) == sizeof(WGPUSharedTextureMemoryOpaqueFDDescriptor), "sizeof mismatch for SharedTextureMemoryOpaqueFDDescriptor");
     static_assert(alignof(SharedTextureMemoryOpaqueFDDescriptor) == alignof(WGPUSharedTextureMemoryOpaqueFDDescriptor), "alignof mismatch for SharedTextureMemoryOpaqueFDDescriptor");
 
+    static_assert(offsetof(SharedTextureMemoryOpaqueFDDescriptor, vkImageCreateInfo) == offsetof(WGPUSharedTextureMemoryOpaqueFDDescriptor, vkImageCreateInfo),
+                 "offsetof mismatch for SharedTextureMemoryOpaqueFDDescriptor::vkImageCreateInfo");
     static_assert(offsetof(SharedTextureMemoryOpaqueFDDescriptor, memoryFD) == offsetof(WGPUSharedTextureMemoryOpaqueFDDescriptor, memoryFD),
                  "offsetof mismatch for SharedTextureMemoryOpaqueFDDescriptor::memoryFD");
+    static_assert(offsetof(SharedTextureMemoryOpaqueFDDescriptor, memoryTypeIndex) == offsetof(WGPUSharedTextureMemoryOpaqueFDDescriptor, memoryTypeIndex),
+                 "offsetof mismatch for SharedTextureMemoryOpaqueFDDescriptor::memoryTypeIndex");
     static_assert(offsetof(SharedTextureMemoryOpaqueFDDescriptor, allocationSize) == offsetof(WGPUSharedTextureMemoryOpaqueFDDescriptor, allocationSize),
                  "offsetof mismatch for SharedTextureMemoryOpaqueFDDescriptor::allocationSize");
+    static_assert(offsetof(SharedTextureMemoryOpaqueFDDescriptor, dedicatedAllocation) == offsetof(WGPUSharedTextureMemoryOpaqueFDDescriptor, dedicatedAllocation),
+                 "offsetof mismatch for SharedTextureMemoryOpaqueFDDescriptor::dedicatedAllocation");
 
     bool SharedTextureMemoryOpaqueFDDescriptor::operator==(const SharedTextureMemoryOpaqueFDDescriptor& rhs) const {
         return (nextInChain == rhs.nextInChain) && std::tie(
+            vkImageCreateInfo,
             memoryFD,
-            allocationSize
+            memoryTypeIndex,
+            allocationSize,
+            dedicatedAllocation
         ) == std::tie(
+            rhs.vkImageCreateInfo,
             rhs.memoryFD,
-            rhs.allocationSize
+            rhs.memoryTypeIndex,
+            rhs.allocationSize,
+            rhs.dedicatedAllocation
         );
     }
 
@@ -1957,21 +2058,6 @@ namespace dawn::native {
     }
 
 
-    static_assert(sizeof(SurfaceDescriptorFromWindowsCoreWindow) == sizeof(WGPUSurfaceDescriptorFromWindowsCoreWindow), "sizeof mismatch for SurfaceDescriptorFromWindowsCoreWindow");
-    static_assert(alignof(SurfaceDescriptorFromWindowsCoreWindow) == alignof(WGPUSurfaceDescriptorFromWindowsCoreWindow), "alignof mismatch for SurfaceDescriptorFromWindowsCoreWindow");
-
-    static_assert(offsetof(SurfaceDescriptorFromWindowsCoreWindow, coreWindow) == offsetof(WGPUSurfaceDescriptorFromWindowsCoreWindow, coreWindow),
-                 "offsetof mismatch for SurfaceDescriptorFromWindowsCoreWindow::coreWindow");
-
-    bool SurfaceDescriptorFromWindowsCoreWindow::operator==(const SurfaceDescriptorFromWindowsCoreWindow& rhs) const {
-        return (nextInChain == rhs.nextInChain) && std::tie(
-            coreWindow
-        ) == std::tie(
-            rhs.coreWindow
-        );
-    }
-
-
     static_assert(sizeof(SurfaceDescriptorFromWindowsHWND) == sizeof(WGPUSurfaceDescriptorFromWindowsHWND), "sizeof mismatch for SurfaceDescriptorFromWindowsHWND");
     static_assert(alignof(SurfaceDescriptorFromWindowsHWND) == alignof(WGPUSurfaceDescriptorFromWindowsHWND), "alignof mismatch for SurfaceDescriptorFromWindowsHWND");
 
@@ -1987,6 +2073,21 @@ namespace dawn::native {
         ) == std::tie(
             rhs.hinstance,
             rhs.hwnd
+        );
+    }
+
+
+    static_assert(sizeof(SurfaceDescriptorFromWindowsCoreWindow) == sizeof(WGPUSurfaceDescriptorFromWindowsCoreWindow), "sizeof mismatch for SurfaceDescriptorFromWindowsCoreWindow");
+    static_assert(alignof(SurfaceDescriptorFromWindowsCoreWindow) == alignof(WGPUSurfaceDescriptorFromWindowsCoreWindow), "alignof mismatch for SurfaceDescriptorFromWindowsCoreWindow");
+
+    static_assert(offsetof(SurfaceDescriptorFromWindowsCoreWindow, coreWindow) == offsetof(WGPUSurfaceDescriptorFromWindowsCoreWindow, coreWindow),
+                 "offsetof mismatch for SurfaceDescriptorFromWindowsCoreWindow::coreWindow");
+
+    bool SurfaceDescriptorFromWindowsCoreWindow::operator==(const SurfaceDescriptorFromWindowsCoreWindow& rhs) const {
+        return (nextInChain == rhs.nextInChain) && std::tie(
+            coreWindow
+        ) == std::tie(
+            rhs.coreWindow
         );
     }
 
@@ -2087,6 +2188,21 @@ namespace dawn::native {
     }
 
 
+    static_assert(sizeof(TextureBindingViewDimensionDescriptor) == sizeof(WGPUTextureBindingViewDimensionDescriptor), "sizeof mismatch for TextureBindingViewDimensionDescriptor");
+    static_assert(alignof(TextureBindingViewDimensionDescriptor) == alignof(WGPUTextureBindingViewDimensionDescriptor), "alignof mismatch for TextureBindingViewDimensionDescriptor");
+
+    static_assert(offsetof(TextureBindingViewDimensionDescriptor, textureBindingViewDimension) == offsetof(WGPUTextureBindingViewDimensionDescriptor, textureBindingViewDimension),
+                 "offsetof mismatch for TextureBindingViewDimensionDescriptor::textureBindingViewDimension");
+
+    bool TextureBindingViewDimensionDescriptor::operator==(const TextureBindingViewDimensionDescriptor& rhs) const {
+        return (nextInChain == rhs.nextInChain) && std::tie(
+            textureBindingViewDimension
+        ) == std::tie(
+            rhs.textureBindingViewDimension
+        );
+    }
+
+
     static_assert(sizeof(TextureDataLayout) == sizeof(WGPUTextureDataLayout), "sizeof mismatch for TextureDataLayout");
     static_assert(alignof(TextureDataLayout) == alignof(WGPUTextureDataLayout), "alignof mismatch for TextureDataLayout");
 
@@ -2176,6 +2292,25 @@ namespace dawn::native {
             rhs.format,
             rhs.offset,
             rhs.shaderLocation
+        );
+    }
+
+
+    static_assert(sizeof(AdapterPropertiesMemoryHeaps) == sizeof(WGPUAdapterPropertiesMemoryHeaps), "sizeof mismatch for AdapterPropertiesMemoryHeaps");
+    static_assert(alignof(AdapterPropertiesMemoryHeaps) == alignof(WGPUAdapterPropertiesMemoryHeaps), "alignof mismatch for AdapterPropertiesMemoryHeaps");
+
+    static_assert(offsetof(AdapterPropertiesMemoryHeaps, heapCount) == offsetof(WGPUAdapterPropertiesMemoryHeaps, heapCount),
+                 "offsetof mismatch for AdapterPropertiesMemoryHeaps::heapCount");
+    static_assert(offsetof(AdapterPropertiesMemoryHeaps, heapInfo) == offsetof(WGPUAdapterPropertiesMemoryHeaps, heapInfo),
+                 "offsetof mismatch for AdapterPropertiesMemoryHeaps::heapInfo");
+
+    bool AdapterPropertiesMemoryHeaps::operator==(const AdapterPropertiesMemoryHeaps& rhs) const {
+        return (nextInChain == rhs.nextInChain) && std::tie(
+            heapCount,
+            heapInfo
+        ) == std::tie(
+            rhs.heapCount,
+            rhs.heapInfo
         );
     }
 
@@ -2667,6 +2802,37 @@ namespace dawn::native {
             limits
         ) == std::tie(
             rhs.limits
+        );
+    }
+
+
+    static_assert(sizeof(SharedTextureMemoryDmaBufDescriptor) == sizeof(WGPUSharedTextureMemoryDmaBufDescriptor), "sizeof mismatch for SharedTextureMemoryDmaBufDescriptor");
+    static_assert(alignof(SharedTextureMemoryDmaBufDescriptor) == alignof(WGPUSharedTextureMemoryDmaBufDescriptor), "alignof mismatch for SharedTextureMemoryDmaBufDescriptor");
+
+    static_assert(offsetof(SharedTextureMemoryDmaBufDescriptor, size) == offsetof(WGPUSharedTextureMemoryDmaBufDescriptor, size),
+                 "offsetof mismatch for SharedTextureMemoryDmaBufDescriptor::size");
+    static_assert(offsetof(SharedTextureMemoryDmaBufDescriptor, drmFormat) == offsetof(WGPUSharedTextureMemoryDmaBufDescriptor, drmFormat),
+                 "offsetof mismatch for SharedTextureMemoryDmaBufDescriptor::drmFormat");
+    static_assert(offsetof(SharedTextureMemoryDmaBufDescriptor, drmModifier) == offsetof(WGPUSharedTextureMemoryDmaBufDescriptor, drmModifier),
+                 "offsetof mismatch for SharedTextureMemoryDmaBufDescriptor::drmModifier");
+    static_assert(offsetof(SharedTextureMemoryDmaBufDescriptor, planeCount) == offsetof(WGPUSharedTextureMemoryDmaBufDescriptor, planeCount),
+                 "offsetof mismatch for SharedTextureMemoryDmaBufDescriptor::planeCount");
+    static_assert(offsetof(SharedTextureMemoryDmaBufDescriptor, planes) == offsetof(WGPUSharedTextureMemoryDmaBufDescriptor, planes),
+                 "offsetof mismatch for SharedTextureMemoryDmaBufDescriptor::planes");
+
+    bool SharedTextureMemoryDmaBufDescriptor::operator==(const SharedTextureMemoryDmaBufDescriptor& rhs) const {
+        return (nextInChain == rhs.nextInChain) && std::tie(
+            size,
+            drmFormat,
+            drmModifier,
+            planeCount,
+            planes
+        ) == std::tie(
+            rhs.size,
+            rhs.drmFormat,
+            rhs.drmModifier,
+            rhs.planeCount,
+            rhs.planes
         );
     }
 
@@ -3188,6 +3354,32 @@ namespace dawn::native {
         rhs.fenceCount = {};
         rhs.fences = {};
         rhs.signaledValues = {};
+        return *this;
+    }
+
+    // AdapterPropertiesMemoryHeaps
+    AdapterPropertiesMemoryHeaps::~AdapterPropertiesMemoryHeaps() {
+        if (this->heapInfo != nullptr) {
+            APIAdapterPropertiesMemoryHeapsFreeMembers(*reinterpret_cast<WGPUAdapterPropertiesMemoryHeaps*>(this));
+        }
+    }
+
+    AdapterPropertiesMemoryHeaps::AdapterPropertiesMemoryHeaps(AdapterPropertiesMemoryHeaps&& rhs)
+    : heapCount(rhs.heapCount),
+      heapInfo(rhs.heapInfo){
+        rhs.heapCount = {};
+        rhs.heapInfo = {};
+    }
+
+    AdapterPropertiesMemoryHeaps& AdapterPropertiesMemoryHeaps::operator=(AdapterPropertiesMemoryHeaps&& rhs) {
+        if (&rhs == this) {
+            return *this;
+        }
+        this->~AdapterPropertiesMemoryHeaps();
+        this->heapCount = std::move(rhs.heapCount);
+        this->heapInfo = std::move(rhs.heapInfo);
+        rhs.heapCount = {};
+        rhs.heapInfo = {};
         return *this;
     }
 

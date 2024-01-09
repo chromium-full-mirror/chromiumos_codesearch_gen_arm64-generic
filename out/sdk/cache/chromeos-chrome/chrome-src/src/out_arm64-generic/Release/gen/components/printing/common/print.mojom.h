@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "components/printing/common/print.mojom-features.h"
 #include "components/printing/common/print.mojom-shared.h"
 #include "components/printing/common/print.mojom-forward.h"
 #include "mojo/public/mojom/base/shared_memory.mojom.h"
@@ -235,7 +236,6 @@ class PrintRenderFrame
     kConnectToPdfRendererMinVersion = 0,
     kPrintingDoneMinVersion = 0,
     kPrintNodeUnderContextMenuMinVersion = 0,
-    kSnapshotForContentAnalysisMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -272,9 +272,6 @@ class PrintRenderFrame
     NOINLINE static uint32_t IPCStableHash();
   };
   struct PrintNodeUnderContextMenu_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct SnapshotForContentAnalysis_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -316,11 +313,6 @@ class PrintRenderFrame
 
   
   virtual void PrintNodeUnderContextMenu() = 0;
-
-
-  using SnapshotForContentAnalysisCallback = base::OnceCallback<void(DidPrintDocumentParamsPtr)>;
-  
-  virtual void SnapshotForContentAnalysis(SnapshotForContentAnalysisCallback callback) = 0;
 };
 
 class PrintManagerHostProxy;
@@ -575,8 +567,6 @@ class  PrintRenderFrameProxy
   void PrintingDone(bool success) final;
   
   void PrintNodeUnderContextMenu() final;
-  
-  void SnapshotForContentAnalysis(SnapshotForContentAnalysisCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -1150,17 +1140,17 @@ class  PrintWithParamsResult {
   // Construct an instance holding |data|.
   static PrintWithParamsResultPtr
   NewData(
-      PrintWithParamsResultDataPtr data) {
+      PrintWithParamsResultDataPtr value) {
     auto result = PrintWithParamsResultPtr(absl::in_place);
-    result->set_data(std::move(data));
+    result->set_data(std::move(value));
     return result;
   }
   // Construct an instance holding |failure_reason|.
   static PrintWithParamsResultPtr
   NewFailureReason(
-      PrintFailureReason failure_reason) {
+      PrintFailureReason value) {
     auto result = PrintWithParamsResultPtr(absl::in_place);
-    result->set_failure_reason(std::move(failure_reason));
+    result->set_failure_reason(std::move(value));
     return result;
   }
 
@@ -2192,7 +2182,8 @@ class  PrintParams {
       ::printing::mojom::SkiaDocumentType printed_doc_type,
       bool prefer_css_page_size,
       uint32_t pages_per_sheet,
-      absl::optional<bool> generate_tagged_pdf);
+      std::optional<bool> generate_tagged_pdf,
+      bool generate_document_outline);
 
 
   ~PrintParams();
@@ -2322,7 +2313,9 @@ class  PrintParams {
   
   uint32_t pages_per_sheet;
   
-  absl::optional<bool> generate_tagged_pdf;
+  std::optional<bool> generate_tagged_pdf;
+  
+  bool generate_document_outline;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -3293,7 +3286,8 @@ PrintParamsPtr PrintParams::Clone() const {
       mojo::Clone(printed_doc_type),
       mojo::Clone(prefer_css_page_size),
       mojo::Clone(pages_per_sheet),
-      mojo::Clone(generate_tagged_pdf)
+      mojo::Clone(generate_tagged_pdf),
+      mojo::Clone(generate_document_outline)
   );
 }
 
@@ -3352,6 +3346,8 @@ bool PrintParams::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->pages_per_sheet, other_struct.pages_per_sheet))
     return false;
   if (!mojo::Equals(this->generate_tagged_pdf, other_struct.generate_tagged_pdf))
+    return false;
+  if (!mojo::Equals(this->generate_document_outline, other_struct.generate_document_outline))
     return false;
   return true;
 }
@@ -3465,6 +3461,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.generate_tagged_pdf < rhs.generate_tagged_pdf)
     return true;
   if (rhs.generate_tagged_pdf < lhs.generate_tagged_pdf)
+    return false;
+  if (lhs.generate_document_outline < rhs.generate_document_outline)
+    return true;
+  if (rhs.generate_document_outline < lhs.generate_document_outline)
     return false;
   return false;
 }
@@ -3977,6 +3977,11 @@ struct  StructTraits<::printing::mojom::PrintParams::DataView,
   static decltype(::printing::mojom::PrintParams::generate_tagged_pdf) generate_tagged_pdf(
       const ::printing::mojom::PrintParamsPtr& input) {
     return input->generate_tagged_pdf;
+  }
+
+  static decltype(::printing::mojom::PrintParams::generate_document_outline) generate_document_outline(
+      const ::printing::mojom::PrintParamsPtr& input) {
+    return input->generate_document_outline;
   }
 
   static bool Read(::printing::mojom::PrintParams::DataView input, ::printing::mojom::PrintParamsPtr* output);

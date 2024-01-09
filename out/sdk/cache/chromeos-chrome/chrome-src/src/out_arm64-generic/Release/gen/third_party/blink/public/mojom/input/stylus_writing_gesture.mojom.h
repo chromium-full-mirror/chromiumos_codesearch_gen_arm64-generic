@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/input/stylus_writing_gesture.mojom-features.h"
 #include "third_party/blink/public/mojom/input/stylus_writing_gesture.mojom-shared.h"
 #include "third_party/blink/public/mojom/input/stylus_writing_gesture.mojom-forward.h"
 #include "mojo/public/mojom/base/string16.mojom.h"
@@ -77,9 +78,9 @@ class BLINK_COMMON_EXPORT StylusWritingGestureData {
       StylusWritingGestureAction action,
       StylusWritingGestureGranularity granularity,
       const ::gfx::Rect& start_rect,
-      const absl::optional<::gfx::Rect>& end_rect,
+      const std::optional<::gfx::Rect>& end_rect,
       const ::std::u16string& text_alternative,
-      const absl::optional<::std::u16string>& text_to_insert);
+      const std::optional<::std::u16string>& text_to_insert);
 
 
   ~StylusWritingGestureData();
@@ -163,11 +164,11 @@ class BLINK_COMMON_EXPORT StylusWritingGestureData {
   
   ::gfx::Rect start_rect;
   
-  absl::optional<::gfx::Rect> end_rect;
+  std::optional<::gfx::Rect> end_rect;
   
   ::std::u16string text_alternative;
   
-  absl::optional<::std::u16string> text_to_insert;
+  std::optional<::std::u16string> text_to_insert;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

@@ -26,11 +26,9 @@ import { assert } from './assert.js';
  *   focusable  focusable  focusable
  */
 export class FocusGrid {
-    constructor() {
-        this.rows = [];
-        this.ignoreFocusChange_ = false;
-        this.lastFocused_ = null;
-    }
+    rows = [];
+    ignoreFocusChange_ = false;
+    lastFocused_ = null;
     onFocus(row, e) {
         if (this.ignoreFocusChange_) {
             this.ignoreFocusChange_ = false;

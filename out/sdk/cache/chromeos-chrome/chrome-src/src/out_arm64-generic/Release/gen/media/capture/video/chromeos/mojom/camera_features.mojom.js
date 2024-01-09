@@ -21,6 +21,38 @@
   var exports = mojo.internal.exposeNamespace('cros.mojom');
 
 
+  var PortraitModeSegResult = {};
+  PortraitModeSegResult.kSuccess = 0;
+  PortraitModeSegResult.kFailure = 1;
+  PortraitModeSegResult.kTimeout = 2;
+  PortraitModeSegResult.kNoFaces = 3;
+  PortraitModeSegResult.kUnknown = 4;
+  PortraitModeSegResult.MIN_VALUE = 0;
+  PortraitModeSegResult.MAX_VALUE = 4;
+
+  PortraitModeSegResult.isKnownEnumValue = function(value) {
+    switch (value) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+      return true;
+    }
+    return false;
+  };
+
+  PortraitModeSegResult.toKnownEnumValue = function(value) {
+    return value;
+  };
+
+  PortraitModeSegResult.validate = function(enumValue) {
+    const isExtensible = false;
+    if (isExtensible || this.isKnownEnumValue(enumValue))
+      return validator.validationError.NONE;
+
+    return validator.validationError.UNKNOWN_ENUM_VALUE;
+  };
 
   function PortraitModeConfig(values) {
     this.initDefaults_();
@@ -238,6 +270,7 @@
     };
 
   Camera3StreamEffect.encodedSize = 16;
+  exports.PortraitModeSegResult = PortraitModeSegResult;
   exports.PortraitModeConfig = PortraitModeConfig;
   exports.Camera3StreamEffect = Camera3StreamEffect;
 })();

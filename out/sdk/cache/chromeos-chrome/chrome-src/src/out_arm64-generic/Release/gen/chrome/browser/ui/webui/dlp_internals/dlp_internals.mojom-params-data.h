@@ -22,6 +22,22 @@ class ValidationContext;
 
 namespace dlp_internals::mojom {
 namespace internal {
+class  ReportingObserver_OnReportEvent_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<internal::DlpEvent_Data> event;
+
+ private:
+  friend class mojo::internal::MessageFragment<ReportingObserver_OnReportEvent_Params_Data>;
+
+  ReportingObserver_OnReportEvent_Params_Data();
+  ~ReportingObserver_OnReportEvent_Params_Data() = delete;
+};
+static_assert(sizeof(ReportingObserver_OnReportEvent_Params_Data) == 16,
+              "Bad sizeof(ReportingObserver_OnReportEvent_Params_Data)");
 class  PageHandler_GetClipboardDataSource_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -84,8 +100,113 @@ class  PageHandler_GetContentRestrictionsInfo_ResponseParams_Data {
 };
 static_assert(sizeof(PageHandler_GetContentRestrictionsInfo_ResponseParams_Data) == 16,
               "Bad sizeof(PageHandler_GetContentRestrictionsInfo_ResponseParams_Data)");
+class  PageHandler_ObserveReporting_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Interface_Data observer;
+
+ private:
+  friend class mojo::internal::MessageFragment<PageHandler_ObserveReporting_Params_Data>;
+
+  PageHandler_ObserveReporting_Params_Data();
+  ~PageHandler_ObserveReporting_Params_Data() = delete;
+};
+static_assert(sizeof(PageHandler_ObserveReporting_Params_Data) == 16,
+              "Bad sizeof(PageHandler_ObserveReporting_Params_Data)");
+class  PageHandler_GetFilesDatabaseEntries_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<PageHandler_GetFilesDatabaseEntries_Params_Data>;
+
+  PageHandler_GetFilesDatabaseEntries_Params_Data();
+  ~PageHandler_GetFilesDatabaseEntries_Params_Data() = delete;
+};
+static_assert(sizeof(PageHandler_GetFilesDatabaseEntries_Params_Data) == 8,
+              "Bad sizeof(PageHandler_GetFilesDatabaseEntries_Params_Data)");
+class  PageHandler_GetFilesDatabaseEntries_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::FileDatabaseEntry_Data>>> db_entries;
+
+ private:
+  friend class mojo::internal::MessageFragment<PageHandler_GetFilesDatabaseEntries_ResponseParams_Data>;
+
+  PageHandler_GetFilesDatabaseEntries_ResponseParams_Data();
+  ~PageHandler_GetFilesDatabaseEntries_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(PageHandler_GetFilesDatabaseEntries_ResponseParams_Data) == 16,
+              "Bad sizeof(PageHandler_GetFilesDatabaseEntries_ResponseParams_Data)");
+class  PageHandler_GetFileInode_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> file_name;
+
+ private:
+  friend class mojo::internal::MessageFragment<PageHandler_GetFileInode_Params_Data>;
+
+  PageHandler_GetFileInode_Params_Data();
+  ~PageHandler_GetFileInode_Params_Data() = delete;
+};
+static_assert(sizeof(PageHandler_GetFileInode_Params_Data) == 16,
+              "Bad sizeof(PageHandler_GetFileInode_Params_Data)");
+class  PageHandler_GetFileInode_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint64_t inode;
+
+ private:
+  friend class mojo::internal::MessageFragment<PageHandler_GetFileInode_ResponseParams_Data>;
+
+  PageHandler_GetFileInode_ResponseParams_Data();
+  ~PageHandler_GetFileInode_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(PageHandler_GetFileInode_ResponseParams_Data) == 16,
+              "Bad sizeof(PageHandler_GetFileInode_ResponseParams_Data)");
 
 }  // namespace internal
+
+
+class ReportingObserver_OnReportEvent_ParamsDataView {
+ public:
+  ReportingObserver_OnReportEvent_ParamsDataView() = default;
+
+  ReportingObserver_OnReportEvent_ParamsDataView(
+      internal::ReportingObserver_OnReportEvent_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetEventDataView(
+      DlpEventDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadEvent(UserType* output) {
+    
+    auto* pointer = data_->event.Get();
+    return mojo::internal::Deserialize<::dlp_internals::mojom::DlpEventDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::ReportingObserver_OnReportEvent_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
 
 
 class PageHandler_GetClipboardDataSource_ParamsDataView {
@@ -180,6 +301,123 @@ class PageHandler_GetContentRestrictionsInfo_ResponseParamsDataView {
 };
 
 
+class PageHandler_ObserveReporting_ParamsDataView {
+ public:
+  PageHandler_ObserveReporting_ParamsDataView() = default;
+
+  PageHandler_ObserveReporting_ParamsDataView(
+      internal::PageHandler_ObserveReporting_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  UserType TakeObserver() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfacePtrDataView<::dlp_internals::mojom::ReportingObserverInterfaceBase>>(
+            &data_->observer, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+ private:
+  internal::PageHandler_ObserveReporting_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class PageHandler_GetFilesDatabaseEntries_ParamsDataView {
+ public:
+  PageHandler_GetFilesDatabaseEntries_ParamsDataView() = default;
+
+  PageHandler_GetFilesDatabaseEntries_ParamsDataView(
+      internal::PageHandler_GetFilesDatabaseEntries_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::PageHandler_GetFilesDatabaseEntries_Params_Data* data_ = nullptr;
+};
+
+
+class PageHandler_GetFilesDatabaseEntries_ResponseParamsDataView {
+ public:
+  PageHandler_GetFilesDatabaseEntries_ResponseParamsDataView() = default;
+
+  PageHandler_GetFilesDatabaseEntries_ResponseParamsDataView(
+      internal::PageHandler_GetFilesDatabaseEntries_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetDbEntriesDataView(
+      mojo::ArrayDataView<FileDatabaseEntryDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadDbEntries(UserType* output) {
+    
+    auto* pointer = data_->db_entries.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::dlp_internals::mojom::FileDatabaseEntryDataView>>(
+        pointer, output, message_);
+  }
+ private:
+  internal::PageHandler_GetFilesDatabaseEntries_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class PageHandler_GetFileInode_ParamsDataView {
+ public:
+  PageHandler_GetFileInode_ParamsDataView() = default;
+
+  PageHandler_GetFileInode_ParamsDataView(
+      internal::PageHandler_GetFileInode_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetFileNameDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadFileName(UserType* output) {
+    
+    auto* pointer = data_->file_name.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::PageHandler_GetFileInode_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class PageHandler_GetFileInode_ResponseParamsDataView {
+ public:
+  PageHandler_GetFileInode_ResponseParamsDataView() = default;
+
+  PageHandler_GetFileInode_ResponseParamsDataView(
+      internal::PageHandler_GetFileInode_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  uint64_t inode() const {
+    return data_->inode;
+  }
+ private:
+  internal::PageHandler_GetFileInode_ResponseParams_Data* data_ = nullptr;
+};
+
+inline void ReportingObserver_OnReportEvent_ParamsDataView::GetEventDataView(
+    DlpEventDataView* output) {
+  auto pointer = data_->event.Get();
+  *output = DlpEventDataView(pointer, message_);
+}
+
+
+
 
 inline void PageHandler_GetClipboardDataSource_ResponseParamsDataView::GetSourceDataView(
     DataTransferEndpointDataView* output) {
@@ -195,6 +433,26 @@ inline void PageHandler_GetContentRestrictionsInfo_ResponseParamsDataView::GetWe
   auto pointer = data_->web_contents_info.Get();
   *output = mojo::ArrayDataView<WebContentsInfoDataView>(pointer, message_);
 }
+
+
+
+
+
+
+inline void PageHandler_GetFilesDatabaseEntries_ResponseParamsDataView::GetDbEntriesDataView(
+    mojo::ArrayDataView<FileDatabaseEntryDataView>* output) {
+  auto pointer = data_->db_entries.Get();
+  *output = mojo::ArrayDataView<FileDatabaseEntryDataView>(pointer, message_);
+}
+
+
+inline void PageHandler_GetFileInode_ParamsDataView::GetFileNameDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->file_name.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
 
 
 

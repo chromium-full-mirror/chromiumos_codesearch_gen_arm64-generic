@@ -59,16 +59,10 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, DOMURL>::value,
     "DOMURL inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&DOMURL::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "DOMURL is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 // Cross-component trampolines
 V8URL::InstallInterfaceTemplateFuncType V8URL::install_interface_template_func_ = nullptr;
 V8URL::InstallUnconditionalPropertiesFuncType V8URL::install_unconditional_props_func_ = nullptr;
-V8URL::InstallContextIndependentPropertiesFuncType V8URL::install_context_independent_props_func_ = nullptr;
 V8URL::InstallContextDependentPropertiesFuncType V8URL::install_context_dependent_props_func_ = nullptr;
 
 

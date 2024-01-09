@@ -92,24 +92,6 @@ has_cred_props_ = true;
 DCHECK(member_cred_props_);
 }
 
-bool hasDevicePubKey() const {
-  return !member_device_pub_key_.IsEmpty();
-}
-const ScriptValue& devicePubKey() const {
-  DCHECK(hasDevicePubKey());
-return member_device_pub_key_;
-}
-ScriptValue getDevicePubKeyOr(const ScriptValue& fallback_value) const {
-  if (!hasDevicePubKey()) {
-  return fallback_value;
-}
-return member_device_pub_key_;
-}
-void setDevicePubKey(const ScriptValue& value) {
-  member_device_pub_key_ = value;
-DCHECK(member_device_pub_key_.IsObject());
-}
-
 bool hasGetCredBlob() const {
   return has_get_cred_blob_;
 }
@@ -176,6 +158,24 @@ void setPrf(const ScriptValue& value) {
 DCHECK(member_prf_.IsObject());
 }
 
+bool hasSupplementalPubKeys() const {
+  return !member_supplemental_pub_keys_.IsEmpty();
+}
+const ScriptValue& supplementalPubKeys() const {
+  DCHECK(hasSupplementalPubKeys());
+return member_supplemental_pub_keys_;
+}
+ScriptValue getSupplementalPubKeysOr(const ScriptValue& fallback_value) const {
+  if (!hasSupplementalPubKeys()) {
+  return fallback_value;
+}
+return member_supplemental_pub_keys_;
+}
+void setSupplementalPubKeys(const ScriptValue& value) {
+  member_supplemental_pub_keys_ = value;
+DCHECK(member_supplemental_pub_keys_.IsObject());
+}
+
 
 
 
@@ -200,11 +200,11 @@ bool has_hmac_create_secret_ = false;
 bool member_appid_;
 bool member_cred_blob_;
 Member<CredentialPropertiesOutput> member_cred_props_;
-ScriptValue member_device_pub_key_;
 String member_get_cred_blob_;
 bool member_hmac_create_secret_;
 ScriptValue member_large_blob_;
 ScriptValue member_prf_;
+ScriptValue member_supplemental_pub_keys_;
 
 
   

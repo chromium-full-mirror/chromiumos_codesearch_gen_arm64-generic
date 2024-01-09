@@ -70,11 +70,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, DOMError>::value,
     "DOMError inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&DOMError::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "DOMError is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -93,7 +88,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8DOMError_Name_Attrib
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMError* blink_receiver = V8DOMError::ToWrappableUnsafe(v8_receiver);
+DOMError* blink_receiver = V8DOMError::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->name();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
@@ -112,7 +107,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8DOMError_Message_Att
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMError* blink_receiver = V8DOMError::ToWrappableUnsafe(v8_receiver);
+DOMError* blink_receiver = V8DOMError::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->message();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }

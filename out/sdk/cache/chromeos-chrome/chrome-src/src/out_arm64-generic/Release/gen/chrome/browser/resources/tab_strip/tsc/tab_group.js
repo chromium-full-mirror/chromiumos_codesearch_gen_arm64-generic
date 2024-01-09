@@ -9,6 +9,9 @@ export class TabGroupElement extends CustomElement {
     static get template() {
         return getTemplate();
     }
+    tabsApi_;
+    chip_;
+    isValidDragOverTarget_;
     constructor() {
         super();
         this.tabsApi_ = TabsApiProxyImpl.getInstance();

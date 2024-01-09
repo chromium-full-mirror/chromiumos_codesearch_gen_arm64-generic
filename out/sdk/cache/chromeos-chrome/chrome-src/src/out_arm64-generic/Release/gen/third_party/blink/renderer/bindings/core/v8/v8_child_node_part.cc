@@ -80,11 +80,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, ChildNodePart>::value,
     "ChildNodePart inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&ChildNodePart::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "ChildNodePart is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -97,8 +92,9 @@ BLINK_BINDINGS_TRACE_EVENT("ChildNodePart.previousSibling.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ChildNodePart* blink_receiver = V8ChildNodePart::ToWrappableUnsafe(v8_receiver);
+ChildNodePart* blink_receiver = V8ChildNodePart::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->previousSibling();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -111,8 +107,9 @@ BLINK_BINDINGS_TRACE_EVENT("ChildNodePart.nextSibling.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ChildNodePart* blink_receiver = V8ChildNodePart::ToWrappableUnsafe(v8_receiver);
+ChildNodePart* blink_receiver = V8ChildNodePart::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->nextSibling();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -130,7 +127,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-ChildNodePart* blink_receiver = V8ChildNodePart::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+ChildNodePart* blink_receiver = V8ChildNodePart::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->children();
 if (!ToV8Traits<IDLArray<Node>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -146,8 +144,9 @@ BLINK_BINDINGS_TRACE_EVENT("ChildNodePart.rootContainer.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ChildNodePart* blink_receiver = V8ChildNodePart::ToWrappableUnsafe(v8_receiver);
+ChildNodePart* blink_receiver = V8ChildNodePart::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->rootContainer();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -230,7 +229,7 @@ const char* const property_name = "clone";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
-ChildNodePart* blink_receiver = V8ChildNodePart::ToWrappableUnsafe(v8_receiver);
+ChildNodePart* blink_receiver = V8ChildNodePart::ToWrappableUnsafe(isolate, v8_receiver);
 if (non_undefined_argument_length <= 0) {
   return_value = blink_receiver->clone(exception_state);
 break;
@@ -271,7 +270,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-ChildNodePart* blink_receiver = V8ChildNodePart::ToWrappableUnsafe(v8_receiver);
+ChildNodePart* blink_receiver = V8ChildNodePart::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_index = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -301,7 +300,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-ChildNodePart* blink_receiver = V8ChildNodePart::ToWrappableUnsafe(v8_receiver);
+ChildNodePart* blink_receiver = V8ChildNodePart::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_index = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -326,7 +325,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-ChildNodePart* blink_receiver = V8ChildNodePart::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+ChildNodePart* blink_receiver = V8ChildNodePart::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getParts();
 if (!ToV8Traits<IDLSequence<Part>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -345,9 +345,9 @@ BLINK_BINDINGS_TRACE_EVENT("ChildNodePart.replaceChildren");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-ChildNodePart* blink_receiver = V8ChildNodePart::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+ChildNodePart* blink_receiver = V8ChildNodePart::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "ChildNodePart";
 const char* const property_name = "replaceChildren";

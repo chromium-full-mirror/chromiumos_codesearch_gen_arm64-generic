@@ -18,9 +18,10 @@ class  WebAppInternalsHandlerInterceptorForTesting : public WebAppInternalsHandl
   void GetDebugInfoAsJsonString(GetDebugInfoAsJsonStringCallback callback) override;
   void InstallIsolatedWebAppFromDevProxy(const ::GURL& url, InstallIsolatedWebAppFromDevProxyCallback callback) override;
   void SelectFileAndInstallIsolatedWebAppFromDevBundle(SelectFileAndInstallIsolatedWebAppFromDevBundleCallback callback) override;
-  void SearchForIsolatedWebAppUpdates(SearchForIsolatedWebAppUpdatesCallback callback) override;
-  void GetIsolatedWebAppDevModeProxyAppInfo(GetIsolatedWebAppDevModeProxyAppInfoCallback callback) override;
   void UpdateDevProxyIsolatedWebApp(const std::string& app_id, UpdateDevProxyIsolatedWebAppCallback callback) override;
+  void SelectFileAndUpdateIsolatedWebAppFromDevBundle(const std::string& app_id, SelectFileAndUpdateIsolatedWebAppFromDevBundleCallback callback) override;
+  void SearchForIsolatedWebAppUpdates(SearchForIsolatedWebAppUpdatesCallback callback) override;
+  void GetIsolatedWebAppDevModeAppInfo(GetIsolatedWebAppDevModeAppInfoCallback callback) override;
 };
 class  WebAppInternalsHandlerAsyncWaiter {
  public:
@@ -39,15 +40,18 @@ class  WebAppInternalsHandlerAsyncWaiter {
   void SelectFileAndInstallIsolatedWebAppFromDevBundle(
       InstallIsolatedWebAppResultPtr* out_result);
   InstallIsolatedWebAppResultPtr SelectFileAndInstallIsolatedWebAppFromDevBundle();
-  void SearchForIsolatedWebAppUpdates(
-      std::string* out_result);
-  std::string SearchForIsolatedWebAppUpdates();
-  void GetIsolatedWebAppDevModeProxyAppInfo(
-      std::vector<IwaDevProxyAppInfoPtr>* out_apps);
-  std::vector<IwaDevProxyAppInfoPtr> GetIsolatedWebAppDevModeProxyAppInfo();
   void UpdateDevProxyIsolatedWebApp(
       const std::string& app_id, std::string* out_result);
   std::string UpdateDevProxyIsolatedWebApp(const std::string& app_id);
+  void SelectFileAndUpdateIsolatedWebAppFromDevBundle(
+      const std::string& app_id, std::string* out_result);
+  std::string SelectFileAndUpdateIsolatedWebAppFromDevBundle(const std::string& app_id);
+  void SearchForIsolatedWebAppUpdates(
+      std::string* out_result);
+  std::string SearchForIsolatedWebAppUpdates();
+  void GetIsolatedWebAppDevModeAppInfo(
+      std::vector<IwaDevModeAppInfoPtr>* out_apps);
+  std::vector<IwaDevModeAppInfoPtr> GetIsolatedWebAppDevModeAppInfo();
 
  private:
   WebAppInternalsHandler* const proxy_;

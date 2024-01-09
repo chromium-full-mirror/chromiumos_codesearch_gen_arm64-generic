@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "media/mojo/mojom/media_metrics_provider.mojom-features.h"
 #include "media/mojo/mojom/media_metrics_provider.mojom-shared.h"
 #include "media/mojo/mojom/media_metrics_provider.mojom-blink-forward.h"
 #include "media/learning/mojo/public/mojom/learning_task_controller.mojom-blink-forward.h"
@@ -44,18 +45,6 @@
 #include "third_party/blink/public/platform/web_common.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::media::mojom::MediaURLScheme>
-    : EnumHashTraits<::media::mojom::MediaURLScheme, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace media::mojom::blink {
@@ -100,6 +89,7 @@ class BLINK_PLATFORM_EXPORT MediaMetricsProvider
     kSetTimeToPlayReadyMinVersion = 0,
     kSetRendererTypeMinVersion = 0,
     kSetKeySystemMinVersion = 0,
+    kSetHasWaitingForKeyMinVersion = 0,
     kSetIsHardwareSecureMinVersion = 0,
     kSetContainerNameMinVersion = 0,
     kAcquireWatchTimeRecorderMinVersion = 0,
@@ -146,6 +136,9 @@ class BLINK_PLATFORM_EXPORT MediaMetricsProvider
     NOINLINE static uint32_t IPCStableHash();
   };
   struct SetKeySystem_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct SetHasWaitingForKey_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct SetIsHardwareSecure_Sym {
@@ -215,6 +208,9 @@ class BLINK_PLATFORM_EXPORT MediaMetricsProvider
   virtual void SetKeySystem(const WTF::String& key_system) = 0;
 
   
+  virtual void SetHasWaitingForKey() = 0;
+
+  
   virtual void SetIsHardwareSecure() = 0;
 
   
@@ -275,6 +271,8 @@ class BLINK_PLATFORM_EXPORT MediaMetricsProviderProxy
   void SetRendererType(::media::mojom::blink::RendererType renderer_type) final;
   
   void SetKeySystem(const WTF::String& key_system) final;
+  
+  void SetHasWaitingForKey() final;
   
   void SetIsHardwareSecure() final;
   

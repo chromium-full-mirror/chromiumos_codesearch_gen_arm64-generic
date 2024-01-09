@@ -78,7 +78,7 @@ bool NavigationApiHistoryEntryArrays_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 24, validation_context)) {
+          data, 32, validation_context)) {
     return false;
   }
 
@@ -108,6 +108,9 @@ bool NavigationApiHistoryEntryArrays_Data::Validate(
                                          &forward_entries_validate_params)) {
     return false;
   }
+
+  if (!mojo::internal::ValidateStruct(object->previous_entry, validation_context))
+    return false;
 
   return true;
 }

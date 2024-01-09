@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -48,8 +49,8 @@ VpnErrorResponse::VpnErrorResponse()
       message() {}
 
 VpnErrorResponse::VpnErrorResponse(
-    const absl::optional<std::string>& name_in,
-    const absl::optional<std::string>& message_in)
+    const std::optional<std::string>& name_in,
+    const std::optional<std::string>& message_in)
     : name(std::move(name_in)),
       message(std::move(message_in)) {}
 
@@ -62,7 +63,7 @@ void VpnErrorResponse::WriteIntoTrace(
     dict.AddItem(
       "name"), this->name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -71,7 +72,7 @@ void VpnErrorResponse::WriteIntoTrace(
     dict.AddItem(
       "message"), this->message,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -168,14 +169,17 @@ void PepperVpnProxyObserverProxy::OnUnbind(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::PepperVpnProxyObserver::OnUnbind");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPepperVpnProxyObserver_OnUnbind_Name, kFlags, 0, 0, nullptr);
@@ -205,14 +209,17 @@ void PepperVpnProxyObserverProxy::OnPacketReceived(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPepperVpnProxyObserver_OnPacketReceived_Name, kFlags, 0, 0, nullptr);
@@ -318,12 +325,12 @@ bool PepperVpnProxyObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPepperVpnProxyObserverValidationInfo[] = {
-    {&internal::PepperVpnProxyObserver_OnUnbind_Params_Data::Validate,
+    { &internal::PepperVpnProxyObserver_OnUnbind_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PepperVpnProxyObserver_OnPacketReceived_Params_Data::Validate,
+    { &internal::PepperVpnProxyObserver_OnPacketReceived_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -477,14 +484,17 @@ void EventObserverForExtensionProxy::OnAddDialog(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::EventObserverForExtension::OnAddDialog");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEventObserverForExtension_OnAddDialog_Name, kFlags, 0, 0, nullptr);
@@ -514,14 +524,17 @@ void EventObserverForExtensionProxy::OnConfigureDialog(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEventObserverForExtension_OnConfigureDialog_Name, kFlags, 0, 0, nullptr);
@@ -562,14 +575,17 @@ void EventObserverForExtensionProxy::OnConfigRemoved(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEventObserverForExtension_OnConfigRemoved_Name, kFlags, 0, 0, nullptr);
@@ -599,7 +615,7 @@ void EventObserverForExtensionProxy::OnConfigRemoved(
 }
 
 void EventObserverForExtensionProxy::OnPlatformMessage(
-    const std::string& in_configuration_name, int32_t in_platform_message, const absl::optional<std::string>& in_error) {
+    const std::string& in_configuration_name, int32_t in_platform_message, const std::optional<std::string>& in_error) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send crosapi::mojom::EventObserverForExtension::OnPlatformMessage", "input_parameters",
@@ -613,17 +629,20 @@ void EventObserverForExtensionProxy::OnPlatformMessage(
                         "<value of type int32_t>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("error"), in_error,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEventObserverForExtension_OnPlatformMessage_Name, kFlags, 0, 0, nullptr);
@@ -672,14 +691,17 @@ void EventObserverForExtensionProxy::OnPacketReceived(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEventObserverForExtension_OnPacketReceived_Name, kFlags, 0, 0, nullptr);
@@ -799,7 +821,7 @@ std::move(p_configuration_name));
       bool success = true;
       std::string p_configuration_name{};
       int32_t p_platform_message{};
-      absl::optional<std::string> p_error{};
+      std::optional<std::string> p_error{};
       EventObserverForExtension_OnPlatformMessage_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadConfigurationName(&p_configuration_name))
@@ -880,18 +902,18 @@ bool EventObserverForExtensionStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kEventObserverForExtensionValidationInfo[] = {
-    {&internal::EventObserverForExtension_OnAddDialog_Params_Data::Validate,
+    { &internal::EventObserverForExtension_OnAddDialog_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::EventObserverForExtension_OnConfigureDialog_Params_Data::Validate,
+    { &internal::EventObserverForExtension_OnConfigureDialog_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::EventObserverForExtension_OnConfigRemoved_Params_Data::Validate,
+    { &internal::EventObserverForExtension_OnConfigRemoved_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::EventObserverForExtension_OnPlatformMessage_Params_Data::Validate,
+    { &internal::EventObserverForExtension_OnPlatformMessage_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::EventObserverForExtension_OnPacketReceived_Params_Data::Validate,
+    { &internal::EventObserverForExtension_OnPacketReceived_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1208,14 +1230,17 @@ void VpnServiceForExtensionProxy::CreateConfiguration(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVpnServiceForExtension_CreateConfiguration_Name, kFlags, 0, 0, nullptr);
@@ -1257,14 +1282,17 @@ void VpnServiceForExtensionProxy::DestroyConfiguration(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVpnServiceForExtension_DestroyConfiguration_Name, kFlags, 0, 0, nullptr);
@@ -1306,14 +1334,17 @@ void VpnServiceForExtensionProxy::SetParameters(
                         "<value of type ::base::Value::Dict>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVpnServiceForExtension_SetParameters_Name, kFlags, 0, 0, nullptr);
@@ -1355,14 +1386,17 @@ void VpnServiceForExtensionProxy::SendPacket(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVpnServiceForExtension_SendPacket_Name, kFlags, 0, 0, nullptr);
@@ -1406,14 +1440,17 @@ void VpnServiceForExtensionProxy::NotifyConnectionStateChanged(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVpnServiceForExtension_NotifyConnectionStateChanged_Name, kFlags, 0, 0, nullptr);
@@ -1448,14 +1485,17 @@ void VpnServiceForExtensionProxy::BindPepperVpnProxyObserver(
                         "<value of type ::mojo::PendingRemote<PepperVpnProxyObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVpnServiceForExtension_BindPepperVpnProxyObserver_Name, kFlags, 0, 0, nullptr);
@@ -1496,14 +1536,17 @@ void VpnServiceForExtensionProxy::DispatchAddDialogEvent(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::VpnServiceForExtension::DispatchAddDialogEvent");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVpnServiceForExtension_DispatchAddDialogEvent_Name, kFlags, 0, 0, nullptr);
@@ -1533,14 +1576,17 @@ void VpnServiceForExtensionProxy::DispatchConfigureDialogEvent(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVpnServiceForExtension_DispatchConfigureDialogEvent_Name, kFlags, 0, 0, nullptr);
@@ -1660,7 +1706,8 @@ void VpnServiceForExtension_CreateConfiguration_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVpnServiceForExtension_CreateConfiguration_Name, kFlags, 0, 0, nullptr);
@@ -1784,7 +1831,8 @@ void VpnServiceForExtension_DestroyConfiguration_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVpnServiceForExtension_DestroyConfiguration_Name, kFlags, 0, 0, nullptr);
@@ -1908,7 +1956,8 @@ void VpnServiceForExtension_SetParameters_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVpnServiceForExtension_SetParameters_Name, kFlags, 0, 0, nullptr);
@@ -2032,7 +2081,8 @@ void VpnServiceForExtension_SendPacket_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVpnServiceForExtension_SendPacket_Name, kFlags, 0, 0, nullptr);
@@ -2156,7 +2206,8 @@ void VpnServiceForExtension_NotifyConnectionStateChanged_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVpnServiceForExtension_NotifyConnectionStateChanged_Name, kFlags, 0, 0, nullptr);
@@ -2280,7 +2331,8 @@ void VpnServiceForExtension_BindPepperVpnProxyObserver_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVpnServiceForExtension_BindPepperVpnProxyObserver_Name, kFlags, 0, 0, nullptr);
@@ -2586,24 +2638,24 @@ std::move(p_pepper_vpn_proxy_observer), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kVpnServiceForExtensionValidationInfo[] = {
-    {&internal::VpnServiceForExtension_CreateConfiguration_Params_Data::Validate,
+    { &internal::VpnServiceForExtension_CreateConfiguration_Params_Data::Validate,
      &internal::VpnServiceForExtension_CreateConfiguration_ResponseParams_Data::Validate},
-    {&internal::VpnServiceForExtension_DestroyConfiguration_Params_Data::Validate,
+    { &internal::VpnServiceForExtension_DestroyConfiguration_Params_Data::Validate,
      &internal::VpnServiceForExtension_DestroyConfiguration_ResponseParams_Data::Validate},
-    {&internal::VpnServiceForExtension_SetParameters_Params_Data::Validate,
+    { &internal::VpnServiceForExtension_SetParameters_Params_Data::Validate,
      &internal::VpnServiceForExtension_SetParameters_ResponseParams_Data::Validate},
-    {&internal::VpnServiceForExtension_SendPacket_Params_Data::Validate,
+    { &internal::VpnServiceForExtension_SendPacket_Params_Data::Validate,
      &internal::VpnServiceForExtension_SendPacket_ResponseParams_Data::Validate},
-    {&internal::VpnServiceForExtension_NotifyConnectionStateChanged_Params_Data::Validate,
+    { &internal::VpnServiceForExtension_NotifyConnectionStateChanged_Params_Data::Validate,
      &internal::VpnServiceForExtension_NotifyConnectionStateChanged_ResponseParams_Data::Validate},
-    {&internal::VpnServiceForExtension_BindPepperVpnProxyObserver_Params_Data::Validate,
+    { &internal::VpnServiceForExtension_BindPepperVpnProxyObserver_Params_Data::Validate,
      &internal::VpnServiceForExtension_BindPepperVpnProxyObserver_ResponseParams_Data::Validate},
-    {&internal::VpnServiceForExtension_DispatchAddDialogEvent_Params_Data::Validate,
+    { &internal::VpnServiceForExtension_DispatchAddDialogEvent_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::VpnServiceForExtension_DispatchConfigureDialogEvent_Params_Data::Validate,
+    { &internal::VpnServiceForExtension_DispatchConfigureDialogEvent_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2714,14 +2766,17 @@ void VpnServiceProxy::RegisterVpnServiceForExtension(
                         "<value of type ::mojo::PendingRemote<EventObserverForExtension>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVpnService_RegisterVpnServiceForExtension_Name, kFlags, 0, 0, nullptr);
@@ -2777,14 +2832,17 @@ void VpnServiceProxy::MaybeFailActiveConnectionAndDestroyConfigurations(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVpnService_MaybeFailActiveConnectionAndDestroyConfigurations_Name, kFlags, 0, 0, nullptr);
@@ -2909,12 +2967,12 @@ bool VpnServiceStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kVpnServiceValidationInfo[] = {
-    {&internal::VpnService_RegisterVpnServiceForExtension_Params_Data::Validate,
+    { &internal::VpnService_RegisterVpnServiceForExtension_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::VpnService_MaybeFailActiveConnectionAndDestroyConfigurations_Params_Data::Validate,
+    { &internal::VpnService_MaybeFailActiveConnectionAndDestroyConfigurations_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2979,7 +3037,7 @@ void EventObserverForExtensionInterceptorForTesting::OnConfigureDialog(const std
 void EventObserverForExtensionInterceptorForTesting::OnConfigRemoved(const std::string& configuration_name) {
   GetForwardingInterface()->OnConfigRemoved(std::move(configuration_name));
 }
-void EventObserverForExtensionInterceptorForTesting::OnPlatformMessage(const std::string& configuration_name, int32_t platform_message, const absl::optional<std::string>& error) {
+void EventObserverForExtensionInterceptorForTesting::OnPlatformMessage(const std::string& configuration_name, int32_t platform_message, const std::optional<std::string>& error) {
   GetForwardingInterface()->OnPlatformMessage(std::move(configuration_name), std::move(platform_message), std::move(error));
 }
 void EventObserverForExtensionInterceptorForTesting::OnPacketReceived(const std::vector<uint8_t>& data) {

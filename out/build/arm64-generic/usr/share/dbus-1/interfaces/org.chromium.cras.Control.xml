@@ -401,6 +401,22 @@
       <arg name="enabled" type="b" direction="out"/>
     </method>
 
+    <method name="SetForceHFPSwbEnabled">
+      <tp:docstring>
+        Set the force HFP SWB enabled state to `enabled`.
+        Caution: This method is for testing purpose.
+      </tp:docstring>
+      <arg name="enabled" type="b" direction="in"/>
+    </method>
+
+    <method name="GetForceHFPSwbEnabled">
+      <tp:docstring>
+        Returns the state of the force HFP SWB enabled.
+        Caution: This method is for testing purpose.
+      </tp:docstring>
+      <arg name="enabled" type="b" direction="out"/>
+    </method>
+
     <method name="SetForceSrBtEnabled">
       <tp:docstring>
         Set the force sr bt enabled state to `enabled`.
@@ -480,6 +496,18 @@
         Sets false to defer to the default setting of path selection.
       </tp:docstring>
       <arg name="enabled" type="b" direction="in"/>
+    </method>
+
+    <method name="GetBtHfpOffloadSupported">
+      <tp:docstring>
+        Returns true if BT HFP offload is supported.
+        Caution: This method is for testing purpose.
+      </tp:docstring>
+      <arg name="supported" type="b" direction="out"/>
+    </method>
+
+    <method name="DumpS2AsJSON">
+      <arg name="data" type="s" direction="out"/>
     </method>
 
     <signal name="OutputVolumeChanged">

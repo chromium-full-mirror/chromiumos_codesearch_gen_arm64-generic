@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,10 +23,12 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "content/browser/attribution_reporting/attribution_internals.mojom-features.h"
 #include "content/browser/attribution_reporting/attribution_internals.mojom-shared.h"
 #include "content/browser/attribution_reporting/attribution_internals.mojom-forward.h"
 #include "components/attribution_reporting/registration.mojom.h"
 #include "components/attribution_reporting/source_type.mojom-forward.h"
+#include "components/attribution_reporting/trigger_data_matching.mojom-forward.h"
 #include "content/browser/attribution_reporting/aggregatable_result.mojom-forward.h"
 #include "content/browser/attribution_reporting/attribution_reporting.mojom-forward.h"
 #include "content/browser/attribution_reporting/event_level_result.mojom-forward.h"
@@ -46,8 +48,7 @@
 
 
 namespace attribution_reporting { class DestinationSet; }
-namespace attribution_reporting { class EventReportWindows; }
-namespace attribution_reporting { class TriggerConfig; }
+namespace attribution_reporting { class FilterData; }
 
 
 namespace attribution_internals::mojom {
@@ -1076,17 +1077,17 @@ class  WebUIReportData {
   // Construct an instance holding |event_level_data|.
   static WebUIReportDataPtr
   NewEventLevelData(
-      WebUIReportEventLevelDataPtr event_level_data) {
+      WebUIReportEventLevelDataPtr value) {
     auto result = WebUIReportDataPtr(absl::in_place);
-    result->set_event_level_data(std::move(event_level_data));
+    result->set_event_level_data(std::move(value));
     return result;
   }
   // Construct an instance holding |aggregatable_attribution_data|.
   static WebUIReportDataPtr
   NewAggregatableAttributionData(
-      WebUIReportAggregatableAttributionDataPtr aggregatable_attribution_data) {
+      WebUIReportAggregatableAttributionDataPtr value) {
     auto result = WebUIReportDataPtr(absl::in_place);
-    result->set_aggregatable_attribution_data(std::move(aggregatable_attribution_data));
+    result->set_aggregatable_attribution_data(std::move(value));
     return result;
   }
 
@@ -1206,49 +1207,49 @@ class  ReportStatus {
   // Construct an instance holding |pending|.
   static ReportStatusPtr
   NewPending(
-      EmptyPtr pending) {
+      EmptyPtr value) {
     auto result = ReportStatusPtr(absl::in_place);
-    result->set_pending(std::move(pending));
+    result->set_pending(std::move(value));
     return result;
   }
   // Construct an instance holding |replaced_by_higher_priority_report|.
   static ReportStatusPtr
   NewReplacedByHigherPriorityReport(
-      const std::string& replaced_by_higher_priority_report) {
+      const std::string& value) {
     auto result = ReportStatusPtr(absl::in_place);
-    result->set_replaced_by_higher_priority_report(std::move(replaced_by_higher_priority_report));
+    result->set_replaced_by_higher_priority_report(std::move(value));
     return result;
   }
   // Construct an instance holding |prohibited_by_browser_policy|.
   static ReportStatusPtr
   NewProhibitedByBrowserPolicy(
-      EmptyPtr prohibited_by_browser_policy) {
+      EmptyPtr value) {
     auto result = ReportStatusPtr(absl::in_place);
-    result->set_prohibited_by_browser_policy(std::move(prohibited_by_browser_policy));
+    result->set_prohibited_by_browser_policy(std::move(value));
     return result;
   }
   // Construct an instance holding |sent|.
   static ReportStatusPtr
   NewSent(
-      int32_t sent) {
+      int32_t value) {
     auto result = ReportStatusPtr(absl::in_place);
-    result->set_sent(std::move(sent));
+    result->set_sent(std::move(value));
     return result;
   }
   // Construct an instance holding |network_error|.
   static ReportStatusPtr
   NewNetworkError(
-      const std::string& network_error) {
+      const std::string& value) {
     auto result = ReportStatusPtr(absl::in_place);
-    result->set_network_error(std::move(network_error));
+    result->set_network_error(std::move(value));
     return result;
   }
   // Construct an instance holding |failed_to_assemble|.
   static ReportStatusPtr
   NewFailedToAssemble(
-      EmptyPtr failed_to_assemble) {
+      EmptyPtr value) {
     auto result = ReportStatusPtr(absl::in_place);
-    result->set_failed_to_assemble(std::move(failed_to_assemble));
+    result->set_failed_to_assemble(std::move(value));
     return result;
   }
 
@@ -1421,17 +1422,17 @@ class  DebugReportStatus {
   // Construct an instance holding |http_response_code|.
   static DebugReportStatusPtr
   NewHttpResponseCode(
-      int32_t http_response_code) {
+      int32_t value) {
     auto result = DebugReportStatusPtr(absl::in_place);
-    result->set_http_response_code(std::move(http_response_code));
+    result->set_http_response_code(std::move(value));
     return result;
   }
   // Construct an instance holding |network_error|.
   static DebugReportStatusPtr
   NewNetworkError(
-      const std::string& network_error) {
+      const std::string& value) {
     auto result = DebugReportStatusPtr(absl::in_place);
-    result->set_network_error(std::move(network_error));
+    result->set_network_error(std::move(value));
     return result;
   }
 
@@ -1566,7 +1567,7 @@ class  WebUIReportAggregatableAttributionData {
 
   WebUIReportAggregatableAttributionData(
       std::vector<AggregatableHistogramContributionPtr> contributions,
-      const absl::optional<std::string>& verification_token,
+      const std::optional<std::string>& verification_token,
       const std::string& aggregation_coordinator,
       bool is_null_report);
 
@@ -1650,7 +1651,7 @@ WebUIReportAggregatableAttributionData& operator=(const WebUIReportAggregatableA
   
   std::vector<AggregatableHistogramContributionPtr> contributions;
   
-  absl::optional<std::string> verification_token;
+  std::optional<std::string> verification_token;
   
   std::string aggregation_coordinator;
   
@@ -2035,18 +2036,20 @@ class  WebUISource {
       const ::url::Origin& reporting_origin,
       double source_time,
       double expiry_time,
-      const ::attribution_reporting::EventReportWindows& event_report_windows,
+      const std::string& trigger_specs_json,
       double aggregatable_report_window_time,
       int32_t max_event_level_reports,
       ::attribution_reporting::mojom::SourceType source_type,
       int64_t priority,
-      const absl::optional<uint64_t>& debug_key,
+      std::optional<uint64_t> debug_key,
       std::vector<uint64_t> dedup_keys,
-      const base::flat_map<std::string, std::vector<std::string>>& filter_data,
+      const ::attribution_reporting::FilterData& filter_data,
       const base::flat_map<std::string, std::string>& aggregation_keys,
       uint64_t aggregatable_budget_consumed,
       std::vector<uint64_t> aggregatable_dedup_keys,
-      const ::attribution_reporting::TriggerConfig& trigger_config,
+      ::attribution_reporting::mojom::TriggerDataMatching trigger_data_matching,
+      double event_level_epsilon,
+      bool debug_cookie_set,
       WebUISource::Attributability attributability);
 
 
@@ -2137,7 +2140,7 @@ class  WebUISource {
   
   double expiry_time;
   
-  ::attribution_reporting::EventReportWindows event_report_windows;
+  std::string trigger_specs_json;
   
   double aggregatable_report_window_time;
   
@@ -2147,11 +2150,11 @@ class  WebUISource {
   
   int64_t priority;
   
-  absl::optional<uint64_t> debug_key;
+  std::optional<uint64_t> debug_key;
   
   std::vector<uint64_t> dedup_keys;
   
-  base::flat_map<std::string, std::vector<std::string>> filter_data;
+  ::attribution_reporting::FilterData filter_data;
   
   base::flat_map<std::string, std::string> aggregation_keys;
   
@@ -2159,7 +2162,11 @@ class  WebUISource {
   
   std::vector<uint64_t> aggregatable_dedup_keys;
   
-  ::attribution_reporting::TriggerConfig trigger_config;
+  ::attribution_reporting::mojom::TriggerDataMatching trigger_data_matching;
+  
+  double event_level_epsilon;
+  
+  bool debug_cookie_set;
   
   WebUISource::Attributability attributability;
 
@@ -2227,7 +2234,7 @@ class  WebUIRegistration {
       const ::url::Origin& context_origin,
       const ::url::Origin& reporting_origin,
       const std::string& registration_json,
-      const absl::optional<uint64_t>& cleared_debug_key);
+      std::optional<uint64_t> cleared_debug_key);
 
 
   ~WebUIRegistration();
@@ -2313,7 +2320,7 @@ class  WebUIRegistration {
   
   std::string registration_json;
   
-  absl::optional<uint64_t> cleared_debug_key;
+  std::optional<uint64_t> cleared_debug_key;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -3162,7 +3169,7 @@ WebUISourcePtr WebUISource::Clone() const {
       mojo::Clone(reporting_origin),
       mojo::Clone(source_time),
       mojo::Clone(expiry_time),
-      mojo::Clone(event_report_windows),
+      mojo::Clone(trigger_specs_json),
       mojo::Clone(aggregatable_report_window_time),
       mojo::Clone(max_event_level_reports),
       mojo::Clone(source_type),
@@ -3173,7 +3180,9 @@ WebUISourcePtr WebUISource::Clone() const {
       mojo::Clone(aggregation_keys),
       mojo::Clone(aggregatable_budget_consumed),
       mojo::Clone(aggregatable_dedup_keys),
-      mojo::Clone(trigger_config),
+      mojo::Clone(trigger_data_matching),
+      mojo::Clone(event_level_epsilon),
+      mojo::Clone(debug_cookie_set),
       mojo::Clone(attributability)
   );
 }
@@ -3192,7 +3201,7 @@ bool WebUISource::Equals(const T& other_struct) const {
     return false;
   if (!mojo::Equals(this->expiry_time, other_struct.expiry_time))
     return false;
-  if (!mojo::Equals(this->event_report_windows, other_struct.event_report_windows))
+  if (!mojo::Equals(this->trigger_specs_json, other_struct.trigger_specs_json))
     return false;
   if (!mojo::Equals(this->aggregatable_report_window_time, other_struct.aggregatable_report_window_time))
     return false;
@@ -3214,7 +3223,11 @@ bool WebUISource::Equals(const T& other_struct) const {
     return false;
   if (!mojo::Equals(this->aggregatable_dedup_keys, other_struct.aggregatable_dedup_keys))
     return false;
-  if (!mojo::Equals(this->trigger_config, other_struct.trigger_config))
+  if (!mojo::Equals(this->trigger_data_matching, other_struct.trigger_data_matching))
+    return false;
+  if (!mojo::Equals(this->event_level_epsilon, other_struct.event_level_epsilon))
+    return false;
+  if (!mojo::Equals(this->debug_cookie_set, other_struct.debug_cookie_set))
     return false;
   if (!mojo::Equals(this->attributability, other_struct.attributability))
     return false;
@@ -3247,9 +3260,9 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.expiry_time < lhs.expiry_time)
     return false;
-  if (lhs.event_report_windows < rhs.event_report_windows)
+  if (lhs.trigger_specs_json < rhs.trigger_specs_json)
     return true;
-  if (rhs.event_report_windows < lhs.event_report_windows)
+  if (rhs.trigger_specs_json < lhs.trigger_specs_json)
     return false;
   if (lhs.aggregatable_report_window_time < rhs.aggregatable_report_window_time)
     return true;
@@ -3291,9 +3304,17 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.aggregatable_dedup_keys < lhs.aggregatable_dedup_keys)
     return false;
-  if (lhs.trigger_config < rhs.trigger_config)
+  if (lhs.trigger_data_matching < rhs.trigger_data_matching)
     return true;
-  if (rhs.trigger_config < lhs.trigger_config)
+  if (rhs.trigger_data_matching < lhs.trigger_data_matching)
+    return false;
+  if (lhs.event_level_epsilon < rhs.event_level_epsilon)
+    return true;
+  if (rhs.event_level_epsilon < lhs.event_level_epsilon)
+    return false;
+  if (lhs.debug_cookie_set < rhs.debug_cookie_set)
+    return true;
+  if (rhs.debug_cookie_set < lhs.debug_cookie_set)
     return false;
   if (lhs.attributability < rhs.attributability)
     return true;
@@ -3707,9 +3728,9 @@ struct  StructTraits<::attribution_internals::mojom::WebUISource::DataView,
     return input->expiry_time;
   }
 
-  static const decltype(::attribution_internals::mojom::WebUISource::event_report_windows)& event_report_windows(
+  static const decltype(::attribution_internals::mojom::WebUISource::trigger_specs_json)& trigger_specs_json(
       const ::attribution_internals::mojom::WebUISourcePtr& input) {
-    return input->event_report_windows;
+    return input->trigger_specs_json;
   }
 
   static decltype(::attribution_internals::mojom::WebUISource::aggregatable_report_window_time) aggregatable_report_window_time(
@@ -3732,7 +3753,7 @@ struct  StructTraits<::attribution_internals::mojom::WebUISource::DataView,
     return input->priority;
   }
 
-  static const decltype(::attribution_internals::mojom::WebUISource::debug_key)& debug_key(
+  static decltype(::attribution_internals::mojom::WebUISource::debug_key) debug_key(
       const ::attribution_internals::mojom::WebUISourcePtr& input) {
     return input->debug_key;
   }
@@ -3762,9 +3783,19 @@ struct  StructTraits<::attribution_internals::mojom::WebUISource::DataView,
     return input->aggregatable_dedup_keys;
   }
 
-  static const decltype(::attribution_internals::mojom::WebUISource::trigger_config)& trigger_config(
+  static decltype(::attribution_internals::mojom::WebUISource::trigger_data_matching) trigger_data_matching(
       const ::attribution_internals::mojom::WebUISourcePtr& input) {
-    return input->trigger_config;
+    return input->trigger_data_matching;
+  }
+
+  static decltype(::attribution_internals::mojom::WebUISource::event_level_epsilon) event_level_epsilon(
+      const ::attribution_internals::mojom::WebUISourcePtr& input) {
+    return input->event_level_epsilon;
+  }
+
+  static decltype(::attribution_internals::mojom::WebUISource::debug_cookie_set) debug_cookie_set(
+      const ::attribution_internals::mojom::WebUISourcePtr& input) {
+    return input->debug_cookie_set;
   }
 
   static decltype(::attribution_internals::mojom::WebUISource::attributability) attributability(
@@ -3802,7 +3833,7 @@ struct  StructTraits<::attribution_internals::mojom::WebUIRegistration::DataView
     return input->registration_json;
   }
 
-  static const decltype(::attribution_internals::mojom::WebUIRegistration::cleared_debug_key)& cleared_debug_key(
+  static decltype(::attribution_internals::mojom::WebUIRegistration::cleared_debug_key) cleared_debug_key(
       const ::attribution_internals::mojom::WebUIRegistrationPtr& input) {
     return input->cleared_debug_key;
   }

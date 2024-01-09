@@ -418,7 +418,7 @@ VideoFrameHandler_OnNewBuffer_Params_Data::VideoFrameHandler_OnNewBuffer_Params_
 
 
 // static
-bool VideoFrameHandler_OnFrameReadyInBuffer_Params_Data::Validate(
+bool VideoFrameHandler_DEPRECATED_OnFrameReadyInBuffer_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -430,8 +430,8 @@ bool VideoFrameHandler_OnFrameReadyInBuffer_Params_Data::Validate(
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const VideoFrameHandler_OnFrameReadyInBuffer_Params_Data* object =
-      static_cast<const VideoFrameHandler_OnFrameReadyInBuffer_Params_Data*>(data);
+  [[maybe_unused]] const VideoFrameHandler_DEPRECATED_OnFrameReadyInBuffer_Params_Data* object =
+      static_cast<const VideoFrameHandler_DEPRECATED_OnFrameReadyInBuffer_Params_Data*>(data);
 
   if (!mojo::internal::ValidatePointerNonNullable(
           object->buffer, 1, validation_context)) {
@@ -450,6 +450,36 @@ bool VideoFrameHandler_OnFrameReadyInBuffer_Params_Data::Validate(
                                          &scaled_buffers_validate_params)) {
     return false;
   }
+
+  return true;
+}
+
+VideoFrameHandler_DEPRECATED_OnFrameReadyInBuffer_Params_Data::VideoFrameHandler_DEPRECATED_OnFrameReadyInBuffer_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool VideoFrameHandler_OnFrameReadyInBuffer_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const VideoFrameHandler_OnFrameReadyInBuffer_Params_Data* object =
+      static_cast<const VideoFrameHandler_OnFrameReadyInBuffer_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->buffer, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->buffer, validation_context))
+    return false;
 
   return true;
 }

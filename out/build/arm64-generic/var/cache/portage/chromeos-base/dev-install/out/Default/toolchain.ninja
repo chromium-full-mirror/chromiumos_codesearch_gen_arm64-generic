@@ -34,11 +34,9 @@ rule copy
   description = COPY ${in} ${out}
 
 build obj/common-mk/gn_root/root.stamp: stamp obj/dev-install/all.stamp
-subninja obj/common-mk/testrunner/testrunner.ninja
 build obj/dev-install/_dev_install-install_config.stamp: stamp
-build obj/dev-install/all.stamp: stamp ./dev_install obj/dev-install/install_bashrc.stamp obj/dev-install/install_envd.stamp obj/dev-install/install_make_defaults.stamp ./dev_install_test
+build obj/dev-install/all.stamp: stamp ./dev_install obj/dev-install/install_bashrc.stamp obj/dev-install/install_envd.stamp obj/dev-install/install_make_defaults.stamp
 subninja obj/dev-install/dev_install.ninja
-subninja obj/dev-install/dev_install_test.ninja
 build obj/dev-install/install_bashrc.stamp: stamp
 build obj/dev-install/install_envd.stamp: stamp
 build obj/dev-install/install_make_defaults.stamp: stamp

@@ -1,5 +1,6 @@
 {
   "deps": [
+    "../../../../components/ml/webnn/features.build_metadata",
     "../../../../mojo/public/mojom/base/base.build_metadata",
     "../../../../sandbox/policy/mojom/mojom.build_metadata"
   ],

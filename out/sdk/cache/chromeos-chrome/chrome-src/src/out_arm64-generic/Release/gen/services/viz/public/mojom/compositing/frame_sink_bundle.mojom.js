@@ -514,6 +514,65 @@
     encoder.skip(1);
     encoder.skip(1);
   };
+  function FrameSinkBundle_SetWantsBeginFrameAcks_Params(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  FrameSinkBundle_SetWantsBeginFrameAcks_Params.prototype.initDefaults_ = function() {
+    this.sinkId = 0;
+  };
+  FrameSinkBundle_SetWantsBeginFrameAcks_Params.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  FrameSinkBundle_SetWantsBeginFrameAcks_Params.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 16}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    return validator.validationError.NONE;
+  };
+
+  FrameSinkBundle_SetWantsBeginFrameAcks_Params.encodedSize = codec.kStructHeaderSize + 8;
+
+  FrameSinkBundle_SetWantsBeginFrameAcks_Params.decode = function(decoder) {
+    var packed;
+    var val = new FrameSinkBundle_SetWantsBeginFrameAcks_Params();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    val.sinkId =
+        decoder.decodeStruct(codec.Uint32);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    return val;
+  };
+
+  FrameSinkBundle_SetWantsBeginFrameAcks_Params.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(FrameSinkBundle_SetWantsBeginFrameAcks_Params.encodedSize);
+    encoder.writeUint32(0);
+    encoder.encodeStruct(codec.Uint32, val.sinkId);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+  };
   function FrameSinkBundle_Submit_Params(values) {
     this.initDefaults_();
     this.initFields_(values);
@@ -1030,8 +1089,9 @@
   BundledFrameSubmissionData.encodedSize = 16;
   var kFrameSinkBundle_InitializeCompositorFrameSinkType_Name = 0;
   var kFrameSinkBundle_SetNeedsBeginFrame_Name = 1;
-  var kFrameSinkBundle_Submit_Name = 2;
-  var kFrameSinkBundle_DidAllocateSharedBitmap_Name = 3;
+  var kFrameSinkBundle_SetWantsBeginFrameAcks_Name = 2;
+  var kFrameSinkBundle_Submit_Name = 3;
+  var kFrameSinkBundle_DidAllocateSharedBitmap_Name = 4;
 
   function FrameSinkBundlePtr(handleOrPtrInfo) {
     this.ptr = new bindings.InterfacePtrController(FrameSinkBundle,
@@ -1083,6 +1143,21 @@
     var message = builder.finish();
     this.receiver_.accept(message);
   };
+  FrameSinkBundlePtr.prototype.setWantsBeginFrameAcks = function() {
+    return FrameSinkBundleProxy.prototype.setWantsBeginFrameAcks
+        .apply(this.ptr.getProxy(), arguments);
+  };
+
+  FrameSinkBundleProxy.prototype.setWantsBeginFrameAcks = function(sinkId) {
+    var params_ = new FrameSinkBundle_SetWantsBeginFrameAcks_Params();
+    params_.sinkId = sinkId;
+    var builder = new codec.MessageV0Builder(
+        kFrameSinkBundle_SetWantsBeginFrameAcks_Name,
+        codec.align(FrameSinkBundle_SetWantsBeginFrameAcks_Params.encodedSize));
+    builder.encodeStruct(FrameSinkBundle_SetWantsBeginFrameAcks_Params, params_);
+    var message = builder.finish();
+    this.receiver_.accept(message);
+  };
   FrameSinkBundlePtr.prototype.submit = function() {
     return FrameSinkBundleProxy.prototype.submit
         .apply(this.ptr.getProxy(), arguments);
@@ -1125,6 +1200,9 @@
   FrameSinkBundleStub.prototype.setNeedsBeginFrame = function(sinkId, needsBeginFrame) {
     return this.delegate_ && this.delegate_.setNeedsBeginFrame && this.delegate_.setNeedsBeginFrame(sinkId, needsBeginFrame);
   }
+  FrameSinkBundleStub.prototype.setWantsBeginFrameAcks = function(sinkId) {
+    return this.delegate_ && this.delegate_.setWantsBeginFrameAcks && this.delegate_.setWantsBeginFrameAcks(sinkId);
+  }
   FrameSinkBundleStub.prototype.submit = function(submissions) {
     return this.delegate_ && this.delegate_.submit && this.delegate_.submit(submissions);
   }
@@ -1142,6 +1220,10 @@
     case kFrameSinkBundle_SetNeedsBeginFrame_Name:
       var params = reader.decodeStruct(FrameSinkBundle_SetNeedsBeginFrame_Params);
       this.setNeedsBeginFrame(params.sinkId, params.needsBeginFrame);
+      return true;
+    case kFrameSinkBundle_SetWantsBeginFrameAcks_Name:
+      var params = reader.decodeStruct(FrameSinkBundle_SetWantsBeginFrameAcks_Params);
+      this.setWantsBeginFrameAcks(params.sinkId);
       return true;
     case kFrameSinkBundle_Submit_Name:
       var params = reader.decodeStruct(FrameSinkBundle_Submit_Params);
@@ -1176,6 +1258,10 @@
       case kFrameSinkBundle_SetNeedsBeginFrame_Name:
         if (!message.expectsResponse() && !message.isResponse())
           paramsClass = FrameSinkBundle_SetNeedsBeginFrame_Params;
+      break;
+      case kFrameSinkBundle_SetWantsBeginFrameAcks_Name:
+        if (!message.expectsResponse() && !message.isResponse())
+          paramsClass = FrameSinkBundle_SetWantsBeginFrameAcks_Params;
       break;
       case kFrameSinkBundle_Submit_Name:
         if (!message.expectsResponse() && !message.isResponse())

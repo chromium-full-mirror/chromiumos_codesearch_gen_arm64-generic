@@ -1,9 +1,0 @@
-defines = -DOFFICIAL_BUILD -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D_FORTIFY_SOURCE=3 -D_GNU_SOURCE -D_LIBCPP_ENABLE_SAFE_MODE=1 -DANDROID -DHAVE_SYS_UIO_H -DANDROID_NDK_VERSION_ROLL=r25c_1 -DCR_CLANG_REVISION=\"llvmorg-18-init-8676-g11d07d9e-2\" -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -DCR_LIBCXX_REVISION=7b5e31698b06ca88e92629f50814bb08394a8574 -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0
-include_dirs = -I../../../../../../../home/chrome-bot/chrome_root/src -Iandroid_clang_arm/gen -I../../../../../../../home/chrome-bot/chrome_root/src/buildtools/third_party/libc++
-label_name = headers
-root_out_dir = android_clang_arm
-target_out_dir = android_clang_arm/obj/third_party/brotli
-target_output_name = headers
-
-
-build android_clang_arm/obj/third_party/brotli/headers.stamp: android_clang_arm_stamp

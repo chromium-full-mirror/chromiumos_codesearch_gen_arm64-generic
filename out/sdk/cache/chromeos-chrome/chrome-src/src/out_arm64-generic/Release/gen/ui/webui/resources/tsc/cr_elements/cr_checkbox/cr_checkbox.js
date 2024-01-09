@@ -53,6 +53,7 @@ export class CrCheckboxElement extends CrCheckboxElementBase {
                 observer: 'disabledChanged_',
             },
             ariaDescription: String,
+            ariaLabelOverride: String,
             tabIndex: {
                 type: Number,
                 value: 0,
@@ -62,6 +63,15 @@ export class CrCheckboxElement extends CrCheckboxElementBase {
     }
     ready() {
         super.ready();
+        // 
+        // TODO(b/309689294) Remove this once CrOS UIs migrate to Jellybean
+        // components and no longer use cr-elements.
+        // Force stamp the ripple element to enable CrOS focus styles. Ripple
+        // visibility is controlled by the event listeners below.
+        if (document.documentElement.hasAttribute('chrome-refresh-2023')) {
+            this.getRipple();
+        }
+        // 
         this.removeAttribute('unresolved');
         this.addEventListener('click', this.onClick_.bind(this));
         this.addEventListener('pointerup', this.hideRipple_.bind(this));

@@ -17,7 +17,7 @@ namespace blink::mojom::blink {
 class PLATFORM_EXPORT AbortableAdAuctionInterceptorForTesting : public AbortableAdAuction {
   virtual AbortableAdAuction* GetForwardingInterface() = 0;
   void ResolvedPromiseParam(AuctionAdConfigAuctionIdPtr auction, AuctionAdConfigField field, const WTF::String& json_value) override;
-  void ResolvedPerBuyerSignalsPromise(AuctionAdConfigAuctionIdPtr auction, const absl::optional<WTF::HashMap<::scoped_refptr<const ::blink::SecurityOrigin>, WTF::String>>& per_buyer_signals) override;
+  void ResolvedPerBuyerSignalsPromise(AuctionAdConfigAuctionIdPtr auction, const std::optional<WTF::HashMap<::scoped_refptr<const ::blink::SecurityOrigin>, WTF::String>>& per_buyer_signals) override;
   void ResolvedBuyerTimeoutsPromise(AuctionAdConfigAuctionIdPtr auction, AuctionAdConfigBuyerTimeoutField field, ::blink::mojom::blink::AuctionAdConfigBuyerTimeoutsPtr buyer_timeouts) override;
   void ResolvedBuyerCurrenciesPromise(AuctionAdConfigAuctionIdPtr auction, ::blink::mojom::blink::AuctionAdConfigBuyerCurrenciesPtr per_buyer_currencies) override;
   void ResolvedDirectFromSellerSignalsPromise(AuctionAdConfigAuctionIdPtr auction, ::blink::mojom::blink::DirectFromSellerSignalsPtr direct_from_seller_signals) override;
@@ -67,13 +67,13 @@ class PLATFORM_EXPORT AdAuctionServiceAsyncWaiter {
       ::blink::mojom::blink::AdRequestConfigPtr config, WTF::String* out_ads_guid);
   WTF::String CreateAdRequest(::blink::mojom::blink::AdRequestConfigPtr config);
   void FinalizeAd(
-      const WTF::String& ads_guid, ::blink::mojom::blink::AuctionAdConfigPtr config, absl::optional<::blink::KURL>* out_ad_display_url);
-  absl::optional<::blink::KURL> FinalizeAd(const WTF::String& ads_guid, ::blink::mojom::blink::AuctionAdConfigPtr config);
+      const WTF::String& ads_guid, ::blink::mojom::blink::AuctionAdConfigPtr config, std::optional<::blink::KURL>* out_ad_display_url);
+  std::optional<::blink::KURL> FinalizeAd(const WTF::String& ads_guid, ::blink::mojom::blink::AuctionAdConfigPtr config);
   void CreateAuctionNonce(
       ::base::Uuid* out_nonce);
   ::base::Uuid CreateAuctionNonce();
   void RunAdAuction(
-      ::blink::mojom::blink::AuctionAdConfigPtr config, ::mojo::PendingReceiver<AbortableAdAuction> abort_receiver, bool* out_aborted_by_script, absl::optional<::blink::FencedFrame::RedactedFencedFrameConfig>* out_config);
+      ::blink::mojom::blink::AuctionAdConfigPtr config, ::mojo::PendingReceiver<AbortableAdAuction> abort_receiver, bool* out_aborted_by_script, std::optional<::blink::FencedFrame::RedactedFencedFrameConfig>* out_config);
   
   void JoinInterestGroup(
       ::blink::mojom::blink::InterestGroupPtr group, bool* out_failed_well_known_check);
@@ -85,13 +85,13 @@ class PLATFORM_EXPORT AdAuctionServiceAsyncWaiter {
       const ::scoped_refptr<const ::blink::SecurityOrigin>& owner, const WTF::Vector<WTF::String>& interest_groups_to_keep, bool* out_failed_well_known_check);
   bool ClearOriginJoinedInterestGroups(const ::scoped_refptr<const ::blink::SecurityOrigin>& owner, const WTF::Vector<WTF::String>& interest_groups_to_keep);
   void DeprecatedGetURLFromURN(
-      const ::blink::KURL& uuid_url, bool send_reports, absl::optional<::blink::KURL>* out_decoded_url);
-  absl::optional<::blink::KURL> DeprecatedGetURLFromURN(const ::blink::KURL& uuid_url, bool send_reports);
+      const ::blink::KURL& uuid_url, bool send_reports, std::optional<::blink::KURL>* out_decoded_url);
+  std::optional<::blink::KURL> DeprecatedGetURLFromURN(const ::blink::KURL& uuid_url, bool send_reports);
   void DeprecatedReplaceInURN(
       const ::blink::KURL& uuid_url, WTF::Vector<AdKeywordReplacementPtr> replacements);
   
   void GetInterestGroupAdAuctionData(
-      const ::scoped_refptr<const ::blink::SecurityOrigin>& seller, const ::scoped_refptr<const ::blink::SecurityOrigin>& coordinator, ::mojo_base::BigBuffer* out_request, absl::optional<::base::Uuid>* out_request_id, WTF::String* out_error_message);
+      const ::scoped_refptr<const ::blink::SecurityOrigin>& seller, const ::scoped_refptr<const ::blink::SecurityOrigin>& coordinator, ::mojo_base::BigBuffer* out_request, std::optional<::base::Uuid>* out_request_id, WTF::String* out_error_message);
   
 
  private:

@@ -12,11 +12,15 @@
 #include "chromeos/crosapi/mojom/extension_keeplist.mojom-import-headers.h"
 #include "chromeos/crosapi/mojom/tts.mojom.h"
 #include "chromeos/crosapi/mojom/tts.mojom-import-headers.h"
+#include "mojo/public/mojom/base/file_path.mojom.h"
+#include "mojo/public/mojom/base/file_path.mojom-import-headers.h"
 #include "mojo/public/mojom/base/values.mojom.h"
 #include "mojo/public/mojom/base/values.mojom-import-headers.h"
 #include "ui/gfx/geometry/mojom/geometry.mojom.h"
 #include "ui/gfx/geometry/mojom/geometry.mojom-import-headers.h"
 #include "ui/gfx/range/mojom/range.mojom.h"
 #include "ui/gfx/range/mojom/range.mojom-import-headers.h"
+#include "url/mojom/url.mojom.h"
+#include "url/mojom/url.mojom-import-headers.h"
 
 #endif  // CHROMEOS_CROSAPI_MOJOM_TEST_CONTROLLER_MOJOM_IMPORT_HEADERS_H_

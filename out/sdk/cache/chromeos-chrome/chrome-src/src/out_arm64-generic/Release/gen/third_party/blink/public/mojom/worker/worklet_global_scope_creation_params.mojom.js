@@ -64,6 +64,7 @@
     this.originTrialFeatures = null;
     this.devtoolsToken = null;
     this.devtoolsHost = new WorkletDevToolsHostPtr();
+    this.waitForDebugger = false;
   };
   WorkletGlobalScopeCreationParams.prototype.initFields_ = function(fields) {
     for(var field in fields) {
@@ -79,7 +80,7 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 48}
+      {version: 0, numBytes: 56}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
@@ -115,10 +116,11 @@
     if (err !== validator.validationError.NONE)
         return err;
 
+
     return validator.validationError.NONE;
   };
 
-  WorkletGlobalScopeCreationParams.encodedSize = codec.kStructHeaderSize + 40;
+  WorkletGlobalScopeCreationParams.encodedSize = codec.kStructHeaderSize + 48;
 
   WorkletGlobalScopeCreationParams.decode = function(decoder) {
     var packed;
@@ -135,6 +137,15 @@
         decoder.decodeStructPointer(unguessable_token$.UnguessableToken);
     val.devtoolsHost =
         decoder.decodeStruct(new codec.Interface(WorkletDevToolsHostPtr));
+    packed = decoder.readUint8();
+    val.waitForDebugger = (packed >> 0) & 1 ? true : false;
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
     return val;
   };
 
@@ -147,6 +158,16 @@
     encoder.encodeArrayPointer(new codec.Enum(origin_trial_feature$.OriginTrialFeature), val.originTrialFeatures);
     encoder.encodeStructPointer(unguessable_token$.UnguessableToken, val.devtoolsToken);
     encoder.encodeStruct(new codec.Interface(WorkletDevToolsHostPtr), val.devtoolsHost);
+    packed = 0;
+    packed |= (val.waitForDebugger & 1) << 0
+    encoder.writeUint8(packed);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
   };
   function WorkletDevToolsHost_OnReadyForInspection_Params(values) {
     this.initDefaults_();

@@ -21,9 +21,9 @@
 
 namespace blink {
 
-class AuthenticationExtensionsDevicePublicKeyOutputs;
 class AuthenticationExtensionsLargeBlobOutputs;
 class AuthenticationExtensionsPRFOutputs;
+class AuthenticationExtensionsSupplementalPubKeysOutputs;
 class CredentialPropertiesOutput;
 class ExceptionState;
 
@@ -94,25 +94,6 @@ void setCredProps(CredentialPropertiesOutput* value) {
   member_cred_props_ = value;
 has_cred_props_ = true;
 DCHECK(member_cred_props_);
-}
-
-bool hasDevicePubKey() const {
-  return has_device_pub_key_;
-}
-AuthenticationExtensionsDevicePublicKeyOutputs* devicePubKey() const {
-  DCHECK(hasDevicePubKey());
-return member_device_pub_key_.Get();
-}
-AuthenticationExtensionsDevicePublicKeyOutputs* getDevicePubKeyOr(AuthenticationExtensionsDevicePublicKeyOutputs* fallback_value) const {
-  if (!hasDevicePubKey()) {
-  return fallback_value;
-}
-return member_device_pub_key_.Get();
-}
-void setDevicePubKey(AuthenticationExtensionsDevicePublicKeyOutputs* value) {
-  member_device_pub_key_ = value;
-has_device_pub_key_ = true;
-DCHECK(member_device_pub_key_);
 }
 
 bool hasGetCredBlob() const {
@@ -190,6 +171,25 @@ has_prf_ = true;
 DCHECK(member_prf_);
 }
 
+bool hasSupplementalPubKeys() const {
+  return has_supplemental_pub_keys_;
+}
+AuthenticationExtensionsSupplementalPubKeysOutputs* supplementalPubKeys() const {
+  DCHECK(hasSupplementalPubKeys());
+return member_supplemental_pub_keys_.Get();
+}
+AuthenticationExtensionsSupplementalPubKeysOutputs* getSupplementalPubKeysOr(AuthenticationExtensionsSupplementalPubKeysOutputs* fallback_value) const {
+  if (!hasSupplementalPubKeys()) {
+  return fallback_value;
+}
+return member_supplemental_pub_keys_.Get();
+}
+void setSupplementalPubKeys(AuthenticationExtensionsSupplementalPubKeysOutputs* value) {
+  member_supplemental_pub_keys_ = value;
+has_supplemental_pub_keys_ = true;
+DCHECK(member_supplemental_pub_keys_);
+}
+
 bool hasUvm() const {
   return has_uvm_;
 }
@@ -220,21 +220,21 @@ static const base::span<const v8::Eternal<v8::Name>> GetV8OwnMemberNames(v8::Iso
 bool has_appid_ = false;
 bool has_cred_blob_ = false;
 bool has_cred_props_ = false;
-bool has_device_pub_key_ = false;
 bool has_get_cred_blob_ = false;
 bool has_hmac_create_secret_ = false;
 bool has_large_blob_ = false;
 bool has_prf_ = false;
+bool has_supplemental_pub_keys_ = false;
 bool has_uvm_ = false;
 
 bool member_appid_;
 bool member_cred_blob_;
 Member<CredentialPropertiesOutput> member_cred_props_;
-Member<AuthenticationExtensionsDevicePublicKeyOutputs> member_device_pub_key_;
 Member<DOMArrayBuffer> member_get_cred_blob_;
 bool member_hmac_create_secret_;
 Member<AuthenticationExtensionsLargeBlobOutputs> member_large_blob_;
 Member<AuthenticationExtensionsPRFOutputs> member_prf_;
+Member<AuthenticationExtensionsSupplementalPubKeysOutputs> member_supplemental_pub_keys_;
 Vector<Vector<uint32_t>> member_uvm_;
 
 

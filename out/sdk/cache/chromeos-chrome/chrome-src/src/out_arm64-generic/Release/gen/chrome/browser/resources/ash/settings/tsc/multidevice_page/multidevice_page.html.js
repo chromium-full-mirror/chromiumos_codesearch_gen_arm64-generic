@@ -1,22 +1,23 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_--><style include="settings-shared">cr-policy-indicator{padding:0 var(--cr-controlled-by-spacing)}</style>
+    return html `<!--_html_template_start_--><style include="settings-shared">cr-policy-indicator{padding:0 var(--cr-controlled-by-spacing)}:host-context(body.revamp-wayfinding-enabled) #betterTogetherSuiteIcon,:host-context(body.revamp-wayfinding-enabled) #nearbyShareIcon{--iron-icon-fill-color:var(--cros-sys-primary)}</style>
+
 <os-settings-animated-pages id="pages" section="[[section_]]">
   <div route-path="default">
     <settings-card header-text="$i18n{multidevicePageTitle}">
       <div id="multideviceItem" class="settings-box first two-line no-padding">
         <div class="link-wrapper" id="suiteLinkWrapper" actionable$="[[doesClickOpenSubpage_(pageContentData)]]" on-click="handleItemClick_">
-          <iron-icon icon="[[getIconName(MultiDeviceFeature.BETTER_TOGETHER_SUITE)]]" id="betterTogetherSuiteIcon">
+          <iron-icon id="betterTogetherSuiteIcon" icon="[[getIconName(MultiDeviceFeature.BETTER_TOGETHER_SUITE)]]">
           </iron-icon>
           <div class="middle settings-box-text" aria-hidden$="[[getTextAriaHidden_(pageContentData)]]">
-            <div id="multidevice-label">
+            <div id="multideviceLabel">
               [[getLabelText_(pageContentData)]]
             </div>
             <localized-link id="multideviceSubLabel" class="secondary" localized-string="[[getSubLabelInnerHtml_(pageContentData)]]">
             </localized-link>
           </div>
           <template is="dom-if" if="[[doesClickOpenSubpage_(pageContentData)]]" restamp>
-            <cr-icon-button class="subpage-arrow" aria-labelledby="multidevice-label" aria-describedby="multideviceSubLabel" aria-roledescription="$i18n{subpageArrowRoleDescription}">
+            <cr-icon-button class="subpage-arrow" aria-labelledby="multideviceLabel" aria-describedby="multideviceSubLabel" aria-roledescription="$i18n{subpageArrowRoleDescription}">
             </cr-icon-button>
           </template>
         </div>
@@ -43,8 +44,11 @@ export function getTemplate() {
       <template is="dom-if" if="[[isNearbyShareSupported_]]" restamp>
         <div id="nearbyshare-item" class="settings-box two-line no-padding">
           <div class="link-wrapper" id="nearbyLinkWrapper" actionable$="[[!isNearbyShareDisallowedByPolicy_(pageContentData)]]" on-click="nearbyShareClick_">
-            <iron-icon icon="os-settings:nearby-share">
-            </iron-icon>
+            
+            
+              <iron-icon id="nearbyShareIcon" icon="os-settings:nearby-share">
+              </iron-icon>
+            
             <div class="middle settings-box-text">
               <div id="nearbyShareLabel" aria-hidden="true">
                 $i18n{nearbyShareTitle}
@@ -52,12 +56,20 @@ export function getTemplate() {
               <template is="dom-if" if="[[showNearbyShareOnOffString_(
                         prefs.nearby_sharing.onboarding_complete.value,
                         pageContentData)]]" restamp>
-                <div class="secondary" id="nearbyShareSecondary">
-                  [[getOnOffString_(prefs.nearby_sharing.enabled.value,
-                    '$i18nPolymer{deviceOn}', '$i18nPolymer{deviceOff}')]]
-                </div>
+                <template is="dom-if" if="[[!isRevampWayfindingEnabled_]]">
+                  <div class="secondary" id="nearbyShareSecondary">
+                    [[getOnOffString_(prefs.nearby_sharing.enabled.value,
+                      '$i18nPolymer{deviceOn}', '$i18nPolymer{deviceOff}')]]
+                  </div>
+                </template>
+                <template is="dom-if" if="[[isRevampWayfindingEnabled_]]">
+                  <div class="secondary" id="nearbyShareSecondary">
+                    [[getNearbyShareDescription_(prefs.nearby_sharing.enabled.value,
+                      settings.visibility)]]
+                  </div>
+                </template>
               </template>
-              <template is="dom-if" if="[[showNearbyShareDescription_(
+              <template is="dom-if" if="[[showNearbyShareSetUpDescription_(
                         prefs.nearby_sharing.onboarding_complete.value,
                         pageContentData)]]" restamp>
                 <div class="secondary" id="nearbyShareSecondary">
@@ -145,5 +157,6 @@ export function getTemplate() {
     <settings-multidevice-forget-device-dialog on-close="closeForgetDeviceDialog_">
     </settings-multidevice-forget-device-dialog>
   </template>
-</template><!--_html_template_end_-->`;
+</template>
+<!--_html_template_end_-->`;
 }

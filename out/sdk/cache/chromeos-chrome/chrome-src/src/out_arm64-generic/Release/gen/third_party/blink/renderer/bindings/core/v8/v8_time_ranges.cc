@@ -67,11 +67,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, TimeRanges>::value,
     "TimeRanges inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&TimeRanges::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "TimeRanges is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -84,8 +79,9 @@ BLINK_BINDINGS_TRACE_EVENT("TimeRanges.length.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-TimeRanges* blink_receiver = V8TimeRanges::ToWrappableUnsafe(v8_receiver);
+TimeRanges* blink_receiver = V8TimeRanges::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->length();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -112,7 +108,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-TimeRanges* blink_receiver = V8TimeRanges::ToWrappableUnsafe(v8_receiver);
+TimeRanges* blink_receiver = V8TimeRanges::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_index = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -145,7 +141,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-TimeRanges* blink_receiver = V8TimeRanges::ToWrappableUnsafe(v8_receiver);
+TimeRanges* blink_receiver = V8TimeRanges::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_index = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

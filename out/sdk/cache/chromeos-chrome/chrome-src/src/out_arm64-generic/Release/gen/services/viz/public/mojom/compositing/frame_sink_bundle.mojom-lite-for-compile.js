@@ -76,6 +76,12 @@ viz.mojom.FrameSinkBundleInterface = class {
   setNeedsBeginFrame(sinkId, needsBeginFrame) {}
   
   /**
+   * @param { !number } sinkId
+   */
+
+  setWantsBeginFrameAcks(sinkId) {}
+  
+  /**
    * @param { !Array<!viz.mojom.BundledFrameSubmission> } submissions
    */
 
@@ -154,13 +160,29 @@ viz.mojom.FrameSinkBundleRemote = class {
 
   
   /**
+   * @param { !number } sinkId
+   */
+
+  setWantsBeginFrameAcks(
+      sinkId) {
+    this.proxy.sendMessage(
+        2,
+        viz.mojom.FrameSinkBundle_SetWantsBeginFrameAcks_ParamsSpec.$,
+        null,
+        [
+          sinkId
+        ]);
+  }
+
+  
+  /**
    * @param { !Array<!viz.mojom.BundledFrameSubmission> } submissions
    */
 
   submit(
       submissions) {
     this.proxy.sendMessage(
-        2,
+        3,
         viz.mojom.FrameSinkBundle_Submit_ParamsSpec.$,
         null,
         [
@@ -180,7 +202,7 @@ viz.mojom.FrameSinkBundleRemote = class {
       region,
       id) {
     this.proxy.sendMessage(
-        3,
+        4,
         viz.mojom.FrameSinkBundle_DidAllocateSharedBitmap_ParamsSpec.$,
         null,
         [
@@ -225,11 +247,16 @@ viz.mojom.FrameSinkBundleReceiver = class {
         impl.setNeedsBeginFrame.bind(impl));
     this.helper_internal_.registerHandler(
         2,
+        viz.mojom.FrameSinkBundle_SetWantsBeginFrameAcks_ParamsSpec.$,
+        null,
+        impl.setWantsBeginFrameAcks.bind(impl));
+    this.helper_internal_.registerHandler(
+        3,
         viz.mojom.FrameSinkBundle_Submit_ParamsSpec.$,
         null,
         impl.submit.bind(impl));
     this.helper_internal_.registerHandler(
-        3,
+        4,
         viz.mojom.FrameSinkBundle_DidAllocateSharedBitmap_ParamsSpec.$,
         null,
         impl.didAllocateSharedBitmap.bind(impl));
@@ -312,12 +339,24 @@ viz.mojom.FrameSinkBundleCallbackRouter = class {
     /**
      * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
      */
-    this.submit =
+    this.setWantsBeginFrameAcks =
         new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
             this.router_);
 
     this.helper_internal_.registerHandler(
         2,
+        viz.mojom.FrameSinkBundle_SetWantsBeginFrameAcks_ParamsSpec.$,
+        null,
+        this.setWantsBeginFrameAcks.createReceiverHandler(false /* expectsResponse */));
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.submit =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        3,
         viz.mojom.FrameSinkBundle_Submit_ParamsSpec.$,
         null,
         this.submit.createReceiverHandler(false /* expectsResponse */));
@@ -329,7 +368,7 @@ viz.mojom.FrameSinkBundleCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        3,
+        4,
         viz.mojom.FrameSinkBundle_DidAllocateSharedBitmap_ParamsSpec.$,
         null,
         this.didAllocateSharedBitmap.createReceiverHandler(false /* expectsResponse */));
@@ -677,6 +716,14 @@ goog.provide('viz.mojom.FrameSinkBundle_SetNeedsBeginFrame_ParamsSpec');
 viz.mojom.FrameSinkBundle_SetNeedsBeginFrame_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
+goog.provide('viz.mojom.FrameSinkBundle_SetWantsBeginFrameAcks_ParamsSpec');
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+viz.mojom.FrameSinkBundle_SetWantsBeginFrameAcks_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
 goog.provide('viz.mojom.FrameSinkBundle_Submit_ParamsSpec');
 /**
  * @const { {$:!mojo.internal.MojomType}}
@@ -1007,6 +1054,35 @@ viz.mojom.FrameSinkBundle_SetNeedsBeginFrame_Params = class {
     this.sinkId;
     /** @export { !boolean } */
     this.needsBeginFrame;
+  }
+};
+
+
+
+mojo.internal.Struct(
+    viz.mojom.FrameSinkBundle_SetWantsBeginFrameAcks_ParamsSpec.$,
+    'FrameSinkBundle_SetWantsBeginFrameAcks_Params',
+    [
+      mojo.internal.StructField(
+        'sinkId', 0,
+        0,
+        mojo.internal.Uint32,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+goog.provide('viz.mojom.FrameSinkBundle_SetWantsBeginFrameAcks_Params');
+
+/** @record */
+viz.mojom.FrameSinkBundle_SetWantsBeginFrameAcks_Params = class {
+  constructor() {
+    /** @export { !number } */
+    this.sinkId;
   }
 };
 

@@ -65,6 +65,8 @@ NOINLINE static const char* UpdateStateToStringHelper(UpdateState value) {
       return "kFailed";
     case UpdateState::kSuccess:
       return "kSuccess";
+    case UpdateState::kWaitingForUser:
+      return "kWaitingForUser";
     default:
       return nullptr;
   }
@@ -80,6 +82,64 @@ std::string UpdateStateToString(UpdateState value) {
 
 std::ostream& operator<<(std::ostream& os, UpdateState value) {
   return os << UpdateStateToString(value);
+}
+
+NOINLINE static const char* DeviceRequestIdToStringHelper(DeviceRequestId value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case DeviceRequestId::kDoNotPowerOff:
+      return "kDoNotPowerOff";
+    case DeviceRequestId::kReplugInstall:
+      return "kReplugInstall";
+    case DeviceRequestId::kInsertUSBCable:
+      return "kInsertUSBCable";
+    case DeviceRequestId::kRemoveUSBCable:
+      return "kRemoveUSBCable";
+    case DeviceRequestId::kPressUnlock:
+      return "kPressUnlock";
+    case DeviceRequestId::kRemoveReplug:
+      return "kRemoveReplug";
+    default:
+      return nullptr;
+  }
+}
+
+std::string DeviceRequestIdToString(DeviceRequestId value) {
+  const char *str = DeviceRequestIdToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown DeviceRequestId value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, DeviceRequestId value) {
+  return os << DeviceRequestIdToString(value);
+}
+
+NOINLINE static const char* DeviceRequestKindToStringHelper(DeviceRequestKind value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case DeviceRequestKind::kUnknown:
+      return "kUnknown";
+    case DeviceRequestKind::kImmediate:
+      return "kImmediate";
+    case DeviceRequestKind::kPost:
+      return "kPost";
+    default:
+      return nullptr;
+  }
+}
+
+std::string DeviceRequestKindToString(DeviceRequestKind value) {
+  const char *str = DeviceRequestKindToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown DeviceRequestKind value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, DeviceRequestKind value) {
+  return os << DeviceRequestKindToString(value);
 }
 
 namespace internal {
@@ -196,6 +256,39 @@ InstallationProgress_Data::InstallationProgress_Data()
 
 
 // static
+bool DeviceRequest_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const DeviceRequest_Data* object =
+      static_cast<const DeviceRequest_Data*>(data);
+
+
+  if (!::ash::firmware_update::mojom::internal::DeviceRequestId_Data
+        ::Validate(object->id, validation_context))
+    return false;
+
+
+  if (!::ash::firmware_update::mojom::internal::DeviceRequestKind_Data
+        ::Validate(object->kind, validation_context))
+    return false;
+
+  return true;
+}
+
+DeviceRequest_Data::DeviceRequest_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool UpdateObserver_OnUpdateListChanged_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -226,6 +319,36 @@ bool UpdateObserver_OnUpdateListChanged_Params_Data::Validate(
 }
 
 UpdateObserver_OnUpdateListChanged_Params_Data::UpdateObserver_OnUpdateListChanged_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool DeviceRequestObserver_OnDeviceRequest_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const DeviceRequestObserver_OnDeviceRequest_Params_Data* object =
+      static_cast<const DeviceRequestObserver_OnDeviceRequest_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->request, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->request, validation_context))
+    return false;
+
+  return true;
+}
+
+DeviceRequestObserver_OnDeviceRequest_Params_Data::DeviceRequestObserver_OnDeviceRequest_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -444,7 +567,7 @@ InstallController_BeginUpdate_Params_Data::InstallController_BeginUpdate_Params_
 
 
 // static
-bool InstallController_AddObserver_Params_Data::Validate(
+bool InstallController_AddDeviceRequestObserver_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -456,8 +579,8 @@ bool InstallController_AddObserver_Params_Data::Validate(
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const InstallController_AddObserver_Params_Data* object =
-      static_cast<const InstallController_AddObserver_Params_Data*>(data);
+  [[maybe_unused]] const InstallController_AddDeviceRequestObserver_Params_Data* object =
+      static_cast<const InstallController_AddDeviceRequestObserver_Params_Data*>(data);
 
   if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
           object->observer, 1, validation_context)) {
@@ -471,7 +594,39 @@ bool InstallController_AddObserver_Params_Data::Validate(
   return true;
 }
 
-InstallController_AddObserver_Params_Data::InstallController_AddObserver_Params_Data()
+InstallController_AddDeviceRequestObserver_Params_Data::InstallController_AddDeviceRequestObserver_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool InstallController_AddUpdateProgressObserver_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const InstallController_AddUpdateProgressObserver_Params_Data* object =
+      static_cast<const InstallController_AddUpdateProgressObserver_Params_Data*>(data);
+
+  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
+          object->observer, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateHandleOrInterface(object->observer,
+                                                 validation_context)) {
+    return false;
+  }
+
+  return true;
+}
+
+InstallController_AddUpdateProgressObserver_Params_Data::InstallController_AddUpdateProgressObserver_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 }  // namespace internal
@@ -495,6 +650,26 @@ namespace perfetto {
 void TraceFormatTraits<::ash::firmware_update::mojom::UpdateState>::WriteIntoTrace(
    perfetto::TracedValue context, ::ash::firmware_update::mojom::UpdateState value) {
   return std::move(context).WriteString(::ash::firmware_update::mojom::UpdateStateToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::ash::firmware_update::mojom::DeviceRequestId>::WriteIntoTrace(
+   perfetto::TracedValue context, ::ash::firmware_update::mojom::DeviceRequestId value) {
+  return std::move(context).WriteString(::ash::firmware_update::mojom::DeviceRequestIdToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::ash::firmware_update::mojom::DeviceRequestKind>::WriteIntoTrace(
+   perfetto::TracedValue context, ::ash::firmware_update::mojom::DeviceRequestKind value) {
+  return std::move(context).WriteString(::ash::firmware_update::mojom::DeviceRequestKindToString(value));
 }
 
 } // namespace perfetto

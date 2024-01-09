@@ -1,26 +1,22 @@
 // Copyright 2019 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-/**
- * @fileoverview
- * This file is checked via TS, so we suppress Closure checks.
- * @suppress {checkTypes}
- */
 import 'chrome://resources/cr_elements/cr_button/cr_button.js';
 import 'chrome://resources/cr_elements/cr_dialog/cr_dialog.js';
 import 'chrome://resources/cr_elements/cr_input/cr_input.js';
-import 'chrome://resources/cr_elements/icons.html.js';
-import 'chrome://resources/cr_elements/md_select.css.js';
 import 'chrome://resources/cr_elements/cr_shared_style.css.js';
 import 'chrome://resources/cr_elements/cr_shared_vars.css.js';
+import 'chrome://resources/cr_elements/icons.html.js';
+import 'chrome://resources/cr_elements/md_select.css.js';
 import 'chrome://resources/polymer/v3_0/iron-icon/iron-icon.js';
-import 'chrome://resources/cr_elements/cr_dialog/cr_dialog.js';
-import 'chrome://resources/cr_elements/cr_input/cr_input.js';
+import { CrDialogElement } from 'chrome://resources/cr_elements/cr_dialog/cr_dialog.js';
+import { CrInputElement } from 'chrome://resources/cr_elements/cr_input/cr_input.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
-import '../../common/js/files_app_entry_types.js';
+import { EntryList } from '../../common/js/files_app_entry_types.js';
 import { isSinglePartitionFormatEnabled } from '../../common/js/flags.js';
-import { str, strf, util } from '../../common/js/util.js';
-import '../../externs/files_app_entry_interfaces.js';
+import { bytesToString, str, strf } from '../../common/js/translations.js';
+import { FileSystemType } from '../../common/js/volume_manager_types.js';
+import { FilesAppEntry } from '../../externs/files_app_entry_interfaces.js';
 import { validateExternalDriveName } from '../js/file_rename.js';
 import { getTemplate } from './files_format_dialog.html.js';
 function getVolumeInfoDisplayRoot(entry) {
@@ -137,7 +133,7 @@ export class FilesFormatDialog extends PolymerElement {
         if (volumeInfo.displayRoot) {
             chrome.fileManagerPrivate.getDirectorySize(volumeInfo.displayRoot, (spaceUsed) => {
                 if (spaceUsed > 0 && volumeInfo === this.volumeInfo_) {
-                    this.spaceUsed_ = util.bytesToString(spaceUsed);
+                    this.spaceUsed_ = bytesToString(spaceUsed);
                 }
                 if (window.IN_TEST) {
                     this.$['warning-container'].setAttribute('fully-initialized', '');
@@ -156,7 +152,7 @@ export class FilesFormatDialog extends PolymerElement {
         this.spaceUsed_ = '';
         this.root_ = root;
         this.title = root.label;
-        const childVolumes = this.root_.getUIChildren();
+        const childVolumes = this.root_.getUiChildren();
         let totalSpaceUsed = 0;
         const getSpaceUsedRequests = childVolumes.map((childVolume) => {
             return new Promise((resolve) => {
@@ -165,7 +161,7 @@ export class FilesFormatDialog extends PolymerElement {
                     chrome.fileManagerPrivate.getDirectorySize(displayRoot, (spaceUsed) => {
                         totalSpaceUsed += spaceUsed;
                         if (totalSpaceUsed > 0) {
-                            this.spaceUsed_ = util.bytesToString(totalSpaceUsed);
+                            this.spaceUsed_ = bytesToString(totalSpaceUsed);
                         }
                         resolve();
                     });

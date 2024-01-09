@@ -34,7 +34,8 @@ class  VideoFrameHandlerInterceptorForTesting : public VideoFrameHandler {
   virtual VideoFrameHandler* GetForwardingInterface() = 0;
   void OnCaptureConfigurationChanged() override;
   void OnNewBuffer(int32_t buffer_id, VideoBufferHandlePtr buffer_handle) override;
-  void OnFrameReadyInBuffer(ReadyFrameInBufferPtr buffer, std::vector<ReadyFrameInBufferPtr> scaled_buffers) override;
+  void DEPRECATED_OnFrameReadyInBuffer(ReadyFrameInBufferPtr buffer, std::vector<ReadyFrameInBufferPtr> scaled_buffers) override;
+  void OnFrameReadyInBuffer(ReadyFrameInBufferPtr buffer) override;
   void OnBufferRetired(int32_t buffer_id) override;
   void OnError(::media::VideoCaptureError error) override;
   void OnFrameDropped(::media::VideoCaptureFrameDropReason reason) override;

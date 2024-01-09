@@ -1,12 +1,12 @@
 import './strings.m.js';
-import { T as TERMINA_VM_TYPE, r as recordSettingChange, a as assertNotReached, D as DeepLinkingMixin, R as RouteObserverMixin, W as WebUiListenerMixin, I as I18nMixin, S as Setting, b as routes, C as CrPolicyIndicatorType, e as equalContainerId, V as VM_DEVICE_MICROPHONE, c as assert, d as cast, P as PrefsMixin, f as containerLabel, g as SettingsGuestOsSharedUsbDevicesElement, h as castExists, i as RouteOriginMixin, j as Router, k as isCrostiniSupported, l as isCrostiniAllowed, m as isRevampWayfindingEnabled, n as Section, A as AboutPageBrowserProxyImpl, U as UpdateStatus, L as LifetimeBrowserProxyImpl, s as sanitizeInnerHtml, o as browserChannelToI18nId, p as PrinterSetupResult, q as PrintServerResult, N as NetworkListenerBehavior, t as CupsPrintersBrowserProxyImpl, O as OncMojo, F as FocusRowMixin, u as focusWithoutInk, v as I18nBehavior, w as getApnDisplayName, x as assert$1, y as ApnDetailDialogMode, z as processDeviceState, B as getInstance, E as CrPolicyNetworkBehaviorMojo, G as FAKE_CREDENTIAL, H as isActiveSim, J as InternetPageBrowserProxyImpl, K as OsSyncBrowserProxyImpl, M as assertExists, Q as FocusRowBehavior, X as getESimProfileProperties, Y as CellularSetupPageName, Z as CrScrollableBehavior, _ as ESimManagerListenerBehavior, $ as MultiDeviceBrowserProxyImpl, a0 as getEuicc, a1 as getSimSlotCount, a2 as getPendingESimProfiles, a3 as MultiDeviceFeatureState, a4 as CrToggleElement, a5 as BrowserProxy, a6 as getImage, a7 as SettingsToggleButtonElement, a8 as DevicePageBrowserProxyImpl, a9 as ChromeVoxSubpageBrowserProxyImpl, aa as assertExhaustive, ab as SelectToSpeakSubpageBrowserProxyImpl, ac as LanguagesBrowserProxyImpl, ad as SwitchAccessSubpageBrowserProxyImpl, ae as TextToSpeechSubpageBrowserProxyImpl, af as TtsVoiceSubpageBrowserProxyImpl, ag as BrowserChannel, ah as isTargetChannelMoreStable, ai as DeviceNameBrowserProxyImpl, aj as SetDeviceNameResult, ak as DeviceNameState, al as isChild, am as AccountManagerBrowserProxyImpl, an as ParentalControlsBrowserProxyImpl, ao as assertInstanceof, ap as focusWithoutInk$1, aq as fireAuthTokenInvalidEvent, ar as LockStateMixin, as as MultiDeviceFeatureMixin, at as MultiDeviceFeature, au as MultiDeviceSettingsMode, av as CrInputElement, aw as CrButtonElement, ax as CrDialogElement, ay as CrIconButtonElement, az as CrActionMenuElement, aA as recordLockScreenProgress, aB as LockScreenProgress, aC as PluralStringProxyImpl, aD as SyncBrowserProxyImpl, aE as PageStatus, aF as StatusAction, aG as CrScrollableMixin, aH as PrivacyHubBrowserProxyImpl, aI as MediaDevicesProxy, aJ as isPermissionEnabled, aK as OneDriveBrowserProxy, aL as GlobalScrollTargetMixin, aM as OsSettingsSubpageElement, aN as FindShortcutMixin, aO as ACCESSIBILITY_COMMON_IME_ID, aP as IronA11yKeysBehavior, aQ as PrivacyPageBrowserProxyImpl, aR as SecureDnsMode, aS as SecureDnsUiManagementMode, aT as TimeZoneBrowserProxyImpl, aU as EventTracker, aV as getInputDeviceSettingsProvider, aW as FakeInputDeviceSettingsProvider, aX as ButtonPressObserverReceiver, aY as StaticShortcutAction, aZ as buttonsAreEqual, a_ as keyEventsAreEqual, a$ as AudioAndCaptionsPageBrowserProxyImpl } from './shared.rollup.js';
-export { bq as AppManagementAppDetailViewElement, br as AppManagementAppDetailsItem, bs as AppManagementAppItemElement, bu as AppManagementArcDetailViewElement, bv as AppManagementBorealisDetailViewElement, bw as AppManagementChromeAppDetailViewElement, bx as AppManagementDomSwitchElement, by as AppManagementMainViewElement, bz as AppManagementPermissionHeadingElement, bA as AppManagementPinToShelfItemElement, bB as AppManagementPluginVmDetailViewElement, bC as AppManagementPwaDetailViewElement, bD as AppManagementResizeLockItemElement, bE as AppManagementSubAppsItemElement, b3 as AppManagementSupportedLinksItemElement, b4 as AppManagementSupportedLinksOverlappingAppsDialogElement, bG as AppNotificationsSubpage, bb as CROSTINI_TYPE, be as ContainerSelectElement, b5 as DateTimeSettingsCardElement, bP as FilesSettingsCardElement, bc as GuestOsBrowserProxyImpl, bR as LanguageSettingsCardElement, bn as NearbyShareReceiveDialogElement, bW as OsResetBrowserProxyImpl, bV as OsSettingsPowerwashDialogElement, bd as PLUGIN_VM_TYPE, bT as PrintingSettingsCardElement, bX as ResetSettingsCardElement, bp as SettingsAndroidAppsSubpageElement, bt as SettingsAppManagementPageElement, bF as SettingsAppNotificationsManagerSubpage, bH as SettingsBluetoothChangeDeviceNameDialogElement, bI as SettingsBluetoothDeviceDetailSubpageElement, bJ as SettingsBluetoothDevicesSubpageElement, bK as SettingsBluetoothSavedDevicesSubpageElement, bL as SettingsBluetoothTrueWirelessImagesElement, b7 as SettingsCustomizeMouseButtonsSubpageElement, b8 as SettingsCustomizePenButtonsSubpageElement, b9 as SettingsCustomizeTabletButtonsSubpageElement, bQ as SettingsGoogleDriveSubpageElement, bf as SettingsGuestOsSharedPathsElement, bS as SettingsLanguagesElement, bg as SettingsMultideviceCombinedSetupItemElement, bh as SettingsMultideviceFeatureItemElement, bi as SettingsMultideviceFeatureToggleElement, bj as SettingsMultideviceSubpageElement, bk as SettingsMultideviceTaskContinuationDisabledLinkElement, bl as SettingsMultideviceTaskContinuationItemElement, bm as SettingsMultideviceWifiSyncDisabledLinkElement, bo as SettingsNearbyShareSubpageElement, bM as SettingsPairedBluetoothListElement, bN as SettingsPairedBluetoothListItemElement, ba as SettingsPowerElement, bU as SettingsPrivacyHubSubpage, b0 as SettingsRadioGroupElement, bO as SettingsSavedDevicesListElement, b1 as SmbBrowserProxyImpl, b2 as SmbMountResult, b6 as TimezoneSelectorElement } from './shared.rollup.js';
-import { html, PolymerElement, microTask, mixinBehaviors, dedupingMixin, calculateSplices, afterNextRender, Polymer, flush } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { T as TERMINA_VM_TYPE, r as recordSettingChange, a as assertNotReached, D as DeepLinkingMixin, R as RouteObserverMixin, W as WebUiListenerMixin, I as I18nMixin, S as Setting, b as routes, C as CrPolicyIndicatorType, e as equalContainerId, V as VM_DEVICE_MICROPHONE, c as assert, d as cast, P as PrefsMixin, f as containerLabel, g as SettingsGuestOsSharedUsbDevicesElement, h as castExists, i as RouteOriginMixin, j as Router, k as isCrostiniSupported, l as isCrostiniAllowed, m as isRevampWayfindingEnabled, n as Section, A as AboutPageBrowserProxyImpl, U as UpdateStatus, L as LifetimeBrowserProxyImpl, s as sanitizeInnerHtml, o as browserChannelToI18nId, p as PrinterSetupResult, q as PrintServerResult, N as NetworkListenerBehavior, t as CupsPrintersBrowserProxyImpl, O as OncMojo, F as FocusRowMixin, u as focusWithoutInk, G as GeolocationAccessLevel, v as LOCATION_PERMISSION_CHANGE_FROM_DIALOG_HISTOGRAM_NAME, w as GEOLOCATION_ACCESS_LEVEL_ENUM_SIZE, x as TimeZoneBrowserProxyImpl, y as isChild, z as I18nBehavior, B as getApnDisplayName, E as assert$1, H as ApnDetailDialogMode, J as processDeviceState, K as getInstance, M as CrPolicyNetworkBehaviorMojo, Q as FAKE_CREDENTIAL, X as isActiveSim, Y as InternetPageBrowserProxyImpl, Z as OsSyncBrowserProxyImpl, _ as assertExists, $ as assertInstanceof, a0 as focusWithoutInk$1, a1 as getESimProfileProperties, a2 as mojoString16ToString, a3 as CellularSetupPageName, a4 as ESimManagerListenerBehavior, a5 as MultiDeviceBrowserProxyImpl, a6 as getEuicc, a7 as getSimSlotCount, a8 as getPendingESimProfiles, a9 as MultiDeviceFeatureState, aa as CrToggleElement, ab as BrowserProxy, ac as getImage, ad as SettingsToggleButtonElement, ae as DevicePageBrowserProxyImpl, af as ChromeVoxSubpageBrowserProxyImpl, ag as assertExhaustive, ah as SelectToSpeakSubpageBrowserProxyImpl, ai as LanguagesBrowserProxyImpl, aj as SwitchAccessSubpageBrowserProxyImpl, ak as TextToSpeechSubpageBrowserProxyImpl, al as TtsVoiceSubpageBrowserProxyImpl, am as BrowserChannel, an as isTargetChannelMoreStable, ao as DeviceNameBrowserProxyImpl, ap as SetDeviceNameResult, aq as DeviceNameState, ar as AccountManagerBrowserProxyImpl, as as ParentalControlsBrowserProxyImpl, at as assertInstanceof$1, au as fireAuthTokenInvalidEvent, av as LockStateMixin, aw as MultiDeviceFeatureMixin, ax as MultiDeviceFeature, ay as MultiDeviceSettingsMode, az as CrInputElement, aA as CrButtonElement, aB as CrDialogElement, aC as CrIconButtonElement, aD as CrActionMenuElement, aE as recordLockScreenProgress, aF as LockScreenProgress, aG as PluralStringProxyImpl, aH as SyncBrowserProxyImpl, aI as PageStatus, aJ as StatusAction, aK as CrScrollableMixin, aL as PrivacyHubBrowserProxyImpl, aM as getAppPermissionProvider, aN as MediaDevicesProxy, aO as AppPermissionsObserverReceiver, aP as isPermissionEnabled, aQ as CAMERA_SUBPAGE_USER_ACTION_HISTOGRAM_NAME, aR as PrivacyHubSensorSubpageUserAction, aS as NUMBER_OF_POSSIBLE_USER_ACTIONS, aT as MICROPHONE_SUBPAGE_USER_ACTION_HISTOGRAM_NAME, aU as AppManagementBrowserProxy, aV as getAppIcon, aW as OneDriveBrowserProxy, aX as AppManagementStoreMixin, aY as alphabeticalSort$1, aZ as GlobalScrollTargetMixin, a_ as OsSettingsSubpageElement, a$ as FindShortcutMixin, b0 as ACCESSIBILITY_COMMON_IME_ID, b1 as IronA11yKeysBehavior, b2 as PrivacyPageBrowserProxyImpl, b3 as SecureDnsMode, b4 as SecureDnsUiManagementMode, b5 as StaticShortcutAction$1, b6 as EventTracker$1, b7 as getInputDeviceSettingsProvider, b8 as FakeInputDeviceSettingsProvider, b9 as ButtonPressObserverReceiver, ba as buttonsAreEqual, bb as getShortcutInputProvider, bc as keyEventsAreEqual, bd as AudioAndCaptionsPageBrowserProxyImpl } from './shared.rollup.js';
+export { bI as AppManagementAppDetailViewElement, bJ as AppManagementAppDetailsItem, bK as AppManagementAppItemElement, bM as AppManagementArcDetailViewElement, bN as AppManagementBorealisDetailViewElement, bO as AppManagementChromeAppDetailViewElement, bP as AppManagementDomSwitchElement, bQ as AppManagementMainViewElement, bR as AppManagementPermissionHeadingElement, bS as AppManagementPinToShelfItemElement, bT as AppManagementPluginVmDetailViewElement, bU as AppManagementPwaDetailViewElement, bV as AppManagementResizeLockItemElement, bW as AppManagementSubAppsItemElement, bh as AppManagementSupportedLinksItemElement, bi as AppManagementSupportedLinksOverlappingAppsDialogElement, bY as AppNotificationsSubpage, bt as CROSTINI_TYPE, bw as ContainerSelectElement, bj as DateTimeSettingsCardElement, c5 as FilesSettingsCardElement, bu as GuestOsBrowserProxyImpl, c7 as LanguageSettingsCardElement, bF as NearbyShareReceiveDialogElement, cd as OsResetBrowserProxyImpl, cc as OsSettingsPowerwashDialogElement, bv as PLUGIN_VM_TYPE, c9 as PrintingSettingsCardElement, ce as ResetSettingsCardElement, bH as SettingsAndroidAppsSubpageElement, bL as SettingsAppManagementPageElement, bX as SettingsAppNotificationsManagerSubpage, bZ as SettingsBluetoothChangeDeviceNameDialogElement, b_ as SettingsBluetoothDeviceDetailSubpageElement, b$ as SettingsBluetoothDevicesSubpageElement, c0 as SettingsBluetoothSavedDevicesSubpageElement, c1 as SettingsBluetoothTrueWirelessImagesElement, bl as SettingsCustomizeMouseButtonsSubpageElement, bm as SettingsCustomizePenButtonsSubpageElement, bn as SettingsCustomizeTabletButtonsSubpageElement, c6 as SettingsGoogleDriveSubpageElement, bx as SettingsGuestOsSharedPathsElement, bo as SettingsKeyboardElement, c8 as SettingsLanguagesElement, by as SettingsMultideviceCombinedSetupItemElement, bz as SettingsMultideviceFeatureItemElement, bA as SettingsMultideviceFeatureToggleElement, bB as SettingsMultideviceSubpageElement, bC as SettingsMultideviceTaskContinuationDisabledLinkElement, bD as SettingsMultideviceTaskContinuationItemElement, bE as SettingsMultideviceWifiSyncDisabledLinkElement, bG as SettingsNearbyShareSubpageElement, c2 as SettingsPairedBluetoothListElement, c3 as SettingsPairedBluetoothListItemElement, bp as SettingsPointersElement, bq as SettingsPowerElement, ca as SettingsPrivacyHubGeolocationSubpage, cb as SettingsPrivacyHubSubpage, be as SettingsRadioGroupElement, c4 as SettingsSavedDevicesListElement, br as SettingsStorageElement, bs as SettingsStylusElement, bf as SmbBrowserProxyImpl, bg as SmbMountResult, bk as TimezoneSelectorElement } from './shared.rollup.js';
+import { html, PolymerElement, microTask, mixinBehaviors, dedupingMixin, calculateSplices, afterNextRender, Polymer, flush, beforeNextRender } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { sendWithPromise, addWebUiListener, removeWebUiListener } from 'chrome://resources/js/cr.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { MojoInterfaceProviderImpl } from 'chrome://resources/ash/common/network/mojo_interface_provider.js';
 import { FilterType, NO_LIMIT, ApnState, ApnType, MAX_NUM_CUSTOM_APNS, ApnAuthenticationType, ApnIpType, NO_ROUTING_PREFIX, TrafficCounterSource, HiddenSsidMode, VpnType, ActivationStateType, SecurityType, MatchType, InhibitReason, AlwaysOnVpnMode } from 'chrome://resources/mojo/chromeos/services/network_config/public/mojom/cros_network_config.mojom-webui.js';
-import { NetworkType, ConnectionStateType, OncSource, PolicySource, IPConfigType, PortalState, DeviceStateType } from 'chrome://resources/mojo/chromeos/services/network_config/public/mojom/network_types.mojom-webui.js';
+import { NetworkType, ConnectionStateType, PortalState, OncSource, PolicySource, IPConfigType, DeviceStateType } from 'chrome://resources/mojo/chromeos/services/network_config/public/mojom/network_types.mojom-webui.js';
 import { getHotspotConfig } from 'chrome://resources/ash/common/hotspot/cros_hotspot_config.js';
 import { HotspotState, HotspotAllowStatus, SetHotspotConfigResult } from 'chrome://resources/ash/common/hotspot/cros_hotspot_config.mojom-webui.js';
 import { loadTimeData as loadTimeData$1 } from 'chrome://resources/ash/common/load_time_data.m.js';
@@ -14,7 +14,7 @@ import 'chrome://resources/mojo/mojo/public/mojom/base/time.mojom-webui.js';
 import { MojoConnectivityProvider } from 'chrome://resources/ash/common/connectivity/mojo_connectivity_provider.js';
 import { PasspointEventsListenerReceiver } from 'chrome://resources/ash/common/connectivity/passpoint.mojom-webui.js';
 import { ESimOperationResult, ProfileInstallResult, ProfileState } from 'chrome://resources/mojo/chromeos/ash/services/cellular_setup/public/mojom/esim_manager.mojom-webui.js';
-import { AppType, PermissionTypeSpec, PermissionSpec, PermissionType } from 'chrome://resources/cr_components/app_management/app_management.mojom-webui.js';
+import { AppType, PermissionType } from 'chrome://resources/cr_components/app_management/app_management.mojom-webui.js';
 import { ConfigureResult, PasswordFactorEditor, PasswordComplexity, FactorObserverReceiver, AuthFactorConfig, AuthFactor, PinFactorEditor, ManagementType } from 'chrome://resources/mojo/chromeos/ash/services/auth_factor_config/public/mojom/auth_factor_config.mojom-webui.js';
 import { mojo } from 'chrome://resources/mojo/mojo/public/js/bindings.js';
 import 'chrome://resources/mwc/lit/index.js';
@@ -25,7 +25,7 @@ import 'chrome://resources/ash/common/bluetooth/cros_bluetooth_config.js';
 import 'chrome://resources/mojo/chromeos/ash/services/bluetooth_config/public/mojom/cros_bluetooth_config.mojom-webui.js';
 import 'chrome://resources/mojo/services/network/public/mojom/ip_address.mojom-webui.js';
 
-function getTemplate$27() {
+function getTemplate$2h() {
     return html `<!--_html_template_start_--><style include="settings-shared"></style>
 <cr-dialog id="dialog" close-text="$i18n{close}">
   <div slot="title" hidden="[[!isEnabling_(action)]]">
@@ -219,7 +219,7 @@ class SettingsCrostiniArcAdbConfirmationDialogElement extends PolymerElement {
         return 'settings-crostini-arc-adb-confirmation-dialog';
     }
     static get template() {
-        return getTemplate$27();
+        return getTemplate$2h();
     }
     static get properties() {
         return {
@@ -262,7 +262,7 @@ class SettingsCrostiniArcAdbConfirmationDialogElement extends PolymerElement {
 }
 customElements.define(SettingsCrostiniArcAdbConfirmationDialogElement.is, SettingsCrostiniArcAdbConfirmationDialogElement);
 
-function getTemplate$26() {
+function getTemplate$2g() {
     return html `<!--_html_template_start_--><style include="settings-shared">cr-policy-indicator{padding:0 var(--cr-controlled-by-spacing)}</style>
 <div class="settings-box first">
   <div class="settings-box-text">
@@ -306,10 +306,14 @@ class SettingsCrostiniArcAdbElement extends SettingsCrostiniArcAdbElementBase {
         return 'settings-crostini-arc-adb';
     }
     static get template() {
-        return getTemplate$26();
+        return getTemplate$2g();
     }
     static get properties() {
         return {
+            prefs: {
+                type: Object,
+                notify: true,
+            },
             arcAdbEnabled_: {
                 type: Boolean,
                 value: false,
@@ -420,7 +424,7 @@ class SettingsCrostiniArcAdbElement extends SettingsCrostiniArcAdbElementBase {
 }
 customElements.define(SettingsCrostiniArcAdbElement.is, SettingsCrostiniArcAdbElement);
 
-function getTemplate$25() {
+function getTemplate$2f() {
     return html `<!--_html_template_start_--><style include="settings-shared"></style>
 <cr-dialog id="dialog" close-text="$i18n{close}">
   <div slot="title">$i18n{crostiniImportConfirmationDialogTitle}</div>
@@ -448,7 +452,7 @@ class SettingsCrostiniImportConfirmationDialogElement extends PolymerElement {
         return 'settings-crostini-import-confirmation-dialog';
     }
     static get template() {
-        return getTemplate$25();
+        return getTemplate$2f();
     }
     static get properties() {
         return {
@@ -475,7 +479,7 @@ class SettingsCrostiniImportConfirmationDialogElement extends PolymerElement {
 }
 customElements.define(SettingsCrostiniImportConfirmationDialogElement.is, SettingsCrostiniImportConfirmationDialogElement);
 
-function getTemplate$24() {
+function getTemplate$2e() {
     return html `<!--_html_template_start_--><style include="settings-shared">.container-select{padding:0 8px}.two-line-settings-box{min-height:80px}#secondaryText{padding:3px 0}</style>
 <div id="export" class$="settings-box first [[getSettingsBoxClass_(allContainers_)]]">
   <div id="exportCrostiniLabel" class="start">
@@ -528,10 +532,14 @@ class SettingsCrostiniExportImportElement extends SettingsCrostiniExportImportEl
         return 'settings-crostini-export-import';
     }
     static get template() {
-        return getTemplate$24();
+        return getTemplate$2e();
     }
     static get properties() {
         return {
+            prefs: {
+                type: Object,
+                notify: true,
+            },
             showImportConfirmationDialog_: {
                 type: Boolean,
                 value: false,
@@ -657,7 +665,7 @@ class SettingsCrostiniExportImportElement extends SettingsCrostiniExportImportEl
 }
 customElements.define(SettingsCrostiniExportImportElement.is, SettingsCrostiniExportImportElement);
 
-function getTemplate$23() {
+function getTemplate$2d() {
     return html `<!--_html_template_start_--><style include="settings-shared md-select">.custom-button-container{float:right}.input-container{display:flex;flex-direction:row;justify-content:space-between}.advanced-section{display:flex;flex-direction:column;justify-content:space-between;padding-bottom:12px;padding-inline-start:20px}.custom-body{padding-bottom:20px}#advancedToggle{--ink-color:var(--cros-text-color-primary);background:0 0;border:none;box-shadow:none;color:var(--cros-text-color-primary);font-weight:400;margin-bottom:12px;min-height:32px;padding-inline-start:0}#containerFileField{display:flex;flex-direction:row}#containerFileInput{width:100%}</style>
 <cr-dialog id="dialog" close-text="$i18n{close}">
   <div slot="title">$i18n{crostiniExtraContainersCreateDialogTitle}</div>
@@ -715,7 +723,7 @@ class ExtraContainersCreateDialog extends PolymerElement {
         return 'settings-crostini-create-container-dialog';
     }
     static get template() {
-        return getTemplate$23();
+        return getTemplate$2d();
     }
     static get properties() {
         return {
@@ -862,7 +870,7 @@ function hexColorToSkColor(hexColor) {
     return { value: 0xff000000 + (r << 16) + (g << 8) + b };
 }
 
-function getTemplate$22() {
+function getTemplate$2c() {
     return html `<!--_html_template_start_--><style include="settings-shared">.container-details-list{padding-inline-start:var(--cr-section-indent-padding)}.detail-content{color:var(--cros-text-color-primary);flex:auto}.detail-heading{color:var(--cr-secondary-text-color);flex:auto}.vm-column{flex:1;flex-grow:3;word-break:break-all}#createExtraContainer{padding-top:10px}cr-expand-button{--cr-section-vertical-padding:0;flex:auto}</style>
 <div class="settings-box first">
   <div id="extraContainersDescription" class="start">
@@ -967,10 +975,14 @@ class ExtraContainersElement extends ExtraContainersElementBase {
         return 'settings-crostini-extra-containers';
     }
     static get template() {
-        return getTemplate$22();
+        return getTemplate$2c();
     }
     static get properties() {
         return {
+            prefs: {
+                type: Object,
+                notify: true,
+            },
             showCreateContainerDialog_: {
                 type: Boolean,
                 value: false,
@@ -1192,7 +1204,7 @@ class ExtraContainersElement extends ExtraContainersElementBase {
 }
 customElements.define(ExtraContainersElement.is, ExtraContainersElement);
 
-function getTemplate$21() {
+function getTemplate$2b() {
     return html `<!--_html_template_start_--><style include="settings-shared md-select">#portNumberInput{padding-inline-end:20px;width:376px}#portLabelInput{padding-top:20px;width:472px}#selectProtocol{max-width:96px}.custom-body{padding-bottom:20px}.custom-button-container{float:right}.input-container{display:flex;flex-direction:row;justify-content:space-between}.placeholder-label{visibility:hidden}</style>
 <cr-dialog id="dialog" close-text="$i18n{close}">
   <div slot="title">$i18n{crostiniPortForwardingAddPortDialogTitle}</div>
@@ -1248,7 +1260,7 @@ class CrostiniPortForwardingAddPortDialog extends PolymerElement {
         return 'settings-crostini-add-port-dialog';
     }
     static get template() {
-        return getTemplate$21();
+        return getTemplate$2b();
     }
     static get properties() {
         return {
@@ -1386,7 +1398,7 @@ class CrostiniPortForwardingAddPortDialog extends PolymerElement {
 }
 customElements.define(CrostiniPortForwardingAddPortDialog.is, CrostiniPortForwardingAddPortDialog);
 
-function getTemplate$20() {
+function getTemplate$2a() {
     return html `<!--_html_template_start_--><style include="settings-shared">:host{--cr-toggle-margin-inline-start:16px;--cr-toggle-width:34px}cr-toggle{margin-inline-start:var(--cr-toggle-margin-inline-start);width:var(--cr-toggle-width)}.column-title{color:var(--cr-secondary-text-color)}.label-column{align-items:center;display:flex;flex:1;flex-grow:3}.label-text{flex-grow:3;word-break:break-all}.no-ports-text{padding-inline-start:24px}.interface-ip{padding-inline-start:24px}#addPort{padding-top:10px}#errorIcon{display:inline-block;margin-inline-end:8px}#protocolText{color:var(--cros-text-color-disabled);margin-inline-start:8px}#portForwardingListContainerId{border-top:var(--cr-separator-line)}#portForwardingDescription{flex-grow:3}</style>
 <div id="addPort" class="settings-box first">
   <div id="portForwardingDescription">
@@ -1491,7 +1503,7 @@ class CrostiniPortForwardingElement extends CrostiniPortForwardingBase {
         return 'settings-crostini-port-forwarding';
     }
     static get template() {
-        return getTemplate$20();
+        return getTemplate$2a();
     }
     static get properties() {
         return {
@@ -1703,7 +1715,7 @@ class CrostiniSharedUsbDevicesElement extends SettingsGuestOsSharedUsbDevicesEle
 }
 customElements.define(CrostiniSharedUsbDevicesElement.is, CrostiniSharedUsbDevicesElement);
 
-function getTemplate$1$() {
+function getTemplate$29() {
     return html `<!--_html_template_start_--><style include="settings-shared"></style>
 <cr-dialog id="dialog" show-on-attach close-text="$i18n{close}" on-cancel="onDialogCancel_" on-close="onDialogClose_">
   
@@ -1738,7 +1750,7 @@ class SettingsCrostiniConfirmationDialogElement extends PolymerElement {
         return 'settings-crostini-confirmation-dialog';
     }
     static get template() {
-        return getTemplate$1$();
+        return getTemplate$29();
     }
     static get properties() {
         return {
@@ -1770,7 +1782,7 @@ class SettingsCrostiniConfirmationDialogElement extends PolymerElement {
 }
 customElements.define(SettingsCrostiniConfirmationDialogElement.is, SettingsCrostiniConfirmationDialogElement);
 
-function getTemplate$1_() {
+function getTemplate$28() {
     return html `<!--_html_template_start_--><style include="settings-shared">#disk-labels{display:flex;justify-content:space-between}#resize-block{align-items:stretch;margin-inline-end:10px;margin-inline-start:10px}.error{color:var(--cros-text-color-alert)}#errorIcon{--iron-icon-fill-color:var(--cros-icon-color-alert);display:inline-block}#warningIcon{--iron-icon-fill-color:var(--cros-icon-color-warning)}#message{margin-inline-end:auto}</style>
 <cr-dialog id="diskResizeDialog" close-text="$i18n{close}">
   
@@ -1873,7 +1885,7 @@ class SettingsCrostiniDiskResizeDialogElement extends PolymerElement {
         return 'settings-crostini-disk-resize-dialog';
     }
     static get template() {
-        return getTemplate$1_();
+        return getTemplate$28();
     }
     static get properties() {
         return {
@@ -1995,7 +2007,7 @@ class SettingsCrostiniDiskResizeDialogElement extends PolymerElement {
 }
 customElements.define(SettingsCrostiniDiskResizeDialogElement.is, SettingsCrostiniDiskResizeDialogElement);
 
-function getTemplate$1Z() {
+function getTemplate$27() {
     return html `<!--_html_template_start_--><style include="settings-shared"></style>
 <cr-dialog id="dialog" close-text="$i18n{close}">
   <div slot="title">$i18n{crostiniDiskResizeConfirmationDialogTitle}</div>
@@ -2023,7 +2035,7 @@ class SettingsCrostiniDiskResizeConfirmationDialogElement extends PolymerElement
         return 'settings-crostini-disk-resize-confirmation-dialog';
     }
     static get template() {
-        return getTemplate$1Z();
+        return getTemplate$27();
     }
     connectedCallback() {
         super.connectedCallback();
@@ -2041,7 +2053,7 @@ class SettingsCrostiniDiskResizeConfirmationDialogElement extends PolymerElement
 }
 customElements.define(SettingsCrostiniDiskResizeConfirmationDialogElement.is, SettingsCrostiniDiskResizeConfirmationDialogElement);
 
-function getTemplate$1Y() {
+function getTemplate$26() {
     return html `<!--_html_template_start_--><style include="settings-shared"></style>
 <template is="dom-if" if="[[showCrostiniContainerUpgrade_]]">
   <div id="container-upgrade" class="settings-box first">
@@ -2141,7 +2153,7 @@ class SettingsCrostiniSubpageElement extends SettingsCrostiniSubpageElementBase 
         return 'settings-crostini-subpage';
     }
     static get template() {
-        return getTemplate$1Y();
+        return getTemplate$26();
     }
     static get properties() {
         return {
@@ -2445,7 +2457,7 @@ class SettingsCrostiniSubpageElement extends SettingsCrostiniSubpageElementBase 
 }
 customElements.define(SettingsCrostiniSubpageElement.is, SettingsCrostiniSubpageElement);
 
-function getTemplate$1X() {
+function getTemplate$25() {
     return html `<!--_html_template_start_--><style include="settings-shared"></style>
 <cr-link-row class="hr" label="$i18n{guestOsSharedUsbDevicesLabel}" id="bruschettaSharedUsbDevicesRow" on-click="onSharedUsbDevicesClick_" role-description="$i18n{subpageArrowRoleDescription}">
 </cr-link-row>
@@ -2478,7 +2490,7 @@ class BruschettaSubpageElement extends BruschettaSubpageElementBase {
         return 'settings-bruschetta-subpage';
     }
     static get template() {
-        return getTemplate$1X();
+        return getTemplate$25();
     }
     static get observers() {
         return [
@@ -2517,11 +2529,15 @@ class BruschettaSubpageElement extends BruschettaSubpageElementBase {
 }
 customElements.define(BruschettaSubpageElement.is, BruschettaSubpageElement);
 
-function getTemplate$1W() {
-    return html `<!--_html_template_start_--><style include="settings-shared"></style>
+function getTemplate$24() {
+    return html `<!--_html_template_start_--><style include="settings-shared">#bruschettaRowIcon,:host-context(body.revamp-wayfinding-enabled) #crostiniRowIcon{margin-inline-end:16px;fill:var(--cros-sys-primary)}</style>
 
 <settings-card header-text="$i18n{crostiniPageTitle}">
   <div id="crostini" class="settings-box two-line first" actionable$="[[prefs.crostini.enabled.value]]" on-click="onSubpageClick_">
+    <template is="dom-if" if="[[isRevampWayfindingEnabled_]]">
+      <iron-icon id="crostiniRowIcon" icon="os-settings:about-linux">
+      </iron-icon>
+    </template>
     <div class="start">
       $i18n{crostiniPageLabel}
       <div class="secondary" id="secondaryText">
@@ -2556,6 +2572,10 @@ function getTemplate$1W() {
 
   <template is="dom-if" if="[[showBruschetta_]]">
     <div id="bruschetta" class="settings-box two-line" actionable$="[[prefs.bruschetta.installed.value]]" on-click="onBruschettaSubpageClick_">
+      <template is="dom-if" if="[[isRevampWayfindingEnabled_]]">
+        <iron-icon id="bruschettaRowIcon" icon="os-settings:about-manage-develop-environment">
+        </iron-icon>
+      </template>
       <div class="start">
         $i18n{bruschettaPageLabel}
         <div class="secondary" id="bruschettaSecondaryText">
@@ -2593,7 +2613,7 @@ class CrostiniSettingsCardElement extends CrostiniSettingsCardElementBase {
         return 'crostini-settings-card';
     }
     static get template() {
-        return getTemplate$1W();
+        return getTemplate$24();
     }
     static get properties() {
         return {
@@ -2624,7 +2644,9 @@ class CrostiniSettingsCardElement extends CrostiniSettingsCardElementBase {
             },
             showBruschetta_: {
                 type: Boolean,
-                value: loadTimeData.getBoolean('showBruschetta'),
+                value() {
+                    return loadTimeData.getBoolean('showBruschetta');
+                },
             },
             isRevampWayfindingEnabled_: {
                 type: Boolean,
@@ -2693,7 +2715,7 @@ class CrostiniSettingsCardElement extends CrostiniSettingsCardElementBase {
 }
 customElements.define(CrostiniSettingsCardElement.is, CrostiniSettingsCardElement);
 
-function getTemplate$1V() {
+function getTemplate$23() {
     return html `<!--_html_template_start_--><style include="settings-shared"></style>
 
 <os-settings-animated-pages id="pages" section="[[section_]]">
@@ -2788,7 +2810,7 @@ class SettingsCrostiniPageElement extends PolymerElement {
         return 'settings-crostini-page';
     }
     static get template() {
-        return getTemplate$1V();
+        return getTemplate$23();
     }
     static get properties() {
         return {
@@ -2823,7 +2845,7 @@ var TimeZoneAutoDetectMethod;
     TimeZoneAutoDetectMethod[TimeZoneAutoDetectMethod["SEND_ALL_LOCATION_INFO"] = 3] = "SEND_ALL_LOCATION_INFO";
 })(TimeZoneAutoDetectMethod || (TimeZoneAutoDetectMethod = {}));
 
-function getTemplate$1U() {
+function getTemplate$22() {
     return html `<!--_html_template_start_--><style include="settings-shared"></style>
 
 <os-settings-animated-pages section="[[section_]]">
@@ -2855,7 +2877,7 @@ class SettingsDateTimePageElement extends PolymerElement {
         return 'settings-date-time-page';
     }
     static get template() {
-        return getTemplate$1U();
+        return getTemplate$22();
     }
     static get properties() {
         return {
@@ -2881,7 +2903,7 @@ class SettingsDateTimePageElement extends PolymerElement {
 }
 customElements.define(SettingsDateTimePageElement.is, SettingsDateTimePageElement);
 
-function getTemplate$1T() {
+function getTemplate$21() {
     return html `<!--_html_template_start_--><style include="settings-shared"></style>
 <cr-dialog id="dialog" close-text="$i18n{close}" show-on-attach>
   <div slot="title">$i18n{aboutUpdateWarningTitle}</div>
@@ -2912,7 +2934,7 @@ class SettingsUpdateWarningDialogElement extends SettingsUpdateWarningDialogElem
         return 'settings-update-warning-dialog';
     }
     static get template() {
-        return getTemplate$1T();
+        return getTemplate$21();
     }
     static get properties() {
         return {
@@ -2953,29 +2975,39 @@ class SettingsUpdateWarningDialogElement extends SettingsUpdateWarningDialogElem
 }
 customElements.define(SettingsUpdateWarningDialogElement.is, SettingsUpdateWarningDialogElement);
 
-function getTemplate$1S() {
-    return html `<!--_html_template_start_--><style include="settings-shared">:host{--about-page-image-space:10px}.info-section{margin-bottom:12px}.padded{padding-bottom:10px;padding-top:10px}.product-title{font-size:153.85%;font-weight:400;margin-bottom:auto;margin-top:auto}img{margin-inline-end:var(--about-page-image-space)}.icon-container{margin-inline-end:var(--about-page-image-space);min-width:32px;text-align:center}iron-icon[icon='settings:check-circle']{fill:var(--cros-icon-color-prominent)}iron-icon[icon='cr:error-outline'],iron-icon[icon='cr:warning'],iron-icon[icon='os-settings:end-of-life']{fill:var(--cros-icon-color-alert)}#firmwareUpdateBadge{--iron-icon-fill-color:var(--cros-icon-color-secondary)}.settings-box .start{overflow-x:auto}cr-button{white-space:nowrap}#regulatoryInfo img{width:330px}@media(prefers-color-scheme:dark){#regulatoryInfo img{filter:invert(1)}}.separator-firmware-updates-badge{margin-inline-end:-4px;margin-inline-start:12px}#deferredUpdateButtons{min-height:unset;padding-bottom:10px}eol-offer-section{margin:6px 3px 16px 3px}</style>
+function getTemplate$20() {
+    return html `<!--_html_template_start_--><style include="settings-shared">:host{--chromeos-logo-width:40px}.info-section{margin-bottom:12px}.padded{padding-bottom:10px;padding-top:10px}#productRow{min-height:auto;padding-bottom:18px;padding-top:18px}#productRow>#productTitle{font:var(--cros-display-7-font);margin:0}#productRow>#productLogo{margin-inline-end:16px;width:var(--chromeos-logo-width)}.icon-container{margin-inline-end:10px;min-width:var(--chromeos-logo-width);text-align:center}:host-context(body.revamp-wayfinding-enabled) #updateRowIcon{margin-inline-end:16px}iron-icon[icon='settings:check-circle']{fill:var(--cros-icon-color-prominent)}iron-icon[icon='cr:error-outline'],iron-icon[icon='cr:warning'],iron-icon[icon='os-settings:end-of-life']{fill:var(--cros-icon-color-alert)}iron-icon[icon='os-settings:about-update-complete']{fill:var(--cros-sys-positive)}iron-icon[icon='os-settings:about-update-warning']{fill:var(--cros-sys-warning)}iron-icon[icon='os-settings:about-update-error']{fill:var(--cros-sys-error)}:host-context(body.revamp-wayfinding-enabled) iron-icon[icon='cr20:domain']{fill:var(--cros-sys-primary)}#firmwareUpdateBadge{--iron-icon-fill-color:var(--cros-icon-color-secondary)}.settings-box .start{overflow-x:auto}cr-button{white-space:nowrap}#regulatoryInfo img{width:330px}@media(prefers-color-scheme:dark){#regulatoryInfo img{filter:invert(1)}}.separator-firmware-updates-badge{margin-inline-end:-4px;margin-inline-start:12px}#deferredUpdateButtons{min-height:unset;padding-bottom:10px}eol-offer-section{margin:6px 3px 16px 3px}</style>
 <iron-media-query query="(prefers-color-scheme: dark)" query-matches="{{isDarkModeActive_}}">
 </iron-media-query>
 
   <os-settings-animated-pages id="pages" section="[[section_]]">
     <div route-path="default">
       <settings-card header-text="$i18n{aboutOsPageTitle}">
-        <div class="settings-box two-line first">
-          <img id="product-logo" on-click="onProductLogoClick_" srcset="chrome://theme/current-channel-logo@1x, chrome://theme/current-channel-logo@2x 2x" alt="$i18n{aboutProductLogoAlt}" role="presentation">
-          <h1 class="product-title">$i18n{aboutOsProductTitle}</h1>
+        <div id="productRow" class="settings-box first">
+          <img id="productLogo" on-click="onProductLogoClick_" srcset="chrome://theme/current-channel-logo@1x, chrome://theme/current-channel-logo@2x 2x" alt="$i18n{aboutProductLogoAlt}" role="presentation">
+          <h1 id="productTitle">$i18n{aboutOsProductTitle}</h1>
         </div>
         <div class="settings-box two-line">
           
-          <div class="icon-container" hidden="[[!shouldShowIcons_(showUpdateStatus_)]]">
-            
-            <iron-icon icon$="[[getUpdateStatusIcon_(
+          <template is="dom-if" if="[[!isRevampWayfindingEnabled_]]">
+            <div class="icon-container" hidden="[[!shouldShowIcons_(showUpdateStatus_)]]">
+              
+              <iron-icon icon$="[[getUpdateStatusIcon_(
+                      hasEndOfLife_, currentUpdateStatusEvent_)]]" src="[[getThrobberSrcIfUpdating_(
+                      isDarkModeActive_,
+                      hasEndOfLife_,
+                      currentUpdateStatusEvent_)]]">
+              </iron-icon>
+            </div>
+          </template>
+          <template is="dom-if" if="[[isRevampWayfindingEnabled_]]">
+            <iron-icon id="updateRowIcon" icon$="[[getUpdateStatusIcon_(
                     hasEndOfLife_, currentUpdateStatusEvent_)]]" src="[[getThrobberSrcIfUpdating_(
                     isDarkModeActive_,
                     hasEndOfLife_,
                     currentUpdateStatusEvent_)]]">
             </iron-icon>
-          </div>
+          </template>
           <div class="start padded">
             <div id="updateStatusMessage" hidden="[[!showUpdateStatus_]]">
               <div id="updateStatusMessageInner" tabindex="-1" inner-h-t-m-l="[[getUpdateStatusMessage_(
@@ -3016,7 +3048,7 @@ function getTemplate$1S() {
             $i18n{aboutRelaunchAndAutoUpdate}
           </cr-button>
         </div>
-        <cr-link-row id="aboutTPMFirmwareUpdate" class="hr" hidden$="[[!showTPMFirmwareUpdateLineItem_]]" label="$i18n{aboutTPMFirmwareUpdateTitle}" on-click="onTpmFirmwareUpdateClick_">
+        <cr-link-row id="aboutTPMFirmwareUpdate" class="hr" start-icon="[[rowIcons_.powerWash]]" hidden$="[[!showTPMFirmwareUpdateLineItem_]]" label="$i18n{aboutTPMFirmwareUpdateTitle}" on-click="onTpmFirmwareUpdateClick_">
           <div slot="sub-label">
             $i18n{aboutTPMFirmwareUpdateDescription}
             <a href="$i18n{aboutTPMFirmwareUpdateLearnMoreURL}" target="_blank" on-click="onLearnMoreClick_">
@@ -3025,19 +3057,19 @@ function getTemplate$1S() {
           </div>
         </cr-link-row>
         <template is="dom-if" if="[[hasInternetConnection_]]">
-          <cr-link-row class="hr" id="releaseNotesOnline" on-click="onReleaseNotesClick_" label="$i18n{aboutShowReleaseNotes}" sub-label="[[getShowReleaseNotesSublabel_()]]" external deep-link-focus-id$="[[Setting.kSeeWhatsNew]]">
+          <cr-link-row class="hr" id="releaseNotesOnline" start-icon="[[rowIcons_.releaseNotes]]" on-click="onReleaseNotesClick_" label="$i18n{aboutShowReleaseNotes}" sub-label="[[getShowReleaseNotesSublabel_()]]" external deep-link-focus-id$="[[Setting.kSeeWhatsNew]]">
           </cr-link-row>
         </template>
         <template is="dom-if" if="[[!hasInternetConnection_]]">
-          <cr-link-row class="hr" id="releaseNotesOffline" on-click="onReleaseNotesClick_" label="$i18n{aboutShowReleaseNotes}" title="$i18n{aboutReleaseNotesOffline}" external deep-link-focus-id$="[[Setting.kSeeWhatsNew]]">
+          <cr-link-row class="hr" id="releaseNotesOffline" start-icon="[[rowIcons_.releaseNotes]]" on-click="onReleaseNotesClick_" label="$i18n{aboutShowReleaseNotes}" title="$i18n{aboutReleaseNotesOffline}" external deep-link-focus-id$="[[Setting.kSeeWhatsNew]]">
           </cr-link-row>
         </template>
-        <cr-link-row class="hr" id="help" on-click="onHelpClick_" label="$i18n{aboutGetHelpUsingChromeOs}" sub-label="[[getHelpUsingChromeOsSublabel_()]]" external deep-link-focus-id$="[[Setting.kGetHelpWithChromeOs]]">
+        <cr-link-row class="hr" id="help" start-icon="[[rowIcons_.help]]" on-click="onHelpClick_" label="$i18n{aboutGetHelpUsingChromeOs}" sub-label="[[getHelpUsingChromeOsSublabel_()]]" external deep-link-focus-id$="[[Setting.kGetHelpWithChromeOs]]">
         </cr-link-row>
   
-        <cr-link-row class="hr" id="diagnostics" on-click="onDiagnosticsClick_" label="$i18n{aboutDiagnostics}" sub-label="[[getDiagnosticsSublabel_()]]" external deep-link-focus-id$="[[Setting.kDiagnostics]]">
+        <cr-link-row class="hr" id="diagnostics" start-icon="[[rowIcons_.diagnostics]]" on-click="onDiagnosticsClick_" label="$i18n{aboutDiagnostics}" sub-label="[[getDiagnosticsSublabel_()]]" external deep-link-focus-id$="[[Setting.kDiagnostics]]">
         </cr-link-row>
-        <cr-link-row class="hr" id="firmwareUpdates" on-click="onFirmwareUpdatesClick_" label="$i18n{aboutFirmwareUpdates}" sub-label="[[getFirmwareSublabel_(firmwareUpdateCount_)]]" external using-slotted-label deep-link-focus-id$="[[Setting.kFirmwareUpdates]]">
+        <cr-link-row class="hr" id="firmwareUpdates" start-icon="[[rowIcons_.firmwareUpdates]]" on-click="onFirmwareUpdatesClick_" label="$i18n{aboutFirmwareUpdates}" sub-label="[[getFirmwareSublabel_(firmwareUpdateCount_)]]" external using-slotted-label deep-link-focus-id$="[[Setting.kFirmwareUpdates]]">
           <iron-icon id="firmwareUpdateBadge" icon$="[[getFirmwareUpdatesIcon_(firmwareUpdateCount_)]]" hidden$="[[!shouldShowFirmwareUpdatesBadge_(
                 firmwareUpdateCount_)]]">
           </iron-icon>
@@ -3045,7 +3077,7 @@ function getTemplate$1S() {
                 firmwareUpdateCount_)]]">
           </div>
         </cr-link-row>
-        <cr-link-row class="hr" id="detailedBuildInfoTrigger" on-click="onDetailedBuildInfoClick_" label="$i18n{aboutDetailedBuildInfo}" role-description="$i18n{subpageArrowRoleDescription}">
+        <cr-link-row class="hr" id="detailedBuildInfoTrigger" start-icon="[[rowIcons_.additionalDetails]]" on-click="onDetailedBuildInfoClick_" label="$i18n{aboutDetailedBuildInfo}" role-description="$i18n{subpageArrowRoleDescription}">
         </cr-link-row>
         <cr-link-row class="hr" on-click="onManagementPageClick_" start-icon="cr:domain" label="$i18n{managementPage}" hidden$="[[!isManaged_]]" external>
         </cr-link-row>
@@ -3186,7 +3218,7 @@ class OsAboutPageElement extends OsAboutPageBase {
         return 'os-about-page';
     }
     static get template() {
-        return getTemplate$1S();
+        return getTemplate$20();
     }
     static get properties() {
         return {
@@ -3328,6 +3360,31 @@ class OsAboutPageElement extends OsAboutPageBase {
                     return isRevampWayfindingEnabled();
                 },
                 readOnly: true,
+            },
+            rowIcons_: {
+                type: Object,
+                value() {
+                    if (isRevampWayfindingEnabled()) {
+                        return {
+                            powerWash: 'os-settings:startup',
+                            releaseNotes: 'os-settings:about-release-notes',
+                            help: 'os-settings:about-help',
+                            feedback: 'os-settings:about-feedback',
+                            diagnostics: 'os-settings:about-diagnostics',
+                            firmwareUpdates: 'os-settings:about-firmware-updates',
+                            additionalDetails: 'os-settings:about-additional-details',
+                        };
+                    }
+                    return {
+                        powerWash: '',
+                        releaseNotes: '',
+                        help: '',
+                        feedback: '',
+                        diagnostics: '',
+                        firmwareUpdates: '',
+                        additionalDetails: '',
+                    };
+                },
             },
         };
     }
@@ -3569,14 +3626,20 @@ class OsAboutPageElement extends OsAboutPageBase {
             case UpdateStatus.FAILED_DOWNLOAD:
             case UpdateStatus.FAILED_HTTP:
             case UpdateStatus.FAILED:
-                return 'cr:error-outline';
+                return this.isRevampWayfindingEnabled_ ?
+                    'os-settings:about-update-error' :
+                    'cr:error-outline';
             case UpdateStatus.UPDATED:
             case UpdateStatus.NEARLY_UPDATED:
                 // TODO(crbug.com/986596): Don't use browser icons here. Fork them.
-                return 'settings:check-circle';
+                return this.isRevampWayfindingEnabled_ ?
+                    'os-settings:about-update-complete' :
+                    'settings:check-circle';
             case UpdateStatus.DEFERRED:
             case UpdateStatus.UPDATE_TO_ROLLBACK_VERSION_DISALLOWED:
-                return 'cr:warning';
+                return this.isRevampWayfindingEnabled_ ?
+                    'os-settings:about-update-warning' :
+                    'cr:warning';
             default:
                 return null;
         }
@@ -3690,7 +3753,7 @@ class OsAboutPageElement extends OsAboutPageBase {
         this.showTPMFirmwareUpdateDialog_ = false;
     }
     onProductLogoClick_() {
-        this.$['product-logo'].animate({
+        this.$.productLogo.animate({
             transform: ['none', 'rotate(-10turn)'],
         }, {
             duration: 500,
@@ -3735,7 +3798,7 @@ class OsAboutPageElement extends OsAboutPageBase {
 }
 customElements.define(OsAboutPageElement.is, OsAboutPageElement);
 
-function getTemplate$1R() {
+function getTemplate$1$() {
     return html `<!--_html_template_start_--><style include="settings-shared"></style>
 <os-settings-animated-pages id="pages" section="[[section_]]">
   <div route-path="default">
@@ -3787,7 +3850,7 @@ class OsSettingsFilesPageElement extends PolymerElement {
         return 'os-settings-files-page';
     }
     static get template() {
-        return getTemplate$1R();
+        return getTemplate$1$();
     }
     static get properties() {
         return {
@@ -3811,7 +3874,7 @@ class OsSettingsFilesPageElement extends PolymerElement {
 }
 customElements.define(OsSettingsFilesPageElement.is, OsSettingsFilesPageElement);
 
-function getTemplate$1Q() {
+function getTemplate$1_() {
     return html `<!--_html_template_start_--><style include="settings-shared"></style>
 
 
@@ -3826,6 +3889,14 @@ function getTemplate$1Q() {
     <os-settings-subpage page-title="$i18n{languagesPageTitle}">
       <os-settings-languages-page-v2 language-helper="[[languageHelper]]" languages="[[languages]]" prefs="{{prefs}}">
       </os-settings-languages-page-v2>
+    </os-settings-subpage>
+  </template>
+
+  
+  <template is="dom-if" route-path="/osLanguages/languages/appLanguages">
+    <os-settings-subpage page-title="$i18n{appLanguagesTitle}">
+      <os-settings-app-languages-page prefs="{{prefs}}">
+      </os-settings-app-languages-page>
     </os-settings-subpage>
   </template>
 
@@ -3878,7 +3949,7 @@ class OsSettingsLanguagesSectionElement extends OsSettingsLanguagesSectionElemen
         return 'os-settings-languages-section';
     }
     static get template() {
-        return getTemplate$1Q();
+        return getTemplate$1_();
     }
     static get properties() {
         return {
@@ -3914,7 +3985,7 @@ styleMod$1.appendChild(html `
 `.content);
 styleMod$1.register('cups-printer-shared');
 
-function getTemplate$1P() {
+function getTemplate$1Z() {
     return html `<!--_html_template_start_--><style include="settings-shared">#dialog [slot=body]{padding-inline-end:0;padding-inline-start:0}</style>
 
 <cr-dialog id="dialog" close-text="$i18n{close}">
@@ -3943,7 +4014,7 @@ class AddPrinterDialogElement extends PolymerElement {
         return 'add-printer-dialog';
     }
     static get template() {
-        return getTemplate$1P();
+        return getTemplate$1Z();
     }
     connectedCallback() {
         super.connectedCallback();
@@ -3955,7 +4026,7 @@ class AddPrinterDialogElement extends PolymerElement {
 }
 customElements.define(AddPrinterDialogElement.is, AddPrinterDialogElement);
 
-function getTemplate$1O() {
+function getTemplate$1Y() {
     return html `<!--_html_template_start_--><style>#error-wrap{align-items:center;display:flex}#error-container{height:20px;margin-top:10px}#error-icon{--iron-icon-fill-color:var(--cros-icon-color-alert)}#error-message{color:var(--cros-text-color-alert);font-size:10px;margin-inline-start:5px}</style>
 <div id="error-container" hidden="[[!errorText]]">
   <div id="error-wrap">
@@ -3979,7 +4050,7 @@ class PrinterDialogErrorElement extends PolymerElement {
         return 'printer-dialog-error';
     }
     static get template() {
-        return getTemplate$1O();
+        return getTemplate$1Y();
     }
     static get properties() {
         return {
@@ -3995,7 +4066,7 @@ class PrinterDialogErrorElement extends PolymerElement {
 }
 customElements.define(PrinterDialogErrorElement.is, PrinterDialogErrorElement);
 
-function getTemplate$1N() {
+function getTemplate$1X() {
     return html `<!--_html_template_start_--><style include="cr-shared-style cups-printer-shared"></style>
 <add-printer-dialog>
   <div slot="dialog-title">
@@ -4296,7 +4367,7 @@ class SettingsCupsEditPrinterDialogElement extends SettingsCupsEditPrinterDialog
         return 'settings-cups-edit-printer-dialog';
     }
     static get template() {
-        return getTemplate$1N();
+        return getTemplate$1X();
     }
     static get properties() {
         return {
@@ -4418,7 +4489,7 @@ class SettingsCupsEditPrinterDialogElement extends SettingsCupsEditPrinterDialog
         this.userPPD_ = getBaseName(this.pendingPrinter_.printerPPDPath);
     }
     onActiveNetworksChanged(networks) {
-        this.isOnline_ = networks.some(function (network) {
+        this.isOnline_ = networks.some((network) => {
             return OncMojo.connectionStateIsConnected(network.connectionState);
         });
     }
@@ -4721,8 +4792,8 @@ var PrinterType;
     PrinterType[PrinterType["ENTERPRISE"] = 4] = "ENTERPRISE";
 })(PrinterType || (PrinterType = {}));
 
-function getTemplate$1M() {
-    return html `<!--_html_template_start_--><style include="settings-shared">:host-context(body.jelly-enabled) .list-item:focus-within{background-color:var(--cros-sys-hover_on_subtle)}.icon-more-vert{background-color:none}.printer-name{align-items:center;display:flex;flex:1}.list-item:focus-within{background-color:var(--cros-highlight-color);outline:0}.entry-icon{flex-basis:40px}:host([is-printer-settings-revamp-enabled_]) .entry-icon{flex-basis:20px;padding-inline:20px 16px}.entry-text{flex:1;margin:20px auto}iron-icon{display:block;margin:auto}#printerSubtext{color:var(--cros-sys-warning)}:host([has-high-severity-error_]) #printerSubtext{color:var(--cros-sys-error)}cr-button{border-radius:18px}.container,.list-item{height:64px}.row-button{margin-inline-end:20px}</style>
+function getTemplate$1W() {
+    return html `<!--_html_template_start_--><style include="settings-shared">.icon-more-vert{background-color:none}.printer-name{align-items:center;display:flex;flex:1}.list-item:focus-within{background-color:var(--cros-sys-hover_on_subtle);outline:0}.entry-icon{flex-basis:40px}:host([is-printer-settings-revamp-enabled_]) .entry-icon{flex-basis:20px;padding-inline:20px 16px}.entry-text{flex:1;margin:20px auto}iron-icon{display:block;margin:auto}#printerSubtext{color:var(--cros-sys-warning)}:host([has-high-severity-error_]) #printerSubtext{color:var(--cros-sys-error)}cr-button{border-radius:18px}.container,.list-item{height:64px}.row-button{margin-inline-end:20px}</style>
 <div class="container" focus-row-container>
   <div id="entry" class="list-item" focus-row-control focus-type="entry" aria-label$="[[getAriaLabel_(printerEntry.printerInfo.printerId,
           numPrinters, focusRowIndex)]]">
@@ -4904,7 +4975,7 @@ class SettingsCupsPrintersEntryElement extends SettingsCupsPrintersEntryElementB
         return 'settings-cups-printers-entry';
     }
     static get template() {
-        return getTemplate$1M();
+        return getTemplate$1W();
     }
     static get properties() {
         return {
@@ -4963,14 +5034,6 @@ class SettingsCupsPrintersEntryElement extends SettingsCupsPrintersEntryElementB
                 type: Boolean,
                 value: () => {
                     return loadTimeData.getBoolean('isPrintPreviewDiscoveredPrintersEnabled');
-                },
-                readOnly: true,
-            },
-            /** @protected {boolean} */
-            isJellyEnabled_: {
-                type: Boolean,
-                value: () => {
-                    return loadTimeData.getBoolean('isJellyEnabled');
                 },
                 readOnly: true,
             },
@@ -5067,13 +5130,11 @@ class SettingsCupsPrintersEntryElement extends SettingsCupsPrintersEntryElementB
         return this.showPrinterIcon_() || this.printerEntry.printerInfo.isManaged;
     }
     getPrinterIcon_() {
-        const printerStatusIcon = this.isJellyEnabled_ ?
-            `os-settings:printer-status-illo` :
-            `os-settings:printer-status`;
         // Only saved printers need to display an icon with printer status.
         if (!this.isSavedPrinter_()) {
             return 'os-settings:printer-plain';
         }
+        const printerStatusIcon = 'os-settings:printer-status-illo';
         const printerStatusReason = this.printerStatusReasonCache.get(this.printerEntry.printerInfo.printerId);
         if (printerStatusReason === undefined || printerStatusReason === null) {
             return `${printerStatusIcon}-grey`;
@@ -5130,7 +5191,7 @@ class SettingsCupsPrintersEntryElement extends SettingsCupsPrintersEntryElementB
 }
 customElements.define(SettingsCupsPrintersEntryElement.is, SettingsCupsPrintersEntryElement);
 
-function getTemplate$1L() {
+function getTemplate$1V() {
     return html `<!--_html_template_start_--><style include="cups-printer-shared iron-flex iron-flex-alignment
     iron-flex-factors">:host{display:flex;flex-direction:column}#no-search-results{margin-top:20px}#show-more-container{align-items:center;min-height:var(--cr-section-min-height)}#show-more-line-separator{border-bottom:var(--cr-separator-line);margin-inline-end:20px;margin-inline-start:60px;position:relative;width:596px}#show-more-icon{--cr-icon-button-margin-end:0}#show-more-text{flex:1}:host([is-printer-settings-revamp-enabled_]) .list-frame{padding-inline:0}</style>
 
@@ -5466,7 +5527,7 @@ class SettingsCupsEnterprisePrintersElement extends SettingsCupsEnterprisePrinte
         return 'settings-cups-enterprise-printers';
     }
     static get template() {
-        return getTemplate$1L();
+        return getTemplate$1V();
     }
     static get properties() {
         return {
@@ -5627,7 +5688,7 @@ class SettingsCupsEnterprisePrintersElement extends SettingsCupsEnterprisePrinte
 }
 customElements.define(SettingsCupsEnterprisePrintersElement.is, SettingsCupsEnterprisePrintersElement);
 
-function getTemplate$1K() {
+function getTemplate$1U() {
     return html `<!--_html_template_start_--><style include="cups-printer-shared iron-flex iron-flex-alignment
     iron-flex-factors">:host{display:flex;flex-direction:column}#no-search-results{margin-bottom:20px}#show-more-container{align-items:center;min-height:var(--cr-section-min-height)}:host([is-printer-settings-revamp-enabled_]) #show-more-container{margin-inline-end:20px}#show-more-line-separator{border-bottom:var(--cr-separator-line);margin-inline-end:20px;margin-inline-start:60px;position:relative;width:596px}:host([is-printer-settings-revamp-enabled_]) #show-more-line-separator{margin-inline:0;width:auto}#show-more-icon{--cr-icon-button-margin-end:0}#show-more-text{flex:1}:host([is-printer-settings-revamp-enabled_]) .list-frame{padding-inline:0}</style>
 
@@ -5709,7 +5770,7 @@ class SettingsCupsSavedPrintersElement extends SettingsCupsSavedPrintersElementB
         return 'settings-cups-saved-printers';
     }
     static get template() {
-        return getTemplate$1K();
+        return getTemplate$1U();
     }
     static get properties() {
         return {
@@ -5811,6 +5872,16 @@ class SettingsCupsSavedPrintersElement extends SettingsCupsSavedPrintersElementB
                 readOnly: true,
                 reflectToAttribute: true,
             },
+            /**
+             * True when the "local-printer-observing" feature flag is enabled.
+             */
+            isLocalPrinterObservingEnabled_: {
+                type: Boolean,
+                value: () => {
+                    return loadTimeData.getBoolean('isLocalPrinterObservingEnabled');
+                },
+                readOnly: true,
+            },
         };
     }
     static get observers() {
@@ -5828,13 +5899,22 @@ class SettingsCupsSavedPrintersElement extends SettingsCupsSavedPrintersElementB
         // printers if the Show more button is visible.
         this.visiblePrinterCounter_ = MIN_VISIBLE_PRINTERS;
         this.onFocusListener_ = () => this.resetPrinterStatusQueryTimers();
+        // Listen for updates of local printers from the 'local-printers-updated'
+        // event to consume their updated printer statuses.
+        if (this.isLocalPrinterObservingEnabled_) {
+            addWebUiListener('local-printers-updated', (printers) => printers.forEach(printer => this.onPrinterStatusReceived_(printer.printerStatus)));
+        }
     }
     ready() {
         super.ready();
         this.addEventListener('open-action-menu', (event) => {
             this.onOpenActionMenu_(event);
         });
-        if (this.isPrinterSettingsPrinterStatusEnabled_) {
+        // When `isLocalPrinterObservingEnabled_` is enabled printer statuses get
+        // pushed from the backend so printer statuses don't need to be
+        // individually requested.
+        if (this.isPrinterSettingsPrinterStatusEnabled_ &&
+            !this.isLocalPrinterObservingEnabled_) {
             this.startPrinterStatusQueryTimer_(/*forErrorStatePrinters=*/ true);
             this.startPrinterStatusQueryTimer_(/*forErrorStatePrinters=*/ false);
         }
@@ -6008,7 +6088,7 @@ class SettingsCupsSavedPrintersElement extends SettingsCupsSavedPrintersElementB
      */
     onPrinterStatusReceived_(printerStatus) {
         assert(this.isPrinterSettingsPrinterStatusEnabled_);
-        if (!printerStatus) {
+        if (!printerStatus?.printerId) {
             return;
         }
         this.printerStatusReasonCache_.set(printerStatus.printerId, getStatusReasonFromPrinterStatus(printerStatus));
@@ -6092,10 +6172,13 @@ class SettingsCupsSavedPrintersElement extends SettingsCupsSavedPrintersElementB
     getPrinterStatusReasonCacheForTesting() {
         return this.printerStatusReasonCache_;
     }
+    getTimeoutIdsForTesting() {
+        return this.timeoutIds_;
+    }
 }
 customElements.define(SettingsCupsSavedPrintersElement.is, SettingsCupsSavedPrintersElement);
 
-function getTemplate$1J() {
+function getTemplate$1T() {
     return html `<!--_html_template_start_--><style include="cups-printer-shared">[slot=dialog-body]{height:90px}[slot=dialog-buttons]{width:auto}</style>
 <add-printer-dialog id="printServerDialog">
   <div slot="dialog-title">
@@ -6133,7 +6216,7 @@ class AddPrintServerDialogElement extends PolymerElement {
         return 'add-print-server-dialog';
     }
     static get template() {
-        return getTemplate$1J();
+        return getTemplate$1T();
     }
     static get properties() {
         return {
@@ -6197,7 +6280,7 @@ class AddPrintServerDialogElement extends PolymerElement {
 }
 customElements.define(AddPrintServerDialogElement.is, AddPrintServerDialogElement);
 
-function getTemplate$1I() {
+function getTemplate$1S() {
     return html `<!--_html_template_start_--><style include="cups-printer-shared"></style>
 <add-printer-dialog>
   <div slot="dialog-title">
@@ -6293,7 +6376,7 @@ class AddPrinterManuallyDialogElement extends PolymerElement {
         return 'add-printer-manually-dialog';
     }
     static get template() {
-        return getTemplate$1I();
+        return getTemplate$1S();
     }
     static get properties() {
         return {
@@ -6423,7 +6506,7 @@ class AddPrinterManuallyDialogElement extends PolymerElement {
 }
 customElements.define(AddPrinterManuallyDialogElement.is, AddPrinterManuallyDialogElement);
 
-function getTemplate$1H() {
+function getTemplate$1R() {
     return html `<!--_html_template_start_--><style include="cups-printer-shared">.subtext{margin-bottom:10px;padding-inline-end:20px;padding-inline-start:20px}#make-model-body{height:290px}</style>
 <add-printer-dialog>
   <div slot="dialog-title">
@@ -6493,7 +6576,7 @@ class AddPrinterManufacturerModelDialogElement extends PolymerElement {
         return 'add-printer-manufacturer-model-dialog';
     }
     static get template() {
-        return getTemplate$1H();
+        return getTemplate$1R();
     }
     static get properties() {
         return {
@@ -6661,7 +6744,7 @@ class AddPrinterManufacturerModelDialogElement extends PolymerElement {
 }
 customElements.define(AddPrinterManufacturerModelDialogElement.is, AddPrinterManufacturerModelDialogElement);
 
-function getTemplate$1G() {
+function getTemplate$1Q() {
     return html `<!--_html_template_start_--><style include="settings-shared"></style>
 
 
@@ -6736,7 +6819,7 @@ class SettingsCupsAddPrinterDialogElement extends PolymerElement {
         return 'settings-cups-add-printer-dialog';
     }
     static get template() {
-        return getTemplate$1G();
+        return getTemplate$1Q();
     }
     static get properties() {
         return {
@@ -6812,9 +6895,9 @@ class SettingsCupsAddPrinterDialogElement extends PolymerElement {
 }
 customElements.define(SettingsCupsAddPrinterDialogElement.is, SettingsCupsAddPrinterDialogElement);
 
-function getTemplate$1F() {
+function getTemplate$1P() {
     return html `<!--_html_template_start_--><style include="cups-printer-shared action-link iron-flex
-    iron-flex-alignment">.custom-list-item-bottom{border-bottom:var(--cr-separator-line);min-height:var(--cr-section-min-height)}.custom-list-item-top{min-height:var(--cr-section-min-height)}:host(:not([nearby-printers-empty_])) .custom-list-item-top{border-top:var(--cr-separator-line)}.padded{padding:20px}#addPrinterText{flex:1}.add-manual-printer-icon{--cr-icon-button-fill-color:var(--cros-button-icon-color-secondary);--cr-icon-button-margin-end:0}:host-context(body.jelly-enabled) .add-manual-printer-icon{--cr-icon-button-fill-color:var(--cros-sys-primary)}#addManualPrinterButtonRevamp{background:0 0}#cloudOffIcon{--iron-icon-fill-color:var(--cros-icon-color-secondary);margin-top:10px}#connectionMessage{padding-inline-start:20px}#noConnectivityContentContainer{border-bottom:var(--cr-separator-line);padding-inline-start:20px}#noSearchResultsMessage{color:var(--md-loading-message-color);font-size:16px;font-weight:500;margin-top:80px;text-align:center}#savedPrintersContainer{border-bottom:var(--cr-separator-line);padding-bottom:8px}:host([is-printer-settings-revamp-enabled_]) #savedPrintersContainer{padding-inline-start:var(--cr-section-padding)}#savedPrintersDescription{height:64px;margin-bottom:8px}:host([is-printer-settings-revamp-enabled_]) #savedPrintersDescription{padding-inline-start:0}#enterprisePrintersContainer{border-top:var(--cr-separator-line)}:host([is-printer-settings-revamp-enabled_]) #enterprisePrintersContainer{padding-inline-start:var(--cr-section-padding)}:host(:not([has-active-network-connection])) .add-printer-section,:host(:not([has-active-network-connection])) .nearby-printers-section{opacity:var(--cr-disabled-opacity);pointer-events:none}#nearbyPrintersRevamp{display:flex}#nearbyPrintersDescription{flex:1}#nearbyPrinterToggleButton{margin:0}:host([is-printer-settings-revamp-enabled_]) #collapsibleSection{padding-inline-end:0;padding-inline-start:20px;padding-bottom:20px;padding-top:0}#helpSection{align-items:center;border:1px solid var(--cros-separator-color);border-radius:12px;display:flex;margin-bottom:8px;margin-inline:-6px 14px;padding:16px 12px}:host-context(body.jelly-enabled) #helpSection{background-color:var(--cros-sys-app_base_shaded);border:none}#helpIconSection{--iron-icon-height:48px;--iron-icon-width:48px;flex-basis:48px}#helpSectionText{flex:1;margin-inline-start:12px}.help-title{margin-bottom:5px}:host-context(body.jelly-enabled) .help-title{color:var(--cros-text-color-primary);font:var(--cros-button-1-font)}#noSavedPrinters{align-items:center;display:flex;height:48px;margin:8px 0;padding-inline-start:20px}#addPrinterSectionRevamp{height:64px;padding-inline:0}#addPrinterSectionRevampContainer{padding-inline-start:10px;padding-top:8px}cr-button{border-radius:18px}cr-button.prefix-icon{padding-inline:12px 16px}:host([is-printer-settings-revamp-enabled_]) .section-title{font:var(--cros-button-2-font)}</style>
+    iron-flex-alignment">.custom-list-item-bottom{border-bottom:var(--cr-separator-line);min-height:var(--cr-section-min-height)}.custom-list-item-top{min-height:var(--cr-section-min-height)}:host(:not([nearby-printers-empty_])) .custom-list-item-top{border-top:var(--cr-separator-line)}.padded{padding:20px}#addPrinterText{flex:1}.add-manual-printer-icon{--cr-icon-button-fill-color:var(--cros-sys-primary);--cr-icon-button-margin-end:0}#addManualPrinterButtonRevamp{background:0 0}#cloudOffIcon{--iron-icon-fill-color:var(--cros-icon-color-secondary);margin-top:10px}#connectionMessage{padding-inline-start:20px}#noConnectivityContentContainer{border-bottom:var(--cr-separator-line);padding-inline-start:20px}#noSearchResultsMessage{color:var(--md-loading-message-color);font-size:16px;font-weight:500;margin-top:80px;text-align:center}#savedPrintersContainer{border-bottom:var(--cr-separator-line);padding-bottom:8px}:host([is-printer-settings-revamp-enabled_]) #savedPrintersContainer{padding-inline-start:var(--cr-section-padding)}#savedPrintersDescription{height:64px;margin-bottom:8px}:host([is-printer-settings-revamp-enabled_]) #savedPrintersDescription{padding-inline-start:0}#enterprisePrintersContainer{border-top:var(--cr-separator-line)}:host([is-printer-settings-revamp-enabled_]) #enterprisePrintersContainer{padding-inline-start:var(--cr-section-padding)}:host(:not([has-active-network-connection])) .add-printer-section,:host(:not([has-active-network-connection])) .nearby-printers-section{opacity:var(--cr-disabled-opacity);pointer-events:none}#nearbyPrintersRevamp{display:flex}#nearbyPrintersDescription{flex:1}#nearbyPrinterToggleButton{margin:0}:host([is-printer-settings-revamp-enabled_]) #collapsibleSection{padding-inline-end:0;padding-inline-start:20px;padding-bottom:20px;padding-top:0}#helpSection{align-items:center;background-color:var(--cros-sys-app_base_shaded);border-radius:12px;display:flex;margin-bottom:8px;margin-inline:-6px 14px;padding:16px 12px}#helpIconSection{--iron-icon-height:48px;--iron-icon-width:48px;flex-basis:48px}#helpSectionText{flex:1;margin-inline-start:12px}.help-title{color:var(--cros-text-color-primary);font:var(--cros-button-1-font);margin-bottom:5px}#noSavedPrinters{align-items:center;display:flex;height:48px;margin:8px 0;padding-inline-start:20px}#addPrinterSectionRevamp{height:64px;padding-inline:0}#addPrinterSectionRevampContainer{padding-inline-start:10px;padding-top:8px}cr-button{border-radius:18px}cr-button.prefix-icon{padding-inline:12px 16px}:host([is-printer-settings-revamp-enabled_]) .section-title{font:var(--cros-button-2-font)}</style>
 
 
 <template is="dom-if" if="[[isRevampWayfindingEnabled_]]">
@@ -7006,7 +7089,7 @@ class SettingsCupsPrintersElement extends SettingsCupsPrintersElementBase {
         return 'settings-cups-printers';
     }
     static get template() {
-        return getTemplate$1F();
+        return getTemplate$1P();
     }
     static get properties() {
         return {
@@ -7383,7 +7466,7 @@ class SettingsCupsPrintersElement extends SettingsCupsPrintersElementBase {
 }
 customElements.define(SettingsCupsPrintersElement.is, SettingsCupsPrintersElement);
 
-function getTemplate$1E() {
+function getTemplate$1O() {
     return html `<!--_html_template_start_--><style include="settings-shared"></style>
 <os-settings-animated-pages id="pages" section="[[section_]]">
   <div route-path="default">
@@ -7408,7 +7491,7 @@ class OsSettingsPrintingPageElement extends PolymerElement {
         return 'os-settings-printing-page';
     }
     static get template() {
-        return getTemplate$1E();
+        return getTemplate$1O();
     }
     static get properties() {
         return {
@@ -7435,7 +7518,7 @@ class OsSettingsPrintingPageElement extends PolymerElement {
 }
 customElements.define(OsSettingsPrintingPageElement.is, OsSettingsPrintingPageElement);
 
-function getTemplate$1D() {
+function getTemplate$1N() {
     return html `<!--_html_template_start_--><os-settings-animated-pages id="pages" section="[[section_]]">
   <div route-path="default">
     <reset-settings-card></reset-settings-card>
@@ -7456,7 +7539,7 @@ class OsSettingsResetPageElement extends PolymerElement {
         return 'os-settings-reset-page';
     }
     static get template() {
-        return getTemplate$1D();
+        return getTemplate$1N();
     }
     static get properties() {
         return {
@@ -7470,7 +7553,269 @@ class OsSettingsResetPageElement extends PolymerElement {
 }
 customElements.define(OsSettingsResetPageElement.is, OsSettingsResetPageElement);
 
-function getTemplate$1C() {
+function getTemplate$1M() {
+    return html `<!--_html_template_start_--><style include="settings-shared">#dialogBody{padding-top:10px}cr-dialog::part(dialog){width:370px}</style>
+
+<cr-dialog id="systemGeolocationDialog" show-on-attach>
+  <div slot="title">
+    $i18n{systemGeolocationDialogTitle}
+  </div>
+  <div slot="body" id="dialogBody">
+    <localized-link localized-string="$i18n{systemGeolocationDialogBody}" link-url="$i18n{systemGeolocationDialogLearnMoreUrl}">
+    </localized-link>
+  </div>
+  <div slot="button-container">
+    <cr-button id="cancelButton" class="cancel-button" on-click="onCancelClicked_">
+      $i18n{systemGeolocationDialogCancelButton}
+    </cr-button>
+    <cr-button id="confirmButton" class="action-button" on-click="onEnableClicked_">
+      $i18n{systemGeolocationDialogConfirmButton}
+    </cr-button>
+  </div>
+</cr-dialog>
+<!--_html_template_end_-->`;
+}
+
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview This dialog explains and asks users to enable system location
+ * permission to allow precise timezone resolution.
+ */
+const PrivacyHubGeolocationDialogBase = PrefsMixin(PolymerElement);
+class PrivacyHubGeolocationDialog extends PrivacyHubGeolocationDialogBase {
+    static get is() {
+        return 'settings-privacy-hub-geolocation-dialog';
+    }
+    static get template() {
+        return getTemplate$1M();
+    }
+    /**
+     * Enables geolocation usage for system services.
+     */
+    onEnableClicked_() {
+        // Send the new state immediately, this will also toggle the underlying
+        // `setting-dropdown-menu` setting associated with this pref.
+        this.setPrefValue('ash.user.geolocation_access_level', GeolocationAccessLevel.ONLY_ALLOWED_FOR_SYSTEM);
+        chrome.metricsPrivate.recordEnumerationValue(LOCATION_PERMISSION_CHANGE_FROM_DIALOG_HISTOGRAM_NAME, GeolocationAccessLevel.ONLY_ALLOWED_FOR_SYSTEM, GEOLOCATION_ACCESS_LEVEL_ENUM_SIZE);
+        this.getDialog_().close();
+    }
+    onCancelClicked_() {
+        this.getDialog_().close();
+    }
+    getDialog_() {
+        return castExists(this.shadowRoot.querySelector('#systemGeolocationDialog'));
+    }
+}
+customElements.define(PrivacyHubGeolocationDialog.is, PrivacyHubGeolocationDialog);
+
+function getTemplate$1L() {
+    return html `<!--_html_template_start_--><style include="settings-shared">#container{display:inline-flex;width:inherit;margin-top:5px;text-align:left}#warningIcon{margin-right:5px}</style>
+<div id="container">
+  <iron-icon id="warningIcon" icon="cr20:warning"></iron-icon>
+  <localized-link on-link-clicked="launchGeolocationDialog_" localized-string="[[warningTextWithAnchor]]">
+  </localized-link>
+</div>
+<!--_html_template_end_-->`;
+}
+
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+class PrivacyHubGeolocationWarningText extends PolymerElement {
+    static get is() {
+        return 'settings-privacy-hub-geolocation-warning-text';
+    }
+    static get template() {
+        return getTemplate$1L();
+    }
+    static get properties() {
+        return {
+            warningTextWithAnchor: {
+                type: String,
+                reflectToAttribute: true,
+            },
+        };
+    }
+    launchGeolocationDialog_(e) {
+        // A place holder href with the value "#" is used to have a compliant link.
+        // This prevents the browser from navigating the window to "#".
+        e.detail.event.preventDefault();
+        e.stopPropagation();
+        this.dispatchEvent(new CustomEvent('link-clicked', { bubbles: false }));
+    }
+}
+customElements.define(PrivacyHubGeolocationWarningText.is, PrivacyHubGeolocationWarningText);
+
+function getTemplate$1K() {
+    return html `<!--_html_template_start_--><style include="settings-shared">.block{display:block}settings-dropdown-menu{--md-select-width:425px;--settings-dropdown-menu-policy-order:1}#timeZoneResolveMethodDropdown,#timezoneSelector{padding-inline-start:28px}#warningText{width:425px;padding-inline-start:28px}</style>
+<div class="settings-box block first">
+  <settings-radio-group id="timeZoneRadioGroup" pref="{{prefs.generated.resolve_timezone_by_geolocation_on_off}}" deep-link-focus-id$="[[Setting.kChangeTimeZone]]">
+    <controlled-radio-button id="timeZoneAutoDetectOn" name="true" pref="[[prefs.generated.resolve_timezone_by_geolocation_on_off]]" label="$i18n{setTimeZoneAutomaticallyOn}" no-extension-indicator>
+    </controlled-radio-button>
+    <settings-dropdown-menu id="timeZoneResolveMethodDropdown" pref="{{prefs.generated.resolve_timezone_by_geolocation_method_short}}" label="$i18n{selectTimeZoneResolveMethod}" disabled="[[!prefs.generated.resolve_timezone_by_geolocation_on_off.value]]" menu-options="[[getTimeZoneResolveMethodsList_(
+            prefs.generated.resolve_timezone_by_geolocation_method_short)]]">
+    </settings-dropdown-menu>
+    <template is="dom-if" if="[[shouldShowGeolocationWarningText_]]" restamp>
+      <settings-privacy-hub-geolocation-warning-text id="warningText" warning-text-with-anchor="$i18n{timeZoneGeolocationWarningText}" on-link-clicked="openGeolocationDialog_">
+      </settings-privacy-hub-geolocation-warning-text>
+    </template>
+    <controlled-radio-button id="timeZoneAutoDetectOff" name="false" pref="[[prefs.generated.resolve_timezone_by_geolocation_on_off]]" label="$i18n{setTimeZoneAutomaticallyOff}" no-extension-indicator>
+    </controlled-radio-button>
+    <timezone-selector id="timezoneSelector" prefs="{{prefs}}" active-time-zone-display-name="{{activeTimeZoneDisplayName}}">
+    </timezone-selector>
+  </settings-radio-group>
+</div>
+
+<template is="dom-if" if="[[showEnableSystemGeolocationDialog_]]" restamp>
+  <settings-privacy-hub-geolocation-dialog id="geolocationDialog" on-close="onGeolocationDialogClose_" prefs="{{prefs}}">
+  </settings-privacy-hub-geolocation-dialog>
+</template>
+<!--_html_template_end_-->`;
+}
+
+// Copyright 2017 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview 'timezone-subpage' is the collapsible section containing
+ * time zone settings.
+ */
+const TimezoneSubpageElementBase = DeepLinkingMixin(RouteObserverMixin(PrefsMixin(WebUiListenerMixin(PolymerElement))));
+class TimezoneSubpageElement extends TimezoneSubpageElementBase {
+    static get is() {
+        return 'timezone-subpage';
+    }
+    static get template() {
+        return getTemplate$1K();
+    }
+    static get properties() {
+        return {
+            /**
+             * This is <timezone-selector> parameter.
+             */
+            activeTimeZoneDisplayName: {
+                type: String,
+                notify: true,
+            },
+            /**
+             * Used by DeepLinkingMixin to focus this page's deep links.
+             */
+            supportedSettingIds: {
+                type: Object,
+                value: () => new Set([Setting.kChangeTimeZone]),
+            },
+            shouldShowGeolocationWarningText_: {
+                type: Boolean,
+                computed: 'computeShouldShowGeolocationWarningText_(' +
+                    'prefs.generated.resolve_timezone_by_geolocation_on_off.value,' +
+                    'prefs.ash.user.geolocation_access_level.value)',
+            },
+            showEnableSystemGeolocationDialog_: {
+                type: Boolean,
+                value: false,
+            },
+        };
+    }
+    constructor() {
+        super();
+        this.browserProxy_ = TimeZoneBrowserProxyImpl.getInstance();
+    }
+    /**
+     * RouteObserverMixin
+     * Called when the timezone subpage is hit. Child accounts need parental
+     * approval to modify their timezone, this method starts this process on the
+     * C++ side, and timezone setting will be disable. Once it is complete the
+     * 'access-code-validation-complete' event is triggered which invokes
+     * enableTimeZoneSetting_.
+     */
+    currentRouteChanged(newRoute, _oldRoute) {
+        if (newRoute !== routes.DATETIME_TIMEZONE_SUBPAGE) {
+            return;
+        }
+        // Check if should ask for parent access code.
+        if (isChild()) {
+            this.disableTimeZoneSetting_();
+            this.addWebUiListener('access-code-validation-complete', this.enableTimeZoneSetting_.bind(this));
+            this.browserProxy_.showParentAccessForTimeZone();
+        }
+        this.attemptDeepLink();
+    }
+    computeShouldShowGeolocationWarningText_() {
+        return (this.prefs.generated.resolve_timezone_by_geolocation_on_off.value ===
+            true &&
+            this.prefs.ash.user.geolocation_access_level.value ===
+                GeolocationAccessLevel.DISALLOWED);
+    }
+    /**
+     * Returns value list for timeZoneResolveMethodDropdown menu.
+     */
+    getTimeZoneResolveMethodsList_() {
+        const result = [];
+        const pref = this.getPref('generated.resolve_timezone_by_geolocation_method_short');
+        // Make sure current value is in the list, even if it is not
+        // user-selectable.
+        if (pref.value === TimeZoneAutoDetectMethod.DISABLED) {
+            // If disabled by policy, show the 'Automatic timezone disabled' label.
+            // Otherwise, just show the default string, since the control will be
+            // disabled as well.
+            const label = pref.controlledBy ?
+                loadTimeData.getString('setTimeZoneAutomaticallyDisabled') :
+                loadTimeData.getString('setTimeZoneAutomaticallyIpOnlyDefault');
+            result.push({ value: TimeZoneAutoDetectMethod.DISABLED, name: label });
+        }
+        result.push({
+            value: TimeZoneAutoDetectMethod.IP_ONLY,
+            name: loadTimeData.getString('setTimeZoneAutomaticallyIpOnlyDefault'),
+        });
+        if (pref.value === TimeZoneAutoDetectMethod.SEND_WIFI_ACCESS_POINTS) {
+            result.push({
+                value: TimeZoneAutoDetectMethod.SEND_WIFI_ACCESS_POINTS,
+                name: loadTimeData.getString('setTimeZoneAutomaticallyWithWiFiAccessPointsData'),
+            });
+        }
+        result.push({
+            value: TimeZoneAutoDetectMethod.SEND_ALL_LOCATION_INFO,
+            name: loadTimeData.getString('setTimeZoneAutomaticallyWithAllLocationInfo'),
+        });
+        return result;
+    }
+    /**
+     * Enables all dropdowns and radio buttons.
+     */
+    enableTimeZoneSetting_() {
+        const radios = this.shadowRoot.querySelectorAll('controlled-radio-button');
+        for (const radio of radios) {
+            radio.disabled = false;
+        }
+        this.$.timezoneSelector.shouldDisableTimeZoneGeoSelector = false;
+        const pref = this.getPref('generated.resolve_timezone_by_geolocation_method_short');
+        if (pref.value !== TimeZoneAutoDetectMethod.DISABLED) {
+            this.$.timeZoneResolveMethodDropdown.disabled = false;
+        }
+    }
+    /**
+     * Disables all dropdowns and radio buttons.
+     */
+    disableTimeZoneSetting_() {
+        this.$.timeZoneResolveMethodDropdown.disabled = true;
+        this.$.timezoneSelector.shouldDisableTimeZoneGeoSelector = true;
+        const radios = this.shadowRoot.querySelectorAll('controlled-radio-button');
+        for (const radio of radios) {
+            radio.disabled = true;
+        }
+    }
+    openGeolocationDialog_() {
+        this.showEnableSystemGeolocationDialog_ = true;
+    }
+    onGeolocationDialogClose_() {
+        this.showEnableSystemGeolocationDialog_ = false;
+    }
+}
+customElements.define(TimezoneSubpageElement.is, TimezoneSubpageElement);
+
+function getTemplate$1J() {
   return html`<!--_html_template_start_--><style include="network-shared">
   :host {
     box-sizing: border-box;
@@ -7508,6 +7853,10 @@ function getTemplate$1C() {
     color: var(--cros-text-color-positive);
   }
 
+  #subLabel[warning] {
+    color: var(--cros-text-color-warning);
+  }
+
   #autoDetected {
     color: var(--cr-secondary-text-color);
     margin-inline-start: 10px;
@@ -7522,8 +7871,9 @@ function getTemplate$1C() {
     </div>
   </div>
   <div id="subLabel" class="cr-secondary-text" aria-hidden="true"
-      hidden="[[!isConnected]]">
-    [[i18n('OncConnected')]]
+      hidden="[[!isConnected]]"
+      warning$="[[isPortalStateNoInternet_(portalState)]]">
+    [[getSublabel_(isConnected, portalState)]]
   </div>
 </div>
 <cr-icon-button id="actionMenuButton" class="icon-more-vert"
@@ -7579,7 +7929,7 @@ class ApnListItem extends ApnListItemBase {
   }
 
   static get template() {
-    return getTemplate$1C();
+    return getTemplate$1J();
   }
 
   static get properties() {
@@ -7614,6 +7964,11 @@ class ApnListItem extends ApnListItemBase {
        */
       listSize: Number,
 
+      /** @type {?PortalState} */
+      portalState: {
+        type: Object,
+      },
+
       /** @private */
       isDisabled_: {
         reflectToAttribute: true,
@@ -7636,6 +7991,25 @@ class ApnListItem extends ApnListItemBase {
    */
   getApnDisplayName_(apn) {
     return getApnDisplayName(this.i18n.bind(this), apn);
+  }
+
+  /**
+   * @return {string}
+   * @private
+   */
+  getSublabel_() {
+    if (this.isPortalStateNoInternet_()) {
+      return this.i18n('networkListItemConnectedNoConnectivity');
+    }
+    return this.i18n('OncConnected');
+  }
+
+  /**
+   * @return {boolean}
+   * @private
+   */
+  isPortalStateNoInternet_() {
+    return !!this.portalState && this.portalState === PortalState.kNoInternet;
   }
 
   /**
@@ -7827,19 +8201,37 @@ class ApnListItem extends ApnListItemBase {
 
     if (this.isConnected) {
       a11yLabel += ' ' + this.i18n('apnA11yConnected');
-    }
-
-    if (this.isDisabled_) {
+    } else if (this.isDisabled_) {
       a11yLabel += ' ' + this.i18n('apnA11yDisabled');
+    } else {
+      a11yLabel += ' ' + this.i18n('apnA11yEnabled');
     }
 
+    const isDefaultApn =
+        this.apn.apnTypes && this.apn.apnTypes.includes(ApnType.kDefault);
+    const isAttachApn =
+        this.apn.apnTypes && this.apn.apnTypes.includes(ApnType.kAttach);
+    if (isDefaultApn && isAttachApn) {
+      a11yLabel += ' ' + this.i18n('apnA11yDefaultAndAttachApn');
+    } else if (isDefaultApn) {
+      a11yLabel += ' ' + this.i18n('apnA11yDefaultApnOnly');
+    } else if (isAttachApn) {
+      a11yLabel += ' ' + this.i18n('apnA11yAttachApnOnly');
+    }
+
+    const userFriendlyName = this.apn.name;
+    const name = this.apn.accessPointName;
+    if (!!name && !!userFriendlyName && name != userFriendlyName) {
+      a11yLabel += ' ' +
+          this.i18n('apnA11yUserFriendlyNameIndicator', userFriendlyName, name);
+    }
     return a11yLabel;
   }
 }
 
 customElements.define(ApnListItem.is, ApnListItem);
 
-function getTemplate$1B() {
+function getTemplate$1I() {
   return html`<!--_html_template_start_--><style include="network-shared">
   div {
     color: var(--cr-secondary-text-color);
@@ -7868,7 +8260,7 @@ function getTemplate$1B() {
     padding: 0 20px 0 0;
   }
 
-  #errorMessage {
+  #errorMessageContainer {
     display: flex;
     margin: 30px;
     margin-inline-end: 80px;
@@ -7898,8 +8290,7 @@ function getTemplate$1B() {
 <div id="apnDescription" class="property-box" aria-live="assertive">
   <template is="dom-if" if="[[!shouldOmitLinks]]" restamp>
     <localized-link
-        localized-string="[[i18nAdvanced('apnSettingsDescriptionWithLink')]]"
-        on-link-clicked="onLearnMoreClicked_">
+        localized-string="[[i18nAdvanced('apnSettingsDescriptionWithLink')]]">
     </localized-link>
   </template>
   <template is="dom-if" if="[[shouldOmitLinks]]" restamp>
@@ -7910,12 +8301,11 @@ function getTemplate$1B() {
   <template is="dom-if"
       if="[[shouldShowErrorMessage_(managedCellularProperties,
           errorState)]]" restamp>
-    <div id="errorMessage">
+    <div id="errorMessageContainer">
       <span><iron-icon icon="cr20:warning"></iron-icon></span>
-      <localized-link
-          localized-string="[[getErrorMessage_(managedCellularProperties,
-              errorState)]]">
-      </localized-link>
+      <span id="errorMessage">
+        [[getErrorMessage_(managedCellularProperties, errorState)]]
+      </span>
     </div>
   </template>
 </div>
@@ -7939,7 +8329,8 @@ function getTemplate$1B() {
         should-disallow-enabling="[[shouldDisallowEnabling_(item)]]"
         guid="[[guid]]"
         item-index="[[index]]"
-        list-size="[[apns_.length]]">
+        list-size="[[apns_.length]]"
+        portal-state="[[portalState]]">
     </apn-list-item>
   </template>
 </iron-list>
@@ -7976,7 +8367,7 @@ class ApnList extends ApnListBase {
   }
 
   static get template() {
-    return getTemplate$1B();
+    return getTemplate$1I();
   }
 
   static get properties() {
@@ -7990,6 +8381,11 @@ class ApnList extends ApnListBase {
       },
 
       errorState: String,
+
+      /** @type {?PortalState} */
+      portalState: {
+        type: Object,
+      },
 
       shouldOmitLinks: {
         type: Boolean,
@@ -8106,11 +8502,15 @@ class ApnList extends ApnListBase {
     const connectedApnIndex =
         customApnList.findIndex((apn) => apn.id === connectedApn.id);
 
-    if (connectedApnIndex != -1) {
-      customApnList.splice(connectedApnIndex, 1);
+    // Create a copy of customApnList, moving the connectedApn, if it exists, to
+    // the front of the list.
+    const apns = [connectedApn];
+    for (let i = 0; i < customApnList.length; i++) {
+      if (i !== connectedApnIndex) {
+        apns.push(customApnList[i]);
+      }
     }
-
-    return [connectedApn, ...customApnList];
+    return apns;
   }
 
   /**
@@ -8187,13 +8587,6 @@ class ApnList extends ApnListBase {
   }
 
   /**
-   * Redirects to "Lean more about APN" page.
-   * TODO(b/162365553): Implement.
-   * @private
-   */
-  onLearnMoreClicked_() {}
-
-  /**
    * @param {!Event} event
    * @private
    */
@@ -8243,9 +8636,9 @@ class ApnList extends ApnListBase {
 
 customElements.define(ApnList.is, ApnList);
 
-function getTemplate$1A() {
+function getTemplate$1H() {
     return html `<!--_html_template_start_--><style include="settings-shared"></style>
-<apn-list id="apnList" managed-cellular-properties="[[managedProperties_.typeProperties.cellular]]" guid="[[guid_]]" error-state="[[managedProperties_.errorState]]">
+<apn-list id="apnList" managed-cellular-properties="[[managedProperties_.typeProperties.cellular]]" guid="[[guid_]]" error-state="[[managedProperties_.errorState]]" portal-state="[[managedProperties_.portalState]]">
 </apn-list><!--_html_template_end_-->`;
 }
 
@@ -8264,7 +8657,7 @@ class ApnSubpageElement extends ApnSubpageElementBase {
         return 'apn-subpage';
     }
     static get template() {
-        return getTemplate$1A();
+        return getTemplate$1H();
     }
     static get properties() {
         return {
@@ -8361,12 +8754,6 @@ class ApnSubpageElement extends ApnSubpageElementBase {
             this.close();
             return;
         }
-        if (this.deviceState_ && this.deviceState_.scanning) {
-            // Cellular properties may be invalid while scanning, so keep the
-            // existing properties instead.
-            response.result.typeProperties.cellular =
-                this.managedProperties_.typeProperties.cellular;
-        }
         this.managedProperties_ = response.result;
         if (!this.deviceState_) {
             this.getDeviceState_();
@@ -8404,7 +8791,7 @@ class ApnSubpageElement extends ApnSubpageElementBase {
 }
 customElements.define(ApnSubpageElement.is, ApnSubpageElement);
 
-function getTemplate$1z() {
+function getTemplate$1G() {
     return html `<!--_html_template_start_--><style include="settings-shared">.separator-line{border-top:var(--cr-separator-line);padding:0}#hotspotToggleText{font-weight:500}#hotspotToggleText[on]{color:var(--cros-text-color-prominent)}#hotspotToggleText:not([on]){color:var(--cros-text-color-secondary)}</style>
 <div class="settings-box first">
   <div id="hotspotToggleText" class="start" on$="[[isHotspotToggleOn_]]">
@@ -8456,7 +8843,7 @@ class SettingsHotspotSubpageElement extends SettingsHotspotSubpageElementBase {
         return 'settings-hotspot-subpage';
     }
     static get template() {
-        return getTemplate$1z();
+        return getTemplate$1G();
     }
     static get properties() {
         return {
@@ -8521,10 +8908,14 @@ class SettingsHotspotSubpageElement extends SettingsHotspotSubpageElementBase {
         if (!this.hotspotInfo) {
             return true;
         }
-        if (this.hotspotInfo.allowStatus !== HotspotAllowStatus.kAllowed) {
+        if (this.hotspotInfo.state === HotspotState.kDisabling) {
             return true;
         }
-        return this.hotspotInfo.state === HotspotState.kDisabling;
+        if (this.hotspotInfo.state === HotspotState.kEnabling ||
+            this.hotspotInfo.state === HotspotState.kEnabled) {
+            return false;
+        }
+        return this.hotspotInfo.allowStatus !== HotspotAllowStatus.kAllowed;
     }
     getOnOffString_() {
         if (!this.hotspotInfo) {
@@ -8590,7 +8981,7 @@ class SettingsHotspotSubpageElement extends SettingsHotspotSubpageElementBase {
 }
 customElements.define(SettingsHotspotSubpageElement.is, SettingsHotspotSubpageElement);
 
-function getTemplate$1y() {
+function getTemplate$1F() {
   return html`<!--_html_template_start_--><style include="cr-shared-style network-shared iron-flex">
   /* Property lists are embedded; remove the padding. */
   .property-box {
@@ -8654,7 +9045,7 @@ function getTemplate$1y() {
 
 
 Polymer({
-  _template: getTemplate$1y(),
+  _template: getTemplate$1F(),
   is: 'network-property-list-mojo',
 
   behaviors: [I18nBehavior, CrPolicyNetworkBehaviorMojo],
@@ -9161,7 +9552,7 @@ Polymer({
   },
 });
 
-function getTemplate$1x() {
+function getTemplate$1E() {
   return html`<!--_html_template_start_--><style include="network-shared md-select">
   :host {
     --cr-property-box-width: 200px;
@@ -9243,7 +9634,7 @@ const USE_ATTACH_APN_ON_SAVE_METRIC_NAME =
     'Network.Cellular.Apn.UseAttachApnOnSave';
 
 Polymer({
-  _template: getTemplate$1x(),
+  _template: getTemplate$1E(),
   is: 'network-apnlist',
 
   behaviors: [I18nBehavior],
@@ -9636,7 +10027,7 @@ Polymer({
   },
 });
 
-function getTemplate$1w() {
+function getTemplate$1D() {
   return html`<!--_html_template_start_--><style include="cr-shared-style network-shared md-select iron-flex">
   /* Leave some space between button and select. */
   select {
@@ -9677,7 +10068,7 @@ function getTemplate$1w() {
 
 
 Polymer({
-  _template: getTemplate$1w(),
+  _template: getTemplate$1D(),
   is: 'network-choose-mobile',
 
   behaviors: [I18nBehavior],
@@ -9862,7 +10253,7 @@ Polymer({
   },
 });
 
-function getTemplate$1v() {
+function getTemplate$1C() {
   return html`<!--_html_template_start_--><style include="network-shared iron-flex">
   cr-toggle {
     margin-inline-start: var(--settings-control-label-spacing);
@@ -9883,7 +10274,7 @@ function getTemplate$1v() {
     </cr-toggle>
   </div>
 </template>
-<template is="dom-if" if="[[hasIpConfigFields_(ipConfig_)]]">
+<template is="dom-if" if="[[hasIpConfigFields_(ipConfig_, ipConfig_.*)]]">
   <div class$="[[getFieldsClassList_(shouldShowAutoIpConfigToggle_)]]">
     <network-property-list-mojo fields="[[ipConfigFields_]]"
         all-fields-read-only="[[automatic_]]"
@@ -9984,7 +10375,7 @@ const getRoutingPrefixAsLength = function(netmask) {
 };
 
 Polymer({
-  _template: getTemplate$1v(),
+  _template: getTemplate$1C(),
   is: 'network-ip-config',
 
   behaviors: [I18nBehavior, CrPolicyNetworkBehaviorMojo],
@@ -10077,21 +10468,24 @@ Polymer({
     this.automatic_ = ipConfigType !== 'Static';
 
     if (properties.ipConfigs || properties.staticIpConfig) {
-      // Update the 'ipConfig' property.
-      const ipv4 = this.getIPConfigUIProperties_(
-          OncMojo.getIPConfigForType(properties, IPConfigType.kIPv4));
-      let ipv6 = this.getIPConfigUIProperties_(
-          OncMojo.getIPConfigForType(properties, IPConfigType.kIPv6));
+      if (this.automatic_ || !oldValue ||
+          newValue.guid !== (oldValue && oldValue.guid) ||
+          !OncMojo.connectionStateIsConnected(properties.connectionState)) {
+        // Update the 'ipConfig' property.
+        const ipv4 = this.getIPConfigUIProperties_(
+            OncMojo.getIPConfigForType(properties, IPConfigType.kIPv4));
+        let ipv6 = this.getIPConfigUIProperties_(
+            OncMojo.getIPConfigForType(properties, IPConfigType.kIPv6));
 
-      // If connected and the IP address is automatic and set, show message if
-      // the ipv6 address is not set.
-      if (OncMojo.connectionStateIsConnected(properties.connectionState) &&
-          this.automatic_ && ipv4 && ipv4.ipAddress) {
-        ipv6 = ipv6 || {type: IPConfigType.kIPv6};
-        ipv6.ipAddress = ipv6.ipAddress || this.i18n('ipAddressNotAvailable');
+        // If connected and the IP address is automatic and set, show message if
+        // the ipv6 address is not set.
+        if (OncMojo.connectionStateIsConnected(properties.connectionState) &&
+            this.automatic_ && ipv4 && ipv4.ipAddress) {
+          ipv6 = ipv6 || {type: IPConfigType.kIPv6};
+          ipv6.ipAddress = ipv6.ipAddress || this.i18n('ipAddressNotAvailable');
+        }
+        this.ipConfig_ = {ipv4: ipv4, ipv6: ipv6};
       }
-
-      this.ipConfig_ = {ipv4: ipv4, ipv6: ipv6};
     } else {
       this.ipConfig_ = undefined;
     }
@@ -10116,22 +10510,25 @@ Polymer({
   },
 
   /**
-   * Overrides null values of |ipv4| with defaults so |ipv4| passes validation
-   * after being converted to ONC StaticIPConfig.
+   * Overrides null values of this.ipConfig_.ipv4 with defaults so that
+   * this.ipConfig_.ipv4 passes validation after being converted to ONC
+   * StaticIPConfig.
    * TODO(https://crbug.com/1148841): Setting defaults here is strange, find
    * some better way.
-   * @param {!OncMojo.IPConfigUIProperties} ipv4 this will be modified in place
    * @private
    */
-  setIpv4Defaults_(ipv4) {
-    if (!ipv4.gateway) {
-      ipv4.gateway = '192.168.1.1';
+  setIpv4Defaults_() {
+    if (!this.ipConfig_ || !this.ipConfig_.ipv4) {
+      return;
     }
-    if (!ipv4.ipAddress) {
-      ipv4.ipAddress = '192.168.1.1';
+    if (!this.ipConfig_.ipv4.gateway) {
+      this.set('ipConfig_.ipv4.gateway', '192.168.1.1');
     }
-    if (!ipv4.netmask) {
-      ipv4.netmask = '255.255.255.0';
+    if (!this.ipConfig_.ipv4.ipAddress) {
+      this.set('ipConfig_.ipv4.ipAddress', '192.168.1.1');
+    }
+    if (!this.ipConfig_.ipv4.netmask) {
+      this.set('ipConfig_.ipv4.netmask', '255.255.255.0');
     }
   },
 
@@ -10149,7 +10546,7 @@ Polymer({
           type: IPConfigType.kIPv4,
         };
       }
-      this.setIpv4Defaults_(this.ipConfig_.ipv4);
+      this.setIpv4Defaults_();
       this.sendStaticIpConfig_();
       return;
     }
@@ -10311,7 +10708,7 @@ Polymer({
   },
 });
 
-function getTemplate$1u() {
+function getTemplate$1B() {
   return html`<!--_html_template_start_--><style include="network-shared md-select iron-flex">
   a {
     margin-inline-start: 4px;
@@ -10436,7 +10833,7 @@ const NameserversType = {
 };
 
 Polymer({
-  _template: getTemplate$1u(),
+  _template: getTemplate$1B(),
   is: 'network-nameservers',
 
   behaviors: [I18nBehavior, CrPolicyNetworkBehaviorMojo],
@@ -10634,7 +11031,17 @@ Polymer({
       type = NameserversType.AUTOMATIC;
       nameservers = this.clearEmptyNameServers_(nameservers);
     }
-    this.setNameservers_(type, nameservers, false /* send */);
+    // When a network is connected, we receive connection strength updates and
+    // that prevents users from making any custom updates to network
+    // nameservers. These below conditions allow connection strength updates to
+    // be applied only if network is not connected or if nameservers type is set
+    // to auto or if we are receiving the update for the first time.
+    if (type !== NameserversType.CUSTOM || !oldValue ||
+        newValue.guid !== (oldValue && oldValue.guid) ||
+        !OncMojo.connectionStateIsConnected(
+            this.managedProperties.connectionState)) {
+      this.setNameservers_(type, nameservers, false /* send */);
+    }
   },
 
   /**
@@ -10845,7 +11252,7 @@ Polymer({
   },
 });
 
-function getTemplate$1t() {
+function getTemplate$1A() {
   return html`<!--_html_template_start_--><style include="network-shared iron-flex">
   :host {
     cursor: default
@@ -10963,7 +11370,7 @@ const State = {
 };
 
 Polymer({
-  _template: getTemplate$1t(),
+  _template: getTemplate$1A(),
   is: 'network-siminfo',
 
   behaviors: [I18nBehavior],
@@ -11299,7 +11706,7 @@ Polymer({
   },
 });
 
-function getTemplate$1s() {
+function getTemplate$1z() {
     return html `<!--_html_template_start_--><style include="settings-shared">#cellularRoamingToggle{display:flex;justify-content:center;min-height:var(--cr-section-two-line-min-height)}#cellularRoamingToggle:not([disabled]):hover{background-color:var(--cr-hover-background-color)}#cellularRoamingToggle:not([disabled]):active{background-color:var(--cr-active-background-color)}</style>
 <template is="dom-if" if="[[showPerNetworkAllowRoamingToggle_(isRoamingAllowedForNetwork_)]]">
     <network-config-toggle id="cellularRoamingToggle" class="settings-box" policy-on-left property="[[managedProperties.typeProperties.cellular.allowRoaming]]" label="$i18n{networkAllowDataRoaming}" sub-label="[[getRoamingDetails_(managedProperties.typeProperties.cellular.allowRoaming.*, prefs.cros.signed.data_roaming_enabled)]]" checked="{{isRoamingAllowedForNetwork_}}" disabled="[[isPerNetworkToggleDisabled_(managedProperties.typeProperties.cellular.allowRoaming.*, disabled, prefs.cros.signed.data_roaming_enabled)]]">
@@ -11323,7 +11730,7 @@ class CellularRoamingToggleButtonElement extends CellularRoamingToggleButtonElem
         return 'cellular-roaming-toggle-button';
     }
     static get template() {
-        return getTemplate$1s();
+        return getTemplate$1z();
     }
     static get properties() {
         return {
@@ -11439,7 +11846,7 @@ class CellularRoamingToggleButtonElement extends CellularRoamingToggleButtonElem
 }
 customElements.define(CellularRoamingToggleButtonElement.is, CellularRoamingToggleButtonElement);
 
-function getTemplate$1r() {
+function getTemplate$1y() {
   return html`<!--_html_template_start_--><style include="network-shared cr-hidden-style iron-flex">
   #container {
     align-self: stretch;
@@ -11474,7 +11881,7 @@ function getTemplate$1r() {
 
 
 Polymer({
-  _template: getTemplate$1r(),
+  _template: getTemplate$1y(),
   is: 'network-proxy-exclusions',
 
   behaviors: [I18nBehavior],
@@ -11511,7 +11918,7 @@ Polymer({
   },
 });
 
-function getTemplate$1q() {
+function getTemplate$1x() {
   return html`<!--_html_template_start_--><style include="network-shared">
   cr-input {
     margin: 0 var(--cr-button-edge-spacing);
@@ -11557,7 +11964,7 @@ function getTemplate$1q() {
 
 
 Polymer({
-  _template: getTemplate$1q(),
+  _template: getTemplate$1x(),
   is: 'network-proxy-input',
 
   behaviors: [I18nBehavior],
@@ -11613,7 +12020,7 @@ Polymer({
   },
 });
 
-function getTemplate$1p() {
+function getTemplate$1w() {
   return html`<!--_html_template_start_--><style include="network-shared cr-hidden-style iron-flex iron-flex-alignment md-select">
   network-proxy-input {
     margin-bottom: 10px;
@@ -11762,7 +12169,7 @@ function getTemplate$1p() {
 
 
 Polymer({
-  _template: getTemplate$1p(),
+  _template: getTemplate$1w(),
   is: 'network-proxy',
 
   behaviors: [
@@ -12331,7 +12738,7 @@ Polymer({
   },
 });
 
-function getTemplate$1o() {
+function getTemplate$1v() {
     return html `<!--_html_template_start_--><style include="internet-shared cr-hidden-style iron-flex
     iron-flex-alignment">cr-policy-network-indicator-mojo{margin-inline-end:10px}extension-controlled-indicator{margin-inline-start:0;width:100%}lacros-extension-controlled-indicator{margin-inline-start:0;width:100%}.settings-box:first-of-type{border-top:none}</style>
 
@@ -12404,7 +12811,7 @@ class NetworkProxySectionElement extends NetworkProxySectionElementBase {
         return 'network-proxy-section';
     }
     static get template() {
-        return getTemplate$1o();
+        return getTemplate$1v();
     }
     static get properties() {
         return {
@@ -12551,7 +12958,7 @@ class NetworkProxySectionElement extends NetworkProxySectionElementBase {
 }
 customElements.define(NetworkProxySectionElement.is, NetworkProxySectionElement);
 
-function getTemplate$1n() {
+function getTemplate$1u() {
     return html `<!--_html_template_start_--><style include="settings-shared">#description{margin-bottom:var(--cr-section-vertical-margin)}</style>
 <cr-dialog id="dialog" close-text="$i18n{close}">
   <div slot="title">
@@ -12589,7 +12996,7 @@ class PasspointRemoveDialogElement extends PasspointRemoveDialogElementBase {
         return 'passpoint-remove-dialog';
     }
     static get template() {
-        return getTemplate$1n();
+        return getTemplate$1u();
     }
     static get properties() {
         return {};
@@ -12655,7 +13062,7 @@ class PasspointRemoveDialogElement extends PasspointRemoveDialogElementBase {
 }
 customElements.define(PasspointRemoveDialogElement.is, PasspointRemoveDialogElement);
 
-function getTemplate$1m() {
+function getTemplate$1t() {
   return html`<!--_html_template_start_--><style include="network-shared"></style>
 <h2>[[i18n('TrafficCountersTrafficCounters')]]</h2>
 <div class="button-group">
@@ -12967,7 +13374,7 @@ class TrafficCountersElement extends TrafficCountersElementBase {
   }
 
   static get template() {
-    return getTemplate$1m();
+    return getTemplate$1t();
   }
 
   static get properties() {
@@ -13167,7 +13574,7 @@ class TrafficCountersElement extends TrafficCountersElementBase {
 }
 customElements.define(TrafficCountersElement.is, TrafficCountersElement);
 
-function getTemplate$1l() {
+function getTemplate$1s() {
     return html `<!--_html_template_start_--><style include="internet-shared settings-shared iron-flex md-select">#data-usage-wrapper{align-items:center;display:flex}</style>
 <template is="dom-if" if="[[trafficCountersAvailable_]]">
   <div class="settings-box single-column stretch indented first">
@@ -13274,7 +13681,7 @@ class SettingsTrafficCountersElement extends SettingsTrafficCountersElementBase 
         return 'settings-traffic-counters';
     }
     static get template() {
-        return getTemplate$1l();
+        return getTemplate$1s();
     }
     static get properties() {
         return {
@@ -13454,7 +13861,7 @@ class SettingsTrafficCountersElement extends SettingsTrafficCountersElementBase 
 }
 customElements.define(SettingsTrafficCountersElement.is, SettingsTrafficCountersElement);
 
-function getTemplate$1k() {
+function getTemplate$1r() {
     return html `<!--_html_template_start_--><style include="settings-shared iron-flex">:host{--section-padding:24px;--bottom-padding:20px;--cr-dialog-title-slot-padding-top:var(--section-padding);--cr-dialog-title-slot-padding-bottom:var(--section-padding);--cr-dialog-title-slot-padding-start:var(--section-padding);--cr-dialog-title-slot-padding-end:var(--section-padding);--cr-dialog-button-container-padding-horizontal:var(--section-padding);--cr-dialog-button-container-padding-bottom:var(--bottom-padding)}[slot=body]>*{margin-inline-start:5px}iron-icon{--iron-icon-fill-color:var(--cros-icon-color-prominent)}#host-device-text-container{display:flex;flex-direction:column;margin-inline-start:18px}#availability-title{color:var(--cros-text-color-secondary);margin-top:5px}#host-device-container{align-items:center;display:flex;margin-top:12px;min-height:46px}#tether-carrier-warning,#tether-description-title,#tether-explanation{margin-top:var(--cr-section-vertical-margin)}#tether-carrier-warning{font-weight:600}#tether-description-list{padding-inline-start:16px}#host-device-lost-container{color:var(--cros-text-color-alert);font-weight:500}#host-device-lost-container iron-icon{--iron-icon-fill-color:var(--cros-icon-color-alert)}</style>
 <cr-dialog id="dialog" close-text="$i18n{close}">
   <div slot="title">$i18n{tetherConnectionDialogTitle}</div>
@@ -13541,7 +13948,7 @@ class TetherConnectionDialogElement extends TetherConnectionDialogElementBase {
         return 'tether-connection-dialog';
     }
     static get template() {
-        return getTemplate$1k();
+        return getTemplate$1r();
     }
     static get properties() {
         return {
@@ -13639,8 +14046,8 @@ class TetherConnectionDialogElement extends TetherConnectionDialogElementBase {
 }
 customElements.define(TetherConnectionDialogElement.is, TetherConnectionDialogElement);
 
-function getTemplate$1j() {
-    return html `<!--_html_template_start_--><style include="internet-shared settings-shared iron-flex">:host{padding-bottom:40px}iron-icon{margin-inline-end:10px}cr-policy-indicator{margin-inline-start:var(--cr-controlled-by-spacing)}cr-policy-network-indicator-mojo{margin:0 var(--cr-controlled-by-spacing)}#networkState[connected]{color:var(--cros-text-color-positive)}#networkState[warning]{color:var(--cros-text-color-warning)}#networkState[error]{color:var(--cros-text-color-alert)}#preferNetworkToggleContainer:hover{background-color:var(--cr-hover-background-color)}#preferNetworkToggleContainer:active{background-color:var(--cr-active-background-color)}paper-spinner-lite{height:var(--cr-icon-size);width:var(--cr-icon-size)}.warning{color:var(--cr-secondary-text-color);margin-inline-start:var(--cr-controlled-by-spacing)}.signin-button{margin-inline-end:8px;padding:8px 16px 8px 8px}.signin-icon{background-color:var(--text-color);margin-inline-end:4px;margin-inline-start:0}#mac-address-container{border-top:none}#hiddenToggle{margin-inline-start:var(--cr-section-padding)}cr-link-row{--cr-secondary-text-color:var(--cros-text-color-positive)}#apnSubpageButton{height:var(--cr-section-two-line-min-height)}</style>
+function getTemplate$1q() {
+    return html `<!--_html_template_start_--><style include="internet-shared settings-shared iron-flex">:host{padding-bottom:40px}iron-icon{margin-inline-end:10px}cr-policy-indicator{margin-inline-start:var(--cr-controlled-by-spacing)}cr-policy-network-indicator-mojo{margin:0 var(--cr-controlled-by-spacing)}#networkState[connected]{color:var(--cros-text-color-positive)}#networkState[warning]{color:var(--cros-text-color-warning)}#networkState[error]{color:var(--cros-text-color-alert)}#preferNetworkToggleContainer:hover{background-color:var(--cr-hover-background-color)}#preferNetworkToggleContainer:active{background-color:var(--cr-active-background-color)}paper-spinner-lite{height:var(--cr-icon-size);width:var(--cr-icon-size)}.warning{color:var(--cr-secondary-text-color);margin-inline-start:var(--cr-controlled-by-spacing)}.signin-button{margin-inline-end:8px;padding:8px 16px 8px 8px}.signin-icon{background-color:var(--text-color);margin-inline-end:4px;margin-inline-start:0}#mac-address-container{border-top:none}#hiddenToggle{margin-inline-start:var(--cr-section-padding)}cr-link-row:not([warning]){--cr-secondary-text-color:var(--cros-text-color-positive)}#apnSubpageButton{height:var(--cr-section-two-line-min-height)}</style>
 
 <div id="titleDiv" class="settings-box first">
   <div class="start layout horizontal center">
@@ -13706,7 +14113,7 @@ function getTemplate$1j() {
   <div class$="settings-box single-column
               [[messagesDividerClass_('secondary', managedProperties_,
                   globalPolicy, managedNetworkAvailable,
-                  isSecondaryUser_, isWifiSyncEnabled_)]]">
+                  isSecondaryUser_, isWifiSyncEnabled_, deviceState_)]]">
     <div class="layout horizontal center">
       <iron-icon class="policy" icon="cr:group"></iron-icon>
       <div class="settings-box-text">
@@ -13723,7 +14130,7 @@ function getTemplate$1j() {
   <div class$="settings-box settings-box-text
               [[messagesDividerClass_('shared', managedProperties_,
                   globalPolicy, managedNetworkAvailable,
-                  isSecondaryUser_, isWifiSyncEnabled_)]]">
+                  isSecondaryUser_, isWifiSyncEnabled_, deviceState_)]]">
       [[sharedString_(managedProperties_)]]
   </div>
 </template>
@@ -13733,9 +14140,19 @@ function getTemplate$1j() {
   <div class$="settings-box settings-box-text
               [[messagesDividerClass_('synced', managedProperties_,
                   globalPolicy, managedNetworkAvailable,
-                  isSecondaryUser_, isWifiSyncEnabled_)]]">
+                  isSecondaryUser_, isWifiSyncEnabled_, deviceState_)]]">
       <localized-link localized-string="[[syncedString_(managedProperties_)]]">
       </localized-link>
+  </div>
+</template>
+<template is="dom-if" if="[[isCarrierLockedActiveSim_(managedProperties_, deviceState_)]]">
+  
+  <div class$="settings-box settings-box-text
+      [[messagesDividerClass_('carrierlocked', managedProperties_,
+          globalPolicy, managedNetworkAvailable,
+          isSecondaryUser_, isWifiSyncEnabled_, deviceState_)]]">
+    <localized-link id="carrierLockedNoticeLink" localized-string="[[i18nAdvanced('networkCarrierLocked')]]">
+    </localized-link>
   </div>
 </template>
 
@@ -13815,7 +14232,7 @@ function getTemplate$1j() {
   <template is="dom-if" if="[[showConfigurableSections_]]" restamp>
     <template is="dom-if" if="[[shouldShowApnRow_(managedProperties_,
         isApnRevampEnabled_)]]">
-      <cr-link-row id="apnSubpageButton" class="hr" label="$i18n{internetApnPageTitle}" sub-label="[[getApnRowSubLabel_(managedProperties_)]]" on-click="onApnRowClicked_" role-description="$i18n{subpageArrowRoleDescription}">
+      <cr-link-row id="apnSubpageButton" class="hr" label="$i18n{internetApnPageTitle}" sub-label="[[getApnRowSubLabel_(managedProperties_)]]" on-click="onApnRowClicked_" role-description="$i18n{subpageArrowRoleDescription}" warning$="[[showRestrictedConnectivity_(managedProperties_)]]">
       </cr-link-row>
     </template>
   </template>
@@ -13998,7 +14415,7 @@ class SettingsInternetDetailPageElement extends SettingsInternetDetailPageElemen
         return 'settings-internet-detail-subpage';
     }
     static get template() {
-        return getTemplate$1j();
+        return getTemplate$1q();
     }
     static get properties() {
         return {
@@ -14184,6 +14601,13 @@ class SettingsInternetDetailPageElement extends SettingsInternetDetailPageElemen
                 value() {
                     return loadTimeData.valueExists('isSuppressTextMessagesEnabled') &&
                         loadTimeData.getBoolean('isSuppressTextMessagesEnabled');
+                },
+            },
+            isCellularCarrierLockEnabled_: {
+                type: Boolean,
+                value() {
+                    return loadTimeData.valueExists('isCellularCarrierLockEnabled') &&
+                        loadTimeData.getBoolean('isCellularCarrierLockEnabled');
                 },
             },
             isPasspointEnabled_: {
@@ -14850,6 +15274,10 @@ class SettingsInternetDetailPageElement extends SettingsInternetDetailPageElemen
                 return this.i18n('networkListItemConnectedNoConnectivity');
             }
         }
+        if (this.isCellularCarrierLockEnabled_ &&
+            this.isCarrierLockedActiveSim_(managedProperties, deviceState)) {
+            return this.i18n('networkMobileProviderLocked');
+        }
         return this.i18n(OncMojo.getConnectionStateString(managedProperties.connectionState));
     }
     getAutoConnectToggleLabel_(managedProperties) {
@@ -15418,7 +15846,7 @@ class SettingsInternetDetailPageElement extends SettingsInternetDetailPageElemen
     /**
      * @return Returns 'continuation' class for shared networks.
      */
-    messagesDividerClass_(name, managedProperties, globalPolicy, managedNetworkAvailable, isSecondaryUser, isWifiSyncEnabled) {
+    messagesDividerClass_(name, managedProperties, globalPolicy, managedNetworkAvailable, isSecondaryUser, isWifiSyncEnabled, deviceState) {
         let first = '';
         if (this.isBlockedByPolicy_(managedProperties, globalPolicy, managedNetworkAvailable)) {
             first = 'policy';
@@ -15432,6 +15860,10 @@ class SettingsInternetDetailPageElement extends SettingsInternetDetailPageElemen
         else if (this.showSynced_(managedProperties, globalPolicy, managedNetworkAvailable, isWifiSyncEnabled)) {
             first = 'synced';
         }
+        else if (this.isCellularCarrierLockEnabled_ &&
+            this.isCarrierLockedActiveSim_(managedProperties, deviceState)) {
+            first = 'carrierlocked';
+        }
         return first === name ? 'continuation' : '';
     }
     showSynced_(managedProperties, _globalPolicy, _managedNetworkAvailable, isWifiSyncEnabled) {
@@ -15442,6 +15874,26 @@ class SettingsInternetDetailPageElement extends SettingsInternetDetailPageElemen
         return !this.propertiesMissingOrBlockedByPolicy_() &&
             (managedProperties.source === OncSource.kDevice ||
                 managedProperties.source === OncSource.kDevicePolicy);
+    }
+    isCarrierLockedActiveSim_(managedProperties, deviceState) {
+        if (!this.isCellularCarrierLockEnabled_) {
+            return false;
+        }
+        if (!deviceState || deviceState.type !== NetworkType.kCellular) {
+            return false;
+        }
+        if (!managedProperties) {
+            return false;
+        }
+        const networkState = OncMojo.managedPropertiesToNetworkState(managedProperties);
+        if (!isActiveSim(networkState, deviceState)) {
+            return false;
+        }
+        const simLockStatus = deviceState.simLockStatus;
+        if (!simLockStatus) {
+            return false;
+        }
+        return simLockStatus.lockType === 'network-pin';
     }
     showAutoConnect_(managedProperties, globalPolicy, managedNetworkAvailable) {
         return !!managedProperties &&
@@ -15781,6 +16233,12 @@ class SettingsInternetDetailPageElement extends SettingsInternetDetailPageElemen
             this.deviceState_.type !== NetworkType.kCellular) {
             return false;
         }
+        // If device is carrier locked, all the settings should be
+        // disabled for non compatible SIMs.
+        if (this.isCellularCarrierLockEnabled_ &&
+            this.isCarrierLockedActiveSim_(this.managedProperties_, this.deviceState_)) {
+            return true;
+        }
         // If this is a cellular device and inhibited, state cannot be changed, so
         // the page's inputs should be disabled.
         return OncMojo.deviceIsInhibited(this.deviceState_);
@@ -15812,7 +16270,7 @@ class SettingsInternetDetailPageElement extends SettingsInternetDetailPageElemen
 }
 customElements.define(SettingsInternetDetailPageElement.is, SettingsInternetDetailPageElement);
 
-function getTemplate$1i() {
+function getTemplate$1p() {
     return html `<!--_html_template_start_--><style include="internet-shared iron-flex">cr-policy-indicator{margin-inline-start:var(--cr-controlled-by-spacing)}</style>
 
 <div class="settings-box first">
@@ -15963,7 +16421,7 @@ class SettingsInternetKnownNetworksPageElement extends SettingsInternetKnownNetw
         return 'settings-internet-known-networks-subpage';
     }
     static get template() {
-        return getTemplate$1i();
+        return getTemplate$1p();
     }
     static get properties() {
         return {
@@ -16246,7 +16704,814 @@ class SettingsInternetKnownNetworksPageElement extends SettingsInternetKnownNetw
 }
 customElements.define(SettingsInternetKnownNetworksPageElement.is, SettingsInternetKnownNetworksPageElement);
 
-function getTemplate$1h() {
+// Copyright 2011 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+/**
+ * @fileoverview EventTracker is a simple class that manages the addition and
+ * removal of DOM event listeners. In particular, it keeps track of all
+ * listeners that have been added and makes it easy to remove some or all of
+ * them without requiring all the information again. This is particularly handy
+ * when the listener is a generated function such as a lambda or the result of
+ * calling Function.bind.
+ * Note: This file is deprecated in favor of the TypeScript version at
+ * ui/webui/resources/js/event_tracker.ts. The TypeScript version should be used
+ * in all TypeScript code, and can also be used by JavaScript code that is not
+ * typechecked with closure compiler.
+ */
+
+class EventTracker {
+  /**
+   * Create an EventTracker to track a set of events.
+   * EventTracker instances are typically tied 1:1 with other objects or
+   * DOM elements whose listeners should be removed when the object is
+   * disposed or the corresponding elements are removed from the DOM.
+   */
+  constructor() {
+    /**
+     * @type {Array<EventTrackerEntry>}
+     * @private
+     */
+    this.listeners_ = [];
+  }
+
+  /**
+   * Add an event listener - replacement for EventTarget.addEventListener.
+   * @param {!EventTarget} target The DOM target to add a listener to.
+   * @param {string} eventType The type of event to subscribe to.
+   * @param {EventListener|Function} listener The listener to add.
+   * @param {boolean=} capture Whether to invoke during the capture phase.
+   */
+  add(target, eventType, listener, capture = false) {
+    const h = {
+      target: target,
+      eventType: eventType,
+      listener: listener,
+      capture: capture,
+    };
+    this.listeners_.push(h);
+    target.addEventListener(eventType, listener, capture);
+  }
+
+  /**
+   * Remove any specified event listeners added with this EventTracker.
+   * @param {!EventTarget} target The DOM target to remove a listener from.
+   * @param {?string} eventType The type of event to remove.
+   */
+  remove(target, eventType) {
+    this.listeners_ = this.listeners_.filter(listener => {
+      if (listener.target === target &&
+          (!eventType || (listener.eventType === eventType))) {
+        EventTracker.removeEventListener(listener);
+        return false;
+      }
+      return true;
+    });
+  }
+
+  /** Remove all event listeners added with this EventTracker. */
+  removeAll() {
+    this.listeners_.forEach(
+        listener => EventTracker.removeEventListener(listener));
+    this.listeners_ = [];
+  }
+
+  /**
+   * Remove a single event listener given it's tracking entry. It's up to the
+   * caller to ensure the entry is removed from listeners_.
+   * @param {EventTrackerEntry} entry The entry describing the listener to
+   * remove.
+   */
+  static removeEventListener(entry) {
+    entry.target.removeEventListener(
+        entry.eventType, entry.listener, entry.capture);
+  }
+}
+
+// Copyright 2012 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+
+/**
+ * Check the directionality of the page.
+ * @return {boolean} True if Chrome is running an RTL UI.
+ */
+function isRTL() {
+  return document.documentElement.dir === 'rtl';
+}
+
+/**
+ * @param {!Event} e
+ * @return {boolean} Whether a modifier key was down when processing |e|.
+ */
+function hasKeyModifiers(e) {
+  return !!(e.altKey || e.ctrlKey || e.metaKey || e.shiftKey);
+}
+
+// Copyright 2014 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+// clang-format on
+
+  /**
+   * A class to manage focus between given horizontally arranged elements.
+   *
+   * Pressing left cycles backward and pressing right cycles forward in item
+   * order. Pressing Home goes to the beginning of the list and End goes to the
+   * end of the list.
+   *
+   * If an item in this row is focused, it'll stay active (accessible via tab).
+   * If no items in this row are focused, the row can stay active until focus
+   * changes to a node inside |this.boundary_|. If |boundary| isn't specified,
+   * any focus change deactivates the row.
+   */
+  class FocusRow {
+    /**
+     * @param {!Element} root The root of this focus row. Focus classes are
+     *     applied to |root| and all added elements must live within |root|.
+     * @param {?Element} boundary Focus events are ignored outside of this
+     *     element.
+     * @param {FocusRowDelegate=} delegate An optional event
+     *     delegate.
+     */
+    constructor(root, boundary, delegate) {
+      /** @type {!Element} */
+      this.root = root;
+
+      /** @private {!Element} */
+      this.boundary_ = boundary || document.documentElement;
+
+      /** @type {FocusRowDelegate|undefined} */
+      this.delegate = delegate;
+
+      /** @protected {!EventTracker} */
+      this.eventTracker = new EventTracker();
+    }
+
+    /**
+     * Whether it's possible that |element| can be focused.
+     * @param {Element} element
+     * @return {boolean} Whether the item is focusable.
+     */
+    static isFocusable(element) {
+      if (!element || element.disabled) {
+        return false;
+      }
+
+      // We don't check that element.tabIndex >= 0 here because inactive rows
+      // set a tabIndex of -1.
+      let current = element;
+      while (true) {
+        assertInstanceof(current, Element);
+
+        const style = window.getComputedStyle(current);
+        if (style.visibility === 'hidden' || style.display === 'none') {
+          return false;
+        }
+
+        const parent = current.parentNode;
+        if (!parent) {
+          return false;
+        }
+
+        if (parent === current.ownerDocument ||
+            parent instanceof DocumentFragment) {
+          return true;
+        }
+
+        current = /** @type {Element} */ (parent);
+      }
+    }
+
+    /**
+     * A focus override is a function that returns an element that should gain
+     * focus. The element may not be directly selectable for example the element
+     * that can gain focus is in a shadow DOM. Allowing an override via a
+     * function leaves the details of how the element is retrieved to the
+     * component.
+     * @param {!HTMLElement} element
+     * @return {!HTMLElement}
+     */
+    static getFocusableElement(element) {
+      if (element.getFocusableElement) {
+        return element.getFocusableElement();
+      }
+      return element;
+    }
+
+    /**
+     * Register a new type of focusable element (or add to an existing one).
+     *
+     * Example: an (X) button might be 'delete' or 'close'.
+     *
+     * When FocusRow is used within a FocusGrid, these types are used to
+     * determine equivalent controls when Up/Down are pressed to change rows.
+     *
+     * Another example: mutually exclusive controls that hide each other on
+     * activation (i.e. Play/Pause) could use the same type (i.e. 'play-pause')
+     * to indicate they're equivalent.
+     *
+     * @param {string} type The type of element to track focus of.
+     * @param {string|HTMLElement} selectorOrElement The selector of the element
+     *    from this row's root, or the element itself.
+     * @return {boolean} Whether a new item was added.
+     */
+    addItem(type, selectorOrElement) {
+      assert$1(type);
+
+      let element;
+      if (typeof selectorOrElement === 'string') {
+        element = this.root.querySelector(selectorOrElement);
+      } else {
+        element = selectorOrElement;
+      }
+      if (!element) {
+        return false;
+      }
+
+      element.setAttribute('focus-type', type);
+      element.tabIndex = this.isActive() ? 0 : -1;
+
+      this.eventTracker.add(element, 'blur', this.onBlur_.bind(this));
+      this.eventTracker.add(element, 'focus', this.onFocus_.bind(this));
+      this.eventTracker.add(element, 'keydown', this.onKeydown_.bind(this));
+      this.eventTracker.add(element, 'mousedown', this.onMousedown_.bind(this));
+      return true;
+    }
+
+    /** Dereferences nodes and removes event handlers. */
+    destroy() {
+      this.eventTracker.removeAll();
+    }
+
+    /**
+     * @param {!HTMLElement} sampleElement An element for to find an equivalent
+     *     for.
+     * @return {!HTMLElement} An equivalent element to focus for
+     *     |sampleElement|.
+     * @protected
+     */
+    getCustomEquivalent(sampleElement) {
+      return /** @type {!HTMLElement} */ (assert$1(this.getFirstFocusable()));
+    }
+
+    /**
+     * @return {!Array<!HTMLElement>} All registered elements (regardless of
+     *     focusability).
+     */
+    getElements() {
+      return Array.from(this.root.querySelectorAll('[focus-type]'))
+          .map(FocusRow.getFocusableElement);
+    }
+
+    /**
+     * Find the element that best matches |sampleElement|.
+     * @param {!HTMLElement} sampleElement An element from a row of the same
+     *     type which previously held focus.
+     * @return {!HTMLElement} The element that best matches sampleElement.
+     */
+    getEquivalentElement(sampleElement) {
+      if (this.getFocusableElements().indexOf(sampleElement) >= 0) {
+        return sampleElement;
+      }
+
+      const sampleFocusType = this.getTypeForElement(sampleElement);
+      if (sampleFocusType) {
+        const sameType = this.getFirstFocusable(sampleFocusType);
+        if (sameType) {
+          return sameType;
+        }
+      }
+
+      return this.getCustomEquivalent(sampleElement);
+    }
+
+    /**
+     * @param {string=} opt_type An optional type to search for.
+     * @return {?HTMLElement} The first focusable element with |type|.
+     */
+    getFirstFocusable(opt_type) {
+      const element = this.getFocusableElements().find(
+          el => !opt_type || el.getAttribute('focus-type') === opt_type);
+      return element || null;
+    }
+
+    /** @return {!Array<!HTMLElement>} Registered, focusable elements. */
+    getFocusableElements() {
+      return this.getElements().filter(FocusRow.isFocusable);
+    }
+
+    /**
+     * @param {!Element} element An element to determine a focus type for.
+     * @return {string} The focus type for |element| or '' if none.
+     */
+    getTypeForElement(element) {
+      return element.getAttribute('focus-type') || '';
+    }
+
+    /** @return {boolean} Whether this row is currently active. */
+    isActive() {
+      return this.root.classList.contains(FocusRow.ACTIVE_CLASS);
+    }
+
+    /**
+     * Enables/disables the tabIndex of the focusable elements in the FocusRow.
+     * tabIndex can be set properly.
+     * @param {boolean} active True if tab is allowed for this row.
+     */
+    makeActive(active) {
+      if (active === this.isActive()) {
+        return;
+      }
+
+      this.getElements().forEach(function(element) {
+        element.tabIndex = active ? 0 : -1;
+      });
+
+      this.root.classList.toggle(FocusRow.ACTIVE_CLASS, active);
+    }
+
+    /**
+     * @param {!Event} e
+     * @private
+     */
+    onBlur_(e) {
+      if (!this.boundary_.contains(/** @type {Element} */ (e.relatedTarget))) {
+        return;
+      }
+
+      const currentTarget = /** @type {!HTMLElement} */ (e.currentTarget);
+      if (this.getFocusableElements().indexOf(currentTarget) >= 0) {
+        this.makeActive(false);
+      }
+    }
+
+    /**
+     * @param {!Event} e
+     * @private
+     */
+    onFocus_(e) {
+      if (this.delegate) {
+        this.delegate.onFocus(this, e);
+      }
+    }
+
+    /**
+     * @param {!Event} e A mousedown event.
+     * @private
+     */
+    onMousedown_(e) {
+      // Only accept left mouse clicks.
+      if (e.button) {
+        return;
+      }
+
+      // Allow the element under the mouse cursor to be focusable.
+      if (!e.currentTarget.disabled) {
+        e.currentTarget.tabIndex = 0;
+      }
+    }
+
+    /**
+     * @param {!Event} e The keydown event.
+     * @private
+     */
+    onKeydown_(e) {
+      const elements = this.getFocusableElements();
+      const currentElement = FocusRow.getFocusableElement(
+          /** @type {!HTMLElement} */ (e.currentTarget));
+      const elementIndex = elements.indexOf(currentElement);
+      assert$1(elementIndex >= 0);
+
+      if (this.delegate && this.delegate.onKeydown(this, e)) {
+        return;
+      }
+
+      const isShiftTab = !e.altKey && !e.ctrlKey && !e.metaKey && e.shiftKey &&
+          e.key === 'Tab';
+
+      if (hasKeyModifiers(e) && !isShiftTab) {
+        return;
+      }
+
+      let index = -1;
+      let shouldStopPropagation = true;
+
+      if (isShiftTab) {
+        // This always moves back one element, even in RTL.
+        index = elementIndex - 1;
+        if (index < 0) {
+          // Bubble up to focus on the previous element outside the row.
+          return;
+        }
+      } else if (e.key === 'ArrowLeft') {
+        index = elementIndex + (isRTL() ? 1 : -1);
+      } else if (e.key === 'ArrowRight') {
+        index = elementIndex + (isRTL() ? -1 : 1);
+      } else if (e.key === 'Home') {
+        index = 0;
+      } else if (e.key === 'End') {
+        index = elements.length - 1;
+      } else {
+        shouldStopPropagation = false;
+      }
+
+      const elementToFocus = elements[index];
+      if (elementToFocus) {
+        this.getEquivalentElement(elementToFocus).focus();
+        e.preventDefault();
+      }
+      if (shouldStopPropagation) {
+        e.stopPropagation();
+      }
+    }
+  }
+
+  /** @const {string} */
+  FocusRow.ACTIVE_CLASS = 'focus-row-active';
+
+// Copyright 2017 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+// clang-format on
+
+  /** @implements {FocusRowDelegate} */
+  class FocusRowBehaviorDelegate {
+    /**
+     * @param {{lastFocused: Object,
+     *          overrideCustomEquivalent: boolean,
+     *          getCustomEquivalent: (Function|undefined)}} listItem
+     */
+    constructor(listItem) {
+      /** @private */
+      this.listItem_ = listItem;
+    }
+
+    /**
+     * This function gets called when the [focus-row-control] element receives
+     * the focus event.
+     * @override
+     * @param {!FocusRow} row
+     * @param {!Event} e
+     */
+    onFocus(row, e) {
+      const element = /** @type {!HTMLElement} */ (e.composedPath()[0]);
+      const focusableElement = FocusRow.getFocusableElement(element);
+      if (element !== focusableElement) {
+        focusableElement.focus();
+      }
+      this.listItem_.lastFocused = focusableElement;
+    }
+
+    /**
+     * @override
+     * @param {!FocusRow} row The row that detected a keydown.
+     * @param {!Event} e
+     * @return {boolean} Whether the event was handled.
+     */
+    onKeydown(row, e) {
+      // Prevent iron-list from changing the focus on enter.
+      if (e.key === 'Enter') {
+        e.stopPropagation();
+      }
+
+      return false;
+    }
+
+    /** @override */
+    getCustomEquivalent(sampleElement) {
+      return this.listItem_.overrideCustomEquivalent ?
+          this.listItem_.getCustomEquivalent(sampleElement) :
+          null;
+    }
+  }
+
+  /** @extends {FocusRow} */
+  class VirtualFocusRow extends FocusRow {
+    /**
+     * @param {!Element} root
+     * @param {FocusRowDelegate} delegate
+     */
+    constructor(root, delegate) {
+      super(root, /* boundary */ null, delegate);
+    }
+
+    /** @override */
+    getCustomEquivalent(sampleElement) {
+      return this.delegate.getCustomEquivalent(sampleElement) ||
+          super.getCustomEquivalent(sampleElement);
+    }
+  }
+
+  /**
+   * Any element that is being used as an iron-list row item can extend this
+   * behavior, which encapsulates focus controls of mouse and keyboards.
+   * To use this behavior:
+   *    - The parent element should pass a "last-focused" attribute double-bound
+   *      to the row items, to track the last-focused element across rows, and
+   *      a "list-blurred" attribute double-bound to the row items, to track
+   *      whether the list of row items has been blurred.
+   *    - There must be a container in the extending element with the
+   *      [focus-row-container] attribute that contains all focusable controls.
+   *    - On each of the focusable controls, there must be a [focus-row-control]
+   *      attribute, and a [focus-type=] attribute unique for each control.
+   *
+   * @polymerBehavior
+   */
+  const FocusRowBehavior = {
+    properties: {
+      /** @private {VirtualFocusRow} */
+      row_: Object,
+
+      /** @private {boolean} */
+      mouseFocused_: Boolean,
+
+      /** Will be updated when |index| is set, unless specified elsewhere. */
+      id: {
+        type: String,
+        reflectToAttribute: true,
+      },
+
+      /** For notifying when the row is in focus. */
+      isFocused: {
+        type: Boolean,
+        notify: true,
+      },
+
+      /** Should be bound to the index of the item from the iron-list */
+      focusRowIndex: {
+        type: Number,
+        observer: 'focusRowIndexChanged',
+      },
+
+      /** @type {HTMLElement} */
+      lastFocused: {
+        type: Object,
+        notify: true,
+      },
+
+      /**
+       * This is different from tabIndex, since the template only does a one-way
+       * binding on both attributes, and the behavior actually make use of this
+       * fact. For example, when a control within a row is focused, it will have
+       * tabIndex = -1 and ironListTabIndex = 0.
+       * @type {number}
+       */
+      ironListTabIndex: {
+        type: Number,
+        observer: 'ironListTabIndexChanged_',
+      },
+
+      listBlurred: {
+        type: Boolean,
+        notify: true,
+      },
+    },
+
+    /**
+     * Returns an ID based on the index that was passed in.
+     * @param {?number} index
+     * @return {?string}
+     */
+    computeId_(index) {
+      return index !== undefined ? `frb${index}` : undefined;
+    },
+
+    /**
+     * Sets |id| if it hasn't been set elsewhere. Also sets |aria-rowindex|.
+     * @param {number} newIndex
+     * @param {number} oldIndex
+     */
+    focusRowIndexChanged(newIndex, oldIndex) {
+      // focusRowIndex is 0-based where aria-rowindex is 1-based.
+      this.setAttribute('aria-rowindex', newIndex + 1);
+
+      // Only set ID if it matches what was previously set. This prevents
+      // overriding the ID value if it's set elsewhere.
+      if (this.id === this.computeId_(oldIndex)) {
+        this.id = this.computeId_(newIndex);
+      }
+    },
+
+    /** @private {?Element} */
+    firstControl_: null,
+
+    /** @private {!Array<!MutationObserver>} */
+    controlObservers_: [],
+
+    /** @override */
+    attached() {
+      this.classList.add('no-outline');
+
+      afterNextRender(this, function() {
+        const rowContainer = this.root.querySelector('[focus-row-container]');
+        assert$1(rowContainer);
+        this.row_ = new VirtualFocusRow(
+            rowContainer, new FocusRowBehaviorDelegate(this));
+        this.addItems_();
+
+        // Adding listeners asynchronously to reduce blocking time, since this
+        // behavior will be used by items in potentially long lists.
+        this.listen(this, 'focus', 'onFocus_');
+        this.listen(this, 'dom-change', 'addItems_');
+        this.listen(this, 'mousedown', 'onMouseDown_');
+        this.listen(this, 'blur', 'onBlur_');
+      });
+    },
+
+    /** @override */
+    detached() {
+      this.unlisten(this, 'focus', 'onFocus_');
+      this.unlisten(this, 'dom-change', 'addItems_');
+      this.unlisten(this, 'mousedown', 'onMouseDown_');
+      this.unlisten(this, 'blur', 'onBlur_');
+      this.removeObservers_();
+      if (this.firstControl_) {
+        this.unlisten(this.firstControl_, 'keydown', 'onFirstControlKeydown_');
+      }
+      if (this.row_) {
+        this.row_.destroy();
+      }
+    },
+
+    /** @return {!FocusRow} */
+    getFocusRow() {
+      return assert$1(this.row_);
+    },
+
+    /** @private */
+    updateFirstControl_() {
+      const newFirstControl = this.row_.getFirstFocusable();
+      if (newFirstControl === this.firstControl_) {
+        return;
+      }
+
+      if (this.firstControl_) {
+        this.unlisten(this.firstControl_, 'keydown', 'onFirstControlKeydown_');
+      }
+      this.firstControl_ = newFirstControl;
+      if (this.firstControl_) {
+        this.listen(
+            /** @type {!Element} */ (this.firstControl_), 'keydown',
+            'onFirstControlKeydown_');
+      }
+    },
+
+    /** @private */
+    removeObservers_() {
+      if (this.controlObservers_.length > 0) {
+        this.controlObservers_.forEach(observer => {
+          observer.disconnect();
+        });
+      }
+      this.controlObservers_ = [];
+    },
+
+    /** @private */
+    addItems_() {
+      this.ironListTabIndexChanged_();
+      if (this.row_) {
+        this.removeObservers_();
+        this.row_.destroy();
+
+        const controls = this.root.querySelectorAll('[focus-row-control]');
+
+        controls.forEach(control => {
+          this.row_.addItem(
+              control.getAttribute('focus-type'),
+              /** @type {!HTMLElement} */
+              (FocusRow.getFocusableElement(control)));
+          this.addMutationObservers_(assert$1(control));
+        });
+        this.updateFirstControl_();
+      }
+    },
+
+    /**
+     * @return {!MutationObserver}
+     * @private
+     */
+    createObserver_() {
+      return new MutationObserver(mutations => {
+        const mutation = mutations[0];
+        if (mutation.attributeName === 'style' && mutation.oldValue) {
+          const newStyle = window.getComputedStyle(
+              /** @type {!Element} */ (mutation.target));
+          const oldDisplayValue = mutation.oldValue.match(/^display:(.*)(?=;)/);
+          const oldVisibilityValue =
+              mutation.oldValue.match(/^visibility:(.*)(?=;)/);
+          // Return early if display and visibility have not changed.
+          if (oldDisplayValue &&
+              newStyle.display === oldDisplayValue[1].trim() &&
+              oldVisibilityValue &&
+              newStyle.visibility === oldVisibilityValue[1].trim()) {
+            return;
+          }
+        }
+        this.updateFirstControl_();
+      });
+    },
+
+    /**
+     * The first focusable control changes if hidden, disabled, or style.display
+     * changes for the control or any of its ancestors. Add mutation observers
+     * to watch for these changes in order to ensure the first control keydown
+     * listener is always on the correct element.
+     * @param {!Element} control
+     * @private
+     */
+    addMutationObservers_(control) {
+      let current = control;
+      while (current && current !== this.root) {
+        const currentObserver = this.createObserver_();
+        currentObserver.observe(current, {
+          attributes: true,
+          attributeFilter: ['hidden', 'disabled', 'style'],
+          attributeOldValue: true,
+        });
+        this.controlObservers_.push(currentObserver);
+        current = current.parentNode;
+      }
+    },
+
+    /**
+     * This function gets called when the row itself receives the focus event.
+     * @param {!Event} e The focus event
+     * @private
+     */
+    onFocus_(e) {
+      if (this.mouseFocused_) {
+        this.mouseFocused_ = false;  // Consume and reset flag.
+        return;
+      }
+
+      // If focus is being restored from outside the item and the event is fired
+      // by the list item itself, focus the first control so that the user can
+      // tab through all the controls. When the user shift-tabs back to the row,
+      // or focus is restored to the row from a dropdown on the last item, the
+      // last child item will be focused before the row itself. Since this is
+      // the desired behavior, do not shift focus to the first item in these
+      // cases.
+      const restoreFocusToFirst =
+          this.listBlurred && e.composedPath()[0] === this;
+
+      if (this.lastFocused && !restoreFocusToFirst) {
+        focusWithoutInk$1(this.row_.getEquivalentElement(this.lastFocused));
+      } else {
+        const firstFocusable = assert$1(this.firstControl_);
+        focusWithoutInk$1(firstFocusable);
+      }
+      this.listBlurred = false;
+      this.isFocused = true;
+    },
+
+    /** @param {!KeyboardEvent} e */
+    onFirstControlKeydown_(e) {
+      if (e.shiftKey && e.key === 'Tab') {
+        this.focus();
+      }
+    },
+
+    /** @private */
+    ironListTabIndexChanged_() {
+      if (this.row_) {
+        this.row_.makeActive(this.ironListTabIndex === 0);
+      }
+
+      // If a new row is being focused, reset listBlurred. This means an item
+      // has been removed and iron-list is about to focus the next item.
+      if (this.ironListTabIndex === 0) {
+        this.listBlurred = false;
+      }
+    },
+
+    /** @private */
+    onMouseDown_() {
+      this.mouseFocused_ = true;  // Set flag to not do any control-focusing.
+    },
+
+    /**
+     * @param {!Event} e
+     * @private
+     */
+    onBlur_(e) {
+      // Reset focused flags since it's not active anymore.
+      this.mouseFocused_ = false;
+      this.isFocused = false;
+
+      const node =
+          e.relatedTarget ? /** @type {!Node} */ (e.relatedTarget) : null;
+      if (!this.parentNode.contains(node)) {
+        this.listBlurred = true;
+      }
+    },
+  };
+
+function getTemplate$1o() {
   return html`<!--_html_template_start_--><style include="cr-shared-style internet-shared iron-flex">
   :host {
     display: inline-flex;
@@ -16484,7 +17749,7 @@ NetworkList.CustomItemType = {
 
 
 Polymer({
-  _template: getTemplate$1h(),
+  _template: getTemplate$1o(),
   is: 'network-list-item',
 
   behaviors: [
@@ -16795,9 +18060,7 @@ Polymer({
 
     // Service provider from mojo API is a string16 value represented as an
     // array of characters. Convert to string for display.
-    this.subtitle_ = properties.serviceProvider.data
-                         .map((charCode) => String.fromCharCode(charCode))
-                         .join('');
+    this.subtitle_ = mojoString16ToString(properties.serviceProvider);
   },
 
   /** @private */
@@ -17139,16 +18402,17 @@ Polymer({
     if (this.networkState.type === NetworkType.kCellular) {
       // For carrier lock, display string is different from regular
       // pin lock
-      if (this.isCellularCarrierLockEnabled_ &&
-          this.networkState.typeState.cellular.simLocked &&
-          this.networkState.typeState.cellular.simLockType === 'network-pin') {
-        return this.i18n('networkListItemUpdatedCellularSimCardCarrierLocked');
+      if (this.networkState.typeState.cellular.simLocked) {
+        if (this.isCellularCarrierLockEnabled_ &&
+            this.networkState.typeState.cellular.simLockType ===
+                'network-pin') {
+          return this.i18n(
+              'networkListItemUpdatedCellularSimCardCarrierLocked');
+        }
+        return this.i18n('networkListItemUpdatedCellularSimCardLocked');
       }
       if (this.isPsimPendingActivationWhileLoggedOut_()) {
         return this.i18n('networkListItemActivateAfterDeviceSetup');
-      }
-      if (this.networkState.typeState.cellular.simLocked) {
-        return this.i18n('networkListItemUpdatedCellularSimCardLocked');
       }
       if (this.isPSimUnavailableNetwork_ || this.isESimUnactivatedProfile_) {
         return this.i18n('networkListItemUnavailableSimNetwork');
@@ -17690,6 +18954,158 @@ Polymer({
   },
 });
 
+// Copyright 2016 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+// clang-format on
+
+/** @polymerBehavior */
+const CrScrollableBehavior = {
+
+  /** @private {number|null} */
+  intervalId_: null,
+
+  ready() {
+    beforeNextRender(this, () => {
+      this.requestUpdateScroll();
+
+      // Listen to the 'scroll' event for each scrollable container.
+      const scrollableElements =
+          this.shadowRoot.querySelectorAll('[scrollable]');
+      for (let i = 0; i < scrollableElements.length; i++) {
+        scrollableElements[i].addEventListener(
+            'scroll', this.updateScrollEvent_.bind(this));
+      }
+    });
+  },
+
+  detached() {
+    if (this.intervalId_ !== null) {
+      clearInterval(this.intervalId_);
+    }
+  },
+
+  /**
+   * Called any time the contents of a scrollable container may have changed.
+   * This ensures that the <iron-list> contents of dynamically sized
+   * containers are resized correctly.
+   */
+  updateScrollableContents() {
+    if (this.intervalId_ !== null) {
+      return;
+    }  // notifyResize is already in progress.
+
+    this.requestUpdateScroll();
+
+    const nodeList = this.shadowRoot.querySelectorAll('[scrollable] iron-list');
+    if (!nodeList.length) {
+      return;
+    }
+
+    let nodesToResize = Array.from(nodeList).map(node => ({
+                                                   node: node,
+                                                   lastScrollHeight: 0,
+                                                 }));
+    // Use setInterval to avoid initial render / sizing issues.
+    this.intervalId_ = window.setInterval(() => {
+      const checkAgain = [];
+      nodesToResize.forEach(({node, lastScrollHeight}) => {
+        const scrollHeight = node.parentNode.scrollHeight;
+        // A hidden scroll-container has a height of 0. When not hidden, it has
+        // a min-height of 1px and the iron-list needs a resize to show the
+        // initial items and update the |scrollHeight|. The initial item count
+        // is determined by the |scrollHeight|. A scrollHeight of 1px will
+        // result in the minimum default item count (currently 3). After the
+        // |scrollHeight| is updated to be greater than 1px, another resize is
+        // needed to correctly calculate the number of physical iron-list items
+        // to render.
+        if (scrollHeight !== lastScrollHeight) {
+          const ironList = /** @type {!IronListElement} */ (node);
+          ironList.notifyResize();
+        }
+
+        // TODO(crbug.com/1121679): Add UI Test for this behavior.
+        if (scrollHeight <= 1 &&
+            window.getComputedStyle(node.parentNode).display !== 'none') {
+          checkAgain.push({
+            node: node,
+            lastScrollHeight: scrollHeight,
+          });
+        }
+      });
+      if (checkAgain.length === 0) {
+        window.clearInterval(this.intervalId_);
+        this.intervalId_ = null;
+      } else {
+        nodesToResize = checkAgain;
+      }
+    }, 10);
+  },
+
+  /**
+   * Setup the initial scrolling related classes for each scrollable container.
+   * Called from ready() and updateScrollableContents(). May also be called
+   * directly when the contents change (e.g. when not using iron-list).
+   */
+  requestUpdateScroll() {
+    requestAnimationFrame(function() {
+      const scrollableElements =
+          this.shadowRoot.querySelectorAll('[scrollable]');
+      for (let i = 0; i < scrollableElements.length; i++) {
+        this.updateScroll_(/** @type {!HTMLElement} */ (scrollableElements[i]));
+      }
+    }.bind(this));
+  },
+
+  /** @param {!IronListElement} list */
+  saveScroll(list) {
+    // Store a FIFO of saved scroll positions so that multiple updates in a
+    // frame are applied correctly. Specifically we need to track when '0' is
+    // saved (but not apply it), and still handle patterns like [30, 0, 32].
+    list.savedScrollTops = list.savedScrollTops || [];
+    list.savedScrollTops.push(list.scrollTarget.scrollTop);
+  },
+
+  /** @param {!IronListElement} list */
+  restoreScroll(list) {
+    this.async(function() {
+      const scrollTop = list.savedScrollTops.shift();
+      // Ignore scrollTop of 0 in case it was intermittent (we do not need to
+      // explicitly scroll to 0).
+      if (scrollTop !== 0) {
+        list.scroll(0, scrollTop);
+      }
+    });
+  },
+
+  /**
+   * Event wrapper for updateScroll_.
+   * @param {!Event} event
+   * @private
+   */
+  updateScrollEvent_(event) {
+    const scrollable = /** @type {!HTMLElement} */ (event.target);
+    this.updateScroll_(scrollable);
+  },
+
+  /**
+   * This gets called once initially and any time a scrollable container
+   * scrolls.
+   * @param {!HTMLElement} scrollable
+   * @private
+   */
+  updateScroll_(scrollable) {
+    scrollable.classList.toggle(
+        'can-scroll', scrollable.clientHeight < scrollable.scrollHeight);
+    scrollable.classList.toggle('is-scrolled', scrollable.scrollTop > 0);
+    scrollable.classList.toggle(
+        'scrolled-to-bottom',
+        scrollable.scrollTop + scrollable.clientHeight >=
+            scrollable.scrollHeight);
+  },
+};
+
 // Copyright 2018 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
@@ -17758,7 +19174,7 @@ const ListPropertyUpdateBehavior = {
   },
 };
 
-function getTemplate$1g() {
+function getTemplate$1n() {
   return html`<!--_html_template_start_--><style include="cr-shared-style iron-flex">
 
   network-list-item {
@@ -17817,7 +19233,7 @@ function getTemplate$1g() {
  * Polymer class definition for 'network-list'.
  */
 Polymer({
-  _template: getTemplate$1g(),
+  _template: getTemplate$1n(),
   is: 'network-list',
 
   properties: {
@@ -17969,7 +19385,7 @@ Polymer({
   },
 });
 
-function getTemplate$1f() {
+function getTemplate$1m() {
     return html `<!--_html_template_start_-->
 <style include="settings-shared iron-flex iron-positioning">:host{--cr-dialog-width:372px}paper-spinner-lite{height:20px;position:absolute;right:16px;top:6px;width:20px}#confirmationCodeMessage{margin-bottom:30px}#cancel{margin-inline-end:8px}</style>
 <cr-dialog id="installErrorDialog" show-on-attach>
@@ -18017,7 +19433,7 @@ class EsimInstallErrorDialogElement extends EsimInstallErrorDialogElementBase {
         return 'esim-install-error-dialog';
     }
     static get template() {
-        return getTemplate$1f();
+        return getTemplate$1m();
     }
     static get properties() {
         return {
@@ -18082,7 +19498,7 @@ class EsimInstallErrorDialogElement extends EsimInstallErrorDialogElementBase {
 }
 customElements.define(EsimInstallErrorDialogElement.is, EsimInstallErrorDialogElement);
 
-function getTemplate$1e() {
+function getTemplate$1l() {
     return html `<!--_html_template_start_--><style include="cr-shared-style os-settings-icons settings-shared iron-flex">:host>div{padding-inline-end:calc(var(--cr-section-padding) - var(--cr-icon-ripple-padding));padding-inline-start:var(--cr-section-padding)}.cellular-network-list-separator{border-top:var(--cr-separator-line);padding:0}.cellular-network-list-header{align-items:center;display:flex;height:72px}.esim-list-title{align-self:center}.cellular-network-content{margin-inline-start:32px}.cellular-not-setup{color:var(--cr-secondary-text-color);font-size:small;margin-bottom:16px}.flex{display:flex}.flex-column{display:flex;flex-direction:column}#eidPopupButton{--cr-icon-button-size:18px;cursor:pointer;margin-inline-start:4px}:host-context([dir=rtl]) #addESimButton{transform:scaleX(1)}#alignEnd{align-items:center;display:flex;margin-inline-end:12px;margin-inline-start:auto}#inhibitedSubtext{color:var(--cr-secondary-text-color)}paper-spinner-lite{height:20px;width:20px}cr-policy-indicator{margin-inline-start:24px}.separator{margin-inline-end:0;margin-inline-start:24px}</style>
 <template is="dom-if" if="[[shouldShowEsimSection_(euicc_,
     cellularDeviceState, cellularDeviceState.*)]]" restamp>
@@ -18195,7 +19611,7 @@ class CellularNetworksListElement extends CellularNetworksListElementBase {
         return 'cellular-networks-list';
     }
     static get template() {
-        return getTemplate$1e();
+        return getTemplate$1l();
     }
     static get properties() {
         return {
@@ -18423,8 +19839,8 @@ class CellularNetworksListElement extends CellularNetworksListElementBase {
             customItemType: properties.state === ProfileState.kInstalling ?
                 NetworkList.CustomItemType.ESIM_INSTALLING_PROFILE :
                 NetworkList.CustomItemType.ESIM_PENDING_PROFILE,
-            customItemName: String.fromCharCode(...properties.name.data),
-            customItemSubtitle: String.fromCharCode(...properties.serviceProvider.data),
+            customItemName: mojoString16ToString(properties.name),
+            customItemSubtitle: mojoString16ToString(properties.serviceProvider),
             polymerIcon: 'network:cellular-0',
             showBeforeNetworksList: false,
             customData: {
@@ -18653,7 +20069,7 @@ class CellularNetworksListElement extends CellularNetworksListElementBase {
 }
 customElements.define(CellularNetworksListElement.is, CellularNetworksListElement);
 
-function getTemplate$1d() {
+function getTemplate$1k() {
     return html `<!--_html_template_start_--><style include="settings-shared network-shared md-select">#lockdown{border-top:var(--cr-separator-line)}</style>
 
 <div class="property-box">
@@ -18717,7 +20133,7 @@ class NetworkAlwaysOnVpnElement extends NetworkAlwaysOnVpnElementBase {
         return 'network-always-on-vpn';
     }
     static get template() {
-        return getTemplate$1d();
+        return getTemplate$1k();
     }
     static get properties() {
         return {
@@ -18834,7 +20250,7 @@ class NetworkAlwaysOnVpnElement extends NetworkAlwaysOnVpnElementBase {
 }
 customElements.define(NetworkAlwaysOnVpnElement.is, NetworkAlwaysOnVpnElement);
 
-function getTemplate$1c() {
+function getTemplate$1j() {
     return html `<!--_html_template_start_--><style include="settings-shared iron-flex">:host{--cr-dialog-body-padding-horizontal:24px;--cr-dialog-button-container-padding-bottom:20px;--cr-dialog-button-container-padding-horizontal:24px;--cr-dialog-width:416px;--cr-dialog-title-slot-padding-bottom:12px;--cr-dialog-title-slot-padding-end:24px;--cr-dialog-title-slot-padding-start:24px;--cr-dialog-title-font-size:calc(16 / 13 * 100%)}#qrCodeCanvas{display:block;margin:20px auto 20px auto;max-width:calc(var(--cr-dialog-width) - var(--cr-dialog-title-slot-padding-start) - var(--cr-dialog-title-slot-padding-end))}@media(prefers-color-scheme:dark){#qrCodeCanvas{background-color:var(--cros-icon-color-primary);padding:1px}}.info-container{padding-top:16px}#eidContainer{border-bottom:var(--cr-separator-line)}.info-label{font-weight:700}.info-value{color:var(--cr-primary-text-color)}</style>
 <cr-dialog id="deviceInfoDialog" show-on-attach>
   <div slot="title">$i18n{mobileDeviceInfoPopupTitle}</div>
@@ -18897,7 +20313,7 @@ class NetworkDeviceInfoDialogElement extends I18nMixin(PolymerElement) {
         return 'network-device-info-dialog';
     }
     static get template() {
-        return getTemplate$1c();
+        return getTemplate$1j();
     }
     static get properties() {
         return {
@@ -19019,7 +20435,7 @@ class NetworkDeviceInfoDialogElement extends I18nMixin(PolymerElement) {
 }
 customElements.define(NetworkDeviceInfoDialogElement.is, NetworkDeviceInfoDialogElement);
 
-function getTemplate$1b() {
+function getTemplate$1i() {
     return html `<!--_html_template_start_--><style include="settings-shared"></style>
 <template is="dom-if" if="[[shouldShowDotsMenuButton_(deviceState)]]" restamp>
   <cr-icon-button id="moreNetworkMenuButton" class="icon-more-vert" title="$i18n{moreActions}" on-click="onDotsClick_">
@@ -19054,7 +20470,7 @@ class SettingsInternetSubpageMenuElement extends SettingsInternetSubpageMenuElem
         return 'settings-internet-subpage-menu';
     }
     static get template() {
-        return getTemplate$1b();
+        return getTemplate$1i();
     }
     static get properties() {
         return {
@@ -19099,7 +20515,7 @@ class SettingsInternetSubpageMenuElement extends SettingsInternetSubpageMenuElem
 }
 customElements.define(SettingsInternetSubpageMenuElement.is, SettingsInternetSubpageMenuElement);
 
-function getTemplate$1a() {
+function getTemplate$1h() {
     return html `<!--_html_template_start_--><style include="cr-shared-style os-settings-icons settings-shared iron-flex">#networkListDiv{min-height:var(--cr-section-min-height)}:host(:not([is-showing-vpn_])) #networkListDiv{margin-top:var(--cr-section-vertical-margin)}#cellularNetworkList{margin-top:calc(-1*var(--cr-section-vertical-margin))}#networkListDiv>*{padding-inline-end:calc(var(--cr-section-padding) - var(--cr-icon-ripple-padding));padding-inline-start:var(--cr-section-padding)}.add-button{margin-inline-end:20px}#onOff{font-weight:500}#onOff[on]{color:var(--cros-text-color-prominent)}.vpn-header{margin-bottom:8px;margin-inline-end:12px;margin-inline-start:4px;margin-top:8px}.no-networks{margin:4px}network-list{flex:1}network-always-on-vpn{width:100%}#gmscore-notifications-container{border-top:var(--cr-separator-line);margin:10px 0;padding-bottom:var(--cr-section-padding);padding-top:var(--cr-section-padding)}#gmscore-notifications-container[no-networks-text-below]{border-bottom:var(--cr-separator-line);margin-top:0}#gmscore-notifications-device-string{margin-top:5px}#gmscore-notifications-instructions{margin:0;padding-inline-start:15px}#cellularNetworkList{padding-inline-end:0;padding-inline-start:0}</style>
 <template is="dom-if" if="[[enableToggleIsVisible_(deviceState)]]">
   <div class="settings-box first">
@@ -19220,7 +20636,7 @@ class SettingsInternetSubpageElement extends SettingsInternetSubpageElementBase 
         return 'settings-internet-subpage';
     }
     static get template() {
-        return getTemplate$1a();
+        return getTemplate$1h();
     }
     static get properties() {
         return {
@@ -19974,7 +21390,7 @@ class SettingsInternetSubpageElement extends SettingsInternetSubpageElementBase 
 }
 customElements.define(SettingsInternetSubpageElement.is, SettingsInternetSubpageElement);
 
-function getTemplate$19() {
+function getTemplate$1g() {
     return html `<!--_html_template_start_--><style include="settings-shared network-shared">#headlineLink{margin-inline-start:36px}</style>
 <div class="settings-box first two-line">
   <localized-link id="headlineLink" class="secondary" localized-string="$i18n{passpointHeadlineText}" link-url="$i18nRaw{wifiPasspointLearnMoreUrl}">
@@ -20069,7 +21485,7 @@ class SettingsPasspointSubpageElement extends PasspointListenerMixin(RouteObserv
         return 'settings-passpoint-subpage';
     }
     static get template() {
-        return getTemplate$19();
+        return getTemplate$1g();
     }
     static get properties() {
         return {
@@ -20324,7 +21740,7 @@ class KerberosAccountsBrowserProxyImpl {
     }
 }
 
-function getTemplate$18() {
+function getTemplate$1f() {
     return html `<!--_html_template_start_--><style include="settings-shared action-link">#advancedConfigDesc{align-items:center;display:flex}#advancedConfigPolicyIndicator{margin-inline-start:1em}#credentials{margin-top:16px}#credentials>:not(:last-child){margin-bottom:var(--cr-form-field-bottom-spacing)}#general-error-container{display:flex;height:56px}#config-error-container{display:flex;height:40px;margin-top:16px}#config-error-message,#general-error-message{color:var(--settings-error-color)}iron-icon[icon='cr:error']{fill:var(--settings-error-color);margin-inline-end:8px}#rememberPasswordContainer{align-items:center;display:flex;margin-bottom:32px}#rememberPassword{margin-inline-end:1em}#kerberosDomain{color:var(--cros-text-color-primary);padding-inline-end:8px;white-space:nowrap}h3{font-size:inherit;font-weight:500;margin-block-end:12px;margin-block-start:0}</style>
 
 <cr-dialog id="addDialog" hidden="[[showAdvancedConfig_]]">
@@ -20429,7 +21845,7 @@ class KerberosAddAccountDialogElement extends KerberosAddAccountDialogElementBas
         return 'kerberos-add-account-dialog';
     }
     static get template() {
-        return getTemplate$18();
+        return getTemplate$1f();
     }
     static get properties() {
         return {
@@ -20834,8 +22250,8 @@ class KerberosAddAccountDialogElement extends KerberosAddAccountDialogElementBas
 }
 customElements.define(KerberosAddAccountDialogElement.is, KerberosAddAccountDialogElement);
 
-function getTemplate$17() {
-    return html `<!--_html_template_start_--><style include="settings-shared iron-flex iron-flex-alignment">.account-icon{background:center no-repeat;border-radius:20px;flex-shrink:0;height:40px;width:40px}#outer{margin-inline-end:var(--cr-section-padding);margin-inline-start:60px}#account-list-header{padding-bottom:1em}#remove-account-policy-indicator,.account-toolbar{margin-inline-start:1em}#add-account-policy-indicator{margin-inline-end:1em}#add-account-icon{-webkit-mask-image:url(chrome://resources/images/add.svg);background-color:currentColor;height:24px;margin-inline-end:.5em;width:24px}#remove-account-container{align-items:center;display:flex}.error-badge{left:60%;position:relative;top:60%}.warning{color:var(--cros-text-color-alert)}:host-context([dir=rtl]) .error-badge{left:auto;right:60%}</style>
+function getTemplate$1e() {
+    return html `<!--_html_template_start_--><style include="settings-shared iron-flex iron-flex-alignment">.account-icon{background:center no-repeat;border-radius:20px;flex-shrink:0;height:40px;width:40px}#outer{margin-inline-end:var(--cr-section-padding);margin-inline-start:60px}#account-list-header{padding-bottom:1em}#remove-account-policy-indicator,.account-toolbar{margin-inline-start:1em}#add-account-policy-indicator{margin-inline-end:1em}#addAccountIcon{-webkit-mask-image:url(chrome://resources/images/add.svg);background-color:currentColor;height:24px;width:24px}#remove-account-container{align-items:center;display:flex}.error-badge{left:60%;position:relative;top:60%}.warning{color:var(--cros-text-color-alert)}:host-context([dir=rtl]) .error-badge{left:auto;right:60%}</style>
 
 <iron-media-query query="(prefers-color-scheme: dark)" query-matches="{{isDarkModeActive_}}">
 </iron-media-query>
@@ -20857,7 +22273,7 @@ function getTemplate$17() {
     </cr-policy-indicator>
   </template>
   <cr-button id="add-account-button" on-click="onAddAccountClick_" disabled="[[!addAccountsAllowed_]]" deep-link-focus-id$="[[Setting.kAddKerberosTicketV2]]">
-    <div id="add-account-icon"></div>
+    <div id="addAccountIcon" slot="prefix-icon"></div>
     $i18n{kerberosAccountsAddAccountLabel}
   </cr-button>
 </div>
@@ -20950,7 +22366,7 @@ class SettingsKerberosAccountsSubpageElement extends SettingsKerberosAccountsSub
         return 'settings-kerberos-accounts-subpage';
     }
     static get template() {
-        return getTemplate$17();
+        return getTemplate$1e();
     }
     static get properties() {
         return {
@@ -21118,7 +22534,7 @@ class SettingsKerberosAccountsSubpageElement extends SettingsKerberosAccountsSub
 }
 customElements.define(SettingsKerberosAccountsSubpageElement.is, SettingsKerberosAccountsSubpageElement);
 
-function getTemplate$16() {
+function getTemplate$1d() {
     return html `<!--_html_template_start_--><style include="settings-shared">:host{--cr-section-indent-width:60px}.sub-item{padding-inline-start:var(--cr-section-indent-width)}.settings-box{padding-inline-start:0}cr-link-row,settings-toggle-button{padding-inline-end:var(--cr-section-padding);padding-inline-start:var(--cr-section-padding)}.settings-box.indented,settings-toggle-button.indented{margin-inline-start:calc(var(--cr-section-indent-padding) + var(--cr-section-indent-width))}#screenMagnifierZoomHintLabel{white-space:pre-line}#colorFilteringDeficiencyTypeDropdown{--md-select-width:300px}.color-item>.settings-box{border-top:none}.color-preview-holder{border:1px solid var(--cros-separator-color);border-radius:8px;gap:16px;margin-bottom:16px;margin-inline-end:20px;padding:16px 0;text-align:center}.color-preview-holder table{border-collapse:collapse;border-spacing:0;margin:0 auto}.color-preview-holder th{font-weight:400;padding-bottom:4px;padding-top:16px}.color-preview-holder td{margin:0;padding:0}.color-preview{height:92px;width:calc(524px / 8)}.color-preview.red{background:linear-gradient(180deg,var(--cros-color-preview-red),transparent)}.color-preview.orange{background:linear-gradient(180deg,var(--cros-color-preview-orange),transparent)}.color-preview.yellow{background:linear-gradient(180deg,var(--cros-color-preview-yellow),transparent)}.color-preview.green{background:linear-gradient(180deg,var(--cros-color-preview-green),transparent)}.color-preview.cyan{background:linear-gradient(180deg,var(--cros-color-preview-cyan),transparent)}.color-preview.blue{background:linear-gradient(180deg,var(--cros-color-preview-blue),transparent)}.color-preview.purple{background:linear-gradient(180deg,var(--cros-color-preview-purple),transparent)}.color-preview.gray{background:linear-gradient(180deg,var(--cros-color-preview-grey),transparent)}</style>
 <settings-toggle-button id="enableColorFiltering" icon="os-settings:color-correction" pref="{{prefs.settings.a11y.color_filtering.enabled}}" label="$i18n{colorFilteringLabel}" sub-label="$i18n{colorFilteringDescription}" deep-link-focus-id$="[[Setting.kColorCorrectionEnabled]]">
 </settings-toggle-button>
@@ -21235,7 +22651,7 @@ class SettingsDisplayAndMagnificationSubpageElement extends SettingsDisplayAndMa
         return 'settings-display-and-magnification-subpage';
     }
     static get template() {
-        return getTemplate$16();
+        return getTemplate$1d();
     }
     static get properties() {
         return {
@@ -21355,14 +22771,12 @@ class SettingsDisplayAndMagnificationSubpageElement extends SettingsDisplayAndMa
 }
 customElements.define(SettingsDisplayAndMagnificationSubpageElement.is, SettingsDisplayAndMagnificationSubpageElement);
 
-const template$1 = html `
-<custom-style>
-  <style>
+const template$3 = html `
+<style>
 html{--dialog-horizontal-padding:24px}
-  </style>
-</custom-style>
+</style>
 `;
-document.head.appendChild(template$1.content);
+document.head.appendChild(template$3.content);
 
 const styleMod = document.createElement('dom-module');
 styleMod.appendChild(html `
@@ -21374,7 +22788,7 @@ cr-search-field{--cr-search-field-clear-icon-fill:var(--cros-icon-color-primary)
 `.content);
 styleMod.register('shared-style');
 
-function getTemplate$15() {
+function getTemplate$1c() {
     return html `<!--_html_template_start_--><style include="settings-shared iron-flex shared-style">#dialogBody{display:flex;flex-direction:column;height:420px;overflow:auto;padding-inline-end:0;padding-inline-start:0}h3{color:var(--cros-text-color-secondary);font-size:inherit;margin:0;min-height:36px;padding-bottom:0;padding-top:0}cr-search-field{margin-bottom:16px;margin-inline-end:var(--dialog-horizontal-padding);margin-inline-start:var(--dialog-horizontal-padding);margin-top:16px}iron-icon[icon='settings:check-circle']{margin-inline-end:26px}.previous{fill:var(--cros-text-color-secondary)}.active{fill:var(--cr-link-color)}.hidden{visibility:hidden}.subtitle{color:var(--cros-text-color-secondary)}iron-list>div:not(.selected):hover{background-color:var(--cros-menu-item-bg-color-focus)}[scrollable] iron-list>:not(.no-outline):focus{background-color:var(--cros-menu-item-bg-color-focus)}[scrollable] iron-list>.selected:not(.no-outline):focus{background-color:transparent}.list-item{color:var(--cros-text-color-primary);min-height:36px}.padded{padding-inline-end:var(--dialog-horizontal-padding);padding-inline-start:var(--dialog-horizontal-padding)}paper-ripple{color:var(--cros-menu-item-ripple-color)}</style>
 
 <cr-dialog id="changeDictationLocaleDialog" close-text="$i18n{close}" show-on-attach>
@@ -21448,7 +22862,7 @@ class ChangeDictationLocaleDialog extends ChangeDictationLocaleDialogBase {
         return 'os-settings-change-dictation-locale-dialog';
     }
     static get template() {
-        return getTemplate$15();
+        return getTemplate$1c();
     }
     static get properties() {
         return {
@@ -21651,7 +23065,7 @@ class ChangeDictationLocaleDialog extends ChangeDictationLocaleDialogBase {
 }
 customElements.define(ChangeDictationLocaleDialog.is, ChangeDictationLocaleDialog);
 
-function getTemplate$14() {
+function getTemplate$1b() {
     return html `<!--_html_template_start_--><style include="settings-shared">:host{--cr-section-indent-width:60px}.sub-item{padding-inline-start:var(--cr-section-indent-width)}.settings-box{padding-inline-start:0}cr-link-row,settings-toggle-button{padding-inline-end:var(--cr-section-padding);padding-inline-start:var(--cr-section-padding)}.settings-box.indented,settings-toggle-button.indented{margin-inline-start:var(--cr-section-indent-width)}#screenMagnifierZoomHintLabel{white-space:pre-line}#dictationLocaleMenuSubtitle{max-width:450px;overflow-wrap:break-word}#focusHighlightDisabledTooltip,#stickyKeysDisabledTooltip{--paper-tooltip-background:var(--cros-tooltip-background-color);--paper-tooltip-border-radius:4px;--paper-tooltip-text-color:var(--cros-tooltip-label-color);--paper-tooltip-padding:8px}</style>
 
 <settings-toggle-button icon="os-settings:on-screen-keyboard" pref="{{prefs.settings.a11y.virtual_keyboard}}" label="$i18n{onScreenKeyboardLabel}" sub-label="$i18n{onScreenKeyboardDescription}" deep-link-focus-id$="[[Setting.kOnScreenKeyboard]]">
@@ -21737,7 +23151,7 @@ class SettingsKeyboardAndTextInputPageElement extends SettingsKeyboardAndTextInp
         return 'settings-keyboard-and-text-input-page';
     }
     static get template() {
-        return getTemplate$14();
+        return getTemplate$1b();
     }
     static get properties() {
         return {
@@ -21950,7 +23364,7 @@ class SettingsKeyboardAndTextInputPageElement extends SettingsKeyboardAndTextInp
 }
 customElements.define(SettingsKeyboardAndTextInputPageElement.is, SettingsKeyboardAndTextInputPageElement);
 
-function getTemplate$13() {
+function getTemplate$1a() {
     return html `<!--_html_template_start_--><style include="settings-shared">:host{--cr-section-indent-width:60px}.sub-item{padding-inline-start:var(--cr-section-indent-width)}.settings-box{padding-inline-start:0}.start-padding{padding-inline-start:var(--cr-section-padding)}cr-link-row,settings-toggle-button{padding-inline-end:var(--cr-section-padding);padding-inline-start:var(--cr-section-padding)}</style>
 
 <settings-toggle-button id="autoClickToggle" pref="{{prefs.settings.a11y.autoclick}}" icon="os-settings:autoclick" label="$i18n{clickOnStopLabel}" sub-label="$i18n{clickOnStopDescription}" deep-link-focus-id$="[[Setting.kAutoClickWhenCursorStops]]">
@@ -21976,13 +23390,18 @@ function getTemplate$13() {
   </settings-toggle-button>
 </div>
 
-<template is="dom-if" if="[[isAccessibilityFaceTrackingEnabled_]]">
-  <settings-toggle-button id="faceTrackingToggle" pref="{{prefs.settings.a11y.face_tracking.enabled}}" icon="os-settings:face-tracking" label="$i18n{accessibilityFaceTrackingLabel}" sub-label="$i18n{accessibilityFaceTrackingDescription}">
+<template is="dom-if" if="[[isAccessibilityFaceGazeEnabled_]]">
+  <settings-toggle-button id="faceGazeToggle" pref="{{prefs.settings.a11y.face_gaze.enabled}}" icon="os-settings:face-gaze" label="$i18n{accessibilityFaceGazeLabel}" sub-label="$i18n{accessibilityFaceGazeDescription}">
   </settings-toggle-button>
-  <iron-collapse opened="[[prefs.settings.a11y.face_tracking.enabled.value]]">
-    <div class="sub-item">
+  <iron-collapse opened="[[prefs.settings.a11y.face_gaze.enabled.value]]">
+    <div>
       
-      <cr-link-row id="faceTrackingSettingsButton" class="settings-box" label="$i18n{accessibilityFaceTrackingSettings}" external>
+      <cr-link-row id="faceGazeCursorControlButton" class="sub-item" label="$i18n{accessibilityFaceGazeSettings}" sub-label="$i18n{accessibilityFaceGazeSettingsDescription}">
+      </cr-link-row>
+    </div>
+    <div>
+      
+      <cr-link-row id="faceGazeFacialExpressionsButton" class="sub-item" label="$i18n{accessibilityFaceGazeFacialExpressionsSettings}" sub-label="$i18n{accessibilityFaceGazeFacialExpressionsSettingsDescription}">
       </cr-link-row>
     </div>
   </iron-collapse>
@@ -21994,7 +23413,7 @@ function getTemplate$13() {
     <div class="start settings-box-text" aria-hidden="true">
       $i18n{largeMouseCursorSizeLabel}
     </div>
-    <settings-slider id="largeCursorSizeSlider" pref="{{prefs.settings.a11y.large_cursor_dip_size}}" min="25" max="64" label-aria="$i18n{largeMouseCursorSizeLabel}" label-min="$i18n{largeMouseCursorSizeDefaultLabel}" label-max="$i18n{largeMouseCursorSizeLargeLabel}">
+    <settings-slider id="largeCursorSizeSlider" pref="{{prefs.settings.a11y.large_cursor_dip_size}}" min="25" max="[[largeCursorMaxSize_]]" label-aria="$i18n{largeMouseCursorSizeLabel}" label-min="$i18n{largeMouseCursorSizeDefaultLabel}" label-max="$i18n{largeMouseCursorSizeLargeLabel}">
     </settings-slider>
   </div>
 </div>
@@ -22048,7 +23467,7 @@ class SettingsCursorAndTouchpadPageElement extends SettingsCursorAndTouchpadPage
         return 'settings-cursor-and-touchpad-page';
     }
     static get template() {
-        return getTemplate$13();
+        return getTemplate$1a();
     }
     static get properties() {
         return {
@@ -22124,31 +23543,31 @@ class SettingsCursorAndTouchpadPageElement extends SettingsCursorAndTouchpadPage
                             name: loadTimeData.getString('cursorColorBlack'),
                         },
                         {
-                            value: 0xd93025,
+                            value: 0xd93025, // Red 600
                             name: loadTimeData.getString('cursorColorRed'),
                         },
                         {
-                            value: 0xf29900,
+                            value: 0xf29900, //  Yellow 700
                             name: loadTimeData.getString('cursorColorYellow'),
                         },
                         {
-                            value: 0x1e8e3e,
+                            value: 0x1e8e3e, // Green 600
                             name: loadTimeData.getString('cursorColorGreen'),
                         },
                         {
-                            value: 0x03b6be,
+                            value: 0x03b6be, // Cyan 600
                             name: loadTimeData.getString('cursorColorCyan'),
                         },
                         {
-                            value: 0x1a73e8,
+                            value: 0x1a73e8, // Blue 600
                             name: loadTimeData.getString('cursorColorBlue'),
                         },
                         {
-                            value: 0xc61ad9,
+                            value: 0xc61ad9, // Magenta 600
                             name: loadTimeData.getString('cursorColorMagenta'),
                         },
                         {
-                            value: 0xf50057,
+                            value: 0xf50057, // Pink A400
                             name: loadTimeData.getString('cursorColorPink'),
                         },
                     ];
@@ -22199,10 +23618,23 @@ class SettingsCursorAndTouchpadPageElement extends SettingsCursorAndTouchpadPage
              * Whether the face movements mouse cursor and keyboard control feature is
              * enabled.
              */
-            isAccessibilityFaceTrackingEnabled_: {
+            isAccessibilityFaceGazeEnabled_: {
                 type: Boolean,
                 value() {
-                    return loadTimeData.getBoolean('isAccessibilityGameFaceIntegrationEnabled');
+                    return loadTimeData.getBoolean('isAccessibilityFaceGazeEnabled');
+                },
+            },
+            /**
+             * The maximum size in density-independent pixels of the large mouse
+             * cursor. Note that this has no effect if it is larger than the maximum
+             * set in CursorWindowController.
+             */
+            largeCursorMaxSize_: {
+                type: Number,
+                value() {
+                    return loadTimeData.getBoolean('isAccessibilityExtraLargeCursorEnabled') ?
+                        128 :
+                        64;
                 },
             },
             /**
@@ -22533,7 +23965,7 @@ class BluetoothBrailleDisplayManager {
     }
 }
 
-function getTemplate$12() {
+function getTemplate$19() {
     return html `<!--_html_template_start_--><style include="settings-shared">settings-dropdown-menu{--md-select-width:100%}.container{align-items:center;display:flex;flex:1;justify-content:space-between;margin-inline-end:var(--cr-section-padding);min-height:var(--cr-section-min-height)}#pinContainer{align-items:baseline;display:flex;height:32px}#pinLabel{margin-inline-end:var(--cr-section-padding)}.controls{align-items:center;display:flex;flex:1}.menu{flex:1}.button,.menu{margin-inline-start:16px}</style>
 
 <div class="container">
@@ -22587,7 +24019,7 @@ class BluetoothBrailleDisplayUiElement extends BluetoothBrailleDisplayUiElementB
         return 'bluetooth-braille-display-ui';
     }
     static get template() {
-        return getTemplate$12();
+        return getTemplate$19();
     }
     static get properties() {
         return {
@@ -22721,7 +24153,7 @@ class BluetoothBrailleDisplayUiElement extends BluetoothBrailleDisplayUiElementB
 }
 customElements.define(BluetoothBrailleDisplayUiElement.is, BluetoothBrailleDisplayUiElement);
 
-function getTemplate$11() {
+function getTemplate$18() {
     return html `<!--_html_template_start_-->
 
 <style include="settings-shared md-select">:host{--cr-section-indent-width:60px}h2{padding-inline-start:var(--cr-section-padding)}.sub-item{padding-inline-start:var(--cr-section-indent-width)}.indented{margin-inline-start:32px}.settings-box{justify-content:space-between;margin-inline-end:var(--cr-section-padding);padding-inline-end:0;padding-inline-start:0}settings-dropdown-menu{--md-select-width:100%}settings-dropdown-menu+settings-dropdown-menu{padding-inline-start:16px}cr-link-row,settings-toggle-button{padding-inline-end:var(--cr-section-padding);padding-inline-start:var(--cr-section-padding)}.text-row{min-height:var(--cr-section-min-height);padding-bottom:8px;padding-top:14px}cr-input{--cr-input-error-display:none;width:80px}cr-expand-button{margin-top:20px}#developerOptionsExpandButton{min-height:var(--cr-section-min-height);padding-inline-end:var(--cr-section-padding)}#developerOptionsHeading{padding-bottom:0;padding-top:0}</style>
@@ -22887,7 +24319,7 @@ class SettingsChromeVoxSubpageElement extends SettingsChromeVoxSubpageElementBas
         return 'settings-chromevox-subpage';
     }
     static get template() {
-        return getTemplate$11();
+        return getTemplate$18();
     }
     static get properties() {
         return {
@@ -23169,7 +24601,7 @@ class SettingsChromeVoxSubpageElement extends SettingsChromeVoxSubpageElementBas
         // TODO(b/271422242): voiceName can actually be omitted in the TTS engine.
         // We should generate a name in that case.
         voices.forEach(voice => voice.name = voice.name || '');
-        voices.sort(function (a, b) {
+        voices.sort((a, b) => {
             function score(voice) {
                 // Prefer Google tts voices over all others.
                 if (voice.extensionId === GOOGLE_TTS_EXTENSION_ID) {
@@ -23394,7 +24826,7 @@ class SettingsChromeVoxSubpageElement extends SettingsChromeVoxSubpageElementBas
 }
 customElements.define(SettingsChromeVoxSubpageElement.is, SettingsChromeVoxSubpageElement);
 
-function getTemplate$10() {
+function getTemplate$17() {
     return html `<!--_html_template_start_-->
 
 <style include="settings-shared">:host{--cr-section-indent-width:60px;--focus-ring-highlight-color:rgb(218, 54, 232)}h2{padding-inline-start:var(--cr-section-padding)}.sub-item{padding-inline-start:var(--cr-section-indent-width)}.indented{margin-inline-start:32px}.settings-box{margin-inline-end:var(--cr-section-padding);padding-inline-end:0;padding-inline-start:0}settings-dropdown-menu{--md-select-width:100%}cr-link-row,settings-toggle-button{padding-inline-end:var(--cr-section-padding);padding-inline-start:var(--cr-section-padding)}.preview-input{width:315px;--cr-input-error-display:none}.preview-input cr-button{margin-inline-start:8px}.highlight-example-container{display:flex;flex-direction:row;justify-content:space-between;margin-inline-end:var(--cr-section-padding)}.example{display:flex;flex:1;font-size:1em;height:60px;justify-content:center;line-height:60px;padding:0 3px;vertical-align:middle}.example.light{background-color:var(--cros-bg-color-light);border-radius:4px 0 0 4px;color:var(--cros-text-color-primary-light)}.example.dark{background-color:var(--cros-bg-color-dark);border-radius:0 4px 4px 0;color:var(--cros-text-color-primary-dark)}.highlight{height:20px;opacity:.3;position:relative;top:-40px;width:100%;z-index:10}.background-preview{background-color:rgba(var(--cros-bg-color-dark-rgb),.4);border-radius:4px;line-height:1.5;margin-inline-end:var(--cr-section-padding);margin-top:16px;padding:16px 24px 16px 24px;position:relative}.background-preview-selected{background-color:var(--cros-bg-color);border-radius:6px;box-shadow:0 0 4px 4px var(--focus-ring-highlight-color);color:var(--cros-text-color-primary);display:inline-block;margin:0;padding:6px 4px 6px 4px}.background-preview-unselected{color:var(--cros-text-color-secondary);margin:2px 0 2px 0;padding:0 4px 0 4px}</style>
@@ -23552,7 +24984,7 @@ class SettingsSelectToSpeakSubpageElement extends SettingsSelectToSpeakSubpageEl
         return 'settings-select-to-speak-subpage';
     }
     static get template() {
-        return getTemplate$10();
+        return getTemplate$17();
     }
     static get properties() {
         return {
@@ -23978,7 +25410,7 @@ class SettingsSelectToSpeakSubpageElement extends SettingsSelectToSpeakSubpageEl
 }
 customElements.define(SettingsSelectToSpeakSubpageElement.is, SettingsSelectToSpeakSubpageElement);
 
-function getTemplate$$() {
+function getTemplate$16() {
     return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">cr-dialog::part(dialog){width:420px}</style>
 
 <cr-dialog id="switchAccessActionAssignmentDialog" show-on-attach>
@@ -24074,7 +25506,7 @@ class SettingsSwitchAccessActionAssignmentDialogElement extends SettingsSwitchAc
         return 'settings-switch-access-action-assignment-dialog';
     }
     static get template() {
-        return getTemplate$$();
+        return getTemplate$16();
     }
     static get properties() {
         return {
@@ -24127,7 +25559,7 @@ class SettingsSwitchAccessActionAssignmentDialogElement extends SettingsSwitchAc
 }
 customElements.define(SettingsSwitchAccessActionAssignmentDialogElement.is, SettingsSwitchAccessActionAssignmentDialogElement);
 
-function getTemplate$_() {
+function getTemplate$15() {
     return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">#prompt{color:var(--cr-primary-text-color);margin-top:8px;min-height:40px;white-space:pre-line}#switchAssignments{background-color:var(--cros-textfield-background-color);border-radius:4px;display:flex;flex-direction:column;gap:12px;height:60px;margin-top:20px;overflow:auto;padding:16px}:host-context(body.jelly-enabled) #switchAssignments{background-color:var(--cros-sys-input_field_on_base)}.switch-assignment{display:flex}.icon{margin-inline-end:10px}.add-assignment-icon{--iron-icon-fill-color:var(--cros-icon-color-secondary)}.assigned-icon{--iron-icon-fill-color:var(--cros-icon-color-prominent)}.remove-assignment-icon{--iron-icon-fill-color:var(--cros-icon-color-alert)}#errorIcon{--iron-icon-fill-color:var(--cros-icon-color-alert)}#button-container{margin-inline-end:10px;padding-top:8px}#errorContainer{height:40px;margin-top:16px}#error{color:var(--cros-icon-color-alert);display:flex}</style>
 <div id="prompt" aria-live="polite">[[promptText_]]</div>
 <div id="switchAssignments">
@@ -24201,7 +25633,7 @@ class SettingsSwitchAccessActionAssignmentPaneElement extends SettingsSwitchAcce
         return 'settings-switch-access-action-assignment-pane';
     }
     static get template() {
-        return getTemplate$_();
+        return getTemplate$15();
     }
     static get properties() {
         return {
@@ -24550,7 +25982,7 @@ class SettingsSwitchAccessActionAssignmentPaneElement extends SettingsSwitchAcce
 }
 customElements.define(SettingsSwitchAccessActionAssignmentPaneElement.is, SettingsSwitchAccessActionAssignmentPaneElement);
 
-function getTemplate$Z() {
+function getTemplate$14() {
     return html `<!--_html_template_start_--><link rel="import" href="chrome://resources/cr_elements/cr_icons.css.html">
 <style include="cr-shared-style settings-shared">cr-dialog::part(dialog){height:380px;width:600px}.sa-setup-title{line-height:150%}.sa-setup-body{height:233px;margin-top:5px}.sa-setup-contents{width:335px}.flex{display:flex;flex-direction:row;justify-content:space-between}.illustration{background-position:center center;background-repeat:no-repeat;background-size:183px}.illustration,.illustration-jelly{height:173px;margin-top:15px;padding:16px;width:183px}#intro .illustration{background-image:url(chrome://os-settings/images/switch_access_setup_guide_start_pairing.svg)}#assignSwitch[data-switch=select] .illustration{background-image:url(chrome://os-settings/images/switch_access_setup_guide_assign_select.svg)}#assignSwitch[data-switch=next] .illustration{background-image:url(chrome://os-settings/images/switch_access_setup_guide_assign_next.svg)}#assignSwitch[data-switch=previous] .illustration{background-image:url(chrome://os-settings/images/switch_access_setup_guide_assign_previous.svg)}#chooseSwitchCount[data-switch-count='1'] .illustration{background-image:url(chrome://os-settings/images/switch_access_setup_guide_choose_one_switch.svg)}#chooseSwitchCount[data-switch-count='2'] .illustration{background-image:url(chrome://os-settings/images/switch_access_setup_guide_choose_two_switches.svg)}#chooseSwitchCount[data-switch-count='3'] .illustration{background-image:url(chrome://os-settings/images/switch_access_setup_guide_choose_three_switches.svg)}#autoScanEnabled .illustration{background-image:url(chrome://os-settings/images/switch_access_setup_guide_auto_scan_enabled.svg)}#closing .illustration{background-image:url(chrome://os-settings/images/switch_access_setup_guide_closing.svg)}@media(prefers-color-scheme:dark){#intro .illustration{background-image:url(chrome://os-settings/images/switch_access_setup_guide_start_pairing_dark.svg)}#assignSwitch[data-switch=select] .illustration{background-image:url(chrome://os-settings/images/switch_access_setup_guide_assign_select_dark.svg)}#assignSwitch[data-switch=next] .illustration{background-image:url(chrome://os-settings/images/switch_access_setup_guide_assign_next_dark.svg)}#assignSwitch[data-switch=previous] .illustration{background-image:url(chrome://os-settings/images/switch_access_setup_guide_assign_previous_dark.svg)}#chooseSwitchCount[data-switch-count='1'] .illustration{background-image:url(chrome://os-settings/images/switch_access_setup_guide_choose_one_switch_dark.svg)}#chooseSwitchCount[data-switch-count='2'] .illustration{background-image:url(chrome://os-settings/images/switch_access_setup_guide_choose_two_switches_dark.svg)}#chooseSwitchCount[data-switch-count='3'] .illustration{background-image:url(chrome://os-settings/images/switch_access_setup_guide_choose_three_switches_dark.svg)}#autoScanEnabled .illustration{background-image:url(chrome://os-settings/images/switch_access_setup_guide_auto_scan_enabled_dark.svg)}#closing .illustration{background-image:url(chrome://os-settings/images/switch_access_setup_guide_closing_dark.svg)}}:host-context(body:not(.jelly-enabled)) .illustration-jelly{display:none}:host-context(body.jelly-enabled) .illustration{display:none}#buttonContainer{padding:24px}cr-button{margin:4px}.radio-button-title{color:var(--cr-primary-text-color);font-size:14px}.radio-button-description{padding-bottom:16px}#bluetooth{margin-inline-end:324px}#exit{float:right;margin-top:-6px;padding:none}</style>
 <cr-dialog id="switchAccessSetupGuideDialog" show-on-attach>
@@ -24765,7 +26197,7 @@ class SettingsSwitchAccessSetupGuideDialogElement extends SettingsSwitchAccessSe
         return 'settings-switch-access-setup-guide-dialog';
     }
     static get template() {
-        return getTemplate$Z();
+        return getTemplate$14();
     }
     static get properties() {
         return {
@@ -25088,7 +26520,7 @@ class SettingsSwitchAccessSetupGuideDialogElement extends SettingsSwitchAccessSe
 }
 customElements.define(SettingsSwitchAccessSetupGuideDialogElement.is, SettingsSwitchAccessSetupGuideDialogElement);
 
-function getTemplate$Y() {
+function getTemplate$13() {
     return html `<!--_html_template_start_--><style include="settings-shared">cr-dialog::part(dialog){width:320px}.body{margin-top:8px}</style>
 <cr-dialog id="dialog" close-text="$i18n{close}">
   <div slot="title">$i18n{switchAccessSetupGuideWarningDialogTitle}</div>
@@ -25114,7 +26546,7 @@ class SettingsSwitchAccessSetupGuideWarningDialogElement extends PolymerElement 
         return 'settings-switch-access-setup-guide-warning-dialog';
     }
     static get template() {
-        return getTemplate$Y();
+        return getTemplate$13();
     }
     connectedCallback() {
         super.connectedCallback();
@@ -25129,7 +26561,7 @@ class SettingsSwitchAccessSetupGuideWarningDialogElement extends PolymerElement 
 }
 customElements.define(SettingsSwitchAccessSetupGuideWarningDialogElement.is, SettingsSwitchAccessSetupGuideWarningDialogElement);
 
-function getTemplate$X() {
+function getTemplate$12() {
     return html `<!--_html_template_start_--><style include="settings-shared md-select">h2{padding-inline-start:var(--cr-section-padding)}ul{list-style-type:none;text-align:end}</style>
 <cr-link-row on-click="onSetupGuideRerunClick_" label="$i18n{switchAccessSetupGuideLabel}" id="setupGuideLink">
 </cr-link-row>
@@ -25209,7 +26641,7 @@ class SettingsSwitchAccessSubpageElement extends SettingsSwitchAccessSubpageElem
         return 'settings-switch-access-subpage';
     }
     static get template() {
-        return getTemplate$X();
+        return getTemplate$12();
     }
     static get properties() {
         return {
@@ -25438,9 +26870,9 @@ class SettingsSwitchAccessSubpageElement extends SettingsSwitchAccessSubpageElem
 }
 customElements.define(SettingsSwitchAccessSubpageElement.is, SettingsSwitchAccessSubpageElement);
 
-function getTemplate$W() {
+function getTemplate$11() {
     return html `<!--_html_template_start_--><style include="settings-shared">:host{--cr-section-indent-width:60px}.sub-item{padding-inline-start:var(--cr-section-indent-width)}.settings-box{padding-inline-start:0}cr-link-row,settings-toggle-button{padding-inline-end:var(--cr-section-padding);padding-inline-start:var(--cr-section-padding)}</style>
-<settings-toggle-button icon="os-settings:chromevox" pref="{{prefs.settings.accessibility}}" label="$i18n{chromeVoxLabel}" sub-label="[[getChromeVoxDescription_(prefs.settings.accessibility.value)]]" deep-link-focus-id$="[[Setting.kChromeVox]]">
+<settings-toggle-button icon="os-settings:text-to-speech" pref="{{prefs.settings.accessibility}}" label="$i18n{chromeVoxLabel}" sub-label="[[getChromeVoxDescription_(prefs.settings.accessibility.value)]]" deep-link-focus-id$="[[Setting.kChromeVox]]">
 </settings-toggle-button>
 <iron-collapse opened="[[prefs.settings.accessibility.value]]">
   <div class="sub-item">
@@ -25511,7 +26943,7 @@ class SettingsTextToSpeechSubpageElement extends SettingsTextToSpeechSubpageElem
         return 'settings-text-to-speech-subpage';
     }
     static get template() {
-        return getTemplate$W();
+        return getTemplate$11();
     }
     static get properties() {
         return {
@@ -25665,7 +27097,7 @@ class SettingsTextToSpeechSubpageElement extends SettingsTextToSpeechSubpageElem
 }
 customElements.define(SettingsTextToSpeechSubpageElement.is, SettingsTextToSpeechSubpageElement);
 
-function getTemplate$V() {
+function getTemplate$10() {
     return html `<!--_html_template_start_--><style include="settings-shared md-select">h2{padding-inline-start:var(--cr-section-padding)}.settings-box{margin-inline-end:var(--cr-section-padding);margin-inline-start:var(--cr-section-indent-padding);padding-inline-end:0;padding-inline-start:0}#previewInput{width:70%;--cr-input-error-display:none}#previewInput cr-button{margin-inline-start:8px}</style>
 
 <h2>$i18n{textToSpeechProperties}</h2>
@@ -25772,7 +27204,7 @@ class SettingsTtsVoiceSubpageElement extends SettingsTtsVoiceSubpageElementBase 
         return 'settings-tts-voice-subpage';
     }
     static get template() {
-        return getTemplate$V();
+        return getTemplate$10();
     }
     static get properties() {
         return {
@@ -26101,7 +27533,7 @@ class SettingsTtsVoiceSubpageElement extends SettingsTtsVoiceSubpageElementBase 
 }
 customElements.define(SettingsTtsVoiceSubpageElement.is, SettingsTtsVoiceSubpageElement);
 
-function getTemplate$U() {
+function getTemplate$$() {
     return html `<!--_html_template_start_--><style include="settings-shared">#warningSelector>:not(.iron-selected){display:none}h3{font-size:inherit}</style>
 <cr-dialog id="dialog" close-text="$i18n{close}">
   <div slot="title">$i18n{aboutChangeChannel}</div>
@@ -26170,7 +27602,7 @@ class SettingsChannelSwitcherDialogElement extends PolymerElement {
         return 'settings-channel-switcher-dialog';
     }
     static get template() {
-        return getTemplate$U();
+        return getTemplate$$();
     }
     static get properties() {
         return {
@@ -26289,7 +27721,7 @@ class SettingsChannelSwitcherDialogElement extends PolymerElement {
 }
 customElements.define(SettingsChannelSwitcherDialogElement.is, SettingsChannelSwitcherDialogElement);
 
-function getTemplate$T() {
+function getTemplate$_() {
     return html `<!--_html_template_start_--><style include="settings-shared">#warningSelector>:not(.iron-selected){display:none}</style>
 <cr-dialog id="dialog" close-text="$i18n{close}">
   <div slot="title">$i18n{aboutConsumerAutoUpdateToggleDialogTitle}</div>
@@ -26314,7 +27746,7 @@ class SettingsConsumerAutoUpdateToggleDialogElement extends PolymerElement {
         return 'settings-consumer-auto-update-toggle-dialog';
     }
     static get template() {
-        return getTemplate$T();
+        return getTemplate$_();
     }
     connectedCallback() {
         super.connectedCallback();
@@ -26343,7 +27775,7 @@ class SettingsConsumerAutoUpdateToggleDialogElement extends PolymerElement {
 }
 customElements.define(SettingsConsumerAutoUpdateToggleDialogElement.is, SettingsConsumerAutoUpdateToggleDialogElement);
 
-function getTemplate$S() {
+function getTemplate$Z() {
     return html `<!--_html_template_start_--><style include="settings-shared">:host{--cr-dialog-width:335px;--cr-dialog-title-slot-padding-start:24px;--cr-dialog-title-slot-padding-end:24px;--cr-dialog-title-slot-padding-top:24px;--cr-dialog-title-slot-padding-bottom:0;--cr-dialog-body-padding-horizontal:24px;--cr-dialog-button-container-padding-horizontal:24px;--cr-dialog-button-container-padding-bottom:20px}:host([is-input-invalid_]) #inputInfo{color:var(--cros-text-color-alert)}#inputContainer{position:relative}#deviceNameInfo{margin-bottom:24px}#deviceName{margin:8px 0 24px 0}#inputInfo{background-color:var(--cros-bg-color-elevation-3);color:var(--cros-text-color-secondary);font-size:var(--cr-form-field-label-font-size);font-weight:400;height:30px;line-height:var(--cr-form-field-label-line-height);padding-top:8px;position:absolute;top:97px;width:100%}#inputCount{position:absolute;right:0;top:8px}:host-context([dir=rtl]) #inputCount{left:0;right:auto}#inputSubtitle{display:block;width:290px}</style>
 <cr-dialog id="dialog" show-on-attach>
   <div slot="title">$i18n{aboutEditDeviceName}</div>
@@ -26389,7 +27821,7 @@ class EditHostnameDialogElement extends EditHostnameDialogElementBase {
         return 'edit-hostname-dialog';
     }
     static get template() {
-        return getTemplate$S();
+        return getTemplate$Z();
     }
     static get properties() {
         return {
@@ -26463,8 +27895,8 @@ class EditHostnameDialogElement extends EditHostnameDialogElementBase {
 }
 customElements.define(EditHostnameDialogElement.is, EditHostnameDialogElement);
 
-function getTemplate$R() {
-    return html `<!--_html_template_start_--><style include="settings-shared">cr-policy-indicator{margin-inline-start:var(--cr-controlled-by-spacing)}#command-line{overflow-wrap:break-word;width:100%}#managedEolTooltipIcon{margin-inline-end:54px}#changeChannelCrButton{margin-inline-start:16px}</style>
+function getTemplate$Y() {
+    return html `<!--_html_template_start_--><style include="settings-shared">cr-policy-indicator{margin-inline-start:var(--cr-controlled-by-spacing)}#command-line{overflow-wrap:break-word;width:100%}#managedEolTooltipIcon{margin-inline-end:48px}#changeChannelCrButton{margin-inline-start:16px}</style>
 <div class="settings-box two-line">
   <div class="start">
     <div role="heading" aria-level="2">$i18n{aboutChannelLabel}</div>
@@ -26575,7 +28007,7 @@ class SettingsDetailedBuildInfoSubpageElement extends SettingsDetailedBuildInfoS
         return 'settings-detailed-build-info-subpage';
     }
     static get template() {
-        return getTemplate$R();
+        return getTemplate$Y();
     }
     static get properties() {
         return {
@@ -26809,6 +28241,7 @@ class SettingsDetailedBuildInfoSubpageElement extends SettingsDetailedBuildInfoS
             entries.push(this.i18n(key) + ': ' + String(buildInfo[key]));
         }
         navigator.clipboard.writeText(entries.join('\n'));
+        getInstance().announce(this.i18n('aboutBuildDetailsCopiedToClipboardA11yLabel'));
     }
     onConsumerAutoUpdateToggled_(_event) {
         if (!this.isConsumerAutoUpdateTogglingAllowed_) {
@@ -26876,7 +28309,7 @@ class GoogleAssistantBrowserProxyImpl {
     }
 }
 
-function getTemplate$Q() {
+function getTemplate$X() {
     return html `<!--_html_template_start_--><style include="settings-shared md-select">.text-area{margin-inline-end:24px}select.md-select{min-width:200px}cr-policy-pref-indicator{margin-inline-end:var(--cr-controlled-by-spacing)}</style>
 <settings-toggle-button id="google-assistant-enable" class="primary-toggle" pref="{{prefs.settings.voice_interaction.enabled}}" label="[[getAssistantOnOffLabel_(
         prefs.settings.voice_interaction.enabled.value)]]" disabled="[[prefs.settings.assistant.disabled_by_policy.value]]" aria-label="[[getAssistantOnOffLabel_(
@@ -26977,7 +28410,7 @@ class SettingsGoogleAssistantSubpageElement extends SettingsGoogleAssistantSubpa
         return 'settings-google-assistant-subpage';
     }
     static get template() {
-        return getTemplate$Q();
+        return getTemplate$X();
     }
     static get properties() {
         return {
@@ -27139,7 +28572,7 @@ class SettingsGoogleAssistantSubpageElement extends SettingsGoogleAssistantSubpa
 }
 customElements.define(SettingsGoogleAssistantSubpageElement.is, SettingsGoogleAssistantSubpageElement);
 
-function getTemplate$P() {
+function getTemplate$W() {
     return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">.subsection{padding-inline-end:var(--cr-section-padding);padding-inline-start:var(--cr-section-indent-padding)}.subsection>settings-toggle-button{padding-inline-end:0;padding-inline-start:0}#quick-answers-definition-enable{border-top:none}</style>
 <settings-search-engine deep-link-focus-id$="[[Setting.kPreferredSearchEngine]]">
 </settings-search-engine>
@@ -27177,7 +28610,7 @@ class SettingsSearchSubpageElement extends SettingsSearchSubpageElementBase {
         return 'settings-search-subpage';
     }
     static get template() {
-        return getTemplate$P();
+        return getTemplate$W();
     }
     static get properties() {
         return {
@@ -27249,8 +28682,8 @@ class SettingsSearchSubpageElement extends SettingsSearchSubpageElementBase {
 }
 customElements.define(SettingsSearchSubpageElement.is, SettingsSearchSubpageElement);
 
-function getTemplate$O() {
-    return html `<!--_html_template_start_--><style include="settings-shared iron-flex iron-flex-alignment">:host{--add-account-margin-top:16px;--account-item-padding-size:8px}.account-manager-description{color:var(--cr-secondary-text-color);display:block;max-width:560px}.account-manager-description.full-width{max-width:none}.profile-icon{--profile-icon-size:40px;background:center/cover no-repeat;border-radius:50%;flex-shrink:0;height:var(--profile-icon-size);width:var(--profile-icon-size)}.profile-icon.device-account-icon{--profile-icon-size:60px;margin-top:16px}.device-account-container{align-items:center;display:flex;flex-direction:column}.device-account-container .primary{font-weight:500;margin-bottom:4px;margin-top:16px}.account-list-item{padding-inline-end:8px;padding-inline-start:0}#outer{margin-inline-end:var(--cr-section-padding);margin-inline-start:60px}.middle .secondary{overflow:hidden;text-overflow:ellipsis}.middle.two-line-or-more{min-height:calc(var(--cr-section-two-line-min-height) - 2*var(--account-item-padding-size));padding-bottom:var(--account-item-padding-size);padding-top:var(--account-item-padding-size)}.middle.two-line-or-more>.flex{display:flex;flex-direction:column;justify-content:center;min-height:calc(var(--cr-section-two-line-min-height) - 2*var(--account-item-padding-size))}.secondary-accounts-policy-indicator{margin-inline-end:12px}.settings-box.user-message{align-items:flex-end}.secondary-accounts-tooltip{margin-inline-start:5px;width:15px}.settings-box.secondary-accounts-box{align-items:flex-end}.account-list-header-description{align-items:center;display:flex;width:100%}.account-list-header-description.with-padding{padding-top:16px}.account-list-header-description>.secondary,.account-list-header-description>h2{flex-grow:1;padding-inline-end:40px}.account-list-header-description>h2{padding-bottom:16px;padding-top:16px}.secondary-accounts-disabled-tooltip{padding-inline-end:12px}#account-list-header>h2{padding-bottom:8px;padding-top:16px}#account-list-header{padding-bottom:8px}cr-policy-indicator{margin-inline-end:1em;margin-top:var(--add-account-margin-top)}.secondary-accounts-box>#add-account-button{margin-bottom:12px;margin-top:12px}#add-account-icon{-webkit-mask-image:url(chrome://resources/images/add.svg);background-color:currentColor;height:24px;margin-inline-end:.5em;width:24px}.signed-out-text{color:var(--cros-text-color-alert)}.error-badge{background:url(chrome://os-settings/images/error_badge.svg) center/cover no-repeat;display:block;height:20px;left:60%;position:relative;top:60%;width:20px}@media (prefers-color-scheme:dark){.error-badge{background:url(chrome://os-settings/images/error_badge_dark.svg) center/cover no-repeat}}:host-context([dir=rtl]) .error-badge{left:auto;right:60%}.managed-badge{--badge-offset:calc(100% - var(--badge-size)
+function getTemplate$V() {
+    return html `<!--_html_template_start_--><style include="settings-shared iron-flex iron-flex-alignment">:host{--add-account-margin-top:16px;--account-item-padding-size:8px}.account-manager-description{color:var(--cr-secondary-text-color);display:block;max-width:560px}.account-manager-description.full-width{max-width:none}.profile-icon{--profile-icon-size:40px;background:center/cover no-repeat;border-radius:50%;flex-shrink:0;height:var(--profile-icon-size);width:var(--profile-icon-size)}.profile-icon.device-account-icon{--profile-icon-size:60px;margin-top:16px}.device-account-container{align-items:center;display:flex;flex-direction:column}.device-account-container .primary{font-weight:500;margin-bottom:4px;margin-top:16px}.account-list-item{padding-inline-end:8px;padding-inline-start:0}#outer{margin-inline-end:var(--cr-section-padding);margin-inline-start:60px}.middle .secondary{overflow:hidden;text-overflow:ellipsis}.middle.two-line-or-more{min-height:calc(var(--cr-section-two-line-min-height) - 2*var(--account-item-padding-size));padding-bottom:var(--account-item-padding-size);padding-top:var(--account-item-padding-size)}.middle.two-line-or-more>.flex{display:flex;flex-direction:column;justify-content:center;min-height:calc(var(--cr-section-two-line-min-height) - 2*var(--account-item-padding-size))}.secondary-accounts-policy-indicator{margin-inline-end:12px}.settings-box.user-message{align-items:flex-end}.secondary-accounts-tooltip{margin-inline-start:5px;width:15px}.settings-box.secondary-accounts-box{align-items:flex-end}.account-list-header-description{align-items:center;display:flex;width:100%}.account-list-header-description.with-padding{padding-top:16px}.account-list-header-description>.secondary,.account-list-header-description>h2{flex-grow:1;padding-inline-end:40px}.account-list-header-description>h2{padding-bottom:16px;padding-top:16px}.secondary-accounts-disabled-tooltip{padding-inline-end:12px}#account-list-header>h2{padding-bottom:8px;padding-top:16px}#account-list-header{padding-bottom:8px}cr-policy-indicator{margin-inline-end:1em;margin-top:var(--add-account-margin-top)}.secondary-accounts-box>#add-account-button{margin-bottom:12px;margin-top:12px}#addAccountIcon{-webkit-mask-image:url(chrome://resources/images/add.svg);background-color:currentColor;height:24px;width:24px}.signed-out-text{color:var(--cros-text-color-alert)}.error-badge{background:url(chrome://os-settings/images/error_badge.svg) center/cover no-repeat;display:block;height:20px;left:60%;position:relative;top:60%;width:20px}@media (prefers-color-scheme:dark){.error-badge{background:url(chrome://os-settings/images/error_badge_dark.svg) center/cover no-repeat}}:host-context([dir=rtl]) .error-badge{left:auto;right:60%}.managed-badge{--badge-offset:calc(100% - var(--badge-size)
                          - 2 * var(--padding-size));--badge-size:10px;--padding-size:4px;background:var(--cros-icon-color-prominent);border-radius:50%;height:var(--badge-size);left:var(--badge-offset);padding:var(--padding-size);position:relative;top:var(--badge-offset);width:var(--badge-size)}.managed-badge>iron-icon{--iron-icon-fill-color:var(--cros-bg-color-elevation-1);--iron-icon-height:var(--badge-size);--iron-icon-width:var(--badge-size);display:block}:host-context([dir=rtl]) .managed-badge{left:auto;right:var(--badge-offset)}.managed-message{color:var(--cr-secondary-text-color);justify-content:center;margin-top:16px}.managed-message>cr-icon-button,.managed-message>iron-icon{margin-inline-end:5px}.management-status{color:var(--cr-secondary-text-color);overflow:hidden;text-align:end;text-overflow:ellipsis;width:18ch}.edu-account-label{margin-inline-start:12px}#removeConfirmationButton{--active-shadow-action-rgb:var(--cros-color-alert-rgb);--bg-action:var(--cros-color-alert);--focus-shadow-color:var(--cros-highlight-color-error);--hover-bg-action:rgba(var(--cros-color-alert-rgb), .9);--hover-shadow-action-rgb:var(--cros-color-alert-rgb)}:host-context(body.jelly-enabled) #removeConfirmationButton{--hover-bg-action:var(--cros-sys-hover_on_prominent)}</style>
 
 <div class="settings-box first account-manager-description full-width">
@@ -27310,7 +28743,7 @@ function getTemplate$O() {
         </cr-tooltip-icon>
       </template>
       <cr-button disabled="[[!isSecondaryGoogleAccountSigninAllowed_]]" id="add-account-button" on-click="addAccount_" deep-link-focus-id$="[[Setting.kAddAccount]]">
-        <div id="add-account-icon"></div>
+        <div id="addAccountIcon" slot="prefix-icon"></div>
         [[getAddAccountLabel_(isChildUser_,
             isSecondaryGoogleAccountSigninAllowed_)]]
       </cr-button>
@@ -27407,7 +28840,7 @@ class SettingsAccountManagerSubpageElement extends SettingsAccountManagerSubpage
         return 'settings-account-manager-subpage';
     }
     static get template() {
-        return getTemplate$O();
+        return getTemplate$V();
     }
     static get properties() {
         return {
@@ -27620,7 +29053,7 @@ class SettingsAccountManagerSubpageElement extends SettingsAccountManagerSubpage
     }
     onAccountActionsMenuButtonClick_(event) {
         this.actionMenuAccount_ = event.model.item;
-        assertInstanceof(event.target, HTMLElement);
+        assertInstanceof$1(event.target, HTMLElement);
         this.shadowRoot.querySelector('cr-action-menu').showAt(event.target);
     }
     /**
@@ -27700,7 +29133,7 @@ class SettingsAccountManagerSubpageElement extends SettingsAccountManagerSubpage
 }
 customElements.define(SettingsAccountManagerSubpageElement.is, SettingsAccountManagerSubpageElement);
 
-const template = html`<iron-iconset-svg name="fingerprint-icon" size="32">
+const template$2 = html`<iron-iconset-svg name="fingerprint-icon" size="32">
     <svg>
       <defs>
         <g id="fingerprint-scanned" viewBox="0 0 93 104">
@@ -27717,9 +29150,9 @@ const template = html`<iron-iconset-svg name="fingerprint-icon" size="32">
       </defs>
     </svg>
   </iron-iconset-svg>`;
-document.head.appendChild(template.content);
+document.head.appendChild(template$2.content);
 
-function getTemplate$N() {
+function getTemplate$U() {
   return html`<!--_html_template_start_--><style>
     :host {
       user-select: none;
@@ -27812,7 +29245,7 @@ class FingerprintProgressElement extends PolymerElement {
         return 'fingerprint-progress';
     }
     static get template() {
-        return getTemplate$N();
+        return getTemplate$U();
     }
     static get properties() {
         return {
@@ -27872,7 +29305,6 @@ class FingerprintProgressElement extends PolymerElement {
         this.progressCircleBackgroundColor =
             getComputedStyle(document.body)
                 .getPropertyValue('--cros-sys-primary_container');
-        this.$.scanningAnimation.onColorSchemeChanged();
     }
     connectedCallback() {
         super.connectedCallback();
@@ -27904,7 +29336,6 @@ class FingerprintProgressElement extends PolymerElement {
         this.updateAnimationAsset_();
         this.resizeAndCenterIcon_(scanningAnimation);
         scanningAnimation.hidden = false;
-        scanningAnimation.onColorSchemeChanged();
     }
     /**
      * Animates the progress circle. Animates an arc that starts at the top of
@@ -28157,7 +29588,7 @@ class FingerprintBrowserProxyImpl {
     }
 }
 
-function getTemplate$M() {
+function getTemplate$T() {
     return html `<!--_html_template_start_--><style include="settings-shared">#dialog::part(dialog){min-width:500px;width:500px}#scannerLocationLottie{height:220px;padding:10px 0}#messageDiv[invisible]{visibility:hidden}#closeButton{margin-inline-start:5px}</style>
 <cr-dialog id="dialog" on-close="close" close-text="$i18n{close}">
   <div slot="title">$i18n{configureFingerprintTitle}</div>
@@ -28207,7 +29638,7 @@ class SettingsSetupFingerprintDialogElement extends SettingsSetupFingerprintDial
         return 'settings-setup-fingerprint-dialog';
     }
     static get template() {
-        return getTemplate$M();
+        return getTemplate$T();
     }
     static get properties() {
         return {
@@ -28457,7 +29888,7 @@ class SettingsSetupFingerprintDialogElement extends SettingsSetupFingerprintDial
 }
 customElements.define(SettingsSetupFingerprintDialogElement.is, SettingsSetupFingerprintDialogElement);
 
-function getTemplate$L() {
+function getTemplate$S() {
     return html `<!--_html_template_start_--><style include="settings-shared">cr-input{--cr-input-error-display:none}cr-tooltip-icon{--cr-icon-size:16px;--cr-tooltip-icon-fill-color:var(--cros-sys-on_surface_variant)}iron-icon{--iron-icon-fill-color:var(--cros-sys-on_surface_variant);--iron-icon-height:16px;--iron-icon-width:16px}#savedFingerprints{margin-inline-end:4px;color:var(--cros-sys-on_surface_variant)}#fingerprintTooltip{--paper-tooltip-background:var(--cros-tooltip-background-color);--paper-tooltip-border-radius:8px;--paper-tooltip-delay-out:500ms;--paper-tooltip-opacity:1;--paper-tooltip-padding:12px 16px;--paper-tooltip-text-color:var(--cros-tooltip-label-color)}#fingerprintTooltip::part(tooltip){box-shadow:var(--cr-card-shadow)}#fingerprintNotice{--cr-localized-link-display:block;font-size:12px;line-height:18px}#lockScreenFingerprintWarning{margin-inline-start:4px;color:var(--cros-sys-on_surface_variant)}</style>
 <h2 class="settings-box">
   <div id="savedFingerprints">
@@ -28509,7 +29940,7 @@ class SettingsFingerprintListSubpageElement extends SettingsFingerprintListSubpa
         return 'settings-fingerprint-list-subpage';
     }
     static get template() {
-        return getTemplate$L();
+        return getTemplate$S();
     }
     static get properties() {
         return {
@@ -28633,7 +30064,7 @@ class SettingsFingerprintListSubpageElement extends SettingsFingerprintListSubpa
 }
 customElements.define(SettingsFingerprintListSubpageElement.is, SettingsFingerprintListSubpageElement);
 
-function getTemplate$K() {
+function getTemplate$R() {
     return html `<!--_html_template_start_--><style include="settings-shared">cr-dialog::part(dialog){width:fit-content}#errorIcon{--iron-icon-height:var(--cr-icon-size);--iron-icon-width:var(--cr-icon-size);--iron-icon-fill-color:var(--cros-icon-color-alert);display:inline-block;margin-inline-start:8px}#errorDiv{align-items:center;color:var(--cros-text-color-alert);display:flex;flex-direction:row;max-width:200px;min-height:48px}#errorDiv[invisible]{visibility:hidden}#pinKeyboardDiv{justify-content:center;padding:0}#pinAutosubmitDialogSubtitle{padding-bottom:16px}</style>
 <cr-dialog id="dialog" on-close="close" close-text="$i18n{close}">
   <div slot="title">$i18n{configurePinConfirmPinTitle}</div>
@@ -28686,7 +30117,7 @@ class SettingsPinAutosubmitDialogElement extends SettingsPinAutosubmitDialogElem
         return 'settings-pin-autosubmit-dialog';
     }
     static get template() {
-        return getTemplate$K();
+        return getTemplate$R();
     }
     static get properties() {
         return {
@@ -28837,7 +30268,7 @@ class SettingsPinAutosubmitDialogElement extends SettingsPinAutosubmitDialogElem
 }
 customElements.define(SettingsPinAutosubmitDialogElement.is, SettingsPinAutosubmitDialogElement);
 
-function getTemplate$J() {
+function getTemplate$Q() {
     return html `<!--_html_template_start_--><style include="settings-shared">cr-dialog::part(dialog){width:fit-content}</style>
 <cr-dialog id="dialog" on-close="onClose_" close-text="$i18n{close}">
   <div slot="title">$i18n{recoveryDisableDialogTitle}</div>
@@ -28871,7 +30302,7 @@ class LocalDataRecoveryDialogElement extends LocalDataRecoveryDialogElementBase 
         return 'local-data-recovery-dialog';
     }
     static get template() {
-        return getTemplate$J();
+        return getTemplate$Q();
     }
     static get properties() {
         return {
@@ -28920,7 +30351,7 @@ class LocalDataRecoveryDialogElement extends LocalDataRecoveryDialogElementBase 
 }
 customElements.define(LocalDataRecoveryDialogElement.is, LocalDataRecoveryDialogElement);
 
-function getTemplate$I() {
+function getTemplate$P() {
     return html `<!--_html_template_start_--><template is="dom-if" if="[[shouldShowFeature_(pageContentData)]]" restamp>
   <settings-multidevice-feature-item id="smartLockItem" feature="[[MultiDeviceFeature.SMART_LOCK]]" page-content-data="[[pageContentData]]" is-feature-icon-hidden>
   </settings-multidevice-feature-item>
@@ -28944,7 +30375,7 @@ class SettingsMultideviceSmartlockItemElement extends SettingsMultideviceSmartlo
         return 'settings-multidevice-smartlock-item';
     }
     static get template() {
-        return getTemplate$I();
+        return getTemplate$P();
     }
     static get properties() {
         return {
@@ -28997,7 +30428,7 @@ class SettingsMultideviceSmartlockItemElement extends SettingsMultideviceSmartlo
 }
 customElements.define(SettingsMultideviceSmartlockItemElement.is, SettingsMultideviceSmartlockItemElement);
 
-function getTemplate$H() {
+function getTemplate$O() {
     return html `<!--_html_template_start_--><style include="settings-shared">#password-type-radio-group{width:auto;padding-inline-end:0}.two-elements-left-right{display:flex;flex-direction:row;justify-content:space-between}:host{display:block}:host>div{width:100%}</style>
 <div>
   <div class="two-elements-left-right">
@@ -29024,8 +30455,8 @@ function getTemplate$H() {
           <cr-button on-click="openSetLocalPasswordDialog_">
             $i18n{lockScreenChangePasswordButton}
           </cr-button>
-        <template>
-      </template></template></div>
+        </template>
+      </div>
       <cr-radio-button name="gaia" disabled="disabled" class="list-item" label="$i18n{lockScreenGoogleAccountPasswordOptionLabel}">
       </cr-radio-button>
     </cr-radio-group>
@@ -29036,22 +30467,35 @@ function getTemplate$H() {
 <!--_html_template_end_-->`;
 }
 
-function getTemplate$G() {
+const template$1 = html`<iron-iconset-svg name="auth-setup" size="24">
+  <svg>
+    <defs>
+      <g id="visibility" viewBox="0 -960 960 960"><path d="M480-320q75 0 127.5-52.5T660-500q0-75-52.5-127.5T480-680q-75 0-127.5 52.5T300-500q0 75 52.5 127.5T480-320Zm0-72q-45 0-76.5-31.5T372-500q0-45 31.5-76.5T480-608q45 0 76.5 31.5T588-500q0 45-31.5 76.5T480-392Zm0 192q-146 0-266-81.5T40-500q54-137 174-218.5T480-800q146 0 266 81.5T920-500q-54 137-174 218.5T480-200Zm0-300Zm0 220q113 0 207.5-59.5T832-500q-50-101-144.5-160.5T480-720q-113 0-207.5 59.5T128-500q50 101 144.5 160.5T480-280Z"></path></g>
+      <g id="visibility-off" viewBox="0 -960 960 960"><path d="m644-428-58-58q9-47-27-88t-93-32l-58-58q17-8 34.5-12t37.5-4q75 0 127.5 52.5T660-500q0 20-4 37.5T644-428Zm128 126-58-56q38-29 67.5-63.5T832-500q-50-101-143.5-160.5T480-720q-29 0-57 4t-55 12l-62-62q41-17 84-25.5t90-8.5q151 0 269 83.5T920-500q-23 59-60.5 109.5T772-302Zm20 246L624-222q-35 11-70.5 16.5T480-200q-151 0-269-83.5T40-500q21-53 53-98.5t73-81.5L56-792l56-56 736 736-56 56ZM222-624q-29 26-53 57t-41 67q50 101 143.5 160.5T480-280q20 0 39-2.5t39-5.5l-36-38q-11 3-21 4.5t-21 1.5q-75 0-127.5-52.5T300-500q0-11 1.5-21t4.5-21l-84-82Zm319 93Zm-151 75Z"></path></g>
+    </defs>
+  </svg>
+</iron-iconset-svg>
+`;
+document.head.appendChild(template$1.content);
+
+function getTemplate$N() {
   return html`<!--_html_template_start_--><!--
 Copyright 2023 The Chromium Authors
 Use of this source code is governed by a BSD-style license that can be
 found in the LICENSE file.
 -->
 <style include="cr-shared-style cros-color-overrides">
-  /* Styling for the hint/error of the first input element. These styles are to
-     be kept in sync with the #error styling of the cr-input element. We can't
-     use the cr-input error message here, because for the first input element
-     we always show a hint where the error would be and switch to error styling
-     only when the first input field is invalid. Ideally we should factor out
-     the error display or at least its styling from cr-input so that we could
-     get rid of this copy here.
+  cr-icon-button {
+    --cr-icon-button-icon-size: 20px;
+    --cr-icon-button-size: 32px;
+    --cr-icon-button-margin-start: 0;
+    --cr-icon-button-margin-end: 0;
+  }
+  /* When the first input is invalid, we hide the hint and show the
+     error message. We remove the spacing for the error message when
+     the input is valid.
   */
-  #firstInput {
+  #firstInput:not([invalid]) {
     --cr-input-error-display: none;
   }
   #firstInputHint {
@@ -29060,33 +30504,34 @@ found in the LICENSE file.
     height: var(--cr-form-field-label-height);
     line-height: var(--cr-form-field-label-line-height);
   }
-  #firstInputHint[is-error] {
-    color: var(--cros-sys-error);
-  }
   :host-context(.jelly-enabled)
     cr-input#firstInput,
     cr-input#confirmInput{
       --cr-input-background-color: var(--cros-sys-input_field_on_shaded);
   }
 </style>
-<!-- TODO(b/298932938): This should have a "show password" button. -->
 <cr-input
     id="firstInput"
-    type="password"
+    type="[[getPasswordInputType(isFirstPasswordVisible_)]]"
     required
     placeholder="[[i18nDynamic(locale, 'setLocalPasswordPlaceholder')]]"
+    aria-label="[[firstInputAriaLabel]]"
     on-input="onInput"
     on-blur="onBlur"
     on-keyup="onKeyup"
-    invalid="[[showFirstInputError(firstInputValidity_)]]">
+    invalid="[[showFirstInputError(firstInputValidity_)]]"
+    error-message="[[i18nDynamic(locale, 'setLocalPasswordMinCharsHint')]]">
+  <cr-icon-button id="showPasswordButton" slot="inline-suffix"
+      title="[[getShowHideButtonLabel(isFirstPasswordVisible_)]]"
+      iron-icon="[[getShowHideButtonIcon(isFirstPasswordVisible_)]]"
+      on-click="onFirstShowHidePasswordButtonClick">
 </cr-input>
-<div id="firstInputHint" is-error$="[[showFirstInputError(firstInputValidity_)]]">
+<div id="firstInputHint" hidden$="[[showFirstInputError(firstInputValidity_)]]">
   [[i18nDynamic(locale, 'setLocalPasswordMinCharsHint')]]
 </div>
-<!-- TODO(b/298932938): This should have a "show password" button. -->
 <cr-input
     id="confirmInput"
-    type="password"
+    type="[[getPasswordInputType(isConfirmPasswordVisible_)]]"
     required
     placeholder="[[i18nDynamic(locale, 'setLocalPasswordConfirmPlaceholder')]]"
     on-input="onInput"
@@ -29094,6 +30539,10 @@ found in the LICENSE file.
     on-keyup="onKeyup"
     invalid="[[showConfirmInputError(confirmInputValidity_)]]"
     error-message="[[i18nDynamic(locale, 'setLocalPasswordNoMatchError')]]">
+  <cr-icon-button id="showPasswordButton" slot="inline-suffix"
+      title="[[getShowHideButtonLabel(isConfirmPasswordVisible_)]]"
+      iron-icon="[[getShowHideButtonIcon(isConfirmPasswordVisible_)]]"
+      on-click="onConfirmShowHidePasswordButtonClick">
 </cr-input>
 <!--_html_template_end_-->`;
 }
@@ -29132,13 +30581,15 @@ var ConfirmInputValidity;
  * When the user presses <Enter> in the confirmation input field and validation
  * passes, then the 'set-local-password-input' element dispatches a "submit"
  * event.
+ *
+ * TODO(b/309430756): Reuse ShowPasswordMixin here.
  */
 class SetLocalPasswordInputElement extends LocalPasswordInputElementBase {
     static get is() {
         return 'set-local-password-input';
     }
     static get template() {
-        return getTemplate$G();
+        return getTemplate$N();
     }
     static get properties() {
         return {
@@ -29159,6 +30610,13 @@ class SetLocalPasswordInputElement extends LocalPasswordInputElementBase {
                 type: String,
                 value: '',
             },
+            /**
+             * Aria label to apply to the first input.
+             */
+            firstInputAriaLabel: {
+                type: String,
+                value: null,
+            },
             firstInputValidity_: {
                 type: String,
                 value: null,
@@ -29166,6 +30624,14 @@ class SetLocalPasswordInputElement extends LocalPasswordInputElementBase {
             confirmInputValidity_: {
                 type: String,
                 value: null,
+            },
+            isFirstPasswordVisible_: {
+                type: Boolean,
+                value: false,
+            },
+            isConfirmPasswordVisible_: {
+                type: Boolean,
+                value: false,
             },
         };
     }
@@ -29178,8 +30644,8 @@ class SetLocalPasswordInputElement extends LocalPasswordInputElementBase {
         super.ready();
         // Dynamic checks to make sure that our static type declaration about named
         // elements in the shadow DOM are actually true.
-        assertInstanceof(this.$.firstInput, CrInputElement);
-        assertInstanceof(this.$.confirmInput, CrInputElement);
+        assertInstanceof$1(this.$.firstInput, CrInputElement);
+        assertInstanceof$1(this.$.confirmInput, CrInputElement);
     }
     focus() {
         this.$.firstInput.focus();
@@ -29322,10 +30788,30 @@ class SetLocalPasswordInputElement extends LocalPasswordInputElementBase {
                 return false;
         }
     }
+    getPasswordInputType(isVisible) {
+        return isVisible ? 'text' : 'password';
+    }
+    getShowHideButtonLabel(isVisible) {
+        return isVisible ? loadTimeData.getString('hidePassword') :
+            loadTimeData.getString('showPassword');
+    }
+    getShowHideButtonIcon(isVisible) {
+        return isVisible ? 'auth-setup:visibility-off' : 'auth-setup:visibility';
+    }
+    /**
+     * Handlers for showing/hiding the passwords. These methods should be
+     * attached to on-click event of show/hide password button.
+     */
+    onFirstShowHidePasswordButtonClick() {
+        this.isFirstPasswordVisible_ = !this.isFirstPasswordVisible_;
+    }
+    onConfirmShowHidePasswordButtonClick() {
+        this.isConfirmPasswordVisible_ = !this.isConfirmPasswordVisible_;
+    }
 }
 customElements.define(SetLocalPasswordInputElement.is, SetLocalPasswordInputElement);
 
-function getTemplate$F() {
+function getTemplate$M() {
     return html `<!--_html_template_start_--><style include="settings-shared">.error{color:var(--cros-text-color-alert)}</style>
 <cr-dialog id="dialog" ignore-enter-key close-text="$i18n{close}">
   <div slot="title">$i18n{setLocalPasswordDialogTitle}</div>
@@ -29359,7 +30845,7 @@ class SettingsSetLocalPasswordDialogElement extends PolymerElement {
         return 'settings-set-local-password-dialog';
     }
     static get template() {
-        return getTemplate$F();
+        return getTemplate$M();
     }
     static get properties() {
         return {
@@ -29437,7 +30923,7 @@ class SettingsPasswordSettingsElement extends PolymerElement {
         return 'settings-password-settings';
     }
     static get template() {
-        return getTemplate$H();
+        return getTemplate$O();
     }
     static get properties() {
         return {
@@ -29551,7 +31037,7 @@ class SettingsPasswordSettingsElement extends PolymerElement {
 }
 customElements.define(SettingsPasswordSettingsElement.is, SettingsPasswordSettingsElement);
 
-function getTemplate$E() {
+function getTemplate$L() {
     return html `<!--_html_template_start_--><style include="settings-shared">.two-elements-left-right{display:flex;flex-direction:row;justify-content:space-between;align-items:center}:host{display:block}:host>div{width:100%}cr-policy-indicator{margin-left:16px;margin-right:16px}</style>
 <div>
   <div class="two-elements-left-right">
@@ -29606,7 +31092,7 @@ class SettingsPinSettingsElement extends SettingsPinSettingsElementBase {
         return 'settings-pin-settings';
     }
     static get template() {
-        return getTemplate$E();
+        return getTemplate$L();
     }
     static get properties() {
         return {
@@ -29771,7 +31257,7 @@ class SettingsPinSettingsElement extends SettingsPinSettingsElementBase {
 }
 customElements.define(SettingsPinSettingsElement.is, SettingsPinSettingsElement);
 
-function getTemplate$D() {
+function getTemplate$K() {
     return html `<!--_html_template_start_--><style include="settings-shared">cr-radio-group{display:flex;flex-wrap:wrap}.list-item{width:100%}#lockOptionsDiv{display:block}.underbar{border-bottom:var(--cr-separator-line)}</style>
 <div>
   <settings-toggle-button id="enableLockScreen" pref="{{prefs.settings.enable_screen_lock}}" on-settings-boolean-control-change="onScreenLockChange_" no-set-pref label="$i18n{enableScreenlock}" deep-link-focus-id$="[[Setting.kLockScreenV2]]">
@@ -29804,11 +31290,9 @@ function getTemplate$D() {
       </settings-radio-group>
     </div>
   </template>
-  <template is="dom-if" if="[[cryptohomeRecoveryEnabled_]]">
-    <settings-toggle-button id="recoveryToggle" label="$i18n{recoveryToggleLabel}" sub-label="[[recoveryToggleSubLabel_(recovery_)]]" learn-more-url="[[recoveryToggleLearnMoreUrl_(recovery_)]]" pref="{{recoveryTogglePref_(recovery_)}}" disabled="[[recoveryToggleDisabled_(recovery_,
-                        recoveryChangeInProcess_)]]" deep-link-focus-id$="[[Setting.kDataRecovery]]" no-set-pref on-settings-boolean-control-change="onRecoveryChange_">
-    </settings-toggle-button>
-  </template>
+  <settings-toggle-button id="recoveryToggle" label="$i18n{recoveryToggleLabel}" sub-label="[[recoveryToggleSubLabel_(recovery_)]]" learn-more-url="[[recoveryToggleLearnMoreUrl_(recovery_)]]" pref="{{recoveryTogglePref_(recovery_)}}" disabled="[[recoveryToggleDisabled_(recovery_,
+                      recoveryChangeInProcess_)]]" deep-link-focus-id$="[[Setting.kDataRecovery]]" no-set-pref on-settings-boolean-control-change="onRecoveryChange_">
+  </settings-toggle-button>
   <template is="dom-if" if="[[showDisableRecoveryDialog_]]" restamp>
     <local-data-recovery-dialog id="localDataRecoveryDialog" auth-token="[[authToken]]" on-close="onRecoveryDialogClose_">
     </local-data-recovery-dialog>
@@ -29855,7 +31339,7 @@ class SettingsLockScreenElement extends SettingsLockScreenElementBase {
         return 'settings-lock-screen-subpage';
     }
     static get template() {
-        return getTemplate$D();
+        return getTemplate$K();
     }
     static get properties() {
         return {
@@ -29906,16 +31390,6 @@ class SettingsLockScreenElement extends SettingsLockScreenElementBase {
                 type: Boolean,
                 value() {
                     return loadTimeData.getBoolean('lockScreenHideSensitiveNotificationsSupported');
-                },
-                readOnly: true,
-            },
-            /**
-             * True if cryptohome recovery feature is enabled.
-             */
-            cryptohomeRecoveryEnabled_: {
-                type: Boolean,
-                value() {
-                    return loadTimeData.getBoolean('cryptohomeRecoveryEnabled');
                 },
                 readOnly: true,
             },
@@ -30027,22 +31501,19 @@ class SettingsLockScreenElement extends SettingsLockScreenElementBase {
         focusWithoutInk(castExists(this.shadowRoot.querySelector('#recoveryToggle')));
     }
     recoveryToggleSubLabel_() {
-        if (!this.cryptohomeRecoveryEnabled_) {
-            return '';
-        }
         if (this.recovery_) {
             return this.i18n('recoveryToggleSubLabel');
         }
         return this.i18n('recoveryNotSupportedMessage');
     }
     recoveryToggleLearnMoreUrl_() {
-        if (!this.cryptohomeRecoveryEnabled_ || this.recovery_) {
+        if (this.recovery_) {
             return '';
         }
         return this.i18n('recoveryLearnMoreUrl');
     }
     recoveryToggleDisabled_() {
-        if (!this.cryptohomeRecoveryEnabled_ || !this.recovery_) {
+        if (!this.recovery_) {
             return true;
         }
         return this.recoveryChangeInProcess_;
@@ -30224,7 +31695,7 @@ class SettingsLockScreenElement extends SettingsLockScreenElementBase {
 }
 customElements.define(SettingsLockScreenElement.is, SettingsLockScreenElement);
 
-function getTemplate$C() {
+function getTemplate$J() {
     return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">.settings-box{border-top:none}.list-item{display:flex}.list-item[sync-revamp-enabled]{align-items:center;flex-direction:row;gap:16px;padding:14px 20px}#tooltipIcon{--cr-tooltip-icon-fill-color:var(--cros-color-secondary);margin-inline-end:20px}#tooltipIcon::part(tooltip){--paper-tooltip-background:var(--cros-bg-color);--paper-tooltip-text-color:var(--cros-text-color-secondary);--paper-tooltip-delay-in:0;border-radius:6px;box-shadow:0 1px 3px var(--cros-shadow-color-key),0 4px 8px var(--cros-separator-color);font:var(--cros-body-2-font)}#tooltipIcon[label-disabled]::part(tooltip){visibility:hidden}.list-item>div{flex:1}cr-tooltip-icon[label-disabled],div[label-disabled]{opacity:var(--cros-disabled-opacity)}</style>
 <div id="featureLabel" class="settings-box">
   <localized-link class="secondary" localized-string="$i18n{osSyncFeatureLabel}" on-link-clicked="onBrowserSyncSettingsClicked_">
@@ -30328,7 +31799,7 @@ class OsSyncControlsSubpageElement extends OsSyncControlsSubpageElementBase {
         return 'os-sync-controls-subpage';
     }
     static get template() {
-        return getTemplate$C();
+        return getTemplate$J();
     }
     static get properties() {
         return {
@@ -30491,7 +31962,7 @@ class OsSyncControlsSubpageElement extends OsSyncControlsSubpageElementBase {
 }
 customElements.define(OsSyncControlsSubpageElement.is, OsSyncControlsSubpageElement);
 
-function getTemplate$B() {
+function getTemplate$I() {
     return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">#create-password-box{margin-bottom:1em}#create-password-box .list-item{margin-bottom:var(--cr-form-field-bottom-spacing)}cr-input{--cr-input-width:var(--cr-default-input-max-width)}.passphrase-reset-icon{margin-inline-end:8px}cr-radio-button[name=encrypt-with-passphrase]{align-items:start}</style>
 
 <template is="dom-if" if="[[!syncPrefs.passphraseRequired]]">
@@ -30546,7 +32017,7 @@ class OsSettingsSyncEncryptionOptionsElement extends PolymerElement {
         return 'os-settings-sync-encryption-options';
     }
     static get template() {
-        return getTemplate$B();
+        return getTemplate$I();
     }
     static get properties() {
         return {
@@ -30708,7 +32179,7 @@ class OsSettingsSyncEncryptionOptionsElement extends PolymerElement {
 }
 customElements.define(OsSettingsSyncEncryptionOptionsElement.is, OsSettingsSyncEncryptionOptionsElement);
 
-function getTemplate$A() {
+function getTemplate$H() {
     return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared iron-flex">#sync-separator{border-bottom:var(--cr-separator-line)}#create-password-box{margin-inline-start:var(--cr-section-indent-width)}#create-password-box{margin-bottom:1em}#create-password-box .list-item{margin-bottom:var(--cr-form-field-bottom-spacing)}cr-input{--cr-input-width:var(--cr-default-input-max-width)}#existingPassphrase{border-bottom:var(--cr-separator-line);border-top:var(--cr-separator-line);padding-inline-start:var(--cr-section-padding)}#submitExistingPassphrase{margin-inline-start:16px}#passphraseRecoverHint{align-items:center}#other-sync-items{padding-bottom:8px}.passphrase-reset-icon{margin-inline-end:8px}#disabled-by-admin-icon{text-align:center;width:40px}#toast{left:0;z-index:1}:host-context([dir=rtl]) #toast{left:auto;right:0}cr-link-row{padding-inline-end:0;padding-inline-start:0}</style>
 
 <div class="cr-row first" hidden="[[!syncDisabledByAdmin_]]">
@@ -30804,7 +32275,7 @@ class OsSettingsSyncSubpageElement extends OsSettingsSyncSubpageElementBase {
         return 'os-settings-sync-subpage';
     }
     static get template() {
-        return getTemplate$A();
+        return getTemplate$H();
     }
     static get properties() {
         return {
@@ -31211,7 +32682,7 @@ class OsSettingsSyncSubpageElement extends OsSettingsSyncSubpageElementBase {
 }
 customElements.define(OsSettingsSyncSubpageElement.is, OsSettingsSyncSubpageElement);
 
-function getTemplate$z() {
+function getTemplate$G() {
     return html `<!--_html_template_start_--><style include="settings-shared iron-flex">.user-list{max-height:calc(4 * (var(--cr-section-two-line-min-height) + 1px));overflow-y:auto}.user{border-bottom:var(--cr-separator-line)}.user-icon{background-position:center;background-repeat:no-repeat;background-size:cover;border-radius:20px;flex-shrink:0;height:40px;width:40px}.user-info{padding-inline-start:20px}:host([disabled]) .user-list{opacity:var(--cr-disabled-opacity);overflow:auto}</style>
 <div class="user-list" scrollable>
   <template is="dom-repeat" items="[[users_]]">
@@ -31254,7 +32725,7 @@ class SettingsUserListElement extends SettingsUserListElementBase {
         return 'settings-user-list';
     }
     static get template() {
-        return getTemplate$z();
+        return getTemplate$G();
     }
     static get properties() {
         return {
@@ -31307,7 +32778,7 @@ class SettingsUserListElement extends SettingsUserListElementBase {
     }
     setUsers_(users) {
         this.users_ = users;
-        this.users_.sort(function (a, b) {
+        this.users_.sort((a, b) => {
             if (a.isOwner !== b.isOwner) {
                 return b.isOwner ? 1 : -1;
             }
@@ -31351,7 +32822,7 @@ class SettingsUserListElement extends SettingsUserListElementBase {
 }
 customElements.define(SettingsUserListElement.is, SettingsUserListElement);
 
-function getTemplate$y() {
+function getTemplate$F() {
     return html `<!--_html_template_start_--><style include="settings-shared">cr-dialog::part(dialog){width:320px}</style>
 <cr-dialog id="dialog" close-text="$i18n{close}">
   <div slot="title">$i18n{addUsers}</div>
@@ -31405,7 +32876,7 @@ class SettingsUsersAddUserDialogElement extends SettingsUsersAddUserDialogElemen
         return 'settings-users-add-user-dialog';
     }
     static get template() {
-        return getTemplate$y();
+        return getTemplate$F();
     }
     static get properties() {
         return {
@@ -31491,7 +32962,7 @@ class SettingsUsersAddUserDialogElement extends SettingsUsersAddUserDialogElemen
 }
 customElements.define(SettingsUsersAddUserDialogElement.is, SettingsUsersAddUserDialogElement);
 
-function getTemplate$x() {
+function getTemplate$E() {
     return html `<!--_html_template_start_--><style include="settings-shared action-link">.settings-box:first-of-type{border-top:none}#add-user-button{margin-inline-start:var(--cr-section-indent-padding)}.block{display:block}#header{padding-inline-start:20px}</style>
 <div class="settings-box" hidden$="[[!isUserListManaged_]]">
   $i18n{settingsManagedLabel}
@@ -31537,7 +33008,7 @@ class SettingsManageUsersSubpageElement extends SettingsManageUsersSubpageElemen
         return 'settings-manage-users-subpage';
     }
     static get template() {
-        return getTemplate$x();
+        return getTemplate$E();
     }
     static get properties() {
         return {
@@ -31646,117 +33117,230 @@ class SettingsManageUsersSubpageElement extends SettingsManageUsersSubpageElemen
 }
 customElements.define(SettingsManageUsersSubpageElement.is, SettingsManageUsersSubpageElement);
 
-// chrome/browser/ui/webui/ash/settings/pages/privacy/mojom/app_permission_handler.mojom-webui.ts is auto generated by mojom_bindings_generator.py, do not edit
-// Copyright 2020 The Chromium Authors
+function getTemplate$D() {
+    return html `<!--_html_template_start_--><style include="settings-shared">.list-item:not(:last-of-type){border-bottom:var(--cr-separator-line)}#onOffText[on]{color:var(--cros-sys-primary)}#accessStatusRow:hover[actionable]{background-color:var(--cr-hover-background-color)}.subsection{padding-inline-end:var(--cr-section-padding);padding-inline-start:var(--cr-section-indent-padding)}.subsection>cr-link-row{padding-inline-end:0;padding-inline-start:0}h2{padding-inline-start:var(--cr-section-padding)}</style>
+<div id="accessStatusRow" class="settings-box first" actionable$="[[!shouldDisableCameraToggle_]]" on-click="onAccessStatusRowClick_">
+  <div class="start settings-box-text" aria-hidden="true">
+    <div id="onOffText" on$="[[prefs.ash.user.camera_allowed.value]]">
+      [[computeOnOffText_(prefs.ash.user.camera_allowed.value)]]
+    </div>
+    <div id="onOffSubtext" class="secondary">
+      [[computeOnOffSubtext_(prefs.ash.user.camera_allowed.value)]]
+    </div>
+  </div>
+  <div id="cameraToggleWrapper">
+    <cr-toggle id="cameraToggle" checked="{{prefs.ash.user.camera_allowed.value}}" disabled="[[shouldDisableCameraToggle_]]" on-click="onCameraToggleClick_">
+    </cr-toggle>
+  </div>
+</div>
+<template is="dom-if" if="[[prefs.ash.user.camera_allowed.value]]" restamp>
+  <div id="cameraListSection" class="list-frame">
+    <template is="dom-if" if="[[isCameraListEmpty_]]" restamp>
+      <div id="noCameraText" class="list-item">
+        $i18n{noCameraConnectedText}
+      </div>
+    </template>
+    <template is="dom-if" if="[[!isCameraListEmpty_]]" restamp>
+      <template id="cameraList" is="dom-repeat" items="[[connectedCameras_]]">
+        <div class="list-item">
+          [[item]]
+        </div>
+      </template>
+    </template>
+  </div>
+</template>
+<div class="hr"></div>
+<div id="appsSection">
+  <h2 id="appsSectionTitle">$i18n{privacyHubAppsSectionTitle}</h2>
+  <template is="dom-if" if="[[prefs.ash.user.camera_allowed.value]]" restamp>
+    <div class="list-frame">
+      <template id="appList" is="dom-repeat" items="[[appList_]]" as="app">
+        <settings-privacy-hub-app-permission-row class="list-item" app="[[app]]" permission-type="kCamera">
+        </settings-privacy-hub-app-permission-row>
+      </template>
+    </div>
+  </template>
+  <template is="dom-if" if="[[!prefs.ash.user.camera_allowed.value]]" restamp>
+    <div id="noAppHasAccessText" class="settings-box-text subsection">
+      $i18n{noAppCanUseCameraText}
+    </div>
+  </template>
+</div>
+<div class="hr"></div>
+<div id="websitesSection">
+  <h2 id="websitesSectionTitle">$i18n{websitesSectionTitle}</h2>
+  <template is="dom-if" if="[[prefs.ash.user.camera_allowed.value]]" restamp>
+    <cr-link-row id="managePermissionsInChromeRow" class="subsection" start-icon="os-settings:chrome" label="$i18n{manageCameraPermissionsInChromeText}" on-click="onManagePermissionsInChromeRowClick_" external>
+    </cr-link-row>
+  </template>
+  <template is="dom-if" if="[[!prefs.ash.user.camera_allowed.value]]" restamp>
+    <div id="noWebsiteHasAccessText" class="settings-box-text subsection">
+      $i18n{noWebsiteCanUseCameraText}
+    </div>
+  </template>
+</div>
+<div class="hr"></div>
+<!--_html_template_end_-->`;
+}
+
+// Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-class AppPermissionsHandlerPendingReceiver {
-    constructor(handle) {
-        this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
-    }
-    bindInBrowser(scope = 'context') {
-        mojo.internal.interfaceSupport.bind(this.handle, 'ash.settings.app_permission.mojom.AppPermissionsHandler', scope);
-    }
-}
-class AppPermissionsHandlerRemote {
-    constructor(handle) {
-        this.proxy =
-            new mojo.internal.interfaceSupport.InterfaceRemoteBase(AppPermissionsHandlerPendingReceiver, handle);
-        this.$ = new mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper(this.proxy);
-        this.onConnectionError = this.proxy.getConnectionErrorEventRouter();
-    }
-    addObserver(observer) {
-        this.proxy.sendMessage(0, AppPermissionsHandler_AddObserver_ParamsSpec.$, null, [
-            observer
-        ]);
-    }
-    getApps() {
-        return this.proxy.sendMessage(1, AppPermissionsHandler_GetApps_ParamsSpec.$, AppPermissionsHandler_GetApps_ResponseParamsSpec.$, []);
-    }
-}
-class AppPermissionsHandler {
-    static get $interfaceName() {
-        return "ash.settings.app_permission.mojom.AppPermissionsHandler";
-    }
-    /**
-     * Returns a remote for this interface which sends messages to the browser.
-     * The browser must have an interface request binder registered for this
-     * interface and accessible to the calling document's frame.
-     */
-    static getRemote() {
-        let remote = new AppPermissionsHandlerRemote;
-        remote.$.bindNewPipeAndPassReceiver().bindInBrowser();
-        return remote;
-    }
-}
-class AppPermissionsObserverPendingReceiver {
-    constructor(handle) {
-        this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
-    }
-    bindInBrowser(scope = 'context') {
-        mojo.internal.interfaceSupport.bind(this.handle, 'ash.settings.app_permission.mojom.AppPermissionsObserver', scope);
-    }
-}
-class AppPermissionsObserverRemote {
-    constructor(handle) {
-        this.proxy =
-            new mojo.internal.interfaceSupport.InterfaceRemoteBase(AppPermissionsObserverPendingReceiver, handle);
-        this.$ = new mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper(this.proxy);
-        this.onConnectionError = this.proxy.getConnectionErrorEventRouter();
-    }
-    onAppRemoved(appId) {
-        this.proxy.sendMessage(0, AppPermissionsObserver_OnAppRemoved_ParamsSpec.$, null, [
-            appId
-        ]);
-    }
-    onAppUpdated(app) {
-        this.proxy.sendMessage(1, AppPermissionsObserver_OnAppUpdated_ParamsSpec.$, null, [
-            app
-        ]);
-    }
-}
 /**
- * An object which receives request messages for the AppPermissionsObserver
- * mojom interface. Must be constructed over an object which implements that
- * interface.
+ * @fileoverview
+ * 'settings-privacy-hub-camera-subpage' contains a detailed overview about the
+ * state of the system camera access.
  */
-class AppPermissionsObserverReceiver {
-    constructor(impl) {
-        this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(AppPermissionsObserverRemote);
-        this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
-        this.helper_internal_.registerHandler(0, AppPermissionsObserver_OnAppRemoved_ParamsSpec.$, null, impl.onAppRemoved.bind(impl));
-        this.helper_internal_.registerHandler(1, AppPermissionsObserver_OnAppUpdated_ParamsSpec.$, null, impl.onAppUpdated.bind(impl));
-        this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
+/**
+ * Whether the app has camera permission defined.
+ */
+function hasCameraPermission(app) {
+    return app.permissions[PermissionType.kCamera] !== undefined;
+}
+const SettingsPrivacyHubCameraSubpageBase = WebUiListenerMixin(I18nMixin(PrefsMixin(PolymerElement)));
+class SettingsPrivacyHubCameraSubpage extends SettingsPrivacyHubCameraSubpageBase {
+    static get is() {
+        return 'settings-privacy-hub-camera-subpage';
+    }
+    static get template() {
+        return getTemplate$D();
+    }
+    static get properties() {
+        return {
+            /**
+             * Apps with camera permission defined.
+             */
+            appList_: {
+                type: Array,
+                value: [],
+            },
+            connectedCameras_: {
+                type: Array,
+                value: [],
+            },
+            isCameraListEmpty_: {
+                type: Boolean,
+                computed: 'computeIsCameraListEmpty_(connectedCameras_)',
+            },
+            /**
+             * Tracks if the Chrome code wants the camera switch to be disabled.
+             */
+            cameraSwitchForceDisabled_: {
+                type: Boolean,
+                value: false,
+            },
+            shouldDisableCameraToggle_: {
+                type: Boolean,
+                computed: 'computeShouldDisableCameraToggle_(isCameraListEmpty_, ' +
+                    'cameraSwitchForceDisabled_)',
+            },
+        };
+    }
+    constructor() {
+        super();
+        this.browserProxy_ = PrivacyHubBrowserProxyImpl.getInstance();
+        this.mojoInterfaceProvider_ = getAppPermissionProvider();
+        this.appPermissionsObserverReceiver_ = null;
+    }
+    ready() {
+        super.ready();
+        this.addWebUiListener('force-disable-camera-switch', (disabled) => {
+            this.cameraSwitchForceDisabled_ = disabled;
+        });
+        this.browserProxy_.getInitialCameraSwitchForceDisabledState().then((disabled) => {
+            this.cameraSwitchForceDisabled_ = disabled;
+        });
+        this.updateCameraList_();
+        MediaDevicesProxy.getMediaDevices().addEventListener('devicechange', () => this.updateCameraList_());
+    }
+    connectedCallback() {
+        super.connectedCallback();
+        this.appPermissionsObserverReceiver_ =
+            new AppPermissionsObserverReceiver(this);
+        this.mojoInterfaceProvider_.addObserver(this.appPermissionsObserverReceiver_.$.bindNewPipeAndPassRemote());
+        this.updateAppList_();
+    }
+    disconnectedCallback() {
+        super.disconnectedCallback();
+        this.appPermissionsObserverReceiver_.$.close();
+    }
+    async updateAppList_() {
+        const apps = (await this.mojoInterfaceProvider_.getApps()).apps;
+        this.appList_ = apps.filter(hasCameraPermission);
+    }
+    isCameraPermissionEnabled_(app) {
+        const permission = castExists(app.permissions[PermissionType.kCamera]);
+        return isPermissionEnabled(permission.value);
+    }
+    /** Implements AppPermissionsObserver.OnAppUpdated */
+    onAppUpdated(updatedApp) {
+        if (!hasCameraPermission(updatedApp)) {
+            return;
+        }
+        const idx = this.appList_.findIndex(app => app.id === updatedApp.id);
+        if (idx === -1) {
+            // New app installed.
+            this.push('appList_', updatedApp);
+        }
+        else {
+            // An already installed app is updated.
+            this.splice('appList_', idx, 1, updatedApp);
+        }
+    }
+    /** Implements AppPermissionsObserver.OnAppRemoved */
+    onAppRemoved(appId) {
+        const idx = this.appList_.findIndex(app => app.id === appId);
+        if (idx !== -1) {
+            this.splice('appList_', idx, 1);
+        }
+    }
+    async updateCameraList_() {
+        const connectedCameras = [];
+        const devices = await MediaDevicesProxy.getMediaDevices().enumerateDevices();
+        devices.forEach((device) => {
+            if (device.kind === 'videoinput') {
+                connectedCameras.push(device.label);
+            }
+        });
+        this.connectedCameras_ = connectedCameras;
+    }
+    computeIsCameraListEmpty_() {
+        return this.connectedCameras_.length === 0;
+    }
+    computeOnOffText_() {
+        const cameraAllowed = this.getPref('ash.user.camera_allowed').value;
+        return cameraAllowed ? this.i18n('deviceOn') : this.i18n('deviceOff');
+    }
+    computeOnOffSubtext_() {
+        const cameraAllowed = this.getPref('ash.user.camera_allowed').value;
+        return cameraAllowed ? this.i18n('cameraToggleSubtext') :
+            this.i18n('blockedForAllText');
+    }
+    computeShouldDisableCameraToggle_() {
+        return this.cameraSwitchForceDisabled_ || this.isCameraListEmpty_;
+    }
+    getCameraToggle_() {
+        return castExists(this.shadowRoot.querySelector('#cameraToggle'));
+    }
+    onAccessStatusRowClick_() {
+        if (this.shouldDisableCameraToggle_) {
+            return;
+        }
+        this.getCameraToggle_().click();
+    }
+    onManagePermissionsInChromeRowClick_() {
+        chrome.metricsPrivate.recordEnumerationValue(CAMERA_SUBPAGE_USER_ACTION_HISTOGRAM_NAME, PrivacyHubSensorSubpageUserAction.WEBSITE_PERMISSION_LINK_CLICKED, NUMBER_OF_POSSIBLE_USER_ACTIONS);
+        window.open('chrome://settings/content/camera');
+    }
+    onCameraToggleClick_() {
+        chrome.metricsPrivate.recordEnumerationValue(CAMERA_SUBPAGE_USER_ACTION_HISTOGRAM_NAME, PrivacyHubSensorSubpageUserAction.SYSTEM_ACCESS_CHANGED, NUMBER_OF_POSSIBLE_USER_ACTIONS);
     }
 }
-const AppSpec = { $: {} };
-const AppPermissionsHandler_AddObserver_ParamsSpec = { $: {} };
-const AppPermissionsHandler_GetApps_ParamsSpec = { $: {} };
-const AppPermissionsHandler_GetApps_ResponseParamsSpec = { $: {} };
-const AppPermissionsObserver_OnAppRemoved_ParamsSpec = { $: {} };
-const AppPermissionsObserver_OnAppUpdated_ParamsSpec = { $: {} };
-mojo.internal.Struct(AppSpec.$, 'App', [
-    mojo.internal.StructField('id', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
-    mojo.internal.StructField('name', 8, 0, mojo.internal.String, null, false /* nullable */, 0),
-    mojo.internal.StructField('permissions', 16, 0, mojo.internal.Map(PermissionTypeSpec.$, PermissionSpec.$, false), null, false /* nullable */, 0),
-], [[0, 32],]);
-mojo.internal.Struct(AppPermissionsHandler_AddObserver_ParamsSpec.$, 'AppPermissionsHandler_AddObserver_Params', [
-    mojo.internal.StructField('observer', 0, 0, mojo.internal.InterfaceProxy(AppPermissionsObserverRemote), null, false /* nullable */, 0),
-], [[0, 16],]);
-mojo.internal.Struct(AppPermissionsHandler_GetApps_ParamsSpec.$, 'AppPermissionsHandler_GetApps_Params', [], [[0, 8],]);
-mojo.internal.Struct(AppPermissionsHandler_GetApps_ResponseParamsSpec.$, 'AppPermissionsHandler_GetApps_ResponseParams', [
-    mojo.internal.StructField('apps', 0, 0, mojo.internal.Array(AppSpec.$, false), null, false /* nullable */, 0),
-], [[0, 16],]);
-mojo.internal.Struct(AppPermissionsObserver_OnAppRemoved_ParamsSpec.$, 'AppPermissionsObserver_OnAppRemoved_Params', [
-    mojo.internal.StructField('appId', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
-], [[0, 16],]);
-mojo.internal.Struct(AppPermissionsObserver_OnAppUpdated_ParamsSpec.$, 'AppPermissionsObserver_OnAppUpdated_Params', [
-    mojo.internal.StructField('app', 0, 0, AppSpec.$, null, false /* nullable */, 0),
-], [[0, 16],]);
+customElements.define(SettingsPrivacyHubCameraSubpage.is, SettingsPrivacyHubCameraSubpage);
 
-function getTemplate$w() {
-    return html `<!--_html_template_start_--><style include="settings-shared">.list-item:not(:last-of-type){border-bottom:var(--cr-separator-line)}#onOffText[on]{color:var(--cros-text-color-prominent)}.subsection{padding-inline-end:var(--cr-section-padding);padding-inline-start:var(--cr-section-indent-padding)}.subsection>cr-link-row{padding-inline-end:0;padding-inline-start:0}h2{padding-inline-start:var(--cr-section-padding)}</style>
-<div class="settings-box first">
+function getTemplate$C() {
+    return html `<!--_html_template_start_--><style include="settings-shared">.list-item:not(:last-of-type){border-bottom:var(--cr-separator-line)}#onOffText[on]{color:var(--cros-text-color-prominent)}.subsection{padding-inline-end:var(--cr-section-padding);padding-inline-start:var(--cr-section-indent-padding)}.subsection>cr-link-row{padding-inline-end:0;padding-inline-start:0}h2{padding-inline-start:var(--cr-section-padding)}#accessStatusRow[actionable]:hover{background-color:var(--cr-hover-background-color)}</style>
+<div id="accessStatusRow" class="settings-box first" actionable$="[[!shouldDisableMicrophoneToggle_]]" on-click="onAccessStatusRowClick_">
   <div class="start settings-box-text" aria-hidden="true">
     <div id="onOffText" on$="[[prefs.ash.user.microphone_allowed.value]]">
       [[computeOnOffText_(prefs.ash.user.microphone_allowed.value)]]
@@ -31766,7 +33350,7 @@ function getTemplate$w() {
     </div>
   </div>
   <div id="microphoneToggleWrapper">
-    <cr-toggle id="microphoneToggle" checked="{{prefs.ash.user.microphone_allowed.value}}" disabled="[[shouldDisableMicrophoneToggle_]]">
+    <cr-toggle id="microphoneToggle" checked="{{prefs.ash.user.microphone_allowed.value}}" disabled="[[shouldDisableMicrophoneToggle_]]" on-click="onMicrophoneToggleClick_">
     </cr-toggle>
   </div>
   <paper-tooltip id="microphoneToggleTooltip" hidden="[[!microphoneHardwareToggleActive_]]" aria-hidden="true" for="microphoneToggleWrapper" fit-to-visible-bounds>
@@ -31791,20 +33375,20 @@ function getTemplate$w() {
 </template>
 <div class="hr"></div>
 <div id="appsSection">
-  <h2 id="appsSectionTitle">
-    $i18n{privacyHubAppsSectionTitle}
-  </h2>
-  <div id="appList" class="list-frame">
-    <template is="dom-repeat" items="[[appList_]]" as="app">
-      <div class="settings-box">
-        <div class="list-item start settings-box-text">
-          [[app.name]]
-        </div>
-        <cr-toggle checked="[[isMicrophonePermissionEnabled_(app)]]">
-        </cr-toggle>
-      </div>
-    </template>
-  </div>
+  <h2 id="appsSectionTitle">$i18n{privacyHubAppsSectionTitle}</h2>
+  <template is="dom-if" if="[[prefs.ash.user.microphone_allowed.value]]" restamp>
+    <div class="list-frame">
+      <template id="appList" is="dom-repeat" items="[[appList_]]" as="app">
+          <settings-privacy-hub-app-permission-row class="list-item" app="[[app]]" permission-type="kMicrophone">
+          </settings-privacy-hub-app-permission-row>
+      </template>
+    </div>
+  </template>
+  <template is="dom-if" if="[[!prefs.ash.user.microphone_allowed.value]]" restamp>
+    <div id="noAppHasAccessText" class="settings-box-text subsection">
+      $i18n{noAppCanUseMicText}
+    </div>
+  </template>
 </div>
 <div class="hr"></div>
 <div id="websitesSection">
@@ -31838,7 +33422,7 @@ class SettingsPrivacyHubMicrophoneSubpage extends SettingsPrivacyHubMicrophoneSu
         return 'settings-privacy-hub-microphone-subpage';
     }
     static get template() {
-        return getTemplate$w();
+        return getTemplate$C();
     }
     static get properties() {
         return {
@@ -31883,7 +33467,7 @@ class SettingsPrivacyHubMicrophoneSubpage extends SettingsPrivacyHubMicrophoneSu
     constructor() {
         super();
         this.browserProxy_ = PrivacyHubBrowserProxyImpl.getInstance();
-        this.mojoInterfaceProvider_ = AppPermissionsHandler.getRemote();
+        this.mojoInterfaceProvider_ = getAppPermissionProvider();
         this.appPermissionsObserverReceiver_ = null;
     }
     ready() {
@@ -31913,7 +33497,7 @@ class SettingsPrivacyHubMicrophoneSubpage extends SettingsPrivacyHubMicrophoneSu
     }
     async updateAppList_() {
         const apps = (await this.mojoInterfaceProvider_.getApps()).apps;
-        this.appList_ = apps.filter(app => hasMicrophonePermission(app));
+        this.appList_ = apps.filter(hasMicrophonePermission);
     }
     async updateMicrophoneList_() {
         const connectedMicrophones = [];
@@ -31935,12 +33519,13 @@ class SettingsPrivacyHubMicrophoneSubpage extends SettingsPrivacyHubMicrophoneSu
     computeOnOffSubtext_() {
         const microphoneAllowed = this.getPref('ash.user.microphone_allowed').value;
         return microphoneAllowed ? this.i18n('microphoneToggleSubtext') :
-            'Blocked for all';
+            this.i18n('blockedForAllText');
     }
     computeShouldDisableMicrophoneToggle_() {
         return this.microphoneHardwareToggleActive_ || this.isMicListEmpty_;
     }
     onManagePermissionsInChromeRowClick_() {
+        chrome.metricsPrivate.recordEnumerationValue(MICROPHONE_SUBPAGE_USER_ACTION_HISTOGRAM_NAME, PrivacyHubSensorSubpageUserAction.WEBSITE_PERMISSION_LINK_CLICKED, NUMBER_OF_POSSIBLE_USER_ACTIONS);
         window.open('chrome://settings/content/microphone');
     }
     /**
@@ -31973,19 +33558,26 @@ class SettingsPrivacyHubMicrophoneSubpage extends SettingsPrivacyHubMicrophoneSu
             this.splice('appList_', idx, 1);
         }
     }
+    getMicrophoneToggle_() {
+        return castExists(this.shadowRoot.querySelector('#microphoneToggle'));
+    }
+    onAccessStatusRowClick_() {
+        if (this.shouldDisableMicrophoneToggle_) {
+            return;
+        }
+        this.getMicrophoneToggle_().click();
+    }
+    onMicrophoneToggleClick_() {
+        chrome.metricsPrivate.recordEnumerationValue(MICROPHONE_SUBPAGE_USER_ACTION_HISTOGRAM_NAME, PrivacyHubSensorSubpageUserAction.SYSTEM_ACCESS_CHANGED, NUMBER_OF_POSSIBLE_USER_ACTIONS);
+    }
 }
 customElements.define(SettingsPrivacyHubMicrophoneSubpage.is, SettingsPrivacyHubMicrophoneSubpage);
 
-function getTemplate$v() {
-    return html `<!--_html_template_start_--><style include="settings-shared">cr-radio-group{display:flex;flex-flow:column wrap}.indented{margin-inline-start:var(--cr-section-padding)}.doubly-indented{padding-inline-start:var(--cr-section-indent-padding)}.left-float-graphic{float:left;height:200px;margin-inline-end:10px;width:200px}:host-context(body.jelly-enabled) #smartPrivacyIllo{display:none}:host-context(body:not(.jelly-enabled)) #smartPrivacyIlloJelly{display:none}.large-icon{--iron-icon-fill-color:var(--cros-icon-color-prominent);--iron-icon-stroke-color:var(--cros-icon-color-prominent);--iron-icon-height:32px;--iron-icon-width:32px;margin-bottom:10px}.banner{display:inline-block;margin:0 0 10px 0;padding:0 10px 10px 10px}</style>
+function getTemplate$B() {
+    return html `<!--_html_template_start_--><style include="settings-shared">cr-radio-group{display:flex;flex-flow:column wrap}.indented{margin-inline-start:var(--cr-section-padding)}.doubly-indented{padding-inline-start:var(--cr-section-indent-padding)}.left-float-graphic{float:left;height:200px;margin-inline-end:10px;width:200px}.large-icon{--iron-icon-fill-color:var(--cros-icon-color-prominent);--iron-icon-stroke-color:var(--cros-icon-color-prominent);--iron-icon-height:32px;--iron-icon-width:32px;margin-bottom:10px}.banner{display:inline-block;margin:0 0 10px 0;padding:0 10px 10px 10px}</style>
 
-<iron-media-query query="(prefers-color-scheme: dark)" query-matches="{{isDarkModeActive_}}">
-</iron-media-query>
 <div class="banner">
-  
-  <img id="smartPrivacyIllo" class="left-float-graphic" src="[[getImageSource_(isDarkModeActive_)]]" alt="" aria-hidden="true">
-
-  <iron-icon id="smartPrivacyIlloJelly" icon="os-settings-illo:smart-privacy" class="left-float-graphic">
+  <iron-icon id="smartPrivacyIllo" icon="os-settings-illo:smart-privacy" class="left-float-graphic">
   </iron-icon>
 
   <div>
@@ -32052,17 +33644,10 @@ class SettingsSmartPrivacySubpage extends SettingsSmartPrivacySubpageBase {
         return 'settings-smart-privacy-subpage';
     }
     static get template() {
-        return getTemplate$v();
+        return getTemplate$B();
     }
     static get properties() {
         return {
-            /**
-             * Whether the smart privacy page is being rendered in dark mode.
-             */
-            isDarkModeActive_: {
-                type: Boolean,
-                value: false,
-            },
             /**
              * Whether or not quick dim is enabled.
              */
@@ -32110,81 +33695,11 @@ class SettingsSmartPrivacySubpage extends SettingsSmartPrivacySubpageBase {
         }
         this.attemptDeepLink();
     }
-    /**
-     * Returns the image source based on whether the smart privacy page is being
-     * rendered in dark mode.
-     * @returns {string}
-     * @private
-     */
-    getImageSource_() {
-        return this.isDarkModeActive_ ?
-            'chrome://os-settings/images/smart_privacy_dark.svg' :
-            'chrome://os-settings/images/smart_privacy.svg';
-    }
 }
 customElements.define(SettingsSmartPrivacySubpage.is, SettingsSmartPrivacySubpage);
 
-function getTemplate$u() {
-    return html `<!--_html_template_start_--><style include="settings-shared">#dialogBody{padding-top:10px}cr-dialog::part(dialog){width:370px}</style>
-
-<cr-dialog id="enableSystemGeolocationDialog" show-on-attach>
-  <div slot="title">
-    $i18n{timeZoneGeolocationDialogTitle}
-  </div>
-  <div slot="body" id="dialogBody">
-    <localized-link localized-string="$i18n{timeZoneGeolocationDialogBody}" link-url="$i18n{timeZoneGeolocationDialogLearnMoreUrl}">
-    </localized-link>
-  </div>
-  <div slot="button-container">
-    <cr-button id="cancelButton" class="cancel-button" on-click="onCancelClicked_">
-      $i18n{timeZoneGeolocationDialogCancelButton}
-    </cr-button>
-    <cr-button id="enableConfirmation" class="action-button" on-click="onEnableClicked_">
-      $i18n{timeZoneGeolocationDialogTurnOnButton}
-    </cr-button>
-  </div>
-</cr-dialog>
-<!--_html_template_end_-->`;
-}
-
-// Copyright 2023 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @fileoverview This dialog explains and asks users to enable system location
- * permission to allow precise timezone resolution.
- */
-const SystemGeolocationDialogElementBase = PrefsMixin(PolymerElement);
-class SystemGeolocationDialogElement extends SystemGeolocationDialogElementBase {
-    static get is() {
-        return 'settings-system-geolocation-dialog';
-    }
-    static get template() {
-        return getTemplate$u();
-    }
-    /**
-     * Closes the warning dialog and transitions to the disabling dialog.
-     */
-    onEnableClicked_() {
-        // Send the new state immediately, this will also toggle the underlying
-        // setting-toggle-button associated with this pref.
-        this.setPrefValue('ash.user.geolocation_allowed', true);
-        this.getWarningDialog_().close();
-    }
-    onCancelClicked_() {
-        this.setPrefValue('generated.resolve_timezone_by_geolocation_method_short', TimeZoneAutoDetectMethod.IP_ONLY);
-        this.getWarningDialog_().close();
-    }
-    getWarningDialog_() {
-        return castExists(this.shadowRoot.querySelector('#enableSystemGeolocationDialog'));
-    }
-}
-customElements.define(SystemGeolocationDialogElement.is, SystemGeolocationDialogElement);
-
-function getTemplate$t() {
-    return html `<!--_html_template_start_--><style include="cros-color-overrides">:host{align-items:center;border:1px solid var(--cr-separator-color);border-radius:8px;column-gap:12px;display:flex;flex-shrink:0;margin:4px;outline-width:0;padding:12px}:host-context(body:not(.jelly-enabled)):host{font-family:Roboto,sans-serif;font-size:13px}#icon{background:center/cover no-repeat;background-image:url(chrome://os-settings/images/keyboard_shortcut.svg);flex-shrink:0}@media (prefers-color-scheme:dark){#icon{background-image:url(chrome://os-settings/images/keyboard_shortcut_dark.svg)}}#icon,#keyboardShortcutIcon{height:48px;width:48px}:host-context(body.jelly-enabled) #icon{display:none}:host-context(body:not(.jelly-enabled)) #keyboardShortcutIcon{display:none}#text{flex:1}h2{color:var(--cr-primary-text-color);margin:0}:host-context(body:not(.jelly-enabled)) h2{font-family:'Google Sans',Roboto,sans-serif;font-size:15px;font-weight:500}:host-context(body.jelly-enabled) h2{font:var(--cros-headline-1-font)}.reminder-message{color:var(--cr-secondary-text-color);margin-top:4px}kbd{font-family:Roboto,sans-serif;font-weight:500}kbd>kbd{background-color:var(--cros-shortcut-background-color);background-image:linear-gradient(var(--cros-shortcut-background-gradient-color),var(--cros-shortcut-background-gradient-color));border-radius:18px;box-shadow:var(--cr-elevation-1);color:var(--cr-secondary-text-color);display:inline-block;height:20px;line-height:20px;margin:0 4px;padding:0 6px}:not(kbd)>kbd{color:var(--cros-text-color-prominent)}:host-context(body:not(.jelly-enabled)) cr-button{--border-color:transparent;--hover-border-color:transparent;--disabled-border-color:transparent}</style>
-
-<div id="icon"></div>
+function getTemplate$A() {
+    return html `<!--_html_template_start_--><style include="cros-color-overrides">:host{align-items:center;border:1px solid var(--cr-separator-color);border-radius:8px;column-gap:12px;display:flex;flex-shrink:0;margin:4px;outline-width:0;padding:12px}#keyboardShortcutIcon{height:48px;width:48px}#text{flex:1}h2{color:var(--cr-primary-text-color);font:var(--cros-headline-1-font);margin:0}.reminder-message{color:var(--cr-secondary-text-color);margin-top:4px}kbd{font-family:Roboto,sans-serif;font-weight:500}kbd>kbd{background-color:var(--cros-sys-surface_variant);background-image:linear-gradient(var(--cros-shortcut-background-gradient-color),var(--cros-shortcut-background-gradient-color));border-radius:12px;color:var(--cros-text-color-secondary);font:var(--cros-button-2-font);display:inline-block;height:20px;margin:0 4px;padding:0 6px}:not(kbd)>kbd{color:var(--cros-text-color-prominent)}</style>
 
 <iron-icon id="keyboardShortcutIcon" icon="os-settings:keyboard-shortcut">
 </iron-icon>
@@ -32222,7 +33737,7 @@ class KeyboardShortcutBanner extends KeyboardShortcutBannerBase {
         return 'keyboard-shortcut-banner';
     }
     static get template() {
-        return getTemplate$t();
+        return getTemplate$A();
     }
     static get properties() {
         return {
@@ -32251,7 +33766,319 @@ class KeyboardShortcutBanner extends KeyboardShortcutBannerBase {
 }
 customElements.define(KeyboardShortcutBanner.is, KeyboardShortcutBanner);
 
-function getTemplate$s() {
+function getTemplate$z() {
+    return html `<!--_html_template_start_--><style include="settings-shared shared-style">iron-icon[icon='settings:check-circle']{--iron-icon-fill-color:var(--cros-sys-primary);margin-inline-end:26px}#listItem{min-height:36px;align-items:center;display:flex;justify-content:space-between;flex-direction:row;padding-left:32px;cursor:pointer}</style>
+
+<div id="listItem">
+  <paper-ripple></paper-ripple>
+  <div>[[getDisplayText_(item)]]</div>
+  <iron-icon icon="settings:check-circle" hidden="[[!selected]]"></iron-icon>
+</div>
+<!--_html_template_end_-->`;
+}
+
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview 'app-language-selection-item' is part of app language picker
+ * dialog to display language option in a single row.
+ */
+class AppLanguageSelectionItemElement extends PolymerElement {
+    static get is() {
+        return 'app-language-selection-item';
+    }
+    static get template() {
+        return getTemplate$z();
+    }
+    static get properties() {
+        return {
+            item: Object,
+            selected: {
+                type: Boolean,
+                value: false,
+            },
+        };
+    }
+    getDisplayText_() {
+        let name = this.item.displayName;
+        if (name === '') {
+            // If displayName couldn't be translated, we'll display the localeTag
+            // instead.
+            return this.item.localeTag;
+        }
+        if (this.item.nativeDisplayName !== '' &&
+            this.item.nativeDisplayName !== name) {
+            name += ' - ' + this.item.nativeDisplayName;
+        }
+        return name;
+    }
+}
+customElements.define(AppLanguageSelectionItemElement.is, AppLanguageSelectionItemElement);
+
+function getTemplate$y() {
+    return html `<!--_html_template_start_--><style include="settings-shared shared-style">[slot=header]{align-items:center;display:flex;flex-direction:row;font-weight:400;height:48px;margin-inline-start:24px}.app-title{flex:1;overflow:hidden;text-overflow:ellipsis}.app-icon{height:36px;width:36px;margin-inline-end:12px}[slot=body]{display:flex;flex-direction:column;height:350px;overflow:auto}cr-search-field{margin-bottom:8px}iron-list>:not([selected]):hover{background-color:var(--cros-menu-item-bg-color-focus)}iron-list>[selected]:not(.no-outline):focus{background-color:transparent}.label{padding-bottom:8px;padding-top:8px}</style>
+
+<cr-dialog id="dialog" close-text="$i18n{close}" show-on-attach>
+  <div slot="title">$i18n{appLanguageDialogTitle}</div>
+  <div slot="header">
+    <img class="app-icon" src="[[iconUrlFromApp_(app)]]" alt="[[app.title]] app icon." aria-hidden="true">
+    <div class="app-title">[[app.title]]</div>
+  </div>
+  <div id="dialogBody" slot="body" scrollable>
+    <cr-search-field label="$i18n{appLanguageDialogSearchPlaceholderText}" id="search" clear-label="$i18n{clearSearch}" autofocus on-search-changed="onSearchChanged_" on-keydown="onKeydown_">
+    </cr-search-field>
+    <template is="dom-if" if="[[!isSearchQueryPresent(searchQuery_.length)]]">
+      <div class="label">
+        $i18n{appLanguageDialogSuggestedLabel}
+      </div>
+      <iron-list id="suggestedItemsList" items="[[suggestedLanguages_]]" scroll-target="dialogBody">
+        <template>
+          <app-language-selection-item item="[[item]]" on-click="toggleSelection_" tab-index="[[tabIndex]]" selected$="[[isItemSelected_(item, selectedLanguage_)]]">
+          </app-language-selection-item>
+        </template>
+      </iron-list>
+    </template>
+    <template is="dom-if" if="[[showFilteredLanguages(filteredLanguages_.length)]]">
+      <div class="label" hidden="[[isSearchQueryPresent(searchQuery_.length)]]">
+        $i18n{appLanguageDialogAllLanguagesLabel}
+      </div>
+      <iron-list id="filteredItemsList" items="[[filteredLanguages_]]" scroll-target="dialog-body">
+        <template>
+          <app-language-selection-item item="[[item]]" on-click="toggleSelection_" tab-index="[[tabIndex]]" selected$="[[isItemSelected_(item, selectedLanguage_)]]">
+          </app-language-selection-item>
+        </template>
+      </iron-list>
+    </template>
+    <div id="noSearchResults" class="centered-message" hidden="[[!isSearchResultEmpty_(searchQuery_.length)]]">
+      $i18n{noSearchResults}
+    </div>
+  </div>
+  <div slot="button-container">
+    <cr-button class="cancel-button" on-click="onCancelButtonClick_">
+      $i18n{cancel}
+    </cr-button>
+    <cr-button class="action-button" disabled="[[shouldDisableActionButton_(selectedLanguage_)]]" on-click="onActionButtonClick_">
+      $i18n{appLanguageDialogUpdateButtonText}
+    </cr-button>
+  </div>
+</cr-dialog>
+<!--_html_template_end_-->`;
+}
+
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview 'app-language-selection-dialog' is a dialog to select
+ * per-app language. The component supports suggested items, and filtering
+ * by search query.
+ * Note: `App` object must be present before showing this dialog.
+ */
+const AppLanguageSelectionDialogElementBase = PrefsMixin(I18nMixin(PolymerElement));
+class AppLanguageSelectionDialogElement extends AppLanguageSelectionDialogElementBase {
+    constructor() {
+        super(...arguments);
+        this.suggestedLanguages_ = [];
+        this.filteredLanguages_ = [];
+        this.searchQuery_ = '';
+    }
+    static get is() {
+        return 'app-language-selection-dialog';
+    }
+    static get template() {
+        return getTemplate$y();
+    }
+    static get properties() {
+        return {
+            app: Object,
+            filteredLanguages_: {
+                type: Array,
+                computed: 'getFilteredLanguages_(searchQuery_.length, suggestedLanguages_)',
+            },
+        };
+    }
+    ready() {
+        super.ready();
+        this.initializeSuggestedLanguages_();
+    }
+    onCancelButtonClick_() {
+        this.$.dialog.close();
+    }
+    onActionButtonClick_() {
+        AppManagementBrowserProxy.getInstance().handler.setAppLocale(this.app.id, this.selectedLanguage_.localeTag);
+        this.$.dialog.close();
+    }
+    shouldDisableActionButton_() {
+        return !this.selectedLanguage_;
+    }
+    // 'on-search-changed' event listener on a <cr-search-field>.
+    onSearchChanged_(e) {
+        this.searchQuery_ = e.detail.toLocaleLowerCase();
+    }
+    // Used to display "search result is empty" text.
+    isSearchResultEmpty_() {
+        return this.searchQuery_.length > 0 && this.filteredLanguages_.length === 0;
+    }
+    // 'on-keydown' event listener on a <cr-search-field>.
+    onKeydown_(e) {
+        // Close dialog if 'esc' is pressed and the search box is already empty.
+        if (e.key === 'Escape' && !this.$.search.getValue().trim()) {
+            this.$.dialog.close();
+        }
+        else if (e.key !== 'PageDown' && e.key !== 'PageUp') {
+            this.$.search.scrollIntoView();
+        }
+    }
+    // 'on-click' event listener on a <app-language-selection-item>.
+    toggleSelection_(e) {
+        if (e.model.item === this.selectedLanguage_) {
+            this.selectedLanguage_ = undefined;
+        }
+        else {
+            this.selectedLanguage_ = e.model.item;
+        }
+    }
+    // Defines whether a selected-icon should be added to the item.
+    isItemSelected_(item) {
+        if (!this.selectedLanguage_) {
+            return false;
+        }
+        return this.selectedLanguage_.localeTag === item.localeTag;
+    }
+    // Hide suggestedLanguages along with "Device Language", and "All languages"
+    // label if searchQuery exists.
+    isSearchQueryPresent() {
+        return this.searchQuery_.length > 0;
+    }
+    // The only case where `filteredLanguages` is completely hidden is when
+    // there's only 1 app-language available, and it's already selected. In this
+    // case, we'll only display suggestedLanguages (deviceLanguage,
+    // selectedLanguage).
+    showFilteredLanguages() {
+        return this.filteredLanguages_.length > 0;
+    }
+    // `suggestedLanguages_` is immutable throughout the dialog lifecycle, hence
+    // it's better to pre-populate once here.
+    initializeSuggestedLanguages_() {
+        const defaultDeviceLanguage = {
+            localeTag: '',
+            displayName: this.i18n('appLanguageDeviceLanguageLabel'),
+            nativeDisplayName: '',
+        };
+        // Possibly add selected locale to suggested list and init
+        // currently-selected language.
+        const suggestedLanguages = [defaultDeviceLanguage];
+        if (this.app.selectedLocale && this.app.selectedLocale.localeTag !== '') {
+            suggestedLanguages.push(this.app.selectedLocale);
+            this.selectedLanguage_ = this.app.selectedLocale;
+        }
+        else {
+            // Set device language as selected if no other locale selected.
+            this.selectedLanguage_ = defaultDeviceLanguage;
+        }
+        const lastSetAppLocaleTag = this.getPref('arc.last_set_app_locale').value;
+        // Add last-set-app-locale into suggestions if it's supported by app and
+        // hasn't been included yet.
+        const lastSetAppLocale = this.app.supportedLocales.find(locale => locale.localeTag === lastSetAppLocaleTag);
+        if (lastSetAppLocale &&
+            !suggestedLanguages.find(locale => locale.localeTag === lastSetAppLocale.localeTag)) {
+            suggestedLanguages.push(lastSetAppLocale);
+        }
+        this.suggestedLanguages_ = suggestedLanguages;
+    }
+    // Display list of all supported languages, minus suggestedLanguages, and
+    // filtered by search query.
+    getFilteredLanguages_() {
+        let filteredItems;
+        if (this.searchQuery_.length === 0) {
+            // Filter out elements in suggestedList
+            filteredItems = this.app.supportedLocales.filter(locale => !this.suggestedLanguages_.some(suggestedLanguage => suggestedLanguage.localeTag === locale.localeTag));
+        }
+        else {
+            // Filter out based on search query.
+            filteredItems = this.app.supportedLocales.filter(locale => locale.displayName.toLocaleLowerCase().includes(this.searchQuery_) ||
+                locale.nativeDisplayName.toLocaleLowerCase().includes(this.searchQuery_));
+        }
+        return filteredItems.sort((a, b) => a.displayName.localeCompare(b.displayName));
+    }
+    iconUrlFromApp_() {
+        return getAppIcon(this.app);
+    }
+}
+customElements.define(AppLanguageSelectionDialogElement.is, AppLanguageSelectionDialogElement);
+
+function getTemplate$x() {
+    return html `<!--_html_template_start_--><style include="cr-shared-style"></style>
+<cr-link-row embedded no-hover label="$i18n{appManagementAppLanguageLabel}" sub-label="[[getSelectedLocale_(app)]]" on-click="onClick_">
+</cr-link-row>
+<template is="dom-if" if="[[showSelectLanguageDialog_]]" restamp>
+  <app-language-selection-dialog app="[[app]]" prefs="{{prefs}}" on-close="onSelectLanguageDialogClose_">
+  </app-language-selection-dialog>
+</template>
+<!--_html_template_end_-->`;
+}
+
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+const AppManagementAppLanguageItemElementBase = I18nMixin(PolymerElement);
+class AppManagementAppLanguageItemElement extends AppManagementAppLanguageItemElementBase {
+    constructor() {
+        super(...arguments);
+        this.app = undefined;
+    }
+    static get is() {
+        return 'app-management-app-language-item';
+    }
+    static get template() {
+        return getTemplate$x();
+    }
+    static get properties() {
+        return {
+            prefs: {
+                type: Object,
+                notify: true,
+            },
+            app: Object,
+            hidden: {
+                type: Boolean,
+                computed: 'isHidden_(app)',
+                reflectToAttribute: true,
+            },
+            showSelectLanguageDialog_: {
+                type: Boolean,
+                value: false,
+            },
+        };
+    }
+    onClick_() {
+        this.showSelectLanguageDialog_ = true;
+    }
+    onSelectLanguageDialogClose_() {
+        this.showSelectLanguageDialog_ = false;
+    }
+    /**
+     * Returns true if the app does not support per-app-language settings.
+     */
+    isHidden_() {
+        return !this.app?.supportedLocales?.length;
+    }
+    /**
+     * Returns display name of the selected locale if exists.
+     */
+    getSelectedLocale_() {
+        if (this.app?.selectedLocale?.localeTag) {
+            const displayName = this.app.selectedLocale.displayName;
+            return displayName === '' ? this.app.selectedLocale.localeTag :
+                displayName;
+        }
+        return this.i18n('appLanguageDeviceLanguageLabel');
+    }
+}
+customElements.define(AppManagementAppLanguageItemElement.is, AppManagementAppLanguageItemElement);
+
+function getTemplate$w() {
     return html `<!--_html_template_start_--><style include="settings-shared"></style>
 <cr-dialog id="dialog" show-on-attach close-text="$i18n{close}" on-cancel="onDialogCancel_" on-close="onDialogClose_">
   <div slot="title">[[titleText]]</div>
@@ -32286,7 +34113,7 @@ class SettingsDriveConfirmationDialogElement extends PolymerElement {
         return 'settings-drive-confirmation-dialog';
     }
     static get template() {
-        return getTemplate$s();
+        return getTemplate$w();
     }
     static get properties() {
         return {
@@ -32330,7 +34157,7 @@ class SettingsDriveConfirmationDialogElement extends PolymerElement {
 }
 customElements.define(SettingsDriveConfirmationDialogElement.is, SettingsDriveConfirmationDialogElement);
 
-function getTemplate$r() {
+function getTemplate$v() {
     return html `<!--_html_template_start_--><style include="settings-shared"></style>
 <settings-toggle-button inverted="true" id="alwaysMoveToDrive" class="hr" pref="{{prefs.filebrowser.office.always_move_to_drive}}" label="$i18n{alwaysMoveToDrivePreferenceLabel}">
 </settings-toggle-button>
@@ -32348,12 +34175,12 @@ class SettingsOfficePageElement extends SettingsOfficePageElementBase {
         return 'settings-office-page';
     }
     static get template() {
-        return getTemplate$r();
+        return getTemplate$v();
     }
 }
 customElements.define(SettingsOfficePageElement.is, SettingsOfficePageElement);
 
-function getTemplate$q() {
+function getTemplate$u() {
     return html `<!--_html_template_start_--><style include="settings-shared"></style>
 
 <div class="settings-box two-line first">
@@ -32380,7 +34207,7 @@ class SettingsOneDriveSubpageElement extends SettingsOneDriveSubpageElementBase 
         return 'settings-one-drive-subpage';
     }
     static get template() {
-        return getTemplate$q();
+        return getTemplate$u();
     }
     static get properties() {
         return {
@@ -32472,7 +34299,7 @@ class SettingsOneDriveSubpageElement extends SettingsOneDriveSubpageElementBase 
 }
 customElements.define(SettingsOneDriveSubpageElement.is, SettingsOneDriveSubpageElement);
 
-function getTemplate$p() {
+function getTemplate$t() {
     return html `<!--_html_template_start_--><style include="settings-shared"></style>
 <div class="settings-box first">
   <div class="start">
@@ -32503,7 +34330,7 @@ class SettingsSmbSharesPageElement extends SettingsSmbSharesPageElementBase {
         return 'settings-smb-shares-page';
     }
     static get template() {
-        return getTemplate$p();
+        return getTemplate$t();
     }
     static get properties() {
         return {
@@ -32534,7 +34361,176 @@ class SettingsSmbSharesPageElement extends SettingsSmbSharesPageElementBase {
 }
 customElements.define(SettingsSmbSharesPageElement.is, SettingsSmbSharesPageElement);
 
-function getTemplate$o() {
+function getTemplate$s() {
+    return html `<!--_html_template_start_--><style include="settings-shared">.app-icon{height:32px;width:32px;margin-inline-end:20px}.app-info{flex:1;overflow:hidden;text-overflow:ellipsis}cr-action-menu .dropdown-item{min-height:36px}cr-action-menu .dropdown-item:focus{background-color:var(--cros-menu-item-bg-color-focus)}</style>
+
+<div class="cr-row continuation" id="appLanguagesDescription">
+  [[getAppLanguagesDescription(appList_)]]
+</div>
+<div>
+  <iron-list items="[[appList_]]">
+    <template>
+      <div class="cr-row" id="appItem">
+        <img class="app-icon" src="[[iconUrlFromApp_(item)]]" aria-hidden="true">
+        <div class="app-info cr-padded-text" aria-hidden="true">
+          [[item.title]]
+          <div class="secondary" aria-hidden="true">
+            [[getSelectedLocale_(item)]]
+          </div>
+        </div>
+        <cr-icon-button class="icon-more-vert" title="$i18n{moreActions}" on-click="onDotsClick_" aria-label="[[getChangeLanguageButtonDescription_(item)]]">
+        </cr-icon-button>
+      </div>
+    </template>
+  </iron-list>
+</div>
+
+<cr-lazy-render id="menu">
+  <template>
+    <cr-action-menu role-description="$i18n{menu}">
+      <button id="editLanguage" class="dropdown-item" role="menuitem" on-click="onEditLanguageClick">
+        $i18n{appLanguagesEditSelectionLabel}
+      </button>
+      <button id="resetLanguage" class="dropdown-item" role="menuitem" on-click="onResetLanguageClick">
+        $i18n{appLanguagesResetSelectionLabel}
+      </button>
+    </cr-action-menu>
+  </template>
+</cr-lazy-render>
+
+<template is="dom-if" if="[[showSelectLanguageDialog_]]" restamp>
+  <app-language-selection-dialog app="[[selectedApp_]]" prefs="{{prefs}}" on-close="onSelectLanguageDialogClose_">
+  </app-language-selection-dialog>
+</template>
+<!--_html_template_end_-->`;
+}
+
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+const DEVICE_LANGUAGE_LOCALE_TAG = '';
+const OsSettingsAppsPageElementBase = AppManagementStoreMixin(I18nMixin(PolymerElement));
+class OsSettingsAppLanguagesPageElement extends OsSettingsAppsPageElementBase {
+    static get is() {
+        return 'os-settings-app-languages-page';
+    }
+    static get template() {
+        return getTemplate$s();
+    }
+    static get properties() {
+        return {
+            prefs: {
+                type: Object,
+                notify: true,
+            },
+            appList_: {
+                type: Array,
+                value: () => [],
+            },
+            selectedApp_: Object,
+            showSelectLanguageDialog_: {
+                type: Boolean,
+                value: false,
+            },
+        };
+    }
+    connectedCallback() {
+        super.connectedCallback();
+        this.watch('appList_', state => this.computeAppsSupportingPerAppLanguage(state.apps));
+        this.updateFromStore();
+    }
+    // UI i18n and icon helper methods.
+    /**
+     * App languages description based on `appList_` entry.
+     */
+    getAppLanguagesDescription() {
+        return this.appList_.length === 0 ?
+            this.i18n('appLanguagesNoAppsSupportedDescription') :
+            this.i18n('appLanguagesSupportedAppsDescription');
+    }
+    /**
+     * Three-dots button accessibility label.
+     */
+    getChangeLanguageButtonDescription_(app) {
+        assert(app.title);
+        return this.i18n('appLanguagesChangeLanguageButtonDescription', app.title, this.getSelectedLocale_(app));
+    }
+    /**
+     * Returns display name of the selected locale if exists.
+     */
+    getSelectedLocale_(app) {
+        if (app.selectedLocale?.localeTag) {
+            const displayName = app.selectedLocale.displayName;
+            return displayName || app.selectedLocale.localeTag;
+        }
+        return this.i18n('appLanguageDeviceLanguageLabel');
+    }
+    iconUrlFromApp_(app) {
+        return getAppIcon(app);
+    }
+    // Stateful button click operations.
+    // Since dropdown menu is not bound to any app entry, it doesn't know which
+    // app it belongs to, hence we need to keep a state of the last chosen app
+    // entry to the be passed whenever "Edit language" or "Reset language" is
+    // chosen.
+    /**
+     * Shows dropdown menu to either edit language selection or reset to system
+     * default.
+     * Also saves the selected app entry.
+     */
+    onDotsClick_(e) {
+        // Sets a copy of the App object since it is not data-bound to
+        // the `appList_` directly.
+        this.selectedApp_ = e.model.item;
+        const menu = this.$.menu.get();
+        // Safety: This event comes from the DOM, so the target should always be an
+        // element.
+        menu.showAt(e.target);
+    }
+    /**
+     * Opens language selection dialog.
+     */
+    onEditLanguageClick() {
+        this.$.menu.get().close();
+        // Safety: This method is only called from the action menu, which only
+        // appears when `onDotsClick_()` is called, so `this.selectedApp_` should
+        // always be defined here.
+        assert(this.selectedApp_);
+        this.showSelectLanguageDialog_ = true;
+    }
+    /**
+     * Directly resets locale to system default.
+     */
+    onResetLanguageClick() {
+        this.$.menu.get().close();
+        // Safety: This method is only called from the action menu, which only
+        // appears when `onDotsClick_()` is called, so `this.selectedApp_` should
+        // always be defined here.
+        assert(this.selectedApp_);
+        AppManagementBrowserProxy.getInstance().handler.setAppLocale(this.selectedApp_.id, DEVICE_LANGUAGE_LOCALE_TAG);
+    }
+    onSelectLanguageDialogClose_() {
+        this.showSelectLanguageDialog_ = false;
+        this.selectedApp_ = undefined;
+    }
+    // Process raw app list to a filtered app list.
+    /**
+     * Only show apps supporting per-app-language, and sort ascending.
+     */
+    computeAppsSupportingPerAppLanguage(apps) {
+        const filteredApps = Object.values(apps).filter(app => {
+            return app.supportedLocales.length > 0;
+        });
+        return filteredApps.sort((a, b) => {
+            assert(a.title);
+            assert(b.title);
+            return alphabeticalSort$1(a.title, b.title);
+        });
+    }
+}
+customElements.define(OsSettingsAppLanguagesPageElement.is, OsSettingsAppLanguagesPageElement);
+
+function getTemplate$r() {
     return html `<!--_html_template_start_--><style include="settings-shared shared-style">[slot=body]{display:flex;flex-direction:column;height:175px;overflow:auto}cr-checkbox::part(label-container){white-space:nowrap}</style>
 <cr-dialog id="dialog" close-text="$i18n{close}" show-on-attach>
   TODO(b/234790486): Add the correct contents here. this is
@@ -32568,7 +34564,7 @@ class OsSettingsClearPersonalizedDataDialogElement extends PolymerElement {
         return 'os-settings-japanese-clear-ime-data-dialog';
     }
     static get template() {
-        return getTemplate$o();
+        return getTemplate$r();
     }
     static get properties() {
         return {};
@@ -32579,7 +34575,7 @@ class OsSettingsClearPersonalizedDataDialogElement extends PolymerElement {
 }
 customElements.define(OsSettingsClearPersonalizedDataDialogElement.is, OsSettingsClearPersonalizedDataDialogElement);
 
-function getTemplate$n() {
+function getTemplate$q() {
     return html `<!--_html_template_start_--><style include="settings-shared">:host{display:flex;flex-direction:column}</style>
 <div class="cr-row continuation">
   TODO(b/234790486): Add the correct contents here.
@@ -32611,12 +34607,12 @@ class OsSettingsJapaneseManageUserDictionaryPageElement extends OsSettingsJapane
         return 'os-settings-japanese-manage-user-dictionary-page';
     }
     static get template() {
-        return getTemplate$n();
+        return getTemplate$q();
     }
 }
 customElements.define(OsSettingsJapaneseManageUserDictionaryPageElement.is, OsSettingsJapaneseManageUserDictionaryPageElement);
 
-function getTemplate$m() {
+function getTemplate$p() {
     return html `<!--_html_template_start_--><style include="settings-shared md-select">h2{padding-inline-start:var(--cr-section-padding)}.list-frame[use-cr-section-left-padding]{padding-inline-start:var(--cr-section-padding)}.dependent{padding-inline-start:var(--cr-section-indent-padding)}.dependent[align-with-options]{padding-inline-start:calc(var(--cr-section-padding) * 2)}.subtitle{display:block}</style>
 
 <template is="dom-repeat" items="[[optionSections_]]" as="section">
@@ -33068,8 +35064,8 @@ const OPTION_DEFAULT = {
     [OptionType.VIETNAMESE_VNI_SHOW_UNDERLINE]: true,
     [OptionType.VIETNAMESE_TELEX_ALLOW_FLEXIBLE_DIACRITICS]: true,
     [OptionType.VIETNAMESE_TELEX_NEW_STYLE_TONE_MARK_PLACEMENT]: false,
-    [OptionType.VIETNAMESE_TELEX_INSERT_DOUBLE_HORN_ON_UO]: true,
-    [OptionType.VIETNAMESE_TELEX_INSERT_U_HORN_ON_W]: false,
+    [OptionType.VIETNAMESE_TELEX_INSERT_DOUBLE_HORN_ON_UO]: false,
+    [OptionType.VIETNAMESE_TELEX_INSERT_U_HORN_ON_W]: true,
     [OptionType.VIETNAMESE_TELEX_SHOW_UNDERLINE]: true,
 };
 /**
@@ -33933,7 +35929,7 @@ class SettingsInputMethodOptionsPageElement extends SettingsInputMethodOptionsPa
         return 'settings-input-method-options-page';
     }
     static get template() {
-        return getTemplate$m();
+        return getTemplate$p();
     }
     static get properties() {
         return {
@@ -34304,7 +36300,7 @@ class SettingsInputMethodOptionsPageElement extends SettingsInputMethodOptionsPa
 }
 customElements.define(SettingsInputMethodOptionsPageElement.is, SettingsInputMethodOptionsPageElement);
 
-function getTemplate$l() {
+function getTemplate$o() {
     return html `<!--_html_template_start_--><style include="cros-color-overrides">:host{display:flex}.flex{flex:1;flex-basis:.000000001px}</style>
 
 
@@ -34349,7 +36345,7 @@ class CrCheckboxWithPolicyElement extends PolymerElement {
         return 'cr-checkbox-with-policy';
     }
     static get template() {
-        return getTemplate$l();
+        return getTemplate$o();
     }
     static get properties() {
         return {
@@ -34416,15 +36412,17 @@ class CrCheckboxWithPolicyElement extends PolymerElement {
 }
 customElements.define(CrCheckboxWithPolicyElement.is, CrCheckboxWithPolicyElement);
 
-function getTemplate$k() {
+function getTemplate$n() {
     return html `<!--_html_template_start_-->
-<style include="settings-shared shared-style">[slot=body]{display:flex;flex-direction:column;height:350px;overflow:auto}cr-search-field{margin-bottom:8px}.label{padding-bottom:4px;padding-top:8px}.list-item{color:var(--cros-text-color-primary);min-height:36px}cr-checkbox::part(label-container){white-space:nowrap}</style>
+<style include="settings-shared shared-style">[slot=body]{display:flex;flex-direction:column;height:350px;overflow:auto}cr-search-field{margin-top:20px}cr-search-field::part(searchInput){font:var(--cros-body-2-font)}.label{padding-bottom:4px;padding-top:8px}.list-item{color:var(--cros-text-color-primary);min-height:36px}cr-checkbox::part(label-container){white-space:nowrap}</style>
 
 <cr-dialog id="dialog" close-text="$i18n{close}" show-on-attach>
-  <div slot="title">[[header]]</div>
-  <div id="dialog-body" slot="body" scrollable>
+  <div slot="title">
+    <div id="heading">[[header]]</div>
     <cr-search-field label="[[searchLabel]]" id="search" clear-label="$i18n{clearSearch}" autofocus on-search-changed="onSearchChanged_" on-keydown="onKeydown_">
     </cr-search-field>
+  </div>
+  <div id="dialog-body" slot="body" scrollable>
     <template is="dom-if" if="[[showSuggestedList_]]">
       <div id="suggested-items-label" class="label">
         [[suggestedItemsLabel]]
@@ -34480,7 +36478,7 @@ class OsSettingsAddItemsDialogElement extends OsSettingsAddItemsDialogElementBas
         return 'os-settings-add-items-dialog';
     }
     static get template() {
-        return getTemplate$k();
+        return getTemplate$n();
     }
     static get properties() {
         return {
@@ -34691,7 +36689,7 @@ class OsSettingsAddItemsDialogElement extends OsSettingsAddItemsDialogElementBas
 }
 customElements.define(OsSettingsAddItemsDialogElement.is, OsSettingsAddItemsDialogElement);
 
-function getTemplate$j() {
+function getTemplate$m() {
     return html `<!--_html_template_start_-->
 <os-settings-add-items-dialog items="[[getInputMethods_(languages.inputMethods)]]" suggested-item-ids="[[getSuggestedInputMethodIds_(languages,
         languages.enabled.*, languages.inputMethods.*)]]" header="$i18n{addInputMethodLabel}" search-label="$i18n{searchInputMethodsLabel}" suggested-items-label="$i18n{suggestedInputMethodsLabel}" all-items-label="$i18n{allInputMethodsLabel}" policy-tooltip="$i18n{inputMethodNotAllowed}" on-items-added="onItemsAdded_">
@@ -34715,7 +36713,7 @@ class OsSettingsAddInputMethodsDialogElement extends PolymerElement {
         return 'os-settings-add-input-methods-dialog';
     }
     static get template() {
-        return getTemplate$j();
+        return getTemplate$m();
     }
     static get properties() {
         return {
@@ -34788,7 +36786,7 @@ class OsSettingsAddInputMethodsDialogElement extends PolymerElement {
 }
 customElements.define(OsSettingsAddInputMethodsDialogElement.is, OsSettingsAddInputMethodsDialogElement);
 
-function getTemplate$i() {
+function getTemplate$l() {
     return html `<!--_html_template_start_-->
 
 <os-settings-add-items-dialog items="[[getAllLanguages_(languages.spellCheckOffLanguages.*)]]" suggested-item-ids="[[getSuggestedLanguageCodes_(
@@ -34809,7 +36807,7 @@ class OsSettingsAddSpellcheckLanguagesDialogElement extends PolymerElement {
         return 'os-settings-add-spellcheck-languages-dialog';
     }
     static get template() {
-        return getTemplate$i();
+        return getTemplate$l();
     }
     static get properties() {
         return {
@@ -35045,7 +37043,7 @@ Polymer({
   }
 });
 
-function getTemplate$h() {
+function getTemplate$k() {
     return html `<!--_html_template_start_--><style include="settings-shared">:host{display:flex;flex-direction:column}#newWord{width:100%;--cr-input-width:216px}#newWord::part(row-container){justify-content:normal}iron-list .word{flex:1;padding-inline-start:10px}#list{padding:0 var(--cr-section-padding)}.list-item{border-bottom:var(--cr-separator-line)}#noWordsLabel{padding-top:39px;text-align:center}</style>
 <div class="cr-row continuation">
   $i18n{editDictionaryDescription}
@@ -35110,7 +37108,7 @@ class OsSettingsEditDictionaryPageElement extends OsSettingsEditDictionaryPageEl
         return 'os-settings-edit-dictionary-page';
     }
     static get template() {
-        return getTemplate$h();
+        return getTemplate$k();
     }
     static get properties() {
         return {
@@ -35241,7 +37239,7 @@ class OsSettingsEditDictionaryPageElement extends OsSettingsEditDictionaryPageEl
 }
 customElements.define(OsSettingsEditDictionaryPageElement.is, OsSettingsEditDictionaryPageElement);
 
-function getTemplate$g() {
+function getTemplate$j() {
     return html `<!--_html_template_start_--><style include="settings-shared iron-flex">h2{padding-inline-start:var(--cr-section-padding)}cr-policy-pref-indicator{margin-inline-end:var(--cr-controlled-by-spacing)}cr-policy-pref-indicator+cr-icon-button{margin-inline-start:0}.bottom-margin{margin-bottom:var(--cr-section-vertical-margin)}.explain-selected,.language-packs-error{font-weight:initial;margin-top:4px}.explain-selected{color:var(--cros-text-color-positive)}.language-packs-error{color:var(--cros-text-color-alert)}.icon-external{margin-inline-end:0}.name-with-error[disabled]{pointer-events:none}.name-with-error{padding:14px 0}.name-with-error div{color:var(--cros-text-color-alert);margin-top:8px}iron-icon[icon='cr:error'],iron-icon[icon='os-settings:multidevice-error']{--iron-icon-fill-color:var(--cros-icon-color-alert);margin-inline-end:4px}iron-icon[icon='cr:error']{height:var(--cr-icon-size);width:var(--cr-icon-size)}iron-icon[icon='os-settings:multidevice-error']{height:16px;width:16px}iron-icon[icon='cr20:domain']{margin-inline-end:10px}iron-icon+span{vertical-align:middle}.selected[actionable]{cursor:auto}.subsection{padding-inline-end:var(--cr-section-padding);padding-inline-start:var(--cr-section-indent-padding)}.subsection .list-frame{padding-inline-end:0;padding-inline-start:40px}#spellCheckLanguagesListV2>.cr-row,.subsection>cr-link-row,.subsection>settings-toggle-button{padding-inline-end:0;padding-inline-start:0}.subsection>cr-link-row:not(:first-of-type),.subsection>settings-toggle-button:not(:first-of-type){border-top:var(--cr-separator-line)}.external-wrapper,.internal-wrapper{display:flex}#addInputMethod,#addSpellcheckLanguages{--iron-icon-fill-color:var(--cr-link-color);margin-top:16px}cr-button[disabled] iron-icon{--iron-icon-fill-color:var(--cros-button-icon-color-primary-disabled)}paper-spinner-lite{height:14px;width:14px;--paper-spinner-stroke-width:2px}</style>
 
 <template is="dom-if" if="[[shouldShowLanguagePacksNotice_]]">
@@ -35519,7 +37517,7 @@ class OsSettingsInputPageElement extends OsSettingsInputPageElementBase {
         return 'os-settings-input-page';
     }
     static get template() {
-        return getTemplate$g();
+        return getTemplate$j();
     }
     static get properties() {
         return {
@@ -35961,7 +37959,13 @@ class OsSettingsInputPageElement extends OsSettingsInputPageElementBase {
         const status = this.languageHelper.getImeLanguagePackStatus(imeId);
         switch (status) {
             case chrome.inputMethodPrivate.LanguagePackStatus.ERROR_NEEDS_REBOOT:
-                return this.i18n('inputMethodLanguagePacksNeedsRebootError');
+            // We currently have a string - `inputMethodLanguagePacksNeedsRebootError`
+            // in WebUI,
+            // `IDS_OS_SETTINGS_INPUT_METHOD_LANGUAGE_PACKS_NEEDS_REBOOT_ERROR` in the
+            // GRD file - to special case the `ERROR_NEEDS_REBOOT` case. However, the
+            // string is not finalised, and therefore should not be shown to the user.
+            // TODO: b/315725816 - Either finalise the string and add it here, or
+            // remove the string altogether.
             case chrome.inputMethodPrivate.LanguagePackStatus.ERROR_OTHER:
                 return this.i18n('inputMethodLanguagePacksGeneralError');
             default:
@@ -35972,7 +37976,7 @@ class OsSettingsInputPageElement extends OsSettingsInputPageElementBase {
 }
 customElements.define(OsSettingsInputPageElement.is, OsSettingsInputPageElement);
 
-function getTemplate$f() {
+function getTemplate$i() {
     return html `<!--_html_template_start_--><style include="settings-shared iron-flex shared-style">#dialogBody{display:flex;flex-direction:column;height:336px;overflow:auto;padding-inline-end:0;padding-inline-start:0}cr-search-field{margin-bottom:16px;margin-inline-end:var(--dialog-horizontal-padding);margin-inline-start:var(--dialog-horizontal-padding);margin-top:16px}iron-icon[icon='settings:check-circle']{--iron-icon-fill-color:var(--cr-link-color);margin-inline-end:26px}iron-list>div:not(.selected):hover{background-color:var(--cros-menu-item-bg-color-focus)}[scrollable] iron-list>:not(.no-outline):focus{background-color:var(--cros-menu-item-bg-color-focus)}[scrollable] iron-list>.selected:not(.no-outline):focus{background-color:transparent}.list-item{color:var(--cros-text-color-primary);min-height:36px}.padded{padding-inline-end:var(--dialog-horizontal-padding);padding-inline-start:var(--dialog-horizontal-padding)}paper-ripple{color:var(--cros-menu-item-ripple-color)}</style>
 
 <cr-dialog id="dialog" close-text="$i18n{close}" show-on-attach>
@@ -36025,7 +38029,7 @@ class OsSettingsChangeDeviceLanguageDialogElement extends OsSettingsChangeDevice
         return 'os-settings-change-device-language-dialog';
     }
     static get template() {
-        return getTemplate$f();
+        return getTemplate$i();
     }
     static get properties() {
         return {
@@ -36141,7 +38145,7 @@ class OsSettingsChangeDeviceLanguageDialogElement extends OsSettingsChangeDevice
 }
 customElements.define(OsSettingsChangeDeviceLanguageDialogElement.is, OsSettingsChangeDeviceLanguageDialogElement);
 
-function getTemplate$e() {
+function getTemplate$h() {
     return html `<!--_html_template_start_-->
 
 <os-settings-add-items-dialog items="[[getLanguages_(languages.supported, languages.enabled.*)]]" header="$i18n{addLanguagesDialogTitle}" search-label="$i18n{searchLanguages}" on-items-added="onItemsAdded_">
@@ -36160,7 +38164,7 @@ class OsSettingsAddLanguagesDialogElement extends PolymerElement {
         return 'os-settings-add-languages-dialog';
     }
     static get template() {
-        return getTemplate$e();
+        return getTemplate$h();
     }
     static get properties() {
         return {
@@ -36209,7 +38213,7 @@ class OsSettingsAddLanguagesDialogElement extends PolymerElement {
 }
 customElements.define(OsSettingsAddLanguagesDialogElement.is, OsSettingsAddLanguagesDialogElement);
 
-function getTemplate$d() {
+function getTemplate$g() {
     return html `<!--_html_template_start_--><style include="settings-shared action-link iron-flex">h2{padding-inline-start:var(--cr-section-padding)}.subsection{padding-inline-end:var(--cr-section-padding);padding-inline-start:var(--cr-section-indent-padding)}.subsection>cr-link-row{padding-inline-end:0;padding-inline-start:0}cr-action-menu.complex .dropdown-item{min-height:36px}cr-action-menu.complex .dropdown-item:focus{background-color:var(--cros-menu-item-bg-color-focus)}cr-policy-indicator{margin-inline-end:8px}.bottom-margin{margin-bottom:var(--cr-section-vertical-margin)}.list-item.non-translate-target .target-info{display:none}.list-item.translate-target~.list-item.translate-target .target-info{display:none}#addLanguages{margin-top:16px}cr-checkbox{--cr-checkbox-label-padding-start:8px}</style>
 
 <div class="cr-row first">
@@ -36230,6 +38234,11 @@ function getTemplate$d() {
     </cr-button>
   </template>
 </div>
+
+<template is="dom-if" if="[[isPerAppLanguageEnabled_]]">
+  <cr-link-row id="appLanguagesSection" class="hr" label="$i18n{appLanguagesTitle}" sub-label="$i18n{appLanguagesDescription}" on-click="onAppLanguagesClick_" role-description="$i18n{subpageArrowRoleDescription}">
+  </cr-link-row>
+</template>
 
 <div class="hr bottom-margin">
   <h2 aria-hidden="true">
@@ -36352,7 +38361,7 @@ class OsSettingsLanguagesPageV2Element extends OsSettingsLanguagesPageV2ElementB
         return 'os-settings-languages-page-v2';
     }
     static get template() {
-        return getTemplate$d();
+        return getTemplate$g();
     }
     static get properties() {
         return {
@@ -36392,6 +38401,12 @@ class OsSettingsLanguagesPageV2Element extends OsSettingsLanguagesPageV2ElementB
                     return loadTimeData.getString('primaryUserEmail');
                 },
             },
+            isPerAppLanguageEnabled_: {
+                type: Boolean,
+                value() {
+                    return loadTimeData.getBoolean('isPerAppLanguageEnabled');
+                },
+            },
             languageSettingsV2Update2Enabled_: Boolean,
         };
     }
@@ -36421,6 +38436,12 @@ class OsSettingsLanguagesPageV2Element extends OsSettingsLanguagesPageV2ElementB
     }
     getChangeDeviceLanguageButtonDescription_(language) {
         return this.i18n('changeDeviceLanguageButtonDescription', this.getLanguageDisplayName_(language));
+    }
+    /**
+     * Navigates to app languages subpage.
+     */
+    onAppLanguagesClick_() {
+        Router.getInstance().navigateTo(routes.OS_LANGUAGES_APP_LANGUAGES);
     }
     /**
      * Stamps and opens the Add Languages dialog, registering a listener to
@@ -36631,7 +38652,7 @@ class OsSettingsLanguagesPageV2Element extends OsSettingsLanguagesPageV2ElementB
 }
 customElements.define(OsSettingsLanguagesPageV2Element.is, OsSettingsLanguagesPageV2Element);
 
-function getTemplate$c() {
+function getTemplate$f() {
     return html `<!--_html_template_start_--><style include="settings-shared">:host(.list-frame) settings-toggle-button{padding-inline-end:0;padding-inline-start:0}:host(.list-frame) settings-toggle-button:first-of-type{border-top:none}</style>
 
 <template is="dom-if" if="[[showMetricsToggle_]]">
@@ -36657,7 +38678,7 @@ class OsSettingsPersonalizationOptionsElement extends OsSettingsPersonalizationO
         return 'os-settings-personalization-options';
     }
     static get template() {
-        return getTemplate$c();
+        return getTemplate$f();
     }
     static get properties() {
         return {
@@ -36690,7 +38711,7 @@ class OsSettingsPersonalizationOptionsElement extends OsSettingsPersonalizationO
 }
 customElements.define(OsSettingsPersonalizationOptionsElement.is, OsSettingsPersonalizationOptionsElement);
 
-function getTemplate$b() {
+function getTemplate$e() {
     return html `<!--_html_template_start_--><style include="cups-printer-shared">:host{display:flex;flex-direction:column}#no-search-results{margin-top:20px}:host([is-printer-settings-revamp-enabled_]) .list-frame{padding-inline:0}</style>
 
 <iron-list class="list-frame vertical-list flex-auto" id="printerEntryList" items="[[filteredPrinters_]]">
@@ -36719,7 +38740,7 @@ class SettingsCupsNearbyPrintersElement extends SettingsCupsNearbyPrintersElemen
         return 'settings-cups-nearby-printers';
     }
     static get template() {
-        return getTemplate$b();
+        return getTemplate$e();
     }
     static get properties() {
         return {
@@ -36916,8 +38937,8 @@ class SettingsCupsNearbyPrintersElement extends SettingsCupsNearbyPrintersElemen
 }
 customElements.define(SettingsCupsNearbyPrintersElement.is, SettingsCupsNearbyPrintersElement);
 
-function getTemplate$a() {
-    return html `<!--_html_template_start_-->    <style include="cros-color-overrides">:host{cursor:auto;display:block;width:100%}cr-textarea{width:100%;--cr-input-width:75%;--cr-textarea-footer-display:flex}</style>
+function getTemplate$d() {
+    return html `<!--_html_template_start_-->    <style include="cros-color-overrides">:host{cursor:auto;display:block;width:100%}cr-textarea{width:100%;--cr-textarea-footer-display:flex}</style>
     
     <cr-textarea id="input" value="{{value}}" rows="1" autogrow="true" placeholder="$i18n{secureDnsCustomPlaceholder}" invalid="[[showError_]]" first-footer="[[errorText_]]" maxlength="102400" spellcheck="false" on-keypress="onKeyPress_" on-input="onInput_" on-blur="validate" on-change="validate">
     </cr-textarea>
@@ -36941,7 +38962,7 @@ class SecureDnsInputElement extends PolymerElement {
         return 'secure-dns-input';
     }
     static get template() {
-        return getTemplate$a();
+        return getTemplate$d();
     }
     static get properties() {
         return {
@@ -37014,7 +39035,7 @@ class SecureDnsInputElement extends PolymerElement {
 }
 customElements.define(SecureDnsInputElement.is, SecureDnsInputElement);
 
-function getTemplate$9() {
+function getTemplate$c() {
     return html `<!--_html_template_start_--><style include="settings-shared">#secureDnsDialogDescription{padding-top:10px}cr-dialog::part(dialog){width:370px}</style>
 
 <cr-dialog id="dialog" show-on-attach>
@@ -37051,7 +39072,7 @@ class SettingsSecureDnsDialogElement extends SettingsSecureDnsDialogElementBase 
         return 'settings-secure-dns-dialog';
     }
     static get template() {
-        return getTemplate$9();
+        return getTemplate$c();
     }
     /**
      * Sets the pref's mode to false which will turn off the toggle, and closes
@@ -37084,11 +39105,8 @@ class SettingsSecureDnsDialogElement extends SettingsSecureDnsDialogElementBase 
 }
 customElements.define(SettingsSecureDnsDialogElement.is, SettingsSecureDnsDialogElement);
 
-function getTemplate$8() {
-    return html `<!--_html_template_start_-->    <style include="cr-shared-style md-select cros-color-overrides">#automaticRadioButton{align-items:flex-start;min-height:var(--cr-section-min-height);padding:6px 0;--cr-radio-button-disc-margin-block-start:calc(
-            (1.54em  - var(--cr-radio-button-size)) / 2)}#secureDnsRadioGroup{display:block;padding-inline-end:var(--cr-section-padding);padding-inline-start:var(--cr-section-indent-padding)}#secureResolverSelectRadioButton{align-items:flex-start;--cr-radio-button-disc-margin-block-start:calc(
-            (1.54em  + 12px  -
-             var(--cr-radio-button-size)) / 2)}#secureRadioButtonItem{align-items:baseline;display:flex;min-height:var(--cr-section-min-height)}#secureRadioButtonItemInner{margin-inline-start:.5em;width:80%}#privacyPolicy{display:none;padding:8px}#privacyPolicy a{color:var(--cr-link-color)}#secureDnsInput{margin-top:6px}</style>
+function getTemplate$b() {
+    return html `<!--_html_template_start_-->    <style include="cr-shared-style md-select cros-color-overrides">#resolverSelect{width:inherit}#resolverLabel{flex:1}#privacyPolicy{display:none;padding:calc(var(--cr-section-padding)/ 2) var(--cr-section-padding)}#privacyPolicy a{color:var(--cr-link-color)}#secureDnsInputContainer{margin-top:calc(var(--cr-section-padding)/ 2)}:host-context(body.revamp-wayfinding-enabled) settings-toggle-button{--cr-icon-button-margin-end:16px;--iron-icon-fill-color:var(--cros-sys-primary)}</style>
 
 
 
@@ -37098,33 +39116,41 @@ function getTemplate$8() {
     </template>
 
     <template is="dom-if" if="[[isRevampWayfindingEnabled_]]">
-      <settings-toggle-button id="secureDnsToggle" class="hr" pref="[[secureDnsToggle_]]" label="$i18n{secureDnsOsSettingsTitle}" sub-label="[[secureDnsDescription_]]" on-settings-boolean-control-change="onDnsToggleClick_" no-set-pref>
+      <settings-toggle-button id="secureDnsToggle" class="hr" icon="os-settings:privacy-secure-dns" pref="[[secureDnsToggle_]]" label="$i18n{secureDnsOsSettingsTitle}" sub-label="[[secureDnsDescription_]]" on-settings-boolean-control-change="onDnsToggleClick_" no-set-pref>
       </settings-toggle-button>
     </template>
 
 
-    <cr-radio-group id="secureDnsRadioGroup" selected="{{secureDnsRadio_}}" on-selected-changed="onRadioSelectionChanged_" hidden="[[!showRadioGroup_]]">
-      <cr-radio-button id="automaticRadioButton" name="[[secureDnsModeEnum_.AUTOMATIC]]" label="$i18n{secureDnsAutomaticModeDescription}">
-        <div class="cr-secondary-text">
-          $i18n{secureDnsAutomaticModeDescriptionSecondary}
-        </div>
-      </cr-radio-button>
-      <cr-radio-button id="secureResolverSelectRadioButton" name="[[secureDnsModeEnum_.SECURE]]" aria-label="$i18n{secureDnsSecureModeA11yLabel}">
-        <div id="secureRadioButtonItem">
+    <div id="resolverOptions" hidden="[[!showSecureDnsOptions_]]">
+      <div class="cr-row continuation">
+        <div id="resolverLabel" class="flex cr-padded-text">
           $i18n{secureDnsSecureDropdownModeDescription}
-          <div id="secureRadioButtonItemInner">
-            <select id="secureResolverSelect" class="md-select" aria-label="$i18n{secureDnsDropdownA11yLabel}" on-click="stopEventPropagation_" on-change="onDropdownSelectionChanged_">
-              <template is="dom-repeat" items="[[resolverOptions_]]">
-                <option value="[[item.value]]">[[item.name]]</option>
-              </template>
-            </select>
-            <div id="privacyPolicy" class="cr-secondary-text" inner-h-t-m-l="[[privacyPolicyString_]]"></div>
-            <secure-dns-input id="secureDnsInput" value="[[secureDnsInputValue_]]" on-value-update="onSecureDnsInputEvaluated_" on-click="stopEventPropagation_">
-            </secure-dns-input>
-          </div>
         </div>
-      </cr-radio-button>
-    </cr-radio-group>
+
+        <select id="resolverSelect" class="md-select" aria-labelledby="resolverLabel" on-change="onDropdownSelectionChanged_">
+          <option value="[[resolverTypeEnum_.AUTOMATIC]]">
+            $i18n{secureDnsAutomaticModeDescription}
+          </option>
+          <option value="[[resolverTypeEnum_.CUSTOM]]">
+            $i18n{secureDnsCustomProviderDescription}
+          </option>
+          <template is="dom-repeat" items="[[resolverOptions_]]">
+            <option data-resolver-type$="[[resolverTypeEnum_.BUILT_IN]]" value="[[index]]">
+              [[item.name]]
+            </option>
+          </template>
+        </select>
+      </div>
+
+      <div id="privacyPolicy">
+        <div class="cr-secondary-text" inner-h-t-m-l="[[privacyPolicyString_]]"></div>
+      </div>
+
+      <div id="secureDnsInputContainer" class="cr-row continuation">
+        <secure-dns-input id="secureDnsInput" value="[[secureDnsInputValue_]]" on-value-update="onSecureDnsInputEvaluated_">
+        </secure-dns-input>
+      </div>
+    </div>
 
 
     <template is="dom-if" if="[[showDisableDnsDialog_]]" restamp>
@@ -37150,6 +39176,16 @@ function getTemplate$8() {
  * by PrivacyPageBrowserProxy and describe the new host resolver configuration.
  */
 const SettingsSecureDnsElementBase = WebUiListenerMixin(PrefsMixin(I18nMixin(PolymerElement)));
+/**
+ * Enum for the categories of options in the secure DNS resolver select
+ * menu.
+ */
+var SecureDnsResolverType;
+(function (SecureDnsResolverType) {
+    SecureDnsResolverType["AUTOMATIC"] = "automatic";
+    SecureDnsResolverType["BUILT_IN"] = "built-in";
+    SecureDnsResolverType["CUSTOM"] = "custom";
+})(SecureDnsResolverType || (SecureDnsResolverType = {}));
 class SettingsSecureDnsElement extends SettingsSecureDnsElementBase {
     constructor() {
         super(...arguments);
@@ -37160,17 +39196,17 @@ class SettingsSecureDnsElement extends SettingsSecureDnsElementBase {
         return 'settings-secure-dns';
     }
     static get template() {
-        return getTemplate$8();
+        return getTemplate$b();
     }
     static get properties() {
         return {
             /**
-             * Mirroring the secure DNS mode enum so that it can be used from HTML
+             * Mirroring the secure DNS resolver enum so that it can be used from HTML
              * bindings.
              */
-            secureDnsModeEnum_: {
+            resolverTypeEnum_: {
                 type: Object,
-                value: SecureDnsMode,
+                value: SecureDnsResolverType,
             },
             /**
              * The setting sublabel.
@@ -37190,17 +39226,9 @@ class SettingsSecureDnsElement extends SettingsSecureDnsElementBase {
                 },
             },
             /**
-             * Whether the radio buttons should be shown.
+             * Whether the secure DNS resolver options should be shown.
              */
-            showRadioGroup_: Boolean,
-            /**
-             * Represents the selected radio button. Should always have a value of
-             * 'automatic' or 'secure'.
-             */
-            secureDnsRadio_: {
-                type: String,
-                value: SecureDnsMode.AUTOMATIC,
-            },
+            showSecureDnsOptions_: Boolean,
             /**
              * List of secure DNS resolvers to display in dropdown menu.
              */
@@ -37253,17 +39281,9 @@ class SettingsSecureDnsElement extends SettingsSecureDnsElementBase {
     onSecureDnsPrefsChanged_(setting) {
         switch (setting.mode) {
             case SecureDnsMode.SECURE:
-                this.set('secureDnsToggle_.value', true);
-                this.secureDnsRadio_ = SecureDnsMode.SECURE;
-                // Only update the selected dropdown item if the user is in secure
-                // mode. Otherwise, we may be losing a selection that hasn't been
-                // pushed yet to prefs.
-                this.updateConfigRepresentation_(setting.config);
-                this.updatePrivacyPolicyLine_();
-                break;
             case SecureDnsMode.AUTOMATIC:
                 this.set('secureDnsToggle_.value', true);
-                this.secureDnsRadio_ = SecureDnsMode.AUTOMATIC;
+                this.updateConfigRepresentation_(setting.mode, setting.config);
                 break;
             case SecureDnsMode.OFF:
                 this.set('secureDnsToggle_.value', false);
@@ -37276,21 +39296,30 @@ class SettingsSecureDnsElement extends SettingsSecureDnsElementBase {
     // 
     onSecureDnsPrefChangedToFalse_() {
         this.set('secureDnsToggle_.value', false);
-        this.showRadioGroup_ = false;
+        this.showSecureDnsOptions_ = false;
     }
     // 
     /**
      * Updates the underlying secure DNS mode pref based on the new toggle
-     * selection (and the underlying radio button if the toggle has just been
+     * selection (and the underlying select menu if the toggle has just been
      * turned on).
      */
     onToggleChanged_() {
-        this.showRadioGroup_ = this.secureDnsToggle_.value;
-        if (this.secureDnsRadio_ === SecureDnsMode.SECURE &&
-            !this.$.secureResolverSelect.value) {
-            this.$.secureDnsInput.focus();
+        this.showSecureDnsOptions_ = this.secureDnsToggle_.value;
+        if (!this.secureDnsToggle_.value) {
+            this.updateDnsPrefs_(SecureDnsMode.OFF);
+            return;
         }
-        this.updateDnsPrefs_(this.secureDnsToggle_.value ? this.secureDnsRadio_ : SecureDnsMode.OFF);
+        const resolver = this.$.resolverSelect.value;
+        if (resolver === SecureDnsResolverType.AUTOMATIC) {
+            this.updateDnsPrefs_(SecureDnsMode.AUTOMATIC);
+        }
+        else {
+            if (resolver === SecureDnsResolverType.CUSTOM) {
+                this.$.secureDnsInput.focus();
+            }
+            this.updateDnsPrefs_(SecureDnsMode.SECURE);
+        }
     }
     // 
     /**
@@ -37298,27 +39327,10 @@ class SettingsSecureDnsElement extends SettingsSecureDnsElementBase {
      * Settings.
      */
     turnOnDnsToggle_() {
-        this.showRadioGroup_ = true;
-        if (this.secureDnsRadio_ === SecureDnsMode.SECURE &&
-            !this.$.secureResolverSelect.value) {
-            this.$.secureDnsInput.focus();
-        }
         this.set('secureDnsToggle_.value', true);
-        this.updateDnsPrefs_(this.secureDnsRadio_);
+        this.onToggleChanged_();
     }
     //
-    /**
-     * Updates the underlying secure DNS prefs based on the newly selected radio
-     * button. This should only be called from the HTML. Focuses the custom text
-     * field if the custom option has been selected.
-     */
-    onRadioSelectionChanged_(event) {
-        if (event.detail.value === SecureDnsMode.SECURE &&
-            !this.$.secureResolverSelect.value) {
-            this.$.secureDnsInput.focus();
-        }
-        this.updateDnsPrefs_(event.detail.value);
-    }
     /**
      * Helper method for updating the underlying secure DNS prefs based on the
      * provided mode and templates (if the latter is specified). The templates
@@ -37335,14 +39347,15 @@ class SettingsSecureDnsElement extends SettingsSecureDnsElementBase {
                 // was not specified, the custom entry may be invalid or may not
                 // have passed validation yet, and we should not update either the
                 // underlying mode or templates prefs.
-                if (!this.$.secureResolverSelect.value) {
+                const builtInResolver = this.builtInResolver_();
+                if (!builtInResolver) {
                     if (!templates) {
                         return;
                     }
                     this.setPrefValue('dns_over_https.templates', templates);
                 }
                 else {
-                    this.setPrefValue('dns_over_https.templates', this.$.secureResolverSelect.value);
+                    this.setPrefValue('dns_over_https.templates', builtInResolver.value);
                 }
                 this.setPrefValue('dns_over_https.mode', mode);
                 break;
@@ -37358,25 +39371,25 @@ class SettingsSecureDnsElement extends SettingsSecureDnsElementBase {
         }
     }
     /**
-     * Prevent interactions with the dropdown menu or custom text field from
-     * causing the corresponding radio button to be selected.
-     */
-    stopEventPropagation_(event) {
-        event.stopPropagation();
-    }
-    /**
      * Updates the underlying secure DNS templates pref based on the selected
-     * resolver and displays the corresponding privacy policy. Focuses the custom
-     * text field if the custom option has been selected.
+     * resolver and displays the corresponding privacy policy.
      */
     onDropdownSelectionChanged_() {
-        // If we're already in secure mode, update the prefs.
-        if (this.secureDnsRadio_ === SecureDnsMode.SECURE) {
-            this.updateDnsPrefs_(SecureDnsMode.SECURE);
-        }
-        this.updatePrivacyPolicyLine_();
-        if (!this.$.secureResolverSelect.value) {
-            this.$.secureDnsInput.focus();
+        switch (this.$.resolverSelect.value) {
+            case SecureDnsResolverType.AUTOMATIC:
+                this.updateDnsPrefs_(SecureDnsMode.AUTOMATIC);
+                this.updateConfigRepresentation_(SecureDnsMode.AUTOMATIC, '');
+                break;
+            case SecureDnsResolverType.CUSTOM:
+                this.updateDnsPrefs_(SecureDnsMode.SECURE);
+                this.updateConfigRepresentation_(SecureDnsMode.SECURE, '');
+                break;
+            default:
+                const resolver = this.builtInResolver_();
+                assert(resolver);
+                this.updateDnsPrefs_(SecureDnsMode.SECURE, resolver.value);
+                this.updateConfigRepresentation_(SecureDnsMode.SECURE, resolver.value);
+                break;
         }
     }
     /**
@@ -37440,62 +39453,84 @@ class SettingsSecureDnsElement extends SettingsSecureDnsElementBase {
         this.secureDnsToggle_ = pref;
         if (this.secureDnsToggle_.enforcement ===
             chrome.settingsPrivate.Enforcement.ENFORCED) {
-            this.showRadioGroup_ = false;
+            this.showSecureDnsOptions_ = false;
         }
         else {
-            this.showRadioGroup_ = this.secureDnsToggle_.value;
+            this.showSecureDnsOptions_ = this.secureDnsToggle_.value;
         }
     }
     /**
-     * Updates the UI to represent the given secure DNS config.
-     * @param secureDnsConfig The current host resolver configuration.
+     * Updates the UI to match the provided configuration parameters.
      */
-    updateConfigRepresentation_(secureDnsConfig) {
-        // If it is one of the non-custom dropdown options, select that option.
-        const resolver = this.resolverOptions_.slice(1).find(r => r.value === secureDnsConfig);
-        if (resolver) {
-            this.$.secureResolverSelect.value = resolver.value;
-            return;
+    updateConfigRepresentation_(mode, template) {
+        let hideCustomEntry = true;
+        let selectValue = '';
+        let privacyPolicy = '';
+        const index = this.resolverOptions_.findIndex(r => r.value === template);
+        if (index !== -1) {
+            privacyPolicy = this.resolverOptions_[index].policy;
         }
-        // Otherwise, select the custom option.
-        this.$.secureResolverSelect.value = '';
-        // Only update the custom input field if the config string is non-empty.
-        // Otherwise, we may be clearing a previous value that the user wishes to
-        // reuse.
-        if (secureDnsConfig.length > 0) {
-            this.secureDnsInputValue_ = secureDnsConfig;
+        switch (mode) {
+            case SecureDnsMode.AUTOMATIC:
+                selectValue = SecureDnsResolverType.AUTOMATIC;
+                break;
+            case SecureDnsMode.SECURE:
+                if (index === -1) {
+                    selectValue = SecureDnsResolverType.CUSTOM;
+                    hideCustomEntry = false;
+                }
+                else {
+                    selectValue = index.toString();
+                }
+                break;
+            default:
+                assertNotReached(`Unexpected DNS mode ${mode}`);
+        }
+        this.$.resolverSelect.value = selectValue;
+        this.updatePrivacyPolicyLine_(privacyPolicy);
+        this.$.secureDnsInputContainer.hidden = hideCustomEntry;
+        if (!hideCustomEntry) {
+            this.secureDnsInputValue_ = template;
+            if (!template) {
+                this.$.secureDnsInput.focus();
+            }
         }
     }
     /**
-     * Displays the privacy policy corresponding to the selected dropdown resolver
-     * or hides the privacy policy line if a custom resolver is selected.
+     * Displays the privacy policy string if the policy URL is specified,
+     * otherwise hides it.
+     * @param policy The privacy policy URL.
      */
-    updatePrivacyPolicyLine_() {
-        // If the selected item is the custom provider option, hide the privacy
+    updatePrivacyPolicyLine_(policy) {
+        // If the selected item is the custom resolver option, hide the privacy
         // policy line.
-        if (!this.$.secureResolverSelect.value) {
+        if (!policy) {
             this.$.privacyPolicy.style.display = 'none';
-            this.$.secureDnsInput.style.display = 'block';
             return;
         }
         // Otherwise, display the corresponding privacy policy.
         this.$.privacyPolicy.style.display = 'block';
-        this.$.secureDnsInput.style.display = 'none';
-        const resolver = this.resolverOptions_.find(r => r.value === this.$.secureResolverSelect.value);
-        if (!resolver) {
-            return;
-        }
-        this.privacyPolicyString_ = sanitizeInnerHtml(loadTimeData.substituteString(loadTimeData.getString('secureDnsSecureDropdownModePrivacyPolicy'), resolver.policy));
+        this.privacyPolicyString_ = sanitizeInnerHtml(loadTimeData.substituteString(loadTimeData.getString('secureDnsSecureDropdownModePrivacyPolicy'), policy));
     }
     /**
      * Updates the underlying prefs if a custom entry was determined to be valid.
-     * If the custom entry was determined to be invalid, moves the selected radio
-     * button away from 'secure' if necessary.
      */
     onSecureDnsInputEvaluated_(event) {
         if (event.detail.isValid) {
-            this.updateDnsPrefs_(this.secureDnsRadio_, event.detail.text);
+            this.updateDnsPrefs_(SecureDnsMode.SECURE, event.detail.text);
         }
+    }
+    /**
+     * Returns the ResolverOption details if the currently selected secure DNS
+     * resolver is a built-in one.
+     */
+    builtInResolver_() {
+        if (this.$.resolverSelect.selectedOptions[0].dataset['resolverType'] ===
+            SecureDnsResolverType.BUILT_IN) {
+            const index = Number.parseInt(this.$.resolverSelect.value);
+            return this.resolverOptions_[index];
+        }
+        return undefined;
     }
     // 
     onDnsToggleClick_() {
@@ -37521,172 +39556,961 @@ class SettingsSecureDnsElement extends SettingsSecureDnsElementBase {
 }
 customElements.define(SettingsSecureDnsElement.is, SettingsSecureDnsElement);
 
-function getTemplate$7() {
-    return html `<!--_html_template_start_--><style include="settings-shared">.block{display:block}settings-dropdown-menu{--md-select-width:425px;--settings-dropdown-menu-policy-order:1}#timeZoneResolveMethodDropdown,#timezoneSelector{padding-inline-start:28px}</style>
-<div class="settings-box block first">
-  <settings-radio-group id="timeZoneRadioGroup" pref="{{prefs.generated.resolve_timezone_by_geolocation_on_off}}" deep-link-focus-id$="[[Setting.kChangeTimeZone]]">
-    <controlled-radio-button id="timeZoneAutoDetectOn" name="true" pref="[[prefs.generated.resolve_timezone_by_geolocation_on_off]]" label="$i18n{setTimeZoneAutomaticallyOn}" no-extension-indicator>
-    </controlled-radio-button>
-    <settings-dropdown-menu id="timeZoneResolveMethodDropdown" pref="{{prefs.generated.resolve_timezone_by_geolocation_method_short}}" label="$i18n{selectTimeZoneResolveMethod}" disabled="[[!prefs.generated.resolve_timezone_by_geolocation_on_off.value]]" menu-options="[[getTimeZoneResolveMethodsList_(
-            prefs.generated.resolve_timezone_by_geolocation_method_short)]]" on-settings-control-change="onTimeZoneSelectionChanged_">
-    </settings-dropdown-menu>
-    <controlled-radio-button id="timeZoneAutoDetectOff" name="false" pref="[[prefs.generated.resolve_timezone_by_geolocation_on_off]]" label="$i18n{setTimeZoneAutomaticallyOff}" no-extension-indicator>
-    </controlled-radio-button>
-    <timezone-selector id="timezoneSelector" prefs="{{prefs}}" active-time-zone-display-name="{{activeTimeZoneDisplayName}}">
-    </timezone-selector>
-  </settings-radio-group>
+function getTemplate$a() {
+    return html `<!--_html_template_start_--><style include="md-select settings-shared input-device-settings-shared">:host([selected]) #container{background-color:var(--cros-highlight-color-focus)}#container{align-items:center;display:flex;height:36px;padding:0 16px}#container:hover{background-color:var(--cros-highlight-color-hover)}</style>
+<div id="container" hidden="[[option.hidden]]" tabindex="-1" class="option-item" on-click="onDropdownItemSelected_">
+  [[option.name]]
 </div>
-
-<template is="dom-if" if="[[showEnableSystemGeolocationDialog_]]" restamp>
-  <settings-system-geolocation-dialog id="geolocationDialog" on-close="onEnableSystemGeolocationDialogClosed_" prefs="{{prefs}}">
-  </settings-system-geolocation-dialog>
-</template>
 <!--_html_template_end_-->`;
 }
 
-// Copyright 2017 The Chromium Authors
+// Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-/**
- * @fileoverview 'timezone-subpage' is the collapsible section containing
- * time zone settings.
- */
-const TimezoneSubpageElementBase = DeepLinkingMixin(RouteObserverMixin(PrefsMixin(WebUiListenerMixin(PolymerElement))));
-class TimezoneSubpageElement extends TimezoneSubpageElementBase {
+class CustomizeButtonDropdownItemElement extends PolymerElement {
     static get is() {
-        return 'timezone-subpage';
+        return 'customize-button-dropdown-item';
     }
     static get template() {
-        return getTemplate$7();
+        return getTemplate$a();
     }
     static get properties() {
         return {
-            /**
-             * This is <timezone-selector> parameter.
-             */
-            activeTimeZoneDisplayName: {
-                type: String,
-                notify: true,
+            selected: {
+                type: Boolean,
+                value: false,
+                reflectToAttribute: true,
             },
-            /**
-             * Used by DeepLinkingMixin to focus this page's deep links.
-             */
-            supportedSettingIds: {
+            option: {
                 type: Object,
-                value: () => new Set([Setting.kChangeTimeZone]),
             },
-            showEnableSystemGeolocationDialog_: {
+        };
+    }
+    onDropdownItemSelected_() {
+        this.dispatchEvent(new CustomEvent('customize-button-dropdown-selected', {
+            bubbles: true,
+            composed: true,
+            detail: {
+                value: this.option.value,
+            },
+        }));
+    }
+}
+customElements.define(CustomizeButtonDropdownItemElement.is, CustomizeButtonDropdownItemElement);
+
+const template = html`<!-- TODO(dpad): Collapse with keyboard and shortcut customization app icons -->
+<iron-iconset-svg name="shortcut-input-keys" size="24">
+  <svg>
+    <defs>
+      <g id="arrow-down">
+        <path d="M7.41 7.84L12 12.42l4.59-4.58L18 9.25l-6 6-6-6z">
+      </g>
+      <g id="arrow-left">
+        <path d="M15.41 16.09l-4.58-4.59 4.58-4.59L14 5.5l-6 6 6 6z">
+      </g>
+      <g id="arrow-right">
+        <path d="M8.59 16.34l4.58-4.59-4.58-4.59L10 5.75l6 6-6 6z">
+      </g>
+      <g id="arrow-up">
+        <path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z">
+      </g>
+      <g id="assistant" viewBox="0 0 20 20">
+        <path
+          d="M6.36364 3C8.77382 3 10.7273 4.95418 10.7273 7.36364C10.7273 9.77309 8.77382 11.7273 6.36364 11.7273C3.95345 11.7273 2 9.77309 2 7.36364C2 4.95418 3.95345 3 6.36364 3Z">
+        </path>
+        <path
+          d="M18 6.99997C18 7.60215 17.5113 8.09088 16.9091 8.09088C16.3069 8.09088 15.8182 7.60215 15.8182 6.99997C15.8182 6.39778 16.3069 5.90906 16.9091 5.90906C17.5113 5.90906 18 6.39778 18 6.99997Z">
+        </path>
+        <path
+          d="M15.8182 9.54547C15.8182 10.7506 14.8414 11.7273 13.6363 11.7273C12.4313 11.7273 11.4545 10.7506 11.4545 9.54547C11.4545 8.34037 12.4313 7.36365 13.6363 7.36365C14.8414 7.36365 15.8182 8.34037 15.8182 9.54547Z">
+        </path>
+        <path
+          d="M13.6363 17.5455C15.0422 17.5455 16.1818 16.4059 16.1818 15C16.1818 13.5942 15.0422 12.4546 13.6363 12.4546C12.2305 12.4546 11.0909 13.5942 11.0909 15C11.0909 16.4059 12.2305 17.5455 13.6363 17.5455Z">
+        </path>
+      </g>
+      <g id="back">
+        <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z">
+      </g>
+      <g id="display-brightness-down" viewbox="0 0 20 20">
+        <path fill-rule="evenodd"
+          d="M9.99982 4.13281L11.7889 5.87499H14.1285V8.15322L15.7799 9.76139L14.1285 11.5036V13.7818H11.7889L9.99982 15.39L8.34836 13.7818H6.00878V11.5036L4.21973 9.76139L6.00878 8.15322V5.87499H8.34836L9.99982 4.13281ZM9.99982 6.41105L8.89883 7.48315H7.66025V8.68928L6.5593 9.76139L7.66025 10.9675V12.0396H8.89883L9.99982 13.2457L11.2384 12.0396H12.3394V10.9675L13.5779 9.76139L12.3394 8.68928V7.48315H11.2384L9.99982 6.41105Z">
+      </g>
+      <g id="display-brightness-up" viewbox="0 0 20 20">
+        <path fill-rule="evenodd"
+          d="M10.0686 2.64844L12.2706 4.92667H15.2982V7.87497L17.5002 10.0192L15.2982 12.1634V15.2457H12.2706L10.0686 17.3899L7.72908 15.2457H4.70145V12.1634L2.49951 10.0192L4.70145 7.87497V4.92667H7.72908L10.0686 2.64844ZM10.0686 4.92667L8.2796 6.53484H6.4905V8.27701L4.70145 10.0192L6.4905 11.7614V13.5035H8.2796L10.0686 15.2457L11.7201 13.5035H13.5092V11.7614L15.2982 10.0192L13.5092 8.27701V6.53484H11.7201L10.0686 4.92667Z">
+      </g>
+      <g id="electronic-privacy-screen" viewbox="0 0 20 20">
+        <path fill-rule="evenodd"
+          d="M18 3V17H2V3H18ZM16 15H5.07314L15.0731 5H16V15ZM4 10.8284V13.2447L12.2447 5H9.82838L4 10.8284ZM6.99995 5L4 7.99995V5H6.99995Z">
+      </g>
+      <g id="forward">
+        <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z">
+      </g>
+      <g id="fullscreen">
+        <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z">
+      </g>
+      <g id="last-track" viewbox="0 0 20 20">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M16 15L8 10L16 5V15Z"></path>
+        <path d="M4 5H6V15H4V5Z"></path>
+      </g>
+      <g id="keyboard-brightness-down" viewbox="0 0 20 20">
+        <path fill-rule="evenodd"
+          d="M6.95442 14H13.0455C13.2262 14 13.3915 14.107 13.4723 14.2764L13.9495 15.2764C14.0674 15.5234 13.9718 15.8237 13.7361 15.9472C13.6698 15.9819 13.5968 16 13.5227 16H6.47721C6.21365 16 6 15.7761 6 15.5C6 15.4224 6.01725 15.3458 6.05038 15.2764L6.52759 14.2764C6.60842 14.107 6.77366 14 6.95442 14ZM6 8.37845L4.7111 9.55653L3.08636 8.06095L4.36619 6.88287L6 8.37845ZM3.45455 12V14H1V12H3.45455ZM11 5V7.22176H9V5H11ZM16.9136 8.06463L15.2838 9.56488L14 8.38312L15.6298 6.88287L16.9136 8.06463ZM16.5454 12H19V14H16.5454V12Z">
+      </g>
+      <g id="keyboard-brightness-toggle" viewbox="0 0 20 20">
+        <path d="M 9.15049 2 L 10.8508 2 L 10.8508 7.03443 L 9.15049 7.03443 Z"></path>
+        <path d="M 5.74972 12.0689 L 0.649957 12.0689 L 0.649957 10.3903 L 5.74972 10.3903 Z"></path>
+        <path d="M 19.3501 12.0689 L 14.2503 12.0689 L 14.2503 10.3903 L 19.3501 10.3903 Z"></path>
+        <path d="M 16.1818 3.7734 L 17.3838 4.95997 L 14.0176 8.28251 L 12.8156 7.09593 Z"></path>
+        <path
+          d="M 13.2192 15.6192 L 14.2571 16.6571 L 15.1208 17.5207 L 15.5999 18 L 16.7468 16.8545 L 11.9673 12.0698 L 12.5323 12.0698 L 12.5323 10.3913 L 10.2887 10.3899 L 3.28479 3.38476 L 2.138 4.52385 L 2.13032 4.53029 Z">
+        </path>
+      </g>
+      <g id="keyboard-brightness-up" viewbox="0 0 20 20">
+        <path fill-rule="evenodd"
+          d="M6.95442 14H13.0455C13.2262 14 13.3915 14.107 13.4723 14.2764L13.9495 15.2764C14.0674 15.5234 13.9718 15.8237 13.7361 15.9472C13.6698 15.9819 13.5968 16 13.5227 16H6.47721C6.21365 16 6 15.7761 6 15.5C6 15.4224 6.01725 15.3458 6.05038 15.2764L6.52759 14.2764C6.60842 14.107 6.77366 14 6.95442 14ZM6 8.37845L4.7111 9.55653L1.08636 6.06095L2.36619 4.88287L6 8.37845ZM3.45455 12V14H0V12H3.45455ZM11 2V7.22176H9V2H11ZM18.9136 6.06463L15.2838 9.56488L14 8.38312L17.6298 4.88287L18.9136 6.06463ZM16.5454 12H20V14H16.5454V12Z">
+      </g>
+      <g id="launcher" viewbox="0 0 20 20">
+        <path
+          d="M10 15C12.7614 15 15 12.7614 15 10C15 7.23858 12.7614 5 10 5C7.23858 5 5 7.23858 5 10C5 12.7614 7.23858 15 10 15Z">
+        </path>
+        <path fill-rule="evenodd"
+          d="M10 18.5C14.6944 18.5 18.5 14.6944 18.5 10C18.5 5.30558 14.6944 1.5 10 1.5C5.30558 1.5 1.5 5.30558 1.5 10C1.5 14.6944 5.30558 18.5 10 18.5ZM17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z">
+        </path>
+      </g>
+      <g id="microphone-mute" viewbox="0 0 20 20">
+        <path
+          d="M 15.4894 8.94314 L 13.9775 8.94314 C 13.9775 9.69794 13.8293 10.3021 13.5269 10.9057 L 14.5823 11.9623 C 15.187 11.2075 15.4894 10.1509 15.4894 8.94314 Z M 2.96096 2.6036 L 1.90551 3.66019 L 10.9595 12.7171 C 10.6572 12.7171 10.3548 12.8682 10.2065 12.8682 C 8.08988 12.8682 6.28133 11.0569 6.28133 8.94314 L 4.76949 8.94314 C 4.76949 11.6605 6.73206 13.9249 9.4477 14.3773 L 9.4477 16.7928 L 10.9595 16.7928 L 10.9595 14.3773 C 11.4102 14.3773 11.8666 14.2266 12.169 14.0754 L 16.0942 18 L 17.1496 16.9434 Z M 12.4714 8.94314 L 12.4714 4.26379 C 12.4714 2.9054 11.4102 2 10.2065 2 C 8.84865 2 7.94154 3.05659 7.94154 4.26379 L 7.94154 5.16975 L 12.4714 9.69794 C 12.3173 9.5473 12.4714 9.24551 12.4714 8.94314 Z">
+        </path>
+      </g>
+      <g id="next-track" viewbox="0 0 20 20">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M4 15L12 10L4 5V15Z"></path>
+        <path d="M16 5H14V15H16V5Z"></path>
+      </g>
+      <g id="overview" width="20" height="20" viewbox="0 0 20 20">
+        <path fill-rule="evenodd"
+          d="M0.164062 15.3381H13.1281V4.65625H0.164062V15.3381ZM1.80029 6.28995H11.4919V13.7044H1.80029V6.28995ZM14.803 15.3381H16.4806V4.65625H14.803V15.3381ZM18.1583 4.65625H19.8359V15.3255H18.1583V4.65625Z">
+      </g>
+      <g id="play-pause" viewbox="0 0 20 20">
+        <path fill-rule="evenodd" d="M3.53027 13.9683L10.1413 10.0017L3.53027 6.03516V13.9683Z"></path>
+        <rect x="11.521" y="5.67969" width="2" height="8.28929"></rect>
+        <rect x="14.5444" y="5.67969" width="2" height="8.28929"></rect>
+      </g>
+      <g id="power">
+        <path
+          d="M13 3h-2v10h2V3zm4.83 2.17l-1.42 1.42C17.99 7.86 19 9.81 19 12c0 3.87-3.13 7-7 7s-7-3.13-7-7c0-2.19 1.01-4.14 2.58-5.42L6.17 5.17C4.23 6.82 3 9.26 3 12c0 4.97 4.03 9 9 9s9-4.03 9-9c0-2.74-1.23-5.18-3.17-6.83z">
+      </g>
+      <g id="refresh">
+        <path
+          d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z">
+      </g>
+      <g id="screen-mirror" viewbox="0 0 20 20">
+        <path fill-rule="evenodd" clip-rule="evenodd"
+          d="M17.1327 12.0716H15.0166V10.5716H16.6327V5.28516H9.57471V5.97091H8.07471V4.78516C8.07471 4.23287 8.52242 3.78516 9.07471 3.78516H17.1327C17.685 3.78516 18.1327 4.23287 18.1327 4.78516V11.0716C18.1327 11.6239 17.685 12.0716 17.1327 12.0716ZM14.228 15.0129H13.5443V7.49229C13.5443 7.30349 13.4678 7.13257 13.344 7.00884C13.2203 6.88512 13.0494 6.80859 12.8606 6.80859H3.28888C2.91128 6.80859 2.60518 7.11469 2.60518 7.49229V15.0129H1.92149C1.54389 15.0129 1.23779 15.319 1.23779 15.6966C1.23779 16.0742 1.54389 16.3803 1.92149 16.3803H14.228C14.6056 16.3803 14.9117 16.0742 14.9117 15.6966C14.9117 15.319 14.6056 15.0129 14.228 15.0129ZM12.1769 8.17598V12.9618H3.97257V8.17598H12.1769ZM6.70735 15.0129V14.3292H9.44213V15.0129H6.70735Z">
+        </path>
+      </g>
+      <g id="screenshot" viewBox="0 0 20 20">
+        <path fill-rule="evenodd" clip-rule="evenodd"
+          d="M7.96487 7.55109C8.52146 7.18893 9.17585 6.99562 9.84526 6.99562C10.7429 6.99562 11.6038 7.34288 12.2385 7.96098C12.8732 8.57908 13.2299 9.41741 13.2299 10.2915C13.2299 10.9434 13.0314 11.5806 12.6595 12.1226C12.2876 12.6646 11.759 13.0871 11.1405 13.3366C10.5221 13.586 9.8415 13.6513 9.18495 13.5241C8.52841 13.3969 7.92534 13.083 7.45199 12.6221C6.97865 12.1612 6.65632 11.5739 6.52572 10.9345C6.39513 10.2952 6.46214 9.6325 6.71831 9.03025C6.97448 8.428 7.40828 7.91325 7.96487 7.55109ZM11.1507 9.02033C10.8045 8.68318 10.3349 8.49376 9.84526 8.49376C9.35563 8.49376 8.88608 8.68318 8.53986 9.02033C8.19365 9.35747 7.99915 9.81474 7.99915 10.2915C7.99915 10.7683 8.19365 11.2256 8.53986 11.5627C8.88608 11.8999 9.35563 12.0893 9.84526 12.0893C10.3349 12.0893 10.8045 11.8999 11.1507 11.5627C11.4969 11.2256 11.6914 10.7683 11.6914 10.2915C11.6914 9.81474 11.4969 9.35747 11.1507 9.02033Z">
+        </path>
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M2 4H18V16.7342H2V4ZM16 14.7866V5.94758H4.00002V14.7866H16Z">
+        </path>
+      </g>
+      <g id="volume-down">
+        <path d="M18.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM5 9v6h4l5 5V4L9 9H5z">
+      </g>
+      <g id="volume-mute">
+        <path
+          d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z">
+      </g>
+      <g id="volume-up">
+        <path
+          d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z">
+      </g>
+      <g id="plus" viewbox="0 0 16 16">
+        <path d="M9 4H7V7H4V9H7V12H9V9H12V7H9V4Z"></path>
+      </g>
+      <g id="emoji-picker" viewBox="0 0 20 20">
+        <path fill-rule="evenodd"
+          d="M9.992 2C5.576 2 2 5.584 2 10C2 14.416 5.576 18 9.992 18C14.416 18 18 14.416 18 10C18 5.584 14.416 2 9.992 2ZM10 16.5C6.40875 16.5 3.5 13.5912 3.5 10C3.5 6.40875 6.40875 3.5 10 3.5C13.5912 3.5 16.5 6.40875 16.5 10C16.5 13.5912 13.5912 16.5 10 16.5ZM12.8 9.20005C13.464 9.20005 14 8.66405 14 8.00005C14 7.33605 13.464 6.80005 12.8 6.80005C12.136 6.80005 11.6 7.33605 11.6 8.00005C11.6 8.66405 12.136 9.20005 12.8 9.20005ZM7.2 9.20005C7.864 9.20005 8.4 8.66405 8.4 8.00005C8.4 7.33605 7.864 6.80005 7.2 6.80005C6.536 6.80005 6 7.33605 6 8.00005C6 8.66405 6.536 9.20005 7.2 9.20005ZM9.99999 14C11.864 14 13.448 12.7486 14.088 11H5.91199C6.55199 12.7486 8.13599 14 9.99999 14Z">
+        </path>
+      </g>
+      <g id="dictation-toggle" viewBox="0 0 20 20">
+        <path
+          d="M8.02018 10.8332C7.13129 10.8332 6.38129 10.5276 5.77018 9.9165C5.15907 9.30539 4.85352 8.56234 4.85352 7.68734C4.85352 6.79845 5.15907 6.0415 5.77018 5.4165C6.38129 4.7915 7.13129 4.479 8.02018 4.479C8.89518 4.479 9.63824 4.7915 10.2493 5.4165C10.8743 6.0415 11.1868 6.79845 11.1868 7.68734C11.1868 8.56234 10.8813 9.30539 10.2702 9.9165C9.65907 10.5276 8.90907 10.8332 8.02018 10.8332ZM1.85352 17.1665V14.9582C1.85352 14.5832 1.95768 14.2429 2.16602 13.9373C2.37435 13.6318 2.62435 13.3887 2.91602 13.2082C3.6799 12.7498 4.49935 12.4026 5.37435 12.1665C6.24935 11.9304 7.13129 11.8123 8.02018 11.8123C8.90907 11.8123 9.78407 11.9304 10.6452 12.1665C11.5202 12.4026 12.3396 12.7498 13.1035 13.2082C13.3813 13.3887 13.6313 13.6318 13.8535 13.9373C14.0757 14.2429 14.1868 14.5832 14.1868 14.9582V17.1665H1.85352ZM3.58268 15.4373H12.4577V14.979C12.4577 14.9234 12.4368 14.8748 12.3952 14.8332C12.3535 14.7776 12.298 14.729 12.2285 14.6873C11.5757 14.2846 10.8882 13.9929 10.166 13.8123C9.45768 13.6318 8.7424 13.5415 8.02018 13.5415C7.29796 13.5415 6.57574 13.6318 5.85352 13.8123C5.14518 13.9929 4.46463 14.2846 3.81185 14.6873C3.7424 14.729 3.68685 14.7776 3.64518 14.8332C3.60352 14.8748 3.58268 14.9234 3.58268 14.979V15.4373ZM8.02018 9.104C8.42296 9.104 8.76324 8.96512 9.04102 8.68734C9.31879 8.40956 9.45768 8.06928 9.45768 7.6665C9.45768 7.27761 9.31185 6.93734 9.02018 6.64567C8.7424 6.354 8.40907 6.20817 8.02018 6.20817C7.61741 6.20817 7.27713 6.354 6.99935 6.64567C6.72157 6.93734 6.58268 7.27761 6.58268 7.6665C6.58268 8.06928 6.72157 8.40956 6.99935 8.68734C7.27713 8.96512 7.61741 9.104 8.02018 9.104Z">
+        </path>
+        <path
+          d="M15.1875 11.021L16.3542 12.1877C17.1458 11.3821 17.7361 10.4863 18.125 9.50016C18.5 8.51405 18.6875 7.50016 18.6875 6.4585C18.6875 5.41683 18.5 4.40294 18.125 3.41683C17.7361 2.43072 17.1389 1.52794 16.3333 0.708496L15.1667 1.87516C15.7778 2.51405 16.2431 3.23627 16.5625 4.04183C16.8681 4.8335 17.0208 5.63905 17.0208 6.4585C17.0208 7.29183 16.8681 8.10433 16.5625 8.896C16.2569 9.68766 15.7986 10.396 15.1875 11.021Z">
+        </path>
+        <path
+          d="M12.9792 8.8335L14.1458 10.0002C14.6319 9.51405 14.9931 8.96544 15.2292 8.35433C15.4653 7.74322 15.5833 7.11127 15.5833 6.4585C15.5833 5.81961 15.4653 5.18766 15.2292 4.56266C14.9792 3.93766 14.6181 3.38211 14.1458 2.896L12.9792 4.06266C13.2847 4.40989 13.5208 4.79183 13.6875 5.2085C13.8542 5.62516 13.9375 6.04183 13.9375 6.4585C13.9375 6.88905 13.8611 7.31266 13.7083 7.72933C13.5417 8.146 13.2986 8.51405 12.9792 8.8335Z">
+        </path>
+      </g>
+      <g id="settings-icon" viewBox="0 0 20 20">
+        <path fill-rule="evenodd" clip-rule="evenodd"
+          d="M11.6629 19H8.33386C7.66807 19 7.11024 18.5256 7.02926 17.8843L6.78633 16.224C6.54341 16.101 6.30948 15.9693 6.07555 15.8199L4.45604 16.4524C3.82623 16.6808 3.13344 16.4261 2.82754 15.8814L1.18103 13.0966C0.86613 12.5168 1.00109 11.8316 1.50494 11.4451L2.88152 10.3997C2.87252 10.2679 2.86352 10.1362 2.86352 9.99561C2.86352 9.86384 2.87252 9.72328 2.88152 9.59151L1.51393 8.54612C0.983095 8.15081 0.848136 7.43924 1.18103 6.89458L2.84553 4.09224C3.15144 3.54758 3.84423 3.30161 4.45604 3.5388L6.08455 4.18009C6.31848 4.03075 6.5524 3.89897 6.78633 3.77599L7.02926 2.0981C7.11024 1.48316 7.66807 1 8.32487 1H11.6539C12.3197 1 12.8775 1.47438 12.9585 2.11567L13.2014 3.77599C13.4443 3.89897 13.6782 4.03075 13.9122 4.18009L15.5317 3.54758C16.1705 3.31918 16.8633 3.57394 17.1692 4.11859L18.8247 6.91215C19.1486 7.49195 19.0046 8.17716 18.5008 8.56369L17.1332 9.60908C17.1422 9.74085 17.1512 9.87262 17.1512 10.0132C17.1512 10.1537 17.1422 10.2855 17.1332 10.4173L18.5008 11.4627C19.0046 11.858 19.1486 12.5432 18.8337 13.0966L17.1602 15.9253C16.8543 16.47 16.1615 16.716 15.5407 16.4788L13.9212 15.8463C13.6872 15.9956 13.4533 16.1274 13.2194 16.2504L12.9765 17.9283C12.8865 18.5256 12.3287 19 11.6629 19ZM8.81541 16.75H11.1932L11.512 14.6636L11.9686 14.4836C12.3476 14.3364 12.7267 14.1236 13.123 13.8455L13.5107 13.5673L15.5611 14.3527L16.75 12.3891L15.0011 11.0964L15.0614 10.6382C15.0873 10.4255 15.1131 10.2209 15.1131 10C15.1131 9.77909 15.0873 9.56636 15.0614 9.36182L15.0011 8.90364L16.75 7.61091L15.5525 5.64727L13.4935 6.43273L13.1058 6.14636C12.7439 5.88455 12.3563 5.67182 11.96 5.51636L11.512 5.33636L11.1932 3.25H8.81541L8.49665 5.33636L8.04004 5.50818C7.66098 5.66364 7.28191 5.86818 6.88561 6.15455L6.49793 6.42455L4.44751 5.64727L3.25 7.60273L4.99888 8.89545L4.93858 9.35364C4.91273 9.56636 4.88689 9.78727 4.88689 10C4.88689 10.2127 4.90412 10.4336 4.93858 10.6382L4.99888 11.0964L3.25 12.3891L4.4389 14.3527L6.49793 13.5673L6.88561 13.8536C7.25606 14.1236 7.62652 14.3282 8.03143 14.4836L8.48803 14.6636L8.81541 16.75ZM10 12.8125C11.5533 12.8125 12.8125 11.5533 12.8125 10C12.8125 8.4467 11.5533 7.1875 10 7.1875C8.4467 7.1875 7.1875 8.4467 7.1875 10C7.1875 11.5533 8.4467 12.8125 10 12.8125Z">
+        </path>
+      </g>
+      <g id="search" viewBox="0 0 20 20">
+        <path fill-rule="evenodd" clip-rule="evenodd"
+          d="M17.49 16L13.76 12.27C14.53 11.2 15 9.91 15 8.5C15 4.91 12.09 2 8.5 2C4.91 2 2 4.91 2 8.5C2 12.09 4.91 15 8.5 15C9.91 15 11.2 14.53 12.27 13.76L16 17.49L17.49 16ZM4 8.5C4 6.01 6.01 4 8.5 4C10.99 4 13 6.01 13 8.5C13 10.99 10.99 13 8.5 13C6.01 13 4 10.99 4 8.5Z">
+        </path>
+      </g>
+      <g id="browser-search" viewBox="0 0 20 20">
+        <path
+          d="M9.82803 18.9771C8.6051 18.9465 7.4586 18.6943 6.38853 18.2204C5.31847 17.7465 4.37834 17.1045 3.56815 16.2943C2.77325 15.4688 2.1465 14.521 1.6879 13.451C1.2293 12.3656 1 11.2115 1 9.98853C1 8.73503 1.2293 7.5656 1.6879 6.48025C2.16178 5.3949 2.81146 4.44713 3.63694 3.63694C4.46242 2.81146 5.41783 2.16943 6.50318 1.71083C7.58853 1.23694 8.75032 1 9.98853 1C12.2204 1 14.1465 1.69554 15.7669 3.08662C17.4025 4.47771 18.4191 6.22802 18.8166 8.33758H16.8675C16.6229 7.23694 16.1338 6.2586 15.4 5.40255C14.6662 4.5465 13.772 3.90446 12.7172 3.47643V3.98089C12.7172 4.43949 12.5567 4.8293 12.2357 5.15032C11.9147 5.45605 11.5325 5.60892 11.0892 5.60892H8.8879V6.70955C8.8879 7.01529 8.78089 7.27516 8.56688 7.48917C8.36815 7.6879 8.11592 7.78726 7.81019 7.78726H6.70955V9.98853H7.78726V12.1439H6.70955L3.06369 8.49809C3.01783 8.74267 2.97962 8.98726 2.94904 9.23185C2.91847 9.47643 2.90318 9.72866 2.90318 9.98853C2.90318 11.9299 3.5758 13.5885 4.92102 14.9643C6.26624 16.3248 7.90191 17.028 9.82803 17.0739V18.9771ZM17.6471 18.4726L14.8268 15.6293C14.521 15.8127 14.2 15.958 13.8637 16.065C13.5427 16.1567 13.1987 16.2025 12.8318 16.2025C11.7312 16.2025 10.7987 15.8204 10.0344 15.056C9.27006 14.2917 8.8879 13.3669 8.8879 12.2815C8.8879 11.1809 9.27006 10.2484 10.0344 9.48408C10.7987 8.71974 11.7312 8.33758 12.8318 8.33758C13.9172 8.33758 14.842 8.71974 15.6064 9.48408C16.3707 10.2484 16.7529 11.1732 16.7529 12.2586C16.7529 12.6408 16.6994 13 16.5924 13.3363C16.5006 13.6726 16.3631 13.986 16.1796 14.2764L19 17.1197L17.6471 18.4726ZM12.8089 14.2994C13.3745 14.2994 13.8561 14.1083 14.2535 13.7261C14.651 13.3287 14.8497 12.8471 14.8497 12.2815C14.8497 11.7159 14.651 11.2344 14.2535 10.8369C13.8713 10.4395 13.3975 10.2408 12.8318 10.2408C12.2662 10.2408 11.7847 10.4395 11.3873 10.8369C10.9898 11.2191 10.7911 11.693 10.7911 12.2586C10.7911 12.8242 10.9822 13.3057 11.3643 13.7032C11.7618 14.1006 12.2433 14.2994 12.8089 14.2994Z">
+        </path>
+      </g>
+      <g id="globe" viewBox="0 0 20 20">
+        <path
+          d="M9.99987 16.7167C9.07765 16.7167 8.20543 16.5444 7.3832 16.2C6.57209 15.8444 5.86098 15.3611 5.24987 14.75C4.63876 14.1389 4.15543 13.4278 3.79987 12.6167C3.45543 11.7944 3.2832 10.9222 3.2832 9.99999C3.2832 9.07777 3.45543 8.2111 3.79987 7.39999C4.15543 6.57777 4.63876 5.8611 5.24987 5.24999C5.86098 4.63888 6.57209 4.1611 7.3832 3.81666C8.20543 3.4611 9.07765 3.28333 9.99987 3.28333C10.9221 3.28333 11.7888 3.4611 12.5999 3.81666C13.4221 4.1611 14.1388 4.63888 14.7499 5.24999C15.361 5.8611 15.8388 6.57777 16.1832 7.39999C16.5388 8.2111 16.7165 9.07777 16.7165 9.99999C16.7165 10.9222 16.5388 11.7944 16.1832 12.6167C15.8388 13.4278 15.361 14.1389 14.7499 14.75C14.1388 15.3611 13.4221 15.8444 12.5999 16.2C11.7888 16.5444 10.9221 16.7167 9.99987 16.7167ZM9.9832 15.05C10.1499 14.8722 10.3276 14.5278 10.5165 14.0167C10.7054 13.4944 10.8499 12.9389 10.9499 12.35H9.04987C9.14987 12.9389 9.28876 13.4944 9.46654 14.0167C9.64431 14.5278 9.81654 14.8722 9.9832 15.05ZM8.51654 14.8833C8.34987 14.5611 8.21098 14.1833 8.09987 13.75C7.99987 13.3167 7.91098 12.85 7.8332 12.35H5.49987C5.81098 12.9611 6.22765 13.4889 6.74987 13.9333C7.27209 14.3778 7.86098 14.6944 8.51654 14.8833ZM11.4665 14.8833C12.111 14.6944 12.6999 14.3778 13.2332 13.9333C13.7665 13.4889 14.1832 12.9611 14.4832 12.35H12.1665C12.0888 12.85 11.9943 13.3167 11.8832 13.75C11.7721 14.1833 11.6332 14.5611 11.4665 14.8833ZM12.4832 11.1667H15.0999C15.1554 10.9555 15.1943 10.7555 15.2165 10.5667C15.2388 10.3778 15.2499 10.1889 15.2499 9.99999C15.2499 9.79999 15.2388 9.60555 15.2165 9.41666C15.1943 9.22777 15.1554 9.03333 15.0999 8.83333H12.4832C12.5054 9.03333 12.5165 9.23333 12.5165 9.43332C12.5276 9.63332 12.5332 9.83333 12.5332 10.0333C12.5332 10.2222 12.5276 10.4167 12.5165 10.6167C12.5165 10.8055 12.5054 10.9889 12.4832 11.1667ZM8.89987 11.1667H11.0999C11.1221 10.9444 11.1276 10.7389 11.1165 10.55C11.1165 10.3611 11.1165 10.1778 11.1165 9.99999C11.1165 9.8111 11.1165 9.62221 11.1165 9.43332C11.1276 9.24444 11.1221 9.04444 11.0999 8.83333H8.89987C8.87765 9.04444 8.86098 9.24444 8.84987 9.43332C8.84987 9.62221 8.84987 9.8111 8.84987 9.99999C8.84987 10.1778 8.84987 10.3667 8.84987 10.5667C8.86098 10.7555 8.87765 10.9555 8.89987 11.1667ZM4.89987 11.1667H7.49987C7.47765 10.9667 7.46098 10.7667 7.44987 10.5667C7.44987 10.3555 7.44987 10.1555 7.44987 9.96666C7.44987 9.76666 7.44987 9.57221 7.44987 9.38333C7.46098 9.19444 7.47765 9.0111 7.49987 8.83333H4.89987C4.8332 9.04444 4.7832 9.24444 4.74987 9.43332C4.72765 9.6111 4.71654 9.79999 4.71654 9.99999C4.71654 10.1889 4.72765 10.3778 4.74987 10.5667C4.7832 10.7555 4.8332 10.9555 4.89987 11.1667ZM12.1665 7.64999H14.4832C14.1832 7.02777 13.7665 6.49999 13.2332 6.06666C12.6999 5.62221 12.111 5.30555 11.4665 5.11666C11.6332 5.43888 11.7721 5.81666 11.8832 6.24999C11.9943 6.68333 12.0888 7.14999 12.1665 7.64999ZM9.04987 7.64999H10.9499C10.8499 7.04999 10.7054 6.49444 10.5165 5.98333C10.3276 5.47221 10.1499 5.12777 9.9832 4.94999C9.81654 5.12777 9.64431 5.47221 9.46654 5.98333C9.28876 6.49444 9.14987 7.04999 9.04987 7.64999ZM5.49987 7.64999H7.8332C7.91098 7.14999 7.99987 6.68333 8.09987 6.24999C8.21098 5.81666 8.34987 5.43888 8.51654 5.11666C7.86098 5.30555 7.27209 5.62221 6.74987 6.06666C6.22765 6.49999 5.81098 7.02777 5.49987 7.64999Z">
+        </path>
+      </g>
+      <g id="play" viewBox="0 0 20 20">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M6 16L16 10L6 4V16Z"></path>
+      </g>
+      <g id="pause" viewBox="0 0 20 20">
+        <path d="M9 5H6V15H9V5Z"></path>
+        <path d="M14 5H11V15H14V5Z"></path>
+      </g>
+      <g id="fast-forward" viewBox="0 0 20 20">
+        <path d="M10 10L4 14V6L10 10Z"></path>
+        <path d="M10 10V14L16 10L10 6V10Z"></path>
+      </g>
+      <g id="calculator" viewBox="0 0 20 20">
+        <path
+          d="M17 1H3C1.9 1 1 1.9 1 3V17C1 18.1 1.9 19 3 19H17C18.1 19 19 18.1 19 17V3C19 1.9 18.1 1 17 1ZM17 17H3V3H17V17Z">
+        </path>
+        <path d="M9.25 5.72H4.25V7.22H9.25V5.72Z"></path>
+        <path d="M16 13.75H11V15.25H16V13.75Z"></path>
+        <path d="M16 11.25H11V12.75H16V11.25Z"></path>
+        <path d="M6 16H7.5V14H9.5V12.5H7.5V10.5H6V12.5H4V14H6V16Z"></path>
+        <path
+          d="M12.09 8.95L13.5 7.54L14.91 8.95L15.97 7.89L14.56 6.47L15.97 5.06L14.91 4L13.5 5.41L12.09 4L11.03 5.06L12.44 6.47L11.03 7.89L12.09 8.95Z">
+        </path>
+      </g>
+      <g id="view-all-apps" viewBox="0 0 20 20" fill="none">
+        <!-- Include a <style> to set the stroke color dynamically based on color scheme (light or dark mode) -->
+        <style>
+          path {
+            stroke: var(--cros-text-color-secondary);
+            stroke-width: 1.5;
+          }
+        </style>
+        <path
+          d="M1.75 3.75H5.41427V7.41427H1.75V3.75ZM8.16787 3.75H11.8321V7.41427H8.16787V3.75ZM14.5857 3.75H18.25V7.41427H14.5857V3.75ZM14.5857 12.5857H18.25V16.25H14.5857V12.5857ZM8.16787 12.5857H11.8321V16.25H8.16787V12.5857ZM1.75 12.5857H5.41427V16.25H1.75V12.5857Z">
+        </path>
+      </g>
+      <g id="lock" viewBox="0 0 20 20">
+        <path
+          d="M11.75 12.5C11.75 13.4665 10.9665 14.25 10 14.25C9.0335 14.25 8.25 13.4665 8.25 12.5C8.25 11.5335 9.0335 10.75 10 10.75C10.9665 10.75 11.75 11.5335 11.75 12.5Z">
+        </path>
+        <path fill-rule="evenodd" clip-rule="evenodd"
+          d="M14 7H13.5V5C13.5 3.34315 11.6569 2 10 2C8.34315 2 6.5 3.34315 6.5 5V7H6C4.89543 7 4 7.89543 4 9V16C4 17.1046 4.89543 18 6 18H14C15.1046 18 16 17.1046 16 16V9C16 7.89543 15.1046 7 14 7ZM12 5.5V7H8V5.5C8 5 8.5 3.5 10 3.5C11.5 3.5 12 5 12 5.5ZM6 9V16H14V9H6Z">
+        </path>
+      </g>
+      <g id="menu" viewBox="0 0 20 20">
+        <path
+          d="M7 7.5H13V6H7V7.5ZM7 14H13V12.5H7V14ZM7 10.75H13V9.25H7V10.75ZM4.5 17C4.08333 17 3.72917 16.8542 3.4375 16.5625C3.14583 16.2708 3 15.9167 3 15.5V4.5C3 4.08333 3.14583 3.72917 3.4375 3.4375C3.72917 3.14583 4.08333 3 4.5 3H15.5C15.9167 3 16.2708 3.14583 16.5625 3.4375C16.8542 3.72917 17 4.08333 17 4.5V15.5C17 15.9167 16.8542 16.2708 16.5625 16.5625C16.2708 16.8542 15.9167 17 15.5 17H4.5ZM4.5 15.5H15.5V4.5H4.5V15.5Z">
+        </path>
+      </g>
+      <g id="launch-mail" viewBox="0 0 20 20">
+        <path fill-rule="evenodd" clip-rule="evenodd"
+          d="M16 4H4C2.9 4 2 4.9 2 6V14C2 15.1 2.9 16 4 16H16C17.1 16 18 15.1 18 14V6C18 4.9 17.1 4 16 4ZM15.5 6L10 9.5L4.5 6H15.5ZM4 14V8L10 12L16 8V14H4Z">
+        </path>
+      </g>
+      <g id="browser-home" viewBox="0 0 20 20">
+        <path fill-rule="evenodd" clip-rule="evenodd"
+          d="M10 2L17 8V17H3V8L10 2ZM12 15V11H8V15H5V8.91987L10 4.63416L15 8.91987V15H12Z">
+        </path>
+      </g>
+    </defs>
+  </svg>
+</iron-iconset-svg>
+`;
+document.head.appendChild(template.content);
+
+function getTemplate$9() {
+  return html`<!--_html_template_start_--><style>
+  :host {
+    --key-alpha-numeric-selected-bg-color: var(--cros-bg-color-dropped-elevation-1);
+    --key-modifier-selected-bg-color: var(--cros-highlight-color);
+    --key-modifier-selected-shadow-color: var(--cros-highlight-color);
+  }
+
+  :host-context(body.jelly-enabled) {
+    --key-alpha-numeric-selected-bg-color: var(--cros-sys-surface_variant);
+    --key-modifier-selected-bg-color: var(--cros-sys-highlight_shape);
+    --key-modifier-selected-shadow-color: var(--cros-sys-highlight_shape);
+  }
+
+  .key-container {
+    align-items: center;
+    border-radius: 12px;
+    box-sizing: border-box;
+    display: inline-flex;
+    font-weight: 500;
+    height: 32px;
+    justify-content: center;
+    margin-bottom: 2px;
+    margin-inline-end: 8px;
+    min-width: 32px;
+    padding-bottom: 6px;
+    padding-top: 6px;
+    vertical-align: middle;
+  }
+
+  :host([narrow]) .key-container {
+    margin-inline-end: 4px;
+    padding-inline: 4px;
+  }
+
+  #key-text {
+    color: var(--cros-text-color-secondary);
+    font: var(--cros-button-2-font);
+  }
+
+  :host([key-state='not-selected']) .key-container {
+    outline: 1px solid var(--cros-separator-color);
+  }
+
+  :host([key-state='not-selected']) #key-text {
+    color: var(--cros-text-color-disabled);
+  }
+
+  :host([key-state='not-selected']) #key-icon{
+    --iron-icon-fill-color: var(--cros-text-color-disabled);
+  }
+
+  :host([key-state='modifier-selected']) .key-container {
+    background-color: var(--key-modifier-selected-bg-color);
+    border: none;
+    box-shadow: 0 1px 1px var(--key-modifier-selected-shadow-color);
+    transition: all 300ms ease-in-out;
+  }
+
+  :host([key-state='modifier-selected']:not([key='meta']):not([key='Meta'])) .key-container {
+    min-width: 44px;
+    padding-inline: 12px;
+  }
+
+  :host([key-state='modifier-selected'][key='meta']) .key-container,
+  :host([key-state='modifier-selected'][key='Meta']) .key-container {
+    padding-inline: 6px;
+  }
+
+  :host([key-state='alpha-numeric-selected']) .key-container {
+    background-color: var(--key-alpha-numeric-selected-bg-color);
+    border: none;
+    box-shadow: 0 1px 1px var(--cros-bg-color-dropped-elevation-1);
+    transition: all 300ms ease-in-out;
+  }
+
+  :host([key-state='alpha-numeric-selected'][has-icon]) .key-container {
+    padding-inline: 6px;
+  }
+
+  :host([key-state='alpha-numeric-selected']:not([has-icon])) .key-container {
+    padding-inline: 11px;
+  }
+
+  :host([highlighted][key-state='modifier-selected']) div.key-container {
+    background-color: var(--cros-color-prominent);
+  }
+
+  :host([highlighted][key-state='modifier-selected']) #key-text {
+    color: var(--cros-button-label-color-primary);
+  }
+
+  :host([highlighted][key-state='alpha-numeric-selected']) div.key-container {
+    background-color: var(--cros-bg-color);
+  }
+
+  :host([highlighted][key-state='modifier-selected']) #key-icon {
+    --iron-icon-fill-color: var(--cros-button-label-color-primary);
+  }
+
+  :host([key-state='not-selected'][key='ctrl']) .key-container,
+  :host([key-state='not-selected'][key='alt']) .key-container,
+  :host([key-state='not-selected'][key='shift']) .key-container{
+    min-width: 44px;
+    padding-inline: 12px;
+  }
+
+  #key-icon {
+    --iron-icon-height: 16px;
+    --iron-icon-width: 16px;
+    --iron-icon-fill-color: var(--cros-text-color-secondary);
+  }
+</style>
+
+<div id="key" class="key-container">
+  <template is="dom-if" if="[[getIconIdForKey(key)]]">
+    <div aria-describedby="icon-description">
+      <iron-icon icon="[[getIconIdForKey(key)]]" id="key-icon" aria-hidden="true"></iron-icon>
+    </div>
+    <div id="icon-description" hidden>[[getAriaLabelForIcon(key)]]</div>
+  </template>
+  <template is="dom-if" if="[[!getIconIdForKey(key)]]">
+    <span id="key-text" aria-hidden="[[getAriaHidden(key, keyState)]]">[[key]]</span>
+  </template>
+</div>
+<!--_html_template_end_-->`;
+}
+
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * Refers to the state of an 'shortcut-input-key' item.
+ */
+var KeyInputState;
+(function (KeyInputState) {
+    KeyInputState["NOT_SELECTED"] = "not-selected";
+    KeyInputState["MODIFIER_SELECTED"] = "modifier-selected";
+    KeyInputState["ALPHANUMERIC_SELECTED"] = "alpha-numeric-selected";
+})(KeyInputState || (KeyInputState = {}));
+var Modifier$1;
+(function (Modifier) {
+    Modifier[Modifier["NONE"] = 0] = "NONE";
+    Modifier[Modifier["SHIFT"] = 2] = "SHIFT";
+    Modifier[Modifier["CONTROL"] = 4] = "CONTROL";
+    Modifier[Modifier["ALT"] = 8] = "ALT";
+    Modifier[Modifier["COMMAND"] = 16] = "COMMAND";
+})(Modifier$1 || (Modifier$1 = {}));
+const Modifiers = [
+    Modifier$1.SHIFT,
+    Modifier$1.CONTROL,
+    Modifier$1.ALT,
+    Modifier$1.COMMAND,
+];
+var AllowedModifierKeyCodes;
+(function (AllowedModifierKeyCodes) {
+    AllowedModifierKeyCodes[AllowedModifierKeyCodes["SHIFT"] = 16] = "SHIFT";
+    AllowedModifierKeyCodes[AllowedModifierKeyCodes["CTRL"] = 17] = "CTRL";
+    AllowedModifierKeyCodes[AllowedModifierKeyCodes["ALT"] = 18] = "ALT";
+    AllowedModifierKeyCodes[AllowedModifierKeyCodes["META_LEFT"] = 91] = "META_LEFT";
+    AllowedModifierKeyCodes[AllowedModifierKeyCodes["META_RIGHT"] = 92] = "META_RIGHT";
+})(AllowedModifierKeyCodes || (AllowedModifierKeyCodes = {}));
+const ModifierKeyCodes = [
+    AllowedModifierKeyCodes.SHIFT,
+    AllowedModifierKeyCodes.ALT,
+    AllowedModifierKeyCodes.CTRL,
+    AllowedModifierKeyCodes.META_LEFT,
+    AllowedModifierKeyCodes.META_RIGHT,
+];
+const getSortedModifiers = (modifierStrings) => {
+    const sortOrder = ['meta', 'ctrl', 'alt', 'shift'];
+    if (modifierStrings.length <= 1) {
+        return modifierStrings;
+    }
+    return modifierStrings.sort((a, b) => sortOrder.indexOf(a) - sortOrder.indexOf(b));
+};
+// The keys in this map are pulled from the file:
+// ui/events/keycodes/dom/dom_code_data.inc
+const KeyToIconNameMap = {
+    'ArrowDown': 'arrow-down',
+    'ArrowLeft': 'arrow-left',
+    'ArrowRight': 'arrow-right',
+    'ArrowUp': 'arrow-up',
+    'AudioVolumeDown': 'volume-down',
+    'AudioVolumeMute': 'volume-mute',
+    'AudioVolumeUp': 'volume-up',
+    'BrightnessDown': 'display-brightness-down',
+    'BrightnessUp': 'display-brightness-up',
+    'BrowserBack': 'back',
+    'BrowserForward': 'forward',
+    'BrowserHome': 'browser-home',
+    'BrowserRefresh': 'refresh',
+    'BrowserSearch': 'browser-search',
+    'ContextMenu': 'menu',
+    'EmojiPicker': 'emoji-picker',
+    'EnableOrToggleDictation': 'dictation-toggle',
+    'KeyboardBacklightToggle': 'keyboard-brightness-toggle',
+    'KeyboardBrightnessUp': 'keyboard-brightness-up',
+    'KeyboardBrightnessDown': 'keyboard-brightness-down',
+    'LaunchApplication1': 'overview',
+    'LaunchApplication2': 'calculator',
+    'LaunchAssistant': 'assistant',
+    'LaunchMail': 'launch-mail',
+    'MediaFastForward': 'fast-forward',
+    'MediaPause': 'pause',
+    'MediaPlay': 'play',
+    'MediaPlayPause': 'play-pause',
+    'MediaTrackNext': 'next-track',
+    'MediaTrackPrevious': 'last-track',
+    'MicrophoneMuteToggle': 'microphone-mute',
+    'ModeChange': 'globe',
+    'ViewAllApps': 'view-all-apps',
+    'Power': 'power',
+    'PrintScreen': 'screenshot',
+    'PrivacyScreenToggle': 'electronic-privacy-screen',
+    'Settings': 'settings-icon',
+    'Standby': 'lock',
+    'ZoomToggle': 'fullscreen',
+};
+
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+const META_KEY = 'meta';
+const LWIN_KEY = 'Meta';
+/**
+ * @fileoverview
+ * 'shortcut-input-key' is a component wrapper for a single input key.
+ * Responsible for handling dynamic styling of a single key.
+ */
+const ShortcutInputKeyElementBase = I18nMixin(PolymerElement);
+class ShortcutInputKeyElement extends ShortcutInputKeyElementBase {
+    static get is() {
+        return 'shortcut-input-key';
+    }
+    static get properties() {
+        return {
+            key: {
+                type: String,
+                value: '',
+                reflectToAttribute: true,
+                observer: ShortcutInputKeyElement.prototype.onKeyChanged,
+            },
+            keyState: {
+                type: String,
+                value: KeyInputState.NOT_SELECTED,
+                reflectToAttribute: true,
+            },
+            // If this property is true, the spacing between keys will be narrower
+            // than usual.
+            narrow: {
+                type: Boolean,
+                value: false,
+                reflectToAttribute: true,
+            },
+            // If this property is true, keys will be styled with the bolder highlight
+            // background.
+            highlighted: {
+                type: Boolean,
+                value: false,
+                reflectToAttribute: true,
+            },
+            // This property is used to apply different styling to keys containing
+            // only text and those with icons.
+            hasIcon: {
+                type: Boolean,
+                value: false,
+                reflectToAttribute: true,
+            },
+            // This property is used to apply different icon if the meta key is
+            // launcher button.
+            hasLauncherButton: {
+                type: Boolean,
+                value: false,
+                reflectToAttribute: true,
+            },
+        };
+    }
+    connectedCallback() {
+        super.connectedCallback();
+    }
+    static get template() {
+        return getTemplate$9();
+    }
+    getIconIdForKey() {
+        // If the key is 'LWIN', then set it as a modifier key.
+        if (this.key === LWIN_KEY) {
+            this.keyState = KeyInputState.MODIFIER_SELECTED;
+        }
+        // For 'META_KEY' and 'LWIN' key, return launcher/search icon.
+        if (this.key === META_KEY || this.key === LWIN_KEY) {
+            return this.hasLauncherButton ? 'shortcut-input-keys:launcher' :
+                'shortcut-input-keys:search';
+        }
+        const iconName = KeyToIconNameMap[this.key];
+        return iconName ? `shortcut-input-keys:${iconName}` : null;
+    }
+    /**
+     * Returns the GRD string ID for the given key. This function is public and
+     * static so that it can be used by the test for this element.
+     *
+     * @param key The KeyboardEvent.code of a key, e.g. ArrowUp or PrintScreen.
+     * @param hasLauncherButton Whether the keyboard has a launcher button or a
+     *     search button.
+     */
+    static getAriaLabelStringId(key, hasLauncherButton) {
+        if (key === META_KEY || key === LWIN_KEY) {
+            return hasLauncherButton ? 'iconLabelOpenLauncher' :
+                'iconLabelOpenSearch';
+        }
+        return `iconLabel${key}`; // e.g. iconLabelArrowUp
+    }
+    getAriaLabelForIcon() {
+        const ariaLabelStringId = ShortcutInputKeyElement.getAriaLabelStringId(this.key, this.hasLauncherButton);
+        assert(this.i18nExists(ariaLabelStringId), `String ID ${ariaLabelStringId} should exist, but it doesn't.`);
+        return this.i18n(ariaLabelStringId);
+    }
+    getAriaHidden() {
+        return this.keyState === KeyInputState.NOT_SELECTED;
+    }
+    onKeyChanged() {
+        this.hasIcon = this.key in KeyToIconNameMap;
+    }
+}
+customElements.define(ShortcutInputKeyElement.is, ShortcutInputKeyElement);
+
+function getTemplate$8() {
+    return html `<!--_html_template_start_--><style include="md-select settings-shared input-device-settings-shared">#menuContainer{display:table;width:200px}iron-dropdown{background-color:var(--cros-bg-color-elevation-3);border-radius:2px;box-shadow:var(--cr-elevation-3);max-height:50vh;overflow:auto}.label-container{display:flex;gap:8px;line-height:16px}.label-container>iron-icon{--iron-icon-height:16px;--iron-icon-width:16px}.md-select{background-position-x:175px;padding:10px 16px;width:168px}</style>
+<div tabindex="0" id="selectDropdown" class="md-select label-container" on-click="showDropdownMenu_">
+  <template is="dom-if" if="[[remappedToKeyCombination_]]">
+    <template is="dom-repeat" items="[[inputKeys_]]">
+      <template is="dom-if" if="[[getIconIdForKey_(item)]]">
+        <iron-icon icon="[[getIconIdForKey_(item)]]" aria-hidden="true">
+        </iron-icon>
+      </template>
+      <template is="dom-if" if="[[!getIconIdForKey_(item)]]">
+        <span>[[item]]</span>
+      </template>
+    </template>
+  </template>
+  <template is="dom-if" if="[[!remappedToKeyCombination_]]">
+    [[label_]]
+  </template>
+</div>
+<iron-dropdown opened="[[shouldShowDropdownMenu_]]" no-cancel-on-outside-click dynamic-align>
+  <div id="menuContainer" slot="dropdown-content">
+    <template is="dom-repeat" items="[[menu]]">
+      <customize-button-dropdown-item option="[[item]]" selected="[[isItemSelected_(item, selectedItem)]]">
+      </customize-button-dropdown-item>
+    </template>
+  </div>
+</iron-dropdown><!--_html_template_end_-->`;
+}
+
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+const NO_REMAPPING_OPTION_VALUE = 'none';
+const KEY_COMBINATION_OPTION_VALUE = 'key combination';
+const OPEN_DIALOG_OPTION_VALUE = 'open key combination dialog';
+const ACCELERATOR_ACTION_PREFIX = 'acceleratorAction';
+const STATICS_SHORTCUT_ACTION_PREFIX = 'staticShortcutAction';
+/**
+ * Bit mask of modifiers.
+ * Ordering is according to UX, but values match EventFlags in
+ * ui/events/event_constants.h.
+ */
+var Modifier;
+(function (Modifier) {
+    Modifier[Modifier["NONE"] = 0] = "NONE";
+    Modifier[Modifier["CONTROL"] = 4] = "CONTROL";
+    Modifier[Modifier["SHIFT"] = 2] = "SHIFT";
+    Modifier[Modifier["ALT"] = 8] = "ALT";
+    Modifier[Modifier["META"] = 16] = "META";
+})(Modifier || (Modifier = {}));
+/**
+ * Map the modifier keys to the bit value. Currently the modifiers only
+ * contains the following four.
+ */
+const modifierBitMaskToString = new Map([
+    [Modifier.CONTROL, 'Ctrl'],
+    [Modifier.SHIFT, 'Shift'],
+    [Modifier.ALT, 'Alt'],
+    [Modifier.META, 'Meta'],
+]);
+/**
+ * Converts a keyEvent to a string representing all the modifiers and the vkey.
+ */
+function getInputKeys(keyEvent) {
+    const inputKeysArray = [];
+    modifierBitMaskToString.forEach((modifierName, bitValue) => {
+        // Now if pressing a single modifier key like "shift", it will show
+        // "shift + shift" instead of a single "shift".
+        // Temporarily add a condition to check modifierName duplicating with
+        // keyDisplay until it's fixed in the key combination logics.
+        if ((keyEvent.modifiers & bitValue) !== 0 &&
+            modifierName !== keyEvent.keyDisplay) {
+            inputKeysArray.push(modifierName, '+');
+        }
+    });
+    if (keyEvent.keyDisplay !== undefined && keyEvent.keyDisplay.length !== 0) {
+        inputKeysArray.push(keyEvent.keyDisplay);
+    }
+    else {
+        // If no regular key to display, remove the extra '+'.
+        inputKeysArray.splice(inputKeysArray.length - 1, 1);
+    }
+    return inputKeysArray;
+}
+const CustomizeButtonSelectElementBase = I18nMixin(PolymerElement);
+class CustomizeButtonSelectElement extends CustomizeButtonSelectElementBase {
+    static get is() {
+        return 'customize-button-select';
+    }
+    static get template() {
+        return getTemplate$8();
+    }
+    static get properties() {
+        return {
+            menu: {
+                type: Object,
+            },
+            shouldShowDropdownMenu_: {
+                type: Boolean,
+                value: false,
+                reflectToAttribute: true,
+            },
+            buttonRemappingList: {
+                type: Array,
+            },
+            remappingIndex: {
+                type: Number,
+            },
+            buttonRemapping_: {
+                type: Object,
+            },
+            actionList: {
+                type: Array,
+            },
+            selectedValue: {
+                type: String,
+                value: NO_REMAPPING_OPTION_VALUE,
+            },
+            label_: {
+                type: String,
+                computed: 'getSelectedLabel_(selectedValue, menu.*)',
+            },
+            inputKeys_: {
+                type: Array,
+                value: [],
+            },
+            remappedToKeyCombination_: {
                 type: Boolean,
                 value: false,
             },
         };
     }
-    constructor() {
-        super();
-        this.browserProxy_ = TimeZoneBrowserProxyImpl.getInstance();
+    static get observers() {
+        return [
+            'onSettingsChanged(selectedValue)',
+            'initializeButtonSelect_(buttonRemappingList.*, remappingIndex, ' +
+                'actionList)',
+        ];
     }
-    /**
-     * RouteObserverMixin
-     * Called when the timezone subpage is hit. Child accounts need parental
-     * approval to modify their timezone, this method starts this process on the
-     * C++ side, and timezone setting will be disable. Once it is complete the
-     * 'access-code-validation-complete' event is triggered which invokes
-     * enableTimeZoneSetting_.
-     */
-    currentRouteChanged(newRoute, _oldRoute) {
-        if (newRoute !== routes.DATETIME_TIMEZONE_SUBPAGE) {
+    connectedCallback() {
+        super.connectedCallback();
+        this.addEventListener('blur', this.onBlur_);
+        this.addEventListener('customize-button-dropdown-selected', this.onDropdownItemSelected_);
+        this.addEventListener('keydown', this.onKeyDown_);
+    }
+    disconnectedCallback() {
+        super.disconnectedCallback();
+        this.removeEventListener('blur', this.onBlur_);
+        this.removeEventListener('customize-button-dropdown-selected', this.onDropdownItemSelected_);
+        this.removeEventListener('keydown', this.onKeyDown_);
+    }
+    focus() {
+        this.$.selectDropdown.focus();
+    }
+    initializeButtonSelect_() {
+        if (!this.buttonRemappingList ||
+            !this.buttonRemappingList[this.remappingIndex] || !this.actionList) {
             return;
         }
-        // Check if should ask for parent access code.
-        if (isChild()) {
-            this.disableTimeZoneSetting_();
-            this.addWebUiListener('access-code-validation-complete', this.enableTimeZoneSetting_.bind(this));
-            this.browserProxy_.showParentAccessForTimeZone();
-        }
-        this.attemptDeepLink();
+        this.isInitialized_ = false;
+        this.buttonRemapping_ = this.buttonRemappingList[this.remappingIndex];
+        this.setUpMenuItems_();
+        this.initializeSelectedValue_();
+        this.isInitialized_ = true;
     }
-    /**
-     * Returns value list for timeZoneResolveMethodDropdown menu.
-     */
-    getTimeZoneResolveMethodsList_() {
-        const result = [];
-        const pref = this.getPref('generated.resolve_timezone_by_geolocation_method_short');
-        // Make sure current value is in the list, even if it is not
-        // user-selectable.
-        if (pref.value === TimeZoneAutoDetectMethod.DISABLED) {
-            // If disabled by policy, show the 'Automatic timezone disabled' label.
-            // Otherwise, just show the default string, since the control will be
-            // disabled as well.
-            const label = pref.controlledBy ?
-                loadTimeData.getString('setTimeZoneAutomaticallyDisabled') :
-                loadTimeData.getString('setTimeZoneAutomaticallyIpOnlyDefault');
-            result.push({ value: TimeZoneAutoDetectMethod.DISABLED, name: label });
-        }
-        result.push({
-            value: TimeZoneAutoDetectMethod.IP_ONLY,
-            name: loadTimeData.getString('setTimeZoneAutomaticallyIpOnlyDefault'),
-        });
-        if (pref.value === TimeZoneAutoDetectMethod.SEND_WIFI_ACCESS_POINTS) {
-            result.push({
-                value: TimeZoneAutoDetectMethod.SEND_WIFI_ACCESS_POINTS,
-                name: loadTimeData.getString('setTimeZoneAutomaticallyWithWiFiAccessPointsData'),
-            });
-        }
-        result.push({
-            value: TimeZoneAutoDetectMethod.SEND_ALL_LOCATION_INFO,
-            name: loadTimeData.getString('setTimeZoneAutomaticallyWithAllLocationInfo'),
-        });
-        return result;
+    showDropdownMenu_() {
+        this.shouldShowDropdownMenu_ = true;
     }
-    /**
-     * Enables all dropdowns and radio buttons.
-     */
-    enableTimeZoneSetting_() {
-        const radios = this.shadowRoot.querySelectorAll('controlled-radio-button');
-        for (const radio of radios) {
-            radio.disabled = false;
-        }
-        this.$.timezoneSelector.shouldDisableTimeZoneGeoSelector = false;
-        const pref = this.getPref('generated.resolve_timezone_by_geolocation_method_short');
-        if (pref.value !== TimeZoneAutoDetectMethod.DISABLED) {
-            this.$.timeZoneResolveMethodDropdown.disabled = false;
-        }
+    onBlur_() {
+        this.shouldShowDropdownMenu_ = false;
     }
-    /**
-     * Disables all dropdowns and radio buttons.
-     */
-    disableTimeZoneSetting_() {
-        this.$.timeZoneResolveMethodDropdown.disabled = true;
-        this.$.timezoneSelector.shouldDisableTimeZoneGeoSelector = true;
-        const radios = this.shadowRoot.querySelectorAll('controlled-radio-button');
-        for (const radio of radios) {
-            radio.disabled = true;
+    onDropdownItemSelected_(e) {
+        const optionValue = e.detail.value ?? NO_REMAPPING_OPTION_VALUE;
+        if (optionValue === OPEN_DIALOG_OPTION_VALUE) {
+            this.dispatchEvent(new CustomEvent('show-key-combination-dialog', {
+                bubbles: true,
+                composed: true,
+                detail: { buttonIndex: this.remappingIndex },
+            }));
         }
+        else if (optionValue !== this.selectedValue) {
+            this.set('selectedValue', optionValue);
+        }
+        // Close dropdown menu after selected.
+        this.shouldShowDropdownMenu_ = false;
     }
-    onTimeZoneSelectionChanged_() {
-        const geolocationAllowed = this.getPref('ash.user.geolocation_allowed').value;
-        if (geolocationAllowed) {
+    getSelectedLabel_() {
+        if (!this.selectedValue || !this.menu) {
+            return this.i18n('noRemappingOptionLabel');
+        }
+        return this.findOptionInMenu_(this.selectedValue)?.name ??
+            this.i18n('noRemappingOptionLabel');
+    }
+    findOptionInMenu_(targetValue) {
+        return this.menu.find((option) => option.value === targetValue);
+    }
+    setSelectedValue(newValue) {
+        const foundOption = this.menu.find((dropdownItem) => dropdownItem.value === newValue);
+        const foundValue = foundOption === undefined ? NO_REMAPPING_OPTION_VALUE :
+            foundOption.value;
+        this.set('selectedValue', foundValue);
+    }
+    setUpMenuItems_() {
+        if (!this.actionList) {
             return;
         }
-        let selectedTimezoneOption = null;
-        const dropDown = this.$.timeZoneResolveMethodDropdown;
-        if (dropDown.pref) {
-            selectedTimezoneOption = dropDown.pref.value;
+        const tempMenu = [];
+        // Put default action to the top of dropdown menu per UX requirement.
+        tempMenu.push({
+            value: NO_REMAPPING_OPTION_VALUE,
+            name: this.i18n('noRemappingOptionLabel'),
+        });
+        // Fill the dropdown menu with actionList.
+        for (const actionChoice of this.actionList) {
+            const acceleratorAction = actionChoice.actionType.acceleratorAction;
+            const staticShortcutAction = actionChoice.actionType.staticShortcutAction;
+            if (acceleratorAction !== undefined) {
+                // Prepend an acceleratorAction prefix to distinguish it from the
+                // StaticShortcutAction enum.
+                tempMenu.push({
+                    value: ACCELERATOR_ACTION_PREFIX + acceleratorAction.toString(),
+                    name: actionChoice.name,
+                });
+            }
+            else if (staticShortcutAction !== undefined) {
+                // Prepend a staticShortcutAction prefix to distinguish it from the
+                // AcceleratorAction enum.
+                tempMenu.push({
+                    value: STATICS_SHORTCUT_ACTION_PREFIX + staticShortcutAction.toString(),
+                    name: actionChoice.name,
+                });
+            }
         }
-        // Pop up geolocation dialog, when user wants to enable precise timezone,
-        // but the system geolocation access is disabled.
-        if (selectedTimezoneOption ===
-            TimeZoneAutoDetectMethod.SEND_ALL_LOCATION_INFO ||
-            selectedTimezoneOption ===
-                TimeZoneAutoDetectMethod.SEND_WIFI_ACCESS_POINTS) {
-            this.showEnableSystemGeolocationDialog_ = true;
+        // Put 'Key combination' option in the dropdown menu.
+        tempMenu.push({
+            value: OPEN_DIALOG_OPTION_VALUE,
+            name: this.i18n('keyCombinationOptionLabel'),
+        });
+        // Put kDisable action to the end of dropdown menu per UX requirement.
+        tempMenu.push({
+            value: STATICS_SHORTCUT_ACTION_PREFIX + StaticShortcutAction$1.kDisable,
+            name: this.i18n('disbableOptionLabel'),
+        });
+        // This option is hidden in the menu because it's only displayed on
+        // customize-button-select.
+        tempMenu.push({
+            value: KEY_COMBINATION_OPTION_VALUE,
+            name: this.i18n('keyCombinationOptionLabel'),
+            hidden: true,
+        });
+        this.set('menu', tempMenu);
+    }
+    initializeSelectedValue_() {
+        this.inputKeys_ = [];
+        this.remappedToKeyCombination_ = false;
+        // For accelerator actions, the remappingAction.acceleratorAction value is
+        // number.
+        const acceleratorAction = this.buttonRemapping_.remappingAction?.acceleratorAction;
+        const keyEvent = this.buttonRemapping_.remappingAction?.keyEvent;
+        // For static shortcut actions, the remappingAction.staticShortcutAction
+        // value is number.
+        const staticShortcutAction = this.buttonRemapping_.remappingAction?.staticShortcutAction;
+        if (acceleratorAction !== undefined && !isNaN(acceleratorAction)) {
+            // Prepend an acceleratorAction prefix to distinguish it from the
+            // staticShortcutAction enum.
+            this.setSelectedValue(ACCELERATOR_ACTION_PREFIX + acceleratorAction.toString());
+        }
+        else if (keyEvent) {
+            this.inputKeys_ = getInputKeys(keyEvent);
+            this.remappedToKeyCombination_ = !!this.inputKeys_;
+            this.setSelectedValue(KEY_COMBINATION_OPTION_VALUE);
+        }
+        else if (staticShortcutAction !== undefined && !isNaN(staticShortcutAction)) {
+            // Prepend a staticShortcutAction prefix to distinguish it from
+            // the acceleratorAction enum.
+            const originalStaticShortcutAction = STATICS_SHORTCUT_ACTION_PREFIX + staticShortcutAction.toString();
+            this.setSelectedValue(originalStaticShortcutAction);
+        }
+        else {
+            this.setSelectedValue(NO_REMAPPING_OPTION_VALUE);
         }
     }
-    onEnableSystemGeolocationDialogClosed_() {
-        this.showEnableSystemGeolocationDialog_ = false;
+    /**
+     * This method is called when selectedvalue is changed to
+     * NO_REMAPPING_OPTION_VALUE or enums of remappingAction.
+     *
+     * @returns Updated button remapping with selected remapping action or
+     * no remapping action.
+     */
+    getUpdatedRemapping() {
+        if (this.selectedValue === NO_REMAPPING_OPTION_VALUE) {
+            const updatedRemapping = {
+                name: this.buttonRemapping_.name,
+                button: this.buttonRemapping_.button,
+            };
+            return updatedRemapping;
+        }
+        // Otherwise the button is remapped to a remappingAction.
+        let remappingAction = undefined;
+        if (this.selectedValue.startsWith(ACCELERATOR_ACTION_PREFIX)) {
+            // Remove the acceleratorAction prefix to get the real enum value.
+            remappingAction = {
+                acceleratorAction: Number(this.selectedValue.slice(ACCELERATOR_ACTION_PREFIX.length)),
+            };
+        }
+        if (this.selectedValue.startsWith(STATICS_SHORTCUT_ACTION_PREFIX)) {
+            // Remove the staticShortcutAction prefix to get the real enum value.
+            remappingAction = {
+                staticShortcutAction: Number(this.selectedValue.slice(STATICS_SHORTCUT_ACTION_PREFIX.length)),
+            };
+        }
+        const updatedRemapping = {
+            ...this.buttonRemapping_,
+            remappingAction,
+        };
+        return updatedRemapping;
+    }
+    /**
+     * Update device settings whenever the selectedValue changes.
+     */
+    onSettingsChanged() {
+        if (!this.isInitialized_) {
+            return;
+        }
+        this.set(`buttonRemappingList.${this.remappingIndex}`, this.getUpdatedRemapping());
+        this.dispatchEvent(new CustomEvent('button-remapping-changed', {
+            bubbles: true,
+            composed: true,
+        }));
+    }
+    getIconIdForKey_(key) {
+        if (key === META_KEY || key === LWIN_KEY) {
+            return 'shortcut-input-keys:launcher';
+        }
+        const iconName = KeyToIconNameMap[key];
+        return iconName ? `shortcut-input-keys:${iconName}` : null;
+    }
+    /**
+     * Return true if the item in the dropdown menu is selected.
+     */
+    isItemSelected_(item) {
+        if (item.value === OPEN_DIALOG_OPTION_VALUE &&
+            this.selectedValue === KEY_COMBINATION_OPTION_VALUE) {
+            return true;
+        }
+        return item.value === this.selectedValue;
+    }
+    onKeyDown_(e) {
+        if (e.key === 'Enter') {
+            this.shouldShowDropdownMenu_ = !this.shouldShowDropdownMenu_;
+            return;
+        }
+        // TODO(yyhyyh@): Add case for ArrowUp and ArrowDown.
     }
 }
-customElements.define(TimezoneSubpageElement.is, TimezoneSubpageElement);
+customElements.define(CustomizeButtonSelectElement.is, CustomizeButtonSelectElement);
 
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
@@ -37703,31 +40527,23 @@ function strictQuery(selector, root, type) {
     return element;
 }
 
-function getTemplate$6() {
-    return html `<!--_html_template_start_--><style include="md-select settings-shared input-device-settings-shared">#container{position:relative;transition:background 150ms ease}:host([is-being-dragged_]) #container{background:var(--cros-sys-highlight_shape)}.edit-button{--cr-icon-button-fill-color:var(--cros-text-color-disabled)}#container::before{border:0;content:'';display:block;left:0;pointer-events:none;position:absolute;right:0;width:100%}:host(.drop-indicator-bottom) #container::after,:host(.drop-indicator-top) #container::before{background:var(--cros-app-scrollbar-color);height:2px;--indicator-offset:calc(-1.5 * var(--cr-separator-height))}:host(.drop-indicator-top) #container::before{top:var(--indicator-offset)}:host(.drop-indicator-bottom) #container::after{bottom:var(--indicator-offset)}#header{display:flex}.edit-button{--cr-icon-button-icon-start-offset:4px;--cr-icon-button-margin-start:0;opacity:0;transition:opacity .3s,transform .1s}.edit-button,.move-button{--cr-icon-button-icon-size:16px;--cr-icon-button-fill-color:var(--cros-sys-on_surface)}#container:hover .edit-button,.edit-button:focus-visible{opacity:1}.settings-box{align-self:stretch;height:64px;padding-inline-start:0}:host([remove-top-border]) .settings-box{border-top:none}select{padding-inline-end:12px;padding-inline-start:16px}.edit-icon-container{align-items:center;flex:auto;size:48px}.move-icon-container{align-items:center;margin-inline-end:24px;size:48px}#buttonLabelContainer{padding-inline-end:6px;margin-inline-end:6px;max-width:292px}#keyCombination{display:none}</style>
-<div id="container" class="settings-box first" on-mousedown="onContainerMouseDown_" on-dragstart="onDragStart_" on-dragend="onDragEnd_" draggable="true">
+function getTemplate$7() {
+    return html `<!--_html_template_start_--><style include="md-select settings-shared input-device-settings-shared">#container{position:relative;transition:background 150ms ease}:host([is-being-dragged_]) #container{background:var(--cros-sys-highlight_shape)}.edit-button{--cr-icon-button-fill-color:var(--cros-text-color-disabled)}#container::before{border:0;content:'';display:block;left:0;pointer-events:none;position:absolute;right:0;width:100%}:host(.drop-indicator-bottom) #container::after,:host(.drop-indicator-top) #container::before{background:var(--cros-app-scrollbar-color);height:2px;--indicator-offset:calc(-1.5 * var(--cr-separator-height))}:host(.drop-indicator-top) #container::before{top:var(--indicator-offset)}:host(.drop-indicator-bottom) #container::after{bottom:var(--indicator-offset)}#header{display:flex}.edit-button{--cr-icon-button-icon-start-offset:4px;--cr-icon-button-margin-start:0;opacity:0;transition:opacity .3s,transform .1s}.edit-button,.move-button{--cr-icon-button-icon-size:16px;--cr-icon-button-fill-color:var(--cros-sys-on_surface)}#container:hover .edit-button,.edit-button:focus-visible{opacity:1}.settings-box{align-self:stretch;height:64px;padding-inline-start:0}select{padding-inline-end:12px;padding-inline-start:16px}.edit-icon-container{align-items:center;flex:auto;size:48px}#buttonLabelContainer{padding-inline-end:6px;margin-inline-end:6px;max-width:292px}#keyCombination{display:none}cr-icon-button{margin-inline-end:24px;margin-inline-start:0}</style>
+<div id="container" class="settings-box" on-mousedown="onContainerMouseDown_" on-dragstart="onDragStart_" on-dragend="onDragEnd_" draggable="true">
   <div class="move-icon-container">
     <cr-icon-button class="move-button" iron-icon="os-settings:move">
     </cr-icon-button>
   </div>
   <div id="buttonLabelContainer">
-    <div id="buttonLabel" aria-hidden="true">[[buttonRemappingName_]]</div>
+    <div id="buttonLabel">[[buttonRemappingName_]]</div>
   </div>
   <div class="edit-icon-container">
     <cr-icon-button class="edit-button" iron-icon="os-settings:edit" on-click="onEditButtonLabelClicked_">
     </cr-icon-button>
   </div>
   <div id="dropdownContainer" class="text-field-container">
-    <select id="remappingActionDropdown" class="md-select" on-change="onSelectChange_" disabled="[[isDropdownDisabled_(isBeingDragged_)]]" aria-label="[[getDropdownAriaLabel_(buttonRemappingName_, fakePref_.*)]]">
-      <template is="dom-repeat" items="[[buttonMapTargets_]]" as="buttonMapping">
-        <option value$="[[buttonMapping.value]]">
-          [[buttonMapping.name]]
-        </option>
-      </template>
-      <option id="keyCombination" value="[[keyCombinationOptionValue_]]">
-        [[keyCombinationLabel_]]
-      </option>
-    </select>
+    <customize-button-select id="remappingActionDropdown" action-list="[[actionList]]" button-remapping-list="{{buttonRemappingList}}" remapping-index="[[remappingIndex]]">
+    </customize-button-select>
   </div>
 </div>
 <!--_html_template_end_-->`;
@@ -37786,7 +40602,7 @@ function getDataTransferOriginIndex(dragEvent) {
 }
 class DragAndDropManager {
     constructor() {
-        this.eventTracker_ = new EventTracker();
+        this.eventTracker_ = new EventTracker$1();
     }
     init(element, onDropCallbackParam) {
         this.eventTracker_.add(element, 'dragover', (e) => this.onDragOver_(e));
@@ -37894,52 +40710,6 @@ class DragAndDropManager {
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-const NO_REMAPPING_OPTION_VALUE = 'none';
-const KEY_COMBINATION_OPTION_VALUE = 'key combination';
-const OPEN_DIALOG_OPTION_VALUE = 'open key combination dialog';
-const ACCELERATOR_ACTION_PREFIX = 'acceleratorAction';
-const STATICS_SHORTCUT_ACTION_PREFIX = 'staticShortcutAction';
-/**
- * Bit mask of modifiers.
- * Ordering is according to UX, but values match EventFlags in
- * ui/events/event_constants.h.
- */
-var Modifier;
-(function (Modifier) {
-    Modifier[Modifier["NONE"] = 0] = "NONE";
-    Modifier[Modifier["CONTROL"] = 4] = "CONTROL";
-    Modifier[Modifier["SHIFT"] = 2] = "SHIFT";
-    Modifier[Modifier["ALT"] = 8] = "ALT";
-    Modifier[Modifier["META"] = 16] = "META";
-})(Modifier || (Modifier = {}));
-/**
- * Map the modifier keys to the bit value. Currently the modifiers only
- * contains the following four.
- */
-const modifierBitMaskToString = new Map([
-    [Modifier.CONTROL, 'ctrl'],
-    [Modifier.SHIFT, 'shift'],
-    [Modifier.ALT, 'alt'],
-    [Modifier.META, 'meta'],
-]);
-function concateKeyString(firstStr, secondStr) {
-    return firstStr.length === 0 ? secondStr : firstStr.concat(` + ${secondStr}`);
-}
-/**
- * Converts a keyEvent to a string representing all the modifiers and the vkey.
- */
-function getKeyCombinationLabel(keyEvent) {
-    let combinationLabel = '';
-    modifierBitMaskToString.forEach((modifierName, bitValue) => {
-        if ((keyEvent.modifiers & bitValue) !== 0) {
-            combinationLabel = concateKeyString(combinationLabel, modifierName);
-        }
-    });
-    if (keyEvent.keyDisplay !== undefined && keyEvent.keyDisplay.length !== 0) {
-        combinationLabel = concateKeyString(combinationLabel, keyEvent.keyDisplay);
-    }
-    return combinationLabel;
-}
 const CustomizeButtonRowElementBase = I18nMixin(PolymerElement);
 class CustomizeButtonRowElement extends CustomizeButtonRowElementBase {
     constructor() {
@@ -37950,7 +40720,7 @@ class CustomizeButtonRowElement extends CustomizeButtonRowElementBase {
         return 'customize-button-row';
     }
     static get template() {
-        return getTemplate$6();
+        return getTemplate$7();
     }
     static get properties() {
         return {
@@ -37960,39 +40730,11 @@ class CustomizeButtonRowElement extends CustomizeButtonRowElementBase {
             buttonRemapping_: {
                 type: Object,
             },
-            buttonMapTargets_: {
-                type: Object,
-            },
             remappingIndex: {
                 type: Number,
             },
-            fakePref_: {
-                type: Object,
-                value() {
-                    return {
-                        key: 'fakeCustomizeKeyPref',
-                        type: chrome.settingsPrivate.PrefType.STRING,
-                        value: NO_REMAPPING_OPTION_VALUE,
-                    };
-                },
-            },
             actionList: {
                 type: Array,
-            },
-            removeTopBorder: {
-                type: Boolean,
-                reflectToAttribute: true,
-            },
-            keyCombinationLabel_: {
-                type: String,
-            },
-            /**
-             * The value of the "Key combination" item in dropdown menu.
-             */
-            keyCombinationOptionValue_: {
-                type: String,
-                value: KEY_COMBINATION_OPTION_VALUE,
-                readOnly: true,
             },
             /**
              * Name of the remapping.
@@ -38024,14 +40766,14 @@ class CustomizeButtonRowElement extends CustomizeButtonRowElementBase {
     }
     static get observers() {
         return [
-            'onSettingsChanged(fakePref_.*)',
-            'initializeCustomizeKey(buttonRemappingList.*, remappingIndex, ' +
-                'actionList)',
+            'initializeButtonRow_(buttonRemappingList.*, remappingIndex)',
         ];
     }
     connectedCallback() {
         super.connectedCallback();
         this.observeButtonPresses();
+        // Focus dropdown right away as this button was just pressed.
+        this.$.remappingActionDropdown.focus();
     }
     observeButtonPresses() {
         if (this.inputDeviceSettingsProvider_ instanceof
@@ -38043,195 +40785,17 @@ class CustomizeButtonRowElement extends CustomizeButtonRowElementBase {
         this.inputDeviceSettingsProvider_.observeButtonPresses(this.buttonPressObserverReceiver.$.bindNewPipeAndPassRemote());
     }
     /**
-     * Initialize dropdown menu.
-     */
-    initializeDropdown_(originalAction, dropdown) {
-        // Initialize fakePref with originalAction.
-        this.set('fakePref_.value', originalAction);
-        // Initialize dropdown menu selection to match the
-        // originalAction.
-        const option = this.buttonMapTargets_.find((dropdownItem) => {
-            return dropdownItem.value === originalAction;
-        });
-        microTask.run(() => {
-            dropdown.value =
-                option === undefined ? NO_REMAPPING_OPTION_VALUE : originalAction;
-            this.prevChoice_ = dropdown.value;
-            dropdown.setAttribute('aria-label', this.getDropdownAriaLabel_());
-        });
-    }
-    /**
-     * Populate dropdown menu choices.
-     */
-    setUpButtonMapTargets_() {
-        this.buttonMapTargets_ = [];
-        if (!this.actionList) {
-            return;
-        }
-        // Put default action to the top of dropdown menu per UX requirement.
-        this.buttonMapTargets_.push({
-            value: NO_REMAPPING_OPTION_VALUE,
-            name: this.i18n('noRemappingOptionLabel'),
-        });
-        // Fill the dropdown menu with actionList.
-        for (const actionChoice of this.actionList) {
-            const acceleratorAction = actionChoice.actionType.acceleratorAction;
-            const staticShortcutAction = actionChoice.actionType.staticShortcutAction;
-            if (acceleratorAction !== undefined) {
-                // Prepend an acceleratorAction prefix to distinguish it from the
-                // StaticShortcutAction enum.
-                this.buttonMapTargets_.push({
-                    value: ACCELERATOR_ACTION_PREFIX + acceleratorAction.toString(),
-                    name: actionChoice.name,
-                });
-            }
-            else if (staticShortcutAction !== undefined) {
-                // Prepend a staticShortcutAction prefix to distinguish it from the
-                // AcceleratorAction enum.
-                this.buttonMapTargets_.push({
-                    value: STATICS_SHORTCUT_ACTION_PREFIX + staticShortcutAction.toString(),
-                    name: actionChoice.name,
-                });
-            }
-        }
-        // Put 'Key combination' option in the dropdown menu.
-        this.buttonMapTargets_.push({
-            value: OPEN_DIALOG_OPTION_VALUE,
-            name: this.i18n('keyCombinationOptionLabel'),
-        });
-        // Put kDisable action to the end of dropdown menu per UX requirement.
-        this.buttonMapTargets_.push({
-            value: STATICS_SHORTCUT_ACTION_PREFIX + StaticShortcutAction.kDisable,
-            name: this.i18n('disbableOptionLabel'),
-        });
-    }
-    /**
-     * Populate the button remapping action according to the existing settings.
-     */
-    setUpRemappingActions_() {
-        const dropdown = this.$.remappingActionDropdown;
-        // Set the dropdown option label to default 'Key combination'.
-        this.keyCombinationLabel_ = this.i18n('keyCombinationOptionLabel');
-        // For accelerator actions, the remappingAction.acceleratorAction value is
-        // number.
-        const acceleratorAction = this.buttonRemapping_.remappingAction?.acceleratorAction;
-        const keyEvent = this.buttonRemapping_.remappingAction?.keyEvent;
-        // For static shortcut actions, the remappingAction.staticShortcutAction
-        // value is number.
-        const staticShortcutAction = this.buttonRemapping_.remappingAction?.staticShortcutAction;
-        if (acceleratorAction !== undefined && !isNaN(acceleratorAction)) {
-            // Prepend an acceleratorAction prefix to distinguish it from the
-            // staticShortcutAction enum.
-            const originalAcceleratorAction = ACCELERATOR_ACTION_PREFIX + acceleratorAction.toString();
-            this.initializeDropdown_(originalAcceleratorAction, dropdown);
-        }
-        else if (keyEvent) {
-            this.set('fakePref_.value', KEY_COMBINATION_OPTION_VALUE);
-            this.keyCombinationLabel_ = getKeyCombinationLabel(keyEvent) ??
-                this.i18n('keyCombinationOptionLabel');
-            microTask.run(() => {
-                dropdown.value = KEY_COMBINATION_OPTION_VALUE;
-                dropdown.setAttribute('aria-label', this.getDropdownAriaLabel_());
-                this.prevChoice_ = dropdown.value;
-            });
-        }
-        else if (staticShortcutAction !== undefined && !isNaN(staticShortcutAction)) {
-            // Prepend a staticShortcutAction prefix to distinguish it from
-            // the acceleratorAction enum.
-            const originalStaticShortcutAction = STATICS_SHORTCUT_ACTION_PREFIX + staticShortcutAction.toString();
-            this.initializeDropdown_(originalStaticShortcutAction, dropdown);
-        }
-        else {
-            this.set('fakePref_.value', NO_REMAPPING_OPTION_VALUE);
-            microTask.run(() => {
-                dropdown.value = NO_REMAPPING_OPTION_VALUE;
-                dropdown.setAttribute('aria-label', this.getDropdownAriaLabel_());
-                this.prevChoice_ = dropdown.value;
-            });
-        }
-    }
-    /**
      * Initialize the button remapping content and set up fake pref.
      */
-    initializeCustomizeKey() {
+    initializeButtonRow_() {
         if (!this.buttonRemappingList ||
             !this.buttonRemappingList[this.remappingIndex]) {
             return;
         }
-        this.isInitialized_ = false;
+        if (this.remappingIndex === 0) {
+            this.$.container.classList.add('first');
+        }
         this.buttonRemapping_ = this.buttonRemappingList[this.remappingIndex];
-        this.setUpButtonMapTargets_();
-        this.setUpRemappingActions_();
-        this.isInitialized_ = true;
-    }
-    /**
-     * This method is called when fakePref_.value is changed to
-     * NO_REMAPPING_OPTION_VALUE or enums of remappingAction.
-     *
-     * @returns Updated button remapping with selected remapping action or
-     * no remapping action.
-     */
-    getUpdatedRemapping() {
-        if (this.fakePref_.value === NO_REMAPPING_OPTION_VALUE) {
-            const updatedRemapping = {
-                name: this.buttonRemapping_.name,
-                button: this.buttonRemapping_.button,
-            };
-            return updatedRemapping;
-        }
-        // Otherwise the button is remapped to a remappingAction.
-        let remappingAction = undefined;
-        if (this.fakePref_.value.startsWith(ACCELERATOR_ACTION_PREFIX)) {
-            // Remove the acceleratorAction prefix to get the real enum value.
-            this.fakePref_.value =
-                this.fakePref_.value.slice(ACCELERATOR_ACTION_PREFIX.length);
-            remappingAction = {
-                acceleratorAction: Number(this.fakePref_.value),
-            };
-        }
-        if (this.fakePref_.value.startsWith(STATICS_SHORTCUT_ACTION_PREFIX)) {
-            // Remove the staticShortcutAction prefix to get the real enum value.
-            this.fakePref_.value =
-                this.fakePref_.value.slice(STATICS_SHORTCUT_ACTION_PREFIX.length);
-            remappingAction = {
-                staticShortcutAction: Number(this.fakePref_.value),
-            };
-        }
-        const updatedRemapping = {
-            ...this.buttonRemapping_,
-            remappingAction,
-        };
-        return updatedRemapping;
-    }
-    /**
-     * Update device settings whenever the pref changes.
-     */
-    onSettingsChanged() {
-        if (!this.isInitialized_) {
-            return;
-        }
-        this.set(`buttonRemappingList.${this.remappingIndex}`, this.getUpdatedRemapping());
-        this.dispatchEvent(new CustomEvent('button-remapping-changed', {
-            bubbles: true,
-            composed: true,
-        }));
-    }
-    onSelectChange_() {
-        const select = this.$.remappingActionDropdown;
-        if (select.value === OPEN_DIALOG_OPTION_VALUE) {
-            this.dispatchEvent(new CustomEvent('show-key-combination-dialog', {
-                bubbles: true,
-                composed: true,
-                detail: { buttonIndex: this.remappingIndex },
-            }));
-            microTask.run(() => {
-                select.value = this.prevChoice_;
-            });
-        }
-        else if (select.value !== this.fakePref_.value) {
-            this.set('fakePref_.value', select.value);
-            this.prevChoice_ = select.value;
-        }
     }
     /**
      * Pops out the dialog to edit button label.
@@ -38312,38 +40876,1574 @@ class CustomizeButtonRowElement extends CustomizeButtonRowElementBase {
     isDropdownDisabled_() {
         return this.isBeingDragged_;
     }
-    getDropdownAriaLabel_() {
-        const select = this.$.remappingActionDropdown;
-        const optionLabel = select.options[select.selectedIndex] ?
-            select.options[select.selectedIndex].text :
-            this.i18n('noRemappingOptionLabel');
-        if (!this.buttonRemappingName_) {
-            return optionLabel;
-        }
-        return this.i18n('buttonRemappingDropdownAriaLabel', this.buttonRemappingName_, optionLabel);
-    }
 }
 customElements.define(CustomizeButtonRowElement.is, CustomizeButtonRowElement);
 
+// Copyright 2020 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+
+// TODO(gavindodd): Currently the addObserver and setObservableData do not
+// enforce using the same type for a given method. Revisit when TypeScript is
+// supported.
+
+/**
+ * @fileoverview
+ * Implements a helper class for faking asynchronous observables.
+ */
+
+/**
+ * Maintains state about an observable and the data it will produce.
+ * @template T
+ **/
+class FakeObservableState {
+  constructor() {
+    /**
+     * The list of functions that will be notified when the observable
+     * is triggered.
+     * @private {!Array<!function(!T)>}
+     **/
+    this.observers_ = [];
+
+    /**
+     * Array of observations to be supplied by the observer.
+     * @private {!Array<T>}
+     **/
+    this.observations_ = [];
+
+    /**
+     * The index of the next observation.
+     * @private {number}
+     **/
+    this.index_ = -1;
+
+    /**
+     * Id of the timer if enabled.
+     * @private {number}
+     */
+    this.timerId_ = -1;
+  }
+
+  /** @param {!Array<!T>} observations */
+  setObservableData(observations) {
+    this.observations_ = observations;
+    this.index_ = 0;
+  }
+
+  /** @param {!function(!T)} callback */
+  addObserver(callback) {
+    this.observers_.push(callback);
+  }
+
+  /**
+   * Start firing the observers on a fixed interval. setObservableData() must
+   * already have been called.
+   * @param {number} intervalMs
+   */
+  startTriggerOnInterval(intervalMs) {
+    assert$1(this.index_ >= 0);
+    if (this.timerId_ != -1) {
+      this.stopTriggerOnInterval();
+    }
+
+    assert$1(this.timerId_ == -1);
+    this.timerId_ = setInterval(this.trigger.bind(this), intervalMs);
+  }
+
+  /**
+   * Disables the observer firing automatically on an interval.
+   */
+  stopTriggerOnInterval() {
+    if (this.timerId_ != -1) {
+      clearInterval(this.timerId_);
+      this.timerId_ = -1;
+    }
+  }
+
+  /**
+   * Causes the observable to trigger and notify all observers of the next
+   * observation value.
+   */
+  trigger() {
+    assert$1(this.observations_.length > 0);
+    assert$1(this.index_ >= 0);
+    assert$1(this.index_ < this.observations_.length);
+
+    // Get the value of this observation and update the index to point to the
+    // next one.
+    const value = this.observations_[this.index_];
+    this.index_ = (this.index_ + 1) % this.observations_.length;
+
+    // Fire all the callbacks that are observing this observable.
+    for (const fn of this.observers_) {
+      if (Array.isArray(value)) {
+        fn.apply(null, value);
+      } else {
+        fn(value);
+      }
+    }
+  }
+}
+
+/**
+ * Manages a map of fake observables and the fake data they will produce
+ * when triggered.
+ * @template T
+ */
+class FakeObservables {
+  constructor() {
+    /** @private {!Map<string, !FakeObservableState>} */
+    this.observables_ = new Map();
+
+    /**
+     * Set of observables that are capable of taking an additional argument.
+     * @private {!Set<string>}
+     */
+    this.sharedObservables_ = new Set();
+  }
+
+  /**
+   * Register an observable. Other calls to this class will assert if the
+   * observable has not been registered.
+   * @param {string} methodName
+   */
+  register(methodName) {
+    this.observables_.set(methodName, new FakeObservableState());
+  }
+
+  /**
+   * Register an observable that can take a single argument to its observe
+   * method. The argument can identify a more specific entity within a group to
+   * observe.
+   * @param {string} methodName
+   */
+  registerObservableWithArg(methodName) {
+    this.sharedObservables_.add(methodName);
+  }
+
+  /**
+   * Supply the callback for observing methodName.
+   * @param {string} methodName
+   * @param {!Function} callback
+   */
+  observe(methodName, callback) {
+    this.getObservable_(methodName).addObserver(callback);
+  }
+
+  /**
+   * Supply the callback for observing a methodName that belongs to a shared
+   * observer group.
+   * @param {string} methodName
+   * @param {string} arg
+   * @param {!function(!T)} callback
+   */
+  observeWithArg(methodName, arg, callback) {
+    this.getObservable_(this.lookupMethodWithArgName_(methodName, arg))
+        .addObserver(callback);
+  }
+
+  /**
+   * Sets the data that will be produced when the observable is triggered.
+   * Each observation produces the next value in the array and wraps around
+   * when all observations have been produced.
+   * If the observation type T is an array it will be treated as a list of
+   * parameters to the onObservation method using apply().
+   * @param {string} methodName
+   * @param {!Array<!T>} observations
+   */
+  setObservableData(methodName, observations) {
+    this.getObservable_(methodName).setObservableData(observations);
+  }
+
+  /**
+   * Sets the data that will be produced when an observable that takes
+   * arg as a parameter is triggered.
+   * @param {string} methodName
+   * @param {string} arg
+   * @param {!Array<!T>} observations
+   */
+  setObservableDataForArg(methodName, arg, observations) {
+    assert$1(
+        this.sharedObservables_.has(methodName),
+        `${methodName} not found in sharedObservables_`);
+    const methodNameToRegister = this.createMethodWithArgName_(methodName, arg);
+    const isMethodRegistered = !!this.observables_.get(methodNameToRegister);
+    if (!isMethodRegistered) {
+      this.register(methodNameToRegister);
+    }
+    this.setObservableData(methodNameToRegister, observations);
+  }
+
+  /**
+   * Start firing the observer on a fixed interval. setObservableData() must
+   * already have been called.
+   * @param {string} methodName
+   * @param {number} intervalMs
+   */
+  startTriggerOnInterval(methodName, intervalMs) {
+    this.getObservable_(methodName).startTriggerOnInterval(intervalMs);
+  }
+
+  /**
+   * Disables the observer firing automatically on an interval.
+   * @param {string} methodName
+   */
+  stopTriggerOnInterval(methodName) {
+    this.getObservable_(methodName).stopTriggerOnInterval();
+  }
+
+  /**
+   * Start firing the shared observer for |arg| on a fixed interval.
+   * setObservableData() must already have been called.
+   * @param {string} methodName
+   * @param {string} arg
+   * @param {number} intervalMs
+   */
+  startTriggerOnIntervalWithArg(methodName, arg, intervalMs) {
+    this.getObservable_(this.lookupMethodWithArgName_(methodName, arg))
+        .startTriggerOnInterval(intervalMs);
+  }
+
+  /**
+   * Disables the shared observer for |arg| firing automatically on an interval.
+   * @param {string} methodName
+   * @param {string} arg
+   */
+  stopTriggerOnIntervalWithArg(methodName, arg) {
+    this.getObservable_(this.lookupMethodWithArgName_(methodName, arg))
+        .stopTriggerOnInterval();
+  }
+
+  /**
+   * Disables all observers firing automatically on an interval.
+   */
+  stopAllTriggerIntervals() {
+    for (const obs of this.observables_.values()) {
+      obs.stopTriggerOnInterval();
+    }
+  }
+
+  /**
+   * Causes the observable to trigger and notify all observers of the next
+   * observation value.
+   * @param {string} methodName
+   */
+  trigger(methodName) {
+    this.getObservable_(methodName).trigger();
+  }
+
+  /**
+   * Causes a shared observable to trigger and notify all observers observing
+   * |arg| of the next observation value.
+   * @param {string} methodName
+   * @param {string} arg
+   */
+  triggerWithArg(methodName, arg) {
+    this.getObservable_(this.lookupMethodWithArgName_(methodName, arg))
+        .trigger();
+  }
+
+  /**
+   * Return the Observable for methodName.
+   * @param {string} methodName
+   * @return {!FakeObservableState}
+   * @private
+   */
+  getObservable_(methodName) {
+    const observable = this.observables_.get(methodName);
+    assert$1(!!observable, `Observable '${methodName}' not found.`);
+    return observable;
+  }
+
+  /**
+   * Returns a concatenated form of methodName and arg separated by
+   * an underscore.
+   * @param {string} methodName
+   * @param {string} arg
+   * @return {string}
+   * @private
+   */
+  createMethodWithArgName_(methodName, arg) {
+    return `${methodName}_${arg}`;
+  }
+
+  /**
+   * Returns the methodName that was registered for a shared observable.
+   * You must register methodName and set data specifically for arg before
+   * calling this method.
+   * @param {string} methodName
+   * @param {string} arg
+   * @return {string}
+   * @private
+   */
+  lookupMethodWithArgName_(methodName, arg) {
+    const observableName = this.createMethodWithArgName_(methodName, arg);
+    assert$1(
+        !!this.observables_.get(observableName),
+        `Observable '${observableName}' not found.`);
+    return observableName;
+  }
+}
+
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+class FakeShortcutInputProvider {
+    constructor() {
+        this.observables = new FakeObservables();
+        this.registerObservables();
+    }
+    getPrerewrittenKeyEvent() {
+        return this.prerewrittenKeyEvent;
+    }
+    sendKeyPressEvent(prerewrittenKeyEvent, keyEvent) {
+        this.observables.setObservableData('ShortcutInputObserver_OnShortcutInputEventPressed', [{ prerewrittenKeyEvent, keyEvent }]);
+        this.observables.trigger('ShortcutInputObserver_OnShortcutInputEventPressed');
+    }
+    sendKeyReleaseEvent(prerewrittenKeyEvent, keyEvent) {
+        this.observables.setObservableData('ShortcutInputObserver_OnShortcutInputEventReleased', [{ prerewrittenKeyEvent, keyEvent }]);
+        this.observables.trigger('ShortcutInputObserver_OnShortcutInputEventReleased');
+    }
+    startObservingShortcutInput(observer) {
+        this.observables.observe('ShortcutInputObserver_OnShortcutInputEventPressed', (detail) => {
+            observer.onShortcutInputEventPressed(detail.prerewrittenKeyEvent, detail.keyEvent);
+            this.prerewrittenKeyEvent = detail.prerewrittenKeyEvent;
+        });
+        this.observables.observe('ShortcutInputObserver_OnShortcutInputEventReleased', (detail) => {
+            observer.onShortcutInputEventReleased(detail.prerewrittenKeyEvent, detail.keyEvent);
+            this.prerewrittenKeyEvent = detail.prerewrittenKeyEvent;
+        });
+    }
+    stopObservingShortcutInput() {
+        this.observables = new FakeObservables();
+        this.registerObservables();
+    }
+    registerObservables() {
+        this.observables.register('ShortcutInputObserver_OnShortcutInputEventPressed');
+        this.observables.register('ShortcutInputObserver_OnShortcutInputEventReleased');
+    }
+}
+
+function getTemplate$6() {
+  return html`<!--_html_template_start_--><style>
+  .flex-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  #confirmContainer {
+    display: flex;
+    flex-direction: row;
+  }
+
+  #container:focus {
+    outline: none;
+  }
+
+  #keySeparator {
+    align-items: center;
+    display: flex;
+    padding-inline-end: 8px;
+  }
+</style>
+
+<div id="container" class="flex-row" tabindex="-1">
+  <template is="dom-if" if="[[shouldShowConfirmView(isCapturing)]]">
+    <div id="confirmContainer">
+      <template is="dom-repeat" items="[[modifiers]]">
+        <shortcut-input-key key="[[item]]" key-state="modifier-selected"
+            has-launcher-button="[[hasLauncherButton]]">
+        </shortcut-input-key>
+      </template>
+      <template is="dom-if"
+          if="[[shouldShowSeparator(showSeparator, modifiers)]]">
+        <div id="keySeparator"> + </div>
+      </template>
+      <template is="dom-if"
+          if="[[shouldShowSelectedKey(pendingKeyEvent.*,
+                                      pendingPrerewrittenKeyEvent.*)]]">
+        <shortcut-input-key id="confirmKey"
+            key="[[getConfirmKey(pendingKeyEvent.*,
+                                 pendingPrerewrittenKeyEvent.*)]]"
+            key-state="[[getConfirmKeyState(pendingKeyEvent.*,
+                                            pendingPrerewrittenKeyEvent.*)]]"
+            has-launcher-button="[[hasLauncherButton]]">
+        </shortcut-input-key>
+      </template>
+    </div>
+  </template>
+  <template is="dom-if" if="[[shouldShowEditView(isCapturing)]]">
+    <div id="editContainer" class="flex-row">
+      <shortcut-input-key id="ctrlKey"
+          key="ctrl"
+          key-state="[[getCtrlState(pendingKeyEvent.*,
+                                    pendingPrerewrittenKeyEvent.*)]]">
+      </shortcut-input-key>
+      <shortcut-input-key id="altKey"
+          key="alt"
+          key-state="[[getAltState(pendingKeyEvent.*,
+                                   pendingPrerewrittenKeyEvent.*)]]">
+      </shortcut-input-key>
+      <shortcut-input-key id="shiftKey"
+          key="shift"
+          key-state="[[getShiftState(pendingKeyEvent.*,
+                                    pendingPrerewrittenKeyEvent.*)]]">
+      </shortcut-input-key>
+      <shortcut-input-key id="searchKey"
+          key="meta"
+          key-state="[[getSearchState(pendingKeyEvent.*,
+                                      pendingPrerewrittenKeyEvent.*)]]"
+          has-launcher-button="[[hasLauncherButton]]">
+      </shortcut-input-key>
+      <div id="keySeparator"> + </div>
+      <shortcut-input-key id="pendingKey"
+          key="[[getKey(pendingKeyEvent.*, pendingPrerewrittenKeyEvent.*)]]"
+          key-state="[[getKeyState(pendingKeyEvent.*,
+                                   pendingPrerewrittenKeyEvent.*)]]"
+          has-launcher-button="[[hasLauncherButton]]">
+      </shortcut-input-key>
+    </div>
+  </template>
+</div>
+<!--_html_template_end_-->`;
+}
+
+// ash/public/mojom/accelerator_actions.mojom-webui.ts is auto generated by mojom_bindings_generator.py, do not edit
+// Copyright 2020 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+const AcceleratorActionSpec = { $: mojo.internal.Enum() };
+var AcceleratorAction;
+(function (AcceleratorAction) {
+    AcceleratorAction[AcceleratorAction["MIN_VALUE"] = 0] = "MIN_VALUE";
+    AcceleratorAction[AcceleratorAction["MAX_VALUE"] = 155] = "MAX_VALUE";
+    AcceleratorAction[AcceleratorAction["kBrightnessDown"] = 0] = "kBrightnessDown";
+    AcceleratorAction[AcceleratorAction["kBrightnessUp"] = 1] = "kBrightnessUp";
+    AcceleratorAction[AcceleratorAction["kCycleBackwardMru"] = 2] = "kCycleBackwardMru";
+    AcceleratorAction[AcceleratorAction["kCycleForwardMru"] = 3] = "kCycleForwardMru";
+    AcceleratorAction[AcceleratorAction["kCycleSameAppWindowsBackward"] = 4] = "kCycleSameAppWindowsBackward";
+    AcceleratorAction[AcceleratorAction["kCycleSameAppWindowsForward"] = 5] = "kCycleSameAppWindowsForward";
+    AcceleratorAction[AcceleratorAction["kDesksActivateDeskLeft"] = 6] = "kDesksActivateDeskLeft";
+    AcceleratorAction[AcceleratorAction["kDesksActivateDeskRight"] = 7] = "kDesksActivateDeskRight";
+    AcceleratorAction[AcceleratorAction["kDesksMoveActiveItemLeft"] = 8] = "kDesksMoveActiveItemLeft";
+    AcceleratorAction[AcceleratorAction["kDesksMoveActiveItemRight"] = 9] = "kDesksMoveActiveItemRight";
+    AcceleratorAction[AcceleratorAction["kDesksNewDesk"] = 10] = "kDesksNewDesk";
+    AcceleratorAction[AcceleratorAction["kDesksRemoveCurrentDesk"] = 11] = "kDesksRemoveCurrentDesk";
+    AcceleratorAction[AcceleratorAction["kDesksActivate0"] = 12] = "kDesksActivate0";
+    AcceleratorAction[AcceleratorAction["kDesksActivate1"] = 13] = "kDesksActivate1";
+    AcceleratorAction[AcceleratorAction["kDesksActivate2"] = 14] = "kDesksActivate2";
+    AcceleratorAction[AcceleratorAction["kDesksActivate3"] = 15] = "kDesksActivate3";
+    AcceleratorAction[AcceleratorAction["kDesksActivate4"] = 16] = "kDesksActivate4";
+    AcceleratorAction[AcceleratorAction["kDesksActivate5"] = 17] = "kDesksActivate5";
+    AcceleratorAction[AcceleratorAction["kDesksActivate6"] = 18] = "kDesksActivate6";
+    AcceleratorAction[AcceleratorAction["kDesksActivate7"] = 19] = "kDesksActivate7";
+    AcceleratorAction[AcceleratorAction["kDesksToggleAssignToAllDesks"] = 20] = "kDesksToggleAssignToAllDesks";
+    AcceleratorAction[AcceleratorAction["kDisableCapsLock"] = 21] = "kDisableCapsLock";
+    AcceleratorAction[AcceleratorAction["kEnableOrToggleDictation"] = 22] = "kEnableOrToggleDictation";
+    AcceleratorAction[AcceleratorAction["kExit"] = 23] = "kExit";
+    AcceleratorAction[AcceleratorAction["kFocusCameraPreview"] = 24] = "kFocusCameraPreview";
+    AcceleratorAction[AcceleratorAction["kFocusNextPane"] = 25] = "kFocusNextPane";
+    AcceleratorAction[AcceleratorAction["kFocusPreviousPane"] = 26] = "kFocusPreviousPane";
+    AcceleratorAction[AcceleratorAction["kFocusShelf"] = 27] = "kFocusShelf";
+    AcceleratorAction[AcceleratorAction["kFocusPip"] = 28] = "kFocusPip";
+    AcceleratorAction[AcceleratorAction["kKeyboardBacklightToggle"] = 29] = "kKeyboardBacklightToggle";
+    AcceleratorAction[AcceleratorAction["kKeyboardBrightnessDown"] = 30] = "kKeyboardBrightnessDown";
+    AcceleratorAction[AcceleratorAction["kKeyboardBrightnessUp"] = 31] = "kKeyboardBrightnessUp";
+    AcceleratorAction[AcceleratorAction["kLaunchApp0"] = 32] = "kLaunchApp0";
+    AcceleratorAction[AcceleratorAction["kLaunchApp1"] = 33] = "kLaunchApp1";
+    AcceleratorAction[AcceleratorAction["kLaunchApp2"] = 34] = "kLaunchApp2";
+    AcceleratorAction[AcceleratorAction["kLaunchApp3"] = 35] = "kLaunchApp3";
+    AcceleratorAction[AcceleratorAction["kLaunchApp4"] = 36] = "kLaunchApp4";
+    AcceleratorAction[AcceleratorAction["kLaunchApp5"] = 37] = "kLaunchApp5";
+    AcceleratorAction[AcceleratorAction["kLaunchApp6"] = 38] = "kLaunchApp6";
+    AcceleratorAction[AcceleratorAction["kLaunchApp7"] = 39] = "kLaunchApp7";
+    AcceleratorAction[AcceleratorAction["kLaunchLastApp"] = 40] = "kLaunchLastApp";
+    AcceleratorAction[AcceleratorAction["kLockPressed"] = 41] = "kLockPressed";
+    AcceleratorAction[AcceleratorAction["kLockReleased"] = 42] = "kLockReleased";
+    AcceleratorAction[AcceleratorAction["kLockScreen"] = 43] = "kLockScreen";
+    AcceleratorAction[AcceleratorAction["kMagnifierZoomIn"] = 44] = "kMagnifierZoomIn";
+    AcceleratorAction[AcceleratorAction["kMagnifierZoomOut"] = 45] = "kMagnifierZoomOut";
+    AcceleratorAction[AcceleratorAction["kMediaFastForward"] = 46] = "kMediaFastForward";
+    AcceleratorAction[AcceleratorAction["kMediaNextTrack"] = 47] = "kMediaNextTrack";
+    AcceleratorAction[AcceleratorAction["kMediaPause"] = 48] = "kMediaPause";
+    AcceleratorAction[AcceleratorAction["kMediaPlay"] = 49] = "kMediaPlay";
+    AcceleratorAction[AcceleratorAction["kMediaPlayPause"] = 50] = "kMediaPlayPause";
+    AcceleratorAction[AcceleratorAction["kMediaPrevTrack"] = 51] = "kMediaPrevTrack";
+    AcceleratorAction[AcceleratorAction["kMediaRewind"] = 52] = "kMediaRewind";
+    AcceleratorAction[AcceleratorAction["kMediaStop"] = 53] = "kMediaStop";
+    AcceleratorAction[AcceleratorAction["kMicrophoneMuteToggle"] = 54] = "kMicrophoneMuteToggle";
+    AcceleratorAction[AcceleratorAction["kMoveActiveWindowBetweenDisplays"] = 55] = "kMoveActiveWindowBetweenDisplays";
+    AcceleratorAction[AcceleratorAction["kNewIncognitoWindow"] = 56] = "kNewIncognitoWindow";
+    AcceleratorAction[AcceleratorAction["kNewTab"] = 57] = "kNewTab";
+    AcceleratorAction[AcceleratorAction["kNewWindow"] = 58] = "kNewWindow";
+    AcceleratorAction[AcceleratorAction["kOpenCalculator"] = 59] = "kOpenCalculator";
+    AcceleratorAction[AcceleratorAction["kOpenCrosh"] = 60] = "kOpenCrosh";
+    AcceleratorAction[AcceleratorAction["kOpenDiagnostics"] = 61] = "kOpenDiagnostics";
+    AcceleratorAction[AcceleratorAction["kOpenFeedbackPage"] = 62] = "kOpenFeedbackPage";
+    AcceleratorAction[AcceleratorAction["kOpenFileManager"] = 63] = "kOpenFileManager";
+    AcceleratorAction[AcceleratorAction["kOpenGetHelp"] = 64] = "kOpenGetHelp";
+    AcceleratorAction[AcceleratorAction["kPasteClipboardHistoryPlainText"] = 65] = "kPasteClipboardHistoryPlainText";
+    AcceleratorAction[AcceleratorAction["kPowerPressed"] = 66] = "kPowerPressed";
+    AcceleratorAction[AcceleratorAction["kPowerReleased"] = 67] = "kPowerReleased";
+    AcceleratorAction[AcceleratorAction["kPrintUiHierarchies"] = 68] = "kPrintUiHierarchies";
+    AcceleratorAction[AcceleratorAction["kPrivacyScreenToggle"] = 69] = "kPrivacyScreenToggle";
+    AcceleratorAction[AcceleratorAction["kRestoreTab"] = 70] = "kRestoreTab";
+    AcceleratorAction[AcceleratorAction["kRotateScreen"] = 71] = "kRotateScreen";
+    AcceleratorAction[AcceleratorAction["kRotateWindow"] = 72] = "kRotateWindow";
+    AcceleratorAction[AcceleratorAction["kScaleUiDown"] = 73] = "kScaleUiDown";
+    AcceleratorAction[AcceleratorAction["kScaleUiReset"] = 74] = "kScaleUiReset";
+    AcceleratorAction[AcceleratorAction["kScaleUiUp"] = 75] = "kScaleUiUp";
+    AcceleratorAction[AcceleratorAction["kShowEmojiPicker"] = 76] = "kShowEmojiPicker";
+    AcceleratorAction[AcceleratorAction["kToggleImeMenuBubble"] = 77] = "kToggleImeMenuBubble";
+    AcceleratorAction[AcceleratorAction["kShowShortcutViewer"] = 78] = "kShowShortcutViewer";
+    AcceleratorAction[AcceleratorAction["kShowTaskManager"] = 79] = "kShowTaskManager";
+    AcceleratorAction[AcceleratorAction["kStartAssistant"] = 80] = "kStartAssistant";
+    AcceleratorAction[AcceleratorAction["kStopScreenRecording"] = 81] = "kStopScreenRecording";
+    AcceleratorAction[AcceleratorAction["kSuspend"] = 82] = "kSuspend";
+    AcceleratorAction[AcceleratorAction["kSwapPrimaryDisplay"] = 83] = "kSwapPrimaryDisplay";
+    AcceleratorAction[AcceleratorAction["kSwitchIme"] = 84] = "kSwitchIme";
+    AcceleratorAction[AcceleratorAction["kSwitchToLastUsedIme"] = 85] = "kSwitchToLastUsedIme";
+    AcceleratorAction[AcceleratorAction["kSwitchToNextIme"] = 86] = "kSwitchToNextIme";
+    AcceleratorAction[AcceleratorAction["kSwitchToNextUser"] = 87] = "kSwitchToNextUser";
+    AcceleratorAction[AcceleratorAction["kSwitchToPreviousUser"] = 88] = "kSwitchToPreviousUser";
+    AcceleratorAction[AcceleratorAction["kTakePartialScreenshot"] = 89] = "kTakePartialScreenshot";
+    AcceleratorAction[AcceleratorAction["kTakeScreenshot"] = 90] = "kTakeScreenshot";
+    AcceleratorAction[AcceleratorAction["kTakeWindowScreenshot"] = 91] = "kTakeWindowScreenshot";
+    AcceleratorAction[AcceleratorAction["kToggleAppList"] = 92] = "kToggleAppList";
+    AcceleratorAction[AcceleratorAction["kToggleCalendar"] = 93] = "kToggleCalendar";
+    AcceleratorAction[AcceleratorAction["kToggleCapsLock"] = 94] = "kToggleCapsLock";
+    AcceleratorAction[AcceleratorAction["kToggleClipboardHistory"] = 95] = "kToggleClipboardHistory";
+    AcceleratorAction[AcceleratorAction["kToggleDockedMagnifier"] = 96] = "kToggleDockedMagnifier";
+    AcceleratorAction[AcceleratorAction["kToggleFloating"] = 97] = "kToggleFloating";
+    AcceleratorAction[AcceleratorAction["kToggleFullscreen"] = 98] = "kToggleFullscreen";
+    AcceleratorAction[AcceleratorAction["kToggleFullscreenMagnifier"] = 99] = "kToggleFullscreenMagnifier";
+    AcceleratorAction[AcceleratorAction["kToggleGameDashboard"] = 100] = "kToggleGameDashboard";
+    AcceleratorAction[AcceleratorAction["kToggleHighContrast"] = 101] = "kToggleHighContrast";
+    AcceleratorAction[AcceleratorAction["kToggleMaximized"] = 102] = "kToggleMaximized";
+    AcceleratorAction[AcceleratorAction["kToggleMessageCenterBubble"] = 103] = "kToggleMessageCenterBubble";
+    AcceleratorAction[AcceleratorAction["kToggleMirrorMode"] = 104] = "kToggleMirrorMode";
+    AcceleratorAction[AcceleratorAction["kToggleMultitaskMenu"] = 105] = "kToggleMultitaskMenu";
+    AcceleratorAction[AcceleratorAction["kToggleOverview"] = 106] = "kToggleOverview";
+    AcceleratorAction[AcceleratorAction["kToggleProjectorMarker"] = 107] = "kToggleProjectorMarker";
+    AcceleratorAction[AcceleratorAction["kToggleResizeLockMenu"] = 108] = "kToggleResizeLockMenu";
+    AcceleratorAction[AcceleratorAction["kToggleSnapGroupWindowsGroupAndUngroup"] = 109] = "kToggleSnapGroupWindowsGroupAndUngroup";
+    AcceleratorAction[AcceleratorAction["kToggleSnapGroupWindowsMinimizeAndRestore"] = 110] = "kToggleSnapGroupWindowsMinimizeAndRestore";
+    AcceleratorAction[AcceleratorAction["kToggleSpokenFeedback"] = 111] = "kToggleSpokenFeedback";
+    AcceleratorAction[AcceleratorAction["kToggleStylusTools"] = 112] = "kToggleStylusTools";
+    AcceleratorAction[AcceleratorAction["kToggleSystemTrayBubble"] = 113] = "kToggleSystemTrayBubble";
+    AcceleratorAction[AcceleratorAction["kToggleWifi"] = 114] = "kToggleWifi";
+    AcceleratorAction[AcceleratorAction["kTouchHudClear"] = 115] = "kTouchHudClear";
+    AcceleratorAction[AcceleratorAction["kTouchHudModeChange"] = 116] = "kTouchHudModeChange";
+    AcceleratorAction[AcceleratorAction["kTouchFingerprintSensor1"] = 117] = "kTouchFingerprintSensor1";
+    AcceleratorAction[AcceleratorAction["kTouchFingerprintSensor2"] = 118] = "kTouchFingerprintSensor2";
+    AcceleratorAction[AcceleratorAction["kTouchFingerprintSensor3"] = 119] = "kTouchFingerprintSensor3";
+    AcceleratorAction[AcceleratorAction["kUnpin"] = 120] = "kUnpin";
+    AcceleratorAction[AcceleratorAction["kVolumeDown"] = 121] = "kVolumeDown";
+    AcceleratorAction[AcceleratorAction["kVolumeMute"] = 122] = "kVolumeMute";
+    AcceleratorAction[AcceleratorAction["kVolumeUp"] = 123] = "kVolumeUp";
+    AcceleratorAction[AcceleratorAction["kWindowCycleSnapLeft"] = 124] = "kWindowCycleSnapLeft";
+    AcceleratorAction[AcceleratorAction["kWindowCycleSnapRight"] = 125] = "kWindowCycleSnapRight";
+    AcceleratorAction[AcceleratorAction["kWindowMinimize"] = 126] = "kWindowMinimize";
+    AcceleratorAction[AcceleratorAction["kMinimizeTopWindowOnBack"] = 127] = "kMinimizeTopWindowOnBack";
+    AcceleratorAction[AcceleratorAction["kVolumeMuteToggle"] = 128] = "kVolumeMuteToggle";
+    AcceleratorAction[AcceleratorAction["kDebugClearUseKMeansPref"] = 129] = "kDebugClearUseKMeansPref";
+    AcceleratorAction[AcceleratorAction["kDebugKeyboardBacklightToggle"] = 130] = "kDebugKeyboardBacklightToggle";
+    AcceleratorAction[AcceleratorAction["kDebugMicrophoneMuteToggle"] = 131] = "kDebugMicrophoneMuteToggle";
+    AcceleratorAction[AcceleratorAction["kDebugPrintLayerHierarchy"] = 132] = "kDebugPrintLayerHierarchy";
+    AcceleratorAction[AcceleratorAction["kDebugPrintViewHierarchy"] = 133] = "kDebugPrintViewHierarchy";
+    AcceleratorAction[AcceleratorAction["kDebugPrintWindowHierarchy"] = 134] = "kDebugPrintWindowHierarchy";
+    AcceleratorAction[AcceleratorAction["kDebugShowInformedRestore"] = 135] = "kDebugShowInformedRestore";
+    AcceleratorAction[AcceleratorAction["kDebugShowToast"] = 136] = "kDebugShowToast";
+    AcceleratorAction[AcceleratorAction["kDebugShowSystemNudge"] = 137] = "kDebugShowSystemNudge";
+    AcceleratorAction[AcceleratorAction["kDebugSystemUiStyleViewer"] = 138] = "kDebugSystemUiStyleViewer";
+    AcceleratorAction[AcceleratorAction["kDebugToggleDarkMode"] = 139] = "kDebugToggleDarkMode";
+    AcceleratorAction[AcceleratorAction["kDebugToggleDynamicColor"] = 140] = "kDebugToggleDynamicColor";
+    AcceleratorAction[AcceleratorAction["kDebugTogglePowerButtonMenu"] = 141] = "kDebugTogglePowerButtonMenu";
+    AcceleratorAction[AcceleratorAction["kDebugToggleShowDebugBorders"] = 142] = "kDebugToggleShowDebugBorders";
+    AcceleratorAction[AcceleratorAction["kDebugToggleShowFpsCounter"] = 143] = "kDebugToggleShowFpsCounter";
+    AcceleratorAction[AcceleratorAction["kDebugToggleShowPaintRects"] = 144] = "kDebugToggleShowPaintRects";
+    AcceleratorAction[AcceleratorAction["kDebugToggleTouchPad"] = 145] = "kDebugToggleTouchPad";
+    AcceleratorAction[AcceleratorAction["kDebugToggleTouchScreen"] = 146] = "kDebugToggleTouchScreen";
+    AcceleratorAction[AcceleratorAction["kDebugToggleTabletMode"] = 147] = "kDebugToggleTabletMode";
+    AcceleratorAction[AcceleratorAction["kDebugToggleVideoConferenceCameraTrayIcon"] = 148] = "kDebugToggleVideoConferenceCameraTrayIcon";
+    AcceleratorAction[AcceleratorAction["kDebugToggleWallpaperMode"] = 149] = "kDebugToggleWallpaperMode";
+    AcceleratorAction[AcceleratorAction["kDebugTriggerCrash"] = 150] = "kDebugTriggerCrash";
+    AcceleratorAction[AcceleratorAction["kDebugToggleHudDisplay"] = 151] = "kDebugToggleHudDisplay";
+    AcceleratorAction[AcceleratorAction["kDebugToggleVirtualTrackpad"] = 152] = "kDebugToggleVirtualTrackpad";
+    AcceleratorAction[AcceleratorAction["kDevAddRemoveDisplay"] = 153] = "kDevAddRemoveDisplay";
+    AcceleratorAction[AcceleratorAction["kDevToggleAppList"] = 154] = "kDevToggleAppList";
+    AcceleratorAction[AcceleratorAction["kDevToggleUnifiedDesktop"] = 155] = "kDevToggleUnifiedDesktop";
+})(AcceleratorAction || (AcceleratorAction = {}));
+
+// ash/public/mojom/accelerator_keys.mojom-webui.ts is auto generated by mojom_bindings_generator.py, do not edit
+// Copyright 2020 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+const VKeySpec = { $: mojo.internal.Enum() };
+var VKey;
+(function (VKey) {
+    VKey[VKey["MIN_VALUE"] = 0] = "MIN_VALUE";
+    VKey[VKey["MAX_VALUE"] = 254] = "MAX_VALUE";
+    VKey[VKey["kCancel"] = 3] = "kCancel";
+    VKey[VKey["kBack"] = 8] = "kBack";
+    VKey[VKey["kTab"] = 9] = "kTab";
+    VKey[VKey["kBackTab"] = 10] = "kBackTab";
+    VKey[VKey["kClear"] = 12] = "kClear";
+    VKey[VKey["kReturn"] = 13] = "kReturn";
+    VKey[VKey["kShift"] = 16] = "kShift";
+    VKey[VKey["kControl"] = 17] = "kControl";
+    VKey[VKey["kMenu"] = 18] = "kMenu";
+    VKey[VKey["kPause"] = 19] = "kPause";
+    VKey[VKey["kCapital"] = 20] = "kCapital";
+    VKey[VKey["kKana"] = 21] = "kKana";
+    VKey[VKey["kHangul"] = 21] = "kHangul";
+    VKey[VKey["kPaste"] = 22] = "kPaste";
+    VKey[VKey["kJunja"] = 23] = "kJunja";
+    VKey[VKey["kFinal"] = 24] = "kFinal";
+    VKey[VKey["kHanja"] = 25] = "kHanja";
+    VKey[VKey["kKanji"] = 25] = "kKanji";
+    VKey[VKey["kEscape"] = 27] = "kEscape";
+    VKey[VKey["kConvert"] = 28] = "kConvert";
+    VKey[VKey["kNonConvert"] = 29] = "kNonConvert";
+    VKey[VKey["kAccept"] = 30] = "kAccept";
+    VKey[VKey["kModeChange"] = 31] = "kModeChange";
+    VKey[VKey["kSpace"] = 32] = "kSpace";
+    VKey[VKey["kPrior"] = 33] = "kPrior";
+    VKey[VKey["kNext"] = 34] = "kNext";
+    VKey[VKey["kEnd"] = 35] = "kEnd";
+    VKey[VKey["kHome"] = 36] = "kHome";
+    VKey[VKey["kLeft"] = 37] = "kLeft";
+    VKey[VKey["kUp"] = 38] = "kUp";
+    VKey[VKey["kRight"] = 39] = "kRight";
+    VKey[VKey["kDown"] = 40] = "kDown";
+    VKey[VKey["kSelect"] = 41] = "kSelect";
+    VKey[VKey["kPrint"] = 42] = "kPrint";
+    VKey[VKey["kExecute"] = 43] = "kExecute";
+    VKey[VKey["kSnapshot"] = 44] = "kSnapshot";
+    VKey[VKey["kInsert"] = 45] = "kInsert";
+    VKey[VKey["kDelete"] = 46] = "kDelete";
+    VKey[VKey["kHelp"] = 47] = "kHelp";
+    VKey[VKey["kNum0"] = 48] = "kNum0";
+    VKey[VKey["kNum1"] = 49] = "kNum1";
+    VKey[VKey["kNum2"] = 50] = "kNum2";
+    VKey[VKey["kNum3"] = 51] = "kNum3";
+    VKey[VKey["kNum4"] = 52] = "kNum4";
+    VKey[VKey["kNum5"] = 53] = "kNum5";
+    VKey[VKey["kNum6"] = 54] = "kNum6";
+    VKey[VKey["kNum7"] = 55] = "kNum7";
+    VKey[VKey["kNum8"] = 56] = "kNum8";
+    VKey[VKey["kNum9"] = 57] = "kNum9";
+    VKey[VKey["kKeyA"] = 65] = "kKeyA";
+    VKey[VKey["kKeyB"] = 66] = "kKeyB";
+    VKey[VKey["kKeyC"] = 67] = "kKeyC";
+    VKey[VKey["kKeyD"] = 68] = "kKeyD";
+    VKey[VKey["kKeyE"] = 69] = "kKeyE";
+    VKey[VKey["kKeyF"] = 70] = "kKeyF";
+    VKey[VKey["kKeyG"] = 71] = "kKeyG";
+    VKey[VKey["kKeyH"] = 72] = "kKeyH";
+    VKey[VKey["kKeyI"] = 73] = "kKeyI";
+    VKey[VKey["kKeyJ"] = 74] = "kKeyJ";
+    VKey[VKey["kKeyK"] = 75] = "kKeyK";
+    VKey[VKey["kKeyL"] = 76] = "kKeyL";
+    VKey[VKey["kKeyM"] = 77] = "kKeyM";
+    VKey[VKey["kKeyN"] = 78] = "kKeyN";
+    VKey[VKey["kKeyO"] = 79] = "kKeyO";
+    VKey[VKey["kKeyP"] = 80] = "kKeyP";
+    VKey[VKey["kKeyQ"] = 81] = "kKeyQ";
+    VKey[VKey["kKeyR"] = 82] = "kKeyR";
+    VKey[VKey["kKeyS"] = 83] = "kKeyS";
+    VKey[VKey["kKeyT"] = 84] = "kKeyT";
+    VKey[VKey["kKeyU"] = 85] = "kKeyU";
+    VKey[VKey["kKeyV"] = 86] = "kKeyV";
+    VKey[VKey["kKeyW"] = 87] = "kKeyW";
+    VKey[VKey["kKeyX"] = 88] = "kKeyX";
+    VKey[VKey["kKeyY"] = 89] = "kKeyY";
+    VKey[VKey["kKeyZ"] = 90] = "kKeyZ";
+    VKey[VKey["kLWin"] = 91] = "kLWin";
+    VKey[VKey["kCommand"] = 91] = "kCommand";
+    VKey[VKey["kRWin"] = 92] = "kRWin";
+    VKey[VKey["kApps"] = 93] = "kApps";
+    VKey[VKey["kSleep"] = 95] = "kSleep";
+    VKey[VKey["kNumpad0"] = 96] = "kNumpad0";
+    VKey[VKey["kNumpad1"] = 97] = "kNumpad1";
+    VKey[VKey["kNumpad2"] = 98] = "kNumpad2";
+    VKey[VKey["kNumpad3"] = 99] = "kNumpad3";
+    VKey[VKey["kNumpad4"] = 100] = "kNumpad4";
+    VKey[VKey["kNumpad5"] = 101] = "kNumpad5";
+    VKey[VKey["kNumpad6"] = 102] = "kNumpad6";
+    VKey[VKey["kNumpad7"] = 103] = "kNumpad7";
+    VKey[VKey["kNumpad8"] = 104] = "kNumpad8";
+    VKey[VKey["kNumpad9"] = 105] = "kNumpad9";
+    VKey[VKey["kMultiply"] = 106] = "kMultiply";
+    VKey[VKey["kAdd"] = 107] = "kAdd";
+    VKey[VKey["kSeparator"] = 108] = "kSeparator";
+    VKey[VKey["kSubtract"] = 109] = "kSubtract";
+    VKey[VKey["kDecimal"] = 110] = "kDecimal";
+    VKey[VKey["kDivide"] = 111] = "kDivide";
+    VKey[VKey["kF1"] = 112] = "kF1";
+    VKey[VKey["kF2"] = 113] = "kF2";
+    VKey[VKey["kF3"] = 114] = "kF3";
+    VKey[VKey["kF4"] = 115] = "kF4";
+    VKey[VKey["kF5"] = 116] = "kF5";
+    VKey[VKey["kF6"] = 117] = "kF6";
+    VKey[VKey["kF7"] = 118] = "kF7";
+    VKey[VKey["kF8"] = 119] = "kF8";
+    VKey[VKey["kF9"] = 120] = "kF9";
+    VKey[VKey["kF10"] = 121] = "kF10";
+    VKey[VKey["kF11"] = 122] = "kF11";
+    VKey[VKey["kF12"] = 123] = "kF12";
+    VKey[VKey["kF13"] = 124] = "kF13";
+    VKey[VKey["kF14"] = 125] = "kF14";
+    VKey[VKey["kF15"] = 126] = "kF15";
+    VKey[VKey["kF16"] = 127] = "kF16";
+    VKey[VKey["kF17"] = 128] = "kF17";
+    VKey[VKey["kF18"] = 129] = "kF18";
+    VKey[VKey["kF19"] = 130] = "kF19";
+    VKey[VKey["kF20"] = 131] = "kF20";
+    VKey[VKey["kF21"] = 132] = "kF21";
+    VKey[VKey["kF22"] = 133] = "kF22";
+    VKey[VKey["kF23"] = 134] = "kF23";
+    VKey[VKey["kF24"] = 135] = "kF24";
+    VKey[VKey["kNumLock"] = 144] = "kNumLock";
+    VKey[VKey["kScroll"] = 145] = "kScroll";
+    VKey[VKey["kLShift"] = 160] = "kLShift";
+    VKey[VKey["kRShift"] = 161] = "kRShift";
+    VKey[VKey["kLControl"] = 162] = "kLControl";
+    VKey[VKey["kRControl"] = 163] = "kRControl";
+    VKey[VKey["kLMenu"] = 164] = "kLMenu";
+    VKey[VKey["kRMenu"] = 165] = "kRMenu";
+    VKey[VKey["kBrowserBack"] = 166] = "kBrowserBack";
+    VKey[VKey["kBrowserForward"] = 167] = "kBrowserForward";
+    VKey[VKey["kBrowserRefresh"] = 168] = "kBrowserRefresh";
+    VKey[VKey["kBrowserStop"] = 169] = "kBrowserStop";
+    VKey[VKey["kBrowserSearch"] = 170] = "kBrowserSearch";
+    VKey[VKey["kBrowserFavorites"] = 171] = "kBrowserFavorites";
+    VKey[VKey["kBrowserHome"] = 172] = "kBrowserHome";
+    VKey[VKey["kVolumeMute"] = 173] = "kVolumeMute";
+    VKey[VKey["kVolumeDown"] = 174] = "kVolumeDown";
+    VKey[VKey["kVolumeUp"] = 175] = "kVolumeUp";
+    VKey[VKey["kMediaNextTrack"] = 176] = "kMediaNextTrack";
+    VKey[VKey["kMediaPrevTrack"] = 177] = "kMediaPrevTrack";
+    VKey[VKey["kMediaStop"] = 178] = "kMediaStop";
+    VKey[VKey["kMediaPlayPause"] = 179] = "kMediaPlayPause";
+    VKey[VKey["kMediaLaunchMail"] = 180] = "kMediaLaunchMail";
+    VKey[VKey["kMediaLaunchMediaSelect"] = 181] = "kMediaLaunchMediaSelect";
+    VKey[VKey["kMediaLaunchApp1"] = 182] = "kMediaLaunchApp1";
+    VKey[VKey["kMediaLaunchApp2"] = 183] = "kMediaLaunchApp2";
+    VKey[VKey["kOem1"] = 186] = "kOem1";
+    VKey[VKey["kOemPlus"] = 187] = "kOemPlus";
+    VKey[VKey["kOemComma"] = 188] = "kOemComma";
+    VKey[VKey["kOemMinus"] = 189] = "kOemMinus";
+    VKey[VKey["kOemPeriod"] = 190] = "kOemPeriod";
+    VKey[VKey["kOem2"] = 191] = "kOem2";
+    VKey[VKey["kOem3"] = 192] = "kOem3";
+    VKey[VKey["kOem4"] = 219] = "kOem4";
+    VKey[VKey["kOem5"] = 220] = "kOem5";
+    VKey[VKey["kOem6"] = 221] = "kOem6";
+    VKey[VKey["kOem7"] = 222] = "kOem7";
+    VKey[VKey["kOem8"] = 223] = "kOem8";
+    VKey[VKey["kOem102"] = 226] = "kOem102";
+    VKey[VKey["kOem103"] = 227] = "kOem103";
+    VKey[VKey["kOem104"] = 228] = "kOem104";
+    VKey[VKey["kProcessKey"] = 229] = "kProcessKey";
+    VKey[VKey["kPacket"] = 231] = "kPacket";
+    VKey[VKey["kOemAttn"] = 240] = "kOemAttn";
+    VKey[VKey["kOemFinish"] = 241] = "kOemFinish";
+    VKey[VKey["kOemCopy"] = 242] = "kOemCopy";
+    VKey[VKey["kDbeSbcsChar"] = 243] = "kDbeSbcsChar";
+    VKey[VKey["kDbeDbcsChar"] = 244] = "kDbeDbcsChar";
+    VKey[VKey["kOemBacktab"] = 245] = "kOemBacktab";
+    VKey[VKey["kAttn"] = 246] = "kAttn";
+    VKey[VKey["kCrsel"] = 247] = "kCrsel";
+    VKey[VKey["kExsel"] = 248] = "kExsel";
+    VKey[VKey["kEreof"] = 249] = "kEreof";
+    VKey[VKey["kPlay"] = 250] = "kPlay";
+    VKey[VKey["kZoom"] = 251] = "kZoom";
+    VKey[VKey["kNoName"] = 252] = "kNoName";
+    VKey[VKey["kPA1"] = 253] = "kPA1";
+    VKey[VKey["kOemClear"] = 254] = "kOemClear";
+    VKey[VKey["kUnknown"] = 0] = "kUnknown";
+    VKey[VKey["kWlan"] = 151] = "kWlan";
+    VKey[VKey["kPower"] = 152] = "kPower";
+    VKey[VKey["kAssistant"] = 153] = "kAssistant";
+    VKey[VKey["kSettings"] = 154] = "kSettings";
+    VKey[VKey["kPrivacyScreenToggle"] = 155] = "kPrivacyScreenToggle";
+    VKey[VKey["kMicrophoneMuteToggle"] = 159] = "kMicrophoneMuteToggle";
+    VKey[VKey["kBrightnessDown"] = 216] = "kBrightnessDown";
+    VKey[VKey["kBrightnessUp"] = 217] = "kBrightnessUp";
+    VKey[VKey["kKbdBrightnessToggle"] = 184] = "kKbdBrightnessToggle";
+    VKey[VKey["kKbdBrightnessDown"] = 218] = "kKbdBrightnessDown";
+    VKey[VKey["kKbdBrightnessUp"] = 232] = "kKbdBrightnessUp";
+    VKey[VKey["kAltGr"] = 225] = "kAltGr";
+    VKey[VKey["kCompose"] = 230] = "kCompose";
+    VKey[VKey["kMediaPlay"] = 233] = "kMediaPlay";
+    VKey[VKey["kMediaPause"] = 234] = "kMediaPause";
+    VKey[VKey["kNew"] = 235] = "kNew";
+    VKey[VKey["kClose"] = 236] = "kClose";
+    VKey[VKey["kEmojiPicker"] = 237] = "kEmojiPicker";
+    VKey[VKey["kDictate"] = 238] = "kDictate";
+    VKey[VKey["kAllApplications"] = 239] = "kAllApplications";
+})(VKey || (VKey = {}));
+
+// ui/events/ash/mojom/extended_fkeys_modifier.mojom-webui.ts is auto generated by mojom_bindings_generator.py, do not edit
+// Copyright 2020 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+const ExtendedFkeysModifierSpec = { $: mojo.internal.Enum() };
+var ExtendedFkeysModifier;
+(function (ExtendedFkeysModifier) {
+    ExtendedFkeysModifier[ExtendedFkeysModifier["MIN_VALUE"] = 0] = "MIN_VALUE";
+    ExtendedFkeysModifier[ExtendedFkeysModifier["MAX_VALUE"] = 3] = "MAX_VALUE";
+    ExtendedFkeysModifier[ExtendedFkeysModifier["kDisabled"] = 0] = "kDisabled";
+    ExtendedFkeysModifier[ExtendedFkeysModifier["kAlt"] = 1] = "kAlt";
+    ExtendedFkeysModifier[ExtendedFkeysModifier["kShift"] = 2] = "kShift";
+    ExtendedFkeysModifier[ExtendedFkeysModifier["kCtrlShift"] = 3] = "kCtrlShift";
+})(ExtendedFkeysModifier || (ExtendedFkeysModifier = {}));
+
+// ui/events/ash/mojom/modifier_key.mojom-webui.ts is auto generated by mojom_bindings_generator.py, do not edit
+// Copyright 2020 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+const ModifierKeySpec = { $: mojo.internal.Enum() };
+var ModifierKey;
+(function (ModifierKey) {
+    ModifierKey[ModifierKey["MIN_VALUE"] = 0] = "MIN_VALUE";
+    ModifierKey[ModifierKey["MAX_VALUE"] = 8] = "MAX_VALUE";
+    ModifierKey[ModifierKey["kMeta"] = 0] = "kMeta";
+    ModifierKey[ModifierKey["kControl"] = 1] = "kControl";
+    ModifierKey[ModifierKey["kAlt"] = 2] = "kAlt";
+    ModifierKey[ModifierKey["kVoid"] = 3] = "kVoid";
+    ModifierKey[ModifierKey["kCapsLock"] = 4] = "kCapsLock";
+    ModifierKey[ModifierKey["kEscape"] = 5] = "kEscape";
+    ModifierKey[ModifierKey["kBackspace"] = 6] = "kBackspace";
+    ModifierKey[ModifierKey["kAssistant"] = 7] = "kAssistant";
+    ModifierKey[ModifierKey["kIsoLevel5ShiftMod3"] = 8] = "kIsoLevel5ShiftMod3";
+})(ModifierKey || (ModifierKey = {}));
+
+// ui/events/ash/mojom/simulate_right_click_modifier.mojom-webui.ts is auto generated by mojom_bindings_generator.py, do not edit
+// Copyright 2020 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+const SimulateRightClickModifierSpec = { $: mojo.internal.Enum() };
+var SimulateRightClickModifier;
+(function (SimulateRightClickModifier) {
+    SimulateRightClickModifier[SimulateRightClickModifier["MIN_VALUE"] = 0] = "MIN_VALUE";
+    SimulateRightClickModifier[SimulateRightClickModifier["MAX_VALUE"] = 2] = "MAX_VALUE";
+    SimulateRightClickModifier[SimulateRightClickModifier["kNone"] = 0] = "kNone";
+    SimulateRightClickModifier[SimulateRightClickModifier["kAlt"] = 1] = "kAlt";
+    SimulateRightClickModifier[SimulateRightClickModifier["kSearch"] = 2] = "kSearch";
+})(SimulateRightClickModifier || (SimulateRightClickModifier = {}));
+
+// ui/events/ash/mojom/six_pack_shortcut_modifier.mojom-webui.ts is auto generated by mojom_bindings_generator.py, do not edit
+// Copyright 2020 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+const SixPackShortcutModifierSpec = { $: mojo.internal.Enum() };
+var SixPackShortcutModifier;
+(function (SixPackShortcutModifier) {
+    SixPackShortcutModifier[SixPackShortcutModifier["MIN_VALUE"] = 0] = "MIN_VALUE";
+    SixPackShortcutModifier[SixPackShortcutModifier["MAX_VALUE"] = 2] = "MAX_VALUE";
+    SixPackShortcutModifier[SixPackShortcutModifier["kNone"] = 0] = "kNone";
+    SixPackShortcutModifier[SixPackShortcutModifier["kAlt"] = 1] = "kAlt";
+    SixPackShortcutModifier[SixPackShortcutModifier["kSearch"] = 2] = "kSearch";
+})(SixPackShortcutModifier || (SixPackShortcutModifier = {}));
+
+// ash/public/mojom/input_device_settings.mojom-webui.ts is auto generated by mojom_bindings_generator.py, do not edit
+// Copyright 2020 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+const PolicyStatusSpec = { $: mojo.internal.Enum() };
+var PolicyStatus;
+(function (PolicyStatus) {
+    PolicyStatus[PolicyStatus["MIN_VALUE"] = 0] = "MIN_VALUE";
+    PolicyStatus[PolicyStatus["MAX_VALUE"] = 1] = "MAX_VALUE";
+    PolicyStatus[PolicyStatus["kManaged"] = 0] = "kManaged";
+    PolicyStatus[PolicyStatus["kRecommended"] = 1] = "kRecommended";
+})(PolicyStatus || (PolicyStatus = {}));
+const MetaKeySpec = { $: mojo.internal.Enum() };
+var MetaKey;
+(function (MetaKey) {
+    MetaKey[MetaKey["MIN_VALUE"] = 0] = "MIN_VALUE";
+    MetaKey[MetaKey["MAX_VALUE"] = 3] = "MAX_VALUE";
+    MetaKey[MetaKey["kSearch"] = 0] = "kSearch";
+    MetaKey[MetaKey["kLauncher"] = 1] = "kLauncher";
+    MetaKey[MetaKey["kExternalMeta"] = 2] = "kExternalMeta";
+    MetaKey[MetaKey["kCommand"] = 3] = "kCommand";
+})(MetaKey || (MetaKey = {}));
+const TopRowActionKeySpec = { $: mojo.internal.Enum() };
+var TopRowActionKey;
+(function (TopRowActionKey) {
+    TopRowActionKey[TopRowActionKey["MIN_VALUE"] = 0] = "MIN_VALUE";
+    TopRowActionKey[TopRowActionKey["MAX_VALUE"] = 23] = "MAX_VALUE";
+    TopRowActionKey[TopRowActionKey["kNone"] = 0] = "kNone";
+    TopRowActionKey[TopRowActionKey["kUnknown"] = 1] = "kUnknown";
+    TopRowActionKey[TopRowActionKey["kBack"] = 2] = "kBack";
+    TopRowActionKey[TopRowActionKey["kForward"] = 3] = "kForward";
+    TopRowActionKey[TopRowActionKey["kRefresh"] = 4] = "kRefresh";
+    TopRowActionKey[TopRowActionKey["kFullscreen"] = 5] = "kFullscreen";
+    TopRowActionKey[TopRowActionKey["kOverview"] = 6] = "kOverview";
+    TopRowActionKey[TopRowActionKey["kScreenshot"] = 7] = "kScreenshot";
+    TopRowActionKey[TopRowActionKey["kScreenBrightnessDown"] = 8] = "kScreenBrightnessDown";
+    TopRowActionKey[TopRowActionKey["kScreenBrightnessUp"] = 9] = "kScreenBrightnessUp";
+    TopRowActionKey[TopRowActionKey["kMicrophoneMute"] = 10] = "kMicrophoneMute";
+    TopRowActionKey[TopRowActionKey["kVolumeMute"] = 11] = "kVolumeMute";
+    TopRowActionKey[TopRowActionKey["kVolumeDown"] = 12] = "kVolumeDown";
+    TopRowActionKey[TopRowActionKey["kVolumeUp"] = 13] = "kVolumeUp";
+    TopRowActionKey[TopRowActionKey["kKeyboardBacklightToggle"] = 14] = "kKeyboardBacklightToggle";
+    TopRowActionKey[TopRowActionKey["kKeyboardBacklightDown"] = 15] = "kKeyboardBacklightDown";
+    TopRowActionKey[TopRowActionKey["kKeyboardBacklightUp"] = 16] = "kKeyboardBacklightUp";
+    TopRowActionKey[TopRowActionKey["kNextTrack"] = 17] = "kNextTrack";
+    TopRowActionKey[TopRowActionKey["kPreviousTrack"] = 18] = "kPreviousTrack";
+    TopRowActionKey[TopRowActionKey["kPlayPause"] = 19] = "kPlayPause";
+    TopRowActionKey[TopRowActionKey["kAllApplications"] = 20] = "kAllApplications";
+    TopRowActionKey[TopRowActionKey["kEmojiPicker"] = 21] = "kEmojiPicker";
+    TopRowActionKey[TopRowActionKey["kDictation"] = 22] = "kDictation";
+    TopRowActionKey[TopRowActionKey["kPrivacyScreenToggle"] = 23] = "kPrivacyScreenToggle";
+})(TopRowActionKey || (TopRowActionKey = {}));
+const CustomizableButtonSpec = { $: mojo.internal.Enum() };
+var CustomizableButton;
+(function (CustomizableButton) {
+    CustomizableButton[CustomizableButton["MIN_VALUE"] = 0] = "MIN_VALUE";
+    CustomizableButton[CustomizableButton["MAX_VALUE"] = 6] = "MAX_VALUE";
+    CustomizableButton[CustomizableButton["kLeft"] = 0] = "kLeft";
+    CustomizableButton[CustomizableButton["kRight"] = 1] = "kRight";
+    CustomizableButton[CustomizableButton["kMiddle"] = 2] = "kMiddle";
+    CustomizableButton[CustomizableButton["kForward"] = 3] = "kForward";
+    CustomizableButton[CustomizableButton["kBack"] = 4] = "kBack";
+    CustomizableButton[CustomizableButton["kExtra"] = 5] = "kExtra";
+    CustomizableButton[CustomizableButton["kSide"] = 6] = "kSide";
+})(CustomizableButton || (CustomizableButton = {}));
+const StaticShortcutActionSpec = { $: mojo.internal.Enum() };
+var StaticShortcutAction;
+(function (StaticShortcutAction) {
+    StaticShortcutAction[StaticShortcutAction["MIN_VALUE"] = 0] = "MIN_VALUE";
+    StaticShortcutAction[StaticShortcutAction["MAX_VALUE"] = 11] = "MAX_VALUE";
+    StaticShortcutAction[StaticShortcutAction["kDisable"] = 0] = "kDisable";
+    StaticShortcutAction[StaticShortcutAction["kCopy"] = 1] = "kCopy";
+    StaticShortcutAction[StaticShortcutAction["kPaste"] = 2] = "kPaste";
+    StaticShortcutAction[StaticShortcutAction["kUndo"] = 3] = "kUndo";
+    StaticShortcutAction[StaticShortcutAction["kRedo"] = 4] = "kRedo";
+    StaticShortcutAction[StaticShortcutAction["kZoomIn"] = 5] = "kZoomIn";
+    StaticShortcutAction[StaticShortcutAction["kZoomOut"] = 6] = "kZoomOut";
+    StaticShortcutAction[StaticShortcutAction["kPreviousPage"] = 7] = "kPreviousPage";
+    StaticShortcutAction[StaticShortcutAction["kNextPage"] = 8] = "kNextPage";
+    StaticShortcutAction[StaticShortcutAction["kLeftClick"] = 9] = "kLeftClick";
+    StaticShortcutAction[StaticShortcutAction["kRightClick"] = 10] = "kRightClick";
+    StaticShortcutAction[StaticShortcutAction["kMiddleClick"] = 11] = "kMiddleClick";
+})(StaticShortcutAction || (StaticShortcutAction = {}));
+const CustomizationRestrictionSpec = { $: mojo.internal.Enum() };
+var CustomizationRestriction;
+(function (CustomizationRestriction) {
+    CustomizationRestriction[CustomizationRestriction["MIN_VALUE"] = 0] = "MIN_VALUE";
+    CustomizationRestriction[CustomizationRestriction["MAX_VALUE"] = 4] = "MAX_VALUE";
+    CustomizationRestriction[CustomizationRestriction["kAllowCustomizations"] = 0] = "kAllowCustomizations";
+    CustomizationRestriction[CustomizationRestriction["kDisallowCustomizations"] = 1] = "kDisallowCustomizations";
+    CustomizationRestriction[CustomizationRestriction["kDisableKeyEventRewrites"] = 2] = "kDisableKeyEventRewrites";
+    CustomizationRestriction[CustomizationRestriction["kAllowAlphabetKeyEventRewrites"] = 3] = "kAllowAlphabetKeyEventRewrites";
+    CustomizationRestriction[CustomizationRestriction["kAllowAlphabetOrNumberKeyEventRewrites"] = 4] = "kAllowAlphabetOrNumberKeyEventRewrites";
+})(CustomizationRestriction || (CustomizationRestriction = {}));
+const SixPackKeyInfoSpec = { $: {} };
+const InputDeviceSettingsPolicySpec = { $: {} };
+const InputDeviceSettingsFkeyPolicySpec = { $: {} };
+const KeyboardPoliciesSpec = { $: {} };
+const MousePoliciesSpec = { $: {} };
+const KeyboardSpec = { $: {} };
+const KeyboardSettingsSpec = { $: {} };
+const MouseSpec = { $: {} };
+const MouseSettingsSpec = { $: {} };
+const TouchpadSpec = { $: {} };
+const TouchpadSettingsSpec = { $: {} };
+const PointingStickSpec = { $: {} };
+const PointingStickSettingsSpec = { $: {} };
+const StylusSpec = { $: {} };
+const GraphicsTabletSpec = { $: {} };
+const GraphicsTabletSettingsSpec = { $: {} };
+const ButtonRemappingSpec = { $: {} };
+const KeyEventSpec = { $: {} };
+const RemappingActionSpec = { $: {} };
+const ButtonSpec = { $: {} };
+mojo.internal.Struct(SixPackKeyInfoSpec.$, 'SixPackKeyInfo', [
+    mojo.internal.StructField('home', 0, 0, SixPackShortcutModifierSpec.$, SixPackShortcutModifier.kSearch, false /* nullable */, 0),
+    mojo.internal.StructField('pageUp', 4, 0, SixPackShortcutModifierSpec.$, SixPackShortcutModifier.kSearch, false /* nullable */, 0),
+    mojo.internal.StructField('pageDown', 8, 0, SixPackShortcutModifierSpec.$, SixPackShortcutModifier.kSearch, false /* nullable */, 0),
+    mojo.internal.StructField('del', 12, 0, SixPackShortcutModifierSpec.$, SixPackShortcutModifier.kSearch, false /* nullable */, 0),
+    mojo.internal.StructField('insert', 16, 0, SixPackShortcutModifierSpec.$, SixPackShortcutModifier.kSearch, false /* nullable */, 0),
+    mojo.internal.StructField('end', 20, 0, SixPackShortcutModifierSpec.$, SixPackShortcutModifier.kSearch, false /* nullable */, 0),
+], [[0, 32],]);
+mojo.internal.Struct(InputDeviceSettingsPolicySpec.$, 'InputDeviceSettingsPolicy', [
+    mojo.internal.StructField('policyStatus', 0, 0, PolicyStatusSpec.$, 0, false /* nullable */, 0),
+    mojo.internal.StructField('value', 4, 0, mojo.internal.Bool, false, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(InputDeviceSettingsFkeyPolicySpec.$, 'InputDeviceSettingsFkeyPolicy', [
+    mojo.internal.StructField('policyStatus', 0, 0, PolicyStatusSpec.$, 0, false /* nullable */, 0),
+    mojo.internal.StructField('value', 4, 0, ExtendedFkeysModifierSpec.$, 0, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(KeyboardPoliciesSpec.$, 'KeyboardPolicies', [
+    mojo.internal.StructField('topRowAreFkeysPolicy', 0, 0, InputDeviceSettingsPolicySpec.$, null, true /* nullable */, 0),
+    mojo.internal.StructField('enableMetaFkeyRewritesPolicy', 8, 0, InputDeviceSettingsPolicySpec.$, null, true /* nullable */, 0),
+    mojo.internal.StructField('extendedFkeysPolicy', 16, 0, InputDeviceSettingsFkeyPolicySpec.$, null, true /* nullable */, 0),
+], [[0, 32],]);
+mojo.internal.Struct(MousePoliciesSpec.$, 'MousePolicies', [
+    mojo.internal.StructField('swapRightPolicy', 0, 0, InputDeviceSettingsPolicySpec.$, null, true /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(KeyboardSpec.$, 'Keyboard', [
+    mojo.internal.StructField('name', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
+    mojo.internal.StructField('isExternal', 8, 0, mojo.internal.Bool, false, false /* nullable */, 0),
+    mojo.internal.StructField('id', 12, 0, mojo.internal.Uint32, 0, false /* nullable */, 0),
+    mojo.internal.StructField('deviceKey', 16, 0, mojo.internal.String, null, false /* nullable */, 0),
+    mojo.internal.StructField('metaKey', 24, 0, MetaKeySpec.$, 0, false /* nullable */, 0),
+    mojo.internal.StructField('modifierKeys', 32, 0, mojo.internal.Array(ModifierKeySpec.$, false), null, false /* nullable */, 0),
+    mojo.internal.StructField('topRowActionKeys', 40, 0, mojo.internal.Array(TopRowActionKeySpec.$, false), null, false /* nullable */, 0),
+    mojo.internal.StructField('settings', 48, 0, KeyboardSettingsSpec.$, null, false /* nullable */, 0),
+], [[0, 64],]);
+mojo.internal.Struct(KeyboardSettingsSpec.$, 'KeyboardSettings', [
+    mojo.internal.StructField('modifierRemappings', 0, 0, mojo.internal.Map(ModifierKeySpec.$, ModifierKeySpec.$, false), null, false /* nullable */, 0),
+    mojo.internal.StructField('topRowAreFkeys', 8, 0, mojo.internal.Bool, false, false /* nullable */, 0),
+    mojo.internal.StructField('suppressMetaFkeyRewrites', 8, 1, mojo.internal.Bool, false, false /* nullable */, 0),
+    mojo.internal.StructField('sixPackKeyRemappings', 16, 0, SixPackKeyInfoSpec.$, null, true /* nullable */, 0),
+    mojo.internal.StructField('f11_$flag', 8, 2, mojo.internal.Bool, false, false /* nullable */, 0, {
+        isPrimary: true,
+        linkedValueFieldName: "f11_$value",
+        originalFieldName: "f11",
+    }),
+    mojo.internal.StructField('f11_$value', 12, 0, ExtendedFkeysModifierSpec.$, 0, false /* nullable */, 0, {
+        isPrimary: false,
+        originalFieldName: "f11",
+    }),
+    mojo.internal.StructField('f12_$flag', 8, 3, mojo.internal.Bool, false, false /* nullable */, 0, {
+        isPrimary: true,
+        linkedValueFieldName: "f12_$value",
+        originalFieldName: "f12",
+    }),
+    mojo.internal.StructField('f12_$value', 24, 0, ExtendedFkeysModifierSpec.$, 0, false /* nullable */, 0, {
+        isPrimary: false,
+        originalFieldName: "f12",
+    }),
+], [[0, 40],]);
+mojo.internal.Struct(MouseSpec.$, 'Mouse', [
+    mojo.internal.StructField('name', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
+    mojo.internal.StructField('isExternal', 8, 0, mojo.internal.Bool, false, false /* nullable */, 0),
+    mojo.internal.StructField('id', 12, 0, mojo.internal.Uint32, 0, false /* nullable */, 0),
+    mojo.internal.StructField('deviceKey', 16, 0, mojo.internal.String, null, false /* nullable */, 0),
+    mojo.internal.StructField('customizationRestriction', 24, 0, CustomizationRestrictionSpec.$, 0, false /* nullable */, 0),
+    mojo.internal.StructField('settings', 32, 0, MouseSettingsSpec.$, null, false /* nullable */, 0),
+], [[0, 48],]);
+mojo.internal.Struct(MouseSettingsSpec.$, 'MouseSettings', [
+    mojo.internal.StructField('swapRight', 0, 0, mojo.internal.Bool, false, false /* nullable */, 0),
+    mojo.internal.StructField('sensitivity', 1, 0, mojo.internal.Uint8, 0, false /* nullable */, 0),
+    mojo.internal.StructField('reverseScrolling', 0, 1, mojo.internal.Bool, false, false /* nullable */, 0),
+    mojo.internal.StructField('accelerationEnabled', 0, 2, mojo.internal.Bool, false, false /* nullable */, 0),
+    mojo.internal.StructField('scrollSensitivity', 2, 0, mojo.internal.Uint8, 0, false /* nullable */, 0),
+    mojo.internal.StructField('scrollAcceleration', 0, 3, mojo.internal.Bool, false, false /* nullable */, 0),
+    mojo.internal.StructField('buttonRemappings', 8, 0, mojo.internal.Array(ButtonRemappingSpec.$, false), null, false /* nullable */, 0),
+], [[0, 24],]);
+mojo.internal.Struct(TouchpadSpec.$, 'Touchpad', [
+    mojo.internal.StructField('name', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
+    mojo.internal.StructField('isExternal', 8, 0, mojo.internal.Bool, false, false /* nullable */, 0),
+    mojo.internal.StructField('id', 12, 0, mojo.internal.Uint32, 0, false /* nullable */, 0),
+    mojo.internal.StructField('deviceKey', 16, 0, mojo.internal.String, null, false /* nullable */, 0),
+    mojo.internal.StructField('isHaptic', 8, 1, mojo.internal.Bool, false, false /* nullable */, 0),
+    mojo.internal.StructField('settings', 24, 0, TouchpadSettingsSpec.$, null, false /* nullable */, 0),
+], [[0, 40],]);
+mojo.internal.Struct(TouchpadSettingsSpec.$, 'TouchpadSettings', [
+    mojo.internal.StructField('sensitivity', 0, 0, mojo.internal.Uint8, 0, false /* nullable */, 0),
+    mojo.internal.StructField('reverseScrolling', 1, 0, mojo.internal.Bool, false, false /* nullable */, 0),
+    mojo.internal.StructField('accelerationEnabled', 1, 1, mojo.internal.Bool, false, false /* nullable */, 0),
+    mojo.internal.StructField('tapToClickEnabled', 1, 2, mojo.internal.Bool, false, false /* nullable */, 0),
+    mojo.internal.StructField('threeFingerClickEnabled', 1, 3, mojo.internal.Bool, false, false /* nullable */, 0),
+    mojo.internal.StructField('tapDraggingEnabled', 1, 4, mojo.internal.Bool, false, false /* nullable */, 0),
+    mojo.internal.StructField('scrollSensitivity', 2, 0, mojo.internal.Uint8, 0, false /* nullable */, 0),
+    mojo.internal.StructField('scrollAcceleration', 1, 5, mojo.internal.Bool, false, false /* nullable */, 0),
+    mojo.internal.StructField('hapticSensitivity', 3, 0, mojo.internal.Uint8, 0, false /* nullable */, 0),
+    mojo.internal.StructField('hapticEnabled', 1, 6, mojo.internal.Bool, false, false /* nullable */, 0),
+    mojo.internal.StructField('simulateRightClick', 4, 0, SimulateRightClickModifierSpec.$, 0, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(PointingStickSpec.$, 'PointingStick', [
+    mojo.internal.StructField('name', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
+    mojo.internal.StructField('isExternal', 8, 0, mojo.internal.Bool, false, false /* nullable */, 0),
+    mojo.internal.StructField('id', 12, 0, mojo.internal.Uint32, 0, false /* nullable */, 0),
+    mojo.internal.StructField('deviceKey', 16, 0, mojo.internal.String, null, false /* nullable */, 0),
+    mojo.internal.StructField('settings', 24, 0, PointingStickSettingsSpec.$, null, false /* nullable */, 0),
+], [[0, 40],]);
+mojo.internal.Struct(PointingStickSettingsSpec.$, 'PointingStickSettings', [
+    mojo.internal.StructField('swapRight', 0, 0, mojo.internal.Bool, false, false /* nullable */, 0),
+    mojo.internal.StructField('sensitivity', 1, 0, mojo.internal.Uint8, 0, false /* nullable */, 0),
+    mojo.internal.StructField('accelerationEnabled', 0, 1, mojo.internal.Bool, false, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(StylusSpec.$, 'Stylus', [], [[0, 8],]);
+mojo.internal.Struct(GraphicsTabletSpec.$, 'GraphicsTablet', [
+    mojo.internal.StructField('name', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
+    mojo.internal.StructField('id', 8, 0, mojo.internal.Uint32, 0, false /* nullable */, 0),
+    mojo.internal.StructField('deviceKey', 16, 0, mojo.internal.String, null, false /* nullable */, 0),
+    mojo.internal.StructField('customizationRestriction', 12, 0, CustomizationRestrictionSpec.$, 0, false /* nullable */, 0),
+    mojo.internal.StructField('settings', 24, 0, GraphicsTabletSettingsSpec.$, null, false /* nullable */, 0),
+], [[0, 40],]);
+mojo.internal.Struct(GraphicsTabletSettingsSpec.$, 'GraphicsTabletSettings', [
+    mojo.internal.StructField('tabletButtonRemappings', 0, 0, mojo.internal.Array(ButtonRemappingSpec.$, false), null, false /* nullable */, 0),
+    mojo.internal.StructField('penButtonRemappings', 8, 0, mojo.internal.Array(ButtonRemappingSpec.$, false), null, false /* nullable */, 0),
+], [[0, 24],]);
+mojo.internal.Struct(ButtonRemappingSpec.$, 'ButtonRemapping', [
+    mojo.internal.StructField('name', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
+    mojo.internal.StructField('button', 8, 0, ButtonSpec.$, null, false /* nullable */, 0),
+    mojo.internal.StructField('remappingAction', 24, 0, RemappingActionSpec.$, null, true /* nullable */, 0),
+], [[0, 48],]);
+mojo.internal.Struct(KeyEventSpec.$, 'KeyEvent', [
+    mojo.internal.StructField('vkey', 0, 0, VKeySpec.$, 0, false /* nullable */, 0),
+    mojo.internal.StructField('domCode', 4, 0, mojo.internal.Uint32, 0, false /* nullable */, 0),
+    mojo.internal.StructField('domKey', 8, 0, mojo.internal.Uint32, 0, false /* nullable */, 0),
+    mojo.internal.StructField('modifiers', 12, 0, mojo.internal.Uint32, 0, false /* nullable */, 0),
+    mojo.internal.StructField('keyDisplay', 16, 0, mojo.internal.String, null, false /* nullable */, 0),
+], [[0, 32],]);
+mojo.internal.Union(RemappingActionSpec.$, 'RemappingAction', {
+    'acceleratorAction': {
+        'ordinal': 0,
+        'type': AcceleratorActionSpec.$,
+    },
+    'keyEvent': {
+        'ordinal': 1,
+        'type': KeyEventSpec.$,
+    },
+    'staticShortcutAction': {
+        'ordinal': 2,
+        'type': StaticShortcutActionSpec.$,
+    },
+});
+mojo.internal.Union(ButtonSpec.$, 'Button', {
+    'vkey': {
+        'ordinal': 0,
+        'type': VKeySpec.$,
+    },
+    'customizableButton': {
+        'ordinal': 1,
+        'type': CustomizableButtonSpec.$,
+    },
+});
+
+// ash/webui/common/mojom/shortcut_input_provider.mojom-webui.ts is auto generated by mojom_bindings_generator.py, do not edit
+// Copyright 2020 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+class ShortcutInputObserverPendingReceiver {
+    constructor(handle) {
+        this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
+    }
+    bindInBrowser(scope = 'context') {
+        mojo.internal.interfaceSupport.bind(this.handle, 'ash.common.mojom.ShortcutInputObserver', scope);
+    }
+}
+class ShortcutInputObserverRemote {
+    constructor(handle) {
+        this.proxy =
+            new mojo.internal.interfaceSupport.InterfaceRemoteBase(ShortcutInputObserverPendingReceiver, handle);
+        this.$ = new mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper(this.proxy);
+        this.onConnectionError = this.proxy.getConnectionErrorEventRouter();
+    }
+    onShortcutInputEventPressed(prerewrittenKeyEvent, keyEvent) {
+        this.proxy.sendMessage(0, ShortcutInputObserver_OnShortcutInputEventPressed_ParamsSpec.$, null, [
+            prerewrittenKeyEvent,
+            keyEvent
+        ]);
+    }
+    onShortcutInputEventReleased(prerewrittenKeyEvent, keyEvent) {
+        this.proxy.sendMessage(1, ShortcutInputObserver_OnShortcutInputEventReleased_ParamsSpec.$, null, [
+            prerewrittenKeyEvent,
+            keyEvent
+        ]);
+    }
+}
+/**
+ * An object which receives request messages for the ShortcutInputObserver
+ * mojom interface. Must be constructed over an object which implements that
+ * interface.
+ */
+class ShortcutInputObserverReceiver {
+    constructor(impl) {
+        this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(ShortcutInputObserverRemote);
+        this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
+        this.helper_internal_.registerHandler(0, ShortcutInputObserver_OnShortcutInputEventPressed_ParamsSpec.$, null, impl.onShortcutInputEventPressed.bind(impl));
+        this.helper_internal_.registerHandler(1, ShortcutInputObserver_OnShortcutInputEventReleased_ParamsSpec.$, null, impl.onShortcutInputEventReleased.bind(impl));
+        this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
+    }
+}
+const ShortcutInputObserver_OnShortcutInputEventPressed_ParamsSpec = { $: {} };
+const ShortcutInputObserver_OnShortcutInputEventReleased_ParamsSpec = { $: {} };
+const ShortcutInputProvider_StartObservingShortcutInput_ParamsSpec = { $: {} };
+const ShortcutInputProvider_StopObservingShortcutInput_ParamsSpec = { $: {} };
+mojo.internal.Struct(ShortcutInputObserver_OnShortcutInputEventPressed_ParamsSpec.$, 'ShortcutInputObserver_OnShortcutInputEventPressed_Params', [
+    mojo.internal.StructField('prerewrittenKeyEvent', 0, 0, KeyEventSpec.$, null, false /* nullable */, 0),
+    mojo.internal.StructField('keyEvent', 8, 0, KeyEventSpec.$, null, false /* nullable */, 0),
+], [[0, 24],]);
+mojo.internal.Struct(ShortcutInputObserver_OnShortcutInputEventReleased_ParamsSpec.$, 'ShortcutInputObserver_OnShortcutInputEventReleased_Params', [
+    mojo.internal.StructField('prerewrittenKeyEvent', 0, 0, KeyEventSpec.$, null, false /* nullable */, 0),
+    mojo.internal.StructField('keyEvent', 8, 0, KeyEventSpec.$, null, false /* nullable */, 0),
+], [[0, 24],]);
+mojo.internal.Struct(ShortcutInputProvider_StartObservingShortcutInput_ParamsSpec.$, 'ShortcutInputProvider_StartObservingShortcutInput_Params', [
+    mojo.internal.StructField('observer', 0, 0, mojo.internal.InterfaceProxy(ShortcutInputObserverRemote), null, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(ShortcutInputProvider_StopObservingShortcutInput_ParamsSpec.$, 'ShortcutInputProvider_StopObservingShortcutInput_Params', [], [[0, 8],]);
+
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview
+ * 'shortcut-input' is wrapper component for a key event. It maintains both
+ * the read-only and editable state of a key event.
+ */
+const ShortcutInputElementBase = I18nMixin(PolymerElement);
+class ShortcutInputElement extends ShortcutInputElementBase {
+    constructor() {
+        super(...arguments);
+        this.hasLauncherButton = true;
+        this.shortcutInputProvider = null;
+        this.pendingKeyEvent = null;
+        this.pendingPrerewrittenKeyEvent = null;
+        this.modifiers = [];
+        this.showSeparator = false;
+        this.isCapturing = false;
+        this.updateOnKeyPress = false;
+        this.displayPrerewrittenKeyEvents = false;
+        this.ignoreBlur = false;
+        this.shouldIgnoreKeyRelease = false;
+        this.shortcutInputObserverReceiver = null;
+        this.eventTracker = new EventTracker$1();
+    }
+    static get is() {
+        return 'shortcut-input';
+    }
+    static get properties() {
+        return {
+            // Event after event rewrites.
+            pendingKeyEvent: { type: Object },
+            // Event before event rewrites.
+            pendingPrerewrittenKeyEvent: { type: Object },
+            shortcutInputProvider: { type: Object },
+            modifiers: {
+                type: Array,
+                computed: 'getModifiers(pendingKeyEvent, pendingPrerewrittenKeyEvent)',
+                value: [],
+            },
+            showSeparator: {
+                type: Boolean,
+            },
+            hasLauncherButton: {
+                type: Boolean,
+            },
+            // When `updateOnKeyPress` is true, always show edit-view and and updates
+            // occur on key press events rather than on key release.
+            updateOnKeyPress: {
+                type: Boolean,
+                value: false,
+            },
+            // If true, will display the `pendingPrerewrittenKeyEvents` instead of
+            // `pendingKeyEvent`.
+            displayPrerewrittenKeyEvents: {
+                type: Boolean,
+            },
+            // If true, this element will continue to observe for inputs even after
+            // an `on-blur`. Allows parent element to handle blur events.
+            ignoreBlur: {
+                type: Boolean,
+            },
+            // If true, `onShortcutInputEventPressed` will be a no-op.
+            shouldIgnoreKeyRelease: {
+                type: Boolean,
+            },
+        };
+    }
+    observeShortcutInput() {
+        if (!this.shortcutInputProvider) {
+            return;
+        }
+        if (this.shortcutInputProvider instanceof FakeShortcutInputProvider) {
+            this.shortcutInputProvider.startObservingShortcutInput(this);
+            return;
+        }
+        this.shortcutInputObserverReceiver =
+            new ShortcutInputObserverReceiver(this);
+        this.shortcutInputProvider.startObservingShortcutInput(this.shortcutInputObserverReceiver.$.bindNewPipeAndPassRemote());
+    }
+    /**
+     * Updates UI to the newly received KeyEvent.
+     */
+    onShortcutInputEventPressed(prerewrittenKeyEvent, keyEvent) {
+        this.pendingKeyEvent = keyEvent;
+        this.pendingPrerewrittenKeyEvent = prerewrittenKeyEvent;
+        if (this.updateOnKeyPress) {
+            // TODO(jimmyxgong): Should be able to do this unconditionally, but for
+            // now the modifiers trigger observable events that may unintentionally
+            // update the UI.
+            this.pendingKeyEvent.modifiers = keyEvent.modifiers;
+            this.pendingPrerewrittenKeyEvent.modifiers =
+                prerewrittenKeyEvent.modifiers;
+            this.dispatchEvent(new CustomEvent('shortcut-input-event', {
+                bubbles: true,
+                composed: true,
+                detail: {
+                    keyEvent: this.pendingKeyEvent,
+                },
+            }));
+        }
+    }
+    /**
+     * Updates the UI to the new KeyEvent and dispatches and event to notify
+     * parent elements.
+     */
+    onShortcutInputEventReleased(prerewrittenKeyEvent, keyEvent) {
+        if (this.shouldIgnoreKeyRelease) {
+            return;
+        }
+        if (this.updateOnKeyPress) {
+            console.log('keyevent', keyEvent);
+            const updatedKeyEvent = { ...keyEvent };
+            const updatedPrerewrittenKeyEvent = { ...prerewrittenKeyEvent };
+            // If the key released is not a modifier, reset keyDisplay.
+            if (!ModifierKeyCodes.includes(updatedKeyEvent.vkey)) {
+                updatedKeyEvent.keyDisplay = '';
+            }
+            if (!ModifierKeyCodes.includes(updatedPrerewrittenKeyEvent.vkey)) {
+                updatedPrerewrittenKeyEvent.keyDisplay = '';
+            }
+            // Update pending events with the modifications made to the key events
+            // above.
+            this.pendingKeyEvent = updatedKeyEvent;
+            // console.log('pendingKeyEvent', pendingKeyEvent.keyDisplay);
+            this.pendingPrerewrittenKeyEvent = updatedPrerewrittenKeyEvent;
+        }
+        else {
+            // Only update the UI if the released key is the last key pressed OR if
+            // its a modifier.
+            if (this.pendingKeyEvent && keyEvent.vkey !== this.pendingKeyEvent.vkey) {
+                if (!ModifierKeyCodes.includes(keyEvent.vkey)) {
+                    return;
+                }
+                this.pendingKeyEvent.modifiers = keyEvent.modifiers;
+                this.pendingPrerewrittenKeyEvent.modifiers =
+                    prerewrittenKeyEvent.modifiers;
+                return;
+            }
+            this.pendingKeyEvent = keyEvent;
+            this.pendingPrerewrittenKeyEvent = prerewrittenKeyEvent;
+            this.dispatchEvent(new CustomEvent('shortcut-input-event', {
+                bubbles: true,
+                composed: true,
+                detail: {
+                    keyEvent: this.pendingKeyEvent,
+                },
+            }));
+        }
+    }
+    connectedCallback() {
+        super.connectedCallback();
+    }
+    disconnectedCallback() {
+        super.disconnectedCallback();
+        this.eventTracker.removeAll();
+    }
+    /**
+     * shortcut_input only starts observing via calling `startObserving`. It
+     * registers event handlers so it stops observing input when focus is lost.
+     */
+    startObserving() {
+        this.isCapturing = true;
+        this.observeShortcutInput();
+        this.eventTracker.add(this, 'keydown', (e) => this.stopEvent(e));
+        this.eventTracker.add(this, 'keyup', (e) => this.stopEvent(e));
+        this.eventTracker.add(this, 'blur', () => this.onBlur());
+        this.$.container.focus();
+        this.dispatchCaptureStateEvent();
+    }
+    onBlur() {
+        if (this.ignoreBlur) {
+            return;
+        }
+        this.stopObserving();
+    }
+    stopObserving() {
+        this.isCapturing = false;
+        this.shortcutInputProvider?.stopObservingShortcutInput();
+        this.eventTracker.removeAll();
+        this.dispatchCaptureStateEvent();
+    }
+    reset() {
+        this.pendingKeyEvent = null;
+        this.pendingPrerewrittenKeyEvent = null;
+    }
+    /**
+     * Consumes all events received by the shortcut_input element.
+     */
+    stopEvent(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+    isModifier(keyEvent) {
+        return ModifierKeyCodes.includes(keyEvent.vkey);
+    }
+    getKey() {
+        const keyEvent = this.getPendingKeyEvent();
+        if (keyEvent && keyEvent.keyDisplay != '' && !this.isModifier(keyEvent)) {
+            const keyDisplay = keyEvent.keyDisplay;
+            if (keyDisplay in KeyToIconNameMap) {
+                return keyDisplay;
+            }
+            return keyDisplay.toLowerCase();
+        }
+        // TODO(dpad, b/286930911): Reset to localized default empty state.
+        return 'key';
+    }
+    getKeyState() {
+        const keyEvent = this.getPendingKeyEvent();
+        if (keyEvent && keyEvent.keyDisplay != '' && !this.isModifier(keyEvent)) {
+            return KeyInputState.ALPHANUMERIC_SELECTED;
+        }
+        return KeyInputState.NOT_SELECTED;
+    }
+    getConfirmKey() {
+        const keyEvent = this.getPendingKeyEvent();
+        if (keyEvent && keyEvent.keyDisplay != '') {
+            const keyDisplay = keyEvent.keyDisplay;
+            if (keyDisplay in KeyToIconNameMap) {
+                return keyDisplay;
+            }
+            return keyDisplay.toLowerCase();
+        }
+        // TODO(dpad, b/286930911): Reset to localized default empty state.
+        return 'key';
+    }
+    getConfirmKeyState() {
+        const keyEvent = this.getPendingKeyEvent();
+        if (keyEvent && keyEvent.keyDisplay != '' && this.isModifier(keyEvent)) {
+            return KeyInputState.MODIFIER_SELECTED;
+        }
+        if (keyEvent && keyEvent.keyDisplay != '') {
+            return KeyInputState.ALPHANUMERIC_SELECTED;
+        }
+        return KeyInputState.NOT_SELECTED;
+    }
+    shouldShowEditView() {
+        return this.isCapturing || this.updateOnKeyPress;
+    }
+    shouldShowConfirmView() {
+        return this.getPendingKeyEvent() !== null && !this.isCapturing &&
+            !this.updateOnKeyPress;
+    }
+    /**
+     * Returns the specified CSS state of the modifier key element.
+     */
+    getCtrlState() {
+        return this.getModifierState(Modifier$1.CONTROL);
+    }
+    /**
+     * Returns the specified CSS state of the modifier key element.
+     */
+    getAltState() {
+        return this.getModifierState(Modifier$1.ALT);
+    }
+    /**
+     * Returns the specified CSS state of the modifier key element.
+     */
+    getShiftState() {
+        return this.getModifierState(Modifier$1.SHIFT);
+    }
+    /**
+     * Returns the specified CSS state of the modifier key element.
+     */
+    getSearchState() {
+        return this.getModifierState(Modifier$1.COMMAND);
+    }
+    /**
+     * Returns the specified CSS state of the modifier key element.
+     */
+    getModifierState(modifier) {
+        const keyEvent = this.getPendingKeyEvent();
+        if (keyEvent && keyEvent?.modifiers & modifier) {
+            return KeyInputState.MODIFIER_SELECTED;
+        }
+        return KeyInputState.NOT_SELECTED;
+    }
+    getModifierString(modifier) {
+        switch (modifier) {
+            case Modifier$1.SHIFT:
+                return 'shift';
+            case Modifier$1.CONTROL:
+                return 'ctrl';
+            case Modifier$1.ALT:
+                return 'alt';
+            case Modifier$1.COMMAND:
+                return 'meta';
+        }
+        return assertNotReached();
+    }
+    /**
+     * Returns a list of the modifier strings for the held down modifiers within
+     * `keyEvent.`
+     */
+    getModifiers(keyEvent) {
+        if (!keyEvent) {
+            return [];
+        }
+        const modifierStrings = [];
+        for (const modifier of Modifiers) {
+            if (keyEvent.modifiers & modifier) {
+                modifierStrings.push(this.getModifierString(modifier));
+            }
+        }
+        return getSortedModifiers(modifierStrings);
+    }
+    shouldShowSeparator() {
+        return this.showSeparator && this.modifiers.length > 0;
+    }
+    shouldShowSelectedKey() {
+        return this.getPendingKeyEvent() !== null;
+    }
+    dispatchCaptureStateEvent() {
+        this.dispatchEvent(new CustomEvent('shortcut-input-capture-state', {
+            bubbles: true,
+            composed: true,
+            detail: {
+                capturing: this.isCapturing,
+            },
+        }));
+    }
+    getPendingKeyEvent() {
+        return this.displayPrerewrittenKeyEvents ?
+            this.pendingPrerewrittenKeyEvent :
+            this.pendingKeyEvent;
+    }
+    static get template() {
+        return getTemplate$6();
+    }
+}
+customElements.define(ShortcutInputElement.is, ShortcutInputElement);
+
 function getTemplate$5() {
-    return html `<!--_html_template_start_--><style include="settings-shared input-device-settings-shared"></style>
+    return html `<!--_html_template_start_--><style include="settings-shared input-device-settings-shared">:host{--cr-dialog-width:416px}#shortcut-input-container{display:flex;flex-direction:row;justify-content:center;margin:0;padding:20px 0}#shortcut-input-container:focus{outline:0}#dialogDescription{margin:0;text-align:center;padding-bottom:24px}.right-button-group{display:flex;gap:8px}</style>
 <cr-dialog id="keyCombinationInputDialog">
   <div slot="title">$i18n{keyCombinationDialogTitle}</div>
   <div slot="body">
-    <div id="keyCombinationSubsection">
-      
-      [[buttonRemapping_.name]]
+    <div id="dialogDescription">
+      $i18n{buttonRemappingDialogDescription}
     </div>
-    <button on-click="onButtonClicked_">button</button>
+    <div id="shortcut-input-container" class="flex-row" tabindex="-1">
+      <shortcut-input id="shortcutInput" shortcut-input-provider="[[getShortcutProvider()]]" show-separator="true" has-launcher-button="[[hasLauncherButton]]" ignore-blur>
+      </shortcut-input>
+    </div>
   </div>
   <div slot="button-container">
-    <div>
+    <div class="left-button-group">
+      <template is="dom-if" if="[[shouldShowEditButton_(isCapturing)]]">
+        <cr-button class="edit-button" id="editButton" on-click="onEditButtonClicked_">
+          $i18n{buttonRemappingDialogChangeLabel}
+        </cr-button>
+      </template>
+    </div>
+    <div class="right-button-group">
       <cr-button id="cancelButton" on-click="cancelDialogClicked_">
         $i18n{buttonRemappingDialogCancelLabel}
       </cr-button>
-    </div>
-    <div>
-      <cr-button id="saveButton" class="action-button" on-click="saveDialogClicked_">
+      <cr-button id="saveButton" class="action-button" on-click="saveDialogClicked_" disabled$="[[shouldDisableSaveButton_(inputKeyEvent)]]">
         $i18n{buttonRemappingDialogSaveLabel}
       </cr-button>
     </div>
@@ -38357,6 +42457,11 @@ function getTemplate$5() {
 // found in the LICENSE file.
 const KeyCombinationInputDialogElementBase = I18nMixin(PolymerElement);
 class KeyCombinationInputDialogElement extends KeyCombinationInputDialogElementBase {
+    constructor() {
+        super(...arguments);
+        this.isCapturing = false;
+        this.eventTracker_ = new EventTracker$1();
+    }
     static get is() {
         return 'key-combination-input-dialog';
     }
@@ -38378,6 +42483,15 @@ class KeyCombinationInputDialogElement extends KeyCombinationInputDialogElementB
                 type: Boolean,
                 value: false,
             },
+            isCapturing: {
+                type: Boolean,
+            },
+            inputKeyEvent: {
+                type: Object,
+            },
+            hasLauncherButton: {
+                type: Boolean,
+            },
         };
     }
     static get observers() {
@@ -38387,11 +42501,15 @@ class KeyCombinationInputDialogElement extends KeyCombinationInputDialogElementB
     }
     connectedCallback() {
         super.connectedCallback();
-        this.addEventListener('shortcut-input-complete', this.onShortcutInputComplete_);
+        this.eventTracker_.add(this, 'shortcut-input-event', this.onShortcutInputEvent_);
+        this.eventTracker_.add(this, 'shortcut-input-capture-state', this.onShortcutInputUpdate_);
+        // Set window as the eventTarget to exclude blur event from shortcut-input.
+        this.eventTracker_.add(window, 'blur', this.onBlur_.bind(this));
+        this.shortcutInput = this.$.shortcutInput;
     }
     disconnectedCallback() {
         super.disconnectedCallback();
-        this.removeEventListener('shortcut-input-complete', this.onShortcutInputComplete_);
+        this.eventTracker_.removeAll();
     }
     /**
      * Initialize the button remapping content and set up fake pref.
@@ -38408,22 +42526,34 @@ class KeyCombinationInputDialogElement extends KeyCombinationInputDialogElementB
         const keyCombinationInputDialog = this.$.keyCombinationInputDialog;
         keyCombinationInputDialog.showModal();
         this.isOpen = keyCombinationInputDialog.open;
+        this.shortcutInput.reset();
+        this.shortcutInput.startObserving();
     }
     close() {
         const keyCombinationInputDialog = this.$.keyCombinationInputDialog;
         keyCombinationInputDialog.close();
         this.isOpen = keyCombinationInputDialog.open;
+        this.shortcutInput.reset();
+        this.shortcutInput.stopObserving();
+    }
+    getShortcutProvider() {
+        return getShortcutInputProvider();
+    }
+    onBlur_() {
+        if (this.isCapturing && !this.inputKeyEvent && this.isOpen) {
+            this.close();
+        }
     }
     cancelDialogClicked_() {
         this.close();
     }
     saveDialogClicked_() {
-        if (!this.inputKeyEvent_) {
+        if (!this.inputKeyEvent) {
             return;
         }
         const prevKeyEvent = this.buttonRemapping_.remappingAction?.keyEvent;
         if (!prevKeyEvent ||
-            !keyEventsAreEqual(this.inputKeyEvent_, prevKeyEvent)) {
+            !keyEventsAreEqual(this.inputKeyEvent, prevKeyEvent)) {
             this.set(`buttonRemappingList.${this.remappingIndex}`, this.getUpdatedButtonRemapping_());
             this.dispatchEvent(new CustomEvent('button-remapping-changed', {
                 bubbles: true,
@@ -38440,21 +42570,36 @@ class KeyCombinationInputDialogElement extends KeyCombinationInputDialogElementB
         return {
             ...this.buttonRemapping_,
             remappingAction: {
-                keyEvent: this.inputKeyEvent_,
+                keyEvent: this.inputKeyEvent,
             },
         };
     }
     /**
      * Listens for ShortcutInputCompleteEvent to store users' input keyEvent.
      */
-    onShortcutInputComplete_(e) {
-        this.inputKeyEvent_ = e.detail.keyEvent;
+    onShortcutInputEvent_(e) {
+        this.inputKeyEvent = e.detail.keyEvent;
+        this.shortcutInput.stopObserving();
+    }
+    onShortcutInputUpdate_(e) {
+        this.isCapturing = e.detail.capturing;
+    }
+    onEditButtonClicked_() {
+        this.inputKeyEvent = undefined;
+        this.shortcutInput.reset();
+        this.shortcutInput.startObserving();
+    }
+    shouldDisableSaveButton_() {
+        return this.inputKeyEvent === undefined;
+    }
+    shouldShowEditButton_() {
+        return !this.isCapturing;
     }
 }
 customElements.define(KeyCombinationInputDialogElement.is, KeyCombinationInputDialogElement);
 
 function getTemplate$4() {
-    return html `<!--_html_template_start_--><style include="settings-shared input-device-settings-shared">#header{display:flex;height:24px;padding:12px 0}#deviceName{color:var(--cros-text-color-secondary);margin-inline-start:20px}#inputContainer{height:70px}#renamingDialog{--cr-dialog-width:320px}:host([button-name-invalid_]) #inputCount{color:var(--cros-text-color-alert)}#inputCount{display:var(--cr-input-error-display,block);font-size:var(--cr-form-field-label-font-size);height:var(--cr-form-field-label-height);line-height:var(--cr-form-field-label-line-height);margin:8px 0;position:absolute;right:32px;top:130px;white-space:var(--cr-input-error-white-space)}</style>
+    return html `<!--_html_template_start_--><style include="settings-shared input-device-settings-shared">.subsection{padding-inline-start:20px}#inputContainer{height:70px}#renamingDialog{--cr-dialog-width:320px}:host([button-name-invalid_]) #inputSuffix{color:var(--cros-text-color-alert)}#inputSuffix{display:flex;font-size:var(--cr-form-field-label-font-size);height:var(--cr-form-field-label-height);justify-content:flex-end;line-height:var(--cr-form-field-label-line-height);margin:8px 0;position:absolute;top:130px;white-space:var(--cr-input-error-white-space);width:256px}</style>
 <div class="subsection">
   <template is="dom-repeat" items="{{buttonRemappingList}}" index-as="index">
     <customize-button-row button-remapping-list="[[buttonRemappingList]]" remapping-index="[[index]]" action-list$="[[actionList]]">
@@ -38469,8 +42614,13 @@ function getTemplate$4() {
       <div id="inputContainer">
         <cr-input id="renamingDialogInput" autofocus label="$i18n{buttonRemappingDialogInputLabel}" on-keydown="onKeyDownInRenamingDialog_" invalid="[[buttonNameInvalid_]]" value="{{selectedButtonName_}}" aria-label="$i18n{buttonRenamingDialogTitle}">
         </cr-input>
-        <div id="inputCount" aria-hidden="true">
-          [[getInputCountString_(selectedButtonName_)]]
+        <div id="inputSuffix">
+          <span id="duplicateNameError" hidden="[[!duplicateButtonName_]]">
+            $i18n{buttonRenamingDialogErrorMessage}
+          </span>
+          <span id="inputCount" aria-hidden="true">
+            [[getInputCountString_(selectedButtonName_)]]
+          </span>
         </div>
       </div>
     </div>
@@ -38488,7 +42638,7 @@ function getTemplate$4() {
     </div>
   </cr-dialog>
 </template>
-<key-combination-input-dialog id="keyCombinationInputDialog" button-remapping-list="{{buttonRemappingList}}" remapping-index="[[selectedButtonIndex_]]">
+<key-combination-input-dialog id="keyCombinationInputDialog" button-remapping-list="{{buttonRemappingList}}" remapping-index="[[selectedButtonIndex_]]" has-launcher-button="[[hasLauncherButton]]">
 </key-combination-input-dialog>
 <!--_html_template_end_-->`;
 }
@@ -38501,7 +42651,7 @@ function getTemplate$4() {
  * 'customize-buttons-subsection' contains a list of 'customize-button-row'
  * elements that allow users to remap buttons to actions or key combinations.
  */
-const MAX_BUTTON_NAME_INPUT_LENGTH = 64;
+const MAX_BUTTON_NAME_INPUT_LENGTH = 32;
 const CustomizeButtonsSubsectionElementBase = I18nMixin(PolymerElement);
 class CustomizeButtonsSubsectionElement extends CustomizeButtonsSubsectionElementBase {
     constructor() {
@@ -38564,6 +42714,13 @@ class CustomizeButtonsSubsectionElement extends CustomizeButtonsSubsectionElemen
                 type: Boolean,
                 value: false,
             },
+            duplicateButtonName_: {
+                type: Boolean,
+                value: false,
+            },
+            hasLauncherButton: {
+                type: Boolean,
+            },
         };
     }
     connectedCallback() {
@@ -38581,6 +42738,7 @@ class CustomizeButtonsSubsectionElement extends CustomizeButtonsSubsectionElemen
         this.selectedButtonName_ = this.selectedButton_.name;
         this.buttonNameInvalid_ = false;
         this.isSaveButtonDisabled_ = false;
+        this.duplicateButtonName_ = false;
         this.shouldShowRenamingDialog_ = true;
     }
     /**
@@ -38601,13 +42759,18 @@ class CustomizeButtonsSubsectionElement extends CustomizeButtonsSubsectionElemen
         this.shouldShowRenamingDialog_ = false;
     }
     saveRenamingDialogClicked_() {
-        if (!this.isSaveButtonDisabled_) {
-            this.updateButtonName_();
-            this.shouldShowRenamingDialog_ = false;
+        if (this.isSaveButtonDisabled_) {
+            return;
         }
+        if (this.sameButtonNameExists_()) {
+            this.buttonNameInvalid_ = true;
+            this.duplicateButtonName_ = true;
+            return;
+        }
+        this.updateButtonName_();
+        this.shouldShowRenamingDialog_ = false;
     }
     onKeyDownInRenamingDialog_(event) {
-        this.buttonNameInvalid_ = false;
         if (event.key === 'Enter') {
             this.saveRenamingDialogClicked_();
         }
@@ -38618,10 +42781,23 @@ class CustomizeButtonsSubsectionElement extends CustomizeButtonsSubsectionElemen
         // truncated, and then this method was called one more time.
         this.buttonNameInvalid_ =
             !!oldValue && oldValue.length > MAX_BUTTON_NAME_INPUT_LENGTH;
+        this.duplicateButtonName_ = false;
         // Truncate the name to maxInputLength.
         this.selectedButtonName_ =
             this.selectedButtonName_.substring(0, MAX_BUTTON_NAME_INPUT_LENGTH);
         this.isSaveButtonDisabled_ = this.selectedButtonName_ === '';
+    }
+    /**
+     * Button names within one device should be unique.
+     */
+    sameButtonNameExists_() {
+        for (const button of this.buttonRemappingList) {
+            if (button.name !== this.selectedButton_.name &&
+                button.name === this.selectedButtonName_) {
+                return true;
+            }
+        }
+        return false;
     }
     updateButtonName_() {
         if (!!this.selectedButtonName_ &&
@@ -38870,7 +43046,7 @@ class SettingsCaptionsElement extends SettingsCaptionsElementBase {
                 value() {
                     return [
                         {
-                            value: 100,
+                            value: 100, // Default
                             name: loadTimeData.getString('captionsOpacityOpaque'),
                         },
                         {
@@ -38941,7 +43117,7 @@ class SettingsCaptionsElement extends SettingsCaptionsElementBase {
                 value() {
                     return [
                         {
-                            value: 100,
+                            value: 100, // Default
                             name: loadTimeData.getString('captionsOpacityOpaque'),
                         },
                         {
@@ -39000,7 +43176,7 @@ class SettingsCaptionsElement extends SettingsCaptionsElementBase {
                         {
                             value: '',
                             name: loadTimeData.getString('medium'),
-                        },
+                        }, // Default = 100%
                         { value: '150%', name: loadTimeData.getString('large') },
                         { value: '200%', name: loadTimeData.getString('veryLarge') },
                     ];
@@ -39257,5 +43433,5 @@ class ManageIsolatedWebAppsSubpageElement extends ManageIsolatedWebAppsSubpageBa
 }
 customElements.define(ManageIsolatedWebAppsSubpageElement.is, ManageIsolatedWebAppsSubpageElement);
 
-export { AccountManagerBrowserProxyImpl, AddPrintServerDialogElement, AddPrinterManuallyDialogElement, AddPrinterManufacturerModelDialogElement, BluetoothBrailleDisplayManager, BluetoothBrailleDisplayUiElement, BruschettaSubpageElement, CellularNetworksListElement, ChangeDictationLocaleDialog, ConsentStatus, CrCheckboxWithPolicyElement, CrostiniBrowserProxyImpl, CrostiniPortForwardingElement, CrostiniPortProtocol, CrostiniSettingsCardElement, CrostiniSharedUsbDevicesElement, CupsPrintersBrowserProxyImpl, CupsPrintersEntryManager, CustomizeButtonRowElement, CustomizeButtonsSubsectionElement, DragAndDropManager, DspHotwordState, EsimInstallErrorDialogElement, ExtraContainersCreateDialog, ExtraContainersElement, FingerprintBrowserProxyImpl, FingerprintResultType, FingerprintSetupStep, GoogleAssistantBrowserProxyImpl, InputsShortcutReminderState, KerberosAccountsBrowserProxyImpl, KerberosAddAccountDialogElement, KerberosConfigErrorCode, KerberosErrorType, KeyCombinationInputDialogElement, KeyboardShortcutBanner, LanguagesBrowserProxyImpl, LanguagesMetricsProxyImpl, LanguagesPageInteraction, LifetimeBrowserProxyImpl, ManageIsolatedWebAppsSubpageElement, MediaDevicesProxy, NetworkAlwaysOnVpnElement, NetworkDeviceInfoDialogElement, NetworkProxySectionElement, OsSettingsAddItemsDialogElement, OsSettingsChangeDeviceLanguageDialogElement, OsSettingsClearPersonalizedDataDialogElement, OsSettingsEditDictionaryPageElement, OsSettingsFilesPageElement, OsSettingsInputPageElement, OsSettingsLanguagesPageV2Element, OsSettingsPersonalizationOptionsElement, OsSettingsPrintingPageElement, OsSettingsResetPageElement, OsSettingsSubpageElement, OsSyncBrowserProxyImpl, OsSyncControlsSubpageElement, PasspointRemoveDialogElement, PdfOcrUserSelection, PrintServerResult, PrinterDialogErrorElement, PrinterSettingsUserAction, PrinterSetupResult, PrinterState, PrinterStatusReason, PrinterStatusSeverity, PrinterType, PrivacyHubBrowserProxyImpl, SettingsAccountManagerSubpageElement, SettingsAudioAndCaptionsPageElement, SettingsChromeVoxSubpageElement, SettingsCrostiniArcAdbElement, SettingsCrostiniConfirmationDialogElement, SettingsCrostiniDiskResizeDialogElement, SettingsCrostiniExportImportElement, SettingsCrostiniPageElement, SettingsCrostiniSubpageElement, SettingsCupsAddPrinterDialogElement, SettingsCupsEditPrinterDialogElement, SettingsCupsEnterprisePrintersElement, SettingsCupsNearbyPrintersElement, SettingsCupsPrintersElement, SettingsCupsPrintersEntryElement, SettingsCupsSavedPrintersElement, SettingsCursorAndTouchpadPageElement, SettingsDateTimePageElement, SettingsDisplayAndMagnificationSubpageElement, SettingsFingerprintListSubpageElement, SettingsGoogleAssistantSubpageElement, SettingsGuestOsSharedUsbDevicesElement, SettingsHotspotSubpageElement, SettingsInputMethodOptionsPageElement, SettingsInternetKnownNetworksPageElement, SettingsInternetSubpageElement, SettingsInternetSubpageMenuElement, SettingsKerberosAccountsSubpageElement, SettingsKeyboardAndTextInputPageElement, SettingsLockScreenElement, SettingsManageUsersSubpageElement, SettingsMultideviceSmartlockItemElement, SettingsOfficePageElement, SettingsOneDriveSubpageElement, SettingsPasspointSubpageElement, SettingsPrivacyHubMicrophoneSubpage, SettingsSearchSubpageElement, SettingsSelectToSpeakSubpageElement, SettingsSetupFingerprintDialogElement, SettingsSmartPrivacySubpage, SettingsSmbSharesPageElement, SettingsSwitchAccessActionAssignmentDialogElement, SettingsSwitchAccessActionAssignmentPaneElement, SettingsSwitchAccessSetupGuideDialogElement, SettingsSwitchAccessSubpageElement, SettingsTextToSpeechSubpageElement, SettingsTrafficCountersElement, SettingsTtsVoiceSubpageElement, SettingsUserListElement, SettingsUsersAddUserDialogElement, SwitchAccessCommand, TetherConnectionDialogElement, TimeZoneAutoDetectMethod, TimeZoneBrowserProxyImpl, TimezoneSubpageElement, computePrinterState, getDataTransferOriginIndex, getStatusReasonFromPrinterStatus, sanitizeInnerHtml, setDataTransferOriginIndex };
+export { AccountManagerBrowserProxyImpl, AddPrintServerDialogElement, AddPrinterManuallyDialogElement, AddPrinterManufacturerModelDialogElement, AppLanguageSelectionDialogElement, AppLanguageSelectionItemElement, AppManagementAppLanguageItemElement, BluetoothBrailleDisplayManager, BluetoothBrailleDisplayUiElement, BruschettaSubpageElement, CellularNetworksListElement, CellularRoamingToggleButtonElement, ChangeDictationLocaleDialog, ConsentStatus, CrCheckboxWithPolicyElement, CrostiniBrowserProxyImpl, CrostiniPortForwardingElement, CrostiniPortProtocol, CrostiniSettingsCardElement, CrostiniSharedUsbDevicesElement, CupsPrintersBrowserProxyImpl, CupsPrintersEntryManager, CustomizeButtonDropdownItemElement, CustomizeButtonRowElement, CustomizeButtonSelectElement, CustomizeButtonsSubsectionElement, DragAndDropManager, DspHotwordState, EsimInstallErrorDialogElement, ExtraContainersCreateDialog, ExtraContainersElement, FingerprintBrowserProxyImpl, FingerprintResultType, FingerprintSetupStep, GoogleAssistantBrowserProxyImpl, InputsShortcutReminderState, KerberosAccountsBrowserProxyImpl, KerberosAddAccountDialogElement, KerberosConfigErrorCode, KerberosErrorType, KeyCombinationInputDialogElement, KeyboardShortcutBanner, LanguagesBrowserProxyImpl, LanguagesMetricsProxyImpl, LanguagesPageInteraction, LifetimeBrowserProxyImpl, ManageIsolatedWebAppsSubpageElement, MediaDevicesProxy, NetworkAlwaysOnVpnElement, NetworkDeviceInfoDialogElement, NetworkProxySectionElement, OsSettingsAddItemsDialogElement, OsSettingsAppLanguagesPageElement, OsSettingsChangeDeviceLanguageDialogElement, OsSettingsClearPersonalizedDataDialogElement, OsSettingsEditDictionaryPageElement, OsSettingsFilesPageElement, OsSettingsInputPageElement, OsSettingsLanguagesPageV2Element, OsSettingsPersonalizationOptionsElement, OsSettingsPrintingPageElement, OsSettingsResetPageElement, OsSettingsSubpageElement, OsSyncBrowserProxyImpl, OsSyncControlsSubpageElement, PasspointRemoveDialogElement, PdfOcrUserSelection, PrintServerResult, PrinterDialogErrorElement, PrinterSettingsUserAction, PrinterSetupResult, PrinterState, PrinterStatusReason, PrinterStatusSeverity, PrinterType, PrivacyHubBrowserProxyImpl, ScreenAiInstallStatus, SettingsAccountManagerSubpageElement, SettingsAudioAndCaptionsPageElement, SettingsChromeVoxSubpageElement, SettingsCrostiniArcAdbElement, SettingsCrostiniConfirmationDialogElement, SettingsCrostiniDiskResizeDialogElement, SettingsCrostiniExportImportElement, SettingsCrostiniPageElement, SettingsCrostiniSubpageElement, SettingsCupsAddPrinterDialogElement, SettingsCupsEditPrinterDialogElement, SettingsCupsEnterprisePrintersElement, SettingsCupsNearbyPrintersElement, SettingsCupsPrintersElement, SettingsCupsPrintersEntryElement, SettingsCupsSavedPrintersElement, SettingsCursorAndTouchpadPageElement, SettingsDateTimePageElement, SettingsDisplayAndMagnificationSubpageElement, SettingsFingerprintListSubpageElement, SettingsGoogleAssistantSubpageElement, SettingsGuestOsSharedUsbDevicesElement, SettingsHotspotSubpageElement, SettingsInputMethodOptionsPageElement, SettingsInternetDetailPageElement, SettingsInternetKnownNetworksPageElement, SettingsInternetSubpageElement, SettingsInternetSubpageMenuElement, SettingsKerberosAccountsSubpageElement, SettingsKeyboardAndTextInputPageElement, SettingsLockScreenElement, SettingsManageUsersSubpageElement, SettingsMultideviceSmartlockItemElement, SettingsOfficePageElement, SettingsOneDriveSubpageElement, SettingsPasspointSubpageElement, SettingsPrivacyHubCameraSubpage, SettingsPrivacyHubMicrophoneSubpage, SettingsSearchSubpageElement, SettingsSelectToSpeakSubpageElement, SettingsSetupFingerprintDialogElement, SettingsSmartPrivacySubpage, SettingsSmbSharesPageElement, SettingsSwitchAccessActionAssignmentDialogElement, SettingsSwitchAccessActionAssignmentPaneElement, SettingsSwitchAccessSetupGuideDialogElement, SettingsSwitchAccessSubpageElement, SettingsTextToSpeechSubpageElement, SettingsTrafficCountersElement, SettingsTtsVoiceSubpageElement, SettingsUserListElement, SettingsUsersAddUserDialogElement, SwitchAccessCommand, TetherConnectionDialogElement, TimeZoneAutoDetectMethod, TimeZoneBrowserProxyImpl, TimezoneSubpageElement, computePrinterState, getDataTransferOriginIndex, getStatusReasonFromPrinterStatus, sanitizeInnerHtml, setDataTransferOriginIndex };
 //# sourceMappingURL=lazy_load.rollup.js.map

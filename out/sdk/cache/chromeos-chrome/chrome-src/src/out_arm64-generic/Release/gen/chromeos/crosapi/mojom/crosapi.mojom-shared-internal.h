@@ -10,6 +10,7 @@
 #include "mojo/public/cpp/bindings/lib/bindings_internal.h"
 #include "mojo/public/cpp/bindings/lib/map_data_internal.h"
 #include "mojo/public/cpp/bindings/lib/buffer.h"
+#include "chromeos/components/in_session_auth/mojom/in_session_auth.mojom-shared-internal.h"
 #include "chromeos/components/payments/mojom/payment_app.mojom-shared-internal.h"
 #include "chromeos/components/remote_apps/mojom/remote_apps.mojom-shared-internal.h"
 #include "chromeos/components/sensors/mojom/cros_sensor_service.mojom-shared-internal.h"
@@ -25,12 +26,14 @@
 #include "chromeos/crosapi/mojom/guest_os_sk_forwarder.mojom-shared-internal.h"
 #include "chromeos/crosapi/mojom/cert_database.mojom-shared-internal.h"
 #include "chromeos/crosapi/mojom/cert_provisioning.mojom-shared-internal.h"
+#include "chromeos/crosapi/mojom/chaps_service.mojom-shared-internal.h"
 #include "chromeos/crosapi/mojom/chrome_app_kiosk_service.mojom-shared-internal.h"
 #include "chromeos/crosapi/mojom/clipboard.mojom-shared-internal.h"
 #include "chromeos/crosapi/mojom/clipboard_history.mojom-shared-internal.h"
 #include "chromeos/crosapi/mojom/content_protection.mojom-shared-internal.h"
 #include "chromeos/crosapi/mojom/cros_display_config.mojom-shared-internal.h"
 #include "chromeos/crosapi/mojom/desk.mojom-shared-internal.h"
+#include "chromeos/crosapi/mojom/desk_profiles.mojom-shared-internal.h"
 #include "chromeos/crosapi/mojom/desk_template.mojom-shared-internal.h"
 #include "chromeos/crosapi/mojom/device_attributes.mojom-shared-internal.h"
 #include "chromeos/crosapi/mojom/device_local_account_extension_service.mojom-shared-internal.h"
@@ -62,9 +65,9 @@
 #include "chromeos/crosapi/mojom/identity_manager.mojom-shared-internal.h"
 #include "chromeos/crosapi/mojom/idle_service.mojom-shared-internal.h"
 #include "chromeos/crosapi/mojom/image_writer.mojom-shared-internal.h"
-#include "chromeos/crosapi/mojom/in_session_auth.mojom-shared-internal.h"
 #include "chromeos/crosapi/mojom/kerberos_in_browser.mojom-shared-internal.h"
 #include "chromeos/crosapi/mojom/keystore_service.mojom-shared-internal.h"
+#include "chromeos/crosapi/mojom/lacros_shelf_item_tracker.mojom-shared-internal.h"
 #include "chromeos/crosapi/mojom/launcher_search.mojom-shared-internal.h"
 #include "chromeos/crosapi/mojom/local_printer.mojom-shared-internal.h"
 #include "chromeos/crosapi/mojom/login.mojom-shared-internal.h"
@@ -83,6 +86,7 @@
 #include "chromeos/crosapi/mojom/power.mojom-shared-internal.h"
 #include "chromeos/crosapi/mojom/network_settings_service.mojom-shared-internal.h"
 #include "chromeos/crosapi/mojom/parent_access.mojom-shared-internal.h"
+#include "chromeos/crosapi/mojom/passkeys.mojom-shared-internal.h"
 #include "chromeos/crosapi/mojom/prefs.mojom-shared-internal.h"
 #include "chromeos/crosapi/mojom/printing_metrics.mojom-shared-internal.h"
 #include "chromeos/crosapi/mojom/probe_service.mojom-shared-internal.h"
@@ -100,6 +104,7 @@
 #include "chromeos/crosapi/mojom/task_manager.mojom-shared-internal.h"
 #include "chromeos/crosapi/mojom/telemetry_diagnostic_routine_service.mojom-shared-internal.h"
 #include "chromeos/crosapi/mojom/telemetry_event_service.mojom-shared-internal.h"
+#include "chromeos/crosapi/mojom/telemetry_management_service.mojom-shared-internal.h"
 #include "chromeos/crosapi/mojom/test_controller.mojom-shared-internal.h"
 #include "chromeos/crosapi/mojom/timezone.mojom-shared-internal.h"
 #include "chromeos/crosapi/mojom/tts.mojom-shared-internal.h"
@@ -146,6 +151,7 @@ namespace internal {
 class BrowserInfo_Data;
 class DefaultPaths_Data;
 class DeviceProperties_Data;
+class EntropySource_Data;
 class BrowserInitParams_Data;
 class BrowserPostLoginParams_Data;
 class OpenUrlParams_Data;
@@ -714,6 +720,57 @@ struct DeviceProperties_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     DeviceProperties_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  EntropySource_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t low_entropy;
+  int32_t old_low_entropy;
+  int32_t pseudo_low_entropy;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<EntropySource_Data>;
+
+  EntropySource_Data();
+  ~EntropySource_Data() = delete;
+};
+static_assert(sizeof(EntropySource_Data) == 24,
+              "Bad sizeof(EntropySource_Data)");
+// Used by EntropySource::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct EntropySource_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  EntropySource_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~EntropySource_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<EntropySource_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    EntropySource_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  BrowserInitParams_Data {
  public:
   static bool Validate(const void* data,
@@ -725,10 +782,10 @@ class  BrowserInitParams_Data {
   uint8_t ash_metrics_enabled : 1;
   uint8_t REMOVED_13 : 1;
   uint8_t REMOVED_14 : 1;
-  uint8_t web_apps_enabled : 1;
+  uint8_t REMOVED_17 : 1;
   uint8_t REMOVED_18 : 1;
-  uint8_t standalone_browser_is_primary : 1;
-  uint8_t standalone_browser_is_only_browser : 1;
+  uint8_t REMOVED_19 : 1;
+  uint8_t REMOVED_27 : 1;
   uint8_t publish_chrome_apps : 1;
   uint8_t is_unfiltered_bluetooth_device_enabled : 1;
   uint8_t is_holding_space_incognito_profile_integration_enabled_deprecated : 1;
@@ -741,9 +798,9 @@ class  BrowserInitParams_Data {
   uint8_t is_current_user_device_owner : 1;
   uint8_t REMOVED_48 : 1;
   uint8_t enable_lacros_tts_support : 1;
-  uint8_t enable_window_layout_menu : 1;
+  uint8_t REMOVED_51 : 1;
   uint8_t is_cloud_gaming_device : 1;
-  uint8_t enable_partial_split_deprecated : 1;
+  uint8_t REMOVED_55 : 1;
   uint8_t vc_controls_ui_enabled : 1;
   uint8_t enable_cpu_mappable_native_gpu_memory_buffers : 1;
   uint8_t oop_video_decoding_enabled : 1;
@@ -791,9 +848,12 @@ class  BrowserInitParams_Data {
   uint8_t is_app_install_service_uri_enabled : 1;
   uint8_t is_desk_profiles_enabled : 1;
   uint8_t is_cros_web_app_shortcut_ui_update_enabled : 1;
-  uint8_t pad70_[3];
+  uint8_t is_cros_shortstand_enabled : 1;
+  uint8_t should_disable_chrome_compose_on_chromeos : 1;
+  uint8_t pad72_[2];
   mojo::internal::Pointer<::crosapi::mojom::internal::ExtensionKeepList_Data> extension_keep_list;
   mojo::internal::Pointer<::crosapi::mojom::internal::StandaloneBrowserAppServiceBlockList_Data> standalone_browser_app_service_blocklist;
+  mojo::internal::Pointer<internal::EntropySource_Data> entropy_source;
 
  private:
   friend class mojo::internal::MessageFragment<BrowserInitParams_Data>;
@@ -801,7 +861,7 @@ class  BrowserInitParams_Data {
   BrowserInitParams_Data();
   ~BrowserInitParams_Data() = delete;
 };
-static_assert(sizeof(BrowserInitParams_Data) == 240,
+static_assert(sizeof(BrowserInitParams_Data) == 248,
               "Bad sizeof(BrowserInitParams_Data)");
 // Used by BrowserInitParams::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>
@@ -849,9 +909,9 @@ class  BrowserPostLoginParams_Data {
   mojo::internal::Pointer<mojo::internal::Array_Data<uint8_t>> device_account_policy;
   uint64_t last_policy_fetch_attempt_timestamp;
   mojo::internal::Pointer<::crosapi::mojom::internal::Account_Data> device_account;
-  uint8_t web_apps_enabled : 1;
-  uint8_t standalone_browser_is_primary : 1;
-  uint8_t standalone_browser_is_only_browser : 1;
+  uint8_t REMOVED_8 : 1;
+  uint8_t REMOVED_9 : 1;
+  uint8_t REMOVED_12 : 1;
   uint8_t publish_chrome_apps : 1;
   uint8_t publish_hosted_apps : 1;
   uint8_t is_current_user_device_owner : 1;

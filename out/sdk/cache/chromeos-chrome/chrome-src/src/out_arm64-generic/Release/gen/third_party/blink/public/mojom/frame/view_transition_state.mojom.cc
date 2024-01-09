@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -59,7 +60,7 @@ ViewTransitionElement::ViewTransitionElement(
     const ::gfx::SizeF& border_box_size_in_css_space_in,
     const ::gfx::Transform& viewport_matrix_in,
     const ::gfx::RectF& overflow_rect_in_layout_space_in,
-    const absl::optional<::gfx::RectF>& captured_rect_in_layout_space_in,
+    const std::optional<::gfx::RectF>& captured_rect_in_layout_space_in,
     const ::viz::ViewTransitionElementResourceId& snapshot_id_in,
     int32_t paint_order_in,
     const base::flat_map<ViewTransitionPropertyId, std::string>& captured_css_properties_in)
@@ -117,7 +118,7 @@ void ViewTransitionElement::WriteIntoTrace(
     dict.AddItem(
       "captured_rect_in_layout_space"), this->captured_rect_in_layout_space,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::gfx::RectF>&>"
+      "<value of type const std::optional<::gfx::RectF>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

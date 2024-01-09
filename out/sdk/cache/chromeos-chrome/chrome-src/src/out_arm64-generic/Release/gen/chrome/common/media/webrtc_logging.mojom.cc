@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -174,14 +175,17 @@ void WebRtcLoggingClientProxy::OnAddMessages(
                         "<value of type std::vector<WebRtcLoggingMessagePtr>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebRtcLoggingClient_OnAddMessages_Name, kFlags, 0, 0,
@@ -218,14 +222,17 @@ void WebRtcLoggingClientProxy::OnStopped(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send chrome::mojom::WebRtcLoggingClient::OnStopped");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebRtcLoggingClient_OnStopped_Name, kFlags, 0, 0, nullptr);
@@ -318,12 +325,12 @@ bool WebRtcLoggingClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kWebRtcLoggingClientValidationInfo[] = {
-    {&internal::WebRtcLoggingClient_OnAddMessages_Params_Data::Validate,
+    { &internal::WebRtcLoggingClient_OnAddMessages_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::WebRtcLoggingClient_OnStopped_Params_Data::Validate,
+    { &internal::WebRtcLoggingClient_OnStopped_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -423,14 +430,17 @@ void WebRtcLoggingAgentProxy::Start(
                         "<value of type ::mojo::PendingRemote<WebRtcLoggingClient>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebRtcLoggingAgent_Start_Name, kFlags, 0, 0, nullptr);
@@ -459,14 +469,17 @@ void WebRtcLoggingAgentProxy::Stop(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send chrome::mojom::WebRtcLoggingAgent::Stop");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebRtcLoggingAgent_Stop_Name, kFlags, 0, 0, nullptr);
@@ -561,12 +574,12 @@ bool WebRtcLoggingAgentStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kWebRtcLoggingAgentValidationInfo[] = {
-    {&internal::WebRtcLoggingAgent_Start_Params_Data::Validate,
+    { &internal::WebRtcLoggingAgent_Start_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::WebRtcLoggingAgent_Stop_Params_Data::Validate,
+    { &internal::WebRtcLoggingAgent_Stop_Params_Data::Validate,
      nullptr /* no response */},
 };
 

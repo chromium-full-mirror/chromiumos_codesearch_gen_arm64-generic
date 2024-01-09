@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -55,7 +56,7 @@ ArcNotificationButton::ArcNotificationButton(
 
 ArcNotificationButton::ArcNotificationButton(
     const std::string& label_in,
-    const absl::optional<std::string>& buttonPlaceholder_in)
+    const std::optional<std::string>& buttonPlaceholder_in)
     : label(std::move(label_in)),
       buttonPlaceholder(std::move(buttonPlaceholder_in)) {}
 
@@ -77,7 +78,7 @@ void ArcNotificationButton::WriteIntoTrace(
     dict.AddItem(
       "buttonPlaceholder"), this->buttonPlaceholder,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -163,13 +164,13 @@ ArcNotificationData::ArcNotificationData(
     ArcNotificationType type_in,
     const std::string& message_in,
     const std::string& title_in,
-    const absl::optional<std::string>& app_display_name_in,
-    absl::optional<std::vector<uint8_t>> deprecated_icon_data_in,
+    const std::optional<std::string>& app_display_name_in,
+    std::optional<std::vector<uint8_t>> deprecated_icon_data_in,
     ArcNotificationPriority priority_in,
     int64_t time_in,
     int32_t progress_current_in,
     int32_t progress_max_in,
-    absl::optional<std::vector<ArcNotificationButtonPtr>> buttons_in)
+    std::optional<std::vector<ArcNotificationButtonPtr>> buttons_in)
     : key(std::move(key_in)),
       type(std::move(type_in)),
       message(std::move(message_in)),
@@ -211,13 +212,13 @@ ArcNotificationData::ArcNotificationData(
     ArcNotificationType type_in,
     const std::string& message_in,
     const std::string& title_in,
-    const absl::optional<std::string>& app_display_name_in,
-    absl::optional<std::vector<uint8_t>> deprecated_icon_data_in,
+    const std::optional<std::string>& app_display_name_in,
+    std::optional<std::vector<uint8_t>> deprecated_icon_data_in,
     ArcNotificationPriority priority_in,
     int64_t time_in,
     int32_t progress_current_in,
     int32_t progress_max_in,
-    absl::optional<std::vector<ArcNotificationButtonPtr>> buttons_in,
+    std::optional<std::vector<ArcNotificationButtonPtr>> buttons_in,
     bool no_clear_in,
     bool ongoing_event_in)
     : key(std::move(key_in)),
@@ -261,17 +262,17 @@ ArcNotificationData::ArcNotificationData(
     ArcNotificationType type_in,
     const std::string& message_in,
     const std::string& title_in,
-    const absl::optional<std::string>& app_display_name_in,
-    absl::optional<std::vector<uint8_t>> deprecated_icon_data_in,
+    const std::optional<std::string>& app_display_name_in,
+    std::optional<std::vector<uint8_t>> deprecated_icon_data_in,
     ArcNotificationPriority priority_in,
     int64_t time_in,
     int32_t progress_current_in,
     int32_t progress_max_in,
-    absl::optional<std::vector<ArcNotificationButtonPtr>> buttons_in,
+    std::optional<std::vector<ArcNotificationButtonPtr>> buttons_in,
     bool no_clear_in,
     bool ongoing_event_in,
-    absl::optional<std::vector<std::string>> texts_in,
-    const absl::optional<::SkBitmap>& big_picture_in)
+    std::optional<std::vector<std::string>> texts_in,
+    const std::optional<::SkBitmap>& big_picture_in)
     : key(std::move(key_in)),
       type(std::move(type_in)),
       message(std::move(message_in)),
@@ -313,17 +314,17 @@ ArcNotificationData::ArcNotificationData(
     ArcNotificationType type_in,
     const std::string& message_in,
     const std::string& title_in,
-    const absl::optional<std::string>& app_display_name_in,
-    absl::optional<std::vector<uint8_t>> deprecated_icon_data_in,
+    const std::optional<std::string>& app_display_name_in,
+    std::optional<std::vector<uint8_t>> deprecated_icon_data_in,
     ArcNotificationPriority priority_in,
     int64_t time_in,
     int32_t progress_current_in,
     int32_t progress_max_in,
-    absl::optional<std::vector<ArcNotificationButtonPtr>> buttons_in,
+    std::optional<std::vector<ArcNotificationButtonPtr>> buttons_in,
     bool no_clear_in,
     bool ongoing_event_in,
-    absl::optional<std::vector<std::string>> texts_in,
-    const absl::optional<::SkBitmap>& big_picture_in,
+    std::optional<std::vector<std::string>> texts_in,
+    const std::optional<::SkBitmap>& big_picture_in,
     bool is_custom_notification_in)
     : key(std::move(key_in)),
       type(std::move(type_in)),
@@ -366,19 +367,19 @@ ArcNotificationData::ArcNotificationData(
     ArcNotificationType type_in,
     const std::string& message_in,
     const std::string& title_in,
-    const absl::optional<std::string>& app_display_name_in,
-    absl::optional<std::vector<uint8_t>> deprecated_icon_data_in,
+    const std::optional<std::string>& app_display_name_in,
+    std::optional<std::vector<uint8_t>> deprecated_icon_data_in,
     ArcNotificationPriority priority_in,
     int64_t time_in,
     int32_t progress_current_in,
     int32_t progress_max_in,
-    absl::optional<std::vector<ArcNotificationButtonPtr>> buttons_in,
+    std::optional<std::vector<ArcNotificationButtonPtr>> buttons_in,
     bool no_clear_in,
     bool ongoing_event_in,
-    absl::optional<std::vector<std::string>> texts_in,
-    const absl::optional<::SkBitmap>& big_picture_in,
+    std::optional<std::vector<std::string>> texts_in,
+    const std::optional<::SkBitmap>& big_picture_in,
     bool is_custom_notification_in,
-    const absl::optional<::SkBitmap>& small_icon_in)
+    const std::optional<::SkBitmap>& small_icon_in)
     : key(std::move(key_in)),
       type(std::move(type_in)),
       message(std::move(message_in)),
@@ -420,20 +421,20 @@ ArcNotificationData::ArcNotificationData(
     ArcNotificationType type_in,
     const std::string& message_in,
     const std::string& title_in,
-    const absl::optional<std::string>& app_display_name_in,
-    absl::optional<std::vector<uint8_t>> deprecated_icon_data_in,
+    const std::optional<std::string>& app_display_name_in,
+    std::optional<std::vector<uint8_t>> deprecated_icon_data_in,
     ArcNotificationPriority priority_in,
     int64_t time_in,
     int32_t progress_current_in,
     int32_t progress_max_in,
-    absl::optional<std::vector<ArcNotificationButtonPtr>> buttons_in,
+    std::optional<std::vector<ArcNotificationButtonPtr>> buttons_in,
     bool no_clear_in,
     bool ongoing_event_in,
-    absl::optional<std::vector<std::string>> texts_in,
-    const absl::optional<::SkBitmap>& big_picture_in,
+    std::optional<std::vector<std::string>> texts_in,
+    const std::optional<::SkBitmap>& big_picture_in,
     bool is_custom_notification_in,
-    const absl::optional<::SkBitmap>& small_icon_in,
-    const absl::optional<::SkBitmap>& snapshot_image_in,
+    const std::optional<::SkBitmap>& small_icon_in,
+    const std::optional<::SkBitmap>& snapshot_image_in,
     float snapshot_image_scale_in)
     : key(std::move(key_in)),
       type(std::move(type_in)),
@@ -476,22 +477,22 @@ ArcNotificationData::ArcNotificationData(
     ArcNotificationType type_in,
     const std::string& message_in,
     const std::string& title_in,
-    const absl::optional<std::string>& app_display_name_in,
-    absl::optional<std::vector<uint8_t>> deprecated_icon_data_in,
+    const std::optional<std::string>& app_display_name_in,
+    std::optional<std::vector<uint8_t>> deprecated_icon_data_in,
     ArcNotificationPriority priority_in,
     int64_t time_in,
     int32_t progress_current_in,
     int32_t progress_max_in,
-    absl::optional<std::vector<ArcNotificationButtonPtr>> buttons_in,
+    std::optional<std::vector<ArcNotificationButtonPtr>> buttons_in,
     bool no_clear_in,
     bool ongoing_event_in,
-    absl::optional<std::vector<std::string>> texts_in,
-    const absl::optional<::SkBitmap>& big_picture_in,
+    std::optional<std::vector<std::string>> texts_in,
+    const std::optional<::SkBitmap>& big_picture_in,
     bool is_custom_notification_in,
-    const absl::optional<::SkBitmap>& small_icon_in,
-    const absl::optional<::SkBitmap>& snapshot_image_in,
+    const std::optional<::SkBitmap>& small_icon_in,
+    const std::optional<::SkBitmap>& snapshot_image_in,
     float snapshot_image_scale_in,
-    const absl::optional<std::string>& accessible_name_in)
+    const std::optional<std::string>& accessible_name_in)
     : key(std::move(key_in)),
       type(std::move(type_in)),
       message(std::move(message_in)),
@@ -533,22 +534,22 @@ ArcNotificationData::ArcNotificationData(
     ArcNotificationType type_in,
     const std::string& message_in,
     const std::string& title_in,
-    const absl::optional<std::string>& app_display_name_in,
-    absl::optional<std::vector<uint8_t>> deprecated_icon_data_in,
+    const std::optional<std::string>& app_display_name_in,
+    std::optional<std::vector<uint8_t>> deprecated_icon_data_in,
     ArcNotificationPriority priority_in,
     int64_t time_in,
     int32_t progress_current_in,
     int32_t progress_max_in,
-    absl::optional<std::vector<ArcNotificationButtonPtr>> buttons_in,
+    std::optional<std::vector<ArcNotificationButtonPtr>> buttons_in,
     bool no_clear_in,
     bool ongoing_event_in,
-    absl::optional<std::vector<std::string>> texts_in,
-    const absl::optional<::SkBitmap>& big_picture_in,
+    std::optional<std::vector<std::string>> texts_in,
+    const std::optional<::SkBitmap>& big_picture_in,
     bool is_custom_notification_in,
-    const absl::optional<::SkBitmap>& small_icon_in,
-    const absl::optional<::SkBitmap>& snapshot_image_in,
+    const std::optional<::SkBitmap>& small_icon_in,
+    const std::optional<::SkBitmap>& snapshot_image_in,
     float snapshot_image_scale_in,
-    const absl::optional<std::string>& accessible_name_in,
+    const std::optional<std::string>& accessible_name_in,
     ArcNotificationExpandState expand_state_in)
     : key(std::move(key_in)),
       type(std::move(type_in)),
@@ -591,22 +592,22 @@ ArcNotificationData::ArcNotificationData(
     ArcNotificationType type_in,
     const std::string& message_in,
     const std::string& title_in,
-    const absl::optional<std::string>& app_display_name_in,
-    absl::optional<std::vector<uint8_t>> deprecated_icon_data_in,
+    const std::optional<std::string>& app_display_name_in,
+    std::optional<std::vector<uint8_t>> deprecated_icon_data_in,
     ArcNotificationPriority priority_in,
     int64_t time_in,
     int32_t progress_current_in,
     int32_t progress_max_in,
-    absl::optional<std::vector<ArcNotificationButtonPtr>> buttons_in,
+    std::optional<std::vector<ArcNotificationButtonPtr>> buttons_in,
     bool no_clear_in,
     bool ongoing_event_in,
-    absl::optional<std::vector<std::string>> texts_in,
-    const absl::optional<::SkBitmap>& big_picture_in,
+    std::optional<std::vector<std::string>> texts_in,
+    const std::optional<::SkBitmap>& big_picture_in,
     bool is_custom_notification_in,
-    const absl::optional<::SkBitmap>& small_icon_in,
-    const absl::optional<::SkBitmap>& snapshot_image_in,
+    const std::optional<::SkBitmap>& small_icon_in,
+    const std::optional<::SkBitmap>& snapshot_image_in,
     float snapshot_image_scale_in,
-    const absl::optional<std::string>& accessible_name_in,
+    const std::optional<std::string>& accessible_name_in,
     ArcNotificationExpandState expand_state_in,
     ArcNotificationShownContents shown_contents_in)
     : key(std::move(key_in)),
@@ -650,22 +651,22 @@ ArcNotificationData::ArcNotificationData(
     ArcNotificationType type_in,
     const std::string& message_in,
     const std::string& title_in,
-    const absl::optional<std::string>& app_display_name_in,
-    absl::optional<std::vector<uint8_t>> deprecated_icon_data_in,
+    const std::optional<std::string>& app_display_name_in,
+    std::optional<std::vector<uint8_t>> deprecated_icon_data_in,
     ArcNotificationPriority priority_in,
     int64_t time_in,
     int32_t progress_current_in,
     int32_t progress_max_in,
-    absl::optional<std::vector<ArcNotificationButtonPtr>> buttons_in,
+    std::optional<std::vector<ArcNotificationButtonPtr>> buttons_in,
     bool no_clear_in,
     bool ongoing_event_in,
-    absl::optional<std::vector<std::string>> texts_in,
-    const absl::optional<::SkBitmap>& big_picture_in,
+    std::optional<std::vector<std::string>> texts_in,
+    const std::optional<::SkBitmap>& big_picture_in,
     bool is_custom_notification_in,
-    const absl::optional<::SkBitmap>& small_icon_in,
-    const absl::optional<::SkBitmap>& snapshot_image_in,
+    const std::optional<::SkBitmap>& small_icon_in,
+    const std::optional<::SkBitmap>& snapshot_image_in,
     float snapshot_image_scale_in,
-    const absl::optional<std::string>& accessible_name_in,
+    const std::optional<std::string>& accessible_name_in,
     ArcNotificationExpandState expand_state_in,
     ArcNotificationShownContents shown_contents_in,
     ArcNotificationRemoteInputState remote_input_state_in)
@@ -710,26 +711,26 @@ ArcNotificationData::ArcNotificationData(
     ArcNotificationType type_in,
     const std::string& message_in,
     const std::string& title_in,
-    const absl::optional<std::string>& app_display_name_in,
-    absl::optional<std::vector<uint8_t>> deprecated_icon_data_in,
+    const std::optional<std::string>& app_display_name_in,
+    std::optional<std::vector<uint8_t>> deprecated_icon_data_in,
     ArcNotificationPriority priority_in,
     int64_t time_in,
     int32_t progress_current_in,
     int32_t progress_max_in,
-    absl::optional<std::vector<ArcNotificationButtonPtr>> buttons_in,
+    std::optional<std::vector<ArcNotificationButtonPtr>> buttons_in,
     bool no_clear_in,
     bool ongoing_event_in,
-    absl::optional<std::vector<std::string>> texts_in,
-    const absl::optional<::SkBitmap>& big_picture_in,
+    std::optional<std::vector<std::string>> texts_in,
+    const std::optional<::SkBitmap>& big_picture_in,
     bool is_custom_notification_in,
-    const absl::optional<::SkBitmap>& small_icon_in,
-    const absl::optional<::SkBitmap>& snapshot_image_in,
+    const std::optional<::SkBitmap>& small_icon_in,
+    const std::optional<::SkBitmap>& snapshot_image_in,
     float snapshot_image_scale_in,
-    const absl::optional<std::string>& accessible_name_in,
+    const std::optional<std::string>& accessible_name_in,
     ArcNotificationExpandState expand_state_in,
     ArcNotificationShownContents shown_contents_in,
     ArcNotificationRemoteInputState remote_input_state_in,
-    const absl::optional<::gfx::Rect>& swipe_input_rect_in)
+    const std::optional<::gfx::Rect>& swipe_input_rect_in)
     : key(std::move(key_in)),
       type(std::move(type_in)),
       message(std::move(message_in)),
@@ -771,27 +772,27 @@ ArcNotificationData::ArcNotificationData(
     ArcNotificationType type_in,
     const std::string& message_in,
     const std::string& title_in,
-    const absl::optional<std::string>& app_display_name_in,
-    absl::optional<std::vector<uint8_t>> deprecated_icon_data_in,
+    const std::optional<std::string>& app_display_name_in,
+    std::optional<std::vector<uint8_t>> deprecated_icon_data_in,
     ArcNotificationPriority priority_in,
     int64_t time_in,
     int32_t progress_current_in,
     int32_t progress_max_in,
-    absl::optional<std::vector<ArcNotificationButtonPtr>> buttons_in,
+    std::optional<std::vector<ArcNotificationButtonPtr>> buttons_in,
     bool no_clear_in,
     bool ongoing_event_in,
-    absl::optional<std::vector<std::string>> texts_in,
-    const absl::optional<::SkBitmap>& big_picture_in,
+    std::optional<std::vector<std::string>> texts_in,
+    const std::optional<::SkBitmap>& big_picture_in,
     bool is_custom_notification_in,
-    const absl::optional<::SkBitmap>& small_icon_in,
-    const absl::optional<::SkBitmap>& snapshot_image_in,
+    const std::optional<::SkBitmap>& small_icon_in,
+    const std::optional<::SkBitmap>& snapshot_image_in,
     float snapshot_image_scale_in,
-    const absl::optional<std::string>& accessible_name_in,
+    const std::optional<std::string>& accessible_name_in,
     ArcNotificationExpandState expand_state_in,
     ArcNotificationShownContents shown_contents_in,
     ArcNotificationRemoteInputState remote_input_state_in,
-    const absl::optional<::gfx::Rect>& swipe_input_rect_in,
-    const absl::optional<std::string>& package_name_in)
+    const std::optional<::gfx::Rect>& swipe_input_rect_in,
+    const std::optional<std::string>& package_name_in)
     : key(std::move(key_in)),
       type(std::move(type_in)),
       message(std::move(message_in)),
@@ -833,27 +834,27 @@ ArcNotificationData::ArcNotificationData(
     ArcNotificationType type_in,
     const std::string& message_in,
     const std::string& title_in,
-    const absl::optional<std::string>& app_display_name_in,
-    absl::optional<std::vector<uint8_t>> deprecated_icon_data_in,
+    const std::optional<std::string>& app_display_name_in,
+    std::optional<std::vector<uint8_t>> deprecated_icon_data_in,
     ArcNotificationPriority priority_in,
     int64_t time_in,
     int32_t progress_current_in,
     int32_t progress_max_in,
-    absl::optional<std::vector<ArcNotificationButtonPtr>> buttons_in,
+    std::optional<std::vector<ArcNotificationButtonPtr>> buttons_in,
     bool no_clear_in,
     bool ongoing_event_in,
-    absl::optional<std::vector<std::string>> texts_in,
-    const absl::optional<::SkBitmap>& big_picture_in,
+    std::optional<std::vector<std::string>> texts_in,
+    const std::optional<::SkBitmap>& big_picture_in,
     bool is_custom_notification_in,
-    const absl::optional<::SkBitmap>& small_icon_in,
-    const absl::optional<::SkBitmap>& snapshot_image_in,
+    const std::optional<::SkBitmap>& small_icon_in,
+    const std::optional<::SkBitmap>& snapshot_image_in,
     float snapshot_image_scale_in,
-    const absl::optional<std::string>& accessible_name_in,
+    const std::optional<std::string>& accessible_name_in,
     ArcNotificationExpandState expand_state_in,
     ArcNotificationShownContents shown_contents_in,
     ArcNotificationRemoteInputState remote_input_state_in,
-    const absl::optional<::gfx::Rect>& swipe_input_rect_in,
-    const absl::optional<std::string>& package_name_in,
+    const std::optional<::gfx::Rect>& swipe_input_rect_in,
+    const std::optional<std::string>& package_name_in,
     ArcNotificationFlagsPtr flags_in)
     : key(std::move(key_in)),
       type(std::move(type_in)),
@@ -896,30 +897,30 @@ ArcNotificationData::ArcNotificationData(
     ArcNotificationType type_in,
     const std::string& message_in,
     const std::string& title_in,
-    const absl::optional<std::string>& app_display_name_in,
-    absl::optional<std::vector<uint8_t>> deprecated_icon_data_in,
+    const std::optional<std::string>& app_display_name_in,
+    std::optional<std::vector<uint8_t>> deprecated_icon_data_in,
     ArcNotificationPriority priority_in,
     int64_t time_in,
     int32_t progress_current_in,
     int32_t progress_max_in,
-    absl::optional<std::vector<ArcNotificationButtonPtr>> buttons_in,
+    std::optional<std::vector<ArcNotificationButtonPtr>> buttons_in,
     bool no_clear_in,
     bool ongoing_event_in,
-    absl::optional<std::vector<std::string>> texts_in,
-    const absl::optional<::SkBitmap>& big_picture_in,
+    std::optional<std::vector<std::string>> texts_in,
+    const std::optional<::SkBitmap>& big_picture_in,
     bool is_custom_notification_in,
-    const absl::optional<::SkBitmap>& small_icon_in,
-    const absl::optional<::SkBitmap>& snapshot_image_in,
+    const std::optional<::SkBitmap>& small_icon_in,
+    const std::optional<::SkBitmap>& snapshot_image_in,
     float snapshot_image_scale_in,
-    const absl::optional<std::string>& accessible_name_in,
+    const std::optional<std::string>& accessible_name_in,
     ArcNotificationExpandState expand_state_in,
     ArcNotificationShownContents shown_contents_in,
     ArcNotificationRemoteInputState remote_input_state_in,
-    const absl::optional<::gfx::Rect>& swipe_input_rect_in,
-    const absl::optional<std::string>& package_name_in,
+    const std::optional<::gfx::Rect>& swipe_input_rect_in,
+    const std::optional<std::string>& package_name_in,
     ArcNotificationFlagsPtr flags_in,
     bool indeterminate_progress_in,
-    const absl::optional<::SkBitmap>& snapshot_image_public_in)
+    const std::optional<::SkBitmap>& snapshot_image_public_in)
     : key(std::move(key_in)),
       type(std::move(type_in)),
       message(std::move(message_in)),
@@ -961,30 +962,30 @@ ArcNotificationData::ArcNotificationData(
     ArcNotificationType type_in,
     const std::string& message_in,
     const std::string& title_in,
-    const absl::optional<std::string>& app_display_name_in,
-    absl::optional<std::vector<uint8_t>> deprecated_icon_data_in,
+    const std::optional<std::string>& app_display_name_in,
+    std::optional<std::vector<uint8_t>> deprecated_icon_data_in,
     ArcNotificationPriority priority_in,
     int64_t time_in,
     int32_t progress_current_in,
     int32_t progress_max_in,
-    absl::optional<std::vector<ArcNotificationButtonPtr>> buttons_in,
+    std::optional<std::vector<ArcNotificationButtonPtr>> buttons_in,
     bool no_clear_in,
     bool ongoing_event_in,
-    absl::optional<std::vector<std::string>> texts_in,
-    const absl::optional<::SkBitmap>& big_picture_in,
+    std::optional<std::vector<std::string>> texts_in,
+    const std::optional<::SkBitmap>& big_picture_in,
     bool is_custom_notification_in,
-    const absl::optional<::SkBitmap>& small_icon_in,
-    const absl::optional<::SkBitmap>& snapshot_image_in,
+    const std::optional<::SkBitmap>& small_icon_in,
+    const std::optional<::SkBitmap>& snapshot_image_in,
     float snapshot_image_scale_in,
-    const absl::optional<std::string>& accessible_name_in,
+    const std::optional<std::string>& accessible_name_in,
     ArcNotificationExpandState expand_state_in,
     ArcNotificationShownContents shown_contents_in,
     ArcNotificationRemoteInputState remote_input_state_in,
-    const absl::optional<::gfx::Rect>& swipe_input_rect_in,
-    const absl::optional<std::string>& package_name_in,
+    const std::optional<::gfx::Rect>& swipe_input_rect_in,
+    const std::optional<std::string>& package_name_in,
     ArcNotificationFlagsPtr flags_in,
     bool indeterminate_progress_in,
-    const absl::optional<::SkBitmap>& snapshot_image_public_in,
+    const std::optional<::SkBitmap>& snapshot_image_public_in,
     bool is_media_notification_in)
     : key(std::move(key_in)),
       type(std::move(type_in)),
@@ -1027,30 +1028,30 @@ ArcNotificationData::ArcNotificationData(
     ArcNotificationType type_in,
     const std::string& message_in,
     const std::string& title_in,
-    const absl::optional<std::string>& app_display_name_in,
-    absl::optional<std::vector<uint8_t>> deprecated_icon_data_in,
+    const std::optional<std::string>& app_display_name_in,
+    std::optional<std::vector<uint8_t>> deprecated_icon_data_in,
     ArcNotificationPriority priority_in,
     int64_t time_in,
     int32_t progress_current_in,
     int32_t progress_max_in,
-    absl::optional<std::vector<ArcNotificationButtonPtr>> buttons_in,
+    std::optional<std::vector<ArcNotificationButtonPtr>> buttons_in,
     bool no_clear_in,
     bool ongoing_event_in,
-    absl::optional<std::vector<std::string>> texts_in,
-    const absl::optional<::SkBitmap>& big_picture_in,
+    std::optional<std::vector<std::string>> texts_in,
+    const std::optional<::SkBitmap>& big_picture_in,
     bool is_custom_notification_in,
-    const absl::optional<::SkBitmap>& small_icon_in,
-    const absl::optional<::SkBitmap>& snapshot_image_in,
+    const std::optional<::SkBitmap>& small_icon_in,
+    const std::optional<::SkBitmap>& snapshot_image_in,
     float snapshot_image_scale_in,
-    const absl::optional<std::string>& accessible_name_in,
+    const std::optional<std::string>& accessible_name_in,
     ArcNotificationExpandState expand_state_in,
     ArcNotificationShownContents shown_contents_in,
     ArcNotificationRemoteInputState remote_input_state_in,
-    const absl::optional<::gfx::Rect>& swipe_input_rect_in,
-    const absl::optional<std::string>& package_name_in,
+    const std::optional<::gfx::Rect>& swipe_input_rect_in,
+    const std::optional<std::string>& package_name_in,
     ArcNotificationFlagsPtr flags_in,
     bool indeterminate_progress_in,
-    const absl::optional<::SkBitmap>& snapshot_image_public_in,
+    const std::optional<::SkBitmap>& snapshot_image_public_in,
     bool is_media_notification_in,
     ArcNotificationStyle style_in,
     bool is_action_enabled_in)
@@ -1095,30 +1096,30 @@ ArcNotificationData::ArcNotificationData(
     ArcNotificationType type_in,
     const std::string& message_in,
     const std::string& title_in,
-    const absl::optional<std::string>& app_display_name_in,
-    absl::optional<std::vector<uint8_t>> deprecated_icon_data_in,
+    const std::optional<std::string>& app_display_name_in,
+    std::optional<std::vector<uint8_t>> deprecated_icon_data_in,
     ArcNotificationPriority priority_in,
     int64_t time_in,
     int32_t progress_current_in,
     int32_t progress_max_in,
-    absl::optional<std::vector<ArcNotificationButtonPtr>> buttons_in,
+    std::optional<std::vector<ArcNotificationButtonPtr>> buttons_in,
     bool no_clear_in,
     bool ongoing_event_in,
-    absl::optional<std::vector<std::string>> texts_in,
-    const absl::optional<::SkBitmap>& big_picture_in,
+    std::optional<std::vector<std::string>> texts_in,
+    const std::optional<::SkBitmap>& big_picture_in,
     bool is_custom_notification_in,
-    const absl::optional<::SkBitmap>& small_icon_in,
-    const absl::optional<::SkBitmap>& snapshot_image_in,
+    const std::optional<::SkBitmap>& small_icon_in,
+    const std::optional<::SkBitmap>& snapshot_image_in,
     float snapshot_image_scale_in,
-    const absl::optional<std::string>& accessible_name_in,
+    const std::optional<std::string>& accessible_name_in,
     ArcNotificationExpandState expand_state_in,
     ArcNotificationShownContents shown_contents_in,
     ArcNotificationRemoteInputState remote_input_state_in,
-    const absl::optional<::gfx::Rect>& swipe_input_rect_in,
-    const absl::optional<std::string>& package_name_in,
+    const std::optional<::gfx::Rect>& swipe_input_rect_in,
+    const std::optional<std::string>& package_name_in,
     ArcNotificationFlagsPtr flags_in,
     bool indeterminate_progress_in,
-    const absl::optional<::SkBitmap>& snapshot_image_public_in,
+    const std::optional<::SkBitmap>& snapshot_image_public_in,
     bool is_media_notification_in,
     ArcNotificationStyle style_in,
     bool is_action_enabled_in,
@@ -1164,30 +1165,30 @@ ArcNotificationData::ArcNotificationData(
     ArcNotificationType type_in,
     const std::string& message_in,
     const std::string& title_in,
-    const absl::optional<std::string>& app_display_name_in,
-    absl::optional<std::vector<uint8_t>> deprecated_icon_data_in,
+    const std::optional<std::string>& app_display_name_in,
+    std::optional<std::vector<uint8_t>> deprecated_icon_data_in,
     ArcNotificationPriority priority_in,
     int64_t time_in,
     int32_t progress_current_in,
     int32_t progress_max_in,
-    absl::optional<std::vector<ArcNotificationButtonPtr>> buttons_in,
+    std::optional<std::vector<ArcNotificationButtonPtr>> buttons_in,
     bool no_clear_in,
     bool ongoing_event_in,
-    absl::optional<std::vector<std::string>> texts_in,
-    const absl::optional<::SkBitmap>& big_picture_in,
+    std::optional<std::vector<std::string>> texts_in,
+    const std::optional<::SkBitmap>& big_picture_in,
     bool is_custom_notification_in,
-    const absl::optional<::SkBitmap>& small_icon_in,
-    const absl::optional<::SkBitmap>& snapshot_image_in,
+    const std::optional<::SkBitmap>& small_icon_in,
+    const std::optional<::SkBitmap>& snapshot_image_in,
     float snapshot_image_scale_in,
-    const absl::optional<std::string>& accessible_name_in,
+    const std::optional<std::string>& accessible_name_in,
     ArcNotificationExpandState expand_state_in,
     ArcNotificationShownContents shown_contents_in,
     ArcNotificationRemoteInputState remote_input_state_in,
-    const absl::optional<::gfx::Rect>& swipe_input_rect_in,
-    const absl::optional<std::string>& package_name_in,
+    const std::optional<::gfx::Rect>& swipe_input_rect_in,
+    const std::optional<std::string>& package_name_in,
     ArcNotificationFlagsPtr flags_in,
     bool indeterminate_progress_in,
-    const absl::optional<::SkBitmap>& snapshot_image_public_in,
+    const std::optional<::SkBitmap>& snapshot_image_public_in,
     bool is_media_notification_in,
     ArcNotificationStyle style_in,
     bool is_action_enabled_in,
@@ -1234,36 +1235,36 @@ ArcNotificationData::ArcNotificationData(
     ArcNotificationType type_in,
     const std::string& message_in,
     const std::string& title_in,
-    const absl::optional<std::string>& app_display_name_in,
-    absl::optional<std::vector<uint8_t>> deprecated_icon_data_in,
+    const std::optional<std::string>& app_display_name_in,
+    std::optional<std::vector<uint8_t>> deprecated_icon_data_in,
     ArcNotificationPriority priority_in,
     int64_t time_in,
     int32_t progress_current_in,
     int32_t progress_max_in,
-    absl::optional<std::vector<ArcNotificationButtonPtr>> buttons_in,
+    std::optional<std::vector<ArcNotificationButtonPtr>> buttons_in,
     bool no_clear_in,
     bool ongoing_event_in,
-    absl::optional<std::vector<std::string>> texts_in,
-    const absl::optional<::SkBitmap>& big_picture_in,
+    std::optional<std::vector<std::string>> texts_in,
+    const std::optional<::SkBitmap>& big_picture_in,
     bool is_custom_notification_in,
-    const absl::optional<::SkBitmap>& small_icon_in,
-    const absl::optional<::SkBitmap>& snapshot_image_in,
+    const std::optional<::SkBitmap>& small_icon_in,
+    const std::optional<::SkBitmap>& snapshot_image_in,
     float snapshot_image_scale_in,
-    const absl::optional<std::string>& accessible_name_in,
+    const std::optional<std::string>& accessible_name_in,
     ArcNotificationExpandState expand_state_in,
     ArcNotificationShownContents shown_contents_in,
     ArcNotificationRemoteInputState remote_input_state_in,
-    const absl::optional<::gfx::Rect>& swipe_input_rect_in,
-    const absl::optional<std::string>& package_name_in,
+    const std::optional<::gfx::Rect>& swipe_input_rect_in,
+    const std::optional<std::string>& package_name_in,
     ArcNotificationFlagsPtr flags_in,
     bool indeterminate_progress_in,
-    const absl::optional<::SkBitmap>& snapshot_image_public_in,
+    const std::optional<::SkBitmap>& snapshot_image_public_in,
     bool is_media_notification_in,
     ArcNotificationStyle style_in,
     bool is_action_enabled_in,
     bool is_inline_reply_enabled_in,
     bool render_on_chrome_in,
-    const absl::optional<std::string>& group_key_in)
+    const std::optional<std::string>& group_key_in)
     : key(std::move(key_in)),
       type(std::move(type_in)),
       message(std::move(message_in)),
@@ -1305,36 +1306,36 @@ ArcNotificationData::ArcNotificationData(
     ArcNotificationType type_in,
     const std::string& message_in,
     const std::string& title_in,
-    const absl::optional<std::string>& app_display_name_in,
-    absl::optional<std::vector<uint8_t>> deprecated_icon_data_in,
+    const std::optional<std::string>& app_display_name_in,
+    std::optional<std::vector<uint8_t>> deprecated_icon_data_in,
     ArcNotificationPriority priority_in,
     int64_t time_in,
     int32_t progress_current_in,
     int32_t progress_max_in,
-    absl::optional<std::vector<ArcNotificationButtonPtr>> buttons_in,
+    std::optional<std::vector<ArcNotificationButtonPtr>> buttons_in,
     bool no_clear_in,
     bool ongoing_event_in,
-    absl::optional<std::vector<std::string>> texts_in,
-    const absl::optional<::SkBitmap>& big_picture_in,
+    std::optional<std::vector<std::string>> texts_in,
+    const std::optional<::SkBitmap>& big_picture_in,
     bool is_custom_notification_in,
-    const absl::optional<::SkBitmap>& small_icon_in,
-    const absl::optional<::SkBitmap>& snapshot_image_in,
+    const std::optional<::SkBitmap>& small_icon_in,
+    const std::optional<::SkBitmap>& snapshot_image_in,
     float snapshot_image_scale_in,
-    const absl::optional<std::string>& accessible_name_in,
+    const std::optional<std::string>& accessible_name_in,
     ArcNotificationExpandState expand_state_in,
     ArcNotificationShownContents shown_contents_in,
     ArcNotificationRemoteInputState remote_input_state_in,
-    const absl::optional<::gfx::Rect>& swipe_input_rect_in,
-    const absl::optional<std::string>& package_name_in,
+    const std::optional<::gfx::Rect>& swipe_input_rect_in,
+    const std::optional<std::string>& package_name_in,
     ArcNotificationFlagsPtr flags_in,
     bool indeterminate_progress_in,
-    const absl::optional<::SkBitmap>& snapshot_image_public_in,
+    const std::optional<::SkBitmap>& snapshot_image_public_in,
     bool is_media_notification_in,
     ArcNotificationStyle style_in,
     bool is_action_enabled_in,
     bool is_inline_reply_enabled_in,
     bool render_on_chrome_in,
-    const absl::optional<std::string>& group_key_in,
+    const std::optional<std::string>& group_key_in,
     int32_t reply_button_index_in)
     : key(std::move(key_in)),
       type(std::move(type_in)),
@@ -1417,7 +1418,7 @@ void ArcNotificationData::WriteIntoTrace(
     dict.AddItem(
       "app_display_name"), this->app_display_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1426,7 +1427,7 @@ void ArcNotificationData::WriteIntoTrace(
     dict.AddItem(
       "deprecated_icon_data"), this->deprecated_icon_data,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<uint8_t>>&>"
+      "<value of type const std::optional<std::vector<uint8_t>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1471,7 +1472,7 @@ void ArcNotificationData::WriteIntoTrace(
     dict.AddItem(
       "buttons"), this->buttons,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<std::vector<ArcNotificationButtonPtr>>>"
+      "<value of type std::optional<std::vector<ArcNotificationButtonPtr>>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1498,7 +1499,7 @@ void ArcNotificationData::WriteIntoTrace(
     dict.AddItem(
       "texts"), this->texts,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<std::string>>&>"
+      "<value of type const std::optional<std::vector<std::string>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1507,7 +1508,7 @@ void ArcNotificationData::WriteIntoTrace(
     dict.AddItem(
       "big_picture"), this->big_picture,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::SkBitmap>&>"
+      "<value of type const std::optional<::SkBitmap>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1525,7 +1526,7 @@ void ArcNotificationData::WriteIntoTrace(
     dict.AddItem(
       "small_icon"), this->small_icon,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::SkBitmap>&>"
+      "<value of type const std::optional<::SkBitmap>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1534,7 +1535,7 @@ void ArcNotificationData::WriteIntoTrace(
     dict.AddItem(
       "snapshot_image"), this->snapshot_image,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::SkBitmap>&>"
+      "<value of type const std::optional<::SkBitmap>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1552,7 +1553,7 @@ void ArcNotificationData::WriteIntoTrace(
     dict.AddItem(
       "accessible_name"), this->accessible_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1588,7 +1589,7 @@ void ArcNotificationData::WriteIntoTrace(
     dict.AddItem(
       "swipe_input_rect"), this->swipe_input_rect,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::gfx::Rect>&>"
+      "<value of type const std::optional<::gfx::Rect>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1597,7 +1598,7 @@ void ArcNotificationData::WriteIntoTrace(
     dict.AddItem(
       "package_name"), this->package_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1624,7 +1625,7 @@ void ArcNotificationData::WriteIntoTrace(
     dict.AddItem(
       "snapshot_image_public"), this->snapshot_image_public,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::SkBitmap>&>"
+      "<value of type const std::optional<::SkBitmap>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1678,7 +1679,7 @@ void ArcNotificationData::WriteIntoTrace(
     dict.AddItem(
       "group_key"), this->group_key,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2110,14 +2111,17 @@ void NotificationsHostProxy::OnDoNotDisturbStatusUpdated(
                         "<value of type ArcDoNotDisturbStatusPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNotificationsHost_OnDoNotDisturbStatusUpdated_Name, kFlags, 0, 0, nullptr);
@@ -2158,14 +2162,17 @@ void NotificationsHostProxy::OnNotificationPosted(
                         "<value of type ArcNotificationDataPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNotificationsHost_OnNotificationPosted_Name, kFlags, 0, 0, nullptr);
@@ -2206,14 +2213,17 @@ void NotificationsHostProxy::OnNotificationRemoved(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNotificationsHost_OnNotificationRemoved_Name, kFlags, 0, 0, nullptr);
@@ -2254,14 +2264,17 @@ void NotificationsHostProxy::OnNotificationUpdated(
                         "<value of type ArcNotificationDataPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNotificationsHost_OnNotificationUpdated_Name, kFlags, 0, 0, nullptr);
@@ -2295,14 +2308,17 @@ void NotificationsHostProxy::OpenMessageCenter(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::NotificationsHost::OpenMessageCenter");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNotificationsHost_OpenMessageCenter_Name, kFlags, 0, 0, nullptr);
@@ -2325,14 +2341,17 @@ void NotificationsHostProxy::CloseMessageCenter(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::NotificationsHost::CloseMessageCenter");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNotificationsHost_CloseMessageCenter_Name, kFlags, 0, 0, nullptr);
@@ -2362,14 +2381,17 @@ void NotificationsHostProxy::ProcessUserAction(
                         "<value of type ArcNotificationUserActionDataPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNotificationsHost_ProcessUserAction_Name, kFlags, 0, 0, nullptr);
@@ -2410,14 +2432,17 @@ void NotificationsHostProxy::OnLockScreenSettingUpdated(
                         "<value of type ArcLockScreenNotificationSettingPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNotificationsHost_OnLockScreenSettingUpdated_Name, kFlags, 0, 0, nullptr);
@@ -2458,14 +2483,17 @@ void NotificationsHostProxy::LogInlineReplySent(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNotificationsHost_LogInlineReplySent_Name, kFlags, 0, 0, nullptr);
@@ -2768,29 +2796,29 @@ bool NotificationsHostStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kNotificationsHostValidationInfo[] = {
-    {&internal::NotificationsHost_OnNotificationPosted_Params_Data::Validate,
+    { &internal::NotificationsHost_OnNotificationPosted_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NotificationsHost_OnNotificationRemoved_Params_Data::Validate,
+    { &internal::NotificationsHost_OnNotificationRemoved_Params_Data::Validate,
      nullptr /* no response */},
     {nullptr, nullptr},  // nonexistent
     {nullptr, nullptr},  // nonexistent
     {nullptr, nullptr},  // nonexistent
-    {&internal::NotificationsHost_OnNotificationUpdated_Params_Data::Validate,
+    { &internal::NotificationsHost_OnNotificationUpdated_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NotificationsHost_OpenMessageCenter_Params_Data::Validate,
+    { &internal::NotificationsHost_OpenMessageCenter_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NotificationsHost_OnDoNotDisturbStatusUpdated_Params_Data::Validate,
+    { &internal::NotificationsHost_OnDoNotDisturbStatusUpdated_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NotificationsHost_CloseMessageCenter_Params_Data::Validate,
+    { &internal::NotificationsHost_CloseMessageCenter_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NotificationsHost_ProcessUserAction_Params_Data::Validate,
+    { &internal::NotificationsHost_ProcessUserAction_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NotificationsHost_OnLockScreenSettingUpdated_Params_Data::Validate,
+    { &internal::NotificationsHost_OnLockScreenSettingUpdated_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NotificationsHost_LogInlineReplySent_Params_Data::Validate,
+    { &internal::NotificationsHost_LogInlineReplySent_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -3146,14 +3174,17 @@ void NotificationsInstanceProxy::Init(
                         "<value of type ::mojo::PendingRemote<NotificationsHost>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNotificationsInstance_Init_Name, kFlags, 0, 0, nullptr);
@@ -3193,14 +3224,17 @@ void NotificationsInstanceProxy::SendNotificationEventToAndroid(
                         "<value of type ArcNotificationEvent>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNotificationsInstance_SendNotificationEventToAndroid_Name, kFlags, 0, 0, nullptr);
@@ -3243,14 +3277,17 @@ void NotificationsInstanceProxy::CreateNotificationWindow(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNotificationsInstance_CreateNotificationWindow_Name, kFlags, 0, 0, nullptr);
@@ -3291,14 +3328,17 @@ void NotificationsInstanceProxy::CloseNotificationWindow(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNotificationsInstance_CloseNotificationWindow_Name, kFlags, 0, 0, nullptr);
@@ -3339,14 +3379,17 @@ void NotificationsInstanceProxy::OpenNotificationSettings(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNotificationsInstance_OpenNotificationSettings_Name, kFlags, 0, 0, nullptr);
@@ -3387,14 +3430,17 @@ void NotificationsInstanceProxy::OpenNotificationSnoozeSettings(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNotificationsInstance_OpenNotificationSnoozeSettings_Name, kFlags, 0, 0, nullptr);
@@ -3435,14 +3481,17 @@ void NotificationsInstanceProxy::SetDoNotDisturbStatusOnAndroid(
                         "<value of type ArcDoNotDisturbStatusPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNotificationsInstance_SetDoNotDisturbStatusOnAndroid_Name, kFlags, 0, 0, nullptr);
@@ -3483,14 +3532,17 @@ void NotificationsInstanceProxy::CancelPress(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNotificationsInstance_CancelPress_Name, kFlags, 0, 0, nullptr);
@@ -3531,14 +3583,17 @@ void NotificationsInstanceProxy::PerformDeferredUserAction(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNotificationsInstance_PerformDeferredUserAction_Name, kFlags, 0, 0, nullptr);
@@ -3569,14 +3624,17 @@ void NotificationsInstanceProxy::CancelDeferredUserAction(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNotificationsInstance_CancelDeferredUserAction_Name, kFlags, 0, 0, nullptr);
@@ -3607,14 +3665,17 @@ void NotificationsInstanceProxy::SetLockScreenSettingOnAndroid(
                         "<value of type ArcLockScreenNotificationSettingPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNotificationsInstance_SetLockScreenSettingOnAndroid_Name, kFlags, 0, 0, nullptr);
@@ -3655,14 +3716,17 @@ void NotificationsInstanceProxy::SetNotificationConfiguration(
                         "<value of type NotificationConfigurationPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNotificationsInstance_SetNotificationConfiguration_Name, kFlags, 0, 0, nullptr);
@@ -3703,14 +3767,17 @@ void NotificationsInstanceProxy::OnMessageCenterVisibilityChanged(
                         "<value of type MessageCenterVisibility>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNotificationsInstance_OnMessageCenterVisibilityChanged_Name, kFlags, 0, 0, nullptr);
@@ -3748,14 +3815,17 @@ void NotificationsInstanceProxy::SendNotificationButtonClickToAndroid(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNotificationsInstance_SendNotificationButtonClickToAndroid_Name, kFlags, 0, 0, nullptr);
@@ -3876,7 +3946,8 @@ void NotificationsInstance_Init_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNotificationsInstance_Init_Name, kFlags, 0, 0, nullptr);
@@ -4346,37 +4417,37 @@ std::move(p_host_remote), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kNotificationsInstanceValidationInfo[] = {
     {nullptr, nullptr},  // nonexistent
-    {&internal::NotificationsInstance_SendNotificationEventToAndroid_Params_Data::Validate,
+    { &internal::NotificationsInstance_SendNotificationEventToAndroid_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NotificationsInstance_CreateNotificationWindow_Params_Data::Validate,
+    { &internal::NotificationsInstance_CreateNotificationWindow_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NotificationsInstance_CloseNotificationWindow_Params_Data::Validate,
+    { &internal::NotificationsInstance_CloseNotificationWindow_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NotificationsInstance_OpenNotificationSettings_Params_Data::Validate,
+    { &internal::NotificationsInstance_OpenNotificationSettings_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NotificationsInstance_Init_Params_Data::Validate,
+    { &internal::NotificationsInstance_Init_Params_Data::Validate,
      &internal::NotificationsInstance_Init_ResponseParams_Data::Validate},
-    {&internal::NotificationsInstance_OpenNotificationSnoozeSettings_Params_Data::Validate,
+    { &internal::NotificationsInstance_OpenNotificationSnoozeSettings_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NotificationsInstance_SetDoNotDisturbStatusOnAndroid_Params_Data::Validate,
+    { &internal::NotificationsInstance_SetDoNotDisturbStatusOnAndroid_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NotificationsInstance_CancelPress_Params_Data::Validate,
+    { &internal::NotificationsInstance_CancelPress_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NotificationsInstance_PerformDeferredUserAction_Params_Data::Validate,
+    { &internal::NotificationsInstance_PerformDeferredUserAction_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NotificationsInstance_CancelDeferredUserAction_Params_Data::Validate,
+    { &internal::NotificationsInstance_CancelDeferredUserAction_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NotificationsInstance_SetLockScreenSettingOnAndroid_Params_Data::Validate,
+    { &internal::NotificationsInstance_SetLockScreenSettingOnAndroid_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NotificationsInstance_SetNotificationConfiguration_Params_Data::Validate,
+    { &internal::NotificationsInstance_SetNotificationConfiguration_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NotificationsInstance_OnMessageCenterVisibilityChanged_Params_Data::Validate,
+    { &internal::NotificationsInstance_OnMessageCenterVisibilityChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NotificationsInstance_SendNotificationButtonClickToAndroid_Params_Data::Validate,
+    { &internal::NotificationsInstance_SendNotificationButtonClickToAndroid_Params_Data::Validate,
      nullptr /* no response */},
 };
 

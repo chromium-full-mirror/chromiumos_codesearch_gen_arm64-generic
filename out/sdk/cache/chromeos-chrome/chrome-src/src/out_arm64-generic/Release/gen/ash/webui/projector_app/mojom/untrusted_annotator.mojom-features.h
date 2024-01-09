@@ -8,6 +8,7 @@
 #define ASH_WEBUI_PROJECTOR_APP_MOJOM_UNTRUSTED_ANNOTATOR_MOJOM_FEATURES_H_
 
 #include "base/feature_list.h"
+#include "mojo/public/cpp/bindings/runtime_features.h"
 
 
 

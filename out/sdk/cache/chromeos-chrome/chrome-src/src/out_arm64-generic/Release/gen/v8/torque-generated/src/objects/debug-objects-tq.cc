@@ -48,7 +48,7 @@ void TorqueGeneratedDebugInfo<DebugInfo, Struct>::DebugInfoVerify(Isolate* isola
 
 
 #endif  // VERIFY_HEAP
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/debug-objects.tq?l=64&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/debug-objects.tq?l=69&c=1
 bool IsCoverageInfo_NonInline(Tagged<HeapObject> o) {
   return IsCoverageInfo(o);
 }
@@ -62,7 +62,7 @@ void TorqueGeneratedCoverageInfo<CoverageInfo, HeapObject>::CoverageInfoVerify(I
 
 
 #endif  // VERIFY_HEAP
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/debug-objects.tq?l=74&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/debug-objects.tq?l=79&c=1
 bool IsStackFrameInfo_NonInline(Tagged<HeapObject> o) {
   return IsStackFrameInfo(o);
 }
@@ -76,7 +76,7 @@ void TorqueGeneratedStackFrameInfo<StackFrameInfo, Struct>::StackFrameInfoVerify
 
 
 #endif  // VERIFY_HEAP
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/debug-objects.tq?l=115&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/debug-objects.tq?l=120&c=1
 bool IsErrorStackData_NonInline(Tagged<HeapObject> o) {
   return IsErrorStackData(o);
 }
@@ -90,7 +90,7 @@ void TorqueGeneratedErrorStackData<ErrorStackData, Struct>::ErrorStackDataVerify
 
 
 #endif  // VERIFY_HEAP
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/debug-objects.tq?l=129&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/debug-objects.tq?l=134&c=1
 bool IsPromiseOnStack_NonInline(Tagged<HeapObject> o) {
   return IsPromiseOnStack(o);
 }

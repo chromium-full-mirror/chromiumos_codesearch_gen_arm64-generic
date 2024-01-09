@@ -1,9 +1,9 @@
 {
   "deps": [
-    "../../../../../chromeos/components/sensors/mojom/mojom.build_metadata",
     "../../../../../components/chromeos_camera/common/common.build_metadata",
     "../../../mojom/image_capture.build_metadata",
-    "cros_camera_common.build_metadata"
+    "cros_camera_common.build_metadata",
+    "../../../../../mojo/public/mojom/base/base.build_metadata"
   ],
   "sources": [
     "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/media/capture/video/chromeos/mojom/cros_camera_client.mojom",

@@ -40,7 +40,7 @@ class  PageHandlerFactory_CreatePageHandler_Params_Data {
 };
 static_assert(sizeof(PageHandlerFactory_CreatePageHandler_Params_Data) == 24,
               "Bad sizeof(PageHandlerFactory_CreatePageHandler_Params_Data)");
-class  PageHandler_GetApiKey_Params_Data {
+class  PageHandler_OnSurveyLoaded_Params_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
@@ -48,29 +48,49 @@ class  PageHandler_GetApiKey_Params_Data {
   mojo::internal::StructHeader header_;
 
  private:
-  friend class mojo::internal::MessageFragment<PageHandler_GetApiKey_Params_Data>;
+  friend class mojo::internal::MessageFragment<PageHandler_OnSurveyLoaded_Params_Data>;
 
-  PageHandler_GetApiKey_Params_Data();
-  ~PageHandler_GetApiKey_Params_Data() = delete;
+  PageHandler_OnSurveyLoaded_Params_Data();
+  ~PageHandler_OnSurveyLoaded_Params_Data() = delete;
 };
-static_assert(sizeof(PageHandler_GetApiKey_Params_Data) == 8,
-              "Bad sizeof(PageHandler_GetApiKey_Params_Data)");
-class  PageHandler_GetApiKey_ResponseParams_Data {
+static_assert(sizeof(PageHandler_OnSurveyLoaded_Params_Data) == 8,
+              "Bad sizeof(PageHandler_OnSurveyLoaded_Params_Data)");
+class  PageHandler_OnSurveyClosed_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<PageHandler_OnSurveyClosed_Params_Data>;
+
+  PageHandler_OnSurveyClosed_Params_Data();
+  ~PageHandler_OnSurveyClosed_Params_Data() = delete;
+};
+static_assert(sizeof(PageHandler_OnSurveyClosed_Params_Data) == 8,
+              "Bad sizeof(PageHandler_OnSurveyClosed_Params_Data)");
+class  Page_RequestSurvey_Params_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
   mojo::internal::Pointer<mojo::internal::String_Data> api_key;
+  mojo::internal::Pointer<mojo::internal::String_Data> trigger_id;
+  uint8_t enable_testing : 1;
+  uint8_t pad2_[7];
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<mojo::internal::String_Data>>> language_list;
+  mojo::internal::Pointer<mojo::internal::String_Data> product_specific_data_json;
 
  private:
-  friend class mojo::internal::MessageFragment<PageHandler_GetApiKey_ResponseParams_Data>;
+  friend class mojo::internal::MessageFragment<Page_RequestSurvey_Params_Data>;
 
-  PageHandler_GetApiKey_ResponseParams_Data();
-  ~PageHandler_GetApiKey_ResponseParams_Data() = delete;
+  Page_RequestSurvey_Params_Data();
+  ~Page_RequestSurvey_Params_Data() = delete;
 };
-static_assert(sizeof(PageHandler_GetApiKey_ResponseParams_Data) == 16,
-              "Bad sizeof(PageHandler_GetApiKey_ResponseParams_Data)");
+static_assert(sizeof(Page_RequestSurvey_Params_Data) == 48,
+              "Bad sizeof(Page_RequestSurvey_Params_Data)");
 
 }  // namespace internal
 
@@ -109,27 +129,42 @@ class PageHandlerFactory_CreatePageHandler_ParamsDataView {
 };
 
 
-class PageHandler_GetApiKey_ParamsDataView {
+class PageHandler_OnSurveyLoaded_ParamsDataView {
  public:
-  PageHandler_GetApiKey_ParamsDataView() = default;
+  PageHandler_OnSurveyLoaded_ParamsDataView() = default;
 
-  PageHandler_GetApiKey_ParamsDataView(
-      internal::PageHandler_GetApiKey_Params_Data* data,
+  PageHandler_OnSurveyLoaded_ParamsDataView(
+      internal::PageHandler_OnSurveyLoaded_Params_Data* data,
       mojo::Message* message)
       : data_(data) {}
 
   bool is_null() const { return !data_; }
  private:
-  internal::PageHandler_GetApiKey_Params_Data* data_ = nullptr;
+  internal::PageHandler_OnSurveyLoaded_Params_Data* data_ = nullptr;
 };
 
 
-class PageHandler_GetApiKey_ResponseParamsDataView {
+class PageHandler_OnSurveyClosed_ParamsDataView {
  public:
-  PageHandler_GetApiKey_ResponseParamsDataView() = default;
+  PageHandler_OnSurveyClosed_ParamsDataView() = default;
 
-  PageHandler_GetApiKey_ResponseParamsDataView(
-      internal::PageHandler_GetApiKey_ResponseParams_Data* data,
+  PageHandler_OnSurveyClosed_ParamsDataView(
+      internal::PageHandler_OnSurveyClosed_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::PageHandler_OnSurveyClosed_Params_Data* data_ = nullptr;
+};
+
+
+class Page_RequestSurvey_ParamsDataView {
+ public:
+  Page_RequestSurvey_ParamsDataView() = default;
+
+  Page_RequestSurvey_ParamsDataView(
+      internal::Page_RequestSurvey_Params_Data* data,
       mojo::Message* message)
       : data_(data), message_(message) {}
 
@@ -144,8 +179,41 @@ class PageHandler_GetApiKey_ResponseParamsDataView {
     return mojo::internal::Deserialize<mojo::StringDataView>(
         pointer, output, message_);
   }
+  inline void GetTriggerIdDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadTriggerId(UserType* output) {
+    
+    auto* pointer = data_->trigger_id.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  bool enable_testing() const {
+    return data_->enable_testing;
+  }
+  inline void GetLanguageListDataView(
+      mojo::ArrayDataView<mojo::StringDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadLanguageList(UserType* output) {
+    
+    auto* pointer = data_->language_list.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<mojo::StringDataView>>(
+        pointer, output, message_);
+  }
+  inline void GetProductSpecificDataJsonDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadProductSpecificDataJson(UserType* output) {
+    
+    auto* pointer = data_->product_specific_data_json.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
  private:
-  internal::PageHandler_GetApiKey_ResponseParams_Data* data_ = nullptr;
+  internal::Page_RequestSurvey_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -153,9 +221,26 @@ class PageHandler_GetApiKey_ResponseParamsDataView {
 
 
 
-inline void PageHandler_GetApiKey_ResponseParamsDataView::GetApiKeyDataView(
+
+
+inline void Page_RequestSurvey_ParamsDataView::GetApiKeyDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->api_key.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void Page_RequestSurvey_ParamsDataView::GetTriggerIdDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->trigger_id.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void Page_RequestSurvey_ParamsDataView::GetLanguageListDataView(
+    mojo::ArrayDataView<mojo::StringDataView>* output) {
+  auto pointer = data_->language_list.Get();
+  *output = mojo::ArrayDataView<mojo::StringDataView>(pointer, message_);
+}
+inline void Page_RequestSurvey_ParamsDataView::GetProductSpecificDataJsonDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->product_specific_data_json.Get();
   *output = mojo::StringDataView(pointer, message_);
 }
 

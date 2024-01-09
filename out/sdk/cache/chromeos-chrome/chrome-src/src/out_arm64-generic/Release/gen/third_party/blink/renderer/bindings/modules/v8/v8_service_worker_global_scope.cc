@@ -287,11 +287,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, ServiceWorkerGlobalScope>::value,
     "ServiceWorkerGlobalScope does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&ServiceWorkerGlobalScope::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "ServiceWorkerGlobalScope is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -304,8 +299,9 @@ BLINK_BINDINGS_TRACE_EVENT("ServiceWorkerGlobalScope.clients.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
+ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->clients();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -318,8 +314,9 @@ BLINK_BINDINGS_TRACE_EVENT("ServiceWorkerGlobalScope.registration.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
+ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->registration();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -332,8 +329,9 @@ BLINK_BINDINGS_TRACE_EVENT("ServiceWorkerGlobalScope.serviceWorker.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
+ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->serviceWorker();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -346,10 +344,10 @@ BLINK_BINDINGS_TRACE_EVENT("ServiceWorkerGlobalScope.onactivate.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onactivate();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onactivate();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -362,8 +360,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
+ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnactivate(event_handler);
 }
 
@@ -374,10 +373,10 @@ BLINK_BINDINGS_TRACE_EVENT("ServiceWorkerGlobalScope.onfetch.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onfetch();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onfetch();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -390,8 +389,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
+ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnfetch(event_handler);
 }
 
@@ -402,10 +402,10 @@ BLINK_BINDINGS_TRACE_EVENT("ServiceWorkerGlobalScope.oninstall.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->oninstall();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->oninstall();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -418,8 +418,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
+ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOninstall(event_handler);
 }
 
@@ -430,10 +431,10 @@ BLINK_BINDINGS_TRACE_EVENT("ServiceWorkerGlobalScope.onmessage.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onmessage();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onmessage();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -446,8 +447,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
+ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnmessage(event_handler);
 }
 
@@ -458,10 +460,10 @@ BLINK_BINDINGS_TRACE_EVENT("ServiceWorkerGlobalScope.onmessageerror.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onmessageerror();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onmessageerror();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -474,8 +476,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
+ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnmessageerror(event_handler);
 }
 
@@ -486,10 +489,10 @@ BLINK_BINDINGS_TRACE_EVENT("ServiceWorkerGlobalScope.onbackgroundfetchsuccess.ge
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = ServiceWorkerGlobalScopeBackgroundFetch::onbackgroundfetchsuccess(*blink_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = ServiceWorkerGlobalScopeBackgroundFetch::onbackgroundfetchsuccess(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -502,8 +505,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
+ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 ServiceWorkerGlobalScopeBackgroundFetch::setOnbackgroundfetchsuccess(*blink_receiver, event_handler);
 }
 
@@ -514,10 +518,10 @@ BLINK_BINDINGS_TRACE_EVENT("ServiceWorkerGlobalScope.onbackgroundfetchfail.get")
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = ServiceWorkerGlobalScopeBackgroundFetch::onbackgroundfetchfail(*blink_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = ServiceWorkerGlobalScopeBackgroundFetch::onbackgroundfetchfail(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -530,8 +534,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
+ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 ServiceWorkerGlobalScopeBackgroundFetch::setOnbackgroundfetchfail(*blink_receiver, event_handler);
 }
 
@@ -542,10 +547,10 @@ BLINK_BINDINGS_TRACE_EVENT("ServiceWorkerGlobalScope.onbackgroundfetchabort.get"
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = ServiceWorkerGlobalScopeBackgroundFetch::onbackgroundfetchabort(*blink_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = ServiceWorkerGlobalScopeBackgroundFetch::onbackgroundfetchabort(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -558,8 +563,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
+ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 ServiceWorkerGlobalScopeBackgroundFetch::setOnbackgroundfetchabort(*blink_receiver, event_handler);
 }
 
@@ -570,10 +576,10 @@ BLINK_BINDINGS_TRACE_EVENT("ServiceWorkerGlobalScope.onbackgroundfetchclick.get"
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = ServiceWorkerGlobalScopeBackgroundFetch::onbackgroundfetchclick(*blink_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = ServiceWorkerGlobalScopeBackgroundFetch::onbackgroundfetchclick(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -586,8 +592,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
+ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 ServiceWorkerGlobalScopeBackgroundFetch::setOnbackgroundfetchclick(*blink_receiver, event_handler);
 }
 
@@ -598,10 +605,10 @@ BLINK_BINDINGS_TRACE_EVENT("ServiceWorkerGlobalScope.onsync.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = ServiceWorkerGlobalScopeSync::onsync(*blink_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = ServiceWorkerGlobalScopeSync::onsync(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -614,8 +621,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
+ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 ServiceWorkerGlobalScopeSync::setOnsync(*blink_receiver, event_handler);
 }
 
@@ -626,10 +634,10 @@ BLINK_BINDINGS_TRACE_EVENT("ServiceWorkerGlobalScope.onperiodicsync.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = ServiceWorkerGlobalScopeSync::onperiodicsync(*blink_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = ServiceWorkerGlobalScopeSync::onperiodicsync(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -642,8 +650,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
+ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 ServiceWorkerGlobalScopeSync::setOnperiodicsync(*blink_receiver, event_handler);
 }
 
@@ -654,10 +663,10 @@ BLINK_BINDINGS_TRACE_EVENT("ServiceWorkerGlobalScope.oncontentdelete.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = ServiceWorkerGlobalScopeContentIndex::oncontentdelete(*blink_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = ServiceWorkerGlobalScopeContentIndex::oncontentdelete(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -670,8 +679,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
+ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 ServiceWorkerGlobalScopeContentIndex::setOncontentdelete(*blink_receiver, event_handler);
 }
 
@@ -682,8 +692,9 @@ BLINK_BINDINGS_TRACE_EVENT("ServiceWorkerGlobalScope.cookieStore.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
+ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = GlobalCookieStore::cookieStore(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -696,10 +707,10 @@ BLINK_BINDINGS_TRACE_EVENT("ServiceWorkerGlobalScope.oncookiechange.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = GlobalCookieStore::oncookiechange(*blink_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = GlobalCookieStore::oncookiechange(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -712,8 +723,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
+ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 GlobalCookieStore::setOncookiechange(*blink_receiver, event_handler);
 }
 
@@ -724,10 +736,10 @@ BLINK_BINDINGS_TRACE_EVENT("ServiceWorkerGlobalScope.onnotificationclick.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = ServiceWorkerGlobalScopeNotifications::onnotificationclick(*blink_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = ServiceWorkerGlobalScopeNotifications::onnotificationclick(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -740,8 +752,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
+ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 ServiceWorkerGlobalScopeNotifications::setOnnotificationclick(*blink_receiver, event_handler);
 }
 
@@ -752,10 +765,10 @@ BLINK_BINDINGS_TRACE_EVENT("ServiceWorkerGlobalScope.onnotificationclose.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = ServiceWorkerGlobalScopeNotifications::onnotificationclose(*blink_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = ServiceWorkerGlobalScopeNotifications::onnotificationclose(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -768,8 +781,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
+ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 ServiceWorkerGlobalScopeNotifications::setOnnotificationclose(*blink_receiver, event_handler);
 }
 
@@ -780,10 +794,10 @@ BLINK_BINDINGS_TRACE_EVENT("ServiceWorkerGlobalScope.onabortpayment.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = PaymentAppServiceWorkerGlobalScope::onabortpayment(*blink_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = PaymentAppServiceWorkerGlobalScope::onabortpayment(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -796,8 +810,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
+ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 PaymentAppServiceWorkerGlobalScope::setOnabortpayment(*blink_receiver, event_handler);
 }
 
@@ -808,10 +823,10 @@ BLINK_BINDINGS_TRACE_EVENT("ServiceWorkerGlobalScope.oncanmakepayment.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = PaymentAppServiceWorkerGlobalScope::oncanmakepayment(*blink_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = PaymentAppServiceWorkerGlobalScope::oncanmakepayment(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -824,8 +839,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
+ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 PaymentAppServiceWorkerGlobalScope::setOncanmakepayment(*blink_receiver, event_handler);
 }
 
@@ -836,10 +852,10 @@ BLINK_BINDINGS_TRACE_EVENT("ServiceWorkerGlobalScope.onpaymentrequest.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = PaymentAppServiceWorkerGlobalScope::onpaymentrequest(*blink_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = PaymentAppServiceWorkerGlobalScope::onpaymentrequest(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -852,8 +868,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
+ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 PaymentAppServiceWorkerGlobalScope::setOnpaymentrequest(*blink_receiver, event_handler);
 }
 
@@ -864,10 +881,10 @@ BLINK_BINDINGS_TRACE_EVENT("ServiceWorkerGlobalScope.onpush.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = ServiceWorkerGlobalScopePush::onpush(*blink_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = ServiceWorkerGlobalScopePush::onpush(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -880,8 +897,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
+ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 ServiceWorkerGlobalScopePush::setOnpush(*blink_receiver, event_handler);
 }
 
@@ -892,10 +910,10 @@ BLINK_BINDINGS_TRACE_EVENT("ServiceWorkerGlobalScope.onpushsubscriptionchange.ge
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = ServiceWorkerGlobalScopePush::onpushsubscriptionchange(*blink_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = ServiceWorkerGlobalScopePush::onpushsubscriptionchange(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -908,8 +926,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
+ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 ServiceWorkerGlobalScopePush::setOnpushsubscriptionchange(*blink_receiver, event_handler);
 }
 
@@ -2385,7 +2404,7 @@ return;
 
 
 
-ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
+ServiceWorkerGlobalScope* blink_receiver = V8ServiceWorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -2794,14 +2813,6 @@ v8::Local<v8::FunctionTemplate> interface_function_template = interface_template
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
 IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_template, prototype_template, interface_template, signature, kExposedConstructTable);
 }
-if (RuntimeEnabledFeatures::ElementCaptureEnabled()) {
-  static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
-{"RestrictionTarget", RestrictionTargetExposedConstructCallback}, 
-};
-v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
-v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
-IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_template, prototype_template, interface_template, signature, kExposedConstructTable);
-}
 if (RuntimeEnabledFeatures::WebSocketStreamEnabled()) {
   static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
 {"WebSocketStream", WebSocketStreamExposedConstructCallback}, 
@@ -2900,6 +2911,15 @@ if (feature_selector.IsAll() && (RuntimeEnabledFeatures::MojoJSEnabled() || (con
 {"Mojo", MojoExposedConstructCallback}, 
 {"MojoHandle", MojoHandleExposedConstructCallback}, 
 {"MojoWatcher", MojoWatcherExposedConstructCallback}, 
+};
+v8::Isolate* isolate = context->GetIsolate();
+v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
+v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
+IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_object, prototype_object, interface_object, signature, kExposedConstructTable);
+}
+if ((feature_selector.IsAll() && RuntimeEnabledFeatures::ElementCaptureEnabled(execution_context)) || feature_selector.IsAnyOf(mojom::blink::OriginTrialFeature::kElementCapture)) {
+  static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
+{"RestrictionTarget", RestrictionTargetExposedConstructCallback}, 
 };
 v8::Isolate* isolate = context->GetIsolate();
 v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();

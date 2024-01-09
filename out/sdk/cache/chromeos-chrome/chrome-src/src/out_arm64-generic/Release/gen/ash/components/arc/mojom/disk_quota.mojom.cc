@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -299,14 +300,17 @@ void DiskQuotaHostProxy::IsQuotaSupported(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::DiskQuotaHost::IsQuotaSupported");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiskQuotaHost_IsQuotaSupported_Name, kFlags, 0, 0, nullptr);
@@ -337,14 +341,17 @@ void DiskQuotaHostProxy::GetCurrentSpaceForUid(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiskQuotaHost_GetCurrentSpaceForUid_Name, kFlags, 0, 0, nullptr);
@@ -376,14 +383,17 @@ void DiskQuotaHostProxy::GetCurrentSpaceForGid(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiskQuotaHost_GetCurrentSpaceForGid_Name, kFlags, 0, 0, nullptr);
@@ -415,14 +425,17 @@ void DiskQuotaHostProxy::GetCurrentSpaceForProjectId(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiskQuotaHost_GetCurrentSpaceForProjectId_Name, kFlags, 0, 0, nullptr);
@@ -447,14 +460,17 @@ void DiskQuotaHostProxy::GetFreeDiskSpace(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::DiskQuotaHost::GetFreeDiskSpace");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiskQuotaHost_GetFreeDiskSpace_Name, kFlags, 0, 0, nullptr);
@@ -564,7 +580,8 @@ void DiskQuotaHost_IsQuotaSupported_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiskQuotaHost_IsQuotaSupported_Name, kFlags, 0, 0, nullptr);
@@ -682,7 +699,8 @@ void DiskQuotaHost_GetCurrentSpaceForUid_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiskQuotaHost_GetCurrentSpaceForUid_Name, kFlags, 0, 0, nullptr);
@@ -800,7 +818,8 @@ void DiskQuotaHost_GetCurrentSpaceForGid_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiskQuotaHost_GetCurrentSpaceForGid_Name, kFlags, 0, 0, nullptr);
@@ -918,7 +937,8 @@ void DiskQuotaHost_GetCurrentSpaceForProjectId_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiskQuotaHost_GetCurrentSpaceForProjectId_Name, kFlags, 0, 0, nullptr);
@@ -1036,7 +1056,8 @@ void DiskQuotaHost_GetFreeDiskSpace_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiskQuotaHost_GetFreeDiskSpace_Name, kFlags, 0, 0, nullptr);
@@ -1242,19 +1263,19 @@ std::move(p_project_id), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDiskQuotaHostValidationInfo[] = {
-    {&internal::DiskQuotaHost_IsQuotaSupported_Params_Data::Validate,
+    { &internal::DiskQuotaHost_IsQuotaSupported_Params_Data::Validate,
      &internal::DiskQuotaHost_IsQuotaSupported_ResponseParams_Data::Validate},
-    {&internal::DiskQuotaHost_GetCurrentSpaceForUid_Params_Data::Validate,
+    { &internal::DiskQuotaHost_GetCurrentSpaceForUid_Params_Data::Validate,
      &internal::DiskQuotaHost_GetCurrentSpaceForUid_ResponseParams_Data::Validate},
-    {&internal::DiskQuotaHost_GetCurrentSpaceForGid_Params_Data::Validate,
+    { &internal::DiskQuotaHost_GetCurrentSpaceForGid_Params_Data::Validate,
      &internal::DiskQuotaHost_GetCurrentSpaceForGid_ResponseParams_Data::Validate},
-    {&internal::DiskQuotaHost_GetCurrentSpaceForProjectId_Params_Data::Validate,
+    { &internal::DiskQuotaHost_GetCurrentSpaceForProjectId_Params_Data::Validate,
      &internal::DiskQuotaHost_GetCurrentSpaceForProjectId_ResponseParams_Data::Validate},
     {nullptr, nullptr},  // nonexistent
-    {&internal::DiskQuotaHost_GetFreeDiskSpace_Params_Data::Validate,
+    { &internal::DiskQuotaHost_GetFreeDiskSpace_Params_Data::Validate,
      &internal::DiskQuotaHost_GetFreeDiskSpace_ResponseParams_Data::Validate},
 };
 
@@ -1354,14 +1375,17 @@ void DiskQuotaInstanceProxy::Init(
                         "<value of type ::mojo::PendingRemote<DiskQuotaHost>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiskQuotaInstance_Init_Name, kFlags, 0, 0, nullptr);
@@ -1466,7 +1490,8 @@ void DiskQuotaInstance_Init_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiskQuotaInstance_Init_Name, kFlags, 0, 0, nullptr);
@@ -1547,10 +1572,10 @@ std::move(p_host_remote), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDiskQuotaInstanceValidationInfo[] = {
-    {&internal::DiskQuotaInstance_Init_Params_Data::Validate,
+    { &internal::DiskQuotaInstance_Init_Params_Data::Validate,
      &internal::DiskQuotaInstance_Init_ResponseParams_Data::Validate},
 };
 

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,8 +23,10 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "device/vr/public/mojom/browser_test_interfaces.mojom-features.h"
 #include "device/vr/public/mojom/browser_test_interfaces.mojom-shared.h"
 #include "device/vr/public/mojom/browser_test_interfaces.mojom-blink-forward.h"
+#include "device/vr/public/mojom/openxr_interaction_profile_type.mojom-blink-forward.h"
 #include "ui/gfx/geometry/mojom/geometry.mojom-blink.h"
 #include "ui/gfx/mojom/transform.mojom-blink.h"
 
@@ -40,66 +42,6 @@
 #include "base/component_export.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::device_test::mojom::Eye>
-    : EnumHashTraits<::device_test::mojom::Eye, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::device_test::mojom::TrackedDeviceClass>
-    : EnumHashTraits<::device_test::mojom::TrackedDeviceClass, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::device_test::mojom::ControllerRole>
-    : EnumHashTraits<::device_test::mojom::ControllerRole, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::device_test::mojom::EventType>
-    : EnumHashTraits<::device_test::mojom::EventType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::device_test::mojom::InteractionProfileType>
-    : EnumHashTraits<::device_test::mojom::InteractionProfileType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace device_test::mojom::blink {
@@ -991,7 +933,7 @@ class COMPONENT_EXPORT(DEVICE_VR_TEST_MOJO_BINDINGS_BLINK) EventData {
 
   EventData(
       EventType type,
-      InteractionProfileType interaction_profile);
+      ::device::mojom::blink::OpenXrInteractionProfileType interaction_profile);
 
 
   ~EventData();
@@ -1072,7 +1014,7 @@ class COMPONENT_EXPORT(DEVICE_VR_TEST_MOJO_BINDINGS_BLINK) EventData {
   
   EventType type;
   
-  InteractionProfileType interaction_profile;
+  ::device::mojom::blink::OpenXrInteractionProfileType interaction_profile;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1285,7 +1227,7 @@ class COMPONENT_EXPORT(DEVICE_VR_TEST_MOJO_BINDINGS_BLINK) PoseFrameData {
   PoseFrameData();
 
   explicit PoseFrameData(
-      const absl::optional<::gfx::Transform>& device_to_origin);
+      const std::optional<::gfx::Transform>& device_to_origin);
 
 
   ~PoseFrameData();
@@ -1363,7 +1305,7 @@ class COMPONENT_EXPORT(DEVICE_VR_TEST_MOJO_BINDINGS_BLINK) PoseFrameData {
   }
 
   
-  absl::optional<::gfx::Transform> device_to_origin;
+  std::optional<::gfx::Transform> device_to_origin;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

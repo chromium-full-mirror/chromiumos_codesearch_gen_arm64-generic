@@ -4,178 +4,261 @@
 #include "security_xdr_events.pb.h"
 
 #include <algorithm>
-
-#include <google/protobuf/io/coded_stream.h>
-#include <google/protobuf/extension_set.h>
-#include <google/protobuf/wire_format_lite.h>
-#include <google/protobuf/io/zero_copy_stream_impl_lite.h>
+#include "google/protobuf/io/coded_stream.h"
+#include "google/protobuf/extension_set.h"
+#include "google/protobuf/wire_format_lite.h"
+#include "google/protobuf/io/zero_copy_stream_impl_lite.h"
 // @@protoc_insertion_point(includes)
-#include <google/protobuf/port_def.inc>
 
+// Must be included last.
+#include "google/protobuf/port_def.inc"
 PROTOBUF_PRAGMA_INIT_SEG
-
 namespace _pb = ::PROTOBUF_NAMESPACE_ID;
-namespace _pbi = _pb::internal;
-
+namespace _pbi = ::PROTOBUF_NAMESPACE_ID::internal;
 namespace cros_xdr {
 namespace reporting {
+template <typename>
 PROTOBUF_CONSTEXPR CommonEventDataFields::CommonEventDataFields(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.local_timezone_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.device_boot_time_)*/int64_t{0}} {}
+  , /*decltype(_impl_.local_timezone_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.device_boot_time_)*/ ::int64_t{0}
+} {}
 struct CommonEventDataFieldsDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR CommonEventDataFieldsDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR CommonEventDataFieldsDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~CommonEventDataFieldsDefaultTypeInternal() {}
   union {
     CommonEventDataFields _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CommonEventDataFieldsDefaultTypeInternal _CommonEventDataFields_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CommonEventDataFieldsDefaultTypeInternal _CommonEventDataFields_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR TcbAttributes_SecurityChip::TcbAttributes_SecurityChip(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.chip_version_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.spec_family_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.spec_level_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.manufacturer_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.vendor_id_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.tpm_model_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.firmware_version_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.kind_)*/0} {}
+  , /*decltype(_impl_.chip_version_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.spec_family_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.spec_level_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.manufacturer_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.vendor_id_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.tpm_model_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.firmware_version_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.kind_)*/ 0
+} {}
 struct TcbAttributes_SecurityChipDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR TcbAttributes_SecurityChipDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR TcbAttributes_SecurityChipDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~TcbAttributes_SecurityChipDefaultTypeInternal() {}
   union {
     TcbAttributes_SecurityChip _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 TcbAttributes_SecurityChipDefaultTypeInternal _TcbAttributes_SecurityChip_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 TcbAttributes_SecurityChipDefaultTypeInternal _TcbAttributes_SecurityChip_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR TcbAttributes::TcbAttributes(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.system_firmware_version_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.linux_kernel_version_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.system_firmware_version_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.linux_kernel_version_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
   , /*decltype(_impl_.security_chip_)*/nullptr
-  , /*decltype(_impl_.firmware_secure_boot_)*/0} {}
+  , /*decltype(_impl_.firmware_secure_boot_)*/ 0
+} {}
 struct TcbAttributesDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR TcbAttributesDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR TcbAttributesDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~TcbAttributesDefaultTypeInternal() {}
   union {
     TcbAttributes _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 TcbAttributesDefaultTypeInternal _TcbAttributes_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 TcbAttributesDefaultTypeInternal _TcbAttributes_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR FileImage::FileImage(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.pathname_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.sha256_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.mnt_ns_)*/uint64_t{0u}
-  , /*decltype(_impl_.inode_device_id_)*/uint64_t{0u}
-  , /*decltype(_impl_.inode_)*/uint64_t{0u}
-  , /*decltype(_impl_.canonical_uid_)*/uint64_t{0u}
-  , /*decltype(_impl_.canonical_gid_)*/uint64_t{0u}
-  , /*decltype(_impl_.mode_)*/0u} {}
+  , /*decltype(_impl_.pathname_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.sha256_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.mnt_ns_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.inode_device_id_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.inode_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.canonical_uid_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.canonical_gid_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.mode_)*/ 0u
+} {}
 struct FileImageDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR FileImageDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR FileImageDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~FileImageDefaultTypeInternal() {}
   union {
     FileImage _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 FileImageDefaultTypeInternal _FileImage_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 FileImageDefaultTypeInternal _FileImage_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR Process::Process(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.process_uuid_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.commandline_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.process_uuid_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.commandline_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
   , /*decltype(_impl_.image_)*/nullptr
-  , /*decltype(_impl_.canonical_pid_)*/uint64_t{0u}
-  , /*decltype(_impl_.canonical_uid_)*/uint64_t{0u}
-  , /*decltype(_impl_.rel_start_time_s_)*/int64_t{0}
-  , /*decltype(_impl_.meta_first_appearance_)*/false} {}
+  , /*decltype(_impl_.canonical_pid_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.canonical_uid_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.rel_start_time_s_)*/ ::int64_t{0}
+
+  , /*decltype(_impl_.meta_first_appearance_)*/ false
+} {}
 struct ProcessDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR ProcessDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR ProcessDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~ProcessDefaultTypeInternal() {}
   union {
     Process _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ProcessDefaultTypeInternal _Process_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ProcessDefaultTypeInternal _Process_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR Namespaces::Namespaces(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.cgroup_ns_)*/uint64_t{0u}
-  , /*decltype(_impl_.ipc_ns_)*/uint64_t{0u}
-  , /*decltype(_impl_.pid_ns_)*/uint64_t{0u}
-  , /*decltype(_impl_.user_ns_)*/uint64_t{0u}
-  , /*decltype(_impl_.uts_ns_)*/uint64_t{0u}
-  , /*decltype(_impl_.mnt_ns_)*/uint64_t{0u}
-  , /*decltype(_impl_.net_ns_)*/uint64_t{0u}} {}
+  , /*decltype(_impl_.cgroup_ns_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.ipc_ns_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.pid_ns_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.user_ns_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.uts_ns_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.mnt_ns_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.net_ns_)*/ ::uint64_t{0u}
+} {}
 struct NamespacesDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR NamespacesDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR NamespacesDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~NamespacesDefaultTypeInternal() {}
   union {
     Namespaces _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 NamespacesDefaultTypeInternal _Namespaces_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 NamespacesDefaultTypeInternal _Namespaces_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR CommonEventVariantDataFields::CommonEventVariantDataFields(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.device_user_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.create_timestamp_us_)*/int64_t{0}} {}
+  , /*decltype(_impl_.device_user_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.create_timestamp_us_)*/ ::int64_t{0}
+} {}
 struct CommonEventVariantDataFieldsDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR CommonEventVariantDataFieldsDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR CommonEventVariantDataFieldsDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~CommonEventVariantDataFieldsDefaultTypeInternal() {}
   union {
     CommonEventVariantDataFields _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CommonEventVariantDataFieldsDefaultTypeInternal _CommonEventVariantDataFields_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CommonEventVariantDataFieldsDefaultTypeInternal _CommonEventVariantDataFields_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR AgentStartEvent::AgentStartEvent(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
   , /*decltype(_impl_.tcb_)*/nullptr} {}
 struct AgentStartEventDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR AgentStartEventDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR AgentStartEventDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~AgentStartEventDefaultTypeInternal() {}
   union {
     AgentStartEvent _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AgentStartEventDefaultTypeInternal _AgentStartEvent_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AgentStartEventDefaultTypeInternal _AgentStartEvent_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR AgentHeartbeatEvent::AgentHeartbeatEvent(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
   , /*decltype(_impl_.tcb_)*/nullptr} {}
 struct AgentHeartbeatEventDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR AgentHeartbeatEventDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR AgentHeartbeatEventDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~AgentHeartbeatEventDefaultTypeInternal() {}
   union {
     AgentHeartbeatEvent _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AgentHeartbeatEventDefaultTypeInternal _AgentHeartbeatEvent_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AgentHeartbeatEventDefaultTypeInternal _AgentHeartbeatEvent_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR AgentEventAtomicVariant::AgentEventAtomicVariant(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
@@ -184,14 +267,16 @@ PROTOBUF_CONSTEXPR AgentEventAtomicVariant::AgentEventAtomicVariant(
   , /*decltype(_impl_.variant_type_)*/{}
   , /*decltype(_impl_._oneof_case_)*/{}} {}
 struct AgentEventAtomicVariantDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR AgentEventAtomicVariantDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR AgentEventAtomicVariantDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~AgentEventAtomicVariantDefaultTypeInternal() {}
   union {
     AgentEventAtomicVariant _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AgentEventAtomicVariantDefaultTypeInternal _AgentEventAtomicVariant_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AgentEventAtomicVariantDefaultTypeInternal _AgentEventAtomicVariant_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR XdrAgentEvent::XdrAgentEvent(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
@@ -201,14 +286,16 @@ PROTOBUF_CONSTEXPR XdrAgentEvent::XdrAgentEvent(
   , /*decltype(_impl_.message_type_)*/{}
   , /*decltype(_impl_._oneof_case_)*/{}} {}
 struct XdrAgentEventDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR XdrAgentEventDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR XdrAgentEventDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~XdrAgentEventDefaultTypeInternal() {}
   union {
     XdrAgentEvent _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 XdrAgentEventDefaultTypeInternal _XdrAgentEvent_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 XdrAgentEventDefaultTypeInternal _XdrAgentEvent_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR ProcessExecEvent::ProcessExecEvent(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
@@ -217,16 +304,19 @@ PROTOBUF_CONSTEXPR ProcessExecEvent::ProcessExecEvent(
   , /*decltype(_impl_.process_)*/nullptr
   , /*decltype(_impl_.spawn_process_)*/nullptr
   , /*decltype(_impl_.spawn_namespaces_)*/nullptr
-  , /*decltype(_impl_.terminate_timestamp_us_)*/int64_t{0}} {}
+  , /*decltype(_impl_.terminate_timestamp_us_)*/ ::int64_t{0}
+} {}
 struct ProcessExecEventDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR ProcessExecEventDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR ProcessExecEventDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~ProcessExecEventDefaultTypeInternal() {}
   union {
     ProcessExecEvent _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ProcessExecEventDefaultTypeInternal _ProcessExecEvent_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ProcessExecEventDefaultTypeInternal _ProcessExecEvent_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR ProcessTerminateEvent::ProcessTerminateEvent(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
@@ -234,14 +324,16 @@ PROTOBUF_CONSTEXPR ProcessTerminateEvent::ProcessTerminateEvent(
   , /*decltype(_impl_.parent_process_)*/nullptr
   , /*decltype(_impl_.process_)*/nullptr} {}
 struct ProcessTerminateEventDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR ProcessTerminateEventDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR ProcessTerminateEventDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~ProcessTerminateEventDefaultTypeInternal() {}
   union {
     ProcessTerminateEvent _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ProcessTerminateEventDefaultTypeInternal _ProcessTerminateEvent_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ProcessTerminateEventDefaultTypeInternal _ProcessTerminateEvent_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR ProcessEventAtomicVariant::ProcessEventAtomicVariant(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
@@ -250,14 +342,16 @@ PROTOBUF_CONSTEXPR ProcessEventAtomicVariant::ProcessEventAtomicVariant(
   , /*decltype(_impl_.variant_type_)*/{}
   , /*decltype(_impl_._oneof_case_)*/{}} {}
 struct ProcessEventAtomicVariantDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR ProcessEventAtomicVariantDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR ProcessEventAtomicVariantDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~ProcessEventAtomicVariantDefaultTypeInternal() {}
   union {
     ProcessEventAtomicVariant _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ProcessEventAtomicVariantDefaultTypeInternal _ProcessEventAtomicVariant_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ProcessEventAtomicVariantDefaultTypeInternal _ProcessEventAtomicVariant_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR XdrProcessEvent::XdrProcessEvent(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
@@ -267,14 +361,16 @@ PROTOBUF_CONSTEXPR XdrProcessEvent::XdrProcessEvent(
   , /*decltype(_impl_.message_type_)*/{}
   , /*decltype(_impl_._oneof_case_)*/{}} {}
 struct XdrProcessEventDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR XdrProcessEventDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR XdrProcessEventDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~XdrProcessEventDefaultTypeInternal() {}
   union {
     XdrProcessEvent _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 XdrProcessEventDefaultTypeInternal _XdrProcessEvent_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 XdrProcessEventDefaultTypeInternal _XdrProcessEvent_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR NetworkEventAtomicVariant::NetworkEventAtomicVariant(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
@@ -283,14 +379,16 @@ PROTOBUF_CONSTEXPR NetworkEventAtomicVariant::NetworkEventAtomicVariant(
   , /*decltype(_impl_.variant_type_)*/{}
   , /*decltype(_impl_._oneof_case_)*/{}} {}
 struct NetworkEventAtomicVariantDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR NetworkEventAtomicVariantDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR NetworkEventAtomicVariantDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~NetworkEventAtomicVariantDefaultTypeInternal() {}
   union {
     NetworkEventAtomicVariant _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 NetworkEventAtomicVariantDefaultTypeInternal _NetworkEventAtomicVariant_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 NetworkEventAtomicVariantDefaultTypeInternal _NetworkEventAtomicVariant_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR XdrNetworkEvent::XdrNetworkEvent(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
@@ -298,40 +396,69 @@ PROTOBUF_CONSTEXPR XdrNetworkEvent::XdrNetworkEvent(
   , /*decltype(_impl_.batched_events_)*/{}
   , /*decltype(_impl_.common_)*/nullptr} {}
 struct XdrNetworkEventDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR XdrNetworkEventDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR XdrNetworkEventDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~XdrNetworkEventDefaultTypeInternal() {}
   union {
     XdrNetworkEvent _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 XdrNetworkEventDefaultTypeInternal _XdrNetworkEvent_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 XdrNetworkEventDefaultTypeInternal _XdrNetworkEvent_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR NetworkFlow::NetworkFlow(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.community_id_v1_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.local_ip_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.remote_ip_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.remote_hostname_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.http_host_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.sni_host_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.local_port_)*/uint64_t{0u}
-  , /*decltype(_impl_.remote_port_)*/uint64_t{0u}
-  , /*decltype(_impl_.protocol_)*/0
-  , /*decltype(_impl_.direction_)*/0
-  , /*decltype(_impl_.rx_bytes_)*/uint64_t{0u}
-  , /*decltype(_impl_.tx_bytes_)*/uint64_t{0u}
-  , /*decltype(_impl_.application_protocol_)*/0} {}
+  , /*decltype(_impl_.community_id_v1_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.local_ip_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.remote_ip_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.remote_hostname_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.http_host_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.sni_host_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.local_port_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.remote_port_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.protocol_)*/ 0
+
+  , /*decltype(_impl_.direction_)*/ 0
+
+  , /*decltype(_impl_.rx_bytes_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.tx_bytes_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.application_protocol_)*/ 0
+} {}
 struct NetworkFlowDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR NetworkFlowDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR NetworkFlowDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~NetworkFlowDefaultTypeInternal() {}
   union {
     NetworkFlow _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 NetworkFlowDefaultTypeInternal _NetworkFlow_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 NetworkFlowDefaultTypeInternal _NetworkFlow_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR NetworkFlowEvent::NetworkFlowEvent(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
@@ -340,31 +467,41 @@ PROTOBUF_CONSTEXPR NetworkFlowEvent::NetworkFlowEvent(
   , /*decltype(_impl_.process_)*/nullptr
   , /*decltype(_impl_.network_flow_)*/nullptr} {}
 struct NetworkFlowEventDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR NetworkFlowEventDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR NetworkFlowEventDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~NetworkFlowEventDefaultTypeInternal() {}
   union {
     NetworkFlowEvent _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 NetworkFlowEventDefaultTypeInternal _NetworkFlowEvent_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 NetworkFlowEventDefaultTypeInternal _NetworkFlowEvent_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR Socket::Socket(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.bind_addr_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.bind_port_)*/uint64_t{0u}
-  , /*decltype(_impl_.protocol_)*/0
-  , /*decltype(_impl_.socket_type_)*/1} {}
+  , /*decltype(_impl_.bind_addr_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.bind_port_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.protocol_)*/ 0
+
+  , /*decltype(_impl_.socket_type_)*/ 1
+} {}
 struct SocketDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR SocketDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR SocketDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~SocketDefaultTypeInternal() {}
   union {
     Socket _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SocketDefaultTypeInternal _Socket_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SocketDefaultTypeInternal _Socket_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR NetworkSocketListenEvent::NetworkSocketListenEvent(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
@@ -373,14 +510,16 @@ PROTOBUF_CONSTEXPR NetworkSocketListenEvent::NetworkSocketListenEvent(
   , /*decltype(_impl_.process_)*/nullptr
   , /*decltype(_impl_.socket_)*/nullptr} {}
 struct NetworkSocketListenEventDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR NetworkSocketListenEventDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR NetworkSocketListenEventDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~NetworkSocketListenEventDefaultTypeInternal() {}
   union {
     NetworkSocketListenEvent _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 NetworkSocketListenEventDefaultTypeInternal _NetworkSocketListenEvent_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 NetworkSocketListenEventDefaultTypeInternal _NetworkSocketListenEvent_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR XdrUserEvent::XdrUserEvent(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
@@ -388,14 +527,16 @@ PROTOBUF_CONSTEXPR XdrUserEvent::XdrUserEvent(
   , /*decltype(_impl_.batched_events_)*/{}
   , /*decltype(_impl_.common_)*/nullptr} {}
 struct XdrUserEventDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR XdrUserEventDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR XdrUserEventDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~XdrUserEventDefaultTypeInternal() {}
   union {
     XdrUserEvent _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 XdrUserEventDefaultTypeInternal _XdrUserEvent_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 XdrUserEventDefaultTypeInternal _XdrUserEvent_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR UserEventAtomicVariant::UserEventAtomicVariant(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
@@ -404,44 +545,51 @@ PROTOBUF_CONSTEXPR UserEventAtomicVariant::UserEventAtomicVariant(
   , /*decltype(_impl_.variant_type_)*/{}
   , /*decltype(_impl_._oneof_case_)*/{}} {}
 struct UserEventAtomicVariantDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR UserEventAtomicVariantDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR UserEventAtomicVariantDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~UserEventAtomicVariantDefaultTypeInternal() {}
   union {
     UserEventAtomicVariant _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 UserEventAtomicVariantDefaultTypeInternal _UserEventAtomicVariant_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 UserEventAtomicVariantDefaultTypeInternal _UserEventAtomicVariant_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR AuthenticateEvent::AuthenticateEvent(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
   , /*decltype(_impl_.authentication_)*/nullptr} {}
 struct AuthenticateEventDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR AuthenticateEventDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR AuthenticateEventDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~AuthenticateEventDefaultTypeInternal() {}
   union {
     AuthenticateEvent _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AuthenticateEventDefaultTypeInternal _AuthenticateEvent_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AuthenticateEventDefaultTypeInternal _AuthenticateEvent_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR Authentication::Authentication(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.auth_factor_)*/{}
-  , /*decltype(_impl_._auth_factor_cached_byte_size_)*/{0}
-  , /*decltype(_impl_.num_failed_attempts_)*/uint64_t{0u}} {}
+  , /*decltype(_impl_.auth_factor_)*/ {}
+  , /*decltype(_impl_._auth_factor_cached_byte_size_)*/ { 0 }
+
+  , /*decltype(_impl_.num_failed_attempts_)*/ ::uint64_t{0u}
+} {}
 struct AuthenticationDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR AuthenticationDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR AuthenticationDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~AuthenticationDefaultTypeInternal() {}
   union {
     Authentication _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AuthenticationDefaultTypeInternal _Authentication_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AuthenticationDefaultTypeInternal _Authentication_default_instance_;
 }  // namespace reporting
 }  // namespace cros_xdr
 namespace cros_xdr {
@@ -456,43 +604,43 @@ bool TcbAttributes_SecurityChip_Kind_IsValid(int value) {
       return false;
   }
 }
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string>
+    TcbAttributes_SecurityChip_Kind_strings[3] = {};
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> TcbAttributes_SecurityChip_Kind_strings[3] = {};
+static const char TcbAttributes_SecurityChip_Kind_names[] = {
+    "GOOGLE_SECURITY_CHIP"
+    "NONE"
+    "TPM"
+};
 
-static const char TcbAttributes_SecurityChip_Kind_names[] =
-  "GOOGLE_SECURITY_CHIP"
-  "NONE"
-  "TPM";
-
-static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry TcbAttributes_SecurityChip_Kind_entries[] = {
-  { {TcbAttributes_SecurityChip_Kind_names + 0, 20}, 2 },
-  { {TcbAttributes_SecurityChip_Kind_names + 20, 4}, 0 },
-  { {TcbAttributes_SecurityChip_Kind_names + 24, 3}, 1 },
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry TcbAttributes_SecurityChip_Kind_entries[] =
+    {
+        {{&TcbAttributes_SecurityChip_Kind_names[0], 20}, 2},
+        {{&TcbAttributes_SecurityChip_Kind_names[20], 4}, 0},
+        {{&TcbAttributes_SecurityChip_Kind_names[24], 3}, 1},
 };
 
 static const int TcbAttributes_SecurityChip_Kind_entries_by_number[] = {
-  1, // 0 -> NONE
-  2, // 1 -> TPM
-  0, // 2 -> GOOGLE_SECURITY_CHIP
+    1,  // 0 -> NONE
+    2,  // 1 -> TPM
+    0,  // 2 -> GOOGLE_SECURITY_CHIP
 };
 
-const std::string& TcbAttributes_SecurityChip_Kind_Name(
-    TcbAttributes_SecurityChip_Kind value) {
-  static const bool dummy =
+const std::string& TcbAttributes_SecurityChip_Kind_Name(TcbAttributes_SecurityChip_Kind value) {
+  static const bool kDummy =
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
-          TcbAttributes_SecurityChip_Kind_entries,
-          TcbAttributes_SecurityChip_Kind_entries_by_number,
+          TcbAttributes_SecurityChip_Kind_entries, TcbAttributes_SecurityChip_Kind_entries_by_number,
           3, TcbAttributes_SecurityChip_Kind_strings);
-  (void) dummy;
+  (void)kDummy;
+
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
-      TcbAttributes_SecurityChip_Kind_entries,
-      TcbAttributes_SecurityChip_Kind_entries_by_number,
-      3, value);
-  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
-                     TcbAttributes_SecurityChip_Kind_strings[idx].get();
+      TcbAttributes_SecurityChip_Kind_entries, TcbAttributes_SecurityChip_Kind_entries_by_number, 3,
+      value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString()
+                   : TcbAttributes_SecurityChip_Kind_strings[idx].get();
 }
-bool TcbAttributes_SecurityChip_Kind_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, TcbAttributes_SecurityChip_Kind* value) {
+
+bool TcbAttributes_SecurityChip_Kind_Parse(absl::string_view name, TcbAttributes_SecurityChip_Kind* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
       TcbAttributes_SecurityChip_Kind_entries, 3, name, &int_value);
@@ -501,14 +649,18 @@ bool TcbAttributes_SecurityChip_Kind_Parse(
   }
   return success;
 }
-#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+#if (__cplusplus < 201703) && \
+  (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+
 constexpr TcbAttributes_SecurityChip_Kind TcbAttributes_SecurityChip::NONE;
 constexpr TcbAttributes_SecurityChip_Kind TcbAttributes_SecurityChip::TPM;
 constexpr TcbAttributes_SecurityChip_Kind TcbAttributes_SecurityChip::GOOGLE_SECURITY_CHIP;
 constexpr TcbAttributes_SecurityChip_Kind TcbAttributes_SecurityChip::Kind_MIN;
 constexpr TcbAttributes_SecurityChip_Kind TcbAttributes_SecurityChip::Kind_MAX;
 constexpr int TcbAttributes_SecurityChip::Kind_ARRAYSIZE;
-#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+
+#endif  // (__cplusplus < 201703) &&
+        // (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 bool TcbAttributes_FirmwareSecureBoot_IsValid(int value) {
   switch (value) {
     case 0:
@@ -519,43 +671,43 @@ bool TcbAttributes_FirmwareSecureBoot_IsValid(int value) {
       return false;
   }
 }
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string>
+    TcbAttributes_FirmwareSecureBoot_strings[3] = {};
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> TcbAttributes_FirmwareSecureBoot_strings[3] = {};
+static const char TcbAttributes_FirmwareSecureBoot_names[] = {
+    "CROS_FLEX_UEFI_SECURE_BOOT"
+    "CROS_VERIFIED_BOOT"
+    "NONE"
+};
 
-static const char TcbAttributes_FirmwareSecureBoot_names[] =
-  "CROS_FLEX_UEFI_SECURE_BOOT"
-  "CROS_VERIFIED_BOOT"
-  "NONE";
-
-static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry TcbAttributes_FirmwareSecureBoot_entries[] = {
-  { {TcbAttributes_FirmwareSecureBoot_names + 0, 26}, 1 },
-  { {TcbAttributes_FirmwareSecureBoot_names + 26, 18}, 2 },
-  { {TcbAttributes_FirmwareSecureBoot_names + 44, 4}, 0 },
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry TcbAttributes_FirmwareSecureBoot_entries[] =
+    {
+        {{&TcbAttributes_FirmwareSecureBoot_names[0], 26}, 1},
+        {{&TcbAttributes_FirmwareSecureBoot_names[26], 18}, 2},
+        {{&TcbAttributes_FirmwareSecureBoot_names[44], 4}, 0},
 };
 
 static const int TcbAttributes_FirmwareSecureBoot_entries_by_number[] = {
-  2, // 0 -> NONE
-  0, // 1 -> CROS_FLEX_UEFI_SECURE_BOOT
-  1, // 2 -> CROS_VERIFIED_BOOT
+    2,  // 0 -> NONE
+    0,  // 1 -> CROS_FLEX_UEFI_SECURE_BOOT
+    1,  // 2 -> CROS_VERIFIED_BOOT
 };
 
-const std::string& TcbAttributes_FirmwareSecureBoot_Name(
-    TcbAttributes_FirmwareSecureBoot value) {
-  static const bool dummy =
+const std::string& TcbAttributes_FirmwareSecureBoot_Name(TcbAttributes_FirmwareSecureBoot value) {
+  static const bool kDummy =
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
-          TcbAttributes_FirmwareSecureBoot_entries,
-          TcbAttributes_FirmwareSecureBoot_entries_by_number,
+          TcbAttributes_FirmwareSecureBoot_entries, TcbAttributes_FirmwareSecureBoot_entries_by_number,
           3, TcbAttributes_FirmwareSecureBoot_strings);
-  (void) dummy;
+  (void)kDummy;
+
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
-      TcbAttributes_FirmwareSecureBoot_entries,
-      TcbAttributes_FirmwareSecureBoot_entries_by_number,
-      3, value);
-  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
-                     TcbAttributes_FirmwareSecureBoot_strings[idx].get();
+      TcbAttributes_FirmwareSecureBoot_entries, TcbAttributes_FirmwareSecureBoot_entries_by_number, 3,
+      value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString()
+                   : TcbAttributes_FirmwareSecureBoot_strings[idx].get();
 }
-bool TcbAttributes_FirmwareSecureBoot_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, TcbAttributes_FirmwareSecureBoot* value) {
+
+bool TcbAttributes_FirmwareSecureBoot_Parse(absl::string_view name, TcbAttributes_FirmwareSecureBoot* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
       TcbAttributes_FirmwareSecureBoot_entries, 3, name, &int_value);
@@ -564,14 +716,18 @@ bool TcbAttributes_FirmwareSecureBoot_Parse(
   }
   return success;
 }
-#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+#if (__cplusplus < 201703) && \
+  (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+
 constexpr TcbAttributes_FirmwareSecureBoot TcbAttributes::NONE;
 constexpr TcbAttributes_FirmwareSecureBoot TcbAttributes::CROS_FLEX_UEFI_SECURE_BOOT;
 constexpr TcbAttributes_FirmwareSecureBoot TcbAttributes::CROS_VERIFIED_BOOT;
 constexpr TcbAttributes_FirmwareSecureBoot TcbAttributes::FirmwareSecureBoot_MIN;
 constexpr TcbAttributes_FirmwareSecureBoot TcbAttributes::FirmwareSecureBoot_MAX;
 constexpr int TcbAttributes::FirmwareSecureBoot_ARRAYSIZE;
-#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+
+#endif  // (__cplusplus < 201703) &&
+        // (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 bool NetworkFlow_Direction_IsValid(int value) {
   switch (value) {
     case 0:
@@ -582,43 +738,43 @@ bool NetworkFlow_Direction_IsValid(int value) {
       return false;
   }
 }
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string>
+    NetworkFlow_Direction_strings[3] = {};
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> NetworkFlow_Direction_strings[3] = {};
+static const char NetworkFlow_Direction_names[] = {
+    "DIRECTION_UNKNOWN"
+    "INCOMING"
+    "OUTGOING"
+};
 
-static const char NetworkFlow_Direction_names[] =
-  "DIRECTION_UNKNOWN"
-  "INCOMING"
-  "OUTGOING";
-
-static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry NetworkFlow_Direction_entries[] = {
-  { {NetworkFlow_Direction_names + 0, 17}, 0 },
-  { {NetworkFlow_Direction_names + 17, 8}, 1 },
-  { {NetworkFlow_Direction_names + 25, 8}, 2 },
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry NetworkFlow_Direction_entries[] =
+    {
+        {{&NetworkFlow_Direction_names[0], 17}, 0},
+        {{&NetworkFlow_Direction_names[17], 8}, 1},
+        {{&NetworkFlow_Direction_names[25], 8}, 2},
 };
 
 static const int NetworkFlow_Direction_entries_by_number[] = {
-  0, // 0 -> DIRECTION_UNKNOWN
-  1, // 1 -> INCOMING
-  2, // 2 -> OUTGOING
+    0,  // 0 -> DIRECTION_UNKNOWN
+    1,  // 1 -> INCOMING
+    2,  // 2 -> OUTGOING
 };
 
-const std::string& NetworkFlow_Direction_Name(
-    NetworkFlow_Direction value) {
-  static const bool dummy =
+const std::string& NetworkFlow_Direction_Name(NetworkFlow_Direction value) {
+  static const bool kDummy =
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
-          NetworkFlow_Direction_entries,
-          NetworkFlow_Direction_entries_by_number,
+          NetworkFlow_Direction_entries, NetworkFlow_Direction_entries_by_number,
           3, NetworkFlow_Direction_strings);
-  (void) dummy;
+  (void)kDummy;
+
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
-      NetworkFlow_Direction_entries,
-      NetworkFlow_Direction_entries_by_number,
-      3, value);
-  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
-                     NetworkFlow_Direction_strings[idx].get();
+      NetworkFlow_Direction_entries, NetworkFlow_Direction_entries_by_number, 3,
+      value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString()
+                   : NetworkFlow_Direction_strings[idx].get();
 }
-bool NetworkFlow_Direction_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, NetworkFlow_Direction* value) {
+
+bool NetworkFlow_Direction_Parse(absl::string_view name, NetworkFlow_Direction* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
       NetworkFlow_Direction_entries, 3, name, &int_value);
@@ -627,14 +783,18 @@ bool NetworkFlow_Direction_Parse(
   }
   return success;
 }
-#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+#if (__cplusplus < 201703) && \
+  (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+
 constexpr NetworkFlow_Direction NetworkFlow::DIRECTION_UNKNOWN;
 constexpr NetworkFlow_Direction NetworkFlow::INCOMING;
 constexpr NetworkFlow_Direction NetworkFlow::OUTGOING;
 constexpr NetworkFlow_Direction NetworkFlow::Direction_MIN;
 constexpr NetworkFlow_Direction NetworkFlow::Direction_MAX;
 constexpr int NetworkFlow::Direction_ARRAYSIZE;
-#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+
+#endif  // (__cplusplus < 201703) &&
+        // (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 bool NetworkFlow_ApplicationProtocol_IsValid(int value) {
   switch (value) {
     case 0:
@@ -646,46 +806,46 @@ bool NetworkFlow_ApplicationProtocol_IsValid(int value) {
       return false;
   }
 }
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string>
+    NetworkFlow_ApplicationProtocol_strings[4] = {};
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> NetworkFlow_ApplicationProtocol_strings[4] = {};
+static const char NetworkFlow_ApplicationProtocol_names[] = {
+    "APPLICATION_PROTOCOL_UNKNOWN"
+    "DNS"
+    "HTTP"
+    "HTTPS"
+};
 
-static const char NetworkFlow_ApplicationProtocol_names[] =
-  "APPLICATION_PROTOCOL_UNKNOWN"
-  "DNS"
-  "HTTP"
-  "HTTPS";
-
-static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry NetworkFlow_ApplicationProtocol_entries[] = {
-  { {NetworkFlow_ApplicationProtocol_names + 0, 28}, 0 },
-  { {NetworkFlow_ApplicationProtocol_names + 28, 3}, 3 },
-  { {NetworkFlow_ApplicationProtocol_names + 31, 4}, 1 },
-  { {NetworkFlow_ApplicationProtocol_names + 35, 5}, 2 },
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry NetworkFlow_ApplicationProtocol_entries[] =
+    {
+        {{&NetworkFlow_ApplicationProtocol_names[0], 28}, 0},
+        {{&NetworkFlow_ApplicationProtocol_names[28], 3}, 3},
+        {{&NetworkFlow_ApplicationProtocol_names[31], 4}, 1},
+        {{&NetworkFlow_ApplicationProtocol_names[35], 5}, 2},
 };
 
 static const int NetworkFlow_ApplicationProtocol_entries_by_number[] = {
-  0, // 0 -> APPLICATION_PROTOCOL_UNKNOWN
-  2, // 1 -> HTTP
-  3, // 2 -> HTTPS
-  1, // 3 -> DNS
+    0,  // 0 -> APPLICATION_PROTOCOL_UNKNOWN
+    2,  // 1 -> HTTP
+    3,  // 2 -> HTTPS
+    1,  // 3 -> DNS
 };
 
-const std::string& NetworkFlow_ApplicationProtocol_Name(
-    NetworkFlow_ApplicationProtocol value) {
-  static const bool dummy =
+const std::string& NetworkFlow_ApplicationProtocol_Name(NetworkFlow_ApplicationProtocol value) {
+  static const bool kDummy =
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
-          NetworkFlow_ApplicationProtocol_entries,
-          NetworkFlow_ApplicationProtocol_entries_by_number,
+          NetworkFlow_ApplicationProtocol_entries, NetworkFlow_ApplicationProtocol_entries_by_number,
           4, NetworkFlow_ApplicationProtocol_strings);
-  (void) dummy;
+  (void)kDummy;
+
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
-      NetworkFlow_ApplicationProtocol_entries,
-      NetworkFlow_ApplicationProtocol_entries_by_number,
-      4, value);
-  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
-                     NetworkFlow_ApplicationProtocol_strings[idx].get();
+      NetworkFlow_ApplicationProtocol_entries, NetworkFlow_ApplicationProtocol_entries_by_number, 4,
+      value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString()
+                   : NetworkFlow_ApplicationProtocol_strings[idx].get();
 }
-bool NetworkFlow_ApplicationProtocol_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, NetworkFlow_ApplicationProtocol* value) {
+
+bool NetworkFlow_ApplicationProtocol_Parse(absl::string_view name, NetworkFlow_ApplicationProtocol* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
       NetworkFlow_ApplicationProtocol_entries, 4, name, &int_value);
@@ -694,7 +854,9 @@ bool NetworkFlow_ApplicationProtocol_Parse(
   }
   return success;
 }
-#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+#if (__cplusplus < 201703) && \
+  (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+
 constexpr NetworkFlow_ApplicationProtocol NetworkFlow::APPLICATION_PROTOCOL_UNKNOWN;
 constexpr NetworkFlow_ApplicationProtocol NetworkFlow::HTTP;
 constexpr NetworkFlow_ApplicationProtocol NetworkFlow::HTTPS;
@@ -702,7 +864,9 @@ constexpr NetworkFlow_ApplicationProtocol NetworkFlow::DNS;
 constexpr NetworkFlow_ApplicationProtocol NetworkFlow::ApplicationProtocol_MIN;
 constexpr NetworkFlow_ApplicationProtocol NetworkFlow::ApplicationProtocol_MAX;
 constexpr int NetworkFlow::ApplicationProtocol_ARRAYSIZE;
-#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+
+#endif  // (__cplusplus < 201703) &&
+        // (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 bool Authentication_AuthenticationType_IsValid(int value) {
   switch (value) {
     case 0:
@@ -712,69 +876,75 @@ bool Authentication_AuthenticationType_IsValid(int value) {
     case 4:
     case 5:
     case 6:
+    case 7:
       return true;
     default:
       return false;
   }
 }
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string>
+    Authentication_AuthenticationType_strings[8] = {};
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> Authentication_AuthenticationType_strings[7] = {};
+static const char Authentication_AuthenticationType_names[] = {
+    "AUTH_FINGERPRINT"
+    "AUTH_KIOSK"
+    "AUTH_NEW_USER"
+    "AUTH_ONLINE_RECOVERY"
+    "AUTH_PASSWORD"
+    "AUTH_PIN"
+    "AUTH_SMART_CARD"
+    "AUTH_TYPE_UNKNOWN"
+};
 
-static const char Authentication_AuthenticationType_names[] =
-  "AUTH_FINGERPRINT"
-  "AUTH_KIOSK"
-  "AUTH_ONLINE_RECOVERY"
-  "AUTH_PASSWORD"
-  "AUTH_PIN"
-  "AUTH_SMART_CARD"
-  "AUTH_TYPE_UNKNOWN";
-
-static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry Authentication_AuthenticationType_entries[] = {
-  { {Authentication_AuthenticationType_names + 0, 16}, 6 },
-  { {Authentication_AuthenticationType_names + 16, 10}, 4 },
-  { {Authentication_AuthenticationType_names + 26, 20}, 3 },
-  { {Authentication_AuthenticationType_names + 46, 13}, 1 },
-  { {Authentication_AuthenticationType_names + 59, 8}, 2 },
-  { {Authentication_AuthenticationType_names + 67, 15}, 5 },
-  { {Authentication_AuthenticationType_names + 82, 17}, 0 },
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry Authentication_AuthenticationType_entries[] =
+    {
+        {{&Authentication_AuthenticationType_names[0], 16}, 6},
+        {{&Authentication_AuthenticationType_names[16], 10}, 4},
+        {{&Authentication_AuthenticationType_names[26], 13}, 7},
+        {{&Authentication_AuthenticationType_names[39], 20}, 3},
+        {{&Authentication_AuthenticationType_names[59], 13}, 1},
+        {{&Authentication_AuthenticationType_names[72], 8}, 2},
+        {{&Authentication_AuthenticationType_names[80], 15}, 5},
+        {{&Authentication_AuthenticationType_names[95], 17}, 0},
 };
 
 static const int Authentication_AuthenticationType_entries_by_number[] = {
-  6, // 0 -> AUTH_TYPE_UNKNOWN
-  3, // 1 -> AUTH_PASSWORD
-  4, // 2 -> AUTH_PIN
-  2, // 3 -> AUTH_ONLINE_RECOVERY
-  1, // 4 -> AUTH_KIOSK
-  5, // 5 -> AUTH_SMART_CARD
-  0, // 6 -> AUTH_FINGERPRINT
+    7,  // 0 -> AUTH_TYPE_UNKNOWN
+    4,  // 1 -> AUTH_PASSWORD
+    5,  // 2 -> AUTH_PIN
+    3,  // 3 -> AUTH_ONLINE_RECOVERY
+    1,  // 4 -> AUTH_KIOSK
+    6,  // 5 -> AUTH_SMART_CARD
+    0,  // 6 -> AUTH_FINGERPRINT
+    2,  // 7 -> AUTH_NEW_USER
 };
 
-const std::string& Authentication_AuthenticationType_Name(
-    Authentication_AuthenticationType value) {
-  static const bool dummy =
+const std::string& Authentication_AuthenticationType_Name(Authentication_AuthenticationType value) {
+  static const bool kDummy =
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
-          Authentication_AuthenticationType_entries,
-          Authentication_AuthenticationType_entries_by_number,
-          7, Authentication_AuthenticationType_strings);
-  (void) dummy;
+          Authentication_AuthenticationType_entries, Authentication_AuthenticationType_entries_by_number,
+          8, Authentication_AuthenticationType_strings);
+  (void)kDummy;
+
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
-      Authentication_AuthenticationType_entries,
-      Authentication_AuthenticationType_entries_by_number,
-      7, value);
-  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
-                     Authentication_AuthenticationType_strings[idx].get();
+      Authentication_AuthenticationType_entries, Authentication_AuthenticationType_entries_by_number, 8,
+      value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString()
+                   : Authentication_AuthenticationType_strings[idx].get();
 }
-bool Authentication_AuthenticationType_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, Authentication_AuthenticationType* value) {
+
+bool Authentication_AuthenticationType_Parse(absl::string_view name, Authentication_AuthenticationType* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      Authentication_AuthenticationType_entries, 7, name, &int_value);
+      Authentication_AuthenticationType_entries, 8, name, &int_value);
   if (success) {
     *value = static_cast<Authentication_AuthenticationType>(int_value);
   }
   return success;
 }
-#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+#if (__cplusplus < 201703) && \
+  (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+
 constexpr Authentication_AuthenticationType Authentication::AUTH_TYPE_UNKNOWN;
 constexpr Authentication_AuthenticationType Authentication::AUTH_PASSWORD;
 constexpr Authentication_AuthenticationType Authentication::AUTH_PIN;
@@ -782,10 +952,13 @@ constexpr Authentication_AuthenticationType Authentication::AUTH_ONLINE_RECOVERY
 constexpr Authentication_AuthenticationType Authentication::AUTH_KIOSK;
 constexpr Authentication_AuthenticationType Authentication::AUTH_SMART_CARD;
 constexpr Authentication_AuthenticationType Authentication::AUTH_FINGERPRINT;
+constexpr Authentication_AuthenticationType Authentication::AUTH_NEW_USER;
 constexpr Authentication_AuthenticationType Authentication::AuthenticationType_MIN;
 constexpr Authentication_AuthenticationType Authentication::AuthenticationType_MAX;
 constexpr int Authentication::AuthenticationType_ARRAYSIZE;
-#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+
+#endif  // (__cplusplus < 201703) &&
+        // (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 bool NetworkProtocol_IsValid(int value) {
   switch (value) {
     case 0:
@@ -798,49 +971,49 @@ bool NetworkProtocol_IsValid(int value) {
       return false;
   }
 }
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string>
+    NetworkProtocol_strings[5] = {};
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> NetworkProtocol_strings[5] = {};
+static const char NetworkProtocol_names[] = {
+    "ICMP"
+    "NETWORK_PROTOCOL_UNKNOWN"
+    "RAW"
+    "TCP"
+    "UDP"
+};
 
-static const char NetworkProtocol_names[] =
-  "ICMP"
-  "NETWORK_PROTOCOL_UNKNOWN"
-  "RAW"
-  "TCP"
-  "UDP";
-
-static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry NetworkProtocol_entries[] = {
-  { {NetworkProtocol_names + 0, 4}, 3 },
-  { {NetworkProtocol_names + 4, 24}, 0 },
-  { {NetworkProtocol_names + 28, 3}, 4 },
-  { {NetworkProtocol_names + 31, 3}, 1 },
-  { {NetworkProtocol_names + 34, 3}, 2 },
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry NetworkProtocol_entries[] =
+    {
+        {{&NetworkProtocol_names[0], 4}, 3},
+        {{&NetworkProtocol_names[4], 24}, 0},
+        {{&NetworkProtocol_names[28], 3}, 4},
+        {{&NetworkProtocol_names[31], 3}, 1},
+        {{&NetworkProtocol_names[34], 3}, 2},
 };
 
 static const int NetworkProtocol_entries_by_number[] = {
-  1, // 0 -> NETWORK_PROTOCOL_UNKNOWN
-  3, // 1 -> TCP
-  4, // 2 -> UDP
-  0, // 3 -> ICMP
-  2, // 4 -> RAW
+    1,  // 0 -> NETWORK_PROTOCOL_UNKNOWN
+    3,  // 1 -> TCP
+    4,  // 2 -> UDP
+    0,  // 3 -> ICMP
+    2,  // 4 -> RAW
 };
 
-const std::string& NetworkProtocol_Name(
-    NetworkProtocol value) {
-  static const bool dummy =
+const std::string& NetworkProtocol_Name(NetworkProtocol value) {
+  static const bool kDummy =
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
-          NetworkProtocol_entries,
-          NetworkProtocol_entries_by_number,
+          NetworkProtocol_entries, NetworkProtocol_entries_by_number,
           5, NetworkProtocol_strings);
-  (void) dummy;
+  (void)kDummy;
+
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
-      NetworkProtocol_entries,
-      NetworkProtocol_entries_by_number,
-      5, value);
-  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
-                     NetworkProtocol_strings[idx].get();
+      NetworkProtocol_entries, NetworkProtocol_entries_by_number, 5,
+      value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString()
+                   : NetworkProtocol_strings[idx].get();
 }
-bool NetworkProtocol_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, NetworkProtocol* value) {
+
+bool NetworkProtocol_Parse(absl::string_view name, NetworkProtocol* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
       NetworkProtocol_entries, 5, name, &int_value);
@@ -862,52 +1035,52 @@ bool SocketType_IsValid(int value) {
       return false;
   }
 }
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string>
+    SocketType_strings[6] = {};
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> SocketType_strings[6] = {};
+static const char SocketType_names[] = {
+    "SOCK_DGRAM"
+    "SOCK_PACKET"
+    "SOCK_RAW"
+    "SOCK_RDM"
+    "SOCK_SEQPACKET"
+    "SOCK_STREAM"
+};
 
-static const char SocketType_names[] =
-  "SOCK_DGRAM"
-  "SOCK_PACKET"
-  "SOCK_RAW"
-  "SOCK_RDM"
-  "SOCK_SEQPACKET"
-  "SOCK_STREAM";
-
-static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry SocketType_entries[] = {
-  { {SocketType_names + 0, 10}, 2 },
-  { {SocketType_names + 10, 11}, 6 },
-  { {SocketType_names + 21, 8}, 4 },
-  { {SocketType_names + 29, 8}, 5 },
-  { {SocketType_names + 37, 14}, 3 },
-  { {SocketType_names + 51, 11}, 1 },
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry SocketType_entries[] =
+    {
+        {{&SocketType_names[0], 10}, 2},
+        {{&SocketType_names[10], 11}, 6},
+        {{&SocketType_names[21], 8}, 4},
+        {{&SocketType_names[29], 8}, 5},
+        {{&SocketType_names[37], 14}, 3},
+        {{&SocketType_names[51], 11}, 1},
 };
 
 static const int SocketType_entries_by_number[] = {
-  5, // 1 -> SOCK_STREAM
-  0, // 2 -> SOCK_DGRAM
-  4, // 3 -> SOCK_SEQPACKET
-  2, // 4 -> SOCK_RAW
-  3, // 5 -> SOCK_RDM
-  1, // 6 -> SOCK_PACKET
+    5,  // 1 -> SOCK_STREAM
+    0,  // 2 -> SOCK_DGRAM
+    4,  // 3 -> SOCK_SEQPACKET
+    2,  // 4 -> SOCK_RAW
+    3,  // 5 -> SOCK_RDM
+    1,  // 6 -> SOCK_PACKET
 };
 
-const std::string& SocketType_Name(
-    SocketType value) {
-  static const bool dummy =
+const std::string& SocketType_Name(SocketType value) {
+  static const bool kDummy =
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
-          SocketType_entries,
-          SocketType_entries_by_number,
+          SocketType_entries, SocketType_entries_by_number,
           6, SocketType_strings);
-  (void) dummy;
+  (void)kDummy;
+
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
-      SocketType_entries,
-      SocketType_entries_by_number,
-      6, value);
-  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
-                     SocketType_strings[idx].get();
+      SocketType_entries, SocketType_entries_by_number, 6,
+      value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString()
+                   : SocketType_strings[idx].get();
 }
-bool SocketType_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, SocketType* value) {
+
+bool SocketType_Parse(absl::string_view name, SocketType* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
       SocketType_entries, 6, name, &int_value);
@@ -916,12 +1089,13 @@ bool SocketType_Parse(
   }
   return success;
 }
-
 // ===================================================================
 
 class CommonEventDataFields::_Internal {
  public:
   using HasBits = decltype(std::declval<CommonEventDataFields>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(CommonEventDataFields, _impl_._has_bits_);
   static void set_has_local_timezone(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -930,10 +1104,9 @@ class CommonEventDataFields::_Internal {
   }
 };
 
-CommonEventDataFields::CommonEventDataFields(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+CommonEventDataFields::CommonEventDataFields(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:cros_xdr.reporting.CommonEventDataFields)
 }
 CommonEventDataFields::CommonEventDataFields(const CommonEventDataFields& from)
@@ -942,36 +1115,37 @@ CommonEventDataFields::CommonEventDataFields(const CommonEventDataFields& from)
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.local_timezone_){}
-    , decltype(_impl_.device_boot_time_){}};
+    , decltype(_impl_.local_timezone_) {}
+
+    , decltype(_impl_.device_boot_time_) {}
+  };
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _impl_.local_timezone_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.local_timezone_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_local_timezone()) {
-    _this->_impl_.local_timezone_.Set(from._internal_local_timezone(), 
-      _this->GetArenaForAllocation());
+        _impl_.local_timezone_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_impl_.local_timezone_.Set(from._internal_local_timezone(), _this->GetArenaForAllocation());
   }
   _this->_impl_.device_boot_time_ = from._impl_.device_boot_time_;
   // @@protoc_insertion_point(copy_constructor:cros_xdr.reporting.CommonEventDataFields)
 }
 
-inline void CommonEventDataFields::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void CommonEventDataFields::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.local_timezone_){}
-    , decltype(_impl_.device_boot_time_){int64_t{0}}
+    , decltype(_impl_.local_timezone_) {}
+
+    , decltype(_impl_.device_boot_time_) { ::int64_t{0} }
+
   };
   _impl_.local_timezone_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.local_timezone_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.local_timezone_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 CommonEventDataFields::~CommonEventDataFields() {
@@ -984,7 +1158,7 @@ CommonEventDataFields::~CommonEventDataFields() {
 }
 
 inline void CommonEventDataFields::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.local_timezone_.Destroy();
 }
 
@@ -994,7 +1168,7 @@ void CommonEventDataFields::SetCachedSize(int size) const {
 
 void CommonEventDataFields::Clear() {
 // @@protoc_insertion_point(message_clear_start:cros_xdr.reporting.CommonEventDataFields)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -1002,7 +1176,7 @@ void CommonEventDataFields::Clear() {
   if (cached_has_bits & 0x00000001u) {
     _impl_.local_timezone_.ClearNonDefaultToEmpty();
   }
-  _impl_.device_boot_time_ = int64_t{0};
+  _impl_.device_boot_time_ = ::int64_t{0};
   _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
@@ -1011,26 +1185,28 @@ const char* CommonEventDataFields::_InternalParse(const char* ptr, ::_pbi::Parse
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional string local_timezone = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_local_timezone();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional int64 device_boot_time = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _Internal::set_has_device_boot_time(&has_bits);
           _impl_.device_boot_time_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -1056,23 +1232,24 @@ failure:
 #undef CHK_
 }
 
-uint8_t* CommonEventDataFields::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* CommonEventDataFields::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:cros_xdr.reporting.CommonEventDataFields)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional string local_timezone = 1;
   if (cached_has_bits & 0x00000001u) {
-    target = stream->WriteStringMaybeAliased(
-        1, this->_internal_local_timezone(), target);
+    const std::string& _s = this->_internal_local_timezone();
+    target = stream->WriteStringMaybeAliased(1, _s, target);
   }
 
   // optional int64 device_boot_time = 2;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt64ToArray(2, this->_internal_device_boot_time(), target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(
+        2, this->_internal_device_boot_time(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1083,11 +1260,11 @@ uint8_t* CommonEventDataFields::_InternalSerialize(
   return target;
 }
 
-size_t CommonEventDataFields::ByteSizeLong() const {
+::size_t CommonEventDataFields::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:cros_xdr.reporting.CommonEventDataFields)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -1095,14 +1272,14 @@ size_t CommonEventDataFields::ByteSizeLong() const {
   if (cached_has_bits & 0x00000003u) {
     // optional string local_timezone = 1;
     if (cached_has_bits & 0x00000001u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_local_timezone());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                      this->_internal_local_timezone());
     }
 
     // optional int64 device_boot_time = 2;
     if (cached_has_bits & 0x00000002u) {
-      total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_device_boot_time());
+      total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(
+          this->_internal_device_boot_time());
     }
 
   }
@@ -1123,8 +1300,8 @@ void CommonEventDataFields::CheckTypeAndMergeFrom(
 void CommonEventDataFields::MergeFrom(const CommonEventDataFields& from) {
   CommonEventDataFields* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:cros_xdr.reporting.CommonEventDataFields)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -1157,10 +1334,9 @@ void CommonEventDataFields::InternalSwap(CommonEventDataFields* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.local_timezone_, lhs_arena,
-      &other->_impl_.local_timezone_, rhs_arena
-  );
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.local_timezone_, lhs_arena,
+                                       &other->_impl_.local_timezone_, rhs_arena);
+
   swap(_impl_.device_boot_time_, other->_impl_.device_boot_time_);
 }
 
@@ -1168,12 +1344,13 @@ std::string CommonEventDataFields::GetTypeName() const {
   return "cros_xdr.reporting.CommonEventDataFields";
 }
 
-
 // ===================================================================
 
 class TcbAttributes_SecurityChip::_Internal {
  public:
   using HasBits = decltype(std::declval<TcbAttributes_SecurityChip>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(TcbAttributes_SecurityChip, _impl_._has_bits_);
   static void set_has_kind(HasBits* has_bits) {
     (*has_bits)[0] |= 128u;
   }
@@ -1200,10 +1377,9 @@ class TcbAttributes_SecurityChip::_Internal {
   }
 };
 
-TcbAttributes_SecurityChip::TcbAttributes_SecurityChip(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+TcbAttributes_SecurityChip::TcbAttributes_SecurityChip(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:cros_xdr.reporting.TcbAttributes.SecurityChip)
 }
 TcbAttributes_SecurityChip::TcbAttributes_SecurityChip(const TcbAttributes_SecurityChip& from)
@@ -1212,120 +1388,127 @@ TcbAttributes_SecurityChip::TcbAttributes_SecurityChip(const TcbAttributes_Secur
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.chip_version_){}
-    , decltype(_impl_.spec_family_){}
-    , decltype(_impl_.spec_level_){}
-    , decltype(_impl_.manufacturer_){}
-    , decltype(_impl_.vendor_id_){}
-    , decltype(_impl_.tpm_model_){}
-    , decltype(_impl_.firmware_version_){}
-    , decltype(_impl_.kind_){}};
+    , decltype(_impl_.chip_version_) {}
+
+    , decltype(_impl_.spec_family_) {}
+
+    , decltype(_impl_.spec_level_) {}
+
+    , decltype(_impl_.manufacturer_) {}
+
+    , decltype(_impl_.vendor_id_) {}
+
+    , decltype(_impl_.tpm_model_) {}
+
+    , decltype(_impl_.firmware_version_) {}
+
+    , decltype(_impl_.kind_) {}
+  };
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _impl_.chip_version_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.chip_version_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_chip_version()) {
-    _this->_impl_.chip_version_.Set(from._internal_chip_version(), 
-      _this->GetArenaForAllocation());
+        _impl_.chip_version_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_impl_.chip_version_.Set(from._internal_chip_version(), _this->GetArenaForAllocation());
   }
   _impl_.spec_family_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.spec_family_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_spec_family()) {
-    _this->_impl_.spec_family_.Set(from._internal_spec_family(), 
-      _this->GetArenaForAllocation());
+        _impl_.spec_family_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000002u) != 0) {
+    _this->_impl_.spec_family_.Set(from._internal_spec_family(), _this->GetArenaForAllocation());
   }
   _impl_.spec_level_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.spec_level_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_spec_level()) {
-    _this->_impl_.spec_level_.Set(from._internal_spec_level(), 
-      _this->GetArenaForAllocation());
+        _impl_.spec_level_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000004u) != 0) {
+    _this->_impl_.spec_level_.Set(from._internal_spec_level(), _this->GetArenaForAllocation());
   }
   _impl_.manufacturer_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.manufacturer_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_manufacturer()) {
-    _this->_impl_.manufacturer_.Set(from._internal_manufacturer(), 
-      _this->GetArenaForAllocation());
+        _impl_.manufacturer_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000008u) != 0) {
+    _this->_impl_.manufacturer_.Set(from._internal_manufacturer(), _this->GetArenaForAllocation());
   }
   _impl_.vendor_id_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.vendor_id_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_vendor_id()) {
-    _this->_impl_.vendor_id_.Set(from._internal_vendor_id(), 
-      _this->GetArenaForAllocation());
+        _impl_.vendor_id_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000010u) != 0) {
+    _this->_impl_.vendor_id_.Set(from._internal_vendor_id(), _this->GetArenaForAllocation());
   }
   _impl_.tpm_model_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.tpm_model_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_tpm_model()) {
-    _this->_impl_.tpm_model_.Set(from._internal_tpm_model(), 
-      _this->GetArenaForAllocation());
+        _impl_.tpm_model_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000020u) != 0) {
+    _this->_impl_.tpm_model_.Set(from._internal_tpm_model(), _this->GetArenaForAllocation());
   }
   _impl_.firmware_version_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.firmware_version_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_firmware_version()) {
-    _this->_impl_.firmware_version_.Set(from._internal_firmware_version(), 
-      _this->GetArenaForAllocation());
+        _impl_.firmware_version_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000040u) != 0) {
+    _this->_impl_.firmware_version_.Set(from._internal_firmware_version(), _this->GetArenaForAllocation());
   }
   _this->_impl_.kind_ = from._impl_.kind_;
   // @@protoc_insertion_point(copy_constructor:cros_xdr.reporting.TcbAttributes.SecurityChip)
 }
 
-inline void TcbAttributes_SecurityChip::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void TcbAttributes_SecurityChip::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.chip_version_){}
-    , decltype(_impl_.spec_family_){}
-    , decltype(_impl_.spec_level_){}
-    , decltype(_impl_.manufacturer_){}
-    , decltype(_impl_.vendor_id_){}
-    , decltype(_impl_.tpm_model_){}
-    , decltype(_impl_.firmware_version_){}
-    , decltype(_impl_.kind_){0}
+    , decltype(_impl_.chip_version_) {}
+
+    , decltype(_impl_.spec_family_) {}
+
+    , decltype(_impl_.spec_level_) {}
+
+    , decltype(_impl_.manufacturer_) {}
+
+    , decltype(_impl_.vendor_id_) {}
+
+    , decltype(_impl_.tpm_model_) {}
+
+    , decltype(_impl_.firmware_version_) {}
+
+    , decltype(_impl_.kind_) { 0 }
+
   };
   _impl_.chip_version_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.chip_version_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.chip_version_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   _impl_.spec_family_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.spec_family_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.spec_family_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   _impl_.spec_level_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.spec_level_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.spec_level_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   _impl_.manufacturer_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.manufacturer_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.manufacturer_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   _impl_.vendor_id_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.vendor_id_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.vendor_id_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   _impl_.tpm_model_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.tpm_model_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.tpm_model_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   _impl_.firmware_version_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.firmware_version_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.firmware_version_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 TcbAttributes_SecurityChip::~TcbAttributes_SecurityChip() {
@@ -1338,7 +1521,7 @@ TcbAttributes_SecurityChip::~TcbAttributes_SecurityChip() {
 }
 
 inline void TcbAttributes_SecurityChip::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.chip_version_.Destroy();
   _impl_.spec_family_.Destroy();
   _impl_.spec_level_.Destroy();
@@ -1354,7 +1537,7 @@ void TcbAttributes_SecurityChip::SetCachedSize(int size) const {
 
 void TcbAttributes_SecurityChip::Clear() {
 // @@protoc_insertion_point(message_clear_start:cros_xdr.reporting.TcbAttributes.SecurityChip)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -1391,84 +1574,92 @@ const char* TcbAttributes_SecurityChip::_InternalParse(const char* ptr, ::_pbi::
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional .cros_xdr.reporting.TcbAttributes.SecurityChip.Kind kind = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
+          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-          if (PROTOBUF_PREDICT_TRUE(::cros_xdr::reporting::TcbAttributes_SecurityChip_Kind_IsValid(val))) {
+          if (PROTOBUF_PREDICT_TRUE(::cros_xdr::reporting::TcbAttributes_SecurityChip_Kind_IsValid(static_cast<int>(val)))) {
             _internal_set_kind(static_cast<::cros_xdr::reporting::TcbAttributes_SecurityChip_Kind>(val));
           } else {
             ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(1, val, mutable_unknown_fields());
           }
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional string chip_version = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_chip_version();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional string spec_family = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 26)) {
           auto str = _internal_mutable_spec_family();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional string spec_level = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 34)) {
           auto str = _internal_mutable_spec_level();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional string manufacturer = 5;
       case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 42)) {
           auto str = _internal_mutable_manufacturer();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional string vendor_id = 6;
       case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 50)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 50)) {
           auto str = _internal_mutable_vendor_id();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional string tpm_model = 7;
       case 7:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 58)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 58)) {
           auto str = _internal_mutable_tpm_model();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional string firmware_version = 8;
       case 8:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 66)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 66)) {
           auto str = _internal_mutable_firmware_version();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -1494,10 +1685,10 @@ failure:
 #undef CHK_
 }
 
-uint8_t* TcbAttributes_SecurityChip::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* TcbAttributes_SecurityChip::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:cros_xdr.reporting.TcbAttributes.SecurityChip)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
@@ -1505,49 +1696,49 @@ uint8_t* TcbAttributes_SecurityChip::_InternalSerialize(
   if (cached_has_bits & 0x00000080u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      1, this->_internal_kind(), target);
+        1, this->_internal_kind(), target);
   }
 
   // optional string chip_version = 2;
   if (cached_has_bits & 0x00000001u) {
-    target = stream->WriteStringMaybeAliased(
-        2, this->_internal_chip_version(), target);
+    const std::string& _s = this->_internal_chip_version();
+    target = stream->WriteStringMaybeAliased(2, _s, target);
   }
 
   // optional string spec_family = 3;
   if (cached_has_bits & 0x00000002u) {
-    target = stream->WriteStringMaybeAliased(
-        3, this->_internal_spec_family(), target);
+    const std::string& _s = this->_internal_spec_family();
+    target = stream->WriteStringMaybeAliased(3, _s, target);
   }
 
   // optional string spec_level = 4;
   if (cached_has_bits & 0x00000004u) {
-    target = stream->WriteStringMaybeAliased(
-        4, this->_internal_spec_level(), target);
+    const std::string& _s = this->_internal_spec_level();
+    target = stream->WriteStringMaybeAliased(4, _s, target);
   }
 
   // optional string manufacturer = 5;
   if (cached_has_bits & 0x00000008u) {
-    target = stream->WriteStringMaybeAliased(
-        5, this->_internal_manufacturer(), target);
+    const std::string& _s = this->_internal_manufacturer();
+    target = stream->WriteStringMaybeAliased(5, _s, target);
   }
 
   // optional string vendor_id = 6;
   if (cached_has_bits & 0x00000010u) {
-    target = stream->WriteStringMaybeAliased(
-        6, this->_internal_vendor_id(), target);
+    const std::string& _s = this->_internal_vendor_id();
+    target = stream->WriteStringMaybeAliased(6, _s, target);
   }
 
   // optional string tpm_model = 7;
   if (cached_has_bits & 0x00000020u) {
-    target = stream->WriteStringMaybeAliased(
-        7, this->_internal_tpm_model(), target);
+    const std::string& _s = this->_internal_tpm_model();
+    target = stream->WriteStringMaybeAliased(7, _s, target);
   }
 
   // optional string firmware_version = 8;
   if (cached_has_bits & 0x00000040u) {
-    target = stream->WriteStringMaybeAliased(
-        8, this->_internal_firmware_version(), target);
+    const std::string& _s = this->_internal_firmware_version();
+    target = stream->WriteStringMaybeAliased(8, _s, target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1558,11 +1749,11 @@ uint8_t* TcbAttributes_SecurityChip::_InternalSerialize(
   return target;
 }
 
-size_t TcbAttributes_SecurityChip::ByteSizeLong() const {
+::size_t TcbAttributes_SecurityChip::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:cros_xdr.reporting.TcbAttributes.SecurityChip)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -1570,57 +1761,50 @@ size_t TcbAttributes_SecurityChip::ByteSizeLong() const {
   if (cached_has_bits & 0x000000ffu) {
     // optional string chip_version = 2;
     if (cached_has_bits & 0x00000001u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_chip_version());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                      this->_internal_chip_version());
     }
 
     // optional string spec_family = 3;
     if (cached_has_bits & 0x00000002u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_spec_family());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                      this->_internal_spec_family());
     }
 
     // optional string spec_level = 4;
     if (cached_has_bits & 0x00000004u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_spec_level());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                      this->_internal_spec_level());
     }
 
     // optional string manufacturer = 5;
     if (cached_has_bits & 0x00000008u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_manufacturer());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                      this->_internal_manufacturer());
     }
 
     // optional string vendor_id = 6;
     if (cached_has_bits & 0x00000010u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_vendor_id());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                      this->_internal_vendor_id());
     }
 
     // optional string tpm_model = 7;
     if (cached_has_bits & 0x00000020u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_tpm_model());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                      this->_internal_tpm_model());
     }
 
     // optional string firmware_version = 8;
     if (cached_has_bits & 0x00000040u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_firmware_version());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                      this->_internal_firmware_version());
     }
 
     // optional .cros_xdr.reporting.TcbAttributes.SecurityChip.Kind kind = 1;
     if (cached_has_bits & 0x00000080u) {
       total_size += 1 +
-        ::_pbi::WireFormatLite::EnumSize(this->_internal_kind());
+                    ::_pbi::WireFormatLite::EnumSize(this->_internal_kind());
     }
 
   }
@@ -1641,8 +1825,8 @@ void TcbAttributes_SecurityChip::CheckTypeAndMergeFrom(
 void TcbAttributes_SecurityChip::MergeFrom(const TcbAttributes_SecurityChip& from) {
   TcbAttributes_SecurityChip* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:cros_xdr.reporting.TcbAttributes.SecurityChip)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -1693,34 +1877,20 @@ void TcbAttributes_SecurityChip::InternalSwap(TcbAttributes_SecurityChip* other)
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.chip_version_, lhs_arena,
-      &other->_impl_.chip_version_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.spec_family_, lhs_arena,
-      &other->_impl_.spec_family_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.spec_level_, lhs_arena,
-      &other->_impl_.spec_level_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.manufacturer_, lhs_arena,
-      &other->_impl_.manufacturer_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.vendor_id_, lhs_arena,
-      &other->_impl_.vendor_id_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.tpm_model_, lhs_arena,
-      &other->_impl_.tpm_model_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.firmware_version_, lhs_arena,
-      &other->_impl_.firmware_version_, rhs_arena
-  );
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.chip_version_, lhs_arena,
+                                       &other->_impl_.chip_version_, rhs_arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.spec_family_, lhs_arena,
+                                       &other->_impl_.spec_family_, rhs_arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.spec_level_, lhs_arena,
+                                       &other->_impl_.spec_level_, rhs_arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.manufacturer_, lhs_arena,
+                                       &other->_impl_.manufacturer_, rhs_arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.vendor_id_, lhs_arena,
+                                       &other->_impl_.vendor_id_, rhs_arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.tpm_model_, lhs_arena,
+                                       &other->_impl_.tpm_model_, rhs_arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.firmware_version_, lhs_arena,
+                                       &other->_impl_.firmware_version_, rhs_arena);
   swap(_impl_.kind_, other->_impl_.kind_);
 }
 
@@ -1728,12 +1898,13 @@ std::string TcbAttributes_SecurityChip::GetTypeName() const {
   return "cros_xdr.reporting.TcbAttributes.SecurityChip";
 }
 
-
 // ===================================================================
 
 class TcbAttributes::_Internal {
  public:
   using HasBits = decltype(std::declval<TcbAttributes>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(TcbAttributes, _impl_._has_bits_);
   static void set_has_system_firmware_version(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -1753,10 +1924,9 @@ const ::cros_xdr::reporting::TcbAttributes_SecurityChip&
 TcbAttributes::_Internal::security_chip(const TcbAttributes* msg) {
   return *msg->_impl_.security_chip_;
 }
-TcbAttributes::TcbAttributes(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+TcbAttributes::TcbAttributes(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:cros_xdr.reporting.TcbAttributes)
 }
 TcbAttributes::TcbAttributes(const TcbAttributes& from)
@@ -1765,55 +1935,57 @@ TcbAttributes::TcbAttributes(const TcbAttributes& from)
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.system_firmware_version_){}
-    , decltype(_impl_.linux_kernel_version_){}
+    , decltype(_impl_.system_firmware_version_) {}
+
+    , decltype(_impl_.linux_kernel_version_) {}
+
     , decltype(_impl_.security_chip_){nullptr}
-    , decltype(_impl_.firmware_secure_boot_){}};
+    , decltype(_impl_.firmware_secure_boot_) {}
+  };
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _impl_.system_firmware_version_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.system_firmware_version_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_system_firmware_version()) {
-    _this->_impl_.system_firmware_version_.Set(from._internal_system_firmware_version(), 
-      _this->GetArenaForAllocation());
+        _impl_.system_firmware_version_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_impl_.system_firmware_version_.Set(from._internal_system_firmware_version(), _this->GetArenaForAllocation());
   }
   _impl_.linux_kernel_version_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.linux_kernel_version_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_linux_kernel_version()) {
-    _this->_impl_.linux_kernel_version_.Set(from._internal_linux_kernel_version(), 
-      _this->GetArenaForAllocation());
+        _impl_.linux_kernel_version_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000002u) != 0) {
+    _this->_impl_.linux_kernel_version_.Set(from._internal_linux_kernel_version(), _this->GetArenaForAllocation());
   }
-  if (from._internal_has_security_chip()) {
+  if ((from._impl_._has_bits_[0] & 0x00000004u) != 0) {
     _this->_impl_.security_chip_ = new ::cros_xdr::reporting::TcbAttributes_SecurityChip(*from._impl_.security_chip_);
   }
   _this->_impl_.firmware_secure_boot_ = from._impl_.firmware_secure_boot_;
   // @@protoc_insertion_point(copy_constructor:cros_xdr.reporting.TcbAttributes)
 }
 
-inline void TcbAttributes::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void TcbAttributes::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.system_firmware_version_){}
-    , decltype(_impl_.linux_kernel_version_){}
+    , decltype(_impl_.system_firmware_version_) {}
+
+    , decltype(_impl_.linux_kernel_version_) {}
+
     , decltype(_impl_.security_chip_){nullptr}
-    , decltype(_impl_.firmware_secure_boot_){0}
+    , decltype(_impl_.firmware_secure_boot_) { 0 }
+
   };
   _impl_.system_firmware_version_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.system_firmware_version_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.system_firmware_version_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   _impl_.linux_kernel_version_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.linux_kernel_version_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.linux_kernel_version_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 TcbAttributes::~TcbAttributes() {
@@ -1826,7 +1998,7 @@ TcbAttributes::~TcbAttributes() {
 }
 
 inline void TcbAttributes::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.system_firmware_version_.Destroy();
   _impl_.linux_kernel_version_.Destroy();
   if (this != internal_default_instance()) delete _impl_.security_chip_;
@@ -1838,7 +2010,7 @@ void TcbAttributes::SetCachedSize(int size) const {
 
 void TcbAttributes::Clear() {
 // @@protoc_insertion_point(message_clear_start:cros_xdr.reporting.TcbAttributes)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -1851,7 +2023,7 @@ void TcbAttributes::Clear() {
       _impl_.linux_kernel_version_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000004u) {
-      GOOGLE_DCHECK(_impl_.security_chip_ != nullptr);
+      ABSL_DCHECK(_impl_.security_chip_ != nullptr);
       _impl_.security_chip_->Clear();
     }
   }
@@ -1864,47 +2036,51 @@ const char* TcbAttributes::_InternalParse(const char* ptr, ::_pbi::ParseContext*
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional string system_firmware_version = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_system_firmware_version();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional .cros_xdr.reporting.TcbAttributes.FirmwareSecureBoot firmware_secure_boot = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
+          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-          if (PROTOBUF_PREDICT_TRUE(::cros_xdr::reporting::TcbAttributes_FirmwareSecureBoot_IsValid(val))) {
+          if (PROTOBUF_PREDICT_TRUE(::cros_xdr::reporting::TcbAttributes_FirmwareSecureBoot_IsValid(static_cast<int>(val)))) {
             _internal_set_firmware_secure_boot(static_cast<::cros_xdr::reporting::TcbAttributes_FirmwareSecureBoot>(val));
           } else {
             ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(2, val, mutable_unknown_fields());
           }
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional .cros_xdr.reporting.TcbAttributes.SecurityChip security_chip = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 26)) {
           ptr = ctx->ParseMessage(_internal_mutable_security_chip(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional string linux_kernel_version = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 34)) {
           auto str = _internal_mutable_linux_kernel_version();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -1930,24 +2106,24 @@ failure:
 #undef CHK_
 }
 
-uint8_t* TcbAttributes::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* TcbAttributes::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:cros_xdr.reporting.TcbAttributes)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional string system_firmware_version = 1;
   if (cached_has_bits & 0x00000001u) {
-    target = stream->WriteStringMaybeAliased(
-        1, this->_internal_system_firmware_version(), target);
+    const std::string& _s = this->_internal_system_firmware_version();
+    target = stream->WriteStringMaybeAliased(1, _s, target);
   }
 
   // optional .cros_xdr.reporting.TcbAttributes.FirmwareSecureBoot firmware_secure_boot = 2;
   if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      2, this->_internal_firmware_secure_boot(), target);
+        2, this->_internal_firmware_secure_boot(), target);
   }
 
   // optional .cros_xdr.reporting.TcbAttributes.SecurityChip security_chip = 3;
@@ -1959,8 +2135,8 @@ uint8_t* TcbAttributes::_InternalSerialize(
 
   // optional string linux_kernel_version = 4;
   if (cached_has_bits & 0x00000002u) {
-    target = stream->WriteStringMaybeAliased(
-        4, this->_internal_linux_kernel_version(), target);
+    const std::string& _s = this->_internal_linux_kernel_version();
+    target = stream->WriteStringMaybeAliased(4, _s, target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1971,11 +2147,11 @@ uint8_t* TcbAttributes::_InternalSerialize(
   return target;
 }
 
-size_t TcbAttributes::ByteSizeLong() const {
+::size_t TcbAttributes::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:cros_xdr.reporting.TcbAttributes)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -1983,16 +2159,14 @@ size_t TcbAttributes::ByteSizeLong() const {
   if (cached_has_bits & 0x0000000fu) {
     // optional string system_firmware_version = 1;
     if (cached_has_bits & 0x00000001u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_system_firmware_version());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                      this->_internal_system_firmware_version());
     }
 
     // optional string linux_kernel_version = 4;
     if (cached_has_bits & 0x00000002u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_linux_kernel_version());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                      this->_internal_linux_kernel_version());
     }
 
     // optional .cros_xdr.reporting.TcbAttributes.SecurityChip security_chip = 3;
@@ -2005,7 +2179,7 @@ size_t TcbAttributes::ByteSizeLong() const {
     // optional .cros_xdr.reporting.TcbAttributes.FirmwareSecureBoot firmware_secure_boot = 2;
     if (cached_has_bits & 0x00000008u) {
       total_size += 1 +
-        ::_pbi::WireFormatLite::EnumSize(this->_internal_firmware_secure_boot());
+                    ::_pbi::WireFormatLite::EnumSize(this->_internal_firmware_secure_boot());
     }
 
   }
@@ -2026,8 +2200,8 @@ void TcbAttributes::CheckTypeAndMergeFrom(
 void TcbAttributes::MergeFrom(const TcbAttributes& from) {
   TcbAttributes* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:cros_xdr.reporting.TcbAttributes)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -2067,14 +2241,10 @@ void TcbAttributes::InternalSwap(TcbAttributes* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.system_firmware_version_, lhs_arena,
-      &other->_impl_.system_firmware_version_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.linux_kernel_version_, lhs_arena,
-      &other->_impl_.linux_kernel_version_, rhs_arena
-  );
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.system_firmware_version_, lhs_arena,
+                                       &other->_impl_.system_firmware_version_, rhs_arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.linux_kernel_version_, lhs_arena,
+                                       &other->_impl_.linux_kernel_version_, rhs_arena);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(TcbAttributes, _impl_.firmware_secure_boot_)
       + sizeof(TcbAttributes::_impl_.firmware_secure_boot_)
@@ -2087,12 +2257,13 @@ std::string TcbAttributes::GetTypeName() const {
   return "cros_xdr.reporting.TcbAttributes";
 }
 
-
 // ===================================================================
 
 class FileImage::_Internal {
  public:
   using HasBits = decltype(std::declval<FileImage>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(FileImage, _impl_._has_bits_);
   static void set_has_pathname(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -2119,10 +2290,9 @@ class FileImage::_Internal {
   }
 };
 
-FileImage::FileImage(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+FileImage::FileImage(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:cros_xdr.reporting.FileImage)
 }
 FileImage::FileImage(const FileImage& from)
@@ -2131,62 +2301,74 @@ FileImage::FileImage(const FileImage& from)
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.pathname_){}
-    , decltype(_impl_.sha256_){}
-    , decltype(_impl_.mnt_ns_){}
-    , decltype(_impl_.inode_device_id_){}
-    , decltype(_impl_.inode_){}
-    , decltype(_impl_.canonical_uid_){}
-    , decltype(_impl_.canonical_gid_){}
-    , decltype(_impl_.mode_){}};
+    , decltype(_impl_.pathname_) {}
+
+    , decltype(_impl_.sha256_) {}
+
+    , decltype(_impl_.mnt_ns_) {}
+
+    , decltype(_impl_.inode_device_id_) {}
+
+    , decltype(_impl_.inode_) {}
+
+    , decltype(_impl_.canonical_uid_) {}
+
+    , decltype(_impl_.canonical_gid_) {}
+
+    , decltype(_impl_.mode_) {}
+  };
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _impl_.pathname_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.pathname_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_pathname()) {
-    _this->_impl_.pathname_.Set(from._internal_pathname(), 
-      _this->GetArenaForAllocation());
+        _impl_.pathname_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_impl_.pathname_.Set(from._internal_pathname(), _this->GetArenaForAllocation());
   }
   _impl_.sha256_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.sha256_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_sha256()) {
-    _this->_impl_.sha256_.Set(from._internal_sha256(), 
-      _this->GetArenaForAllocation());
+        _impl_.sha256_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000002u) != 0) {
+    _this->_impl_.sha256_.Set(from._internal_sha256(), _this->GetArenaForAllocation());
   }
   ::memcpy(&_impl_.mnt_ns_, &from._impl_.mnt_ns_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.mode_) -
+    static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.mode_) -
     reinterpret_cast<char*>(&_impl_.mnt_ns_)) + sizeof(_impl_.mode_));
   // @@protoc_insertion_point(copy_constructor:cros_xdr.reporting.FileImage)
 }
 
-inline void FileImage::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void FileImage::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.pathname_){}
-    , decltype(_impl_.sha256_){}
-    , decltype(_impl_.mnt_ns_){uint64_t{0u}}
-    , decltype(_impl_.inode_device_id_){uint64_t{0u}}
-    , decltype(_impl_.inode_){uint64_t{0u}}
-    , decltype(_impl_.canonical_uid_){uint64_t{0u}}
-    , decltype(_impl_.canonical_gid_){uint64_t{0u}}
-    , decltype(_impl_.mode_){0u}
+    , decltype(_impl_.pathname_) {}
+
+    , decltype(_impl_.sha256_) {}
+
+    , decltype(_impl_.mnt_ns_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.inode_device_id_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.inode_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.canonical_uid_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.canonical_gid_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.mode_) { 0u }
+
   };
   _impl_.pathname_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.pathname_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.pathname_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   _impl_.sha256_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.sha256_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.sha256_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 FileImage::~FileImage() {
@@ -2199,7 +2381,7 @@ FileImage::~FileImage() {
 }
 
 inline void FileImage::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.pathname_.Destroy();
   _impl_.sha256_.Destroy();
 }
@@ -2210,7 +2392,7 @@ void FileImage::SetCachedSize(int size) const {
 
 void FileImage::Clear() {
 // @@protoc_insertion_point(message_clear_start:cros_xdr.reporting.FileImage)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -2224,7 +2406,7 @@ void FileImage::Clear() {
     }
   }
   if (cached_has_bits & 0x000000fcu) {
-    ::memset(&_impl_.mnt_ns_, 0, static_cast<size_t>(
+    ::memset(&_impl_.mnt_ns_, 0, static_cast<::size_t>(
         reinterpret_cast<char*>(&_impl_.mode_) -
         reinterpret_cast<char*>(&_impl_.mnt_ns_)) + sizeof(_impl_.mode_));
   }
@@ -2236,80 +2418,88 @@ const char* FileImage::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional string pathname = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_pathname();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 mnt_ns = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _Internal::set_has_mnt_ns(&has_bits);
           _impl_.mnt_ns_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 inode_device_id = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 24)) {
           _Internal::set_has_inode_device_id(&has_bits);
           _impl_.inode_device_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 inode = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 32)) {
           _Internal::set_has_inode(&has_bits);
           _impl_.inode_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional string sha256 = 5;
       case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 42)) {
           auto str = _internal_mutable_sha256();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 canonical_uid = 6;
       case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 48)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 48)) {
           _Internal::set_has_canonical_uid(&has_bits);
           _impl_.canonical_uid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 canonical_gid = 7;
       case 7:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 56)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 56)) {
           _Internal::set_has_canonical_gid(&has_bits);
           _impl_.canonical_gid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint32 mode = 8;
       case 8:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 64)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 64)) {
           _Internal::set_has_mode(&has_bits);
           _impl_.mode_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -2335,59 +2525,65 @@ failure:
 #undef CHK_
 }
 
-uint8_t* FileImage::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* FileImage::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:cros_xdr.reporting.FileImage)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional string pathname = 1;
   if (cached_has_bits & 0x00000001u) {
-    target = stream->WriteStringMaybeAliased(
-        1, this->_internal_pathname(), target);
+    const std::string& _s = this->_internal_pathname();
+    target = stream->WriteStringMaybeAliased(1, _s, target);
   }
 
   // optional uint64 mnt_ns = 2;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(2, this->_internal_mnt_ns(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        2, this->_internal_mnt_ns(), target);
   }
 
   // optional uint64 inode_device_id = 3;
   if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(3, this->_internal_inode_device_id(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        3, this->_internal_inode_device_id(), target);
   }
 
   // optional uint64 inode = 4;
   if (cached_has_bits & 0x00000010u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(4, this->_internal_inode(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        4, this->_internal_inode(), target);
   }
 
   // optional string sha256 = 5;
   if (cached_has_bits & 0x00000002u) {
-    target = stream->WriteStringMaybeAliased(
-        5, this->_internal_sha256(), target);
+    const std::string& _s = this->_internal_sha256();
+    target = stream->WriteStringMaybeAliased(5, _s, target);
   }
 
   // optional uint64 canonical_uid = 6;
   if (cached_has_bits & 0x00000020u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(6, this->_internal_canonical_uid(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        6, this->_internal_canonical_uid(), target);
   }
 
   // optional uint64 canonical_gid = 7;
   if (cached_has_bits & 0x00000040u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(7, this->_internal_canonical_gid(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        7, this->_internal_canonical_gid(), target);
   }
 
   // optional uint32 mode = 8;
   if (cached_has_bits & 0x00000080u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(8, this->_internal_mode(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        8, this->_internal_mode(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -2398,11 +2594,11 @@ uint8_t* FileImage::_InternalSerialize(
   return target;
 }
 
-size_t FileImage::ByteSizeLong() const {
+::size_t FileImage::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:cros_xdr.reporting.FileImage)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -2410,46 +2606,50 @@ size_t FileImage::ByteSizeLong() const {
   if (cached_has_bits & 0x000000ffu) {
     // optional string pathname = 1;
     if (cached_has_bits & 0x00000001u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_pathname());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                      this->_internal_pathname());
     }
 
     // optional string sha256 = 5;
     if (cached_has_bits & 0x00000002u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_sha256());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                      this->_internal_sha256());
     }
 
     // optional uint64 mnt_ns = 2;
     if (cached_has_bits & 0x00000004u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_mnt_ns());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_mnt_ns());
     }
 
     // optional uint64 inode_device_id = 3;
     if (cached_has_bits & 0x00000008u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_inode_device_id());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_inode_device_id());
     }
 
     // optional uint64 inode = 4;
     if (cached_has_bits & 0x00000010u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_inode());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_inode());
     }
 
     // optional uint64 canonical_uid = 6;
     if (cached_has_bits & 0x00000020u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_canonical_uid());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_canonical_uid());
     }
 
     // optional uint64 canonical_gid = 7;
     if (cached_has_bits & 0x00000040u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_canonical_gid());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_canonical_gid());
     }
 
     // optional uint32 mode = 8;
     if (cached_has_bits & 0x00000080u) {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_mode());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+          this->_internal_mode());
     }
 
   }
@@ -2470,8 +2670,8 @@ void FileImage::CheckTypeAndMergeFrom(
 void FileImage::MergeFrom(const FileImage& from) {
   FileImage* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:cros_xdr.reporting.FileImage)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -2522,14 +2722,10 @@ void FileImage::InternalSwap(FileImage* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.pathname_, lhs_arena,
-      &other->_impl_.pathname_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.sha256_, lhs_arena,
-      &other->_impl_.sha256_, rhs_arena
-  );
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.pathname_, lhs_arena,
+                                       &other->_impl_.pathname_, rhs_arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.sha256_, lhs_arena,
+                                       &other->_impl_.sha256_, rhs_arena);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(FileImage, _impl_.mode_)
       + sizeof(FileImage::_impl_.mode_)
@@ -2542,12 +2738,13 @@ std::string FileImage::GetTypeName() const {
   return "cros_xdr.reporting.FileImage";
 }
 
-
 // ===================================================================
 
 class Process::_Internal {
  public:
   using HasBits = decltype(std::declval<Process>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(Process, _impl_._has_bits_);
   static void set_has_process_uuid(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -2576,10 +2773,9 @@ const ::cros_xdr::reporting::FileImage&
 Process::_Internal::image(const Process* msg) {
   return *msg->_impl_.image_;
 }
-Process::Process(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+Process::Process(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:cros_xdr.reporting.Process)
 }
 Process::Process(const Process& from)
@@ -2588,63 +2784,71 @@ Process::Process(const Process& from)
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.process_uuid_){}
-    , decltype(_impl_.commandline_){}
+    , decltype(_impl_.process_uuid_) {}
+
+    , decltype(_impl_.commandline_) {}
+
     , decltype(_impl_.image_){nullptr}
-    , decltype(_impl_.canonical_pid_){}
-    , decltype(_impl_.canonical_uid_){}
-    , decltype(_impl_.rel_start_time_s_){}
-    , decltype(_impl_.meta_first_appearance_){}};
+    , decltype(_impl_.canonical_pid_) {}
+
+    , decltype(_impl_.canonical_uid_) {}
+
+    , decltype(_impl_.rel_start_time_s_) {}
+
+    , decltype(_impl_.meta_first_appearance_) {}
+  };
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _impl_.process_uuid_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.process_uuid_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_process_uuid()) {
-    _this->_impl_.process_uuid_.Set(from._internal_process_uuid(), 
-      _this->GetArenaForAllocation());
+        _impl_.process_uuid_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_impl_.process_uuid_.Set(from._internal_process_uuid(), _this->GetArenaForAllocation());
   }
   _impl_.commandline_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.commandline_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_commandline()) {
-    _this->_impl_.commandline_.Set(from._internal_commandline(), 
-      _this->GetArenaForAllocation());
+        _impl_.commandline_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000002u) != 0) {
+    _this->_impl_.commandline_.Set(from._internal_commandline(), _this->GetArenaForAllocation());
   }
-  if (from._internal_has_image()) {
+  if ((from._impl_._has_bits_[0] & 0x00000004u) != 0) {
     _this->_impl_.image_ = new ::cros_xdr::reporting::FileImage(*from._impl_.image_);
   }
   ::memcpy(&_impl_.canonical_pid_, &from._impl_.canonical_pid_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.meta_first_appearance_) -
+    static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.meta_first_appearance_) -
     reinterpret_cast<char*>(&_impl_.canonical_pid_)) + sizeof(_impl_.meta_first_appearance_));
   // @@protoc_insertion_point(copy_constructor:cros_xdr.reporting.Process)
 }
 
-inline void Process::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void Process::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.process_uuid_){}
-    , decltype(_impl_.commandline_){}
+    , decltype(_impl_.process_uuid_) {}
+
+    , decltype(_impl_.commandline_) {}
+
     , decltype(_impl_.image_){nullptr}
-    , decltype(_impl_.canonical_pid_){uint64_t{0u}}
-    , decltype(_impl_.canonical_uid_){uint64_t{0u}}
-    , decltype(_impl_.rel_start_time_s_){int64_t{0}}
-    , decltype(_impl_.meta_first_appearance_){false}
+    , decltype(_impl_.canonical_pid_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.canonical_uid_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.rel_start_time_s_) { ::int64_t{0} }
+
+    , decltype(_impl_.meta_first_appearance_) { false }
+
   };
   _impl_.process_uuid_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.process_uuid_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.process_uuid_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   _impl_.commandline_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.commandline_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.commandline_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 Process::~Process() {
@@ -2657,7 +2861,7 @@ Process::~Process() {
 }
 
 inline void Process::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.process_uuid_.Destroy();
   _impl_.commandline_.Destroy();
   if (this != internal_default_instance()) delete _impl_.image_;
@@ -2669,7 +2873,7 @@ void Process::SetCachedSize(int size) const {
 
 void Process::Clear() {
 // @@protoc_insertion_point(message_clear_start:cros_xdr.reporting.Process)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -2682,12 +2886,12 @@ void Process::Clear() {
       _impl_.commandline_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000004u) {
-      GOOGLE_DCHECK(_impl_.image_ != nullptr);
+      ABSL_DCHECK(_impl_.image_ != nullptr);
       _impl_.image_->Clear();
     }
   }
   if (cached_has_bits & 0x00000078u) {
-    ::memset(&_impl_.canonical_pid_, 0, static_cast<size_t>(
+    ::memset(&_impl_.canonical_pid_, 0, static_cast<::size_t>(
         reinterpret_cast<char*>(&_impl_.meta_first_appearance_) -
         reinterpret_cast<char*>(&_impl_.canonical_pid_)) + sizeof(_impl_.meta_first_appearance_));
   }
@@ -2699,70 +2903,77 @@ const char* Process::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) 
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional string process_uuid = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_process_uuid();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 canonical_pid = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _Internal::set_has_canonical_pid(&has_bits);
           _impl_.canonical_pid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 canonical_uid = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 24)) {
           _Internal::set_has_canonical_uid(&has_bits);
           _impl_.canonical_uid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional string commandline = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 34)) {
           auto str = _internal_mutable_commandline();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional .cros_xdr.reporting.FileImage image = 5;
       case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 42)) {
           ptr = ctx->ParseMessage(_internal_mutable_image(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional int64 rel_start_time_s = 6;
       case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 48)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 48)) {
           _Internal::set_has_rel_start_time_s(&has_bits);
           _impl_.rel_start_time_s_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional bool meta_first_appearance = 7;
       case 7:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 56)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 56)) {
           _Internal::set_has_meta_first_appearance(&has_bits);
           _impl_.meta_first_appearance_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -2788,35 +2999,37 @@ failure:
 #undef CHK_
 }
 
-uint8_t* Process::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* Process::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:cros_xdr.reporting.Process)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional string process_uuid = 1;
   if (cached_has_bits & 0x00000001u) {
-    target = stream->WriteStringMaybeAliased(
-        1, this->_internal_process_uuid(), target);
+    const std::string& _s = this->_internal_process_uuid();
+    target = stream->WriteStringMaybeAliased(1, _s, target);
   }
 
   // optional uint64 canonical_pid = 2;
   if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(2, this->_internal_canonical_pid(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        2, this->_internal_canonical_pid(), target);
   }
 
   // optional uint64 canonical_uid = 3;
   if (cached_has_bits & 0x00000010u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(3, this->_internal_canonical_uid(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        3, this->_internal_canonical_uid(), target);
   }
 
   // optional string commandline = 4;
   if (cached_has_bits & 0x00000002u) {
-    target = stream->WriteStringMaybeAliased(
-        4, this->_internal_commandline(), target);
+    const std::string& _s = this->_internal_commandline();
+    target = stream->WriteStringMaybeAliased(4, _s, target);
   }
 
   // optional .cros_xdr.reporting.FileImage image = 5;
@@ -2829,13 +3042,15 @@ uint8_t* Process::_InternalSerialize(
   // optional int64 rel_start_time_s = 6;
   if (cached_has_bits & 0x00000020u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt64ToArray(6, this->_internal_rel_start_time_s(), target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(
+        6, this->_internal_rel_start_time_s(), target);
   }
 
   // optional bool meta_first_appearance = 7;
   if (cached_has_bits & 0x00000040u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(7, this->_internal_meta_first_appearance(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        7, this->_internal_meta_first_appearance(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -2846,11 +3061,11 @@ uint8_t* Process::_InternalSerialize(
   return target;
 }
 
-size_t Process::ByteSizeLong() const {
+::size_t Process::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:cros_xdr.reporting.Process)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -2858,16 +3073,14 @@ size_t Process::ByteSizeLong() const {
   if (cached_has_bits & 0x0000007fu) {
     // optional string process_uuid = 1;
     if (cached_has_bits & 0x00000001u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_process_uuid());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                      this->_internal_process_uuid());
     }
 
     // optional string commandline = 4;
     if (cached_has_bits & 0x00000002u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_commandline());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                      this->_internal_commandline());
     }
 
     // optional .cros_xdr.reporting.FileImage image = 5;
@@ -2879,22 +3092,25 @@ size_t Process::ByteSizeLong() const {
 
     // optional uint64 canonical_pid = 2;
     if (cached_has_bits & 0x00000008u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_canonical_pid());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_canonical_pid());
     }
 
     // optional uint64 canonical_uid = 3;
     if (cached_has_bits & 0x00000010u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_canonical_uid());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_canonical_uid());
     }
 
     // optional int64 rel_start_time_s = 6;
     if (cached_has_bits & 0x00000020u) {
-      total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_rel_start_time_s());
+      total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(
+          this->_internal_rel_start_time_s());
     }
 
     // optional bool meta_first_appearance = 7;
     if (cached_has_bits & 0x00000040u) {
-      total_size += 1 + 1;
+      total_size += 2;
     }
 
   }
@@ -2915,8 +3131,8 @@ void Process::CheckTypeAndMergeFrom(
 void Process::MergeFrom(const Process& from) {
   Process* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:cros_xdr.reporting.Process)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -2965,14 +3181,10 @@ void Process::InternalSwap(Process* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.process_uuid_, lhs_arena,
-      &other->_impl_.process_uuid_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.commandline_, lhs_arena,
-      &other->_impl_.commandline_, rhs_arena
-  );
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.process_uuid_, lhs_arena,
+                                       &other->_impl_.process_uuid_, rhs_arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.commandline_, lhs_arena,
+                                       &other->_impl_.commandline_, rhs_arena);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(Process, _impl_.meta_first_appearance_)
       + sizeof(Process::_impl_.meta_first_appearance_)
@@ -2985,12 +3197,13 @@ std::string Process::GetTypeName() const {
   return "cros_xdr.reporting.Process";
 }
 
-
 // ===================================================================
 
 class Namespaces::_Internal {
  public:
   using HasBits = decltype(std::declval<Namespaces>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(Namespaces, _impl_._has_bits_);
   static void set_has_cgroup_ns(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -3014,47 +3227,37 @@ class Namespaces::_Internal {
   }
 };
 
-Namespaces::Namespaces(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+Namespaces::Namespaces(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:cros_xdr.reporting.Namespaces)
 }
 Namespaces::Namespaces(const Namespaces& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
-  Namespaces* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_._has_bits_){from._impl_._has_bits_}
-    , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.cgroup_ns_){}
-    , decltype(_impl_.ipc_ns_){}
-    , decltype(_impl_.pid_ns_){}
-    , decltype(_impl_.user_ns_){}
-    , decltype(_impl_.uts_ns_){}
-    , decltype(_impl_.mnt_ns_){}
-    , decltype(_impl_.net_ns_){}};
-
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&_impl_.cgroup_ns_, &from._impl_.cgroup_ns_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.net_ns_) -
-    reinterpret_cast<char*>(&_impl_.cgroup_ns_)) + sizeof(_impl_.net_ns_));
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(), _impl_(from._impl_) {
+  _internal_metadata_.MergeFrom<std::string>(
+      from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:cros_xdr.reporting.Namespaces)
 }
 
-inline void Namespaces::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void Namespaces::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.cgroup_ns_){uint64_t{0u}}
-    , decltype(_impl_.ipc_ns_){uint64_t{0u}}
-    , decltype(_impl_.pid_ns_){uint64_t{0u}}
-    , decltype(_impl_.user_ns_){uint64_t{0u}}
-    , decltype(_impl_.uts_ns_){uint64_t{0u}}
-    , decltype(_impl_.mnt_ns_){uint64_t{0u}}
-    , decltype(_impl_.net_ns_){uint64_t{0u}}
+    , decltype(_impl_.cgroup_ns_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.ipc_ns_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.pid_ns_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.user_ns_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.uts_ns_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.mnt_ns_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.net_ns_) { ::uint64_t{0u} }
+
   };
 }
 
@@ -3068,7 +3271,7 @@ Namespaces::~Namespaces() {
 }
 
 inline void Namespaces::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void Namespaces::SetCachedSize(int size) const {
@@ -3077,13 +3280,13 @@ void Namespaces::SetCachedSize(int size) const {
 
 void Namespaces::Clear() {
 // @@protoc_insertion_point(message_clear_start:cros_xdr.reporting.Namespaces)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000007fu) {
-    ::memset(&_impl_.cgroup_ns_, 0, static_cast<size_t>(
+    ::memset(&_impl_.cgroup_ns_, 0, static_cast<::size_t>(
         reinterpret_cast<char*>(&_impl_.net_ns_) -
         reinterpret_cast<char*>(&_impl_.cgroup_ns_)) + sizeof(_impl_.net_ns_));
   }
@@ -3095,71 +3298,78 @@ const char* Namespaces::_InternalParse(const char* ptr, ::_pbi::ParseContext* ct
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional uint64 cgroup_ns = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _Internal::set_has_cgroup_ns(&has_bits);
           _impl_.cgroup_ns_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 ipc_ns = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _Internal::set_has_ipc_ns(&has_bits);
           _impl_.ipc_ns_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 pid_ns = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 24)) {
           _Internal::set_has_pid_ns(&has_bits);
           _impl_.pid_ns_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 user_ns = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 32)) {
           _Internal::set_has_user_ns(&has_bits);
           _impl_.user_ns_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 uts_ns = 5;
       case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 40)) {
           _Internal::set_has_uts_ns(&has_bits);
           _impl_.uts_ns_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 mnt_ns = 6;
       case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 48)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 48)) {
           _Internal::set_has_mnt_ns(&has_bits);
           _impl_.mnt_ns_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 net_ns = 7;
       case 7:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 56)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 56)) {
           _Internal::set_has_net_ns(&has_bits);
           _impl_.net_ns_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -3185,53 +3395,60 @@ failure:
 #undef CHK_
 }
 
-uint8_t* Namespaces::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* Namespaces::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:cros_xdr.reporting.Namespaces)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional uint64 cgroup_ns = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(1, this->_internal_cgroup_ns(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        1, this->_internal_cgroup_ns(), target);
   }
 
   // optional uint64 ipc_ns = 2;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(2, this->_internal_ipc_ns(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        2, this->_internal_ipc_ns(), target);
   }
 
   // optional uint64 pid_ns = 3;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(3, this->_internal_pid_ns(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        3, this->_internal_pid_ns(), target);
   }
 
   // optional uint64 user_ns = 4;
   if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(4, this->_internal_user_ns(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        4, this->_internal_user_ns(), target);
   }
 
   // optional uint64 uts_ns = 5;
   if (cached_has_bits & 0x00000010u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(5, this->_internal_uts_ns(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        5, this->_internal_uts_ns(), target);
   }
 
   // optional uint64 mnt_ns = 6;
   if (cached_has_bits & 0x00000020u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(6, this->_internal_mnt_ns(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        6, this->_internal_mnt_ns(), target);
   }
 
   // optional uint64 net_ns = 7;
   if (cached_has_bits & 0x00000040u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(7, this->_internal_net_ns(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        7, this->_internal_net_ns(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -3242,11 +3459,11 @@ uint8_t* Namespaces::_InternalSerialize(
   return target;
 }
 
-size_t Namespaces::ByteSizeLong() const {
+::size_t Namespaces::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:cros_xdr.reporting.Namespaces)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -3254,37 +3471,44 @@ size_t Namespaces::ByteSizeLong() const {
   if (cached_has_bits & 0x0000007fu) {
     // optional uint64 cgroup_ns = 1;
     if (cached_has_bits & 0x00000001u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_cgroup_ns());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_cgroup_ns());
     }
 
     // optional uint64 ipc_ns = 2;
     if (cached_has_bits & 0x00000002u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_ipc_ns());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_ipc_ns());
     }
 
     // optional uint64 pid_ns = 3;
     if (cached_has_bits & 0x00000004u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_pid_ns());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_pid_ns());
     }
 
     // optional uint64 user_ns = 4;
     if (cached_has_bits & 0x00000008u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_user_ns());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_user_ns());
     }
 
     // optional uint64 uts_ns = 5;
     if (cached_has_bits & 0x00000010u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_uts_ns());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_uts_ns());
     }
 
     // optional uint64 mnt_ns = 6;
     if (cached_has_bits & 0x00000020u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_mnt_ns());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_mnt_ns());
     }
 
     // optional uint64 net_ns = 7;
     if (cached_has_bits & 0x00000040u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_net_ns());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_net_ns());
     }
 
   }
@@ -3305,8 +3529,8 @@ void Namespaces::CheckTypeAndMergeFrom(
 void Namespaces::MergeFrom(const Namespaces& from) {
   Namespaces* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:cros_xdr.reporting.Namespaces)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -3364,12 +3588,13 @@ std::string Namespaces::GetTypeName() const {
   return "cros_xdr.reporting.Namespaces";
 }
 
-
 // ===================================================================
 
 class CommonEventVariantDataFields::_Internal {
  public:
   using HasBits = decltype(std::declval<CommonEventVariantDataFields>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(CommonEventVariantDataFields, _impl_._has_bits_);
   static void set_has_create_timestamp_us(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
@@ -3378,10 +3603,9 @@ class CommonEventVariantDataFields::_Internal {
   }
 };
 
-CommonEventVariantDataFields::CommonEventVariantDataFields(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+CommonEventVariantDataFields::CommonEventVariantDataFields(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:cros_xdr.reporting.CommonEventVariantDataFields)
 }
 CommonEventVariantDataFields::CommonEventVariantDataFields(const CommonEventVariantDataFields& from)
@@ -3390,36 +3614,37 @@ CommonEventVariantDataFields::CommonEventVariantDataFields(const CommonEventVari
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.device_user_){}
-    , decltype(_impl_.create_timestamp_us_){}};
+    , decltype(_impl_.device_user_) {}
+
+    , decltype(_impl_.create_timestamp_us_) {}
+  };
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _impl_.device_user_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.device_user_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_device_user()) {
-    _this->_impl_.device_user_.Set(from._internal_device_user(), 
-      _this->GetArenaForAllocation());
+        _impl_.device_user_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_impl_.device_user_.Set(from._internal_device_user(), _this->GetArenaForAllocation());
   }
   _this->_impl_.create_timestamp_us_ = from._impl_.create_timestamp_us_;
   // @@protoc_insertion_point(copy_constructor:cros_xdr.reporting.CommonEventVariantDataFields)
 }
 
-inline void CommonEventVariantDataFields::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void CommonEventVariantDataFields::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.device_user_){}
-    , decltype(_impl_.create_timestamp_us_){int64_t{0}}
+    , decltype(_impl_.device_user_) {}
+
+    , decltype(_impl_.create_timestamp_us_) { ::int64_t{0} }
+
   };
   _impl_.device_user_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.device_user_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.device_user_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 CommonEventVariantDataFields::~CommonEventVariantDataFields() {
@@ -3432,7 +3657,7 @@ CommonEventVariantDataFields::~CommonEventVariantDataFields() {
 }
 
 inline void CommonEventVariantDataFields::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.device_user_.Destroy();
 }
 
@@ -3442,7 +3667,7 @@ void CommonEventVariantDataFields::SetCachedSize(int size) const {
 
 void CommonEventVariantDataFields::Clear() {
 // @@protoc_insertion_point(message_clear_start:cros_xdr.reporting.CommonEventVariantDataFields)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -3450,7 +3675,7 @@ void CommonEventVariantDataFields::Clear() {
   if (cached_has_bits & 0x00000001u) {
     _impl_.device_user_.ClearNonDefaultToEmpty();
   }
-  _impl_.create_timestamp_us_ = int64_t{0};
+  _impl_.create_timestamp_us_ = ::int64_t{0};
   _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
@@ -3459,26 +3684,28 @@ const char* CommonEventVariantDataFields::_InternalParse(const char* ptr, ::_pbi
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional int64 create_timestamp_us = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _Internal::set_has_create_timestamp_us(&has_bits);
           _impl_.create_timestamp_us_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional string device_user = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_device_user();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -3504,23 +3731,24 @@ failure:
 #undef CHK_
 }
 
-uint8_t* CommonEventVariantDataFields::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* CommonEventVariantDataFields::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:cros_xdr.reporting.CommonEventVariantDataFields)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional int64 create_timestamp_us = 1;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt64ToArray(1, this->_internal_create_timestamp_us(), target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(
+        1, this->_internal_create_timestamp_us(), target);
   }
 
   // optional string device_user = 2;
   if (cached_has_bits & 0x00000001u) {
-    target = stream->WriteStringMaybeAliased(
-        2, this->_internal_device_user(), target);
+    const std::string& _s = this->_internal_device_user();
+    target = stream->WriteStringMaybeAliased(2, _s, target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -3531,11 +3759,11 @@ uint8_t* CommonEventVariantDataFields::_InternalSerialize(
   return target;
 }
 
-size_t CommonEventVariantDataFields::ByteSizeLong() const {
+::size_t CommonEventVariantDataFields::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:cros_xdr.reporting.CommonEventVariantDataFields)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -3543,14 +3771,14 @@ size_t CommonEventVariantDataFields::ByteSizeLong() const {
   if (cached_has_bits & 0x00000003u) {
     // optional string device_user = 2;
     if (cached_has_bits & 0x00000001u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_device_user());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                      this->_internal_device_user());
     }
 
     // optional int64 create_timestamp_us = 1;
     if (cached_has_bits & 0x00000002u) {
-      total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_create_timestamp_us());
+      total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(
+          this->_internal_create_timestamp_us());
     }
 
   }
@@ -3571,8 +3799,8 @@ void CommonEventVariantDataFields::CheckTypeAndMergeFrom(
 void CommonEventVariantDataFields::MergeFrom(const CommonEventVariantDataFields& from) {
   CommonEventVariantDataFields* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:cros_xdr.reporting.CommonEventVariantDataFields)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -3605,10 +3833,9 @@ void CommonEventVariantDataFields::InternalSwap(CommonEventVariantDataFields* ot
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.device_user_, lhs_arena,
-      &other->_impl_.device_user_, rhs_arena
-  );
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.device_user_, lhs_arena,
+                                       &other->_impl_.device_user_, rhs_arena);
+
   swap(_impl_.create_timestamp_us_, other->_impl_.create_timestamp_us_);
 }
 
@@ -3616,12 +3843,13 @@ std::string CommonEventVariantDataFields::GetTypeName() const {
   return "cros_xdr.reporting.CommonEventVariantDataFields";
 }
 
-
 // ===================================================================
 
 class AgentStartEvent::_Internal {
  public:
   using HasBits = decltype(std::declval<AgentStartEvent>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(AgentStartEvent, _impl_._has_bits_);
   static const ::cros_xdr::reporting::TcbAttributes& tcb(const AgentStartEvent* msg);
   static void set_has_tcb(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
@@ -3632,10 +3860,9 @@ const ::cros_xdr::reporting::TcbAttributes&
 AgentStartEvent::_Internal::tcb(const AgentStartEvent* msg) {
   return *msg->_impl_.tcb_;
 }
-AgentStartEvent::AgentStartEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+AgentStartEvent::AgentStartEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:cros_xdr.reporting.AgentStartEvent)
 }
 AgentStartEvent::AgentStartEvent(const AgentStartEvent& from)
@@ -3647,16 +3874,14 @@ AgentStartEvent::AgentStartEvent(const AgentStartEvent& from)
     , decltype(_impl_.tcb_){nullptr}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  if (from._internal_has_tcb()) {
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_impl_.tcb_ = new ::cros_xdr::reporting::TcbAttributes(*from._impl_.tcb_);
   }
   // @@protoc_insertion_point(copy_constructor:cros_xdr.reporting.AgentStartEvent)
 }
 
-inline void AgentStartEvent::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void AgentStartEvent::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
@@ -3674,7 +3899,7 @@ AgentStartEvent::~AgentStartEvent() {
 }
 
 inline void AgentStartEvent::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   if (this != internal_default_instance()) delete _impl_.tcb_;
 }
 
@@ -3684,13 +3909,13 @@ void AgentStartEvent::SetCachedSize(int size) const {
 
 void AgentStartEvent::Clear() {
 // @@protoc_insertion_point(message_clear_start:cros_xdr.reporting.AgentStartEvent)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    GOOGLE_DCHECK(_impl_.tcb_ != nullptr);
+    ABSL_DCHECK(_impl_.tcb_ != nullptr);
     _impl_.tcb_->Clear();
   }
   _impl_._has_bits_.Clear();
@@ -3701,16 +3926,17 @@ const char* AgentStartEvent::_InternalParse(const char* ptr, ::_pbi::ParseContex
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional .cros_xdr.reporting.TcbAttributes tcb = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_tcb(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -3736,10 +3962,10 @@ failure:
 #undef CHK_
 }
 
-uint8_t* AgentStartEvent::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* AgentStartEvent::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:cros_xdr.reporting.AgentStartEvent)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
@@ -3758,11 +3984,11 @@ uint8_t* AgentStartEvent::_InternalSerialize(
   return target;
 }
 
-size_t AgentStartEvent::ByteSizeLong() const {
+::size_t AgentStartEvent::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:cros_xdr.reporting.AgentStartEvent)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -3791,11 +4017,11 @@ void AgentStartEvent::CheckTypeAndMergeFrom(
 void AgentStartEvent::MergeFrom(const AgentStartEvent& from) {
   AgentStartEvent* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:cros_xdr.reporting.AgentStartEvent)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_has_tcb()) {
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_internal_mutable_tcb()->::cros_xdr::reporting::TcbAttributes::MergeFrom(
         from._internal_tcb());
   }
@@ -3824,12 +4050,13 @@ std::string AgentStartEvent::GetTypeName() const {
   return "cros_xdr.reporting.AgentStartEvent";
 }
 
-
 // ===================================================================
 
 class AgentHeartbeatEvent::_Internal {
  public:
   using HasBits = decltype(std::declval<AgentHeartbeatEvent>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(AgentHeartbeatEvent, _impl_._has_bits_);
   static const ::cros_xdr::reporting::TcbAttributes& tcb(const AgentHeartbeatEvent* msg);
   static void set_has_tcb(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
@@ -3840,10 +4067,9 @@ const ::cros_xdr::reporting::TcbAttributes&
 AgentHeartbeatEvent::_Internal::tcb(const AgentHeartbeatEvent* msg) {
   return *msg->_impl_.tcb_;
 }
-AgentHeartbeatEvent::AgentHeartbeatEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+AgentHeartbeatEvent::AgentHeartbeatEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:cros_xdr.reporting.AgentHeartbeatEvent)
 }
 AgentHeartbeatEvent::AgentHeartbeatEvent(const AgentHeartbeatEvent& from)
@@ -3855,16 +4081,14 @@ AgentHeartbeatEvent::AgentHeartbeatEvent(const AgentHeartbeatEvent& from)
     , decltype(_impl_.tcb_){nullptr}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  if (from._internal_has_tcb()) {
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_impl_.tcb_ = new ::cros_xdr::reporting::TcbAttributes(*from._impl_.tcb_);
   }
   // @@protoc_insertion_point(copy_constructor:cros_xdr.reporting.AgentHeartbeatEvent)
 }
 
-inline void AgentHeartbeatEvent::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void AgentHeartbeatEvent::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
@@ -3882,7 +4106,7 @@ AgentHeartbeatEvent::~AgentHeartbeatEvent() {
 }
 
 inline void AgentHeartbeatEvent::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   if (this != internal_default_instance()) delete _impl_.tcb_;
 }
 
@@ -3892,13 +4116,13 @@ void AgentHeartbeatEvent::SetCachedSize(int size) const {
 
 void AgentHeartbeatEvent::Clear() {
 // @@protoc_insertion_point(message_clear_start:cros_xdr.reporting.AgentHeartbeatEvent)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    GOOGLE_DCHECK(_impl_.tcb_ != nullptr);
+    ABSL_DCHECK(_impl_.tcb_ != nullptr);
     _impl_.tcb_->Clear();
   }
   _impl_._has_bits_.Clear();
@@ -3909,16 +4133,17 @@ const char* AgentHeartbeatEvent::_InternalParse(const char* ptr, ::_pbi::ParseCo
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional .cros_xdr.reporting.TcbAttributes tcb = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_tcb(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -3944,10 +4169,10 @@ failure:
 #undef CHK_
 }
 
-uint8_t* AgentHeartbeatEvent::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* AgentHeartbeatEvent::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:cros_xdr.reporting.AgentHeartbeatEvent)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
@@ -3966,11 +4191,11 @@ uint8_t* AgentHeartbeatEvent::_InternalSerialize(
   return target;
 }
 
-size_t AgentHeartbeatEvent::ByteSizeLong() const {
+::size_t AgentHeartbeatEvent::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:cros_xdr.reporting.AgentHeartbeatEvent)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -3999,11 +4224,11 @@ void AgentHeartbeatEvent::CheckTypeAndMergeFrom(
 void AgentHeartbeatEvent::MergeFrom(const AgentHeartbeatEvent& from) {
   AgentHeartbeatEvent* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:cros_xdr.reporting.AgentHeartbeatEvent)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_has_tcb()) {
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_internal_mutable_tcb()->::cros_xdr::reporting::TcbAttributes::MergeFrom(
         from._internal_tcb());
   }
@@ -4032,12 +4257,15 @@ std::string AgentHeartbeatEvent::GetTypeName() const {
   return "cros_xdr.reporting.AgentHeartbeatEvent";
 }
 
-
 // ===================================================================
 
 class AgentEventAtomicVariant::_Internal {
  public:
   using HasBits = decltype(std::declval<AgentEventAtomicVariant>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(AgentEventAtomicVariant, _impl_._has_bits_);
+  static constexpr ::int32_t kOneofCaseOffset =
+    PROTOBUF_FIELD_OFFSET(::cros_xdr::reporting::AgentEventAtomicVariant, _impl_._oneof_case_);
   static const ::cros_xdr::reporting::CommonEventVariantDataFields& common(const AgentEventAtomicVariant* msg);
   static void set_has_common(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
@@ -4088,10 +4316,9 @@ void AgentEventAtomicVariant::set_allocated_agent_heartbeat(::cros_xdr::reportin
   }
   // @@protoc_insertion_point(field_set_allocated:cros_xdr.reporting.AgentEventAtomicVariant.agent_heartbeat)
 }
-AgentEventAtomicVariant::AgentEventAtomicVariant(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+AgentEventAtomicVariant::AgentEventAtomicVariant(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:cros_xdr.reporting.AgentEventAtomicVariant)
 }
 AgentEventAtomicVariant::AgentEventAtomicVariant(const AgentEventAtomicVariant& from)
@@ -4105,7 +4332,7 @@ AgentEventAtomicVariant::AgentEventAtomicVariant(const AgentEventAtomicVariant& 
     , /*decltype(_impl_._oneof_case_)*/{}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  if (from._internal_has_common()) {
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_impl_.common_ = new ::cros_xdr::reporting::CommonEventVariantDataFields(*from._impl_.common_);
   }
   clear_has_variant_type();
@@ -4127,10 +4354,8 @@ AgentEventAtomicVariant::AgentEventAtomicVariant(const AgentEventAtomicVariant& 
   // @@protoc_insertion_point(copy_constructor:cros_xdr.reporting.AgentEventAtomicVariant)
 }
 
-inline void AgentEventAtomicVariant::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void AgentEventAtomicVariant::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
@@ -4151,7 +4376,7 @@ AgentEventAtomicVariant::~AgentEventAtomicVariant() {
 }
 
 inline void AgentEventAtomicVariant::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   if (this != internal_default_instance()) delete _impl_.common_;
   if (has_variant_type()) {
     clear_variant_type();
@@ -4187,13 +4412,13 @@ void AgentEventAtomicVariant::clear_variant_type() {
 
 void AgentEventAtomicVariant::Clear() {
 // @@protoc_insertion_point(message_clear_start:cros_xdr.reporting.AgentEventAtomicVariant)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    GOOGLE_DCHECK(_impl_.common_ != nullptr);
+    ABSL_DCHECK(_impl_.common_ != nullptr);
     _impl_.common_->Clear();
   }
   clear_variant_type();
@@ -4205,32 +4430,35 @@ const char* AgentEventAtomicVariant::_InternalParse(const char* ptr, ::_pbi::Par
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional .cros_xdr.reporting.CommonEventVariantDataFields common = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_common(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .cros_xdr.reporting.AgentStartEvent agent_start = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_agent_start(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .cros_xdr.reporting.AgentHeartbeatEvent agent_heartbeat = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 26)) {
           ptr = ctx->ParseMessage(_internal_mutable_agent_heartbeat(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -4256,10 +4484,10 @@ failure:
 #undef CHK_
 }
 
-uint8_t* AgentEventAtomicVariant::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* AgentEventAtomicVariant::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:cros_xdr.reporting.AgentEventAtomicVariant)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
@@ -4293,11 +4521,11 @@ uint8_t* AgentEventAtomicVariant::_InternalSerialize(
   return target;
 }
 
-size_t AgentEventAtomicVariant::ByteSizeLong() const {
+::size_t AgentEventAtomicVariant::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:cros_xdr.reporting.AgentEventAtomicVariant)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -4345,11 +4573,11 @@ void AgentEventAtomicVariant::CheckTypeAndMergeFrom(
 void AgentEventAtomicVariant::MergeFrom(const AgentEventAtomicVariant& from) {
   AgentEventAtomicVariant* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:cros_xdr.reporting.AgentEventAtomicVariant)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_has_common()) {
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_internal_mutable_common()->::cros_xdr::reporting::CommonEventVariantDataFields::MergeFrom(
         from._internal_common());
   }
@@ -4395,12 +4623,15 @@ std::string AgentEventAtomicVariant::GetTypeName() const {
   return "cros_xdr.reporting.AgentEventAtomicVariant";
 }
 
-
 // ===================================================================
 
 class XdrAgentEvent::_Internal {
  public:
   using HasBits = decltype(std::declval<XdrAgentEvent>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(XdrAgentEvent, _impl_._has_bits_);
+  static constexpr ::int32_t kOneofCaseOffset =
+    PROTOBUF_FIELD_OFFSET(::cros_xdr::reporting::XdrAgentEvent, _impl_._oneof_case_);
   static const ::cros_xdr::reporting::CommonEventDataFields& common(const XdrAgentEvent* msg);
   static void set_has_common(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
@@ -4451,10 +4682,9 @@ void XdrAgentEvent::set_allocated_agent_heartbeat(::cros_xdr::reporting::AgentHe
   }
   // @@protoc_insertion_point(field_set_allocated:cros_xdr.reporting.XdrAgentEvent.agent_heartbeat)
 }
-XdrAgentEvent::XdrAgentEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+XdrAgentEvent::XdrAgentEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:cros_xdr.reporting.XdrAgentEvent)
 }
 XdrAgentEvent::XdrAgentEvent(const XdrAgentEvent& from)
@@ -4469,7 +4699,7 @@ XdrAgentEvent::XdrAgentEvent(const XdrAgentEvent& from)
     , /*decltype(_impl_._oneof_case_)*/{}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  if (from._internal_has_common()) {
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_impl_.common_ = new ::cros_xdr::reporting::CommonEventDataFields(*from._impl_.common_);
   }
   clear_has_message_type();
@@ -4491,10 +4721,8 @@ XdrAgentEvent::XdrAgentEvent(const XdrAgentEvent& from)
   // @@protoc_insertion_point(copy_constructor:cros_xdr.reporting.XdrAgentEvent)
 }
 
-inline void XdrAgentEvent::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void XdrAgentEvent::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
@@ -4516,8 +4744,8 @@ XdrAgentEvent::~XdrAgentEvent() {
 }
 
 inline void XdrAgentEvent::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.batched_events_.~RepeatedPtrField();
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+  _internal_mutable_batched_events()->~RepeatedPtrField();
   if (this != internal_default_instance()) delete _impl_.common_;
   if (has_message_type()) {
     clear_message_type();
@@ -4553,14 +4781,14 @@ void XdrAgentEvent::clear_message_type() {
 
 void XdrAgentEvent::Clear() {
 // @@protoc_insertion_point(message_clear_start:cros_xdr.reporting.XdrAgentEvent)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.batched_events_.Clear();
+  _internal_mutable_batched_events()->Clear();
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    GOOGLE_DCHECK(_impl_.common_ != nullptr);
+    ABSL_DCHECK(_impl_.common_ != nullptr);
     _impl_.common_->Clear();
   }
   clear_message_type();
@@ -4572,36 +4800,39 @@ const char* XdrAgentEvent::_InternalParse(const char* ptr, ::_pbi::ParseContext*
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional .cros_xdr.reporting.CommonEventDataFields common = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_common(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .cros_xdr.reporting.AgentStartEvent agent_start = 2 [deprecated = true];
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_agent_start(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .cros_xdr.reporting.AgentHeartbeatEvent agent_heartbeat = 3 [deprecated = true];
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 26)) {
           ptr = ctx->ParseMessage(_internal_mutable_agent_heartbeat(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // repeated .cros_xdr.reporting.AgentEventAtomicVariant batched_events = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 34)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -4609,8 +4840,9 @@ const char* XdrAgentEvent::_InternalParse(const char* ptr, ::_pbi::ParseContext*
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<34>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -4636,10 +4868,10 @@ failure:
 #undef CHK_
 }
 
-uint8_t* XdrAgentEvent::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* XdrAgentEvent::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:cros_xdr.reporting.XdrAgentEvent)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
@@ -4681,17 +4913,17 @@ uint8_t* XdrAgentEvent::_InternalSerialize(
   return target;
 }
 
-size_t XdrAgentEvent::ByteSizeLong() const {
+::size_t XdrAgentEvent::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:cros_xdr.reporting.XdrAgentEvent)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // repeated .cros_xdr.reporting.AgentEventAtomicVariant batched_events = 4;
   total_size += 1UL * this->_internal_batched_events_size();
-  for (const auto& msg : this->_impl_.batched_events_) {
+  for (const auto& msg : this->_internal_batched_events()) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -4740,12 +4972,12 @@ void XdrAgentEvent::CheckTypeAndMergeFrom(
 void XdrAgentEvent::MergeFrom(const XdrAgentEvent& from) {
   XdrAgentEvent* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:cros_xdr.reporting.XdrAgentEvent)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  _this->_impl_.batched_events_.MergeFrom(from._impl_.batched_events_);
-  if (from._internal_has_common()) {
+  _this->_internal_mutable_batched_events()->MergeFrom(from._internal_batched_events());
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_internal_mutable_common()->::cros_xdr::reporting::CommonEventDataFields::MergeFrom(
         from._internal_common());
   }
@@ -4782,7 +5014,7 @@ void XdrAgentEvent::InternalSwap(XdrAgentEvent* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  _impl_.batched_events_.InternalSwap(&other->_impl_.batched_events_);
+  _internal_mutable_batched_events()->InternalSwap(other->_internal_mutable_batched_events());
   swap(_impl_.common_, other->_impl_.common_);
   swap(_impl_.message_type_, other->_impl_.message_type_);
   swap(_impl_._oneof_case_[0], other->_impl_._oneof_case_[0]);
@@ -4792,12 +5024,13 @@ std::string XdrAgentEvent::GetTypeName() const {
   return "cros_xdr.reporting.XdrAgentEvent";
 }
 
-
 // ===================================================================
 
 class ProcessExecEvent::_Internal {
  public:
   using HasBits = decltype(std::declval<ProcessExecEvent>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(ProcessExecEvent, _impl_._has_bits_);
   static const ::cros_xdr::reporting::Process& parent_process(const ProcessExecEvent* msg);
   static void set_has_parent_process(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
@@ -4835,10 +5068,9 @@ const ::cros_xdr::reporting::Namespaces&
 ProcessExecEvent::_Internal::spawn_namespaces(const ProcessExecEvent* msg) {
   return *msg->_impl_.spawn_namespaces_;
 }
-ProcessExecEvent::ProcessExecEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+ProcessExecEvent::ProcessExecEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:cros_xdr.reporting.ProcessExecEvent)
 }
 ProcessExecEvent::ProcessExecEvent(const ProcessExecEvent& from)
@@ -4851,29 +5083,28 @@ ProcessExecEvent::ProcessExecEvent(const ProcessExecEvent& from)
     , decltype(_impl_.process_){nullptr}
     , decltype(_impl_.spawn_process_){nullptr}
     , decltype(_impl_.spawn_namespaces_){nullptr}
-    , decltype(_impl_.terminate_timestamp_us_){}};
+    , decltype(_impl_.terminate_timestamp_us_) {}
+  };
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  if (from._internal_has_parent_process()) {
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_impl_.parent_process_ = new ::cros_xdr::reporting::Process(*from._impl_.parent_process_);
   }
-  if (from._internal_has_process()) {
+  if ((from._impl_._has_bits_[0] & 0x00000002u) != 0) {
     _this->_impl_.process_ = new ::cros_xdr::reporting::Process(*from._impl_.process_);
   }
-  if (from._internal_has_spawn_process()) {
+  if ((from._impl_._has_bits_[0] & 0x00000004u) != 0) {
     _this->_impl_.spawn_process_ = new ::cros_xdr::reporting::Process(*from._impl_.spawn_process_);
   }
-  if (from._internal_has_spawn_namespaces()) {
+  if ((from._impl_._has_bits_[0] & 0x00000008u) != 0) {
     _this->_impl_.spawn_namespaces_ = new ::cros_xdr::reporting::Namespaces(*from._impl_.spawn_namespaces_);
   }
   _this->_impl_.terminate_timestamp_us_ = from._impl_.terminate_timestamp_us_;
   // @@protoc_insertion_point(copy_constructor:cros_xdr.reporting.ProcessExecEvent)
 }
 
-inline void ProcessExecEvent::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void ProcessExecEvent::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
@@ -4881,7 +5112,8 @@ inline void ProcessExecEvent::SharedCtor(
     , decltype(_impl_.process_){nullptr}
     , decltype(_impl_.spawn_process_){nullptr}
     , decltype(_impl_.spawn_namespaces_){nullptr}
-    , decltype(_impl_.terminate_timestamp_us_){int64_t{0}}
+    , decltype(_impl_.terminate_timestamp_us_) { ::int64_t{0} }
+
   };
 }
 
@@ -4895,7 +5127,7 @@ ProcessExecEvent::~ProcessExecEvent() {
 }
 
 inline void ProcessExecEvent::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   if (this != internal_default_instance()) delete _impl_.parent_process_;
   if (this != internal_default_instance()) delete _impl_.process_;
   if (this != internal_default_instance()) delete _impl_.spawn_process_;
@@ -4908,30 +5140,30 @@ void ProcessExecEvent::SetCachedSize(int size) const {
 
 void ProcessExecEvent::Clear() {
 // @@protoc_insertion_point(message_clear_start:cros_xdr.reporting.ProcessExecEvent)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
-      GOOGLE_DCHECK(_impl_.parent_process_ != nullptr);
+      ABSL_DCHECK(_impl_.parent_process_ != nullptr);
       _impl_.parent_process_->Clear();
     }
     if (cached_has_bits & 0x00000002u) {
-      GOOGLE_DCHECK(_impl_.process_ != nullptr);
+      ABSL_DCHECK(_impl_.process_ != nullptr);
       _impl_.process_->Clear();
     }
     if (cached_has_bits & 0x00000004u) {
-      GOOGLE_DCHECK(_impl_.spawn_process_ != nullptr);
+      ABSL_DCHECK(_impl_.spawn_process_ != nullptr);
       _impl_.spawn_process_->Clear();
     }
     if (cached_has_bits & 0x00000008u) {
-      GOOGLE_DCHECK(_impl_.spawn_namespaces_ != nullptr);
+      ABSL_DCHECK(_impl_.spawn_namespaces_ != nullptr);
       _impl_.spawn_namespaces_->Clear();
     }
   }
-  _impl_.terminate_timestamp_us_ = int64_t{0};
+  _impl_.terminate_timestamp_us_ = ::int64_t{0};
   _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
@@ -4940,49 +5172,54 @@ const char* ProcessExecEvent::_InternalParse(const char* ptr, ::_pbi::ParseConte
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional .cros_xdr.reporting.Process parent_process = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_parent_process(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional .cros_xdr.reporting.Process process = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_process(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional .cros_xdr.reporting.Process spawn_process = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 26)) {
           ptr = ctx->ParseMessage(_internal_mutable_spawn_process(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional .cros_xdr.reporting.Namespaces spawn_namespaces = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 34)) {
           ptr = ctx->ParseMessage(_internal_mutable_spawn_namespaces(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional int64 terminate_timestamp_us = 5;
       case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 40)) {
           _Internal::set_has_terminate_timestamp_us(&has_bits);
           _impl_.terminate_timestamp_us_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -5008,10 +5245,10 @@ failure:
 #undef CHK_
 }
 
-uint8_t* ProcessExecEvent::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* ProcessExecEvent::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:cros_xdr.reporting.ProcessExecEvent)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
@@ -5046,7 +5283,8 @@ uint8_t* ProcessExecEvent::_InternalSerialize(
   // optional int64 terminate_timestamp_us = 5;
   if (cached_has_bits & 0x00000010u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt64ToArray(5, this->_internal_terminate_timestamp_us(), target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(
+        5, this->_internal_terminate_timestamp_us(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -5057,11 +5295,11 @@ uint8_t* ProcessExecEvent::_InternalSerialize(
   return target;
 }
 
-size_t ProcessExecEvent::ByteSizeLong() const {
+::size_t ProcessExecEvent::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:cros_xdr.reporting.ProcessExecEvent)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -5097,7 +5335,8 @@ size_t ProcessExecEvent::ByteSizeLong() const {
 
     // optional int64 terminate_timestamp_us = 5;
     if (cached_has_bits & 0x00000010u) {
-      total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_terminate_timestamp_us());
+      total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(
+          this->_internal_terminate_timestamp_us());
     }
 
   }
@@ -5118,8 +5357,8 @@ void ProcessExecEvent::CheckTypeAndMergeFrom(
 void ProcessExecEvent::MergeFrom(const ProcessExecEvent& from) {
   ProcessExecEvent* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:cros_xdr.reporting.ProcessExecEvent)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -5175,12 +5414,13 @@ std::string ProcessExecEvent::GetTypeName() const {
   return "cros_xdr.reporting.ProcessExecEvent";
 }
 
-
 // ===================================================================
 
 class ProcessTerminateEvent::_Internal {
  public:
   using HasBits = decltype(std::declval<ProcessTerminateEvent>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(ProcessTerminateEvent, _impl_._has_bits_);
   static const ::cros_xdr::reporting::Process& parent_process(const ProcessTerminateEvent* msg);
   static void set_has_parent_process(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
@@ -5199,10 +5439,9 @@ const ::cros_xdr::reporting::Process&
 ProcessTerminateEvent::_Internal::process(const ProcessTerminateEvent* msg) {
   return *msg->_impl_.process_;
 }
-ProcessTerminateEvent::ProcessTerminateEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+ProcessTerminateEvent::ProcessTerminateEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:cros_xdr.reporting.ProcessTerminateEvent)
 }
 ProcessTerminateEvent::ProcessTerminateEvent(const ProcessTerminateEvent& from)
@@ -5215,19 +5454,17 @@ ProcessTerminateEvent::ProcessTerminateEvent(const ProcessTerminateEvent& from)
     , decltype(_impl_.process_){nullptr}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  if (from._internal_has_parent_process()) {
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_impl_.parent_process_ = new ::cros_xdr::reporting::Process(*from._impl_.parent_process_);
   }
-  if (from._internal_has_process()) {
+  if ((from._impl_._has_bits_[0] & 0x00000002u) != 0) {
     _this->_impl_.process_ = new ::cros_xdr::reporting::Process(*from._impl_.process_);
   }
   // @@protoc_insertion_point(copy_constructor:cros_xdr.reporting.ProcessTerminateEvent)
 }
 
-inline void ProcessTerminateEvent::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void ProcessTerminateEvent::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
@@ -5246,7 +5483,7 @@ ProcessTerminateEvent::~ProcessTerminateEvent() {
 }
 
 inline void ProcessTerminateEvent::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   if (this != internal_default_instance()) delete _impl_.parent_process_;
   if (this != internal_default_instance()) delete _impl_.process_;
 }
@@ -5257,18 +5494,18 @@ void ProcessTerminateEvent::SetCachedSize(int size) const {
 
 void ProcessTerminateEvent::Clear() {
 // @@protoc_insertion_point(message_clear_start:cros_xdr.reporting.ProcessTerminateEvent)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      GOOGLE_DCHECK(_impl_.parent_process_ != nullptr);
+      ABSL_DCHECK(_impl_.parent_process_ != nullptr);
       _impl_.parent_process_->Clear();
     }
     if (cached_has_bits & 0x00000002u) {
-      GOOGLE_DCHECK(_impl_.process_ != nullptr);
+      ABSL_DCHECK(_impl_.process_ != nullptr);
       _impl_.process_->Clear();
     }
   }
@@ -5280,24 +5517,26 @@ const char* ProcessTerminateEvent::_InternalParse(const char* ptr, ::_pbi::Parse
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional .cros_xdr.reporting.Process parent_process = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_parent_process(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional .cros_xdr.reporting.Process process = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_process(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -5323,10 +5562,10 @@ failure:
 #undef CHK_
 }
 
-uint8_t* ProcessTerminateEvent::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* ProcessTerminateEvent::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:cros_xdr.reporting.ProcessTerminateEvent)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
@@ -5352,11 +5591,11 @@ uint8_t* ProcessTerminateEvent::_InternalSerialize(
   return target;
 }
 
-size_t ProcessTerminateEvent::ByteSizeLong() const {
+::size_t ProcessTerminateEvent::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:cros_xdr.reporting.ProcessTerminateEvent)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -5394,8 +5633,8 @@ void ProcessTerminateEvent::CheckTypeAndMergeFrom(
 void ProcessTerminateEvent::MergeFrom(const ProcessTerminateEvent& from) {
   ProcessTerminateEvent* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:cros_xdr.reporting.ProcessTerminateEvent)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -5439,12 +5678,15 @@ std::string ProcessTerminateEvent::GetTypeName() const {
   return "cros_xdr.reporting.ProcessTerminateEvent";
 }
 
-
 // ===================================================================
 
 class ProcessEventAtomicVariant::_Internal {
  public:
   using HasBits = decltype(std::declval<ProcessEventAtomicVariant>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(ProcessEventAtomicVariant, _impl_._has_bits_);
+  static constexpr ::int32_t kOneofCaseOffset =
+    PROTOBUF_FIELD_OFFSET(::cros_xdr::reporting::ProcessEventAtomicVariant, _impl_._oneof_case_);
   static const ::cros_xdr::reporting::CommonEventVariantDataFields& common(const ProcessEventAtomicVariant* msg);
   static void set_has_common(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
@@ -5495,10 +5737,9 @@ void ProcessEventAtomicVariant::set_allocated_process_terminate(::cros_xdr::repo
   }
   // @@protoc_insertion_point(field_set_allocated:cros_xdr.reporting.ProcessEventAtomicVariant.process_terminate)
 }
-ProcessEventAtomicVariant::ProcessEventAtomicVariant(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+ProcessEventAtomicVariant::ProcessEventAtomicVariant(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:cros_xdr.reporting.ProcessEventAtomicVariant)
 }
 ProcessEventAtomicVariant::ProcessEventAtomicVariant(const ProcessEventAtomicVariant& from)
@@ -5512,7 +5753,7 @@ ProcessEventAtomicVariant::ProcessEventAtomicVariant(const ProcessEventAtomicVar
     , /*decltype(_impl_._oneof_case_)*/{}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  if (from._internal_has_common()) {
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_impl_.common_ = new ::cros_xdr::reporting::CommonEventVariantDataFields(*from._impl_.common_);
   }
   clear_has_variant_type();
@@ -5534,10 +5775,8 @@ ProcessEventAtomicVariant::ProcessEventAtomicVariant(const ProcessEventAtomicVar
   // @@protoc_insertion_point(copy_constructor:cros_xdr.reporting.ProcessEventAtomicVariant)
 }
 
-inline void ProcessEventAtomicVariant::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void ProcessEventAtomicVariant::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
@@ -5558,7 +5797,7 @@ ProcessEventAtomicVariant::~ProcessEventAtomicVariant() {
 }
 
 inline void ProcessEventAtomicVariant::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   if (this != internal_default_instance()) delete _impl_.common_;
   if (has_variant_type()) {
     clear_variant_type();
@@ -5594,13 +5833,13 @@ void ProcessEventAtomicVariant::clear_variant_type() {
 
 void ProcessEventAtomicVariant::Clear() {
 // @@protoc_insertion_point(message_clear_start:cros_xdr.reporting.ProcessEventAtomicVariant)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    GOOGLE_DCHECK(_impl_.common_ != nullptr);
+    ABSL_DCHECK(_impl_.common_ != nullptr);
     _impl_.common_->Clear();
   }
   clear_variant_type();
@@ -5612,32 +5851,35 @@ const char* ProcessEventAtomicVariant::_InternalParse(const char* ptr, ::_pbi::P
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional .cros_xdr.reporting.CommonEventVariantDataFields common = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_common(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .cros_xdr.reporting.ProcessExecEvent process_exec = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_process_exec(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .cros_xdr.reporting.ProcessTerminateEvent process_terminate = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 26)) {
           ptr = ctx->ParseMessage(_internal_mutable_process_terminate(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -5663,10 +5905,10 @@ failure:
 #undef CHK_
 }
 
-uint8_t* ProcessEventAtomicVariant::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* ProcessEventAtomicVariant::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:cros_xdr.reporting.ProcessEventAtomicVariant)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
@@ -5700,11 +5942,11 @@ uint8_t* ProcessEventAtomicVariant::_InternalSerialize(
   return target;
 }
 
-size_t ProcessEventAtomicVariant::ByteSizeLong() const {
+::size_t ProcessEventAtomicVariant::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:cros_xdr.reporting.ProcessEventAtomicVariant)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -5752,11 +5994,11 @@ void ProcessEventAtomicVariant::CheckTypeAndMergeFrom(
 void ProcessEventAtomicVariant::MergeFrom(const ProcessEventAtomicVariant& from) {
   ProcessEventAtomicVariant* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:cros_xdr.reporting.ProcessEventAtomicVariant)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_has_common()) {
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_internal_mutable_common()->::cros_xdr::reporting::CommonEventVariantDataFields::MergeFrom(
         from._internal_common());
   }
@@ -5802,12 +6044,15 @@ std::string ProcessEventAtomicVariant::GetTypeName() const {
   return "cros_xdr.reporting.ProcessEventAtomicVariant";
 }
 
-
 // ===================================================================
 
 class XdrProcessEvent::_Internal {
  public:
   using HasBits = decltype(std::declval<XdrProcessEvent>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(XdrProcessEvent, _impl_._has_bits_);
+  static constexpr ::int32_t kOneofCaseOffset =
+    PROTOBUF_FIELD_OFFSET(::cros_xdr::reporting::XdrProcessEvent, _impl_._oneof_case_);
   static const ::cros_xdr::reporting::CommonEventDataFields& common(const XdrProcessEvent* msg);
   static void set_has_common(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
@@ -5858,10 +6103,9 @@ void XdrProcessEvent::set_allocated_process_terminate(::cros_xdr::reporting::Pro
   }
   // @@protoc_insertion_point(field_set_allocated:cros_xdr.reporting.XdrProcessEvent.process_terminate)
 }
-XdrProcessEvent::XdrProcessEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+XdrProcessEvent::XdrProcessEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:cros_xdr.reporting.XdrProcessEvent)
 }
 XdrProcessEvent::XdrProcessEvent(const XdrProcessEvent& from)
@@ -5876,7 +6120,7 @@ XdrProcessEvent::XdrProcessEvent(const XdrProcessEvent& from)
     , /*decltype(_impl_._oneof_case_)*/{}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  if (from._internal_has_common()) {
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_impl_.common_ = new ::cros_xdr::reporting::CommonEventDataFields(*from._impl_.common_);
   }
   clear_has_message_type();
@@ -5898,10 +6142,8 @@ XdrProcessEvent::XdrProcessEvent(const XdrProcessEvent& from)
   // @@protoc_insertion_point(copy_constructor:cros_xdr.reporting.XdrProcessEvent)
 }
 
-inline void XdrProcessEvent::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void XdrProcessEvent::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
@@ -5923,8 +6165,8 @@ XdrProcessEvent::~XdrProcessEvent() {
 }
 
 inline void XdrProcessEvent::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.batched_events_.~RepeatedPtrField();
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+  _internal_mutable_batched_events()->~RepeatedPtrField();
   if (this != internal_default_instance()) delete _impl_.common_;
   if (has_message_type()) {
     clear_message_type();
@@ -5960,14 +6202,14 @@ void XdrProcessEvent::clear_message_type() {
 
 void XdrProcessEvent::Clear() {
 // @@protoc_insertion_point(message_clear_start:cros_xdr.reporting.XdrProcessEvent)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.batched_events_.Clear();
+  _internal_mutable_batched_events()->Clear();
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    GOOGLE_DCHECK(_impl_.common_ != nullptr);
+    ABSL_DCHECK(_impl_.common_ != nullptr);
     _impl_.common_->Clear();
   }
   clear_message_type();
@@ -5979,36 +6221,39 @@ const char* XdrProcessEvent::_InternalParse(const char* ptr, ::_pbi::ParseContex
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional .cros_xdr.reporting.CommonEventDataFields common = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_common(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .cros_xdr.reporting.ProcessExecEvent process_exec = 2 [deprecated = true];
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_process_exec(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .cros_xdr.reporting.ProcessTerminateEvent process_terminate = 3 [deprecated = true];
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 26)) {
           ptr = ctx->ParseMessage(_internal_mutable_process_terminate(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // repeated .cros_xdr.reporting.ProcessEventAtomicVariant batched_events = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 34)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -6016,8 +6261,9 @@ const char* XdrProcessEvent::_InternalParse(const char* ptr, ::_pbi::ParseContex
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<34>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -6043,10 +6289,10 @@ failure:
 #undef CHK_
 }
 
-uint8_t* XdrProcessEvent::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* XdrProcessEvent::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:cros_xdr.reporting.XdrProcessEvent)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
@@ -6088,17 +6334,17 @@ uint8_t* XdrProcessEvent::_InternalSerialize(
   return target;
 }
 
-size_t XdrProcessEvent::ByteSizeLong() const {
+::size_t XdrProcessEvent::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:cros_xdr.reporting.XdrProcessEvent)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // repeated .cros_xdr.reporting.ProcessEventAtomicVariant batched_events = 4;
   total_size += 1UL * this->_internal_batched_events_size();
-  for (const auto& msg : this->_impl_.batched_events_) {
+  for (const auto& msg : this->_internal_batched_events()) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -6147,12 +6393,12 @@ void XdrProcessEvent::CheckTypeAndMergeFrom(
 void XdrProcessEvent::MergeFrom(const XdrProcessEvent& from) {
   XdrProcessEvent* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:cros_xdr.reporting.XdrProcessEvent)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  _this->_impl_.batched_events_.MergeFrom(from._impl_.batched_events_);
-  if (from._internal_has_common()) {
+  _this->_internal_mutable_batched_events()->MergeFrom(from._internal_batched_events());
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_internal_mutable_common()->::cros_xdr::reporting::CommonEventDataFields::MergeFrom(
         from._internal_common());
   }
@@ -6189,7 +6435,7 @@ void XdrProcessEvent::InternalSwap(XdrProcessEvent* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  _impl_.batched_events_.InternalSwap(&other->_impl_.batched_events_);
+  _internal_mutable_batched_events()->InternalSwap(other->_internal_mutable_batched_events());
   swap(_impl_.common_, other->_impl_.common_);
   swap(_impl_.message_type_, other->_impl_.message_type_);
   swap(_impl_._oneof_case_[0], other->_impl_._oneof_case_[0]);
@@ -6199,12 +6445,15 @@ std::string XdrProcessEvent::GetTypeName() const {
   return "cros_xdr.reporting.XdrProcessEvent";
 }
 
-
 // ===================================================================
 
 class NetworkEventAtomicVariant::_Internal {
  public:
   using HasBits = decltype(std::declval<NetworkEventAtomicVariant>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(NetworkEventAtomicVariant, _impl_._has_bits_);
+  static constexpr ::int32_t kOneofCaseOffset =
+    PROTOBUF_FIELD_OFFSET(::cros_xdr::reporting::NetworkEventAtomicVariant, _impl_._oneof_case_);
   static const ::cros_xdr::reporting::CommonEventVariantDataFields& common(const NetworkEventAtomicVariant* msg);
   static void set_has_common(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
@@ -6255,10 +6504,9 @@ void NetworkEventAtomicVariant::set_allocated_network_socket_listen(::cros_xdr::
   }
   // @@protoc_insertion_point(field_set_allocated:cros_xdr.reporting.NetworkEventAtomicVariant.network_socket_listen)
 }
-NetworkEventAtomicVariant::NetworkEventAtomicVariant(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+NetworkEventAtomicVariant::NetworkEventAtomicVariant(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:cros_xdr.reporting.NetworkEventAtomicVariant)
 }
 NetworkEventAtomicVariant::NetworkEventAtomicVariant(const NetworkEventAtomicVariant& from)
@@ -6272,7 +6520,7 @@ NetworkEventAtomicVariant::NetworkEventAtomicVariant(const NetworkEventAtomicVar
     , /*decltype(_impl_._oneof_case_)*/{}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  if (from._internal_has_common()) {
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_impl_.common_ = new ::cros_xdr::reporting::CommonEventVariantDataFields(*from._impl_.common_);
   }
   clear_has_variant_type();
@@ -6294,10 +6542,8 @@ NetworkEventAtomicVariant::NetworkEventAtomicVariant(const NetworkEventAtomicVar
   // @@protoc_insertion_point(copy_constructor:cros_xdr.reporting.NetworkEventAtomicVariant)
 }
 
-inline void NetworkEventAtomicVariant::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void NetworkEventAtomicVariant::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
@@ -6318,7 +6564,7 @@ NetworkEventAtomicVariant::~NetworkEventAtomicVariant() {
 }
 
 inline void NetworkEventAtomicVariant::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   if (this != internal_default_instance()) delete _impl_.common_;
   if (has_variant_type()) {
     clear_variant_type();
@@ -6354,13 +6600,13 @@ void NetworkEventAtomicVariant::clear_variant_type() {
 
 void NetworkEventAtomicVariant::Clear() {
 // @@protoc_insertion_point(message_clear_start:cros_xdr.reporting.NetworkEventAtomicVariant)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    GOOGLE_DCHECK(_impl_.common_ != nullptr);
+    ABSL_DCHECK(_impl_.common_ != nullptr);
     _impl_.common_->Clear();
   }
   clear_variant_type();
@@ -6372,32 +6618,35 @@ const char* NetworkEventAtomicVariant::_InternalParse(const char* ptr, ::_pbi::P
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional .cros_xdr.reporting.CommonEventVariantDataFields common = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_common(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .cros_xdr.reporting.NetworkFlowEvent network_flow = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_network_flow(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .cros_xdr.reporting.NetworkSocketListenEvent network_socket_listen = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 26)) {
           ptr = ctx->ParseMessage(_internal_mutable_network_socket_listen(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -6423,10 +6672,10 @@ failure:
 #undef CHK_
 }
 
-uint8_t* NetworkEventAtomicVariant::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* NetworkEventAtomicVariant::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:cros_xdr.reporting.NetworkEventAtomicVariant)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
@@ -6460,11 +6709,11 @@ uint8_t* NetworkEventAtomicVariant::_InternalSerialize(
   return target;
 }
 
-size_t NetworkEventAtomicVariant::ByteSizeLong() const {
+::size_t NetworkEventAtomicVariant::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:cros_xdr.reporting.NetworkEventAtomicVariant)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -6512,11 +6761,11 @@ void NetworkEventAtomicVariant::CheckTypeAndMergeFrom(
 void NetworkEventAtomicVariant::MergeFrom(const NetworkEventAtomicVariant& from) {
   NetworkEventAtomicVariant* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:cros_xdr.reporting.NetworkEventAtomicVariant)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_has_common()) {
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_internal_mutable_common()->::cros_xdr::reporting::CommonEventVariantDataFields::MergeFrom(
         from._internal_common());
   }
@@ -6562,12 +6811,13 @@ std::string NetworkEventAtomicVariant::GetTypeName() const {
   return "cros_xdr.reporting.NetworkEventAtomicVariant";
 }
 
-
 // ===================================================================
 
 class XdrNetworkEvent::_Internal {
  public:
   using HasBits = decltype(std::declval<XdrNetworkEvent>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(XdrNetworkEvent, _impl_._has_bits_);
   static const ::cros_xdr::reporting::CommonEventDataFields& common(const XdrNetworkEvent* msg);
   static void set_has_common(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
@@ -6578,10 +6828,9 @@ const ::cros_xdr::reporting::CommonEventDataFields&
 XdrNetworkEvent::_Internal::common(const XdrNetworkEvent* msg) {
   return *msg->_impl_.common_;
 }
-XdrNetworkEvent::XdrNetworkEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+XdrNetworkEvent::XdrNetworkEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:cros_xdr.reporting.XdrNetworkEvent)
 }
 XdrNetworkEvent::XdrNetworkEvent(const XdrNetworkEvent& from)
@@ -6594,16 +6843,14 @@ XdrNetworkEvent::XdrNetworkEvent(const XdrNetworkEvent& from)
     , decltype(_impl_.common_){nullptr}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  if (from._internal_has_common()) {
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_impl_.common_ = new ::cros_xdr::reporting::CommonEventDataFields(*from._impl_.common_);
   }
   // @@protoc_insertion_point(copy_constructor:cros_xdr.reporting.XdrNetworkEvent)
 }
 
-inline void XdrNetworkEvent::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void XdrNetworkEvent::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
@@ -6622,8 +6869,8 @@ XdrNetworkEvent::~XdrNetworkEvent() {
 }
 
 inline void XdrNetworkEvent::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.batched_events_.~RepeatedPtrField();
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+  _internal_mutable_batched_events()->~RepeatedPtrField();
   if (this != internal_default_instance()) delete _impl_.common_;
 }
 
@@ -6633,14 +6880,14 @@ void XdrNetworkEvent::SetCachedSize(int size) const {
 
 void XdrNetworkEvent::Clear() {
 // @@protoc_insertion_point(message_clear_start:cros_xdr.reporting.XdrNetworkEvent)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.batched_events_.Clear();
+  _internal_mutable_batched_events()->Clear();
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    GOOGLE_DCHECK(_impl_.common_ != nullptr);
+    ABSL_DCHECK(_impl_.common_ != nullptr);
     _impl_.common_->Clear();
   }
   _impl_._has_bits_.Clear();
@@ -6651,20 +6898,21 @@ const char* XdrNetworkEvent::_InternalParse(const char* ptr, ::_pbi::ParseContex
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional .cros_xdr.reporting.CommonEventDataFields common = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_common(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // repeated .cros_xdr.reporting.NetworkEventAtomicVariant batched_events = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -6672,8 +6920,9 @@ const char* XdrNetworkEvent::_InternalParse(const char* ptr, ::_pbi::ParseContex
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -6699,10 +6948,10 @@ failure:
 #undef CHK_
 }
 
-uint8_t* XdrNetworkEvent::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* XdrNetworkEvent::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:cros_xdr.reporting.XdrNetworkEvent)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
@@ -6729,17 +6978,17 @@ uint8_t* XdrNetworkEvent::_InternalSerialize(
   return target;
 }
 
-size_t XdrNetworkEvent::ByteSizeLong() const {
+::size_t XdrNetworkEvent::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:cros_xdr.reporting.XdrNetworkEvent)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // repeated .cros_xdr.reporting.NetworkEventAtomicVariant batched_events = 2;
   total_size += 1UL * this->_internal_batched_events_size();
-  for (const auto& msg : this->_impl_.batched_events_) {
+  for (const auto& msg : this->_internal_batched_events()) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -6769,12 +7018,12 @@ void XdrNetworkEvent::CheckTypeAndMergeFrom(
 void XdrNetworkEvent::MergeFrom(const XdrNetworkEvent& from) {
   XdrNetworkEvent* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:cros_xdr.reporting.XdrNetworkEvent)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  _this->_impl_.batched_events_.MergeFrom(from._impl_.batched_events_);
-  if (from._internal_has_common()) {
+  _this->_internal_mutable_batched_events()->MergeFrom(from._internal_batched_events());
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_internal_mutable_common()->::cros_xdr::reporting::CommonEventDataFields::MergeFrom(
         from._internal_common());
   }
@@ -6796,7 +7045,7 @@ void XdrNetworkEvent::InternalSwap(XdrNetworkEvent* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  _impl_.batched_events_.InternalSwap(&other->_impl_.batched_events_);
+  _internal_mutable_batched_events()->InternalSwap(other->_internal_mutable_batched_events());
   swap(_impl_.common_, other->_impl_.common_);
 }
 
@@ -6804,12 +7053,13 @@ std::string XdrNetworkEvent::GetTypeName() const {
   return "cros_xdr.reporting.XdrNetworkEvent";
 }
 
-
 // ===================================================================
 
 class NetworkFlow::_Internal {
  public:
   using HasBits = decltype(std::declval<NetworkFlow>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(NetworkFlow, _impl_._has_bits_);
   static void set_has_community_id_v1(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -6851,10 +7101,9 @@ class NetworkFlow::_Internal {
   }
 };
 
-NetworkFlow::NetworkFlow(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+NetworkFlow::NetworkFlow(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:cros_xdr.reporting.NetworkFlow)
 }
 NetworkFlow::NetworkFlow(const NetworkFlow& from)
@@ -6863,120 +7112,138 @@ NetworkFlow::NetworkFlow(const NetworkFlow& from)
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.community_id_v1_){}
-    , decltype(_impl_.local_ip_){}
-    , decltype(_impl_.remote_ip_){}
-    , decltype(_impl_.remote_hostname_){}
-    , decltype(_impl_.http_host_){}
-    , decltype(_impl_.sni_host_){}
-    , decltype(_impl_.local_port_){}
-    , decltype(_impl_.remote_port_){}
-    , decltype(_impl_.protocol_){}
-    , decltype(_impl_.direction_){}
-    , decltype(_impl_.rx_bytes_){}
-    , decltype(_impl_.tx_bytes_){}
-    , decltype(_impl_.application_protocol_){}};
+    , decltype(_impl_.community_id_v1_) {}
+
+    , decltype(_impl_.local_ip_) {}
+
+    , decltype(_impl_.remote_ip_) {}
+
+    , decltype(_impl_.remote_hostname_) {}
+
+    , decltype(_impl_.http_host_) {}
+
+    , decltype(_impl_.sni_host_) {}
+
+    , decltype(_impl_.local_port_) {}
+
+    , decltype(_impl_.remote_port_) {}
+
+    , decltype(_impl_.protocol_) {}
+
+    , decltype(_impl_.direction_) {}
+
+    , decltype(_impl_.rx_bytes_) {}
+
+    , decltype(_impl_.tx_bytes_) {}
+
+    , decltype(_impl_.application_protocol_) {}
+  };
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _impl_.community_id_v1_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.community_id_v1_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_community_id_v1()) {
-    _this->_impl_.community_id_v1_.Set(from._internal_community_id_v1(), 
-      _this->GetArenaForAllocation());
+        _impl_.community_id_v1_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_impl_.community_id_v1_.Set(from._internal_community_id_v1(), _this->GetArenaForAllocation());
   }
   _impl_.local_ip_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.local_ip_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_local_ip()) {
-    _this->_impl_.local_ip_.Set(from._internal_local_ip(), 
-      _this->GetArenaForAllocation());
+        _impl_.local_ip_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000002u) != 0) {
+    _this->_impl_.local_ip_.Set(from._internal_local_ip(), _this->GetArenaForAllocation());
   }
   _impl_.remote_ip_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.remote_ip_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_remote_ip()) {
-    _this->_impl_.remote_ip_.Set(from._internal_remote_ip(), 
-      _this->GetArenaForAllocation());
+        _impl_.remote_ip_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000004u) != 0) {
+    _this->_impl_.remote_ip_.Set(from._internal_remote_ip(), _this->GetArenaForAllocation());
   }
   _impl_.remote_hostname_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.remote_hostname_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_remote_hostname()) {
-    _this->_impl_.remote_hostname_.Set(from._internal_remote_hostname(), 
-      _this->GetArenaForAllocation());
+        _impl_.remote_hostname_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000008u) != 0) {
+    _this->_impl_.remote_hostname_.Set(from._internal_remote_hostname(), _this->GetArenaForAllocation());
   }
   _impl_.http_host_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.http_host_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_http_host()) {
-    _this->_impl_.http_host_.Set(from._internal_http_host(), 
-      _this->GetArenaForAllocation());
+        _impl_.http_host_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000010u) != 0) {
+    _this->_impl_.http_host_.Set(from._internal_http_host(), _this->GetArenaForAllocation());
   }
   _impl_.sni_host_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.sni_host_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_sni_host()) {
-    _this->_impl_.sni_host_.Set(from._internal_sni_host(), 
-      _this->GetArenaForAllocation());
+        _impl_.sni_host_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000020u) != 0) {
+    _this->_impl_.sni_host_.Set(from._internal_sni_host(), _this->GetArenaForAllocation());
   }
   ::memcpy(&_impl_.local_port_, &from._impl_.local_port_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.application_protocol_) -
+    static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.application_protocol_) -
     reinterpret_cast<char*>(&_impl_.local_port_)) + sizeof(_impl_.application_protocol_));
   // @@protoc_insertion_point(copy_constructor:cros_xdr.reporting.NetworkFlow)
 }
 
-inline void NetworkFlow::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void NetworkFlow::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.community_id_v1_){}
-    , decltype(_impl_.local_ip_){}
-    , decltype(_impl_.remote_ip_){}
-    , decltype(_impl_.remote_hostname_){}
-    , decltype(_impl_.http_host_){}
-    , decltype(_impl_.sni_host_){}
-    , decltype(_impl_.local_port_){uint64_t{0u}}
-    , decltype(_impl_.remote_port_){uint64_t{0u}}
-    , decltype(_impl_.protocol_){0}
-    , decltype(_impl_.direction_){0}
-    , decltype(_impl_.rx_bytes_){uint64_t{0u}}
-    , decltype(_impl_.tx_bytes_){uint64_t{0u}}
-    , decltype(_impl_.application_protocol_){0}
+    , decltype(_impl_.community_id_v1_) {}
+
+    , decltype(_impl_.local_ip_) {}
+
+    , decltype(_impl_.remote_ip_) {}
+
+    , decltype(_impl_.remote_hostname_) {}
+
+    , decltype(_impl_.http_host_) {}
+
+    , decltype(_impl_.sni_host_) {}
+
+    , decltype(_impl_.local_port_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.remote_port_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.protocol_) { 0 }
+
+    , decltype(_impl_.direction_) { 0 }
+
+    , decltype(_impl_.rx_bytes_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.tx_bytes_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.application_protocol_) { 0 }
+
   };
   _impl_.community_id_v1_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.community_id_v1_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.community_id_v1_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   _impl_.local_ip_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.local_ip_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.local_ip_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   _impl_.remote_ip_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.remote_ip_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.remote_ip_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   _impl_.remote_hostname_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.remote_hostname_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.remote_hostname_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   _impl_.http_host_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.http_host_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.http_host_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   _impl_.sni_host_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.sni_host_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.sni_host_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 NetworkFlow::~NetworkFlow() {
@@ -6989,7 +7256,7 @@ NetworkFlow::~NetworkFlow() {
 }
 
 inline void NetworkFlow::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.community_id_v1_.Destroy();
   _impl_.local_ip_.Destroy();
   _impl_.remote_ip_.Destroy();
@@ -7004,7 +7271,7 @@ void NetworkFlow::SetCachedSize(int size) const {
 
 void NetworkFlow::Clear() {
 // @@protoc_insertion_point(message_clear_start:cros_xdr.reporting.NetworkFlow)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -7030,12 +7297,12 @@ void NetworkFlow::Clear() {
     }
   }
   if (cached_has_bits & 0x000000c0u) {
-    ::memset(&_impl_.local_port_, 0, static_cast<size_t>(
+    ::memset(&_impl_.local_port_, 0, static_cast<::size_t>(
         reinterpret_cast<char*>(&_impl_.remote_port_) -
         reinterpret_cast<char*>(&_impl_.local_port_)) + sizeof(_impl_.remote_port_));
   }
   if (cached_has_bits & 0x00001f00u) {
-    ::memset(&_impl_.protocol_, 0, static_cast<size_t>(
+    ::memset(&_impl_.protocol_, 0, static_cast<::size_t>(
         reinterpret_cast<char*>(&_impl_.application_protocol_) -
         reinterpret_cast<char*>(&_impl_.protocol_)) + sizeof(_impl_.application_protocol_));
   }
@@ -7047,137 +7314,150 @@ const char* NetworkFlow::_InternalParse(const char* ptr, ::_pbi::ParseContext* c
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional string community_id_v1 = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_community_id_v1();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional string local_ip = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_local_ip();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 local_port = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 24)) {
           _Internal::set_has_local_port(&has_bits);
           _impl_.local_port_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional string remote_ip = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 34)) {
           auto str = _internal_mutable_remote_ip();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 remote_port = 5;
       case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 40)) {
           _Internal::set_has_remote_port(&has_bits);
           _impl_.remote_port_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional .cros_xdr.reporting.NetworkProtocol protocol = 6;
       case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 48)) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 48)) {
+          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-          if (PROTOBUF_PREDICT_TRUE(::cros_xdr::reporting::NetworkProtocol_IsValid(val))) {
+          if (PROTOBUF_PREDICT_TRUE(::cros_xdr::reporting::NetworkProtocol_IsValid(static_cast<int>(val)))) {
             _internal_set_protocol(static_cast<::cros_xdr::reporting::NetworkProtocol>(val));
           } else {
             ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(6, val, mutable_unknown_fields());
           }
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional .cros_xdr.reporting.NetworkFlow.Direction direction = 7;
       case 7:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 56)) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 56)) {
+          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-          if (PROTOBUF_PREDICT_TRUE(::cros_xdr::reporting::NetworkFlow_Direction_IsValid(val))) {
+          if (PROTOBUF_PREDICT_TRUE(::cros_xdr::reporting::NetworkFlow_Direction_IsValid(static_cast<int>(val)))) {
             _internal_set_direction(static_cast<::cros_xdr::reporting::NetworkFlow_Direction>(val));
           } else {
             ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(7, val, mutable_unknown_fields());
           }
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional string remote_hostname = 8;
       case 8:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 66)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 66)) {
           auto str = _internal_mutable_remote_hostname();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 rx_bytes = 9;
       case 9:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 72)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 72)) {
           _Internal::set_has_rx_bytes(&has_bits);
           _impl_.rx_bytes_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 tx_bytes = 10;
       case 10:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 80)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 80)) {
           _Internal::set_has_tx_bytes(&has_bits);
           _impl_.tx_bytes_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional .cros_xdr.reporting.NetworkFlow.ApplicationProtocol application_protocol = 11;
       case 11:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 88)) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 88)) {
+          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-          if (PROTOBUF_PREDICT_TRUE(::cros_xdr::reporting::NetworkFlow_ApplicationProtocol_IsValid(val))) {
+          if (PROTOBUF_PREDICT_TRUE(::cros_xdr::reporting::NetworkFlow_ApplicationProtocol_IsValid(static_cast<int>(val)))) {
             _internal_set_application_protocol(static_cast<::cros_xdr::reporting::NetworkFlow_ApplicationProtocol>(val));
           } else {
             ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(11, val, mutable_unknown_fields());
           }
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional string http_host = 12;
       case 12:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 98)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 98)) {
           auto str = _internal_mutable_http_host();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional string sni_host = 13;
       case 13:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 106)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 106)) {
           auto str = _internal_mutable_sni_host();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -7203,92 +7483,96 @@ failure:
 #undef CHK_
 }
 
-uint8_t* NetworkFlow::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* NetworkFlow::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:cros_xdr.reporting.NetworkFlow)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional string community_id_v1 = 1;
   if (cached_has_bits & 0x00000001u) {
-    target = stream->WriteStringMaybeAliased(
-        1, this->_internal_community_id_v1(), target);
+    const std::string& _s = this->_internal_community_id_v1();
+    target = stream->WriteStringMaybeAliased(1, _s, target);
   }
 
   // optional string local_ip = 2;
   if (cached_has_bits & 0x00000002u) {
-    target = stream->WriteStringMaybeAliased(
-        2, this->_internal_local_ip(), target);
+    const std::string& _s = this->_internal_local_ip();
+    target = stream->WriteStringMaybeAliased(2, _s, target);
   }
 
   // optional uint64 local_port = 3;
   if (cached_has_bits & 0x00000040u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(3, this->_internal_local_port(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        3, this->_internal_local_port(), target);
   }
 
   // optional string remote_ip = 4;
   if (cached_has_bits & 0x00000004u) {
-    target = stream->WriteStringMaybeAliased(
-        4, this->_internal_remote_ip(), target);
+    const std::string& _s = this->_internal_remote_ip();
+    target = stream->WriteStringMaybeAliased(4, _s, target);
   }
 
   // optional uint64 remote_port = 5;
   if (cached_has_bits & 0x00000080u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(5, this->_internal_remote_port(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        5, this->_internal_remote_port(), target);
   }
 
   // optional .cros_xdr.reporting.NetworkProtocol protocol = 6;
   if (cached_has_bits & 0x00000100u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      6, this->_internal_protocol(), target);
+        6, this->_internal_protocol(), target);
   }
 
   // optional .cros_xdr.reporting.NetworkFlow.Direction direction = 7;
   if (cached_has_bits & 0x00000200u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      7, this->_internal_direction(), target);
+        7, this->_internal_direction(), target);
   }
 
   // optional string remote_hostname = 8;
   if (cached_has_bits & 0x00000008u) {
-    target = stream->WriteStringMaybeAliased(
-        8, this->_internal_remote_hostname(), target);
+    const std::string& _s = this->_internal_remote_hostname();
+    target = stream->WriteStringMaybeAliased(8, _s, target);
   }
 
   // optional uint64 rx_bytes = 9;
   if (cached_has_bits & 0x00000400u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(9, this->_internal_rx_bytes(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        9, this->_internal_rx_bytes(), target);
   }
 
   // optional uint64 tx_bytes = 10;
   if (cached_has_bits & 0x00000800u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(10, this->_internal_tx_bytes(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        10, this->_internal_tx_bytes(), target);
   }
 
   // optional .cros_xdr.reporting.NetworkFlow.ApplicationProtocol application_protocol = 11;
   if (cached_has_bits & 0x00001000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      11, this->_internal_application_protocol(), target);
+        11, this->_internal_application_protocol(), target);
   }
 
   // optional string http_host = 12;
   if (cached_has_bits & 0x00000010u) {
-    target = stream->WriteStringMaybeAliased(
-        12, this->_internal_http_host(), target);
+    const std::string& _s = this->_internal_http_host();
+    target = stream->WriteStringMaybeAliased(12, _s, target);
   }
 
   // optional string sni_host = 13;
   if (cached_has_bits & 0x00000020u) {
-    target = stream->WriteStringMaybeAliased(
-        13, this->_internal_sni_host(), target);
+    const std::string& _s = this->_internal_sni_host();
+    target = stream->WriteStringMaybeAliased(13, _s, target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -7299,11 +7583,11 @@ uint8_t* NetworkFlow::_InternalSerialize(
   return target;
 }
 
-size_t NetworkFlow::ByteSizeLong() const {
+::size_t NetworkFlow::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:cros_xdr.reporting.NetworkFlow)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -7311,54 +7595,50 @@ size_t NetworkFlow::ByteSizeLong() const {
   if (cached_has_bits & 0x000000ffu) {
     // optional string community_id_v1 = 1;
     if (cached_has_bits & 0x00000001u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_community_id_v1());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                      this->_internal_community_id_v1());
     }
 
     // optional string local_ip = 2;
     if (cached_has_bits & 0x00000002u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_local_ip());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                      this->_internal_local_ip());
     }
 
     // optional string remote_ip = 4;
     if (cached_has_bits & 0x00000004u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_remote_ip());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                      this->_internal_remote_ip());
     }
 
     // optional string remote_hostname = 8;
     if (cached_has_bits & 0x00000008u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_remote_hostname());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                      this->_internal_remote_hostname());
     }
 
     // optional string http_host = 12;
     if (cached_has_bits & 0x00000010u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_http_host());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                      this->_internal_http_host());
     }
 
     // optional string sni_host = 13;
     if (cached_has_bits & 0x00000020u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_sni_host());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                      this->_internal_sni_host());
     }
 
     // optional uint64 local_port = 3;
     if (cached_has_bits & 0x00000040u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_local_port());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_local_port());
     }
 
     // optional uint64 remote_port = 5;
     if (cached_has_bits & 0x00000080u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_remote_port());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_remote_port());
     }
 
   }
@@ -7366,29 +7646,31 @@ size_t NetworkFlow::ByteSizeLong() const {
     // optional .cros_xdr.reporting.NetworkProtocol protocol = 6;
     if (cached_has_bits & 0x00000100u) {
       total_size += 1 +
-        ::_pbi::WireFormatLite::EnumSize(this->_internal_protocol());
+                    ::_pbi::WireFormatLite::EnumSize(this->_internal_protocol());
     }
 
     // optional .cros_xdr.reporting.NetworkFlow.Direction direction = 7;
     if (cached_has_bits & 0x00000200u) {
       total_size += 1 +
-        ::_pbi::WireFormatLite::EnumSize(this->_internal_direction());
+                    ::_pbi::WireFormatLite::EnumSize(this->_internal_direction());
     }
 
     // optional uint64 rx_bytes = 9;
     if (cached_has_bits & 0x00000400u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_rx_bytes());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_rx_bytes());
     }
 
     // optional uint64 tx_bytes = 10;
     if (cached_has_bits & 0x00000800u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_tx_bytes());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_tx_bytes());
     }
 
     // optional .cros_xdr.reporting.NetworkFlow.ApplicationProtocol application_protocol = 11;
     if (cached_has_bits & 0x00001000u) {
       total_size += 1 +
-        ::_pbi::WireFormatLite::EnumSize(this->_internal_application_protocol());
+                    ::_pbi::WireFormatLite::EnumSize(this->_internal_application_protocol());
     }
 
   }
@@ -7409,8 +7691,8 @@ void NetworkFlow::CheckTypeAndMergeFrom(
 void NetworkFlow::MergeFrom(const NetworkFlow& from) {
   NetworkFlow* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:cros_xdr.reporting.NetworkFlow)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -7479,30 +7761,18 @@ void NetworkFlow::InternalSwap(NetworkFlow* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.community_id_v1_, lhs_arena,
-      &other->_impl_.community_id_v1_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.local_ip_, lhs_arena,
-      &other->_impl_.local_ip_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.remote_ip_, lhs_arena,
-      &other->_impl_.remote_ip_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.remote_hostname_, lhs_arena,
-      &other->_impl_.remote_hostname_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.http_host_, lhs_arena,
-      &other->_impl_.http_host_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.sni_host_, lhs_arena,
-      &other->_impl_.sni_host_, rhs_arena
-  );
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.community_id_v1_, lhs_arena,
+                                       &other->_impl_.community_id_v1_, rhs_arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.local_ip_, lhs_arena,
+                                       &other->_impl_.local_ip_, rhs_arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.remote_ip_, lhs_arena,
+                                       &other->_impl_.remote_ip_, rhs_arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.remote_hostname_, lhs_arena,
+                                       &other->_impl_.remote_hostname_, rhs_arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.http_host_, lhs_arena,
+                                       &other->_impl_.http_host_, rhs_arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.sni_host_, lhs_arena,
+                                       &other->_impl_.sni_host_, rhs_arena);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(NetworkFlow, _impl_.application_protocol_)
       + sizeof(NetworkFlow::_impl_.application_protocol_)
@@ -7515,12 +7785,13 @@ std::string NetworkFlow::GetTypeName() const {
   return "cros_xdr.reporting.NetworkFlow";
 }
 
-
 // ===================================================================
 
 class NetworkFlowEvent::_Internal {
  public:
   using HasBits = decltype(std::declval<NetworkFlowEvent>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(NetworkFlowEvent, _impl_._has_bits_);
   static const ::cros_xdr::reporting::Process& parent_process(const NetworkFlowEvent* msg);
   static void set_has_parent_process(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
@@ -7547,10 +7818,9 @@ const ::cros_xdr::reporting::NetworkFlow&
 NetworkFlowEvent::_Internal::network_flow(const NetworkFlowEvent* msg) {
   return *msg->_impl_.network_flow_;
 }
-NetworkFlowEvent::NetworkFlowEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+NetworkFlowEvent::NetworkFlowEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:cros_xdr.reporting.NetworkFlowEvent)
 }
 NetworkFlowEvent::NetworkFlowEvent(const NetworkFlowEvent& from)
@@ -7564,22 +7834,20 @@ NetworkFlowEvent::NetworkFlowEvent(const NetworkFlowEvent& from)
     , decltype(_impl_.network_flow_){nullptr}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  if (from._internal_has_parent_process()) {
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_impl_.parent_process_ = new ::cros_xdr::reporting::Process(*from._impl_.parent_process_);
   }
-  if (from._internal_has_process()) {
+  if ((from._impl_._has_bits_[0] & 0x00000002u) != 0) {
     _this->_impl_.process_ = new ::cros_xdr::reporting::Process(*from._impl_.process_);
   }
-  if (from._internal_has_network_flow()) {
+  if ((from._impl_._has_bits_[0] & 0x00000004u) != 0) {
     _this->_impl_.network_flow_ = new ::cros_xdr::reporting::NetworkFlow(*from._impl_.network_flow_);
   }
   // @@protoc_insertion_point(copy_constructor:cros_xdr.reporting.NetworkFlowEvent)
 }
 
-inline void NetworkFlowEvent::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void NetworkFlowEvent::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
@@ -7599,7 +7867,7 @@ NetworkFlowEvent::~NetworkFlowEvent() {
 }
 
 inline void NetworkFlowEvent::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   if (this != internal_default_instance()) delete _impl_.parent_process_;
   if (this != internal_default_instance()) delete _impl_.process_;
   if (this != internal_default_instance()) delete _impl_.network_flow_;
@@ -7611,22 +7879,22 @@ void NetworkFlowEvent::SetCachedSize(int size) const {
 
 void NetworkFlowEvent::Clear() {
 // @@protoc_insertion_point(message_clear_start:cros_xdr.reporting.NetworkFlowEvent)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
-      GOOGLE_DCHECK(_impl_.parent_process_ != nullptr);
+      ABSL_DCHECK(_impl_.parent_process_ != nullptr);
       _impl_.parent_process_->Clear();
     }
     if (cached_has_bits & 0x00000002u) {
-      GOOGLE_DCHECK(_impl_.process_ != nullptr);
+      ABSL_DCHECK(_impl_.process_ != nullptr);
       _impl_.process_->Clear();
     }
     if (cached_has_bits & 0x00000004u) {
-      GOOGLE_DCHECK(_impl_.network_flow_ != nullptr);
+      ABSL_DCHECK(_impl_.network_flow_ != nullptr);
       _impl_.network_flow_->Clear();
     }
   }
@@ -7638,32 +7906,35 @@ const char* NetworkFlowEvent::_InternalParse(const char* ptr, ::_pbi::ParseConte
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional .cros_xdr.reporting.Process parent_process = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_parent_process(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional .cros_xdr.reporting.Process process = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_process(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional .cros_xdr.reporting.NetworkFlow network_flow = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 26)) {
           ptr = ctx->ParseMessage(_internal_mutable_network_flow(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -7689,10 +7960,10 @@ failure:
 #undef CHK_
 }
 
-uint8_t* NetworkFlowEvent::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* NetworkFlowEvent::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:cros_xdr.reporting.NetworkFlowEvent)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
@@ -7725,11 +7996,11 @@ uint8_t* NetworkFlowEvent::_InternalSerialize(
   return target;
 }
 
-size_t NetworkFlowEvent::ByteSizeLong() const {
+::size_t NetworkFlowEvent::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:cros_xdr.reporting.NetworkFlowEvent)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -7774,8 +8045,8 @@ void NetworkFlowEvent::CheckTypeAndMergeFrom(
 void NetworkFlowEvent::MergeFrom(const NetworkFlowEvent& from) {
   NetworkFlowEvent* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:cros_xdr.reporting.NetworkFlowEvent)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -7823,12 +8094,13 @@ std::string NetworkFlowEvent::GetTypeName() const {
   return "cros_xdr.reporting.NetworkFlowEvent";
 }
 
-
 // ===================================================================
 
 class Socket::_Internal {
  public:
   using HasBits = decltype(std::declval<Socket>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(Socket, _impl_._has_bits_);
   static void set_has_protocol(HasBits* has_bits) {
     (*has_bits)[0] |= 4u;
   }
@@ -7843,10 +8115,9 @@ class Socket::_Internal {
   }
 };
 
-Socket::Socket(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+Socket::Socket(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:cros_xdr.reporting.Socket)
 }
 Socket::Socket(const Socket& from)
@@ -7855,42 +8126,47 @@ Socket::Socket(const Socket& from)
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.bind_addr_){}
-    , decltype(_impl_.bind_port_){}
-    , decltype(_impl_.protocol_){}
-    , decltype(_impl_.socket_type_){}};
+    , decltype(_impl_.bind_addr_) {}
+
+    , decltype(_impl_.bind_port_) {}
+
+    , decltype(_impl_.protocol_) {}
+
+    , decltype(_impl_.socket_type_) {}
+  };
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _impl_.bind_addr_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.bind_addr_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_bind_addr()) {
-    _this->_impl_.bind_addr_.Set(from._internal_bind_addr(), 
-      _this->GetArenaForAllocation());
+        _impl_.bind_addr_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_impl_.bind_addr_.Set(from._internal_bind_addr(), _this->GetArenaForAllocation());
   }
   ::memcpy(&_impl_.bind_port_, &from._impl_.bind_port_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.socket_type_) -
+    static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.socket_type_) -
     reinterpret_cast<char*>(&_impl_.bind_port_)) + sizeof(_impl_.socket_type_));
   // @@protoc_insertion_point(copy_constructor:cros_xdr.reporting.Socket)
 }
 
-inline void Socket::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void Socket::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.bind_addr_){}
-    , decltype(_impl_.bind_port_){uint64_t{0u}}
-    , decltype(_impl_.protocol_){0}
-    , decltype(_impl_.socket_type_){1}
+    , decltype(_impl_.bind_addr_) {}
+
+    , decltype(_impl_.bind_port_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.protocol_) { 0 }
+
+    , decltype(_impl_.socket_type_) { 1 }
+
   };
   _impl_.bind_addr_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.bind_addr_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.bind_addr_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 Socket::~Socket() {
@@ -7903,7 +8179,7 @@ Socket::~Socket() {
 }
 
 inline void Socket::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.bind_addr_.Destroy();
 }
 
@@ -7913,7 +8189,7 @@ void Socket::SetCachedSize(int size) const {
 
 void Socket::Clear() {
 // @@protoc_insertion_point(message_clear_start:cros_xdr.reporting.Socket)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -7922,7 +8198,7 @@ void Socket::Clear() {
     _impl_.bind_addr_.ClearNonDefaultToEmpty();
   }
   if (cached_has_bits & 0x0000000eu) {
-    ::memset(&_impl_.bind_port_, 0, static_cast<size_t>(
+    ::memset(&_impl_.bind_port_, 0, static_cast<::size_t>(
         reinterpret_cast<char*>(&_impl_.protocol_) -
         reinterpret_cast<char*>(&_impl_.bind_port_)) + sizeof(_impl_.protocol_));
     _impl_.socket_type_ = 1;
@@ -7935,52 +8211,56 @@ const char* Socket::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional .cros_xdr.reporting.NetworkProtocol protocol = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
+          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-          if (PROTOBUF_PREDICT_TRUE(::cros_xdr::reporting::NetworkProtocol_IsValid(val))) {
+          if (PROTOBUF_PREDICT_TRUE(::cros_xdr::reporting::NetworkProtocol_IsValid(static_cast<int>(val)))) {
             _internal_set_protocol(static_cast<::cros_xdr::reporting::NetworkProtocol>(val));
           } else {
             ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(1, val, mutable_unknown_fields());
           }
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional string bind_addr = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_bind_addr();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 bind_port = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 24)) {
           _Internal::set_has_bind_port(&has_bits);
           _impl_.bind_port_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional .cros_xdr.reporting.SocketType socket_type = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 32)) {
+          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-          if (PROTOBUF_PREDICT_TRUE(::cros_xdr::reporting::SocketType_IsValid(val))) {
+          if (PROTOBUF_PREDICT_TRUE(::cros_xdr::reporting::SocketType_IsValid(static_cast<int>(val)))) {
             _internal_set_socket_type(static_cast<::cros_xdr::reporting::SocketType>(val));
           } else {
             ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(4, val, mutable_unknown_fields());
           }
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -8006,10 +8286,10 @@ failure:
 #undef CHK_
 }
 
-uint8_t* Socket::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* Socket::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:cros_xdr.reporting.Socket)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
@@ -8017,26 +8297,27 @@ uint8_t* Socket::_InternalSerialize(
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      1, this->_internal_protocol(), target);
+        1, this->_internal_protocol(), target);
   }
 
   // optional string bind_addr = 2;
   if (cached_has_bits & 0x00000001u) {
-    target = stream->WriteStringMaybeAliased(
-        2, this->_internal_bind_addr(), target);
+    const std::string& _s = this->_internal_bind_addr();
+    target = stream->WriteStringMaybeAliased(2, _s, target);
   }
 
   // optional uint64 bind_port = 3;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(3, this->_internal_bind_port(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        3, this->_internal_bind_port(), target);
   }
 
   // optional .cros_xdr.reporting.SocketType socket_type = 4;
   if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      4, this->_internal_socket_type(), target);
+        4, this->_internal_socket_type(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -8047,11 +8328,11 @@ uint8_t* Socket::_InternalSerialize(
   return target;
 }
 
-size_t Socket::ByteSizeLong() const {
+::size_t Socket::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:cros_xdr.reporting.Socket)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -8059,26 +8340,26 @@ size_t Socket::ByteSizeLong() const {
   if (cached_has_bits & 0x0000000fu) {
     // optional string bind_addr = 2;
     if (cached_has_bits & 0x00000001u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_bind_addr());
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                      this->_internal_bind_addr());
     }
 
     // optional uint64 bind_port = 3;
     if (cached_has_bits & 0x00000002u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_bind_port());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_bind_port());
     }
 
     // optional .cros_xdr.reporting.NetworkProtocol protocol = 1;
     if (cached_has_bits & 0x00000004u) {
       total_size += 1 +
-        ::_pbi::WireFormatLite::EnumSize(this->_internal_protocol());
+                    ::_pbi::WireFormatLite::EnumSize(this->_internal_protocol());
     }
 
     // optional .cros_xdr.reporting.SocketType socket_type = 4;
     if (cached_has_bits & 0x00000008u) {
       total_size += 1 +
-        ::_pbi::WireFormatLite::EnumSize(this->_internal_socket_type());
+                    ::_pbi::WireFormatLite::EnumSize(this->_internal_socket_type());
     }
 
   }
@@ -8099,8 +8380,8 @@ void Socket::CheckTypeAndMergeFrom(
 void Socket::MergeFrom(const Socket& from) {
   Socket* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:cros_xdr.reporting.Socket)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -8139,29 +8420,27 @@ void Socket::InternalSwap(Socket* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.bind_addr_, lhs_arena,
-      &other->_impl_.bind_addr_, rhs_arena
-  );
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.bind_addr_, lhs_arena,
+                                       &other->_impl_.bind_addr_, rhs_arena);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(Socket, _impl_.protocol_)
-      + sizeof(Socket::_impl_.protocol_)
+      PROTOBUF_FIELD_OFFSET(Socket, _impl_.socket_type_)
+      + sizeof(Socket::_impl_.socket_type_)
       - PROTOBUF_FIELD_OFFSET(Socket, _impl_.bind_port_)>(
           reinterpret_cast<char*>(&_impl_.bind_port_),
           reinterpret_cast<char*>(&other->_impl_.bind_port_));
-  swap(_impl_.socket_type_, other->_impl_.socket_type_);
 }
 
 std::string Socket::GetTypeName() const {
   return "cros_xdr.reporting.Socket";
 }
 
-
 // ===================================================================
 
 class NetworkSocketListenEvent::_Internal {
  public:
   using HasBits = decltype(std::declval<NetworkSocketListenEvent>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(NetworkSocketListenEvent, _impl_._has_bits_);
   static const ::cros_xdr::reporting::Process& parent_process(const NetworkSocketListenEvent* msg);
   static void set_has_parent_process(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
@@ -8188,10 +8467,9 @@ const ::cros_xdr::reporting::Socket&
 NetworkSocketListenEvent::_Internal::socket(const NetworkSocketListenEvent* msg) {
   return *msg->_impl_.socket_;
 }
-NetworkSocketListenEvent::NetworkSocketListenEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+NetworkSocketListenEvent::NetworkSocketListenEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:cros_xdr.reporting.NetworkSocketListenEvent)
 }
 NetworkSocketListenEvent::NetworkSocketListenEvent(const NetworkSocketListenEvent& from)
@@ -8205,22 +8483,20 @@ NetworkSocketListenEvent::NetworkSocketListenEvent(const NetworkSocketListenEven
     , decltype(_impl_.socket_){nullptr}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  if (from._internal_has_parent_process()) {
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_impl_.parent_process_ = new ::cros_xdr::reporting::Process(*from._impl_.parent_process_);
   }
-  if (from._internal_has_process()) {
+  if ((from._impl_._has_bits_[0] & 0x00000002u) != 0) {
     _this->_impl_.process_ = new ::cros_xdr::reporting::Process(*from._impl_.process_);
   }
-  if (from._internal_has_socket()) {
+  if ((from._impl_._has_bits_[0] & 0x00000004u) != 0) {
     _this->_impl_.socket_ = new ::cros_xdr::reporting::Socket(*from._impl_.socket_);
   }
   // @@protoc_insertion_point(copy_constructor:cros_xdr.reporting.NetworkSocketListenEvent)
 }
 
-inline void NetworkSocketListenEvent::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void NetworkSocketListenEvent::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
@@ -8240,7 +8516,7 @@ NetworkSocketListenEvent::~NetworkSocketListenEvent() {
 }
 
 inline void NetworkSocketListenEvent::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   if (this != internal_default_instance()) delete _impl_.parent_process_;
   if (this != internal_default_instance()) delete _impl_.process_;
   if (this != internal_default_instance()) delete _impl_.socket_;
@@ -8252,22 +8528,22 @@ void NetworkSocketListenEvent::SetCachedSize(int size) const {
 
 void NetworkSocketListenEvent::Clear() {
 // @@protoc_insertion_point(message_clear_start:cros_xdr.reporting.NetworkSocketListenEvent)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
-      GOOGLE_DCHECK(_impl_.parent_process_ != nullptr);
+      ABSL_DCHECK(_impl_.parent_process_ != nullptr);
       _impl_.parent_process_->Clear();
     }
     if (cached_has_bits & 0x00000002u) {
-      GOOGLE_DCHECK(_impl_.process_ != nullptr);
+      ABSL_DCHECK(_impl_.process_ != nullptr);
       _impl_.process_->Clear();
     }
     if (cached_has_bits & 0x00000004u) {
-      GOOGLE_DCHECK(_impl_.socket_ != nullptr);
+      ABSL_DCHECK(_impl_.socket_ != nullptr);
       _impl_.socket_->Clear();
     }
   }
@@ -8279,32 +8555,35 @@ const char* NetworkSocketListenEvent::_InternalParse(const char* ptr, ::_pbi::Pa
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional .cros_xdr.reporting.Process parent_process = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_parent_process(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional .cros_xdr.reporting.Process process = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_process(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional .cros_xdr.reporting.Socket socket = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 26)) {
           ptr = ctx->ParseMessage(_internal_mutable_socket(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -8330,10 +8609,10 @@ failure:
 #undef CHK_
 }
 
-uint8_t* NetworkSocketListenEvent::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* NetworkSocketListenEvent::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:cros_xdr.reporting.NetworkSocketListenEvent)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
@@ -8366,11 +8645,11 @@ uint8_t* NetworkSocketListenEvent::_InternalSerialize(
   return target;
 }
 
-size_t NetworkSocketListenEvent::ByteSizeLong() const {
+::size_t NetworkSocketListenEvent::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:cros_xdr.reporting.NetworkSocketListenEvent)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -8415,8 +8694,8 @@ void NetworkSocketListenEvent::CheckTypeAndMergeFrom(
 void NetworkSocketListenEvent::MergeFrom(const NetworkSocketListenEvent& from) {
   NetworkSocketListenEvent* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:cros_xdr.reporting.NetworkSocketListenEvent)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -8464,12 +8743,13 @@ std::string NetworkSocketListenEvent::GetTypeName() const {
   return "cros_xdr.reporting.NetworkSocketListenEvent";
 }
 
-
 // ===================================================================
 
 class XdrUserEvent::_Internal {
  public:
   using HasBits = decltype(std::declval<XdrUserEvent>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(XdrUserEvent, _impl_._has_bits_);
   static const ::cros_xdr::reporting::CommonEventDataFields& common(const XdrUserEvent* msg);
   static void set_has_common(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
@@ -8480,10 +8760,9 @@ const ::cros_xdr::reporting::CommonEventDataFields&
 XdrUserEvent::_Internal::common(const XdrUserEvent* msg) {
   return *msg->_impl_.common_;
 }
-XdrUserEvent::XdrUserEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+XdrUserEvent::XdrUserEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:cros_xdr.reporting.XdrUserEvent)
 }
 XdrUserEvent::XdrUserEvent(const XdrUserEvent& from)
@@ -8496,16 +8775,14 @@ XdrUserEvent::XdrUserEvent(const XdrUserEvent& from)
     , decltype(_impl_.common_){nullptr}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  if (from._internal_has_common()) {
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_impl_.common_ = new ::cros_xdr::reporting::CommonEventDataFields(*from._impl_.common_);
   }
   // @@protoc_insertion_point(copy_constructor:cros_xdr.reporting.XdrUserEvent)
 }
 
-inline void XdrUserEvent::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void XdrUserEvent::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
@@ -8524,8 +8801,8 @@ XdrUserEvent::~XdrUserEvent() {
 }
 
 inline void XdrUserEvent::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.batched_events_.~RepeatedPtrField();
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+  _internal_mutable_batched_events()->~RepeatedPtrField();
   if (this != internal_default_instance()) delete _impl_.common_;
 }
 
@@ -8535,14 +8812,14 @@ void XdrUserEvent::SetCachedSize(int size) const {
 
 void XdrUserEvent::Clear() {
 // @@protoc_insertion_point(message_clear_start:cros_xdr.reporting.XdrUserEvent)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.batched_events_.Clear();
+  _internal_mutable_batched_events()->Clear();
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    GOOGLE_DCHECK(_impl_.common_ != nullptr);
+    ABSL_DCHECK(_impl_.common_ != nullptr);
     _impl_.common_->Clear();
   }
   _impl_._has_bits_.Clear();
@@ -8553,20 +8830,21 @@ const char* XdrUserEvent::_InternalParse(const char* ptr, ::_pbi::ParseContext* 
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional .cros_xdr.reporting.CommonEventDataFields common = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_common(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // repeated .cros_xdr.reporting.UserEventAtomicVariant batched_events = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -8574,8 +8852,9 @@ const char* XdrUserEvent::_InternalParse(const char* ptr, ::_pbi::ParseContext* 
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -8601,10 +8880,10 @@ failure:
 #undef CHK_
 }
 
-uint8_t* XdrUserEvent::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* XdrUserEvent::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:cros_xdr.reporting.XdrUserEvent)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
@@ -8631,17 +8910,17 @@ uint8_t* XdrUserEvent::_InternalSerialize(
   return target;
 }
 
-size_t XdrUserEvent::ByteSizeLong() const {
+::size_t XdrUserEvent::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:cros_xdr.reporting.XdrUserEvent)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // repeated .cros_xdr.reporting.UserEventAtomicVariant batched_events = 2;
   total_size += 1UL * this->_internal_batched_events_size();
-  for (const auto& msg : this->_impl_.batched_events_) {
+  for (const auto& msg : this->_internal_batched_events()) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -8671,12 +8950,12 @@ void XdrUserEvent::CheckTypeAndMergeFrom(
 void XdrUserEvent::MergeFrom(const XdrUserEvent& from) {
   XdrUserEvent* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:cros_xdr.reporting.XdrUserEvent)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  _this->_impl_.batched_events_.MergeFrom(from._impl_.batched_events_);
-  if (from._internal_has_common()) {
+  _this->_internal_mutable_batched_events()->MergeFrom(from._internal_batched_events());
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_internal_mutable_common()->::cros_xdr::reporting::CommonEventDataFields::MergeFrom(
         from._internal_common());
   }
@@ -8698,7 +8977,7 @@ void XdrUserEvent::InternalSwap(XdrUserEvent* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  _impl_.batched_events_.InternalSwap(&other->_impl_.batched_events_);
+  _internal_mutable_batched_events()->InternalSwap(other->_internal_mutable_batched_events());
   swap(_impl_.common_, other->_impl_.common_);
 }
 
@@ -8706,12 +8985,15 @@ std::string XdrUserEvent::GetTypeName() const {
   return "cros_xdr.reporting.XdrUserEvent";
 }
 
-
 // ===================================================================
 
 class UserEventAtomicVariant::_Internal {
  public:
   using HasBits = decltype(std::declval<UserEventAtomicVariant>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(UserEventAtomicVariant, _impl_._has_bits_);
+  static constexpr ::int32_t kOneofCaseOffset =
+    PROTOBUF_FIELD_OFFSET(::cros_xdr::reporting::UserEventAtomicVariant, _impl_._oneof_case_);
   static const ::cros_xdr::reporting::CommonEventVariantDataFields& common(const UserEventAtomicVariant* msg);
   static void set_has_common(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
@@ -8822,10 +9104,9 @@ void UserEventAtomicVariant::set_allocated_failure(::cros_xdr::reporting::Authen
   }
   // @@protoc_insertion_point(field_set_allocated:cros_xdr.reporting.UserEventAtomicVariant.failure)
 }
-UserEventAtomicVariant::UserEventAtomicVariant(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+UserEventAtomicVariant::UserEventAtomicVariant(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:cros_xdr.reporting.UserEventAtomicVariant)
 }
 UserEventAtomicVariant::UserEventAtomicVariant(const UserEventAtomicVariant& from)
@@ -8839,7 +9120,7 @@ UserEventAtomicVariant::UserEventAtomicVariant(const UserEventAtomicVariant& fro
     , /*decltype(_impl_._oneof_case_)*/{}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  if (from._internal_has_common()) {
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_impl_.common_ = new ::cros_xdr::reporting::CommonEventVariantDataFields(*from._impl_.common_);
   }
   clear_has_variant_type();
@@ -8876,10 +9157,8 @@ UserEventAtomicVariant::UserEventAtomicVariant(const UserEventAtomicVariant& fro
   // @@protoc_insertion_point(copy_constructor:cros_xdr.reporting.UserEventAtomicVariant)
 }
 
-inline void UserEventAtomicVariant::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void UserEventAtomicVariant::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
@@ -8900,7 +9179,7 @@ UserEventAtomicVariant::~UserEventAtomicVariant() {
 }
 
 inline void UserEventAtomicVariant::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   if (this != internal_default_instance()) delete _impl_.common_;
   if (has_variant_type()) {
     clear_variant_type();
@@ -8954,13 +9233,13 @@ void UserEventAtomicVariant::clear_variant_type() {
 
 void UserEventAtomicVariant::Clear() {
 // @@protoc_insertion_point(message_clear_start:cros_xdr.reporting.UserEventAtomicVariant)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    GOOGLE_DCHECK(_impl_.common_ != nullptr);
+    ABSL_DCHECK(_impl_.common_ != nullptr);
     _impl_.common_->Clear();
   }
   clear_variant_type();
@@ -8972,56 +9251,62 @@ const char* UserEventAtomicVariant::_InternalParse(const char* ptr, ::_pbi::Pars
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional .cros_xdr.reporting.CommonEventVariantDataFields common = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_common(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .cros_xdr.reporting.AuthenticateEvent logon = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_logon(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .cros_xdr.reporting.AuthenticateEvent logoff = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 26)) {
           ptr = ctx->ParseMessage(_internal_mutable_logoff(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .cros_xdr.reporting.AuthenticateEvent unlock = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 34)) {
           ptr = ctx->ParseMessage(_internal_mutable_unlock(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .cros_xdr.reporting.AuthenticateEvent lock = 5;
       case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 42)) {
           ptr = ctx->ParseMessage(_internal_mutable_lock(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .cros_xdr.reporting.AuthenticateEvent failure = 6;
       case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 50)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 50)) {
           ptr = ctx->ParseMessage(_internal_mutable_failure(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -9047,10 +9332,10 @@ failure:
 #undef CHK_
 }
 
-uint8_t* UserEventAtomicVariant::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* UserEventAtomicVariant::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:cros_xdr.reporting.UserEventAtomicVariant)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
@@ -9102,11 +9387,11 @@ uint8_t* UserEventAtomicVariant::_InternalSerialize(
   return target;
 }
 
-size_t UserEventAtomicVariant::ByteSizeLong() const {
+::size_t UserEventAtomicVariant::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:cros_xdr.reporting.UserEventAtomicVariant)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -9175,11 +9460,11 @@ void UserEventAtomicVariant::CheckTypeAndMergeFrom(
 void UserEventAtomicVariant::MergeFrom(const UserEventAtomicVariant& from) {
   UserEventAtomicVariant* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:cros_xdr.reporting.UserEventAtomicVariant)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_has_common()) {
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_internal_mutable_common()->::cros_xdr::reporting::CommonEventVariantDataFields::MergeFrom(
         from._internal_common());
   }
@@ -9240,12 +9525,13 @@ std::string UserEventAtomicVariant::GetTypeName() const {
   return "cros_xdr.reporting.UserEventAtomicVariant";
 }
 
-
 // ===================================================================
 
 class AuthenticateEvent::_Internal {
  public:
   using HasBits = decltype(std::declval<AuthenticateEvent>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(AuthenticateEvent, _impl_._has_bits_);
   static const ::cros_xdr::reporting::Authentication& authentication(const AuthenticateEvent* msg);
   static void set_has_authentication(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
@@ -9256,10 +9542,9 @@ const ::cros_xdr::reporting::Authentication&
 AuthenticateEvent::_Internal::authentication(const AuthenticateEvent* msg) {
   return *msg->_impl_.authentication_;
 }
-AuthenticateEvent::AuthenticateEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+AuthenticateEvent::AuthenticateEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:cros_xdr.reporting.AuthenticateEvent)
 }
 AuthenticateEvent::AuthenticateEvent(const AuthenticateEvent& from)
@@ -9271,16 +9556,14 @@ AuthenticateEvent::AuthenticateEvent(const AuthenticateEvent& from)
     , decltype(_impl_.authentication_){nullptr}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  if (from._internal_has_authentication()) {
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_impl_.authentication_ = new ::cros_xdr::reporting::Authentication(*from._impl_.authentication_);
   }
   // @@protoc_insertion_point(copy_constructor:cros_xdr.reporting.AuthenticateEvent)
 }
 
-inline void AuthenticateEvent::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void AuthenticateEvent::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
@@ -9298,7 +9581,7 @@ AuthenticateEvent::~AuthenticateEvent() {
 }
 
 inline void AuthenticateEvent::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   if (this != internal_default_instance()) delete _impl_.authentication_;
 }
 
@@ -9308,13 +9591,13 @@ void AuthenticateEvent::SetCachedSize(int size) const {
 
 void AuthenticateEvent::Clear() {
 // @@protoc_insertion_point(message_clear_start:cros_xdr.reporting.AuthenticateEvent)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    GOOGLE_DCHECK(_impl_.authentication_ != nullptr);
+    ABSL_DCHECK(_impl_.authentication_ != nullptr);
     _impl_.authentication_->Clear();
   }
   _impl_._has_bits_.Clear();
@@ -9325,16 +9608,17 @@ const char* AuthenticateEvent::_InternalParse(const char* ptr, ::_pbi::ParseCont
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional .cros_xdr.reporting.Authentication authentication = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_authentication(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -9360,10 +9644,10 @@ failure:
 #undef CHK_
 }
 
-uint8_t* AuthenticateEvent::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* AuthenticateEvent::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:cros_xdr.reporting.AuthenticateEvent)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
@@ -9382,11 +9666,11 @@ uint8_t* AuthenticateEvent::_InternalSerialize(
   return target;
 }
 
-size_t AuthenticateEvent::ByteSizeLong() const {
+::size_t AuthenticateEvent::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:cros_xdr.reporting.AuthenticateEvent)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -9415,11 +9699,11 @@ void AuthenticateEvent::CheckTypeAndMergeFrom(
 void AuthenticateEvent::MergeFrom(const AuthenticateEvent& from) {
   AuthenticateEvent* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:cros_xdr.reporting.AuthenticateEvent)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_has_authentication()) {
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_internal_mutable_authentication()->::cros_xdr::reporting::Authentication::MergeFrom(
         from._internal_authentication());
   }
@@ -9448,21 +9732,21 @@ std::string AuthenticateEvent::GetTypeName() const {
   return "cros_xdr.reporting.AuthenticateEvent";
 }
 
-
 // ===================================================================
 
 class Authentication::_Internal {
  public:
   using HasBits = decltype(std::declval<Authentication>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(Authentication, _impl_._has_bits_);
   static void set_has_num_failed_attempts(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
 };
 
-Authentication::Authentication(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+Authentication::Authentication(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:cros_xdr.reporting.Authentication)
 }
 Authentication::Authentication(const Authentication& from)
@@ -9471,25 +9755,27 @@ Authentication::Authentication(const Authentication& from)
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.auth_factor_){from._impl_.auth_factor_}
-    , /*decltype(_impl_._auth_factor_cached_byte_size_)*/{0}
-    , decltype(_impl_.num_failed_attempts_){}};
+    , decltype(_impl_.auth_factor_) { from._internal_auth_factor() }
+    , /*decltype(_impl_._auth_factor_cached_byte_size_)*/ { 0 }
+
+    , decltype(_impl_.num_failed_attempts_) {}
+  };
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _this->_impl_.num_failed_attempts_ = from._impl_.num_failed_attempts_;
   // @@protoc_insertion_point(copy_constructor:cros_xdr.reporting.Authentication)
 }
 
-inline void Authentication::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void Authentication::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.auth_factor_){arena}
-    , /*decltype(_impl_._auth_factor_cached_byte_size_)*/{0}
-    , decltype(_impl_.num_failed_attempts_){uint64_t{0u}}
+    , decltype(_impl_.auth_factor_) { arena }
+    , /*decltype(_impl_._auth_factor_cached_byte_size_)*/ { 0 }
+
+    , decltype(_impl_.num_failed_attempts_) { ::uint64_t{0u} }
+
   };
 }
 
@@ -9503,8 +9789,8 @@ Authentication::~Authentication() {
 }
 
 inline void Authentication::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.auth_factor_.~RepeatedField();
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+  _internal_mutable_auth_factor()->~RepeatedField();
 }
 
 void Authentication::SetCachedSize(int size) const {
@@ -9513,12 +9799,12 @@ void Authentication::SetCachedSize(int size) const {
 
 void Authentication::Clear() {
 // @@protoc_insertion_point(message_clear_start:cros_xdr.reporting.Authentication)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.auth_factor_.Clear();
-  _impl_.num_failed_attempts_ = uint64_t{0u};
+  _internal_mutable_auth_factor()->Clear();
+  _impl_.num_failed_attempts_ = ::uint64_t{0u};
   _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
@@ -9527,33 +9813,35 @@ const char* Authentication::_InternalParse(const char* ptr, ::_pbi::ParseContext
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // repeated .cros_xdr.reporting.Authentication.AuthenticationType auth_factor = 1 [packed = true];
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedEnumParser<std::string>(_internal_mutable_auth_factor(), ptr, ctx, ::cros_xdr::reporting::Authentication_AuthenticationType_IsValid, &_internal_metadata_, 1);
           CHK_(ptr);
-        } else if (static_cast<uint8_t>(tag) == 8) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        } else if (static_cast<::uint8_t>(tag) == 8) {
+          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-          if (PROTOBUF_PREDICT_TRUE(::cros_xdr::reporting::Authentication_AuthenticationType_IsValid(val))) {
+          if (PROTOBUF_PREDICT_TRUE(::cros_xdr::reporting::Authentication_AuthenticationType_IsValid(static_cast<int>(val)))) {
             _internal_add_auth_factor(static_cast<::cros_xdr::reporting::Authentication_AuthenticationType>(val));
           } else {
             ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(1, val, mutable_unknown_fields());
           }
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional uint64 num_failed_attempts = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _Internal::set_has_num_failed_attempts(&has_bits);
           _impl_.num_failed_attempts_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -9579,18 +9867,18 @@ failure:
 #undef CHK_
 }
 
-uint8_t* Authentication::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* Authentication::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:cros_xdr.reporting.Authentication)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // repeated .cros_xdr.reporting.Authentication.AuthenticationType auth_factor = 1 [packed = true];
   {
-    int byte_size = _impl_._auth_factor_cached_byte_size_.load(std::memory_order_relaxed);
+    int byte_size = _impl_._auth_factor_cached_byte_size_.Get();
     if (byte_size > 0) {
-      target = stream->WriteEnumPacked(
-          1, _impl_.auth_factor_, byte_size, target);
+      target = stream->WriteEnumPacked(1, _internal_auth_factor(),
+                                       byte_size, target);
     }
   }
 
@@ -9598,7 +9886,8 @@ uint8_t* Authentication::_InternalSerialize(
   // optional uint64 num_failed_attempts = 2;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(2, this->_internal_num_failed_attempts(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        2, this->_internal_num_failed_attempts(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -9609,35 +9898,37 @@ uint8_t* Authentication::_InternalSerialize(
   return target;
 }
 
-size_t Authentication::ByteSizeLong() const {
+::size_t Authentication::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:cros_xdr.reporting.Authentication)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // repeated .cros_xdr.reporting.Authentication.AuthenticationType auth_factor = 1 [packed = true];
   {
-    size_t data_size = 0;
-    unsigned int count = static_cast<unsigned int>(this->_internal_auth_factor_size());for (unsigned int i = 0; i < count; i++) {
+    std::size_t data_size = 0;
+    auto count = static_cast<std::size_t>(this->_internal_auth_factor_size());
+
+    for (std::size_t i = 0; i < count; ++i) {
       data_size += ::_pbi::WireFormatLite::EnumSize(
-        this->_internal_auth_factor(static_cast<int>(i)));
+          this->_internal_auth_factor(static_cast<int>(i)));
     }
-    if (data_size > 0) {
-      total_size += 1 +
-        ::_pbi::WireFormatLite::Int32Size(static_cast<int32_t>(data_size));
-    }
-    int cached_size = ::_pbi::ToCachedSize(data_size);
-    _impl_._auth_factor_cached_byte_size_.store(cached_size,
-                                    std::memory_order_relaxed);
     total_size += data_size;
+    if (data_size > 0) {
+      total_size += 1;
+      total_size += ::_pbi::WireFormatLite::Int32Size(
+          static_cast<int32_t>(data_size));
+    }
+    _impl_._auth_factor_cached_byte_size_.Set(::_pbi::ToCachedSize(data_size));
   }
 
   // optional uint64 num_failed_attempts = 2;
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_num_failed_attempts());
+    total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+        this->_internal_num_failed_attempts());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -9657,12 +9948,12 @@ void Authentication::CheckTypeAndMergeFrom(
 void Authentication::MergeFrom(const Authentication& from) {
   Authentication* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:cros_xdr.reporting.Authentication)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  _this->_impl_.auth_factor_.MergeFrom(from._impl_.auth_factor_);
-  if (from._internal_has_num_failed_attempts()) {
+  _this->_internal_mutable_auth_factor()->MergeFrom(from._internal_auth_factor());
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_internal_set_num_failed_attempts(from._internal_num_failed_attempts());
   }
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
@@ -9683,14 +9974,15 @@ void Authentication::InternalSwap(Authentication* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  _impl_.auth_factor_.InternalSwap(&other->_impl_.auth_factor_);
+  _internal_mutable_auth_factor()->InternalSwap(
+      other->_internal_mutable_auth_factor());
+
   swap(_impl_.num_failed_attempts_, other->_impl_.num_failed_attempts_);
 }
 
 std::string Authentication::GetTypeName() const {
   return "cros_xdr.reporting.Authentication";
 }
-
 
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace reporting
@@ -9797,6 +10089,5 @@ Arena::CreateMaybeMessage< ::cros_xdr::reporting::Authentication >(Arena* arena)
   return Arena::CreateMessageInternal< ::cros_xdr::reporting::Authentication >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
-
 // @@protoc_insertion_point(global_scope)
-#include <google/protobuf/port_undef.inc>
+#include "google/protobuf/port_undef.inc"

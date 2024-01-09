@@ -67,11 +67,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, WebGLTexture>::value,
     "WebGLTexture inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&WebGLTexture::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "WebGLTexture is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -84,8 +79,9 @@ BLINK_BINDINGS_TRACE_EVENT("WebGLTexture.lastUploadedVideoWidth.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGLTexture* blink_receiver = V8WebGLTexture::ToWrappableUnsafe(v8_receiver);
+WebGLTexture* blink_receiver = V8WebGLTexture::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->lastUploadedVideoWidth();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -98,8 +94,9 @@ BLINK_BINDINGS_TRACE_EVENT("WebGLTexture.lastUploadedVideoHeight.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGLTexture* blink_receiver = V8WebGLTexture::ToWrappableUnsafe(v8_receiver);
+WebGLTexture* blink_receiver = V8WebGLTexture::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->lastUploadedVideoHeight();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -112,8 +109,9 @@ BLINK_BINDINGS_TRACE_EVENT("WebGLTexture.lastUploadedVideoTimestamp.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGLTexture* blink_receiver = V8WebGLTexture::ToWrappableUnsafe(v8_receiver);
+WebGLTexture* blink_receiver = V8WebGLTexture::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->lastUploadedVideoTimestamp();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -126,8 +124,9 @@ BLINK_BINDINGS_TRACE_EVENT("WebGLTexture.lastUploadedVideoFrameWasSkipped.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGLTexture* blink_receiver = V8WebGLTexture::ToWrappableUnsafe(v8_receiver);
+WebGLTexture* blink_receiver = V8WebGLTexture::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->lastUploadedVideoFrameWasSkipped();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }

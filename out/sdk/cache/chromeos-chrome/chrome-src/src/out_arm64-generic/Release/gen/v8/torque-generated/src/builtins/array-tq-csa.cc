@@ -66,8 +66,10 @@
 #include "src/objects/turboshaft-types.h"
 #include "src/torque/runtime-support.h"
 #include "src/wasm/wasm-linkage.h"
+#include "src/codegen/code-stub-assembler-inl.h"
 // Required Builtins:
 #include "torque-generated/src/builtins/array-tq-csa.h"
+#include "torque-generated/src/builtins/array-flat-tq-csa.h"
 #include "torque-generated/src/builtins/array-join-tq-csa.h"
 #include "torque-generated/src/builtins/array-slice-tq-csa.h"
 #include "torque-generated/src/builtins/array-tq-csa.h"
@@ -141,16 +143,18 @@ void EnsureWriteableFastElements_0(compiler::CodeAssemblerState* state_, TNode<C
   TNode<IntPtrT> tmp10;
   TNode<IntPtrT> tmp11;
   TNode<FixedArray> tmp12;
-  TNode<IntPtrT> tmp13;
-  TNode<FixedArray> tmp14;
+  TNode<Hole> tmp13;
+  TNode<IntPtrT> tmp14;
+  TNode<FixedArray> tmp15;
   if (block14.is_used()) {
     ca_.Bind(&block14);
     tmp10 = Convert_intptr_Smi_0(state_, TNode<Smi>{tmp8});
     tmp11 = FromConstexpr_intptr_constexpr_int31_0(state_, 8);
     tmp12 = UnsafeCast_FixedArray_0(state_, TNode<Context>{p_context}, TNode<Object>{tmp1});
-    tmp13 = FromConstexpr_intptr_constexpr_IntegerLiteral_0(state_, IntegerLiteral(false, 0x0ull));
-    tmp14 = ExtractFixedArray_0(state_, TNode<FixedArray>{tmp12}, TNode<IntPtrT>{tmp13}, TNode<IntPtrT>{tmp10}, TNode<IntPtrT>{tmp10});
-    CodeStubAssembler(state_).StoreReference<FixedArrayBase>(CodeStubAssembler::Reference{p_array, tmp11}, tmp14);
+    tmp13 = TheHole_0(state_);
+    tmp14 = FromConstexpr_intptr_constexpr_IntegerLiteral_0(state_, IntegerLiteral(false, 0x0ull));
+    tmp15 = ExtractFixedArray_0(state_, TNode<FixedArray>{tmp12}, TNode<IntPtrT>{tmp14}, TNode<IntPtrT>{tmp10}, TNode<IntPtrT>{tmp10}, TNode<Hole>{tmp13});
+    CodeStubAssembler(state_).StoreReference<FixedArrayBase>(CodeStubAssembler::Reference{p_array, tmp11}, tmp15);
     ca_.Goto(&block1);
   }
 

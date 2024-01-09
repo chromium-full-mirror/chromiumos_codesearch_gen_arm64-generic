@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -207,14 +208,17 @@ void SingularUkmInterfaceProxy::Submit(
                         "<value of type UkmEntryPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSingularUkmInterface_Submit_Name, kFlags, 0, 0, nullptr);
@@ -293,10 +297,10 @@ bool SingularUkmInterfaceStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSingularUkmInterfaceValidationInfo[] = {
-    {&internal::SingularUkmInterface_Submit_Params_Data::Validate,
+    { &internal::SingularUkmInterface_Submit_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -376,14 +380,17 @@ void UkmRecorderClientInterfaceProxy::SetParameters(
                         "<value of type UkmRecorderParametersPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUkmRecorderClientInterface_SetParameters_Name, kFlags, 0, 0, nullptr);
@@ -462,10 +469,10 @@ bool UkmRecorderClientInterfaceStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kUkmRecorderClientInterfaceValidationInfo[] = {
-    {&internal::UkmRecorderClientInterface_SetParameters_Params_Data::Validate,
+    { &internal::UkmRecorderClientInterface_SetParameters_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -565,14 +572,17 @@ void UkmRecorderInterfaceProxy::AddEntry(
                         "<value of type UkmEntryPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUkmRecorderInterface_AddEntry_Name, kFlags, 0, 0, nullptr);
@@ -616,14 +626,17 @@ void UkmRecorderInterfaceProxy::UpdateSourceURL(
                         "<value of type const WTF::String&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUkmRecorderInterface_UpdateSourceURL_Name, kFlags, 0, 0, nullptr);
@@ -736,12 +749,12 @@ bool UkmRecorderInterfaceStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kUkmRecorderInterfaceValidationInfo[] = {
-    {&internal::UkmRecorderInterface_AddEntry_Params_Data::Validate,
+    { &internal::UkmRecorderInterface_AddEntry_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::UkmRecorderInterface_UpdateSourceURL_Params_Data::Validate,
+    { &internal::UkmRecorderInterface_UpdateSourceURL_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -824,14 +837,17 @@ void UkmRecorderFactoryProxy::CreateUkmRecorder(
                         "<value of type ::mojo::PendingRemote<UkmRecorderClientInterface>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUkmRecorderFactory_CreateUkmRecorder_Name, kFlags, 0, 0, nullptr);
@@ -915,10 +931,10 @@ bool UkmRecorderFactoryStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kUkmRecorderFactoryValidationInfo[] = {
-    {&internal::UkmRecorderFactory_CreateUkmRecorder_Params_Data::Validate,
+    { &internal::UkmRecorderFactory_CreateUkmRecorder_Params_Data::Validate,
      nullptr /* no response */},
 };
 

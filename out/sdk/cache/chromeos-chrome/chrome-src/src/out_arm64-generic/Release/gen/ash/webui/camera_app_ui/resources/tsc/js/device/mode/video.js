@@ -20,12 +20,12 @@ import * as sound from '../../sound.js';
 import * as state from '../../state.js';
 import * as toast from '../../toast.js';
 import { CanceledError, ErrorLevel, ErrorType, getVideoTrackSettings, LowStorageError, NoChunkError, NoFrameError, Resolution, VideoType, } from '../../type.js';
-import { getFpsRangeFromConstraints } from '../../util.js';
+import { getFpsRangeFromConstraints, sleep } from '../../util.js';
 import { WaitableEvent } from '../../waitable_event.js';
 import { StreamManager } from '../stream_manager.js';
 import { StreamManagerChrome } from '../stream_manager_chrome.js';
 import { ModeBase, ModeFactory } from './mode_base.js';
-import { GifRecordTime, RecordTime } from './record_time.js';
+import { RecordTime } from './record_time.js';
 /**
  * Maps from board name to its default encoding profile and bitrate multiplier.
  */
@@ -138,7 +138,7 @@ export class Video extends ModeBase {
         /**
          * Record-time for the elapsed recording time.
          */
-        this.recordTime = new RecordTime();
+        this.recordTime = new RecordTime(() => this.stop());
         /**
          * Record type of ongoing recording.
          */
@@ -160,6 +160,10 @@ export class Video extends ModeBase {
          */
         this.stopped = false;
         /**
+         * Callback to stop the loop of requesting video frames in the gif mode.
+         */
+        this.stopCapturingGifCallback = null;
+        /**
          * HTMLElement displaying warning about low storage.
          */
         this.lowStorageWarningNudge = dom.get('#nudge', HTMLDivElement);
@@ -170,7 +174,6 @@ export class Video extends ModeBase {
             const { width, height } = video.getVideoSettings();
             return new Resolution(width, height);
         })();
-        this.gifRecordTime = new GifRecordTime({ maxTime: MAX_GIF_DURATION_MS, onMaxTimeout: () => this.stop() });
     }
     async clear() {
         await this.stopCapture();
@@ -340,6 +343,9 @@ export class Video extends ModeBase {
     async playPauseEffect(toBePaused) {
         state.set(state.State.RECORDING_UI_PAUSED, toBePaused);
         await sound.play(toBePaused ? 'recordPause' : 'recordStart').result;
+        // TODO(b/223338160): A temporary workaround to avoid shutter sound being
+        // recorded.
+        await sleep(200);
     }
     /**
      * Resumes storage monitoring and returns if the recording can be resumed.
@@ -402,6 +408,9 @@ export class Video extends ModeBase {
             }
         }
         await sound.play('recordStart').result;
+        // TODO(b/223338160): A temporary workaround to avoid shutter sound being
+        // recorded.
+        await sleep(200);
         if (this.stopped) {
             throw new CanceledError('Recording stopped');
         }
@@ -415,26 +424,6 @@ export class Video extends ModeBase {
                     await StreamManager.getInstance().openCaptureStream(this.captureConstraints);
             }
         }
-        if (this.recordingImageCapture === null) {
-            this.recordingImageCapture = new CrosImageCapture(this.getVideoTrack());
-        }
-        let param = null;
-        try {
-            param = this.getEncoderParameters();
-            const mimeType = getVideoMimeType(param);
-            if (!MediaRecorder.isTypeSupported(mimeType)) {
-                throw new Error(`The preferred mimeType "${mimeType}" is not supported.`);
-            }
-            const option = { mimeType };
-            if (param !== null) {
-                option.videoBitsPerSecond = param.bitrate;
-            }
-            this.mediaRecorder = new MediaRecorder(this.getRecordingStream(), option);
-        }
-        catch (e) {
-            toast.show(I18nString.ERROR_MSG_RECORD_START_FAILED);
-            throw e;
-        }
         if (this.stopped) {
             throw new CanceledError('Recording stopped');
         }
@@ -444,7 +433,7 @@ export class Video extends ModeBase {
         state.set(state.State.ENABLE_GIF_RECORDING, this.recordingType === RecordType.GIF);
         if (this.recordingType === RecordType.GIF) {
             state.set(state.State.RECORDING, true);
-            this.gifRecordTime.start();
+            this.recordTime.start(MAX_GIF_DURATION_MS);
             let gifSaver = null;
             try {
                 gifSaver = await this.captureGif();
@@ -458,7 +447,7 @@ export class Video extends ModeBase {
             }
             finally {
                 state.set(state.State.RECORDING, false);
-                this.gifRecordTime.stop();
+                this.recordTime.stop();
             }
             const gifName = (new Filenamer()).newVideoName(VideoType.GIF);
             // TODO(b/191950622): Close capture stream before onGifCaptureDone()
@@ -467,10 +456,12 @@ export class Video extends ModeBase {
                     name: gifName,
                     gifSaver,
                     resolution: this.captureResolution,
-                    duration: this.gifRecordTime.inMilliseconds(),
+                    duration: this.recordTime.inMilliseconds(),
                 })];
         }
         else if (this.recordingType === RecordType.TIME_LAPSE) {
+            this.recordingImageCapture = new CrosImageCapture(this.getVideoTrack());
+            const param = this.getEncoderParameters();
             // TODO(b/279865370): Don't pause when the confirm dialog is shown.
             window.addEventListener('beforeunload', beforeUnloadListener);
             this.recordTime.start();
@@ -500,6 +491,24 @@ export class Video extends ModeBase {
                 })];
         }
         else {
+            this.recordingImageCapture = new CrosImageCapture(this.getVideoTrack());
+            try {
+                const param = this.getEncoderParameters();
+                const mimeType = getVideoMimeType(param);
+                if (!MediaRecorder.isTypeSupported(mimeType)) {
+                    throw new Error(`The preferred mimeType "${mimeType}" is not supported.`);
+                }
+                const option = { mimeType };
+                if (param !== null) {
+                    option.videoBitsPerSecond = param.bitrate;
+                }
+                this.mediaRecorder =
+                    new MediaRecorder(this.getRecordingStream(), option);
+            }
+            catch (e) {
+                toast.show(I18nString.ERROR_MSG_RECORD_START_FAILED);
+                throw e;
+            }
             this.recordTime.start();
             let videoSaver = null;
             const isVideoTooShort = () => this.recordTime.inMilliseconds() <
@@ -510,6 +519,7 @@ export class Video extends ModeBase {
                 }
                 finally {
                     this.recordTime.stop();
+                    this.mediaRecorder = null;
                     sound.play('recordEnd');
                     await this.snapshottingQueue.flush();
                 }
@@ -552,6 +562,9 @@ export class Video extends ModeBase {
             state.set(state.State.RECORDING, false);
             state.set(state.State.RECORDING_PAUSED, false);
             state.set(state.State.RECORDING_UI_PAUSED, false);
+            if (this.recordingType === RecordType.GIF) {
+                this.stopCapturingGifCallback?.();
+            }
         }
         else {
             sound.cancel('recordStart');
@@ -562,6 +575,7 @@ export class Video extends ModeBase {
                 window.removeEventListener('beforeunload', beforeUnloadListener);
             }
         }
+        this.recordingImageCapture = null;
     }
     /**
      * Starts recording gif animation and waits for stop recording event triggered
@@ -581,23 +595,21 @@ export class Video extends ModeBase {
         const gifSaver = await GifSaver.create(new Resolution(width, height));
         const canvas = new OffscreenCanvas(width, height);
         const context = assertInstanceof(canvas.getContext('2d', { willReadFrequently: true }), OffscreenCanvasRenderingContext2D);
-        if (videoTrack.readyState === 'ended') {
+        if (videoTrack.readyState === 'ended' ||
+            !state.get(state.State.RECORDING)) {
             throw new NoFrameError();
         }
         const frames = await new Promise((resolve) => {
             let encodedFrames = 0;
             let writtenFrames = 0;
-            let handle = 0;
-            function stopRecording() {
+            let handle;
+            const stopRecording = () => {
+                this.stopCapturingGifCallback = null;
                 video.cancelVideoFrameCallback(handle);
                 videoTrack.removeEventListener('ended', stopRecording);
                 resolve(writtenFrames);
-            }
+            };
             function updateCanvas() {
-                if (!state.get(state.State.RECORDING)) {
-                    stopRecording();
-                    return;
-                }
                 encodedFrames++;
                 if (encodedFrames % GRAB_GIF_FRAME_RATIO === 0) {
                     writtenFrames++;
@@ -607,6 +619,7 @@ export class Video extends ModeBase {
                 handle = video.requestVideoFrameCallback(updateCanvas);
             }
             videoTrack.addEventListener('ended', stopRecording);
+            this.stopCapturingGifCallback = stopRecording;
             handle = video.requestVideoFrameCallback(updateCanvas);
         });
         if (frames === 0) {
@@ -619,12 +632,14 @@ export class Video extends ModeBase {
      * recording time-lapse and waits for stop recording event.
      */
     async captureTimeLapse(param) {
-        const encoderConfig = getVideoEncoderConfig(param, this.captureResolution);
+        const { width, height } = getVideoTrackSettings(this.getVideoTrack());
+        const resolution = new Resolution(width, height);
+        const encoderConfig = getVideoEncoderConfig(param, resolution);
         // Creates a saver given the initial speed.
         const saver = await this.handler.createTimeLapseSaver({
             encoderConfig,
             fps: this.frameRate,
-            resolution: this.captureResolution,
+            resolution,
         }, TIME_LAPSE_INITIAL_SPEED);
         // Creates a frame reader from track processor.
         const track = this.getVideoTrack();

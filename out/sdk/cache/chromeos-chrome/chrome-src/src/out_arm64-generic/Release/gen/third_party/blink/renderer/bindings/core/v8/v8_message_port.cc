@@ -73,11 +73,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, MessagePort>::value,
     "MessagePort does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&MessagePort::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "MessagePort is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -90,10 +85,10 @@ BLINK_BINDINGS_TRACE_EVENT("MessagePort.onmessage.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MessagePort* blink_receiver = V8MessagePort::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onmessage();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MessagePort* blink_receiver = V8MessagePort::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onmessage();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -106,8 +101,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MessagePort* blink_receiver = V8MessagePort::ToWrappableUnsafe(v8_receiver);
+MessagePort* blink_receiver = V8MessagePort::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnmessage(event_handler);
 }
 
@@ -118,10 +114,10 @@ BLINK_BINDINGS_TRACE_EVENT("MessagePort.onmessageerror.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MessagePort* blink_receiver = V8MessagePort::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onmessageerror();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MessagePort* blink_receiver = V8MessagePort::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onmessageerror();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -134,9 +130,39 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MessagePort* blink_receiver = V8MessagePort::ToWrappableUnsafe(v8_receiver);
+MessagePort* blink_receiver = V8MessagePort::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnmessageerror(event_handler);
+}
+
+void OncloseAttributeGetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  
+RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_MessagePort_onclose_Getter");
+BLINK_BINDINGS_TRACE_EVENT("MessagePort.onclose.get");
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MessagePort* blink_receiver = V8MessagePort::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onclose();
+bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
+}
+
+void OncloseAttributeSetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  
+RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_MessagePort_onclose_Setter");
+BLINK_BINDINGS_TRACE_EVENT("MessagePort.onclose.set");
+
+v8::Local<v8::Value> v8_property_value = info[0];
+EventListener* event_handler = JSEventHandler::CreateOrNull(
+    v8_property_value,
+    JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MessagePort* blink_receiver = V8MessagePort::ToWrappableUnsafe(isolate, v8_receiver);
+blink_receiver->setOnclose(event_handler);
 }
 
 void CloseOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
@@ -156,7 +182,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8MessagePort_Close_Me
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MessagePort* blink_receiver = V8MessagePort::ToWrappableUnsafe(v8_receiver);
+MessagePort* blink_receiver = V8MessagePort::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->close();
 
 }
@@ -183,7 +209,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MessagePort* blink_receiver = V8MessagePort::ToWrappableUnsafe(v8_receiver);
+MessagePort* blink_receiver = V8MessagePort::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -224,7 +250,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MessagePort* blink_receiver = V8MessagePort::ToWrappableUnsafe(v8_receiver);
+MessagePort* blink_receiver = V8MessagePort::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -309,7 +335,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8MessagePort_Start_Me
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MessagePort* blink_receiver = V8MessagePort::ToWrappableUnsafe(v8_receiver);
+MessagePort* blink_receiver = V8MessagePort::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->start();
 
 }
@@ -337,6 +363,7 @@ bindings::SetupIDLInterfaceTemplate(isolate, wrapper_type_info, instance_object_
 v8::Local<v8::Template> instance_template = instance_object_template;
 v8::Local<v8::Template> prototype_template = prototype_object_template;
 InstallUnconditionalProperties(isolate, world, instance_template, prototype_template, interface_template);
+InstallContextIndependentProperties(isolate, world, instance_template, prototype_template, interface_template);
 }
 
 void V8MessagePort::InstallUnconditionalProperties(v8::Isolate* isolate, const DOMWrapperWorld& world, v8::Local<v8::Template> instance_template, v8::Local<v8::Template> prototype_template, v8::Local<v8::Template> interface_template) {
@@ -369,6 +396,24 @@ IDLMemberInstaller::InstallOperations(isolate, world, instance_template, prototy
 
 }
 
+void V8MessagePort::InstallContextIndependentProperties(v8::Isolate* isolate, const DOMWrapperWorld& world, v8::Local<v8::Template> instance_template, v8::Local<v8::Template> prototype_template, v8::Local<v8::Template> interface_template) {
+  using bindings::IDLMemberInstaller;
+
+if (RuntimeEnabledFeatures::MessagePortCloseEventEnabled()) {
+  static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
+{"onclose", OncloseAttributeGetCallback, OncloseAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
+};
+v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
+v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
+IDLMemberInstaller::InstallAttributes(isolate, world, instance_template, prototype_template, interface_template, signature, kAttributeTable);
+}
+
+
+
+
+
+
+}
 
 
 

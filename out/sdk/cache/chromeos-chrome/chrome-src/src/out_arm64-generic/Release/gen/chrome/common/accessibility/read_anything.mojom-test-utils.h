@@ -40,6 +40,7 @@ class  UntrustedPageHandlerInterceptorForTesting : public UntrustedPageHandler {
   void OnFontSizeChange(double font_size) override;
   void OnColorChange(Colors color) override;
   void OnSpeechRateChange(double rate) override;
+  void OnVoiceChange(const std::string& voice, const std::string& lang) override;
   void OnHighlightGranularityChanged(HighlightGranularity granularity) override;
   void OnLinkClicked(const ::ui::AXTreeID& target_tree_id, int32_t target_node_id) override;
   void OnSelectionChange(const ::ui::AXTreeID& target_tree_id, int32_t anchor_node_id, int32_t anchor_offset, int32_t focus_node_id, int32_t focus_offset) override;
@@ -67,7 +68,7 @@ class  UntrustedPageInterceptorForTesting : public UntrustedPage {
   void OnAXTreeDestroyed(const ::ui::AXTreeID& tree_id) override;
   void OnThemeChanged(ReadAnythingThemePtr new_theme) override;
   void SetDefaultLanguageCode(const std::string& code) override;
-  void OnSettingsRestoredFromPrefs(LineSpacing line_spacing, LetterSpacing letter_spacing, const std::string& font, double font_size, Colors color, double speech_rate, HighlightGranularity granularity) override;
+  void OnSettingsRestoredFromPrefs(LineSpacing line_spacing, LetterSpacing letter_spacing, const std::string& font, double font_size, Colors color, double speech_rate, ::base::Value::Dict voices, HighlightGranularity granularity) override;
   void ScreenAIServiceReady() override;
 };
 class  UntrustedPageAsyncWaiter {

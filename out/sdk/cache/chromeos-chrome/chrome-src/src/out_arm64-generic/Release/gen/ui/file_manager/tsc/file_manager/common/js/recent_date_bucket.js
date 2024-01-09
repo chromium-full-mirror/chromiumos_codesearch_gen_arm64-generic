@@ -5,13 +5,9 @@
  * @fileoverview Recent date bucket definition and util functions.
  */
 import { SearchRecency } from '../../externs/ts/state.js';
-import { util } from './util.js';
+import { getLocaleBasedWeekStart } from './translations.js';
 /**
  * Given a date and now date, return the date bucket it belongs to.
- *
- * @param {!Date|undefined} date
- * @param {!Date} now
- * @return {!chrome.fileManagerPrivate.RecentDateBucket}
  */
 export function getRecentDateBucket(date, now) {
     if (!date) {
@@ -28,7 +24,7 @@ export function getRecentDateBucket(date, now) {
         return chrome.fileManagerPrivate.RecentDateBucket.YESTERDAY;
     }
     const startOfThisWeek = new Date(startOfToday);
-    const localeBasedWeekStart = util.getLocaleBasedWeekStart();
+    const localeBasedWeekStart = getLocaleBasedWeekStart();
     const daysDiff = (startOfToday.getDay() - localeBasedWeekStart + 7) % 7;
     startOfThisWeek.setDate(startOfToday.getDate() - daysDiff);
     if (date >= startOfThisWeek) {
@@ -44,10 +40,6 @@ export function getRecentDateBucket(date, now) {
     }
     return chrome.fileManagerPrivate.RecentDateBucket.OLDER;
 }
-/**
- * @param {!chrome.fileManagerPrivate.RecentDateBucket} dateBucket
- * @return {!string}
- */
 export function getTranslationKeyForDateBucket(dateBucket) {
     /** @type {Map<chrome.fileManagerPrivate.RecentDateBucket, string>} */
     const DATE_BUCKET_TO_TRANSLATION_KEY_MAP = new Map([
@@ -76,8 +68,6 @@ export function getTranslationKeyForDateBucket(dateBucket) {
             'RECENT_TIME_HEADING_OLDER',
         ],
     ]);
-    // @ts-ignore: error TS2322: Type 'string | undefined' is not assignable to
-    // type 'string'.
     return DATE_BUCKET_TO_TRANSLATION_KEY_MAP.get(dateBucket);
 }
 /**
@@ -88,9 +78,7 @@ export function getTranslationKeyForDateBucket(dateBucket) {
  * many days are in the current month. For a year, it goes back by 365 days
  * since midnight, regardless if the current year is a leap year or not.
  *
- * @param {SearchRecency} recency
- * @param {!Date} now
- * @return {number} The earliest timestamp for the given recency option.
+ * @return The earliest timestamp for the given recency option.
  */
 export function getEarliestTimestamp(recency, now) {
     const midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate());

@@ -137,6 +137,23 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) WidgetInputHandlerHost_
 };
 static_assert(sizeof(WidgetInputHandlerHost_SetMouseCapture_Params_Data) == 16,
               "Bad sizeof(WidgetInputHandlerHost_SetMouseCapture_Params_Data)");
+class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) WidgetInputHandlerHost_SetAutoscrollSelectionActiveInMainFrame_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t autoscroll_selection : 1;
+  uint8_t padfinal_[7];
+
+ private:
+  friend class mojo::internal::MessageFragment<WidgetInputHandlerHost_SetAutoscrollSelectionActiveInMainFrame_Params_Data>;
+
+  WidgetInputHandlerHost_SetAutoscrollSelectionActiveInMainFrame_Params_Data();
+  ~WidgetInputHandlerHost_SetAutoscrollSelectionActiveInMainFrame_Params_Data() = delete;
+};
+static_assert(sizeof(WidgetInputHandlerHost_SetAutoscrollSelectionActiveInMainFrame_Params_Data) == 16,
+              "Bad sizeof(WidgetInputHandlerHost_SetAutoscrollSelectionActiveInMainFrame_Params_Data)");
 class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) WidgetInputHandlerHost_RequestMouseLock_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -921,7 +938,6 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) WidgetInputHandler_Disp
   mojo::internal::Pointer<::ui::mojom::internal::LatencyInfo_Data> updated_latency;
   mojo::internal::Pointer<internal::DidOverscrollParams_Data> overscroll;
   mojo::internal::Pointer<internal::TouchActionOptional_Data> touch_action;
-  mojo::internal::Pointer<internal::ScrollResultData_Data> scroll_result_data;
 
  private:
   friend class mojo::internal::MessageFragment<WidgetInputHandler_DispatchEvent_ResponseParams_Data>;
@@ -929,7 +945,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) WidgetInputHandler_Disp
   WidgetInputHandler_DispatchEvent_ResponseParams_Data();
   ~WidgetInputHandler_DispatchEvent_ResponseParams_Data() = delete;
 };
-static_assert(sizeof(WidgetInputHandler_DispatchEvent_ResponseParams_Data) == 48,
+static_assert(sizeof(WidgetInputHandler_DispatchEvent_ResponseParams_Data) == 40,
               "Bad sizeof(WidgetInputHandler_DispatchEvent_ResponseParams_Data)");
 class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) WidgetInputHandler_DispatchNonBlockingEvent_Params_Data {
  public:
@@ -1204,6 +1220,24 @@ class WidgetInputHandlerHost_SetMouseCapture_ParamsDataView {
   }
  private:
   internal::WidgetInputHandlerHost_SetMouseCapture_Params_Data* data_ = nullptr;
+};
+
+
+class WidgetInputHandlerHost_SetAutoscrollSelectionActiveInMainFrame_ParamsDataView {
+ public:
+  WidgetInputHandlerHost_SetAutoscrollSelectionActiveInMainFrame_ParamsDataView() = default;
+
+  WidgetInputHandlerHost_SetAutoscrollSelectionActiveInMainFrame_ParamsDataView(
+      internal::WidgetInputHandlerHost_SetAutoscrollSelectionActiveInMainFrame_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  bool autoscroll_selection() const {
+    return data_->autoscroll_selection;
+  }
+ private:
+  internal::WidgetInputHandlerHost_SetAutoscrollSelectionActiveInMainFrame_Params_Data* data_ = nullptr;
 };
 
 
@@ -2394,26 +2428,6 @@ static_assert(
     return mojo::internal::Deserialize<::blink::mojom::TouchActionOptionalDataView>(
         pointer, output, message_);
   }
-  inline void GetScrollResultDataDataView(
-      ScrollResultDataDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadScrollResultData(UserType* output) {
-    
-static_assert(
-    mojo::internal::IsValidUserTypeForOptionalValue<
-        ::blink::mojom::ScrollResultDataDataView, UserType>(),
-    "Attempting to read the optional `scroll_result_data` field into a type which "
-    "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
-    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
-    "SetToNull methods, or use `MaybeReadScrollResultData` instead "
-    "of `ReadScrollResultData if you're fine with null values being "
-    "silently ignored in this case.");
-    auto* pointer = data_->scroll_result_data.Get();
-    return mojo::internal::Deserialize<::blink::mojom::ScrollResultDataDataView>(
-        pointer, output, message_);
-  }
  private:
   internal::WidgetInputHandler_DispatchEvent_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -2568,6 +2582,8 @@ inline void WidgetInputHandlerHost_ImeCompositionRangeChanged_ParamsDataView::Ge
   auto pointer = data_->line_bounds.Get();
   *output = mojo::ArrayDataView<::gfx::mojom::RectDataView>(pointer, message_);
 }
+
+
 
 
 
@@ -2785,11 +2801,6 @@ inline void WidgetInputHandler_DispatchEvent_ResponseParamsDataView::GetTouchAct
     TouchActionOptionalDataView* output) {
   auto pointer = data_->touch_action.Get();
   *output = TouchActionOptionalDataView(pointer, message_);
-}
-inline void WidgetInputHandler_DispatchEvent_ResponseParamsDataView::GetScrollResultDataDataView(
-    ScrollResultDataDataView* output) {
-  auto pointer = data_->scroll_result_data.Get();
-  *output = ScrollResultDataDataView(pointer, message_);
 }
 
 

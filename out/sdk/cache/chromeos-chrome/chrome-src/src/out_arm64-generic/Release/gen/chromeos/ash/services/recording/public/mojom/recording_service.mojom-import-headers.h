@@ -12,6 +12,8 @@
 #include "mojo/public/mojom/base/big_string.mojom-import-headers.h"
 #include "mojo/public/mojom/base/file_path.mojom.h"
 #include "mojo/public/mojom/base/file_path.mojom-import-headers.h"
+#include "sandbox/policy/mojom/context.mojom.h"
+#include "sandbox/policy/mojom/context.mojom-import-headers.h"
 #include "sandbox/policy/mojom/sandbox.mojom.h"
 #include "sandbox/policy/mojom/sandbox.mojom-import-headers.h"
 #include "services/viz/privileged/mojom/compositing/frame_sink_video_capture.mojom.h"

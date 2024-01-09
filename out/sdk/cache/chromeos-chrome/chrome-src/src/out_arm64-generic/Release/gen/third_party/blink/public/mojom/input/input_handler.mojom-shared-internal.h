@@ -67,7 +67,6 @@ class DidOverscrollParams_Data;
 class TouchActionOptional_Data;
 class EditCommand_Data;
 class SelectAroundCaretResult_Data;
-class ScrollResultData_Data;
 
 struct SelectionGranularity_Data {
  public:
@@ -1206,54 +1205,6 @@ struct SelectAroundCaretResult_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     SelectAroundCaretResult_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
-class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) ScrollResultData_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::gfx::mojom::internal::PointF_Data> root_scroll_offset;
-
- private:
-  friend class mojo::internal::MessageFragment<ScrollResultData_Data>;
-
-  ScrollResultData_Data();
-  ~ScrollResultData_Data() = delete;
-};
-static_assert(sizeof(ScrollResultData_Data) == 16,
-              "Bad sizeof(ScrollResultData_Data)");
-// Used by ScrollResultData::WrapAsMessage to lazily serialize the struct.
-template <typename UserType, typename DataView>
-struct ScrollResultData_UnserializedMessageContext
-    : public mojo::internal::UnserializedMessageContext {
- public:
-  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
-
-  ScrollResultData_UnserializedMessageContext(
-    uint32_t message_name,
-    uint32_t message_flags,
-    UserType input)
-      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
-      , user_data_(std::move(input)) {}
-  ~ScrollResultData_UnserializedMessageContext() override = default;
-
-  UserType TakeData() {
-    return std::move(user_data_);
-  }
-
- private:
-  // mojo::internal::UnserializedMessageContext:
-  void Serialize(mojo::Message& message) override {
-    mojo::internal::MessageFragment<ScrollResultData_Data> fragment(message);
-    mojo::internal::Serialize<DataView>(user_data_, fragment);
-  }
-
-  UserType user_data_;
-};
-
-template <typename UserType, typename DataView>
-const mojo::internal::UnserializedMessageContext::Tag
-    ScrollResultData_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 
 #pragma pack(pop)
 

@@ -314,7 +314,7 @@ bool AutocompleteMatch_Data::Validate(
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->icon_url, 12, validation_context)) {
+          object->icon_url, 14, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& icon_url_validate_params =
@@ -325,7 +325,7 @@ bool AutocompleteMatch_Data::Validate(
   }
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->image_dominant_color, 13, validation_context)) {
+          object->image_dominant_color, 15, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& image_dominant_color_validate_params =
@@ -336,7 +336,7 @@ bool AutocompleteMatch_Data::Validate(
   }
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->image_url, 14, validation_context)) {
+          object->image_url, 16, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& image_url_validate_params =
@@ -347,7 +347,7 @@ bool AutocompleteMatch_Data::Validate(
   }
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->type, 17, validation_context)) {
+          object->type, 19, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& type_validate_params =
@@ -358,7 +358,7 @@ bool AutocompleteMatch_Data::Validate(
   }
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->remove_button_a11y_label, 18, validation_context)) {
+          object->remove_button_a11y_label, 20, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->remove_button_a11y_label, validation_context))

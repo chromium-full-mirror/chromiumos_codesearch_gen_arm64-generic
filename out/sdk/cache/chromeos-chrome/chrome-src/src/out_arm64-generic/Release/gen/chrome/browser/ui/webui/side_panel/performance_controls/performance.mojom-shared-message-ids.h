@@ -16,6 +16,8 @@ namespace internal {
 
 constexpr uint32_t kPerformancePageHandlerFactory_CreatePerformancePageHandler_Name = 0;
 constexpr uint32_t kPerformancePageHandler_ShowUI_Name = 0;
+constexpr uint32_t kBatterySaverCardHandlerFactory_CreateBatterySaverCardHandler_Name = 0;
+constexpr uint32_t kMemorySaverCardHandlerFactory_CreateMemorySaverCardHandler_Name = 0;
 
 }  // namespace internal
 

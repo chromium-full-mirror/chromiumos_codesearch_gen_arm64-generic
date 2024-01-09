@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -283,14 +284,17 @@ void DocumentCoordinationUnitProxy::SetNetworkAlmostIdle(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send performance_manager::mojom::DocumentCoordinationUnit::SetNetworkAlmostIdle");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDocumentCoordinationUnit_SetNetworkAlmostIdle_Name, kFlags, 0, 0, nullptr);
@@ -320,14 +324,17 @@ void DocumentCoordinationUnitProxy::SetLifecycleState(
                         "<value of type ::performance_manager::mojom::LifecycleState>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDocumentCoordinationUnit_SetLifecycleState_Name, kFlags, 0, 0, nullptr);
@@ -359,14 +366,17 @@ void DocumentCoordinationUnitProxy::SetHasNonEmptyBeforeUnload(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDocumentCoordinationUnit_SetHasNonEmptyBeforeUnload_Name, kFlags, 0, 0, nullptr);
@@ -390,14 +400,17 @@ void DocumentCoordinationUnitProxy::SetHadFormInteraction(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send performance_manager::mojom::DocumentCoordinationUnit::SetHadFormInteraction");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDocumentCoordinationUnit_SetHadFormInteraction_Name, kFlags, 0, 0, nullptr);
@@ -420,14 +433,17 @@ void DocumentCoordinationUnitProxy::SetHadUserEdits(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send performance_manager::mojom::DocumentCoordinationUnit::SetHadUserEdits");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDocumentCoordinationUnit_SetHadUserEdits_Name, kFlags, 0, 0, nullptr);
@@ -457,14 +473,17 @@ void DocumentCoordinationUnitProxy::SetIsAdFrame(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDocumentCoordinationUnit_SetIsAdFrame_Name, kFlags, 0, 0, nullptr);
@@ -488,14 +507,17 @@ void DocumentCoordinationUnitProxy::OnNonPersistentNotificationCreated(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send performance_manager::mojom::DocumentCoordinationUnit::OnNonPersistentNotificationCreated");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDocumentCoordinationUnit_OnNonPersistentNotificationCreated_Name, kFlags, 0, 0, nullptr);
@@ -525,14 +547,17 @@ void DocumentCoordinationUnitProxy::OnFirstContentfulPaint(
                         "<value of type ::base::TimeDelta>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDocumentCoordinationUnit_OnFirstContentfulPaint_Name, kFlags, 0, 0, nullptr);
@@ -573,14 +598,17 @@ void DocumentCoordinationUnitProxy::OnWebMemoryMeasurementRequested(
                         "<value of type ::performance_manager::mojom::WebMemoryMeasurement::Mode>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDocumentCoordinationUnit_OnWebMemoryMeasurementRequested_Name, kFlags, 0, 0, nullptr);
@@ -692,7 +720,8 @@ void DocumentCoordinationUnit_OnWebMemoryMeasurementRequested_ProxyToResponder::
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDocumentCoordinationUnit_OnWebMemoryMeasurementRequested_Name, kFlags, 0, 0, nullptr);
@@ -998,26 +1027,26 @@ std::move(p_mode), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDocumentCoordinationUnitValidationInfo[] = {
-    {&internal::DocumentCoordinationUnit_SetNetworkAlmostIdle_Params_Data::Validate,
+    { &internal::DocumentCoordinationUnit_SetNetworkAlmostIdle_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DocumentCoordinationUnit_SetLifecycleState_Params_Data::Validate,
+    { &internal::DocumentCoordinationUnit_SetLifecycleState_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DocumentCoordinationUnit_SetHasNonEmptyBeforeUnload_Params_Data::Validate,
+    { &internal::DocumentCoordinationUnit_SetHasNonEmptyBeforeUnload_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DocumentCoordinationUnit_SetHadFormInteraction_Params_Data::Validate,
+    { &internal::DocumentCoordinationUnit_SetHadFormInteraction_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DocumentCoordinationUnit_SetHadUserEdits_Params_Data::Validate,
+    { &internal::DocumentCoordinationUnit_SetHadUserEdits_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DocumentCoordinationUnit_SetIsAdFrame_Params_Data::Validate,
+    { &internal::DocumentCoordinationUnit_SetIsAdFrame_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DocumentCoordinationUnit_OnNonPersistentNotificationCreated_Params_Data::Validate,
+    { &internal::DocumentCoordinationUnit_OnNonPersistentNotificationCreated_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DocumentCoordinationUnit_OnFirstContentfulPaint_Params_Data::Validate,
+    { &internal::DocumentCoordinationUnit_OnFirstContentfulPaint_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DocumentCoordinationUnit_OnWebMemoryMeasurementRequested_Params_Data::Validate,
+    { &internal::DocumentCoordinationUnit_OnWebMemoryMeasurementRequested_Params_Data::Validate,
      &internal::DocumentCoordinationUnit_OnWebMemoryMeasurementRequested_ResponseParams_Data::Validate},
 };
 
@@ -1221,14 +1250,17 @@ void ProcessCoordinationUnitProxy::SetMainThreadTaskLoadIsLow(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProcessCoordinationUnit_SetMainThreadTaskLoadIsLow_Name, kFlags, 0, 0, nullptr);
@@ -1262,14 +1294,17 @@ void ProcessCoordinationUnitProxy::OnV8ContextCreated(
                         "<value of type ::performance_manager::mojom::IframeAttributionDataPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProcessCoordinationUnit_OnV8ContextCreated_Name, kFlags, 0, 0, nullptr);
@@ -1317,14 +1352,17 @@ void ProcessCoordinationUnitProxy::OnV8ContextDetached(
                         "<value of type const ::blink::V8ContextToken&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProcessCoordinationUnit_OnV8ContextDetached_Name, kFlags, 0, 0, nullptr);
@@ -1365,14 +1403,17 @@ void ProcessCoordinationUnitProxy::OnV8ContextDestroyed(
                         "<value of type const ::blink::V8ContextToken&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProcessCoordinationUnit_OnV8ContextDestroyed_Name, kFlags, 0, 0, nullptr);
@@ -1419,14 +1460,17 @@ void ProcessCoordinationUnitProxy::OnRemoteIframeAttached(
                         "<value of type ::performance_manager::mojom::IframeAttributionDataPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProcessCoordinationUnit_OnRemoteIframeAttached_Name, kFlags, 0, 0, nullptr);
@@ -1492,14 +1536,17 @@ void ProcessCoordinationUnitProxy::OnRemoteIframeDetached(
                         "<value of type const ::blink::RemoteFrameToken&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProcessCoordinationUnit_OnRemoteIframeDetached_Name, kFlags, 0, 0, nullptr);
@@ -1551,14 +1598,17 @@ void ProcessCoordinationUnitProxy::FireBackgroundTracingTrigger(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProcessCoordinationUnit_FireBackgroundTracingTrigger_Name, kFlags, 0, 0, nullptr);
@@ -1827,22 +1877,22 @@ bool ProcessCoordinationUnitStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kProcessCoordinationUnitValidationInfo[] = {
-    {&internal::ProcessCoordinationUnit_SetMainThreadTaskLoadIsLow_Params_Data::Validate,
+    { &internal::ProcessCoordinationUnit_SetMainThreadTaskLoadIsLow_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ProcessCoordinationUnit_OnV8ContextCreated_Params_Data::Validate,
+    { &internal::ProcessCoordinationUnit_OnV8ContextCreated_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ProcessCoordinationUnit_OnV8ContextDetached_Params_Data::Validate,
+    { &internal::ProcessCoordinationUnit_OnV8ContextDetached_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ProcessCoordinationUnit_OnV8ContextDestroyed_Params_Data::Validate,
+    { &internal::ProcessCoordinationUnit_OnV8ContextDestroyed_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ProcessCoordinationUnit_OnRemoteIframeAttached_Params_Data::Validate,
+    { &internal::ProcessCoordinationUnit_OnRemoteIframeAttached_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ProcessCoordinationUnit_OnRemoteIframeDetached_Params_Data::Validate,
+    { &internal::ProcessCoordinationUnit_OnRemoteIframeDetached_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ProcessCoordinationUnit_FireBackgroundTracingTrigger_Params_Data::Validate,
+    { &internal::ProcessCoordinationUnit_FireBackgroundTracingTrigger_Params_Data::Validate,
      nullptr /* no response */},
 };
 

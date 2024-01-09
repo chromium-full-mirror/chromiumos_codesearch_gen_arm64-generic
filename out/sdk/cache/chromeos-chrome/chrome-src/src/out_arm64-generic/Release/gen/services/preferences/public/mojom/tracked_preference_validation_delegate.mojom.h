@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/preferences/public/mojom/tracked_preference_validation_delegate.mojom-features.h"
 #include "services/preferences/public/mojom/tracked_preference_validation_delegate.mojom-shared.h"
 #include "services/preferences/public/mojom/tracked_preference_validation_delegate.mojom-forward.h"
 #include "mojo/public/mojom/base/values.mojom.h"
@@ -87,7 +88,7 @@ class TrackedPreferenceValidationDelegate
   virtual ~TrackedPreferenceValidationDelegate() = default;
 
   
-  virtual void OnAtomicPreferenceValidation(const std::string& pref_path, absl::optional<::base::Value> value, TrackedPreferenceValidationDelegate::ValueState value_state, TrackedPreferenceValidationDelegate::ValueState external_validation_value_state, bool is_personal) = 0;
+  virtual void OnAtomicPreferenceValidation(const std::string& pref_path, std::optional<::base::Value> value, TrackedPreferenceValidationDelegate::ValueState value_state, TrackedPreferenceValidationDelegate::ValueState external_validation_value_state, bool is_personal) = 0;
 
   
   virtual void OnSplitPreferenceValidation(const std::string& pref_path, const std::vector<std::string>& invalid_keys, const std::vector<std::string>& external_validation_invalid_keys, TrackedPreferenceValidationDelegate::ValueState value_state, TrackedPreferenceValidationDelegate::ValueState external_validation_value_state, bool is_personal) = 0;
@@ -102,7 +103,7 @@ class  TrackedPreferenceValidationDelegateProxy
 
   explicit TrackedPreferenceValidationDelegateProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void OnAtomicPreferenceValidation(const std::string& pref_path, absl::optional<::base::Value> value, TrackedPreferenceValidationDelegate::ValueState value_state, TrackedPreferenceValidationDelegate::ValueState external_validation_value_state, bool is_personal) final;
+  void OnAtomicPreferenceValidation(const std::string& pref_path, std::optional<::base::Value> value, TrackedPreferenceValidationDelegate::ValueState value_state, TrackedPreferenceValidationDelegate::ValueState external_validation_value_state, bool is_personal) final;
   
   void OnSplitPreferenceValidation(const std::string& pref_path, const std::vector<std::string>& invalid_keys, const std::vector<std::string>& external_validation_invalid_keys, TrackedPreferenceValidationDelegate::ValueState value_state, TrackedPreferenceValidationDelegate::ValueState external_validation_value_state, bool is_personal) final;
 

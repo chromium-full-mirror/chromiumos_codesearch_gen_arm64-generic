@@ -444,6 +444,32 @@ inline base::Value ToValue(const storage::AttributionReportingFilterDataEntry& v
 
 
 template <>
+struct FromValue<storage::AttributionReportingFilterConfig> {
+  static std::unique_ptr<storage::AttributionReportingFilterConfig> Parse(const base::Value& value, ErrorReporter* errors) {
+    return storage::AttributionReportingFilterConfig::Parse(value, errors);
+  }
+};
+
+template <>
+inline base::Value ToValue(const storage::AttributionReportingFilterConfig& value) {
+  return value.Serialize();
+}
+
+
+template <>
+struct FromValue<storage::AttributionReportingFilterPair> {
+  static std::unique_ptr<storage::AttributionReportingFilterPair> Parse(const base::Value& value, ErrorReporter* errors) {
+    return storage::AttributionReportingFilterPair::Parse(value, errors);
+  }
+};
+
+template <>
+inline base::Value ToValue(const storage::AttributionReportingFilterPair& value) {
+  return value.Serialize();
+}
+
+
+template <>
 struct FromValue<storage::AttributionReportingAggregationKeysEntry> {
   static std::unique_ptr<storage::AttributionReportingAggregationKeysEntry> Parse(const base::Value& value, ErrorReporter* errors) {
     return storage::AttributionReportingAggregationKeysEntry::Parse(value, errors);
@@ -465,6 +491,19 @@ struct FromValue<storage::AttributionReportingEventReportWindows> {
 
 template <>
 inline base::Value ToValue(const storage::AttributionReportingEventReportWindows& value) {
+  return value.Serialize();
+}
+
+
+template <>
+struct FromValue<storage::AttributionReportingTriggerSpec> {
+  static std::unique_ptr<storage::AttributionReportingTriggerSpec> Parse(const base::Value& value, ErrorReporter* errors) {
+    return storage::AttributionReportingTriggerSpec::Parse(value, errors);
+  }
+};
+
+template <>
+inline base::Value ToValue(const storage::AttributionReportingTriggerSpec& value) {
   return value.Serialize();
 }
 
@@ -571,6 +610,268 @@ inline base::Value ToValue(const storage::AttributionReportingSourceRegistration
       return base::Value("reportingOriginsPerSiteLimitReached");
     case storage::AttributionReportingSourceRegistrationResult::EXCEEDS_MAX_CHANNEL_CAPACITY:
       return base::Value("exceedsMaxChannelCapacity");
+  };
+  NOTREACHED();
+  return base::Value();
+}
+template <>
+struct FromValue<storage::AttributionReportingSourceRegistrationTimeConfig> {
+  static storage::AttributionReportingSourceRegistrationTimeConfig Parse(const base::Value& value, ErrorReporter* errors) {
+    if (!value.is_string()) {
+      errors->AddError("string enum value expected");
+      return storage::AttributionReportingSourceRegistrationTimeConfig::INCLUDE;
+    }
+    if (value.GetString() == "include")
+      return storage::AttributionReportingSourceRegistrationTimeConfig::INCLUDE;
+    if (value.GetString() == "exclude")
+      return storage::AttributionReportingSourceRegistrationTimeConfig::EXCLUDE;
+    errors->AddError("invalid enum value");
+    return storage::AttributionReportingSourceRegistrationTimeConfig::INCLUDE;
+  }
+};
+
+template <>
+inline base::Value ToValue(const storage::AttributionReportingSourceRegistrationTimeConfig& value) {
+  switch (value) {
+    case storage::AttributionReportingSourceRegistrationTimeConfig::INCLUDE:
+      return base::Value("include");
+    case storage::AttributionReportingSourceRegistrationTimeConfig::EXCLUDE:
+      return base::Value("exclude");
+  };
+  NOTREACHED();
+  return base::Value();
+}
+
+template <>
+struct FromValue<storage::AttributionReportingAggregatableValueEntry> {
+  static std::unique_ptr<storage::AttributionReportingAggregatableValueEntry> Parse(const base::Value& value, ErrorReporter* errors) {
+    return storage::AttributionReportingAggregatableValueEntry::Parse(value, errors);
+  }
+};
+
+template <>
+inline base::Value ToValue(const storage::AttributionReportingAggregatableValueEntry& value) {
+  return value.Serialize();
+}
+
+
+template <>
+struct FromValue<storage::AttributionReportingEventTriggerData> {
+  static std::unique_ptr<storage::AttributionReportingEventTriggerData> Parse(const base::Value& value, ErrorReporter* errors) {
+    return storage::AttributionReportingEventTriggerData::Parse(value, errors);
+  }
+};
+
+template <>
+inline base::Value ToValue(const storage::AttributionReportingEventTriggerData& value) {
+  return value.Serialize();
+}
+
+
+template <>
+struct FromValue<storage::AttributionReportingAggregatableTriggerData> {
+  static std::unique_ptr<storage::AttributionReportingAggregatableTriggerData> Parse(const base::Value& value, ErrorReporter* errors) {
+    return storage::AttributionReportingAggregatableTriggerData::Parse(value, errors);
+  }
+};
+
+template <>
+inline base::Value ToValue(const storage::AttributionReportingAggregatableTriggerData& value) {
+  return value.Serialize();
+}
+
+
+template <>
+struct FromValue<storage::AttributionReportingAggregatableDedupKey> {
+  static std::unique_ptr<storage::AttributionReportingAggregatableDedupKey> Parse(const base::Value& value, ErrorReporter* errors) {
+    return storage::AttributionReportingAggregatableDedupKey::Parse(value, errors);
+  }
+};
+
+template <>
+inline base::Value ToValue(const storage::AttributionReportingAggregatableDedupKey& value) {
+  return value.Serialize();
+}
+
+
+template <>
+struct FromValue<storage::AttributionReportingTriggerRegistration> {
+  static std::unique_ptr<storage::AttributionReportingTriggerRegistration> Parse(const base::Value& value, ErrorReporter* errors) {
+    return storage::AttributionReportingTriggerRegistration::Parse(value, errors);
+  }
+};
+
+template <>
+inline base::Value ToValue(const storage::AttributionReportingTriggerRegistration& value) {
+  return value.Serialize();
+}
+
+template <>
+struct FromValue<storage::AttributionReportingEventLevelResult> {
+  static storage::AttributionReportingEventLevelResult Parse(const base::Value& value, ErrorReporter* errors) {
+    if (!value.is_string()) {
+      errors->AddError("string enum value expected");
+      return storage::AttributionReportingEventLevelResult::SUCCESS;
+    }
+    if (value.GetString() == "success")
+      return storage::AttributionReportingEventLevelResult::SUCCESS;
+    if (value.GetString() == "successDroppedLowerPriority")
+      return storage::AttributionReportingEventLevelResult::SUCCESS_DROPPED_LOWER_PRIORITY;
+    if (value.GetString() == "internalError")
+      return storage::AttributionReportingEventLevelResult::INTERNAL_ERROR;
+    if (value.GetString() == "noCapacityForAttributionDestination")
+      return storage::AttributionReportingEventLevelResult::NO_CAPACITY_FOR_ATTRIBUTION_DESTINATION;
+    if (value.GetString() == "noMatchingSources")
+      return storage::AttributionReportingEventLevelResult::NO_MATCHING_SOURCES;
+    if (value.GetString() == "deduplicated")
+      return storage::AttributionReportingEventLevelResult::DEDUPLICATED;
+    if (value.GetString() == "excessiveAttributions")
+      return storage::AttributionReportingEventLevelResult::EXCESSIVE_ATTRIBUTIONS;
+    if (value.GetString() == "priorityTooLow")
+      return storage::AttributionReportingEventLevelResult::PRIORITY_TOO_LOW;
+    if (value.GetString() == "neverAttributedSource")
+      return storage::AttributionReportingEventLevelResult::NEVER_ATTRIBUTED_SOURCE;
+    if (value.GetString() == "excessiveReportingOrigins")
+      return storage::AttributionReportingEventLevelResult::EXCESSIVE_REPORTING_ORIGINS;
+    if (value.GetString() == "noMatchingSourceFilterData")
+      return storage::AttributionReportingEventLevelResult::NO_MATCHING_SOURCE_FILTER_DATA;
+    if (value.GetString() == "prohibitedByBrowserPolicy")
+      return storage::AttributionReportingEventLevelResult::PROHIBITED_BY_BROWSER_POLICY;
+    if (value.GetString() == "noMatchingConfigurations")
+      return storage::AttributionReportingEventLevelResult::NO_MATCHING_CONFIGURATIONS;
+    if (value.GetString() == "excessiveReports")
+      return storage::AttributionReportingEventLevelResult::EXCESSIVE_REPORTS;
+    if (value.GetString() == "falselyAttributedSource")
+      return storage::AttributionReportingEventLevelResult::FALSELY_ATTRIBUTED_SOURCE;
+    if (value.GetString() == "reportWindowPassed")
+      return storage::AttributionReportingEventLevelResult::REPORT_WINDOW_PASSED;
+    if (value.GetString() == "notRegistered")
+      return storage::AttributionReportingEventLevelResult::NOT_REGISTERED;
+    if (value.GetString() == "reportWindowNotStarted")
+      return storage::AttributionReportingEventLevelResult::REPORT_WINDOW_NOT_STARTED;
+    if (value.GetString() == "noMatchingTriggerData")
+      return storage::AttributionReportingEventLevelResult::NO_MATCHING_TRIGGER_DATA;
+    errors->AddError("invalid enum value");
+    return storage::AttributionReportingEventLevelResult::SUCCESS;
+  }
+};
+
+template <>
+inline base::Value ToValue(const storage::AttributionReportingEventLevelResult& value) {
+  switch (value) {
+    case storage::AttributionReportingEventLevelResult::SUCCESS:
+      return base::Value("success");
+    case storage::AttributionReportingEventLevelResult::SUCCESS_DROPPED_LOWER_PRIORITY:
+      return base::Value("successDroppedLowerPriority");
+    case storage::AttributionReportingEventLevelResult::INTERNAL_ERROR:
+      return base::Value("internalError");
+    case storage::AttributionReportingEventLevelResult::NO_CAPACITY_FOR_ATTRIBUTION_DESTINATION:
+      return base::Value("noCapacityForAttributionDestination");
+    case storage::AttributionReportingEventLevelResult::NO_MATCHING_SOURCES:
+      return base::Value("noMatchingSources");
+    case storage::AttributionReportingEventLevelResult::DEDUPLICATED:
+      return base::Value("deduplicated");
+    case storage::AttributionReportingEventLevelResult::EXCESSIVE_ATTRIBUTIONS:
+      return base::Value("excessiveAttributions");
+    case storage::AttributionReportingEventLevelResult::PRIORITY_TOO_LOW:
+      return base::Value("priorityTooLow");
+    case storage::AttributionReportingEventLevelResult::NEVER_ATTRIBUTED_SOURCE:
+      return base::Value("neverAttributedSource");
+    case storage::AttributionReportingEventLevelResult::EXCESSIVE_REPORTING_ORIGINS:
+      return base::Value("excessiveReportingOrigins");
+    case storage::AttributionReportingEventLevelResult::NO_MATCHING_SOURCE_FILTER_DATA:
+      return base::Value("noMatchingSourceFilterData");
+    case storage::AttributionReportingEventLevelResult::PROHIBITED_BY_BROWSER_POLICY:
+      return base::Value("prohibitedByBrowserPolicy");
+    case storage::AttributionReportingEventLevelResult::NO_MATCHING_CONFIGURATIONS:
+      return base::Value("noMatchingConfigurations");
+    case storage::AttributionReportingEventLevelResult::EXCESSIVE_REPORTS:
+      return base::Value("excessiveReports");
+    case storage::AttributionReportingEventLevelResult::FALSELY_ATTRIBUTED_SOURCE:
+      return base::Value("falselyAttributedSource");
+    case storage::AttributionReportingEventLevelResult::REPORT_WINDOW_PASSED:
+      return base::Value("reportWindowPassed");
+    case storage::AttributionReportingEventLevelResult::NOT_REGISTERED:
+      return base::Value("notRegistered");
+    case storage::AttributionReportingEventLevelResult::REPORT_WINDOW_NOT_STARTED:
+      return base::Value("reportWindowNotStarted");
+    case storage::AttributionReportingEventLevelResult::NO_MATCHING_TRIGGER_DATA:
+      return base::Value("noMatchingTriggerData");
+  };
+  NOTREACHED();
+  return base::Value();
+}
+template <>
+struct FromValue<storage::AttributionReportingAggregatableResult> {
+  static storage::AttributionReportingAggregatableResult Parse(const base::Value& value, ErrorReporter* errors) {
+    if (!value.is_string()) {
+      errors->AddError("string enum value expected");
+      return storage::AttributionReportingAggregatableResult::SUCCESS;
+    }
+    if (value.GetString() == "success")
+      return storage::AttributionReportingAggregatableResult::SUCCESS;
+    if (value.GetString() == "internalError")
+      return storage::AttributionReportingAggregatableResult::INTERNAL_ERROR;
+    if (value.GetString() == "noCapacityForAttributionDestination")
+      return storage::AttributionReportingAggregatableResult::NO_CAPACITY_FOR_ATTRIBUTION_DESTINATION;
+    if (value.GetString() == "noMatchingSources")
+      return storage::AttributionReportingAggregatableResult::NO_MATCHING_SOURCES;
+    if (value.GetString() == "excessiveAttributions")
+      return storage::AttributionReportingAggregatableResult::EXCESSIVE_ATTRIBUTIONS;
+    if (value.GetString() == "excessiveReportingOrigins")
+      return storage::AttributionReportingAggregatableResult::EXCESSIVE_REPORTING_ORIGINS;
+    if (value.GetString() == "noHistograms")
+      return storage::AttributionReportingAggregatableResult::NO_HISTOGRAMS;
+    if (value.GetString() == "insufficientBudget")
+      return storage::AttributionReportingAggregatableResult::INSUFFICIENT_BUDGET;
+    if (value.GetString() == "noMatchingSourceFilterData")
+      return storage::AttributionReportingAggregatableResult::NO_MATCHING_SOURCE_FILTER_DATA;
+    if (value.GetString() == "notRegistered")
+      return storage::AttributionReportingAggregatableResult::NOT_REGISTERED;
+    if (value.GetString() == "prohibitedByBrowserPolicy")
+      return storage::AttributionReportingAggregatableResult::PROHIBITED_BY_BROWSER_POLICY;
+    if (value.GetString() == "deduplicated")
+      return storage::AttributionReportingAggregatableResult::DEDUPLICATED;
+    if (value.GetString() == "reportWindowPassed")
+      return storage::AttributionReportingAggregatableResult::REPORT_WINDOW_PASSED;
+    if (value.GetString() == "excessiveReports")
+      return storage::AttributionReportingAggregatableResult::EXCESSIVE_REPORTS;
+    errors->AddError("invalid enum value");
+    return storage::AttributionReportingAggregatableResult::SUCCESS;
+  }
+};
+
+template <>
+inline base::Value ToValue(const storage::AttributionReportingAggregatableResult& value) {
+  switch (value) {
+    case storage::AttributionReportingAggregatableResult::SUCCESS:
+      return base::Value("success");
+    case storage::AttributionReportingAggregatableResult::INTERNAL_ERROR:
+      return base::Value("internalError");
+    case storage::AttributionReportingAggregatableResult::NO_CAPACITY_FOR_ATTRIBUTION_DESTINATION:
+      return base::Value("noCapacityForAttributionDestination");
+    case storage::AttributionReportingAggregatableResult::NO_MATCHING_SOURCES:
+      return base::Value("noMatchingSources");
+    case storage::AttributionReportingAggregatableResult::EXCESSIVE_ATTRIBUTIONS:
+      return base::Value("excessiveAttributions");
+    case storage::AttributionReportingAggregatableResult::EXCESSIVE_REPORTING_ORIGINS:
+      return base::Value("excessiveReportingOrigins");
+    case storage::AttributionReportingAggregatableResult::NO_HISTOGRAMS:
+      return base::Value("noHistograms");
+    case storage::AttributionReportingAggregatableResult::INSUFFICIENT_BUDGET:
+      return base::Value("insufficientBudget");
+    case storage::AttributionReportingAggregatableResult::NO_MATCHING_SOURCE_FILTER_DATA:
+      return base::Value("noMatchingSourceFilterData");
+    case storage::AttributionReportingAggregatableResult::NOT_REGISTERED:
+      return base::Value("notRegistered");
+    case storage::AttributionReportingAggregatableResult::PROHIBITED_BY_BROWSER_POLICY:
+      return base::Value("prohibitedByBrowserPolicy");
+    case storage::AttributionReportingAggregatableResult::DEDUPLICATED:
+      return base::Value("deduplicated");
+    case storage::AttributionReportingAggregatableResult::REPORT_WINDOW_PASSED:
+      return base::Value("reportWindowPassed");
+    case storage::AttributionReportingAggregatableResult::EXCESSIVE_REPORTS:
+      return base::Value("excessiveReports");
   };
   NOTREACHED();
   return base::Value();
@@ -1521,6 +1822,19 @@ struct FromValue<storage::AttributionReportingSourceRegisteredParams> {
 
 template <>
 inline base::Value ToValue(const storage::AttributionReportingSourceRegisteredParams& value) {
+  return value.Serialize();
+}
+
+
+template <>
+struct FromValue<storage::AttributionReportingTriggerRegisteredParams> {
+  static std::unique_ptr<storage::AttributionReportingTriggerRegisteredParams> Parse(const base::Value& value, ErrorReporter* errors) {
+    return storage::AttributionReportingTriggerRegisteredParams::Parse(value, errors);
+  }
+};
+
+template <>
+inline base::Value ToValue(const storage::AttributionReportingTriggerRegisteredParams& value) {
   return value.Serialize();
 }
 

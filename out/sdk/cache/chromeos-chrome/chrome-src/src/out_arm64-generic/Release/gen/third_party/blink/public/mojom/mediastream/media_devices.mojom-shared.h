@@ -101,22 +101,6 @@ inline bool IsKnownEnumValue(MediaDeviceType value) {
 }
 
 
-enum class SubCaptureTargetType : int32_t {
-  
-  kCropTarget = 0,
-  
-  kRestrictionTarget = 1,
-  kMinValue = 0,
-  kMaxValue = 1,
-};
-
-COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) std::ostream& operator<<(std::ostream& os, SubCaptureTargetType value);
-inline bool IsKnownEnumValue(SubCaptureTargetType value) {
-  return internal::SubCaptureTargetType_Data::IsKnownValue(
-      static_cast<int32_t>(value));
-}
-
-
 enum class FacingMode : int32_t {
   
   kNone = 0,
@@ -200,6 +184,43 @@ class MediaDeviceInfoDataView {
     return mojo::internal::Deserialize<mojo::StringDataView>(
         pointer, output, message_);
   }
+  inline void GetControlSupportDataView(
+      ::media::mojom::VideoCaptureControlSupportDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadControlSupport(UserType* output) {
+    
+    auto* pointer = data_->control_support.Get();
+    return mojo::internal::Deserialize<::media::mojom::VideoCaptureControlSupportDataView>(
+        pointer, output, message_);
+  }
+  template <typename UserType>
+  [[nodiscard]] bool ReadFacingMode(UserType* output) const {
+    auto data_value = data_->facing_mode;
+    return mojo::internal::Deserialize<::blink::mojom::FacingMode>(
+        data_value, output);
+  }
+  FacingMode facing_mode() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::blink::mojom::FacingMode>(data_->facing_mode));
+  }
+  template <typename UserType>
+  [[nodiscard]] bool ReadAvailability(UserType* output) const {
+    if (!data_->availability_$flag) {
+      *output = absl::nullopt;
+      return true;
+    }
+
+    return mojo::internal::Deserialize<::media::mojom::CameraAvailability>(
+        data_->availability_$value, &output->emplace());
+  }
+  std::optional<::media::mojom::CameraAvailability> availability() const {
+    if (!data_->availability_$flag) {
+      return absl::nullopt;
+    }
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::media::mojom::CameraAvailability>(data_->availability_$value));
+  }
  private:
   internal::MediaDeviceInfo_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -265,6 +286,23 @@ class VideoInputDeviceCapabilitiesDataView {
   FacingMode facing_mode() const {
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::blink::mojom::FacingMode>(data_->facing_mode));
+  }
+  template <typename UserType>
+  [[nodiscard]] bool ReadAvailability(UserType* output) const {
+    if (!data_->availability_$flag) {
+      *output = absl::nullopt;
+      return true;
+    }
+
+    return mojo::internal::Deserialize<::media::mojom::CameraAvailability>(
+        data_->availability_$value, &output->emplace());
+  }
+  std::optional<::media::mojom::CameraAvailability> availability() const {
+    if (!data_->availability_$flag) {
+      return absl::nullopt;
+    }
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::media::mojom::CameraAvailability>(data_->availability_$value));
   }
  private:
   internal::VideoInputDeviceCapabilities_Data* data_ = nullptr;
@@ -346,10 +384,6 @@ struct hash<::blink::mojom::MediaDeviceType>
     : public mojo::internal::EnumHashImpl<::blink::mojom::MediaDeviceType> {};
 
 template <>
-struct hash<::blink::mojom::SubCaptureTargetType>
-    : public mojo::internal::EnumHashImpl<::blink::mojom::SubCaptureTargetType> {};
-
-template <>
 struct hash<::blink::mojom::FacingMode>
     : public mojo::internal::EnumHashImpl<::blink::mojom::FacingMode> {};
 
@@ -372,26 +406,6 @@ struct Serializer<::blink::mojom::MediaDeviceType, MaybeConstUserType> {
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
         static_cast<::blink::mojom::MediaDeviceType>(input)), output);
-  }
-};
-
-}  // namespace internal
-
-
-namespace internal {
-
-template <typename MaybeConstUserType>
-struct Serializer<::blink::mojom::SubCaptureTargetType, MaybeConstUserType> {
-  using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = EnumTraits<::blink::mojom::SubCaptureTargetType, UserType>;
-
-  static void Serialize(UserType input, int32_t* output) {
-    *output = static_cast<int32_t>(Traits::ToMojom(input));
-  }
-
-  static bool Deserialize(int32_t input, UserType* output) {
-    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
-        static_cast<::blink::mojom::SubCaptureTargetType>(input)), output);
   }
 };
 
@@ -467,6 +481,28 @@ struct Serializer<::blink::mojom::MediaDeviceInfoDataView, MaybeConstUserType> {
         fragment->group_id.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null group_id in MediaDeviceInfo struct");
+    decltype(Traits::control_support(input)) in_control_support = Traits::control_support(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->control_support)::BaseType> control_support_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::media::mojom::VideoCaptureControlSupportDataView>(
+        in_control_support, control_support_fragment);
+    fragment->control_support.Set(
+        control_support_fragment.is_null() ? nullptr : control_support_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->control_support.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null control_support in MediaDeviceInfo struct");
+    mojo::internal::Serialize<::blink::mojom::FacingMode>(
+        Traits::facing_mode(input), &fragment->facing_mode);
+    fragment->availability_$flag = Traits::availability(input).has_value();
+    if (Traits::availability(input).has_value()) {
+      mojo::internal::Serialize<::media::mojom::CameraAvailability>(
+          Traits::availability(input).value(), &fragment->availability_$value);
+    } else {
+      fragment->availability_$value =
+          static_cast<int32_t>(::media::mojom::CameraAvailability::kMinValue);
+    }
   }
 
   static bool Deserialize(::blink::mojom::internal::MediaDeviceInfo_Data* input,
@@ -548,6 +584,14 @@ struct Serializer<::blink::mojom::VideoInputDeviceCapabilitiesDataView, MaybeCon
         "null formats in VideoInputDeviceCapabilities struct");
     mojo::internal::Serialize<::blink::mojom::FacingMode>(
         Traits::facing_mode(input), &fragment->facing_mode);
+    fragment->availability_$flag = Traits::availability(input).has_value();
+    if (Traits::availability(input).has_value()) {
+      mojo::internal::Serialize<::media::mojom::CameraAvailability>(
+          Traits::availability(input).value(), &fragment->availability_$value);
+    } else {
+      fragment->availability_$value =
+          static_cast<int32_t>(::media::mojom::CameraAvailability::kMinValue);
+    }
   }
 
   static bool Deserialize(::blink::mojom::internal::VideoInputDeviceCapabilities_Data* input,
@@ -663,6 +707,11 @@ inline void MediaDeviceInfoDataView::GetGroupIdDataView(
   auto pointer = data_->group_id.Get();
   *output = mojo::StringDataView(pointer, message_);
 }
+inline void MediaDeviceInfoDataView::GetControlSupportDataView(
+    ::media::mojom::VideoCaptureControlSupportDataView* output) {
+  auto pointer = data_->control_support.Get();
+  *output = ::media::mojom::VideoCaptureControlSupportDataView(pointer, message_);
+}
 
 
 inline void VideoInputDeviceCapabilitiesDataView::GetDeviceIdDataView(
@@ -720,15 +769,6 @@ namespace perfetto {
 template <>
 struct COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) TraceFormatTraits<::blink::mojom::MediaDeviceType> {
  static void WriteIntoTrace(perfetto::TracedValue context, ::blink::mojom::MediaDeviceType value);
-};
-
-} // namespace perfetto
-
-namespace perfetto {
-
-template <>
-struct COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) TraceFormatTraits<::blink::mojom::SubCaptureTargetType> {
- static void WriteIntoTrace(perfetto::TracedValue context, ::blink::mojom::SubCaptureTargetType value);
 };
 
 } // namespace perfetto

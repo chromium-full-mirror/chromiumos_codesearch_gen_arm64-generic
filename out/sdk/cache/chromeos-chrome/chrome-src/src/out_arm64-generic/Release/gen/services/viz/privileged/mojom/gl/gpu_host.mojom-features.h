@@ -8,6 +8,7 @@
 #define SERVICES_VIZ_PRIVILEGED_MOJOM_GL_GPU_HOST_MOJOM_FEATURES_H_
 
 #include "base/feature_list.h"
+#include "mojo/public/cpp/bindings/runtime_features.h"
 
 
 

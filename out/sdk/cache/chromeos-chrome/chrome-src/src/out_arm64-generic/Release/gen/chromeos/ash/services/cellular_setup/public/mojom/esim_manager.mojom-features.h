@@ -8,6 +8,7 @@
 #define CHROMEOS_ASH_SERVICES_CELLULAR_SETUP_PUBLIC_MOJOM_ESIM_MANAGER_MOJOM_FEATURES_H_
 
 #include "base/feature_list.h"
+#include "mojo/public/cpp/bindings/runtime_features.h"
 
 
 

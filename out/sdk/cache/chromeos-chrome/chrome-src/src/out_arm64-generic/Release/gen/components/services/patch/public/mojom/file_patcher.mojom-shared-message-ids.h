@@ -14,9 +14,7 @@ namespace patch::mojom {
 namespace internal {
 
 
-constexpr uint32_t kFilePatcher_PatchFileBsdiff_Name = 0;
-constexpr uint32_t kFilePatcher_PatchFileCourgette_Name = 1;
-constexpr uint32_t kFilePatcher_PatchFilePuffPatch_Name = 2;
+constexpr uint32_t kFilePatcher_PatchFilePuffPatch_Name = 0;
 
 }  // namespace internal
 

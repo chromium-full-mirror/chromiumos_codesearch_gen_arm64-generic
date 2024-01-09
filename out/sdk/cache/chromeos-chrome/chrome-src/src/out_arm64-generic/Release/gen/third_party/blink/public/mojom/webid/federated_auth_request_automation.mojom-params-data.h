@@ -150,22 +150,24 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) FederatedAuthRequestAut
 };
 static_assert(sizeof(FederatedAuthRequestAutomation_DismissFedCmDialog_ResponseParams_Data) == 16,
               "Bad sizeof(FederatedAuthRequestAutomation_DismissFedCmDialog_ResponseParams_Data)");
-class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) FederatedAuthRequestAutomation_ConfirmIdpLogin_Params_Data {
+class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) FederatedAuthRequestAutomation_ClickFedCmDialogButton_Params_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
+  int32_t dialog_button;
+  uint8_t padfinal_[4];
 
  private:
-  friend class mojo::internal::MessageFragment<FederatedAuthRequestAutomation_ConfirmIdpLogin_Params_Data>;
+  friend class mojo::internal::MessageFragment<FederatedAuthRequestAutomation_ClickFedCmDialogButton_Params_Data>;
 
-  FederatedAuthRequestAutomation_ConfirmIdpLogin_Params_Data();
-  ~FederatedAuthRequestAutomation_ConfirmIdpLogin_Params_Data() = delete;
+  FederatedAuthRequestAutomation_ClickFedCmDialogButton_Params_Data();
+  ~FederatedAuthRequestAutomation_ClickFedCmDialogButton_Params_Data() = delete;
 };
-static_assert(sizeof(FederatedAuthRequestAutomation_ConfirmIdpLogin_Params_Data) == 8,
-              "Bad sizeof(FederatedAuthRequestAutomation_ConfirmIdpLogin_Params_Data)");
-class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) FederatedAuthRequestAutomation_ConfirmIdpLogin_ResponseParams_Data {
+static_assert(sizeof(FederatedAuthRequestAutomation_ClickFedCmDialogButton_Params_Data) == 16,
+              "Bad sizeof(FederatedAuthRequestAutomation_ClickFedCmDialogButton_Params_Data)");
+class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) FederatedAuthRequestAutomation_ClickFedCmDialogButton_ResponseParams_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
@@ -175,13 +177,13 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) FederatedAuthRequestAut
   uint8_t padfinal_[7];
 
  private:
-  friend class mojo::internal::MessageFragment<FederatedAuthRequestAutomation_ConfirmIdpLogin_ResponseParams_Data>;
+  friend class mojo::internal::MessageFragment<FederatedAuthRequestAutomation_ClickFedCmDialogButton_ResponseParams_Data>;
 
-  FederatedAuthRequestAutomation_ConfirmIdpLogin_ResponseParams_Data();
-  ~FederatedAuthRequestAutomation_ConfirmIdpLogin_ResponseParams_Data() = delete;
+  FederatedAuthRequestAutomation_ClickFedCmDialogButton_ResponseParams_Data();
+  ~FederatedAuthRequestAutomation_ClickFedCmDialogButton_ResponseParams_Data() = delete;
 };
-static_assert(sizeof(FederatedAuthRequestAutomation_ConfirmIdpLogin_ResponseParams_Data) == 16,
-              "Bad sizeof(FederatedAuthRequestAutomation_ConfirmIdpLogin_ResponseParams_Data)");
+static_assert(sizeof(FederatedAuthRequestAutomation_ClickFedCmDialogButton_ResponseParams_Data) == 16,
+              "Bad sizeof(FederatedAuthRequestAutomation_ClickFedCmDialogButton_ResponseParams_Data)");
 
 }  // namespace internal
 
@@ -357,27 +359,37 @@ class FederatedAuthRequestAutomation_DismissFedCmDialog_ResponseParamsDataView {
 };
 
 
-class FederatedAuthRequestAutomation_ConfirmIdpLogin_ParamsDataView {
+class FederatedAuthRequestAutomation_ClickFedCmDialogButton_ParamsDataView {
  public:
-  FederatedAuthRequestAutomation_ConfirmIdpLogin_ParamsDataView() = default;
+  FederatedAuthRequestAutomation_ClickFedCmDialogButton_ParamsDataView() = default;
 
-  FederatedAuthRequestAutomation_ConfirmIdpLogin_ParamsDataView(
-      internal::FederatedAuthRequestAutomation_ConfirmIdpLogin_Params_Data* data,
+  FederatedAuthRequestAutomation_ClickFedCmDialogButton_ParamsDataView(
+      internal::FederatedAuthRequestAutomation_ClickFedCmDialogButton_Params_Data* data,
       mojo::Message* message)
       : data_(data) {}
 
   bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadDialogButton(UserType* output) const {
+    auto data_value = data_->dialog_button;
+    return mojo::internal::Deserialize<::blink::test::mojom::DialogButton>(
+        data_value, output);
+  }
+  DialogButton dialog_button() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::blink::test::mojom::DialogButton>(data_->dialog_button));
+  }
  private:
-  internal::FederatedAuthRequestAutomation_ConfirmIdpLogin_Params_Data* data_ = nullptr;
+  internal::FederatedAuthRequestAutomation_ClickFedCmDialogButton_Params_Data* data_ = nullptr;
 };
 
 
-class FederatedAuthRequestAutomation_ConfirmIdpLogin_ResponseParamsDataView {
+class FederatedAuthRequestAutomation_ClickFedCmDialogButton_ResponseParamsDataView {
  public:
-  FederatedAuthRequestAutomation_ConfirmIdpLogin_ResponseParamsDataView() = default;
+  FederatedAuthRequestAutomation_ClickFedCmDialogButton_ResponseParamsDataView() = default;
 
-  FederatedAuthRequestAutomation_ConfirmIdpLogin_ResponseParamsDataView(
-      internal::FederatedAuthRequestAutomation_ConfirmIdpLogin_ResponseParams_Data* data,
+  FederatedAuthRequestAutomation_ClickFedCmDialogButton_ResponseParamsDataView(
+      internal::FederatedAuthRequestAutomation_ClickFedCmDialogButton_ResponseParams_Data* data,
       mojo::Message* message)
       : data_(data) {}
 
@@ -386,7 +398,7 @@ class FederatedAuthRequestAutomation_ConfirmIdpLogin_ResponseParamsDataView {
     return data_->success;
   }
  private:
-  internal::FederatedAuthRequestAutomation_ConfirmIdpLogin_ResponseParams_Data* data_ = nullptr;
+  internal::FederatedAuthRequestAutomation_ClickFedCmDialogButton_ResponseParams_Data* data_ = nullptr;
 };
 
 

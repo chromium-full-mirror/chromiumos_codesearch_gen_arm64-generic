@@ -8,7 +8,7 @@ export const MethodTypeSpec = { $: mojo.internal.Enum() };
 export var MethodType;
 (function (MethodType) {
     MethodType[MethodType["MIN_VALUE"] = 1] = "MIN_VALUE";
-    MethodType[MethodType["MAX_VALUE"] = 34] = "MAX_VALUE";
+    MethodType[MethodType["MAX_VALUE"] = 35] = "MAX_VALUE";
     MethodType[MethodType["kOnPromoAction"] = 1] = "kOnPromoAction";
     MethodType[MethodType["kOnRegionSearchClicked"] = 2] = "kOnRegionSearchClicked";
     MethodType[MethodType["kOnExpsOptInStatusAvailable"] = 3] = "kOnExpsOptInStatusAvailable";
@@ -21,10 +21,12 @@ export var MethodType;
     MethodType[MethodType["kOpenUrlInBrowser"] = 10] = "kOpenUrlInBrowser";
     MethodType[MethodType["kCompanionLoadingState"] = 11] = "kCompanionLoadingState";
     MethodType[MethodType["kRefreshCompanionPage"] = 12] = "kRefreshCompanionPage";
+    MethodType[MethodType["kServerSideUrlFilterEvent"] = 13] = "kServerSideUrlFilterEvent";
     MethodType[MethodType["kUpdateCompanionPage"] = 31] = "kUpdateCompanionPage";
     MethodType[MethodType["kOnCqFindTextResultsAvailable"] = 32] = "kOnCqFindTextResultsAvailable";
     MethodType[MethodType["kOnDeviceVisualClassificationResult"] = 33] = "kOnDeviceVisualClassificationResult";
     MethodType[MethodType["kNotifyLinkOpen"] = 34] = "kNotifyLinkOpen";
+    MethodType[MethodType["kUpdatePageContent"] = 35] = "kUpdatePageContent";
 })(MethodType || (MethodType = {}));
 export const PromoTypeSpec = { $: mojo.internal.Enum() };
 export var PromoType;
@@ -83,6 +85,7 @@ export var UiSurface;
     UiSurface[UiSurface["kPHResult"] = 10] = "kPHResult";
 })(UiSurface || (UiSurface = {}));
 export class CompanionPageHandlerFactoryPendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -91,6 +94,9 @@ export class CompanionPageHandlerFactoryPendingReceiver {
     }
 }
 export class CompanionPageHandlerFactoryRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(CompanionPageHandlerFactoryPendingReceiver, handle);
@@ -111,6 +117,9 @@ export class CompanionPageHandlerFactoryRemote {
  * interface.
  */
 export class CompanionPageHandlerFactoryReceiver {
+    helper_internal_;
+    $;
+    onConnectionError;
     constructor(impl) {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(CompanionPageHandlerFactoryRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -140,6 +149,11 @@ export class CompanionPageHandlerFactory {
  * receiver can have any number of listeners added to it.
  */
 export class CompanionPageHandlerFactoryCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    createCompanionPageHandler;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(CompanionPageHandlerFactoryRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -158,6 +172,7 @@ export class CompanionPageHandlerFactoryCallbackRouter {
     }
 }
 export class CompanionPageHandlerPendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -166,6 +181,9 @@ export class CompanionPageHandlerPendingReceiver {
     }
 }
 export class CompanionPageHandlerRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(CompanionPageHandlerPendingReceiver, handle);
@@ -237,6 +255,9 @@ export class CompanionPageHandlerRemote {
     refreshCompanionPage() {
         this.proxy.sendMessage(12, CompanionPageHandler_RefreshCompanionPage_ParamsSpec.$, null, []);
     }
+    onServerSideUrlFilterEvent() {
+        this.proxy.sendMessage(13, CompanionPageHandler_OnServerSideUrlFilterEvent_ParamsSpec.$, null, []);
+    }
 }
 ;
 /**
@@ -245,6 +266,9 @@ export class CompanionPageHandlerRemote {
  * interface.
  */
 export class CompanionPageHandlerReceiver {
+    helper_internal_;
+    $;
+    onConnectionError;
     constructor(impl) {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(CompanionPageHandlerRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -261,6 +285,7 @@ export class CompanionPageHandlerReceiver {
         this.helper_internal_.registerHandler(10, CompanionPageHandler_OpenUrlInBrowser_ParamsSpec.$, null, impl.openUrlInBrowser.bind(impl));
         this.helper_internal_.registerHandler(11, CompanionPageHandler_OnLoadingState_ParamsSpec.$, null, impl.onLoadingState.bind(impl));
         this.helper_internal_.registerHandler(12, CompanionPageHandler_RefreshCompanionPage_ParamsSpec.$, null, impl.refreshCompanionPage.bind(impl));
+        this.helper_internal_.registerHandler(13, CompanionPageHandler_OnServerSideUrlFilterEvent_ParamsSpec.$, null, impl.onServerSideUrlFilterEvent.bind(impl));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
 }
@@ -286,6 +311,24 @@ export class CompanionPageHandler {
  * receiver can have any number of listeners added to it.
  */
 export class CompanionPageHandlerCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    showUI;
+    onPromoAction;
+    onRegionSearchClicked;
+    onExpsOptInStatusAvailable;
+    onOpenInNewTabButtonURLChanged;
+    recordUiSurfaceShown;
+    recordUiSurfaceClicked;
+    onCqCandidatesAvailable;
+    onPhFeedback;
+    onCqJumptagClicked;
+    openUrlInBrowser;
+    onLoadingState;
+    refreshCompanionPage;
+    onServerSideUrlFilterEvent;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(CompanionPageHandlerRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -329,6 +372,9 @@ export class CompanionPageHandlerCallbackRouter {
         this.refreshCompanionPage =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
         this.helper_internal_.registerHandler(12, CompanionPageHandler_RefreshCompanionPage_ParamsSpec.$, null, this.refreshCompanionPage.createReceiverHandler(false /* expectsResponse */));
+        this.onServerSideUrlFilterEvent =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(13, CompanionPageHandler_OnServerSideUrlFilterEvent_ParamsSpec.$, null, this.onServerSideUrlFilterEvent.createReceiverHandler(false /* expectsResponse */));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
     /**
@@ -340,6 +386,7 @@ export class CompanionPageHandlerCallbackRouter {
     }
 }
 export class CompanionPagePendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -348,6 +395,9 @@ export class CompanionPagePendingReceiver {
     }
 }
 export class CompanionPageRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(CompanionPagePendingReceiver, handle);
@@ -389,6 +439,12 @@ export class CompanionPageRemote {
             metadata
         ]);
     }
+    updatePageContent(pageTitle, innerHtml) {
+        this.proxy.sendMessage(7, CompanionPage_UpdatePageContent_ParamsSpec.$, null, [
+            pageTitle,
+            innerHtml
+        ]);
+    }
 }
 ;
 /**
@@ -397,6 +453,9 @@ export class CompanionPageRemote {
  * interface.
  */
 export class CompanionPageReceiver {
+    helper_internal_;
+    $;
+    onConnectionError;
     constructor(impl) {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(CompanionPageRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -407,6 +466,7 @@ export class CompanionPageReceiver {
         this.helper_internal_.registerHandler(4, CompanionPage_OnDeviceVisualClassificationResult_ParamsSpec.$, null, impl.onDeviceVisualClassificationResult.bind(impl));
         this.helper_internal_.registerHandler(5, CompanionPage_OnNavigationError_ParamsSpec.$, null, impl.onNavigationError.bind(impl));
         this.helper_internal_.registerHandler(6, CompanionPage_NotifyLinkOpen_ParamsSpec.$, null, impl.notifyLinkOpen.bind(impl));
+        this.helper_internal_.registerHandler(7, CompanionPage_UpdatePageContent_ParamsSpec.$, null, impl.updatePageContent.bind(impl));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
 }
@@ -432,6 +492,18 @@ export class CompanionPage {
  * receiver can have any number of listeners added to it.
  */
 export class CompanionPageCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    loadCompanionPage;
+    updateCompanionPage;
+    onImageQuery;
+    onCqFindTextResultsAvailable;
+    onDeviceVisualClassificationResult;
+    onNavigationError;
+    notifyLinkOpen;
+    updatePageContent;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(CompanionPageRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -457,6 +529,9 @@ export class CompanionPageCallbackRouter {
         this.notifyLinkOpen =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
         this.helper_internal_.registerHandler(6, CompanionPage_NotifyLinkOpen_ParamsSpec.$, null, this.notifyLinkOpen.createReceiverHandler(false /* expectsResponse */));
+        this.updatePageContent =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(7, CompanionPage_UpdatePageContent_ParamsSpec.$, null, this.updatePageContent.createReceiverHandler(false /* expectsResponse */));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
     /**
@@ -484,6 +559,7 @@ export const CompanionPageHandler_OnCqJumptagClicked_ParamsSpec = { $: {} };
 export const CompanionPageHandler_OpenUrlInBrowser_ParamsSpec = { $: {} };
 export const CompanionPageHandler_OnLoadingState_ParamsSpec = { $: {} };
 export const CompanionPageHandler_RefreshCompanionPage_ParamsSpec = { $: {} };
+export const CompanionPageHandler_OnServerSideUrlFilterEvent_ParamsSpec = { $: {} };
 export const CompanionPage_LoadCompanionPage_ParamsSpec = { $: {} };
 export const CompanionPage_UpdateCompanionPage_ParamsSpec = { $: {} };
 export const CompanionPage_OnImageQuery_ParamsSpec = { $: {} };
@@ -491,6 +567,7 @@ export const CompanionPage_OnCqFindTextResultsAvailable_ParamsSpec = { $: {} };
 export const CompanionPage_OnDeviceVisualClassificationResult_ParamsSpec = { $: {} };
 export const CompanionPage_OnNavigationError_ParamsSpec = { $: {} };
 export const CompanionPage_NotifyLinkOpen_ParamsSpec = { $: {} };
+export const CompanionPage_UpdatePageContent_ParamsSpec = { $: {} };
 mojo.internal.Struct(ImageQuerySpec.$, 'ImageQuery', [
     mojo.internal.StructField('uploadUrl', 0, 0, url_mojom_UrlSpec.$, null, false /* nullable */, 0),
     mojo.internal.StructField('imageUrl', 8, 0, url_mojom_UrlSpec.$, null, false /* nullable */, 0),
@@ -561,6 +638,7 @@ mojo.internal.Struct(CompanionPageHandler_OnLoadingState_ParamsSpec.$, 'Companio
     mojo.internal.StructField('state', 0, 0, LoadingStateSpec.$, 0, false /* nullable */, 0),
 ], [[0, 16],]);
 mojo.internal.Struct(CompanionPageHandler_RefreshCompanionPage_ParamsSpec.$, 'CompanionPageHandler_RefreshCompanionPage_Params', [], [[0, 8],]);
+mojo.internal.Struct(CompanionPageHandler_OnServerSideUrlFilterEvent_ParamsSpec.$, 'CompanionPageHandler_OnServerSideUrlFilterEvent_Params', [], [[0, 8],]);
 mojo.internal.Struct(CompanionPage_LoadCompanionPage_ParamsSpec.$, 'CompanionPage_LoadCompanionPage_Params', [
     mojo.internal.StructField('newUrl', 0, 0, url_mojom_UrlSpec.$, null, false /* nullable */, 0),
 ], [[0, 16],]);
@@ -581,4 +659,8 @@ mojo.internal.Struct(CompanionPage_OnNavigationError_ParamsSpec.$, 'CompanionPag
 mojo.internal.Struct(CompanionPage_NotifyLinkOpen_ParamsSpec.$, 'CompanionPage_NotifyLinkOpen_Params', [
     mojo.internal.StructField('openedUrl', 0, 0, url_mojom_UrlSpec.$, null, false /* nullable */, 0),
     mojo.internal.StructField('metadata', 8, 0, LinkOpenMetadataSpec.$, null, false /* nullable */, 0),
+], [[0, 24],]);
+mojo.internal.Struct(CompanionPage_UpdatePageContent_ParamsSpec.$, 'CompanionPage_UpdatePageContent_Params', [
+    mojo.internal.StructField('pageTitle', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
+    mojo.internal.StructField('innerHtml', 8, 0, mojo.internal.String, null, false /* nullable */, 0),
 ], [[0, 24],]);

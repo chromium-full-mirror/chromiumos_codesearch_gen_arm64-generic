@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "media/capture/mojom/video_capture.mojom-features.h"
 #include "media/capture/mojom/video_capture.mojom-shared.h"
 #include "media/capture/mojom/video_capture.mojom-blink-forward.h"
 #include "media/capture/mojom/video_capture_buffer.mojom-blink-forward.h"
@@ -41,18 +42,6 @@
 #include "third_party/blink/public/platform/web_common.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::media::mojom::VideoCaptureState>
-    : EnumHashTraits<::media::mojom::VideoCaptureState, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace media::mojom::blink {
@@ -416,17 +405,17 @@ class BLINK_PLATFORM_EXPORT VideoCaptureResult {
   // Construct an instance holding |state|.
   static VideoCaptureResultPtr
   NewState(
-      VideoCaptureState state) {
+      VideoCaptureState value) {
     auto result = VideoCaptureResultPtr(absl::in_place);
-    result->set_state(std::move(state));
+    result->set_state(std::move(value));
     return result;
   }
   // Construct an instance holding |error_code|.
   static VideoCaptureResultPtr
   NewErrorCode(
-      ::media::VideoCaptureError error_code) {
+      ::media::VideoCaptureError value) {
     auto result = VideoCaptureResultPtr(absl::in_place);
-    result->set_error_code(std::move(error_code));
+    result->set_error_code(std::move(value));
     return result;
   }
 

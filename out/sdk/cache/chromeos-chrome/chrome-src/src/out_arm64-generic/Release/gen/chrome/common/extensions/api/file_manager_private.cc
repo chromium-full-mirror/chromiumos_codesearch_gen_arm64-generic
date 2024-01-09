@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/extensions/api/file_manager_private.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -36,35 +37,35 @@ namespace file_manager_private {
 
 const char* ToString(VolumeType enum_param) {
   switch (enum_param) {
-    case VOLUME_TYPE_DRIVE:
+    case VolumeType::kDrive:
       return "drive";
-    case VOLUME_TYPE_DOWNLOADS:
+    case VolumeType::kDownloads:
       return "downloads";
-    case VOLUME_TYPE_REMOVABLE:
+    case VolumeType::kRemovable:
       return "removable";
-    case VOLUME_TYPE_ARCHIVE:
+    case VolumeType::kArchive:
       return "archive";
-    case VOLUME_TYPE_PROVIDED:
+    case VolumeType::kProvided:
       return "provided";
-    case VOLUME_TYPE_MTP:
+    case VolumeType::kMtp:
       return "mtp";
-    case VOLUME_TYPE_MEDIA_VIEW:
+    case VolumeType::kMediaView:
       return "media_view";
-    case VOLUME_TYPE_CROSTINI:
+    case VolumeType::kCrostini:
       return "crostini";
-    case VOLUME_TYPE_ANDROID_FILES:
+    case VolumeType::kAndroidFiles:
       return "android_files";
-    case VOLUME_TYPE_DOCUMENTS_PROVIDER:
+    case VolumeType::kDocumentsProvider:
       return "documents_provider";
-    case VOLUME_TYPE_TESTING:
+    case VolumeType::kTesting:
       return "testing";
-    case VOLUME_TYPE_SMB:
+    case VolumeType::kSmb:
       return "smb";
-    case VOLUME_TYPE_SYSTEM_INTERNAL:
+    case VolumeType::kSystemInternal:
       return "system_internal";
-    case VOLUME_TYPE_GUEST_OS:
+    case VolumeType::kGuestOs:
       return "guest_os";
-    case VOLUME_TYPE_NONE:
+    case VolumeType::kNone:
       return "";
   }
   NOTREACHED();
@@ -73,34 +74,34 @@ const char* ToString(VolumeType enum_param) {
 
 VolumeType ParseVolumeType(base::StringPiece enum_string) {
   if (enum_string == "drive")
-    return VOLUME_TYPE_DRIVE;
+    return VolumeType::kDrive;
   if (enum_string == "downloads")
-    return VOLUME_TYPE_DOWNLOADS;
+    return VolumeType::kDownloads;
   if (enum_string == "removable")
-    return VOLUME_TYPE_REMOVABLE;
+    return VolumeType::kRemovable;
   if (enum_string == "archive")
-    return VOLUME_TYPE_ARCHIVE;
+    return VolumeType::kArchive;
   if (enum_string == "provided")
-    return VOLUME_TYPE_PROVIDED;
+    return VolumeType::kProvided;
   if (enum_string == "mtp")
-    return VOLUME_TYPE_MTP;
+    return VolumeType::kMtp;
   if (enum_string == "media_view")
-    return VOLUME_TYPE_MEDIA_VIEW;
+    return VolumeType::kMediaView;
   if (enum_string == "crostini")
-    return VOLUME_TYPE_CROSTINI;
+    return VolumeType::kCrostini;
   if (enum_string == "android_files")
-    return VOLUME_TYPE_ANDROID_FILES;
+    return VolumeType::kAndroidFiles;
   if (enum_string == "documents_provider")
-    return VOLUME_TYPE_DOCUMENTS_PROVIDER;
+    return VolumeType::kDocumentsProvider;
   if (enum_string == "testing")
-    return VOLUME_TYPE_TESTING;
+    return VolumeType::kTesting;
   if (enum_string == "smb")
-    return VOLUME_TYPE_SMB;
+    return VolumeType::kSmb;
   if (enum_string == "system_internal")
-    return VOLUME_TYPE_SYSTEM_INTERNAL;
+    return VolumeType::kSystemInternal;
   if (enum_string == "guest_os")
-    return VOLUME_TYPE_GUEST_OS;
-  return VOLUME_TYPE_NONE;
+    return VolumeType::kGuestOs;
+  return VolumeType::kNone;
 }
 
 std::u16string GetVolumeTypeParseError(base::StringPiece enum_string) {
@@ -110,17 +111,17 @@ std::u16string GetVolumeTypeParseError(base::StringPiece enum_string) {
 
 const char* ToString(DeviceType enum_param) {
   switch (enum_param) {
-    case DEVICE_TYPE_USB:
+    case DeviceType::kUsb:
       return "usb";
-    case DEVICE_TYPE_SD:
+    case DeviceType::kSd:
       return "sd";
-    case DEVICE_TYPE_OPTICAL:
+    case DeviceType::kOptical:
       return "optical";
-    case DEVICE_TYPE_MOBILE:
+    case DeviceType::kMobile:
       return "mobile";
-    case DEVICE_TYPE_UNKNOWN:
+    case DeviceType::kUnknown:
       return "unknown";
-    case DEVICE_TYPE_NONE:
+    case DeviceType::kNone:
       return "";
   }
   NOTREACHED();
@@ -129,16 +130,16 @@ const char* ToString(DeviceType enum_param) {
 
 DeviceType ParseDeviceType(base::StringPiece enum_string) {
   if (enum_string == "usb")
-    return DEVICE_TYPE_USB;
+    return DeviceType::kUsb;
   if (enum_string == "sd")
-    return DEVICE_TYPE_SD;
+    return DeviceType::kSd;
   if (enum_string == "optical")
-    return DEVICE_TYPE_OPTICAL;
+    return DeviceType::kOptical;
   if (enum_string == "mobile")
-    return DEVICE_TYPE_MOBILE;
+    return DeviceType::kMobile;
   if (enum_string == "unknown")
-    return DEVICE_TYPE_UNKNOWN;
-  return DEVICE_TYPE_NONE;
+    return DeviceType::kUnknown;
+  return DeviceType::kNone;
 }
 
 std::u16string GetDeviceTypeParseError(base::StringPiece enum_string) {
@@ -148,11 +149,11 @@ std::u16string GetDeviceTypeParseError(base::StringPiece enum_string) {
 
 const char* ToString(DeviceConnectionState enum_param) {
   switch (enum_param) {
-    case DEVICE_CONNECTION_STATE_OFFLINE:
+    case DeviceConnectionState::kOffline:
       return "OFFLINE";
-    case DEVICE_CONNECTION_STATE_ONLINE:
+    case DeviceConnectionState::kOnline:
       return "ONLINE";
-    case DEVICE_CONNECTION_STATE_NONE:
+    case DeviceConnectionState::kNone:
       return "";
   }
   NOTREACHED();
@@ -161,10 +162,10 @@ const char* ToString(DeviceConnectionState enum_param) {
 
 DeviceConnectionState ParseDeviceConnectionState(base::StringPiece enum_string) {
   if (enum_string == "OFFLINE")
-    return DEVICE_CONNECTION_STATE_OFFLINE;
+    return DeviceConnectionState::kOffline;
   if (enum_string == "ONLINE")
-    return DEVICE_CONNECTION_STATE_ONLINE;
-  return DEVICE_CONNECTION_STATE_NONE;
+    return DeviceConnectionState::kOnline;
+  return DeviceConnectionState::kNone;
 }
 
 std::u16string GetDeviceConnectionStateParseError(base::StringPiece enum_string) {
@@ -174,13 +175,13 @@ std::u16string GetDeviceConnectionStateParseError(base::StringPiece enum_string)
 
 const char* ToString(DriveConnectionStateType enum_param) {
   switch (enum_param) {
-    case DRIVE_CONNECTION_STATE_TYPE_OFFLINE:
+    case DriveConnectionStateType::kOffline:
       return "OFFLINE";
-    case DRIVE_CONNECTION_STATE_TYPE_METERED:
+    case DriveConnectionStateType::kMetered:
       return "METERED";
-    case DRIVE_CONNECTION_STATE_TYPE_ONLINE:
+    case DriveConnectionStateType::kOnline:
       return "ONLINE";
-    case DRIVE_CONNECTION_STATE_TYPE_NONE:
+    case DriveConnectionStateType::kNone:
       return "";
   }
   NOTREACHED();
@@ -189,12 +190,12 @@ const char* ToString(DriveConnectionStateType enum_param) {
 
 DriveConnectionStateType ParseDriveConnectionStateType(base::StringPiece enum_string) {
   if (enum_string == "OFFLINE")
-    return DRIVE_CONNECTION_STATE_TYPE_OFFLINE;
+    return DriveConnectionStateType::kOffline;
   if (enum_string == "METERED")
-    return DRIVE_CONNECTION_STATE_TYPE_METERED;
+    return DriveConnectionStateType::kMetered;
   if (enum_string == "ONLINE")
-    return DRIVE_CONNECTION_STATE_TYPE_ONLINE;
-  return DRIVE_CONNECTION_STATE_TYPE_NONE;
+    return DriveConnectionStateType::kOnline;
+  return DriveConnectionStateType::kNone;
 }
 
 std::u16string GetDriveConnectionStateTypeParseError(base::StringPiece enum_string) {
@@ -204,13 +205,13 @@ std::u16string GetDriveConnectionStateTypeParseError(base::StringPiece enum_stri
 
 const char* ToString(DriveOfflineReason enum_param) {
   switch (enum_param) {
-    case DRIVE_OFFLINE_REASON_NOT_READY:
+    case DriveOfflineReason::kNotReady:
       return "NOT_READY";
-    case DRIVE_OFFLINE_REASON_NO_NETWORK:
+    case DriveOfflineReason::kNoNetwork:
       return "NO_NETWORK";
-    case DRIVE_OFFLINE_REASON_NO_SERVICE:
+    case DriveOfflineReason::kNoService:
       return "NO_SERVICE";
-    case DRIVE_OFFLINE_REASON_NONE:
+    case DriveOfflineReason::kNone:
       return "";
   }
   NOTREACHED();
@@ -219,12 +220,12 @@ const char* ToString(DriveOfflineReason enum_param) {
 
 DriveOfflineReason ParseDriveOfflineReason(base::StringPiece enum_string) {
   if (enum_string == "NOT_READY")
-    return DRIVE_OFFLINE_REASON_NOT_READY;
+    return DriveOfflineReason::kNotReady;
   if (enum_string == "NO_NETWORK")
-    return DRIVE_OFFLINE_REASON_NO_NETWORK;
+    return DriveOfflineReason::kNoNetwork;
   if (enum_string == "NO_SERVICE")
-    return DRIVE_OFFLINE_REASON_NO_SERVICE;
-  return DRIVE_OFFLINE_REASON_NONE;
+    return DriveOfflineReason::kNoService;
+  return DriveOfflineReason::kNone;
 }
 
 std::u16string GetDriveOfflineReasonParseError(base::StringPiece enum_string) {
@@ -234,11 +235,11 @@ std::u16string GetDriveOfflineReasonParseError(base::StringPiece enum_string) {
 
 const char* ToString(MountContext enum_param) {
   switch (enum_param) {
-    case MOUNT_CONTEXT_USER:
+    case MountContext::kUser:
       return "user";
-    case MOUNT_CONTEXT_AUTO:
+    case MountContext::kAuto:
       return "auto";
-    case MOUNT_CONTEXT_NONE:
+    case MountContext::kNone:
       return "";
   }
   NOTREACHED();
@@ -247,10 +248,10 @@ const char* ToString(MountContext enum_param) {
 
 MountContext ParseMountContext(base::StringPiece enum_string) {
   if (enum_string == "user")
-    return MOUNT_CONTEXT_USER;
+    return MountContext::kUser;
   if (enum_string == "auto")
-    return MOUNT_CONTEXT_AUTO;
-  return MOUNT_CONTEXT_NONE;
+    return MountContext::kAuto;
+  return MountContext::kNone;
 }
 
 std::u16string GetMountContextParseError(base::StringPiece enum_string) {
@@ -260,11 +261,11 @@ std::u16string GetMountContextParseError(base::StringPiece enum_string) {
 
 const char* ToString(MountCompletedEventType enum_param) {
   switch (enum_param) {
-    case MOUNT_COMPLETED_EVENT_TYPE_MOUNT:
+    case MountCompletedEventType::kMount:
       return "mount";
-    case MOUNT_COMPLETED_EVENT_TYPE_UNMOUNT:
+    case MountCompletedEventType::kUnmount:
       return "unmount";
-    case MOUNT_COMPLETED_EVENT_TYPE_NONE:
+    case MountCompletedEventType::kNone:
       return "";
   }
   NOTREACHED();
@@ -273,10 +274,10 @@ const char* ToString(MountCompletedEventType enum_param) {
 
 MountCompletedEventType ParseMountCompletedEventType(base::StringPiece enum_string) {
   if (enum_string == "mount")
-    return MOUNT_COMPLETED_EVENT_TYPE_MOUNT;
+    return MountCompletedEventType::kMount;
   if (enum_string == "unmount")
-    return MOUNT_COMPLETED_EVENT_TYPE_UNMOUNT;
-  return MOUNT_COMPLETED_EVENT_TYPE_NONE;
+    return MountCompletedEventType::kUnmount;
+  return MountCompletedEventType::kNone;
 }
 
 std::u16string GetMountCompletedEventTypeParseError(base::StringPiece enum_string) {
@@ -286,45 +287,45 @@ std::u16string GetMountCompletedEventTypeParseError(base::StringPiece enum_strin
 
 const char* ToString(MountError enum_param) {
   switch (enum_param) {
-    case MOUNT_ERROR_SUCCESS:
+    case MountError::kSuccess:
       return "success";
-    case MOUNT_ERROR_IN_PROGRESS:
+    case MountError::kInProgress:
       return "in_progress";
-    case MOUNT_ERROR_UNKNOWN_ERROR:
+    case MountError::kUnknownError:
       return "unknown_error";
-    case MOUNT_ERROR_INTERNAL_ERROR:
+    case MountError::kInternalError:
       return "internal_error";
-    case MOUNT_ERROR_INVALID_ARGUMENT:
+    case MountError::kInvalidArgument:
       return "invalid_argument";
-    case MOUNT_ERROR_INVALID_PATH:
+    case MountError::kInvalidPath:
       return "invalid_path";
-    case MOUNT_ERROR_PATH_ALREADY_MOUNTED:
+    case MountError::kPathAlreadyMounted:
       return "path_already_mounted";
-    case MOUNT_ERROR_PATH_NOT_MOUNTED:
+    case MountError::kPathNotMounted:
       return "path_not_mounted";
-    case MOUNT_ERROR_DIRECTORY_CREATION_FAILED:
+    case MountError::kDirectoryCreationFailed:
       return "directory_creation_failed";
-    case MOUNT_ERROR_INVALID_MOUNT_OPTIONS:
+    case MountError::kInvalidMountOptions:
       return "invalid_mount_options";
-    case MOUNT_ERROR_INSUFFICIENT_PERMISSIONS:
+    case MountError::kInsufficientPermissions:
       return "insufficient_permissions";
-    case MOUNT_ERROR_MOUNT_PROGRAM_NOT_FOUND:
+    case MountError::kMountProgramNotFound:
       return "mount_program_not_found";
-    case MOUNT_ERROR_MOUNT_PROGRAM_FAILED:
+    case MountError::kMountProgramFailed:
       return "mount_program_failed";
-    case MOUNT_ERROR_INVALID_DEVICE_PATH:
+    case MountError::kInvalidDevicePath:
       return "invalid_device_path";
-    case MOUNT_ERROR_UNKNOWN_FILESYSTEM:
+    case MountError::kUnknownFilesystem:
       return "unknown_filesystem";
-    case MOUNT_ERROR_UNSUPPORTED_FILESYSTEM:
+    case MountError::kUnsupportedFilesystem:
       return "unsupported_filesystem";
-    case MOUNT_ERROR_NEED_PASSWORD:
+    case MountError::kNeedPassword:
       return "need_password";
-    case MOUNT_ERROR_CANCELLED:
+    case MountError::kCancelled:
       return "cancelled";
-    case MOUNT_ERROR_BUSY:
+    case MountError::kBusy:
       return "busy";
-    case MOUNT_ERROR_NONE:
+    case MountError::kNone:
       return "";
   }
   NOTREACHED();
@@ -333,44 +334,44 @@ const char* ToString(MountError enum_param) {
 
 MountError ParseMountError(base::StringPiece enum_string) {
   if (enum_string == "success")
-    return MOUNT_ERROR_SUCCESS;
+    return MountError::kSuccess;
   if (enum_string == "in_progress")
-    return MOUNT_ERROR_IN_PROGRESS;
+    return MountError::kInProgress;
   if (enum_string == "unknown_error")
-    return MOUNT_ERROR_UNKNOWN_ERROR;
+    return MountError::kUnknownError;
   if (enum_string == "internal_error")
-    return MOUNT_ERROR_INTERNAL_ERROR;
+    return MountError::kInternalError;
   if (enum_string == "invalid_argument")
-    return MOUNT_ERROR_INVALID_ARGUMENT;
+    return MountError::kInvalidArgument;
   if (enum_string == "invalid_path")
-    return MOUNT_ERROR_INVALID_PATH;
+    return MountError::kInvalidPath;
   if (enum_string == "path_already_mounted")
-    return MOUNT_ERROR_PATH_ALREADY_MOUNTED;
+    return MountError::kPathAlreadyMounted;
   if (enum_string == "path_not_mounted")
-    return MOUNT_ERROR_PATH_NOT_MOUNTED;
+    return MountError::kPathNotMounted;
   if (enum_string == "directory_creation_failed")
-    return MOUNT_ERROR_DIRECTORY_CREATION_FAILED;
+    return MountError::kDirectoryCreationFailed;
   if (enum_string == "invalid_mount_options")
-    return MOUNT_ERROR_INVALID_MOUNT_OPTIONS;
+    return MountError::kInvalidMountOptions;
   if (enum_string == "insufficient_permissions")
-    return MOUNT_ERROR_INSUFFICIENT_PERMISSIONS;
+    return MountError::kInsufficientPermissions;
   if (enum_string == "mount_program_not_found")
-    return MOUNT_ERROR_MOUNT_PROGRAM_NOT_FOUND;
+    return MountError::kMountProgramNotFound;
   if (enum_string == "mount_program_failed")
-    return MOUNT_ERROR_MOUNT_PROGRAM_FAILED;
+    return MountError::kMountProgramFailed;
   if (enum_string == "invalid_device_path")
-    return MOUNT_ERROR_INVALID_DEVICE_PATH;
+    return MountError::kInvalidDevicePath;
   if (enum_string == "unknown_filesystem")
-    return MOUNT_ERROR_UNKNOWN_FILESYSTEM;
+    return MountError::kUnknownFilesystem;
   if (enum_string == "unsupported_filesystem")
-    return MOUNT_ERROR_UNSUPPORTED_FILESYSTEM;
+    return MountError::kUnsupportedFilesystem;
   if (enum_string == "need_password")
-    return MOUNT_ERROR_NEED_PASSWORD;
+    return MountError::kNeedPassword;
   if (enum_string == "cancelled")
-    return MOUNT_ERROR_CANCELLED;
+    return MountError::kCancelled;
   if (enum_string == "busy")
-    return MOUNT_ERROR_BUSY;
-  return MOUNT_ERROR_NONE;
+    return MountError::kBusy;
+  return MountError::kNone;
 }
 
 std::u16string GetMountErrorParseError(base::StringPiece enum_string) {
@@ -380,13 +381,13 @@ std::u16string GetMountErrorParseError(base::StringPiece enum_string) {
 
 const char* ToString(FormatFileSystemType enum_param) {
   switch (enum_param) {
-    case FORMAT_FILE_SYSTEM_TYPE_VFAT:
+    case FormatFileSystemType::kVfat:
       return "vfat";
-    case FORMAT_FILE_SYSTEM_TYPE_EXFAT:
+    case FormatFileSystemType::kExfat:
       return "exfat";
-    case FORMAT_FILE_SYSTEM_TYPE_NTFS:
+    case FormatFileSystemType::kNtfs:
       return "ntfs";
-    case FORMAT_FILE_SYSTEM_TYPE_NONE:
+    case FormatFileSystemType::kNone:
       return "";
   }
   NOTREACHED();
@@ -395,12 +396,12 @@ const char* ToString(FormatFileSystemType enum_param) {
 
 FormatFileSystemType ParseFormatFileSystemType(base::StringPiece enum_string) {
   if (enum_string == "vfat")
-    return FORMAT_FILE_SYSTEM_TYPE_VFAT;
+    return FormatFileSystemType::kVfat;
   if (enum_string == "exfat")
-    return FORMAT_FILE_SYSTEM_TYPE_EXFAT;
+    return FormatFileSystemType::kExfat;
   if (enum_string == "ntfs")
-    return FORMAT_FILE_SYSTEM_TYPE_NTFS;
-  return FORMAT_FILE_SYSTEM_TYPE_NONE;
+    return FormatFileSystemType::kNtfs;
+  return FormatFileSystemType::kNone;
 }
 
 std::u16string GetFormatFileSystemTypeParseError(base::StringPiece enum_string) {
@@ -410,15 +411,15 @@ std::u16string GetFormatFileSystemTypeParseError(base::StringPiece enum_string) 
 
 const char* ToString(TransferState enum_param) {
   switch (enum_param) {
-    case TRANSFER_STATE_IN_PROGRESS:
+    case TransferState::kInProgress:
       return "in_progress";
-    case TRANSFER_STATE_QUEUED:
+    case TransferState::kQueued:
       return "queued";
-    case TRANSFER_STATE_COMPLETED:
+    case TransferState::kCompleted:
       return "completed";
-    case TRANSFER_STATE_FAILED:
+    case TransferState::kFailed:
       return "failed";
-    case TRANSFER_STATE_NONE:
+    case TransferState::kNone:
       return "";
   }
   NOTREACHED();
@@ -427,14 +428,14 @@ const char* ToString(TransferState enum_param) {
 
 TransferState ParseTransferState(base::StringPiece enum_string) {
   if (enum_string == "in_progress")
-    return TRANSFER_STATE_IN_PROGRESS;
+    return TransferState::kInProgress;
   if (enum_string == "queued")
-    return TRANSFER_STATE_QUEUED;
+    return TransferState::kQueued;
   if (enum_string == "completed")
-    return TRANSFER_STATE_COMPLETED;
+    return TransferState::kCompleted;
   if (enum_string == "failed")
-    return TRANSFER_STATE_FAILED;
-  return TRANSFER_STATE_NONE;
+    return TransferState::kFailed;
+  return TransferState::kNone;
 }
 
 std::u16string GetTransferStateParseError(base::StringPiece enum_string) {
@@ -442,43 +443,43 @@ std::u16string GetTransferStateParseError(base::StringPiece enum_string) {
 }
 
 
-const char* ToString(InstallLinuxPackageResponse enum_param) {
+const char* ToString(InstallLinuxPackageStatus enum_param) {
   switch (enum_param) {
-    case INSTALL_LINUX_PACKAGE_RESPONSE_STARTED:
+    case InstallLinuxPackageStatus::kStarted:
       return "started";
-    case INSTALL_LINUX_PACKAGE_RESPONSE_FAILED:
+    case InstallLinuxPackageStatus::kFailed:
       return "failed";
-    case INSTALL_LINUX_PACKAGE_RESPONSE_INSTALL_ALREADY_ACTIVE:
+    case InstallLinuxPackageStatus::kInstallAlreadyActive:
       return "install_already_active";
-    case INSTALL_LINUX_PACKAGE_RESPONSE_NONE:
+    case InstallLinuxPackageStatus::kNone:
       return "";
   }
   NOTREACHED();
   return "";
 }
 
-InstallLinuxPackageResponse ParseInstallLinuxPackageResponse(base::StringPiece enum_string) {
+InstallLinuxPackageStatus ParseInstallLinuxPackageStatus(base::StringPiece enum_string) {
   if (enum_string == "started")
-    return INSTALL_LINUX_PACKAGE_RESPONSE_STARTED;
+    return InstallLinuxPackageStatus::kStarted;
   if (enum_string == "failed")
-    return INSTALL_LINUX_PACKAGE_RESPONSE_FAILED;
+    return InstallLinuxPackageStatus::kFailed;
   if (enum_string == "install_already_active")
-    return INSTALL_LINUX_PACKAGE_RESPONSE_INSTALL_ALREADY_ACTIVE;
-  return INSTALL_LINUX_PACKAGE_RESPONSE_NONE;
+    return InstallLinuxPackageStatus::kInstallAlreadyActive;
+  return InstallLinuxPackageStatus::kNone;
 }
 
-std::u16string GetInstallLinuxPackageResponseParseError(base::StringPiece enum_string) {
+std::u16string GetInstallLinuxPackageStatusParseError(base::StringPiece enum_string) {
   return u"expected \"started\" or \"failed\" or \"install_already_active\", got \"" + UTF8ToUTF16(enum_string) + u"\"";
 }
 
 
 const char* ToString(FileWatchEventType enum_param) {
   switch (enum_param) {
-    case FILE_WATCH_EVENT_TYPE_CHANGED:
+    case FileWatchEventType::kChanged:
       return "changed";
-    case FILE_WATCH_EVENT_TYPE_ERROR:
+    case FileWatchEventType::kError:
       return "error";
-    case FILE_WATCH_EVENT_TYPE_NONE:
+    case FileWatchEventType::kNone:
       return "";
   }
   NOTREACHED();
@@ -487,10 +488,10 @@ const char* ToString(FileWatchEventType enum_param) {
 
 FileWatchEventType ParseFileWatchEventType(base::StringPiece enum_string) {
   if (enum_string == "changed")
-    return FILE_WATCH_EVENT_TYPE_CHANGED;
+    return FileWatchEventType::kChanged;
   if (enum_string == "error")
-    return FILE_WATCH_EVENT_TYPE_ERROR;
-  return FILE_WATCH_EVENT_TYPE_NONE;
+    return FileWatchEventType::kError;
+  return FileWatchEventType::kNone;
 }
 
 std::u16string GetFileWatchEventTypeParseError(base::StringPiece enum_string) {
@@ -500,11 +501,11 @@ std::u16string GetFileWatchEventTypeParseError(base::StringPiece enum_string) {
 
 const char* ToString(ChangeType enum_param) {
   switch (enum_param) {
-    case CHANGE_TYPE_ADD_OR_UPDATE:
+    case ChangeType::kAddOrUpdate:
       return "add_or_update";
-    case CHANGE_TYPE_DELETE:
+    case ChangeType::kDelete:
       return "delete";
-    case CHANGE_TYPE_NONE:
+    case ChangeType::kNone:
       return "";
   }
   NOTREACHED();
@@ -513,10 +514,10 @@ const char* ToString(ChangeType enum_param) {
 
 ChangeType ParseChangeType(base::StringPiece enum_string) {
   if (enum_string == "add_or_update")
-    return CHANGE_TYPE_ADD_OR_UPDATE;
+    return ChangeType::kAddOrUpdate;
   if (enum_string == "delete")
-    return CHANGE_TYPE_DELETE;
-  return CHANGE_TYPE_NONE;
+    return ChangeType::kDelete;
+  return ChangeType::kNone;
 }
 
 std::u16string GetChangeTypeParseError(base::StringPiece enum_string) {
@@ -526,15 +527,15 @@ std::u16string GetChangeTypeParseError(base::StringPiece enum_string) {
 
 const char* ToString(SearchType enum_param) {
   switch (enum_param) {
-    case SEARCH_TYPE_EXCLUDE_DIRECTORIES:
+    case SearchType::kExcludeDirectories:
       return "EXCLUDE_DIRECTORIES";
-    case SEARCH_TYPE_SHARED_WITH_ME:
+    case SearchType::kSharedWithMe:
       return "SHARED_WITH_ME";
-    case SEARCH_TYPE_OFFLINE:
+    case SearchType::kOffline:
       return "OFFLINE";
-    case SEARCH_TYPE_ALL:
+    case SearchType::kAll:
       return "ALL";
-    case SEARCH_TYPE_NONE:
+    case SearchType::kNone:
       return "";
   }
   NOTREACHED();
@@ -543,14 +544,14 @@ const char* ToString(SearchType enum_param) {
 
 SearchType ParseSearchType(base::StringPiece enum_string) {
   if (enum_string == "EXCLUDE_DIRECTORIES")
-    return SEARCH_TYPE_EXCLUDE_DIRECTORIES;
+    return SearchType::kExcludeDirectories;
   if (enum_string == "SHARED_WITH_ME")
-    return SEARCH_TYPE_SHARED_WITH_ME;
+    return SearchType::kSharedWithMe;
   if (enum_string == "OFFLINE")
-    return SEARCH_TYPE_OFFLINE;
+    return SearchType::kOffline;
   if (enum_string == "ALL")
-    return SEARCH_TYPE_ALL;
-  return SEARCH_TYPE_NONE;
+    return SearchType::kAll;
+  return SearchType::kNone;
 }
 
 std::u16string GetSearchTypeParseError(base::StringPiece enum_string) {
@@ -560,13 +561,13 @@ std::u16string GetSearchTypeParseError(base::StringPiece enum_string) {
 
 const char* ToString(ZoomOperationType enum_param) {
   switch (enum_param) {
-    case ZOOM_OPERATION_TYPE_IN:
+    case ZoomOperationType::kIn:
       return "in";
-    case ZOOM_OPERATION_TYPE_OUT:
+    case ZoomOperationType::kOut:
       return "out";
-    case ZOOM_OPERATION_TYPE_RESET:
+    case ZoomOperationType::kReset:
       return "reset";
-    case ZOOM_OPERATION_TYPE_NONE:
+    case ZoomOperationType::kNone:
       return "";
   }
   NOTREACHED();
@@ -575,12 +576,12 @@ const char* ToString(ZoomOperationType enum_param) {
 
 ZoomOperationType ParseZoomOperationType(base::StringPiece enum_string) {
   if (enum_string == "in")
-    return ZOOM_OPERATION_TYPE_IN;
+    return ZoomOperationType::kIn;
   if (enum_string == "out")
-    return ZOOM_OPERATION_TYPE_OUT;
+    return ZoomOperationType::kOut;
   if (enum_string == "reset")
-    return ZOOM_OPERATION_TYPE_RESET;
-  return ZOOM_OPERATION_TYPE_NONE;
+    return ZoomOperationType::kReset;
+  return ZoomOperationType::kNone;
 }
 
 std::u16string GetZoomOperationTypeParseError(base::StringPiece enum_string) {
@@ -590,15 +591,15 @@ std::u16string GetZoomOperationTypeParseError(base::StringPiece enum_string) {
 
 const char* ToString(InspectionType enum_param) {
   switch (enum_param) {
-    case INSPECTION_TYPE_NORMAL:
+    case InspectionType::kNormal:
       return "normal";
-    case INSPECTION_TYPE_CONSOLE:
+    case InspectionType::kConsole:
       return "console";
-    case INSPECTION_TYPE_ELEMENT:
+    case InspectionType::kElement:
       return "element";
-    case INSPECTION_TYPE_BACKGROUND:
+    case InspectionType::kBackground:
       return "background";
-    case INSPECTION_TYPE_NONE:
+    case InspectionType::kNone:
       return "";
   }
   NOTREACHED();
@@ -607,14 +608,14 @@ const char* ToString(InspectionType enum_param) {
 
 InspectionType ParseInspectionType(base::StringPiece enum_string) {
   if (enum_string == "normal")
-    return INSPECTION_TYPE_NORMAL;
+    return InspectionType::kNormal;
   if (enum_string == "console")
-    return INSPECTION_TYPE_CONSOLE;
+    return InspectionType::kConsole;
   if (enum_string == "element")
-    return INSPECTION_TYPE_ELEMENT;
+    return InspectionType::kElement;
   if (enum_string == "background")
-    return INSPECTION_TYPE_BACKGROUND;
-  return INSPECTION_TYPE_NONE;
+    return InspectionType::kBackground;
+  return InspectionType::kNone;
 }
 
 std::u16string GetInspectionTypeParseError(base::StringPiece enum_string) {
@@ -624,31 +625,31 @@ std::u16string GetInspectionTypeParseError(base::StringPiece enum_string) {
 
 const char* ToString(DeviceEventType enum_param) {
   switch (enum_param) {
-    case DEVICE_EVENT_TYPE_DISABLED:
+    case DeviceEventType::kDisabled:
       return "disabled";
-    case DEVICE_EVENT_TYPE_REMOVED:
+    case DeviceEventType::kRemoved:
       return "removed";
-    case DEVICE_EVENT_TYPE_HARD_UNPLUGGED:
+    case DeviceEventType::kHardUnplugged:
       return "hard_unplugged";
-    case DEVICE_EVENT_TYPE_FORMAT_START:
+    case DeviceEventType::kFormatStart:
       return "format_start";
-    case DEVICE_EVENT_TYPE_FORMAT_SUCCESS:
+    case DeviceEventType::kFormatSuccess:
       return "format_success";
-    case DEVICE_EVENT_TYPE_FORMAT_FAIL:
+    case DeviceEventType::kFormatFail:
       return "format_fail";
-    case DEVICE_EVENT_TYPE_RENAME_START:
+    case DeviceEventType::kRenameStart:
       return "rename_start";
-    case DEVICE_EVENT_TYPE_RENAME_SUCCESS:
+    case DeviceEventType::kRenameSuccess:
       return "rename_success";
-    case DEVICE_EVENT_TYPE_RENAME_FAIL:
+    case DeviceEventType::kRenameFail:
       return "rename_fail";
-    case DEVICE_EVENT_TYPE_PARTITION_START:
+    case DeviceEventType::kPartitionStart:
       return "partition_start";
-    case DEVICE_EVENT_TYPE_PARTITION_SUCCESS:
+    case DeviceEventType::kPartitionSuccess:
       return "partition_success";
-    case DEVICE_EVENT_TYPE_PARTITION_FAIL:
+    case DeviceEventType::kPartitionFail:
       return "partition_fail";
-    case DEVICE_EVENT_TYPE_NONE:
+    case DeviceEventType::kNone:
       return "";
   }
   NOTREACHED();
@@ -657,30 +658,30 @@ const char* ToString(DeviceEventType enum_param) {
 
 DeviceEventType ParseDeviceEventType(base::StringPiece enum_string) {
   if (enum_string == "disabled")
-    return DEVICE_EVENT_TYPE_DISABLED;
+    return DeviceEventType::kDisabled;
   if (enum_string == "removed")
-    return DEVICE_EVENT_TYPE_REMOVED;
+    return DeviceEventType::kRemoved;
   if (enum_string == "hard_unplugged")
-    return DEVICE_EVENT_TYPE_HARD_UNPLUGGED;
+    return DeviceEventType::kHardUnplugged;
   if (enum_string == "format_start")
-    return DEVICE_EVENT_TYPE_FORMAT_START;
+    return DeviceEventType::kFormatStart;
   if (enum_string == "format_success")
-    return DEVICE_EVENT_TYPE_FORMAT_SUCCESS;
+    return DeviceEventType::kFormatSuccess;
   if (enum_string == "format_fail")
-    return DEVICE_EVENT_TYPE_FORMAT_FAIL;
+    return DeviceEventType::kFormatFail;
   if (enum_string == "rename_start")
-    return DEVICE_EVENT_TYPE_RENAME_START;
+    return DeviceEventType::kRenameStart;
   if (enum_string == "rename_success")
-    return DEVICE_EVENT_TYPE_RENAME_SUCCESS;
+    return DeviceEventType::kRenameSuccess;
   if (enum_string == "rename_fail")
-    return DEVICE_EVENT_TYPE_RENAME_FAIL;
+    return DeviceEventType::kRenameFail;
   if (enum_string == "partition_start")
-    return DEVICE_EVENT_TYPE_PARTITION_START;
+    return DeviceEventType::kPartitionStart;
   if (enum_string == "partition_success")
-    return DEVICE_EVENT_TYPE_PARTITION_SUCCESS;
+    return DeviceEventType::kPartitionSuccess;
   if (enum_string == "partition_fail")
-    return DEVICE_EVENT_TYPE_PARTITION_FAIL;
-  return DEVICE_EVENT_TYPE_NONE;
+    return DeviceEventType::kPartitionFail;
+  return DeviceEventType::kNone;
 }
 
 std::u16string GetDeviceEventTypeParseError(base::StringPiece enum_string) {
@@ -690,21 +691,21 @@ std::u16string GetDeviceEventTypeParseError(base::StringPiece enum_string) {
 
 const char* ToString(DriveSyncErrorType enum_param) {
   switch (enum_param) {
-    case DRIVE_SYNC_ERROR_TYPE_DELETE_WITHOUT_PERMISSION:
+    case DriveSyncErrorType::kDeleteWithoutPermission:
       return "delete_without_permission";
-    case DRIVE_SYNC_ERROR_TYPE_SERVICE_UNAVAILABLE:
+    case DriveSyncErrorType::kServiceUnavailable:
       return "service_unavailable";
-    case DRIVE_SYNC_ERROR_TYPE_NO_SERVER_SPACE:
+    case DriveSyncErrorType::kNoServerSpace:
       return "no_server_space";
-    case DRIVE_SYNC_ERROR_TYPE_NO_SERVER_SPACE_ORGANIZATION:
+    case DriveSyncErrorType::kNoServerSpaceOrganization:
       return "no_server_space_organization";
-    case DRIVE_SYNC_ERROR_TYPE_NO_LOCAL_SPACE:
+    case DriveSyncErrorType::kNoLocalSpace:
       return "no_local_space";
-    case DRIVE_SYNC_ERROR_TYPE_NO_SHARED_DRIVE_SPACE:
+    case DriveSyncErrorType::kNoSharedDriveSpace:
       return "no_shared_drive_space";
-    case DRIVE_SYNC_ERROR_TYPE_MISC:
+    case DriveSyncErrorType::kMisc:
       return "misc";
-    case DRIVE_SYNC_ERROR_TYPE_NONE:
+    case DriveSyncErrorType::kNone:
       return "";
   }
   NOTREACHED();
@@ -713,20 +714,20 @@ const char* ToString(DriveSyncErrorType enum_param) {
 
 DriveSyncErrorType ParseDriveSyncErrorType(base::StringPiece enum_string) {
   if (enum_string == "delete_without_permission")
-    return DRIVE_SYNC_ERROR_TYPE_DELETE_WITHOUT_PERMISSION;
+    return DriveSyncErrorType::kDeleteWithoutPermission;
   if (enum_string == "service_unavailable")
-    return DRIVE_SYNC_ERROR_TYPE_SERVICE_UNAVAILABLE;
+    return DriveSyncErrorType::kServiceUnavailable;
   if (enum_string == "no_server_space")
-    return DRIVE_SYNC_ERROR_TYPE_NO_SERVER_SPACE;
+    return DriveSyncErrorType::kNoServerSpace;
   if (enum_string == "no_server_space_organization")
-    return DRIVE_SYNC_ERROR_TYPE_NO_SERVER_SPACE_ORGANIZATION;
+    return DriveSyncErrorType::kNoServerSpaceOrganization;
   if (enum_string == "no_local_space")
-    return DRIVE_SYNC_ERROR_TYPE_NO_LOCAL_SPACE;
+    return DriveSyncErrorType::kNoLocalSpace;
   if (enum_string == "no_shared_drive_space")
-    return DRIVE_SYNC_ERROR_TYPE_NO_SHARED_DRIVE_SPACE;
+    return DriveSyncErrorType::kNoSharedDriveSpace;
   if (enum_string == "misc")
-    return DRIVE_SYNC_ERROR_TYPE_MISC;
-  return DRIVE_SYNC_ERROR_TYPE_NONE;
+    return DriveSyncErrorType::kMisc;
+  return DriveSyncErrorType::kNone;
 }
 
 std::u16string GetDriveSyncErrorTypeParseError(base::StringPiece enum_string) {
@@ -736,9 +737,9 @@ std::u16string GetDriveSyncErrorTypeParseError(base::StringPiece enum_string) {
 
 const char* ToString(DriveConfirmDialogType enum_param) {
   switch (enum_param) {
-    case DRIVE_CONFIRM_DIALOG_TYPE_ENABLE_DOCS_OFFLINE:
+    case DriveConfirmDialogType::kEnableDocsOffline:
       return "enable_docs_offline";
-    case DRIVE_CONFIRM_DIALOG_TYPE_NONE:
+    case DriveConfirmDialogType::kNone:
       return "";
   }
   NOTREACHED();
@@ -747,8 +748,8 @@ const char* ToString(DriveConfirmDialogType enum_param) {
 
 DriveConfirmDialogType ParseDriveConfirmDialogType(base::StringPiece enum_string) {
   if (enum_string == "enable_docs_offline")
-    return DRIVE_CONFIRM_DIALOG_TYPE_ENABLE_DOCS_OFFLINE;
-  return DRIVE_CONFIRM_DIALOG_TYPE_NONE;
+    return DriveConfirmDialogType::kEnableDocsOffline;
+  return DriveConfirmDialogType::kNone;
 }
 
 std::u16string GetDriveConfirmDialogTypeParseError(base::StringPiece enum_string) {
@@ -758,15 +759,15 @@ std::u16string GetDriveConfirmDialogTypeParseError(base::StringPiece enum_string
 
 const char* ToString(DriveDialogResult enum_param) {
   switch (enum_param) {
-    case DRIVE_DIALOG_RESULT_NOT_DISPLAYED:
+    case DriveDialogResult::kNotDisplayed:
       return "not_displayed";
-    case DRIVE_DIALOG_RESULT_ACCEPT:
+    case DriveDialogResult::kAccept:
       return "accept";
-    case DRIVE_DIALOG_RESULT_REJECT:
+    case DriveDialogResult::kReject:
       return "reject";
-    case DRIVE_DIALOG_RESULT_DISMISS:
+    case DriveDialogResult::kDismiss:
       return "dismiss";
-    case DRIVE_DIALOG_RESULT_NONE:
+    case DriveDialogResult::kNone:
       return "";
   }
   NOTREACHED();
@@ -775,14 +776,14 @@ const char* ToString(DriveDialogResult enum_param) {
 
 DriveDialogResult ParseDriveDialogResult(base::StringPiece enum_string) {
   if (enum_string == "not_displayed")
-    return DRIVE_DIALOG_RESULT_NOT_DISPLAYED;
+    return DriveDialogResult::kNotDisplayed;
   if (enum_string == "accept")
-    return DRIVE_DIALOG_RESULT_ACCEPT;
+    return DriveDialogResult::kAccept;
   if (enum_string == "reject")
-    return DRIVE_DIALOG_RESULT_REJECT;
+    return DriveDialogResult::kReject;
   if (enum_string == "dismiss")
-    return DRIVE_DIALOG_RESULT_DISMISS;
-  return DRIVE_DIALOG_RESULT_NONE;
+    return DriveDialogResult::kDismiss;
+  return DriveDialogResult::kNone;
 }
 
 std::u16string GetDriveDialogResultParseError(base::StringPiece enum_string) {
@@ -792,17 +793,17 @@ std::u16string GetDriveDialogResultParseError(base::StringPiece enum_string) {
 
 const char* ToString(TaskResult enum_param) {
   switch (enum_param) {
-    case TASK_RESULT_OPENED:
+    case TaskResult::kOpened:
       return "opened";
-    case TASK_RESULT_MESSAGE_SENT:
+    case TaskResult::kMessageSent:
       return "message_sent";
-    case TASK_RESULT_FAILED:
+    case TaskResult::kFailed:
       return "failed";
-    case TASK_RESULT_EMPTY:
+    case TaskResult::kEmpty:
       return "empty";
-    case TASK_RESULT_FAILED_PLUGIN_VM_DIRECTORY_NOT_SHARED:
+    case TaskResult::kFailedPluginVmDirectoryNotShared:
       return "failed_plugin_vm_directory_not_shared";
-    case TASK_RESULT_NONE:
+    case TaskResult::kNone:
       return "";
   }
   NOTREACHED();
@@ -811,16 +812,16 @@ const char* ToString(TaskResult enum_param) {
 
 TaskResult ParseTaskResult(base::StringPiece enum_string) {
   if (enum_string == "opened")
-    return TASK_RESULT_OPENED;
+    return TaskResult::kOpened;
   if (enum_string == "message_sent")
-    return TASK_RESULT_MESSAGE_SENT;
+    return TaskResult::kMessageSent;
   if (enum_string == "failed")
-    return TASK_RESULT_FAILED;
+    return TaskResult::kFailed;
   if (enum_string == "empty")
-    return TASK_RESULT_EMPTY;
+    return TaskResult::kEmpty;
   if (enum_string == "failed_plugin_vm_directory_not_shared")
-    return TASK_RESULT_FAILED_PLUGIN_VM_DIRECTORY_NOT_SHARED;
-  return TASK_RESULT_NONE;
+    return TaskResult::kFailedPluginVmDirectoryNotShared;
+  return TaskResult::kNone;
 }
 
 std::u16string GetTaskResultParseError(base::StringPiece enum_string) {
@@ -830,13 +831,13 @@ std::u16string GetTaskResultParseError(base::StringPiece enum_string) {
 
 const char* ToString(DriveShareType enum_param) {
   switch (enum_param) {
-    case DRIVE_SHARE_TYPE_CAN_EDIT:
+    case DriveShareType::kCanEdit:
       return "can_edit";
-    case DRIVE_SHARE_TYPE_CAN_COMMENT:
+    case DriveShareType::kCanComment:
       return "can_comment";
-    case DRIVE_SHARE_TYPE_CAN_VIEW:
+    case DriveShareType::kCanView:
       return "can_view";
-    case DRIVE_SHARE_TYPE_NONE:
+    case DriveShareType::kNone:
       return "";
   }
   NOTREACHED();
@@ -845,12 +846,12 @@ const char* ToString(DriveShareType enum_param) {
 
 DriveShareType ParseDriveShareType(base::StringPiece enum_string) {
   if (enum_string == "can_edit")
-    return DRIVE_SHARE_TYPE_CAN_EDIT;
+    return DriveShareType::kCanEdit;
   if (enum_string == "can_comment")
-    return DRIVE_SHARE_TYPE_CAN_COMMENT;
+    return DriveShareType::kCanComment;
   if (enum_string == "can_view")
-    return DRIVE_SHARE_TYPE_CAN_VIEW;
-  return DRIVE_SHARE_TYPE_NONE;
+    return DriveShareType::kCanView;
+  return DriveShareType::kNone;
 }
 
 std::u16string GetDriveShareTypeParseError(base::StringPiece enum_string) {
@@ -860,77 +861,77 @@ std::u16string GetDriveShareTypeParseError(base::StringPiece enum_string) {
 
 const char* ToString(EntryPropertyName enum_param) {
   switch (enum_param) {
-    case ENTRY_PROPERTY_NAME_SIZE:
+    case EntryPropertyName::kSize:
       return "size";
-    case ENTRY_PROPERTY_NAME_MODIFICATIONTIME:
+    case EntryPropertyName::kModificationTime:
       return "modificationTime";
-    case ENTRY_PROPERTY_NAME_MODIFICATIONBYMETIME:
+    case EntryPropertyName::kModificationByMeTime:
       return "modificationByMeTime";
-    case ENTRY_PROPERTY_NAME_THUMBNAILURL:
+    case EntryPropertyName::kThumbnailUrl:
       return "thumbnailUrl";
-    case ENTRY_PROPERTY_NAME_CROPPEDTHUMBNAILURL:
+    case EntryPropertyName::kCroppedThumbnailUrl:
       return "croppedThumbnailUrl";
-    case ENTRY_PROPERTY_NAME_IMAGEWIDTH:
+    case EntryPropertyName::kImageWidth:
       return "imageWidth";
-    case ENTRY_PROPERTY_NAME_IMAGEHEIGHT:
+    case EntryPropertyName::kImageHeight:
       return "imageHeight";
-    case ENTRY_PROPERTY_NAME_IMAGEROTATION:
+    case EntryPropertyName::kImageRotation:
       return "imageRotation";
-    case ENTRY_PROPERTY_NAME_PINNED:
+    case EntryPropertyName::kPinned:
       return "pinned";
-    case ENTRY_PROPERTY_NAME_PRESENT:
+    case EntryPropertyName::kPresent:
       return "present";
-    case ENTRY_PROPERTY_NAME_HOSTED:
+    case EntryPropertyName::kHosted:
       return "hosted";
-    case ENTRY_PROPERTY_NAME_AVAILABLEOFFLINE:
+    case EntryPropertyName::kAvailableOffline:
       return "availableOffline";
-    case ENTRY_PROPERTY_NAME_AVAILABLEWHENMETERED:
+    case EntryPropertyName::kAvailableWhenMetered:
       return "availableWhenMetered";
-    case ENTRY_PROPERTY_NAME_DIRTY:
+    case EntryPropertyName::kDirty:
       return "dirty";
-    case ENTRY_PROPERTY_NAME_CUSTOMICONURL:
+    case EntryPropertyName::kCustomIconUrl:
       return "customIconUrl";
-    case ENTRY_PROPERTY_NAME_CONTENTMIMETYPE:
+    case EntryPropertyName::kContentMimeType:
       return "contentMimeType";
-    case ENTRY_PROPERTY_NAME_SHAREDWITHME:
+    case EntryPropertyName::kSharedWithMe:
       return "sharedWithMe";
-    case ENTRY_PROPERTY_NAME_SHARED:
+    case EntryPropertyName::kShared:
       return "shared";
-    case ENTRY_PROPERTY_NAME_STARRED:
+    case EntryPropertyName::kStarred:
       return "starred";
-    case ENTRY_PROPERTY_NAME_EXTERNALFILEURL:
+    case EntryPropertyName::kExternalFileUrl:
       return "externalFileUrl";
-    case ENTRY_PROPERTY_NAME_ALTERNATEURL:
+    case EntryPropertyName::kAlternateUrl:
       return "alternateUrl";
-    case ENTRY_PROPERTY_NAME_SHAREURL:
+    case EntryPropertyName::kShareUrl:
       return "shareUrl";
-    case ENTRY_PROPERTY_NAME_CANCOPY:
+    case EntryPropertyName::kCanCopy:
       return "canCopy";
-    case ENTRY_PROPERTY_NAME_CANDELETE:
+    case EntryPropertyName::kCanDelete:
       return "canDelete";
-    case ENTRY_PROPERTY_NAME_CANRENAME:
+    case EntryPropertyName::kCanRename:
       return "canRename";
-    case ENTRY_PROPERTY_NAME_CANADDCHILDREN:
+    case EntryPropertyName::kCanAddChildren:
       return "canAddChildren";
-    case ENTRY_PROPERTY_NAME_CANSHARE:
+    case EntryPropertyName::kCanShare:
       return "canShare";
-    case ENTRY_PROPERTY_NAME_CANPIN:
+    case EntryPropertyName::kCanPin:
       return "canPin";
-    case ENTRY_PROPERTY_NAME_ISMACHINEROOT:
+    case EntryPropertyName::kIsMachineRoot:
       return "isMachineRoot";
-    case ENTRY_PROPERTY_NAME_ISEXTERNALMEDIA:
+    case EntryPropertyName::kIsExternalMedia:
       return "isExternalMedia";
-    case ENTRY_PROPERTY_NAME_ISARBITRARYSYNCFOLDER:
+    case EntryPropertyName::kIsArbitrarySyncFolder:
       return "isArbitrarySyncFolder";
-    case ENTRY_PROPERTY_NAME_SYNCSTATUS:
+    case EntryPropertyName::kSyncStatus:
       return "syncStatus";
-    case ENTRY_PROPERTY_NAME_PROGRESS:
+    case EntryPropertyName::kProgress:
       return "progress";
-    case ENTRY_PROPERTY_NAME_SHORTCUT:
+    case EntryPropertyName::kShortcut:
       return "shortcut";
-    case ENTRY_PROPERTY_NAME_SYNCCOMPLETEDTIME:
+    case EntryPropertyName::kSyncCompletedTime:
       return "syncCompletedTime";
-    case ENTRY_PROPERTY_NAME_NONE:
+    case EntryPropertyName::kNone:
       return "";
   }
   NOTREACHED();
@@ -939,76 +940,76 @@ const char* ToString(EntryPropertyName enum_param) {
 
 EntryPropertyName ParseEntryPropertyName(base::StringPiece enum_string) {
   if (enum_string == "size")
-    return ENTRY_PROPERTY_NAME_SIZE;
+    return EntryPropertyName::kSize;
   if (enum_string == "modificationTime")
-    return ENTRY_PROPERTY_NAME_MODIFICATIONTIME;
+    return EntryPropertyName::kModificationTime;
   if (enum_string == "modificationByMeTime")
-    return ENTRY_PROPERTY_NAME_MODIFICATIONBYMETIME;
+    return EntryPropertyName::kModificationByMeTime;
   if (enum_string == "thumbnailUrl")
-    return ENTRY_PROPERTY_NAME_THUMBNAILURL;
+    return EntryPropertyName::kThumbnailUrl;
   if (enum_string == "croppedThumbnailUrl")
-    return ENTRY_PROPERTY_NAME_CROPPEDTHUMBNAILURL;
+    return EntryPropertyName::kCroppedThumbnailUrl;
   if (enum_string == "imageWidth")
-    return ENTRY_PROPERTY_NAME_IMAGEWIDTH;
+    return EntryPropertyName::kImageWidth;
   if (enum_string == "imageHeight")
-    return ENTRY_PROPERTY_NAME_IMAGEHEIGHT;
+    return EntryPropertyName::kImageHeight;
   if (enum_string == "imageRotation")
-    return ENTRY_PROPERTY_NAME_IMAGEROTATION;
+    return EntryPropertyName::kImageRotation;
   if (enum_string == "pinned")
-    return ENTRY_PROPERTY_NAME_PINNED;
+    return EntryPropertyName::kPinned;
   if (enum_string == "present")
-    return ENTRY_PROPERTY_NAME_PRESENT;
+    return EntryPropertyName::kPresent;
   if (enum_string == "hosted")
-    return ENTRY_PROPERTY_NAME_HOSTED;
+    return EntryPropertyName::kHosted;
   if (enum_string == "availableOffline")
-    return ENTRY_PROPERTY_NAME_AVAILABLEOFFLINE;
+    return EntryPropertyName::kAvailableOffline;
   if (enum_string == "availableWhenMetered")
-    return ENTRY_PROPERTY_NAME_AVAILABLEWHENMETERED;
+    return EntryPropertyName::kAvailableWhenMetered;
   if (enum_string == "dirty")
-    return ENTRY_PROPERTY_NAME_DIRTY;
+    return EntryPropertyName::kDirty;
   if (enum_string == "customIconUrl")
-    return ENTRY_PROPERTY_NAME_CUSTOMICONURL;
+    return EntryPropertyName::kCustomIconUrl;
   if (enum_string == "contentMimeType")
-    return ENTRY_PROPERTY_NAME_CONTENTMIMETYPE;
+    return EntryPropertyName::kContentMimeType;
   if (enum_string == "sharedWithMe")
-    return ENTRY_PROPERTY_NAME_SHAREDWITHME;
+    return EntryPropertyName::kSharedWithMe;
   if (enum_string == "shared")
-    return ENTRY_PROPERTY_NAME_SHARED;
+    return EntryPropertyName::kShared;
   if (enum_string == "starred")
-    return ENTRY_PROPERTY_NAME_STARRED;
+    return EntryPropertyName::kStarred;
   if (enum_string == "externalFileUrl")
-    return ENTRY_PROPERTY_NAME_EXTERNALFILEURL;
+    return EntryPropertyName::kExternalFileUrl;
   if (enum_string == "alternateUrl")
-    return ENTRY_PROPERTY_NAME_ALTERNATEURL;
+    return EntryPropertyName::kAlternateUrl;
   if (enum_string == "shareUrl")
-    return ENTRY_PROPERTY_NAME_SHAREURL;
+    return EntryPropertyName::kShareUrl;
   if (enum_string == "canCopy")
-    return ENTRY_PROPERTY_NAME_CANCOPY;
+    return EntryPropertyName::kCanCopy;
   if (enum_string == "canDelete")
-    return ENTRY_PROPERTY_NAME_CANDELETE;
+    return EntryPropertyName::kCanDelete;
   if (enum_string == "canRename")
-    return ENTRY_PROPERTY_NAME_CANRENAME;
+    return EntryPropertyName::kCanRename;
   if (enum_string == "canAddChildren")
-    return ENTRY_PROPERTY_NAME_CANADDCHILDREN;
+    return EntryPropertyName::kCanAddChildren;
   if (enum_string == "canShare")
-    return ENTRY_PROPERTY_NAME_CANSHARE;
+    return EntryPropertyName::kCanShare;
   if (enum_string == "canPin")
-    return ENTRY_PROPERTY_NAME_CANPIN;
+    return EntryPropertyName::kCanPin;
   if (enum_string == "isMachineRoot")
-    return ENTRY_PROPERTY_NAME_ISMACHINEROOT;
+    return EntryPropertyName::kIsMachineRoot;
   if (enum_string == "isExternalMedia")
-    return ENTRY_PROPERTY_NAME_ISEXTERNALMEDIA;
+    return EntryPropertyName::kIsExternalMedia;
   if (enum_string == "isArbitrarySyncFolder")
-    return ENTRY_PROPERTY_NAME_ISARBITRARYSYNCFOLDER;
+    return EntryPropertyName::kIsArbitrarySyncFolder;
   if (enum_string == "syncStatus")
-    return ENTRY_PROPERTY_NAME_SYNCSTATUS;
+    return EntryPropertyName::kSyncStatus;
   if (enum_string == "progress")
-    return ENTRY_PROPERTY_NAME_PROGRESS;
+    return EntryPropertyName::kProgress;
   if (enum_string == "shortcut")
-    return ENTRY_PROPERTY_NAME_SHORTCUT;
+    return EntryPropertyName::kShortcut;
   if (enum_string == "syncCompletedTime")
-    return ENTRY_PROPERTY_NAME_SYNCCOMPLETEDTIME;
-  return ENTRY_PROPERTY_NAME_NONE;
+    return EntryPropertyName::kSyncCompletedTime;
+  return EntryPropertyName::kNone;
 }
 
 std::u16string GetEntryPropertyNameParseError(base::StringPiece enum_string) {
@@ -1018,15 +1019,15 @@ std::u16string GetEntryPropertyNameParseError(base::StringPiece enum_string) {
 
 const char* ToString(Source enum_param) {
   switch (enum_param) {
-    case SOURCE_FILE:
+    case Source::kFile:
       return "file";
-    case SOURCE_DEVICE:
+    case Source::kDevice:
       return "device";
-    case SOURCE_NETWORK:
+    case Source::kNetwork:
       return "network";
-    case SOURCE_SYSTEM:
+    case Source::kSystem:
       return "system";
-    case SOURCE_NONE:
+    case Source::kNone:
       return "";
   }
   NOTREACHED();
@@ -1035,14 +1036,14 @@ const char* ToString(Source enum_param) {
 
 Source ParseSource(base::StringPiece enum_string) {
   if (enum_string == "file")
-    return SOURCE_FILE;
+    return Source::kFile;
   if (enum_string == "device")
-    return SOURCE_DEVICE;
+    return Source::kDevice;
   if (enum_string == "network")
-    return SOURCE_NETWORK;
+    return Source::kNetwork;
   if (enum_string == "system")
-    return SOURCE_SYSTEM;
-  return SOURCE_NONE;
+    return Source::kSystem;
+  return Source::kNone;
 }
 
 std::u16string GetSourceParseError(base::StringPiece enum_string) {
@@ -1052,11 +1053,11 @@ std::u16string GetSourceParseError(base::StringPiece enum_string) {
 
 const char* ToString(SourceRestriction enum_param) {
   switch (enum_param) {
-    case SOURCE_RESTRICTION_ANY_SOURCE:
+    case SourceRestriction::kAnySource:
       return "any_source";
-    case SOURCE_RESTRICTION_NATIVE_SOURCE:
+    case SourceRestriction::kNativeSource:
       return "native_source";
-    case SOURCE_RESTRICTION_NONE:
+    case SourceRestriction::kNone:
       return "";
   }
   NOTREACHED();
@@ -1065,10 +1066,10 @@ const char* ToString(SourceRestriction enum_param) {
 
 SourceRestriction ParseSourceRestriction(base::StringPiece enum_string) {
   if (enum_string == "any_source")
-    return SOURCE_RESTRICTION_ANY_SOURCE;
+    return SourceRestriction::kAnySource;
   if (enum_string == "native_source")
-    return SOURCE_RESTRICTION_NATIVE_SOURCE;
-  return SOURCE_RESTRICTION_NONE;
+    return SourceRestriction::kNativeSource;
+  return SourceRestriction::kNone;
 }
 
 std::u16string GetSourceRestrictionParseError(base::StringPiece enum_string) {
@@ -1078,17 +1079,17 @@ std::u16string GetSourceRestrictionParseError(base::StringPiece enum_string) {
 
 const char* ToString(FileCategory enum_param) {
   switch (enum_param) {
-    case FILE_CATEGORY_ALL:
+    case FileCategory::kAll:
       return "all";
-    case FILE_CATEGORY_AUDIO:
+    case FileCategory::kAudio:
       return "audio";
-    case FILE_CATEGORY_IMAGE:
+    case FileCategory::kImage:
       return "image";
-    case FILE_CATEGORY_VIDEO:
+    case FileCategory::kVideo:
       return "video";
-    case FILE_CATEGORY_DOCUMENT:
+    case FileCategory::kDocument:
       return "document";
-    case FILE_CATEGORY_NONE:
+    case FileCategory::kNone:
       return "";
   }
   NOTREACHED();
@@ -1097,16 +1098,16 @@ const char* ToString(FileCategory enum_param) {
 
 FileCategory ParseFileCategory(base::StringPiece enum_string) {
   if (enum_string == "all")
-    return FILE_CATEGORY_ALL;
+    return FileCategory::kAll;
   if (enum_string == "audio")
-    return FILE_CATEGORY_AUDIO;
+    return FileCategory::kAudio;
   if (enum_string == "image")
-    return FILE_CATEGORY_IMAGE;
+    return FileCategory::kImage;
   if (enum_string == "video")
-    return FILE_CATEGORY_VIDEO;
+    return FileCategory::kVideo;
   if (enum_string == "document")
-    return FILE_CATEGORY_DOCUMENT;
-  return FILE_CATEGORY_NONE;
+    return FileCategory::kDocument;
+  return FileCategory::kNone;
 }
 
 std::u16string GetFileCategoryParseError(base::StringPiece enum_string) {
@@ -1116,17 +1117,17 @@ std::u16string GetFileCategoryParseError(base::StringPiece enum_string) {
 
 const char* ToString(CrostiniEventType enum_param) {
   switch (enum_param) {
-    case CROSTINI_EVENT_TYPE_ENABLE:
+    case CrostiniEventType::kEnable:
       return "enable";
-    case CROSTINI_EVENT_TYPE_DISABLE:
+    case CrostiniEventType::kDisable:
       return "disable";
-    case CROSTINI_EVENT_TYPE_SHARE:
+    case CrostiniEventType::kShare:
       return "share";
-    case CROSTINI_EVENT_TYPE_UNSHARE:
+    case CrostiniEventType::kUnshare:
       return "unshare";
-    case CROSTINI_EVENT_TYPE_DROP_FAILED_PLUGIN_VM_DIRECTORY_NOT_SHARED:
+    case CrostiniEventType::kDropFailedPluginVmDirectoryNotShared:
       return "drop_failed_plugin_vm_directory_not_shared";
-    case CROSTINI_EVENT_TYPE_NONE:
+    case CrostiniEventType::kNone:
       return "";
   }
   NOTREACHED();
@@ -1135,16 +1136,16 @@ const char* ToString(CrostiniEventType enum_param) {
 
 CrostiniEventType ParseCrostiniEventType(base::StringPiece enum_string) {
   if (enum_string == "enable")
-    return CROSTINI_EVENT_TYPE_ENABLE;
+    return CrostiniEventType::kEnable;
   if (enum_string == "disable")
-    return CROSTINI_EVENT_TYPE_DISABLE;
+    return CrostiniEventType::kDisable;
   if (enum_string == "share")
-    return CROSTINI_EVENT_TYPE_SHARE;
+    return CrostiniEventType::kShare;
   if (enum_string == "unshare")
-    return CROSTINI_EVENT_TYPE_UNSHARE;
+    return CrostiniEventType::kUnshare;
   if (enum_string == "drop_failed_plugin_vm_directory_not_shared")
-    return CROSTINI_EVENT_TYPE_DROP_FAILED_PLUGIN_VM_DIRECTORY_NOT_SHARED;
-  return CROSTINI_EVENT_TYPE_NONE;
+    return CrostiniEventType::kDropFailedPluginVmDirectoryNotShared;
+  return CrostiniEventType::kNone;
 }
 
 std::u16string GetCrostiniEventTypeParseError(base::StringPiece enum_string) {
@@ -1154,13 +1155,13 @@ std::u16string GetCrostiniEventTypeParseError(base::StringPiece enum_string) {
 
 const char* ToString(ProviderSource enum_param) {
   switch (enum_param) {
-    case PROVIDER_SOURCE_FILE:
+    case ProviderSource::kFile:
       return "file";
-    case PROVIDER_SOURCE_DEVICE:
+    case ProviderSource::kDevice:
       return "device";
-    case PROVIDER_SOURCE_NETWORK:
+    case ProviderSource::kNetwork:
       return "network";
-    case PROVIDER_SOURCE_NONE:
+    case ProviderSource::kNone:
       return "";
   }
   NOTREACHED();
@@ -1169,12 +1170,12 @@ const char* ToString(ProviderSource enum_param) {
 
 ProviderSource ParseProviderSource(base::StringPiece enum_string) {
   if (enum_string == "file")
-    return PROVIDER_SOURCE_FILE;
+    return ProviderSource::kFile;
   if (enum_string == "device")
-    return PROVIDER_SOURCE_DEVICE;
+    return ProviderSource::kDevice;
   if (enum_string == "network")
-    return PROVIDER_SOURCE_NETWORK;
-  return PROVIDER_SOURCE_NONE;
+    return ProviderSource::kNetwork;
+  return ProviderSource::kNone;
 }
 
 std::u16string GetProviderSourceParseError(base::StringPiece enum_string) {
@@ -1184,13 +1185,13 @@ std::u16string GetProviderSourceParseError(base::StringPiece enum_string) {
 
 const char* ToString(SharesheetLaunchSource enum_param) {
   switch (enum_param) {
-    case SHARESHEET_LAUNCH_SOURCE_CONTEXT_MENU:
+    case SharesheetLaunchSource::kContextMenu:
       return "context_menu";
-    case SHARESHEET_LAUNCH_SOURCE_SHARESHEET_BUTTON:
+    case SharesheetLaunchSource::kSharesheetButton:
       return "sharesheet_button";
-    case SHARESHEET_LAUNCH_SOURCE_UNKNOWN:
+    case SharesheetLaunchSource::kUnknown:
       return "unknown";
-    case SHARESHEET_LAUNCH_SOURCE_NONE:
+    case SharesheetLaunchSource::kNone:
       return "";
   }
   NOTREACHED();
@@ -1199,12 +1200,12 @@ const char* ToString(SharesheetLaunchSource enum_param) {
 
 SharesheetLaunchSource ParseSharesheetLaunchSource(base::StringPiece enum_string) {
   if (enum_string == "context_menu")
-    return SHARESHEET_LAUNCH_SOURCE_CONTEXT_MENU;
+    return SharesheetLaunchSource::kContextMenu;
   if (enum_string == "sharesheet_button")
-    return SHARESHEET_LAUNCH_SOURCE_SHARESHEET_BUTTON;
+    return SharesheetLaunchSource::kSharesheetButton;
   if (enum_string == "unknown")
-    return SHARESHEET_LAUNCH_SOURCE_UNKNOWN;
-  return SHARESHEET_LAUNCH_SOURCE_NONE;
+    return SharesheetLaunchSource::kUnknown;
+  return SharesheetLaunchSource::kNone;
 }
 
 std::u16string GetSharesheetLaunchSourceParseError(base::StringPiece enum_string) {
@@ -1214,23 +1215,23 @@ std::u16string GetSharesheetLaunchSourceParseError(base::StringPiece enum_string
 
 const char* ToString(IOTaskState enum_param) {
   switch (enum_param) {
-    case IO_TASK_STATE_QUEUED:
+    case IOTaskState::kQueued:
       return "queued";
-    case IO_TASK_STATE_SCANNING:
+    case IOTaskState::kScanning:
       return "scanning";
-    case IO_TASK_STATE_IN_PROGRESS:
+    case IOTaskState::kInProgress:
       return "in_progress";
-    case IO_TASK_STATE_PAUSED:
+    case IOTaskState::kPaused:
       return "paused";
-    case IO_TASK_STATE_SUCCESS:
+    case IOTaskState::kSuccess:
       return "success";
-    case IO_TASK_STATE_ERROR:
+    case IOTaskState::kError:
       return "error";
-    case IO_TASK_STATE_NEED_PASSWORD:
+    case IOTaskState::kNeedPassword:
       return "need_password";
-    case IO_TASK_STATE_CANCELLED:
+    case IOTaskState::kCancelled:
       return "cancelled";
-    case IO_TASK_STATE_NONE:
+    case IOTaskState::kNone:
       return "";
   }
   NOTREACHED();
@@ -1239,22 +1240,22 @@ const char* ToString(IOTaskState enum_param) {
 
 IOTaskState ParseIOTaskState(base::StringPiece enum_string) {
   if (enum_string == "queued")
-    return IO_TASK_STATE_QUEUED;
+    return IOTaskState::kQueued;
   if (enum_string == "scanning")
-    return IO_TASK_STATE_SCANNING;
+    return IOTaskState::kScanning;
   if (enum_string == "in_progress")
-    return IO_TASK_STATE_IN_PROGRESS;
+    return IOTaskState::kInProgress;
   if (enum_string == "paused")
-    return IO_TASK_STATE_PAUSED;
+    return IOTaskState::kPaused;
   if (enum_string == "success")
-    return IO_TASK_STATE_SUCCESS;
+    return IOTaskState::kSuccess;
   if (enum_string == "error")
-    return IO_TASK_STATE_ERROR;
+    return IOTaskState::kError;
   if (enum_string == "need_password")
-    return IO_TASK_STATE_NEED_PASSWORD;
+    return IOTaskState::kNeedPassword;
   if (enum_string == "cancelled")
-    return IO_TASK_STATE_CANCELLED;
-  return IO_TASK_STATE_NONE;
+    return IOTaskState::kCancelled;
+  return IOTaskState::kNone;
 }
 
 std::u16string GetIOTaskStateParseError(base::StringPiece enum_string) {
@@ -1264,25 +1265,25 @@ std::u16string GetIOTaskStateParseError(base::StringPiece enum_string) {
 
 const char* ToString(IOTaskType enum_param) {
   switch (enum_param) {
-    case IO_TASK_TYPE_COPY:
+    case IOTaskType::kCopy:
       return "copy";
-    case IO_TASK_TYPE_DELETE:
+    case IOTaskType::kDelete:
       return "delete";
-    case IO_TASK_TYPE_EMPTY_TRASH:
+    case IOTaskType::kEmptyTrash:
       return "empty_trash";
-    case IO_TASK_TYPE_EXTRACT:
+    case IOTaskType::kExtract:
       return "extract";
-    case IO_TASK_TYPE_MOVE:
+    case IOTaskType::kMove:
       return "move";
-    case IO_TASK_TYPE_RESTORE:
+    case IOTaskType::kRestore:
       return "restore";
-    case IO_TASK_TYPE_RESTORE_TO_DESTINATION:
+    case IOTaskType::kRestoreToDestination:
       return "restore_to_destination";
-    case IO_TASK_TYPE_TRASH:
+    case IOTaskType::kTrash:
       return "trash";
-    case IO_TASK_TYPE_ZIP:
+    case IOTaskType::kZip:
       return "zip";
-    case IO_TASK_TYPE_NONE:
+    case IOTaskType::kNone:
       return "";
   }
   NOTREACHED();
@@ -1291,24 +1292,24 @@ const char* ToString(IOTaskType enum_param) {
 
 IOTaskType ParseIOTaskType(base::StringPiece enum_string) {
   if (enum_string == "copy")
-    return IO_TASK_TYPE_COPY;
+    return IOTaskType::kCopy;
   if (enum_string == "delete")
-    return IO_TASK_TYPE_DELETE;
+    return IOTaskType::kDelete;
   if (enum_string == "empty_trash")
-    return IO_TASK_TYPE_EMPTY_TRASH;
+    return IOTaskType::kEmptyTrash;
   if (enum_string == "extract")
-    return IO_TASK_TYPE_EXTRACT;
+    return IOTaskType::kExtract;
   if (enum_string == "move")
-    return IO_TASK_TYPE_MOVE;
+    return IOTaskType::kMove;
   if (enum_string == "restore")
-    return IO_TASK_TYPE_RESTORE;
+    return IOTaskType::kRestore;
   if (enum_string == "restore_to_destination")
-    return IO_TASK_TYPE_RESTORE_TO_DESTINATION;
+    return IOTaskType::kRestoreToDestination;
   if (enum_string == "trash")
-    return IO_TASK_TYPE_TRASH;
+    return IOTaskType::kTrash;
   if (enum_string == "zip")
-    return IO_TASK_TYPE_ZIP;
-  return IO_TASK_TYPE_NONE;
+    return IOTaskType::kZip;
+  return IOTaskType::kNone;
 }
 
 std::u16string GetIOTaskTypeParseError(base::StringPiece enum_string) {
@@ -1318,13 +1319,13 @@ std::u16string GetIOTaskTypeParseError(base::StringPiece enum_string) {
 
 const char* ToString(PolicyErrorType enum_param) {
   switch (enum_param) {
-    case POLICY_ERROR_TYPE_DLP:
+    case PolicyErrorType::kDlp:
       return "dlp";
-    case POLICY_ERROR_TYPE_ENTERPRISE_CONNECTORS:
+    case PolicyErrorType::kEnterpriseConnectors:
       return "enterprise_connectors";
-    case POLICY_ERROR_TYPE_DLP_WARNING_TIMEOUT:
+    case PolicyErrorType::kDlpWarningTimeout:
       return "dlp_warning_timeout";
-    case POLICY_ERROR_TYPE_NONE:
+    case PolicyErrorType::kNone:
       return "";
   }
   NOTREACHED();
@@ -1333,12 +1334,12 @@ const char* ToString(PolicyErrorType enum_param) {
 
 PolicyErrorType ParsePolicyErrorType(base::StringPiece enum_string) {
   if (enum_string == "dlp")
-    return POLICY_ERROR_TYPE_DLP;
+    return PolicyErrorType::kDlp;
   if (enum_string == "enterprise_connectors")
-    return POLICY_ERROR_TYPE_ENTERPRISE_CONNECTORS;
+    return PolicyErrorType::kEnterpriseConnectors;
   if (enum_string == "dlp_warning_timeout")
-    return POLICY_ERROR_TYPE_DLP_WARNING_TIMEOUT;
-  return POLICY_ERROR_TYPE_NONE;
+    return PolicyErrorType::kDlpWarningTimeout;
+  return PolicyErrorType::kNone;
 }
 
 std::u16string GetPolicyErrorTypeParseError(base::StringPiece enum_string) {
@@ -1348,11 +1349,11 @@ std::u16string GetPolicyErrorTypeParseError(base::StringPiece enum_string) {
 
 const char* ToString(PolicyDialogType enum_param) {
   switch (enum_param) {
-    case POLICY_DIALOG_TYPE_WARNING:
+    case PolicyDialogType::kWarning:
       return "warning";
-    case POLICY_DIALOG_TYPE_ERROR:
+    case PolicyDialogType::kError:
       return "error";
-    case POLICY_DIALOG_TYPE_NONE:
+    case PolicyDialogType::kNone:
       return "";
   }
   NOTREACHED();
@@ -1361,10 +1362,10 @@ const char* ToString(PolicyDialogType enum_param) {
 
 PolicyDialogType ParsePolicyDialogType(base::StringPiece enum_string) {
   if (enum_string == "warning")
-    return POLICY_DIALOG_TYPE_WARNING;
+    return PolicyDialogType::kWarning;
   if (enum_string == "error")
-    return POLICY_DIALOG_TYPE_ERROR;
-  return POLICY_DIALOG_TYPE_NONE;
+    return PolicyDialogType::kError;
+  return PolicyDialogType::kNone;
 }
 
 std::u16string GetPolicyDialogTypeParseError(base::StringPiece enum_string) {
@@ -1374,19 +1375,19 @@ std::u16string GetPolicyDialogTypeParseError(base::StringPiece enum_string) {
 
 const char* ToString(RecentDateBucket enum_param) {
   switch (enum_param) {
-    case RECENT_DATE_BUCKET_TODAY:
+    case RecentDateBucket::kToday:
       return "today";
-    case RECENT_DATE_BUCKET_YESTERDAY:
+    case RecentDateBucket::kYesterday:
       return "yesterday";
-    case RECENT_DATE_BUCKET_EARLIER_THIS_WEEK:
+    case RecentDateBucket::kEarlierThisWeek:
       return "earlier_this_week";
-    case RECENT_DATE_BUCKET_EARLIER_THIS_MONTH:
+    case RecentDateBucket::kEarlierThisMonth:
       return "earlier_this_month";
-    case RECENT_DATE_BUCKET_EARLIER_THIS_YEAR:
+    case RecentDateBucket::kEarlierThisYear:
       return "earlier_this_year";
-    case RECENT_DATE_BUCKET_OLDER:
+    case RecentDateBucket::kOlder:
       return "older";
-    case RECENT_DATE_BUCKET_NONE:
+    case RecentDateBucket::kNone:
       return "";
   }
   NOTREACHED();
@@ -1395,18 +1396,18 @@ const char* ToString(RecentDateBucket enum_param) {
 
 RecentDateBucket ParseRecentDateBucket(base::StringPiece enum_string) {
   if (enum_string == "today")
-    return RECENT_DATE_BUCKET_TODAY;
+    return RecentDateBucket::kToday;
   if (enum_string == "yesterday")
-    return RECENT_DATE_BUCKET_YESTERDAY;
+    return RecentDateBucket::kYesterday;
   if (enum_string == "earlier_this_week")
-    return RECENT_DATE_BUCKET_EARLIER_THIS_WEEK;
+    return RecentDateBucket::kEarlierThisWeek;
   if (enum_string == "earlier_this_month")
-    return RECENT_DATE_BUCKET_EARLIER_THIS_MONTH;
+    return RecentDateBucket::kEarlierThisMonth;
   if (enum_string == "earlier_this_year")
-    return RECENT_DATE_BUCKET_EARLIER_THIS_YEAR;
+    return RecentDateBucket::kEarlierThisYear;
   if (enum_string == "older")
-    return RECENT_DATE_BUCKET_OLDER;
-  return RECENT_DATE_BUCKET_NONE;
+    return RecentDateBucket::kOlder;
+  return RecentDateBucket::kNone;
 }
 
 std::u16string GetRecentDateBucketParseError(base::StringPiece enum_string) {
@@ -1416,17 +1417,17 @@ std::u16string GetRecentDateBucketParseError(base::StringPiece enum_string) {
 
 const char* ToString(VmType enum_param) {
   switch (enum_param) {
-    case VM_TYPE_TERMINA:
+    case VmType::kTermina:
       return "termina";
-    case VM_TYPE_PLUGIN_VM:
+    case VmType::kPluginVm:
       return "plugin_vm";
-    case VM_TYPE_BOREALIS:
+    case VmType::kBorealis:
       return "borealis";
-    case VM_TYPE_BRUSCHETTA:
+    case VmType::kBruschetta:
       return "bruschetta";
-    case VM_TYPE_ARCVM:
+    case VmType::kArcvm:
       return "arcvm";
-    case VM_TYPE_NONE:
+    case VmType::kNone:
       return "";
   }
   NOTREACHED();
@@ -1435,16 +1436,16 @@ const char* ToString(VmType enum_param) {
 
 VmType ParseVmType(base::StringPiece enum_string) {
   if (enum_string == "termina")
-    return VM_TYPE_TERMINA;
+    return VmType::kTermina;
   if (enum_string == "plugin_vm")
-    return VM_TYPE_PLUGIN_VM;
+    return VmType::kPluginVm;
   if (enum_string == "borealis")
-    return VM_TYPE_BOREALIS;
+    return VmType::kBorealis;
   if (enum_string == "bruschetta")
-    return VM_TYPE_BRUSCHETTA;
+    return VmType::kBruschetta;
   if (enum_string == "arcvm")
-    return VM_TYPE_ARCVM;
-  return VM_TYPE_NONE;
+    return VmType::kArcvm;
+  return VmType::kNone;
 }
 
 std::u16string GetVmTypeParseError(base::StringPiece enum_string) {
@@ -1454,11 +1455,11 @@ std::u16string GetVmTypeParseError(base::StringPiece enum_string) {
 
 const char* ToString(UserType enum_param) {
   switch (enum_param) {
-    case USER_TYPE_UNMANAGED:
+    case UserType::kUnmanaged:
       return "unmanaged";
-    case USER_TYPE_ORGANIZATION:
+    case UserType::kOrganization:
       return "organization";
-    case USER_TYPE_NONE:
+    case UserType::kNone:
       return "";
   }
   NOTREACHED();
@@ -1467,10 +1468,10 @@ const char* ToString(UserType enum_param) {
 
 UserType ParseUserType(base::StringPiece enum_string) {
   if (enum_string == "unmanaged")
-    return USER_TYPE_UNMANAGED;
+    return UserType::kUnmanaged;
   if (enum_string == "organization")
-    return USER_TYPE_ORGANIZATION;
-  return USER_TYPE_NONE;
+    return UserType::kOrganization;
+  return UserType::kNone;
 }
 
 std::u16string GetUserTypeParseError(base::StringPiece enum_string) {
@@ -1480,15 +1481,15 @@ std::u16string GetUserTypeParseError(base::StringPiece enum_string) {
 
 const char* ToString(DlpLevel enum_param) {
   switch (enum_param) {
-    case DLP_LEVEL_REPORT:
+    case DlpLevel::kReport:
       return "report";
-    case DLP_LEVEL_WARN:
+    case DlpLevel::kWarn:
       return "warn";
-    case DLP_LEVEL_BLOCK:
+    case DlpLevel::kBlock:
       return "block";
-    case DLP_LEVEL_ALLOW:
+    case DlpLevel::kAllow:
       return "allow";
-    case DLP_LEVEL_NONE:
+    case DlpLevel::kNone:
       return "";
   }
   NOTREACHED();
@@ -1497,14 +1498,14 @@ const char* ToString(DlpLevel enum_param) {
 
 DlpLevel ParseDlpLevel(base::StringPiece enum_string) {
   if (enum_string == "report")
-    return DLP_LEVEL_REPORT;
+    return DlpLevel::kReport;
   if (enum_string == "warn")
-    return DLP_LEVEL_WARN;
+    return DlpLevel::kWarn;
   if (enum_string == "block")
-    return DLP_LEVEL_BLOCK;
+    return DlpLevel::kBlock;
   if (enum_string == "allow")
-    return DLP_LEVEL_ALLOW;
-  return DLP_LEVEL_NONE;
+    return DlpLevel::kAllow;
+  return DlpLevel::kNone;
 }
 
 std::u16string GetDlpLevelParseError(base::StringPiece enum_string) {
@@ -1514,17 +1515,17 @@ std::u16string GetDlpLevelParseError(base::StringPiece enum_string) {
 
 const char* ToString(SyncStatus enum_param) {
   switch (enum_param) {
-    case SYNC_STATUS_NOT_FOUND:
+    case SyncStatus::kNotFound:
       return "not_found";
-    case SYNC_STATUS_QUEUED:
+    case SyncStatus::kQueued:
       return "queued";
-    case SYNC_STATUS_IN_PROGRESS:
+    case SyncStatus::kInProgress:
       return "in_progress";
-    case SYNC_STATUS_COMPLETED:
+    case SyncStatus::kCompleted:
       return "completed";
-    case SYNC_STATUS_ERROR:
+    case SyncStatus::kError:
       return "error";
-    case SYNC_STATUS_NONE:
+    case SyncStatus::kNone:
       return "";
   }
   NOTREACHED();
@@ -1533,16 +1534,16 @@ const char* ToString(SyncStatus enum_param) {
 
 SyncStatus ParseSyncStatus(base::StringPiece enum_string) {
   if (enum_string == "not_found")
-    return SYNC_STATUS_NOT_FOUND;
+    return SyncStatus::kNotFound;
   if (enum_string == "queued")
-    return SYNC_STATUS_QUEUED;
+    return SyncStatus::kQueued;
   if (enum_string == "in_progress")
-    return SYNC_STATUS_IN_PROGRESS;
+    return SyncStatus::kInProgress;
   if (enum_string == "completed")
-    return SYNC_STATUS_COMPLETED;
+    return SyncStatus::kCompleted;
   if (enum_string == "error")
-    return SYNC_STATUS_ERROR;
-  return SYNC_STATUS_NONE;
+    return SyncStatus::kError;
+  return SyncStatus::kNone;
 }
 
 std::u16string GetSyncStatusParseError(base::StringPiece enum_string) {
@@ -1552,11 +1553,11 @@ std::u16string GetSyncStatusParseError(base::StringPiece enum_string) {
 
 const char* ToString(PolicyDefaultHandlerStatus enum_param) {
   switch (enum_param) {
-    case POLICY_DEFAULT_HANDLER_STATUS_DEFAULT_HANDLER_ASSIGNED_BY_POLICY:
+    case PolicyDefaultHandlerStatus::kDefaultHandlerAssignedByPolicy:
       return "default_handler_assigned_by_policy";
-    case POLICY_DEFAULT_HANDLER_STATUS_INCORRECT_ASSIGNMENT:
+    case PolicyDefaultHandlerStatus::kIncorrectAssignment:
       return "incorrect_assignment";
-    case POLICY_DEFAULT_HANDLER_STATUS_NONE:
+    case PolicyDefaultHandlerStatus::kNone:
       return "";
   }
   NOTREACHED();
@@ -1565,10 +1566,10 @@ const char* ToString(PolicyDefaultHandlerStatus enum_param) {
 
 PolicyDefaultHandlerStatus ParsePolicyDefaultHandlerStatus(base::StringPiece enum_string) {
   if (enum_string == "default_handler_assigned_by_policy")
-    return POLICY_DEFAULT_HANDLER_STATUS_DEFAULT_HANDLER_ASSIGNED_BY_POLICY;
+    return PolicyDefaultHandlerStatus::kDefaultHandlerAssignedByPolicy;
   if (enum_string == "incorrect_assignment")
-    return POLICY_DEFAULT_HANDLER_STATUS_INCORRECT_ASSIGNMENT;
-  return POLICY_DEFAULT_HANDLER_STATUS_NONE;
+    return PolicyDefaultHandlerStatus::kIncorrectAssignment;
+  return PolicyDefaultHandlerStatus::kNone;
 }
 
 std::u16string GetPolicyDefaultHandlerStatusParseError(base::StringPiece enum_string) {
@@ -1578,29 +1579,29 @@ std::u16string GetPolicyDefaultHandlerStatusParseError(base::StringPiece enum_st
 
 const char* ToString(BulkPinStage enum_param) {
   switch (enum_param) {
-    case BULK_PIN_STAGE_STOPPED:
+    case BulkPinStage::kStopped:
       return "stopped";
-    case BULK_PIN_STAGE_PAUSED_OFFLINE:
+    case BulkPinStage::kPausedOffline:
       return "paused_offline";
-    case BULK_PIN_STAGE_PAUSED_BATTERY_SAVER:
+    case BulkPinStage::kPausedBatterySaver:
       return "paused_battery_saver";
-    case BULK_PIN_STAGE_GETTING_FREE_SPACE:
+    case BulkPinStage::kGettingFreeSpace:
       return "getting_free_space";
-    case BULK_PIN_STAGE_LISTING_FILES:
+    case BulkPinStage::kListingFiles:
       return "listing_files";
-    case BULK_PIN_STAGE_SYNCING:
+    case BulkPinStage::kSyncing:
       return "syncing";
-    case BULK_PIN_STAGE_SUCCESS:
+    case BulkPinStage::kSuccess:
       return "success";
-    case BULK_PIN_STAGE_NOT_ENOUGH_SPACE:
+    case BulkPinStage::kNotEnoughSpace:
       return "not_enough_space";
-    case BULK_PIN_STAGE_CANNOT_GET_FREE_SPACE:
+    case BulkPinStage::kCannotGetFreeSpace:
       return "cannot_get_free_space";
-    case BULK_PIN_STAGE_CANNOT_LIST_FILES:
+    case BulkPinStage::kCannotListFiles:
       return "cannot_list_files";
-    case BULK_PIN_STAGE_CANNOT_ENABLE_DOCS_OFFLINE:
+    case BulkPinStage::kCannotEnableDocsOffline:
       return "cannot_enable_docs_offline";
-    case BULK_PIN_STAGE_NONE:
+    case BulkPinStage::kNone:
       return "";
   }
   NOTREACHED();
@@ -1609,28 +1610,28 @@ const char* ToString(BulkPinStage enum_param) {
 
 BulkPinStage ParseBulkPinStage(base::StringPiece enum_string) {
   if (enum_string == "stopped")
-    return BULK_PIN_STAGE_STOPPED;
+    return BulkPinStage::kStopped;
   if (enum_string == "paused_offline")
-    return BULK_PIN_STAGE_PAUSED_OFFLINE;
+    return BulkPinStage::kPausedOffline;
   if (enum_string == "paused_battery_saver")
-    return BULK_PIN_STAGE_PAUSED_BATTERY_SAVER;
+    return BulkPinStage::kPausedBatterySaver;
   if (enum_string == "getting_free_space")
-    return BULK_PIN_STAGE_GETTING_FREE_SPACE;
+    return BulkPinStage::kGettingFreeSpace;
   if (enum_string == "listing_files")
-    return BULK_PIN_STAGE_LISTING_FILES;
+    return BulkPinStage::kListingFiles;
   if (enum_string == "syncing")
-    return BULK_PIN_STAGE_SYNCING;
+    return BulkPinStage::kSyncing;
   if (enum_string == "success")
-    return BULK_PIN_STAGE_SUCCESS;
+    return BulkPinStage::kSuccess;
   if (enum_string == "not_enough_space")
-    return BULK_PIN_STAGE_NOT_ENOUGH_SPACE;
+    return BulkPinStage::kNotEnoughSpace;
   if (enum_string == "cannot_get_free_space")
-    return BULK_PIN_STAGE_CANNOT_GET_FREE_SPACE;
+    return BulkPinStage::kCannotGetFreeSpace;
   if (enum_string == "cannot_list_files")
-    return BULK_PIN_STAGE_CANNOT_LIST_FILES;
+    return BulkPinStage::kCannotListFiles;
   if (enum_string == "cannot_enable_docs_offline")
-    return BULK_PIN_STAGE_CANNOT_ENABLE_DOCS_OFFLINE;
-  return BULK_PIN_STAGE_NONE;
+    return BulkPinStage::kCannotEnableDocsOffline;
+  return BulkPinStage::kNone;
 }
 
 std::u16string GetBulkPinStageParseError(base::StringPiece enum_string) {
@@ -1642,8 +1643,8 @@ FileTaskDescriptor::FileTaskDescriptor()
  {}
 
 FileTaskDescriptor::~FileTaskDescriptor() = default;
-FileTaskDescriptor::FileTaskDescriptor(FileTaskDescriptor&& rhs) = default;
-FileTaskDescriptor& FileTaskDescriptor::operator=(FileTaskDescriptor&& rhs) = default;
+FileTaskDescriptor::FileTaskDescriptor(FileTaskDescriptor&& rhs) noexcept = default;
+FileTaskDescriptor& FileTaskDescriptor::operator=(FileTaskDescriptor&& rhs) noexcept = default;
 FileTaskDescriptor FileTaskDescriptor::Clone() const {
   FileTaskDescriptor out;
   out.app_id = app_id;
@@ -1704,34 +1705,21 @@ bool FileTaskDescriptor::Populate(
 }
 
 // static
-std::unique_ptr<FileTaskDescriptor> FileTaskDescriptor::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<FileTaskDescriptor>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<FileTaskDescriptor> FileTaskDescriptor::FromValue(const base::Value::Dict& value) {
+  FileTaskDescriptor out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<FileTaskDescriptor> FileTaskDescriptor::FromValue(const base::Value::Dict& value) {
+std::optional<FileTaskDescriptor> FileTaskDescriptor::FromValue(const base::Value& value) {
   FileTaskDescriptor out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<FileTaskDescriptor> FileTaskDescriptor::FromValue(const base::Value& value) {
-  FileTaskDescriptor out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1754,8 +1742,8 @@ FileTask::FileTask()
  {}
 
 FileTask::~FileTask() = default;
-FileTask::FileTask(FileTask&& rhs) = default;
-FileTask& FileTask::operator=(FileTask&& rhs) = default;
+FileTask::FileTask(FileTask&& rhs) noexcept = default;
+FileTask& FileTask::operator=(FileTask&& rhs) noexcept = default;
 FileTask FileTask::Clone() const {
   FileTask out;
   out.descriptor = descriptor.Clone();
@@ -1800,7 +1788,7 @@ bool FileTask::Populate(
     {
       auto* temp = (*icon_url_value).GetIfString();
       if (!temp) {
-        out.icon_url = absl::nullopt;
+        out.icon_url = std::nullopt;
         return false;
       }
       out.icon_url = *temp;
@@ -1812,7 +1800,7 @@ bool FileTask::Populate(
     {
       auto temp = (*is_default_value).GetIfBool();
       if (!temp.has_value()) {
-        out.is_default = absl::nullopt;
+        out.is_default = std::nullopt;
         return false;
       }
       out.is_default = *temp;
@@ -1824,7 +1812,7 @@ bool FileTask::Populate(
     {
       auto temp = (*is_generic_file_handler_value).GetIfBool();
       if (!temp.has_value()) {
-        out.is_generic_file_handler = absl::nullopt;
+        out.is_generic_file_handler = std::nullopt;
         return false;
       }
       out.is_generic_file_handler = *temp;
@@ -1836,7 +1824,7 @@ bool FileTask::Populate(
     {
       auto temp = (*is_dlp_blocked_value).GetIfBool();
       if (!temp.has_value()) {
-        out.is_dlp_blocked = absl::nullopt;
+        out.is_dlp_blocked = std::nullopt;
         return false;
       }
       out.is_dlp_blocked = *temp;
@@ -1856,34 +1844,21 @@ bool FileTask::Populate(
 }
 
 // static
-std::unique_ptr<FileTask> FileTask::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<FileTask>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<FileTask> FileTask::FromValue(const base::Value::Dict& value) {
+  FileTask out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<FileTask> FileTask::FromValue(const base::Value::Dict& value) {
+std::optional<FileTask> FileTask::FromValue(const base::Value& value) {
   FileTask out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<FileTask> FileTask::FromValue(const base::Value& value) {
-  FileTask out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1920,8 +1895,8 @@ ResultingTasks::ResultingTasks()
 : policy_default_handler_status() {}
 
 ResultingTasks::~ResultingTasks() = default;
-ResultingTasks::ResultingTasks(ResultingTasks&& rhs) = default;
-ResultingTasks& ResultingTasks::operator=(ResultingTasks&& rhs) = default;
+ResultingTasks::ResultingTasks(ResultingTasks&& rhs) noexcept = default;
+ResultingTasks& ResultingTasks::operator=(ResultingTasks&& rhs) noexcept = default;
 ResultingTasks ResultingTasks::Clone() const {
   ResultingTasks out;
   out.tasks.reserve(tasks.size());
@@ -1980,34 +1955,21 @@ bool ResultingTasks::Populate(
 }
 
 // static
-std::unique_ptr<ResultingTasks> ResultingTasks::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ResultingTasks>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ResultingTasks> ResultingTasks::FromValue(const base::Value::Dict& value) {
+  ResultingTasks out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ResultingTasks> ResultingTasks::FromValue(const base::Value::Dict& value) {
+std::optional<ResultingTasks> ResultingTasks::FromValue(const base::Value& value) {
   ResultingTasks out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ResultingTasks> ResultingTasks::FromValue(const base::Value& value) {
-  ResultingTasks out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2031,8 +1993,8 @@ EntryProperties::EntryProperties()
 sync_status() {}
 
 EntryProperties::~EntryProperties() = default;
-EntryProperties::EntryProperties(EntryProperties&& rhs) = default;
-EntryProperties& EntryProperties::operator=(EntryProperties&& rhs) = default;
+EntryProperties::EntryProperties(EntryProperties&& rhs) noexcept = default;
+EntryProperties& EntryProperties::operator=(EntryProperties&& rhs) noexcept = default;
 EntryProperties EntryProperties::Clone() const {
   EntryProperties out;
   out.size = size;
@@ -2084,7 +2046,7 @@ bool EntryProperties::Populate(
     {
       auto temp = (*size_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.size = absl::nullopt;
+        out.size = std::nullopt;
         return false;
       }
       out.size = *temp;
@@ -2096,7 +2058,7 @@ bool EntryProperties::Populate(
     {
       auto temp = (*modification_time_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.modification_time = absl::nullopt;
+        out.modification_time = std::nullopt;
         return false;
       }
       out.modification_time = *temp;
@@ -2108,7 +2070,7 @@ bool EntryProperties::Populate(
     {
       auto temp = (*modification_by_me_time_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.modification_by_me_time = absl::nullopt;
+        out.modification_by_me_time = std::nullopt;
         return false;
       }
       out.modification_by_me_time = *temp;
@@ -2136,7 +2098,7 @@ bool EntryProperties::Populate(
     {
       auto* temp = (*thumbnail_url_value).GetIfString();
       if (!temp) {
-        out.thumbnail_url = absl::nullopt;
+        out.thumbnail_url = std::nullopt;
         return false;
       }
       out.thumbnail_url = *temp;
@@ -2148,7 +2110,7 @@ bool EntryProperties::Populate(
     {
       auto* temp = (*cropped_thumbnail_url_value).GetIfString();
       if (!temp) {
-        out.cropped_thumbnail_url = absl::nullopt;
+        out.cropped_thumbnail_url = std::nullopt;
         return false;
       }
       out.cropped_thumbnail_url = *temp;
@@ -2160,7 +2122,7 @@ bool EntryProperties::Populate(
     {
       auto temp = (*image_width_value).GetIfInt();
       if (!temp.has_value()) {
-        out.image_width = absl::nullopt;
+        out.image_width = std::nullopt;
         return false;
       }
       out.image_width = *temp;
@@ -2172,7 +2134,7 @@ bool EntryProperties::Populate(
     {
       auto temp = (*image_height_value).GetIfInt();
       if (!temp.has_value()) {
-        out.image_height = absl::nullopt;
+        out.image_height = std::nullopt;
         return false;
       }
       out.image_height = *temp;
@@ -2184,7 +2146,7 @@ bool EntryProperties::Populate(
     {
       auto temp = (*image_rotation_value).GetIfInt();
       if (!temp.has_value()) {
-        out.image_rotation = absl::nullopt;
+        out.image_rotation = std::nullopt;
         return false;
       }
       out.image_rotation = *temp;
@@ -2196,7 +2158,7 @@ bool EntryProperties::Populate(
     {
       auto temp = (*pinned_value).GetIfBool();
       if (!temp.has_value()) {
-        out.pinned = absl::nullopt;
+        out.pinned = std::nullopt;
         return false;
       }
       out.pinned = *temp;
@@ -2208,7 +2170,7 @@ bool EntryProperties::Populate(
     {
       auto temp = (*present_value).GetIfBool();
       if (!temp.has_value()) {
-        out.present = absl::nullopt;
+        out.present = std::nullopt;
         return false;
       }
       out.present = *temp;
@@ -2220,7 +2182,7 @@ bool EntryProperties::Populate(
     {
       auto temp = (*hosted_value).GetIfBool();
       if (!temp.has_value()) {
-        out.hosted = absl::nullopt;
+        out.hosted = std::nullopt;
         return false;
       }
       out.hosted = *temp;
@@ -2232,7 +2194,7 @@ bool EntryProperties::Populate(
     {
       auto temp = (*available_offline_value).GetIfBool();
       if (!temp.has_value()) {
-        out.available_offline = absl::nullopt;
+        out.available_offline = std::nullopt;
         return false;
       }
       out.available_offline = *temp;
@@ -2244,7 +2206,7 @@ bool EntryProperties::Populate(
     {
       auto temp = (*available_when_metered_value).GetIfBool();
       if (!temp.has_value()) {
-        out.available_when_metered = absl::nullopt;
+        out.available_when_metered = std::nullopt;
         return false;
       }
       out.available_when_metered = *temp;
@@ -2256,7 +2218,7 @@ bool EntryProperties::Populate(
     {
       auto temp = (*dirty_value).GetIfBool();
       if (!temp.has_value()) {
-        out.dirty = absl::nullopt;
+        out.dirty = std::nullopt;
         return false;
       }
       out.dirty = *temp;
@@ -2268,7 +2230,7 @@ bool EntryProperties::Populate(
     {
       auto* temp = (*custom_icon_url_value).GetIfString();
       if (!temp) {
-        out.custom_icon_url = absl::nullopt;
+        out.custom_icon_url = std::nullopt;
         return false;
       }
       out.custom_icon_url = *temp;
@@ -2280,7 +2242,7 @@ bool EntryProperties::Populate(
     {
       auto* temp = (*content_mime_type_value).GetIfString();
       if (!temp) {
-        out.content_mime_type = absl::nullopt;
+        out.content_mime_type = std::nullopt;
         return false;
       }
       out.content_mime_type = *temp;
@@ -2292,7 +2254,7 @@ bool EntryProperties::Populate(
     {
       auto temp = (*shared_with_me_value).GetIfBool();
       if (!temp.has_value()) {
-        out.shared_with_me = absl::nullopt;
+        out.shared_with_me = std::nullopt;
         return false;
       }
       out.shared_with_me = *temp;
@@ -2304,7 +2266,7 @@ bool EntryProperties::Populate(
     {
       auto temp = (*shared_value).GetIfBool();
       if (!temp.has_value()) {
-        out.shared = absl::nullopt;
+        out.shared = std::nullopt;
         return false;
       }
       out.shared = *temp;
@@ -2316,7 +2278,7 @@ bool EntryProperties::Populate(
     {
       auto temp = (*starred_value).GetIfBool();
       if (!temp.has_value()) {
-        out.starred = absl::nullopt;
+        out.starred = std::nullopt;
         return false;
       }
       out.starred = *temp;
@@ -2328,7 +2290,7 @@ bool EntryProperties::Populate(
     {
       auto* temp = (*external_file_url_value).GetIfString();
       if (!temp) {
-        out.external_file_url = absl::nullopt;
+        out.external_file_url = std::nullopt;
         return false;
       }
       out.external_file_url = *temp;
@@ -2340,7 +2302,7 @@ bool EntryProperties::Populate(
     {
       auto* temp = (*alternate_url_value).GetIfString();
       if (!temp) {
-        out.alternate_url = absl::nullopt;
+        out.alternate_url = std::nullopt;
         return false;
       }
       out.alternate_url = *temp;
@@ -2352,7 +2314,7 @@ bool EntryProperties::Populate(
     {
       auto* temp = (*share_url_value).GetIfString();
       if (!temp) {
-        out.share_url = absl::nullopt;
+        out.share_url = std::nullopt;
         return false;
       }
       out.share_url = *temp;
@@ -2364,7 +2326,7 @@ bool EntryProperties::Populate(
     {
       auto temp = (*can_copy_value).GetIfBool();
       if (!temp.has_value()) {
-        out.can_copy = absl::nullopt;
+        out.can_copy = std::nullopt;
         return false;
       }
       out.can_copy = *temp;
@@ -2376,7 +2338,7 @@ bool EntryProperties::Populate(
     {
       auto temp = (*can_delete_value).GetIfBool();
       if (!temp.has_value()) {
-        out.can_delete = absl::nullopt;
+        out.can_delete = std::nullopt;
         return false;
       }
       out.can_delete = *temp;
@@ -2388,7 +2350,7 @@ bool EntryProperties::Populate(
     {
       auto temp = (*can_rename_value).GetIfBool();
       if (!temp.has_value()) {
-        out.can_rename = absl::nullopt;
+        out.can_rename = std::nullopt;
         return false;
       }
       out.can_rename = *temp;
@@ -2400,7 +2362,7 @@ bool EntryProperties::Populate(
     {
       auto temp = (*can_add_children_value).GetIfBool();
       if (!temp.has_value()) {
-        out.can_add_children = absl::nullopt;
+        out.can_add_children = std::nullopt;
         return false;
       }
       out.can_add_children = *temp;
@@ -2412,7 +2374,7 @@ bool EntryProperties::Populate(
     {
       auto temp = (*can_share_value).GetIfBool();
       if (!temp.has_value()) {
-        out.can_share = absl::nullopt;
+        out.can_share = std::nullopt;
         return false;
       }
       out.can_share = *temp;
@@ -2424,7 +2386,7 @@ bool EntryProperties::Populate(
     {
       auto temp = (*can_pin_value).GetIfBool();
       if (!temp.has_value()) {
-        out.can_pin = absl::nullopt;
+        out.can_pin = std::nullopt;
         return false;
       }
       out.can_pin = *temp;
@@ -2436,7 +2398,7 @@ bool EntryProperties::Populate(
     {
       auto temp = (*is_machine_root_value).GetIfBool();
       if (!temp.has_value()) {
-        out.is_machine_root = absl::nullopt;
+        out.is_machine_root = std::nullopt;
         return false;
       }
       out.is_machine_root = *temp;
@@ -2448,7 +2410,7 @@ bool EntryProperties::Populate(
     {
       auto temp = (*is_external_media_value).GetIfBool();
       if (!temp.has_value()) {
-        out.is_external_media = absl::nullopt;
+        out.is_external_media = std::nullopt;
         return false;
       }
       out.is_external_media = *temp;
@@ -2460,7 +2422,7 @@ bool EntryProperties::Populate(
     {
       auto temp = (*is_arbitrary_sync_folder_value).GetIfBool();
       if (!temp.has_value()) {
-        out.is_arbitrary_sync_folder = absl::nullopt;
+        out.is_arbitrary_sync_folder = std::nullopt;
         return false;
       }
       out.is_arbitrary_sync_folder = *temp;
@@ -2488,7 +2450,7 @@ bool EntryProperties::Populate(
     {
       auto temp = (*progress_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.progress = absl::nullopt;
+        out.progress = std::nullopt;
         return false;
       }
       out.progress = *temp;
@@ -2500,7 +2462,7 @@ bool EntryProperties::Populate(
     {
       auto temp = (*sync_completed_time_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.sync_completed_time = absl::nullopt;
+        out.sync_completed_time = std::nullopt;
         return false;
       }
       out.sync_completed_time = *temp;
@@ -2512,7 +2474,7 @@ bool EntryProperties::Populate(
     {
       auto temp = (*shortcut_value).GetIfBool();
       if (!temp.has_value()) {
-        out.shortcut = absl::nullopt;
+        out.shortcut = std::nullopt;
         return false;
       }
       out.shortcut = *temp;
@@ -2532,34 +2494,21 @@ bool EntryProperties::Populate(
 }
 
 // static
-std::unique_ptr<EntryProperties> EntryProperties::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<EntryProperties>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<EntryProperties> EntryProperties::FromValue(const base::Value::Dict& value) {
+  EntryProperties out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<EntryProperties> EntryProperties::FromValue(const base::Value::Dict& value) {
+std::optional<EntryProperties> EntryProperties::FromValue(const base::Value& value) {
   EntryProperties out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<EntryProperties> EntryProperties::FromValue(const base::Value& value) {
-  EntryProperties out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2721,8 +2670,8 @@ MountPointSizeStats::MountPointSizeStats()
 remaining_size(0.0) {}
 
 MountPointSizeStats::~MountPointSizeStats() = default;
-MountPointSizeStats::MountPointSizeStats(MountPointSizeStats&& rhs) = default;
-MountPointSizeStats& MountPointSizeStats::operator=(MountPointSizeStats&& rhs) = default;
+MountPointSizeStats::MountPointSizeStats(MountPointSizeStats&& rhs) noexcept = default;
+MountPointSizeStats& MountPointSizeStats::operator=(MountPointSizeStats&& rhs) noexcept = default;
 MountPointSizeStats MountPointSizeStats::Clone() const {
   MountPointSizeStats out;
   out.total_size = total_size;
@@ -2770,34 +2719,21 @@ bool MountPointSizeStats::Populate(
 }
 
 // static
-std::unique_ptr<MountPointSizeStats> MountPointSizeStats::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<MountPointSizeStats>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<MountPointSizeStats> MountPointSizeStats::FromValue(const base::Value::Dict& value) {
+  MountPointSizeStats out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<MountPointSizeStats> MountPointSizeStats::FromValue(const base::Value::Dict& value) {
+std::optional<MountPointSizeStats> MountPointSizeStats::FromValue(const base::Value& value) {
   MountPointSizeStats out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<MountPointSizeStats> MountPointSizeStats::FromValue(const base::Value& value) {
-  MountPointSizeStats out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2814,6 +2750,154 @@ base::Value::Dict MountPointSizeStats::ToValue() const {
 }
 
 
+SearchDriveResponse::EntriesType::EntriesType()
+ {}
+
+SearchDriveResponse::EntriesType::~EntriesType() = default;
+SearchDriveResponse::EntriesType::EntriesType(EntriesType&& rhs) noexcept = default;
+SearchDriveResponse::EntriesType& SearchDriveResponse::EntriesType::operator=(EntriesType&& rhs) noexcept = default;
+SearchDriveResponse::EntriesType SearchDriveResponse::EntriesType::Clone() const {
+  EntriesType out;
+  return out;
+}
+
+// static
+bool SearchDriveResponse::EntriesType::Populate(
+    const base::Value::Dict& dict, EntriesType& out) {
+  out.additional_properties.Merge(dict.Clone());
+  return true;
+}
+
+// static
+bool SearchDriveResponse::EntriesType::Populate(
+    const base::Value& value, EntriesType& out) {
+  if (!value.is_dict()) {
+    return false;
+  }
+  return Populate(value.GetDict(), out);
+}
+
+// static
+std::optional<SearchDriveResponse::EntriesType> SearchDriveResponse::EntriesType::FromValue(const base::Value::Dict& value) {
+  EntriesType out;
+  bool result = Populate(value, out);
+  if (!result) {
+    return std::nullopt;
+  }
+  return out;
+}
+
+// static
+std::optional<SearchDriveResponse::EntriesType> SearchDriveResponse::EntriesType::FromValue(const base::Value& value) {
+  EntriesType out;
+  bool result = Populate(value, out);
+  if (!result) {
+    return std::nullopt;
+  }
+  return out;
+}
+
+base::Value::Dict SearchDriveResponse::EntriesType::ToValue() const {
+  base::Value::Dict to_value_result;
+
+  to_value_result.Merge(additional_properties.Clone());
+
+  return to_value_result;
+}
+
+
+
+
+SearchDriveResponse::SearchDriveResponse()
+ {}
+
+SearchDriveResponse::~SearchDriveResponse() = default;
+SearchDriveResponse::SearchDriveResponse(SearchDriveResponse&& rhs) noexcept = default;
+SearchDriveResponse& SearchDriveResponse::operator=(SearchDriveResponse&& rhs) noexcept = default;
+SearchDriveResponse SearchDriveResponse::Clone() const {
+  SearchDriveResponse out;
+  out.entries.reserve(entries.size());
+  for (const auto& element : entries) {
+    json_schema_compiler::util::AppendToContainer(out.entries, element.Clone());
+  }
+  out.next_feed = next_feed;
+  return out;
+}
+
+// static
+bool SearchDriveResponse::Populate(
+    const base::Value::Dict& dict, SearchDriveResponse& out) {
+  const base::Value* entries_value = dict.Find("entries");
+  if (!entries_value) {
+    return false;
+  }
+  {
+    if (!(*entries_value).is_list()) {
+      return false;
+    }
+    else {
+      if (!json_schema_compiler::util::PopulateArrayFromList((*entries_value).GetList(), out.entries)) {
+        return false;
+      }
+    }
+  }
+
+  const base::Value* next_feed_value = dict.Find("nextFeed");
+  if (!next_feed_value) {
+    return false;
+  }
+  {
+    auto* temp = (*next_feed_value).GetIfString();
+    if (!temp) {
+      return false;
+    }
+    out.next_feed = *temp;
+  }
+
+  return true;
+}
+
+// static
+bool SearchDriveResponse::Populate(
+    const base::Value& value, SearchDriveResponse& out) {
+  if (!value.is_dict()) {
+    return false;
+  }
+  return Populate(value.GetDict(), out);
+}
+
+// static
+std::optional<SearchDriveResponse> SearchDriveResponse::FromValue(const base::Value::Dict& value) {
+  SearchDriveResponse out;
+  bool result = Populate(value, out);
+  if (!result) {
+    return std::nullopt;
+  }
+  return out;
+}
+
+// static
+std::optional<SearchDriveResponse> SearchDriveResponse::FromValue(const base::Value& value) {
+  SearchDriveResponse out;
+  bool result = Populate(value, out);
+  if (!result) {
+    return std::nullopt;
+  }
+  return out;
+}
+
+base::Value::Dict SearchDriveResponse::ToValue() const {
+  base::Value::Dict to_value_result;
+
+  to_value_result.Set("entries", json_schema_compiler::util::CreateValueFromArray(this->entries));
+
+  to_value_result.Set("nextFeed", this->next_feed);
+
+
+  return to_value_result;
+}
+
+
 DriveQuotaMetadata::DriveQuotaMetadata()
 : user_type(),
 used_bytes(0.0),
@@ -2821,8 +2905,8 @@ total_bytes(0.0),
 organization_limit_exceeded(false) {}
 
 DriveQuotaMetadata::~DriveQuotaMetadata() = default;
-DriveQuotaMetadata::DriveQuotaMetadata(DriveQuotaMetadata&& rhs) = default;
-DriveQuotaMetadata& DriveQuotaMetadata::operator=(DriveQuotaMetadata&& rhs) = default;
+DriveQuotaMetadata::DriveQuotaMetadata(DriveQuotaMetadata&& rhs) noexcept = default;
+DriveQuotaMetadata& DriveQuotaMetadata::operator=(DriveQuotaMetadata&& rhs) noexcept = default;
 DriveQuotaMetadata DriveQuotaMetadata::Clone() const {
   DriveQuotaMetadata out;
   out.user_type = user_type;
@@ -2912,34 +2996,21 @@ bool DriveQuotaMetadata::Populate(
 }
 
 // static
-std::unique_ptr<DriveQuotaMetadata> DriveQuotaMetadata::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<DriveQuotaMetadata>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<DriveQuotaMetadata> DriveQuotaMetadata::FromValue(const base::Value::Dict& value) {
+  DriveQuotaMetadata out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<DriveQuotaMetadata> DriveQuotaMetadata::FromValue(const base::Value::Dict& value) {
+std::optional<DriveQuotaMetadata> DriveQuotaMetadata::FromValue(const base::Value& value) {
   DriveQuotaMetadata out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<DriveQuotaMetadata> DriveQuotaMetadata::FromValue(const base::Value& value) {
-  DriveQuotaMetadata out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2966,8 +3037,8 @@ ProfileInfo::ProfileInfo()
 : is_current_profile(false) {}
 
 ProfileInfo::~ProfileInfo() = default;
-ProfileInfo::ProfileInfo(ProfileInfo&& rhs) = default;
-ProfileInfo& ProfileInfo::operator=(ProfileInfo&& rhs) = default;
+ProfileInfo::ProfileInfo(ProfileInfo&& rhs) noexcept = default;
+ProfileInfo& ProfileInfo::operator=(ProfileInfo&& rhs) noexcept = default;
 ProfileInfo ProfileInfo::Clone() const {
   ProfileInfo out;
   out.profile_id = profile_id;
@@ -3028,34 +3099,21 @@ bool ProfileInfo::Populate(
 }
 
 // static
-std::unique_ptr<ProfileInfo> ProfileInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ProfileInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ProfileInfo> ProfileInfo::FromValue(const base::Value::Dict& value) {
+  ProfileInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ProfileInfo> ProfileInfo::FromValue(const base::Value::Dict& value) {
+std::optional<ProfileInfo> ProfileInfo::FromValue(const base::Value& value) {
   ProfileInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ProfileInfo> ProfileInfo::FromValue(const base::Value& value) {
-  ProfileInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -3074,12 +3132,117 @@ base::Value::Dict ProfileInfo::ToValue() const {
 }
 
 
+ProfilesResponse::ProfilesResponse()
+ {}
+
+ProfilesResponse::~ProfilesResponse() = default;
+ProfilesResponse::ProfilesResponse(ProfilesResponse&& rhs) noexcept = default;
+ProfilesResponse& ProfilesResponse::operator=(ProfilesResponse&& rhs) noexcept = default;
+ProfilesResponse ProfilesResponse::Clone() const {
+  ProfilesResponse out;
+  out.profiles.reserve(profiles.size());
+  for (const auto& element : profiles) {
+    json_schema_compiler::util::AppendToContainer(out.profiles, element.Clone());
+  }
+  out.current_profile_id = current_profile_id;
+  out.displayed_profile_id = displayed_profile_id;
+  return out;
+}
+
+// static
+bool ProfilesResponse::Populate(
+    const base::Value::Dict& dict, ProfilesResponse& out) {
+  const base::Value* profiles_value = dict.Find("profiles");
+  if (!profiles_value) {
+    return false;
+  }
+  {
+    if (!(*profiles_value).is_list()) {
+      return false;
+    }
+    else {
+      if (!json_schema_compiler::util::PopulateArrayFromList((*profiles_value).GetList(), out.profiles)) {
+        return false;
+      }
+    }
+  }
+
+  const base::Value* current_profile_id_value = dict.Find("currentProfileId");
+  if (!current_profile_id_value) {
+    return false;
+  }
+  {
+    auto* temp = (*current_profile_id_value).GetIfString();
+    if (!temp) {
+      return false;
+    }
+    out.current_profile_id = *temp;
+  }
+
+  const base::Value* displayed_profile_id_value = dict.Find("displayedProfileId");
+  if (!displayed_profile_id_value) {
+    return false;
+  }
+  {
+    auto* temp = (*displayed_profile_id_value).GetIfString();
+    if (!temp) {
+      return false;
+    }
+    out.displayed_profile_id = *temp;
+  }
+
+  return true;
+}
+
+// static
+bool ProfilesResponse::Populate(
+    const base::Value& value, ProfilesResponse& out) {
+  if (!value.is_dict()) {
+    return false;
+  }
+  return Populate(value.GetDict(), out);
+}
+
+// static
+std::optional<ProfilesResponse> ProfilesResponse::FromValue(const base::Value::Dict& value) {
+  ProfilesResponse out;
+  bool result = Populate(value, out);
+  if (!result) {
+    return std::nullopt;
+  }
+  return out;
+}
+
+// static
+std::optional<ProfilesResponse> ProfilesResponse::FromValue(const base::Value& value) {
+  ProfilesResponse out;
+  bool result = Populate(value, out);
+  if (!result) {
+    return std::nullopt;
+  }
+  return out;
+}
+
+base::Value::Dict ProfilesResponse::ToValue() const {
+  base::Value::Dict to_value_result;
+
+  to_value_result.Set("profiles", json_schema_compiler::util::CreateValueFromArray(this->profiles));
+
+  to_value_result.Set("currentProfileId", this->current_profile_id);
+
+  to_value_result.Set("displayedProfileId", this->displayed_profile_id);
+
+
+  return to_value_result;
+}
+
+
 IconSet::IconSet()
  {}
 
 IconSet::~IconSet() = default;
-IconSet::IconSet(IconSet&& rhs) = default;
-IconSet& IconSet::operator=(IconSet&& rhs) = default;
+IconSet::IconSet(IconSet&& rhs) noexcept = default;
+IconSet& IconSet::operator=(IconSet&& rhs) noexcept = default;
 IconSet IconSet::Clone() const {
   IconSet out;
   out.icon16x16_url = icon16x16_url;
@@ -3095,7 +3258,7 @@ bool IconSet::Populate(
     {
       auto* temp = (*icon16x16_url_value).GetIfString();
       if (!temp) {
-        out.icon16x16_url = absl::nullopt;
+        out.icon16x16_url = std::nullopt;
         return false;
       }
       out.icon16x16_url = *temp;
@@ -3107,7 +3270,7 @@ bool IconSet::Populate(
     {
       auto* temp = (*icon32x32_url_value).GetIfString();
       if (!temp) {
-        out.icon32x32_url = absl::nullopt;
+        out.icon32x32_url = std::nullopt;
         return false;
       }
       out.icon32x32_url = *temp;
@@ -3127,34 +3290,21 @@ bool IconSet::Populate(
 }
 
 // static
-std::unique_ptr<IconSet> IconSet::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<IconSet>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<IconSet> IconSet::FromValue(const base::Value::Dict& value) {
+  IconSet out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<IconSet> IconSet::FromValue(const base::Value::Dict& value) {
+std::optional<IconSet> IconSet::FromValue(const base::Value& value) {
   IconSet out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<IconSet> IconSet::FromValue(const base::Value& value) {
-  IconSet out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -3190,8 +3340,8 @@ hidden(false),
 vm_type() {}
 
 VolumeMetadata::~VolumeMetadata() = default;
-VolumeMetadata::VolumeMetadata(VolumeMetadata&& rhs) = default;
-VolumeMetadata& VolumeMetadata::operator=(VolumeMetadata&& rhs) = default;
+VolumeMetadata::VolumeMetadata(VolumeMetadata&& rhs) noexcept = default;
+VolumeMetadata& VolumeMetadata::operator=(VolumeMetadata&& rhs) noexcept = default;
 VolumeMetadata VolumeMetadata::Clone() const {
   VolumeMetadata out;
   out.volume_id = volume_id;
@@ -3245,7 +3395,7 @@ bool VolumeMetadata::Populate(
     {
       auto* temp = (*file_system_id_value).GetIfString();
       if (!temp) {
-        out.file_system_id = absl::nullopt;
+        out.file_system_id = std::nullopt;
         return false;
       }
       out.file_system_id = *temp;
@@ -3257,7 +3407,7 @@ bool VolumeMetadata::Populate(
     {
       auto* temp = (*provider_id_value).GetIfString();
       if (!temp) {
-        out.provider_id = absl::nullopt;
+        out.provider_id = std::nullopt;
         return false;
       }
       out.provider_id = *temp;
@@ -3284,7 +3434,7 @@ bool VolumeMetadata::Populate(
     {
       auto* temp = (*volume_label_value).GetIfString();
       if (!temp) {
-        out.volume_label = absl::nullopt;
+        out.volume_label = std::nullopt;
         return false;
       }
       out.volume_label = *temp;
@@ -3309,7 +3459,7 @@ bool VolumeMetadata::Populate(
     {
       auto* temp = (*source_path_value).GetIfString();
       if (!temp) {
-        out.source_path = absl::nullopt;
+        out.source_path = std::nullopt;
         return false;
       }
       out.source_path = *temp;
@@ -3352,7 +3502,7 @@ bool VolumeMetadata::Populate(
     {
       auto* temp = (*device_path_value).GetIfString();
       if (!temp) {
-        out.device_path = absl::nullopt;
+        out.device_path = std::nullopt;
         return false;
       }
       out.device_path = *temp;
@@ -3364,7 +3514,7 @@ bool VolumeMetadata::Populate(
     {
       auto temp = (*is_parent_device_value).GetIfBool();
       if (!temp.has_value()) {
-        out.is_parent_device = absl::nullopt;
+        out.is_parent_device = std::nullopt;
         return false;
       }
       out.is_parent_device = *temp;
@@ -3468,7 +3618,7 @@ bool VolumeMetadata::Populate(
     {
       auto* temp = (*disk_file_system_type_value).GetIfString();
       if (!temp) {
-        out.disk_file_system_type = absl::nullopt;
+        out.disk_file_system_type = std::nullopt;
         return false;
       }
       out.disk_file_system_type = *temp;
@@ -3493,7 +3643,7 @@ bool VolumeMetadata::Populate(
     {
       auto* temp = (*drive_label_value).GetIfString();
       if (!temp) {
-        out.drive_label = absl::nullopt;
+        out.drive_label = std::nullopt;
         return false;
       }
       out.drive_label = *temp;
@@ -3505,7 +3655,7 @@ bool VolumeMetadata::Populate(
     {
       auto* temp = (*remote_mount_path_value).GetIfString();
       if (!temp) {
-        out.remote_mount_path = absl::nullopt;
+        out.remote_mount_path = std::nullopt;
         return false;
       }
       out.remote_mount_path = *temp;
@@ -3553,34 +3703,21 @@ bool VolumeMetadata::Populate(
 }
 
 // static
-std::unique_ptr<VolumeMetadata> VolumeMetadata::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<VolumeMetadata>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<VolumeMetadata> VolumeMetadata::FromValue(const base::Value::Dict& value) {
+  VolumeMetadata out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<VolumeMetadata> VolumeMetadata::FromValue(const base::Value::Dict& value) {
+std::optional<VolumeMetadata> VolumeMetadata::FromValue(const base::Value& value) {
   VolumeMetadata out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<VolumeMetadata> VolumeMetadata::FromValue(const base::Value& value) {
-  VolumeMetadata out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -3673,8 +3810,8 @@ status(),
 should_notify(false) {}
 
 MountCompletedEvent::~MountCompletedEvent() = default;
-MountCompletedEvent::MountCompletedEvent(MountCompletedEvent&& rhs) = default;
-MountCompletedEvent& MountCompletedEvent::operator=(MountCompletedEvent&& rhs) = default;
+MountCompletedEvent::MountCompletedEvent(MountCompletedEvent&& rhs) noexcept = default;
+MountCompletedEvent& MountCompletedEvent::operator=(MountCompletedEvent&& rhs) noexcept = default;
 MountCompletedEvent MountCompletedEvent::Clone() const {
   MountCompletedEvent out;
   out.event_type = event_type;
@@ -3755,34 +3892,21 @@ bool MountCompletedEvent::Populate(
 }
 
 // static
-std::unique_ptr<MountCompletedEvent> MountCompletedEvent::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<MountCompletedEvent>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<MountCompletedEvent> MountCompletedEvent::FromValue(const base::Value::Dict& value) {
+  MountCompletedEvent out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<MountCompletedEvent> MountCompletedEvent::FromValue(const base::Value::Dict& value) {
+std::optional<MountCompletedEvent> MountCompletedEvent::FromValue(const base::Value& value) {
   MountCompletedEvent out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<MountCompletedEvent> MountCompletedEvent::FromValue(const base::Value& value) {
-  MountCompletedEvent out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -3812,8 +3936,8 @@ show_notification(false),
 hide_when_zero_jobs(false) {}
 
 FileTransferStatus::~FileTransferStatus() = default;
-FileTransferStatus::FileTransferStatus(FileTransferStatus&& rhs) = default;
-FileTransferStatus& FileTransferStatus::operator=(FileTransferStatus&& rhs) = default;
+FileTransferStatus::FileTransferStatus(FileTransferStatus&& rhs) noexcept = default;
+FileTransferStatus& FileTransferStatus::operator=(FileTransferStatus&& rhs) noexcept = default;
 FileTransferStatus FileTransferStatus::Clone() const {
   FileTransferStatus out;
   out.file_url = file_url;
@@ -3929,34 +4053,21 @@ bool FileTransferStatus::Populate(
 }
 
 // static
-std::unique_ptr<FileTransferStatus> FileTransferStatus::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<FileTransferStatus>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<FileTransferStatus> FileTransferStatus::FromValue(const base::Value::Dict& value) {
+  FileTransferStatus out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<FileTransferStatus> FileTransferStatus::FromValue(const base::Value::Dict& value) {
+std::optional<FileTransferStatus> FileTransferStatus::FromValue(const base::Value& value) {
   FileTransferStatus out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<FileTransferStatus> FileTransferStatus::FromValue(const base::Value& value) {
-  FileTransferStatus out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -3988,8 +4099,8 @@ SyncState::SyncState()
 progress(0.0) {}
 
 SyncState::~SyncState() = default;
-SyncState::SyncState(SyncState&& rhs) = default;
-SyncState& SyncState::operator=(SyncState&& rhs) = default;
+SyncState::SyncState(SyncState&& rhs) noexcept = default;
+SyncState& SyncState::operator=(SyncState&& rhs) noexcept = default;
 SyncState SyncState::Clone() const {
   SyncState out;
   out.file_url = file_url;
@@ -4053,34 +4164,21 @@ bool SyncState::Populate(
 }
 
 // static
-std::unique_ptr<SyncState> SyncState::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<SyncState>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<SyncState> SyncState::FromValue(const base::Value::Dict& value) {
+  SyncState out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<SyncState> SyncState::FromValue(const base::Value::Dict& value) {
+std::optional<SyncState> SyncState::FromValue(const base::Value& value) {
   SyncState out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<SyncState> SyncState::FromValue(const base::Value& value) {
-  SyncState out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -4103,8 +4201,8 @@ DriveSyncErrorEvent::DriveSyncErrorEvent()
 : type() {}
 
 DriveSyncErrorEvent::~DriveSyncErrorEvent() = default;
-DriveSyncErrorEvent::DriveSyncErrorEvent(DriveSyncErrorEvent&& rhs) = default;
-DriveSyncErrorEvent& DriveSyncErrorEvent::operator=(DriveSyncErrorEvent&& rhs) = default;
+DriveSyncErrorEvent::DriveSyncErrorEvent(DriveSyncErrorEvent&& rhs) noexcept = default;
+DriveSyncErrorEvent& DriveSyncErrorEvent::operator=(DriveSyncErrorEvent&& rhs) noexcept = default;
 DriveSyncErrorEvent DriveSyncErrorEvent::Clone() const {
   DriveSyncErrorEvent out;
   out.type = type;
@@ -4148,7 +4246,7 @@ bool DriveSyncErrorEvent::Populate(
     {
       auto* temp = (*shared_drive_value).GetIfString();
       if (!temp) {
-        out.shared_drive = absl::nullopt;
+        out.shared_drive = std::nullopt;
         return false;
       }
       out.shared_drive = *temp;
@@ -4168,34 +4266,21 @@ bool DriveSyncErrorEvent::Populate(
 }
 
 // static
-std::unique_ptr<DriveSyncErrorEvent> DriveSyncErrorEvent::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<DriveSyncErrorEvent>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<DriveSyncErrorEvent> DriveSyncErrorEvent::FromValue(const base::Value::Dict& value) {
+  DriveSyncErrorEvent out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<DriveSyncErrorEvent> DriveSyncErrorEvent::FromValue(const base::Value::Dict& value) {
+std::optional<DriveSyncErrorEvent> DriveSyncErrorEvent::FromValue(const base::Value& value) {
   DriveSyncErrorEvent out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<DriveSyncErrorEvent> DriveSyncErrorEvent::FromValue(const base::Value& value) {
-  DriveSyncErrorEvent out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -4220,8 +4305,8 @@ DriveConfirmDialogEvent::DriveConfirmDialogEvent()
 : type() {}
 
 DriveConfirmDialogEvent::~DriveConfirmDialogEvent() = default;
-DriveConfirmDialogEvent::DriveConfirmDialogEvent(DriveConfirmDialogEvent&& rhs) = default;
-DriveConfirmDialogEvent& DriveConfirmDialogEvent::operator=(DriveConfirmDialogEvent&& rhs) = default;
+DriveConfirmDialogEvent::DriveConfirmDialogEvent(DriveConfirmDialogEvent&& rhs) noexcept = default;
+DriveConfirmDialogEvent& DriveConfirmDialogEvent::operator=(DriveConfirmDialogEvent&& rhs) noexcept = default;
 DriveConfirmDialogEvent DriveConfirmDialogEvent::Clone() const {
   DriveConfirmDialogEvent out;
   out.type = type;
@@ -4272,34 +4357,21 @@ bool DriveConfirmDialogEvent::Populate(
 }
 
 // static
-std::unique_ptr<DriveConfirmDialogEvent> DriveConfirmDialogEvent::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<DriveConfirmDialogEvent>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<DriveConfirmDialogEvent> DriveConfirmDialogEvent::FromValue(const base::Value::Dict& value) {
+  DriveConfirmDialogEvent out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<DriveConfirmDialogEvent> DriveConfirmDialogEvent::FromValue(const base::Value::Dict& value) {
+std::optional<DriveConfirmDialogEvent> DriveConfirmDialogEvent::FromValue(const base::Value& value) {
   DriveConfirmDialogEvent out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<DriveConfirmDialogEvent> DriveConfirmDialogEvent::FromValue(const base::Value& value) {
-  DriveConfirmDialogEvent out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -4320,8 +4392,8 @@ FileChange::FileChange()
  {}
 
 FileChange::~FileChange() = default;
-FileChange::FileChange(FileChange&& rhs) = default;
-FileChange& FileChange::operator=(FileChange&& rhs) = default;
+FileChange::FileChange(FileChange&& rhs) noexcept = default;
+FileChange& FileChange::operator=(FileChange&& rhs) noexcept = default;
 FileChange FileChange::Clone() const {
   FileChange out;
   out.url = url;
@@ -4381,34 +4453,21 @@ bool FileChange::Populate(
 }
 
 // static
-std::unique_ptr<FileChange> FileChange::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<FileChange>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<FileChange> FileChange::FromValue(const base::Value::Dict& value) {
+  FileChange out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<FileChange> FileChange::FromValue(const base::Value::Dict& value) {
+std::optional<FileChange> FileChange::FromValue(const base::Value& value) {
   FileChange out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<FileChange> FileChange::FromValue(const base::Value& value) {
-  FileChange out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -4435,8 +4494,8 @@ FileWatchEvent::Entry::Entry()
  {}
 
 FileWatchEvent::Entry::~Entry() = default;
-FileWatchEvent::Entry::Entry(Entry&& rhs) = default;
-FileWatchEvent::Entry& FileWatchEvent::Entry::operator=(Entry&& rhs) = default;
+FileWatchEvent::Entry::Entry(Entry&& rhs) noexcept = default;
+FileWatchEvent::Entry& FileWatchEvent::Entry::operator=(Entry&& rhs) noexcept = default;
 FileWatchEvent::Entry FileWatchEvent::Entry::Clone() const {
   Entry out;
   return out;
@@ -4459,21 +4518,21 @@ bool FileWatchEvent::Entry::Populate(
 }
 
 // static
-absl::optional<FileWatchEvent::Entry> FileWatchEvent::Entry::FromValue(const base::Value::Dict& value) {
+std::optional<FileWatchEvent::Entry> FileWatchEvent::Entry::FromValue(const base::Value::Dict& value) {
   Entry out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<FileWatchEvent::Entry> FileWatchEvent::Entry::FromValue(const base::Value& value) {
+std::optional<FileWatchEvent::Entry> FileWatchEvent::Entry::FromValue(const base::Value& value) {
   Entry out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -4492,8 +4551,8 @@ FileWatchEvent::FileWatchEvent()
 : event_type() {}
 
 FileWatchEvent::~FileWatchEvent() = default;
-FileWatchEvent::FileWatchEvent(FileWatchEvent&& rhs) = default;
-FileWatchEvent& FileWatchEvent::operator=(FileWatchEvent&& rhs) = default;
+FileWatchEvent::FileWatchEvent(FileWatchEvent&& rhs) noexcept = default;
+FileWatchEvent& FileWatchEvent::operator=(FileWatchEvent&& rhs) noexcept = default;
 FileWatchEvent FileWatchEvent::Clone() const {
   FileWatchEvent out;
   out.event_type = event_type;
@@ -4566,34 +4625,21 @@ bool FileWatchEvent::Populate(
 }
 
 // static
-std::unique_ptr<FileWatchEvent> FileWatchEvent::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<FileWatchEvent>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<FileWatchEvent> FileWatchEvent::FromValue(const base::Value::Dict& value) {
+  FileWatchEvent out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<FileWatchEvent> FileWatchEvent::FromValue(const base::Value::Dict& value) {
+std::optional<FileWatchEvent> FileWatchEvent::FromValue(const base::Value& value) {
   FileWatchEvent out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<FileWatchEvent> FileWatchEvent::FromValue(const base::Value& value) {
-  FileWatchEvent out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -4618,8 +4664,8 @@ GetVolumeRootOptions::GetVolumeRootOptions()
  {}
 
 GetVolumeRootOptions::~GetVolumeRootOptions() = default;
-GetVolumeRootOptions::GetVolumeRootOptions(GetVolumeRootOptions&& rhs) = default;
-GetVolumeRootOptions& GetVolumeRootOptions::operator=(GetVolumeRootOptions&& rhs) = default;
+GetVolumeRootOptions::GetVolumeRootOptions(GetVolumeRootOptions&& rhs) noexcept = default;
+GetVolumeRootOptions& GetVolumeRootOptions::operator=(GetVolumeRootOptions&& rhs) noexcept = default;
 GetVolumeRootOptions GetVolumeRootOptions::Clone() const {
   GetVolumeRootOptions out;
   out.volume_id = volume_id;
@@ -4647,7 +4693,7 @@ bool GetVolumeRootOptions::Populate(
     {
       auto temp = (*writable_value).GetIfBool();
       if (!temp.has_value()) {
-        out.writable = absl::nullopt;
+        out.writable = std::nullopt;
         return false;
       }
       out.writable = *temp;
@@ -4667,34 +4713,21 @@ bool GetVolumeRootOptions::Populate(
 }
 
 // static
-std::unique_ptr<GetVolumeRootOptions> GetVolumeRootOptions::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<GetVolumeRootOptions>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<GetVolumeRootOptions> GetVolumeRootOptions::FromValue(const base::Value::Dict& value) {
+  GetVolumeRootOptions out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<GetVolumeRootOptions> GetVolumeRootOptions::FromValue(const base::Value::Dict& value) {
+std::optional<GetVolumeRootOptions> GetVolumeRootOptions::FromValue(const base::Value& value) {
   GetVolumeRootOptions out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<GetVolumeRootOptions> GetVolumeRootOptions::FromValue(const base::Value& value) {
-  GetVolumeRootOptions out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -4723,11 +4756,12 @@ arc_removable_media_access_enabled(false),
 trash_enabled(false),
 office_file_moved_one_drive(0.0),
 office_file_moved_google_drive(0.0),
+drive_fs_bulk_pinning_available(false),
 drive_fs_bulk_pinning_enabled(false) {}
 
 Preferences::~Preferences() = default;
-Preferences::Preferences(Preferences&& rhs) = default;
-Preferences& Preferences::operator=(Preferences&& rhs) = default;
+Preferences::Preferences(Preferences&& rhs) noexcept = default;
+Preferences& Preferences::operator=(Preferences&& rhs) noexcept = default;
 Preferences Preferences::Clone() const {
   Preferences out;
   out.drive_enabled = drive_enabled;
@@ -4741,6 +4775,7 @@ Preferences Preferences::Clone() const {
   out.trash_enabled = trash_enabled;
   out.office_file_moved_one_drive = office_file_moved_one_drive;
   out.office_file_moved_google_drive = office_file_moved_google_drive;
+  out.drive_fs_bulk_pinning_available = drive_fs_bulk_pinning_available;
   out.drive_fs_bulk_pinning_enabled = drive_fs_bulk_pinning_enabled;
   return out;
 }
@@ -4883,6 +4918,18 @@ bool Preferences::Populate(
     out.office_file_moved_google_drive = *temp;
   }
 
+  const base::Value* drive_fs_bulk_pinning_available_value = dict.Find("driveFsBulkPinningAvailable");
+  if (!drive_fs_bulk_pinning_available_value) {
+    return false;
+  }
+  {
+    auto temp = (*drive_fs_bulk_pinning_available_value).GetIfBool();
+    if (!temp.has_value()) {
+      return false;
+    }
+    out.drive_fs_bulk_pinning_available = *temp;
+  }
+
   const base::Value* drive_fs_bulk_pinning_enabled_value = dict.Find("driveFsBulkPinningEnabled");
   if (!drive_fs_bulk_pinning_enabled_value) {
     return false;
@@ -4908,34 +4955,21 @@ bool Preferences::Populate(
 }
 
 // static
-std::unique_ptr<Preferences> Preferences::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<Preferences>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<Preferences> Preferences::FromValue(const base::Value::Dict& value) {
+  Preferences out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Preferences> Preferences::FromValue(const base::Value::Dict& value) {
+std::optional<Preferences> Preferences::FromValue(const base::Value& value) {
   Preferences out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<Preferences> Preferences::FromValue(const base::Value& value) {
-  Preferences out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -4965,6 +4999,8 @@ base::Value::Dict Preferences::ToValue() const {
 
   to_value_result.Set("officeFileMovedGoogleDrive", this->office_file_moved_google_drive);
 
+  to_value_result.Set("driveFsBulkPinningAvailable", this->drive_fs_bulk_pinning_available);
+
   to_value_result.Set("driveFsBulkPinningEnabled", this->drive_fs_bulk_pinning_enabled);
 
 
@@ -4976,8 +5012,8 @@ PreferencesChange::PreferencesChange()
  {}
 
 PreferencesChange::~PreferencesChange() = default;
-PreferencesChange::PreferencesChange(PreferencesChange&& rhs) = default;
-PreferencesChange& PreferencesChange::operator=(PreferencesChange&& rhs) = default;
+PreferencesChange::PreferencesChange(PreferencesChange&& rhs) noexcept = default;
+PreferencesChange& PreferencesChange::operator=(PreferencesChange&& rhs) noexcept = default;
 PreferencesChange PreferencesChange::Clone() const {
   PreferencesChange out;
   out.drive_sync_enabled_on_metered_network = drive_sync_enabled_on_metered_network;
@@ -4996,7 +5032,7 @@ bool PreferencesChange::Populate(
     {
       auto temp = (*drive_sync_enabled_on_metered_network_value).GetIfBool();
       if (!temp.has_value()) {
-        out.drive_sync_enabled_on_metered_network = absl::nullopt;
+        out.drive_sync_enabled_on_metered_network = std::nullopt;
         return false;
       }
       out.drive_sync_enabled_on_metered_network = *temp;
@@ -5008,7 +5044,7 @@ bool PreferencesChange::Populate(
     {
       auto temp = (*arc_enabled_value).GetIfBool();
       if (!temp.has_value()) {
-        out.arc_enabled = absl::nullopt;
+        out.arc_enabled = std::nullopt;
         return false;
       }
       out.arc_enabled = *temp;
@@ -5020,7 +5056,7 @@ bool PreferencesChange::Populate(
     {
       auto temp = (*arc_removable_media_access_enabled_value).GetIfBool();
       if (!temp.has_value()) {
-        out.arc_removable_media_access_enabled = absl::nullopt;
+        out.arc_removable_media_access_enabled = std::nullopt;
         return false;
       }
       out.arc_removable_media_access_enabled = *temp;
@@ -5046,7 +5082,7 @@ bool PreferencesChange::Populate(
     {
       auto temp = (*drive_fs_bulk_pinning_enabled_value).GetIfBool();
       if (!temp.has_value()) {
-        out.drive_fs_bulk_pinning_enabled = absl::nullopt;
+        out.drive_fs_bulk_pinning_enabled = std::nullopt;
         return false;
       }
       out.drive_fs_bulk_pinning_enabled = *temp;
@@ -5066,34 +5102,21 @@ bool PreferencesChange::Populate(
 }
 
 // static
-std::unique_ptr<PreferencesChange> PreferencesChange::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<PreferencesChange>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<PreferencesChange> PreferencesChange::FromValue(const base::Value::Dict& value) {
+  PreferencesChange out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<PreferencesChange> PreferencesChange::FromValue(const base::Value::Dict& value) {
+std::optional<PreferencesChange> PreferencesChange::FromValue(const base::Value& value) {
   PreferencesChange out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<PreferencesChange> PreferencesChange::FromValue(const base::Value& value) {
-  PreferencesChange out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -5130,8 +5153,8 @@ SearchParams::SearchParams()
 : category() {}
 
 SearchParams::~SearchParams() = default;
-SearchParams::SearchParams(SearchParams&& rhs) = default;
-SearchParams& SearchParams::operator=(SearchParams&& rhs) = default;
+SearchParams::SearchParams(SearchParams&& rhs) noexcept = default;
+SearchParams& SearchParams::operator=(SearchParams&& rhs) noexcept = default;
 SearchParams SearchParams::Clone() const {
   SearchParams out;
   out.query = query;
@@ -5178,7 +5201,7 @@ bool SearchParams::Populate(
     {
       auto temp = (*modified_timestamp_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.modified_timestamp = absl::nullopt;
+        out.modified_timestamp = std::nullopt;
         return false;
       }
       out.modified_timestamp = *temp;
@@ -5210,34 +5233,21 @@ bool SearchParams::Populate(
 }
 
 // static
-std::unique_ptr<SearchParams> SearchParams::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<SearchParams>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<SearchParams> SearchParams::FromValue(const base::Value::Dict& value) {
+  SearchParams out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<SearchParams> SearchParams::FromValue(const base::Value::Dict& value) {
+std::optional<SearchParams> SearchParams::FromValue(const base::Value& value) {
   SearchParams out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<SearchParams> SearchParams::FromValue(const base::Value& value) {
-  SearchParams out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -5266,8 +5276,8 @@ SearchMetadataParams::RootDir::RootDir()
  {}
 
 SearchMetadataParams::RootDir::~RootDir() = default;
-SearchMetadataParams::RootDir::RootDir(RootDir&& rhs) = default;
-SearchMetadataParams::RootDir& SearchMetadataParams::RootDir::operator=(RootDir&& rhs) = default;
+SearchMetadataParams::RootDir::RootDir(RootDir&& rhs) noexcept = default;
+SearchMetadataParams::RootDir& SearchMetadataParams::RootDir::operator=(RootDir&& rhs) noexcept = default;
 SearchMetadataParams::RootDir SearchMetadataParams::RootDir::Clone() const {
   RootDir out;
   return out;
@@ -5290,21 +5300,21 @@ bool SearchMetadataParams::RootDir::Populate(
 }
 
 // static
-absl::optional<SearchMetadataParams::RootDir> SearchMetadataParams::RootDir::FromValue(const base::Value::Dict& value) {
+std::optional<SearchMetadataParams::RootDir> SearchMetadataParams::RootDir::FromValue(const base::Value::Dict& value) {
   RootDir out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<SearchMetadataParams::RootDir> SearchMetadataParams::RootDir::FromValue(const base::Value& value) {
+std::optional<SearchMetadataParams::RootDir> SearchMetadataParams::RootDir::FromValue(const base::Value& value) {
   RootDir out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -5325,8 +5335,8 @@ max_results(0),
 category() {}
 
 SearchMetadataParams::~SearchMetadataParams() = default;
-SearchMetadataParams::SearchMetadataParams(SearchMetadataParams&& rhs) = default;
-SearchMetadataParams& SearchMetadataParams::operator=(SearchMetadataParams&& rhs) = default;
+SearchMetadataParams::SearchMetadataParams(SearchMetadataParams&& rhs) noexcept = default;
+SearchMetadataParams& SearchMetadataParams::operator=(SearchMetadataParams&& rhs) noexcept = default;
 SearchMetadataParams SearchMetadataParams::Clone() const {
   SearchMetadataParams out;
   if (root_dir) {
@@ -5403,7 +5413,7 @@ bool SearchMetadataParams::Populate(
     {
       auto temp = (*modified_timestamp_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.modified_timestamp = absl::nullopt;
+        out.modified_timestamp = std::nullopt;
         return false;
       }
       out.modified_timestamp = *temp;
@@ -5439,34 +5449,21 @@ bool SearchMetadataParams::Populate(
 }
 
 // static
-std::unique_ptr<SearchMetadataParams> SearchMetadataParams::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<SearchMetadataParams>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<SearchMetadataParams> SearchMetadataParams::FromValue(const base::Value::Dict& value) {
+  SearchMetadataParams out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<SearchMetadataParams> SearchMetadataParams::FromValue(const base::Value::Dict& value) {
+std::optional<SearchMetadataParams> SearchMetadataParams::FromValue(const base::Value& value) {
   SearchMetadataParams out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<SearchMetadataParams> SearchMetadataParams::FromValue(const base::Value& value) {
-  SearchMetadataParams out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -5501,8 +5498,8 @@ DriveMetadataSearchResult::Entry::Entry()
  {}
 
 DriveMetadataSearchResult::Entry::~Entry() = default;
-DriveMetadataSearchResult::Entry::Entry(Entry&& rhs) = default;
-DriveMetadataSearchResult::Entry& DriveMetadataSearchResult::Entry::operator=(Entry&& rhs) = default;
+DriveMetadataSearchResult::Entry::Entry(Entry&& rhs) noexcept = default;
+DriveMetadataSearchResult::Entry& DriveMetadataSearchResult::Entry::operator=(Entry&& rhs) noexcept = default;
 DriveMetadataSearchResult::Entry DriveMetadataSearchResult::Entry::Clone() const {
   Entry out;
   return out;
@@ -5525,21 +5522,21 @@ bool DriveMetadataSearchResult::Entry::Populate(
 }
 
 // static
-absl::optional<DriveMetadataSearchResult::Entry> DriveMetadataSearchResult::Entry::FromValue(const base::Value::Dict& value) {
+std::optional<DriveMetadataSearchResult::Entry> DriveMetadataSearchResult::Entry::FromValue(const base::Value::Dict& value) {
   Entry out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<DriveMetadataSearchResult::Entry> DriveMetadataSearchResult::Entry::FromValue(const base::Value& value) {
+std::optional<DriveMetadataSearchResult::Entry> DriveMetadataSearchResult::Entry::FromValue(const base::Value& value) {
   Entry out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -5558,8 +5555,8 @@ DriveMetadataSearchResult::DriveMetadataSearchResult()
  {}
 
 DriveMetadataSearchResult::~DriveMetadataSearchResult() = default;
-DriveMetadataSearchResult::DriveMetadataSearchResult(DriveMetadataSearchResult&& rhs) = default;
-DriveMetadataSearchResult& DriveMetadataSearchResult::operator=(DriveMetadataSearchResult&& rhs) = default;
+DriveMetadataSearchResult::DriveMetadataSearchResult(DriveMetadataSearchResult&& rhs) noexcept = default;
+DriveMetadataSearchResult& DriveMetadataSearchResult::operator=(DriveMetadataSearchResult&& rhs) noexcept = default;
 DriveMetadataSearchResult DriveMetadataSearchResult::Clone() const {
   DriveMetadataSearchResult out;
   out.entry = entry.Clone();
@@ -5601,7 +5598,7 @@ bool DriveMetadataSearchResult::Populate(
     {
       auto temp = (*available_offline_value).GetIfBool();
       if (!temp.has_value()) {
-        out.available_offline = absl::nullopt;
+        out.available_offline = std::nullopt;
         return false;
       }
       out.available_offline = *temp;
@@ -5621,34 +5618,21 @@ bool DriveMetadataSearchResult::Populate(
 }
 
 // static
-std::unique_ptr<DriveMetadataSearchResult> DriveMetadataSearchResult::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<DriveMetadataSearchResult>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<DriveMetadataSearchResult> DriveMetadataSearchResult::FromValue(const base::Value::Dict& value) {
+  DriveMetadataSearchResult out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<DriveMetadataSearchResult> DriveMetadataSearchResult::FromValue(const base::Value::Dict& value) {
+std::optional<DriveMetadataSearchResult> DriveMetadataSearchResult::FromValue(const base::Value& value) {
   DriveMetadataSearchResult out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<DriveMetadataSearchResult> DriveMetadataSearchResult::FromValue(const base::Value& value) {
-  DriveMetadataSearchResult out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -5674,8 +5658,8 @@ DriveConnectionState::DriveConnectionState()
 reason() {}
 
 DriveConnectionState::~DriveConnectionState() = default;
-DriveConnectionState::DriveConnectionState(DriveConnectionState&& rhs) = default;
-DriveConnectionState& DriveConnectionState::operator=(DriveConnectionState&& rhs) = default;
+DriveConnectionState::DriveConnectionState(DriveConnectionState&& rhs) noexcept = default;
+DriveConnectionState& DriveConnectionState::operator=(DriveConnectionState&& rhs) noexcept = default;
 DriveConnectionState DriveConnectionState::Clone() const {
   DriveConnectionState out;
   out.type = type;
@@ -5731,34 +5715,21 @@ bool DriveConnectionState::Populate(
 }
 
 // static
-std::unique_ptr<DriveConnectionState> DriveConnectionState::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<DriveConnectionState>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<DriveConnectionState> DriveConnectionState::FromValue(const base::Value::Dict& value) {
+  DriveConnectionState out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<DriveConnectionState> DriveConnectionState::FromValue(const base::Value::Dict& value) {
+std::optional<DriveConnectionState> DriveConnectionState::FromValue(const base::Value& value) {
   DriveConnectionState out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<DriveConnectionState> DriveConnectionState::FromValue(const base::Value& value) {
-  DriveConnectionState out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -5781,8 +5752,8 @@ DeviceEvent::DeviceEvent()
 : type() {}
 
 DeviceEvent::~DeviceEvent() = default;
-DeviceEvent::DeviceEvent(DeviceEvent&& rhs) = default;
-DeviceEvent& DeviceEvent::operator=(DeviceEvent&& rhs) = default;
+DeviceEvent::DeviceEvent(DeviceEvent&& rhs) noexcept = default;
+DeviceEvent& DeviceEvent::operator=(DeviceEvent&& rhs) noexcept = default;
 DeviceEvent DeviceEvent::Clone() const {
   DeviceEvent out;
   out.type = type;
@@ -5846,34 +5817,21 @@ bool DeviceEvent::Populate(
 }
 
 // static
-std::unique_ptr<DeviceEvent> DeviceEvent::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<DeviceEvent>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<DeviceEvent> DeviceEvent::FromValue(const base::Value::Dict& value) {
+  DeviceEvent out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<DeviceEvent> DeviceEvent::FromValue(const base::Value::Dict& value) {
+std::optional<DeviceEvent> DeviceEvent::FromValue(const base::Value& value) {
   DeviceEvent out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<DeviceEvent> DeviceEvent::FromValue(const base::Value& value) {
-  DeviceEvent out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -5899,8 +5857,8 @@ multiple_mounts(false),
 source() {}
 
 Provider::~Provider() = default;
-Provider::Provider(Provider&& rhs) = default;
-Provider& Provider::operator=(Provider&& rhs) = default;
+Provider::Provider(Provider&& rhs) noexcept = default;
+Provider& Provider::operator=(Provider&& rhs) noexcept = default;
 Provider Provider::Clone() const {
   Provider out;
   out.provider_id = provider_id;
@@ -6017,34 +5975,21 @@ bool Provider::Populate(
 }
 
 // static
-std::unique_ptr<Provider> Provider::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<Provider>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<Provider> Provider::FromValue(const base::Value::Dict& value) {
+  Provider out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Provider> Provider::FromValue(const base::Value::Dict& value) {
+std::optional<Provider> Provider::FromValue(const base::Value& value) {
   Provider out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<Provider> Provider::FromValue(const base::Value& value) {
-  Provider out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -6075,8 +6020,8 @@ FileSystemProviderAction::FileSystemProviderAction()
  {}
 
 FileSystemProviderAction::~FileSystemProviderAction() = default;
-FileSystemProviderAction::FileSystemProviderAction(FileSystemProviderAction&& rhs) = default;
-FileSystemProviderAction& FileSystemProviderAction::operator=(FileSystemProviderAction&& rhs) = default;
+FileSystemProviderAction::FileSystemProviderAction(FileSystemProviderAction&& rhs) noexcept = default;
+FileSystemProviderAction& FileSystemProviderAction::operator=(FileSystemProviderAction&& rhs) noexcept = default;
 FileSystemProviderAction FileSystemProviderAction::Clone() const {
   FileSystemProviderAction out;
   out.id = id;
@@ -6104,7 +6049,7 @@ bool FileSystemProviderAction::Populate(
     {
       auto* temp = (*title_value).GetIfString();
       if (!temp) {
-        out.title = absl::nullopt;
+        out.title = std::nullopt;
         return false;
       }
       out.title = *temp;
@@ -6124,34 +6069,21 @@ bool FileSystemProviderAction::Populate(
 }
 
 // static
-std::unique_ptr<FileSystemProviderAction> FileSystemProviderAction::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<FileSystemProviderAction>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<FileSystemProviderAction> FileSystemProviderAction::FromValue(const base::Value::Dict& value) {
+  FileSystemProviderAction out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<FileSystemProviderAction> FileSystemProviderAction::FromValue(const base::Value::Dict& value) {
+std::optional<FileSystemProviderAction> FileSystemProviderAction::FromValue(const base::Value& value) {
   FileSystemProviderAction out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<FileSystemProviderAction> FileSystemProviderAction::FromValue(const base::Value& value) {
-  FileSystemProviderAction out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -6174,8 +6106,8 @@ LinuxPackageInfo::LinuxPackageInfo()
  {}
 
 LinuxPackageInfo::~LinuxPackageInfo() = default;
-LinuxPackageInfo::LinuxPackageInfo(LinuxPackageInfo&& rhs) = default;
-LinuxPackageInfo& LinuxPackageInfo::operator=(LinuxPackageInfo&& rhs) = default;
+LinuxPackageInfo::LinuxPackageInfo(LinuxPackageInfo&& rhs) noexcept = default;
+LinuxPackageInfo& LinuxPackageInfo::operator=(LinuxPackageInfo&& rhs) noexcept = default;
 LinuxPackageInfo LinuxPackageInfo::Clone() const {
   LinuxPackageInfo out;
   out.name = name;
@@ -6217,7 +6149,7 @@ bool LinuxPackageInfo::Populate(
     {
       auto* temp = (*summary_value).GetIfString();
       if (!temp) {
-        out.summary = absl::nullopt;
+        out.summary = std::nullopt;
         return false;
       }
       out.summary = *temp;
@@ -6229,7 +6161,7 @@ bool LinuxPackageInfo::Populate(
     {
       auto* temp = (*description_value).GetIfString();
       if (!temp) {
-        out.description = absl::nullopt;
+        out.description = std::nullopt;
         return false;
       }
       out.description = *temp;
@@ -6249,34 +6181,21 @@ bool LinuxPackageInfo::Populate(
 }
 
 // static
-std::unique_ptr<LinuxPackageInfo> LinuxPackageInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<LinuxPackageInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<LinuxPackageInfo> LinuxPackageInfo::FromValue(const base::Value::Dict& value) {
+  LinuxPackageInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<LinuxPackageInfo> LinuxPackageInfo::FromValue(const base::Value::Dict& value) {
+std::optional<LinuxPackageInfo> LinuxPackageInfo::FromValue(const base::Value& value) {
   LinuxPackageInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<LinuxPackageInfo> LinuxPackageInfo::FromValue(const base::Value& value) {
-  LinuxPackageInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -6305,8 +6224,8 @@ CrostiniEvent::EntriesType::EntriesType()
  {}
 
 CrostiniEvent::EntriesType::~EntriesType() = default;
-CrostiniEvent::EntriesType::EntriesType(EntriesType&& rhs) = default;
-CrostiniEvent::EntriesType& CrostiniEvent::EntriesType::operator=(EntriesType&& rhs) = default;
+CrostiniEvent::EntriesType::EntriesType(EntriesType&& rhs) noexcept = default;
+CrostiniEvent::EntriesType& CrostiniEvent::EntriesType::operator=(EntriesType&& rhs) noexcept = default;
 CrostiniEvent::EntriesType CrostiniEvent::EntriesType::Clone() const {
   EntriesType out;
   return out;
@@ -6329,21 +6248,21 @@ bool CrostiniEvent::EntriesType::Populate(
 }
 
 // static
-absl::optional<CrostiniEvent::EntriesType> CrostiniEvent::EntriesType::FromValue(const base::Value::Dict& value) {
+std::optional<CrostiniEvent::EntriesType> CrostiniEvent::EntriesType::FromValue(const base::Value::Dict& value) {
   EntriesType out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<CrostiniEvent::EntriesType> CrostiniEvent::EntriesType::FromValue(const base::Value& value) {
+std::optional<CrostiniEvent::EntriesType> CrostiniEvent::EntriesType::FromValue(const base::Value& value) {
   EntriesType out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -6363,8 +6282,8 @@ CrostiniEvent::CrostiniEvent()
 : event_type() {}
 
 CrostiniEvent::~CrostiniEvent() = default;
-CrostiniEvent::CrostiniEvent(CrostiniEvent&& rhs) = default;
-CrostiniEvent& CrostiniEvent::operator=(CrostiniEvent&& rhs) = default;
+CrostiniEvent::CrostiniEvent(CrostiniEvent&& rhs) noexcept = default;
+CrostiniEvent& CrostiniEvent::operator=(CrostiniEvent&& rhs) noexcept = default;
 CrostiniEvent CrostiniEvent::Clone() const {
   CrostiniEvent out;
   out.event_type = event_type;
@@ -6447,34 +6366,21 @@ bool CrostiniEvent::Populate(
 }
 
 // static
-std::unique_ptr<CrostiniEvent> CrostiniEvent::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<CrostiniEvent>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<CrostiniEvent> CrostiniEvent::FromValue(const base::Value::Dict& value) {
+  CrostiniEvent out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<CrostiniEvent> CrostiniEvent::FromValue(const base::Value::Dict& value) {
+std::optional<CrostiniEvent> CrostiniEvent::FromValue(const base::Value& value) {
   CrostiniEvent out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<CrostiniEvent> CrostiniEvent::FromValue(const base::Value& value) {
-  CrostiniEvent out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -6495,12 +6401,160 @@ base::Value::Dict CrostiniEvent::ToValue() const {
 }
 
 
+CrostiniSharedPathResponse::EntriesType::EntriesType()
+ {}
+
+CrostiniSharedPathResponse::EntriesType::~EntriesType() = default;
+CrostiniSharedPathResponse::EntriesType::EntriesType(EntriesType&& rhs) noexcept = default;
+CrostiniSharedPathResponse::EntriesType& CrostiniSharedPathResponse::EntriesType::operator=(EntriesType&& rhs) noexcept = default;
+CrostiniSharedPathResponse::EntriesType CrostiniSharedPathResponse::EntriesType::Clone() const {
+  EntriesType out;
+  return out;
+}
+
+// static
+bool CrostiniSharedPathResponse::EntriesType::Populate(
+    const base::Value::Dict& dict, EntriesType& out) {
+  out.additional_properties.Merge(dict.Clone());
+  return true;
+}
+
+// static
+bool CrostiniSharedPathResponse::EntriesType::Populate(
+    const base::Value& value, EntriesType& out) {
+  if (!value.is_dict()) {
+    return false;
+  }
+  return Populate(value.GetDict(), out);
+}
+
+// static
+std::optional<CrostiniSharedPathResponse::EntriesType> CrostiniSharedPathResponse::EntriesType::FromValue(const base::Value::Dict& value) {
+  EntriesType out;
+  bool result = Populate(value, out);
+  if (!result) {
+    return std::nullopt;
+  }
+  return out;
+}
+
+// static
+std::optional<CrostiniSharedPathResponse::EntriesType> CrostiniSharedPathResponse::EntriesType::FromValue(const base::Value& value) {
+  EntriesType out;
+  bool result = Populate(value, out);
+  if (!result) {
+    return std::nullopt;
+  }
+  return out;
+}
+
+base::Value::Dict CrostiniSharedPathResponse::EntriesType::ToValue() const {
+  base::Value::Dict to_value_result;
+
+  to_value_result.Merge(additional_properties.Clone());
+
+  return to_value_result;
+}
+
+
+
+
+CrostiniSharedPathResponse::CrostiniSharedPathResponse()
+: first_for_session(false) {}
+
+CrostiniSharedPathResponse::~CrostiniSharedPathResponse() = default;
+CrostiniSharedPathResponse::CrostiniSharedPathResponse(CrostiniSharedPathResponse&& rhs) noexcept = default;
+CrostiniSharedPathResponse& CrostiniSharedPathResponse::operator=(CrostiniSharedPathResponse&& rhs) noexcept = default;
+CrostiniSharedPathResponse CrostiniSharedPathResponse::Clone() const {
+  CrostiniSharedPathResponse out;
+  out.entries.reserve(entries.size());
+  for (const auto& element : entries) {
+    json_schema_compiler::util::AppendToContainer(out.entries, element.Clone());
+  }
+  out.first_for_session = first_for_session;
+  return out;
+}
+
+// static
+bool CrostiniSharedPathResponse::Populate(
+    const base::Value::Dict& dict, CrostiniSharedPathResponse& out) {
+  const base::Value* entries_value = dict.Find("entries");
+  if (!entries_value) {
+    return false;
+  }
+  {
+    if (!(*entries_value).is_list()) {
+      return false;
+    }
+    else {
+      if (!json_schema_compiler::util::PopulateArrayFromList((*entries_value).GetList(), out.entries)) {
+        return false;
+      }
+    }
+  }
+
+  const base::Value* first_for_session_value = dict.Find("firstForSession");
+  if (!first_for_session_value) {
+    return false;
+  }
+  {
+    auto temp = (*first_for_session_value).GetIfBool();
+    if (!temp.has_value()) {
+      return false;
+    }
+    out.first_for_session = *temp;
+  }
+
+  return true;
+}
+
+// static
+bool CrostiniSharedPathResponse::Populate(
+    const base::Value& value, CrostiniSharedPathResponse& out) {
+  if (!value.is_dict()) {
+    return false;
+  }
+  return Populate(value.GetDict(), out);
+}
+
+// static
+std::optional<CrostiniSharedPathResponse> CrostiniSharedPathResponse::FromValue(const base::Value::Dict& value) {
+  CrostiniSharedPathResponse out;
+  bool result = Populate(value, out);
+  if (!result) {
+    return std::nullopt;
+  }
+  return out;
+}
+
+// static
+std::optional<CrostiniSharedPathResponse> CrostiniSharedPathResponse::FromValue(const base::Value& value) {
+  CrostiniSharedPathResponse out;
+  bool result = Populate(value, out);
+  if (!result) {
+    return std::nullopt;
+  }
+  return out;
+}
+
+base::Value::Dict CrostiniSharedPathResponse::ToValue() const {
+  base::Value::Dict to_value_result;
+
+  to_value_result.Set("entries", json_schema_compiler::util::CreateValueFromArray(this->entries));
+
+  to_value_result.Set("firstForSession", this->first_for_session);
+
+
+  return to_value_result;
+}
+
+
 AndroidApp::AndroidApp()
  {}
 
 AndroidApp::~AndroidApp() = default;
-AndroidApp::AndroidApp(AndroidApp&& rhs) = default;
-AndroidApp& AndroidApp::operator=(AndroidApp&& rhs) = default;
+AndroidApp::AndroidApp(AndroidApp&& rhs) noexcept = default;
+AndroidApp& AndroidApp::operator=(AndroidApp&& rhs) noexcept = default;
 AndroidApp AndroidApp::Clone() const {
   AndroidApp out;
   out.name = name;
@@ -6579,34 +6633,21 @@ bool AndroidApp::Populate(
 }
 
 // static
-std::unique_ptr<AndroidApp> AndroidApp::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<AndroidApp>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<AndroidApp> AndroidApp::FromValue(const base::Value::Dict& value) {
+  AndroidApp out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<AndroidApp> AndroidApp::FromValue(const base::Value::Dict& value) {
+std::optional<AndroidApp> AndroidApp::FromValue(const base::Value& value) {
   AndroidApp out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<AndroidApp> AndroidApp::FromValue(const base::Value& value) {
-  AndroidApp out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -6633,8 +6674,8 @@ StreamInfo::Tags::Tags()
  {}
 
 StreamInfo::Tags::~Tags() = default;
-StreamInfo::Tags::Tags(Tags&& rhs) = default;
-StreamInfo::Tags& StreamInfo::Tags::operator=(Tags&& rhs) = default;
+StreamInfo::Tags::Tags(Tags&& rhs) noexcept = default;
+StreamInfo::Tags& StreamInfo::Tags::operator=(Tags&& rhs) noexcept = default;
 StreamInfo::Tags StreamInfo::Tags::Clone() const {
   Tags out;
   return out;
@@ -6657,21 +6698,21 @@ bool StreamInfo::Tags::Populate(
 }
 
 // static
-absl::optional<StreamInfo::Tags> StreamInfo::Tags::FromValue(const base::Value::Dict& value) {
+std::optional<StreamInfo::Tags> StreamInfo::Tags::FromValue(const base::Value::Dict& value) {
   Tags out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<StreamInfo::Tags> StreamInfo::Tags::FromValue(const base::Value& value) {
+std::optional<StreamInfo::Tags> StreamInfo::Tags::FromValue(const base::Value& value) {
   Tags out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -6690,8 +6731,8 @@ StreamInfo::StreamInfo()
  {}
 
 StreamInfo::~StreamInfo() = default;
-StreamInfo::StreamInfo(StreamInfo&& rhs) = default;
-StreamInfo& StreamInfo::operator=(StreamInfo&& rhs) = default;
+StreamInfo::StreamInfo(StreamInfo&& rhs) noexcept = default;
+StreamInfo& StreamInfo::operator=(StreamInfo&& rhs) noexcept = default;
 StreamInfo StreamInfo::Clone() const {
   StreamInfo out;
   out.type = type;
@@ -6740,34 +6781,21 @@ bool StreamInfo::Populate(
 }
 
 // static
-std::unique_ptr<StreamInfo> StreamInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<StreamInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<StreamInfo> StreamInfo::FromValue(const base::Value::Dict& value) {
+  StreamInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<StreamInfo> StreamInfo::FromValue(const base::Value::Dict& value) {
+std::optional<StreamInfo> StreamInfo::FromValue(const base::Value& value) {
   StreamInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<StreamInfo> StreamInfo::FromValue(const base::Value& value) {
-  StreamInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -6788,8 +6816,8 @@ AttachedImages::AttachedImages()
  {}
 
 AttachedImages::~AttachedImages() = default;
-AttachedImages::AttachedImages(AttachedImages&& rhs) = default;
-AttachedImages& AttachedImages::operator=(AttachedImages&& rhs) = default;
+AttachedImages::AttachedImages(AttachedImages&& rhs) noexcept = default;
+AttachedImages& AttachedImages::operator=(AttachedImages&& rhs) noexcept = default;
 AttachedImages AttachedImages::Clone() const {
   AttachedImages out;
   out.data = data;
@@ -6837,34 +6865,21 @@ bool AttachedImages::Populate(
 }
 
 // static
-std::unique_ptr<AttachedImages> AttachedImages::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<AttachedImages>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<AttachedImages> AttachedImages::FromValue(const base::Value::Dict& value) {
+  AttachedImages out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<AttachedImages> AttachedImages::FromValue(const base::Value::Dict& value) {
+std::optional<AttachedImages> AttachedImages::FromValue(const base::Value& value) {
   AttachedImages out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<AttachedImages> AttachedImages::FromValue(const base::Value& value) {
-  AttachedImages out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -6885,8 +6900,8 @@ MediaMetadata::MediaMetadata()
  {}
 
 MediaMetadata::~MediaMetadata() = default;
-MediaMetadata::MediaMetadata(MediaMetadata&& rhs) = default;
-MediaMetadata& MediaMetadata::operator=(MediaMetadata&& rhs) = default;
+MediaMetadata::MediaMetadata(MediaMetadata&& rhs) noexcept = default;
+MediaMetadata& MediaMetadata::operator=(MediaMetadata&& rhs) noexcept = default;
 MediaMetadata MediaMetadata::Clone() const {
   MediaMetadata out;
   out.mime_type = mime_type;
@@ -6934,7 +6949,7 @@ bool MediaMetadata::Populate(
     {
       auto temp = (*height_value).GetIfInt();
       if (!temp.has_value()) {
-        out.height = absl::nullopt;
+        out.height = std::nullopt;
         return false;
       }
       out.height = *temp;
@@ -6946,7 +6961,7 @@ bool MediaMetadata::Populate(
     {
       auto temp = (*width_value).GetIfInt();
       if (!temp.has_value()) {
-        out.width = absl::nullopt;
+        out.width = std::nullopt;
         return false;
       }
       out.width = *temp;
@@ -6958,7 +6973,7 @@ bool MediaMetadata::Populate(
     {
       auto temp = (*duration_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.duration = absl::nullopt;
+        out.duration = std::nullopt;
         return false;
       }
       out.duration = *temp;
@@ -6970,7 +6985,7 @@ bool MediaMetadata::Populate(
     {
       auto temp = (*rotation_value).GetIfInt();
       if (!temp.has_value()) {
-        out.rotation = absl::nullopt;
+        out.rotation = std::nullopt;
         return false;
       }
       out.rotation = *temp;
@@ -6982,7 +6997,7 @@ bool MediaMetadata::Populate(
     {
       auto* temp = (*album_value).GetIfString();
       if (!temp) {
-        out.album = absl::nullopt;
+        out.album = std::nullopt;
         return false;
       }
       out.album = *temp;
@@ -6994,7 +7009,7 @@ bool MediaMetadata::Populate(
     {
       auto* temp = (*artist_value).GetIfString();
       if (!temp) {
-        out.artist = absl::nullopt;
+        out.artist = std::nullopt;
         return false;
       }
       out.artist = *temp;
@@ -7006,7 +7021,7 @@ bool MediaMetadata::Populate(
     {
       auto* temp = (*comment_value).GetIfString();
       if (!temp) {
-        out.comment = absl::nullopt;
+        out.comment = std::nullopt;
         return false;
       }
       out.comment = *temp;
@@ -7018,7 +7033,7 @@ bool MediaMetadata::Populate(
     {
       auto* temp = (*copyright_value).GetIfString();
       if (!temp) {
-        out.copyright = absl::nullopt;
+        out.copyright = std::nullopt;
         return false;
       }
       out.copyright = *temp;
@@ -7030,7 +7045,7 @@ bool MediaMetadata::Populate(
     {
       auto temp = (*disc_value).GetIfInt();
       if (!temp.has_value()) {
-        out.disc = absl::nullopt;
+        out.disc = std::nullopt;
         return false;
       }
       out.disc = *temp;
@@ -7042,7 +7057,7 @@ bool MediaMetadata::Populate(
     {
       auto* temp = (*genre_value).GetIfString();
       if (!temp) {
-        out.genre = absl::nullopt;
+        out.genre = std::nullopt;
         return false;
       }
       out.genre = *temp;
@@ -7054,7 +7069,7 @@ bool MediaMetadata::Populate(
     {
       auto* temp = (*language_value).GetIfString();
       if (!temp) {
-        out.language = absl::nullopt;
+        out.language = std::nullopt;
         return false;
       }
       out.language = *temp;
@@ -7066,7 +7081,7 @@ bool MediaMetadata::Populate(
     {
       auto* temp = (*title_value).GetIfString();
       if (!temp) {
-        out.title = absl::nullopt;
+        out.title = std::nullopt;
         return false;
       }
       out.title = *temp;
@@ -7078,7 +7093,7 @@ bool MediaMetadata::Populate(
     {
       auto temp = (*track_value).GetIfInt();
       if (!temp.has_value()) {
-        out.track = absl::nullopt;
+        out.track = std::nullopt;
         return false;
       }
       out.track = *temp;
@@ -7128,34 +7143,21 @@ bool MediaMetadata::Populate(
 }
 
 // static
-std::unique_ptr<MediaMetadata> MediaMetadata::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<MediaMetadata>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<MediaMetadata> MediaMetadata::FromValue(const base::Value::Dict& value) {
+  MediaMetadata out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<MediaMetadata> MediaMetadata::FromValue(const base::Value::Dict& value) {
+std::optional<MediaMetadata> MediaMetadata::FromValue(const base::Value& value) {
   MediaMetadata out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<MediaMetadata> MediaMetadata::FromValue(const base::Value& value) {
-  MediaMetadata out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -7230,8 +7232,8 @@ HoldingSpaceState::HoldingSpaceState()
  {}
 
 HoldingSpaceState::~HoldingSpaceState() = default;
-HoldingSpaceState::HoldingSpaceState(HoldingSpaceState&& rhs) = default;
-HoldingSpaceState& HoldingSpaceState::operator=(HoldingSpaceState&& rhs) = default;
+HoldingSpaceState::HoldingSpaceState(HoldingSpaceState&& rhs) noexcept = default;
+HoldingSpaceState& HoldingSpaceState::operator=(HoldingSpaceState&& rhs) noexcept = default;
 HoldingSpaceState HoldingSpaceState::Clone() const {
   HoldingSpaceState out;
   out.item_urls = item_urls;
@@ -7269,34 +7271,21 @@ bool HoldingSpaceState::Populate(
 }
 
 // static
-std::unique_ptr<HoldingSpaceState> HoldingSpaceState::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<HoldingSpaceState>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<HoldingSpaceState> HoldingSpaceState::FromValue(const base::Value::Dict& value) {
+  HoldingSpaceState out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<HoldingSpaceState> HoldingSpaceState::FromValue(const base::Value::Dict& value) {
+std::optional<HoldingSpaceState> HoldingSpaceState::FromValue(const base::Value& value) {
   HoldingSpaceState out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<HoldingSpaceState> HoldingSpaceState::FromValue(const base::Value& value) {
-  HoldingSpaceState out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -7315,8 +7304,8 @@ OpenWindowParams::OpenWindowParams()
  {}
 
 OpenWindowParams::~OpenWindowParams() = default;
-OpenWindowParams::OpenWindowParams(OpenWindowParams&& rhs) = default;
-OpenWindowParams& OpenWindowParams::operator=(OpenWindowParams&& rhs) = default;
+OpenWindowParams::OpenWindowParams(OpenWindowParams&& rhs) noexcept = default;
+OpenWindowParams& OpenWindowParams::operator=(OpenWindowParams&& rhs) noexcept = default;
 OpenWindowParams OpenWindowParams::Clone() const {
   OpenWindowParams out;
   out.current_directory_url = current_directory_url;
@@ -7332,7 +7321,7 @@ bool OpenWindowParams::Populate(
     {
       auto* temp = (*current_directory_url_value).GetIfString();
       if (!temp) {
-        out.current_directory_url = absl::nullopt;
+        out.current_directory_url = std::nullopt;
         return false;
       }
       out.current_directory_url = *temp;
@@ -7344,7 +7333,7 @@ bool OpenWindowParams::Populate(
     {
       auto* temp = (*selection_url_value).GetIfString();
       if (!temp) {
-        out.selection_url = absl::nullopt;
+        out.selection_url = std::nullopt;
         return false;
       }
       out.selection_url = *temp;
@@ -7364,34 +7353,21 @@ bool OpenWindowParams::Populate(
 }
 
 // static
-std::unique_ptr<OpenWindowParams> OpenWindowParams::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<OpenWindowParams>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<OpenWindowParams> OpenWindowParams::FromValue(const base::Value::Dict& value) {
+  OpenWindowParams out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<OpenWindowParams> OpenWindowParams::FromValue(const base::Value::Dict& value) {
+std::optional<OpenWindowParams> OpenWindowParams::FromValue(const base::Value& value) {
   OpenWindowParams out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<OpenWindowParams> OpenWindowParams::FromValue(const base::Value& value) {
-  OpenWindowParams out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -7416,8 +7392,8 @@ IOTaskParams::DestinationFolder::DestinationFolder()
  {}
 
 IOTaskParams::DestinationFolder::~DestinationFolder() = default;
-IOTaskParams::DestinationFolder::DestinationFolder(DestinationFolder&& rhs) = default;
-IOTaskParams::DestinationFolder& IOTaskParams::DestinationFolder::operator=(DestinationFolder&& rhs) = default;
+IOTaskParams::DestinationFolder::DestinationFolder(DestinationFolder&& rhs) noexcept = default;
+IOTaskParams::DestinationFolder& IOTaskParams::DestinationFolder::operator=(DestinationFolder&& rhs) noexcept = default;
 IOTaskParams::DestinationFolder IOTaskParams::DestinationFolder::Clone() const {
   DestinationFolder out;
   return out;
@@ -7440,21 +7416,21 @@ bool IOTaskParams::DestinationFolder::Populate(
 }
 
 // static
-absl::optional<IOTaskParams::DestinationFolder> IOTaskParams::DestinationFolder::FromValue(const base::Value::Dict& value) {
+std::optional<IOTaskParams::DestinationFolder> IOTaskParams::DestinationFolder::FromValue(const base::Value::Dict& value) {
   DestinationFolder out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<IOTaskParams::DestinationFolder> IOTaskParams::DestinationFolder::FromValue(const base::Value& value) {
+std::optional<IOTaskParams::DestinationFolder> IOTaskParams::DestinationFolder::FromValue(const base::Value& value) {
   DestinationFolder out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -7473,8 +7449,8 @@ IOTaskParams::IOTaskParams()
  {}
 
 IOTaskParams::~IOTaskParams() = default;
-IOTaskParams::IOTaskParams(IOTaskParams&& rhs) = default;
-IOTaskParams& IOTaskParams::operator=(IOTaskParams&& rhs) = default;
+IOTaskParams::IOTaskParams(IOTaskParams&& rhs) noexcept = default;
+IOTaskParams& IOTaskParams::operator=(IOTaskParams&& rhs) noexcept = default;
 IOTaskParams IOTaskParams::Clone() const {
   IOTaskParams out;
   if (destination_folder) {
@@ -7508,7 +7484,7 @@ bool IOTaskParams::Populate(
     {
       auto* temp = (*password_value).GetIfString();
       if (!temp) {
-        out.password = absl::nullopt;
+        out.password = std::nullopt;
         return false;
       }
       out.password = *temp;
@@ -7520,7 +7496,7 @@ bool IOTaskParams::Populate(
     {
       auto temp = (*show_notification_value).GetIfBool();
       if (!temp.has_value()) {
-        out.show_notification = absl::nullopt;
+        out.show_notification = std::nullopt;
         return false;
       }
       out.show_notification = *temp;
@@ -7540,34 +7516,21 @@ bool IOTaskParams::Populate(
 }
 
 // static
-std::unique_ptr<IOTaskParams> IOTaskParams::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<IOTaskParams>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<IOTaskParams> IOTaskParams::FromValue(const base::Value::Dict& value) {
+  IOTaskParams out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<IOTaskParams> IOTaskParams::FromValue(const base::Value::Dict& value) {
+std::optional<IOTaskParams> IOTaskParams::FromValue(const base::Value& value) {
   IOTaskParams out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<IOTaskParams> IOTaskParams::FromValue(const base::Value& value) {
-  IOTaskParams out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -7598,8 +7561,8 @@ policy_file_count(0),
 always_show_review(false) {}
 
 PolicyError::~PolicyError() = default;
-PolicyError::PolicyError(PolicyError&& rhs) = default;
-PolicyError& PolicyError::operator=(PolicyError&& rhs) = default;
+PolicyError::PolicyError(PolicyError&& rhs) noexcept = default;
+PolicyError& PolicyError::operator=(PolicyError&& rhs) noexcept = default;
 PolicyError PolicyError::Clone() const {
   PolicyError out;
   out.type = type;
@@ -7676,34 +7639,21 @@ bool PolicyError::Populate(
 }
 
 // static
-std::unique_ptr<PolicyError> PolicyError::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<PolicyError>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<PolicyError> PolicyError::FromValue(const base::Value::Dict& value) {
+  PolicyError out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<PolicyError> PolicyError::FromValue(const base::Value::Dict& value) {
+std::optional<PolicyError> PolicyError::FromValue(const base::Value& value) {
   PolicyError out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<PolicyError> PolicyError::FromValue(const base::Value& value) {
-  PolicyError out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -7728,8 +7678,8 @@ ConflictPauseParams::ConflictPauseParams()
  {}
 
 ConflictPauseParams::~ConflictPauseParams() = default;
-ConflictPauseParams::ConflictPauseParams(ConflictPauseParams&& rhs) = default;
-ConflictPauseParams& ConflictPauseParams::operator=(ConflictPauseParams&& rhs) = default;
+ConflictPauseParams::ConflictPauseParams(ConflictPauseParams&& rhs) noexcept = default;
+ConflictPauseParams& ConflictPauseParams::operator=(ConflictPauseParams&& rhs) noexcept = default;
 ConflictPauseParams ConflictPauseParams::Clone() const {
   ConflictPauseParams out;
   out.conflict_name = conflict_name;
@@ -7747,7 +7697,7 @@ bool ConflictPauseParams::Populate(
     {
       auto* temp = (*conflict_name_value).GetIfString();
       if (!temp) {
-        out.conflict_name = absl::nullopt;
+        out.conflict_name = std::nullopt;
         return false;
       }
       out.conflict_name = *temp;
@@ -7759,7 +7709,7 @@ bool ConflictPauseParams::Populate(
     {
       auto temp = (*conflict_is_directory_value).GetIfBool();
       if (!temp.has_value()) {
-        out.conflict_is_directory = absl::nullopt;
+        out.conflict_is_directory = std::nullopt;
         return false;
       }
       out.conflict_is_directory = *temp;
@@ -7771,7 +7721,7 @@ bool ConflictPauseParams::Populate(
     {
       auto temp = (*conflict_multiple_value).GetIfBool();
       if (!temp.has_value()) {
-        out.conflict_multiple = absl::nullopt;
+        out.conflict_multiple = std::nullopt;
         return false;
       }
       out.conflict_multiple = *temp;
@@ -7783,7 +7733,7 @@ bool ConflictPauseParams::Populate(
     {
       auto* temp = (*conflict_target_url_value).GetIfString();
       if (!temp) {
-        out.conflict_target_url = absl::nullopt;
+        out.conflict_target_url = std::nullopt;
         return false;
       }
       out.conflict_target_url = *temp;
@@ -7803,34 +7753,21 @@ bool ConflictPauseParams::Populate(
 }
 
 // static
-std::unique_ptr<ConflictPauseParams> ConflictPauseParams::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ConflictPauseParams>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ConflictPauseParams> ConflictPauseParams::FromValue(const base::Value::Dict& value) {
+  ConflictPauseParams out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ConflictPauseParams> ConflictPauseParams::FromValue(const base::Value::Dict& value) {
+std::optional<ConflictPauseParams> ConflictPauseParams::FromValue(const base::Value& value) {
   ConflictPauseParams out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ConflictPauseParams> ConflictPauseParams::FromValue(const base::Value& value) {
-  ConflictPauseParams out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -7865,8 +7802,8 @@ policy_file_count(0),
 always_show_review(false) {}
 
 PolicyPauseParams::~PolicyPauseParams() = default;
-PolicyPauseParams::PolicyPauseParams(PolicyPauseParams&& rhs) = default;
-PolicyPauseParams& PolicyPauseParams::operator=(PolicyPauseParams&& rhs) = default;
+PolicyPauseParams::PolicyPauseParams(PolicyPauseParams&& rhs) noexcept = default;
+PolicyPauseParams& PolicyPauseParams::operator=(PolicyPauseParams&& rhs) noexcept = default;
 PolicyPauseParams PolicyPauseParams::Clone() const {
   PolicyPauseParams out;
   out.type = type;
@@ -7943,34 +7880,21 @@ bool PolicyPauseParams::Populate(
 }
 
 // static
-std::unique_ptr<PolicyPauseParams> PolicyPauseParams::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<PolicyPauseParams>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<PolicyPauseParams> PolicyPauseParams::FromValue(const base::Value::Dict& value) {
+  PolicyPauseParams out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<PolicyPauseParams> PolicyPauseParams::FromValue(const base::Value::Dict& value) {
+std::optional<PolicyPauseParams> PolicyPauseParams::FromValue(const base::Value& value) {
   PolicyPauseParams out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<PolicyPauseParams> PolicyPauseParams::FromValue(const base::Value& value) {
-  PolicyPauseParams out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -7995,8 +7919,8 @@ PauseParams::PauseParams()
  {}
 
 PauseParams::~PauseParams() = default;
-PauseParams::PauseParams(PauseParams&& rhs) = default;
-PauseParams& PauseParams::operator=(PauseParams&& rhs) = default;
+PauseParams::PauseParams(PauseParams&& rhs) noexcept = default;
+PauseParams& PauseParams::operator=(PauseParams&& rhs) noexcept = default;
 PauseParams PauseParams::Clone() const {
   PauseParams out;
   if (conflict_params) {
@@ -8054,34 +7978,21 @@ bool PauseParams::Populate(
 }
 
 // static
-std::unique_ptr<PauseParams> PauseParams::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<PauseParams>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<PauseParams> PauseParams::FromValue(const base::Value::Dict& value) {
+  PauseParams out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<PauseParams> PauseParams::FromValue(const base::Value::Dict& value) {
+std::optional<PauseParams> PauseParams::FromValue(const base::Value& value) {
   PauseParams out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<PauseParams> PauseParams::FromValue(const base::Value& value) {
-  PauseParams out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -8106,8 +8017,8 @@ ConflictResumeParams::ConflictResumeParams()
  {}
 
 ConflictResumeParams::~ConflictResumeParams() = default;
-ConflictResumeParams::ConflictResumeParams(ConflictResumeParams&& rhs) = default;
-ConflictResumeParams& ConflictResumeParams::operator=(ConflictResumeParams&& rhs) = default;
+ConflictResumeParams::ConflictResumeParams(ConflictResumeParams&& rhs) noexcept = default;
+ConflictResumeParams& ConflictResumeParams::operator=(ConflictResumeParams&& rhs) noexcept = default;
 ConflictResumeParams ConflictResumeParams::Clone() const {
   ConflictResumeParams out;
   out.conflict_resolve = conflict_resolve;
@@ -8123,7 +8034,7 @@ bool ConflictResumeParams::Populate(
     {
       auto* temp = (*conflict_resolve_value).GetIfString();
       if (!temp) {
-        out.conflict_resolve = absl::nullopt;
+        out.conflict_resolve = std::nullopt;
         return false;
       }
       out.conflict_resolve = *temp;
@@ -8135,7 +8046,7 @@ bool ConflictResumeParams::Populate(
     {
       auto temp = (*conflict_apply_to_all_value).GetIfBool();
       if (!temp.has_value()) {
-        out.conflict_apply_to_all = absl::nullopt;
+        out.conflict_apply_to_all = std::nullopt;
         return false;
       }
       out.conflict_apply_to_all = *temp;
@@ -8155,34 +8066,21 @@ bool ConflictResumeParams::Populate(
 }
 
 // static
-std::unique_ptr<ConflictResumeParams> ConflictResumeParams::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ConflictResumeParams>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ConflictResumeParams> ConflictResumeParams::FromValue(const base::Value::Dict& value) {
+  ConflictResumeParams out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ConflictResumeParams> ConflictResumeParams::FromValue(const base::Value::Dict& value) {
+std::optional<ConflictResumeParams> ConflictResumeParams::FromValue(const base::Value& value) {
   ConflictResumeParams out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ConflictResumeParams> ConflictResumeParams::FromValue(const base::Value& value) {
-  ConflictResumeParams out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -8207,8 +8105,8 @@ PolicyResumeParams::PolicyResumeParams()
 : type() {}
 
 PolicyResumeParams::~PolicyResumeParams() = default;
-PolicyResumeParams::PolicyResumeParams(PolicyResumeParams&& rhs) = default;
-PolicyResumeParams& PolicyResumeParams::operator=(PolicyResumeParams&& rhs) = default;
+PolicyResumeParams::PolicyResumeParams(PolicyResumeParams&& rhs) noexcept = default;
+PolicyResumeParams& PolicyResumeParams::operator=(PolicyResumeParams&& rhs) noexcept = default;
 PolicyResumeParams PolicyResumeParams::Clone() const {
   PolicyResumeParams out;
   out.type = type;
@@ -8246,34 +8144,21 @@ bool PolicyResumeParams::Populate(
 }
 
 // static
-std::unique_ptr<PolicyResumeParams> PolicyResumeParams::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<PolicyResumeParams>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<PolicyResumeParams> PolicyResumeParams::FromValue(const base::Value::Dict& value) {
+  PolicyResumeParams out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<PolicyResumeParams> PolicyResumeParams::FromValue(const base::Value::Dict& value) {
+std::optional<PolicyResumeParams> PolicyResumeParams::FromValue(const base::Value& value) {
   PolicyResumeParams out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<PolicyResumeParams> PolicyResumeParams::FromValue(const base::Value& value) {
-  PolicyResumeParams out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -8292,8 +8177,8 @@ ResumeParams::ResumeParams()
  {}
 
 ResumeParams::~ResumeParams() = default;
-ResumeParams::ResumeParams(ResumeParams&& rhs) = default;
-ResumeParams& ResumeParams::operator=(ResumeParams&& rhs) = default;
+ResumeParams::ResumeParams(ResumeParams&& rhs) noexcept = default;
+ResumeParams& ResumeParams::operator=(ResumeParams&& rhs) noexcept = default;
 ResumeParams ResumeParams::Clone() const {
   ResumeParams out;
   if (conflict_params) {
@@ -8351,34 +8236,21 @@ bool ResumeParams::Populate(
 }
 
 // static
-std::unique_ptr<ResumeParams> ResumeParams::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ResumeParams>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ResumeParams> ResumeParams::FromValue(const base::Value::Dict& value) {
+  ResumeParams out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ResumeParams> ResumeParams::FromValue(const base::Value::Dict& value) {
+std::optional<ResumeParams> ResumeParams::FromValue(const base::Value& value) {
   ResumeParams out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ResumeParams> ResumeParams::FromValue(const base::Value& value) {
-  ResumeParams out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -8403,8 +8275,8 @@ ProgressStatus::OutputsType::OutputsType()
  {}
 
 ProgressStatus::OutputsType::~OutputsType() = default;
-ProgressStatus::OutputsType::OutputsType(OutputsType&& rhs) = default;
-ProgressStatus::OutputsType& ProgressStatus::OutputsType::operator=(OutputsType&& rhs) = default;
+ProgressStatus::OutputsType::OutputsType(OutputsType&& rhs) noexcept = default;
+ProgressStatus::OutputsType& ProgressStatus::OutputsType::operator=(OutputsType&& rhs) noexcept = default;
 ProgressStatus::OutputsType ProgressStatus::OutputsType::Clone() const {
   OutputsType out;
   return out;
@@ -8427,21 +8299,21 @@ bool ProgressStatus::OutputsType::Populate(
 }
 
 // static
-absl::optional<ProgressStatus::OutputsType> ProgressStatus::OutputsType::FromValue(const base::Value::Dict& value) {
+std::optional<ProgressStatus::OutputsType> ProgressStatus::OutputsType::FromValue(const base::Value::Dict& value) {
   OutputsType out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ProgressStatus::OutputsType> ProgressStatus::OutputsType::FromValue(const base::Value& value) {
+std::optional<ProgressStatus::OutputsType> ProgressStatus::OutputsType::FromValue(const base::Value& value) {
   OutputsType out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -8470,8 +8342,8 @@ sources_scanned(0),
 show_notification(false) {}
 
 ProgressStatus::~ProgressStatus() = default;
-ProgressStatus::ProgressStatus(ProgressStatus&& rhs) = default;
-ProgressStatus& ProgressStatus::operator=(ProgressStatus&& rhs) = default;
+ProgressStatus::ProgressStatus(ProgressStatus&& rhs) noexcept = default;
+ProgressStatus& ProgressStatus::operator=(ProgressStatus&& rhs) noexcept = default;
 ProgressStatus ProgressStatus::Clone() const {
   ProgressStatus out;
   out.type = type;
@@ -8500,6 +8372,7 @@ ProgressStatus ProgressStatus::Clone() const {
       json_schema_compiler::util::AppendToContainer(*out.outputs, element.Clone());
     }
   }
+  out.skipped_encrypted_files = skipped_encrypted_files;
   out.destination_volume_id = destination_volume_id;
   return out;
 }
@@ -8713,6 +8586,21 @@ bool ProgressStatus::Populate(
     }
   }
 
+  const base::Value* skipped_encrypted_files_value = dict.Find("skippedEncryptedFiles");
+  if (!skipped_encrypted_files_value) {
+    return false;
+  }
+  {
+    if (!(*skipped_encrypted_files_value).is_list()) {
+      return false;
+    }
+    else {
+      if (!json_schema_compiler::util::PopulateArrayFromList((*skipped_encrypted_files_value).GetList(), out.skipped_encrypted_files)) {
+        return false;
+      }
+    }
+  }
+
   const base::Value* destination_volume_id_value = dict.Find("destinationVolumeId");
   if (!destination_volume_id_value) {
     return false;
@@ -8738,34 +8626,21 @@ bool ProgressStatus::Populate(
 }
 
 // static
-std::unique_ptr<ProgressStatus> ProgressStatus::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ProgressStatus>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ProgressStatus> ProgressStatus::FromValue(const base::Value::Dict& value) {
+  ProgressStatus out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ProgressStatus> ProgressStatus::FromValue(const base::Value::Dict& value) {
+std::optional<ProgressStatus> ProgressStatus::FromValue(const base::Value& value) {
   ProgressStatus out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ProgressStatus> ProgressStatus::FromValue(const base::Value& value) {
-  ProgressStatus out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -8811,6 +8686,8 @@ base::Value::Dict ProgressStatus::ToValue() const {
     to_value_result.Set("outputs", json_schema_compiler::util::CreateValueFromArray(*this->outputs));
 
   }
+  to_value_result.Set("skippedEncryptedFiles", json_schema_compiler::util::CreateValueFromArray(this->skipped_encrypted_files));
+
   to_value_result.Set("destinationVolumeId", this->destination_volume_id);
 
 
@@ -8823,8 +8700,8 @@ DlpMetadata::DlpMetadata()
 is_restricted_for_destination(false) {}
 
 DlpMetadata::~DlpMetadata() = default;
-DlpMetadata::DlpMetadata(DlpMetadata&& rhs) = default;
-DlpMetadata& DlpMetadata::operator=(DlpMetadata&& rhs) = default;
+DlpMetadata::DlpMetadata(DlpMetadata&& rhs) noexcept = default;
+DlpMetadata& DlpMetadata::operator=(DlpMetadata&& rhs) noexcept = default;
 DlpMetadata DlpMetadata::Clone() const {
   DlpMetadata out;
   out.source_url = source_url;
@@ -8885,34 +8762,21 @@ bool DlpMetadata::Populate(
 }
 
 // static
-std::unique_ptr<DlpMetadata> DlpMetadata::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<DlpMetadata>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<DlpMetadata> DlpMetadata::FromValue(const base::Value::Dict& value) {
+  DlpMetadata out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<DlpMetadata> DlpMetadata::FromValue(const base::Value::Dict& value) {
+std::optional<DlpMetadata> DlpMetadata::FromValue(const base::Value& value) {
   DlpMetadata out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<DlpMetadata> DlpMetadata::FromValue(const base::Value& value) {
-  DlpMetadata out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -8935,8 +8799,8 @@ DlpRestrictionDetails::DlpRestrictionDetails()
 : level() {}
 
 DlpRestrictionDetails::~DlpRestrictionDetails() = default;
-DlpRestrictionDetails::DlpRestrictionDetails(DlpRestrictionDetails&& rhs) = default;
-DlpRestrictionDetails& DlpRestrictionDetails::operator=(DlpRestrictionDetails&& rhs) = default;
+DlpRestrictionDetails::DlpRestrictionDetails(DlpRestrictionDetails&& rhs) noexcept = default;
+DlpRestrictionDetails& DlpRestrictionDetails::operator=(DlpRestrictionDetails&& rhs) noexcept = default;
 DlpRestrictionDetails DlpRestrictionDetails::Clone() const {
   DlpRestrictionDetails out;
   out.level = level;
@@ -9015,34 +8879,21 @@ bool DlpRestrictionDetails::Populate(
 }
 
 // static
-std::unique_ptr<DlpRestrictionDetails> DlpRestrictionDetails::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<DlpRestrictionDetails>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<DlpRestrictionDetails> DlpRestrictionDetails::FromValue(const base::Value::Dict& value) {
+  DlpRestrictionDetails out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<DlpRestrictionDetails> DlpRestrictionDetails::FromValue(const base::Value::Dict& value) {
+std::optional<DlpRestrictionDetails> DlpRestrictionDetails::FromValue(const base::Value& value) {
   DlpRestrictionDetails out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<DlpRestrictionDetails> DlpRestrictionDetails::FromValue(const base::Value& value) {
-  DlpRestrictionDetails out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -9071,8 +8922,8 @@ DialogCallerInformation::DialogCallerInformation()
 : component() {}
 
 DialogCallerInformation::~DialogCallerInformation() = default;
-DialogCallerInformation::DialogCallerInformation(DialogCallerInformation&& rhs) = default;
-DialogCallerInformation& DialogCallerInformation::operator=(DialogCallerInformation&& rhs) = default;
+DialogCallerInformation::DialogCallerInformation(DialogCallerInformation&& rhs) noexcept = default;
+DialogCallerInformation& DialogCallerInformation::operator=(DialogCallerInformation&& rhs) noexcept = default;
 DialogCallerInformation DialogCallerInformation::Clone() const {
   DialogCallerInformation out;
   out.url = url;
@@ -9089,7 +8940,7 @@ bool DialogCallerInformation::Populate(
     {
       auto* temp = (*url_value).GetIfString();
       if (!temp) {
-        out.url = absl::nullopt;
+        out.url = std::nullopt;
         return false;
       }
       out.url = *temp;
@@ -9125,34 +8976,21 @@ bool DialogCallerInformation::Populate(
 }
 
 // static
-std::unique_ptr<DialogCallerInformation> DialogCallerInformation::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<DialogCallerInformation>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<DialogCallerInformation> DialogCallerInformation::FromValue(const base::Value::Dict& value) {
+  DialogCallerInformation out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<DialogCallerInformation> DialogCallerInformation::FromValue(const base::Value::Dict& value) {
+std::optional<DialogCallerInformation> DialogCallerInformation::FromValue(const base::Value& value) {
   DialogCallerInformation out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<DialogCallerInformation> DialogCallerInformation::FromValue(const base::Value& value) {
-  DialogCallerInformation out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -9178,8 +9016,8 @@ MountableGuest::MountableGuest()
 vm_type() {}
 
 MountableGuest::~MountableGuest() = default;
-MountableGuest::MountableGuest(MountableGuest&& rhs) = default;
-MountableGuest& MountableGuest::operator=(MountableGuest&& rhs) = default;
+MountableGuest::MountableGuest(MountableGuest&& rhs) noexcept = default;
+MountableGuest& MountableGuest::operator=(MountableGuest&& rhs) noexcept = default;
 MountableGuest MountableGuest::Clone() const {
   MountableGuest out;
   out.id = id;
@@ -9243,34 +9081,21 @@ bool MountableGuest::Populate(
 }
 
 // static
-std::unique_ptr<MountableGuest> MountableGuest::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<MountableGuest>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<MountableGuest> MountableGuest::FromValue(const base::Value::Dict& value) {
+  MountableGuest out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<MountableGuest> MountableGuest::FromValue(const base::Value::Dict& value) {
+std::optional<MountableGuest> MountableGuest::FromValue(const base::Value& value) {
   MountableGuest out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<MountableGuest> MountableGuest::FromValue(const base::Value& value) {
-  MountableGuest out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -9293,8 +9118,8 @@ ParsedTrashInfoFile::RestoreEntry::RestoreEntry()
  {}
 
 ParsedTrashInfoFile::RestoreEntry::~RestoreEntry() = default;
-ParsedTrashInfoFile::RestoreEntry::RestoreEntry(RestoreEntry&& rhs) = default;
-ParsedTrashInfoFile::RestoreEntry& ParsedTrashInfoFile::RestoreEntry::operator=(RestoreEntry&& rhs) = default;
+ParsedTrashInfoFile::RestoreEntry::RestoreEntry(RestoreEntry&& rhs) noexcept = default;
+ParsedTrashInfoFile::RestoreEntry& ParsedTrashInfoFile::RestoreEntry::operator=(RestoreEntry&& rhs) noexcept = default;
 ParsedTrashInfoFile::RestoreEntry ParsedTrashInfoFile::RestoreEntry::Clone() const {
   RestoreEntry out;
   return out;
@@ -9317,21 +9142,21 @@ bool ParsedTrashInfoFile::RestoreEntry::Populate(
 }
 
 // static
-absl::optional<ParsedTrashInfoFile::RestoreEntry> ParsedTrashInfoFile::RestoreEntry::FromValue(const base::Value::Dict& value) {
+std::optional<ParsedTrashInfoFile::RestoreEntry> ParsedTrashInfoFile::RestoreEntry::FromValue(const base::Value::Dict& value) {
   RestoreEntry out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ParsedTrashInfoFile::RestoreEntry> ParsedTrashInfoFile::RestoreEntry::FromValue(const base::Value& value) {
+std::optional<ParsedTrashInfoFile::RestoreEntry> ParsedTrashInfoFile::RestoreEntry::FromValue(const base::Value& value) {
   RestoreEntry out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -9350,8 +9175,8 @@ ParsedTrashInfoFile::ParsedTrashInfoFile()
 : deletion_date(0.0) {}
 
 ParsedTrashInfoFile::~ParsedTrashInfoFile() = default;
-ParsedTrashInfoFile::ParsedTrashInfoFile(ParsedTrashInfoFile&& rhs) = default;
-ParsedTrashInfoFile& ParsedTrashInfoFile::operator=(ParsedTrashInfoFile&& rhs) = default;
+ParsedTrashInfoFile::ParsedTrashInfoFile(ParsedTrashInfoFile&& rhs) noexcept = default;
+ParsedTrashInfoFile& ParsedTrashInfoFile::operator=(ParsedTrashInfoFile&& rhs) noexcept = default;
 ParsedTrashInfoFile ParsedTrashInfoFile::Clone() const {
   ParsedTrashInfoFile out;
   out.restore_entry = restore_entry.Clone();
@@ -9413,34 +9238,21 @@ bool ParsedTrashInfoFile::Populate(
 }
 
 // static
-std::unique_ptr<ParsedTrashInfoFile> ParsedTrashInfoFile::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ParsedTrashInfoFile>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ParsedTrashInfoFile> ParsedTrashInfoFile::FromValue(const base::Value::Dict& value) {
+  ParsedTrashInfoFile out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ParsedTrashInfoFile> ParsedTrashInfoFile::FromValue(const base::Value::Dict& value) {
+std::optional<ParsedTrashInfoFile> ParsedTrashInfoFile::FromValue(const base::Value& value) {
   ParsedTrashInfoFile out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ParsedTrashInfoFile> ParsedTrashInfoFile::FromValue(const base::Value& value) {
-  ParsedTrashInfoFile out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -9472,8 +9284,8 @@ should_pin(false),
 emptied_queue(false) {}
 
 BulkPinProgress::~BulkPinProgress() = default;
-BulkPinProgress::BulkPinProgress(BulkPinProgress&& rhs) = default;
-BulkPinProgress& BulkPinProgress::operator=(BulkPinProgress&& rhs) = default;
+BulkPinProgress::BulkPinProgress(BulkPinProgress&& rhs) noexcept = default;
+BulkPinProgress& BulkPinProgress::operator=(BulkPinProgress&& rhs) noexcept = default;
 BulkPinProgress BulkPinProgress::Clone() const {
   BulkPinProgress out;
   out.stage = stage;
@@ -9628,34 +9440,21 @@ bool BulkPinProgress::Populate(
 }
 
 // static
-std::unique_ptr<BulkPinProgress> BulkPinProgress::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<BulkPinProgress>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<BulkPinProgress> BulkPinProgress::FromValue(const base::Value::Dict& value) {
+  BulkPinProgress out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<BulkPinProgress> BulkPinProgress::FromValue(const base::Value::Dict& value) {
+std::optional<BulkPinProgress> BulkPinProgress::FromValue(const base::Value& value) {
   BulkPinProgress out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<BulkPinProgress> BulkPinProgress::FromValue(const base::Value& value) {
-  BulkPinProgress out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -9703,8 +9502,8 @@ Results::Result::Result()
  {}
 
 Results::Result::~Result() = default;
-Results::Result::Result(Result&& rhs) = default;
-Results::Result& Results::Result::operator=(Result&& rhs) = default;
+Results::Result::Result(Result&& rhs) noexcept = default;
+Results::Result& Results::Result::operator=(Result&& rhs) noexcept = default;
 base::Value::Dict Results::Result::ToValue() const {
   base::Value::Dict to_value_result;
 
@@ -9731,13 +9530,13 @@ namespace GrantAccess {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -9746,17 +9545,17 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& entry_urls_value = args[0];
     {
       if (!entry_urls_value.is_list()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         if (!json_schema_compiler::util::PopulateArrayFromList(entry_urls_value.GetList(), params.entry_urls)) {
-          return absl::nullopt;
+          return std::nullopt;
         }
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -9774,13 +9573,13 @@ namespace SelectFiles {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -9789,17 +9588,17 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& selected_paths_value = args[0];
     {
       if (!selected_paths_value.is_list()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         if (!json_schema_compiler::util::PopulateArrayFromList(selected_paths_value.GetList(), params.selected_paths)) {
-          return absl::nullopt;
+          return std::nullopt;
         }
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -9808,13 +9607,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = should_return_local_path_value.GetIfBool();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.should_return_local_path = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -9832,13 +9631,13 @@ namespace SelectFile {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 4) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -9848,13 +9647,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = selected_path_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.selected_path = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -9863,13 +9662,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = index_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.index = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (2 < args.size() &&
@@ -9878,13 +9677,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = for_opening_value.GetIfBool();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.for_opening = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (3 < args.size() &&
@@ -9893,13 +9692,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = should_return_local_path_value.GetIfBool();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.should_return_local_path = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -9917,13 +9716,13 @@ namespace AddMount {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() < 1 || args.size() > 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -9933,13 +9732,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = file_url_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.file_url = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -9948,8 +9747,8 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = password_value.GetIfString();
       if (!temp) {
-        params.password = absl::nullopt;
-        return absl::nullopt;
+        params.password = std::nullopt;
+        return std::nullopt;
       }
       params.password = *temp;
     }
@@ -9972,13 +9771,13 @@ namespace CancelMounting {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -9988,13 +9787,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = file_url_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.file_url = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -10012,13 +9811,13 @@ namespace RemoveMount {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -10028,13 +9827,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = volume_id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.volume_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -10063,13 +9862,13 @@ namespace GetDlpRestrictionDetails {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -10079,13 +9878,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = source_url_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.source_url = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -10105,13 +9904,13 @@ namespace GetDlpBlockedComponents {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -10121,13 +9920,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = source_url_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.source_url = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -10164,13 +9963,13 @@ namespace GetSizeStats {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -10180,13 +9979,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = volume_id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.volume_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -10206,13 +10005,13 @@ namespace FormatVolume {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 3) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -10222,13 +10021,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = volume_id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.volume_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -10237,16 +10036,16 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       const std::string* format_file_system_type_as_string = filesystem_value.GetIfString();
       if (!format_file_system_type_as_string) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.filesystem = ParseFormatFileSystemType(*format_file_system_type_as_string);
       if (params.filesystem == FormatFileSystemType()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (2 < args.size() &&
@@ -10255,13 +10054,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = volume_label_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.volume_label = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -10274,13 +10073,13 @@ namespace SinglePartitionFormat {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 3) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -10290,13 +10089,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = device_storage_path_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.device_storage_path = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -10305,16 +10104,16 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       const std::string* format_file_system_type_as_string = filesystem_value.GetIfString();
       if (!format_file_system_type_as_string) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.filesystem = ParseFormatFileSystemType(*format_file_system_type_as_string);
       if (params.filesystem == FormatFileSystemType()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (2 < args.size() &&
@@ -10323,13 +10122,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = volume_label_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.volume_label = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -10342,13 +10141,13 @@ namespace RenameVolume {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -10358,13 +10157,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = volume_id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.volume_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -10373,13 +10172,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = new_name_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.new_name = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -10403,13 +10202,13 @@ namespace SetPreferences {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -10418,15 +10217,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& change_info_value = args[0];
     {
       if (!change_info_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!PreferencesChange::Populate(change_info_value.GetDict(), params.change_info)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -10439,13 +10238,13 @@ namespace SearchDrive {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -10454,43 +10253,25 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& search_params_value = args[0];
     {
       if (!search_params_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!SearchParams::Populate(search_params_value.GetDict(), params.search_params)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
 }
 
 
-Results::EntriesType::EntriesType()
- {}
-
-Results::EntriesType::~EntriesType() = default;
-Results::EntriesType::EntriesType(EntriesType&& rhs) = default;
-Results::EntriesType& Results::EntriesType::operator=(EntriesType&& rhs) = default;
-base::Value::Dict Results::EntriesType::ToValue() const {
-  base::Value::Dict to_value_result;
-
-  to_value_result.Merge(additional_properties.Clone());
-
-  return to_value_result;
-}
-
-
-
-base::Value::List Results::Create(const std::vector<EntriesType>& entries, const std::string& next_feed) {
+base::Value::List Results::Create(const SearchDriveResponse& response) {
   base::Value::List create_results;
-  create_results.reserve(2);
-  create_results.Append(json_schema_compiler::util::CreateValueFromArray(entries));
-
-  create_results.Append(next_feed);
+  create_results.reserve(1);
+  create_results.Append((response).ToValue());
 
   return create_results;
 }
@@ -10500,13 +10281,13 @@ namespace SearchDriveMetadata {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -10515,15 +10296,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& search_params_value = args[0];
     {
       if (!search_params_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!SearchMetadataParams::Populate(search_params_value.GetDict(), params.search_params)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -10543,13 +10324,13 @@ namespace SearchFilesByHashes {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -10559,13 +10340,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = volume_id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.volume_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -10573,17 +10354,17 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& hash_list_value = args[1];
     {
       if (!hash_list_value.is_list()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         if (!json_schema_compiler::util::PopulateArrayFromList(hash_list_value.GetList(), params.hash_list)) {
-          return absl::nullopt;
+          return std::nullopt;
         }
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -10594,8 +10375,8 @@ Results::Paths::Paths()
  {}
 
 Results::Paths::~Paths() = default;
-Results::Paths::Paths(Paths&& rhs) = default;
-Results::Paths& Results::Paths::operator=(Paths&& rhs) = default;
+Results::Paths::Paths(Paths&& rhs) noexcept = default;
+Results::Paths& Results::Paths::operator=(Paths&& rhs) noexcept = default;
 base::Value::Dict Results::Paths::ToValue() const {
   base::Value::Dict to_value_result;
 
@@ -10640,13 +10421,13 @@ namespace Zoom {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -10656,16 +10437,16 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       const std::string* zoom_operation_type_as_string = operation_value.GetIfString();
       if (!zoom_operation_type_as_string) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.operation = ParseZoomOperationType(*zoom_operation_type_as_string);
       if (params.operation == ZoomOperationType()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -10676,14 +10457,10 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
 
 namespace GetProfiles {
 
-base::Value::List Results::Create(const std::vector<ProfileInfo>& profiles, const std::string& running_profile, const std::string& display_profile) {
+base::Value::List Results::Create(const ProfilesResponse& response) {
   base::Value::List create_results;
-  create_results.reserve(3);
-  create_results.Append(json_schema_compiler::util::CreateValueFromArray(profiles));
-
-  create_results.Append(running_profile);
-
-  create_results.Append(display_profile);
+  create_results.reserve(1);
+  create_results.Append((response).ToValue());
 
   return create_results;
 }
@@ -10693,13 +10470,13 @@ namespace OpenInspector {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -10709,16 +10486,16 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       const std::string* inspection_type_as_string = type_value.GetIfString();
       if (!inspection_type_as_string) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.type = ParseInspectionType(*inspection_type_as_string);
       if (params.type == InspectionType()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -10731,13 +10508,13 @@ namespace OpenSettingsSubpage {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -10747,13 +10524,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = sub_page_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.sub_page = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -10777,13 +10554,13 @@ namespace AddProvidedFileSystem {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -10793,13 +10570,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = provider_id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.provider_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -10817,13 +10594,13 @@ namespace ConfigureVolume {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -10833,13 +10610,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = volume_id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.volume_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -10866,13 +10643,13 @@ namespace GetAndroidPickerApps {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -10881,17 +10658,17 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& extensions_value = args[0];
     {
       if (!extensions_value.is_list()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         if (!json_schema_compiler::util::PopulateArrayFromList(extensions_value.GetList(), params.extensions)) {
-          return absl::nullopt;
+          return std::nullopt;
         }
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -10911,13 +10688,13 @@ namespace SelectAndroidPickerApp {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -10926,15 +10703,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& android_app_value = args[0];
     {
       if (!android_app_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!AndroidApp::Populate(android_app_value.GetDict(), params.android_app)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -10974,13 +10751,13 @@ namespace NotifyDriveDialogResult {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -10990,16 +10767,16 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       const std::string* drive_dialog_result_as_string = result_value.GetIfString();
       if (!drive_dialog_result_as_string) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.result = ParseDriveDialogResult(*drive_dialog_result_as_string);
       if (params.result == DriveDialogResult()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -11012,13 +10789,13 @@ namespace OpenURL {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -11028,13 +10805,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = url_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.url = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -11047,13 +10824,13 @@ namespace OpenWindow {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -11062,15 +10839,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& params_value = args[0];
     {
       if (!params_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!OpenWindowParams::Populate(params_value.GetDict(), params.params)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -11094,13 +10871,13 @@ namespace CancelIOTask {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -11110,13 +10887,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = task_id_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.task_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -11129,13 +10906,13 @@ namespace ResumeIOTask {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -11145,13 +10922,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = task_id_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.task_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -11159,15 +10936,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& params_value = args[1];
     {
       if (!params_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!ResumeParams::Populate(params_value.GetDict(), params.params)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -11180,13 +10957,13 @@ namespace DismissIOTask {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -11196,13 +10973,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = task_id_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.task_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -11220,13 +10997,13 @@ namespace ShowPolicyDialog {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -11236,13 +11013,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = task_id_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.task_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -11251,16 +11028,16 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       const std::string* policy_dialog_type_as_string = type_value.GetIfString();
       if (!policy_dialog_type_as_string) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.type = ParsePolicyDialogType(*policy_dialog_type_as_string);
       if (params.type == PolicyDialogType()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -11298,13 +11075,13 @@ namespace MountGuest {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -11314,13 +11091,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = id_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;

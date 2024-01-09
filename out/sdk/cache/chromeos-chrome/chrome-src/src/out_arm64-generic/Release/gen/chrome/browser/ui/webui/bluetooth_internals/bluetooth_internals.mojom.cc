@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -114,14 +115,17 @@ void DebugLogsChangeHandlerProxy::ChangeDebugLogsState(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDebugLogsChangeHandler_ChangeDebugLogsState_Name, kFlags, 0, 0, nullptr);
@@ -190,10 +194,10 @@ bool DebugLogsChangeHandlerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDebugLogsChangeHandlerValidationInfo[] = {
-    {&internal::DebugLogsChangeHandler_ChangeDebugLogsState_Params_Data::Validate,
+    { &internal::DebugLogsChangeHandler_ChangeDebugLogsState_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -426,14 +430,17 @@ void BluetoothInternalsHandlerProxy::GetAdapter(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send mojom::BluetoothInternalsHandler::GetAdapter");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothInternalsHandler_GetAdapter_Name, kFlags, 0, 0, nullptr);
@@ -457,14 +464,17 @@ void BluetoothInternalsHandlerProxy::GetDebugLogsChangeHandler(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send mojom::BluetoothInternalsHandler::GetDebugLogsChangeHandler");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothInternalsHandler_GetDebugLogsChangeHandler_Name, kFlags, 0, 0, nullptr);
@@ -488,14 +498,17 @@ void BluetoothInternalsHandlerProxy::CheckSystemPermissions(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send mojom::BluetoothInternalsHandler::CheckSystemPermissions");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothInternalsHandler_CheckSystemPermissions_Name, kFlags, 0, 0, nullptr);
@@ -519,14 +532,17 @@ void BluetoothInternalsHandlerProxy::RequestSystemPermissions(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send mojom::BluetoothInternalsHandler::RequestSystemPermissions");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothInternalsHandler_RequestSystemPermissions_Name, kFlags, 0, 0, nullptr);
@@ -550,14 +566,17 @@ void BluetoothInternalsHandlerProxy::RequestLocationServices(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send mojom::BluetoothInternalsHandler::RequestLocationServices");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothInternalsHandler_RequestLocationServices_Name, kFlags, 0, 0, nullptr);
@@ -669,7 +688,8 @@ void BluetoothInternalsHandler_GetAdapter_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothInternalsHandler_GetAdapter_Name, kFlags, 0, 0, nullptr);
@@ -797,7 +817,8 @@ void BluetoothInternalsHandler_GetDebugLogsChangeHandler_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothInternalsHandler_GetDebugLogsChangeHandler_Name, kFlags, 0, 0, nullptr);
@@ -938,7 +959,8 @@ void BluetoothInternalsHandler_CheckSystemPermissions_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothInternalsHandler_CheckSystemPermissions_Name, kFlags, 0, 0, nullptr);
@@ -1048,7 +1070,8 @@ void BluetoothInternalsHandler_RequestSystemPermissions_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothInternalsHandler_RequestSystemPermissions_Name, kFlags, 0, 0, nullptr);
@@ -1154,7 +1177,8 @@ void BluetoothInternalsHandler_RequestLocationServices_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBluetoothInternalsHandler_RequestLocationServices_Name, kFlags, 0, 0, nullptr);
@@ -1341,18 +1365,18 @@ bool BluetoothInternalsHandlerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kBluetoothInternalsHandlerValidationInfo[] = {
-    {&internal::BluetoothInternalsHandler_GetAdapter_Params_Data::Validate,
+    { &internal::BluetoothInternalsHandler_GetAdapter_Params_Data::Validate,
      &internal::BluetoothInternalsHandler_GetAdapter_ResponseParams_Data::Validate},
-    {&internal::BluetoothInternalsHandler_GetDebugLogsChangeHandler_Params_Data::Validate,
+    { &internal::BluetoothInternalsHandler_GetDebugLogsChangeHandler_Params_Data::Validate,
      &internal::BluetoothInternalsHandler_GetDebugLogsChangeHandler_ResponseParams_Data::Validate},
-    {&internal::BluetoothInternalsHandler_CheckSystemPermissions_Params_Data::Validate,
+    { &internal::BluetoothInternalsHandler_CheckSystemPermissions_Params_Data::Validate,
      &internal::BluetoothInternalsHandler_CheckSystemPermissions_ResponseParams_Data::Validate},
-    {&internal::BluetoothInternalsHandler_RequestSystemPermissions_Params_Data::Validate,
+    { &internal::BluetoothInternalsHandler_RequestSystemPermissions_Params_Data::Validate,
      &internal::BluetoothInternalsHandler_RequestSystemPermissions_ResponseParams_Data::Validate},
-    {&internal::BluetoothInternalsHandler_RequestLocationServices_Params_Data::Validate,
+    { &internal::BluetoothInternalsHandler_RequestLocationServices_Params_Data::Validate,
      &internal::BluetoothInternalsHandler_RequestLocationServices_ResponseParams_Data::Validate},
 };
 

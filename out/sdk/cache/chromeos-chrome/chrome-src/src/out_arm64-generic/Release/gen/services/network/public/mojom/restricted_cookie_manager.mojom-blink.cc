@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -247,7 +248,7 @@ bool RestrictedCookieManager::SetCookieFromString(const ::blink::KURL& url, cons
   NOTREACHED();
   return false;
 }
-bool RestrictedCookieManager::GetCookiesString(const ::blink::KURL& url, const ::net::SiteForCookies& site_for_cookies, const ::scoped_refptr<const ::blink::SecurityOrigin>& top_frame_origin, bool has_storage_access, bool get_version_shared_memory, uint64_t* out_version, ::base::ReadOnlySharedMemoryRegion* out_version_buffer, WTF::String* out_cookies) {
+bool RestrictedCookieManager::GetCookiesString(const ::blink::KURL& url, const ::net::SiteForCookies& site_for_cookies, const ::scoped_refptr<const ::blink::SecurityOrigin>& top_frame_origin, bool has_storage_access, bool get_version_shared_memory, bool is_ad_tagged, uint64_t* out_version, ::base::ReadOnlySharedMemoryRegion* out_version_buffer, WTF::String* out_cookies) {
   NOTREACHED();
   return false;
 }
@@ -406,7 +407,7 @@ RestrictedCookieManagerProxy::RestrictedCookieManagerProxy(mojo::MessageReceiver
 }
 
 void RestrictedCookieManagerProxy::GetAllForUrl(
-    const ::blink::KURL& in_url, const ::net::SiteForCookies& in_site_for_cookies, const ::scoped_refptr<const ::blink::SecurityOrigin>& in_top_frame_origin, bool in_has_storage_access, CookieManagerGetOptionsPtr in_options, GetAllForUrlCallback callback) {
+    const ::blink::KURL& in_url, const ::net::SiteForCookies& in_site_for_cookies, const ::scoped_refptr<const ::blink::SecurityOrigin>& in_top_frame_origin, bool in_has_storage_access, CookieManagerGetOptionsPtr in_options, bool in_is_ad_tagged, GetAllForUrlCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send network::mojom::RestrictedCookieManager::GetAllForUrl", "input_parameters",
@@ -427,16 +428,22 @@ void RestrictedCookieManagerProxy::GetAllForUrl(
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("options"), in_options,
                         "<value of type CookieManagerGetOptionsPtr>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("is_ad_tagged"), in_is_ad_tagged,
+                        "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRestrictedCookieManager_GetAllForUrl_Name, kFlags, 0, 0, nullptr);
@@ -489,6 +496,7 @@ void RestrictedCookieManagerProxy::GetAllForUrl(
       params->options.is_null(),
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
       "null options in RestrictedCookieManager.GetAllForUrl request");
+  params->is_ad_tagged = in_is_ad_tagged;
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(RestrictedCookieManager::Name_);
@@ -527,14 +535,17 @@ void RestrictedCookieManagerProxy::SetCanonicalCookie(
                         "<value of type ::net::CookieInclusionStatus>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRestrictedCookieManager_SetCanonicalCookie_Name, kFlags, 0, 0, nullptr);
@@ -633,14 +644,17 @@ void RestrictedCookieManagerProxy::AddChangeListener(
                         "<value of type ::mojo::PendingRemote<::network::mojom::blink::CookieChangeListener>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRestrictedCookieManager_AddChangeListener_Name, kFlags, 0, 0, nullptr);
@@ -724,15 +738,18 @@ bool RestrictedCookieManagerProxy::SetCookieFromString(
 #else
   TRACE_EVENT0("mojom", "RestrictedCookieManager::SetCookieFromString");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRestrictedCookieManager_SetCookieFromString_Name, kFlags, 0, 0, nullptr);
@@ -826,14 +843,17 @@ void RestrictedCookieManagerProxy::SetCookieFromString(
                         "<value of type const WTF::String&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRestrictedCookieManager_SetCookieFromString_Name, kFlags, 0, 0, nullptr);
@@ -897,7 +917,7 @@ void RestrictedCookieManagerProxy::SetCookieFromString(
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 bool RestrictedCookieManagerProxy::GetCookiesString(
-    const ::blink::KURL& param_url, const ::net::SiteForCookies& param_site_for_cookies, const ::scoped_refptr<const ::blink::SecurityOrigin>& param_top_frame_origin, bool param_has_storage_access, bool param_get_version_shared_memory, uint64_t* out_param_version, ::base::ReadOnlySharedMemoryRegion* out_param_version_buffer, WTF::String* out_param_cookies) {
+    const ::blink::KURL& param_url, const ::net::SiteForCookies& param_site_for_cookies, const ::scoped_refptr<const ::blink::SecurityOrigin>& param_top_frame_origin, bool param_has_storage_access, bool param_get_version_shared_memory, bool param_is_ad_tagged, uint64_t* out_param_version, ::base::ReadOnlySharedMemoryRegion* out_param_version_buffer, WTF::String* out_param_cookies) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT_BEGIN1(
     "mojom", "Call network::mojom::RestrictedCookieManager::GetCookiesString (sync)", "input_parameters",
@@ -918,19 +938,25 @@ bool RestrictedCookieManagerProxy::GetCookiesString(
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("get_version_shared_memory"), param_get_version_shared_memory,
                         "<value of type bool>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("is_ad_tagged"), param_is_ad_tagged,
+                        "<value of type bool>");
    });
 #else
   TRACE_EVENT0("mojom", "RestrictedCookieManager::GetCookiesString");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRestrictedCookieManager_GetCookiesString_Name, kFlags, 0, 0, nullptr);
@@ -973,6 +999,7 @@ bool RestrictedCookieManagerProxy::GetCookiesString(
       "null top_frame_origin in RestrictedCookieManager.GetCookiesString request");
   params->has_storage_access = param_has_storage_access;
   params->get_version_shared_memory = param_get_version_shared_memory;
+  params->is_ad_tagged = param_is_ad_tagged;
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(RestrictedCookieManager::Name_);
@@ -1004,7 +1031,7 @@ bool RestrictedCookieManagerProxy::GetCookiesString(
 }
 
 void RestrictedCookieManagerProxy::GetCookiesString(
-    const ::blink::KURL& in_url, const ::net::SiteForCookies& in_site_for_cookies, const ::scoped_refptr<const ::blink::SecurityOrigin>& in_top_frame_origin, bool in_has_storage_access, bool in_get_version_shared_memory, GetCookiesStringCallback callback) {
+    const ::blink::KURL& in_url, const ::net::SiteForCookies& in_site_for_cookies, const ::scoped_refptr<const ::blink::SecurityOrigin>& in_top_frame_origin, bool in_has_storage_access, bool in_get_version_shared_memory, bool in_is_ad_tagged, GetCookiesStringCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send network::mojom::RestrictedCookieManager::GetCookiesString", "input_parameters",
@@ -1025,16 +1052,22 @@ void RestrictedCookieManagerProxy::GetCookiesString(
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("get_version_shared_memory"), in_get_version_shared_memory,
                         "<value of type bool>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("is_ad_tagged"), in_is_ad_tagged,
+                        "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRestrictedCookieManager_GetCookiesString_Name, kFlags, 0, 0, nullptr);
@@ -1077,6 +1110,7 @@ void RestrictedCookieManagerProxy::GetCookiesString(
       "null top_frame_origin in RestrictedCookieManager.GetCookiesString request");
   params->has_storage_access = in_has_storage_access;
   params->get_version_shared_memory = in_get_version_shared_memory;
+  params->is_ad_tagged = in_is_ad_tagged;
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(RestrictedCookieManager::Name_);
@@ -1110,15 +1144,18 @@ bool RestrictedCookieManagerProxy::CookiesEnabledFor(
 #else
   TRACE_EVENT0("mojom", "RestrictedCookieManager::CookiesEnabledFor");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRestrictedCookieManager_CookiesEnabledFor_Name, kFlags, 0, 0, nullptr);
@@ -1205,14 +1242,17 @@ void RestrictedCookieManagerProxy::CookiesEnabledFor(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRestrictedCookieManager_CookiesEnabledFor_Name, kFlags, 0, 0, nullptr);
@@ -1356,7 +1396,8 @@ void RestrictedCookieManager_GetAllForUrl_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRestrictedCookieManager_GetAllForUrl_Name, kFlags, 0, 0, nullptr);
@@ -1486,7 +1527,8 @@ void RestrictedCookieManager_SetCanonicalCookie_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRestrictedCookieManager_SetCanonicalCookie_Name, kFlags, 0, 0, nullptr);
@@ -1593,7 +1635,8 @@ void RestrictedCookieManager_AddChangeListener_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRestrictedCookieManager_AddChangeListener_Name, kFlags, 0, 0, nullptr);
@@ -1699,7 +1742,8 @@ void RestrictedCookieManager_SetCookieFromString_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRestrictedCookieManager_SetCookieFromString_Name, kFlags, 0, 0, nullptr);
@@ -1851,7 +1895,8 @@ void RestrictedCookieManager_GetCookiesString_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRestrictedCookieManager_GetCookiesString_Name, kFlags, 0, 0, nullptr);
@@ -2020,7 +2065,8 @@ void RestrictedCookieManager_CookiesEnabledFor_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRestrictedCookieManager_CookiesEnabledFor_Name, kFlags, 0, 0, nullptr);
@@ -2121,6 +2167,7 @@ bool RestrictedCookieManagerStubDispatch::AcceptWithResponder(
       ::scoped_refptr<const ::blink::SecurityOrigin> p_top_frame_origin{};
       bool p_has_storage_access{};
       CookieManagerGetOptionsPtr p_options{};
+      bool p_is_ad_tagged{};
       RestrictedCookieManager_GetAllForUrl_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadUrl(&p_url))
@@ -2133,6 +2180,8 @@ bool RestrictedCookieManagerStubDispatch::AcceptWithResponder(
         p_has_storage_access = input_data_view.has_storage_access();
       if (success && !input_data_view.ReadOptions(&p_options))
         success = false;
+      if (success)
+        p_is_ad_tagged = input_data_view.is_ad_tagged();
       if (!success) {
         ReportValidationErrorForMessage(
             message,
@@ -2150,7 +2199,8 @@ std::move(p_url),
 std::move(p_site_for_cookies), 
 std::move(p_top_frame_origin), 
 std::move(p_has_storage_access), 
-std::move(p_options), std::move(callback));
+std::move(p_options), 
+std::move(p_is_ad_tagged), std::move(callback));
       return true;
     }
     case internal::kRestrictedCookieManager_SetCanonicalCookie_Name: {
@@ -2307,6 +2357,7 @@ std::move(p_cookie), std::move(callback));
       ::scoped_refptr<const ::blink::SecurityOrigin> p_top_frame_origin{};
       bool p_has_storage_access{};
       bool p_get_version_shared_memory{};
+      bool p_is_ad_tagged{};
       RestrictedCookieManager_GetCookiesString_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadUrl(&p_url))
@@ -2319,6 +2370,8 @@ std::move(p_cookie), std::move(callback));
         p_has_storage_access = input_data_view.has_storage_access();
       if (success)
         p_get_version_shared_memory = input_data_view.get_version_shared_memory();
+      if (success)
+        p_is_ad_tagged = input_data_view.is_ad_tagged();
       if (!success) {
         ReportValidationErrorForMessage(
             message,
@@ -2336,7 +2389,8 @@ std::move(p_url),
 std::move(p_site_for_cookies), 
 std::move(p_top_frame_origin), 
 std::move(p_has_storage_access), 
-std::move(p_get_version_shared_memory), std::move(callback));
+std::move(p_get_version_shared_memory), 
+std::move(p_is_ad_tagged), std::move(callback));
       return true;
     }
     case internal::kRestrictedCookieManager_CookiesEnabledFor_Name: {
@@ -2383,20 +2437,20 @@ std::move(p_has_storage_access), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kRestrictedCookieManagerValidationInfo[] = {
-    {&internal::RestrictedCookieManager_GetAllForUrl_Params_Data::Validate,
+    { &internal::RestrictedCookieManager_GetAllForUrl_Params_Data::Validate,
      &internal::RestrictedCookieManager_GetAllForUrl_ResponseParams_Data::Validate},
-    {&internal::RestrictedCookieManager_SetCanonicalCookie_Params_Data::Validate,
+    { &internal::RestrictedCookieManager_SetCanonicalCookie_Params_Data::Validate,
      &internal::RestrictedCookieManager_SetCanonicalCookie_ResponseParams_Data::Validate},
-    {&internal::RestrictedCookieManager_AddChangeListener_Params_Data::Validate,
+    { &internal::RestrictedCookieManager_AddChangeListener_Params_Data::Validate,
      &internal::RestrictedCookieManager_AddChangeListener_ResponseParams_Data::Validate},
-    {&internal::RestrictedCookieManager_SetCookieFromString_Params_Data::Validate,
+    { &internal::RestrictedCookieManager_SetCookieFromString_Params_Data::Validate,
      &internal::RestrictedCookieManager_SetCookieFromString_ResponseParams_Data::Validate},
-    {&internal::RestrictedCookieManager_GetCookiesString_Params_Data::Validate,
+    { &internal::RestrictedCookieManager_GetCookiesString_Params_Data::Validate,
      &internal::RestrictedCookieManager_GetCookiesString_ResponseParams_Data::Validate},
-    {&internal::RestrictedCookieManager_CookiesEnabledFor_Params_Data::Validate,
+    { &internal::RestrictedCookieManager_CookiesEnabledFor_Params_Data::Validate,
      &internal::RestrictedCookieManager_CookiesEnabledFor_ResponseParams_Data::Validate},
 };
 
@@ -2442,8 +2496,8 @@ bool StructTraits<::network::mojom::blink::CookieManagerGetOptions::DataView, ::
 namespace network::mojom::blink {
 
 
-void RestrictedCookieManagerInterceptorForTesting::GetAllForUrl(const ::blink::KURL& url, const ::net::SiteForCookies& site_for_cookies, const ::scoped_refptr<const ::blink::SecurityOrigin>& top_frame_origin, bool has_storage_access, CookieManagerGetOptionsPtr options, GetAllForUrlCallback callback) {
-  GetForwardingInterface()->GetAllForUrl(std::move(url), std::move(site_for_cookies), std::move(top_frame_origin), std::move(has_storage_access), std::move(options), std::move(callback));
+void RestrictedCookieManagerInterceptorForTesting::GetAllForUrl(const ::blink::KURL& url, const ::net::SiteForCookies& site_for_cookies, const ::scoped_refptr<const ::blink::SecurityOrigin>& top_frame_origin, bool has_storage_access, CookieManagerGetOptionsPtr options, bool is_ad_tagged, GetAllForUrlCallback callback) {
+  GetForwardingInterface()->GetAllForUrl(std::move(url), std::move(site_for_cookies), std::move(top_frame_origin), std::move(has_storage_access), std::move(options), std::move(is_ad_tagged), std::move(callback));
 }
 void RestrictedCookieManagerInterceptorForTesting::SetCanonicalCookie(const ::net::CanonicalCookie& cookie, const ::blink::KURL& url, const ::net::SiteForCookies& site_for_cookies, const ::scoped_refptr<const ::blink::SecurityOrigin>& top_frame_origin, bool has_storage_access, ::net::CookieInclusionStatus status, SetCanonicalCookieCallback callback) {
   GetForwardingInterface()->SetCanonicalCookie(std::move(cookie), std::move(url), std::move(site_for_cookies), std::move(top_frame_origin), std::move(has_storage_access), std::move(status), std::move(callback));
@@ -2454,8 +2508,8 @@ void RestrictedCookieManagerInterceptorForTesting::AddChangeListener(const ::bli
 void RestrictedCookieManagerInterceptorForTesting::SetCookieFromString(const ::blink::KURL& url, const ::net::SiteForCookies& site_for_cookies, const ::scoped_refptr<const ::blink::SecurityOrigin>& top_frame_origin, bool has_storage_access, const WTF::String& cookie, SetCookieFromStringCallback callback) {
   GetForwardingInterface()->SetCookieFromString(std::move(url), std::move(site_for_cookies), std::move(top_frame_origin), std::move(has_storage_access), std::move(cookie), std::move(callback));
 }
-void RestrictedCookieManagerInterceptorForTesting::GetCookiesString(const ::blink::KURL& url, const ::net::SiteForCookies& site_for_cookies, const ::scoped_refptr<const ::blink::SecurityOrigin>& top_frame_origin, bool has_storage_access, bool get_version_shared_memory, GetCookiesStringCallback callback) {
-  GetForwardingInterface()->GetCookiesString(std::move(url), std::move(site_for_cookies), std::move(top_frame_origin), std::move(has_storage_access), std::move(get_version_shared_memory), std::move(callback));
+void RestrictedCookieManagerInterceptorForTesting::GetCookiesString(const ::blink::KURL& url, const ::net::SiteForCookies& site_for_cookies, const ::scoped_refptr<const ::blink::SecurityOrigin>& top_frame_origin, bool has_storage_access, bool get_version_shared_memory, bool is_ad_tagged, GetCookiesStringCallback callback) {
+  GetForwardingInterface()->GetCookiesString(std::move(url), std::move(site_for_cookies), std::move(top_frame_origin), std::move(has_storage_access), std::move(get_version_shared_memory), std::move(is_ad_tagged), std::move(callback));
 }
 void RestrictedCookieManagerInterceptorForTesting::CookiesEnabledFor(const ::blink::KURL& url, const ::net::SiteForCookies& site_for_cookies, const ::scoped_refptr<const ::blink::SecurityOrigin>& top_frame_origin, bool has_storage_access, CookiesEnabledForCallback callback) {
   GetForwardingInterface()->CookiesEnabledFor(std::move(url), std::move(site_for_cookies), std::move(top_frame_origin), std::move(has_storage_access), std::move(callback));
@@ -2466,9 +2520,9 @@ RestrictedCookieManagerAsyncWaiter::RestrictedCookieManagerAsyncWaiter(
 RestrictedCookieManagerAsyncWaiter::~RestrictedCookieManagerAsyncWaiter() = default;
 
 void RestrictedCookieManagerAsyncWaiter::GetAllForUrl(
-    const ::blink::KURL& url, const ::net::SiteForCookies& site_for_cookies, const ::scoped_refptr<const ::blink::SecurityOrigin>& top_frame_origin, bool has_storage_access, CookieManagerGetOptionsPtr options, WTF::Vector<::network::mojom::blink::CookieWithAccessResultPtr>* out_cookies) {
+    const ::blink::KURL& url, const ::net::SiteForCookies& site_for_cookies, const ::scoped_refptr<const ::blink::SecurityOrigin>& top_frame_origin, bool has_storage_access, CookieManagerGetOptionsPtr options, bool is_ad_tagged, WTF::Vector<::network::mojom::blink::CookieWithAccessResultPtr>* out_cookies) {
   base::RunLoop loop;
-  proxy_->GetAllForUrl(std::move(url),std::move(site_for_cookies),std::move(top_frame_origin),std::move(has_storage_access),std::move(options),
+  proxy_->GetAllForUrl(std::move(url),std::move(site_for_cookies),std::move(top_frame_origin),std::move(has_storage_access),std::move(options),std::move(is_ad_tagged),
       base::BindOnce(
           [](base::RunLoop* loop,
              WTF::Vector<::network::mojom::blink::CookieWithAccessResultPtr>* out_cookies
@@ -2482,9 +2536,9 @@ void RestrictedCookieManagerAsyncWaiter::GetAllForUrl(
 }
 
 WTF::Vector<::network::mojom::blink::CookieWithAccessResultPtr> RestrictedCookieManagerAsyncWaiter::GetAllForUrl(
-    const ::blink::KURL& url, const ::net::SiteForCookies& site_for_cookies, const ::scoped_refptr<const ::blink::SecurityOrigin>& top_frame_origin, bool has_storage_access, CookieManagerGetOptionsPtr options) {
+    const ::blink::KURL& url, const ::net::SiteForCookies& site_for_cookies, const ::scoped_refptr<const ::blink::SecurityOrigin>& top_frame_origin, bool has_storage_access, CookieManagerGetOptionsPtr options, bool is_ad_tagged) {
   WTF::Vector<::network::mojom::blink::CookieWithAccessResultPtr> async_wait_result;
-  GetAllForUrl(std::move(url),std::move(site_for_cookies),std::move(top_frame_origin),std::move(has_storage_access),std::move(options),&async_wait_result);
+  GetAllForUrl(std::move(url),std::move(site_for_cookies),std::move(top_frame_origin),std::move(has_storage_access),std::move(options),std::move(is_ad_tagged),&async_wait_result);
   return async_wait_result;
 }
 
@@ -2540,9 +2594,9 @@ void RestrictedCookieManagerAsyncWaiter::SetCookieFromString(
 
 
 void RestrictedCookieManagerAsyncWaiter::GetCookiesString(
-    const ::blink::KURL& url, const ::net::SiteForCookies& site_for_cookies, const ::scoped_refptr<const ::blink::SecurityOrigin>& top_frame_origin, bool has_storage_access, bool get_version_shared_memory, uint64_t* out_version, ::base::ReadOnlySharedMemoryRegion* out_version_buffer, WTF::String* out_cookies) {
+    const ::blink::KURL& url, const ::net::SiteForCookies& site_for_cookies, const ::scoped_refptr<const ::blink::SecurityOrigin>& top_frame_origin, bool has_storage_access, bool get_version_shared_memory, bool is_ad_tagged, uint64_t* out_version, ::base::ReadOnlySharedMemoryRegion* out_version_buffer, WTF::String* out_cookies) {
   base::RunLoop loop;
-  proxy_->GetCookiesString(std::move(url),std::move(site_for_cookies),std::move(top_frame_origin),std::move(has_storage_access),std::move(get_version_shared_memory),
+  proxy_->GetCookiesString(std::move(url),std::move(site_for_cookies),std::move(top_frame_origin),std::move(has_storage_access),std::move(get_version_shared_memory),std::move(is_ad_tagged),
       base::BindOnce(
           [](base::RunLoop* loop,
              uint64_t* out_version

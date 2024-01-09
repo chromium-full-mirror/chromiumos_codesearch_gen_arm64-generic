@@ -692,6 +692,29 @@ DeviceProperties_Data::DeviceProperties_Data()
 
 
 // static
+bool EntropySource_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const EntropySource_Data* object =
+      static_cast<const EntropySource_Data*>(data);
+
+  return true;
+}
+
+EntropySource_Data::EntropySource_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool BrowserInitParams_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -770,6 +793,9 @@ bool BrowserInitParams_Data::Validate(
     { 70, 240 },
     { 71, 240 },
     { 72, 240 },
+    { 73, 248 },
+    { 74, 248 },
+    { 75, 248 },
   };
   if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
           data, kVersionSizes, validation_context)) {
@@ -1005,12 +1031,17 @@ bool BrowserInitParams_Data::Validate(
 
   if (!mojo::internal::ValidateStruct(object->standalone_browser_app_service_blocklist, validation_context))
     return false;
+  if (object->header_.version < 73)
+    return true;
+
+  if (!mojo::internal::ValidateStruct(object->entropy_source, validation_context))
+    return false;
 
   return true;
 }
 
 BrowserInitParams_Data::BrowserInitParams_Data()
-    : header_({sizeof(*this), 72}) {}
+    : header_({sizeof(*this), 75}) {}
 
 
 // static
@@ -1464,6 +1495,38 @@ Crosapi_BindBrowserServiceHost_Params_Data::Crosapi_BindBrowserServiceHost_Param
 
 
 // static
+bool Crosapi_BindBrowserShortcutPublisher_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Crosapi_BindBrowserShortcutPublisher_Params_Data* object =
+      static_cast<const Crosapi_BindBrowserShortcutPublisher_Params_Data*>(data);
+
+  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
+          object->receiver, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateHandleOrInterface(object->receiver,
+                                                 validation_context)) {
+    return false;
+  }
+
+  return true;
+}
+
+Crosapi_BindBrowserShortcutPublisher_Params_Data::Crosapi_BindBrowserShortcutPublisher_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool Crosapi_BindBrowserCdmFactory_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -1554,6 +1617,38 @@ bool Crosapi_BindCertProvisioning_Params_Data::Validate(
 }
 
 Crosapi_BindCertProvisioning_Params_Data::Crosapi_BindCertProvisioning_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool Crosapi_BindChapsService_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Crosapi_BindChapsService_Params_Data* object =
+      static_cast<const Crosapi_BindChapsService_Params_Data*>(data);
+
+  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
+          object->receiver, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateHandleOrInterface(object->receiver,
+                                                 validation_context)) {
+    return false;
+  }
+
+  return true;
+}
+
+Crosapi_BindChapsService_Params_Data::Crosapi_BindChapsService_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -1778,6 +1873,38 @@ bool Crosapi_BindDesk_Params_Data::Validate(
 }
 
 Crosapi_BindDesk_Params_Data::Crosapi_BindDesk_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool Crosapi_BindDeskProfileObserver_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Crosapi_BindDeskProfileObserver_Params_Data* object =
+      static_cast<const Crosapi_BindDeskProfileObserver_Params_Data*>(data);
+
+  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
+          object->receiver, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateHandleOrInterface(object->receiver,
+                                                 validation_context)) {
+    return false;
+  }
+
+  return true;
+}
+
+Crosapi_BindDeskProfileObserver_Params_Data::Crosapi_BindDeskProfileObserver_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -2838,6 +2965,38 @@ Crosapi_BindKeystoreService_Params_Data::Crosapi_BindKeystoreService_Params_Data
 
 
 // static
+bool Crosapi_BindLacrosShelfItemTracker_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Crosapi_BindLacrosShelfItemTracker_Params_Data* object =
+      static_cast<const Crosapi_BindLacrosShelfItemTracker_Params_Data*>(data);
+
+  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
+          object->receiver, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateHandleOrInterface(object->receiver,
+                                                 validation_context)) {
+    return false;
+  }
+
+  return true;
+}
+
+Crosapi_BindLacrosShelfItemTracker_Params_Data::Crosapi_BindLacrosShelfItemTracker_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool Crosapi_BindLacrosAppPublisher_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -3314,6 +3473,38 @@ bool Crosapi_BindParentAccess_Params_Data::Validate(
 }
 
 Crosapi_BindParentAccess_Params_Data::Crosapi_BindParentAccess_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool Crosapi_BindPasskeyAuthenticator_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Crosapi_BindPasskeyAuthenticator_Params_Data* object =
+      static_cast<const Crosapi_BindPasskeyAuthenticator_Params_Data*>(data);
+
+  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
+          object->receiver, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateHandleOrInterface(object->receiver,
+                                                 validation_context)) {
+    return false;
+  }
+
+  return true;
+}
+
+Crosapi_BindPasskeyAuthenticator_Params_Data::Crosapi_BindPasskeyAuthenticator_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -4308,6 +4499,38 @@ Crosapi_BindTelemetryEventService_Params_Data::Crosapi_BindTelemetryEventService
 
 
 // static
+bool Crosapi_BindTelemetryManagementService_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Crosapi_BindTelemetryManagementService_Params_Data* object =
+      static_cast<const Crosapi_BindTelemetryManagementService_Params_Data*>(data);
+
+  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
+          object->receiver, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateHandleOrInterface(object->receiver,
+                                                 validation_context)) {
+    return false;
+  }
+
+  return true;
+}
+
+Crosapi_BindTelemetryManagementService_Params_Data::Crosapi_BindTelemetryManagementService_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool Crosapi_BindTelemetryProbeService_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -5073,6 +5296,7 @@ bool BrowserService_NewWindow_Params_Data::Validate(
     { 10, 16 },
     { 61, 16 },
     { 72, 24 },
+    { 75, 32 },
   };
   if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
           data, kVersionSizes, validation_context)) {
@@ -5088,7 +5312,7 @@ bool BrowserService_NewWindow_Params_Data::Validate(
 }
 
 BrowserService_NewWindow_Params_Data::BrowserService_NewWindow_Params_Data()
-    : header_({sizeof(*this), 72}) {}
+    : header_({sizeof(*this), 75}) {}
 
 
 // static
@@ -5927,6 +6151,7 @@ bool BrowserService_Launch_Params_Data::Validate(
   static constexpr mojo::internal::StructVersionSize kVersionSizes[] = {
     { 0, 8 },
     { 72, 16 },
+    { 75, 32 },
   };
   if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
           data, kVersionSizes, validation_context)) {
@@ -5942,7 +6167,7 @@ bool BrowserService_Launch_Params_Data::Validate(
 }
 
 BrowserService_Launch_Params_Data::BrowserService_Launch_Params_Data()
-    : header_({sizeof(*this), 72}) {}
+    : header_({sizeof(*this), 75}) {}
 
 
 // static
@@ -5977,6 +6202,29 @@ bool BrowserService_Launch_ResponseParams_Data::Validate(
 
 BrowserService_Launch_ResponseParams_Data::BrowserService_Launch_ResponseParams_Data()
     : header_({sizeof(*this), 73}) {}
+
+
+// static
+bool BrowserService_OpenProfileManager_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const BrowserService_OpenProfileManager_Params_Data* object =
+      static_cast<const BrowserService_OpenProfileManager_Params_Data*>(data);
+
+  return true;
+}
+
+BrowserService_OpenProfileManager_Params_Data::BrowserService_OpenProfileManager_Params_Data()
+    : header_({sizeof(*this), 0}) {}
 
 
 // static

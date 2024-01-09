@@ -24,6 +24,10 @@
 namespace webnn::mojom {
 class OperandDataView;
 
+class ArgMinMaxDataView;
+
+class BatchNormalizationDataView;
+
 class ClampDataView;
 
 class ConcatDataView;
@@ -36,6 +40,10 @@ class Conv2dDataView;
 
 class ElementWiseBinaryDataView;
 
+class ElementWiseUnaryDataView;
+
+class ExpandDataView;
+
 class ConstantPaddingDataView;
 
 class EdgePaddingDataView;
@@ -44,7 +52,13 @@ class ReflectionPaddingDataView;
 
 class SymmetricPaddingDataView;
 
+class InstanceNormalizationDataView;
+
+class MatmulDataView;
+
 class PadDataView;
+
+class ReduceDataView;
 
 class Pool2dDataView;
 
@@ -52,7 +66,17 @@ class StartAndSizeDataView;
 
 class SliceDataView;
 
+class EluDataView;
+
+class GatherDataView;
+
 class GemmDataView;
+
+class LayerNormalizationDataView;
+
+class LeakyReluDataView;
+
+class LinearDataView;
 
 class PreluDataView;
 
@@ -64,6 +88,8 @@ class SigmoidDataView;
 
 class SoftmaxDataView;
 
+class SoftplusDataView;
+
 class SplitDataView;
 
 class TanhDataView;
@@ -71,6 +97,8 @@ class TanhDataView;
 class TransposeDataView;
 
 class Resample2dDataView;
+
+class WhereDataView;
 
 class GraphInfoDataView;
 
@@ -86,13 +114,27 @@ enum class Operand_DataType : int32_t;
 
 enum class Operand_Kind : int32_t;
 
+enum class ArgMinMax_Kind : int32_t;
+
+enum class Conv2d_Type : int32_t;
+
 enum class ElementWiseBinary_Kind : int32_t;
+
+enum class ElementWiseUnary_Kind : int32_t;
+
+enum class Reduce_Kind : int32_t;
 
 enum class Pool2d_Kind : int32_t;
 
 enum class Resample2d_InterpolationMode : int32_t;
 class Operand;
 using OperandPtr = mojo::StructPtr<Operand>;
+
+class ArgMinMax;
+using ArgMinMaxPtr = mojo::StructPtr<ArgMinMax>;
+
+class BatchNormalization;
+using BatchNormalizationPtr = mojo::StructPtr<BatchNormalization>;
 
 class Clamp;
 using ClampPtr = mojo::InlinedStructPtr<Clamp>;
@@ -112,6 +154,12 @@ using Conv2dPtr = mojo::StructPtr<Conv2d>;
 class ElementWiseBinary;
 using ElementWiseBinaryPtr = mojo::InlinedStructPtr<ElementWiseBinary>;
 
+class ElementWiseUnary;
+using ElementWiseUnaryPtr = mojo::InlinedStructPtr<ElementWiseUnary>;
+
+class Expand;
+using ExpandPtr = mojo::InlinedStructPtr<Expand>;
+
 class ConstantPadding;
 using ConstantPaddingPtr = mojo::InlinedStructPtr<ConstantPadding>;
 
@@ -124,8 +172,17 @@ using ReflectionPaddingPtr = mojo::InlinedStructPtr<ReflectionPadding>;
 class SymmetricPadding;
 using SymmetricPaddingPtr = mojo::InlinedStructPtr<SymmetricPadding>;
 
+class InstanceNormalization;
+using InstanceNormalizationPtr = mojo::StructPtr<InstanceNormalization>;
+
+class Matmul;
+using MatmulPtr = mojo::InlinedStructPtr<Matmul>;
+
 class Pad;
 using PadPtr = mojo::StructPtr<Pad>;
+
+class Reduce;
+using ReducePtr = mojo::StructPtr<Reduce>;
 
 class Pool2d;
 using Pool2dPtr = mojo::StructPtr<Pool2d>;
@@ -136,8 +193,23 @@ using StartAndSizePtr = mojo::InlinedStructPtr<StartAndSize>;
 class Slice;
 using SlicePtr = mojo::StructPtr<Slice>;
 
+class Elu;
+using EluPtr = mojo::InlinedStructPtr<Elu>;
+
+class Gather;
+using GatherPtr = mojo::InlinedStructPtr<Gather>;
+
 class Gemm;
 using GemmPtr = mojo::StructPtr<Gemm>;
+
+class LayerNormalization;
+using LayerNormalizationPtr = mojo::StructPtr<LayerNormalization>;
+
+class LeakyRelu;
+using LeakyReluPtr = mojo::InlinedStructPtr<LeakyRelu>;
+
+class Linear;
+using LinearPtr = mojo::InlinedStructPtr<Linear>;
 
 class Prelu;
 using PreluPtr = mojo::InlinedStructPtr<Prelu>;
@@ -154,6 +226,9 @@ using SigmoidPtr = mojo::InlinedStructPtr<Sigmoid>;
 class Softmax;
 using SoftmaxPtr = mojo::InlinedStructPtr<Softmax>;
 
+class Softplus;
+using SoftplusPtr = mojo::InlinedStructPtr<Softplus>;
+
 class Split;
 using SplitPtr = mojo::StructPtr<Split>;
 
@@ -164,7 +239,10 @@ class Transpose;
 using TransposePtr = mojo::StructPtr<Transpose>;
 
 class Resample2d;
-using Resample2dPtr = mojo::InlinedStructPtr<Resample2d>;
+using Resample2dPtr = mojo::StructPtr<Resample2d>;
+
+class Where;
+using WherePtr = mojo::InlinedStructPtr<Where>;
 
 class GraphInfo;
 using GraphInfoPtr = mojo::StructPtr<GraphInfo>;

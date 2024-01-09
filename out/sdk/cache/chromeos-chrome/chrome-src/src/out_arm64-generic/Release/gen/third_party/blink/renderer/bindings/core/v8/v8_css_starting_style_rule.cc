@@ -30,7 +30,7 @@ namespace blink {
 
 bool V8CSSStartingStyleRule::IsExposed(ExecutionContext* execution_context) {
   
-return execution_context->IsWindow() && RuntimeEnabledFeatures::CSSStartingStyleEnabled();
+return execution_context->IsWindow();
 }
 
 // Construction of WrapperTypeInfo may require non-trivial initialization due
@@ -67,11 +67,6 @@ const WrapperTypeInfo& CSSStartingStyleRule::wrapper_type_info_ =
 static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, CSSStartingStyleRule>::value,
     "CSSStartingStyleRule inherits from ActiveScriptWrappable<> without "
-    "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&CSSStartingStyleRule::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "CSSStartingStyleRule is overriding hasPendingActivity() without "
     "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {

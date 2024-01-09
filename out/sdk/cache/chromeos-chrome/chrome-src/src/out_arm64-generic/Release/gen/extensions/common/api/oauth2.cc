@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "extensions/common/api/oauth2.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -40,8 +41,8 @@ OAuth2Info::OAuth2Info()
  {}
 
 OAuth2Info::~OAuth2Info() = default;
-OAuth2Info::OAuth2Info(OAuth2Info&& rhs) = default;
-OAuth2Info& OAuth2Info::operator=(OAuth2Info&& rhs) = default;
+OAuth2Info::OAuth2Info(OAuth2Info&& rhs) noexcept = default;
+OAuth2Info& OAuth2Info::operator=(OAuth2Info&& rhs) noexcept = default;
 // static
 constexpr char OAuth2Info::kAutoApprove[];
 // static
@@ -65,7 +66,7 @@ bool OAuth2Info::Populate(
     {
       auto temp = (*auto_approve_value).GetIfBool();
       if (!temp.has_value()) {
-        out.auto_approve = absl::nullopt;
+        out.auto_approve = std::nullopt;
         return false;
       }
       out.auto_approve = *temp;
@@ -77,7 +78,7 @@ bool OAuth2Info::Populate(
     {
       auto* temp = (*client_id_value).GetIfString();
       if (!temp) {
-        out.client_id = absl::nullopt;
+        out.client_id = std::nullopt;
         return false;
       }
       out.client_id = *temp;
@@ -112,34 +113,21 @@ bool OAuth2Info::Populate(
 }
 
 // static
-std::unique_ptr<OAuth2Info> OAuth2Info::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<OAuth2Info>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<OAuth2Info> OAuth2Info::FromValue(const base::Value::Dict& value) {
+  OAuth2Info out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<OAuth2Info> OAuth2Info::FromValue(const base::Value::Dict& value) {
+std::optional<OAuth2Info> OAuth2Info::FromValue(const base::Value& value) {
   OAuth2Info out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<OAuth2Info> OAuth2Info::FromValue(const base::Value& value) {
-  OAuth2Info out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -197,8 +185,8 @@ ManifestKeys::ManifestKeys()
  {}
 
 ManifestKeys::~ManifestKeys() = default;
-ManifestKeys::ManifestKeys(ManifestKeys&& rhs) = default;
-ManifestKeys& ManifestKeys::operator=(ManifestKeys&& rhs) = default;
+ManifestKeys::ManifestKeys(ManifestKeys&& rhs) noexcept = default;
+ManifestKeys& ManifestKeys::operator=(ManifestKeys&& rhs) noexcept = default;
 // static
 constexpr char ManifestKeys::kOauth2[];
 

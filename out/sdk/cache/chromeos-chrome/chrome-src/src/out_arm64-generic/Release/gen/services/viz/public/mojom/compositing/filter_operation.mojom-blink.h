@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/viz/public/mojom/compositing/filter_operation.mojom-features.h"
 #include "services/viz/public/mojom/compositing/filter_operation.mojom-shared.h"
 #include "services/viz/public/mojom/compositing/filter_operation.mojom-blink-forward.h"
 #include "services/viz/public/mojom/compositing/paint_filter.mojom-blink.h"
@@ -41,18 +42,6 @@
 #include "third_party/blink/public/platform/web_common.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::viz::mojom::FilterType>
-    : EnumHashTraits<::viz::mojom::FilterType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace viz::mojom::blink {
@@ -96,10 +85,10 @@ class BLINK_PLATFORM_EXPORT FilterOperation {
       const ::gfx::Point& offset,
       const ::SkColor4f& drop_shadow_color,
       ::viz::mojom::blink::PaintFilterPtr image_filter,
-      absl::optional<WTF::Vector<float>> matrix,
+      std::optional<WTF::Vector<float>> matrix,
       int32_t zoom_inset,
       ::SkTileMode blur_tile_mode,
-      absl::optional<WTF::Vector<::gfx::Rect>> shape);
+      std::optional<WTF::Vector<::gfx::Rect>> shape);
 
 FilterOperation(const FilterOperation&) = delete;
 FilterOperation& operator=(const FilterOperation&) = delete;
@@ -189,13 +178,13 @@ FilterOperation& operator=(const FilterOperation&) = delete;
   
   ::viz::mojom::blink::PaintFilterPtr image_filter;
   
-  absl::optional<WTF::Vector<float>> matrix;
+  std::optional<WTF::Vector<float>> matrix;
   
   int32_t zoom_inset;
   
   ::SkTileMode blur_tile_mode;
   
-  absl::optional<WTF::Vector<::gfx::Rect>> shape;
+  std::optional<WTF::Vector<::gfx::Rect>> shape;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

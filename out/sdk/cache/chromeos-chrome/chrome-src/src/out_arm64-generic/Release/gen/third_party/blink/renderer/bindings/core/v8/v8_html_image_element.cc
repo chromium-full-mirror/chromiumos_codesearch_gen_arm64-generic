@@ -75,11 +75,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, HTMLImageElement>::value,
     "HTMLImageElement does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&HTMLImageElement::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "HTMLImageElement is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -92,10 +87,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLImageElement.alt.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLImageElement* blink_receiver = V8HTMLImageElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->FastGetAttribute(html_names::kAltAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLImageElement* blink_receiver = V8HTMLImageElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastGetAttribute(html_names::kAltAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -116,10 +111,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLImageElement.src.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLImageElement* blink_receiver = V8HTMLImageElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->GetURLAttribute(html_names::kSrcAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLImageElement* blink_receiver = V8HTMLImageElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->GetURLAttribute(html_names::kSrcAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -139,7 +134,7 @@ ExceptionState exception_state(isolate, exception_context_type, class_like_name,
 CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLImageElement* blink_receiver = V8HTMLImageElement::ToWrappableUnsafe(v8_receiver);
+HTMLImageElement* blink_receiver = V8HTMLImageElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLUSVString>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -156,10 +151,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLImageElement.srcset.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLImageElement* blink_receiver = V8HTMLImageElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->FastGetAttribute(html_names::kSrcsetAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLImageElement* blink_receiver = V8HTMLImageElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastGetAttribute(html_names::kSrcsetAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -180,10 +175,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLImageElement.sizes.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLImageElement* blink_receiver = V8HTMLImageElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->FastGetAttribute(html_names::kSizesAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLImageElement* blink_receiver = V8HTMLImageElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastGetAttribute(html_names::kSizesAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -204,8 +199,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLImageElement.crossOrigin.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLImageElement* blink_receiver = V8HTMLImageElement::ToWrappableUnsafe(v8_receiver);
+HTMLImageElement* blink_receiver = V8HTMLImageElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto return_value = blink_receiver->FastGetAttribute(html_names::kCrossoriginAttr);
 
 // [ReflectOnly]
@@ -219,7 +215,6 @@ if (reflect_value.IsNull()) {
 } else {
   return_value = keywords::kAnonymous;
 }  
-v8::Isolate* isolate = info.GetIsolate();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
 }
 
@@ -240,10 +235,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLImageElement.useMap.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLImageElement* blink_receiver = V8HTMLImageElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->FastGetAttribute(html_names::kUsemapAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLImageElement* blink_receiver = V8HTMLImageElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastGetAttribute(html_names::kUsemapAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -264,8 +259,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLImageElement.isMap.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLImageElement* blink_receiver = V8HTMLImageElement::ToWrappableUnsafe(v8_receiver);
+HTMLImageElement* blink_receiver = V8HTMLImageElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->FastHasAttribute(html_names::kIsmapAttr);
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -287,8 +283,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLImageElement.width.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLImageElement* blink_receiver = V8HTMLImageElement::ToWrappableUnsafe(v8_receiver);
+HTMLImageElement* blink_receiver = V8HTMLImageElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->width();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -309,7 +306,7 @@ ExceptionState exception_state(isolate, exception_context_type, class_like_name,
 CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLImageElement* blink_receiver = V8HTMLImageElement::ToWrappableUnsafe(v8_receiver);
+HTMLImageElement* blink_receiver = V8HTMLImageElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLUnsignedLong>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -326,8 +323,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLImageElement.height.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLImageElement* blink_receiver = V8HTMLImageElement::ToWrappableUnsafe(v8_receiver);
+HTMLImageElement* blink_receiver = V8HTMLImageElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->height();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -348,7 +346,7 @@ ExceptionState exception_state(isolate, exception_context_type, class_like_name,
 CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLImageElement* blink_receiver = V8HTMLImageElement::ToWrappableUnsafe(v8_receiver);
+HTMLImageElement* blink_receiver = V8HTMLImageElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLUnsignedLong>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -365,8 +363,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLImageElement.naturalWidth.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLImageElement* blink_receiver = V8HTMLImageElement::ToWrappableUnsafe(v8_receiver);
+HTMLImageElement* blink_receiver = V8HTMLImageElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->naturalWidth();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -379,8 +378,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLImageElement.naturalHeight.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLImageElement* blink_receiver = V8HTMLImageElement::ToWrappableUnsafe(v8_receiver);
+HTMLImageElement* blink_receiver = V8HTMLImageElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->naturalHeight();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -393,8 +393,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLImageElement.complete.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLImageElement* blink_receiver = V8HTMLImageElement::ToWrappableUnsafe(v8_receiver);
+HTMLImageElement* blink_receiver = V8HTMLImageElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->complete();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -407,10 +408,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLImageElement.currentSrc.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLImageElement* blink_receiver = V8HTMLImageElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->currentSrc();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLImageElement* blink_receiver = V8HTMLImageElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->currentSrc();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -422,8 +423,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLImageElement.referrerPolicy.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLImageElement* blink_receiver = V8HTMLImageElement::ToWrappableUnsafe(v8_receiver);
+HTMLImageElement* blink_receiver = V8HTMLImageElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto return_value = blink_receiver->FastGetAttribute(html_names::kReferrerpolicyAttr);
 
 // [ReflectOnly]
@@ -435,7 +437,6 @@ if (reflect_value.IsNull()) {
 } else {
   return_value = g_empty_atom;
 }  
-v8::Isolate* isolate = info.GetIsolate();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -456,8 +457,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLImageElement.decoding.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLImageElement* blink_receiver = V8HTMLImageElement::ToWrappableUnsafe(v8_receiver);
+HTMLImageElement* blink_receiver = V8HTMLImageElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto return_value = blink_receiver->FastGetAttribute(html_names::kDecodingAttr);
 
 // [ReflectOnly]
@@ -469,7 +471,6 @@ if (reflect_value.IsNull()) {
 } else {
   return_value = keywords::kAuto;
 }  
-v8::Isolate* isolate = info.GetIsolate();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -496,7 +497,7 @@ UseCounter::Count(current_execution_context, WebFeature::kPriorityHints);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLImageElement* blink_receiver = V8HTMLImageElement::ToWrappableUnsafe(v8_receiver);
+HTMLImageElement* blink_receiver = V8HTMLImageElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto return_value = blink_receiver->FastGetAttribute(html_names::kFetchpriorityAttr);
 
 // [ReflectOnly]
@@ -533,8 +534,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLImageElement.loading.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLImageElement* blink_receiver = V8HTMLImageElement::ToWrappableUnsafe(v8_receiver);
+HTMLImageElement* blink_receiver = V8HTMLImageElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto return_value = blink_receiver->FastGetAttribute(html_names::kLoadingAttr);
 
 // [ReflectOnly]
@@ -546,7 +548,6 @@ if (reflect_value.IsNull()) {
 } else {
   return_value = keywords::kAuto;
 }  
-v8::Isolate* isolate = info.GetIsolate();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -567,10 +568,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLImageElement.name.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLImageElement* blink_receiver = V8HTMLImageElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->GetNameAttribute();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLImageElement* blink_receiver = V8HTMLImageElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->GetNameAttribute();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -591,10 +592,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLImageElement.lowsrc.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLImageElement* blink_receiver = V8HTMLImageElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->GetURLAttribute(html_names::kLowsrcAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLImageElement* blink_receiver = V8HTMLImageElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->GetURLAttribute(html_names::kLowsrcAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -615,10 +616,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLImageElement.align.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLImageElement* blink_receiver = V8HTMLImageElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->FastGetAttribute(html_names::kAlignAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLImageElement* blink_receiver = V8HTMLImageElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastGetAttribute(html_names::kAlignAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -639,8 +640,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLImageElement.hspace.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLImageElement* blink_receiver = V8HTMLImageElement::ToWrappableUnsafe(v8_receiver);
+HTMLImageElement* blink_receiver = V8HTMLImageElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->GetUnsignedIntegralAttribute(html_names::kHspaceAttr);
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -661,7 +663,7 @@ ExceptionState exception_state(isolate, exception_context_type, class_like_name,
 CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLImageElement* blink_receiver = V8HTMLImageElement::ToWrappableUnsafe(v8_receiver);
+HTMLImageElement* blink_receiver = V8HTMLImageElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLUnsignedLong>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -678,8 +680,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLImageElement.vspace.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLImageElement* blink_receiver = V8HTMLImageElement::ToWrappableUnsafe(v8_receiver);
+HTMLImageElement* blink_receiver = V8HTMLImageElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->GetUnsignedIntegralAttribute(html_names::kVspaceAttr);
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -700,7 +703,7 @@ ExceptionState exception_state(isolate, exception_context_type, class_like_name,
 CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLImageElement* blink_receiver = V8HTMLImageElement::ToWrappableUnsafe(v8_receiver);
+HTMLImageElement* blink_receiver = V8HTMLImageElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLUnsignedLong>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -717,10 +720,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLImageElement.longDesc.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLImageElement* blink_receiver = V8HTMLImageElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->GetURLAttribute(html_names::kLongdescAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLImageElement* blink_receiver = V8HTMLImageElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->GetURLAttribute(html_names::kLongdescAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -741,10 +744,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLImageElement.border.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLImageElement* blink_receiver = V8HTMLImageElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->FastGetAttribute(html_names::kBorderAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLImageElement* blink_receiver = V8HTMLImageElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastGetAttribute(html_names::kBorderAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -771,7 +774,7 @@ UseCounter::Count(current_execution_context, WebFeature::kHTMLImageElementX);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLImageElement* blink_receiver = V8HTMLImageElement::ToWrappableUnsafe(v8_receiver);
+HTMLImageElement* blink_receiver = V8HTMLImageElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->x();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 }
@@ -790,7 +793,7 @@ UseCounter::Count(current_execution_context, WebFeature::kHTMLImageElementY);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLImageElement* blink_receiver = V8HTMLImageElement::ToWrappableUnsafe(v8_receiver);
+HTMLImageElement* blink_receiver = V8HTMLImageElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->y();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 }
@@ -803,10 +806,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLImageElement.attributionSrc.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLImageElement* blink_receiver = V8HTMLImageElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->FastGetAttribute(html_names::kAttributionsrcAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLImageElement* blink_receiver = V8HTMLImageElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastGetAttribute(html_names::kAttributionsrcAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -826,7 +829,7 @@ ExceptionState exception_state(isolate, exception_context_type, class_like_name,
 CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLImageElement* blink_receiver = V8HTMLImageElement::ToWrappableUnsafe(v8_receiver);
+HTMLImageElement* blink_receiver = V8HTMLImageElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLUSVString>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -843,8 +846,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLImageElement.sharedStorageWritable.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLImageElement* blink_receiver = V8HTMLImageElement::ToWrappableUnsafe(v8_receiver);
+HTMLImageElement* blink_receiver = V8HTMLImageElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->FastHasAttribute(html_names::kSharedstoragewritableAttr);
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -906,7 +910,7 @@ return;
 
 
 
-HTMLImageElement* blink_receiver = V8HTMLImageElement::ToWrappableUnsafe(v8_receiver);
+HTMLImageElement* blink_receiver = V8HTMLImageElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

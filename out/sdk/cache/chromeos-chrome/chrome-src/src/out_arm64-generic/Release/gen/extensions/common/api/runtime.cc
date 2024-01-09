@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "extensions/common/api/runtime.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -170,8 +171,8 @@ arch(),
 nacl_arch() {}
 
 PlatformInfo::~PlatformInfo() = default;
-PlatformInfo::PlatformInfo(PlatformInfo&& rhs) = default;
-PlatformInfo& PlatformInfo::operator=(PlatformInfo&& rhs) = default;
+PlatformInfo::PlatformInfo(PlatformInfo&& rhs) noexcept = default;
+PlatformInfo& PlatformInfo::operator=(PlatformInfo&& rhs) noexcept = default;
 PlatformInfo PlatformInfo::Clone() const {
   PlatformInfo out;
   out.os = os;
@@ -241,34 +242,21 @@ bool PlatformInfo::Populate(
 }
 
 // static
-std::unique_ptr<PlatformInfo> PlatformInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<PlatformInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<PlatformInfo> PlatformInfo::FromValue(const base::Value::Dict& value) {
+  PlatformInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<PlatformInfo> PlatformInfo::FromValue(const base::Value::Dict& value) {
+std::optional<PlatformInfo> PlatformInfo::FromValue(const base::Value& value) {
   PlatformInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<PlatformInfo> PlatformInfo::FromValue(const base::Value& value) {
-  PlatformInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -427,8 +415,8 @@ frame_id(0),
 incognito(false) {}
 
 ExtensionContext::~ExtensionContext() = default;
-ExtensionContext::ExtensionContext(ExtensionContext&& rhs) = default;
-ExtensionContext& ExtensionContext::operator=(ExtensionContext&& rhs) = default;
+ExtensionContext::ExtensionContext(ExtensionContext&& rhs) noexcept = default;
+ExtensionContext& ExtensionContext::operator=(ExtensionContext&& rhs) noexcept = default;
 ExtensionContext ExtensionContext::Clone() const {
   ExtensionContext out;
   out.context_type = context_type;
@@ -502,7 +490,7 @@ bool ExtensionContext::Populate(
     {
       auto* temp = (*document_id_value).GetIfString();
       if (!temp) {
-        out.document_id = absl::nullopt;
+        out.document_id = std::nullopt;
         return false;
       }
       out.document_id = *temp;
@@ -526,7 +514,7 @@ bool ExtensionContext::Populate(
     {
       auto* temp = (*document_url_value).GetIfString();
       if (!temp) {
-        out.document_url = absl::nullopt;
+        out.document_url = std::nullopt;
         return false;
       }
       out.document_url = *temp;
@@ -538,7 +526,7 @@ bool ExtensionContext::Populate(
     {
       auto* temp = (*document_origin_value).GetIfString();
       if (!temp) {
-        out.document_origin = absl::nullopt;
+        out.document_origin = std::nullopt;
         return false;
       }
       out.document_origin = *temp;
@@ -570,34 +558,21 @@ bool ExtensionContext::Populate(
 }
 
 // static
-std::unique_ptr<ExtensionContext> ExtensionContext::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ExtensionContext>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ExtensionContext> ExtensionContext::FromValue(const base::Value::Dict& value) {
+  ExtensionContext out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ExtensionContext> ExtensionContext::FromValue(const base::Value::Dict& value) {
+std::optional<ExtensionContext> ExtensionContext::FromValue(const base::Value& value) {
   ExtensionContext out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ExtensionContext> ExtensionContext::FromValue(const base::Value& value) {
-  ExtensionContext out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -638,8 +613,8 @@ ContextFilter::ContextFilter()
  {}
 
 ContextFilter::~ContextFilter() = default;
-ContextFilter::ContextFilter(ContextFilter&& rhs) = default;
-ContextFilter& ContextFilter::operator=(ContextFilter&& rhs) = default;
+ContextFilter::ContextFilter(ContextFilter&& rhs) noexcept = default;
+ContextFilter& ContextFilter::operator=(ContextFilter&& rhs) noexcept = default;
 ContextFilter ContextFilter::Clone() const {
   ContextFilter out;
   out.context_types = context_types;
@@ -784,7 +759,7 @@ bool ContextFilter::Populate(
     {
       auto temp = (*incognito_value).GetIfBool();
       if (!temp.has_value()) {
-        out.incognito = absl::nullopt;
+        out.incognito = std::nullopt;
         return false;
       }
       out.incognito = *temp;
@@ -804,34 +779,21 @@ bool ContextFilter::Populate(
 }
 
 // static
-std::unique_ptr<ContextFilter> ContextFilter::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ContextFilter>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ContextFilter> ContextFilter::FromValue(const base::Value::Dict& value) {
+  ContextFilter out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ContextFilter> ContextFilter::FromValue(const base::Value::Dict& value) {
+std::optional<ContextFilter> ContextFilter::FromValue(const base::Value& value) {
   ContextFilter out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ContextFilter> ContextFilter::FromValue(const base::Value& value) {
-  ContextFilter out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -897,8 +859,8 @@ Results::BackgroundPage::BackgroundPage()
  {}
 
 Results::BackgroundPage::~BackgroundPage() = default;
-Results::BackgroundPage::BackgroundPage(BackgroundPage&& rhs) = default;
-Results::BackgroundPage& Results::BackgroundPage::operator=(BackgroundPage&& rhs) = default;
+Results::BackgroundPage::BackgroundPage(BackgroundPage&& rhs) noexcept = default;
+Results::BackgroundPage& Results::BackgroundPage::operator=(BackgroundPage&& rhs) noexcept = default;
 base::Value::Dict Results::BackgroundPage::ToValue() const {
   base::Value::Dict to_value_result;
 
@@ -930,13 +892,13 @@ namespace SetUninstallURL {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -946,13 +908,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = url_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.url = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -976,8 +938,8 @@ Results::Result::Result()
 : status() {}
 
 Results::Result::~Result() = default;
-Results::Result::Result(Result&& rhs) = default;
-Results::Result& Results::Result::operator=(Result&& rhs) = default;
+Results::Result::Result(Result&& rhs) noexcept = default;
+Results::Result& Results::Result::operator=(Result&& rhs) noexcept = default;
 base::Value::Dict Results::Result::ToValue() const {
   base::Value::Dict to_value_result;
 
@@ -1009,13 +971,13 @@ namespace RestartAfterDelay {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1025,13 +987,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = seconds_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.seconds = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1062,8 +1024,8 @@ Results::DirectoryEntry::DirectoryEntry()
  {}
 
 Results::DirectoryEntry::~DirectoryEntry() = default;
-Results::DirectoryEntry::DirectoryEntry(DirectoryEntry&& rhs) = default;
-Results::DirectoryEntry& Results::DirectoryEntry::operator=(DirectoryEntry&& rhs) = default;
+Results::DirectoryEntry::DirectoryEntry(DirectoryEntry&& rhs) noexcept = default;
+Results::DirectoryEntry& Results::DirectoryEntry::operator=(DirectoryEntry&& rhs) noexcept = default;
 base::Value::Dict Results::DirectoryEntry::ToValue() const {
   base::Value::Dict to_value_result;
 
@@ -1086,13 +1048,13 @@ namespace GetContexts {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1101,15 +1063,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& filter_value = args[0];
     {
       if (!filter_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!ContextFilter::Populate(filter_value.GetDict(), params.filter)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1149,8 +1111,8 @@ Details::Details()
 : reason() {}
 
 Details::~Details() = default;
-Details::Details(Details&& rhs) = default;
-Details& Details::operator=(Details&& rhs) = default;
+Details::Details(Details&& rhs) noexcept = default;
+Details& Details::operator=(Details&& rhs) noexcept = default;
 base::Value::Dict Details::ToValue() const {
   base::Value::Dict to_value_result;
 
@@ -1211,8 +1173,8 @@ Details::Details()
  {}
 
 Details::~Details() = default;
-Details::Details(Details&& rhs) = default;
-Details& Details::operator=(Details&& rhs) = default;
+Details::Details(Details&& rhs) noexcept = default;
+Details& Details::operator=(Details&& rhs) noexcept = default;
 base::Value::Dict Details::ToValue() const {
   base::Value::Dict to_value_result;
 

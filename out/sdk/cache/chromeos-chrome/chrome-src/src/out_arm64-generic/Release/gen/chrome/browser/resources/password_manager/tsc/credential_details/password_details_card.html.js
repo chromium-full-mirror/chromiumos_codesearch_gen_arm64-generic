@@ -1,12 +1,12 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
     return html `<!--_html_template_start_--><style include="shared-style cr-input-style cr-shared-style
-                credential-details-card">#passwordButtons{display:flex}#shareButton{margin-inline-start:auto}</style>
-<div class="card">
+                credential-details-card">#passwordButtons{display:flex}.share-button-container{margin-inline-start:auto;display:flex}cr-tooltip-icon{margin-block:auto;margin-inline-end:16px}</style>
+<div class="card" aria-label="[[getAriaLabelForPasswordCard_(password)]]" role="region">
   <div class="credential-container">
     <div class="row-container">
       <div class="column-container">
-        <credential-field value="[[password.username]]" id="usernameValue" label="$i18n{usernameLabel}" copy-button-label="$i18n{copyUsername}" value-copied-toast-label="$i18n{usernameCopiedToClipboard}" interaction-id="[[usernameCopyInteraction_]]">
+        <credential-field value="[[password.username]]" id="usernameValue" label="$i18n{usernameLabel}" copy-button-label="$i18n{copyUsername}" value-copied-toast-label="$i18n{usernameCopiedToClipboard}" placeholder="$i18n{emptyUsername}" interaction-id="[[usernameCopyInteraction_]]">
         </credential-field>
       </div>
       <div class="column-container">
@@ -42,15 +42,19 @@ export function getTemplate() {
     </div>
   </div>
   <div class="button-container">
-    <cr-button id="editButton" hidden="[[isFederated_(password)]]" class="edit-button" on-click="onEditClicked_">
+    <cr-button id="editButton" hidden="[[isFederated_(password)]]" class="edit-button" on-click="onEditClicked_" aria-label="[[getAriaLabelForEditButton_(password)]]">
       $i18n{editPassword}
     </cr-button>
-    <cr-button id="deleteButton" on-click="onDeleteClick_">
+    <cr-button id="deleteButton" on-click="onDeleteClick_" aria-label="[[getAriaLabelForDeleteButton_(password)]]">
       $i18n{deletePassword}
     </cr-button>
-    <cr-button id="shareButton" on-click="onShareButtonClick_" hidden="[[!showShareButton_]]">
-      $i18n{share}
-    </cr-button>
+    <div class="share-button-container" hidden="[[!showShareButton_]]">
+      <cr-tooltip-icon icon-class="cr20:domain" hidden="[[!passwordSharingDisabled_]]" tooltip-text="$i18n{sharePasswordManagedByAdmin}" icon-aria-label="$i18n{sharePasswordManagedByAdmin}">
+      </cr-tooltip-icon>
+      <cr-button id="shareButton" on-click="onShareButtonClick_" disabled="[[passwordSharingDisabled_]]">
+        $i18n{share}
+      </cr-button>
+    </div>
     <template is="dom-if" if="[[showShareFlow_]]" restamp>
       <share-password-flow password-name="[[groupName]]" icon-url="[[iconUrl]]" password="[[password]]" on-share-flow-done="onShareFlowDone_">
       </share-password-flow>

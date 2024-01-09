@@ -15,7 +15,7 @@ namespace ash::media_app_ui::mojom {
 
 class  UntrustedPageHandlerFactoryInterceptorForTesting : public UntrustedPageHandlerFactory {
   virtual UntrustedPageHandlerFactory* GetForwardingInterface() = 0;
-  void CreateUntrustedPageHandler(::mojo::PendingReceiver<UntrustedPageHandler> receiver, ::mojo::PendingRemote<UntrustedPage> page) override;
+  void CreateOcrUntrustedPageHandler(::mojo::PendingReceiver<OcrUntrustedPageHandler> receiver, ::mojo::PendingRemote<OcrUntrustedPage> page) override;
 };
 class  UntrustedPageHandlerFactoryAsyncWaiter {
  public:
@@ -31,37 +31,39 @@ class  UntrustedPageHandlerFactoryAsyncWaiter {
 };
 
 
-class  UntrustedPageHandlerInterceptorForTesting : public UntrustedPageHandler {
-  virtual UntrustedPageHandler* GetForwardingInterface() = 0;
+class  OcrUntrustedPageHandlerInterceptorForTesting : public OcrUntrustedPageHandler {
+  virtual OcrUntrustedPageHandler* GetForwardingInterface() = 0;
+  void ViewportUpdated(const ::gfx::RectF& viewportBox, float scaleFactor) override;
 };
-class  UntrustedPageHandlerAsyncWaiter {
+class  OcrUntrustedPageHandlerAsyncWaiter {
  public:
-  explicit UntrustedPageHandlerAsyncWaiter(UntrustedPageHandler* proxy);
+  explicit OcrUntrustedPageHandlerAsyncWaiter(OcrUntrustedPageHandler* proxy);
 
-  UntrustedPageHandlerAsyncWaiter(const UntrustedPageHandlerAsyncWaiter&) = delete;
-  UntrustedPageHandlerAsyncWaiter& operator=(const UntrustedPageHandlerAsyncWaiter&) = delete;
+  OcrUntrustedPageHandlerAsyncWaiter(const OcrUntrustedPageHandlerAsyncWaiter&) = delete;
+  OcrUntrustedPageHandlerAsyncWaiter& operator=(const OcrUntrustedPageHandlerAsyncWaiter&) = delete;
 
-  ~UntrustedPageHandlerAsyncWaiter();
+  ~OcrUntrustedPageHandlerAsyncWaiter();
 
  private:
-  UntrustedPageHandler* const proxy_;
+  OcrUntrustedPageHandler* const proxy_;
 };
 
 
-class  UntrustedPageInterceptorForTesting : public UntrustedPage {
-  virtual UntrustedPage* GetForwardingInterface() = 0;
+class  OcrUntrustedPageInterceptorForTesting : public OcrUntrustedPage {
+  virtual OcrUntrustedPage* GetForwardingInterface() = 0;
+  void SetViewport(const ::gfx::RectF& viewportBox) override;
 };
-class  UntrustedPageAsyncWaiter {
+class  OcrUntrustedPageAsyncWaiter {
  public:
-  explicit UntrustedPageAsyncWaiter(UntrustedPage* proxy);
+  explicit OcrUntrustedPageAsyncWaiter(OcrUntrustedPage* proxy);
 
-  UntrustedPageAsyncWaiter(const UntrustedPageAsyncWaiter&) = delete;
-  UntrustedPageAsyncWaiter& operator=(const UntrustedPageAsyncWaiter&) = delete;
+  OcrUntrustedPageAsyncWaiter(const OcrUntrustedPageAsyncWaiter&) = delete;
+  OcrUntrustedPageAsyncWaiter& operator=(const OcrUntrustedPageAsyncWaiter&) = delete;
 
-  ~UntrustedPageAsyncWaiter();
+  ~OcrUntrustedPageAsyncWaiter();
 
  private:
-  UntrustedPage* const proxy_;
+  OcrUntrustedPage* const proxy_;
 };
 
 

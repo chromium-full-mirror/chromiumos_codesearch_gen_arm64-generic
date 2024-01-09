@@ -86,7 +86,7 @@ bool CertVerifierConfig_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 32, validation_context)) {
+          data, 16, validation_context)) {
     return false;
   }
 
@@ -95,32 +95,66 @@ bool CertVerifierConfig_Data::Validate(
   [[maybe_unused]] const CertVerifierConfig_Data* object =
       static_cast<const CertVerifierConfig_Data*>(data);
 
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->additional_trust_anchors, 5, validation_context)) {
+  return true;
+}
+
+CertVerifierConfig_Data::CertVerifierConfig_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool AdditionalCertificates_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 32, validation_context)) {
     return false;
   }
-  constexpr const mojo::internal::ContainerValidateParams& additional_trust_anchors_validate_params =
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const AdditionalCertificates_Data* object =
+      static_cast<const AdditionalCertificates_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->all_certificates, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& all_certificates_validate_params =
       mojo::internal::GetArrayValidator<0, false, nullptr>();
-  if (!mojo::internal::ValidateContainer(object->additional_trust_anchors, validation_context,
-                                         &additional_trust_anchors_validate_params)) {
+  if (!mojo::internal::ValidateContainer(object->all_certificates, validation_context,
+                                         &all_certificates_validate_params)) {
     return false;
   }
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->additional_untrusted_authorities, 6, validation_context)) {
+          object->trust_anchors, 2, validation_context)) {
     return false;
   }
-  constexpr const mojo::internal::ContainerValidateParams& additional_untrusted_authorities_validate_params =
+  constexpr const mojo::internal::ContainerValidateParams& trust_anchors_validate_params =
       mojo::internal::GetArrayValidator<0, false, nullptr>();
-  if (!mojo::internal::ValidateContainer(object->additional_untrusted_authorities, validation_context,
-                                         &additional_untrusted_authorities_validate_params)) {
+  if (!mojo::internal::ValidateContainer(object->trust_anchors, validation_context,
+                                         &trust_anchors_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->distrusted_spkis, 3, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& distrusted_spkis_validate_params =
+      mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
+  if (!mojo::internal::ValidateContainer(object->distrusted_spkis, validation_context,
+                                         &distrusted_spkis_validate_params)) {
     return false;
   }
 
   return true;
 }
 
-CertVerifierConfig_Data::CertVerifierConfig_Data()
+AdditionalCertificates_Data::AdditionalCertificates_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -266,6 +300,36 @@ bool CertVerifierService_SetConfig_Params_Data::Validate(
 }
 
 CertVerifierService_SetConfig_Params_Data::CertVerifierService_SetConfig_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool CertVerifierServiceUpdater_UpdateAdditionalCertificates_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const CertVerifierServiceUpdater_UpdateAdditionalCertificates_Params_Data* object =
+      static_cast<const CertVerifierServiceUpdater_UpdateAdditionalCertificates_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->certificates, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->certificates, validation_context))
+    return false;
+
+  return true;
+}
+
+CertVerifierServiceUpdater_UpdateAdditionalCertificates_Params_Data::CertVerifierServiceUpdater_UpdateAdditionalCertificates_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 

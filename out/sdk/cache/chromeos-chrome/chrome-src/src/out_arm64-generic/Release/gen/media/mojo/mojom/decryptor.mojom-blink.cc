@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -364,14 +365,17 @@ void DecryptorProxy::Initialize(
                         "<value of type ::mojo::ScopedDataPipeProducerHandle>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDecryptor_Initialize_Name, kFlags, 0, 0, nullptr);
@@ -428,14 +432,17 @@ void DecryptorProxy::Decrypt(
                         "<value of type ::media::mojom::blink::DecoderBufferPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDecryptor_Decrypt_Name, kFlags, 0, 0, nullptr);
@@ -479,14 +486,17 @@ void DecryptorProxy::CancelDecrypt(
                         "<value of type Decryptor::StreamType>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDecryptor_CancelDecrypt_Name, kFlags, 0, 0, nullptr);
@@ -518,14 +528,17 @@ void DecryptorProxy::InitializeAudioDecoder(
                         "<value of type ::media::mojom::blink::AudioDecoderConfigPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDecryptor_InitializeAudioDecoder_Name, kFlags, 0, 0, nullptr);
@@ -567,14 +580,17 @@ void DecryptorProxy::InitializeVideoDecoder(
                         "<value of type ::media::mojom::blink::VideoDecoderConfigPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDecryptor_InitializeVideoDecoder_Name, kFlags, 0, 0, nullptr);
@@ -616,14 +632,17 @@ void DecryptorProxy::DecryptAndDecodeAudio(
                         "<value of type ::media::mojom::blink::DecoderBufferPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDecryptor_DecryptAndDecodeAudio_Name, kFlags, 0, 0, nullptr);
@@ -665,14 +684,17 @@ void DecryptorProxy::DecryptAndDecodeVideo(
                         "<value of type ::media::mojom::blink::DecoderBufferPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDecryptor_DecryptAndDecodeVideo_Name, kFlags, 0, 0, nullptr);
@@ -714,14 +736,17 @@ void DecryptorProxy::ResetDecoder(
                         "<value of type Decryptor::StreamType>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDecryptor_ResetDecoder_Name, kFlags, 0, 0, nullptr);
@@ -753,14 +778,17 @@ void DecryptorProxy::DeinitializeDecoder(
                         "<value of type Decryptor::StreamType>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDecryptor_DeinitializeDecoder_Name, kFlags, 0, 0, nullptr);
@@ -878,7 +906,8 @@ void Decryptor_Decrypt_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDecryptor_Decrypt_Name, kFlags, 0, 0, nullptr);
@@ -1004,7 +1033,8 @@ void Decryptor_InitializeAudioDecoder_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDecryptor_InitializeAudioDecoder_Name, kFlags, 0, 0, nullptr);
@@ -1122,7 +1152,8 @@ void Decryptor_InitializeVideoDecoder_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDecryptor_InitializeVideoDecoder_Name, kFlags, 0, 0, nullptr);
@@ -1247,7 +1278,8 @@ void Decryptor_DecryptAndDecodeAudio_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDecryptor_DecryptAndDecodeAudio_Name, kFlags, 0, 0, nullptr);
@@ -1395,7 +1427,8 @@ void Decryptor_DecryptAndDecodeVideo_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDecryptor_DecryptAndDecodeVideo_Name, kFlags, 0, 0, nullptr);
@@ -1745,26 +1778,26 @@ std::move(p_encrypted), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDecryptorValidationInfo[] = {
-    {&internal::Decryptor_Initialize_Params_Data::Validate,
+    { &internal::Decryptor_Initialize_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Decryptor_Decrypt_Params_Data::Validate,
+    { &internal::Decryptor_Decrypt_Params_Data::Validate,
      &internal::Decryptor_Decrypt_ResponseParams_Data::Validate},
-    {&internal::Decryptor_CancelDecrypt_Params_Data::Validate,
+    { &internal::Decryptor_CancelDecrypt_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Decryptor_InitializeAudioDecoder_Params_Data::Validate,
+    { &internal::Decryptor_InitializeAudioDecoder_Params_Data::Validate,
      &internal::Decryptor_InitializeAudioDecoder_ResponseParams_Data::Validate},
-    {&internal::Decryptor_InitializeVideoDecoder_Params_Data::Validate,
+    { &internal::Decryptor_InitializeVideoDecoder_Params_Data::Validate,
      &internal::Decryptor_InitializeVideoDecoder_ResponseParams_Data::Validate},
-    {&internal::Decryptor_DecryptAndDecodeAudio_Params_Data::Validate,
+    { &internal::Decryptor_DecryptAndDecodeAudio_Params_Data::Validate,
      &internal::Decryptor_DecryptAndDecodeAudio_ResponseParams_Data::Validate},
-    {&internal::Decryptor_DecryptAndDecodeVideo_Params_Data::Validate,
+    { &internal::Decryptor_DecryptAndDecodeVideo_Params_Data::Validate,
      &internal::Decryptor_DecryptAndDecodeVideo_ResponseParams_Data::Validate},
-    {&internal::Decryptor_ResetDecoder_Params_Data::Validate,
+    { &internal::Decryptor_ResetDecoder_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Decryptor_DeinitializeDecoder_Params_Data::Validate,
+    { &internal::Decryptor_DeinitializeDecoder_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1820,8 +1853,8 @@ bool FrameResourceReleaserStubDispatch::AcceptWithResponder(
     std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
   return false;
 }
-
-
+namespace {
+}  // namespace
 
 bool FrameResourceReleaserRequestValidator::Accept(mojo::Message* message) {
   const char* name = ::media::mojom::blink::FrameResourceReleaser::Name_;

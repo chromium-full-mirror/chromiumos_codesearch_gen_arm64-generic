@@ -20,6 +20,7 @@
 
 namespace blink {
 
+class ChapterInformation;
 class ExceptionState;
 class MediaImage;
 
@@ -64,6 +65,15 @@ const HeapVector<Member<MediaImage>>& artwork() const {
 void setArtwork(const HeapVector<Member<MediaImage>>& value);
 void setArtwork(HeapVector<Member<MediaImage>>&& value);
 
+bool hasChapterInfo() const {
+  return true;
+}
+const HeapVector<Member<ChapterInformation>>& chapterInfo() const {
+  return member_chapter_info_;
+}
+void setChapterInfo(const HeapVector<Member<ChapterInformation>>& value);
+void setChapterInfo(HeapVector<Member<ChapterInformation>>&& value);
+
 bool hasTitle() const {
   return true;
 }
@@ -93,6 +103,7 @@ static const base::span<const v8::Eternal<v8::Name>> GetV8OwnMemberNames(v8::Iso
 String member_album_{""};
 String member_artist_{""};
 HeapVector<Member<MediaImage>> member_artwork_;
+HeapVector<Member<ChapterInformation>> member_chapter_info_;
 String member_title_{""};
 
 

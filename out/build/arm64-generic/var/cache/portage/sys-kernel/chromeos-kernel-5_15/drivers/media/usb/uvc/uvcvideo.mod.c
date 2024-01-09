@@ -95,6 +95,7 @@ MODULE_ALIAS("usb:v2833p0201d*dc*dsc*dp*ic0Eisc01ip00in*");
 MODULE_ALIAS("usb:v2833p0211d*dc*dsc*dp*icFFisc01ip00in*");
 MODULE_ALIAS("usb:v2E1Ap4C01d*dc*dsc*dp*ic0Eisc01ip00in*");
 MODULE_ALIAS("usb:v29FEp4D53d*dc*dsc*dp*ic0Eisc01ip00in*");
+MODULE_ALIAS("usb:v2B7EpB752d*dc*dsc*dp*ic0Eisc01ip01in*");
 MODULE_ALIAS("usb:v30C9p0093d*dc*dsc*dp*ic0Eisc01ip01in*");
 MODULE_ALIAS("usb:v3277p0072d*dc*dsc*dp*ic0Eisc01ip00in*");
 MODULE_ALIAS("usb:v5986p1172d*dc*dsc*dp*ic0Eisc01ip00in*");
@@ -103,4 +104,4 @@ MODULE_ALIAS("usb:v8086p0B03d*dc*dsc*dp*ic0Eisc01ip00in*");
 MODULE_ALIAS("usb:v*p*d*dc*dsc*dp*ic0Eisc01ip00in*");
 MODULE_ALIAS("usb:v*p*d*dc*dsc*dp*ic0Eisc01ip01in*");
 
-MODULE_INFO(srcversion, "54985D1915481B550860975");
+MODULE_INFO(srcversion, "4122BAC8AA2123BAA027C8A");

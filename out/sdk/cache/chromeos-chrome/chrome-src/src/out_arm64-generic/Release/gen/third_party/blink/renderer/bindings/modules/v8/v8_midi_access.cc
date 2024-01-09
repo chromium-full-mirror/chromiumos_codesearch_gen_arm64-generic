@@ -74,11 +74,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, MIDIAccess>::value,
     "MIDIAccess does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&MIDIAccess::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "MIDIAccess is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -91,8 +86,9 @@ BLINK_BINDINGS_TRACE_EVENT("MIDIAccess.inputs.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MIDIAccess* blink_receiver = V8MIDIAccess::ToWrappableUnsafe(v8_receiver);
+MIDIAccess* blink_receiver = V8MIDIAccess::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->inputs();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -105,8 +101,9 @@ BLINK_BINDINGS_TRACE_EVENT("MIDIAccess.outputs.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MIDIAccess* blink_receiver = V8MIDIAccess::ToWrappableUnsafe(v8_receiver);
+MIDIAccess* blink_receiver = V8MIDIAccess::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->outputs();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -119,8 +116,9 @@ BLINK_BINDINGS_TRACE_EVENT("MIDIAccess.sysexEnabled.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MIDIAccess* blink_receiver = V8MIDIAccess::ToWrappableUnsafe(v8_receiver);
+MIDIAccess* blink_receiver = V8MIDIAccess::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->sysexEnabled();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -133,10 +131,10 @@ BLINK_BINDINGS_TRACE_EVENT("MIDIAccess.onstatechange.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MIDIAccess* blink_receiver = V8MIDIAccess::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onstatechange();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MIDIAccess* blink_receiver = V8MIDIAccess::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onstatechange();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -149,8 +147,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MIDIAccess* blink_receiver = V8MIDIAccess::ToWrappableUnsafe(v8_receiver);
+MIDIAccess* blink_receiver = V8MIDIAccess::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnstatechange(event_handler);
 }
 

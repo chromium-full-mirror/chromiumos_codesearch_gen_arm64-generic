@@ -75,11 +75,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, ScreenDetails>::value,
     "ScreenDetails inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&ScreenDetails::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "ScreenDetails is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -97,7 +92,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-ScreenDetails* blink_receiver = V8ScreenDetails::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+ScreenDetails* blink_receiver = V8ScreenDetails::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->screens();
 if (!ToV8Traits<IDLArray<ScreenDetailed>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -113,8 +109,9 @@ BLINK_BINDINGS_TRACE_EVENT("ScreenDetails.currentScreen.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ScreenDetails* blink_receiver = V8ScreenDetails::ToWrappableUnsafe(v8_receiver);
+ScreenDetails* blink_receiver = V8ScreenDetails::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->currentScreen();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -135,7 +132,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8ScreenDetails_Onscre
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-ScreenDetails* blink_receiver = V8ScreenDetails::ToWrappableUnsafe(v8_receiver);
+ScreenDetails* blink_receiver = V8ScreenDetails::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->onscreenschange();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
@@ -157,7 +154,7 @@ EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
 v8::Local<v8::Object> v8_receiver = info.This();
-ScreenDetails* blink_receiver = V8ScreenDetails::ToWrappableUnsafe(v8_receiver);
+ScreenDetails* blink_receiver = V8ScreenDetails::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnscreenschange(event_handler);
 }
 
@@ -176,7 +173,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8ScreenDetails_Oncurr
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-ScreenDetails* blink_receiver = V8ScreenDetails::ToWrappableUnsafe(v8_receiver);
+ScreenDetails* blink_receiver = V8ScreenDetails::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->oncurrentscreenchange();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
@@ -198,7 +195,7 @@ EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
 v8::Local<v8::Object> v8_receiver = info.This();
-ScreenDetails* blink_receiver = V8ScreenDetails::ToWrappableUnsafe(v8_receiver);
+ScreenDetails* blink_receiver = V8ScreenDetails::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOncurrentscreenchange(event_handler);
 }
 

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -144,14 +145,17 @@ void CdmFactoryProxy::CreateCdmDeprecated(
                         "<value of type ::mojo::PendingRemote<::chromeos::cdm::mojom::OutputProtection>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCdmFactory_CreateCdmDeprecated_Name, kFlags, 0, 0, nullptr);
@@ -217,14 +221,17 @@ void CdmFactoryProxy::CreateCdm(
                         "<value of type ::mojo::PendingAssociatedReceiver<::chromeos::cdm::mojom::ContentDecryptionModule>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCdmFactory_CreateCdm_Name, kFlags, 0, 0, nullptr);
@@ -400,13 +407,13 @@ bool CdmFactoryStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kCdmFactoryValidationInfo[] = {
     {nullptr, nullptr},  // nonexistent
-    {&internal::CdmFactory_CreateCdmDeprecated_Params_Data::Validate,
+    { &internal::CdmFactory_CreateCdmDeprecated_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CdmFactory_CreateCdm_Params_Data::Validate,
+    { &internal::CdmFactory_CreateCdm_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -727,14 +734,17 @@ void CdmFactoryDaemonProxy::CreateFactory(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCdmFactoryDaemon_CreateFactory_Name, kFlags, 0, 0, nullptr);
@@ -769,14 +779,17 @@ void CdmFactoryDaemonProxy::RemovedMethod1(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send chromeos::cdm::mojom::CdmFactoryDaemon::RemovedMethod1");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCdmFactoryDaemon_RemovedMethod1_Name, kFlags, 0, 0, nullptr);
@@ -812,14 +825,17 @@ void CdmFactoryDaemonProxy::ConnectOemCrypto(
                         "<value of type ::mojo::PendingRemote<::chromeos::cdm::mojom::OutputProtection>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCdmFactoryDaemon_ConnectOemCrypto_Name, kFlags, 0, 0, nullptr);
@@ -860,14 +876,17 @@ void CdmFactoryDaemonProxy::RemovedMethod3(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send chromeos::cdm::mojom::CdmFactoryDaemon::RemovedMethod3");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCdmFactoryDaemon_RemovedMethod3_Name, kFlags, 0, 0, nullptr);
@@ -890,14 +909,17 @@ void CdmFactoryDaemonProxy::GetHwConfigData(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send chromeos::cdm::mojom::CdmFactoryDaemon::GetHwConfigData");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCdmFactoryDaemon_GetHwConfigData_Name, kFlags, 0, 0, nullptr);
@@ -921,14 +943,17 @@ void CdmFactoryDaemonProxy::RemovedMethod5(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send chromeos::cdm::mojom::CdmFactoryDaemon::RemovedMethod5");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCdmFactoryDaemon_RemovedMethod5_Name, kFlags, 0, 0, nullptr);
@@ -951,14 +976,17 @@ void CdmFactoryDaemonProxy::GetHdcp14Key(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send chromeos::cdm::mojom::CdmFactoryDaemon::GetHdcp14Key");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCdmFactoryDaemon_GetHdcp14Key_Name, kFlags, 0, 0, nullptr);
@@ -992,14 +1020,17 @@ void CdmFactoryDaemonProxy::GetAndroidHwKeyData(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCdmFactoryDaemon_GetAndroidHwKeyData_Name, kFlags, 0, 0, nullptr);
@@ -1056,14 +1087,17 @@ void CdmFactoryDaemonProxy::AllocateSecureBuffer(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCdmFactoryDaemon_AllocateSecureBuffer_Name, kFlags, 0, 0, nullptr);
@@ -1176,7 +1210,8 @@ void CdmFactoryDaemon_CreateFactory_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCdmFactoryDaemon_CreateFactory_Name, kFlags, 0, 0, nullptr);
@@ -1302,7 +1337,8 @@ void CdmFactoryDaemon_GetHwConfigData_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCdmFactoryDaemon_GetHwConfigData_Name, kFlags, 0, 0, nullptr);
@@ -1433,7 +1469,8 @@ void CdmFactoryDaemon_GetHdcp14Key_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCdmFactoryDaemon_GetHdcp14Key_Name, kFlags, 0, 0, nullptr);
@@ -1568,7 +1605,8 @@ void CdmFactoryDaemon_GetAndroidHwKeyData_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCdmFactoryDaemon_GetAndroidHwKeyData_Name, kFlags, 0, 0, nullptr);
@@ -1700,7 +1738,8 @@ void CdmFactoryDaemon_AllocateSecureBuffer_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCdmFactoryDaemon_AllocateSecureBuffer_Name, kFlags, 0, 0, nullptr);
@@ -2023,26 +2062,26 @@ std::move(p_size), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kCdmFactoryDaemonValidationInfo[] = {
-    {&internal::CdmFactoryDaemon_CreateFactory_Params_Data::Validate,
+    { &internal::CdmFactoryDaemon_CreateFactory_Params_Data::Validate,
      &internal::CdmFactoryDaemon_CreateFactory_ResponseParams_Data::Validate},
-    {&internal::CdmFactoryDaemon_RemovedMethod1_Params_Data::Validate,
+    { &internal::CdmFactoryDaemon_RemovedMethod1_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CdmFactoryDaemon_ConnectOemCrypto_Params_Data::Validate,
+    { &internal::CdmFactoryDaemon_ConnectOemCrypto_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CdmFactoryDaemon_RemovedMethod3_Params_Data::Validate,
+    { &internal::CdmFactoryDaemon_RemovedMethod3_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CdmFactoryDaemon_GetHwConfigData_Params_Data::Validate,
+    { &internal::CdmFactoryDaemon_GetHwConfigData_Params_Data::Validate,
      &internal::CdmFactoryDaemon_GetHwConfigData_ResponseParams_Data::Validate},
-    {&internal::CdmFactoryDaemon_RemovedMethod5_Params_Data::Validate,
+    { &internal::CdmFactoryDaemon_RemovedMethod5_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CdmFactoryDaemon_GetHdcp14Key_Params_Data::Validate,
+    { &internal::CdmFactoryDaemon_GetHdcp14Key_Params_Data::Validate,
      &internal::CdmFactoryDaemon_GetHdcp14Key_ResponseParams_Data::Validate},
-    {&internal::CdmFactoryDaemon_GetAndroidHwKeyData_Params_Data::Validate,
+    { &internal::CdmFactoryDaemon_GetAndroidHwKeyData_Params_Data::Validate,
      &internal::CdmFactoryDaemon_GetAndroidHwKeyData_ResponseParams_Data::Validate},
-    {&internal::CdmFactoryDaemon_AllocateSecureBuffer_Params_Data::Validate,
+    { &internal::CdmFactoryDaemon_AllocateSecureBuffer_Params_Data::Validate,
      &internal::CdmFactoryDaemon_AllocateSecureBuffer_ResponseParams_Data::Validate},
 };
 

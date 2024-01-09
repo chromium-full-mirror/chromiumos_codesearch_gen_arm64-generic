@@ -1,0 +1,84 @@
+{
+  "extends": "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/ash_common/tsconfig_base.json",
+  "compilerOptions": {
+    "rootDir": "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/ash_common",
+    "outDir": "tsc",
+    "allowJs": true,
+    "paths": {
+      "//resources/ash/common/*": [
+        "./../../../../../../ash/webui/common/resources/preprocessed/*"
+      ],
+      "chrome://resources/ash/common/*": [
+        "./../../../../../../ash/webui/common/resources/preprocessed/*"
+      ],
+      "//resources/polymer/v3_0/polymer/polymer_bundled.min.js": [
+        "./../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/polymer/polymer.d.ts"
+      ],
+      "chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js": [
+        "./../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/polymer/polymer.d.ts"
+      ],
+      "//resources/polymer/v3_0/*": [
+        "./../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/*"
+      ],
+      "chrome://resources/polymer/v3_0/*": [
+        "./../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/*"
+      ],
+      "//resources/cr_elements/*": [
+        "./../../../../../../ui/webui/resources/tsc/cr_elements/*"
+      ],
+      "chrome://resources/cr_elements/*": [
+        "./../../../../../../ui/webui/resources/tsc/cr_elements/*"
+      ],
+      "//resources/js/*": [
+        "./../../../../../../ui/webui/resources/tsc/js/*"
+      ],
+      "chrome://resources/js/*": [
+        "./../../../../../../ui/webui/resources/tsc/js/*"
+      ],
+      "/tools/typescript/definitions/*": [
+        "./../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/*"
+      ],
+      "chrome://webui-test/*": [
+        "./../../tsc/*"
+      ]
+    }
+  },
+  "files": [
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/ash_common/cr_container_shadow_behavior_test.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/ash_common/cr_policy_indicator_behavior_test.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/ash_common/cr_policy_strings.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/ash_common/cr_scrollable_behavior_test.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/ash_common/cr_test.js",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/ash_common/fake_method_resolver_test.js",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/ash_common/fake_observables_test.js",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/ash_common/i18n_behavior_test.js",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/ash_common/keyboard_diagram_test.js",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/ash_common/list_property_update_behavior_test.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/ash_common/navigation_selector_test.js",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/ash_common/navigation_view_panel_test.js",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/ash_common/page_toolbar_test.js",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/ash_common/post_message_api/post_message_api_client_test.js",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/ash_common/post_message_api/post_message_api_test.js",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/ash_common/shortcut_input_key_test.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/ash_common/shortcut_input_test.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/ash_common/sea_pen/sea_pen_utils_test.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/ash_common/typescript_utils/strict_query_test.ts"
+  ],
+  "references": [
+    {
+      "path": "../../tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../../../ash/webui/common/resources/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../../../third_party/polymer/v3_0/tsconfig_library.json"
+    },
+    {
+      "path": "../../../../../../ui/webui/resources/cr_elements/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../../../ui/webui/resources/js/tsconfig_build_ts.json"
+    }
+  ]
+}

@@ -76,18 +76,19 @@ export const SpeculationEagerness = {
 /**
  * @const { {$: !mojo.internal.MojomType} }
  */
-export const SpeculationInjectionWorldSpec = { $: mojo.internal.Enum() };
+export const SpeculationInjectionTypeSpec = { $: mojo.internal.Enum() };
 
 /**
  * @enum {number}
  */
-export const SpeculationInjectionWorld = {
+export const SpeculationInjectionType = {
   
   kNone: 0,
-  kMain: 1,
-  kIsolated: 2,
+  kMainWorldScript: 1,
+  kIsolatedWorldScript: 2,
+  kAutoSpeculationRules: 3,
   MIN_VALUE: 0,
-  MAX_VALUE: 2,
+  MAX_VALUE: 3,
 };
 
 
@@ -419,10 +420,10 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'injectionWorld', 40,
+        'injectionType', 40,
         0,
-        SpeculationInjectionWorldSpec.$,
-        SpeculationInjectionWorld.kNone,
+        SpeculationInjectionTypeSpec.$,
+        SpeculationInjectionType.kNone,
         false /* nullable */,
         0,
       ),
@@ -450,8 +451,8 @@ export class SpeculationCandidate {
     this.eagerness;
     /** @type { (network_mojom_NoVarySearch|undefined) } */
     this.noVarySearchHint;
-    /** @type { !SpeculationInjectionWorld } */
-    this.injectionWorld;
+    /** @type { !SpeculationInjectionType } */
+    this.injectionType;
   }
 }
 

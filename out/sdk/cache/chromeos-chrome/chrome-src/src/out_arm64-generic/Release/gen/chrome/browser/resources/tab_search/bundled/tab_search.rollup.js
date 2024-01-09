@@ -1,10 +1,11 @@
-import { html, Polymer, dom, mixinBehaviors, PolymerElement, Base, dedupingMixin, get, dashToCamelCase, templatize, calculateSplices, useShadow } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { html, Polymer, dom, mixinBehaviors, PolymerElement, dedupingMixin, Base, dashToCamelCase, get, afterNextRender, templatize, calculateSplices, useShadow } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import './strings.m.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { mojo } from 'chrome://resources/mojo/mojo/public/js/bindings.js';
 import { TimeTicksSpec, TimeSpec } from 'chrome://resources/mojo/mojo/public/mojom/base/time.mojom-webui.js';
 import { TokenSpec } from 'chrome://resources/mojo/mojo/public/mojom/base/token.mojom-webui.js';
 import { UrlSpec } from 'chrome://resources/mojo/url/mojom/url.mojom-webui.js';
+import { addWebUiListener, removeWebUiListener, sendWithPromise } from 'chrome://resources/js/cr.js';
 import { MetricsReporterImpl } from 'chrome://resources/js/metrics_reporter/metrics_reporter.js';
 import Fuse from './fuse.js';
 
@@ -186,8 +187,7 @@ template$5.setAttribute('style', 'display: none;');
 document.head.appendChild(template$5.content);
 
 const template$4 = html `
-<custom-style>
-  <style>
+<style>
 html{--google-blue-50-rgb:232,240,254;--google-blue-50:rgb(var(--google-blue-50-rgb));--google-blue-100-rgb:210,227,252;--google-blue-100:rgb(var(--google-blue-100-rgb));--google-blue-200-rgb:174,203,250;--google-blue-200:rgb(var(--google-blue-200-rgb));--google-blue-300-rgb:138,180,248;--google-blue-300:rgb(var(--google-blue-300-rgb));--google-blue-400-rgb:102,157,246;--google-blue-400:rgb(var(--google-blue-400-rgb));--google-blue-500-rgb:66,133,244;--google-blue-500:rgb(var(--google-blue-500-rgb));--google-blue-600-rgb:26,115,232;--google-blue-600:rgb(var(--google-blue-600-rgb));--google-blue-700-rgb:25,103,210;--google-blue-700:rgb(var(--google-blue-700-rgb));--google-blue-800-rgb:24,90,188;--google-blue-800:rgb(var(--google-blue-800-rgb));--google-blue-900-rgb:23,78,166;--google-blue-900:rgb(var(--google-blue-900-rgb));--google-green-50-rgb:230,244,234;--google-green-50:rgb(var(--google-green-50-rgb));--google-green-200-rgb:168,218,181;--google-green-200:rgb(var(--google-green-200-rgb));--google-green-300-rgb:129,201,149;--google-green-300:rgb(var(--google-green-300-rgb));--google-green-400-rgb:91,185,116;--google-green-400:rgb(var(--google-green-400-rgb));--google-green-500-rgb:52,168,83;--google-green-500:rgb(var(--google-green-500-rgb));--google-green-600-rgb:30,142,62;--google-green-600:rgb(var(--google-green-600-rgb));--google-green-700-rgb:24,128,56;--google-green-700:rgb(var(--google-green-700-rgb));--google-green-800-rgb:19,115,51;--google-green-800:rgb(var(--google-green-800-rgb));--google-green-900-rgb:13,101,45;--google-green-900:rgb(var(--google-green-900-rgb));--google-grey-50-rgb:248,249,250;--google-grey-50:rgb(var(--google-grey-50-rgb));--google-grey-100-rgb:241,243,244;--google-grey-100:rgb(var(--google-grey-100-rgb));--google-grey-200-rgb:232,234,237;--google-grey-200:rgb(var(--google-grey-200-rgb));--google-grey-300-rgb:218,220,224;--google-grey-300:rgb(var(--google-grey-300-rgb));--google-grey-400-rgb:189,193,198;--google-grey-400:rgb(var(--google-grey-400-rgb));--google-grey-500-rgb:154,160,166;--google-grey-500:rgb(var(--google-grey-500-rgb));--google-grey-600-rgb:128,134,139;--google-grey-600:rgb(var(--google-grey-600-rgb));--google-grey-700-rgb:95,99,104;--google-grey-700:rgb(var(--google-grey-700-rgb));--google-grey-800-rgb:60,64,67;--google-grey-800:rgb(var(--google-grey-800-rgb));--google-grey-900-rgb:32,33,36;--google-grey-900:rgb(var(--google-grey-900-rgb));--google-grey-900-white-4-percent:#292a2d;--google-purple-200-rgb:215,174,251;--google-purple-200:rgb(var(--google-purple-200-rgb));--google-purple-900-rgb:104,29,168;--google-purple-900:rgb(var(--google-purple-900-rgb));--google-red-300-rgb:242,139,130;--google-red-300:rgb(var(--google-red-300-rgb));--google-red-500-rgb:234,67,53;--google-red-500:rgb(var(--google-red-500-rgb));--google-red-600-rgb:217,48,37;--google-red-600:rgb(var(--google-red-600-rgb));--google-yellow-50-rgb:254,247,224;--google-yellow-50:rgb(var(--google-yellow-50-rgb));--google-yellow-100-rgb:254,239,195;--google-yellow-100:rgb(var(--google-yellow-100-rgb));--google-yellow-200-rgb:253,226,147;--google-yellow-200:rgb(var(--google-yellow-200-rgb));--google-yellow-300-rgb:253,214,51;--google-yellow-300:rgb(var(--google-yellow-300-rgb));--google-yellow-400-rgb:252,201,52;--google-yellow-400:rgb(var(--google-yellow-400-rgb));--google-yellow-500-rgb:251,188,4;--google-yellow-500:rgb(var(--google-yellow-500-rgb));--cr-primary-text-color:var(--google-grey-900);--cr-secondary-text-color:var(--google-grey-700);--cr-card-background-color:white;--cr-shadow-color:var(--google-grey-800);--cr-shadow-key-color_:color-mix(in srgb, var(--cr-shadow-color) 30%, transparent);--cr-shadow-ambient-color_:color-mix(in srgb, var(--cr-shadow-color) 15%, transparent);--cr-elevation-1:var(--cr-shadow-key-color_) 0 1px 2px 0,var(--cr-shadow-ambient-color_) 0 1px 3px 1px;--cr-elevation-2:var(--cr-shadow-key-color_) 0 1px 2px 0,var(--cr-shadow-ambient-color_) 0 2px 6px 2px;--cr-elevation-3:var(--cr-shadow-key-color_) 0 1px 3px 0,var(--cr-shadow-ambient-color_) 0 4px 8px 3px;--cr-elevation-4:var(--cr-shadow-key-color_) 0 2px 3px 0,var(--cr-shadow-ambient-color_) 0 6px 10px 4px;--cr-elevation-5:var(--cr-shadow-key-color_) 0 4px 4px 0,var(--cr-shadow-ambient-color_) 0 8px 12px 6px;--cr-card-shadow:var(--cr-elevation-2);--cr-checked-color:var(--google-blue-600);--cr-focused-item-color:var(--google-grey-300);--cr-form-field-label-color:var(--google-grey-700);--cr-hairline-rgb:0,0,0;--cr-iph-anchor-highlight-color:rgba(var(--google-blue-600-rgb), 0.1);--cr-link-color:var(--google-blue-700);--cr-menu-background-color:white;--cr-menu-background-focus-color:var(--google-grey-400);--cr-menu-shadow:0 2px 6px var(--paper-grey-500);--cr-separator-color:rgba(0, 0, 0, .06);--cr-title-text-color:rgb(90, 90, 90);--cr-toolbar-background-color:white;--cr-hover-background-color:rgba(var(--google-grey-900-rgb), .1);--cr-active-background-color:rgba(var(--google-grey-900-rgb), .16);--cr-focus-outline-color:rgba(var(--google-blue-600-rgb), .4)}@media (prefers-color-scheme:dark){html{--cr-primary-text-color:var(--google-grey-200);--cr-secondary-text-color:var(--google-grey-500);--cr-card-background-color:var(--google-grey-900-white-4-percent);--cr-card-shadow-color-rgb:0,0,0;--cr-checked-color:var(--google-blue-300);--cr-focused-item-color:var(--google-grey-800);--cr-form-field-label-color:var(--dark-secondary-color);--cr-hairline-rgb:255,255,255;--cr-iph-anchor-highlight-color:rgba(var(--google-grey-100-rgb), 0.1);--cr-link-color:var(--google-blue-300);--cr-menu-background-color:var(--google-grey-900);--cr-menu-background-focus-color:var(--google-grey-700);--cr-menu-background-sheen:rgba(255, 255, 255, .06);--cr-menu-shadow:rgba(0, 0, 0, .3) 0 1px 2px 0,rgba(0, 0, 0, .15) 0 3px 6px 2px;--cr-separator-color:rgba(255, 255, 255, .1);--cr-title-text-color:var(--cr-primary-text-color);--cr-toolbar-background-color:var(--google-grey-900-white-4-percent);--cr-hover-background-color:rgba(255, 255, 255, .1);--cr-active-background-color:rgba(var(--google-grey-200-rgb), .16);--cr-focus-outline-color:rgba(var(--google-blue-300-rgb), .4)}}@media (forced-colors:active){html{--cr-focus-outline-hcm:2px solid transparent;--cr-border-hcm:2px solid transparent}}html{--cr-button-edge-spacing:12px;--cr-button-height:32px;--cr-controlled-by-spacing:24px;--cr-default-input-max-width:264px;--cr-icon-ripple-size:36px;--cr-icon-ripple-padding:8px;--cr-icon-size:20px;--cr-icon-button-margin-start:16px;--cr-icon-ripple-margin:calc(var(--cr-icon-ripple-padding) * -1);--cr-section-min-height:48px;--cr-section-two-line-min-height:64px;--cr-section-padding:20px;--cr-section-vertical-padding:12px;--cr-section-indent-width:40px;--cr-section-indent-padding:calc(
       var(--cr-section-padding) + var(--cr-section-indent-width));--cr-section-vertical-margin:21px;--cr-centered-card-max-width:680px;--cr-centered-card-width-percentage:0.96;--cr-hairline:1px solid rgba(var(--cr-hairline-rgb), .14);--cr-separator-height:1px;--cr-separator-line:var(--cr-separator-height) solid var(--cr-separator-color);--cr-toolbar-overlay-animation-duration:150ms;--cr-toolbar-height:56px;--cr-container-shadow-height:6px;--cr-container-shadow-margin:calc(-1 * var(--cr-container-shadow-height));--cr-container-shadow-max-opacity:1;--cr-card-border-radius:8px;--cr-disabled-opacity:.38;--cr-form-field-bottom-spacing:16px;--cr-form-field-label-font-size:.625rem;--cr-form-field-label-height:1em;--cr-form-field-label-line-height:1}html[chrome-refresh-2023]{--cr-fallback-color-outline:rgb(116, 119, 117);--cr-fallback-color-primary:rgb(11, 87, 208);--cr-fallback-color-on-primary:rgb(255, 255, 255);--cr-fallback-color-primary-container:rgb(211, 227, 253);--cr-fallback-color-on-primary-container:rgb(4, 30, 73);--cr-fallback-color-secondary-container:rgb(194, 231, 255);--cr-fallback-color-on-secondary-container:rgb(0, 29, 53);--cr-fallback-color-neutral-container:rgb(242, 242, 242);--cr-fallback-color-neutral-outline:rgb(199, 199, 199);--cr-fallback-color-surface:rgb(255, 255, 255);--cr-fallback-color-on-surface-rgb:31,31,31;--cr-fallback-color-on-surface:rgb(var(--cr-fallback-color-on-surface-rgb));--cr-fallback-color-surface-variant:rgb(225, 227, 225);--cr-fallback-color-on-surface-variant:rgb(68, 71, 70);--cr-fallback-color-on-surface-subtle:rgb(71, 71, 71);--cr-fallback-color-inverse-primary:rgb(168, 199, 250);--cr-fallback-color-inverse-surface:rgb(48, 48, 48);--cr-fallback-color-inverse-on-surface:rgb(242, 242, 242);--cr-fallback-color-tonal-container:rgb(211, 227, 253);--cr-fallback-color-on-tonal-container:rgb(4, 30, 73);--cr-fallback-color-tonal-outline:rgb(168, 199, 250);--cr-fallback-color-error:rgb(179, 38, 30);--cr-fallback-color-divider:rgb(211, 227, 253);--cr-fallback-color-state-hover-on-prominent_:rgba(253, 252, 251, .1);--cr-fallback-color-state-on-subtle-rgb_:31,31,31;--cr-fallback-color-state-hover-on-subtle_:rgba(
       var(--cr-fallback-color-state-on-subtle-rgb_), .06);--cr-fallback-color-state-ripple-neutral-on-subtle_:rgba(
@@ -211,8 +211,7 @@ html{--google-blue-50-rgb:232,240,254;--google-blue-50:rgb(var(--google-blue-50-
       var(--cr-fallback-color-primary));--cr-button-height:36px;--cr-shadow-color:var(--color-sys-shadow, rgb(0, 0, 0))}@media (prefers-color-scheme:dark){html[chrome-refresh-2023]{--cr-fallback-color-outline:rgb(142, 145, 143);--cr-fallback-color-primary:rgb(168, 199, 250);--cr-fallback-color-on-primary:rgb(6, 46, 111);--cr-fallback-color-primary-container:rgb(8, 66, 160);--cr-fallback-color-on-primary-container:rgb(211, 227, 253);--cr-fallback-color-secondary-container:rgb(0, 74, 119);--cr-fallback-color-on-secondary-container:rgb(194, 231, 255);--cr-fallback-color-neutral-container:rgb(42, 42, 42);--cr-fallback-color-neutral-outline:rgb(117, 117, 117);--cr-fallback-color-surface:rgb(26, 27, 30);--cr-fallback-color-on-surface-rgb:227,227,227;--cr-fallback-color-surface-variant:rgb(68, 71, 70);--cr-fallback-color-on-surface-variant:rgb(196, 199, 197);--cr-fallback-color-on-surface-subtle:rgb(199, 199, 199);--cr-fallback-color-inverse-primary:rgb(11, 87, 208);--cr-fallback-color-inverse-surface:rgb(227, 227, 227);--cr-fallback-color-inverse-on-surface:rgb(31, 31, 31);--cr-fallback-color-tonal-container:rgb(0, 74, 119);--cr-fallback-color-on-tonal-container:rgb(194, 231, 255);--cr-fallback-color-tonal-outline:rgb(0, 99, 155);--cr-fallback-color-error:rgb(242, 184, 181);--cr-fallback-color-divider:rgb(71, 71, 71);--cr-fallback-color-state-hover-on-prominent_:rgba(31, 31, 31, .06);--cr-fallback-color-state-on-subtle-rgb_:253,252,251;--cr-fallback-color-state-hover-on-subtle_:rgba(
         var(--cr-fallback-color-state-on-subtle-rgb_), .10);--cr-fallback-color-state-ripple-neutral-on-subtle_:rgba(
         var(--cr-fallback-color-state-on-subtle-rgb_), .16);--cr-fallback-color-state-ripple-primary-rgb_:76,141,246;--cr-fallback-color-base-container:rgba(40, 40, 40, 1)}}@media (forced-colors:active){html[chrome-refresh-2023]{--cr-fallback-color-disabled-background:Canvas;--cr-fallback-color-disabled-foreground:GrayText}}
-  </style>
-</custom-style>
+</style>
 `;
 document.head.appendChild(template$4.content);
 
@@ -239,19 +238,26 @@ const docsToManager = new Map();
  *
  */
 class FocusOutlineManager {
+    // Whether focus change is triggered by a keyboard event.
+    focusByKeyboard_ = true;
+    classList_;
     /**
      * @param doc The document to attach the focus outline manager to.
      */
     constructor(doc) {
-        // Whether focus change is triggered by a keyboard event.
-        this.focusByKeyboard_ = true;
         this.classList_ = doc.documentElement.classList;
-        doc.addEventListener('keydown', () => this.onEvent_(true), true);
-        doc.addEventListener('mousedown', () => this.onEvent_(false), true);
+        doc.addEventListener('keydown', (e) => this.onEvent_(true, e), true);
+        doc.addEventListener('mousedown', (e) => this.onEvent_(false, e), true);
         this.updateVisibility();
     }
-    onEvent_(focusByKeyboard) {
+    onEvent_(focusByKeyboard, e) {
         if (this.focusByKeyboard_ === focusByKeyboard) {
+            return;
+        }
+        if (e instanceof KeyboardEvent && e.repeat) {
+            // A repeated keydown should not trigger the focus state. For example,
+            // there is a repeated ALT keydown if ALT+CLICK is used to open the
+            // context menu and ALT is not released.
             return;
         }
         this.focusByKeyboard_ = focusByKeyboard;
@@ -1344,7 +1350,7 @@ const PaperRippleBehavior = {
   }
 };
 
-function getTemplate$e() {
+function getTemplate$h() {
     return html `<!--_html_template_start_-->    <style include="cr-hidden-style">:host{--active-shadow-rgb:var(--google-grey-800-rgb);--active-shadow-action-rgb:var(--google-blue-500-rgb);--bg-action:var(--google-blue-600);--border-color:var(--google-grey-300);--disabled-bg-action:var(--google-grey-100);--disabled-bg:white;--disabled-border-color:var(--google-grey-100);--disabled-text-color:var(--google-grey-600);--focus-shadow-color:rgba(var(--google-blue-600-rgb), .4);--hover-bg-action:rgba(var(--google-blue-600-rgb), .9);--hover-bg-color:rgba(var(--google-blue-500-rgb), .04);--hover-border-color:var(--google-blue-100);--hover-shadow-action-rgb:var(--google-blue-500-rgb);--ink-color-action:white;--ink-color:var(--google-blue-600);--ripple-opacity-action:.32;--ripple-opacity:.1;--text-color-action:white;--text-color:var(--google-blue-600)}@media (prefers-color-scheme:dark){:host{--active-bg:black linear-gradient(rgba(255, 255, 255, .06),
                                              rgba(255, 255, 255, .06));--active-shadow-rgb:0,0,0;--active-shadow-action-rgb:var(--google-blue-500-rgb);--bg-action:var(--google-blue-300);--border-color:var(--google-grey-700);--disabled-bg-action:var(--google-grey-800);--disabled-bg:transparent;--disabled-border-color:var(--google-grey-800);--disabled-text-color:var(--google-grey-500);--focus-shadow-color:rgba(var(--google-blue-300-rgb), .5);--hover-bg-action:var(--bg-action) linear-gradient(rgba(0, 0, 0, .08), rgba(0, 0, 0, .08));--hover-bg-color:rgba(var(--google-blue-300-rgb), .08);--ink-color-action:black;--ink-color:var(--google-blue-300);--ripple-opacity-action:.16;--ripple-opacity:.16;--text-color-action:var(--google-grey-900);--text-color:var(--google-blue-300)}}:host{--paper-ripple-opacity:var(--ripple-opacity);-webkit-tap-highlight-color:transparent;align-items:center;border:1px solid var(--border-color);border-radius:4px;box-sizing:border-box;color:var(--text-color);cursor:pointer;display:inline-flex;flex-shrink:0;font-weight:500;height:var(--cr-button-height);justify-content:center;min-width:5.14em;outline-width:0;overflow:hidden;padding:8px 16px;position:relative;user-select:none}:host-context([chrome-refresh-2023]):host{--border-color:var(--color-button-border,
             var(--cr-fallback-color-tonal-outline));--text-color:var(--color-button-foreground,
@@ -1380,7 +1386,7 @@ class CrButtonElement extends CrButtonElementBase {
         return 'cr-button';
     }
     static get template() {
-        return getTemplate$e();
+        return getTemplate$h();
     }
     static get properties() {
         return {
@@ -1553,6 +1559,1071 @@ class CrButtonElement extends CrButtonElementBase {
     }
 }
 customElements.define(CrButtonElement.is, CrButtonElement);
+
+const styleMod$6 = document.createElement('dom-module');
+styleMod$6.appendChild(html `
+  <template>
+    <style>
+.icon-arrow-back{--cr-icon-image:url(chrome://resources/images/icon_arrow_back.svg)}.icon-arrow-dropdown{--cr-icon-image:url(chrome://resources/images/icon_arrow_dropdown.svg)}.icon-arrow-drop-down-cr23{--cr-icon-image:url(chrome://resources/images/icon_arrow_drop_down_cr23.svg)}.icon-arrow-drop-up-cr23{--cr-icon-image:url(chrome://resources/images/icon_arrow_drop_up_cr23.svg)}.icon-cancel{--cr-icon-image:url(chrome://resources/images/icon_cancel.svg)}.icon-clear{--cr-icon-image:url(chrome://resources/images/icon_clear.svg)}.icon-copy-content{--cr-icon-image:url(chrome://resources/images/icon_copy_content.svg)}.icon-delete-gray{--cr-icon-image:url(chrome://resources/images/icon_delete_gray.svg)}.icon-edit{--cr-icon-image:url(chrome://resources/images/icon_edit.svg)}.icon-file{--cr-icon-image:url(chrome://resources/images/icon_filetype_generic.svg)}.icon-folder-open{--cr-icon-image:url(chrome://resources/images/icon_folder_open.svg)}.icon-picture-delete{--cr-icon-image:url(chrome://resources/images/icon_picture_delete.svg)}.icon-expand-less{--cr-icon-image:url(chrome://resources/images/icon_expand_less.svg)}.icon-expand-more{--cr-icon-image:url(chrome://resources/images/icon_expand_more.svg)}.icon-external{--cr-icon-image:url(chrome://resources/images/open_in_new.svg)}.icon-more-vert{--cr-icon-image:url(chrome://resources/images/icon_more_vert.svg)}.icon-refresh{--cr-icon-image:url(chrome://resources/images/icon_refresh.svg)}.icon-search{--cr-icon-image:url(chrome://resources/images/icon_search.svg)}.icon-settings{--cr-icon-image:url(chrome://resources/images/icon_settings.svg)}.icon-visibility{--cr-icon-image:url(chrome://resources/images/icon_visibility.svg)}.icon-visibility-off{--cr-icon-image:url(chrome://resources/images/icon_visibility_off.svg)}.subpage-arrow{--cr-icon-image:url(chrome://resources/images/arrow_right.svg)}.cr-icon{-webkit-mask-image:var(--cr-icon-image);-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:var(--cr-icon-size);background-color:var(--cr-icon-color,var(--google-grey-700));flex-shrink:0;height:var(--cr-icon-ripple-size);margin-inline-end:var(--cr-icon-ripple-margin);margin-inline-start:var(--cr-icon-button-margin-start);user-select:none;width:var(--cr-icon-ripple-size)}:host-context([dir=rtl]) .cr-icon{transform:scaleX(-1)}.cr-icon.no-overlap{margin-inline-end:0;margin-inline-start:0}@media (prefers-color-scheme:dark){.cr-icon{background-color:var(--cr-icon-color,var(--google-grey-500))}}
+    </style>
+  </template>
+`.content);
+styleMod$6.register('cr-icons');
+
+const template$3 = html `
+<style>
+html{--mwb-background-color:white;--mwb-icon-button-fill-color:var(--google-grey-700);--mwb-icon-size:16px;--mwb-item-height:48px;--mwb-list-item-horizontal-margin:20px;--mwb-list-item-hover-background-color:rgba(var(--google-grey-900-rgb), 0.1);--mwb-list-item-selected-background-color:rgba(var(--google-grey-900-rgb), 0.14);--mwb-list-section-title-font-size:11px;--mwb-list-section-title-height:48px;--mwb-primary-text-font-size:13px;--mwb-primary-text-font-weight:normal;--mwb-scrollbar-thumb-color:var(--google-grey-300);--mwb-scrollbar-thumb-hover-color:var(--google-grey-500);--mwb-scrollbar-track-color:var(--mwb-background-color);--mwb-scrollbar-width:4px;--mwb-secondary-text-font-size:12px;--mwb-secondary-text-font-weight:normal}@media (prefers-color-scheme:dark){html{--mwb-background-color:var(--google-grey-900);--mwb-icon-button-fill-color:var(--google-grey-300);--mwb-list-item-hover-background-color:rgb(55, 56, 58);--mwb-list-item-selected-background-color:rgb(68, 69, 71);--mwb-scrollbar-thumb-color:var(--google-grey-500);--mwb-scrollbar-thumb-hover-color:var(--google-grey-300)}}
+</style>
+`;
+document.head.appendChild(template$3.content);
+
+const styleMod$5 = document.createElement('dom-module');
+styleMod$5.appendChild(html `
+  <template>
+    <style>
+::-webkit-scrollbar-thumb{background-color:var(--mwb-scrollbar-thumb-color)}::-webkit-scrollbar-thumb:hover{background-color:var(--mwb-scrollbar-thumb-hover-color)}::-webkit-scrollbar-track{background-color:var(--mwb-scrollbar-track-color)}::-webkit-scrollbar{width:var(--mwb-scrollbar-width)}.mwb-list-item{align-items:center;background-color:var(--mwb-background-color);contain-intrinsic-size:var(--mwb-item-height);content-visibility:auto;display:flex;height:var(--mwb-item-height);padding:0 var(--mwb-list-item-horizontal-margin)}.mwb-list-item.hovered{background-color:var(--mwb-list-item-hover-background-color)}.mwb-list-item.selected{background-color:var(--mwb-list-item-selected-background-color)}
+    </style>
+  </template>
+`.content);
+styleMod$5.register('mwb-shared-style');
+
+const styleMod$4 = document.createElement('dom-module');
+styleMod$4.appendChild(html `
+  <template>
+    <style>
+.tab-organization-body{color:var(--color-secondary-foreground);font-size:13px;font-weight:400;line-height:20px}.tab-organization-container{display:flex;flex-direction:column;gap:16px;width:100%}.tab-organization-header{color:var(--cr-primary-text-color);font-size:14px;font-weight:500}.tab-organization-link{color:var(--color-link-foreground-on-bubble-footer);cursor:pointer;display:inline-block;font-size:13px;font-weight:400;outline-color:var(--color-button-foreground);outline-offset:2px;text-decoration:underline;width:fit-content}.tab-organization-text-container{display:flex;flex-direction:column;gap:8px}@keyframes displayOut{0%{height:auto;visibility:visible;position:relative}50%{visibility:visible}100%{height:0;visibility:hidden;position:absolute}}@keyframes displayIn{0%{height:0;visibility:hidden;position:absolute}50%{visibility:hidden}100%{height:auto;visibility:visible;position:relative}}@keyframes fadeOut{0%{opacity:1}100%{opacity:0}}@keyframes fadeIn{0%{opacity:0}100%{opacity:1}}@keyframes marginOut{0%{margin-top:0}100%{margin-top:-16px}}@keyframes paddingIn{0%{padding-top:16px}100%{padding-top:0}}
+    </style>
+  </template>
+`.content);
+styleMod$4.register('tab-organization-shared-style');
+
+function getTemplate$g() {
+    return html `<!--_html_template_start_--><style include="tab-organization-shared-style">.footer{background-color:var(--color-bubble-footer-background);display:flex;flex-direction:column;margin:0 -20px;padding:16px var(--mwb-list-item-horizontal-margin)}.tab-organization-body{width:280px}</style>
+
+<div class="tab-organization-container">
+  <div class="tab-organization-text-container">
+    <div class="tab-organization-header">[[getTitle_(error)]]</div>
+    <div class="tab-organization-body">
+      [[getBodyPreLink_(error)]]
+      <div class="tab-organization-link" role="link" tabindex="0" on-click="onCheckNow_" on-keydown="onCheckNowKeyDown_">
+        [[getBodyLink_(error)]]
+      </div>
+      [[getBodyPostLink_(error)]]
+    </div>
+  </div>
+  <template is="dom-if" if="[[showFre]]">
+    <div class="footer">
+      <div class="tab-organization-body">
+        <b>$i18n{tipTitle}</b> $i18n{tipBody}
+        <div class="tab-organization-link" role="link" tabindex="0" on-click="onTipClick_" on-keydown="onTipKeyDown_" aria-description="$i18n{tipAriaDescription}">
+          $i18n{tipAction}
+        </div>
+      </div>
+    </div>
+  </template>
+</div>
+<!--_html_template_end_-->`;
+}
+
+// components/tab_groups/public/mojom/tab_group_types.mojom-webui.ts is auto generated by mojom_bindings_generator.py, do not edit
+// Copyright 2020 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+const ColorSpec = { $: mojo.internal.Enum() };
+var Color;
+(function (Color) {
+    Color[Color["MIN_VALUE"] = 0] = "MIN_VALUE";
+    Color[Color["MAX_VALUE"] = 8] = "MAX_VALUE";
+    Color[Color["kGrey"] = 0] = "kGrey";
+    Color[Color["kBlue"] = 1] = "kBlue";
+    Color[Color["kRed"] = 2] = "kRed";
+    Color[Color["kYellow"] = 3] = "kYellow";
+    Color[Color["kGreen"] = 4] = "kGreen";
+    Color[Color["kPink"] = 5] = "kPink";
+    Color[Color["kPurple"] = 6] = "kPurple";
+    Color[Color["kCyan"] = 7] = "kCyan";
+    Color[Color["kOrange"] = 8] = "kOrange";
+})(Color || (Color = {}));
+
+// chrome/browser/ui/webui/tabs/tabs.mojom-webui.ts is auto generated by mojom_bindings_generator.py, do not edit
+// Copyright 2020 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+const TabAlertStateSpec = { $: mojo.internal.Enum() };
+var TabAlertState;
+(function (TabAlertState) {
+    TabAlertState[TabAlertState["MIN_VALUE"] = 0] = "MIN_VALUE";
+    TabAlertState[TabAlertState["MAX_VALUE"] = 12] = "MAX_VALUE";
+    TabAlertState[TabAlertState["kAudioMuting"] = 0] = "kAudioMuting";
+    TabAlertState[TabAlertState["kAudioRecording"] = 1] = "kAudioRecording";
+    TabAlertState[TabAlertState["kAudioPlaying"] = 2] = "kAudioPlaying";
+    TabAlertState[TabAlertState["kBluetoothConnected"] = 3] = "kBluetoothConnected";
+    TabAlertState[TabAlertState["kDesktopCapturing"] = 4] = "kDesktopCapturing";
+    TabAlertState[TabAlertState["kHidConnected"] = 5] = "kHidConnected";
+    TabAlertState[TabAlertState["kMediaRecording"] = 6] = "kMediaRecording";
+    TabAlertState[TabAlertState["kPipPlaying"] = 7] = "kPipPlaying";
+    TabAlertState[TabAlertState["kSerialConnected"] = 8] = "kSerialConnected";
+    TabAlertState[TabAlertState["kTabCapturing"] = 9] = "kTabCapturing";
+    TabAlertState[TabAlertState["kUsbConnected"] = 10] = "kUsbConnected";
+    TabAlertState[TabAlertState["kVideoRecording"] = 11] = "kVideoRecording";
+    TabAlertState[TabAlertState["kVrPresentingInHeadset"] = 12] = "kVrPresentingInHeadset";
+})(TabAlertState || (TabAlertState = {}));
+
+// mojom-webui/mojo/public/mojom/base/big_buffer.mojom-webui.js is auto generated by mojom_bindings_generator.py, do not edit
+// Copyright 2020 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ */
+const BigBufferSharedMemoryRegionSpec = { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+/**
+ * @const { {$:!mojo.internal.MojomType} }
+ */
+const BigBufferSpec = { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+mojo.internal.Struct(BigBufferSharedMemoryRegionSpec.$, 'BigBufferSharedMemoryRegion', [
+    mojo.internal.StructField('bufferHandle', 0, 0, mojo.internal.Handle, null, false /* nullable */, 0),
+    mojo.internal.StructField('size', 4, 0, mojo.internal.Uint32, 0, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Union(BigBufferSpec.$, 'BigBuffer', {
+    'bytes': {
+        'ordinal': 0,
+        'type': mojo.internal.Array(mojo.internal.Uint8, false),
+    },
+    'sharedMemory': {
+        'ordinal': 1,
+        'type': BigBufferSharedMemoryRegionSpec.$,
+    },
+    'invalidBuffer': {
+        'ordinal': 2,
+        'type': mojo.internal.Bool,
+    },
+});
+
+// mojom-webui/mojo/public/mojom/base/string16.mojom-webui.js is auto generated by mojom_bindings_generator.py, do not edit
+// Copyright 2020 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ */
+const String16Spec = { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ */
+const BigString16Spec = { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+mojo.internal.Struct(String16Spec.$, 'String16', [
+    mojo.internal.StructField('data', 0, 0, mojo.internal.Array(mojo.internal.Uint16, false), null, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(BigString16Spec.$, 'BigString16', [
+    mojo.internal.StructField('data', 0, 0, BigBufferSpec.$, null, false /* nullable */, 0),
+], [[0, 24],]);
+
+// chrome/browser/ui/webui/tab_search/tab_search.mojom-webui.ts is auto generated by mojom_bindings_generator.py, do not edit
+// Copyright 2020 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+const TabOrganizationStateSpec = { $: mojo.internal.Enum() };
+var TabOrganizationState;
+(function (TabOrganizationState) {
+    TabOrganizationState[TabOrganizationState["MIN_VALUE"] = 0] = "MIN_VALUE";
+    TabOrganizationState[TabOrganizationState["MAX_VALUE"] = 3] = "MAX_VALUE";
+    TabOrganizationState[TabOrganizationState["kNotStarted"] = 0] = "kNotStarted";
+    TabOrganizationState[TabOrganizationState["kInProgress"] = 1] = "kInProgress";
+    TabOrganizationState[TabOrganizationState["kSuccess"] = 2] = "kSuccess";
+    TabOrganizationState[TabOrganizationState["kFailure"] = 3] = "kFailure";
+})(TabOrganizationState || (TabOrganizationState = {}));
+const TabOrganizationErrorSpec = { $: mojo.internal.Enum() };
+var TabOrganizationError;
+(function (TabOrganizationError) {
+    TabOrganizationError[TabOrganizationError["MIN_VALUE"] = 0] = "MIN_VALUE";
+    TabOrganizationError[TabOrganizationError["MAX_VALUE"] = 2] = "MAX_VALUE";
+    TabOrganizationError[TabOrganizationError["kNone"] = 0] = "kNone";
+    TabOrganizationError[TabOrganizationError["kGrouping"] = 1] = "kGrouping";
+    TabOrganizationError[TabOrganizationError["kGeneric"] = 2] = "kGeneric";
+})(TabOrganizationError || (TabOrganizationError = {}));
+const UserFeedbackSpec = { $: mojo.internal.Enum() };
+var UserFeedback;
+(function (UserFeedback) {
+    UserFeedback[UserFeedback["MIN_VALUE"] = 0] = "MIN_VALUE";
+    UserFeedback[UserFeedback["MAX_VALUE"] = 2] = "MAX_VALUE";
+    UserFeedback[UserFeedback["kUserFeedBackUnspecified"] = 0] = "kUserFeedBackUnspecified";
+    UserFeedback[UserFeedback["kUserFeedBackPositive"] = 1] = "kUserFeedBackPositive";
+    UserFeedback[UserFeedback["kUserFeedBackNegative"] = 2] = "kUserFeedBackNegative";
+})(UserFeedback || (UserFeedback = {}));
+class PageHandlerFactoryPendingReceiver {
+    constructor(handle) {
+        this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
+    }
+    bindInBrowser(scope = 'context') {
+        mojo.internal.interfaceSupport.bind(this.handle, 'tab_search.mojom.PageHandlerFactory', scope);
+    }
+}
+class PageHandlerFactoryRemote {
+    constructor(handle) {
+        this.proxy =
+            new mojo.internal.interfaceSupport.InterfaceRemoteBase(PageHandlerFactoryPendingReceiver, handle);
+        this.$ = new mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper(this.proxy);
+        this.onConnectionError = this.proxy.getConnectionErrorEventRouter();
+    }
+    createPageHandler(page, handler) {
+        this.proxy.sendMessage(0, PageHandlerFactory_CreatePageHandler_ParamsSpec.$, null, [
+            page,
+            handler
+        ]);
+    }
+}
+class PageHandlerFactory {
+    static get $interfaceName() {
+        return "tab_search.mojom.PageHandlerFactory";
+    }
+    /**
+     * Returns a remote for this interface which sends messages to the browser.
+     * The browser must have an interface request binder registered for this
+     * interface and accessible to the calling document's frame.
+     */
+    static getRemote() {
+        let remote = new PageHandlerFactoryRemote;
+        remote.$.bindNewPipeAndPassReceiver().bindInBrowser();
+        return remote;
+    }
+}
+let PageHandlerPendingReceiver$1 = class PageHandlerPendingReceiver {
+    constructor(handle) {
+        this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
+    }
+    bindInBrowser(scope = 'context') {
+        mojo.internal.interfaceSupport.bind(this.handle, 'tab_search.mojom.PageHandler', scope);
+    }
+};
+let PageHandlerRemote$1 = class PageHandlerRemote {
+    constructor(handle) {
+        this.proxy =
+            new mojo.internal.interfaceSupport.InterfaceRemoteBase(PageHandlerPendingReceiver$1, handle);
+        this.$ = new mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper(this.proxy);
+        this.onConnectionError = this.proxy.getConnectionErrorEventRouter();
+    }
+    closeTab(tabId) {
+        this.proxy.sendMessage(0, PageHandler_CloseTab_ParamsSpec.$, null, [
+            tabId
+        ]);
+    }
+    acceptTabOrganization(sessionId, organizationId, name, tabs) {
+        this.proxy.sendMessage(1, PageHandler_AcceptTabOrganization_ParamsSpec.$, null, [
+            sessionId,
+            organizationId,
+            name,
+            tabs
+        ]);
+    }
+    rejectTabOrganization(sessionId, organizationId) {
+        this.proxy.sendMessage(2, PageHandler_RejectTabOrganization_ParamsSpec.$, null, [
+            sessionId,
+            organizationId
+        ]);
+    }
+    getProfileData() {
+        return this.proxy.sendMessage(3, PageHandler_GetProfileData_ParamsSpec.$, PageHandler_GetProfileData_ResponseParamsSpec.$, []);
+    }
+    getTabOrganizationSession() {
+        return this.proxy.sendMessage(4, PageHandler_GetTabOrganizationSession_ParamsSpec.$, PageHandler_GetTabOrganizationSession_ResponseParamsSpec.$, []);
+    }
+    switchToTab(switchToTabInfo) {
+        this.proxy.sendMessage(5, PageHandler_SwitchToTab_ParamsSpec.$, null, [
+            switchToTabInfo
+        ]);
+    }
+    openRecentlyClosedEntry(sessionId) {
+        this.proxy.sendMessage(6, PageHandler_OpenRecentlyClosedEntry_ParamsSpec.$, null, [
+            sessionId
+        ]);
+    }
+    requestTabOrganization() {
+        this.proxy.sendMessage(7, PageHandler_RequestTabOrganization_ParamsSpec.$, null, []);
+    }
+    removeTabFromOrganization(sessionId, organizationId, tab) {
+        this.proxy.sendMessage(8, PageHandler_RemoveTabFromOrganization_ParamsSpec.$, null, [
+            sessionId,
+            organizationId,
+            tab
+        ]);
+    }
+    resetSession() {
+        this.proxy.sendMessage(9, PageHandler_ResetSession_ParamsSpec.$, null, []);
+    }
+    saveRecentlyClosedExpandedPref(expanded) {
+        this.proxy.sendMessage(10, PageHandler_SaveRecentlyClosedExpandedPref_ParamsSpec.$, null, [
+            expanded
+        ]);
+    }
+    setTabIndex(index) {
+        this.proxy.sendMessage(11, PageHandler_SetTabIndex_ParamsSpec.$, null, [
+            index
+        ]);
+    }
+    startTabGroupTutorial() {
+        this.proxy.sendMessage(12, PageHandler_StartTabGroupTutorial_ParamsSpec.$, null, []);
+    }
+    triggerFeedback(sessionId) {
+        this.proxy.sendMessage(13, PageHandler_TriggerFeedback_ParamsSpec.$, null, [
+            sessionId
+        ]);
+    }
+    triggerSync() {
+        this.proxy.sendMessage(14, PageHandler_TriggerSync_ParamsSpec.$, null, []);
+    }
+    triggerSignIn() {
+        this.proxy.sendMessage(15, PageHandler_TriggerSignIn_ParamsSpec.$, null, []);
+    }
+    openHelpPage() {
+        this.proxy.sendMessage(16, PageHandler_OpenHelpPage_ParamsSpec.$, null, []);
+    }
+    openSyncSettings() {
+        this.proxy.sendMessage(17, PageHandler_OpenSyncSettings_ParamsSpec.$, null, []);
+    }
+    setUserFeedback(sessionId, organizationId, feedback) {
+        this.proxy.sendMessage(18, PageHandler_SetUserFeedback_ParamsSpec.$, null, [
+            sessionId,
+            organizationId,
+            feedback
+        ]);
+    }
+    showUI() {
+        this.proxy.sendMessage(19, PageHandler_ShowUI_ParamsSpec.$, null, []);
+    }
+};
+let PagePendingReceiver$1 = class PagePendingReceiver {
+    constructor(handle) {
+        this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
+    }
+    bindInBrowser(scope = 'context') {
+        mojo.internal.interfaceSupport.bind(this.handle, 'tab_search.mojom.Page', scope);
+    }
+};
+let PageRemote$1 = class PageRemote {
+    constructor(handle) {
+        this.proxy =
+            new mojo.internal.interfaceSupport.InterfaceRemoteBase(PagePendingReceiver$1, handle);
+        this.$ = new mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper(this.proxy);
+        this.onConnectionError = this.proxy.getConnectionErrorEventRouter();
+    }
+    tabOrganizationSessionUpdated(session) {
+        this.proxy.sendMessage(0, Page_TabOrganizationSessionUpdated_ParamsSpec.$, null, [
+            session
+        ]);
+    }
+    tabsChanged(profileTabs) {
+        this.proxy.sendMessage(1, Page_TabsChanged_ParamsSpec.$, null, [
+            profileTabs
+        ]);
+    }
+    tabUpdated(tabUpdateInfo) {
+        this.proxy.sendMessage(2, Page_TabUpdated_ParamsSpec.$, null, [
+            tabUpdateInfo
+        ]);
+    }
+    tabsRemoved(tabsRemovedInfo) {
+        this.proxy.sendMessage(3, Page_TabsRemoved_ParamsSpec.$, null, [
+            tabsRemovedInfo
+        ]);
+    }
+};
+/**
+ * An object which receives request messages for the Page
+ * mojom interface and dispatches them as callbacks. One callback receiver exists
+ * on this object for each message defined in the mojom interface, and each
+ * receiver can have any number of listeners added to it.
+ */
+let PageCallbackRouter$1 = class PageCallbackRouter {
+    constructor() {
+        this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(PageRemote$1);
+        this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
+        this.router_ = new mojo.internal.interfaceSupport.CallbackRouter;
+        this.tabOrganizationSessionUpdated =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(0, Page_TabOrganizationSessionUpdated_ParamsSpec.$, null, this.tabOrganizationSessionUpdated.createReceiverHandler(false /* expectsResponse */));
+        this.tabsChanged =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(1, Page_TabsChanged_ParamsSpec.$, null, this.tabsChanged.createReceiverHandler(false /* expectsResponse */));
+        this.tabUpdated =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(2, Page_TabUpdated_ParamsSpec.$, null, this.tabUpdated.createReceiverHandler(false /* expectsResponse */));
+        this.tabsRemoved =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(3, Page_TabsRemoved_ParamsSpec.$, null, this.tabsRemoved.createReceiverHandler(false /* expectsResponse */));
+        this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
+    }
+    /**
+     * @param id An ID returned by a prior call to addListener.
+     * @return True iff the identified listener was found and removed.
+     */
+    removeListener(id) {
+        return this.router_.removeListener(id);
+    }
+};
+const ProfileDataSpec = { $: {} };
+const WindowSpec = { $: {} };
+const TabSpec = { $: {} };
+const RecentlyClosedTabSpec = { $: {} };
+const TabGroupSpec = { $: {} };
+const RecentlyClosedTabGroupSpec = { $: {} };
+const SwitchToTabInfoSpec = { $: {} };
+const TabOrganizationSpec = { $: {} };
+const TabOrganizationSessionSpec = { $: {} };
+const TabUpdateInfoSpec = { $: {} };
+const TabsRemovedInfoSpec = { $: {} };
+const PageHandlerFactory_CreatePageHandler_ParamsSpec = { $: {} };
+const PageHandler_CloseTab_ParamsSpec = { $: {} };
+const PageHandler_AcceptTabOrganization_ParamsSpec = { $: {} };
+const PageHandler_RejectTabOrganization_ParamsSpec = { $: {} };
+const PageHandler_GetProfileData_ParamsSpec = { $: {} };
+const PageHandler_GetProfileData_ResponseParamsSpec = { $: {} };
+const PageHandler_GetTabOrganizationSession_ParamsSpec = { $: {} };
+const PageHandler_GetTabOrganizationSession_ResponseParamsSpec = { $: {} };
+const PageHandler_SwitchToTab_ParamsSpec = { $: {} };
+const PageHandler_OpenRecentlyClosedEntry_ParamsSpec = { $: {} };
+const PageHandler_RequestTabOrganization_ParamsSpec = { $: {} };
+const PageHandler_RemoveTabFromOrganization_ParamsSpec = { $: {} };
+const PageHandler_ResetSession_ParamsSpec = { $: {} };
+const PageHandler_SaveRecentlyClosedExpandedPref_ParamsSpec = { $: {} };
+const PageHandler_SetTabIndex_ParamsSpec = { $: {} };
+const PageHandler_StartTabGroupTutorial_ParamsSpec = { $: {} };
+const PageHandler_TriggerFeedback_ParamsSpec = { $: {} };
+const PageHandler_TriggerSync_ParamsSpec = { $: {} };
+const PageHandler_TriggerSignIn_ParamsSpec = { $: {} };
+const PageHandler_OpenHelpPage_ParamsSpec = { $: {} };
+const PageHandler_OpenSyncSettings_ParamsSpec = { $: {} };
+const PageHandler_SetUserFeedback_ParamsSpec = { $: {} };
+const PageHandler_ShowUI_ParamsSpec = { $: {} };
+const Page_TabOrganizationSessionUpdated_ParamsSpec = { $: {} };
+const Page_TabsChanged_ParamsSpec = { $: {} };
+const Page_TabUpdated_ParamsSpec = { $: {} };
+const Page_TabsRemoved_ParamsSpec = { $: {} };
+mojo.internal.Struct(ProfileDataSpec.$, 'ProfileData', [
+    mojo.internal.StructField('windows', 0, 0, mojo.internal.Array(WindowSpec.$, false), null, false /* nullable */, 0),
+    mojo.internal.StructField('tabGroups', 8, 0, mojo.internal.Array(TabGroupSpec.$, false), null, false /* nullable */, 0),
+    mojo.internal.StructField('recentlyClosedTabs', 16, 0, mojo.internal.Array(RecentlyClosedTabSpec.$, false), null, false /* nullable */, 0),
+    mojo.internal.StructField('recentlyClosedTabGroups', 24, 0, mojo.internal.Array(RecentlyClosedTabGroupSpec.$, false), null, false /* nullable */, 0),
+    mojo.internal.StructField('recentlyClosedSectionExpanded', 32, 0, mojo.internal.Bool, false, false /* nullable */, 0),
+], [[0, 48],]);
+mojo.internal.Struct(WindowSpec.$, 'Window', [
+    mojo.internal.StructField('active', 0, 0, mojo.internal.Bool, false, false /* nullable */, 0),
+    mojo.internal.StructField('height', 4, 0, mojo.internal.Uint32, 0, false /* nullable */, 0),
+    mojo.internal.StructField('tabs', 8, 0, mojo.internal.Array(TabSpec.$, false), null, false /* nullable */, 0),
+], [[0, 24],]);
+mojo.internal.Struct(TabSpec.$, 'Tab', [
+    mojo.internal.StructField('active', 0, 0, mojo.internal.Bool, false, false /* nullable */, 0),
+    mojo.internal.StructField('alertStates', 8, 0, mojo.internal.Array(TabAlertStateSpec.$, false), null, false /* nullable */, 0),
+    mojo.internal.StructField('index', 4, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
+    mojo.internal.StructField('tabId', 16, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
+    mojo.internal.StructField('groupId', 24, 0, TokenSpec.$, null, true /* nullable */, 0),
+    mojo.internal.StructField('pinned', 0, 1, mojo.internal.Bool, false, false /* nullable */, 0),
+    mojo.internal.StructField('title', 32, 0, mojo.internal.String, null, false /* nullable */, 0),
+    mojo.internal.StructField('url', 40, 0, UrlSpec.$, null, false /* nullable */, 0),
+    mojo.internal.StructField('faviconUrl', 48, 0, UrlSpec.$, null, true /* nullable */, 0),
+    mojo.internal.StructField('isDefaultFavicon', 0, 2, mojo.internal.Bool, false, false /* nullable */, 0),
+    mojo.internal.StructField('showIcon', 0, 3, mojo.internal.Bool, false, false /* nullable */, 0),
+    mojo.internal.StructField('lastActiveTimeTicks', 56, 0, TimeTicksSpec.$, null, false /* nullable */, 0),
+    mojo.internal.StructField('lastActiveElapsedText', 64, 0, mojo.internal.String, null, false /* nullable */, 0),
+], [[0, 80],]);
+mojo.internal.Struct(RecentlyClosedTabSpec.$, 'RecentlyClosedTab', [
+    mojo.internal.StructField('tabId', 0, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
+    mojo.internal.StructField('groupId', 8, 0, TokenSpec.$, null, true /* nullable */, 0),
+    mojo.internal.StructField('title', 16, 0, mojo.internal.String, null, false /* nullable */, 0),
+    mojo.internal.StructField('url', 24, 0, UrlSpec.$, null, false /* nullable */, 0),
+    mojo.internal.StructField('lastActiveTime', 32, 0, TimeSpec.$, null, false /* nullable */, 0),
+    mojo.internal.StructField('lastActiveElapsedText', 40, 0, mojo.internal.String, null, false /* nullable */, 0),
+], [[0, 56],]);
+mojo.internal.Struct(TabGroupSpec.$, 'TabGroup', [
+    mojo.internal.StructField('id', 0, 0, TokenSpec.$, null, false /* nullable */, 0),
+    mojo.internal.StructField('color', 8, 0, ColorSpec.$, 0, false /* nullable */, 0),
+    mojo.internal.StructField('title', 16, 0, mojo.internal.String, null, false /* nullable */, 0),
+], [[0, 32],]);
+mojo.internal.Struct(RecentlyClosedTabGroupSpec.$, 'RecentlyClosedTabGroup', [
+    mojo.internal.StructField('sessionId', 0, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
+    mojo.internal.StructField('id', 8, 0, TokenSpec.$, null, false /* nullable */, 0),
+    mojo.internal.StructField('color', 4, 0, ColorSpec.$, 0, false /* nullable */, 0),
+    mojo.internal.StructField('title', 16, 0, mojo.internal.String, null, false /* nullable */, 0),
+    mojo.internal.StructField('tabCount', 24, 0, mojo.internal.Uint32, 0, false /* nullable */, 0),
+    mojo.internal.StructField('lastActiveTime', 32, 0, TimeSpec.$, null, false /* nullable */, 0),
+    mojo.internal.StructField('lastActiveElapsedText', 40, 0, mojo.internal.String, null, false /* nullable */, 0),
+], [[0, 56],]);
+mojo.internal.Struct(SwitchToTabInfoSpec.$, 'SwitchToTabInfo', [
+    mojo.internal.StructField('tabId', 0, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(TabOrganizationSpec.$, 'TabOrganization', [
+    mojo.internal.StructField('organizationId', 0, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
+    mojo.internal.StructField('tabs', 8, 0, mojo.internal.Array(TabSpec.$, false), null, false /* nullable */, 0),
+    mojo.internal.StructField('name', 16, 0, String16Spec.$, null, false /* nullable */, 0),
+], [[0, 32],]);
+mojo.internal.Struct(TabOrganizationSessionSpec.$, 'TabOrganizationSession', [
+    mojo.internal.StructField('sessionId', 0, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
+    mojo.internal.StructField('state', 4, 0, TabOrganizationStateSpec.$, 0, false /* nullable */, 0),
+    mojo.internal.StructField('organizations', 8, 0, mojo.internal.Array(TabOrganizationSpec.$, false), null, false /* nullable */, 0),
+    mojo.internal.StructField('error', 16, 0, TabOrganizationErrorSpec.$, 0, false /* nullable */, 0),
+], [[0, 32],]);
+mojo.internal.Struct(TabUpdateInfoSpec.$, 'TabUpdateInfo', [
+    mojo.internal.StructField('inActiveWindow', 0, 0, mojo.internal.Bool, false, false /* nullable */, 0),
+    mojo.internal.StructField('tab', 8, 0, TabSpec.$, null, false /* nullable */, 0),
+], [[0, 24],]);
+mojo.internal.Struct(TabsRemovedInfoSpec.$, 'TabsRemovedInfo', [
+    mojo.internal.StructField('tabIds', 0, 0, mojo.internal.Array(mojo.internal.Int32, false), null, false /* nullable */, 0),
+    mojo.internal.StructField('recentlyClosedTabs', 8, 0, mojo.internal.Array(RecentlyClosedTabSpec.$, false), null, false /* nullable */, 0),
+], [[0, 24],]);
+mojo.internal.Struct(PageHandlerFactory_CreatePageHandler_ParamsSpec.$, 'PageHandlerFactory_CreatePageHandler_Params', [
+    mojo.internal.StructField('page', 0, 0, mojo.internal.InterfaceProxy(PageRemote$1), null, false /* nullable */, 0),
+    mojo.internal.StructField('handler', 8, 0, mojo.internal.InterfaceRequest(PageHandlerPendingReceiver$1), null, false /* nullable */, 0),
+], [[0, 24],]);
+mojo.internal.Struct(PageHandler_CloseTab_ParamsSpec.$, 'PageHandler_CloseTab_Params', [
+    mojo.internal.StructField('tabId', 0, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(PageHandler_AcceptTabOrganization_ParamsSpec.$, 'PageHandler_AcceptTabOrganization_Params', [
+    mojo.internal.StructField('sessionId', 0, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
+    mojo.internal.StructField('organizationId', 4, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
+    mojo.internal.StructField('name', 8, 0, String16Spec.$, null, false /* nullable */, 0),
+    mojo.internal.StructField('tabs', 16, 0, mojo.internal.Array(TabSpec.$, false), null, false /* nullable */, 0),
+], [[0, 32],]);
+mojo.internal.Struct(PageHandler_RejectTabOrganization_ParamsSpec.$, 'PageHandler_RejectTabOrganization_Params', [
+    mojo.internal.StructField('sessionId', 0, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
+    mojo.internal.StructField('organizationId', 4, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(PageHandler_GetProfileData_ParamsSpec.$, 'PageHandler_GetProfileData_Params', [], [[0, 8],]);
+mojo.internal.Struct(PageHandler_GetProfileData_ResponseParamsSpec.$, 'PageHandler_GetProfileData_ResponseParams', [
+    mojo.internal.StructField('profileData', 0, 0, ProfileDataSpec.$, null, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(PageHandler_GetTabOrganizationSession_ParamsSpec.$, 'PageHandler_GetTabOrganizationSession_Params', [], [[0, 8],]);
+mojo.internal.Struct(PageHandler_GetTabOrganizationSession_ResponseParamsSpec.$, 'PageHandler_GetTabOrganizationSession_ResponseParams', [
+    mojo.internal.StructField('session', 0, 0, TabOrganizationSessionSpec.$, null, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(PageHandler_SwitchToTab_ParamsSpec.$, 'PageHandler_SwitchToTab_Params', [
+    mojo.internal.StructField('switchToTabInfo', 0, 0, SwitchToTabInfoSpec.$, null, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(PageHandler_OpenRecentlyClosedEntry_ParamsSpec.$, 'PageHandler_OpenRecentlyClosedEntry_Params', [
+    mojo.internal.StructField('sessionId', 0, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(PageHandler_RequestTabOrganization_ParamsSpec.$, 'PageHandler_RequestTabOrganization_Params', [], [[0, 8],]);
+mojo.internal.Struct(PageHandler_RemoveTabFromOrganization_ParamsSpec.$, 'PageHandler_RemoveTabFromOrganization_Params', [
+    mojo.internal.StructField('sessionId', 0, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
+    mojo.internal.StructField('organizationId', 4, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
+    mojo.internal.StructField('tab', 8, 0, TabSpec.$, null, false /* nullable */, 0),
+], [[0, 24],]);
+mojo.internal.Struct(PageHandler_ResetSession_ParamsSpec.$, 'PageHandler_ResetSession_Params', [], [[0, 8],]);
+mojo.internal.Struct(PageHandler_SaveRecentlyClosedExpandedPref_ParamsSpec.$, 'PageHandler_SaveRecentlyClosedExpandedPref_Params', [
+    mojo.internal.StructField('expanded', 0, 0, mojo.internal.Bool, false, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(PageHandler_SetTabIndex_ParamsSpec.$, 'PageHandler_SetTabIndex_Params', [
+    mojo.internal.StructField('index', 0, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(PageHandler_StartTabGroupTutorial_ParamsSpec.$, 'PageHandler_StartTabGroupTutorial_Params', [], [[0, 8],]);
+mojo.internal.Struct(PageHandler_TriggerFeedback_ParamsSpec.$, 'PageHandler_TriggerFeedback_Params', [
+    mojo.internal.StructField('sessionId', 0, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(PageHandler_TriggerSync_ParamsSpec.$, 'PageHandler_TriggerSync_Params', [], [[0, 8],]);
+mojo.internal.Struct(PageHandler_TriggerSignIn_ParamsSpec.$, 'PageHandler_TriggerSignIn_Params', [], [[0, 8],]);
+mojo.internal.Struct(PageHandler_OpenHelpPage_ParamsSpec.$, 'PageHandler_OpenHelpPage_Params', [], [[0, 8],]);
+mojo.internal.Struct(PageHandler_OpenSyncSettings_ParamsSpec.$, 'PageHandler_OpenSyncSettings_Params', [], [[0, 8],]);
+mojo.internal.Struct(PageHandler_SetUserFeedback_ParamsSpec.$, 'PageHandler_SetUserFeedback_Params', [
+    mojo.internal.StructField('sessionId', 0, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
+    mojo.internal.StructField('organizationId', 4, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
+    mojo.internal.StructField('feedback', 8, 0, UserFeedbackSpec.$, 0, false /* nullable */, 0),
+], [[0, 24],]);
+mojo.internal.Struct(PageHandler_ShowUI_ParamsSpec.$, 'PageHandler_ShowUI_Params', [], [[0, 8],]);
+mojo.internal.Struct(Page_TabOrganizationSessionUpdated_ParamsSpec.$, 'Page_TabOrganizationSessionUpdated_Params', [
+    mojo.internal.StructField('session', 0, 0, TabOrganizationSessionSpec.$, null, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(Page_TabsChanged_ParamsSpec.$, 'Page_TabsChanged_Params', [
+    mojo.internal.StructField('profileTabs', 0, 0, ProfileDataSpec.$, null, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(Page_TabUpdated_ParamsSpec.$, 'Page_TabUpdated_Params', [
+    mojo.internal.StructField('tabUpdateInfo', 0, 0, TabUpdateInfoSpec.$, null, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(Page_TabsRemoved_ParamsSpec.$, 'Page_TabsRemoved_Params', [
+    mojo.internal.StructField('tabsRemovedInfo', 0, 0, TabsRemovedInfoSpec.$, null, false /* nullable */, 0),
+], [[0, 16],]);
+
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+// Failure state for the tab organization UI.
+class TabOrganizationFailureElement extends PolymerElement {
+    constructor() {
+        super(...arguments);
+        this.error = TabOrganizationError.kNone;
+    }
+    static get is() {
+        return 'tab-organization-failure';
+    }
+    static get properties() {
+        return {
+            error: Object,
+            showFre: Boolean,
+        };
+    }
+    static get template() {
+        return getTemplate$g();
+    }
+    getTitle_() {
+        switch (this.error) {
+            case TabOrganizationError.kGrouping:
+                return loadTimeData.getString('failureTitleGrouping');
+            case TabOrganizationError.kGeneric:
+                return loadTimeData.getString('failureTitleGeneric');
+            default:
+                return '';
+        }
+    }
+    getBodyPreLink_() {
+        switch (this.error) {
+            case TabOrganizationError.kGrouping:
+                return loadTimeData.getString('failureBodyGroupingPreLink');
+            case TabOrganizationError.kGeneric:
+                return loadTimeData.getString('failureBodyGenericPreLink');
+            default:
+                return '';
+        }
+    }
+    getBodyLink_() {
+        switch (this.error) {
+            case TabOrganizationError.kGrouping:
+                return loadTimeData.getString('failureBodyGroupingLink');
+            case TabOrganizationError.kGeneric:
+                return loadTimeData.getString('failureBodyGenericLink');
+            default:
+                return '';
+        }
+    }
+    getBodyPostLink_() {
+        switch (this.error) {
+            case TabOrganizationError.kGrouping:
+                return loadTimeData.getString('failureBodyGroupingPostLink');
+            case TabOrganizationError.kGeneric:
+                return loadTimeData.getString('failureBodyGenericPostLink');
+            default:
+                return '';
+        }
+    }
+    onCheckNow_() {
+        this.dispatchEvent(new CustomEvent('check-now', {
+            bubbles: true,
+            composed: true,
+        }));
+    }
+    onCheckNowKeyDown_(event) {
+        if (event.key === 'Enter') {
+            this.onCheckNow_();
+        }
+    }
+    onTipClick_() {
+        this.dispatchEvent(new CustomEvent('tip-click', {
+            bubbles: true,
+            composed: true,
+        }));
+    }
+    onTipKeyDown_(event) {
+        if (event.key === 'Enter') {
+            this.onTipClick_();
+        }
+    }
+}
+customElements.define(TabOrganizationFailureElement.is, TabOrganizationFailureElement);
+
+// Copyright 2022 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * Verify |value| is truthy.
+ * @param value A value to check for truthiness. Note that this
+ *     may be used to test whether |value| is defined or not, and we don't want
+ *     to force a cast to boolean.
+ */
+function assert(value, message) {
+    if (value) {
+        return;
+    }
+    throw new Error('Assertion failed' + (message ? `: ${message}` : ''));
+}
+/**
+ * Call this from places in the code that should never be reached.
+ *
+ * For example, handling all the values of enum with a switch() like this:
+ *
+ *   function getValueFromEnum(enum) {
+ *     switch (enum) {
+ *       case ENUM_FIRST_OF_TWO:
+ *         return first
+ *       case ENUM_LAST_OF_TWO:
+ *         return last;
+ *     }
+ *     assertNotReached();
+ *   }
+ *
+ * This code should only be hit in the case of serious programmer error or
+ * unexpected input.
+ */
+function assertNotReached(message = 'Unreachable code hit') {
+    assert(false, message);
+}
+
+function getTemplate$f() {
+    return html `<!--_html_template_start_--><style>:host{--cr-loading-gradient-color-start:transparent;--cr-loading-gradient-color-middle:rgb(211, 227, 253);--cr-loading-gradient-color-end:rgb(231, 248, 237);display:flex;width:100%;height:fit-content;position:relative}@media (prefers-color-scheme:dark){:host{--cr-loading-gradient-color-middle:rgb(8, 66, 160);--cr-loading-gradient-color-end:rgb(15, 82, 35)}}:host-context([chrome-refresh-2023]):host{--cr-loading-gradient-color-start:var(--color-loading-gradient-start,
+        transparent);--cr-loading-gradient-color-middle:var(--color-loading-gradient-middle,
+        var(--cr-fallback-color-primary-container));--cr-loading-gradient-color-end:var(--color-loading-gradient-end,
+        rgb(231, 248, 237))}@media (prefers-color-scheme:dark){:host-context([chrome-refresh-2023]):host{--cr-loading-gradient-color-end:var(--color-loading-gradient-end,
+          rgb(15, 82, 35))}}#gradient{position:absolute;inset:0;background:linear-gradient(135deg,var(--cr-loading-gradient-color-start) 0,var(--cr-loading-gradient-color-middle) 20%,var(--cr-loading-gradient-color-end) 40%,var(--cr-loading-gradient-color-start) 60%,var(--cr-loading-gradient-color-middle) 80%,var(--cr-loading-gradient-color-end) 100%);background-position:100% 100%;background-size:250% 250%;animation:gradient 2s infinite linear}@keyframes gradient{0%{background-position:100% 100%}100%{background-position:0 0}}</style>
+<div id="gradient"></div>
+<slot on-slotchange="onSlotchange_"></slot>
+<!--_html_template_end_-->`;
+}
+
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/* Count of cr-loading-gradient elements created. Used to assign unique IDs.
+ * Unique IDs are necessary since clipPaths are slotted in from the light DOM,
+ * so there can be leakages across multiple <cr-loading-gradient> instances. */
+let count = 0;
+class CrLoadingGradientElement extends PolymerElement {
+    static get is() {
+        return 'cr-loading-gradient';
+    }
+    static get template() {
+        return getTemplate$f();
+    }
+    onSlotchange_() {
+        const clipPath = this.querySelector('svg clipPath');
+        assert(clipPath);
+        const generatedId = `crLoadingGradient${count++}`;
+        clipPath.id = generatedId;
+        this.style.clipPath = `url(#${generatedId})`;
+    }
+}
+customElements.define(CrLoadingGradientElement.is, CrLoadingGradientElement);
+
+function getTemplate$e() {
+    return html `<!--_html_template_start_--><style include="tab-organization-shared-style">#loading-container{border:solid 1px var(--color-loading-gradient-border);border-radius:8px;padding:14px}</style>
+
+<div class="tab-organization-container">
+  <div class="tab-organization-header">$i18n{inProgressTitle}</div>
+  <div id="loading-container">
+    <cr-loading-gradient>
+        <svg width="100%" height="191">
+          <clipPath>
+            <rect x="0" y="0" width="100%" height="35" rx="8"></rect>
+            <rect x="0" y="55" width="40" height="40" rx="8"></rect>
+            <rect x="56" y="57" width="116" height="16" rx="4"></rect>
+            <rect x="56" y="105" width="116" height="16" rx="4"></rect>
+            <rect x="56" y="153" width="116" height="16" rx="4"></rect>
+            <rect x="56" y="79" width="76" height="14" rx="4"></rect>
+            <rect x="56" y="127" width="76" height="14" rx="4"></rect>
+            <rect x="56" y="175" width="76" height="14" rx="4"></rect>
+            <rect x="0" y="103" width="40" height="40" rx="8"></rect>
+            <rect x="0" y="151" width="40" height="40" rx="8"></rect>
+          </clipPath>
+        </svg>
+      </cr-loading-gradient>
+    </div>
+  </div>
+
+<!--_html_template_end_-->`;
+}
+
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+// Loading state for the tab organization UI.
+class TabOrganizationInProgressElement extends PolymerElement {
+    static get is() {
+        return 'tab-organization-in-progress';
+    }
+    static get template() {
+        return getTemplate$e();
+    }
+}
+customElements.define(TabOrganizationInProgressElement.is, TabOrganizationInProgressElement);
+
+function getTemplate$d() {
+    return html `<!--_html_template_start_--><style>:host{--image-background-color-1:rgb(211, 227, 253);--image-background_color-2:rgb(231, 248, 237);--window_frame_color:#A8C7FA;--tab-group-1-color:#0B57D0;--tab-group-2-color:#1EA446;--tab-content-color-top:#fff;--tab-content-color-bottom:#ECF3FE;--active-tab-text-color:#D3E3FD;--inactive-tab-text-color:#1B6EF3}@media (prefers-color-scheme:dark){:host{--image-background-color-1:rgb(8, 66, 160);--image-background_color-2:rgb(15, 82, 35);--window_frame_color:#0B57D0;--tab-group-1-color:#A8C7FA;--tab-content-color-top:#041E49;--tab-content-color-bottom:#062E6F;--active-tab-text-color:var(--inactive-tab-text-color)}}:host-context([chrome-refresh-2023]):host{--image-background-color-1:var(--color-loading-gradient-middle);--image-background_color-2:var(--color-loading-gradient-end);--window_frame_color:var(--color-tab-search-image-window-frame);--tab-group-1-color:var(--color-tab-group-tab-strip-frame-active-blue);--tab-group-2-color:var(--color-tab-group-tab-strip-frame-active-green);--tab-content-color-top:var(--color-tab-search-image-tab-content-top);--tab-content-color-bottom:var(--color-tab-search-image-tab-content-bottom);--active-tab-text-color:var(--color-tab-search-image-tab-text);--inactive-tab-text-color:var(--color-tab-search-image-tab-text)}.image-background-color-1{stop-color:var(--image-background-color-1)}.image-background-color-2{stop-color:var(--image-background_color-2)}.window-frame-stroke{stroke:var(--window_frame_color)}.window-frame-fill{fill:var(--window_frame_color)}.tab-group-1-stroke{stroke:var(--tab-group-1-color)}.tab-group-1-fill{fill:var(--tab-group-1-color)}.tab-group-2-stroke{stroke:var(--tab-group-2-color)}.tab-group-2-fill{fill:var(--tab-group-2-color)}.tab-content-fill{fill:var(--tab-content-color-top)}.tab-content-stop-color-start{stop-color:var(--tab-content-color-top)}.tab-content-stop-color-end{stop-color:var(--tab-content-color-bottom)}.active-tab-text-color{fill:var(--active-tab-text-color)}.inactive-tab-text-color{fill:var(--inactive-tab-text-color)}</style>
+  
+<svg xmlns="http://www.w3.org/2000/svg" width="280" height="103" fill="none">
+  <g clip-path="url(#a)">
+    <rect width="280" height="103" fill="url(#b)" rx="8"></rect>
+    <path class="window-frame-stroke window-frame-fill" stroke-width="2" d="M240 104h1V44a5 5 0 0 0-5-5H44a5 5 0 0 0-5 5v60h1z"></path>
+    <path class="window-frame-fill" d="M40 44a4 4 0 0 1 4-4h192a4 4 0 0 1 4 4v12H40z"></path>
+    <path fill="url(#d)" d="M40 56a4 4 0 0 1 4-4h192a4 4 0 0 1 4 4v47H40z"></path>
+    <path class="tab-content-fill" d="M70 45a3 3 0 0 1 3-3h29a3 3 0 0 1 3 3v7H70z"></path>
+    <path class="tab-content-fill" fill-rule="evenodd" d="M67 52a3 3 0 0 0 3-3v3zm41 0a3 3 0 0 1-3-3v3z" clip-rule="evenodd"></path>
+    <rect class="tab-group-1-fill" width="13" height="6" x="53" y="42" rx="2">
+    </rect>
+    <path class="tab-group-1-stroke" stroke-linecap="round" stroke-width="2" d="M54 51h13a2 2 0 0 0 2-2v-4a4 4 0 0 1
+           4-4h29a4 4 0 0 1 4 4v4a2 2 0 0 0 2 2h31">
+    </path>
+    <rect class="tab-group-2-fill" width="13" height="6" x="144" y="42" rx="2">
+    </rect>
+    <path class="tab-group-2-stroke" stroke-linecap="round" stroke-width="2" d="M145 51h80"></path>
+    <rect class="active-tab-text-color" width="31" height="3" x="72" y="44" rx="1.5"></rect>
+    <rect class="inactive-tab-text-color" width="30" height="3" x="109" y="44" rx="1.5"></rect>
+    <rect class="inactive-tab-text-color" width="1" height="7" x="141" y="42" rx=".5"></rect>
+    <rect class="inactive-tab-text-color" width="30" height="3" x="159" y="44" rx="1.5"></rect>
+    <rect class="inactive-tab-text-color" width="1" height="7" x="191" y="42" rx=".5"></rect>
+    <rect class="inactive-tab-text-color" width="30" height="3" x="194" y="44" rx="1.5"></rect>
+    <rect class="inactive-tab-text-color" width="1" height="7" x="226" y="42" rx=".5"></rect>
+  </g>
+  <defs>
+    <linearGradient id="b" x1="9.074" x2="72.077" y1="0" y2="177.007" gradientUnits="userSpaceOnUse">
+      <stop class="image-background-color-1"></stop>
+      <stop offset="1" class="image-background-color-2"></stop>
+    </linearGradient>
+    <linearGradient id="d" x1="140" x2="140" y1="80" y2="103" gradientUnits="userSpaceOnUse">
+      <stop class="tab-content-stop-color-start"></stop>
+      <stop offset="1" class="tab-content-stop-color-end"></stop>
+    </linearGradient>
+    <clipPath id="a">
+      <rect width="280" height="103" fill="#fff" rx="8"></rect>
+    </clipPath>
+  </defs>
+</svg>
+<!--_html_template_end_-->`;
+}
+
+// Copyright 2024 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+// Themed image for the tab organization not started state.
+class TabOrganizationNotStartedImageElement extends PolymerElement {
+    static get is() {
+        return 'tab-organization-not-started-image';
+    }
+    static get template() {
+        return getTemplate$d();
+    }
+}
+customElements.define(TabOrganizationNotStartedImageElement.is, TabOrganizationNotStartedImageElement);
+
+// Copyright 2021 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview Mixin to be used by Polymer elements that want to
+ * automatically remove WebUI listeners when detached.
+ */
+const WebUiListenerMixin = dedupingMixin((superClass) => {
+    class WebUiListenerMixin extends superClass {
+        constructor() {
+            super(...arguments);
+            /**
+             * Holds WebUI listeners that need to be removed when this element is
+             * destroyed.
+             */
+            this.webUiListeners_ = [];
+        }
+        /**
+         * Adds a WebUI listener and registers it for automatic removal when
+         * this element is detached. Note: Do not use this method if you intend
+         * to remove this listener manually (use addWebUiListener directly
+         * instead).
+         *
+         * @param eventName The event to listen to.
+         * @param callback The callback run when the event is fired.
+         */
+        addWebUiListener(eventName, callback) {
+            this.webUiListeners_.push(addWebUiListener(eventName, callback));
+        }
+        disconnectedCallback() {
+            super.disconnectedCallback();
+            while (this.webUiListeners_.length > 0) {
+                removeWebUiListener(this.webUiListeners_.pop());
+            }
+        }
+    }
+    return WebUiListenerMixin;
+});
+
+function getTemplate$c() {
+    return html `<!--_html_template_start_--><style include="tab-organization-shared-style">:host{--avatar-size:40px}cr-button{align-self:flex-end;width:fit-content}.account-email{font-size:12px}.account-image{border-radius:var(--avatar-size);height:var(--avatar-size);width:var(--avatar-size)}.account-row{align-items:center;display:flex;gap:10px}.account-text{display:flex;flex-direction:column;gap:4px}</style>
+
+<div class="tab-organization-container">
+  <tab-organization-not-started-image></tab-organization-not-started-image>
+  <div class="tab-organization-text-container">
+    <div class="tab-organization-header">[[getTitle_(showFre)]]</div>
+    <div class="tab-organization-body">
+      [[getBody_(showFre, sync_, account_)]]
+    </div>
+  </div>
+  <template is="dom-if" if="[[shouldShowAccountInfo_(sync_, account_)]]">
+    <div class="account-row">
+      
+      <img class="account-image" alt="" src="[[getAccountImageSrc_(account_.avatarImage)]]">
+      <div class="account-text">
+        <div class="tab-organization-header">[[account_.name]]</div>
+        <div class="tab-organization-body account-email">
+          [[account_.email]]
+        </div>
+      </div>
+    </div>
+  </template>
+  <cr-button class="action-button" on-click="onButtonClick_">
+    [[getButtonText_(sync_, account_)]]
+  </cr-button>
+</div>
+<!--_html_template_end_-->`;
+}
+
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+class TabSearchSyncBrowserProxyImpl {
+    getSyncInfo() {
+        return sendWithPromise('GetSyncInfo');
+    }
+    getAccountInfo() {
+        return sendWithPromise('GetAccountInfo');
+    }
+    static getInstance() {
+        return instance$2 || (instance$2 = new TabSearchSyncBrowserProxyImpl());
+    }
+    static setInstance(obj) {
+        instance$2 = obj;
+    }
+}
+let instance$2 = null;
+
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+var SyncState;
+(function (SyncState) {
+    SyncState[SyncState["SIGNED_OUT"] = 0] = "SIGNED_OUT";
+    SyncState[SyncState["UNSYNCED"] = 1] = "UNSYNCED";
+    SyncState[SyncState["UNSYNCED_HISTORY"] = 2] = "UNSYNCED_HISTORY";
+    SyncState[SyncState["SYNC_PAUSED"] = 3] = "SYNC_PAUSED";
+    SyncState[SyncState["SYNCED"] = 4] = "SYNCED";
+})(SyncState || (SyncState = {}));
+const TabOrganizationNotStartedElementBase = WebUiListenerMixin(PolymerElement);
+// Not started state for the tab organization UI.
+class TabOrganizationNotStartedElement extends TabOrganizationNotStartedElementBase {
+    constructor() {
+        super(...arguments);
+        this.syncBrowserProxy_ = TabSearchSyncBrowserProxyImpl.getInstance();
+    }
+    static get is() {
+        return 'tab-organization-not-started';
+    }
+    static get properties() {
+        return {
+            showFre: Boolean,
+            account_: Object,
+            sync_: Object,
+        };
+    }
+    static get template() {
+        return getTemplate$c();
+    }
+    connectedCallback() {
+        super.connectedCallback();
+        this.syncBrowserProxy_.getAccountInfo().then(this.setAccount_.bind(this));
+        this.addWebUiListener('account-info-changed', this.setAccount_.bind(this));
+        this.syncBrowserProxy_.getSyncInfo().then(this.setSync_.bind(this));
+        this.addWebUiListener('sync-info-changed', this.setSync_.bind(this));
+    }
+    setAccount_(account) {
+        this.account_ = account;
+    }
+    setSync_(sync) {
+        this.sync_ = sync;
+        this.dispatchEvent(new CustomEvent('sync-change', { bubbles: true, composed: true }));
+    }
+    getSyncState_() {
+        if (!this.account_) {
+            return SyncState.SIGNED_OUT;
+        }
+        else if (!this.sync_?.syncing) {
+            return SyncState.UNSYNCED;
+        }
+        else if (this.sync_.paused) {
+            return SyncState.SYNC_PAUSED;
+        }
+        else if (!this.sync_.syncingHistory) {
+            return SyncState.UNSYNCED_HISTORY;
+        }
+        else {
+            return SyncState.SYNCED;
+        }
+    }
+    getTitle_() {
+        if (this.showFre) {
+            return loadTimeData.getString('notStartedTitleFRE');
+        }
+        else {
+            return loadTimeData.getString('notStartedTitle');
+        }
+    }
+    getBody_() {
+        switch (this.getSyncState_()) {
+            case SyncState.SIGNED_OUT:
+                return loadTimeData.getString('notStartedBodySignedOut');
+            case SyncState.UNSYNCED:
+                return loadTimeData.getString('notStartedBodyUnsynced');
+            case SyncState.SYNC_PAUSED:
+                return loadTimeData.getString('notStartedBodySyncPaused');
+            case SyncState.UNSYNCED_HISTORY:
+                return loadTimeData.getString('notStartedBodyUnsyncedHistory');
+            case SyncState.SYNCED: {
+                if (this.showFre) {
+                    return loadTimeData.getString('notStartedBodyFRE');
+                }
+                else {
+                    return loadTimeData.getString('notStartedBody');
+                }
+            }
+        }
+    }
+    shouldShowAccountInfo_() {
+        return !!this.account_ &&
+            (!this.sync_ || !this.sync_.syncing || this.sync_.paused ||
+                !this.sync_.syncingHistory);
+    }
+    getAccountImageSrc_(image) {
+        // image can be undefined if the account has not set an avatar photo.
+        return image || 'chrome://theme/IDR_PROFILE_AVATAR_PLACEHOLDER_LARGE';
+    }
+    getButtonText_() {
+        switch (this.getSyncState_()) {
+            case SyncState.SIGNED_OUT:
+            case SyncState.UNSYNCED:
+                return loadTimeData.getString('notStartedButtonUnsynced');
+            case SyncState.SYNC_PAUSED:
+                return loadTimeData.getString('notStartedButtonSyncPaused');
+            case SyncState.UNSYNCED_HISTORY:
+                return loadTimeData.getString('notStartedButtonUnsyncedHistory');
+            case SyncState.SYNCED:
+                if (this.showFre) {
+                    return loadTimeData.getString('notStartedButtonFRE');
+                }
+                else {
+                    return loadTimeData.getString('notStartedButton');
+                }
+        }
+    }
+    onButtonClick_() {
+        switch (this.getSyncState_()) {
+            case SyncState.SIGNED_OUT:
+            case SyncState.UNSYNCED:
+                this.dispatchEvent(new CustomEvent('sync-click', { bubbles: true, composed: true }));
+                break;
+            case SyncState.SYNC_PAUSED:
+                this.dispatchEvent(new CustomEvent('sign-in-click', { bubbles: true, composed: true }));
+                break;
+            case SyncState.UNSYNCED_HISTORY:
+                this.dispatchEvent(new CustomEvent('settings-click', { bubbles: true, composed: true }));
+                break;
+            case SyncState.SYNCED:
+                // Start a tab organization
+                this.dispatchEvent(new CustomEvent('organize-tabs-click', { bubbles: true, composed: true }));
+                break;
+        }
+    }
+}
+customElements.define(TabOrganizationNotStartedElement.is, TabOrganizationNotStartedElement);
 
 /**
 @license
@@ -1955,7 +3026,7 @@ Polymer({
   }
 });
 
-function getTemplate$d() {
+function getTemplate$b() {
     return html `<!--_html_template_start_-->    <style>:host{--cr-icon-button-fill-color:var(--google-grey-700);--cr-icon-button-icon-start-offset:0;--cr-icon-button-icon-size:20px;--cr-icon-button-size:36px;--cr-icon-button-height:var(--cr-icon-button-size);--cr-icon-button-transition:150ms ease-in-out;--cr-icon-button-width:var(--cr-icon-button-size);-webkit-tap-highlight-color:transparent;border-radius:50%;color:var(--cr-icon-button-stroke-color,var(--cr-icon-button-fill-color));cursor:pointer;display:inline-flex;flex-shrink:0;height:var(--cr-icon-button-height);margin-inline-end:var(--cr-icon-button-margin-end,var(--cr-icon-ripple-margin));margin-inline-start:var(--cr-icon-button-margin-start);outline:0;overflow:hidden;user-select:none;vertical-align:middle;width:var(--cr-icon-button-width)}:host-context([chrome-refresh-2023]):host{--cr-icon-button-fill-color:currentColor;--cr-icon-button-size:32px;position:relative}:host(:hover){background-color:var(--cr-icon-button-hover-background-color,var(--cr-hover-background-color))}:host(:focus-visible:focus){box-shadow:inset 0 0 0 2px var(--cr-icon-button-focus-outline-color,var(--cr-focus-outline-color))}@media (forced-colors:active){:host(:focus-visible:focus){outline:var(--cr-focus-outline-hcm)}}:host-context(html:not([chrome-refresh-2023])) :host(:active){background-color:var(--cr-icon-button-active-background-color,var(--cr-active-background-color))}paper-ripple{display:none}:host-context([chrome-refresh-2023]) paper-ripple{--paper-ripple-opacity:1;color:var(--cr-active-background-color);display:block}:host([disabled]){cursor:initial;opacity:var(--cr-disabled-opacity);pointer-events:none}:host(.no-overlap){--cr-icon-button-margin-end:0;--cr-icon-button-margin-start:0}:host-context([dir=rtl]):host(:not([dir=ltr]):not([multiple-icons_])){transform:scaleX(-1)}:host-context([dir=rtl]):host(:not([dir=ltr])[multiple-icons_]) iron-icon{transform:scaleX(-1)}:host(:not([iron-icon])) #maskedImage{-webkit-mask-image:var(--cr-icon-image);-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:var(--cr-icon-button-icon-size);-webkit-transform:var(--cr-icon-image-transform,none);background-color:var(--cr-icon-button-fill-color);height:100%;transition:background-color var(--cr-icon-button-transition);width:100%}@media (forced-colors:active){:host(:not([iron-icon])) #maskedImage{background-color:ButtonText}}#icon{align-items:center;border-radius:4px;display:flex;height:100%;justify-content:center;padding-inline-start:var(--cr-icon-button-icon-start-offset);position:relative;width:100%}iron-icon{--iron-icon-fill-color:var(--cr-icon-button-fill-color);--iron-icon-stroke-color:var(--cr-icon-button-stroke-color, none);--iron-icon-height:var(--cr-icon-button-icon-size);--iron-icon-width:var(--cr-icon-button-icon-size);transition:fill var(--cr-icon-button-transition),stroke var(--cr-icon-button-transition)}@media (prefers-color-scheme:dark){:host{--cr-icon-button-fill-color:var(--google-grey-500)}}</style>
     <div id="icon">
       <div id="maskedImage"></div>
@@ -2013,7 +3084,7 @@ class CrIconButtonElement extends CrIconbuttonElementBase {
         return 'cr-icon-button';
     }
     static get template() {
-        return getTemplate$d();
+        return getTemplate$b();
     }
     static get properties() {
         return {
@@ -2150,554 +3221,554 @@ class CrIconButtonElement extends CrIconbuttonElementBase {
 }
 customElements.define(CrIconButtonElement.is, CrIconButtonElement);
 
-const styleMod$6 = document.createElement('dom-module');
-styleMod$6.appendChild(html `
-  <template>
-    <style>
-.icon-arrow-back{--cr-icon-image:url(chrome://resources/images/icon_arrow_back.svg)}.icon-arrow-dropdown{--cr-icon-image:url(chrome://resources/images/icon_arrow_dropdown.svg)}.icon-cancel{--cr-icon-image:url(chrome://resources/images/icon_cancel.svg)}.icon-clear{--cr-icon-image:url(chrome://resources/images/icon_clear.svg)}.icon-copy-content{--cr-icon-image:url(chrome://resources/images/icon_copy_content.svg)}.icon-delete-gray{--cr-icon-image:url(chrome://resources/images/icon_delete_gray.svg)}.icon-edit{--cr-icon-image:url(chrome://resources/images/icon_edit.svg)}.icon-file{--cr-icon-image:url(chrome://resources/images/icon_filetype_generic.svg)}.icon-folder-open{--cr-icon-image:url(chrome://resources/images/icon_folder_open.svg)}.icon-picture-delete{--cr-icon-image:url(chrome://resources/images/icon_picture_delete.svg)}.icon-expand-less{--cr-icon-image:url(chrome://resources/images/icon_expand_less.svg)}.icon-expand-more{--cr-icon-image:url(chrome://resources/images/icon_expand_more.svg)}.icon-external{--cr-icon-image:url(chrome://resources/images/open_in_new.svg)}.icon-more-vert{--cr-icon-image:url(chrome://resources/images/icon_more_vert.svg)}.icon-refresh{--cr-icon-image:url(chrome://resources/images/icon_refresh.svg)}.icon-search{--cr-icon-image:url(chrome://resources/images/icon_search.svg)}.icon-settings{--cr-icon-image:url(chrome://resources/images/icon_settings.svg)}.icon-visibility{--cr-icon-image:url(chrome://resources/images/icon_visibility.svg)}.icon-visibility-off{--cr-icon-image:url(chrome://resources/images/icon_visibility_off.svg)}.subpage-arrow{--cr-icon-image:url(chrome://resources/images/arrow_right.svg)}.cr-icon{-webkit-mask-image:var(--cr-icon-image);-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:var(--cr-icon-size);background-color:var(--cr-icon-color,var(--google-grey-700));flex-shrink:0;height:var(--cr-icon-ripple-size);margin-inline-end:var(--cr-icon-ripple-margin);margin-inline-start:var(--cr-icon-button-margin-start);user-select:none;width:var(--cr-icon-ripple-size)}:host-context([dir=rtl]) .cr-icon{transform:scaleX(-1)}.cr-icon.no-overlap{margin-inline-end:0;margin-inline-start:0}@media (prefers-color-scheme:dark){.cr-icon{background-color:var(--cr-icon-color,var(--google-grey-500))}}
-    </style>
-  </template>
-`.content);
-styleMod$6.register('cr-icons');
-
-const template$3 = html `
-<custom-style>
-  <style>
-html{--mwb-background-color:white;--mwb-icon-button-fill-color:var(--google-grey-700);--mwb-icon-size:16px;--mwb-item-height:48px;--mwb-list-item-horizontal-margin:20px;--mwb-list-item-hover-background-color:rgba(var(--google-grey-900-rgb), 0.1);--mwb-list-item-selected-background-color:rgba(var(--google-grey-900-rgb), 0.14);--mwb-list-section-title-font-size:11px;--mwb-list-section-title-height:48px;--mwb-primary-text-font-size:13px;--mwb-primary-text-font-weight:normal;--mwb-scrollbar-thumb-color:var(--google-grey-300);--mwb-scrollbar-thumb-hover-color:var(--google-grey-500);--mwb-scrollbar-track-color:var(--mwb-background-color);--mwb-scrollbar-width:4px;--mwb-secondary-text-font-size:12px;--mwb-secondary-text-font-weight:normal}@media (prefers-color-scheme:dark){html{--mwb-background-color:var(--google-grey-900);--mwb-icon-button-fill-color:var(--google-grey-300);--mwb-list-item-hover-background-color:rgb(55, 56, 58);--mwb-list-item-selected-background-color:rgb(68, 69, 71);--mwb-scrollbar-thumb-color:var(--google-grey-500);--mwb-scrollbar-thumb-hover-color:var(--google-grey-300)}}
-  </style>
-</custom-style>
-`;
-document.head.appendChild(template$3.content);
-
-const styleMod$5 = document.createElement('dom-module');
-styleMod$5.appendChild(html `
-  <template>
-    <style>
-::-webkit-scrollbar-thumb{background-color:var(--mwb-scrollbar-thumb-color)}::-webkit-scrollbar-thumb:hover{background-color:var(--mwb-scrollbar-thumb-hover-color)}::-webkit-scrollbar-track{background-color:var(--mwb-scrollbar-track-color)}::-webkit-scrollbar{width:var(--mwb-scrollbar-width)}.mwb-list-item{align-items:center;background-color:var(--mwb-background-color);contain-intrinsic-size:var(--mwb-item-height);content-visibility:auto;display:flex;height:var(--mwb-item-height);padding:0 var(--mwb-list-item-horizontal-margin)}.mwb-list-item.hovered{background-color:var(--mwb-list-item-hover-background-color)}.mwb-list-item.selected{background-color:var(--mwb-list-item-selected-background-color)}
-    </style>
-  </template>
-`.content);
-styleMod$5.register('mwb-shared-style');
-
-const styleMod$4 = document.createElement('dom-module');
-styleMod$4.appendChild(html `
-  <template>
-    <style>
-.tab-organization-body{color:var(--cr-secondary-text-color);font-size:13px;font-weight:400}.tab-organization-container{display:flex;flex-direction:column;gap:16px}.tab-organization-header{color:var(--cr-primary-text-color);font-size:14px;font-weight:500}.tab-organization-text-container{display:flex;flex-direction:column;gap:8px}
-    </style>
-  </template>
-`.content);
-styleMod$4.register('tab-organization-shared-style');
-
-function getTemplate$c() {
-    return html `<!--_html_template_start_--><style include="tab-organization-shared-style"></style>
-
-<div class="tab-organization-text-container">
-  <div class="tab-organization-header">[[getTitle_(error)]]</div>
-  <div class="tab-organization-body">[[getBody_(error)]]</div>
-</div>
-<!--_html_template_end_-->`;
-}
-
-// components/tab_groups/public/mojom/tab_group_types.mojom-webui.ts is auto generated by mojom_bindings_generator.py, do not edit
-// Copyright 2020 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-const ColorSpec = { $: mojo.internal.Enum() };
-var Color;
-(function (Color) {
-    Color[Color["MIN_VALUE"] = 0] = "MIN_VALUE";
-    Color[Color["MAX_VALUE"] = 8] = "MAX_VALUE";
-    Color[Color["kGrey"] = 0] = "kGrey";
-    Color[Color["kBlue"] = 1] = "kBlue";
-    Color[Color["kRed"] = 2] = "kRed";
-    Color[Color["kYellow"] = 3] = "kYellow";
-    Color[Color["kGreen"] = 4] = "kGreen";
-    Color[Color["kPink"] = 5] = "kPink";
-    Color[Color["kPurple"] = 6] = "kPurple";
-    Color[Color["kCyan"] = 7] = "kCyan";
-    Color[Color["kOrange"] = 8] = "kOrange";
-})(Color || (Color = {}));
-
-// chrome/browser/ui/webui/tabs/tabs.mojom-webui.ts is auto generated by mojom_bindings_generator.py, do not edit
-// Copyright 2020 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-const TabAlertStateSpec = { $: mojo.internal.Enum() };
-var TabAlertState;
-(function (TabAlertState) {
-    TabAlertState[TabAlertState["MIN_VALUE"] = 0] = "MIN_VALUE";
-    TabAlertState[TabAlertState["MAX_VALUE"] = 10] = "MAX_VALUE";
-    TabAlertState[TabAlertState["kAudioMuting"] = 0] = "kAudioMuting";
-    TabAlertState[TabAlertState["kAudioPlaying"] = 1] = "kAudioPlaying";
-    TabAlertState[TabAlertState["kBluetoothConnected"] = 2] = "kBluetoothConnected";
-    TabAlertState[TabAlertState["kDesktopCapturing"] = 3] = "kDesktopCapturing";
-    TabAlertState[TabAlertState["kHidConnected"] = 4] = "kHidConnected";
-    TabAlertState[TabAlertState["kMediaRecording"] = 5] = "kMediaRecording";
-    TabAlertState[TabAlertState["kPipPlaying"] = 6] = "kPipPlaying";
-    TabAlertState[TabAlertState["kSerialConnected"] = 7] = "kSerialConnected";
-    TabAlertState[TabAlertState["kTabCapturing"] = 8] = "kTabCapturing";
-    TabAlertState[TabAlertState["kUsbConnected"] = 9] = "kUsbConnected";
-    TabAlertState[TabAlertState["kVrPresentingInHeadset"] = 10] = "kVrPresentingInHeadset";
-})(TabAlertState || (TabAlertState = {}));
-
-// chrome/browser/ui/webui/tab_search/tab_search.mojom-webui.ts is auto generated by mojom_bindings_generator.py, do not edit
-// Copyright 2020 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-const TabOrganizationStateSpec = { $: mojo.internal.Enum() };
-var TabOrganizationState;
-(function (TabOrganizationState) {
-    TabOrganizationState[TabOrganizationState["MIN_VALUE"] = 0] = "MIN_VALUE";
-    TabOrganizationState[TabOrganizationState["MAX_VALUE"] = 3] = "MAX_VALUE";
-    TabOrganizationState[TabOrganizationState["kNotStarted"] = 0] = "kNotStarted";
-    TabOrganizationState[TabOrganizationState["kInProgress"] = 1] = "kInProgress";
-    TabOrganizationState[TabOrganizationState["kSuccess"] = 2] = "kSuccess";
-    TabOrganizationState[TabOrganizationState["kFailure"] = 3] = "kFailure";
-})(TabOrganizationState || (TabOrganizationState = {}));
-const TabOrganizationErrorSpec = { $: mojo.internal.Enum() };
-var TabOrganizationError;
-(function (TabOrganizationError) {
-    TabOrganizationError[TabOrganizationError["MIN_VALUE"] = 0] = "MIN_VALUE";
-    TabOrganizationError[TabOrganizationError["MAX_VALUE"] = 2] = "MAX_VALUE";
-    TabOrganizationError[TabOrganizationError["kNone"] = 0] = "kNone";
-    TabOrganizationError[TabOrganizationError["kGrouping"] = 1] = "kGrouping";
-    TabOrganizationError[TabOrganizationError["kGeneric"] = 2] = "kGeneric";
-})(TabOrganizationError || (TabOrganizationError = {}));
-class PageHandlerFactoryPendingReceiver {
-    constructor(handle) {
-        this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
-    }
-    bindInBrowser(scope = 'context') {
-        mojo.internal.interfaceSupport.bind(this.handle, 'tab_search.mojom.PageHandlerFactory', scope);
-    }
-}
-class PageHandlerFactoryRemote {
-    constructor(handle) {
-        this.proxy =
-            new mojo.internal.interfaceSupport.InterfaceRemoteBase(PageHandlerFactoryPendingReceiver, handle);
-        this.$ = new mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper(this.proxy);
-        this.onConnectionError = this.proxy.getConnectionErrorEventRouter();
-    }
-    createPageHandler(page, handler) {
-        this.proxy.sendMessage(0, PageHandlerFactory_CreatePageHandler_ParamsSpec.$, null, [
-            page,
-            handler
-        ]);
-    }
-}
-class PageHandlerFactory {
-    static get $interfaceName() {
-        return "tab_search.mojom.PageHandlerFactory";
-    }
-    /**
-     * Returns a remote for this interface which sends messages to the browser.
-     * The browser must have an interface request binder registered for this
-     * interface and accessible to the calling document's frame.
-     */
-    static getRemote() {
-        let remote = new PageHandlerFactoryRemote;
-        remote.$.bindNewPipeAndPassReceiver().bindInBrowser();
-        return remote;
-    }
-}
-let PageHandlerPendingReceiver$1 = class PageHandlerPendingReceiver {
-    constructor(handle) {
-        this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
-    }
-    bindInBrowser(scope = 'context') {
-        mojo.internal.interfaceSupport.bind(this.handle, 'tab_search.mojom.PageHandler', scope);
-    }
-};
-let PageHandlerRemote$1 = class PageHandlerRemote {
-    constructor(handle) {
-        this.proxy =
-            new mojo.internal.interfaceSupport.InterfaceRemoteBase(PageHandlerPendingReceiver$1, handle);
-        this.$ = new mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper(this.proxy);
-        this.onConnectionError = this.proxy.getConnectionErrorEventRouter();
-    }
-    closeTab(tabId) {
-        this.proxy.sendMessage(0, PageHandler_CloseTab_ParamsSpec.$, null, [
-            tabId
-        ]);
-    }
-    acceptTabOrganization(sessionId, organizationId, name, tabs) {
-        this.proxy.sendMessage(1, PageHandler_AcceptTabOrganization_ParamsSpec.$, null, [
-            sessionId,
-            organizationId,
-            name,
-            tabs
-        ]);
-    }
-    rejectTabOrganization(sessionId, organizationId) {
-        this.proxy.sendMessage(2, PageHandler_RejectTabOrganization_ParamsSpec.$, null, [
-            sessionId,
-            organizationId
-        ]);
-    }
-    getProfileData() {
-        return this.proxy.sendMessage(3, PageHandler_GetProfileData_ParamsSpec.$, PageHandler_GetProfileData_ResponseParamsSpec.$, []);
-    }
-    getTabOrganizationSession() {
-        return this.proxy.sendMessage(4, PageHandler_GetTabOrganizationSession_ParamsSpec.$, PageHandler_GetTabOrganizationSession_ResponseParamsSpec.$, []);
-    }
-    switchToTab(switchToTabInfo) {
-        this.proxy.sendMessage(5, PageHandler_SwitchToTab_ParamsSpec.$, null, [
-            switchToTabInfo
-        ]);
-    }
-    openRecentlyClosedEntry(sessionId) {
-        this.proxy.sendMessage(6, PageHandler_OpenRecentlyClosedEntry_ParamsSpec.$, null, [
-            sessionId
-        ]);
-    }
-    requestTabOrganization() {
-        this.proxy.sendMessage(7, PageHandler_RequestTabOrganization_ParamsSpec.$, null, []);
-    }
-    saveRecentlyClosedExpandedPref(expanded) {
-        this.proxy.sendMessage(8, PageHandler_SaveRecentlyClosedExpandedPref_ParamsSpec.$, null, [
-            expanded
-        ]);
-    }
-    setTabIndex(index) {
-        this.proxy.sendMessage(9, PageHandler_SetTabIndex_ParamsSpec.$, null, [
-            index
-        ]);
-    }
-    showUI() {
-        this.proxy.sendMessage(10, PageHandler_ShowUI_ParamsSpec.$, null, []);
-    }
-};
-let PagePendingReceiver$1 = class PagePendingReceiver {
-    constructor(handle) {
-        this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
-    }
-    bindInBrowser(scope = 'context') {
-        mojo.internal.interfaceSupport.bind(this.handle, 'tab_search.mojom.Page', scope);
-    }
-};
-let PageRemote$1 = class PageRemote {
-    constructor(handle) {
-        this.proxy =
-            new mojo.internal.interfaceSupport.InterfaceRemoteBase(PagePendingReceiver$1, handle);
-        this.$ = new mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper(this.proxy);
-        this.onConnectionError = this.proxy.getConnectionErrorEventRouter();
-    }
-    tabOrganizationSessionUpdated(session) {
-        this.proxy.sendMessage(0, Page_TabOrganizationSessionUpdated_ParamsSpec.$, null, [
-            session
-        ]);
-    }
-    tabsChanged(profileTabs) {
-        this.proxy.sendMessage(1, Page_TabsChanged_ParamsSpec.$, null, [
-            profileTabs
-        ]);
-    }
-    tabUpdated(tabUpdateInfo) {
-        this.proxy.sendMessage(2, Page_TabUpdated_ParamsSpec.$, null, [
-            tabUpdateInfo
-        ]);
-    }
-    tabsRemoved(tabsRemovedInfo) {
-        this.proxy.sendMessage(3, Page_TabsRemoved_ParamsSpec.$, null, [
-            tabsRemovedInfo
-        ]);
-    }
-};
 /**
- * An object which receives request messages for the Page
- * mojom interface and dispatches them as callbacks. One callback receiver exists
- * on this object for each message defined in the mojom interface, and each
- * receiver can have any number of listeners added to it.
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at
+http://polymer.github.io/LICENSE.txt The complete set of authors may be found at
+http://polymer.github.io/AUTHORS.txt The complete set of contributors may be
+found at http://polymer.github.io/CONTRIBUTORS.txt Code distributed by Google as
+part of the polymer project is also subject to an additional IP rights grant
+found at http://polymer.github.io/PATENTS.txt
+*/
+/**
+ * The `iron-iconset-svg` element allows users to define their own icon sets
+ * that contain svg icons. The svg icon elements should be children of the
+ * `iron-iconset-svg` element. Multiple icons should be given distinct id's.
+ *
+ * Using svg elements to create icons has a few advantages over traditional
+ * bitmap graphics like jpg or png. Icons that use svg are vector based so
+ * they are resolution independent and should look good on any device. They
+ * are stylable via css. Icons can be themed, colorized, and even animated.
+ *
+ * Example:
+ *
+ *     <iron-iconset-svg name="my-svg-icons" size="24">
+ *       <svg>
+ *         <defs>
+ *           <g id="shape">
+ *             <rect x="12" y="0" width="12" height="24" />
+ *             <circle cx="12" cy="12" r="12" />
+ *           </g>
+ *         </defs>
+ *       </svg>
+ *     </iron-iconset-svg>
+ *
+ * This will automatically register the icon set "my-svg-icons" to the iconset
+ * database.  To use these icons from within another element, make a
+ * `iron-iconset` element and call the `byId` method
+ * to retrieve a given iconset. To apply a particular icon inside an
+ * element use the `applyIcon` method. For example:
+ *
+ *     iconset.applyIcon(iconNode, 'car');
+ *
+ * @element iron-iconset-svg
+ * @demo demo/index.html
+ * @implements {Polymer.Iconset}
  */
-let PageCallbackRouter$1 = class PageCallbackRouter {
-    constructor() {
-        this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(PageRemote$1);
-        this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
-        this.router_ = new mojo.internal.interfaceSupport.CallbackRouter;
-        this.tabOrganizationSessionUpdated =
-            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(0, Page_TabOrganizationSessionUpdated_ParamsSpec.$, null, this.tabOrganizationSessionUpdated.createReceiverHandler(false /* expectsResponse */));
-        this.tabsChanged =
-            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(1, Page_TabsChanged_ParamsSpec.$, null, this.tabsChanged.createReceiverHandler(false /* expectsResponse */));
-        this.tabUpdated =
-            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(2, Page_TabUpdated_ParamsSpec.$, null, this.tabUpdated.createReceiverHandler(false /* expectsResponse */));
-        this.tabsRemoved =
-            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(3, Page_TabsRemoved_ParamsSpec.$, null, this.tabsRemoved.createReceiverHandler(false /* expectsResponse */));
-        this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
-    }
+Polymer({
+  is: 'iron-iconset-svg',
+
+  properties: {
+
     /**
-     * @param id An ID returned by a prior call to addListener.
-     * @return True iff the identified listener was found and removed.
+     * The name of the iconset.
      */
-    removeListener(id) {
-        return this.router_.removeListener(id);
-    }
-};
-const ProfileDataSpec = { $: {} };
-const WindowSpec = { $: {} };
-const TabSpec = { $: {} };
-const RecentlyClosedTabSpec = { $: {} };
-const TabGroupSpec = { $: {} };
-const RecentlyClosedTabGroupSpec = { $: {} };
-const SwitchToTabInfoSpec = { $: {} };
-const TabOrganizationSpec = { $: {} };
-const TabOrganizationSessionSpec = { $: {} };
-const TabUpdateInfoSpec = { $: {} };
-const TabsRemovedInfoSpec = { $: {} };
-const PageHandlerFactory_CreatePageHandler_ParamsSpec = { $: {} };
-const PageHandler_CloseTab_ParamsSpec = { $: {} };
-const PageHandler_AcceptTabOrganization_ParamsSpec = { $: {} };
-const PageHandler_RejectTabOrganization_ParamsSpec = { $: {} };
-const PageHandler_GetProfileData_ParamsSpec = { $: {} };
-const PageHandler_GetProfileData_ResponseParamsSpec = { $: {} };
-const PageHandler_GetTabOrganizationSession_ParamsSpec = { $: {} };
-const PageHandler_GetTabOrganizationSession_ResponseParamsSpec = { $: {} };
-const PageHandler_SwitchToTab_ParamsSpec = { $: {} };
-const PageHandler_OpenRecentlyClosedEntry_ParamsSpec = { $: {} };
-const PageHandler_RequestTabOrganization_ParamsSpec = { $: {} };
-const PageHandler_SaveRecentlyClosedExpandedPref_ParamsSpec = { $: {} };
-const PageHandler_SetTabIndex_ParamsSpec = { $: {} };
-const PageHandler_ShowUI_ParamsSpec = { $: {} };
-const Page_TabOrganizationSessionUpdated_ParamsSpec = { $: {} };
-const Page_TabsChanged_ParamsSpec = { $: {} };
-const Page_TabUpdated_ParamsSpec = { $: {} };
-const Page_TabsRemoved_ParamsSpec = { $: {} };
-mojo.internal.Struct(ProfileDataSpec.$, 'ProfileData', [
-    mojo.internal.StructField('windows', 0, 0, mojo.internal.Array(WindowSpec.$, false), null, false /* nullable */, 0),
-    mojo.internal.StructField('tabGroups', 8, 0, mojo.internal.Array(TabGroupSpec.$, false), null, false /* nullable */, 0),
-    mojo.internal.StructField('recentlyClosedTabs', 16, 0, mojo.internal.Array(RecentlyClosedTabSpec.$, false), null, false /* nullable */, 0),
-    mojo.internal.StructField('recentlyClosedTabGroups', 24, 0, mojo.internal.Array(RecentlyClosedTabGroupSpec.$, false), null, false /* nullable */, 0),
-    mojo.internal.StructField('recentlyClosedSectionExpanded', 32, 0, mojo.internal.Bool, false, false /* nullable */, 0),
-], [[0, 48],]);
-mojo.internal.Struct(WindowSpec.$, 'Window', [
-    mojo.internal.StructField('active', 0, 0, mojo.internal.Bool, false, false /* nullable */, 0),
-    mojo.internal.StructField('height', 4, 0, mojo.internal.Uint32, 0, false /* nullable */, 0),
-    mojo.internal.StructField('tabs', 8, 0, mojo.internal.Array(TabSpec.$, false), null, false /* nullable */, 0),
-], [[0, 24],]);
-mojo.internal.Struct(TabSpec.$, 'Tab', [
-    mojo.internal.StructField('active', 0, 0, mojo.internal.Bool, false, false /* nullable */, 0),
-    mojo.internal.StructField('alertStates', 8, 0, mojo.internal.Array(TabAlertStateSpec.$, false), null, false /* nullable */, 0),
-    mojo.internal.StructField('index', 4, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
-    mojo.internal.StructField('tabId', 16, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
-    mojo.internal.StructField('groupId', 24, 0, TokenSpec.$, null, true /* nullable */, 0),
-    mojo.internal.StructField('pinned', 0, 1, mojo.internal.Bool, false, false /* nullable */, 0),
-    mojo.internal.StructField('title', 32, 0, mojo.internal.String, null, false /* nullable */, 0),
-    mojo.internal.StructField('url', 40, 0, UrlSpec.$, null, false /* nullable */, 0),
-    mojo.internal.StructField('faviconUrl', 48, 0, UrlSpec.$, null, true /* nullable */, 0),
-    mojo.internal.StructField('isDefaultFavicon', 0, 2, mojo.internal.Bool, false, false /* nullable */, 0),
-    mojo.internal.StructField('showIcon', 0, 3, mojo.internal.Bool, false, false /* nullable */, 0),
-    mojo.internal.StructField('lastActiveTimeTicks', 56, 0, TimeTicksSpec.$, null, false /* nullable */, 0),
-    mojo.internal.StructField('lastActiveElapsedText', 64, 0, mojo.internal.String, null, false /* nullable */, 0),
-], [[0, 80],]);
-mojo.internal.Struct(RecentlyClosedTabSpec.$, 'RecentlyClosedTab', [
-    mojo.internal.StructField('tabId', 0, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
-    mojo.internal.StructField('groupId', 8, 0, TokenSpec.$, null, true /* nullable */, 0),
-    mojo.internal.StructField('title', 16, 0, mojo.internal.String, null, false /* nullable */, 0),
-    mojo.internal.StructField('url', 24, 0, UrlSpec.$, null, false /* nullable */, 0),
-    mojo.internal.StructField('lastActiveTime', 32, 0, TimeSpec.$, null, false /* nullable */, 0),
-    mojo.internal.StructField('lastActiveElapsedText', 40, 0, mojo.internal.String, null, false /* nullable */, 0),
-], [[0, 56],]);
-mojo.internal.Struct(TabGroupSpec.$, 'TabGroup', [
-    mojo.internal.StructField('id', 0, 0, TokenSpec.$, null, false /* nullable */, 0),
-    mojo.internal.StructField('color', 8, 0, ColorSpec.$, 0, false /* nullable */, 0),
-    mojo.internal.StructField('title', 16, 0, mojo.internal.String, null, false /* nullable */, 0),
-], [[0, 32],]);
-mojo.internal.Struct(RecentlyClosedTabGroupSpec.$, 'RecentlyClosedTabGroup', [
-    mojo.internal.StructField('sessionId', 0, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
-    mojo.internal.StructField('id', 8, 0, TokenSpec.$, null, false /* nullable */, 0),
-    mojo.internal.StructField('color', 4, 0, ColorSpec.$, 0, false /* nullable */, 0),
-    mojo.internal.StructField('title', 16, 0, mojo.internal.String, null, false /* nullable */, 0),
-    mojo.internal.StructField('tabCount', 24, 0, mojo.internal.Uint32, 0, false /* nullable */, 0),
-    mojo.internal.StructField('lastActiveTime', 32, 0, TimeSpec.$, null, false /* nullable */, 0),
-    mojo.internal.StructField('lastActiveElapsedText', 40, 0, mojo.internal.String, null, false /* nullable */, 0),
-], [[0, 56],]);
-mojo.internal.Struct(SwitchToTabInfoSpec.$, 'SwitchToTabInfo', [
-    mojo.internal.StructField('tabId', 0, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
-], [[0, 16],]);
-mojo.internal.Struct(TabOrganizationSpec.$, 'TabOrganization', [
-    mojo.internal.StructField('organizationId', 0, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
-    mojo.internal.StructField('tabs', 8, 0, mojo.internal.Array(TabSpec.$, false), null, false /* nullable */, 0),
-    mojo.internal.StructField('name', 16, 0, mojo.internal.String, null, false /* nullable */, 0),
-], [[0, 32],]);
-mojo.internal.Struct(TabOrganizationSessionSpec.$, 'TabOrganizationSession', [
-    mojo.internal.StructField('sessionId', 0, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
-    mojo.internal.StructField('state', 4, 0, TabOrganizationStateSpec.$, 0, false /* nullable */, 0),
-    mojo.internal.StructField('organizations', 8, 0, mojo.internal.Array(TabOrganizationSpec.$, false), null, false /* nullable */, 0),
-    mojo.internal.StructField('error', 16, 0, TabOrganizationErrorSpec.$, 0, false /* nullable */, 0),
-], [[0, 32],]);
-mojo.internal.Struct(TabUpdateInfoSpec.$, 'TabUpdateInfo', [
-    mojo.internal.StructField('inActiveWindow', 0, 0, mojo.internal.Bool, false, false /* nullable */, 0),
-    mojo.internal.StructField('tab', 8, 0, TabSpec.$, null, false /* nullable */, 0),
-], [[0, 24],]);
-mojo.internal.Struct(TabsRemovedInfoSpec.$, 'TabsRemovedInfo', [
-    mojo.internal.StructField('tabIds', 0, 0, mojo.internal.Array(mojo.internal.Int32, false), null, false /* nullable */, 0),
-    mojo.internal.StructField('recentlyClosedTabs', 8, 0, mojo.internal.Array(RecentlyClosedTabSpec.$, false), null, false /* nullable */, 0),
-], [[0, 24],]);
-mojo.internal.Struct(PageHandlerFactory_CreatePageHandler_ParamsSpec.$, 'PageHandlerFactory_CreatePageHandler_Params', [
-    mojo.internal.StructField('page', 0, 0, mojo.internal.InterfaceProxy(PageRemote$1), null, false /* nullable */, 0),
-    mojo.internal.StructField('handler', 8, 0, mojo.internal.InterfaceRequest(PageHandlerPendingReceiver$1), null, false /* nullable */, 0),
-], [[0, 24],]);
-mojo.internal.Struct(PageHandler_CloseTab_ParamsSpec.$, 'PageHandler_CloseTab_Params', [
-    mojo.internal.StructField('tabId', 0, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
-], [[0, 16],]);
-mojo.internal.Struct(PageHandler_AcceptTabOrganization_ParamsSpec.$, 'PageHandler_AcceptTabOrganization_Params', [
-    mojo.internal.StructField('sessionId', 0, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
-    mojo.internal.StructField('organizationId', 4, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
-    mojo.internal.StructField('name', 8, 0, mojo.internal.String, null, false /* nullable */, 0),
-    mojo.internal.StructField('tabs', 16, 0, mojo.internal.Array(TabSpec.$, false), null, false /* nullable */, 0),
-], [[0, 32],]);
-mojo.internal.Struct(PageHandler_RejectTabOrganization_ParamsSpec.$, 'PageHandler_RejectTabOrganization_Params', [
-    mojo.internal.StructField('sessionId', 0, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
-    mojo.internal.StructField('organizationId', 4, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
-], [[0, 16],]);
-mojo.internal.Struct(PageHandler_GetProfileData_ParamsSpec.$, 'PageHandler_GetProfileData_Params', [], [[0, 8],]);
-mojo.internal.Struct(PageHandler_GetProfileData_ResponseParamsSpec.$, 'PageHandler_GetProfileData_ResponseParams', [
-    mojo.internal.StructField('profileData', 0, 0, ProfileDataSpec.$, null, false /* nullable */, 0),
-], [[0, 16],]);
-mojo.internal.Struct(PageHandler_GetTabOrganizationSession_ParamsSpec.$, 'PageHandler_GetTabOrganizationSession_Params', [], [[0, 8],]);
-mojo.internal.Struct(PageHandler_GetTabOrganizationSession_ResponseParamsSpec.$, 'PageHandler_GetTabOrganizationSession_ResponseParams', [
-    mojo.internal.StructField('session', 0, 0, TabOrganizationSessionSpec.$, null, false /* nullable */, 0),
-], [[0, 16],]);
-mojo.internal.Struct(PageHandler_SwitchToTab_ParamsSpec.$, 'PageHandler_SwitchToTab_Params', [
-    mojo.internal.StructField('switchToTabInfo', 0, 0, SwitchToTabInfoSpec.$, null, false /* nullable */, 0),
-], [[0, 16],]);
-mojo.internal.Struct(PageHandler_OpenRecentlyClosedEntry_ParamsSpec.$, 'PageHandler_OpenRecentlyClosedEntry_Params', [
-    mojo.internal.StructField('sessionId', 0, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
-], [[0, 16],]);
-mojo.internal.Struct(PageHandler_RequestTabOrganization_ParamsSpec.$, 'PageHandler_RequestTabOrganization_Params', [], [[0, 8],]);
-mojo.internal.Struct(PageHandler_SaveRecentlyClosedExpandedPref_ParamsSpec.$, 'PageHandler_SaveRecentlyClosedExpandedPref_Params', [
-    mojo.internal.StructField('expanded', 0, 0, mojo.internal.Bool, false, false /* nullable */, 0),
-], [[0, 16],]);
-mojo.internal.Struct(PageHandler_SetTabIndex_ParamsSpec.$, 'PageHandler_SetTabIndex_Params', [
-    mojo.internal.StructField('index', 0, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
-], [[0, 16],]);
-mojo.internal.Struct(PageHandler_ShowUI_ParamsSpec.$, 'PageHandler_ShowUI_Params', [], [[0, 8],]);
-mojo.internal.Struct(Page_TabOrganizationSessionUpdated_ParamsSpec.$, 'Page_TabOrganizationSessionUpdated_Params', [
-    mojo.internal.StructField('session', 0, 0, TabOrganizationSessionSpec.$, null, false /* nullable */, 0),
-], [[0, 16],]);
-mojo.internal.Struct(Page_TabsChanged_ParamsSpec.$, 'Page_TabsChanged_Params', [
-    mojo.internal.StructField('profileTabs', 0, 0, ProfileDataSpec.$, null, false /* nullable */, 0),
-], [[0, 16],]);
-mojo.internal.Struct(Page_TabUpdated_ParamsSpec.$, 'Page_TabUpdated_Params', [
-    mojo.internal.StructField('tabUpdateInfo', 0, 0, TabUpdateInfoSpec.$, null, false /* nullable */, 0),
-], [[0, 16],]);
-mojo.internal.Struct(Page_TabsRemoved_ParamsSpec.$, 'Page_TabsRemoved_Params', [
-    mojo.internal.StructField('tabsRemovedInfo', 0, 0, TabsRemovedInfoSpec.$, null, false /* nullable */, 0),
-], [[0, 16],]);
+    name: {type: String, observer: '_nameChanged'},
 
-// Copyright 2023 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-// Failure state for the tab organization UI.
-class TabOrganizationFailureElement extends PolymerElement {
-    constructor() {
-        super(...arguments);
-        this.error = TabOrganizationError.kNone;
+    /**
+     * The size of an individual icon. Note that icons must be square.
+     */
+    size: {type: Number, value: 24},
+
+    /**
+     * Set to true to enable mirroring of icons where specified when they are
+     * stamped. Icons that should be mirrored should be decorated with a
+     * `mirror-in-rtl` attribute.
+     *
+     * NOTE: For performance reasons, direction will be resolved once per
+     * document per iconset, so moving icons in and out of RTL subtrees will
+     * not cause their mirrored state to change.
+     */
+    rtlMirroring: {type: Boolean, value: false},
+
+    /**
+     * Set to true to measure RTL based on the dir attribute on the body or
+     * html elements (measured on document.body or document.documentElement as
+     * available).
+     */
+    useGlobalRtlAttribute: {type: Boolean, value: false}
+  },
+
+  created: function() {
+    this._meta = new IronMeta({type: 'iconset', key: null, value: null});
+  },
+
+  attached: function() {
+    this.style.display = 'none';
+  },
+
+  /**
+   * Construct an array of all icon names in this iconset.
+   *
+   * @return {!Array} Array of icon names.
+   */
+  getIconNames: function() {
+    this._icons = this._createIconMap();
+    return Object.keys(this._icons).map(function(n) {
+      return this.name + ':' + n;
+    }, this);
+  },
+
+  /**
+   * Applies an icon to the given element.
+   *
+   * An svg icon is prepended to the element's shadowRoot if it exists,
+   * otherwise to the element itself.
+   *
+   * If RTL mirroring is enabled, and the icon is marked to be mirrored in
+   * RTL, the element will be tested (once and only once ever for each
+   * iconset) to determine the direction of the subtree the element is in.
+   * This direction will apply to all future icon applications, although only
+   * icons marked to be mirrored will be affected.
+   *
+   * @method applyIcon
+   * @param {Element} element Element to which the icon is applied.
+   * @param {string} iconName Name of the icon to apply.
+   * @return {?Element} The svg element which renders the icon.
+   */
+  applyIcon: function(element, iconName) {
+    // Remove old svg element
+    this.removeIcon(element);
+    // install new svg element
+    var svg = this._cloneIcon(
+        iconName, this.rtlMirroring && this._targetIsRTL(element));
+    if (svg) {
+      // insert svg element into shadow root, if it exists
+      var pde = dom(element.root || element);
+      pde.insertBefore(svg, pde.childNodes[0]);
+      return element._svgIcon = svg;
     }
-    static get is() {
-        return 'tab-organization-failure';
+    return null;
+  },
+
+  /**
+   * Produce installable clone of the SVG element matching `id` in this
+   * iconset, or `undefined` if there is no matching element.
+   * @param {string} iconName Name of the icon to apply.
+   * @param {boolean} targetIsRTL Whether the target element is RTL.
+   * @return {Element} Returns an installable clone of the SVG element
+   *     matching `id`.
+   */
+  createIcon: function(iconName, targetIsRTL) {
+    return this._cloneIcon(iconName, this.rtlMirroring && targetIsRTL);
+  },
+
+  /**
+   * Remove an icon from the given element by undoing the changes effected
+   * by `applyIcon`.
+   *
+   * @param {Element} element The element from which the icon is removed.
+   */
+  removeIcon: function(element) {
+    // Remove old svg element
+    if (element._svgIcon) {
+      dom(element.root || element).removeChild(element._svgIcon);
+      element._svgIcon = null;
     }
-    static get properties() {
-        return {
-            error: Object,
-        };
-    }
-    static get template() {
-        return getTemplate$c();
-    }
-    getTitle_() {
-        switch (this.error) {
-            case TabOrganizationError.kGrouping:
-                return loadTimeData.getString('failureTitleGrouping');
-            case TabOrganizationError.kGeneric:
-                return loadTimeData.getString('failureTitleGeneric');
-            default:
-                return '';
+  },
+
+  /**
+   * Measures and memoizes the direction of the element. Note that this
+   * measurement is only done once and the result is memoized for future
+   * invocations.
+   */
+  _targetIsRTL: function(target) {
+    if (this.__targetIsRTL == null) {
+      if (this.useGlobalRtlAttribute) {
+        var globalElement =
+            (document.body && document.body.hasAttribute('dir')) ?
+            document.body :
+            document.documentElement;
+
+        this.__targetIsRTL = globalElement.getAttribute('dir') === 'rtl';
+      } else {
+        if (target && target.nodeType !== Node.ELEMENT_NODE) {
+          target = target.host;
         }
-    }
-    getBody_() {
-        switch (this.error) {
-            case TabOrganizationError.kGrouping:
-                return loadTimeData.getString('failureBodyGrouping');
-            case TabOrganizationError.kGeneric:
-                return loadTimeData.getString('failureBodyGeneric');
-            default:
-                return '';
-        }
-    }
-}
-customElements.define(TabOrganizationFailureElement.is, TabOrganizationFailureElement);
 
-function getTemplate$b() {
-    return html `<!--_html_template_start_--><style include="tab-organization-shared-style">:host{--border-height:220px;--border-width:100%;--primary-background-color:var(--color-tab-organization-gradient1);--secondary-background-color:var(--color-tab-organization-gradient2)}.background{--border-thickness:2px;background-color:var(--color-sys-surface);border-radius:6px;height:calc(var(--border-height) - 2 * var(--border-thickness));width:calc(var(--border-width) - 2 * var(--border-thickness))}.border{align-items:center;border-radius:8px;display:flex;height:var(--border-height);justify-content:center;width:var(--border-width)}.gradient{animation:gradient 5s linear infinite;background:linear-gradient(-45deg,var(--primary-background-color) 0,var(--secondary-background-color) 33%,var(--primary-background-color) 66%,var(--secondary-background-color) 100%);background-position:20% 0;background-size:400% 400%}@keyframes gradient{0%{background-position:20% 0}100%{background-position:100% 100%}}.mask{clip-path:url(#clip_path);height:100%;width:100%}</style>
-
-<div class="tab-organization-container">
-  <div class="tab-organization-header">$i18n{inProgressTitle}</div>
-  <div class="gradient border">
-    <div class="background">
-      <div class="gradient mask">
-        <svg>
-          <defs>
-            <clipPath id="clip_path" x="14" y="14" width="248" height="191">
-              <rect x="14" y="14" width="248" height="35" rx="8" fill="white">
-              </rect>
-              <rect x="14" y="69" width="40" height="40" rx="8" fill="white">
-              </rect>
-              <rect x="70" y="71" width="116" height="16" rx="4" fill="white">
-              </rect>
-              <rect x="70" y="119" width="116" height="16" rx="4" fill="white">
-              </rect>
-              <rect x="70" y="167" width="116" height="16" rx="4" fill="white">
-              </rect>
-              <rect x="70" y="93" width="76" height="14" rx="4" fill="white">
-              </rect>
-              <rect x="70" y="141" width="76" height="14" rx="4" fill="white">
-              </rect>
-              <rect x="70" y="189" width="76" height="14" rx="4" fill="white">
-              </rect>
-              <rect x="14" y="117" width="40" height="40" rx="8" fill="white">
-              </rect>
-              <rect x="14" y="165" width="40" height="40" rx="8" fill="white">
-              </rect>
-            </clipPath>
-          </defs>
-        </svg>
-      </div>
-    </div>
-  </div>
-</div>
-<!--_html_template_end_-->`;
-}
-
-// Copyright 2023 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-// Loading state for the tab organization UI.
-class TabOrganizationInProgressElement extends PolymerElement {
-    static get is() {
-        return 'tab-organization-in-progress';
+        this.__targetIsRTL =
+            target && window.getComputedStyle(target)['direction'] === 'rtl';
+      }
     }
-    static get template() {
-        return getTemplate$b();
+
+    return this.__targetIsRTL;
+  },
+
+  /**
+   *
+   * When name is changed, register iconset metadata
+   *
+   */
+  _nameChanged: function() {
+    this._meta.value = null;
+    this._meta.key = this.name;
+    this._meta.value = this;
+
+    this.async(function() {
+      this.fire('iron-iconset-added', this, {node: window});
+    });
+  },
+
+  /**
+   * Create a map of child SVG elements by id.
+   *
+   * @return {!Object} Map of id's to SVG elements.
+   */
+  _createIconMap: function() {
+    // Objects chained to Object.prototype (`{}`) have members. Specifically,
+    // on FF there is a `watch` method that confuses the icon map, so we
+    // need to use a null-based object here.
+    var icons = Object.create(null);
+    dom(this).querySelectorAll('[id]').forEach(function(icon) {
+      icons[icon.id] = icon;
+    });
+    return icons;
+  },
+
+  /**
+   * Produce installable clone of the SVG element matching `id` in this
+   * iconset, or `undefined` if there is no matching element.
+   *
+   * @return {Element} Returns an installable clone of the SVG element
+   * matching `id`.
+   */
+  _cloneIcon: function(id, mirrorAllowed) {
+    // create the icon map on-demand, since the iconset itself has no discrete
+    // signal to know when it's children are fully parsed
+    this._icons = this._icons || this._createIconMap();
+    return this._prepareSvgClone(this._icons[id], this.size, mirrorAllowed);
+  },
+
+  /**
+   * @param {Element} sourceSvg
+   * @param {number} size
+   * @param {Boolean} mirrorAllowed
+   * @return {Element}
+   */
+  _prepareSvgClone: function(sourceSvg, size, mirrorAllowed) {
+    if (sourceSvg) {
+      var content = sourceSvg.cloneNode(true),
+          svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg'),
+          viewBox =
+              content.getAttribute('viewBox') || '0 0 ' + size + ' ' + size,
+          cssText =
+              'pointer-events: none; display: block; width: 100%; height: 100%;';
+
+      if (mirrorAllowed && content.hasAttribute('mirror-in-rtl')) {
+        cssText +=
+            '-webkit-transform:scale(-1,1);transform:scale(-1,1);transform-origin:center;';
+      }
+
+      svg.setAttribute('viewBox', viewBox);
+      svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+      svg.setAttribute('focusable', 'false');
+      // TODO(dfreedm): `pointer-events: none` works around
+      // https://crbug.com/370136
+      // TODO(sjmiles): inline style may not be ideal, but avoids requiring a
+      // shadow-root
+      svg.style.cssText = cssText;
+      svg.appendChild(content).removeAttribute('id');
+      return svg;
     }
-}
-customElements.define(TabOrganizationInProgressElement.is, TabOrganizationInProgressElement);
+    return null;
+  }
+
+});
+
+const template$2 = html `
+<iron-iconset-svg name="cr20" size="20">
+  <svg>
+    <defs>
+      
+      <g id="block">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M10 0C4.48 0 0 4.48 0 10C0 15.52 4.48 20 10 20C15.52 20 20 15.52 20 10C20 4.48 15.52 0 10 0ZM2 10C2 5.58 5.58 2 10 2C11.85 2 13.55 2.63 14.9 3.69L3.69 14.9C2.63 13.55 2 11.85 2 10ZM5.1 16.31C6.45 17.37 8.15 18 10 18C14.42 18 18 14.42 18 10C18 8.15 17.37 6.45 16.31 5.1L5.1 16.31Z">
+        </path>
+      </g>
+      <g id="cloud-off">
+        <path d="M16 18.125L13.875 16H5C3.88889 16 2.94444 15.6111 2.16667 14.8333C1.38889 14.0556 1 13.1111 1 12C1 10.9444 1.36111 10.0347 2.08333 9.27083C2.80556 8.50694 3.6875 8.09028 4.72917 8.02083C4.77083 7.86805 4.8125 7.72222 4.85417 7.58333C4.90972 7.44444 4.97222 7.30555 5.04167 7.16667L1.875 4L2.9375 2.9375L17.0625 17.0625L16 18.125ZM5 14.5H12.375L6.20833 8.33333C6.15278 8.51389 6.09722 8.70139 6.04167 8.89583C6 9.07639 5.95139 9.25694 5.89583 9.4375L4.83333 9.52083C4.16667 9.57639 3.61111 9.84028 3.16667 10.3125C2.72222 10.7708 2.5 11.3333 2.5 12C2.5 12.6944 2.74306 13.2847 3.22917 13.7708C3.71528 14.2569 4.30556 14.5 5 14.5ZM17.5 15.375L16.3958 14.2917C16.7153 14.125 16.9792 13.8819 17.1875 13.5625C17.3958 13.2431 17.5 12.8889 17.5 12.5C17.5 11.9444 17.3056 11.4722 16.9167 11.0833C16.5278 10.6944 16.0556 10.5 15.5 10.5H14.125L14 9.14583C13.9028 8.11806 13.4722 7.25694 12.7083 6.5625C11.9444 5.85417 11.0417 5.5 10 5.5C9.65278 5.5 9.31944 5.54167 9 5.625C8.69444 5.70833 8.39583 5.82639 8.10417 5.97917L7.02083 4.89583C7.46528 4.61806 7.93056 4.40278 8.41667 4.25C8.91667 4.08333 9.44444 4 10 4C11.4306 4 12.6736 4.48611 13.7292 5.45833C14.7847 6.41667 15.375 7.59722 15.5 9C16.4722 9 17.2986 9.34028 17.9792 10.0208C18.6597 10.7014 19 11.5278 19 12.5C19 13.0972 18.8611 13.6458 18.5833 14.1458C18.3194 14.6458 17.9583 15.0556 17.5 15.375Z">
+        </path>
+      </g>
+      <g id="domain">
+        <path d="M2,3 L2,17 L11.8267655,17 L13.7904799,17 L18,17 L18,7 L12,7 L12,3 L2,3 Z M8,13 L10,13 L10,15 L8,15 L8,13 Z M4,13 L6,13 L6,15 L4,15 L4,13 Z M8,9 L10,9 L10,11 L8,11 L8,9 Z M4,9 L6,9 L6,11 L4,11 L4,9 Z M12,9 L16,9 L16,15 L12,15 L12,9 Z M12,11 L14,11 L14,13 L12,13 L12,11 Z M8,5 L10,5 L10,7 L8,7 L8,5 Z M4,5 L6,5 L6,7 L4,7 L4,5 Z">
+        </path>
+      </g>
+      <g id="kite">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M4.6327 8.00094L10.3199 2L16 8.00094L10.1848 16.8673C10.0995 16.9873 10.0071 17.1074 9.90047 17.2199C9.42417 17.7225 8.79147 18 8.11611 18C7.44076 18 6.80806 17.7225 6.33175 17.2199C5.85545 16.7173 5.59242 16.0497 5.59242 15.3371C5.59242 14.977 5.46445 14.647 5.22275 14.3919C4.98104 14.1369 4.66825 14.0019 4.32701 14.0019H4V12.6667H4.32701C5.00237 12.6667 5.63507 12.9442 6.11137 13.4468C6.58768 13.9494 6.85071 14.617 6.85071 15.3296C6.85071 15.6896 6.97867 16.0197 7.22038 16.2747C7.46209 16.5298 7.77488 16.6648 8.11611 16.6648C8.45735 16.6648 8.77014 16.5223 9.01185 16.2747C9.02396 16.2601 9.03607 16.246 9.04808 16.2319C9.08541 16.1883 9.12176 16.1458 9.15403 16.0947L9.55213 15.4946L4.6327 8.00094ZM10.3199 13.9371L6.53802 8.17116L10.3199 4.1814L14.0963 8.17103L10.3199 13.9371Z">
+        </path>
+      </g>
+      <g id="menu">
+        <path d="M2 4h16v2H2zM2 9h16v2H2zM2 14h16v2H2z"></path>
+      </g>
+      
+        <g id="banner-warning">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M9.13177 1.50386C9.51566 0.832046 10.4844 0.832046 10.8683 1.50386L18.8683 15.5039C19.2492 16.1705 18.7678 17 18 17H2.00001C1.23219 17 0.750823 16.1705 1.13177 15.5039L9.13177 1.50386ZM10 4.01556L3.72321 15H16.2768L10 4.01556ZM9 11H11V7H9V11ZM11 14H9V12H11V14Z">
+          </path>
+        </g>
+        <g id="warning">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M9.13177 1.50386C9.51566 0.832046 10.4844 0.832046 10.8683 1.50386L18.8683 15.5039C19.2492 16.1705 18.7678 17 18 17H2.00001C1.23219 17 0.750823 16.1705 1.13177 15.5039L9.13177 1.50386ZM10 4.01556L3.72321 15H16.2768L10 4.01556ZM9 11H11V7H9V11ZM11 14H9V12H11V14Z">
+          </path>
+        </g>
+      
+  </defs></svg>
+</iron-iconset-svg>
+
+
+<iron-iconset-svg name="cr" size="24">
+  <svg>
+    <defs>
+      
+      <g id="account-child-invert" viewBox="0 0 48 48">
+        <path d="M24 4c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6 2.69-6 6-6z"></path>
+        <path fill="none" d="M0 0h48v48H0V0z"></path>
+        <circle fill="none" cx="24" cy="26" r="4"></circle>
+        <path d="M24 18c-6.16 0-13 3.12-13 7.23v11.54c0 2.32 2.19 4.33 5.2 5.63 2.32 1 5.12 1.59 7.8 1.59.66 0 1.33-.06 2-.14v-5.2c-.67.08-1.34.14-2 .14-2.63 0-5.39-.57-7.68-1.55.67-2.12 4.34-3.65 7.68-3.65.86 0 1.75.11 2.6.29 2.79.62 5.2 2.15 5.2 4.04v4.47c3.01-1.31 5.2-3.31 5.2-5.63V25.23C37 21.12 30.16 18 24 18zm0 12c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z">
+        </path>
+      </g>
+      <g id="add">
+        <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+      </g>
+      <g id="arrow-back">
+        <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z">
+        </path>
+      </g>
+      <g id="arrow-drop-up">
+        <path d="M7 14l5-5 5 5z"></path>
+      </g>
+      <g id="arrow-drop-down">
+        <path d="M7 10l5 5 5-5z"></path>
+      </g>
+      <g id="arrow-forward">
+        <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z">
+        </path>
+      </g>
+      <g id="arrow-right">
+        <path d="M10 7l5 5-5 5z"></path>
+      </g>
+      
+        <g id="bluetooth">
+          <path d="M17.71 7.71L12 2h-1v7.59L6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 11 14.41V22h1l5.71-5.71-4.3-4.29 4.3-4.29zM13 5.83l1.88 1.88L13 9.59V5.83zm1.88 10.46L13 18.17v-3.76l1.88 1.88z">
+          </path>
+        </g>
+        <g id="camera-alt">
+          <circle cx="12" cy="12" r="3.2"></circle>
+          <path d="M9 2L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2H9zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z">
+          </path>
+        </g>
+        <g id="work">
+          <path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z">
+          </path>
+        </g>
+      
+      <g id="cancel">
+        <path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z">
+        </path>
+      </g>
+      <g id="check">
+        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+      </g>
+      <g id="check-circle">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z">
+        </path>
+      </g>
+      <g id="chevron-left">
+        <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"></path>
+      </g>
+      <g id="chevron-right">
+        <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path>
+      </g>
+      <g id="clear">
+        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z">
+        </path>
+      </g>
+      <g id="close">
+        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z">
+        </path>
+      </g>
+      <g id="computer">
+        <path d="M20 18c1.1 0 1.99-.9 1.99-2L22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z">
+        </path>
+      </g>
+      <g id="create">
+        <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z">
+        </path>
+      </g>
+      <g id="delete">
+        <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z">
+        </path>
+      </g>
+      <g id="domain">
+        <path d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z">
+        </path>
+      </g>
+      <g id="error">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z">
+        </path>
+      </g>
+      <g id="error-outline">
+        <path d="M11 15h2v2h-2zm0-8h2v6h-2zm.99-5C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z">
+        </path>
+      </g>
+      <g id="expand-less">
+        <path d="M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z"></path>
+      </g>
+      <g id="expand-more">
+        <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path>
+      </g>
+      <g id="extension">
+        <path d="M20.5 11H19V7c0-1.1-.9-2-2-2h-4V3.5C13 2.12 11.88 1 10.5 1S8 2.12 8 3.5V5H4c-1.1 0-1.99.9-1.99 2v3.8H3.5c1.49 0 2.7 1.21 2.7 2.7s-1.21 2.7-2.7 2.7H2V20c0 1.1.9 2 2 2h3.8v-1.5c0-1.49 1.21-2.7 2.7-2.7 1.49 0 2.7 1.21 2.7 2.7V22H17c1.1 0 2-.9 2-2v-4h1.5c1.38 0 2.5-1.12 2.5-2.5S21.88 11 20.5 11z">
+        </path>
+      </g>
+      <g id="file-download">
+        <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"></path>
+      </g>
+      
+        <g id="folder-filled">
+          <path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z">
+          </path>
+        </g>
+      
+      <g id="fullscreen">
+        <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z">
+        </path>
+      </g>
+      <g id="group">
+        <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z">
+        </path>
+      </g>
+      <g id="help-outline">
+        <path d="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z">
+        </path>
+      </g>
+      <g id="history">
+        <path d="M12.945312 22.75 C 10.320312 22.75 8.074219 21.839844 6.207031 20.019531 C 4.335938 18.199219 3.359375 15.972656 3.269531 13.34375 L 5.089844 13.34375 C 5.175781 15.472656 5.972656 17.273438 7.480469 18.742188 C 8.988281 20.210938 10.808594 20.945312 12.945312 20.945312 C 15.179688 20.945312 17.070312 20.164062 18.621094 18.601562 C 20.167969 17.039062 20.945312 15.144531 20.945312 12.910156 C 20.945312 10.714844 20.164062 8.855469 18.601562 7.335938 C 17.039062 5.816406 15.15625 5.054688 12.945312 5.054688 C 11.710938 5.054688 10.554688 5.339844 9.480469 5.902344 C 8.402344 6.46875 7.476562 7.226562 6.699219 8.179688 L 9.585938 8.179688 L 9.585938 9.984375 L 3.648438 9.984375 L 3.648438 4.0625 L 5.453125 4.0625 L 5.453125 6.824219 C 6.386719 5.707031 7.503906 4.828125 8.804688 4.199219 C 10.109375 3.566406 11.488281 3.25 12.945312 3.25 C 14.300781 3.25 15.570312 3.503906 16.761719 4.011719 C 17.949219 4.519531 18.988281 5.214844 19.875 6.089844 C 20.761719 6.964844 21.464844 7.992188 21.976562 9.167969 C 22.492188 10.34375 22.75 11.609375 22.75 12.964844 C 22.75 14.316406 22.492188 15.589844 21.976562 16.777344 C 21.464844 17.964844 20.761719 19.003906 19.875 19.882812 C 18.988281 20.765625 17.949219 21.464844 16.761719 21.976562 C 15.570312 22.492188 14.300781 22.75 12.945312 22.75 Z M 16.269531 17.460938 L 12.117188 13.34375 L 12.117188 7.527344 L 13.921875 7.527344 L 13.921875 12.601562 L 17.550781 16.179688 Z M 16.269531 17.460938">
+        </path>
+      </g>
+      <g id="info">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z">
+        </path>
+      </g>
+      <g id="info-outline">
+        <path d="M11 17h2v-6h-2v6zm1-15C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zM11 9h2V7h-2v2z">
+        </path>
+      </g>
+      <g id="insert-drive-file">
+        <path d="M6 2c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6H6zm7 7V3.5L18.5 9H13z">
+        </path>
+      </g>
+      <g id="location-on">
+        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z">
+        </path>
+      </g>
+      <g id="mic">
+        <path d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z">
+        </path>
+      </g>
+      <g id="more-vert">
+        <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z">
+        </path>
+      </g>
+      <g id="open-in-new">
+        <path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z">
+        </path>
+      </g>
+      <g id="person">
+        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z">
+        </path>
+      </g>
+      <g id="phonelink">
+        <path d="M4 6h18V4H4c-1.1 0-2 .9-2 2v11H0v3h14v-3H4V6zm19 2h-6c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h6c.55 0 1-.45 1-1V9c0-.55-.45-1-1-1zm-1 9h-4v-7h4v7z">
+        </path>
+      </g>
+      <g id="print">
+        <path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z">
+        </path>
+      </g>
+      <g id="schedule">
+        <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z">
+        </path>
+      </g>
+      <g id="search">
+        <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z">
+        </path>
+      </g>
+      <g id="security">
+        <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z">
+        </path>
+      </g>
+      
+        <g id="sim-card-alert">
+          <path d="M18 2h-8L4.02 8 4 20c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-5 15h-2v-2h2v2zm0-4h-2V8h2v5z">
+          </path>
+        </g>
+        <g id="sim-lock">
+          <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z">
+          </path>
+        </g>
+        <g id="sms-connect">
+          <path d="M20,2C21.1,2 22,2.9 22,4L22,16C22,17.1 21.1,18 20,18L6,18L2,22L2.01,4C2.01,2.9 2.9,2 4,2L20,2ZM8,8L4,12L8,16L8,13L14,13L14,11L8,11L8,8ZM19.666,7.872L16.038,4.372L16.038,6.997L10,6.997L10,9L16.038,9L16.038,11.372L19.666,7.872Z">
+          </path>
+        </g>
+      
+      
+      <g id="settings_icon">
+        <path d="M19.43 12.98c.04-.32.07-.64.07-.98s-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98s.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zM12 15.5c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5z">
+        </path>
+      </g>
+      <g id="star">
+        <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z">
+        </path>
+      </g>
+      <g id="sync">
+        <path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46C19.54 15.03 20 13.57 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74C4.46 8.97 4 10.43 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z">
+        </path>
+      </g>
+      <g id="thumbs-down">
+        <path d="M6 3h11v13l-7 7-1.25-1.25a1.454 1.454 0 0 1-.3-.475c-.067-.2-.1-.392-.1-.575v-.35L9.45 16H3c-.533 0-1-.2-1.4-.6-.4-.4-.6-.867-.6-1.4v-2c0-.117.017-.242.05-.375s.067-.258.1-.375l3-7.05c.15-.333.4-.617.75-.85C5.25 3.117 5.617 3 6 3Zm9 2H6l-3 7v2h9l-1.35 5.5L15 15.15V5Zm0 10.15V5v10.15Zm2 .85v-2h3V5h-3V3h5v13h-5Z">
+        </path>
+      </g>
+      <g id="thumbs-down-filled">
+        <path d="M6 3h10v13l-7 7-1.25-1.25a1.336 1.336 0 0 1-.29-.477 1.66 1.66 0 0 1-.108-.574v-.347L8.449 16H3c-.535 0-1-.2-1.398-.602C1.199 15 1 14.535 1 14v-2c0-.117.012-.242.04-.375.022-.133.062-.258.108-.375l3-7.05c.153-.333.403-.618.75-.848A1.957 1.957 0 0 1 6 3Zm12 13V3h4v13Zm0 0">
+        </path>
+      </g>
+      <g id="thumbs-up">
+        <path d="M18 21H7V8l7-7 1.25 1.25c.117.117.208.275.275.475.083.2.125.392.125.575v.35L14.55 8H21c.533 0 1 .2 1.4.6.4.4.6.867.6 1.4v2c0 .117-.017.242-.05.375s-.067.258-.1.375l-3 7.05c-.15.333-.4.617-.75.85-.35.233-.717.35-1.1.35Zm-9-2h9l3-7v-2h-9l1.35-5.5L9 8.85V19ZM9 8.85V19 8.85ZM7 8v2H4v9h3v2H2V8h5Z">
+        </path>
+      </g>
+      <g id="thumbs-up-filled">
+        <path d="M18 21H8V8l7-7 1.25 1.25c.117.117.21.273.29.477.073.199.108.39.108.574v.347L15.551 8H21c.535 0 1 .2 1.398.602C22.801 9 23 9.465 23 10v2c0 .117-.012.242-.04.375a1.897 1.897 0 0 1-.108.375l-3 7.05a2.037 2.037 0 0 1-.75.848A1.957 1.957 0 0 1 18 21ZM6 8v13H2V8Zm0 0">
+      </path></g>
+      <g id="videocam">
+        <path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z">
+        </path>
+      </g>
+      <g id="warning">
+        <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"></path>
+      </g>
+    </defs>
+  </svg>
+</iron-iconset-svg>
+`;
+document.head.appendChild(template$2.content);
 
 function getTemplate$a() {
-    return html `<!--_html_template_start_--><style include="tab-organization-shared-style">cr-button{align-self:flex-end;width:fit-content}</style>
+    return html `<!--_html_template_start_--><style>.buttons{--cr-feedback-buttons-icon-size_:16px;display:grid;grid-auto-columns:var(--cr-feedback-buttons-icon-size_);grid-auto-rows:var(--cr-feedback-buttons-icon-size_);grid-auto-flow:column;gap:12px;align-items:center;justify-items:center}cr-icon-button{--cr-icon-button-fill-color:currentColor;--cr-icon-button-icon-size:var(--cr-feedback-buttons-icon-size_);--cr-icon-button-size:24px;margin:0}</style>
 
-<div class="tab-organization-container">
-  <div class="tab-organization-text-container">
-    <div class="tab-organization-header">[[getTitle_(showFRE_)]]</div>
-    <div class="tab-organization-body">[[getBody_(showFRE_)]]</div>
-  </div>
-  <cr-button class="action-button" on-click="onOrganizeTabsClick_">
-    $i18n{notStartedButton}
-  </cr-button>
+<div class="buttons">
+  <cr-icon-button id="thumbsUp" iron-icon="[[getThumbsUpIcon_(selectedOption)]]" aria-label="[[thumbsUpLabel_]]" aria-pressed="[[getThumbsUpAriaPressed_(selectedOption)]]" on-click="onThumbsUpClick_">
+  </cr-icon-button>
+  <cr-icon-button id="thumbsDown" iron-icon="[[getThumbsDownIcon_(selectedOption)]]" aria-label="[[thumbsDownLabel_]]" aria-pressed="[[getThumbsDownAriaPressed_(selectedOption)]]" on-click="onThumbsDownClick_">
+  </cr-icon-button>
 </div>
 <!--_html_template_end_-->`;
 }
@@ -2705,43 +3776,72 @@ function getTemplate$a() {
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-// Not started state for the tab organization UI.
-class TabOrganizationNotStartedElement extends PolymerElement {
+var CrFeedbackOption;
+(function (CrFeedbackOption) {
+    CrFeedbackOption[CrFeedbackOption["THUMBS_DOWN"] = 0] = "THUMBS_DOWN";
+    CrFeedbackOption[CrFeedbackOption["THUMBS_UP"] = 1] = "THUMBS_UP";
+    CrFeedbackOption[CrFeedbackOption["UNSPECIFIED"] = 2] = "UNSPECIFIED";
+})(CrFeedbackOption || (CrFeedbackOption = {}));
+class CrFeedbackButtonsElement extends PolymerElement {
     static get is() {
-        return 'tab-organization-not-started';
-    }
-    static get properties() {
-        return {
-            showFRE_: {
-                type: Boolean,
-                value: loadTimeData.getBoolean('showTabOrganizationFRE'),
-            },
-        };
+        return 'cr-feedback-buttons';
     }
     static get template() {
         return getTemplate$a();
     }
-    getTitle_() {
-        if (this.showFRE_) {
-            return loadTimeData.getString('notStartedTitleFRE');
-        }
-        else {
-            return loadTimeData.getString('notStartedTitle');
-        }
+    static get properties() {
+        return {
+            selectedOption: {
+                type: String,
+                value: CrFeedbackOption.UNSPECIFIED,
+            },
+            thumbsDownLabel_: {
+                type: String,
+                value: () => loadTimeData.getString('thumbsDown'),
+            },
+            thumbsUpLabel_: {
+                type: String,
+                value: () => loadTimeData.getString('thumbsUp'),
+            },
+        };
     }
-    getBody_() {
-        if (this.showFRE_) {
-            return loadTimeData.getString('notStartedBodyFRE');
-        }
-        else {
-            return loadTimeData.getString('notStartedBody');
-        }
+    getThumbsDownAriaPressed_() {
+        return this.selectedOption === CrFeedbackOption.THUMBS_DOWN;
     }
-    onOrganizeTabsClick_() {
-        this.dispatchEvent(new CustomEvent('organize-tabs-click', { bubbles: true, composed: true }));
+    getThumbsDownIcon_() {
+        return this.selectedOption === CrFeedbackOption.THUMBS_DOWN ?
+            'cr:thumbs-down-filled' :
+            'cr:thumbs-down';
+    }
+    getThumbsUpAriaPressed_() {
+        return this.selectedOption === CrFeedbackOption.THUMBS_UP;
+    }
+    getThumbsUpIcon_() {
+        return this.selectedOption === CrFeedbackOption.THUMBS_UP ?
+            'cr:thumbs-up-filled' :
+            'cr:thumbs-up';
+    }
+    notifySelectedOptionChanged_() {
+        this.dispatchEvent(new CustomEvent('selected-option-changed', {
+            bubbles: true,
+            composed: true,
+            detail: { value: this.selectedOption },
+        }));
+    }
+    onThumbsDownClick_() {
+        this.selectedOption = this.selectedOption === CrFeedbackOption.THUMBS_DOWN ?
+            CrFeedbackOption.UNSPECIFIED :
+            CrFeedbackOption.THUMBS_DOWN;
+        this.notifySelectedOptionChanged_();
+    }
+    onThumbsUpClick_() {
+        this.selectedOption = this.selectedOption === CrFeedbackOption.THUMBS_UP ?
+            CrFeedbackOption.UNSPECIFIED :
+            CrFeedbackOption.THUMBS_UP;
+        this.notifySelectedOptionChanged_();
     }
 }
-customElements.define(TabOrganizationNotStartedElement.is, TabOrganizationNotStartedElement);
+customElements.define(CrFeedbackButtonsElement.is, CrFeedbackButtonsElement);
 
 const styleMod$3 = document.createElement('dom-module');
 styleMod$3.appendChild(html `
@@ -2761,8 +3861,9 @@ styleMod$2.appendChild(html `
             var(--cr-fallback-color-surface-variant));--cr-input-border-bottom:1px solid var(--color-textfield-filled-underline,
                 var(--cr-fallback-color-outline));--cr-input-border-radius:8px 8px 0 0;--cr-input-error-color:var(--color-textfield-filled-error,
             var(--cr-fallback-color-error));--cr-input-focus-color:var(--color-textfield-filled-underline-focused,
-            var(--cr-fallback-color-primary));--cr-input-hover-background-color:var(--cr-hover-background-color);--cr-input-padding-bottom:10px;--cr-input-padding-end:10px;--cr-input-padding-start:10px;--cr-input-padding-top:10px;--cr-input-placeholder-color:var(--color-textfield-foreground-placeholder,
-                var(--cr-fallback-on-surface-subtle));isolation:isolate}:host-context([chrome-refresh-2023]):host([readonly]){--cr-input-border-radius:8px 8px}@media (prefers-color-scheme:dark){:host{--cr-input-background-color:rgba(0, 0, 0, .3);--cr-input-error-color:var(--google-red-300);--cr-input-focus-color:var(--google-blue-300)}}:host-context(html:not([chrome-refresh-2023])):host([focused_]:not([readonly]):not([invalid])) #label{color:var(--cr-input-focus-color)}:host-context([chrome-refresh-2023]) #label{color:var(--color-textfield-foreground-label,var(--cr-fallback-color-on-surface-subtle));font-size:11px;line-height:16px}#input-container{border-radius:var(--cr-input-border-radius,4px);overflow:hidden;position:relative;width:var(--cr-input-width,100%)}#inner-input-container{background-color:var(--cr-input-background-color);box-sizing:border-box;padding:0}:host-context([chrome-refresh-2023]) #inner-input-content ::slotted(*){--cr-icon-button-fill-color:var(--color-textfield-foreground-icon,
+            var(--cr-fallback-color-primary));--cr-input-hover-background-color:var(--cr-hover-background-color);--cr-input-label-color:var(--color-textfield-foreground-label,
+            var(--cr-fallback-color-on-surface-subtle));--cr-input-padding-bottom:10px;--cr-input-padding-end:10px;--cr-input-padding-start:10px;--cr-input-padding-top:10px;--cr-input-placeholder-color:var(--color-textfield-foreground-placeholder,
+                var(--cr-fallback-on-surface-subtle));isolation:isolate}:host-context([chrome-refresh-2023]):host([readonly]){--cr-input-border-radius:8px 8px}@media (prefers-color-scheme:dark){:host{--cr-input-background-color:rgba(0, 0, 0, .3);--cr-input-error-color:var(--google-red-300);--cr-input-focus-color:var(--google-blue-300)}}:host-context(html:not([chrome-refresh-2023])):host([focused_]:not([readonly]):not([invalid])) #label{color:var(--cr-input-focus-color)}:host-context([chrome-refresh-2023]) #label{color:var(--cr-input-label-color);font-size:11px;line-height:16px}:host-context([chrome-refresh-2023]):host([focused_]:not([readonly]):not([invalid])) #label{color:var(--cr-input-focus-label-color,var(--cr-input-label-color))}#input-container{border-radius:var(--cr-input-border-radius,4px);overflow:hidden;position:relative;width:var(--cr-input-width,100%)}:host-context([chrome-refresh-2023]):host([focused_]) #input-container{outline:var(--cr-input-focus-outline,none)}#inner-input-container{background-color:var(--cr-input-background-color);box-sizing:border-box;padding:0}:host-context([chrome-refresh-2023]) #inner-input-content ::slotted(*){--cr-icon-button-fill-color:var(--color-textfield-foreground-icon,
             var(--cr-fallback-color-on-surface-subtle));--cr-icon-button-icon-size:16px;--cr-icon-button-size:24px;--cr-icon-button-margin-start:0;--cr-icon-color:var(--color-textfield-foreground-icon,
             var(--cr-fallback-color-on-surface-subtle))}:host-context([chrome-refresh-2023]) #inner-input-content ::slotted([slot=inline-prefix]){--cr-icon-button-margin-start:-8px}:host-context([chrome-refresh-2023]) #inner-input-content ::slotted([slot=inline-suffix]){--cr-icon-button-margin-end:-4px}:host-context([chrome-refresh-2023]):host([invalid]) #inner-input-content ::slotted(*){--cr-icon-color:var(--cr-input-error-color);--cr-icon-button-fill-color:var(--cr-input-error-color)}#hover-layer{display:none}:host-context([chrome-refresh-2023]) #hover-layer{background-color:var(--cr-input-hover-background-color);inset:0;pointer-events:none;position:absolute;z-index:0}:host-context([chrome-refresh-2023]):host(:not([readonly]):not([disabled])) #input-container:hover #hover-layer{display:block}#input{-webkit-appearance:none;background-color:transparent;border:none;box-sizing:border-box;caret-color:var(--cr-input-focus-color);color:var(--cr-input-color);font-family:inherit;font-size:inherit;font-weight:inherit;line-height:inherit;min-height:var(--cr-input-min-height,auto);outline:0;padding-bottom:var(--cr-input-padding-bottom,6px);padding-inline-end:var(--cr-input-padding-end,8px);padding-inline-start:var(--cr-input-padding-start,8px);padding-top:var(--cr-input-padding-top,6px);text-align:inherit;text-overflow:ellipsis;width:100%}:host-context([chrome-refresh-2023]) #input{font-size:12px;line-height:16px;padding:0}:host-context([chrome-refresh-2023]) #inner-input-content{padding-bottom:var(--cr-input-padding-bottom);padding-inline-end:var(--cr-input-padding-end);padding-inline-start:var(--cr-input-padding-start);padding-top:var(--cr-input-padding-top)}#underline{border-bottom:2px solid var(--cr-input-focus-color);border-radius:var(--cr-input-underline-border-radius,0);bottom:0;box-sizing:border-box;display:var(--cr-input-underline-display);height:var(--cr-input-underline-height,0);left:0;margin:auto;opacity:0;position:absolute;right:0;transition:opacity 120ms ease-out,width 0s linear 180ms;width:0}:host([focused_]) #underline,:host([force-underline]) #underline,:host([invalid]) #underline{opacity:1;transition:opacity 120ms ease-in,width 180ms ease-out;width:100%}#underline-base{display:none}:host-context([chrome-refresh-2023]):host([readonly]) #underline{display:none}:host-context([chrome-refresh-2023]):host(:not([readonly])) #underline-base{border-bottom:var(--cr-input-border-bottom);bottom:0;display:block;left:0;position:absolute;right:0}:host-context([chrome-refresh-2023]):host([disabled]){color:var(--color-textfield-foreground-disabled,var(--cr-fallback-color-disabled-foreground));--cr-input-border-bottom:1px solid currentColor;--cr-input-placeholder-color:currentColor;--cr-input-color:currentColor;--cr-input-background-color:var(--color-textfield-background-disabled,
             var(--cr-fallback-color-disabled-background))}:host-context([chrome-refresh-2023]):host([disabled]) #inner-input-content ::slotted(*){--cr-icon-color:currentColor;--cr-icon-button-fill-color:currentColor}
@@ -2770,43 +3871,6 @@ styleMod$2.appendChild(html `
   </template>
 `.content);
 styleMod$2.register('cr-input-style');
-
-// Copyright 2022 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * Verify |value| is truthy.
- * @param value A value to check for truthiness. Note that this
- *     may be used to test whether |value| is defined or not, and we don't want
- *     to force a cast to boolean.
- */
-function assert(value, message) {
-    if (value) {
-        return;
-    }
-    throw new Error('Assertion failed' + (message ? `: ${message}` : ''));
-}
-/**
- * Call this from places in the code that should never be reached.
- *
- * For example, handling all the values of enum with a switch() like this:
- *
- *   function getValueFromEnum(enum) {
- *     switch (enum) {
- *       case ENUM_FIRST_OF_TWO:
- *         return first
- *       case ENUM_LAST_OF_TWO:
- *         return last;
- *     }
- *     assertNotReached();
- *   }
- *
- * This code should only be hit in the case of serious programmer error or
- * unexpected input.
- */
-function assertNotReached(message = 'Unreachable code hit') {
-    assert(false, message);
-}
 
 function getTemplate$9() {
     return html `<!--_html_template_start_-->    <style include="cr-hidden-style cr-input-style cr-shared-style">:host([disabled]) :-webkit-any(#label,#error,#input-container){opacity:var(--cr-disabled-opacity);pointer-events:none}:host-context([chrome-refresh-2023]):host([disabled]) :is(#label,#error,#input-container){opacity:1}:host ::slotted(cr-button[slot=suffix]){margin-inline-start:var(--cr-button-edge-spacing)!important}:host([invalid]) #label{color:var(--cr-input-error-color)}#input{border-bottom:var(--cr-input-border-bottom,none);letter-spacing:var(--cr-input-letter-spacing)}:host-context([chrome-refresh-2023]) #input{border-bottom:none}:host-context([chrome-refresh-2023]) #input-container{border:var(--cr-input-border,none)}#input::placeholder{color:var(--cr-input-placeholder-color,var(--cr-secondary-text-color));letter-spacing:var(--cr-input-placeholder-letter-spacing)}:host([invalid]) #input{caret-color:var(--cr-input-error-color)}:host([readonly]) #input{opacity:var(--cr-input-readonly-opacity,.6)}:host([invalid]) #underline{border-color:var(--cr-input-error-color)}#error{color:var(--cr-input-error-color);display:var(--cr-input-error-display,block);font-size:var(--cr-form-field-label-font-size);height:var(--cr-form-field-label-height);line-height:var(--cr-form-field-label-line-height);margin:8px 0;visibility:hidden;white-space:var(--cr-input-error-white-space)}:host-context([chrome-refresh-2023]) #error{font-size:11px;line-height:16px;margin:4px 10px}:host([invalid]) #error{visibility:visible}#inner-input-content,#row-container{align-items:center;display:flex;justify-content:space-between;position:relative}:host-context([chrome-refresh-2023]) #inner-input-content{gap:4px;height:16px;z-index:1}#input[type=search]::-webkit-search-cancel-button{display:none}:host-context([dir=rtl]) #input[type=url]{text-align:right}#input[type=url]{direction:ltr}</style>
@@ -3076,1460 +4140,6 @@ class CrInputElement extends PolymerElement {
     }
 }
 customElements.define(CrInputElement.is, CrInputElement);
-
-/**
-@license
-Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at
-http://polymer.github.io/LICENSE.txt The complete set of authors may be found at
-http://polymer.github.io/AUTHORS.txt The complete set of contributors may be
-found at http://polymer.github.io/CONTRIBUTORS.txt Code distributed by Google as
-part of the polymer project is also subject to an additional IP rights grant
-found at http://polymer.github.io/PATENTS.txt
-*/
-/**
- * The `iron-iconset-svg` element allows users to define their own icon sets
- * that contain svg icons. The svg icon elements should be children of the
- * `iron-iconset-svg` element. Multiple icons should be given distinct id's.
- *
- * Using svg elements to create icons has a few advantages over traditional
- * bitmap graphics like jpg or png. Icons that use svg are vector based so
- * they are resolution independent and should look good on any device. They
- * are stylable via css. Icons can be themed, colorized, and even animated.
- *
- * Example:
- *
- *     <iron-iconset-svg name="my-svg-icons" size="24">
- *       <svg>
- *         <defs>
- *           <g id="shape">
- *             <rect x="12" y="0" width="12" height="24" />
- *             <circle cx="12" cy="12" r="12" />
- *           </g>
- *         </defs>
- *       </svg>
- *     </iron-iconset-svg>
- *
- * This will automatically register the icon set "my-svg-icons" to the iconset
- * database.  To use these icons from within another element, make a
- * `iron-iconset` element and call the `byId` method
- * to retrieve a given iconset. To apply a particular icon inside an
- * element use the `applyIcon` method. For example:
- *
- *     iconset.applyIcon(iconNode, 'car');
- *
- * @element iron-iconset-svg
- * @demo demo/index.html
- * @implements {Polymer.Iconset}
- */
-Polymer({
-  is: 'iron-iconset-svg',
-
-  properties: {
-
-    /**
-     * The name of the iconset.
-     */
-    name: {type: String, observer: '_nameChanged'},
-
-    /**
-     * The size of an individual icon. Note that icons must be square.
-     */
-    size: {type: Number, value: 24},
-
-    /**
-     * Set to true to enable mirroring of icons where specified when they are
-     * stamped. Icons that should be mirrored should be decorated with a
-     * `mirror-in-rtl` attribute.
-     *
-     * NOTE: For performance reasons, direction will be resolved once per
-     * document per iconset, so moving icons in and out of RTL subtrees will
-     * not cause their mirrored state to change.
-     */
-    rtlMirroring: {type: Boolean, value: false},
-
-    /**
-     * Set to true to measure RTL based on the dir attribute on the body or
-     * html elements (measured on document.body or document.documentElement as
-     * available).
-     */
-    useGlobalRtlAttribute: {type: Boolean, value: false}
-  },
-
-  created: function() {
-    this._meta = new IronMeta({type: 'iconset', key: null, value: null});
-  },
-
-  attached: function() {
-    this.style.display = 'none';
-  },
-
-  /**
-   * Construct an array of all icon names in this iconset.
-   *
-   * @return {!Array} Array of icon names.
-   */
-  getIconNames: function() {
-    this._icons = this._createIconMap();
-    return Object.keys(this._icons).map(function(n) {
-      return this.name + ':' + n;
-    }, this);
-  },
-
-  /**
-   * Applies an icon to the given element.
-   *
-   * An svg icon is prepended to the element's shadowRoot if it exists,
-   * otherwise to the element itself.
-   *
-   * If RTL mirroring is enabled, and the icon is marked to be mirrored in
-   * RTL, the element will be tested (once and only once ever for each
-   * iconset) to determine the direction of the subtree the element is in.
-   * This direction will apply to all future icon applications, although only
-   * icons marked to be mirrored will be affected.
-   *
-   * @method applyIcon
-   * @param {Element} element Element to which the icon is applied.
-   * @param {string} iconName Name of the icon to apply.
-   * @return {?Element} The svg element which renders the icon.
-   */
-  applyIcon: function(element, iconName) {
-    // Remove old svg element
-    this.removeIcon(element);
-    // install new svg element
-    var svg = this._cloneIcon(
-        iconName, this.rtlMirroring && this._targetIsRTL(element));
-    if (svg) {
-      // insert svg element into shadow root, if it exists
-      var pde = dom(element.root || element);
-      pde.insertBefore(svg, pde.childNodes[0]);
-      return element._svgIcon = svg;
-    }
-    return null;
-  },
-
-  /**
-   * Produce installable clone of the SVG element matching `id` in this
-   * iconset, or `undefined` if there is no matching element.
-   * @param {string} iconName Name of the icon to apply.
-   * @param {boolean} targetIsRTL Whether the target element is RTL.
-   * @return {Element} Returns an installable clone of the SVG element
-   *     matching `id`.
-   */
-  createIcon: function(iconName, targetIsRTL) {
-    return this._cloneIcon(iconName, this.rtlMirroring && targetIsRTL);
-  },
-
-  /**
-   * Remove an icon from the given element by undoing the changes effected
-   * by `applyIcon`.
-   *
-   * @param {Element} element The element from which the icon is removed.
-   */
-  removeIcon: function(element) {
-    // Remove old svg element
-    if (element._svgIcon) {
-      dom(element.root || element).removeChild(element._svgIcon);
-      element._svgIcon = null;
-    }
-  },
-
-  /**
-   * Measures and memoizes the direction of the element. Note that this
-   * measurement is only done once and the result is memoized for future
-   * invocations.
-   */
-  _targetIsRTL: function(target) {
-    if (this.__targetIsRTL == null) {
-      if (this.useGlobalRtlAttribute) {
-        var globalElement =
-            (document.body && document.body.hasAttribute('dir')) ?
-            document.body :
-            document.documentElement;
-
-        this.__targetIsRTL = globalElement.getAttribute('dir') === 'rtl';
-      } else {
-        if (target && target.nodeType !== Node.ELEMENT_NODE) {
-          target = target.host;
-        }
-
-        this.__targetIsRTL =
-            target && window.getComputedStyle(target)['direction'] === 'rtl';
-      }
-    }
-
-    return this.__targetIsRTL;
-  },
-
-  /**
-   *
-   * When name is changed, register iconset metadata
-   *
-   */
-  _nameChanged: function() {
-    this._meta.value = null;
-    this._meta.key = this.name;
-    this._meta.value = this;
-
-    this.async(function() {
-      this.fire('iron-iconset-added', this, {node: window});
-    });
-  },
-
-  /**
-   * Create a map of child SVG elements by id.
-   *
-   * @return {!Object} Map of id's to SVG elements.
-   */
-  _createIconMap: function() {
-    // Objects chained to Object.prototype (`{}`) have members. Specifically,
-    // on FF there is a `watch` method that confuses the icon map, so we
-    // need to use a null-based object here.
-    var icons = Object.create(null);
-    dom(this).querySelectorAll('[id]').forEach(function(icon) {
-      icons[icon.id] = icon;
-    });
-    return icons;
-  },
-
-  /**
-   * Produce installable clone of the SVG element matching `id` in this
-   * iconset, or `undefined` if there is no matching element.
-   *
-   * @return {Element} Returns an installable clone of the SVG element
-   * matching `id`.
-   */
-  _cloneIcon: function(id, mirrorAllowed) {
-    // create the icon map on-demand, since the iconset itself has no discrete
-    // signal to know when it's children are fully parsed
-    this._icons = this._icons || this._createIconMap();
-    return this._prepareSvgClone(this._icons[id], this.size, mirrorAllowed);
-  },
-
-  /**
-   * @param {Element} sourceSvg
-   * @param {number} size
-   * @param {Boolean} mirrorAllowed
-   * @return {Element}
-   */
-  _prepareSvgClone: function(sourceSvg, size, mirrorAllowed) {
-    if (sourceSvg) {
-      var content = sourceSvg.cloneNode(true),
-          svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg'),
-          viewBox =
-              content.getAttribute('viewBox') || '0 0 ' + size + ' ' + size,
-          cssText =
-              'pointer-events: none; display: block; width: 100%; height: 100%;';
-
-      if (mirrorAllowed && content.hasAttribute('mirror-in-rtl')) {
-        cssText +=
-            '-webkit-transform:scale(-1,1);transform:scale(-1,1);transform-origin:center;';
-      }
-
-      svg.setAttribute('viewBox', viewBox);
-      svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
-      svg.setAttribute('focusable', 'false');
-      // TODO(dfreedm): `pointer-events: none` works around
-      // https://crbug.com/370136
-      // TODO(sjmiles): inline style may not be ideal, but avoids requiring a
-      // shadow-root
-      svg.style.cssText = cssText;
-      svg.appendChild(content).removeAttribute('id');
-      return svg;
-    }
-    return null;
-  }
-
-});
-
-const template$2 = html `<iron-iconset-svg name="mwb16" size="16">
-  <svg>
-    <defs>
-      <g id="close">
-        <path d="M13 4.00714L11.9929 3L8 6.99286L4.00714 3L3 4.00714L6.99286 8L3 11.9929L4.00714 13L8 9.00714L11.9929 13L13 11.9929L9.00714 8L13 4.00714Z">
-        </path>
-      </g>
-      <g id="search">
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M10.8619 10.2981L10.6177 10.0578C11.484 9.05905 12.0874 7.68174 12.0874 5.97468C12.0874 2.82136 9.23365 0 6.04368 0C2.85486 0 0 2.82136 0 5.97468C0 9.12687 3.45353 11.9462 6.17606 11.9482C7.77044 11.9494 9.0094 11.5085 9.98871 10.6796L10.2341 10.921V11.6156L14.6752 16L16 14.6904L11.5681 10.2981H10.8619ZM6.04422 10.2423C3.65985 10.2423 1.72676 8.33212 1.72676 5.97468C1.72676 3.61724 3.65985 1.70705 6.04422 1.70705C8.42749 1.70705 10.3606 3.61724 10.3606 5.97468C10.3606 8.33212 8.42749 10.2423 6.04422 10.2423V10.2423Z">
-        </path>
-      </g>
-    </defs>
-  </svg>
-</iron-iconset-svg>
-`;
-document.head.appendChild(template$2.content);
-
-// Copyright 2021 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @fileoverview This file provides a mixin to manage a `hovered` style on mouse
- * events. Relies on listening for pointer events as touch devices may fire
- * mouse events too.
- */
-const HOVERED_STYLE = 'hovered';
-const MouseHoverableMixin = dedupingMixin((superClass) => {
-    class MouseHoverableMixin extends superClass {
-        ready() {
-            super.ready();
-            this.addEventListener('pointerenter', (e) => {
-                const hostElement = e.currentTarget;
-                hostElement.classList.toggle(HOVERED_STYLE, e.pointerType === 'mouse');
-            });
-            this.addEventListener('pointerleave', (e) => {
-                if (e.pointerType !== 'mouse') {
-                    return;
-                }
-                const hostElement = e.currentTarget;
-                hostElement.classList.remove(HOVERED_STYLE);
-            });
-        }
-    }
-    return MouseHoverableMixin;
-});
-
-// Copyright 2022 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/* @fileoverview Utilities for determining the current platform. */
-/** Whether we are using a Mac or not. */
-/** Whether this is on Android. */
-const isAndroid = /Android/.test(navigator.userAgent);
-/** Whether this is on iOS. */
-const isIOS = /CriOS/.test(navigator.userAgent);
-
-// Copyright 2016 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @return The scale factors supported by this platform for webui resources.
- */
-function getSupportedScaleFactors() {
-    const supportedScaleFactors = [];
-    if (!isIOS) {
-        // This matches the code in ResourceBundle::InitSharedInstance() that
-        // supports SCALE_FACTOR_100P on all non-iOS platforms.
-        supportedScaleFactors.push(1);
-    }
-    if (!isIOS && !isAndroid) {
-        // All desktop platforms support zooming which also updates the renderer's
-        // device scale factors (a.k.a devicePixelRatio), and these platforms have
-        // high DPI assets for 2x.  Let the renderer pick the closest image for
-        // the current device scale factor.
-        supportedScaleFactors.push(2);
-    }
-    else {
-        // For other platforms that use fixed device scale factor, use
-        // the window's device pixel ratio.
-        // TODO(oshima): Investigate corresponding to
-        // ResourceBundle::InitSharedInstance() more closely.
-        supportedScaleFactors.push(window.devicePixelRatio);
-    }
-    return supportedScaleFactors;
-}
-/**
- * Generates a CSS url string.
- * @param s The URL to generate the CSS url for.
- * @return The CSS url string.
- */
-function getUrlForCss(s) {
-    // http://www.w3.org/TR/css3-values/#uris
-    // Parentheses, commas, whitespace characters, single quotes (') and double
-    // quotes (") appearing in a URI must be escaped with a backslash
-    const s2 = s.replace(/(\(|\)|\,|\s|\'|\"|\\)/g, '\\$1');
-    return `url("${s2}")`;
-}
-/**
- * Generates a CSS image-set for a chrome:// url.
- * An entry in the image set is added for each of getSupportedScaleFactors().
- * The scale-factor-specific url is generated by replacing the first instance
- * of 'scalefactor' in |path| with the numeric scale factor.
- *
- * @param path The URL to generate an image set for.
- *     'scalefactor' should be a substring of |path|.
- * @return The CSS image-set.
- */
-function getImageSet(path) {
-    const supportedScaleFactors = getSupportedScaleFactors();
-    const replaceStartIndex = path.indexOf('SCALEFACTOR');
-    if (replaceStartIndex < 0) {
-        return getUrlForCss(path);
-    }
-    let s = '';
-    for (let i = 0; i < supportedScaleFactors.length; ++i) {
-        const scaleFactor = supportedScaleFactors[i];
-        const pathWithScaleFactor = path.substr(0, replaceStartIndex) +
-            scaleFactor + path.substr(replaceStartIndex + 'scalefactor'.length);
-        s += getUrlForCss(pathWithScaleFactor) + ' ' + scaleFactor + 'x';
-        if (i !== supportedScaleFactors.length - 1) {
-            s += ', ';
-        }
-    }
-    return 'image-set(' + s + ')';
-}
-function getBaseFaviconUrl() {
-    const faviconUrl = new URL('chrome://favicon2/');
-    faviconUrl.searchParams.set('size', '16');
-    faviconUrl.searchParams.set('scaleFactor', 'SCALEFACTORx');
-    return faviconUrl;
-}
-/**
- * Creates a CSS image-set for a favicon request based on a page URL.
- *
- * @param url URL of the original page
- * @param isSyncedUrlForHistoryUi Should be set to true only if the
- *     caller is an UI aimed at displaying user history, and the requested url
- *     is known to be present in Chrome sync data.
- * @param remoteIconUrlForUma In case the entry is contained in sync
- *     data, we can pass the associated icon url.
- * @param size The favicon size.
- * @param forceLightMode Flag to force the service to show the light
- *     mode version of the default favicon.
- *
- * @return image-set for the favicon.
- */
-function getFaviconForPageURL(url, isSyncedUrlForHistoryUi, remoteIconUrlForUma = '', size = 16, forceLightMode = false) {
-    // Note: URL param keys used below must match those in the description of
-    // chrome://favicon2 format in components/favicon_base/favicon_url_parser.h.
-    const faviconUrl = getBaseFaviconUrl();
-    faviconUrl.searchParams.set('size', size.toString());
-    faviconUrl.searchParams.set('pageUrl', url);
-    // TODO(dbeam): use the presence of 'allowGoogleServerFallback' to
-    // indicate true, otherwise false.
-    const fallback = isSyncedUrlForHistoryUi ? '1' : '0';
-    faviconUrl.searchParams.set('allowGoogleServerFallback', fallback);
-    if (isSyncedUrlForHistoryUi) {
-        faviconUrl.searchParams.set('iconUrl', remoteIconUrlForUma);
-    }
-    if (forceLightMode) {
-        faviconUrl.searchParams.set('forceLightMode', 'true');
-    }
-    return getImageSet(faviconUrl.toString());
-}
-
-// Copyright 2018 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-const WRAPPER_CSS_CLASS = 'search-highlight-wrapper';
-const ORIGINAL_CONTENT_CSS_CLASS = 'search-highlight-original-content';
-const HIT_CSS_CLASS = 'search-highlight-hit';
-/**
- * Applies the highlight UI (yellow rectangle) around all matches in |node|.
- * @param node The text node to be highlighted. |node| ends up
- *     being hidden.
- * @return The new highlight wrapper.
- */
-function highlight(node, ranges) {
-    assert(ranges.length > 0);
-    const wrapper = document.createElement('span');
-    wrapper.classList.add(WRAPPER_CSS_CLASS);
-    // Use existing node as placeholder to determine where to insert the
-    // replacement content.
-    assert(node.parentNode);
-    node.parentNode.replaceChild(wrapper, node);
-    // Keep the existing node around for when the highlights are removed. The
-    // existing text node might be involved in data-binding and therefore should
-    // not be discarded.
-    const span = document.createElement('span');
-    span.classList.add(ORIGINAL_CONTENT_CSS_CLASS);
-    span.style.display = 'none';
-    span.appendChild(node);
-    wrapper.appendChild(span);
-    const text = node.textContent;
-    const tokens = [];
-    for (let i = 0; i < ranges.length; ++i) {
-        const range = ranges[i];
-        const prev = ranges[i - 1] || { start: 0, length: 0 };
-        const start = prev.start + prev.length;
-        const length = range.start - start;
-        tokens.push(text.substr(start, length));
-        tokens.push(text.substr(range.start, range.length));
-    }
-    const last = ranges.slice(-1)[0];
-    tokens.push(text.substr(last.start + last.length));
-    for (let i = 0; i < tokens.length; ++i) {
-        if (i % 2 === 0) {
-            wrapper.appendChild(document.createTextNode(tokens[i]));
-        }
-        else {
-            const hitSpan = document.createElement('span');
-            hitSpan.classList.add(HIT_CSS_CLASS);
-            // Defaults to the color associated with --paper-yellow-500.
-            hitSpan.style.backgroundColor =
-                'var(--search-highlight-hit-background-color, #ffeb3b)';
-            // Defaults to the color associated with --google-grey-900.
-            hitSpan.style.color = 'var(--search-highlight-hit-color, #202124)';
-            hitSpan.textContent = tokens[i];
-            wrapper.appendChild(hitSpan);
-        }
-    }
-    return wrapper;
-}
-
-// Copyright 2021 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-function highlightText(container, text, ranges) {
-    container.textContent = '';
-    const node = document.createTextNode(text);
-    container.appendChild(node);
-    if (ranges) {
-        highlight(node, ranges);
-    }
-}
-function tabHasMediaAlerts(tab) {
-    return tab.alertStates.length > 0;
-}
-
-// Copyright 2020 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-var TabItemType;
-(function (TabItemType) {
-    TabItemType[TabItemType["OPEN_TAB"] = 1] = "OPEN_TAB";
-    TabItemType[TabItemType["RECENTLY_CLOSED_TAB"] = 2] = "RECENTLY_CLOSED_TAB";
-    TabItemType[TabItemType["RECENTLY_CLOSED_TAB_GROUP"] = 3] = "RECENTLY_CLOSED_TAB_GROUP";
-})(TabItemType || (TabItemType = {}));
-class ItemData {
-    constructor() {
-        this.highlightRanges = {};
-    }
-}
-/**
- * TabData contains tabSearch.mojom.Tab and data derived from it.
- * It makes tabSearch.mojom.Tab immutable and works well for closure compiler
- * type checking.
- */
-class TabData extends ItemData {
-    constructor(tab, type, hostname) {
-        super();
-        this.tab = tab;
-        this.type = type;
-        this.hostname = hostname;
-    }
-}
-class TabGroupData extends ItemData {
-    constructor(tabGroup) {
-        super();
-        this.tabGroup = tabGroup;
-        this.type = TabItemType.RECENTLY_CLOSED_TAB_GROUP;
-    }
-}
-/**
- * Converts a token to a string by combining the high and low values as strings
- * with a hashtag as the separator.
- */
-function tokenToString(token) {
-    return `${token.high.toString()}#${token.low.toString()}`;
-}
-function tokenEquals(a, b) {
-    return a.high === b.high && a.low === b.low;
-}
-function titleAndAlertAriaLabel(tabData) {
-    const tabTitle = tabData.tab.title;
-    if (tabData.type === TabItemType.OPEN_TAB &&
-        tabHasMediaAlerts(tabData.tab)) {
-        // GetTabAlertStatesForContents adds alert indicators in the order of their
-        // priority. Only relevant media alerts are sent over mojo so the first
-        // element in alertStates will be the highest priority media alert to
-        // display.
-        const alert = tabData.tab.alertStates[0];
-        switch (alert) {
-            case TabAlertState.kMediaRecording:
-                return loadTimeData.getStringF('mediaRecording', tabTitle);
-            case TabAlertState.kAudioPlaying:
-                return loadTimeData.getStringF('audioPlaying', tabTitle);
-            case TabAlertState.kAudioMuting:
-                return loadTimeData.getStringF('audioMuting', tabTitle);
-            default:
-                return tabTitle;
-        }
-    }
-    return tabTitle;
-}
-function ariaLabel(itemData) {
-    if (itemData instanceof TabGroupData &&
-        itemData.type === TabItemType.RECENTLY_CLOSED_TAB_GROUP) {
-        const tabGroup = itemData.tabGroup;
-        const tabCountText = loadTimeData.getStringF(tabGroup.tabCount === 1 ? 'oneTab' : 'tabCount', tabGroup.tabCount);
-        return `${tabGroup.title} ${tabCountText} ${tabGroup.lastActiveElapsedText} ${itemData.a11yTypeText}`;
-    }
-    if (itemData instanceof TabData) {
-        const tabData = itemData;
-        const groupTitleOrEmpty = tabData.tabGroup ? tabData.tabGroup.title : '';
-        const titleAndAlerts = titleAndAlertAriaLabel(tabData);
-        return `${titleAndAlerts} ${groupTitleOrEmpty} ${tabData.hostname} ${tabData.tab.lastActiveElapsedText} ${tabData.a11yTypeText}`;
-    }
-    throw new Error('Invalid data provided.');
-}
-
-const template$1 = html `
-<custom-style>
-  <style>
-html{--google-blue-300-rgb:123,170,247;--google-blue-300:rgb(var(--google-blue-300-rgb));--google-cyan-300-rgb:120,217,236;--google-cyan-300:rgb(var(--google-cyan-300-rgb));--google-cyan-900-rgb:0,123,131;--google-cyan-900:rgb(var(--google-cyan-900-rgb));--google-green-300-rgb:87,187,138;--google-green-300:rgb(var(--google-green-300-rgb));--google-green-600-rgb:30,142,62;--google-green-600:rgb(var(--google-green-600-rgb));--google-pink-300-rgb:255,139,203;--google-pink-300:rgb(var(--google-pink-300-rgb));--google-pink-700-rgb:208,24,132;--google-pink-700:rgb(var(--google-pink-700-rgb));--google-purple-200-rgb:215,174,251;--google-purple-200:rgb(var(--google-purple-200-rgb));--google-purple-600-rgb:147,52,230;--google-purple-600:rgb(var(--google-purple-600-rgb));--google-red-300-rgb:230,124,115;--google-red-300:rgb(var(--google-red-300-rgb));--google-yellow-300-rgb:247,203,77;--google-yellow-300:rgb(var(--google-yellow-300-rgb));--google-yellow-900-rgb:227,116,0;--google-yellow-900:rgb(var(--google-yellow-900-rgb));--google-orange-300-rgb:252,173,112;--google-orange-300:rgb(var(--google-orange-300-rgb));--google-orange-400-rgb:250,144,62;--google-orange-400:rgb(var(--google-orange-400-rgb));--tab-group-color-grey:var(--google-grey-700);--tab-group-color-blue:var(--google-blue-600);--tab-group-color-red:var(--google-red-600);--tab-group-color-yellow:var(--google-yellow-900);--tab-group-color-green:var(--google-green-600);--tab-group-color-pink:var(--google-pink-700);--tab-group-color-purple:var(--google-purple-600);--tab-group-color-cyan:var(--google-cyan-900);--tab-group-color-orange:var(--google-orange-400)}@media (prefers-color-scheme:dark){html{--tab-group-color-grey:var(--google-grey-400);--tab-group-color-blue:var(--google-blue-300);--tab-group-color-red:var(--google-red-300);--tab-group-color-yellow:var(--google-yellow-300);--tab-group-color-green:var(--google-green-300);--tab-group-color-pink:var(--google-pink-300);--tab-group-color-purple:var(--google-purple-200);--tab-group-color-cyan:var(--google-cyan-300);--tab-group-color-orange:var(--google-orange-300)}}
-  </style>
-</custom-style>
-`;
-document.head.appendChild(template$1.content);
-
-// Copyright 2021 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-const colorMap = new Map([
-    [Color.kGrey, 'grey'],
-    [Color.kBlue, 'blue'],
-    [Color.kRed, 'red'],
-    [Color.kYellow, 'yellow'],
-    [Color.kGreen, 'green'],
-    [Color.kPink, 'pink'],
-    [Color.kPurple, 'purple'],
-    [Color.kCyan, 'cyan'],
-    [Color.kOrange, 'orange'],
-]);
-function colorName(color) {
-    if (!colorMap.has(color)) {
-        throw Error('Undefined color id');
-    }
-    return colorMap.get(color);
-}
-
-function getTemplate$8() {
-    return html `<!--_html_template_start_--><style include="mwb-element-shared-style">:host{--audio-icon-color:var(--google-grey-700);--media-recording-icon-color:var(--google-red-600)}@media (prefers-color-scheme:dark){:host{--audio-icon-color:var(--google-grey-300);--media-recording-icon-color:var(--google-red-300)}}:host-context([chrome-refresh-2023]):host{--audio-icon-color:var(--color-tab-search-media-icon);--media-recording-icon-color:var(--color-tab-search-media-recording-icon)}:host(:focus){outline:0}:host(:is(.hovered,.selected)) .button-container{height:auto;overflow:visible;visibility:visible;width:auto}.button-container{height:0;margin-inline-start:2px;overflow:hidden;width:0}.button-container.allocate-space-while-hidden{height:auto;overflow:visible;visibility:hidden;width:auto}.button-container cr-icon-button{--cr-icon-button-fill-color:var(--mwb-icon-button-fill-color)}.favicon{background-repeat:no-repeat;background-size:var(--mwb-icon-size);flex-shrink:0;height:var(--mwb-icon-size);width:var(--mwb-icon-size)}.text-container{flex-grow:1;overflow:hidden;user-select:none}#groupTitle,#primaryText,#secondaryText{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}#primaryText{color:var(--cr-primary-text-color);font-size:var(--mwb-primary-text-font-size);font-weight:var(--mwb-primary-text-font-weight);margin-bottom:3px}#secondaryContainer{align-items:center;color:var(--cr-secondary-text-color);display:flex;font-size:var(--mwb-secondary-text-font-size);font-weight:var(--mwb-secondary-text-font-weight)}#primaryContainer{display:flex}#secondaryTimestamp{flex-shrink:0}#textAriaLabel{clip:rect(0,0,0,0);display:inline-block;position:fixed}.separator{margin-inline-end:4px;margin-inline-start:4px}cr-icon-button{--cr-icon-button-margin-end:0;--cr-icon-button-margin-start:0}.search-highlight-hit{--search-highlight-hit-background-color:none;--search-highlight-hit-color:none;font-weight:700}#groupSvg{flex-shrink:0;height:8px;margin-inline-end:6px;width:8px}#groupDot{fill:var(--group-dot-color)}#mediaAlert[display=block]{-webkit-mask:center/contain no-repeat;flex-shrink:0;height:var(--mwb-icon-size);margin-inline-end:8px;margin-inline-start:4px;width:var(--mwb-icon-size)}#mediaAlert[class=media-recording]{-webkit-mask-image:url(alert_indicators/tab_media_recording.svg);background-color:var(--media-recording-icon-color)}#mediaAlert[class=audio-playing]{-webkit-mask-image:url(alert_indicators/tab_audio_rounded.svg);background-color:var(--audio-icon-color)}#mediaAlert[class=audio-muting]{-webkit-mask-image:url(alert_indicators/tab_audio_muting_rounded.svg);background-color:var(--audio-icon-color)}#iconContainer{margin-inline-end:16px}:host-context([chrome-refresh-2023]) #iconContainer{align-items:center;background:var(--color-list-item-url-favicon-background);border-radius:8px;display:flex;flex-shrink:0;height:40px;justify-content:center;overflow:hidden;width:40px}</style>
-
-<div id="iconContainer">
-  <div class="favicon" style="background-image:[[faviconUrl_(data.tab) ]]"></div>
-</div>
-<div id="textAriaLabel" title="[[ariaLabelForText_(data)]]"></div>
-<div class="text-container" aria-hidden="true">
-  <div id="primaryContainer">
-    <div id="primaryText" title="[[data.tab.title]]"></div>
-    <img id="mediaAlert" display$="[[mediaAlertVisibility_(data)]]" class$="[[getMediaAlertImageClass_(data)]]">
-  </div>
-  <div id="secondaryContainer">
-    
-    <svg id="groupSvg" viewBox="-5 -5 10 10" xmlns="http://www.w3.org/2000/svg" display$="[[groupSvgDisplay_(data)]]">
-      <circle id="groupDot" cx="0" cy="0" r="4">
-    </circle></svg>
-    <div id="groupTitle" hidden="[[!hasTabGroupWithTitle_(data)]]">[[data.tabGroup.title]]</div>
-    <div class="separator" hidden="[[!hasTabGroupWithTitle_(data)]]">•</div>
-    <div id="secondaryText"></div>
-    <template is="dom-if" if="[[!hideTimestamp]]">
-      <div class="separator" hidden="[[!data.hostname]]">•</div>
-      <div id="secondaryTimestamp">
-        [[data.tab.lastActiveElapsedText]]
-      </div>
-    </template>
-  </div>
-</div>
-<template is="dom-if" if="[[isCloseable_(data.type)]]">
-  <div class$="[[getButtonContainerStyles_(data)]]">
-    <cr-icon-button id="closeButton" aria-label="[[ariaLabelForButton_(data.tab.title)]]" iron-icon="mwb16:close" noink="[[!buttonRipples_]]" no-ripple-on-focus on-click="onItemClose_" title="$i18n{closeTab}">
-    </cr-icon-button>
-  </div>
-</template>
-<!--_html_template_end_-->`;
-}
-
-// Copyright 2020 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-const TabSearchItemBase = MouseHoverableMixin(PolymerElement);
-class TabSearchItem extends TabSearchItemBase {
-    static get is() {
-        return 'tab-search-item';
-    }
-    static get template() {
-        return getTemplate$8();
-    }
-    static get properties() {
-        return {
-            data: {
-                type: Object,
-                observer: 'dataChanged_',
-            },
-            buttonRipples_: {
-                type: Boolean,
-                value: () => loadTimeData.getBoolean('useRipples'),
-            },
-            hideTimestamp: {
-                type: Boolean,
-                value: false,
-            },
-            index: Number,
-        };
-    }
-    /**
-     * @return Whether a close action can be performed on the item.
-     */
-    isCloseable_(type) {
-        return type === TabItemType.OPEN_TAB;
-    }
-    /**
-     * @return the class name for the close button including a second class to
-     *     preallocate space for the close button even while hidden if the tab
-     *     will display a media alert.
-     */
-    getButtonContainerStyles_(tabData) {
-        return 'button-container' +
-            (this.isOpenTabAndHasMediaAlert_(tabData) ?
-                ' allocate-space-while-hidden' :
-                '');
-    }
-    onItemClose_(e) {
-        this.dispatchEvent(new CustomEvent('close'));
-        e.stopPropagation();
-    }
-    faviconUrl_(tab) {
-        return tab.faviconUrl ?
-            `url("${tab.faviconUrl.url}")` :
-            getFaviconForPageURL(tab.isDefaultFavicon ? 'chrome://newtab' : tab.url.url, false);
-    }
-    /**
-     * Determines the display attribute value for the group SVG element.
-     */
-    groupSvgDisplay_(tabData) {
-        return tabData.tabGroup ? 'block' : 'none';
-    }
-    isOpenTabAndHasMediaAlert_(tabData) {
-        return tabData.type === TabItemType.OPEN_TAB &&
-            tabHasMediaAlerts(tabData.tab);
-    }
-    /**
-     * Determines the display attribute value for the media indicator.
-     */
-    mediaAlertVisibility_(tabData) {
-        return this.isOpenTabAndHasMediaAlert_(tabData) ? 'block' : 'none';
-    }
-    /**
-     * Returns the correct media alert indicator class name.
-     */
-    getMediaAlertImageClass_(tabData) {
-        if (!this.isOpenTabAndHasMediaAlert_(tabData)) {
-            return '';
-        }
-        // GetTabAlertStatesForContents adds alert indicators in the order of their
-        // priority. Only relevant media alerts are sent over mojo so the first
-        // element in alertStates will be the highest priority media alert to
-        // display.
-        const alert = tabData.tab.alertStates[0];
-        switch (alert) {
-            case TabAlertState.kMediaRecording:
-                return 'media-recording';
-            case TabAlertState.kAudioPlaying:
-                return 'audio-playing';
-            case TabAlertState.kAudioMuting:
-                return 'audio-muting';
-            default:
-                return '';
-        }
-    }
-    hasTabGroupWithTitle_(tabData) {
-        return !!(tabData.tabGroup && tabData.tabGroup.title);
-    }
-    dataChanged_(data) {
-        [
-            ['tab.title', this.$.primaryText],
-            ['hostname', this.$.secondaryText],
-            ['tabGroup.title', this.$.groupTitle],
-        ]
-            .forEach(([path, element]) => {
-            if (element) {
-                const highlightRanges = data.highlightRanges ? data.highlightRanges[path] : undefined;
-                highlightText(element, get(data, path), highlightRanges);
-            }
-        });
-        // Show chrome:// if it's a chrome internal url
-        const protocol = new URL(data.tab.url.url).protocol;
-        if (protocol === 'chrome:') {
-            this.$.secondaryText.prepend(document.createTextNode('chrome://'));
-        }
-        if (data.tabGroup) {
-            this.style.setProperty('--group-dot-color', `var(--tab-group-color-${colorName(data.tabGroup.color)})`);
-        }
-    }
-    ariaLabelForText_(tabData) {
-        return ariaLabel(tabData);
-    }
-    ariaLabelForButton_(title) {
-        return `${loadTimeData.getString('closeTab')} ${title}`;
-    }
-}
-customElements.define(TabSearchItem.is, TabSearchItem);
-
-function getTemplate$7() {
-    return html `<!--_html_template_start_--><style include="mwb-shared-style tab-organization-shared-style">cr-button{align-self:flex-end;margin:16px 16px 0 16px;width:fit-content}cr-input{--cr-input-background-color:transparent;--cr-input-border:1px solid var(--color-side-panel-textfield-border);--cr-input-border-bottom:none;--cr-input-border-radius:8px;--cr-input-padding-bottom:9px;--cr-input-padding-top:9px;--cr-input-underline-display:none;margin:0 16px}cr-input:focus{--cr-input-border:2px solid var(--cr-focus-outline-color);--cr-input-padding-bottom:8px;--cr-input-padding-top:8px}.mwb-list-item{background-color:transparent}.results{background-color:var(--color-sys-surface5);border-radius:8px;display:flex;flex-direction:column;padding:16px 0}</style>
-
-<div class="tab-organization-container">
-  <div class="tab-organization-header">$i18n{successTitle}</div>
-  <div class="results">
-    <cr-input id="input" type="text" value="{{name}}" on-focus="onInputFocus_" on-keydown="onInputKeyDown_">
-    </cr-input>
-    <template is="dom-repeat" items="[[tabDatas_]]">
-      <tab-search-item class="mwb-list-item" data="[[item]]" on-close="onTabRemove_" hide-timestamp>
-      </tab-search-item>
-    </template>
-    <cr-button class="action-button" on-click="onCreateGroupClick_">
-      $i18n{createGroup}
-    </cr-button>
-  </div>
-</div>
-<!--_html_template_end_-->`;
-}
-
-// Copyright 2023 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-class TabOrganizationResultsElement extends PolymerElement {
-    static get is() {
-        return 'tab-organization-results';
-    }
-    static get properties() {
-        return {
-            tabs: Array,
-            name: String,
-            tabDatas_: {
-                type: Array,
-                value: () => [],
-                computed: 'computeTabDatas_(tabs.*)',
-            },
-        };
-    }
-    static get template() {
-        return getTemplate$7();
-    }
-    computeTabDatas_() {
-        return this.tabs.map(tab => new TabData(tab, TabItemType.OPEN_TAB, new URL(tab.url.url).hostname));
-    }
-    onInputFocus_() {
-        this.$.input.select();
-    }
-    onInputKeyDown_(event) {
-        if (event.key === 'Enter') {
-            event.stopPropagation();
-            this.$.input.blur();
-        }
-    }
-    onTabRemove_(event) {
-        const index = this.tabDatas_.indexOf(event.model.item);
-        this.splice('tabs', index, 1);
-    }
-    onCreateGroupClick_() {
-        this.dispatchEvent(new CustomEvent('create-group-click', {
-            bubbles: true,
-            composed: true,
-            detail: { name: this.name, tabs: this.tabs },
-        }));
-    }
-}
-customElements.define(TabOrganizationResultsElement.is, TabOrganizationResultsElement);
-
-function getTemplate$6() {
-    return html `<!--_html_template_start_--><style>.body{margin:16px var(--mwb-list-item-horizontal-margin)}</style>
-
-<div class="body">
-  <tab-organization-not-started hidden="[[!isState_(tabOrganizationStateEnum_.kNotStarted, state_)]]" on-organize-tabs-click="onOrganizeTabsClick_">
-  </tab-organization-not-started>
-  <tab-organization-in-progress hidden="[[!isState_(tabOrganizationStateEnum_.kInProgress, state_)]]">
-  </tab-organization-in-progress>
-  <tab-organization-results hidden="[[!isState_(tabOrganizationStateEnum_.kSuccess, state_)]]" name="[[name_]]" tabs="[[tabs_]]" on-create-group-click="onCreateGroupClick_">
-  </tab-organization-results>
-  <tab-organization-failure hidden="[[!isState_(tabOrganizationStateEnum_.kFailure, state_)]]" error="[[error_]]">
-  </tab-organization-failure>
-</div>
-<!--_html_template_end_-->`;
-}
-
-// Copyright 2020 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * These values are persisted to logs and should not be renumbered or re-used.
- * See tools/metrics/histograms/enums.xml.
- */
-var RecentlyClosedItemOpenAction;
-(function (RecentlyClosedItemOpenAction) {
-    RecentlyClosedItemOpenAction[RecentlyClosedItemOpenAction["WITHOUT_SEARCH"] = 0] = "WITHOUT_SEARCH";
-    RecentlyClosedItemOpenAction[RecentlyClosedItemOpenAction["WITH_SEARCH"] = 1] = "WITH_SEARCH";
-})(RecentlyClosedItemOpenAction || (RecentlyClosedItemOpenAction = {}));
-class TabSearchApiProxyImpl {
-    constructor() {
-        this.callbackRouter = new PageCallbackRouter$1();
-        this.handler = new PageHandlerRemote$1();
-        const factory = PageHandlerFactory.getRemote();
-        factory.createPageHandler(this.callbackRouter.$.bindNewPipeAndPassRemote(), this.handler.$.bindNewPipeAndPassReceiver());
-    }
-    closeTab(tabId) {
-        this.handler.closeTab(tabId);
-    }
-    acceptTabOrganization(sessionId, organizationId, name, tabs) {
-        this.handler.acceptTabOrganization(sessionId, organizationId, name, tabs);
-    }
-    rejectTabOrganization(sessionId, organizationId) {
-        this.handler.rejectTabOrganization(sessionId, organizationId);
-    }
-    getProfileData() {
-        return this.handler.getProfileData();
-    }
-    getTabOrganizationSession() {
-        return this.handler.getTabOrganizationSession();
-    }
-    openRecentlyClosedEntry(id, withSearch, isTab, index) {
-        chrome.metricsPrivate.recordEnumerationValue(isTab ? 'Tabs.TabSearch.WebUI.RecentlyClosedTabOpenAction' :
-            'Tabs.TabSearch.WebUI.RecentlyClosedGroupOpenAction', withSearch ? RecentlyClosedItemOpenAction.WITH_SEARCH :
-            RecentlyClosedItemOpenAction.WITHOUT_SEARCH, Object.keys(RecentlyClosedItemOpenAction).length);
-        chrome.metricsPrivate.recordSmallCount(withSearch ?
-            'Tabs.TabSearch.WebUI.IndexOfOpenRecentlyClosedEntryInFilteredList' :
-            'Tabs.TabSearch.WebUI.IndexOfOpenRecentlyClosedEntryInUnfilteredList', index);
-        this.handler.openRecentlyClosedEntry(id);
-    }
-    requestTabOrganization() {
-        this.handler.requestTabOrganization();
-    }
-    switchToTab(info) {
-        this.handler.switchToTab(info);
-    }
-    getCallbackRouter() {
-        return this.callbackRouter;
-    }
-    saveRecentlyClosedExpandedPref(expanded) {
-        this.handler.saveRecentlyClosedExpandedPref(expanded);
-    }
-    setTabIndex(index) {
-        this.handler.setTabIndex(index);
-    }
-    showUi() {
-        this.handler.showUI();
-    }
-    static getInstance() {
-        return instance$1 || (instance$1 = new TabSearchApiProxyImpl());
-    }
-    static setInstance(obj) {
-        instance$1 = obj;
-    }
-}
-let instance$1 = null;
-
-// Copyright 2023 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-class TabOrganizationPageElement extends PolymerElement {
-    constructor() {
-        super(...arguments);
-        this.apiProxy_ = TabSearchApiProxyImpl.getInstance();
-        this.listenerIds_ = [];
-        this.state_ = TabOrganizationState.kNotStarted;
-        this.error_ = TabOrganizationError.kNone;
-        this.sessionId_ = -1;
-        this.organizationId_ = -1;
-    }
-    static get is() {
-        return 'tab-organization-page';
-    }
-    static get properties() {
-        return {
-            state_: Object,
-            name_: String,
-            tabs_: Array,
-            error_: Object,
-            tabOrganizationStateEnum_: {
-                type: Object,
-                value: TabOrganizationState,
-            },
-        };
-    }
-    static get template() {
-        return getTemplate$6();
-    }
-    connectedCallback() {
-        super.connectedCallback();
-        this.apiProxy_.getTabOrganizationSession().then(({ session }) => this.setSession_(session));
-        const callbackRouter = this.apiProxy_.getCallbackRouter();
-        this.listenerIds_.push(callbackRouter.tabOrganizationSessionUpdated.addListener(this.setSession_.bind(this)));
-    }
-    disconnectedCallback() {
-        super.disconnectedCallback();
-        this.listenerIds_.forEach(id => this.apiProxy_.getCallbackRouter().removeListener(id));
-        if (this.sessionId_ > -1 && this.organizationId_ > -1) {
-            this.apiProxy_.rejectTabOrganization(this.sessionId_, this.organizationId_);
-        }
-    }
-    setSession_(session) {
-        this.sessionId_ = session.sessionId;
-        this.state_ = session.state;
-        this.error_ = session.error;
-        if (session.state === TabOrganizationState.kSuccess) {
-            const organization = session.organizations[0];
-            this.name_ = organization.name;
-            this.tabs_ = organization.tabs;
-            this.organizationId_ = organization.organizationId;
-        }
-        else {
-            this.organizationId_ = -1;
-        }
-    }
-    isState_(state) {
-        return this.state_ === state;
-    }
-    onOrganizeTabsClick_() {
-        this.apiProxy_.requestTabOrganization();
-    }
-    onCreateGroupClick_(event) {
-        this.name_ = event.detail.name;
-        this.tabs_ = event.detail.tabs;
-        this.apiProxy_.acceptTabOrganization(this.sessionId_, this.organizationId_, this.name_, this.tabs_);
-    }
-}
-customElements.define(TabOrganizationPageElement.is, TabOrganizationPageElement);
-
-const styleMod$1 = document.createElement('dom-module');
-styleMod$1.appendChild(html `
-  <template>
-    <style>
-:host{align-items:center;align-self:stretch;display:flex;margin:0;outline:0}:host(:not([effectively-disabled_])){cursor:pointer}:host(:not([no-hover],[effectively-disabled_]):hover){background-color:var(--cr-hover-background-color)}:host(:not([no-hover],[effectively-disabled_]):active){background-color:var(--cr-active-background-color)}:host(:not([no-hover],[effectively-disabled_])) cr-icon-button{--cr-icon-button-hover-background-color:transparent;--cr-icon-button-active-background-color:transparent}
-    </style>
-  </template>
-`.content);
-styleMod$1.register('cr-actionable-row-style');
-
-const template = html `
-<iron-iconset-svg name="cr20" size="20">
-  <svg>
-    <defs>
-      
-      <g id="block">
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M10 0C4.48 0 0 4.48 0 10C0 15.52 4.48 20 10 20C15.52 20 20 15.52 20 10C20 4.48 15.52 0 10 0ZM2 10C2 5.58 5.58 2 10 2C11.85 2 13.55 2.63 14.9 3.69L3.69 14.9C2.63 13.55 2 11.85 2 10ZM5.1 16.31C6.45 17.37 8.15 18 10 18C14.42 18 18 14.42 18 10C18 8.15 17.37 6.45 16.31 5.1L5.1 16.31Z">
-        </path>
-      </g>
-      <g id="cloud-off">
-        <path d="M16 18.125L13.875 16H5C3.88889 16 2.94444 15.6111 2.16667 14.8333C1.38889 14.0556 1 13.1111 1 12C1 10.9444 1.36111 10.0347 2.08333 9.27083C2.80556 8.50694 3.6875 8.09028 4.72917 8.02083C4.77083 7.86805 4.8125 7.72222 4.85417 7.58333C4.90972 7.44444 4.97222 7.30555 5.04167 7.16667L1.875 4L2.9375 2.9375L17.0625 17.0625L16 18.125ZM5 14.5H12.375L6.20833 8.33333C6.15278 8.51389 6.09722 8.70139 6.04167 8.89583C6 9.07639 5.95139 9.25694 5.89583 9.4375L4.83333 9.52083C4.16667 9.57639 3.61111 9.84028 3.16667 10.3125C2.72222 10.7708 2.5 11.3333 2.5 12C2.5 12.6944 2.74306 13.2847 3.22917 13.7708C3.71528 14.2569 4.30556 14.5 5 14.5ZM17.5 15.375L16.3958 14.2917C16.7153 14.125 16.9792 13.8819 17.1875 13.5625C17.3958 13.2431 17.5 12.8889 17.5 12.5C17.5 11.9444 17.3056 11.4722 16.9167 11.0833C16.5278 10.6944 16.0556 10.5 15.5 10.5H14.125L14 9.14583C13.9028 8.11806 13.4722 7.25694 12.7083 6.5625C11.9444 5.85417 11.0417 5.5 10 5.5C9.65278 5.5 9.31944 5.54167 9 5.625C8.69444 5.70833 8.39583 5.82639 8.10417 5.97917L7.02083 4.89583C7.46528 4.61806 7.93056 4.40278 8.41667 4.25C8.91667 4.08333 9.44444 4 10 4C11.4306 4 12.6736 4.48611 13.7292 5.45833C14.7847 6.41667 15.375 7.59722 15.5 9C16.4722 9 17.2986 9.34028 17.9792 10.0208C18.6597 10.7014 19 11.5278 19 12.5C19 13.0972 18.8611 13.6458 18.5833 14.1458C18.3194 14.6458 17.9583 15.0556 17.5 15.375Z">
-        </path>
-      </g>
-      <g id="domain">
-        <path d="M2,3 L2,17 L11.8267655,17 L13.7904799,17 L18,17 L18,7 L12,7 L12,3 L2,3 Z M8,13 L10,13 L10,15 L8,15 L8,13 Z M4,13 L6,13 L6,15 L4,15 L4,13 Z M8,9 L10,9 L10,11 L8,11 L8,9 Z M4,9 L6,9 L6,11 L4,11 L4,9 Z M12,9 L16,9 L16,15 L12,15 L12,9 Z M12,11 L14,11 L14,13 L12,13 L12,11 Z M8,5 L10,5 L10,7 L8,7 L8,5 Z M4,5 L6,5 L6,7 L4,7 L4,5 Z">
-        </path>
-      </g>
-      <g id="kite">
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M4.6327 8.00094L10.3199 2L16 8.00094L10.1848 16.8673C10.0995 16.9873 10.0071 17.1074 9.90047 17.2199C9.42417 17.7225 8.79147 18 8.11611 18C7.44076 18 6.80806 17.7225 6.33175 17.2199C5.85545 16.7173 5.59242 16.0497 5.59242 15.3371C5.59242 14.977 5.46445 14.647 5.22275 14.3919C4.98104 14.1369 4.66825 14.0019 4.32701 14.0019H4V12.6667H4.32701C5.00237 12.6667 5.63507 12.9442 6.11137 13.4468C6.58768 13.9494 6.85071 14.617 6.85071 15.3296C6.85071 15.6896 6.97867 16.0197 7.22038 16.2747C7.46209 16.5298 7.77488 16.6648 8.11611 16.6648C8.45735 16.6648 8.77014 16.5223 9.01185 16.2747C9.02396 16.2601 9.03607 16.246 9.04808 16.2319C9.08541 16.1883 9.12176 16.1458 9.15403 16.0947L9.55213 15.4946L4.6327 8.00094ZM10.3199 13.9371L6.53802 8.17116L10.3199 4.1814L14.0963 8.17103L10.3199 13.9371Z">
-        </path>
-      </g>
-      <g id="menu">
-        <path d="M2 4h16v2H2zM2 9h16v2H2zM2 14h16v2H2z"></path>
-      </g>
-      
-        <g id="banner-warning">
-          <path fill-rule="evenodd" clip-rule="evenodd" d="M9.13177 1.50386C9.51566 0.832046 10.4844 0.832046 10.8683 1.50386L18.8683 15.5039C19.2492 16.1705 18.7678 17 18 17H2.00001C1.23219 17 0.750823 16.1705 1.13177 15.5039L9.13177 1.50386ZM10 4.01556L3.72321 15H16.2768L10 4.01556ZM9 11H11V7H9V11ZM11 14H9V12H11V14Z">
-          </path>
-        </g>
-        <g id="warning">
-          <path fill-rule="evenodd" clip-rule="evenodd" d="M9.13177 1.50386C9.51566 0.832046 10.4844 0.832046 10.8683 1.50386L18.8683 15.5039C19.2492 16.1705 18.7678 17 18 17H2.00001C1.23219 17 0.750823 16.1705 1.13177 15.5039L9.13177 1.50386ZM10 4.01556L3.72321 15H16.2768L10 4.01556ZM9 11H11V7H9V11ZM11 14H9V12H11V14Z">
-          </path>
-        </g>
-      
-  </defs></svg>
-</iron-iconset-svg>
-
-
-<iron-iconset-svg name="cr" size="24">
-  <svg>
-    <defs>
-      
-      <g id="account-child-invert" viewBox="0 0 48 48">
-        <path d="M24 4c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6 2.69-6 6-6z"></path>
-        <path fill="none" d="M0 0h48v48H0V0z"></path>
-        <circle fill="none" cx="24" cy="26" r="4"></circle>
-        <path d="M24 18c-6.16 0-13 3.12-13 7.23v11.54c0 2.32 2.19 4.33 5.2 5.63 2.32 1 5.12 1.59 7.8 1.59.66 0 1.33-.06 2-.14v-5.2c-.67.08-1.34.14-2 .14-2.63 0-5.39-.57-7.68-1.55.67-2.12 4.34-3.65 7.68-3.65.86 0 1.75.11 2.6.29 2.79.62 5.2 2.15 5.2 4.04v4.47c3.01-1.31 5.2-3.31 5.2-5.63V25.23C37 21.12 30.16 18 24 18zm0 12c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z">
-        </path>
-      </g>
-      <g id="add">
-        <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
-      </g>
-      <g id="arrow-back">
-        <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z">
-        </path>
-      </g>
-      <g id="arrow-drop-up">
-        <path d="M7 14l5-5 5 5z"></path>
-      </g>
-      <g id="arrow-drop-down">
-        <path d="M7 10l5 5 5-5z"></path>
-      </g>
-      <g id="arrow-forward">
-        <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z">
-        </path>
-      </g>
-      <g id="arrow-right">
-        <path d="M10 7l5 5-5 5z"></path>
-      </g>
-      
-        <g id="bluetooth">
-          <path d="M17.71 7.71L12 2h-1v7.59L6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 11 14.41V22h1l5.71-5.71-4.3-4.29 4.3-4.29zM13 5.83l1.88 1.88L13 9.59V5.83zm1.88 10.46L13 18.17v-3.76l1.88 1.88z">
-          </path>
-        </g>
-        <g id="camera-alt">
-          <circle cx="12" cy="12" r="3.2"></circle>
-          <path d="M9 2L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2H9zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z">
-          </path>
-        </g>
-        <g id="work">
-          <path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z">
-          </path>
-        </g>
-      
-      <g id="cancel">
-        <path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z">
-        </path>
-      </g>
-      <g id="check">
-        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
-      </g>
-      <g id="check-circle">
-        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z">
-        </path>
-      </g>
-      <g id="chevron-left">
-        <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"></path>
-      </g>
-      <g id="chevron-right">
-        <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path>
-      </g>
-      <g id="clear">
-        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z">
-        </path>
-      </g>
-      <g id="close">
-        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z">
-        </path>
-      </g>
-      <g id="computer">
-        <path d="M20 18c1.1 0 1.99-.9 1.99-2L22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z">
-        </path>
-      </g>
-      <g id="create">
-        <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z">
-        </path>
-      </g>
-      <g id="delete">
-        <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z">
-        </path>
-      </g>
-      <g id="domain">
-        <path d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z">
-        </path>
-      </g>
-      <g id="error">
-        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z">
-        </path>
-      </g>
-      <g id="error-outline">
-        <path d="M11 15h2v2h-2zm0-8h2v6h-2zm.99-5C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z">
-        </path>
-      </g>
-      <g id="expand-less">
-        <path d="M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z"></path>
-      </g>
-      <g id="expand-more">
-        <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path>
-      </g>
-      <g id="extension">
-        <path d="M20.5 11H19V7c0-1.1-.9-2-2-2h-4V3.5C13 2.12 11.88 1 10.5 1S8 2.12 8 3.5V5H4c-1.1 0-1.99.9-1.99 2v3.8H3.5c1.49 0 2.7 1.21 2.7 2.7s-1.21 2.7-2.7 2.7H2V20c0 1.1.9 2 2 2h3.8v-1.5c0-1.49 1.21-2.7 2.7-2.7 1.49 0 2.7 1.21 2.7 2.7V22H17c1.1 0 2-.9 2-2v-4h1.5c1.38 0 2.5-1.12 2.5-2.5S21.88 11 20.5 11z">
-        </path>
-      </g>
-      <g id="file-download">
-        <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"></path>
-      </g>
-      
-        <g id="folder-filled">
-          <path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z">
-          </path>
-        </g>
-      
-      <g id="fullscreen">
-        <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z">
-        </path>
-      </g>
-      <g id="group">
-        <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z">
-        </path>
-      </g>
-      <g id="help-outline">
-        <path d="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z">
-        </path>
-      </g>
-      <g id="history">
-        <path d="M12.945312 22.75 C 10.320312 22.75 8.074219 21.839844 6.207031 20.019531 C 4.335938 18.199219 3.359375 15.972656 3.269531 13.34375 L 5.089844 13.34375 C 5.175781 15.472656 5.972656 17.273438 7.480469 18.742188 C 8.988281 20.210938 10.808594 20.945312 12.945312 20.945312 C 15.179688 20.945312 17.070312 20.164062 18.621094 18.601562 C 20.167969 17.039062 20.945312 15.144531 20.945312 12.910156 C 20.945312 10.714844 20.164062 8.855469 18.601562 7.335938 C 17.039062 5.816406 15.15625 5.054688 12.945312 5.054688 C 11.710938 5.054688 10.554688 5.339844 9.480469 5.902344 C 8.402344 6.46875 7.476562 7.226562 6.699219 8.179688 L 9.585938 8.179688 L 9.585938 9.984375 L 3.648438 9.984375 L 3.648438 4.0625 L 5.453125 4.0625 L 5.453125 6.824219 C 6.386719 5.707031 7.503906 4.828125 8.804688 4.199219 C 10.109375 3.566406 11.488281 3.25 12.945312 3.25 C 14.300781 3.25 15.570312 3.503906 16.761719 4.011719 C 17.949219 4.519531 18.988281 5.214844 19.875 6.089844 C 20.761719 6.964844 21.464844 7.992188 21.976562 9.167969 C 22.492188 10.34375 22.75 11.609375 22.75 12.964844 C 22.75 14.316406 22.492188 15.589844 21.976562 16.777344 C 21.464844 17.964844 20.761719 19.003906 19.875 19.882812 C 18.988281 20.765625 17.949219 21.464844 16.761719 21.976562 C 15.570312 22.492188 14.300781 22.75 12.945312 22.75 Z M 16.269531 17.460938 L 12.117188 13.34375 L 12.117188 7.527344 L 13.921875 7.527344 L 13.921875 12.601562 L 17.550781 16.179688 Z M 16.269531 17.460938">
-        </path>
-      </g>
-      <g id="info">
-        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z">
-        </path>
-      </g>
-      <g id="info-outline">
-        <path d="M11 17h2v-6h-2v6zm1-15C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zM11 9h2V7h-2v2z">
-        </path>
-      </g>
-      <g id="insert-drive-file">
-        <path d="M6 2c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6H6zm7 7V3.5L18.5 9H13z">
-        </path>
-      </g>
-      <g id="location-on">
-        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z">
-        </path>
-      </g>
-      <g id="mic">
-        <path d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z">
-        </path>
-      </g>
-      <g id="more-vert">
-        <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z">
-        </path>
-      </g>
-      <g id="open-in-new">
-        <path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z">
-        </path>
-      </g>
-      <g id="person">
-        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z">
-        </path>
-      </g>
-      <g id="phonelink">
-        <path d="M4 6h18V4H4c-1.1 0-2 .9-2 2v11H0v3h14v-3H4V6zm19 2h-6c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h6c.55 0 1-.45 1-1V9c0-.55-.45-1-1-1zm-1 9h-4v-7h4v7z">
-        </path>
-      </g>
-      <g id="print">
-        <path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z">
-        </path>
-      </g>
-      <g id="schedule">
-        <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z">
-        </path>
-      </g>
-      <g id="search">
-        <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z">
-        </path>
-      </g>
-      <g id="security">
-        <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z">
-        </path>
-      </g>
-      
-        <g id="sim-card-alert">
-          <path d="M18 2h-8L4.02 8 4 20c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-5 15h-2v-2h2v2zm0-4h-2V8h2v5z">
-          </path>
-        </g>
-        <g id="sim-lock">
-          <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z">
-          </path>
-        </g>
-        <g id="sms-connect">
-          <path d="M20,2C21.1,2 22,2.9 22,4L22,16C22,17.1 21.1,18 20,18L6,18L2,22L2.01,4C2.01,2.9 2.9,2 4,2L20,2ZM8,8L4,12L8,16L8,13L14,13L14,11L8,11L8,8ZM19.666,7.872L16.038,4.372L16.038,6.997L10,6.997L10,9L16.038,9L16.038,11.372L19.666,7.872Z">
-          </path>
-        </g>
-      
-      
-      <g id="settings_icon">
-        <path d="M19.43 12.98c.04-.32.07-.64.07-.98s-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98s.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zM12 15.5c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5z">
-        </path>
-      </g>
-      <g id="star">
-        <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z">
-        </path>
-      </g>
-      <g id="sync">
-        <path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46C19.54 15.03 20 13.57 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74C4.46 8.97 4 10.43 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z">
-        </path>
-      </g>
-      <g id="thumbs-down">
-        <path d="M6 3h11v13l-7 7-1.25-1.25a1.454 1.454 0 0 1-.3-.475c-.067-.2-.1-.392-.1-.575v-.35L9.45 16H3c-.533 0-1-.2-1.4-.6-.4-.4-.6-.867-.6-1.4v-2c0-.117.017-.242.05-.375s.067-.258.1-.375l3-7.05c.15-.333.4-.617.75-.85C5.25 3.117 5.617 3 6 3Zm9 2H6l-3 7v2h9l-1.35 5.5L15 15.15V5Zm0 10.15V5v10.15Zm2 .85v-2h3V5h-3V3h5v13h-5Z">
-        </path>
-      </g>
-      <g id="thumbs-up">
-        <path d="M18 21H7V8l7-7 1.25 1.25c.117.117.208.275.275.475.083.2.125.392.125.575v.35L14.55 8H21c.533 0 1 .2 1.4.6.4.4.6.867.6 1.4v2c0 .117-.017.242-.05.375s-.067.258-.1.375l-3 7.05c-.15.333-.4.617-.75.85-.35.233-.717.35-1.1.35Zm-9-2h9l3-7v-2h-9l1.35-5.5L9 8.85V19ZM9 8.85V19 8.85ZM7 8v2H4v9h3v2H2V8h5Z">
-        </path>
-      </g>
-      <g id="videocam">
-        <path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z">
-        </path>
-      </g>
-      <g id="warning">
-        <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"></path>
-      </g>
-    </defs>
-  </svg>
-</iron-iconset-svg>
-`;
-document.head.appendChild(template.content);
-
-// Copyright 2017 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-// clang-format off
-// clang-format on
-let hideInk = false;
-assert(!isIOS, 'pointerdown doesn\'t work on iOS');
-document.addEventListener('pointerdown', function () {
-    hideInk = true;
-}, true);
-document.addEventListener('keydown', function () {
-    hideInk = false;
-}, true);
-/**
- * Attempts to track whether focus outlines should be shown, and if they
- * shouldn't, removes the "ink" (ripple) from a control while focusing it.
- * This is helpful when a user is clicking/touching, because it's not super
- * helpful to show focus ripples in that case. This is Polymer-specific.
- */
-function focusWithoutInk(toFocus) {
-    // |toFocus| does not have a 'noink' property, so it's unclear whether the
-    // element has "ink" and/or whether it can be suppressed. Just focus().
-    if (!('noink' in toFocus) || !hideInk) {
-        toFocus.focus();
-        return;
-    }
-    const toFocusWithNoInk = toFocus;
-    // Make sure the element is in the document we're listening to events on.
-    assert(document === toFocusWithNoInk.ownerDocument);
-    const { noink } = toFocusWithNoInk;
-    toFocusWithNoInk.noink = true;
-    toFocusWithNoInk.focus();
-    toFocusWithNoInk.noink = noink;
-}
-
-function getTemplate$5() {
-    return html `<!--_html_template_start_-->    <style include="cr-actionable-row-style">:host([disabled]){opacity:.65;pointer-events:none}:host([disabled]) cr-icon-button{display:var(--cr-expand-button-disabled-display,initial)}#label{flex:1;padding:var(--cr-section-vertical-padding) 0}cr-icon-button{--cr-icon-button-icon-size:var(--cr-expand-button-icon-size, 20px);--cr-icon-button-size:var(--cr-expand-button-size, 36px)}</style>
-
-    <div id="label" aria-hidden="true"><slot></slot></div>
-    <cr-icon-button id="icon" aria-labelledby="label" disabled="[[disabled]]" tabindex="[[tabIndex]]" part="icon"></cr-icon-button>
-<!--_html_template_end_-->`;
-}
-
-// Copyright 2015 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @fileoverview
- * 'cr-expand-button' is a chrome-specific wrapper around a button that toggles
- * between an opened (expanded) and closed state.
- */
-class CrExpandButtonElement extends PolymerElement {
-    static get is() {
-        return 'cr-expand-button';
-    }
-    static get template() {
-        return getTemplate$5();
-    }
-    static get properties() {
-        return {
-            /**
-             * If true, the button is in the expanded state and will show the icon
-             * specified in the `collapseIcon` property. If false, the button shows
-             * the icon specified in the `expandIcon` property.
-             */
-            expanded: {
-                type: Boolean,
-                value: false,
-                notify: true,
-                observer: 'onExpandedChange_',
-            },
-            /**
-             * If true, the button will be disabled and grayed out.
-             */
-            disabled: {
-                type: Boolean,
-                value: false,
-                reflectToAttribute: true,
-            },
-            /** A11y text descriptor for this control. */
-            ariaLabel: {
-                type: String,
-                observer: 'onAriaLabelChange_',
-            },
-            tabIndex: {
-                type: Number,
-                value: 0,
-            },
-            expandIcon: {
-                type: String,
-                value: 'cr:expand-more',
-                observer: 'onIconChange_',
-            },
-            collapseIcon: {
-                type: String,
-                value: 'cr:expand-less',
-                observer: 'onIconChange_',
-            },
-            expandTitle: String,
-            collapseTitle: String,
-            tooltipText_: {
-                type: String,
-                computed: 'computeTooltipText_(expandTitle, collapseTitle, expanded)',
-                observer: 'onTooltipTextChange_',
-            },
-        };
-    }
-    static get observers() {
-        return ['updateAriaExpanded_(disabled, expanded)'];
-    }
-    ready() {
-        super.ready();
-        this.addEventListener('click', this.toggleExpand_);
-    }
-    computeTooltipText_() {
-        return this.expanded ? this.collapseTitle : this.expandTitle;
-    }
-    onTooltipTextChange_() {
-        this.title = this.tooltipText_;
-    }
-    focus() {
-        this.$.icon.focus();
-    }
-    onAriaLabelChange_() {
-        if (this.ariaLabel) {
-            this.$.icon.removeAttribute('aria-labelledby');
-            this.$.icon.setAttribute('aria-label', this.ariaLabel);
-        }
-        else {
-            this.$.icon.removeAttribute('aria-label');
-            this.$.icon.setAttribute('aria-labelledby', 'label');
-        }
-    }
-    onExpandedChange_() {
-        this.updateIcon_();
-    }
-    onIconChange_() {
-        this.updateIcon_();
-    }
-    updateIcon_() {
-        this.$.icon.ironIcon = this.expanded ? this.collapseIcon : this.expandIcon;
-    }
-    toggleExpand_(event) {
-        // Prevent |click| event from bubbling. It can cause parents of this
-        // elements to erroneously re-toggle this control.
-        event.stopPropagation();
-        event.preventDefault();
-        this.scrollIntoViewIfNeeded();
-        this.expanded = !this.expanded;
-        focusWithoutInk(this.$.icon);
-    }
-    updateAriaExpanded_() {
-        if (this.disabled) {
-            this.$.icon.removeAttribute('aria-expanded');
-        }
-        else {
-            this.$.icon.setAttribute('aria-expanded', this.expanded ? 'true' : 'false');
-        }
-    }
-}
-customElements.define(CrExpandButtonElement.is, CrExpandButtonElement);
-
-const styleMod = document.createElement('dom-module');
-styleMod.appendChild(html `
-  <template>
-    <style>
-a,cr-button,cr-icon-button,div{cursor:default}cr-icon-button{--cr-icon-button-icon-size:var(--mwb-icon-size);--cr-icon-button-size:calc(var(--mwb-icon-size) * 1.5)}
-    </style>
-  </template>
-`.content);
-styleMod.register('mwb-element-shared-style');
 
 /**
 @license
@@ -5279,6 +4889,1262 @@ Polymer({
 
 });
 
+const template$1 = html `<iron-iconset-svg name="mwb16" size="16">
+  <svg>
+    <defs>
+      <g id="close">
+        <path d="M13 4.00714L11.9929 3L8 6.99286L4.00714 3L3 4.00714L6.99286 8L3 11.9929L4.00714 13L8 9.00714L11.9929 13L13 11.9929L9.00714 8L13 4.00714Z">
+        </path>
+      </g>
+      <g id="search">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M10.8619 10.2981L10.6177 10.0578C11.484 9.05905 12.0874 7.68174 12.0874 5.97468C12.0874 2.82136 9.23365 0 6.04368 0C2.85486 0 0 2.82136 0 5.97468C0 9.12687 3.45353 11.9462 6.17606 11.9482C7.77044 11.9494 9.0094 11.5085 9.98871 10.6796L10.2341 10.921V11.6156L14.6752 16L16 14.6904L11.5681 10.2981H10.8619ZM6.04422 10.2423C3.65985 10.2423 1.72676 8.33212 1.72676 5.97468C1.72676 3.61724 3.65985 1.70705 6.04422 1.70705C8.42749 1.70705 10.3606 3.61724 10.3606 5.97468C10.3606 8.33212 8.42749 10.2423 6.04422 10.2423V10.2423Z">
+        </path>
+      </g>
+    </defs>
+  </svg>
+</iron-iconset-svg>
+`;
+document.head.appendChild(template$1.content);
+
+// Copyright 2021 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview This file provides a mixin to manage a `hovered` style on mouse
+ * events. Relies on listening for pointer events as touch devices may fire
+ * mouse events too.
+ */
+const HOVERED_STYLE = 'hovered';
+const MouseHoverableMixin = dedupingMixin((superClass) => {
+    class MouseHoverableMixin extends superClass {
+        ready() {
+            super.ready();
+            this.addEventListener('pointerenter', (e) => {
+                const hostElement = e.currentTarget;
+                hostElement.classList.toggle(HOVERED_STYLE, e.pointerType === 'mouse');
+            });
+            this.addEventListener('pointerleave', (e) => {
+                if (e.pointerType !== 'mouse') {
+                    return;
+                }
+                const hostElement = e.currentTarget;
+                hostElement.classList.remove(HOVERED_STYLE);
+            });
+        }
+    }
+    return MouseHoverableMixin;
+});
+
+// Copyright 2022 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/* @fileoverview Utilities for determining the current platform. */
+/** Whether we are using a Mac or not. */
+/** Whether this is on Android. */
+const isAndroid = /Android/.test(navigator.userAgent);
+/** Whether this is on iOS. */
+const isIOS = /CriOS/.test(navigator.userAgent);
+
+// Copyright 2016 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @return The scale factors supported by this platform for webui resources.
+ */
+function getSupportedScaleFactors() {
+    const supportedScaleFactors = [];
+    if (!isIOS) {
+        // This matches the code in ResourceBundle::InitSharedInstance() that
+        // supports SCALE_FACTOR_100P on all non-iOS platforms.
+        supportedScaleFactors.push(1);
+    }
+    if (!isIOS && !isAndroid) {
+        // All desktop platforms support zooming which also updates the renderer's
+        // device scale factors (a.k.a devicePixelRatio), and these platforms have
+        // high DPI assets for 2x.  Let the renderer pick the closest image for
+        // the current device scale factor.
+        supportedScaleFactors.push(2);
+    }
+    else {
+        // For other platforms that use fixed device scale factor, use
+        // the window's device pixel ratio.
+        // TODO(oshima): Investigate corresponding to
+        // ResourceBundle::InitSharedInstance() more closely.
+        supportedScaleFactors.push(window.devicePixelRatio);
+    }
+    return supportedScaleFactors;
+}
+/**
+ * Generates a CSS url string.
+ * @param s The URL to generate the CSS url for.
+ * @return The CSS url string.
+ */
+function getUrlForCss(s) {
+    // http://www.w3.org/TR/css3-values/#uris
+    // Parentheses, commas, whitespace characters, single quotes (') and double
+    // quotes (") appearing in a URI must be escaped with a backslash
+    const s2 = s.replace(/(\(|\)|\,|\s|\'|\"|\\)/g, '\\$1');
+    return `url("${s2}")`;
+}
+/**
+ * Generates a CSS image-set for a chrome:// url.
+ * An entry in the image set is added for each of getSupportedScaleFactors().
+ * The scale-factor-specific url is generated by replacing the first instance
+ * of 'scalefactor' in |path| with the numeric scale factor.
+ *
+ * @param path The URL to generate an image set for.
+ *     'scalefactor' should be a substring of |path|.
+ * @return The CSS image-set.
+ */
+function getImageSet(path) {
+    const supportedScaleFactors = getSupportedScaleFactors();
+    const replaceStartIndex = path.indexOf('SCALEFACTOR');
+    if (replaceStartIndex < 0) {
+        return getUrlForCss(path);
+    }
+    let s = '';
+    for (let i = 0; i < supportedScaleFactors.length; ++i) {
+        const scaleFactor = supportedScaleFactors[i];
+        const pathWithScaleFactor = path.substr(0, replaceStartIndex) +
+            scaleFactor + path.substr(replaceStartIndex + 'scalefactor'.length);
+        s += getUrlForCss(pathWithScaleFactor) + ' ' + scaleFactor + 'x';
+        if (i !== supportedScaleFactors.length - 1) {
+            s += ', ';
+        }
+    }
+    return 'image-set(' + s + ')';
+}
+function getBaseFaviconUrl() {
+    const faviconUrl = new URL('chrome://favicon2/');
+    faviconUrl.searchParams.set('size', '16');
+    faviconUrl.searchParams.set('scaleFactor', 'SCALEFACTORx');
+    return faviconUrl;
+}
+/**
+ * Creates a CSS image-set for a favicon request based on a page URL.
+ *
+ * @param url URL of the original page
+ * @param isSyncedUrlForHistoryUi Should be set to true only if the
+ *     caller is an UI aimed at displaying user history, and the requested url
+ *     is known to be present in Chrome sync data.
+ * @param remoteIconUrlForUma In case the entry is contained in sync
+ *     data, we can pass the associated icon url.
+ * @param size The favicon size.
+ * @param forceLightMode Flag to force the service to show the light
+ *     mode version of the default favicon.
+ *
+ * @return image-set for the favicon.
+ */
+function getFaviconForPageURL(url, isSyncedUrlForHistoryUi, remoteIconUrlForUma = '', size = 16, forceLightMode = false) {
+    // Note: URL param keys used below must match those in the description of
+    // chrome://favicon2 format in components/favicon_base/favicon_url_parser.h.
+    const faviconUrl = getBaseFaviconUrl();
+    faviconUrl.searchParams.set('size', size.toString());
+    faviconUrl.searchParams.set('pageUrl', url);
+    // TODO(dbeam): use the presence of 'allowGoogleServerFallback' to
+    // indicate true, otherwise false.
+    const fallback = isSyncedUrlForHistoryUi ? '1' : '0';
+    faviconUrl.searchParams.set('allowGoogleServerFallback', fallback);
+    if (isSyncedUrlForHistoryUi) {
+        faviconUrl.searchParams.set('iconUrl', remoteIconUrlForUma);
+    }
+    if (forceLightMode) {
+        faviconUrl.searchParams.set('forceLightMode', 'true');
+    }
+    return getImageSet(faviconUrl.toString());
+}
+
+// Copyright 2018 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+const WRAPPER_CSS_CLASS = 'search-highlight-wrapper';
+const ORIGINAL_CONTENT_CSS_CLASS = 'search-highlight-original-content';
+const HIT_CSS_CLASS = 'search-highlight-hit';
+/**
+ * Applies the highlight UI (yellow rectangle) around all matches in |node|.
+ * @param node The text node to be highlighted. |node| ends up
+ *     being hidden.
+ * @return The new highlight wrapper.
+ */
+function highlight(node, ranges) {
+    assert(ranges.length > 0);
+    const wrapper = document.createElement('span');
+    wrapper.classList.add(WRAPPER_CSS_CLASS);
+    // Use existing node as placeholder to determine where to insert the
+    // replacement content.
+    assert(node.parentNode);
+    node.parentNode.replaceChild(wrapper, node);
+    // Keep the existing node around for when the highlights are removed. The
+    // existing text node might be involved in data-binding and therefore should
+    // not be discarded.
+    const span = document.createElement('span');
+    span.classList.add(ORIGINAL_CONTENT_CSS_CLASS);
+    span.style.display = 'none';
+    span.appendChild(node);
+    wrapper.appendChild(span);
+    const text = node.textContent;
+    const tokens = [];
+    for (let i = 0; i < ranges.length; ++i) {
+        const range = ranges[i];
+        const prev = ranges[i - 1] || { start: 0, length: 0 };
+        const start = prev.start + prev.length;
+        const length = range.start - start;
+        tokens.push(text.substr(start, length));
+        tokens.push(text.substr(range.start, range.length));
+    }
+    const last = ranges.slice(-1)[0];
+    tokens.push(text.substr(last.start + last.length));
+    for (let i = 0; i < tokens.length; ++i) {
+        if (i % 2 === 0) {
+            wrapper.appendChild(document.createTextNode(tokens[i]));
+        }
+        else {
+            const hitSpan = document.createElement('span');
+            hitSpan.classList.add(HIT_CSS_CLASS);
+            // Defaults to the color associated with --paper-yellow-500.
+            hitSpan.style.backgroundColor =
+                'var(--search-highlight-hit-background-color, #ffeb3b)';
+            // Defaults to the color associated with --google-grey-900.
+            hitSpan.style.color = 'var(--search-highlight-hit-color, #202124)';
+            hitSpan.textContent = tokens[i];
+            wrapper.appendChild(hitSpan);
+        }
+    }
+    return wrapper;
+}
+
+// Copyright 2021 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+function highlightText(container, text, ranges) {
+    container.textContent = '';
+    const node = document.createTextNode(text);
+    container.appendChild(node);
+    if (ranges) {
+        highlight(node, ranges);
+    }
+}
+function tabHasMediaAlerts(tab) {
+    return tab.alertStates.length > 0;
+}
+
+// Copyright 2020 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+var TabItemType;
+(function (TabItemType) {
+    TabItemType[TabItemType["OPEN_TAB"] = 1] = "OPEN_TAB";
+    TabItemType[TabItemType["RECENTLY_CLOSED_TAB"] = 2] = "RECENTLY_CLOSED_TAB";
+    TabItemType[TabItemType["RECENTLY_CLOSED_TAB_GROUP"] = 3] = "RECENTLY_CLOSED_TAB_GROUP";
+})(TabItemType || (TabItemType = {}));
+class ItemData {
+    constructor() {
+        this.highlightRanges = {};
+    }
+}
+/**
+ * TabData contains tabSearch.mojom.Tab and data derived from it.
+ * It makes tabSearch.mojom.Tab immutable and works well for closure compiler
+ * type checking.
+ */
+class TabData extends ItemData {
+    constructor(tab, type, hostname) {
+        super();
+        this.tab = tab;
+        this.type = type;
+        this.hostname = hostname;
+    }
+}
+class TabGroupData extends ItemData {
+    constructor(tabGroup) {
+        super();
+        this.tabGroup = tabGroup;
+        this.type = TabItemType.RECENTLY_CLOSED_TAB_GROUP;
+    }
+}
+/**
+ * Converts a token to a string by combining the high and low values as strings
+ * with a hashtag as the separator.
+ */
+function tokenToString(token) {
+    return `${token.high.toString()}#${token.low.toString()}`;
+}
+function tokenEquals(a, b) {
+    return a.high === b.high && a.low === b.low;
+}
+function titleAndAlertAriaLabel(tabData) {
+    const tabTitle = tabData.tab.title;
+    if (tabData.type === TabItemType.OPEN_TAB &&
+        tabHasMediaAlerts(tabData.tab)) {
+        // GetTabAlertStatesForContents adds alert indicators in the order of their
+        // priority. Only relevant media alerts are sent over mojo so the first
+        // element in alertStates will be the highest priority media alert to
+        // display.
+        const alert = tabData.tab.alertStates[0];
+        switch (alert) {
+            case TabAlertState.kMediaRecording:
+                return loadTimeData.getStringF('mediaRecording', tabTitle);
+            case TabAlertState.kAudioRecording:
+                return loadTimeData.getStringF('audioRecording', tabTitle);
+            case TabAlertState.kVideoRecording:
+                return loadTimeData.getStringF('videoRecording', tabTitle);
+            case TabAlertState.kAudioPlaying:
+                return loadTimeData.getStringF('audioPlaying', tabTitle);
+            case TabAlertState.kAudioMuting:
+                return loadTimeData.getStringF('audioMuting', tabTitle);
+            default:
+                return tabTitle;
+        }
+    }
+    return tabTitle;
+}
+function ariaLabel(itemData) {
+    if (itemData instanceof TabGroupData &&
+        itemData.type === TabItemType.RECENTLY_CLOSED_TAB_GROUP) {
+        const tabGroup = itemData.tabGroup;
+        const tabCountText = loadTimeData.getStringF(tabGroup.tabCount === 1 ? 'oneTab' : 'tabCount', tabGroup.tabCount);
+        return `${tabGroup.title} ${tabCountText} ${tabGroup.lastActiveElapsedText} ${itemData.a11yTypeText}`;
+    }
+    if (itemData instanceof TabData) {
+        const tabData = itemData;
+        const groupTitleOrEmpty = tabData.tabGroup ? tabData.tabGroup.title : '';
+        const titleAndAlerts = titleAndAlertAriaLabel(tabData);
+        return `${titleAndAlerts} ${groupTitleOrEmpty} ${tabData.hostname} ${tabData.tab.lastActiveElapsedText} ${tabData.a11yTypeText}`;
+    }
+    throw new Error('Invalid data provided.');
+}
+
+const template = html `
+<style>
+html{--google-blue-300-rgb:123,170,247;--google-blue-300:rgb(var(--google-blue-300-rgb));--google-cyan-300-rgb:120,217,236;--google-cyan-300:rgb(var(--google-cyan-300-rgb));--google-cyan-900-rgb:0,123,131;--google-cyan-900:rgb(var(--google-cyan-900-rgb));--google-green-300-rgb:87,187,138;--google-green-300:rgb(var(--google-green-300-rgb));--google-green-600-rgb:30,142,62;--google-green-600:rgb(var(--google-green-600-rgb));--google-pink-300-rgb:255,139,203;--google-pink-300:rgb(var(--google-pink-300-rgb));--google-pink-700-rgb:208,24,132;--google-pink-700:rgb(var(--google-pink-700-rgb));--google-purple-200-rgb:215,174,251;--google-purple-200:rgb(var(--google-purple-200-rgb));--google-purple-600-rgb:147,52,230;--google-purple-600:rgb(var(--google-purple-600-rgb));--google-red-300-rgb:230,124,115;--google-red-300:rgb(var(--google-red-300-rgb));--google-yellow-300-rgb:247,203,77;--google-yellow-300:rgb(var(--google-yellow-300-rgb));--google-yellow-900-rgb:227,116,0;--google-yellow-900:rgb(var(--google-yellow-900-rgb));--google-orange-300-rgb:252,173,112;--google-orange-300:rgb(var(--google-orange-300-rgb));--google-orange-400-rgb:250,144,62;--google-orange-400:rgb(var(--google-orange-400-rgb));--tab-group-color-grey:var(--google-grey-700);--tab-group-color-blue:var(--google-blue-600);--tab-group-color-red:var(--google-red-600);--tab-group-color-yellow:var(--google-yellow-900);--tab-group-color-green:var(--google-green-600);--tab-group-color-pink:var(--google-pink-700);--tab-group-color-purple:var(--google-purple-600);--tab-group-color-cyan:var(--google-cyan-900);--tab-group-color-orange:var(--google-orange-400)}@media (prefers-color-scheme:dark){html{--tab-group-color-grey:var(--google-grey-400);--tab-group-color-blue:var(--google-blue-300);--tab-group-color-red:var(--google-red-300);--tab-group-color-yellow:var(--google-yellow-300);--tab-group-color-green:var(--google-green-300);--tab-group-color-pink:var(--google-pink-300);--tab-group-color-purple:var(--google-purple-200);--tab-group-color-cyan:var(--google-cyan-300);--tab-group-color-orange:var(--google-orange-300)}}
+</style>
+`;
+document.head.appendChild(template.content);
+
+// Copyright 2021 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+const colorMap = new Map([
+    [Color.kGrey, 'grey'],
+    [Color.kBlue, 'blue'],
+    [Color.kRed, 'red'],
+    [Color.kYellow, 'yellow'],
+    [Color.kGreen, 'green'],
+    [Color.kPink, 'pink'],
+    [Color.kPurple, 'purple'],
+    [Color.kCyan, 'cyan'],
+    [Color.kOrange, 'orange'],
+]);
+function colorName(color) {
+    if (!colorMap.has(color)) {
+        throw Error('Undefined color id');
+    }
+    return colorMap.get(color);
+}
+
+function getTemplate$8() {
+    return html `<!--_html_template_start_--><style include="mwb-element-shared-style">:host{--audio-icon-color:var(--google-grey-700);--media-recording-icon-color:var(--google-red-600)}@media (prefers-color-scheme:dark){:host{--audio-icon-color:var(--google-grey-300);--media-recording-icon-color:var(--google-red-300)}}:host-context([chrome-refresh-2023]):host{--audio-icon-color:var(--color-tab-search-media-icon);--media-recording-icon-color:var(--color-tab-search-media-recording-icon)}:host(:focus){outline:0}:host(:is(.hovered,.selected)) .button-container{height:auto;overflow:visible;visibility:visible;width:auto}.button-container{height:0;margin-inline-start:2px;overflow:hidden;width:0}.button-container.allocate-space-while-hidden{height:auto;overflow:visible;visibility:hidden;width:auto}.button-container cr-icon-button{--cr-icon-button-fill-color:var(--mwb-icon-button-fill-color)}.favicon{background-repeat:no-repeat;background-size:var(--mwb-icon-size);flex-shrink:0;height:var(--mwb-icon-size);width:var(--mwb-icon-size)}.text-container{flex-grow:1;overflow:hidden;user-select:none}#groupTitle,#primaryText,#secondaryText{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}#primaryText{color:var(--cr-primary-text-color);font-size:var(--mwb-primary-text-font-size);font-weight:var(--mwb-primary-text-font-weight);margin-bottom:3px}#secondaryContainer{align-items:center;color:var(--cr-secondary-text-color);display:flex;font-size:var(--mwb-secondary-text-font-size);font-weight:var(--mwb-secondary-text-font-weight)}#primaryContainer{display:flex}#secondaryTimestamp{flex-shrink:0}#textAriaLabel{clip:rect(0,0,0,0);display:inline-block;position:fixed}.separator{margin-inline-end:4px;margin-inline-start:4px}cr-icon-button{--cr-icon-button-margin-end:0;--cr-icon-button-margin-start:0}.search-highlight-hit{--search-highlight-hit-background-color:none;--search-highlight-hit-color:none;font-weight:700}#groupSvg{flex-shrink:0;height:8px;margin-inline-end:6px;width:8px}#groupDot{fill:var(--group-dot-color)}#mediaAlert[display=block]{-webkit-mask:center/contain no-repeat;flex-shrink:0;height:var(--mwb-icon-size);margin-inline-end:8px;margin-inline-start:4px;width:var(--mwb-icon-size)}#mediaAlert[class=audio-recording],#mediaAlert[class=media-recording],#mediaAlert[class=video-recording]{-webkit-mask-image:url(alert_indicators/tab_media_recording.svg);background-color:var(--media-recording-icon-color)}#mediaAlert[class=audio-playing]{-webkit-mask-image:url(alert_indicators/tab_audio_rounded.svg);background-color:var(--audio-icon-color)}#mediaAlert[class=audio-muting]{-webkit-mask-image:url(alert_indicators/tab_audio_muting_rounded.svg);background-color:var(--audio-icon-color)}#iconContainer{margin-inline-end:16px}:host-context([chrome-refresh-2023]) #iconContainer{align-items:center;background:var(--tab-search-favicon-background,var(--color-list-item-url-favicon-background));border-radius:8px;display:flex;flex-shrink:0;height:40px;justify-content:center;overflow:hidden;width:40px}</style>
+
+<div id="iconContainer">
+  <div class="favicon" style="background-image:[[faviconUrl_(data.tab) ]]"></div>
+</div>
+<div id="textAriaLabel" title="[[ariaLabelForText_(data)]]"></div>
+<div class="text-container" aria-hidden="true">
+  <div id="primaryContainer">
+    <div id="primaryText" title="[[data.tab.title]]"></div>
+    <img id="mediaAlert" display$="[[mediaAlertVisibility_(data)]]" class$="[[getMediaAlertImageClass_(data)]]">
+  </div>
+  <div id="secondaryContainer">
+    
+    <svg id="groupSvg" viewBox="-5 -5 10 10" xmlns="http://www.w3.org/2000/svg" display$="[[groupSvgDisplay_(data)]]">
+      <circle id="groupDot" cx="0" cy="0" r="4">
+    </circle></svg>
+    <div id="groupTitle" hidden="[[!hasTabGroupWithTitle_(data)]]">[[data.tabGroup.title]]</div>
+    <div class="separator" hidden="[[!hasTabGroupWithTitle_(data)]]">•</div>
+    <div id="secondaryText"></div>
+    <template is="dom-if" if="[[!inSuggestedGroup]]">
+      <div class="separator" hidden="[[!data.hostname]]">•</div>
+      <div id="secondaryTimestamp">
+        [[data.tab.lastActiveElapsedText]]
+      </div>
+    </template>
+  </div>
+</div>
+<template is="dom-if" if="[[isCloseable_(data.type)]]">
+  <div class$="[[getButtonContainerStyles_(data)]]">
+    <cr-icon-button id="closeButton" aria-label="[[ariaLabelForButton_(data.tab.title)]]" iron-icon="mwb16:close" noink="[[!buttonRipples_]]" no-ripple-on-focus on-click="onItemClose_" title="[[tooltipForButton_(inSuggestedGroup)]]">
+    </cr-icon-button>
+  </div>
+</template>
+<!--_html_template_end_-->`;
+}
+
+// Copyright 2020 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+const TabSearchItemBase = MouseHoverableMixin(PolymerElement);
+class TabSearchItem extends TabSearchItemBase {
+    static get is() {
+        return 'tab-search-item';
+    }
+    static get template() {
+        return getTemplate$8();
+    }
+    static get properties() {
+        return {
+            data: {
+                type: Object,
+                observer: 'dataChanged_',
+            },
+            buttonRipples_: {
+                type: Boolean,
+                value: () => loadTimeData.getBoolean('useRipples'),
+            },
+            index: Number,
+            inSuggestedGroup: {
+                type: Boolean,
+                value: false,
+            },
+        };
+    }
+    /**
+     * @return Whether a close action can be performed on the item.
+     */
+    isCloseable_(type) {
+        return type === TabItemType.OPEN_TAB;
+    }
+    /**
+     * @return the class name for the close button including a second class to
+     *     preallocate space for the close button even while hidden if the tab
+     *     will display a media alert.
+     */
+    getButtonContainerStyles_(tabData) {
+        return 'button-container' +
+            (this.isOpenTabAndHasMediaAlert_(tabData) ?
+                ' allocate-space-while-hidden' :
+                '');
+    }
+    onItemClose_(e) {
+        this.dispatchEvent(new CustomEvent('close'));
+        e.stopPropagation();
+    }
+    faviconUrl_(tab) {
+        return tab.faviconUrl ?
+            `url("${tab.faviconUrl.url}")` :
+            getFaviconForPageURL(tab.isDefaultFavicon ? 'chrome://newtab' : tab.url.url, false);
+    }
+    /**
+     * Determines the display attribute value for the group SVG element.
+     */
+    groupSvgDisplay_(tabData) {
+        return tabData.tabGroup ? 'block' : 'none';
+    }
+    isOpenTabAndHasMediaAlert_(tabData) {
+        return tabData.type === TabItemType.OPEN_TAB &&
+            tabHasMediaAlerts(tabData.tab);
+    }
+    /**
+     * Determines the display attribute value for the media indicator.
+     */
+    mediaAlertVisibility_(tabData) {
+        return this.isOpenTabAndHasMediaAlert_(tabData) ? 'block' : 'none';
+    }
+    /**
+     * Returns the correct media alert indicator class name.
+     */
+    getMediaAlertImageClass_(tabData) {
+        if (!this.isOpenTabAndHasMediaAlert_(tabData)) {
+            return '';
+        }
+        // GetTabAlertStatesForContents adds alert indicators in the order of their
+        // priority. Only relevant media alerts are sent over mojo so the first
+        // element in alertStates will be the highest priority media alert to
+        // display.
+        const alert = tabData.tab.alertStates[0];
+        switch (alert) {
+            case TabAlertState.kMediaRecording:
+                return 'media-recording';
+            case TabAlertState.kAudioRecording:
+                return 'audio-recording';
+            case TabAlertState.kVideoRecording:
+                return 'video-recording';
+            case TabAlertState.kAudioPlaying:
+                return 'audio-playing';
+            case TabAlertState.kAudioMuting:
+                return 'audio-muting';
+            default:
+                return '';
+        }
+    }
+    hasTabGroupWithTitle_(tabData) {
+        return !!(tabData.tabGroup && tabData.tabGroup.title);
+    }
+    dataChanged_(data) {
+        [
+            ['tab.title', this.$.primaryText],
+            ['hostname', this.$.secondaryText],
+            ['tabGroup.title', this.$.groupTitle],
+        ]
+            .forEach(([path, element]) => {
+            if (element) {
+                const highlightRanges = data.highlightRanges ? data.highlightRanges[path] : undefined;
+                highlightText(element, get(data, path), highlightRanges);
+            }
+        });
+        // Show chrome:// if it's a chrome internal url
+        const protocol = new URL(data.tab.url.url).protocol;
+        if (protocol === 'chrome:') {
+            this.$.secondaryText.prepend(document.createTextNode('chrome://'));
+        }
+        if (data.tabGroup) {
+            this.style.setProperty('--group-dot-color', `var(--tab-group-color-${colorName(data.tabGroup.color)})`);
+        }
+    }
+    ariaLabelForText_(tabData) {
+        return ariaLabel(tabData);
+    }
+    ariaLabelForButton_(title) {
+        if (this.inSuggestedGroup) {
+            return loadTimeData.getStringF('tabOrganizationCloseTabAriaLabel', title);
+        }
+        return `${loadTimeData.getString('closeTab')} ${title}`;
+    }
+    tooltipForButton_() {
+        if (this.inSuggestedGroup) {
+            return loadTimeData.getString('tabOrganizationCloseTabTooltip');
+        }
+        return loadTimeData.getString('closeTab');
+    }
+}
+customElements.define(TabSearchItem.is, TabSearchItem);
+
+function getTemplate$7() {
+    return html `<!--_html_template_start_--><style include="mwb-shared-style tab-organization-shared-style">cr-button{margin-top:16px;width:fit-content}cr-feedback-buttons{color:var(--color-icon)}cr-input{--cr-input-background-color:transparent;--cr-input-border:1px solid var(--color-side-panel-textfield-border);--cr-input-border-bottom:none;--cr-input-border-radius:8px;--cr-input-error-display:none;--cr-input-padding-bottom:9px;--cr-input-padding-top:9px;--cr-input-underline-display:none;margin:0 var(--mwb-list-item-horizontal-margin) 16px var(--mwb-list-item-horizontal-margin)}cr-input:focus{--cr-input-border:2px solid var(--cr-focus-outline-color);--cr-input-padding-bottom:8px;--cr-input-padding-top:8px}tab-search-item{--tab-search-favicon-background:var(--color-tab-search-background)}.button-row{display:flex;gap:16px;justify-content:flex-end;margin:0 16px}.feedback{align-items:center;display:flex;gap:8px;justify-content:space-between}iron-selector>.mwb-list-item:focus{background-color:var(--mwb-list-item-selected-background-color)}.mwb-list-item{background-color:transparent;min-height:var(--mwb-item-height)}.results{background-color:var(--color-tab-search-card-background);border-radius:8px}#scrollable{display:flex;flex-direction:column;overflow-y:auto;padding:16px 0}.tab-organization-body,.tab-organization-link{font-size:11px;line-height:16px}</style>
+
+<div class="tab-organization-container">
+  <div class="tab-organization-header">$i18n{successTitle}</div>
+  <div class="results">
+    <div id="scrollable">
+      <cr-input id="input" type="text" value="{{name}}" on-focus="onInputFocus_" on-keydown="onInputKeyDown_">
+      </cr-input>
+      <iron-selector id="selector" role="list" on-keydown="onListKeyDown_" selected-class="selected" on-iron-select="onSelectedChanged_">
+        <template is="dom-repeat" items="[[tabDatas_]]">
+          <tab-search-item class="mwb-list-item" data="[[item]]" role="listitem" tabindex$="[[getTabIndex_(index, lastFocusedIndex_)]]" on-close="onTabRemove_" on-focus="onTabFocus_" on-blur="onTabBlur_" in-suggested-group>
+          </tab-search-item>
+        </template>
+      </iron-selector>
+      <div class="button-row">
+        <template is="dom-if" if="[[showRefresh_]]">
+          <cr-button class="tonal-button" on-click="onRefreshClick_">
+            [[getRefreshButtonText_(isLastOrganization)]]
+          </cr-button>
+        </template>
+        <cr-button class="action-button" on-click="onCreateGroupClick_">
+          $i18n{createGroup}
+        </cr-button>
+      </div>
+    </div>
+  </div>
+  <div class="feedback" role="toolbar" on-keydown="onFeedbackKeyDown_">
+    <div class="tab-organization-body">
+      $i18n{learnMoreDisclaimer}
+      <div id="learnMore" class="tab-organization-link" on-click="onLearnMoreClick_" on-keydown="onLearnMoreKeyDown_" role="link" tabindex="0">
+        $i18n{learnMore}
+      </div>
+    </div>
+    <cr-feedback-buttons id="feedbackButtons" tabindex="-1" on-selected-option-changed="onFeedbackSelectedOptionChanged_">
+    </cr-feedback-buttons>
+  </div>
+</div>
+<!--_html_template_end_-->`;
+}
+
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+const MINIMUM_SCROLLABLE_MAX_HEIGHT = 204;
+const NON_SCROLLABLE_VERTICAL_SPACING = 120;
+class TabOrganizationResultsElement extends PolymerElement {
+    static get is() {
+        return 'tab-organization-results';
+    }
+    static get properties() {
+        return {
+            tabs: {
+                type: Array,
+                observer: 'onTabsChange_',
+            },
+            name: String,
+            availableHeight: {
+                type: Number,
+                observer: 'onAvailableHeightChange_',
+            },
+            isLastOrganization: Boolean,
+            lastFocusedIndex_: {
+                type: Number,
+                value: 0,
+            },
+            showRefresh_: {
+                type: Boolean,
+                value: () => loadTimeData.getBoolean('tabOrganizationRefreshButtonEnabled'),
+            },
+            tabDatas_: {
+                type: Array,
+                value: () => [],
+                computed: 'computeTabDatas_(tabs.*)',
+            },
+        };
+    }
+    static get template() {
+        return getTemplate$7();
+    }
+    computeTabDatas_() {
+        return this.tabs.map(tab => new TabData(tab, TabItemType.OPEN_TAB, new URL(tab.url.url).hostname));
+    }
+    onTabsChange_() {
+        if (this.lastFocusedIndex_ > this.tabs.length - 1) {
+            this.lastFocusedIndex_ = 0;
+        }
+    }
+    getRefreshButtonText_() {
+        if (this.isLastOrganization) {
+            return loadTimeData.getString('rejectFinalSuggestion');
+        }
+        return loadTimeData.getString('rejectSuggestion');
+    }
+    getTabIndex_(index) {
+        return index === this.lastFocusedIndex_ ? 0 : -1;
+    }
+    onAvailableHeightChange_() {
+        const maxHeight = Math.max(MINIMUM_SCROLLABLE_MAX_HEIGHT, (this.availableHeight - NON_SCROLLABLE_VERTICAL_SPACING));
+        this.$.scrollable.style.maxHeight = maxHeight + 'px';
+    }
+    onInputFocus_() {
+        this.$.input.select();
+    }
+    onInputKeyDown_(event) {
+        if (event.key === 'Enter') {
+            event.stopPropagation();
+            this.$.input.blur();
+        }
+    }
+    onListKeyDown_(event) {
+        if (event.shiftKey) {
+            return;
+        }
+        const selector = this.$.selector;
+        if (selector.selected === undefined) {
+            return;
+        }
+        if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+            if (event.key === 'ArrowUp') {
+                selector.selectPrevious();
+            }
+            else {
+                selector.selectNext();
+            }
+            event.stopPropagation();
+            event.preventDefault();
+        }
+    }
+    onSelectedChanged_() {
+        if (this.$.selector.selectedItem) {
+            const selectedItem = this.$.selector.selectedItem;
+            const selectedItemCloseButton = selectedItem.shadowRoot.querySelector(`cr-icon-button`);
+            selectedItemCloseButton.focus();
+            this.lastFocusedIndex_ = this.$.selector.indexOf(selectedItem);
+        }
+    }
+    onTabRemove_(event) {
+        const index = this.tabDatas_.indexOf(event.model.item);
+        const tab = this.tabs[index];
+        this.dispatchEvent(new CustomEvent('remove-tab', {
+            bubbles: true,
+            composed: true,
+            detail: { tab },
+        }));
+    }
+    onTabFocus_(event) {
+        // Ensure that when a TabSearchItem receives focus, it becomes the selected
+        // item in the list.
+        this.$.selector.selected = event.model.index;
+    }
+    onTabBlur_(_event) {
+        // Ensure the selector deselects its current selection on blur. If
+        // selection should move to another element in the list, this will be done
+        // in onTabFocus_.
+        this.$.selector.selectIndex(-1);
+    }
+    onRefreshClick_() {
+        this.dispatchEvent(new CustomEvent('refresh-click', {
+            bubbles: true,
+            composed: true,
+        }));
+    }
+    onCreateGroupClick_() {
+        this.dispatchEvent(new CustomEvent('create-group-click', {
+            bubbles: true,
+            composed: true,
+            detail: { name: this.name, tabs: this.tabs },
+        }));
+    }
+    onLearnMoreClick_() {
+        this.dispatchEvent(new CustomEvent('learn-more-click', {
+            bubbles: true,
+            composed: true,
+        }));
+    }
+    onLearnMoreKeyDown_(event) {
+        if (event.key === 'Enter') {
+            this.onLearnMoreClick_();
+        }
+    }
+    onFeedbackKeyDown_(event) {
+        if ((event.key !== 'ArrowLeft' && event.key !== 'ArrowRight')) {
+            return;
+        }
+        const feedbackButtons = this.$.feedbackButtons.shadowRoot.querySelectorAll(`cr-icon-button`);
+        const focusableElements = [
+            this.$.learnMore,
+            feedbackButtons[0],
+            feedbackButtons[1],
+        ];
+        const focusableElementCount = focusableElements.length;
+        const focusedIndex = focusableElements.findIndex((element) => element.matches(':focus'));
+        if (focusedIndex < 0) {
+            return;
+        }
+        let nextFocusedIndex = 0;
+        if (event.key === 'ArrowLeft') {
+            nextFocusedIndex =
+                (focusedIndex + focusableElementCount - 1) % focusableElementCount;
+        }
+        else if (event.key === 'ArrowRight') {
+            nextFocusedIndex = (focusedIndex + 1) % focusableElementCount;
+        }
+        focusableElements[nextFocusedIndex].focus();
+    }
+    onFeedbackSelectedOptionChanged_(event) {
+        this.dispatchEvent(new CustomEvent('feedback', {
+            bubbles: true,
+            composed: true,
+            detail: { value: event.detail.value },
+        }));
+    }
+}
+customElements.define(TabOrganizationResultsElement.is, TabOrganizationResultsElement);
+
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+// Convert a javascript string into a Mojo String16.
+function stringToMojoString16(str) {
+    const arr = [];
+    for (let i = 0; i < str.length; i++) {
+        arr.push(str.charCodeAt(i));
+    }
+    return { data: arr };
+}
+// Convert a Mojo String16 into a javascript string.
+function mojoString16ToString(str16) {
+    return String.fromCharCode(...str16.data);
+}
+
+function getTemplate$6() {
+    return html `<!--_html_template_start_--><style include="tab-organization-shared-style">:host{--standard-curve:cubic-bezier(0.2, 0.0, 0, 1.0)}tab-organization-failure,tab-organization-in-progress,tab-organization-not-started,tab-organization-results{display:flex}:host(.changed-state) tab-organization-failure[shown],:host(.changed-state) tab-organization-in-progress[shown],:host(.changed-state) tab-organization-not-started[shown],:host(.changed-state) tab-organization-results[shown]{animation:fadeIn .1s linear .1s forwards,displayIn .2s linear forwards,paddingIn 250ms var(--standard-curve) forwards}tab-organization-failure:not([shown]),tab-organization-in-progress:not([shown]),tab-organization-not-started:not([shown]),tab-organization-results:not([shown]){height:0;position:absolute;visibility:hidden}:host(.changed-state.from-failure) tab-organization-failure:not([shown]),:host(.changed-state.from-in-progress) tab-organization-in-progress:not([shown]),:host(.changed-state.from-not-started) tab-organization-not-started:not([shown]),:host(.changed-state.from-success) tab-organization-results:not([shown]){animation:fadeOut .1s linear forwards,displayOut .2s linear forwards,marginOut 250ms var(--standard-curve) forwards}#body{margin:var(--mwb-list-item-horizontal-margin)}#contents{overflow:hidden;transition:height 250ms var(--standard-curve)}#contents.no-transition{transition:none}</style>
+
+<div id="contents">
+  <div id="body">
+    <tab-organization-not-started id="notStarted" shown$="[[isState_(tabOrganizationStateEnum_.kNotStarted, state_)]]" on-sync-change="updateContentsHeightAfterNextRender" on-sync-click="onSyncClick_" on-sign-in-click="onSignInClick_" on-settings-click="onSettingsClick_" on-organize-tabs-click="onOrganizeTabsClick_" show-fre="[[showFRE_]]">
+    </tab-organization-not-started>
+    <tab-organization-in-progress id="inProgress" shown$="[[isState_(tabOrganizationStateEnum_.kInProgress, state_)]]">
+    </tab-organization-in-progress>
+    <tab-organization-results id="results" shown$="[[isState_(tabOrganizationStateEnum_.kSuccess, state_)]]" name="[[name_]]" tabs="[[tabs_]]" is-last-organization="[[isLastOrganization_]]" available-height="[[availableHeight_]]" on-refresh-click="onRefreshClick_" on-create-group-click="onCreateGroupClick_" on-remove-tab="onRemoveTab_" on-learn-more-click="onLearnMoreClick_" on-feedback="onFeedback_">
+    </tab-organization-results>
+    <tab-organization-failure id="failure" shown$="[[isState_(tabOrganizationStateEnum_.kFailure, state_)]]" show-fre="[[showFRE_]]" error="[[error_]]" on-check-now="onCheckNow_" on-tip-click="onTipClick_">
+    </tab-organization-failure>
+  </div>
+</div>
+<!--_html_template_end_-->`;
+}
+
+// Copyright 2020 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * These values are persisted to logs and should not be renumbered or re-used.
+ * See tools/metrics/histograms/enums.xml.
+ */
+var RecentlyClosedItemOpenAction;
+(function (RecentlyClosedItemOpenAction) {
+    RecentlyClosedItemOpenAction[RecentlyClosedItemOpenAction["WITHOUT_SEARCH"] = 0] = "WITHOUT_SEARCH";
+    RecentlyClosedItemOpenAction[RecentlyClosedItemOpenAction["WITH_SEARCH"] = 1] = "WITH_SEARCH";
+})(RecentlyClosedItemOpenAction || (RecentlyClosedItemOpenAction = {}));
+class TabSearchApiProxyImpl {
+    constructor() {
+        this.callbackRouter = new PageCallbackRouter$1();
+        this.handler = new PageHandlerRemote$1();
+        const factory = PageHandlerFactory.getRemote();
+        factory.createPageHandler(this.callbackRouter.$.bindNewPipeAndPassRemote(), this.handler.$.bindNewPipeAndPassReceiver());
+    }
+    closeTab(tabId) {
+        this.handler.closeTab(tabId);
+    }
+    acceptTabOrganization(sessionId, organizationId, name, tabs) {
+        this.handler.acceptTabOrganization(sessionId, organizationId, stringToMojoString16(name), tabs);
+    }
+    rejectTabOrganization(sessionId, organizationId) {
+        this.handler.rejectTabOrganization(sessionId, organizationId);
+    }
+    getProfileData() {
+        return this.handler.getProfileData();
+    }
+    getTabOrganizationSession() {
+        return this.handler.getTabOrganizationSession();
+    }
+    openRecentlyClosedEntry(id, withSearch, isTab, index) {
+        chrome.metricsPrivate.recordEnumerationValue(isTab ? 'Tabs.TabSearch.WebUI.RecentlyClosedTabOpenAction' :
+            'Tabs.TabSearch.WebUI.RecentlyClosedGroupOpenAction', withSearch ? RecentlyClosedItemOpenAction.WITH_SEARCH :
+            RecentlyClosedItemOpenAction.WITHOUT_SEARCH, Object.keys(RecentlyClosedItemOpenAction).length);
+        chrome.metricsPrivate.recordSmallCount(withSearch ?
+            'Tabs.TabSearch.WebUI.IndexOfOpenRecentlyClosedEntryInFilteredList' :
+            'Tabs.TabSearch.WebUI.IndexOfOpenRecentlyClosedEntryInUnfilteredList', index);
+        this.handler.openRecentlyClosedEntry(id);
+    }
+    requestTabOrganization() {
+        this.handler.requestTabOrganization();
+    }
+    resetSession() {
+        this.handler.resetSession();
+    }
+    switchToTab(info) {
+        this.handler.switchToTab(info);
+    }
+    getCallbackRouter() {
+        return this.callbackRouter;
+    }
+    removeTabFromOrganization(sessionId, organizationId, tab) {
+        this.handler.removeTabFromOrganization(sessionId, organizationId, tab);
+    }
+    saveRecentlyClosedExpandedPref(expanded) {
+        this.handler.saveRecentlyClosedExpandedPref(expanded);
+    }
+    setTabIndex(index) {
+        this.handler.setTabIndex(index);
+    }
+    startTabGroupTutorial() {
+        this.handler.startTabGroupTutorial();
+    }
+    triggerFeedback(sessionId) {
+        this.handler.triggerFeedback(sessionId);
+    }
+    triggerSync() {
+        this.handler.triggerSync();
+    }
+    triggerSignIn() {
+        this.handler.triggerSignIn();
+    }
+    openHelpPage() {
+        this.handler.openHelpPage();
+    }
+    openSyncSettings() {
+        this.handler.openSyncSettings();
+    }
+    setUserFeedback(sessionId, organizationId, feedback) {
+        this.handler.setUserFeedback(sessionId, organizationId, feedback);
+    }
+    showUi() {
+        this.handler.showUI();
+    }
+    static getInstance() {
+        return instance$1 || (instance$1 = new TabSearchApiProxyImpl());
+    }
+    static setInstance(obj) {
+        instance$1 = obj;
+    }
+}
+let instance$1 = null;
+
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+const BODY_VERTICAL_MARGIN = 40;
+const HEIGHT_ANIMATION_LENGTH = 250;
+class TabOrganizationPageElement extends PolymerElement {
+    static get is() {
+        return 'tab-organization-page';
+    }
+    static get properties() {
+        return {
+            state_: Object,
+            name_: String,
+            tabs_: Array,
+            error_: Object,
+            availableHeight_: Number,
+            isLastOrganization_: Boolean,
+            tabOrganizationStateEnum_: {
+                type: Object,
+                value: TabOrganizationState,
+            },
+            showFRE_: {
+                type: Boolean,
+                value: () => loadTimeData.getBoolean('showTabOrganizationFRE'),
+            },
+        };
+    }
+    static get template() {
+        return getTemplate$6();
+    }
+    constructor() {
+        super();
+        this.apiProxy_ = TabSearchApiProxyImpl.getInstance();
+        this.listenerIds_ = [];
+        this.state_ = TabOrganizationState.kNotStarted;
+        this.error_ = TabOrganizationError.kNone;
+        this.availableHeight_ = 0;
+        this.sessionId_ = -1;
+        this.organizationId_ = -1;
+        this.isLastOrganization_ = false;
+        this.documentVisibilityChangedListener_ = () => {
+            if (document.visibilityState === 'visible') {
+                this.onVisible_();
+            }
+        };
+    }
+    connectedCallback() {
+        super.connectedCallback();
+        this.apiProxy_.getTabOrganizationSession().then(({ session }) => this.setSession_(session));
+        const callbackRouter = this.apiProxy_.getCallbackRouter();
+        this.listenerIds_.push(callbackRouter.tabOrganizationSessionUpdated.addListener(this.setSession_.bind(this)));
+        if (document.visibilityState === 'visible') {
+            this.onVisible_();
+        }
+        document.addEventListener('visibilitychange', this.documentVisibilityChangedListener_);
+    }
+    disconnectedCallback() {
+        super.disconnectedCallback();
+        this.listenerIds_.forEach(id => this.apiProxy_.getCallbackRouter().removeListener(id));
+        document.removeEventListener('visibilitychange', this.documentVisibilityChangedListener_);
+        if (this.sessionId_ > -1 && this.organizationId_ > -1) {
+            this.apiProxy_.rejectTabOrganization(this.sessionId_, this.organizationId_);
+        }
+    }
+    updateContentsHeightAfterNextRender() {
+        afterNextRender(this, () => this.updateContentsHeight_());
+    }
+    updateContentsHeight_() {
+        let contentsHeight = 0;
+        switch (this.state_) {
+            case TabOrganizationState.kNotStarted:
+                // Subtract padding out here and below as this is variable during
+                // animation and should not affect contents height.
+                contentsHeight = this.$.notStarted.scrollHeight -
+                    this.getPaddingTopValue_(this.$.notStarted) + BODY_VERTICAL_MARGIN;
+                break;
+            case TabOrganizationState.kInProgress:
+                contentsHeight = this.$.inProgress.scrollHeight -
+                    this.getPaddingTopValue_(this.$.inProgress) + BODY_VERTICAL_MARGIN;
+                break;
+            case TabOrganizationState.kSuccess:
+                contentsHeight = this.$.results.scrollHeight -
+                    this.getPaddingTopValue_(this.$.results) + BODY_VERTICAL_MARGIN;
+                break;
+            case TabOrganizationState.kFailure:
+                contentsHeight = this.$.failure.scrollHeight -
+                    this.getPaddingTopValue_(this.$.failure) + BODY_VERTICAL_MARGIN;
+                if (this.showFRE_) {
+                    // If the failure footer is shown, exclude bottom margin as the
+                    // footer should extend to the bottom of the bubble.
+                    contentsHeight -= BODY_VERTICAL_MARGIN / 2;
+                }
+                break;
+        }
+        this.$.contents.style.height = contentsHeight + 'px';
+    }
+    onVisible_() {
+        // When the UI goes from not shown to shown, bypass height transition.
+        this.$.contents.classList.toggle('no-transition', true);
+        this.updateAvailableHeight_();
+        // TODO(emshack): We should find a way to avoid using a timeout here.
+        setTimeout(() => this.$.contents.classList.toggle('no-transition', false), HEIGHT_ANIMATION_LENGTH);
+    }
+    // TODO(emshack): Consider moving the available height calculation into
+    // app.ts and reusing across both tab search and tab organization.
+    updateAvailableHeight_() {
+        this.apiProxy_.getProfileData().then(({ profileData }) => {
+            // TODO(crbug.com/c/1349350): Determine why no active window is reported
+            // in some cases on ChromeOS and Linux.
+            const activeWindow = profileData.windows.find((t) => t.active);
+            this.availableHeight_ =
+                activeWindow ? activeWindow.height : profileData.windows[0].height;
+            this.updateContentsHeight_();
+        });
+    }
+    getPaddingTopValue_(element) {
+        const pxValue = getComputedStyle(element).getPropertyValue('padding-top');
+        return Number.parseInt(pxValue.trim().slice(0, -2), 10);
+    }
+    setSession_(session) {
+        this.sessionId_ = session.sessionId;
+        this.error_ = session.error;
+        if (session.state === TabOrganizationState.kSuccess) {
+            const organization = session.organizations[0];
+            this.name_ = mojoString16ToString(organization.name);
+            this.tabs_ = organization.tabs;
+            this.organizationId_ = organization.organizationId;
+            this.isLastOrganization_ = session.organizations.length === 1;
+        }
+        else {
+            this.organizationId_ = -1;
+        }
+        this.setState_(session.state);
+    }
+    setState_(state) {
+        this.classList.toggle('changed-state', this.state_ !== state);
+        this.classList.toggle('from-not-started', this.state_ === TabOrganizationState.kNotStarted);
+        this.classList.toggle('from-in-progress', this.state_ === TabOrganizationState.kInProgress);
+        this.classList.toggle('from-success', this.state_ === TabOrganizationState.kSuccess);
+        this.classList.toggle('from-failure', this.state_ === TabOrganizationState.kFailure);
+        this.state_ = state;
+        // Wait for a rendering pass so the new state's scroll height is up to date
+        // with any new data.
+        this.updateContentsHeightAfterNextRender();
+    }
+    isState_(state) {
+        return this.state_ === state;
+    }
+    onSyncClick_() {
+        this.apiProxy_.triggerSync();
+    }
+    onSignInClick_() {
+        this.apiProxy_.triggerSignIn();
+    }
+    onSettingsClick_() {
+        this.apiProxy_.openSyncSettings();
+    }
+    onOrganizeTabsClick_() {
+        this.apiProxy_.requestTabOrganization();
+    }
+    onRefreshClick_() {
+        this.apiProxy_.rejectTabOrganization(this.sessionId_, this.organizationId_);
+    }
+    onCreateGroupClick_(event) {
+        this.name_ = event.detail.name;
+        this.tabs_ = event.detail.tabs;
+        this.apiProxy_.acceptTabOrganization(this.sessionId_, this.organizationId_, this.name_, this.tabs_);
+    }
+    onCheckNow_() {
+        this.apiProxy_.resetSession();
+    }
+    onTipClick_() {
+        this.apiProxy_.startTabGroupTutorial();
+    }
+    onRemoveTab_(event) {
+        this.apiProxy_.removeTabFromOrganization(this.sessionId_, this.organizationId_, event.detail.tab);
+    }
+    onLearnMoreClick_() {
+        this.apiProxy_.openHelpPage();
+    }
+    onFeedback_(event) {
+        switch (event.detail.value) {
+            case CrFeedbackOption.UNSPECIFIED:
+                this.apiProxy_.setUserFeedback(this.sessionId_, this.organizationId_, UserFeedback.kUserFeedBackUnspecified);
+                return;
+            case CrFeedbackOption.THUMBS_UP:
+                this.apiProxy_.setUserFeedback(this.sessionId_, this.organizationId_, UserFeedback.kUserFeedBackPositive);
+                return;
+            case CrFeedbackOption.THUMBS_DOWN:
+                this.apiProxy_.setUserFeedback(this.sessionId_, this.organizationId_, UserFeedback.kUserFeedBackNegative);
+                // Show feedback dialog
+                this.apiProxy_.triggerFeedback(this.sessionId_);
+                return;
+        }
+    }
+}
+customElements.define(TabOrganizationPageElement.is, TabOrganizationPageElement);
+
+const styleMod$1 = document.createElement('dom-module');
+styleMod$1.appendChild(html `
+  <template>
+    <style>
+:host{align-items:center;align-self:stretch;display:flex;margin:0;outline:0}:host(:not([effectively-disabled_])){cursor:pointer}:host(:not([no-hover],[effectively-disabled_]):hover){background-color:var(--cr-hover-background-color)}:host(:not([no-hover],[effectively-disabled_]):active){background-color:var(--cr-active-background-color)}:host(:not([no-hover],[effectively-disabled_])) cr-icon-button{--cr-icon-button-hover-background-color:transparent;--cr-icon-button-active-background-color:transparent}
+    </style>
+  </template>
+`.content);
+styleMod$1.register('cr-actionable-row-style');
+
+// Copyright 2017 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+// clang-format off
+// clang-format on
+let hideInk = false;
+assert(!isIOS, 'pointerdown doesn\'t work on iOS');
+document.addEventListener('pointerdown', function () {
+    hideInk = true;
+}, true);
+document.addEventListener('keydown', function () {
+    hideInk = false;
+}, true);
+/**
+ * Attempts to track whether focus outlines should be shown, and if they
+ * shouldn't, removes the "ink" (ripple) from a control while focusing it.
+ * This is helpful when a user is clicking/touching, because it's not super
+ * helpful to show focus ripples in that case. This is Polymer-specific.
+ */
+function focusWithoutInk(toFocus) {
+    // |toFocus| does not have a 'noink' property, so it's unclear whether the
+    // element has "ink" and/or whether it can be suppressed. Just focus().
+    if (!('noink' in toFocus) || !hideInk) {
+        toFocus.focus();
+        return;
+    }
+    const toFocusWithNoInk = toFocus;
+    // Make sure the element is in the document we're listening to events on.
+    assert(document === toFocusWithNoInk.ownerDocument);
+    const { noink } = toFocusWithNoInk;
+    toFocusWithNoInk.noink = true;
+    toFocusWithNoInk.focus();
+    toFocusWithNoInk.noink = noink;
+}
+
+function getTemplate$5() {
+    return html `<!--_html_template_start_-->    <style include="cr-actionable-row-style">:host([disabled]){opacity:.65;pointer-events:none}:host([disabled]) cr-icon-button{display:var(--cr-expand-button-disabled-display,initial)}#label{flex:1;padding:var(--cr-section-vertical-padding) 0}cr-icon-button{--cr-icon-button-icon-size:var(--cr-expand-button-icon-size, 20px);--cr-icon-button-size:var(--cr-expand-button-size, 36px)}</style>
+
+    <div id="label" aria-hidden="true"><slot></slot></div>
+    <cr-icon-button id="icon" aria-labelledby="label" disabled="[[disabled]]" tabindex="[[tabIndex]]" part="icon"></cr-icon-button>
+<!--_html_template_end_-->`;
+}
+
+// Copyright 2015 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview
+ * 'cr-expand-button' is a chrome-specific wrapper around a button that toggles
+ * between an opened (expanded) and closed state.
+ */
+class CrExpandButtonElement extends PolymerElement {
+    static get is() {
+        return 'cr-expand-button';
+    }
+    static get template() {
+        return getTemplate$5();
+    }
+    static get properties() {
+        return {
+            /**
+             * If true, the button is in the expanded state and will show the icon
+             * specified in the `collapseIcon` property. If false, the button shows
+             * the icon specified in the `expandIcon` property.
+             */
+            expanded: {
+                type: Boolean,
+                value: false,
+                notify: true,
+                observer: 'onExpandedChange_',
+            },
+            /**
+             * If true, the button will be disabled and grayed out.
+             */
+            disabled: {
+                type: Boolean,
+                value: false,
+                reflectToAttribute: true,
+            },
+            /** A11y text descriptor for this control. */
+            ariaLabel: {
+                type: String,
+                observer: 'onAriaLabelChange_',
+            },
+            tabIndex: {
+                type: Number,
+                value: 0,
+            },
+            expandIcon: {
+                type: String,
+                value: 'cr:expand-more',
+                observer: 'onIconChange_',
+            },
+            collapseIcon: {
+                type: String,
+                value: 'cr:expand-less',
+                observer: 'onIconChange_',
+            },
+            expandTitle: String,
+            collapseTitle: String,
+            tooltipText_: {
+                type: String,
+                computed: 'computeTooltipText_(expandTitle, collapseTitle, expanded)',
+                observer: 'onTooltipTextChange_',
+            },
+        };
+    }
+    static get observers() {
+        return ['updateAriaExpanded_(disabled, expanded)'];
+    }
+    ready() {
+        super.ready();
+        this.addEventListener('click', this.toggleExpand_);
+    }
+    computeTooltipText_() {
+        return this.expanded ? this.collapseTitle : this.expandTitle;
+    }
+    onTooltipTextChange_() {
+        this.title = this.tooltipText_;
+    }
+    focus() {
+        this.$.icon.focus();
+    }
+    onAriaLabelChange_() {
+        if (this.ariaLabel) {
+            this.$.icon.removeAttribute('aria-labelledby');
+            this.$.icon.setAttribute('aria-label', this.ariaLabel);
+        }
+        else {
+            this.$.icon.removeAttribute('aria-label');
+            this.$.icon.setAttribute('aria-labelledby', 'label');
+        }
+    }
+    onExpandedChange_() {
+        this.updateIcon_();
+    }
+    onIconChange_() {
+        this.updateIcon_();
+    }
+    updateIcon_() {
+        this.$.icon.ironIcon = this.expanded ? this.collapseIcon : this.expandIcon;
+    }
+    toggleExpand_(event) {
+        // Prevent |click| event from bubbling. It can cause parents of this
+        // elements to erroneously re-toggle this control.
+        event.stopPropagation();
+        event.preventDefault();
+        this.scrollIntoViewIfNeeded();
+        this.expanded = !this.expanded;
+        focusWithoutInk(this.$.icon);
+    }
+    updateAriaExpanded_() {
+        if (this.disabled) {
+            this.$.icon.removeAttribute('aria-expanded');
+        }
+        else {
+            this.$.icon.setAttribute('aria-expanded', this.expanded ? 'true' : 'false');
+        }
+    }
+}
+customElements.define(CrExpandButtonElement.is, CrExpandButtonElement);
+
+const styleMod = document.createElement('dom-module');
+styleMod.appendChild(html `
+  <template>
+    <style>
+a,cr-button,cr-icon-button,div{cursor:default}cr-icon-button{--cr-icon-button-icon-size:var(--mwb-icon-size);--cr-icon-button-size:calc(var(--mwb-icon-size) * 1.5)}
+    </style>
+  </template>
+`.content);
+styleMod.register('mwb-element-shared-style');
+
 // Copyright 2022 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
@@ -5310,7 +6176,8 @@ function quoteString(str) {
  *     by the listener.
  */
 function listenOnce(target, eventNames, callback) {
-    const eventNamesArray = Array.isArray(eventNames) ? eventNames :
+    const eventNamesArray = Array.isArray(eventNames) ?
+        eventNames :
         eventNames.split(/ +/);
     const removeAllAndCallCallback = function (event) {
         eventNamesArray.forEach(function (eventName) {
@@ -5935,6 +6802,7 @@ class TitleItem {
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 class PageHandlerPendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -5943,6 +6811,9 @@ class PageHandlerPendingReceiver {
     }
 }
 class PageHandlerRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(PageHandlerPendingReceiver, handle);
@@ -5971,6 +6842,7 @@ class PageHandler {
     }
 }
 class PagePendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -5979,6 +6851,9 @@ class PagePendingReceiver {
     }
 }
 class PageRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(PagePendingReceiver, handle);
@@ -5996,6 +6871,11 @@ class PageRemote {
  * receiver can have any number of listeners added to it.
  */
 class PageCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    onColorProviderChanged;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(PageRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -6032,6 +6912,7 @@ mojo.internal.Struct(Page_OnColorProviderChanged_ParamsSpec.$, 'Page_OnColorProv
  */
 let instance = null;
 class BrowserProxy {
+    callbackRouter;
     constructor() {
         this.callbackRouter = new PageCallbackRouter();
         const pageHandlerRemote = PageHandler.getRemote();
@@ -6063,11 +6944,12 @@ let documentInstance = null;
 const COLOR_PROVIDER_CHANGED = 'color-provider-changed';
 // 
 class ColorChangeUpdater {
+    listenerId_ = null;
+    root_;
+    // 
+    eventTarget = new EventTarget();
     // 
     constructor(root) {
-        this.listenerId_ = null;
-        // 
-        this.eventTarget = new EventTarget();
         assert(documentInstance === null || root !== document);
         this.root_ = root;
     }
@@ -6594,43 +7476,45 @@ function prioritizeMatchResult(searchText, keys, result) {
 }
 
 function getTemplate$2() {
-    return html `<!--_html_template_start_--><style include="mwb-shared-style">#searchField{align-items:center;background-color:var(--mwb-background-color);display:flex;height:60px;padding:0 var(--mwb-list-item-horizontal-margin);user-select:none}#searchIcon{color:var(--cr-secondary-text-color);height:var(--mwb-icon-size);padding-inline-end:12px;width:var(--mwb-icon-size)}#searchWrapper{display:flex;flex:1;height:100%;position:relative}:host([has-search-text]) #searchField label{visibility:hidden}#searchLabel{align-items:center;color:var(--cr-secondary-text-color);cursor:text;display:flex;font-size:var(--mwb-primary-text-font-size);font-weight:var(--mwb-secondary-text-font-weight);height:100%;justify-content:space-between;position:absolute;width:100%}#searchResultText{clip:rect(0,0,0,0);display:inline-block;position:fixed}#searchInput{background-color:transparent;border:none;border-radius:0;color:var(--cr-primary-text-color);flex:1;font-family:inherit;font-size:var(--mwb-primary-text-font-size);font-style:inherit;font-weight:var(--mwb-secondary-text-font-weight);outline:0;padding:0;text-overflow:ellipsis}#searchInput::-webkit-search-cancel-button{display:none}#no-results{color:var(--cr-primary-text-color);font-size:var(--mwb-primary-text-font-size);padding:12px;text-align:center}#feedback-text{color:var(--cr-primary-text-color);font-size:var(--mwb-primary-text-font-size);margin-inline-start:var(--mwb-list-item-horizontal-margin);user-select:none}#feedback-footer{border:none;border-top:1px solid var(--google-grey-500);height:40px;width:100%}#feedback-footer:focus{background-color:var(--mwb-list-item-selected-background-color);outline:0}#feedback-icon{--iron-icon-fill-color:var(--google-grey-700);height:var(--mwb-icon-size);width:var(--mwb-icon-size)}@media (prefers-color-scheme:dark){#feedback-icon{--iron-icon-fill-color:var(--google-blue-300)}}.list-section-title{align-items:center;background-color:var(--mwb-background-color);color:var(--cr-secondary-text-color);display:flex;font-size:var(--mwb-list-section-title-font-size);font-weight:bolder;height:var(--mwb-list-section-title-height);padding-inline-end:28px;padding-inline-start:var(--mwb-list-item-horizontal-margin);position:sticky;text-transform:uppercase;top:0;user-select:none;z-index:1000}:host-context([chrome-refresh-2023]) .list-section-title{font-size:var(--mwb-primary-text-font-size);font-weight:var(--mwb-primary-text-font-weight);text-transform:none}cr-expand-button{--cr-expand-button-size:24px;--cr-expand-button-icon-size:16px;--cr-section-vertical-padding:0;-webkit-tap-highlight-color:transparent;color:var(--mwb-icon-button-fill-color);flex-grow:1}#divider{width:100%;height:1px;background-color:var(--cr-separator-color)}</style>
+    return html `<!--_html_template_start_--><style include="mwb-shared-style tab-organization-shared-style">#searchField{align-items:center;background-color:var(--mwb-background-color);display:flex;height:60px;padding:0 var(--mwb-list-item-horizontal-margin);user-select:none}#searchIcon{color:var(--cr-secondary-text-color);height:var(--mwb-icon-size);padding-inline-end:12px;width:var(--mwb-icon-size)}#searchWrapper{display:flex;flex:1;height:100%;position:relative}:host([has-search-text]) #searchField label{visibility:hidden}#searchLabel{align-items:center;color:var(--cr-secondary-text-color);cursor:text;display:flex;font-size:var(--mwb-primary-text-font-size);font-weight:var(--mwb-secondary-text-font-weight);height:100%;justify-content:space-between;position:absolute;width:100%}#searchResultText{clip:rect(0,0,0,0);display:inline-block;position:fixed}#searchInput{background-color:transparent;border:none;border-radius:0;color:var(--cr-primary-text-color);flex:1;font-family:inherit;font-size:var(--mwb-primary-text-font-size);font-style:inherit;font-weight:var(--mwb-secondary-text-font-weight);outline:0;padding:0;text-overflow:ellipsis}#searchInput::-webkit-search-cancel-button{display:none}#no-results{color:var(--cr-primary-text-color);font-size:var(--mwb-primary-text-font-size);padding:12px;text-align:center}#feedback-text{color:var(--cr-primary-text-color);font-size:var(--mwb-primary-text-font-size);margin-inline-start:var(--mwb-list-item-horizontal-margin);user-select:none}#feedback-footer{border:none;border-top:1px solid var(--google-grey-500);height:40px;width:100%}#feedback-footer:focus{background-color:var(--mwb-list-item-selected-background-color);outline:0}#feedback-icon{--iron-icon-fill-color:var(--google-grey-700);height:var(--mwb-icon-size);width:var(--mwb-icon-size)}@media (prefers-color-scheme:dark){#feedback-icon{--iron-icon-fill-color:var(--google-blue-300)}}.list-section-title{align-items:center;background-color:var(--mwb-background-color);color:var(--cr-secondary-text-color);display:flex;font-size:var(--mwb-list-section-title-font-size);font-weight:bolder;height:var(--mwb-list-section-title-height);padding-inline-end:28px;padding-inline-start:var(--mwb-list-item-horizontal-margin);position:sticky;text-transform:uppercase;top:0;user-select:none;z-index:1000}:host-context([chrome-refresh-2023]) .list-section-title{font-size:var(--mwb-primary-text-font-size);font-weight:var(--mwb-primary-text-font-weight);text-transform:none}cr-expand-button{--cr-expand-button-size:24px;--cr-expand-button-icon-size:16px;--cr-section-vertical-padding:0;-webkit-tap-highlight-color:transparent;color:var(--mwb-icon-button-fill-color);flex-grow:1}#divider{width:100%;height:1px;background-color:var(--cr-separator-color)}</style>
 
-<div id="searchField" on-keydown="onSearchKeyDown_" clear-label="$i18n{clearSearch}">
-  <iron-icon id="searchIcon" icon="mwb16:search"></iron-icon>
-  <div id="searchWrapper">
-    <label id="searchLabel" for="searchInput" aria-hidden="true">
-      <span>$i18n{searchTabs}</span>
-      <span>[[shortcut_]]</span>
-      <span id="searchResultText">[[searchResultText_]]</span>
-    </label>
-    <input id="searchInput" aria-labelledby="searchLabel" autofocus autocomplete="off" on-search="onSearchTermSearch" on-input="onSearchTermInput" type="search" spellcheck="false" role="combobox" aria-activedescendant$="[[activeSelectionId_]]" aria-controls="tabsList" aria-owns="tabsList">
+<div id="tabSearchPage">
+  <div id="searchField" on-keydown="onSearchKeyDown_" clear-label="$i18n{clearSearch}">
+    <iron-icon id="searchIcon" icon="mwb16:search"></iron-icon>
+    <div id="searchWrapper">
+      <label id="searchLabel" for="searchInput" aria-hidden="true">
+        <span>$i18n{searchTabs}</span>
+        <span>[[shortcut_]]</span>
+        <span id="searchResultText">[[searchResultText_]]</span>
+      </label>
+      <input id="searchInput" aria-labelledby="searchLabel" autofocus autocomplete="off" on-search="onSearchTermSearch" on-input="onSearchTermInput" type="search" spellcheck="false" role="combobox" aria-activedescendant$="[[activeSelectionId_]]" aria-controls="tabsList" aria-owns="tabsList">
+    </div>
   </div>
-</div>
-<div id="divider"></div>
-<div hidden="[[!filteredItems_.length]]">
-  <infinite-list id="tabsList" max-height="[[listMaxHeight_(availableHeight_)]]" items="[[filteredItems_]]" on-selected-item-changed="onSelectedItemChanged_" role="listbox">
-    <template data-type="TitleItem">
-      <div class="list-section-title">
-        <div>[[item.title]]</div>
-        <template is="dom-if" if="[[item.expandable]]">
-          <cr-expand-button aria-label="$i18n{recentlyClosedExpandA11yLabel}" expand-icon="cr:arrow-drop-down" collapse-icon="cr:arrow-drop-up" expanded="[[item.expanded]]" expand-title="$i18n{expandRecentlyClosed}" collapse-title="$i18n{collapseRecentlyClosed}" on-expanded-changed="onTitleExpandChanged_" no-hover>
-          </cr-expand-button>
-        </template>
-      </div>
-    </template>
-    <template data-type="TabData" data-selectable>
-      <tab-search-item id="[[item.tab.tabId]]" aria-label="[[ariaLabel_(item)]]" class="mwb-list-item" data="[[item]]" index="[[index]]" on-click="onItemClick_" on-close="onItemClose_" on-focus="onItemFocus_" on-keydown="onItemKeyDown_" role="option" tabindex="0">
-      </tab-search-item>
-    </template>
-    <template data-type="TabGroupData" data-selectable>
-      <tab-search-group-item id="[[item.tabGroup.id]]" class="mwb-list-item" index="[[index]]" data="[[item]]" aria-label="[[ariaLabel_(item)]]" on-click="onItemClick_" on-focus="onItemFocus_" on-keydown="onItemKeyDown_" role="option" tabindex="0">
-      </tab-search-group-item>
-    </template>
-  </infinite-list>
-</div>
-<div id="no-results" hidden="[[filteredItems_.length]]">
-  $i18n{noResultsFound}
+  <div id="divider"></div>
+  <div hidden="[[!filteredItems_.length]]">
+    <infinite-list id="tabsList" max-height="[[listMaxHeight_(availableHeight_)]]" items="[[filteredItems_]]" on-selected-item-changed="onSelectedItemChanged_" role="listbox">
+      <template data-type="TitleItem">
+        <div class="list-section-title">
+          <div>[[item.title]]</div>
+          <template is="dom-if" if="[[item.expandable]]">
+            <cr-expand-button aria-label="$i18n{recentlyClosedExpandA11yLabel}" expand-icon="cr:arrow-drop-down" collapse-icon="cr:arrow-drop-up" expanded="[[item.expanded]]" expand-title="$i18n{expandRecentlyClosed}" collapse-title="$i18n{collapseRecentlyClosed}" on-expanded-changed="onTitleExpandChanged_" no-hover>
+            </cr-expand-button>
+          </template>
+        </div>
+      </template>
+      <template data-type="TabData" data-selectable>
+        <tab-search-item id="[[item.tab.tabId]]" aria-label="[[ariaLabel_(item)]]" class="mwb-list-item" data="[[item]]" index="[[index]]" on-click="onItemClick_" on-close="onItemClose_" on-focus="onItemFocus_" on-keydown="onItemKeyDown_" role="option" tabindex="0">
+        </tab-search-item>
+      </template>
+      <template data-type="TabGroupData" data-selectable>
+        <tab-search-group-item id="[[item.tabGroup.id]]" class="mwb-list-item" index="[[index]]" data="[[item]]" aria-label="[[ariaLabel_(item)]]" on-click="onItemClick_" on-focus="onItemFocus_" on-keydown="onItemKeyDown_" role="option" tabindex="0">
+        </tab-search-group-item>
+      </template>
+    </infinite-list>
+  </div>
+  <div id="no-results" hidden="[[filteredItems_.length]]">
+    $i18n{noResultsFound}
+  </div>
 </div>
 <!--_html_template_end_-->`;
 }
@@ -6712,6 +7596,11 @@ class TabSearchPageElement extends TabSearchSearchFieldBase {
             recentlyClosedDefaultItemDisplayCount_: {
                 type: Number,
                 value: () => loadTimeData.getValue('recentlyClosedDefaultItemDisplayCount'),
+            },
+            tabOrganizationEnabled: {
+                type: Boolean,
+                reflectToAttribute: true,
+                value: () => loadTimeData.getBoolean('tabOrganizationEnabled'),
             },
         };
     }
@@ -7238,7 +8127,7 @@ class TabSearchPageElement extends TabSearchSearchFieldBase {
 customElements.define(TabSearchPageElement.is, TabSearchPageElement);
 
 function getTemplate$1() {
-    return html `<!--_html_template_start_-->    <style include="cr-hidden-style">:host{cursor:pointer;display:flex;flex-direction:row;font-size:var(--cr-tabs-font-size,14px);font-weight:500;height:var(--cr-tabs-height,48px);user-select:none}.tab{align-items:center;color:var(--cr-secondary-text-color);display:flex;flex:auto;height:100%;justify-content:center;opacity:.8;outline:0;padding:0 var(--cr-tabs-tab-inline-padding,0);position:relative;transition:opacity .1s cubic-bezier(.4,0,1,1)}:host-context(.focus-outline-visible) .tab:focus{outline:var(--cr-tabs-focus-outline,auto)}.selected{color:var(--cr-tabs-selected-color,var(--google-blue-600));opacity:1}@media (prefers-color-scheme:dark){.selected{color:var(--cr-tabs-selected-color,var(--google-blue-300))}}.tab-icon{-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:var(--cr-tabs-icon-size,var(--cr-icon-size));background-color:var(--cr-secondary-text-color);display:none;height:var(--cr-tabs-icon-size,var(--cr-icon-size));margin-inline-end:var(--cr-tabs-icon-margin-end,var(--cr-icon-size));width:var(--cr-tabs-icon-size,var(--cr-icon-size))}.selected .tab-icon{background-color:var(--cr-tabs-selected-color,var(--google-blue-600))}@media (prefers-color-scheme:dark){.selected .tab-icon{background-color:var(--cr-tabs-selected-color,var(--google-blue-300))}}.tab-indicator{background:var(--cr-tabs-selected-color,var(--google-blue-600));border-top-left-radius:var(--cr-tabs-selection-bar-width,2px);border-top-right-radius:var(--cr-tabs-selection-bar-width,2px);bottom:0;height:var(--cr-tabs-selection-bar-width,2px);left:var(--cr-tabs-tab-inline-padding,0);opacity:0;position:absolute;right:var(--cr-tabs-tab-inline-padding,0);transform-origin:left center;transition:transform}.selected .tab-indicator{opacity:1}.tab-indicator.expand{transition-duration:150ms;transition-timing-function:cubic-bezier(.4,0,1,1)}.tab-indicator.contract{transition-duration:180ms;transition-timing-function:cubic-bezier(0,0,.2,1)}@media (prefers-color-scheme:dark){.tab-indicator{background:var(--cr-tabs-selected-color,var(--google-blue-300))}}@media (forced-colors:active){.tab-indicator{background:SelectedItem}}</style>
+    return html `<!--_html_template_start_-->    <style include="cr-hidden-style">:host{cursor:pointer;display:flex;flex-direction:row;font-size:var(--cr-tabs-font-size,14px);font-weight:500;height:var(--cr-tabs-height,48px);user-select:none}.tab{align-items:center;color:var(--cr-secondary-text-color);display:flex;flex:var(--cr-tabs-flex,auto);height:100%;justify-content:center;opacity:.8;outline:0;padding:0 var(--cr-tabs-tab-inline-padding,0);position:relative;transition:opacity .1s cubic-bezier(.4,0,1,1)}:host-context([chrome-refresh-2023]) .tab{opacity:1}:host-context(.focus-outline-visible) .tab:focus{outline:var(--cr-tabs-focus-outline,auto);outline-offset:var(--cr-tabs-focus-outline-offset,0)}.selected{color:var(--cr-tabs-selected-color,var(--google-blue-600));opacity:1}@media (prefers-color-scheme:dark){.selected{color:var(--cr-tabs-selected-color,var(--google-blue-300))}}.tab-icon{-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:var(--cr-tabs-icon-size,var(--cr-icon-size));background-color:var(--cr-secondary-text-color);display:none;height:var(--cr-tabs-icon-size,var(--cr-icon-size));margin-inline-end:var(--cr-tabs-icon-margin-end,var(--cr-icon-size));width:var(--cr-tabs-icon-size,var(--cr-icon-size))}.selected .tab-icon{background-color:var(--cr-tabs-selected-color,var(--google-blue-600))}@media (prefers-color-scheme:dark){.selected .tab-icon{background-color:var(--cr-tabs-selected-color,var(--google-blue-300))}}.tab-indicator{background:var(--cr-tabs-unselected-color,var(--google-blue-600));border-top-left-radius:var(--cr-tabs-selection-bar-width,2px);border-top-right-radius:var(--cr-tabs-selection-bar-width,2px);bottom:0;height:var(--cr-tabs-selection-bar-width,2px);left:var(--cr-tabs-tab-inline-padding,0);opacity:var(--cr-tabs-selection-bar-unselected-opacity,0);position:absolute;right:var(--cr-tabs-tab-inline-padding,0);transform-origin:left center;transition:transform}.selected .tab-indicator{background:var(--cr-tabs-selected-color,var(--google-blue-600));opacity:1}.tab-indicator.expand{transition-duration:150ms;transition-timing-function:cubic-bezier(.4,0,1,1)}.tab-indicator.contract{transition-duration:180ms;transition-timing-function:cubic-bezier(0,0,.2,1)}@media (prefers-color-scheme:dark){.tab-indicator{background:var(--cr-tabs-unselected-color,var(--google-blue-300))}.selected .tab-indicator{background:var(--cr-tabs-selected-color,var(--google-blue-300))}}@media (forced-colors:active){.tab-indicator{background:SelectedItem}}</style>
     <template is="dom-repeat" items="[[tabNames]]">
       <div role="tab" class$="tab [[getSelectedClass_(index, selected)]]" on-click="onTabClick_" aria-selected$="[[getAriaSelected_(index, selected)]]" tabindex$="[[getTabindex_(index, selected)]]">
         <div class="tab-icon" style$="[[getIconStyle_(index)]]">
@@ -7326,8 +8215,9 @@ class CrTabsElement extends PolymerElement {
     }
     onSelectedChanged_(newSelected, oldSelected) {
         const tabs = this.shadowRoot.querySelectorAll('.tab');
-        if (tabs.length === 0 || oldSelected === undefined) {
-            // Tabs are not rendered yet.
+        if (tabs.length === 0 || oldSelected === undefined ||
+            tabs.length <= newSelected || tabs.length <= oldSelected) {
+            // Tabs are not fully rendered yet.
             return;
         }
         const oldTabRect = tabs[oldSelected].getBoundingClientRect();
@@ -7725,7 +8615,7 @@ Polymer({
 });
 
 function getTemplate() {
-    return html `<!--_html_template_start_--><style include="mwb-shared-style">:host-context([chrome-refresh-2023]){--cr-primary-text-color:var(--color-tab-search-primary-foreground);--cr-secondary-text-color:var(--color-tab-search-secondary-foreground);--cr-separator-color:var(--color-tab-search-divider);--mwb-background-color:var(--color-tab-search-background);--mwb-icon-button-fill-color:var(--color-tab-search-secondary-foreground);--mwb-list-item-hover-background-color:var(--cr-hover-background-color);--mwb-list-item-selected-background-color:var(--cr-active-background-color);--mwb-primary-text-font-size:12px;--mwb-primary-text-font-weight:500;--mwb-secondary-text-font-size:11px;--mwb-secondary-text-font-weight:400;--mwb-scrollbar-thumb-color:var(--color-tab-search-scrollbar-thumb);--mwb-scrollbar-thumb-hover-color:var(--color-tab-search-scrollbar-thumb);--mwb-scrollbar-track-color:transparent}</style>
+    return html `<!--_html_template_start_--><style include="mwb-shared-style">:host-context([chrome-refresh-2023]){--cr-primary-text-color:var(--color-tab-search-primary-foreground);--cr-secondary-text-color:var(--color-tab-search-secondary-foreground);--cr-separator-color:var(--color-tab-search-divider);--cr-tabs-flex:1;--cr-tabs-focus-outline-offset:-4px;--cr-tabs-font-size:12px;--cr-tabs-icon-margin-end:4px;--cr-tabs-icon-size:16px;--cr-tabs-selected-color:var(--color-tab-search-selected);--cr-tabs-selection-bar-unselected-opacity:1;--cr-tabs-unselected-color:var(--color-tab-search-divider);--mwb-background-color:var(--color-tab-search-background);--mwb-icon-button-fill-color:var(--color-tab-search-secondary-foreground);--mwb-list-item-hover-background-color:var(--cr-hover-background-color);--mwb-list-item-selected-background-color:var(--cr-active-background-color);--mwb-primary-text-font-size:12px;--mwb-primary-text-font-weight:500;--mwb-secondary-text-font-size:11px;--mwb-secondary-text-font-weight:400;--mwb-scrollbar-thumb-color:var(--color-tab-search-scrollbar-thumb);--mwb-scrollbar-thumb-hover-color:var(--color-tab-search-scrollbar-thumb);--mwb-scrollbar-track-color:transparent}:host{user-select:none}</style>
 
 <template is="dom-if" if="[[tabOrganizationEnabled_]]">
   <cr-tabs tab-names="[[tabNames_]]" tab-icons="[[tabIcons_]]" selected="{{selectedTabIndex_}}" on-selected-changed="onSelectedTabChanged_">
@@ -7766,8 +8656,8 @@ class TabSearchAppElement extends PolymerElement {
             },
             tabIcons_: {
                 type: Array,
-                value: () => ['chrome://resources/images/error.svg',
-                    'chrome://resources/images/error.svg',
+                value: () => ['images/tab_search.svg',
+                    'images/auto_tab_groups.svg',
                 ],
             },
             tabOrganizationEnabled_: {
@@ -7780,10 +8670,15 @@ class TabSearchAppElement extends PolymerElement {
         return getTemplate();
     }
     onSelectedTabChanged_(event) {
+        if (event.detail.value === 1) {
+            const tabOrganizationPage = this.shadowRoot.querySelector('tab-organization-page');
+            tabOrganizationPage.classList.toggle('changed-state', false);
+            tabOrganizationPage.updateContentsHeightAfterNextRender();
+        }
         this.apiProxy_.setTabIndex(event.detail.value);
     }
 }
 customElements.define(TabSearchAppElement.is, TabSearchAppElement);
 
-export { BiMap, InfiniteList, ItemData, PageCallbackRouter$1 as PageCallbackRouter, PageRemote$1 as PageRemote, TabAlertState, TabData, Color as TabGroupColor, TabItemType, TabOrganizationError, TabOrganizationPageElement, TabOrganizationResultsElement, TabOrganizationState, TabSearchApiProxyImpl, TabSearchAppElement, TabSearchGroupItem, TabSearchItem, TabSearchPageElement, TitleItem, fuzzySearch };
+export { BiMap, InfiniteList, ItemData, PageCallbackRouter$1 as PageCallbackRouter, PageRemote$1 as PageRemote, TabAlertState, TabData, Color as TabGroupColor, TabItemType, TabOrganizationError, TabOrganizationPageElement, TabOrganizationResultsElement, TabOrganizationState, TabSearchApiProxyImpl, TabSearchAppElement, TabSearchGroupItem, TabSearchItem, TabSearchPageElement, TabSearchSyncBrowserProxyImpl, TitleItem, UserFeedback, fuzzySearch };
 //# sourceMappingURL=tab_search.rollup.js.map

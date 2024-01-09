@@ -27,11 +27,16 @@
 #include "mojo/public/mojom/base/big_buffer.mojom-shared.h"
 #include "mojo/public/mojom/base/file_path.mojom-shared.h"
 #include "mojo/public/mojom/base/read_only_buffer.mojom-shared.h"
+#include "mojo/public/mojom/base/time.mojom-shared.h"
 #include "services/network/public/mojom/cert_verifier_service.mojom-shared.h"
+#include "services/network/public/mojom/network_param.mojom-shared.h"
+#include "services/network/public/mojom/ct_log_info.mojom-shared.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
 #include "mojo/public/cpp/system/data_pipe.h"
 
 
+#include "mojo/public/cpp/bindings/native_enum.h"
+#include "mojo/public/cpp/bindings/lib/native_struct_serialization.h"
 
 
 
@@ -136,6 +141,26 @@ static_assert(
     
     auto* pointer = data_->username_hash.Get();
     return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetInitialAdditionalCertificatesDataView(
+      ::cert_verifier::mojom::AdditionalCertificatesDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadInitialAdditionalCertificates(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::cert_verifier::mojom::AdditionalCertificatesDataView, UserType>(),
+    "Attempting to read the optional `initial_additional_certificates` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadInitialAdditionalCertificates` instead "
+    "of `ReadInitialAdditionalCertificates if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->initial_additional_certificates.Get();
+    return mojo::internal::Deserialize<::cert_verifier::mojom::AdditionalCertificatesDataView>(
         pointer, output, message_);
   }
  private:
@@ -277,6 +302,14 @@ struct Serializer<::cert_verifier::mojom::CertVerifierCreationParamsDataView, Ma
         fragment->username_hash.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null username_hash in CertVerifierCreationParams struct");
+    decltype(Traits::initial_additional_certificates(input)) in_initial_additional_certificates = Traits::initial_additional_certificates(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->initial_additional_certificates)::BaseType> initial_additional_certificates_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::cert_verifier::mojom::AdditionalCertificatesDataView>(
+        in_initial_additional_certificates, initial_additional_certificates_fragment);
+    fragment->initial_additional_certificates.Set(
+        initial_additional_certificates_fragment.is_null() ? nullptr : initial_additional_certificates_fragment.data());
   }
 
   static bool Deserialize(::cert_verifier::mojom::internal::CertVerifierCreationParams_Data* input,
@@ -442,6 +475,11 @@ inline void CertVerifierCreationParamsDataView::GetUsernameHashDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->username_hash.Get();
   *output = mojo::StringDataView(pointer, message_);
+}
+inline void CertVerifierCreationParamsDataView::GetInitialAdditionalCertificatesDataView(
+    ::cert_verifier::mojom::AdditionalCertificatesDataView* output) {
+  auto pointer = data_->initial_additional_certificates.Get();
+  *output = ::cert_verifier::mojom::AdditionalCertificatesDataView(pointer, message_);
 }
 
 

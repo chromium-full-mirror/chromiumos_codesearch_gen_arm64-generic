@@ -23,6 +23,7 @@ export class FakeShortcutProvider {
         this.preventProcessingAcceleratorsCallCount = 0;
         this.addAcceleratorCallCount = 0;
         this.removeAcceleratorCallCount = 0;
+        this.lastRecordedIsAdd = false;
         this.methods = new FakeMethodResolver();
         // Setup method resolvers.
         this.methods.register('getAccelerators');
@@ -42,6 +43,8 @@ export class FakeShortcutProvider {
         this.methods.register('getDefaultAcceleratorsForId');
         this.methods.register('recordUserAction');
         this.methods.register('recordMainCategoryNavigation');
+        this.methods.register('recordEditDialogCompetedActions');
+        this.methods.register('recordAddOrEditSubactions');
         this.registerObservables();
     }
     registerObservables() {
@@ -129,6 +132,12 @@ export class FakeShortcutProvider {
     recordUserAction(userAction) {
         this.lastRecordedUserAction = userAction;
     }
+    recordEditDialogCompletedActions(completed_actions) {
+        this.lastRecoredEditDialogActions = completed_actions;
+    }
+    getLastEditDialogCompletedActions() {
+        return this.lastRecoredEditDialogActions;
+    }
     getLatestRecordedAction() {
         return this.lastRecordedUserAction;
     }
@@ -137,6 +146,16 @@ export class FakeShortcutProvider {
     }
     getLatestMainCategoryNavigated() {
         return this.lastRecordedMainCategory;
+    }
+    recordAddOrEditSubactions(isAdd, subactions) {
+        this.lastRecordedIsAdd = isAdd;
+        this.lastRecorededSubactions = subactions;
+    }
+    getLastRecordedIsAdd() {
+        return this.lastRecordedIsAdd;
+    }
+    getLastRecordedSubactions() {
+        return this.lastRecorededSubactions;
     }
     preventProcessingAccelerators(_preventProcessingAccelerators) {
         ++this.preventProcessingAcceleratorsCallCount;

@@ -45,6 +45,16 @@ bool WebRuntimeFeaturesBase::IsAccessibilityExposeIgnoredNodesEnabled() {
 }
 
 // static
+void WebRuntimeFeaturesBase::EnableAccessibilityOSLevelBoldText(bool enable) {
+  RuntimeEnabledFeatures::SetAccessibilityOSLevelBoldTextEnabled(enable);
+}
+
+// static
+bool WebRuntimeFeaturesBase::IsAccessibilityOSLevelBoldTextEnabled() {
+  return RuntimeEnabledFeatures::AccessibilityOSLevelBoldTextEnabled();
+}
+
+// static
 void WebRuntimeFeaturesBase::EnableAccessibilityPageZoom(bool enable) {
   RuntimeEnabledFeatures::SetAccessibilityPageZoomEnabled(enable);
 }
@@ -195,6 +205,16 @@ bool WebRuntimeFeaturesBase::IsBeforeunloadEventCancelByPreventDefaultEnabled() 
 }
 
 // static
+void WebRuntimeFeaturesBase::EnableBoundaryEventDispatchTracksNodeRemoval(bool enable) {
+  RuntimeEnabledFeatures::SetBoundaryEventDispatchTracksNodeRemovalEnabled(enable);
+}
+
+// static
+bool WebRuntimeFeaturesBase::IsBoundaryEventDispatchTracksNodeRemovalEnabled() {
+  return RuntimeEnabledFeatures::BoundaryEventDispatchTracksNodeRemovalEnabled();
+}
+
+// static
 void WebRuntimeFeaturesBase::EnableBrowserVerifiedUserActivationKeyboard(bool enable) {
   RuntimeEnabledFeatures::SetBrowserVerifiedUserActivationKeyboardEnabled(enable);
 }
@@ -305,16 +325,6 @@ bool WebRuntimeFeaturesBase::IsDatabaseEnabled() {
 }
 
 // static
-void WebRuntimeFeaturesBase::EnableDelayOutOfViewportLazyImages(bool enable) {
-  RuntimeEnabledFeatures::SetDelayOutOfViewportLazyImagesEnabled(enable);
-}
-
-// static
-bool WebRuntimeFeaturesBase::IsDelayOutOfViewportLazyImagesEnabled() {
-  return RuntimeEnabledFeatures::DelayOutOfViewportLazyImagesEnabled();
-}
-
-// static
 void WebRuntimeFeaturesBase::EnableDevicePosture(bool enable) {
   RuntimeEnabledFeatures::SetDevicePostureEnabled(enable);
 }
@@ -352,16 +362,6 @@ void WebRuntimeFeaturesBase::EnableDisplayCutoutAPI(bool enable) {
 // static
 bool WebRuntimeFeaturesBase::IsDisplayCutoutAPIEnabled() {
   return RuntimeEnabledFeatures::DisplayCutoutAPIEnabled();
-}
-
-// static
-void WebRuntimeFeaturesBase::EnableDocumentPolicy(bool enable) {
-  RuntimeEnabledFeatures::SetDocumentPolicyEnabled(enable);
-}
-
-// static
-bool WebRuntimeFeaturesBase::IsDocumentPolicyEnabled() {
-  return RuntimeEnabledFeatures::DocumentPolicyEnabled();
 }
 
 // static
@@ -405,6 +405,36 @@ bool WebRuntimeFeaturesBase::IsFedCmAutoSelectedFlagEnabled() {
 }
 
 // static
+void WebRuntimeFeaturesBase::EnableFedCmButtonMode(bool enable) {
+  RuntimeEnabledFeatures::SetFedCmButtonModeEnabled(enable);
+}
+
+// static
+bool WebRuntimeFeaturesBase::IsFedCmButtonModeEnabled() {
+  return RuntimeEnabledFeatures::FedCmButtonModeEnabled();
+}
+
+// static
+void WebRuntimeFeaturesBase::EnableFedCmDisconnect(bool enable) {
+  RuntimeEnabledFeatures::SetFedCmDisconnectEnabled(enable);
+}
+
+// static
+bool WebRuntimeFeaturesBase::IsFedCmDisconnectEnabled() {
+  return RuntimeEnabledFeatures::FedCmDisconnectEnabled();
+}
+
+// static
+void WebRuntimeFeaturesBase::EnableFedCmDomainHint(bool enable) {
+  RuntimeEnabledFeatures::SetFedCmDomainHintEnabled(enable);
+}
+
+// static
+bool WebRuntimeFeaturesBase::IsFedCmDomainHintEnabled() {
+  return RuntimeEnabledFeatures::FedCmDomainHintEnabled();
+}
+
+// static
 void WebRuntimeFeaturesBase::EnableFedCmError(bool enable) {
   RuntimeEnabledFeatures::SetFedCmErrorEnabled(enable);
 }
@@ -412,16 +442,6 @@ void WebRuntimeFeaturesBase::EnableFedCmError(bool enable) {
 // static
 bool WebRuntimeFeaturesBase::IsFedCmErrorEnabled() {
   return RuntimeEnabledFeatures::FedCmErrorEnabled();
-}
-
-// static
-void WebRuntimeFeaturesBase::EnableFedCmHostedDomain(bool enable) {
-  RuntimeEnabledFeatures::SetFedCmHostedDomainEnabled(enable);
-}
-
-// static
-bool WebRuntimeFeaturesBase::IsFedCmHostedDomainEnabled() {
-  return RuntimeEnabledFeatures::FedCmHostedDomainEnabled();
 }
 
 // static
@@ -441,17 +461,7 @@ void WebRuntimeFeaturesBase::EnableFedCmIdpSigninStatus(bool enable) {
 
 // static
 bool WebRuntimeFeaturesBase::IsFedCmIdpSigninStatusEnabled() {
-  return RuntimeEnabledFeatures::FedCmIdpSigninStatusEnabledByRuntimeFlag();
-}
-
-// static
-void WebRuntimeFeaturesBase::EnableFedCmIdpSignout(bool enable) {
-  RuntimeEnabledFeatures::SetFedCmIdpSignoutEnabled(enable);
-}
-
-// static
-bool WebRuntimeFeaturesBase::IsFedCmIdpSignoutEnabled() {
-  return RuntimeEnabledFeatures::FedCmIdpSignoutEnabled();
+  return RuntimeEnabledFeatures::FedCmIdpSigninStatusEnabled();
 }
 
 // static
@@ -495,13 +505,13 @@ bool WebRuntimeFeaturesBase::IsFencedFramesDefaultModeEnabled() {
 }
 
 // static
-void WebRuntimeFeaturesBase::EnableFetchLaterAPI(bool enable) {
-  RuntimeEnabledFeatures::SetFetchLaterAPIEnabled(enable);
+void WebRuntimeFeaturesBase::EnableFencedFramesLocalUnpartitionedDataAccess(bool enable) {
+  RuntimeEnabledFeatures::SetFencedFramesLocalUnpartitionedDataAccessEnabled(enable);
 }
 
 // static
-bool WebRuntimeFeaturesBase::IsFetchLaterAPIEnabled() {
-  return RuntimeEnabledFeatures::FetchLaterAPIEnabled();
+bool WebRuntimeFeaturesBase::IsFencedFramesLocalUnpartitionedDataAccessEnabled() {
+  return RuntimeEnabledFeatures::FencedFramesLocalUnpartitionedDataAccessEnabled();
 }
 
 // static
@@ -575,16 +585,6 @@ bool WebRuntimeFeaturesBase::IsGetDisplayMediaEnabled() {
 }
 
 // static
-void WebRuntimeFeaturesBase::EnableIdleDetection(bool enable) {
-  RuntimeEnabledFeatures::SetIdleDetectionEnabled(enable);
-}
-
-// static
-bool WebRuntimeFeaturesBase::IsIdleDetectionEnabled() {
-  return RuntimeEnabledFeatures::IdleDetectionEnabled();
-}
-
-// static
 void WebRuntimeFeaturesBase::EnableImplicitRootScroller(bool enable) {
   RuntimeEnabledFeatures::SetImplicitRootScrollerEnabled(enable);
 }
@@ -605,16 +605,6 @@ bool WebRuntimeFeaturesBase::IsInstalledAppEnabled() {
 }
 
 // static
-void WebRuntimeFeaturesBase::EnableLazyFrameLoading(bool enable) {
-  RuntimeEnabledFeatures::SetLazyFrameLoadingEnabled(enable);
-}
-
-// static
-bool WebRuntimeFeaturesBase::IsLazyFrameLoadingEnabled() {
-  return RuntimeEnabledFeatures::LazyFrameLoadingEnabled();
-}
-
-// static
 void WebRuntimeFeaturesBase::EnableLazyInitializeMediaControls(bool enable) {
   RuntimeEnabledFeatures::SetLazyInitializeMediaControlsEnabled(enable);
 }
@@ -625,6 +615,16 @@ bool WebRuntimeFeaturesBase::IsLazyInitializeMediaControlsEnabled() {
 }
 
 // static
+void WebRuntimeFeaturesBase::EnableLazyLoadScrollMargin(bool enable) {
+  RuntimeEnabledFeatures::SetLazyLoadScrollMarginEnabled(enable);
+}
+
+// static
+bool WebRuntimeFeaturesBase::IsLazyLoadScrollMarginEnabled() {
+  return RuntimeEnabledFeatures::LazyLoadScrollMarginEnabled();
+}
+
+// static
 void WebRuntimeFeaturesBase::EnableMachineLearningModelLoader(bool enable) {
   RuntimeEnabledFeatures::SetMachineLearningModelLoaderEnabled(enable);
 }
@@ -632,6 +632,16 @@ void WebRuntimeFeaturesBase::EnableMachineLearningModelLoader(bool enable) {
 // static
 bool WebRuntimeFeaturesBase::IsMachineLearningModelLoaderEnabled() {
   return RuntimeEnabledFeatures::MachineLearningModelLoaderEnabled();
+}
+
+// static
+void WebRuntimeFeaturesBase::EnableMachineLearningNeuralNetwork(bool enable) {
+  RuntimeEnabledFeatures::SetMachineLearningNeuralNetworkEnabled(enable);
+}
+
+// static
+bool WebRuntimeFeaturesBase::IsMachineLearningNeuralNetworkEnabled() {
+  return RuntimeEnabledFeatures::MachineLearningNeuralNetworkEnabled();
 }
 
 // static
@@ -745,16 +755,6 @@ bool WebRuntimeFeaturesBase::IsObservableAPIEnabled() {
 }
 
 // static
-void WebRuntimeFeaturesBase::EnableOffsetParentNewSpecBehavior(bool enable) {
-  RuntimeEnabledFeatures::SetOffsetParentNewSpecBehaviorEnabled(enable);
-}
-
-// static
-bool WebRuntimeFeaturesBase::IsOffsetParentNewSpecBehaviorEnabled() {
-  return RuntimeEnabledFeatures::OffsetParentNewSpecBehaviorEnabled();
-}
-
-// static
 void WebRuntimeFeaturesBase::EnablePaymentApp(bool enable) {
   RuntimeEnabledFeatures::SetPaymentAppEnabled(enable);
 }
@@ -835,16 +835,6 @@ bool WebRuntimeFeaturesBase::IsPermissionsEnabled() {
 }
 
 // static
-void WebRuntimeFeaturesBase::EnablePortals(bool enable) {
-  RuntimeEnabledFeatures::SetPortalsEnabled(enable);
-}
-
-// static
-bool WebRuntimeFeaturesBase::IsPortalsEnabled() {
-  return RuntimeEnabledFeatures::PortalsEnabledByRuntimeFlag();
-}
-
-// static
 void WebRuntimeFeaturesBase::EnablePreciseMemoryInfo(bool enable) {
   RuntimeEnabledFeatures::SetPreciseMemoryInfoEnabled(enable);
 }
@@ -862,6 +852,16 @@ void WebRuntimeFeaturesBase::EnablePresentation(bool enable) {
 // static
 bool WebRuntimeFeaturesBase::IsPresentationEnabled() {
   return RuntimeEnabledFeatures::PresentationEnabled();
+}
+
+// static
+void WebRuntimeFeaturesBase::EnablePrivateNetworkAccessPermissionPrompt(bool enable) {
+  RuntimeEnabledFeatures::SetPrivateNetworkAccessPermissionPromptEnabled(enable);
+}
+
+// static
+bool WebRuntimeFeaturesBase::IsPrivateNetworkAccessPermissionPromptEnabled() {
+  return RuntimeEnabledFeatures::PrivateNetworkAccessPermissionPromptEnabledByRuntimeFlag();
 }
 
 // static
@@ -1005,16 +1005,6 @@ bool WebRuntimeFeaturesBase::IsSendBeaconThrowForBlobWithNonSimpleTypeEnabled() 
 }
 
 // static
-void WebRuntimeFeaturesBase::EnableSendMouseEventsDisabledFormControls(bool enable) {
-  RuntimeEnabledFeatures::SetSendMouseEventsDisabledFormControlsEnabled(enable);
-}
-
-// static
-bool WebRuntimeFeaturesBase::IsSendMouseEventsDisabledFormControlsEnabled() {
-  return RuntimeEnabledFeatures::SendMouseEventsDisabledFormControlsEnabled();
-}
-
-// static
 void WebRuntimeFeaturesBase::EnableSensorExtraClasses(bool enable) {
   RuntimeEnabledFeatures::SetSensorExtraClassesEnabled(enable);
 }
@@ -1135,26 +1125,6 @@ bool WebRuntimeFeaturesBase::IsSmartZoomEnabled() {
 }
 
 // static
-void WebRuntimeFeaturesBase::EnableStorageAccessAPI(bool enable) {
-  RuntimeEnabledFeatures::SetStorageAccessAPIEnabled(enable);
-}
-
-// static
-bool WebRuntimeFeaturesBase::IsStorageAccessAPIEnabled() {
-  return RuntimeEnabledFeatures::StorageAccessAPIEnabled();
-}
-
-// static
-void WebRuntimeFeaturesBase::EnableStorageAccessAPIForOriginExtension(bool enable) {
-  RuntimeEnabledFeatures::SetStorageAccessAPIForOriginExtensionEnabled(enable);
-}
-
-// static
-bool WebRuntimeFeaturesBase::IsStorageAccessAPIForOriginExtensionEnabled() {
-  return RuntimeEnabledFeatures::StorageAccessAPIForOriginExtensionEnabled();
-}
-
-// static
 void WebRuntimeFeaturesBase::EnableTextFragmentIdentifiers(bool enable) {
   RuntimeEnabledFeatures::SetTextFragmentIdentifiersEnabled(enable);
 }
@@ -1192,16 +1162,6 @@ void WebRuntimeFeaturesBase::EnableTopicsDocumentAPI(bool enable) {
 // static
 bool WebRuntimeFeaturesBase::IsTopicsDocumentAPIEnabled() {
   return RuntimeEnabledFeatures::TopicsDocumentAPIEnabledByRuntimeFlag();
-}
-
-// static
-void WebRuntimeFeaturesBase::EnableTopicsXHR(bool enable) {
-  RuntimeEnabledFeatures::SetTopicsXHREnabled(enable);
-}
-
-// static
-bool WebRuntimeFeaturesBase::IsTopicsXHREnabled() {
-  return RuntimeEnabledFeatures::TopicsXHREnabledByRuntimeFlag();
 }
 
 // static

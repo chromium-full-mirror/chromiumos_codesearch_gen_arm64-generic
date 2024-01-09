@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -56,8 +57,8 @@ NativeThemeInfo::NativeThemeInfo(
 
 NativeThemeInfo::NativeThemeInfo(
     bool dark_mode_in,
-    absl::optional<::SkColor> seed_color_in,
-    absl::optional<::color::mojom::SchemeVariant> scheme_variant_in)
+    std::optional<::SkColor> seed_color_in,
+    std::optional<::color::mojom::SchemeVariant> scheme_variant_in)
     : dark_mode(std::move(dark_mode_in)),
       seed_color(std::move(seed_color_in)),
       scheme_variant(std::move(scheme_variant_in)) {}
@@ -80,7 +81,7 @@ void NativeThemeInfo::WriteIntoTrace(
     dict.AddItem(
       "seed_color"), this->seed_color,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::SkColor>>"
+      "<value of type std::optional<::SkColor>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -89,7 +90,7 @@ void NativeThemeInfo::WriteIntoTrace(
     dict.AddItem(
       "scheme_variant"), this->scheme_variant,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::color::mojom::SchemeVariant>>"
+      "<value of type std::optional<::color::mojom::SchemeVariant>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -173,14 +174,17 @@ void NativeThemeInfoObserverProxy::OnNativeThemeInfoChanged(
                         "<value of type NativeThemeInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNativeThemeInfoObserver_OnNativeThemeInfoChanged_Name, kFlags, 0, 0, nullptr);
@@ -259,10 +263,10 @@ bool NativeThemeInfoObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kNativeThemeInfoObserverValidationInfo[] = {
-    {&internal::NativeThemeInfoObserver_OnNativeThemeInfoChanged_Params_Data::Validate,
+    { &internal::NativeThemeInfoObserver_OnNativeThemeInfoChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -343,14 +347,17 @@ void NativeThemeServiceProxy::AddNativeThemeInfoObserver(
                         "<value of type ::mojo::PendingRemote<NativeThemeInfoObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNativeThemeService_AddNativeThemeInfoObserver_Name, kFlags, 0, 0, nullptr);
@@ -426,10 +433,10 @@ bool NativeThemeServiceStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kNativeThemeServiceValidationInfo[] = {
-    {&internal::NativeThemeService_AddNativeThemeInfoObserver_Params_Data::Validate,
+    { &internal::NativeThemeService_AddNativeThemeInfoObserver_Params_Data::Validate,
      nullptr /* no response */},
 };
 

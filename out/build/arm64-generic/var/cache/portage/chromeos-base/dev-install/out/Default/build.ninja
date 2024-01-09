@@ -1,7 +1,7 @@
 ninja_required_version = 1.7.2
 
 rule gn
-  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../../../mnt/host/source/src/platform2 -q --regeneration gen .
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/dev-install-0.0.1-r1533/work/dev-install-0.0.1 -q --regeneration gen .
   pool = console
   description = Regenerating ninja files
 
@@ -24,14 +24,10 @@ build install_envd: phony obj/dev-install/install_envd.stamp
 build install_make_defaults: phony obj/dev-install/install_make_defaults.stamp
 build libdev_install: phony ./libdev_install.a
 build root: phony obj/common-mk/gn_root/root.stamp
-build testrunner: phony ./libtestrunner.a
 build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
-build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
-build common-mk/testrunner: phony ./libtestrunner.a
 build dev-install$:_dev_install-install_config: phony obj/dev-install/_dev_install-install_config.stamp
 build dev-install$:all: phony obj/dev-install/all.stamp
 build dev-install$:dev_install: phony ./dev_install
-build dev-install$:dev_install_test: phony ./dev_install_test
 build dev-install$:install_bashrc: phony obj/dev-install/install_bashrc.stamp
 build dev-install$:install_envd: phony obj/dev-install/install_envd.stamp
 build dev-install$:install_make_defaults: phony obj/dev-install/install_make_defaults.stamp
@@ -39,11 +35,9 @@ build dev-install$:libdev_install: phony ./libdev_install.a
 
 build all: phony $
     obj/common-mk/gn_root/root.stamp $
-    ./libtestrunner.a $
     obj/dev-install/_dev_install-install_config.stamp $
     obj/dev-install/all.stamp $
     ./dev_install $
-    ./dev_install_test $
     obj/dev-install/install_bashrc.stamp $
     obj/dev-install/install_envd.stamp $
     obj/dev-install/install_make_defaults.stamp $

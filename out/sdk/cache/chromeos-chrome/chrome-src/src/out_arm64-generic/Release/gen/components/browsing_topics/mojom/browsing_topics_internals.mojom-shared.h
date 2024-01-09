@@ -137,17 +137,11 @@ class WebUIBrowsingTopicsConfigurationDataView {
   bool privacy_sandbox_ads_apis_override_enabled() const {
     return data_->privacy_sandbox_ads_apis_override_enabled;
   }
-  bool privacy_sandbox_settings3_enabled() const {
-    return data_->privacy_sandbox_settings3_enabled;
-  }
   bool override_privacy_sandbox_settings_local_testing_enabled() const {
     return data_->override_privacy_sandbox_settings_local_testing_enabled;
   }
   bool browsing_topics_bypass_ip_is_publicly_routable_check_enabled() const {
     return data_->browsing_topics_bypass_ip_is_publicly_routable_check_enabled;
-  }
-  bool browsing_topics_xhr_enabled() const {
-    return data_->browsing_topics_xhr_enabled;
   }
   bool browsing_topics_document_api_enabled() const {
     return data_->browsing_topics_document_api_enabled;
@@ -508,10 +502,8 @@ struct Serializer<::browsing_topics::mojom::WebUIBrowsingTopicsConfigurationData
     fragment.Allocate();
     fragment->browsing_topics_enabled = Traits::browsing_topics_enabled(input);
     fragment->privacy_sandbox_ads_apis_override_enabled = Traits::privacy_sandbox_ads_apis_override_enabled(input);
-    fragment->privacy_sandbox_settings3_enabled = Traits::privacy_sandbox_settings3_enabled(input);
     fragment->override_privacy_sandbox_settings_local_testing_enabled = Traits::override_privacy_sandbox_settings_local_testing_enabled(input);
     fragment->browsing_topics_bypass_ip_is_publicly_routable_check_enabled = Traits::browsing_topics_bypass_ip_is_publicly_routable_check_enabled(input);
-    fragment->browsing_topics_xhr_enabled = Traits::browsing_topics_xhr_enabled(input);
     fragment->browsing_topics_document_api_enabled = Traits::browsing_topics_document_api_enabled(input);
     fragment->config_version = Traits::config_version(input);
     fragment->browsing_topics_parameters_enabled = Traits::browsing_topics_parameters_enabled(input);

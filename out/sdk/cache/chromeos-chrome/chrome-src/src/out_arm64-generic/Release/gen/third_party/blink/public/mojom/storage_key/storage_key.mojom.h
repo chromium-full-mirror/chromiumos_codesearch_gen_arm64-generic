@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/storage_key/storage_key.mojom-features.h"
 #include "third_party/blink/public/mojom/storage_key/storage_key.mojom-shared.h"
 #include "third_party/blink/public/mojom/storage_key/storage_key.mojom-forward.h"
 #include "mojo/public/mojom/base/unguessable_token.mojom.h"
@@ -79,7 +80,7 @@ class BLINK_COMMON_EXPORT StorageKey {
   StorageKey(
       const ::url::Origin& origin,
       const ::net::SchemefulSite& top_level_site,
-      const absl::optional<::base::UnguessableToken>& nonce,
+      const std::optional<::base::UnguessableToken>& nonce,
       ::blink::mojom::AncestorChainBit ancestor_chain_bit,
       const ::net::SchemefulSite& top_level_site_if_third_party_enabled,
       ::blink::mojom::AncestorChainBit ancestor_chain_bit_if_third_party_enabled);
@@ -164,7 +165,7 @@ class BLINK_COMMON_EXPORT StorageKey {
   
   ::net::SchemefulSite top_level_site;
   
-  absl::optional<::base::UnguessableToken> nonce;
+  std::optional<::base::UnguessableToken> nonce;
   
   ::blink::mojom::AncestorChainBit ancestor_chain_bit;
   

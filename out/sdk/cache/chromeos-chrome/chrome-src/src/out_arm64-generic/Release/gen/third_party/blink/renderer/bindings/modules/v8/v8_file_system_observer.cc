@@ -73,11 +73,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, FileSystemObserver>::value,
     "FileSystemObserver inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&FileSystemObserver::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "FileSystemObserver is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -133,8 +128,9 @@ BLINK_BINDINGS_TRACE_EVENT("FileSystemObserver.disconnect");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-FileSystemObserver* blink_receiver = V8FileSystemObserver::ToWrappableUnsafe(v8_receiver);
+FileSystemObserver* blink_receiver = V8FileSystemObserver::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->disconnect();
 
 }
@@ -166,7 +162,7 @@ return;
 
 
 
-FileSystemObserver* blink_receiver = V8FileSystemObserver::ToWrappableUnsafe(v8_receiver);
+FileSystemObserver* blink_receiver = V8FileSystemObserver::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -211,7 +207,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-FileSystemObserver* blink_receiver = V8FileSystemObserver::ToWrappableUnsafe(v8_receiver);
+FileSystemObserver* blink_receiver = V8FileSystemObserver::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_handle = NativeValueTraits<FileSystemHandle>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

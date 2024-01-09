@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -395,15 +396,18 @@ bool AdvertisementProxy::Unregister(
 #else
   TRACE_EVENT0("mojom", "Advertisement::Unregister");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAdvertisement_Unregister_Name, kFlags, 0, 0, nullptr);
@@ -433,14 +437,17 @@ void AdvertisementProxy::Unregister(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send bluetooth::mojom::Advertisement::Unregister");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAdvertisement_Unregister_Name, kFlags, 0, 0, nullptr);
@@ -539,7 +546,8 @@ void Advertisement_Unregister_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAdvertisement_Unregister_Name, kFlags, 0, 0, nullptr);
@@ -635,10 +643,10 @@ bool AdvertisementStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kAdvertisementValidationInfo[] = {
-    {&internal::Advertisement_Unregister_Params_Data::Validate,
+    { &internal::Advertisement_Unregister_Params_Data::Validate,
      &internal::Advertisement_Unregister_ResponseParams_Data::Validate},
 };
 
@@ -808,15 +816,18 @@ bool DiscoverySessionProxy::IsActive(
 #else
   TRACE_EVENT0("mojom", "DiscoverySession::IsActive");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiscoverySession_IsActive_Name, kFlags, 0, 0, nullptr);
@@ -853,14 +864,17 @@ void DiscoverySessionProxy::IsActive(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send bluetooth::mojom::DiscoverySession::IsActive");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiscoverySession_IsActive_Name, kFlags, 0, 0, nullptr);
@@ -885,15 +899,18 @@ bool DiscoverySessionProxy::Stop(
 #else
   TRACE_EVENT0("mojom", "DiscoverySession::Stop");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiscoverySession_Stop_Name, kFlags, 0, 0, nullptr);
@@ -930,14 +947,17 @@ void DiscoverySessionProxy::Stop(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send bluetooth::mojom::DiscoverySession::Stop");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiscoverySession_Stop_Name, kFlags, 0, 0, nullptr);
@@ -1047,7 +1067,8 @@ void DiscoverySession_IsActive_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiscoverySession_IsActive_Name, kFlags, 0, 0, nullptr);
@@ -1190,7 +1211,8 @@ void DiscoverySession_Stop_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDiscoverySession_Stop_Name, kFlags, 0, 0, nullptr);
@@ -1319,12 +1341,12 @@ bool DiscoverySessionStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDiscoverySessionValidationInfo[] = {
-    {&internal::DiscoverySession_IsActive_Params_Data::Validate,
+    { &internal::DiscoverySession_IsActive_Params_Data::Validate,
      &internal::DiscoverySession_IsActive_ResponseParams_Data::Validate},
-    {&internal::DiscoverySession_Stop_Params_Data::Validate,
+    { &internal::DiscoverySession_Stop_Params_Data::Validate,
      &internal::DiscoverySession_Stop_ResponseParams_Data::Validate},
 };
 
@@ -1437,15 +1459,18 @@ bool SocketProxy::Disconnect(
 #else
   TRACE_EVENT0("mojom", "Socket::Disconnect");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSocket_Disconnect_Name, kFlags, 0, 0, nullptr);
@@ -1475,14 +1500,17 @@ void SocketProxy::Disconnect(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send bluetooth::mojom::Socket::Disconnect");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSocket_Disconnect_Name, kFlags, 0, 0, nullptr);
@@ -1581,7 +1609,8 @@ void Socket_Disconnect_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSocket_Disconnect_Name, kFlags, 0, 0, nullptr);
@@ -1677,10 +1706,10 @@ bool SocketStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSocketValidationInfo[] = {
-    {&internal::Socket_Disconnect_Params_Data::Validate,
+    { &internal::Socket_Disconnect_Params_Data::Validate,
      &internal::Socket_Disconnect_ResponseParams_Data::Validate},
 };
 
@@ -1849,15 +1878,18 @@ bool ServerSocketProxy::Accept(
 #else
   TRACE_EVENT0("mojom", "ServerSocket::Accept");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServerSocket_Accept_Name, kFlags, 0, 0, nullptr);
@@ -1894,14 +1926,17 @@ void ServerSocketProxy::Accept(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send bluetooth::mojom::ServerSocket::Accept");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServerSocket_Accept_Name, kFlags, 0, 0, nullptr);
@@ -1926,15 +1961,18 @@ bool ServerSocketProxy::Disconnect(
 #else
   TRACE_EVENT0("mojom", "ServerSocket::Disconnect");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServerSocket_Disconnect_Name, kFlags, 0, 0, nullptr);
@@ -1964,14 +2002,17 @@ void ServerSocketProxy::Disconnect(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send bluetooth::mojom::ServerSocket::Disconnect");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServerSocket_Disconnect_Name, kFlags, 0, 0, nullptr);
@@ -2081,7 +2122,8 @@ void ServerSocket_Accept_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServerSocket_Accept_Name, kFlags, 0, 0, nullptr);
@@ -2219,7 +2261,8 @@ void ServerSocket_Disconnect_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServerSocket_Disconnect_Name, kFlags, 0, 0, nullptr);
@@ -2343,12 +2386,12 @@ bool ServerSocketStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kServerSocketValidationInfo[] = {
-    {&internal::ServerSocket_Accept_Params_Data::Validate,
+    { &internal::ServerSocket_Accept_Params_Data::Validate,
      &internal::ServerSocket_Accept_ResponseParams_Data::Validate},
-    {&internal::ServerSocket_Disconnect_Params_Data::Validate,
+    { &internal::ServerSocket_Disconnect_Params_Data::Validate,
      &internal::ServerSocket_Disconnect_ResponseParams_Data::Validate},
 };
 
@@ -2931,14 +2974,17 @@ void AdapterProxy::ConnectToDevice(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAdapter_ConnectToDevice_Name, kFlags, 0, 0, nullptr);
@@ -2973,14 +3019,17 @@ void AdapterProxy::GetDevices(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send bluetooth::mojom::Adapter::GetDevices");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAdapter_GetDevices_Name, kFlags, 0, 0, nullptr);
@@ -3005,15 +3054,18 @@ bool AdapterProxy::GetInfo(
 #else
   TRACE_EVENT0("mojom", "Adapter::GetInfo");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAdapter_GetInfo_Name, kFlags, 0, 0, nullptr);
@@ -3050,14 +3102,17 @@ void AdapterProxy::GetInfo(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send bluetooth::mojom::Adapter::GetInfo");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAdapter_GetInfo_Name, kFlags, 0, 0, nullptr);
@@ -3089,15 +3144,18 @@ bool AdapterProxy::AddObserver(
 #else
   TRACE_EVENT0("mojom", "Adapter::AddObserver");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAdapter_AddObserver_Name, kFlags, 0, 0, nullptr);
@@ -3140,14 +3198,17 @@ void AdapterProxy::AddObserver(
                         "<value of type ::mojo::PendingRemote<AdapterObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAdapter_AddObserver_Name, kFlags, 0, 0, nullptr);
@@ -3191,15 +3252,18 @@ bool AdapterProxy::RegisterAdvertisement(
 #else
   TRACE_EVENT0("mojom", "Adapter::RegisterAdvertisement");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAdapter_RegisterAdvertisement_Name, kFlags, 0, 0, nullptr);
@@ -3274,14 +3338,17 @@ void AdapterProxy::RegisterAdvertisement(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAdapter_RegisterAdvertisement_Name, kFlags, 0, 0, nullptr);
@@ -3338,15 +3405,18 @@ bool AdapterProxy::SetDiscoverable(
 #else
   TRACE_EVENT0("mojom", "Adapter::SetDiscoverable");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAdapter_SetDiscoverable_Name, kFlags, 0, 0, nullptr);
@@ -3391,14 +3461,17 @@ void AdapterProxy::SetDiscoverable(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAdapter_SetDiscoverable_Name, kFlags, 0, 0, nullptr);
@@ -3431,15 +3504,18 @@ bool AdapterProxy::SetName(
 #else
   TRACE_EVENT0("mojom", "Adapter::SetName");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAdapter_SetName_Name, kFlags, 0, 0, nullptr);
@@ -3494,14 +3570,17 @@ void AdapterProxy::SetName(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAdapter_SetName_Name, kFlags, 0, 0, nullptr);
@@ -3544,15 +3623,18 @@ bool AdapterProxy::StartDiscoverySession(
 #else
   TRACE_EVENT0("mojom", "Adapter::StartDiscoverySession");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAdapter_StartDiscoverySession_Name, kFlags, 0, 0, nullptr);
@@ -3607,14 +3689,17 @@ void AdapterProxy::StartDiscoverySession(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAdapter_StartDiscoverySession_Name, kFlags, 0, 0, nullptr);
@@ -3663,15 +3748,18 @@ bool AdapterProxy::ConnectToServiceInsecurely(
 #else
   TRACE_EVENT0("mojom", "Adapter::ConnectToServiceInsecurely");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAdapter_ConnectToServiceInsecurely_Name, kFlags, 0, 0, nullptr);
@@ -3744,14 +3832,17 @@ void AdapterProxy::ConnectToServiceInsecurely(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAdapter_ConnectToServiceInsecurely_Name, kFlags, 0, 0, nullptr);
@@ -3809,15 +3900,18 @@ bool AdapterProxy::CreateRfcommServiceInsecurely(
 #else
   TRACE_EVENT0("mojom", "Adapter::CreateRfcommServiceInsecurely");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAdapter_CreateRfcommServiceInsecurely_Name, kFlags, 0, 0, nullptr);
@@ -3886,14 +3980,17 @@ void AdapterProxy::CreateRfcommServiceInsecurely(
                         "<value of type const ::device::BluetoothUUID&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAdapter_CreateRfcommServiceInsecurely_Name, kFlags, 0, 0, nullptr);
@@ -4034,7 +4131,8 @@ void Adapter_ConnectToDevice_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAdapter_ConnectToDevice_Name, kFlags, 0, 0, nullptr);
@@ -4155,7 +4253,8 @@ void Adapter_GetDevices_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAdapter_GetDevices_Name, kFlags, 0, 0, nullptr);
@@ -4285,7 +4384,8 @@ void Adapter_GetInfo_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAdapter_GetInfo_Name, kFlags, 0, 0, nullptr);
@@ -4427,7 +4527,8 @@ void Adapter_AddObserver_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAdapter_AddObserver_Name, kFlags, 0, 0, nullptr);
@@ -4567,7 +4668,8 @@ void Adapter_RegisterAdvertisement_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAdapter_RegisterAdvertisement_Name, kFlags, 0, 0, nullptr);
@@ -4713,7 +4815,8 @@ void Adapter_SetDiscoverable_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAdapter_SetDiscoverable_Name, kFlags, 0, 0, nullptr);
@@ -4856,7 +4959,8 @@ void Adapter_SetName_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAdapter_SetName_Name, kFlags, 0, 0, nullptr);
@@ -5001,7 +5105,8 @@ void Adapter_StartDiscoverySession_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAdapter_StartDiscoverySession_Name, kFlags, 0, 0, nullptr);
@@ -5147,7 +5252,8 @@ void Adapter_ConnectToServiceInsecurely_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAdapter_ConnectToServiceInsecurely_Name, kFlags, 0, 0, nullptr);
@@ -5298,7 +5404,8 @@ void Adapter_CreateRfcommServiceInsecurely_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAdapter_CreateRfcommServiceInsecurely_Name, kFlags, 0, 0, nullptr);
@@ -5708,28 +5815,28 @@ std::move(p_service_uuid), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kAdapterValidationInfo[] = {
-    {&internal::Adapter_ConnectToDevice_Params_Data::Validate,
+    { &internal::Adapter_ConnectToDevice_Params_Data::Validate,
      &internal::Adapter_ConnectToDevice_ResponseParams_Data::Validate},
-    {&internal::Adapter_GetDevices_Params_Data::Validate,
+    { &internal::Adapter_GetDevices_Params_Data::Validate,
      &internal::Adapter_GetDevices_ResponseParams_Data::Validate},
-    {&internal::Adapter_GetInfo_Params_Data::Validate,
+    { &internal::Adapter_GetInfo_Params_Data::Validate,
      &internal::Adapter_GetInfo_ResponseParams_Data::Validate},
-    {&internal::Adapter_AddObserver_Params_Data::Validate,
+    { &internal::Adapter_AddObserver_Params_Data::Validate,
      &internal::Adapter_AddObserver_ResponseParams_Data::Validate},
-    {&internal::Adapter_RegisterAdvertisement_Params_Data::Validate,
+    { &internal::Adapter_RegisterAdvertisement_Params_Data::Validate,
      &internal::Adapter_RegisterAdvertisement_ResponseParams_Data::Validate},
-    {&internal::Adapter_SetDiscoverable_Params_Data::Validate,
+    { &internal::Adapter_SetDiscoverable_Params_Data::Validate,
      &internal::Adapter_SetDiscoverable_ResponseParams_Data::Validate},
-    {&internal::Adapter_SetName_Params_Data::Validate,
+    { &internal::Adapter_SetName_Params_Data::Validate,
      &internal::Adapter_SetName_ResponseParams_Data::Validate},
-    {&internal::Adapter_StartDiscoverySession_Params_Data::Validate,
+    { &internal::Adapter_StartDiscoverySession_Params_Data::Validate,
      &internal::Adapter_StartDiscoverySession_ResponseParams_Data::Validate},
-    {&internal::Adapter_ConnectToServiceInsecurely_Params_Data::Validate,
+    { &internal::Adapter_ConnectToServiceInsecurely_Params_Data::Validate,
      &internal::Adapter_ConnectToServiceInsecurely_ResponseParams_Data::Validate},
-    {&internal::Adapter_CreateRfcommServiceInsecurely_Params_Data::Validate,
+    { &internal::Adapter_CreateRfcommServiceInsecurely_Params_Data::Validate,
      &internal::Adapter_CreateRfcommServiceInsecurely_ResponseParams_Data::Validate},
 };
 
@@ -5933,14 +6040,17 @@ void AdapterObserverProxy::PresentChanged(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAdapterObserver_PresentChanged_Name, kFlags, 0, 0, nullptr);
@@ -5971,14 +6081,17 @@ void AdapterObserverProxy::PoweredChanged(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAdapterObserver_PoweredChanged_Name, kFlags, 0, 0, nullptr);
@@ -6009,14 +6122,17 @@ void AdapterObserverProxy::DiscoverableChanged(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAdapterObserver_DiscoverableChanged_Name, kFlags, 0, 0, nullptr);
@@ -6047,14 +6163,17 @@ void AdapterObserverProxy::DiscoveringChanged(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAdapterObserver_DiscoveringChanged_Name, kFlags, 0, 0, nullptr);
@@ -6085,14 +6204,17 @@ void AdapterObserverProxy::DeviceAdded(
                         "<value of type ::bluetooth::mojom::DeviceInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAdapterObserver_DeviceAdded_Name, kFlags, 0, 0, nullptr);
@@ -6133,14 +6255,17 @@ void AdapterObserverProxy::DeviceChanged(
                         "<value of type ::bluetooth::mojom::DeviceInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAdapterObserver_DeviceChanged_Name, kFlags, 0, 0, nullptr);
@@ -6181,14 +6306,17 @@ void AdapterObserverProxy::DeviceRemoved(
                         "<value of type ::bluetooth::mojom::DeviceInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAdapterObserver_DeviceRemoved_Name, kFlags, 0, 0, nullptr);
@@ -6441,22 +6569,22 @@ bool AdapterObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kAdapterObserverValidationInfo[] = {
-    {&internal::AdapterObserver_PresentChanged_Params_Data::Validate,
+    { &internal::AdapterObserver_PresentChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AdapterObserver_PoweredChanged_Params_Data::Validate,
+    { &internal::AdapterObserver_PoweredChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AdapterObserver_DiscoverableChanged_Params_Data::Validate,
+    { &internal::AdapterObserver_DiscoverableChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AdapterObserver_DiscoveringChanged_Params_Data::Validate,
+    { &internal::AdapterObserver_DiscoveringChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AdapterObserver_DeviceAdded_Params_Data::Validate,
+    { &internal::AdapterObserver_DeviceAdded_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AdapterObserver_DeviceChanged_Params_Data::Validate,
+    { &internal::AdapterObserver_DeviceChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AdapterObserver_DeviceRemoved_Params_Data::Validate,
+    { &internal::AdapterObserver_DeviceRemoved_Params_Data::Validate,
      nullptr /* no response */},
 };
 

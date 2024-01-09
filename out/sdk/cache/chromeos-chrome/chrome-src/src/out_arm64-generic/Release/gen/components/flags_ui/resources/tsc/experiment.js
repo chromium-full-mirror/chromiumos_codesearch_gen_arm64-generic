@@ -48,10 +48,7 @@ function resetHighlights(element) {
     }
 }
 export class FlagsExperimentElement extends CustomElement {
-    constructor() {
-        super(...arguments);
-        this.feature_ = null;
-    }
+    feature_ = null;
     static get template() {
         return getTemplate();
     }

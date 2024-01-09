@@ -349,7 +349,7 @@ bool SellerWorklet_ScoreAd_Params_Data::Validate(
     return false;
 
   if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
-          object->score_ad_client, 17, validation_context)) {
+          object->score_ad_client, 18, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateHandleOrInterface(object->score_ad_client,

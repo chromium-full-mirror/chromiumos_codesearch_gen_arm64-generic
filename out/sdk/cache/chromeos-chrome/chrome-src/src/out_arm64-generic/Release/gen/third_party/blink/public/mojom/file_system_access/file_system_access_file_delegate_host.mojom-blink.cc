@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -158,7 +159,7 @@ uint32_t FileSystemAccessFileDelegateHost::SetLength_Sym::IPCStableHash() {
   return hash;
 }
 # endif // !BUILDFLAG(IS_FUCHSIA)
-bool FileSystemAccessFileDelegateHost::Read(int64_t offset, int32_t bytes_to_read, absl::optional<::mojo_base::BigBuffer>* out_data, ::base::File::Error* out_error, int32_t* out_bytes_read) {
+bool FileSystemAccessFileDelegateHost::Read(int64_t offset, int32_t bytes_to_read, std::optional<::mojo_base::BigBuffer>* out_data, ::base::File::Error* out_error, int32_t* out_bytes_read) {
   NOTREACHED();
   return false;
 }
@@ -178,7 +179,7 @@ class FileSystemAccessFileDelegateHost_Read_HandleSyncResponse
     : public mojo::MessageReceiver {
  public:
   FileSystemAccessFileDelegateHost_Read_HandleSyncResponse(
-      bool* result, absl::optional<::mojo_base::BigBuffer>* out_data, ::base::File::Error* out_error, int32_t* out_bytes_read)
+      bool* result, std::optional<::mojo_base::BigBuffer>* out_data, ::base::File::Error* out_error, int32_t* out_bytes_read)
       : result_(result), out_data_(out_data), out_error_(out_error), out_bytes_read_(out_bytes_read) {
     DCHECK(!*result_);
   }
@@ -189,7 +190,7 @@ class FileSystemAccessFileDelegateHost_Read_HandleSyncResponse
   bool Accept(mojo::Message* message) override;
  private:
   bool* result_;
-  absl::optional<::mojo_base::BigBuffer>* out_data_;
+  std::optional<::mojo_base::BigBuffer>* out_data_;
   ::base::File::Error* out_error_;
   int32_t* out_bytes_read_;};
 
@@ -311,7 +312,7 @@ FileSystemAccessFileDelegateHostProxy::FileSystemAccessFileDelegateHostProxy(moj
     : receiver_(receiver) {
 }
 bool FileSystemAccessFileDelegateHostProxy::Read(
-    int64_t param_offset, int32_t param_bytes_to_read, absl::optional<::mojo_base::BigBuffer>* out_param_data, ::base::File::Error* out_param_error, int32_t* out_param_bytes_read) {
+    int64_t param_offset, int32_t param_bytes_to_read, std::optional<::mojo_base::BigBuffer>* out_param_data, ::base::File::Error* out_param_error, int32_t* out_param_bytes_read) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT_BEGIN1(
     "mojom", "Call blink::mojom::FileSystemAccessFileDelegateHost::Read (sync)", "input_parameters",
@@ -327,15 +328,18 @@ bool FileSystemAccessFileDelegateHostProxy::Read(
 #else
   TRACE_EVENT0("mojom", "FileSystemAccessFileDelegateHost::Read");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemAccessFileDelegateHost_Read_Name, kFlags, 0, 0, nullptr);
@@ -363,7 +367,7 @@ bool FileSystemAccessFileDelegateHostProxy::Read(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("data"), out_param_data,
-                        "<value of type absl::optional<::mojo_base::BigBuffer>>");
+                        "<value of type std::optional<::mojo_base::BigBuffer>>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("error"), out_param_error,
                         "<value of type ::base::File::Error>");
@@ -390,14 +394,17 @@ void FileSystemAccessFileDelegateHostProxy::Read(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemAccessFileDelegateHost_Read_Name, kFlags, 0, 0, nullptr);
@@ -434,15 +441,18 @@ bool FileSystemAccessFileDelegateHostProxy::Write(
 #else
   TRACE_EVENT0("mojom", "FileSystemAccessFileDelegateHost::Write");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemAccessFileDelegateHost_Write_Name, kFlags, 0, 0, nullptr);
@@ -499,14 +509,17 @@ void FileSystemAccessFileDelegateHostProxy::Write(
                         "<value of type ::mojo::ScopedDataPipeConsumerHandle>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemAccessFileDelegateHost_Write_Name, kFlags, 0, 0, nullptr);
@@ -538,15 +551,18 @@ bool FileSystemAccessFileDelegateHostProxy::GetLength(
 #else
   TRACE_EVENT0("mojom", "FileSystemAccessFileDelegateHost::GetLength");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemAccessFileDelegateHost_GetLength_Name, kFlags, 0, 0, nullptr);
@@ -586,14 +602,17 @@ void FileSystemAccessFileDelegateHostProxy::GetLength(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::FileSystemAccessFileDelegateHost::GetLength");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemAccessFileDelegateHost_GetLength_Name, kFlags, 0, 0, nullptr);
@@ -625,15 +644,18 @@ bool FileSystemAccessFileDelegateHostProxy::SetLength(
 #else
   TRACE_EVENT0("mojom", "FileSystemAccessFileDelegateHost::SetLength");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemAccessFileDelegateHost_SetLength_Name, kFlags, 0, 0, nullptr);
@@ -678,14 +700,17 @@ void FileSystemAccessFileDelegateHostProxy::SetLength(
                         "<value of type int64_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemAccessFileDelegateHost_SetLength_Name, kFlags, 0, 0, nullptr);
@@ -750,7 +775,7 @@ class FileSystemAccessFileDelegateHost_Read_ProxyToResponder : public ::mojo::in
 #endif
 
   void Run(
-      absl::optional<::mojo_base::BigBuffer> in_data, ::base::File::Error in_error, int32_t in_bytes_read);
+      std::optional<::mojo_base::BigBuffer> in_data, ::base::File::Error in_error, int32_t in_bytes_read);
 };
 
 bool FileSystemAccessFileDelegateHost_Read_ForwardToCallback::Accept(
@@ -763,7 +788,7 @@ bool FileSystemAccessFileDelegateHost_Read_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<::mojo_base::BigBuffer> p_data{};
+  std::optional<::mojo_base::BigBuffer> p_data{};
   ::base::File::Error p_error{};
   int32_t p_bytes_read{};
   FileSystemAccessFileDelegateHost_Read_ResponseParamsDataView input_data_view(params, message);
@@ -790,7 +815,7 @@ std::move(p_bytes_read));
 }
 
 void FileSystemAccessFileDelegateHost_Read_ProxyToResponder::Run(
-    absl::optional<::mojo_base::BigBuffer> in_data, ::base::File::Error in_error, int32_t in_bytes_read) {
+    std::optional<::mojo_base::BigBuffer> in_data, ::base::File::Error in_error, int32_t in_bytes_read) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply blink::mojom::FileSystemAccessFileDelegateHost::Read", "async_response_parameters",
@@ -798,7 +823,7 @@ void FileSystemAccessFileDelegateHost_Read_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("data"), in_data,
-                        "<value of type absl::optional<::mojo_base::BigBuffer>>");
+                        "<value of type std::optional<::mojo_base::BigBuffer>>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("error"), in_error,
                         "<value of type ::base::File::Error>");
@@ -810,7 +835,8 @@ void FileSystemAccessFileDelegateHost_Read_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemAccessFileDelegateHost_Read_Name, kFlags, 0, 0, nullptr);
@@ -852,7 +878,7 @@ bool FileSystemAccessFileDelegateHost_Read_HandleSyncResponse::Accept(
           message->mutable_payload());
   
   bool success = true;
-  absl::optional<::mojo_base::BigBuffer> p_data{};
+  std::optional<::mojo_base::BigBuffer> p_data{};
   ::base::File::Error p_error{};
   int32_t p_bytes_read{};
   FileSystemAccessFileDelegateHost_Read_ResponseParamsDataView input_data_view(params, message);
@@ -975,7 +1001,8 @@ void FileSystemAccessFileDelegateHost_Write_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemAccessFileDelegateHost_Write_Name, kFlags, 0, 0, nullptr);
@@ -1131,7 +1158,8 @@ void FileSystemAccessFileDelegateHost_GetLength_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemAccessFileDelegateHost_GetLength_Name, kFlags, 0, 0, nullptr);
@@ -1280,7 +1308,8 @@ void FileSystemAccessFileDelegateHost_SetLength_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemAccessFileDelegateHost_SetLength_Name, kFlags, 0, 0, nullptr);
@@ -1486,16 +1515,16 @@ std::move(p_length), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kFileSystemAccessFileDelegateHostValidationInfo[] = {
-    {&internal::FileSystemAccessFileDelegateHost_Read_Params_Data::Validate,
+    { &internal::FileSystemAccessFileDelegateHost_Read_Params_Data::Validate,
      &internal::FileSystemAccessFileDelegateHost_Read_ResponseParams_Data::Validate},
-    {&internal::FileSystemAccessFileDelegateHost_Write_Params_Data::Validate,
+    { &internal::FileSystemAccessFileDelegateHost_Write_Params_Data::Validate,
      &internal::FileSystemAccessFileDelegateHost_Write_ResponseParams_Data::Validate},
-    {&internal::FileSystemAccessFileDelegateHost_GetLength_Params_Data::Validate,
+    { &internal::FileSystemAccessFileDelegateHost_GetLength_Params_Data::Validate,
      &internal::FileSystemAccessFileDelegateHost_GetLength_ResponseParams_Data::Validate},
-    {&internal::FileSystemAccessFileDelegateHost_SetLength_Params_Data::Validate,
+    { &internal::FileSystemAccessFileDelegateHost_SetLength_Params_Data::Validate,
      &internal::FileSystemAccessFileDelegateHost_SetLength_ResponseParams_Data::Validate},
 };
 
@@ -1543,18 +1572,18 @@ FileSystemAccessFileDelegateHostAsyncWaiter::FileSystemAccessFileDelegateHostAsy
 FileSystemAccessFileDelegateHostAsyncWaiter::~FileSystemAccessFileDelegateHostAsyncWaiter() = default;
 
 void FileSystemAccessFileDelegateHostAsyncWaiter::Read(
-    int64_t offset, int32_t bytes_to_read, absl::optional<::mojo_base::BigBuffer>* out_data, ::base::File::Error* out_error, int32_t* out_bytes_read) {
+    int64_t offset, int32_t bytes_to_read, std::optional<::mojo_base::BigBuffer>* out_data, ::base::File::Error* out_error, int32_t* out_bytes_read) {
   base::RunLoop loop;
   proxy_->Read(std::move(offset),std::move(bytes_to_read),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<::mojo_base::BigBuffer>* out_data
+             std::optional<::mojo_base::BigBuffer>* out_data
 ,
              ::base::File::Error* out_error
 ,
              int32_t* out_bytes_read
 ,
-             absl::optional<::mojo_base::BigBuffer> data,
+             std::optional<::mojo_base::BigBuffer> data,
              ::base::File::Error error,
              int32_t bytes_read) {*out_data = std::move(data);*out_error = std::move(error);*out_bytes_read = std::move(bytes_read);
             loop->Quit();

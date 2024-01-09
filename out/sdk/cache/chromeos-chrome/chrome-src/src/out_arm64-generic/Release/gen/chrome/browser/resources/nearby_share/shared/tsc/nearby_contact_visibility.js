@@ -511,7 +511,7 @@ export class NearbyContactVisibilityElement extends NearbyContactVisibilityEleme
         // "contact".
         sendWithPromise('getPluralString', 'nearbyShareContactVisibilityNumUnreachable', this.numUnreachable_)
             .then((labelTemplate) => {
-            this.numUnreachableMessage_ = loadTimeData.substituteString(labelTemplate, this.numUnreachable_);
+            this.numUnreachableMessage_ = loadTimeData.substituteString(labelTemplate, this.numUnreachable_, this.i18n('nearbyShareFeatureName'));
         });
     }
     getVisibilityDescription_() {

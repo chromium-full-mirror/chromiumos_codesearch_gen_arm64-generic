@@ -1,4 +1,4 @@
-import { b as assert, i as isRTL, e as FittingType, j as PdfViewerBaseElement, l as assertNotReached, c as PluginController, s as shouldIgnoreKeyEvents, k as hasCtrlModifier } from './shared.rollup.js';
+import { b as assert, i as isRTL, e as FittingType, j as PdfViewerBaseElement, m as assertNotReached, c as PluginController, s as shouldIgnoreKeyEvents, l as hasCtrlModifierOnly } from './shared.rollup.js';
 export { C as CrIconButtonElement, O as OpenPdfParamsParser } from './shared.rollup.js';
 import { html, PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { serializeKeyEvent, deserializeKeyEvent, LoadState } from './pdf_scripting_api.js';
@@ -631,7 +631,7 @@ class PdfViewerPrintElement extends PdfViewerBaseElement {
             case 'Escape':
                 break; // Ensure escape falls through to the print-preview handler.
             case 'a':
-                if (hasCtrlModifier(e)) {
+                if (hasCtrlModifierOnly(e)) {
                     this.pluginController_.selectAll();
                     // Since we do selection ourselves.
                     e.preventDefault();

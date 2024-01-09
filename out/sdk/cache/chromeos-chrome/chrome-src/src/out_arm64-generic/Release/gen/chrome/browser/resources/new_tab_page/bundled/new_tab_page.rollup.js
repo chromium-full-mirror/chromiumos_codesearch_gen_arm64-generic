@@ -1,13 +1,13 @@
 import { PageHandler, PageCallbackRouter, SideType, NavigationPredictor, SelectionLineState } from 'chrome://resources/cr_components/omnibox/omnibox.mojom-webui.js';
-import { g as getFaviconForPageURL, a as assertNotReached, s as sanitizeInnerHtml, b as assert, d as decodeString16$1, h as hasKeyModifiers, m as mojoString16, W as WindowProxy, E as EventTracker, N as NewTabPageProxy, c as skColorToRgba, $ as $$, i as isWindows, e as strictQuery, r as recordDuration, F as FocusOutlineManager, f as recordVoiceAction, A as Action, j as recordLoadDuration, k as hexColorToSkColor, C as Command, B as BrowserCommandProxy, l as CustomizeDialogPage } from './shared.rollup.js';
-export { n as CrAutoImgElement, I as IframeElement, y as VoiceError, t as checkTransparency, x as createScrollBorders, u as isBMP, v as isPNG, w as isWebP, p as processFile, o as recordOccurence, q as recordPerdecage } from './shared.rollup.js';
-import { html, PolymerElement, dedupingMixin } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
-export { DomIf } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { g as getFaviconForPageURL, a as assertNotReached, s as sanitizeInnerHtml, b as assert, d as decodeString16$1, h as hasKeyModifiers, m as mojoString16, W as WindowProxy, E as EventTracker, N as NewTabPageProxy, c as skColorToRgba, $ as $$, e as strictQuery, H as HelpBubbleMixin, r as recordDuration, F as FocusOutlineManager, f as recordVoiceAction, A as Action, i as recordLoadDuration, j as hexColorToSkColor, C as Command, B as BrowserCommandProxy, k as CustomizeDialogPage } from './shared.rollup.js';
+export { l as CrAutoImgElement, I as IframeElement, x as VoiceError, q as checkTransparency, w as createScrollBorders, t as isBMP, u as isPNG, v as isWebP, p as processFile, n as recordOccurence, o as recordPerdecage } from './shared.rollup.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
+import { html, PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+export { DomIf } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { mojo } from 'chrome://resources/mojo/mojo/public/js/bindings.js';
 import { TimeDeltaSpec } from 'chrome://resources/mojo/mojo/public/mojom/base/time.mojom-webui.js';
 import './strings.m.js';
-import { DoodleShareChannel, DoodleImageType, NtpBackgroundImageSource, CustomizeChromeSection } from './new_tab_page.mojom-webui.js';
+import { DoodleShareChannel, DoodleImageType, IphFeature, NtpBackgroundImageSource, CustomizeChromeSection } from './new_tab_page.mojom-webui.js';
 import { PageCallbackRouter as PageCallbackRouter$1, PageHandler as PageHandler$1 } from 'chrome://resources/cr_components/color_change_listener/color_change_listener.mojom-webui.js';
 
 // Copyright 2020 The Chromium Authors
@@ -18,13 +18,13 @@ import { PageCallbackRouter as PageCallbackRouter$1, PageHandler as PageHandler$
  * handler interface used for bidirectional communication between the
  * <ntp-realbox> or the <cr-realbox-dropdown> and the browser.
  */
-let instance$5 = null;
+let instance$4 = null;
 class RealboxBrowserProxy {
     static getInstance() {
-        return instance$5 || (instance$5 = new RealboxBrowserProxy());
+        return instance$4 || (instance$4 = new RealboxBrowserProxy());
     }
     static setInstance(newInstance) {
-        instance$5 = newInstance;
+        instance$4 = newInstance;
     }
     constructor() {
         this.handler = PageHandler.getRemote();
@@ -33,8 +33,8 @@ class RealboxBrowserProxy {
     }
 }
 
-function getTemplate$8() {
-    return html `<!--_html_template_start_--><style>:host{align-items:center;display:flex;flex-shrink:0;justify-content:center;width:32px}#container{align-items:center;aspect-ratio:1/1;border-radius:var(--cr-realbox-icon-border-radius,8px);display:flex;justify-content:center;overflow:hidden;position:relative;width:100%}:host-context(cr-realbox-match[has-image]) #container{background-color:var(--cr-realbox-icon-container-bg-color,var(--container-bg-color))}:host-context(cr-realbox-match[is-rich-suggestion]:not([has-image])) #container{background-color:var(--google-blue-600);border-radius:50%;height:24px;width:24px}#image{display:none;height:100%;object-fit:contain;width:100%}:host-context(cr-realbox-match[has-image]) #image{display:initial}:host([is-answer]) #image{max-height:24px;max-width:24px}#imageOverlay{display:none}:host-context(cr-realbox-match[is-entity-suggestion][has-image]) #imageOverlay{background:#000;display:block;inset:0;opacity:.05;position:absolute}#icon{-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:16px;background-color:var(--color-realbox-search-icon-background);background-position:center center;background-repeat:no-repeat;background-size:16px;height:24px;width:24px}:host-context(cr-realbox-match[has-image]) #icon{display:none}:host-context(cr-realbox-match[is-rich-suggestion]) #icon{background-color:#fff}:host([in-searchbox][background-image*='//resources/cr_components/omnibox/icons/google_g.svg']) #icon{background-size:24px}:host([in-searchbox][mask-image*='//resources/images/icon_search.svg']) #icon{-webkit-mask-size:20px}</style>
+function getTemplate$7() {
+    return html `<!--_html_template_start_--><style>:host{align-items:center;display:flex;flex-shrink:0;justify-content:center;width:32px}#container{align-items:center;aspect-ratio:1/1;border-radius:var(--cr-realbox-icon-border-radius,8px);display:flex;justify-content:center;overflow:hidden;position:relative;width:100%}:host([expanded-state-icons-chrome-refresh]) #container{border-radius:var(--cr-realbox-icon-border-radius,4px)}:host-context(cr-realbox-match[has-image]):host(:not([is-weather-answer])) #container{background-color:var(--cr-realbox-icon-container-bg-color,var(--container-bg-color))}:host-context(cr-realbox-match[is-rich-suggestion]:not([has-image])):host(:not([has-icon-container-background])) #container{background-color:var(--google-blue-600);border-radius:50%;height:24px;width:24px}:host([has-icon-container-background]:not([in-searchbox])) #container{background-color:var(--color-realbox-answer-icon-background)}:host([is-weather-answer]:not([in-searchbox])) #container{background-color:var(--color-realbox-results-background)}#image{display:none;height:100%;object-fit:contain;width:100%}:host-context(cr-realbox-match[has-image]) #image{display:initial}:host([is-answer]) #image{max-height:24px;max-width:24px}#imageOverlay{display:none}:host-context(cr-realbox-match[is-entity-suggestion][has-image]) #imageOverlay{background:#000;display:block;inset:0;opacity:.05;position:absolute}#icon{-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:16px;background-color:var(--color-realbox-search-icon-background);background-position:center center;background-repeat:no-repeat;background-size:16px;height:24px;width:24px}:host-context(cr-realbox-match[has-image]) #icon{display:none}:host-context(cr-realbox-match[is-rich-suggestion]) #icon{background-color:#fff}:host([in-searchbox][background-image*='//resources/cr_components/omnibox/icons/google_g.svg']) #icon{background-size:24px}:host([in-searchbox][mask-image*='//resources/images/icon_search.svg']) #icon{-webkit-mask-size:20px}:host([in-searchbox][mask-image*='//resources/cr_components/omnibox/icons/search_cr23.svg']) #icon{-webkit-mask-size:20px}:host([has-icon-container-background]:not([in-searchbox])) #icon{background-color:var(--color-realbox-answer-icon-foreground)}</style>
 <div id="container" style="--container-bg-color:[[containerBgColor_(match.imageDominantColor, imageLoading_) ]]">
   <img id="image" src="[[imageSrc_]]" on-load="onImageLoad_">
   <div id="imageOverlay"></div>
@@ -47,6 +47,7 @@ function getTemplate$8() {
 // Copyright 2020 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
+const CALCULATOR = 'search-calculator-answer';
 const DOCUMENT_MATCH_TYPE = 'document';
 const HISTORY_CLUSTER_MATCH_TYPE = 'history-cluster';
 const PEDAL = 'pedal';
@@ -57,7 +58,7 @@ class RealboxIconElement extends PolymerElement {
         return 'cr-realbox-icon';
     }
     static get template() {
-        return getTemplate$8();
+        return getTemplate$7();
     }
     static get properties() {
         return {
@@ -78,6 +79,17 @@ class RealboxIconElement extends PolymerElement {
                 type: String,
                 value: '',
             },
+            expandedStateIconsChromeRefresh: {
+                type: Boolean,
+                value: () => loadTimeData.getBoolean('realboxCr23ExpandedStateIcons'),
+                reflectToAttribute: true,
+            },
+            /**  Whether icon should have a background. */
+            hasIconContainerBackground: {
+                type: Boolean,
+                computed: `computeHasIconContainerBackground_(match.*, isWeatherAnswer)`,
+                reflectToAttribute: true,
+            },
             /**
              * Whether icon is in searchbox or not. Used to prevent
              * the match icon of rich suggestions from showing in the context of the
@@ -95,6 +107,15 @@ class RealboxIconElement extends PolymerElement {
             isAnswer: {
                 type: Boolean,
                 computed: `computeIsAnswer_(match)`,
+                reflectToAttribute: true,
+            },
+            /**
+             * Whether suggestion answer is of answer type weather. Weather answers
+             * don't have the same background as other suggestion answers.
+             */
+            isWeatherAnswer: {
+                type: Boolean,
+                computed: `computeIsWeatherAnswer_(match)`,
                 reflectToAttribute: true,
             },
             /** Used as a mask image on #icon if |backgroundImage| is empty. */
@@ -156,6 +177,9 @@ class RealboxIconElement extends PolymerElement {
     computeIsAnswer_() {
         return this.match && !!this.match.answer;
     }
+    computeIsWeatherAnswer_() {
+        return this.match?.isWeatherAnswerSuggestion || false;
+    }
     computeMaskImage_() {
         if (this.match && (!this.match.isRichSuggestion || !this.inSearchbox)) {
             return `url(${this.match.iconUrl})`;
@@ -165,7 +189,15 @@ class RealboxIconElement extends PolymerElement {
         }
     }
     computeIconStyle_() {
-        // Use a background image if applicable. Otherwise use a mask image.
+        if (this.expandedStateIconsChromeRefresh) {
+            if (this.showBackgroundImage_()) {
+                return `background-image: ${this.backgroundImage};` +
+                    `background-color: transparent;`;
+            }
+            else {
+                return `-webkit-mask-image: ${this.maskImage};`;
+            }
+        }
         if (this.backgroundImage) {
             return `background-image: ${this.backgroundImage};` +
                 `background-color: transparent;`;
@@ -173,6 +205,37 @@ class RealboxIconElement extends PolymerElement {
         else {
             return `-webkit-mask-image: ${this.maskImage};`;
         }
+    }
+    // The following icons should not use the GM3 foreground color
+    // TODO(niharm): Refactor logic in C++ and send via mojom in
+    // "chrome/browser/ui/webui/realbox/realbox_handler.cc".
+    showBackgroundImage_() {
+        const imageUrl = this.backgroundImage;
+        if (!imageUrl) {
+            return false;
+        }
+        const themedIcons = [
+            'calendar',
+            'drive_docs',
+            'drive_folder',
+            'drive_form',
+            'drive_image',
+            'drive_logo',
+            'drive_pdf',
+            'drive_sheets',
+            'drive_slides',
+            'drive_video',
+            'google_g',
+            'note',
+            'sites',
+        ];
+        for (const icon of themedIcons) {
+            if (imageUrl ===
+                'url(//resources/cr_components/omnibox/icons/' + icon + '.svg)') {
+                return true;
+            }
+        }
+        return false;
     }
     computeImageSrc_() {
         const imageUrl = this.match?.imageUrl;
@@ -200,13 +263,27 @@ class RealboxIconElement extends PolymerElement {
     onImageLoad_() {
         this.imageLoading_ = false;
     }
+    // All pedals and AiS except weather should be have a background that
+    // matches theme.
+    // TODO(niharm): Refactor logic in C++ and send via mojom in
+    // "chrome/browser/ui/webui/realbox/realbox_handler.cc".
+    computeHasIconContainerBackground_() {
+        if (this.expandedStateIconsChromeRefresh && this.match) {
+            return this.match.type === PEDAL ||
+                this.match.type === HISTORY_CLUSTER_MATCH_TYPE ||
+                this.match.type === CALCULATOR ||
+                (!!this.match.answer && !this.isWeatherAnswer);
+        }
+        return false;
+    }
 }
 customElements.define(RealboxIconElement.is, RealboxIconElement);
 
-function getTemplate$7() {
-    return html `<!--_html_template_start_--><style import="cr-shared-style">:host{--action-height:32px;border:solid 1px var(--google-grey-400);border-radius:calc(var(--action-height)/ 2);display:flex;height:var(--action-height);min-width:0;outline:0;padding-inline-end:16px;padding-inline-start:12px}.contents{align-items:center;display:flex;min-width:0}#action-icon{flex-shrink:0;height:var(--cr-icon-size);width:var(--cr-icon-size)}#text{overflow:hidden;padding-inline-start:8px;text-overflow:ellipsis;white-space:nowrap}:host(:hover){background-color:var(--action-bg-hovered,rgba(var(--google-grey-900-rgb),.1))}:host-context(.focus-outline-visible):host(:focus){border:solid 1px transparent;box-shadow:inset 0 0 0 2px var(--google-blue-600)}</style>
-<div class="contents" title="[[tooltip_]]" on-click="onActionClick_" on-keydown="onActionKeyDown_">
-  <img id="action-icon" src$="[[action.iconUrl]]">
+function getTemplate$6() {
+    return html `<!--_html_template_start_--><style import="cr-shared-style">:host{--action-height:32px;border:solid 1px var(--google-grey-400);border-radius:calc(var(--action-height)/ 2);display:flex;height:var(--action-height);min-width:0;outline:0;padding-inline-end:16px;padding-inline-start:12px}:host-context([expanded-state-layout-chrome-refresh]){--action-height:28px;border:solid 1px var(--color-realbox-results-action-chip);border-radius:8px;padding-inline-end:8px;padding-inline-start:8px}.contents{align-items:center;display:flex;min-width:0}#action-icon{flex-shrink:0;height:var(--cr-icon-size);width:var(--cr-icon-size)}:host-context([expanded-state-layout-chrome-refresh]) #action-icon{-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:15px;background-color:var(--color-realbox-results-action-chip-icon);background-position:center center;background-repeat:no-repeat;height:16px;width:16px}#text{overflow:hidden;padding-inline-start:8px;text-overflow:ellipsis;white-space:nowrap}:host(:hover){background-color:var(--color-realbox-results-background-hovered)}:host-context(.focus-outline-visible):host(:focus){border:solid 1px transparent;box-shadow:inset 0 0 0 2px var(--google-blue-600)}:host-context([expanded-state-layout-chrome-refresh]):host(:focus){margin:2px;margin-inline-end:2px;border:solid 1px var(--color-realbox-results-action-chip);box-shadow:none}</style>
+<div class="contents" title="[[tooltip_]]" on-click="onActionClick_" on-keydown="onActionKeyDown_" on-mousedown="onActionMouseDown_">
+  <div id="action-icon" style$="-webkit-mask-image: url([[action.iconUrl]])" hidden="[[!showCr23ActionIcon_()]]"></div>
+  <img id="action-icon" src$="[[action.iconUrl]]" hidden="[[showCr23ActionIcon_()]]">
   <div id="text" inner-h-t-m-l="[[hintHtml_]]"></div>
 </div>
 
@@ -249,7 +326,7 @@ class RealboxActionElement extends PolymerElement {
         return 'cr-realbox-action';
     }
     static get template() {
-        return getTemplate$7();
+        return getTemplate$6();
     }
     static get properties() {
         return {
@@ -313,6 +390,16 @@ class RealboxActionElement extends PolymerElement {
             this.onActionClick_(e);
         }
     }
+    onActionMouseDown_(e) {
+        if (loadTimeData.getBoolean('realboxCr23ExpandedStateLayout')) {
+            e.preventDefault(); // Prevents default browser action (focus).
+        }
+    }
+    showCr23ActionIcon_() {
+        // Action icons are webkit-mask-image when chrome refresh expanded state
+        // layout is enabled.
+        return loadTimeData.getBoolean('realboxCr23ExpandedStateLayout');
+    }
     //============================================================================
     // Helpers
     //============================================================================
@@ -341,14 +428,14 @@ const styleMod = document.createElement('dom-module');
 styleMod.appendChild(html `
   <template>
     <style>
-.action-icon{--cr-icon-button-active-background-color:var(--color-new-tab-page-active-background);--cr-icon-button-fill-color:var(--color-realbox-results-icon);--cr-icon-button-focus-outline-color:var(--color-realbox-results-icon-focused-outline);--cr-icon-button-hover-background-color:var(--color-realbox-results-control-background-hovered);--cr-icon-button-icon-size:16px;--cr-icon-button-margin-end:0;--cr-icon-button-margin-start:0;--cr-icon-button-size:24px}
+.action-icon{--cr-icon-button-active-background-color:var(--color-new-tab-page-active-background);--cr-icon-button-fill-color:var(--color-realbox-results-icon);--cr-icon-button-focus-outline-color:var(--color-realbox-results-icon-focused-outline);--cr-icon-button-hover-background-color:var(--color-realbox-results-background-hovered);--cr-icon-button-icon-size:16px;--cr-icon-button-margin-end:0;--cr-icon-button-margin-start:0;--cr-icon-button-size:24px}
     </style>
   </template>
 `.content);
 styleMod.register('realbox-dropdown-shared-style');
 
-function getTemplate$6() {
-    return html `<!--_html_template_start_--><style include="cr-hidden-style cr-icons realbox-dropdown-shared-style">:host{display:block;outline:0}#action{margin-inline-end:8px}.container{align-items:center;cursor:default;display:flex;overflow:hidden;padding-bottom:6px;padding-inline-end:16px;padding-inline-start:12px;padding-top:6px;position:relative}.container+.container{flex-direction:row;margin-inline-start:40px;padding-top:0;padding-bottom:12px}.actions.inlined{flex-grow:1;align-self:center;padding-top:0;padding-bottom:0}#contents,#description{overflow:hidden;text-overflow:ellipsis}#ellipsis{inset-inline-end:0;position:absolute}#focus-indicator{background-color:var(--google-blue-600);border-radius:3px;display:none;height:100%;margin-inline-start:-15px;position:absolute;width:6px}:host(:is(:focus-visible,[selected]:not(:focus-within)):not([side-type-class_=secondary-side])) #focus-indicator{display:block}#prefix{opacity:0}#separator{white-space:pre}#tail-suggest-prefix{position:relative}#text-container{align-items:center;display:flex;flex-grow:1;overflow:hidden;padding-inline-end:8px;padding-inline-start:8px;white-space:nowrap}#text-container.simplified{flex-grow:0}:host([is-rich-suggestion]) #text-container{align-items:flex-start;flex-direction:column}:host([is-rich-suggestion]) #separator{display:none}:host([is-rich-suggestion]) #contents,:host([is-rich-suggestion]) #description{width:100%}:host([is-entity-suggestion][has-image]) #description{font-size:.875em}.match{font-weight:600}.dim,:host([is-entity-suggestion]) #description{color:var(--color-realbox-results-foreground-dimmed)}:host-context(cr-realbox-match:-webkit-any(:focus-within,[selected])) .dim,:host-context(cr-realbox-match:-webkit-any(:focus-within,[selected])):host([is-entity-suggestion]) #description{color:var(--color-realbox-results-dim-selected)}.url{color:var(--color-realbox-results-url)}:host-context(cr-realbox-match:-webkit-any(:focus-within,[selected])) .url{color:var(--color-realbox-results-url-selected)}#remove{margin-inline-end:1px;opacity:0}:host-context(cr-realbox-match:hover) #remove{opacity:1}:host-context(cr-realbox-match:-webkit-any(:focus-within,[selected])) #remove{--cr-icon-button-fill-color:var(--color-realbox-results-icon-selected);opacity:1}.selected{box-shadow:inset 0 0 0 2px var(--color-realbox-results-icon-focused-outline)}:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]){border-radius:16px}:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]) .container{box-sizing:border-box;flex-direction:column;padding:6px;padding-block-end:16px;width:102px}:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]) .focus-indicator{display:none}:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]) #icon{--cr-realbox-icon-border-radius:12px;--cr-realbox-icon-container-bg-color:transparent;height:90px;margin-block-end:8px;width:90px}:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]) #text-container{padding:0;white-space:normal;width:100%}:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]) #contents,:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]) #description{-webkit-box-orient:vertical;-webkit-line-clamp:2;display:-webkit-box;font-weight:400;overflow:hidden}:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]) #contents{font-size:13px;line-height:20px;margin-block-end:4px}:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]) #description{font-size:12px;line-height:16px}:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]) #remove{display:none}</style>
+function getTemplate$5() {
+    return html `<!--_html_template_start_--><style include="cr-hidden-style cr-icons realbox-dropdown-shared-style">:host{display:block;outline:0}#action{margin-inline-end:8px}:host-context([expanded-state-layout-chrome-refresh]) #action{margin-inline-end:2px}#actions-focus-border{overflow:hidden}#actions-focus-border:focus-within,#actions-focus-border:focus-within:has(#action:active){outline:2px solid var(--color-realbox-results-action-chip-focus-outline);border-radius:10px;margin-inline-start:-2px}#actions-focus-border:has(#action:active){outline:0}.container{align-items:center;cursor:default;display:flex;overflow:hidden;padding-bottom:6px;padding-inline-end:16px;padding-inline-start:12px;padding-top:6px;position:relative}.container+.container{flex-direction:row;margin-inline-start:40px;padding-top:0;padding-bottom:12px}:host([has-outset-action-focus-ring]:not([realbox-consistent-row-height])) .container{height:38px;padding-top:3px;padding-bottom:3px}:host([realbox-consistent-row-height]) .container{height:38px;padding-top:5px;padding-bottom:5px}:host-context([chrome-refresh-hover-shape]) .container:not(.actions){margin-inline-end:16px;border-top-right-radius:24px;border-bottom-right-radius:24px}:host-context([chrome-refresh-hover-shape]):host-context([has-secondary-side]):host-context([can-show-secondary-side]) .container:not(.actions){margin-inline-end:0}:host-context([chrome-refresh-hover-shape]):host([side-type-class_=primary-side]) .container:not(.actions):hover{background-color:var(--color-realbox-results-background-hovered)}:host-context([chrome-refresh-hover-shape]):host(:is(:focus-visible,[selected]):not([side-type-class_=secondary-side])) .container:not(.actions){background-color:var(--color-realbox-results-background-hovered)}.actions.inlined{align-self:center;flex-grow:1;flex-shrink:0;padding-bottom:0;padding-inline-end:0;padding-inline-start:0;padding-top:0}:host([has-action]) .actions.inlined{padding-inline-end:8px;padding-inline-start:4px}#contents,#description{overflow:hidden;text-overflow:ellipsis}#ellipsis{inset-inline-end:0;position:absolute}#focus-indicator{background-color:var(--color-realbox-results-focus-indicator);border-radius:3px;display:none;height:100%;margin-inline-start:-15px;position:absolute;width:6px}:host-context([expanded-state-layout-chrome-refresh]) #focus-indicator{width:7px}:host(:is(:focus-visible,[selected]:not(:focus-within)):not([side-type-class_=secondary-side])) #focus-indicator{display:block}#prefix{opacity:0}#separator{white-space:pre}#tail-suggest-prefix{position:relative}#text-container{align-items:center;display:flex;flex-grow:1;overflow:hidden;padding-inline-end:8px;padding-inline-start:8px;white-space:nowrap}:host([has-action]) #text-container{padding-inline-end:4px}#text-container.simplified{flex-grow:0}:host([is-rich-suggestion]) #text-container{align-items:flex-start;flex-direction:column}:host([is-rich-suggestion]) #separator{display:none}:host([is-rich-suggestion]) #contents,:host([is-rich-suggestion]) #description{width:100%}:host([is-entity-suggestion][has-image]) #description{font-size:.875em}.match{font-weight:600}#description:has(.dim),.dim,:host([is-entity-suggestion]) #description{color:var(--color-realbox-results-foreground-dimmed)}:host-context(cr-realbox-match:-webkit-any(:focus-within,[selected])) .dim,:host-context(cr-realbox-match:-webkit-any(:focus-within,[selected])):host([is-entity-suggestion]) #description{color:var(--color-realbox-results-dim-selected)}#description:has(.url),.url{color:var(--color-realbox-results-url)}:host-context(cr-realbox-match:-webkit-any(:focus-within,[selected])) .url{color:var(--color-realbox-results-url-selected)}#remove{--cr-icon-button-fill-color:var(--color-realbox-results-icon-selected);display:none;margin-inline-end:1px}.container:hover #remove{display:inline-flex}:host-context(cr-realbox-match:-webkit-any(:focus-within,[selected])) #remove{display:inline-flex}.selected{box-shadow:inset 0 0 0 2px var(--color-realbox-results-icon-focused-outline)}:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]){border-radius:16px}:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]) .container{box-sizing:border-box;flex-direction:column;margin-inline-end:0;padding:6px;padding-block-end:16px;width:102px;height:auto}:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]) .focus-indicator{display:none}:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]) #icon{--cr-realbox-icon-border-radius:12px;--cr-realbox-icon-container-bg-color:transparent;height:90px;margin-block-end:8px;width:90px}:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]) #text-container{padding:0;white-space:normal;width:100%}:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]) #contents,:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]) #description{-webkit-box-orient:vertical;-webkit-line-clamp:2;display:-webkit-box;font-weight:400;overflow:hidden}:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]) #contents{font-size:13px;line-height:20px;margin-block-end:4px}:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]) #description{font-size:12px;line-height:16px}:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]) #remove{display:none}</style>
 <div class="container" aria-hidden="true">
   <div id="focus-indicator"></div>
   <cr-realbox-icon id="icon" match="[[match]]"></cr-realbox-icon>
@@ -364,7 +451,11 @@ function getTemplate$6() {
   </div>
   <div class="actions container inlined" aria-hidden="true" hidden="[[!showActionsInlined_()]]">
     <template is="dom-repeat" items="[[match.actions]]">
-      <cr-realbox-action id="action" action="[[item]]" action-index="[[actionIndex_(item)]]" on-execute-action="onExecuteAction_" tabindex="1">
+      <div id="actions-focus-border" hidden="[[!expandedStateIconsChromeRefresh]]">
+        <cr-realbox-action id="action" action="[[item]]" action-index="[[actionIndex_(item)]]" on-execute-action="onExecuteAction_" tabindex="1">
+        </cr-realbox-action>
+      </div>
+      <cr-realbox-action id="action" action="[[item]]" action-index="[[actionIndex_(item)]]" on-execute-action="onExecuteAction_" tabindex="1" hidden="[[expandedStateIconsChromeRefresh]]">
       </cr-realbox-action>
     </template>
   </div>
@@ -373,7 +464,11 @@ function getTemplate$6() {
 </div>
 <div class="actions container underneath" aria-hidden="true" hidden="[[!showActionsUnderneath_(match)]]">
   <template is="dom-repeat" items="[[match.actions]]">
-    <cr-realbox-action id="action" action="[[item]]" action-index="[[actionIndex_(item)]]" on-execute-action="onExecuteAction_" tabindex="1">
+    <div id="actions-focus-border" hidden="[[!expandedStateIconsChromeRefresh]]">
+        <cr-realbox-action id="action" action="[[item]]" action-index="[[actionIndex_(item)]]" on-execute-action="onExecuteAction_" tabindex="1">
+        </cr-realbox-action>
+    </div>
+    <cr-realbox-action id="action" action="[[item]]" action-index="[[actionIndex_(item)]]" on-execute-action="onExecuteAction_" tabindex="1" hidden="[[expandedStateIconsChromeRefresh]]">
     </cr-realbox-action>
   </template>
 </div>
@@ -404,7 +499,7 @@ class RealboxMatchElement extends PolymerElement {
         return 'cr-realbox-match';
     }
     static get template() {
-        return getTemplate$6();
+        return getTemplate$5();
     }
     static get properties() {
         return {
@@ -415,6 +510,21 @@ class RealboxMatchElement extends PolymerElement {
             ariaLabel: {
                 type: String,
                 computed: `computeAriaLabel_(match.a11yLabel)`,
+                reflectToAttribute: true,
+            },
+            expandedStateIconsChromeRefresh: {
+                type: Boolean,
+                value: () => loadTimeData.getBoolean('realboxCr23ExpandedStateLayout'),
+            },
+            hasAction: {
+                type: Boolean,
+                computed: `computeHasAction_(match.actions)`,
+                reflectToAttribute: true,
+            },
+            /** Whether action chip will have an outset focus ring. */
+            hasOutsetActionFocusRing: {
+                type: Boolean,
+                computed: `computeHasOutsetActionFocusRing_(hasAction)`,
                 reflectToAttribute: true,
             },
             /**
@@ -450,6 +560,11 @@ class RealboxMatchElement extends PolymerElement {
             matchIndex: {
                 type: Number,
                 value: -1,
+            },
+            realboxConsistentRowHeight: {
+                type: Boolean,
+                value: () => loadTimeData.getBoolean('realboxCr23ConsistentRowHeight'),
+                reflectToAttribute: true,
             },
             sideType: Number,
             /** String representation of `sideType` to use in CSS. */
@@ -606,6 +721,12 @@ class RealboxMatchElement extends PolymerElement {
             this.sanitizeInnerHtml_(this.renderTextWithClassifications_(decodeString16(match.description), match.descriptionClass)
                 .innerHTML);
     }
+    computeHasAction_() {
+        return this.match?.actions?.length > 0;
+    }
+    computeHasOutsetActionFocusRing_() {
+        return this.expandedStateIconsChromeRefresh && this.hasAction;
+    }
     computeTailSuggestPrefix_() {
         if (!this.match || !this.match.tailSuggestCommonPrefix) {
             return '';
@@ -711,6 +832,7 @@ customElements.define(RealboxMatchElement.is, RealboxMatchElement);
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 class PageMetricsHostPendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -719,6 +841,9 @@ class PageMetricsHostPendingReceiver {
     }
 }
 class PageMetricsHostRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(PageMetricsHostPendingReceiver, handle);
@@ -763,6 +888,7 @@ class PageMetricsHost {
     }
 }
 class PageMetricsPendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -771,6 +897,9 @@ class PageMetricsPendingReceiver {
     }
 }
 class PageMetricsRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(PageMetricsPendingReceiver, handle);
@@ -795,6 +924,12 @@ class PageMetricsRemote {
  * receiver can have any number of listeners added to it.
  */
 class PageMetricsCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    onGetMark;
+    onClearMark;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(PageMetricsRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -853,6 +988,8 @@ mojo.internal.Struct(PageMetrics_OnClearMark_ParamsSpec.$, 'PageMetrics_OnClearM
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 class BrowserProxyImpl {
+    callbackRouter;
+    host;
     constructor() {
         this.callbackRouter = new PageMetricsCallbackRouter();
         this.host = PageMetricsHost.getRemote();
@@ -874,13 +1011,13 @@ class BrowserProxyImpl {
         return this.callbackRouter;
     }
     static getInstance() {
-        return instance$4 || (instance$4 = new BrowserProxyImpl());
+        return instance$3 || (instance$3 = new BrowserProxyImpl());
     }
     static setInstance(obj) {
-        instance$4 = obj;
+        instance$3 = obj;
     }
 }
-let instance$4 = null;
+let instance$3 = null;
 
 // Copyright 2022 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
@@ -892,9 +1029,9 @@ function timeToMojo(mark) {
     return { microseconds: mark };
 }
 class MetricsReporterImpl {
+    marks_ = new Map();
+    browserProxy_ = BrowserProxyImpl.getInstance();
     constructor() {
-        this.marks_ = new Map();
-        this.browserProxy_ = BrowserProxyImpl.getInstance();
         const callbackRouter = this.browserProxy_.getCallbackRouter();
         callbackRouter.onGetMark.addListener((name) => ({
             markedTime: this.marks_.has(name) ? timeToMojo(this.marks_.get(name)) : null,
@@ -902,10 +1039,10 @@ class MetricsReporterImpl {
         callbackRouter.onClearMark.addListener((name) => this.marks_.delete(name));
     }
     static getInstance() {
-        return instance$3 || (instance$3 = new MetricsReporterImpl());
+        return instance$2 || (instance$2 = new MetricsReporterImpl());
     }
     static setInstanceForTest(newInstance) {
-        instance$3 = newInstance;
+        instance$2 = newInstance;
     }
     mark(name) {
         this.marks_.set(name, this.browserProxy_.now());
@@ -949,7 +1086,7 @@ class MetricsReporterImpl {
         this.browserProxy_.umaReportTime(histogram, timeToMojo(time));
     }
 }
-let instance$3 = null;
+let instance$2 = null;
 
 // Copyright 2021 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
@@ -1009,8 +1146,8 @@ function getTrustedScriptURL(literal) {
     return staticPolicy.createScriptURL('', literal);
 }
 
-function getTemplate$5() {
-    return html `<!--_html_template_start_--><style include="cr-icons realbox-dropdown-shared-style">:host{user-select:none}#content{background-color:var(--color-realbox-results-background);border-radius:calc(.5 * var(--cr-realbox-height));box-shadow:var(--cr-realbox-shadow);display:flex;gap:16px;margin-bottom:8px;overflow:hidden;padding-bottom:18px;padding-top:var(--cr-realbox-height)}@media (forced-colors:active){#content{border:1px solid ActiveBorder}}.matches{display:contents}cr-realbox-match{color:var(--color-realbox-results-foreground)}.header{align-items:center;box-sizing:border-box;cursor:pointer;display:flex;font-size:inherit;font-weight:inherit;height:44px;margin-block-end:0;margin-block-start:0;outline:0;padding-bottom:6px;padding-inline-end:16px;padding-inline-start:12px;padding-top:6px}.header .text{color:var(--color-realbox-results-foreground-dimmed);font-size:.875em;font-weight:500;overflow:hidden;padding-inline-end:6px;padding-inline-start:6px;text-overflow:ellipsis;white-space:nowrap}.header:focus-within:not(:focus) cr-icon-button{--cr-icon-button-fill-color:var(--color-realbox-results-icon-selected)}cr-realbox-match:-webkit-any(:hover,:focus-within,[selected]){background-color:var(--color-realbox-results-background-hovered)}@media (forced-colors:active){cr-realbox-match:-webkit-any(:hover,:focus-within,[selected]){background-color:Highlight}}.primary-side{flex:1;min-width:0}.secondary-side{display:var(--cr-realbox-secondary-side-display,none);min-width:0;padding-block-end:8px;padding-inline-end:16px;width:314px}.secondary-side .header{padding-inline-end:0;padding-inline-start:0}.secondary-side .matches{display:flex;gap:4px}</style>
+function getTemplate$4() {
+    return html `<!--_html_template_start_--><style include="cr-icons realbox-dropdown-shared-style">:host{user-select:none}#content{background-color:var(--color-realbox-results-background);border-radius:calc(.5 * var(--cr-realbox-height));box-shadow:var(--cr-realbox-shadow);display:flex;gap:16px;margin-bottom:8px;overflow:hidden;padding-bottom:18px;padding-top:var(--cr-realbox-height)}:host([expanded-state-layout-chrome-refresh]) #content{padding-bottom:8px}@media (forced-colors:active){#content{border:1px solid ActiveBorder}}.matches{display:contents}cr-realbox-match{color:var(--color-realbox-results-foreground)}.header{align-items:center;box-sizing:border-box;cursor:pointer;display:flex;font-size:inherit;font-weight:inherit;height:44px;margin-block-end:0;margin-block-start:0;outline:0;padding-bottom:6px;padding-inline-end:16px;padding-inline-start:12px;padding-top:6px}.header .text{color:var(--color-realbox-results-foreground-dimmed);font-size:.875em;font-weight:500;overflow:hidden;padding-inline-end:6px;padding-inline-start:6px;text-overflow:ellipsis;white-space:nowrap}.header:focus-within:not(:focus) cr-icon-button{--cr-icon-button-fill-color:var(--color-realbox-results-icon-selected)}:host(:not([chrome-refresh-hover-shape])) cr-realbox-match:-webkit-any(:hover,:focus-within,[selected]){background-color:var(--color-realbox-results-background-hovered)}:host([chrome-refresh-hover-shape]) .secondary-side cr-realbox-match:-webkit-any(:hover,:focus-within,[selected]){background-color:var(--color-realbox-results-background-hovered)}@media (forced-colors:active){cr-realbox-match:-webkit-any(:hover,:focus-within,[selected]){background-color:Highlight}}.primary-side{flex:1;min-width:0}.secondary-side{display:var(--cr-realbox-secondary-side-display,none);min-width:0;padding-block-end:8px;padding-inline-end:16px;width:314px}.secondary-side .header{padding-inline-end:0;padding-inline-start:0}.secondary-side .matches{display:flex;gap:4px}</style>
 <div id="content">
   <template is="dom-repeat" items="[[sideTypes_(showSecondarySide_)]]" as="side">
     <div class$="[[classForSide_(side)]]">
@@ -1050,7 +1187,7 @@ class RealboxDropdownElement extends PolymerElement {
         return 'cr-realbox-dropdown';
     }
     static get template() {
-        return getTemplate$5();
+        return getTemplate$4();
     }
     static get properties() {
         return {
@@ -1064,6 +1201,16 @@ class RealboxDropdownElement extends PolymerElement {
             canShowSecondarySide: {
                 type: Boolean,
                 value: false,
+            },
+            chromeRefreshHoverShape: {
+                type: Boolean,
+                value: () => loadTimeData.getBoolean('realboxCr23HoverFillShape'),
+                reflectToAttribute: true,
+            },
+            expandedStateLayoutChromeRefresh: {
+                type: Boolean,
+                value: () => loadTimeData.getBoolean('realboxCr23ExpandedStateLayout'),
+                reflectToAttribute: true,
             },
             /**
              * Whether the secondary side was at any point available to be shown.
@@ -1080,6 +1227,7 @@ class RealboxDropdownElement extends PolymerElement {
                 type: Boolean,
                 computed: `computeHasSecondarySide_(result)`,
                 notify: true,
+                reflectToAttribute: true,
             },
             result: {
                 type: Object,
@@ -1337,6 +1485,10 @@ class RealboxDropdownElement extends PolymerElement {
      * @returns Icon name for suggestion group show/hide toggle button.
      */
     toggleButtonIconForGroup_(groupId) {
+        if (loadTimeData.getBoolean('realboxCr23ExpandedStateIcons')) {
+            return this.groupIsHidden_(groupId) ? 'icon-arrow-drop-down-cr23' :
+                'icon-arrow-drop-up-cr23';
+        }
         return this.groupIsHidden_(groupId) ? 'icon-expand-more' :
             'icon-expand-less';
     }
@@ -1365,16 +1517,26 @@ class RealboxDropdownElement extends PolymerElement {
 }
 customElements.define(RealboxDropdownElement.is, RealboxDropdownElement);
 
-function getTemplate$4() {
-    return html `<!--_html_template_start_--><style include="cr-icons">:host{--cr-realbox-height:44px;--cr-realbox-min-width:var(--ntp-search-box-width);--cr-realbox-shadow:0 1px 6px 0 var(--color-realbox-shadow);--cr-realbox-width:var(--cr-realbox-min-width);--ntp-realbox-border-radius:calc(0.5 * var(--cr-realbox-height));--ntp-realbox-icon-width:26px;--ntp-realbox-inner-icon-margin:8px;--ntp-realbox-voice-icon-offset:16px;border-radius:var(--ntp-realbox-border-radius);box-shadow:var(--cr-realbox-shadow);font-size:16px;height:var(--cr-realbox-height);width:var(--cr-realbox-width)}:host([can-show-secondary-side][had-secondary-side]),:host([can-show-secondary-side][width-behavior_=wide]){--cr-realbox-width:746px}:host([can-show-secondary-side][width-behavior_=revert]:not([dropdown-is-visible])){--cr-realbox-width:var(--cr-realbox-min-width)}:host([is-tall_]){--cr-realbox-height:48px}:host([can-show-secondary-side][has-secondary-side]){--cr-realbox-secondary-side-display:block}:host([is-dark]){--cr-realbox-shadow:0 2px 6px 0 var(--color-realbox-shadow)}:host([realbox-lens-search-enabled_]){--ntp-realbox-voice-icon-offset:53px}@media (forced-colors:active){:host{border:1px solid ActiveBorder}}:host([dropdown-is-visible]){box-shadow:none}:host([match-searchbox]){box-shadow:none}:host([match-searchbox]:not([dropdown-is-visible]):hover){border:1px solid transparent;box-shadow:var(--cr-realbox-shadow)}:host([match-searchbox]:not([is-dark]):not([dropdown-is-visible]):not(:hover)){border:1px solid var(--color-realbox-border)}#inputWrapper{height:100%;position:relative}input{background-color:var(--color-realbox-background);border:none;border-radius:var(--ntp-realbox-border-radius);color:var(--color-realbox-foreground);font-family:inherit;font-size:inherit;height:100%;outline:0;padding-inline-end:calc(var(--ntp-realbox-voice-icon-offset) + var(--ntp-realbox-icon-width) + var(--ntp-realbox-inner-icon-margin));padding-inline-start:52px;position:relative;width:100%}input::-webkit-search-decoration,input::-webkit-search-results-button,input::-webkit-search-results-decoration{display:none}input::-webkit-search-cancel-button{appearance:none;margin:0}input::placeholder{color:var(--color-realbox-placeholder)}input:focus::placeholder{visibility:hidden}:host([dropdown-is-visible]) input,input:focus{background-color:var(--color-realbox-results-background)}input:hover{background-color:var(--color-realbox-background-hovered)}cr-realbox-icon{height:100%;left:12px;position:absolute;top:0}:host-context([dir=rtl]) cr-realbox-icon{left:unset;right:12px}.realbox-icon-button{background-color:transparent;background-position:center;background-repeat:no-repeat;background-size:21px 21px;border:none;border-radius:2px;cursor:pointer;height:100%;outline:0;padding:0;pointer-events:auto;position:absolute;right:16px;width:var(--ntp-realbox-icon-width)}:host([single-colored-icons]) #lensSearchButton,:host([single-colored-icons]) #voiceSearchButton{-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:21px 21px;background-color:var(--color-new-tab-page-primary-foreground)}:host([single-colored-icons]) #voiceSearchButton{-webkit-mask-image:url(icons/googlemic_clr_24px.svg)}:host(:not([single-colored-icons])) #voiceSearchButton{background-image:url(icons/googlemic_clr_24px.svg)}:host([single-colored-icons]) #lensSearchButton{-webkit-mask-image:url(chrome://new-tab-page/icons/lens_icon.svg)}:host(:not([single-colored-icons])) #lensSearchButton{background-image:url(chrome://new-tab-page/icons/lens_icon.svg)}:host([realbox-lens-search-enabled_]):host-context([dir=rtl]) #voiceSearchButton{left:var(--ntp-realbox-voice-icon-offset);right:unset}:host([realbox-lens-search-enabled_]) #voiceSearchButton{right:var(--ntp-realbox-voice-icon-offset)}:host-context([dir=rtl]) .realbox-icon-button{left:16px;right:unset}:host-context(.focus-outline-visible) .realbox-icon-button:focus{box-shadow:var(--ntp-focus-shadow)}:-webkit-any(input,cr-realbox-icon,.realbox-icon-button){z-index:100}cr-realbox-dropdown{left:0;position:absolute;right:0;top:0;z-index:99}.truncate{overflow:hidden;text-overflow:ellipsis}</style>
+function getTemplate$3() {
+    return html `<!--_html_template_start_--><style include="cr-icons">:host{--cr-realbox-height:44px;--cr-realbox-min-width:var(--ntp-search-box-width);--cr-realbox-shadow:0 1px 6px 0 var(--color-realbox-shadow);--cr-realbox-width:var(--cr-realbox-min-width);--ntp-realbox-border-radius:calc(0.5 * var(--cr-realbox-height));--ntp-realbox-icon-width:26px;--ntp-realbox-inner-icon-margin:8px;--ntp-realbox-voice-icon-offset:16px;border-radius:var(--ntp-realbox-border-radius);box-shadow:var(--cr-realbox-shadow);font-size:16px;height:var(--cr-realbox-height);width:var(--cr-realbox-width)}:host([realbox-chrome-refresh-theming][dropdown-is-visible]){--cr-realbox-shadow:0 0 12px 4px var(--color-realbox-shadow)}:host([can-show-secondary-side][had-secondary-side]),:host([can-show-secondary-side][width-behavior_=wide]){--cr-realbox-width:746px}:host([can-show-secondary-side][width-behavior_=revert]:not([dropdown-is-visible])){--cr-realbox-width:var(--cr-realbox-min-width)}:host([is-tall_]){--cr-realbox-height:48px}:host([can-show-secondary-side][has-secondary-side]){--cr-realbox-secondary-side-display:block}:host([is-dark]){--cr-realbox-shadow:0 2px 6px 0 var(--color-realbox-shadow)}:host([realbox-lens-search-enabled_]){--ntp-realbox-voice-icon-offset:53px}@media (forced-colors:active){:host{border:1px solid ActiveBorder}}:host([dropdown-is-visible]){box-shadow:none}:host([match-searchbox]){box-shadow:none}:host([match-searchbox]:not([dropdown-is-visible]):hover){border:1px solid transparent;box-shadow:var(--cr-realbox-shadow)}:host([match-searchbox]:not([is-dark]):not([dropdown-is-visible]):not(:hover)){border:1px solid var(--color-realbox-border)}#inputWrapper{height:100%;position:relative}input{background-color:var(--color-realbox-background);border:none;border-radius:var(--ntp-realbox-border-radius);color:var(--color-realbox-foreground);font-family:inherit;font-size:inherit;height:100%;outline:0;padding-inline-end:calc(var(--ntp-realbox-voice-icon-offset) + var(--ntp-realbox-icon-width) + var(--ntp-realbox-inner-icon-margin));padding-inline-start:52px;position:relative;width:100%}:host([realbox-chrome-refresh-theming]) input::selection{background-color:var(--color-realbox-selection-background);color:var(--color-realbox-selection-foreground)}input::-webkit-search-decoration,input::-webkit-search-results-button,input::-webkit-search-results-decoration{display:none}input::-webkit-search-cancel-button{appearance:none;margin:0}input::placeholder{color:var(--color-realbox-placeholder)}input:focus::placeholder{visibility:hidden}:host([dropdown-is-visible]) input,input:focus{background-color:var(--color-realbox-results-background)}input:hover{background-color:var(--color-realbox-background-hovered)}cr-realbox-icon{height:100%;left:12px;position:absolute;top:0}:host-context([dir=rtl]) cr-realbox-icon{left:unset;right:12px}.realbox-icon-button{background-color:transparent;background-position:center;background-repeat:no-repeat;background-size:21px 21px;border:none;border-radius:2px;cursor:pointer;height:100%;outline:0;padding:0;pointer-events:auto;position:absolute;right:16px;width:var(--ntp-realbox-icon-width)}:host([realbox-chrome-refresh-theming]) .realbox-icon-button{position:static}.realbox-icon-button-container{border-radius:2px;height:100%;position:absolute;right:16px;top:0;z-index:100}.realbox-icon-button-container.voice{right:var(--ntp-realbox-voice-icon-offset)}:host-context(.focus-outline-visible) .realbox-icon-button-container:focus-within{box-shadow:var(--ntp-focus-shadow)}:host(:not([realbox-chrome-refresh-theming])) #voiceSearchButton{background-image:url(icons/googlemic_clr_24px.svg)}:host(:not([realbox-chrome-refresh-theming])) #lensSearchButton{background-image:url(chrome://new-tab-page/icons/lens_icon.svg)}:host([realbox-chrome-refresh-theming]:not([color-source-is-baseline])) #lensSearchButton,:host([realbox-chrome-refresh-theming]:not([color-source-is-baseline])) #voiceSearchButton{-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:21px 21px;background-color:var(--color-realbox-lens-voice-icon-background)}:host([realbox-chrome-refresh-theming]:not([color-source-is-baseline])) #voiceSearchButton{-webkit-mask-image:url(icons/googlemic_clr_24px.svg)}:host([realbox-chrome-refresh-theming][color-source-is-baseline]) #voiceSearchButton{background-image:url(icons/googlemic_clr_24px.svg)}:host([realbox-chrome-refresh-theming]:not([color-source-is-baseline])) #lensSearchButton{-webkit-mask-image:url(chrome://new-tab-page/icons/lens_icon.svg)}:host([realbox-chrome-refresh-theming][color-source-is-baseline]) #lensSearchButton{background-image:url(chrome://new-tab-page/icons/lens_icon.svg)}:host([realbox-lens-search-enabled_]):host-context([dir=rtl]) #voiceSearchButton{left:var(--ntp-realbox-voice-icon-offset);right:unset}:host([realbox-lens-search-enabled_]) #voiceSearchButton{right:var(--ntp-realbox-voice-icon-offset)}:host-context([dir=rtl]) .realbox-icon-button{left:16px;right:unset}:host-context([dir=rtl]) .realbox-icon-button-container{left:16px;right:unset}:host([realbox-lens-search-enabled_]):host-context([dir=rtl]) .realbox-icon-button-container.voice{left:var(--ntp-realbox-voice-icon-offset);right:unset}:host-context(.focus-outline-visible) .realbox-icon-button:focus{box-shadow:var(--ntp-focus-shadow)}:-webkit-any(input,cr-realbox-icon,.realbox-icon-button){z-index:100}cr-realbox-dropdown{left:0;position:absolute;right:0;top:0;z-index:99}.truncate{overflow:hidden;text-overflow:ellipsis}</style>
 <div id="inputWrapper" on-focusout="onInputWrapperFocusout_" on-keydown="onInputWrapperKeydown_">
   <input id="input" class="truncate" type="search" autocomplete="off" spellcheck="false" aria-live="[[inputAriaLive_]]" role="combobox" aria-expanded="[[dropdownIsVisible]]" aria-controls="matches" placeholder="$i18n{searchBoxHint}" on-copy="onInputCutCopy_" on-cut="onInputCutCopy_" on-focus="onInputFocus_" on-input="onInputInput_" on-keydown="onInputKeydown_" on-keyup="onInputKeyup_" on-mousedown="onInputMouseDown_" on-paste="onInputPaste_">
   <cr-realbox-icon id="icon" match="[[selectedMatch_]]" default-icon="[[realboxIcon_]]" in-searchbox>
   </cr-realbox-icon>
-  <button id="voiceSearchButton" class="realbox-icon-button" on-click="onVoiceSearchClick_" title="$i18n{voiceSearchButtonLabel}">
+  <div class="realbox-icon-button-container voice" hidden="[[!realboxChromeRefreshTheming]]">
+    <button id="voiceSearchButton" class="realbox-icon-button" on-click="onVoiceSearchClick_" title="$i18n{voiceSearchButtonLabel}">
+    </button>
+  </div>
+  <div class="realbox-icon-button-container lens" hidden="[[!realboxChromeRefreshTheming]]">
+    <template is="dom-if" if="[[realboxLensSearchEnabled_]]">
+      <button id="lensSearchButton" class="realbox-icon-button" on-click="onLensSearchClick_" title="$i18n{lensSearchButtonLabel}">
+      </button>
+    </template>
+  </div>
+  <button id="voiceSearchButton" class="realbox-icon-button" on-click="onVoiceSearchClick_" title="$i18n{voiceSearchButtonLabel}" hidden="[[realboxChromeRefreshTheming]]">
   </button>
   <template is="dom-if" if="[[realboxLensSearchEnabled_]]">
-    <button id="lensSearchButton" class="realbox-icon-button" on-click="onLensSearchClick_" title="$i18n{lensSearchButtonLabel}">
+    <button id="lensSearchButton" class="realbox-icon-button" on-click="onLensSearchClick_" title="$i18n{lensSearchButtonLabel}" hidden="[[realboxChromeRefreshTheming]]">
     </button>
   </template>
   <cr-realbox-dropdown id="matches" role="listbox" result="[[result_]]" selected-match-index="{{selectedMatchIndex_}}" can-show-secondary-side="[[canShowSecondarySide]]" had-secondary-side="{{hadSecondarySide}}" has-secondary-side="{{hasSecondarySide}}" on-match-focusin="onMatchFocusin_" on-header-focusin="onHeaderFocusin_" hidden$="[[!dropdownIsVisible]]">
@@ -1394,7 +1556,7 @@ class RealboxElement extends PolymerElement {
         return 'ntp-realbox';
     }
     static get template() {
-        return getTemplate$4();
+        return getTemplate$3();
     }
     static get properties() {
         return {
@@ -1408,6 +1570,10 @@ class RealboxElement extends PolymerElement {
             canShowSecondarySide: {
                 type: Boolean,
                 value: () => canShowSecondarySideMediaQueryList.matches,
+                reflectToAttribute: true,
+            },
+            colorSourceIsBaseline: {
+                type: Boolean,
                 reflectToAttribute: true,
             },
             /** Whether the cr-realbox-dropdown should be visible. */
@@ -1447,10 +1613,9 @@ class RealboxElement extends PolymerElement {
                 value: () => loadTimeData.getBoolean('realboxLensSearch'),
                 reflectToAttribute: true,
             },
-            /** Whether to display single-colored icons or not. */
-            singleColoredIcons: {
+            realboxChromeRefreshTheming: {
                 type: Boolean,
-                value: false,
+                value: () => loadTimeData.getBoolean('realboxCr23Theming'),
                 reflectToAttribute: true,
             },
             //========================================================================
@@ -1955,7 +2120,7 @@ class RealboxElement extends PolymerElement {
 }
 customElements.define(RealboxElement.is, RealboxElement);
 
-function getTemplate$3() {
+function getTemplate$2() {
     return html `<!--_html_template_start_--><style>#dialog::part(dialog){max-width:300px}#buttons{display:flex;flex-direction:row;justify-content:center;margin-bottom:28px;margin-top:20px}#buttons cr-button{background-position:center;background-repeat:no-repeat;background-size:cover;border:none;height:48px;min-width:48px;width:48px}#buttons cr-button:hover{opacity:.8}#buttons>:not(:last-child){margin-inline-end:12px}#facebookButton{background-image:url(icons/facebook.svg)}#twitterButton{background-image:url(icons/twitter.svg)}#emailButton{background-image:url(icons/mail.svg)}#url{--cr-input-error-display:none}#copyButton{--cr-icon-image:url(icons/copy.svg);margin-inline-start:2px}</style>
 <cr-dialog id="dialog" show-on-attach>
   <div id="title" slot="title">
@@ -1997,7 +2162,7 @@ class DoodleShareDialogElement extends PolymerElement {
         return 'ntp-doodle-share-dialog';
     }
     static get template() {
-        return getTemplate$3();
+        return getTemplate$2();
     }
     static get properties() {
         return {
@@ -2041,7 +2206,7 @@ class DoodleShareDialogElement extends PolymerElement {
 }
 customElements.define(DoodleShareDialogElement.is, DoodleShareDialogElement);
 
-function getTemplate$2() {
+function getTemplate$1() {
     return html `<!--_html_template_start_--><style include="cr-hidden-style">:host{--ntp-logo-height:200px;display:flex;flex-direction:column;flex-shrink:0;justify-content:flex-end;min-height:var(--ntp-logo-height)}:host([reduced-logo-space-enabled_]){--ntp-logo-height:168px}:host([doodle-boxed_]){justify-content:flex-end}#logo{forced-color-adjust:none;height:92px;width:272px}:host([single-colored]) #logo{-webkit-mask-image:url(icons/google_logo.svg);-webkit-mask-repeat:no-repeat;-webkit-mask-size:100%;background-color:var(--ntp-logo-color)}:host(:not([single-colored])) #logo{background-image:url(icons/google_logo.svg)}#imageDoodle{cursor:pointer;outline:0}#imageDoodle[tabindex='-1']{cursor:auto}:host([doodle-boxed_]) #imageDoodle{background-color:var(--ntp-logo-box-color);border-radius:20px;padding:16px 24px}:host-context(.focus-outline-visible) #imageDoodle:focus{box-shadow:0 0 0 2px rgba(var(--google-blue-600-rgb),.4)}#imageContainer{display:flex;height:fit-content;position:relative;width:fit-content}#image{max-height:var(--ntp-logo-height);max-width:100%}:host([doodle-boxed_]) #image{max-height:160px}:host([doodle-boxed_][reduced-logo-space-enabled_]) #image{max-height:128px}#animation{height:100%;pointer-events:none;position:absolute;width:100%}#shareButton{background-color:var(--ntp-logo-share-button-background-color,none);border:none;height:var(--ntp-logo-share-button-height,0);left:var(--ntp-logo-share-button-x,0);min-width:var(--ntp-logo-share-button-width,0);opacity:.8;outline:initial;padding:2px;position:absolute;top:var(--ntp-logo-share-button-y,0);width:var(--ntp-logo-share-button-width,0)}#shareButton:hover{opacity:1}#shareButton img{height:100%;width:100%}#iframe{border:none;height:var(--height,var(--ntp-logo-height));transition-duration:var(--duration,100ms);transition-property:height,width;width:var(--width,100%)}#iframe:not([expanded]){max-height:var(--ntp-logo-height)}</style>
 
 <template is="dom-if" if="[[showLogo_]]" restamp>
@@ -2084,7 +2249,7 @@ class LogoElement extends PolymerElement {
         return 'ntp-logo';
     }
     static get template() {
-        return getTemplate$2();
+        return getTemplate$1();
     }
     static get properties() {
         return {
@@ -2397,18 +2562,19 @@ customElements.define(LogoElement.is, LogoElement);
  * TODO(tluk): Convert this into typescript once all dependencies have been
  * fully migrated.
  */
-let instance$2 = null;
+let instance$1 = null;
 class BrowserProxy {
+    callbackRouter;
     constructor() {
         this.callbackRouter = new PageCallbackRouter$1();
         const pageHandlerRemote = PageHandler$1.getRemote();
         pageHandlerRemote.setPage(this.callbackRouter.$.bindNewPipeAndPassRemote());
     }
     static getInstance() {
-        return instance$2 || (instance$2 = new BrowserProxy());
+        return instance$1 || (instance$1 = new BrowserProxy());
     }
     static setInstance(newInstance) {
-        instance$2 = newInstance;
+        instance$1 = newInstance;
     }
 }
 
@@ -2430,11 +2596,12 @@ let documentInstance = null;
 const COLOR_PROVIDER_CHANGED = 'color-provider-changed';
 // 
 class ColorChangeUpdater {
+    listenerId_ = null;
+    root_;
+    // 
+    eventTarget = new EventTarget();
     // 
     constructor(root) {
-        this.listenerId_ = null;
-        // 
-        this.eventTarget = new EventTarget();
         assert(documentInstance === null || root !== document);
         this.root_ = root;
     }
@@ -2511,1574 +2678,6 @@ class ColorChangeUpdater {
     }
 }
 
-const template = html `<iron-iconset-svg name="iph" size="24">
-  <svg>
-    <defs>
-      
-      <g id="celebration">
-        <path fill="none" d="M0 0h20v20H0z"></path>
-        <path fill-rule="evenodd" d="m2 22 14-5-9-9-5 14Zm10.35-5.82L5.3 18.7l2.52-7.05 4.53 4.53ZM14.53 12.53l5.59-5.59a1.25 1.25 0 0 1 1.77 0l.59.59 1.06-1.06-.59-.59a2.758 2.758 0 0 0-3.89 0l-5.59 5.59 1.06 1.06ZM10.06 6.88l-.59.59 1.06 1.06.59-.59a2.758 2.758 0 0 0 0-3.89l-.59-.59-1.06 1.07.59.59c.48.48.48 1.28 0 1.76ZM17.06 11.88l-1.59 1.59 1.06 1.06 1.59-1.59a1.25 1.25 0 0 1 1.77 0l1.61 1.61 1.06-1.06-1.61-1.61a2.758 2.758 0 0 0-3.89 0ZM15.06 5.88l-3.59 3.59 1.06 1.06 3.59-3.59a2.758 2.758 0 0 0 0-3.89l-1.59-1.59-1.06 1.06 1.59 1.59c.48.49.48 1.29 0 1.77Z">
-        </path>
-      </g>
-      <g id="lightbulb_outline">
-        <path fill="none" d="M0 0h24v24H0z"></path>
-        <path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7zm2 11.7V16h-4v-2.3C8.48 12.63 7 11.53 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 2.49-1.51 3.65-3 4.7z">
-        </path>
-      </g>
-      <g id="lightbulb_outline_chrome_refresh" width="20" height="20" viewBox="0 -960 960 960">
-        <path d="M479.779-81.413q-30.975 0-52.812-22.704-21.837-22.704-21.837-55.035h149.74q0 32.631-22.058 55.185-22.058 22.554-53.033 22.554ZM333.848-209.065v-75.587h292.304v75.587H333.848Zm-15-125.5Q254.696-374 219.282-440.533q-35.413-66.532-35.413-142.163 0-123.288 86.364-209.59 86.363-86.301 209.739-86.301t209.767 86.301q86.392 86.302 86.392 209.59 0 75.87-35.413 142.283Q705.304-374 641.152-334.565H318.848Zm26.348-83h269.608q37.283-30.522 57.805-73.566 20.521-43.043 20.521-91.512 0-89.424-61.812-151.184-61.813-61.76-151.087-61.76-89.274 0-151.318 61.76-62.043 61.76-62.043 151.184 0 48.469 20.521 91.512 20.522 43.044 57.805 73.566Zm134.804 0Z">
-        </path>
-      </g>
-  </defs>
-  </svg>
-</iron-iconset-svg>
-`;
-document.head.appendChild(template.content);
-
-function getTemplate$1() {
-    return html `<!--_html_template_start_--><link rel="stylesheet" href="chrome://theme/colors.css?sets=ui,chrome&shadow_host=true">
-<style include="cr-hidden-style">:host{--help-bubble-background:var(--color-feature-promo-bubble-background,
-        var(--google-blue-700));--help-bubble-foreground:var(--color-feature-promo-bubble-foreground,
-        var(--google-grey-200));--help-bubble-border-radius:8px;--help-bubble-close-button-icon-size:16px;--help-bubble-close-button-size:24px;--help-bubble-element-spacing:8px;--help-bubble-padding:16px 20px;--help-bubble-font-weight:500;border-radius:var(--help-bubble-border-radius);box-shadow:0 6px 10px 4px rgba(60,64,67,.15),0 2px 3px rgba(60,64,67,.3);box-sizing:border-box;position:absolute;z-index:1}:host-context([chrome-refresh-2023]):host{--help-bubble-border-radius:12px;--help-bubble-close-button-size:20px;--help-bubble-padding:20px;--help-bubble-font-weight:400}#arrow{--help-bubble-arrow-size:11.3px;--help-bubble-arrow-size-half:calc(var(--help-bubble-arrow-size) / 2);--help-bubble-arrow-diameter:16px;--help-bubble-arrow-radius:calc(var(--help-bubble-arrow-diameter) / 2);--help-bubble-arrow-edge-offset:22px;--help-bubble-arrow-offset:calc(var(--help-bubble-arrow-edge-offset) +
-                                     var(--help-bubble-arrow-radius));--help-bubble-arrow-border-radius:2px;position:absolute}#inner-arrow{background-color:var(--help-bubble-background);height:var(--help-bubble-arrow-size);left:calc(0px - var(--help-bubble-arrow-size-half));position:absolute;top:calc(0px - var(--help-bubble-arrow-size-half));transform:rotate(45deg);width:var(--help-bubble-arrow-size);z-index:-1}#arrow.bottom-edge{bottom:0}#arrow.bottom-edge #inner-arrow{border-bottom-right-radius:var(--help-bubble-arrow-border-radius)}#arrow.top-edge{top:0}#arrow.top-edge #inner-arrow{border-top-left-radius:var(--help-bubble-arrow-border-radius)}#arrow.right-edge{right:0}#arrow.right-edge #inner-arrow{border-top-right-radius:var(--help-bubble-arrow-border-radius)}#arrow.left-edge{left:0}#arrow.left-edge #inner-arrow{border-bottom-left-radius:var(--help-bubble-arrow-border-radius)}#arrow.top-position{top:var(--help-bubble-arrow-offset)}#arrow.vertical-center-position{top:50%}#arrow.bottom-position{bottom:var(--help-bubble-arrow-offset)}#arrow.left-position{left:var(--help-bubble-arrow-offset)}#arrow.horizontal-center-position{left:50%}#arrow.right-position{right:var(--help-bubble-arrow-offset)}#topContainer{display:flex;flex-direction:row}#progress{display:inline-block;flex:auto}#progress div{--help-bubble-progress-size:8px;background-color:var(--help-bubble-foreground);border:1px solid var(--help-bubble-foreground);border-radius:50%;display:inline-block;height:var(--help-bubble-progress-size);margin-inline-end:var(--help-bubble-element-spacing);margin-top:5px;width:var(--help-bubble-progress-size)}#progress .total-progress{background-color:var(--help-bubble-background)}#mainBody,#topBody{flex:1;font-size:14px;font-style:normal;font-weight:var(--help-bubble-font-weight);letter-spacing:.3px;line-height:20px;margin:0}#title{flex:1;font-size:18px;font-style:normal;font-weight:500;line-height:24px;margin:0}.help-bubble{--cr-focus-outline-color:var(--help-bubble-foreground);background-color:var(--help-bubble-background);border-radius:var(--help-bubble-border-radius);box-sizing:border-box;color:var(--help-bubble-foreground);display:flex;flex-direction:column;justify-content:space-between;max-width:340px;min-width:260px;padding:var(--help-bubble-padding);position:relative}#main{display:flex;flex-direction:row;justify-content:flex-start;margin-top:var(--help-bubble-element-spacing)}#middleRowSpacer{margin-inline-start:32px}cr-button,cr-icon-button{--help-bubble-button-foreground:var(--help-bubble-foreground);--help-bubble-button-background:var(--help-bubble-background);--help-bubble-button-hover-alpha:10%}cr-button.default-button{--help-bubble-button-foreground:var(
-        --color-feature-promo-bubble-default-button-foreground,
-        var(--help-bubble-background));--help-bubble-button-background:var(
-        --color-feature-promo-bubble-default-button-background,
-        var(--help-bubble-foreground));--help-bubble-button-hover-alpha:6%}@media (prefers-color-scheme:dark){cr-button,cr-icon-button{--help-bubble-button-hover-alpha:6%}cr-button.default-button{--help-bubble-button-hover-alpha:10%}}#buttons cr-button:hover,cr-icon-button:hover{background-color:color-mix(in srgb,var(--help-bubble-button-foreground) var(--help-bubble-button-hover-alpha),var(--help-bubble-button-background))}cr-icon-button{--cr-icon-button-fill-color:var(--help-bubble-button-foreground);--cr-icon-button-icon-size:var(--help-bubble-close-button-icon-size);--cr-icon-button-size:var(--help-bubble-close-button-size);--cr-icon-button-stroke-color:var(--help-bubble-button-foreground);box-sizing:border-box;display:block;flex:none;float:right;height:var(--cr-icon-button-size);margin:0;margin-inline-start:var(--help-bubble-element-spacing);order:2;width:var(--cr-icon-button-size)}cr-icon-button:focus-visible:focus{box-shadow:inset 0 0 0 1px var(--cr-focus-outline-color)}#bodyIcon{--help-bubble-body-icon-image-size:18px;--help-bubble-body-icon-size:24px;--iron-icon-height:var(--help-bubble-body-icon-image-size);--iron-icon-width:var(--help-bubble-body-icon-image-size);background-color:var(--help-bubble-foreground);border-radius:50%;box-sizing:border-box;color:var(--help-bubble-background);height:var(--help-bubble-body-icon-size);margin-inline-end:var(--help-bubble-element-spacing);padding:calc((var(--help-bubble-body-icon-size) - var(--help-bubble-body-icon-image-size))/ 2);text-align:center;width:var(--help-bubble-body-icon-size)}#bodyIcon iron-icon{display:block}#buttons{display:flex;flex-direction:row;justify-content:flex-end;margin-top:16px}#buttons cr-button{--border-color:var(--help-bubble-foreground);--text-color:var(--help-bubble-button-foreground);background-color:var(--help-bubble-button-background)}#buttons cr-button:focus{box-shadow:none;outline:2px solid var(--cr-focus-outline-color);outline-offset:1px}#buttons cr-button:not(:first-child){margin-inline-start:var(--help-bubble-element-spacing)}</style>
-
-<div class="help-bubble" role="alertdialog" aria-modal="true" aria-labelledby="title" aria-describedby="body" aria-live="assertive" on-keydown="onKeyDown_" on-click="blockPropagation_">
-  <div id="topContainer">
-    <div id="bodyIcon" hidden$="[[!shouldShowBodyIcon_(bodyIconName)]]" aria-label$="[[bodyIconAltText]]">
-      <iron-icon icon="iph:[[bodyIconName]]"></iron-icon>
-    </div>
-    <div id="progress" hidden$="[[!progress]]" role="progressbar" aria-valuenow$="[[progress.current]]" aria-valuemin="1" aria-valuemax$="[[progress.total]]">
-      <template is="dom-repeat" items="[[progressData_]]">
-        <div class$="[[getProgressClass_(index)]]"></div>
-      </template>
-    </div>
-    <h1 id="title" hidden$="[[!shouldShowTitleInTopContainer_(progress, titleText)]]">
-      [[titleText]]
-    </h1>
-    <p id="topBody" hidden$="[[!shouldShowBodyInTopContainer_(progress, titleText)]]">
-      [[bodyText]]
-    </p>
-    <cr-icon-button id="close" iron-icon="cr:close" aria-label$="[[closeButtonAltText]]" on-click="dismiss_" tabindex$="[[closeButtonTabIndex]]">
-    </cr-icon-button>
-  </div>
-  <div id="main" hidden$="[[!shouldShowBodyInMain_(progress, titleText)]]">
-    <div id="middleRowSpacer" hidden$="[[!shouldShowBodyIcon_(bodyIconName)]]">
-    </div>
-    <p id="mainBody">[[bodyText]]</p>
-  </div>
-  <div id="buttons" hidden$="[[!buttons.length]]">
-    <template is="dom-repeat" id="buttonlist" items="[[buttons]]" sort="buttonSortFunc_">
-      <cr-button id$="[[getButtonId_(itemsIndex)]]" tabindex$="[[getButtonTabIndex_(itemsIndex, item.isDefault)]]" class$="[[getButtonClass_(item.isDefault)]]" on-click="onButtonClick_" role="button" aria-label="[[item.text]]">[[item.text]]</cr-button>
-    </template>
-  </div>
-  <div id="arrow" class$="[[getArrowClass_(position)]]">
-    <div id="inner-arrow"></div>
-  </div>
-</div>
-<!--_html_template_end_-->`;
-}
-
-// ui/gfx/geometry/mojom/geometry.mojom-webui.ts is auto generated by mojom_bindings_generator.py, do not edit
-// Copyright 2020 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-const PointSpec = { $: {} };
-const PointFSpec = { $: {} };
-const Point3FSpec = { $: {} };
-const SizeSpec = { $: {} };
-const SizeFSpec = { $: {} };
-const RectSpec = { $: {} };
-const RectFSpec = { $: {} };
-const InsetsSpec = { $: {} };
-const InsetsFSpec = { $: {} };
-const Vector2dSpec = { $: {} };
-const Vector2dFSpec = { $: {} };
-const Vector3dFSpec = { $: {} };
-const QuaternionSpec = { $: {} };
-const QuadFSpec = { $: {} };
-mojo.internal.Struct(PointSpec.$, 'Point', [
-    mojo.internal.StructField('x', 0, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
-    mojo.internal.StructField('y', 4, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
-], [[0, 16],]);
-mojo.internal.Struct(PointFSpec.$, 'PointF', [
-    mojo.internal.StructField('x', 0, 0, mojo.internal.Float, 0, false /* nullable */, 0),
-    mojo.internal.StructField('y', 4, 0, mojo.internal.Float, 0, false /* nullable */, 0),
-], [[0, 16],]);
-mojo.internal.Struct(Point3FSpec.$, 'Point3F', [
-    mojo.internal.StructField('x', 0, 0, mojo.internal.Float, 0, false /* nullable */, 0),
-    mojo.internal.StructField('y', 4, 0, mojo.internal.Float, 0, false /* nullable */, 0),
-    mojo.internal.StructField('z', 8, 0, mojo.internal.Float, 0, false /* nullable */, 0),
-], [[0, 24],]);
-mojo.internal.Struct(SizeSpec.$, 'Size', [
-    mojo.internal.StructField('width', 0, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
-    mojo.internal.StructField('height', 4, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
-], [[0, 16],]);
-mojo.internal.Struct(SizeFSpec.$, 'SizeF', [
-    mojo.internal.StructField('width', 0, 0, mojo.internal.Float, 0, false /* nullable */, 0),
-    mojo.internal.StructField('height', 4, 0, mojo.internal.Float, 0, false /* nullable */, 0),
-], [[0, 16],]);
-mojo.internal.Struct(RectSpec.$, 'Rect', [
-    mojo.internal.StructField('x', 0, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
-    mojo.internal.StructField('y', 4, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
-    mojo.internal.StructField('width', 8, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
-    mojo.internal.StructField('height', 12, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
-], [[0, 24],]);
-mojo.internal.Struct(RectFSpec.$, 'RectF', [
-    mojo.internal.StructField('x', 0, 0, mojo.internal.Float, 0, false /* nullable */, 0),
-    mojo.internal.StructField('y', 4, 0, mojo.internal.Float, 0, false /* nullable */, 0),
-    mojo.internal.StructField('width', 8, 0, mojo.internal.Float, 0, false /* nullable */, 0),
-    mojo.internal.StructField('height', 12, 0, mojo.internal.Float, 0, false /* nullable */, 0),
-], [[0, 24],]);
-mojo.internal.Struct(InsetsSpec.$, 'Insets', [
-    mojo.internal.StructField('top', 0, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
-    mojo.internal.StructField('left', 4, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
-    mojo.internal.StructField('bottom', 8, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
-    mojo.internal.StructField('right', 12, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
-], [[0, 24],]);
-mojo.internal.Struct(InsetsFSpec.$, 'InsetsF', [
-    mojo.internal.StructField('top', 0, 0, mojo.internal.Float, 0, false /* nullable */, 0),
-    mojo.internal.StructField('left', 4, 0, mojo.internal.Float, 0, false /* nullable */, 0),
-    mojo.internal.StructField('bottom', 8, 0, mojo.internal.Float, 0, false /* nullable */, 0),
-    mojo.internal.StructField('right', 12, 0, mojo.internal.Float, 0, false /* nullable */, 0),
-], [[0, 24],]);
-mojo.internal.Struct(Vector2dSpec.$, 'Vector2d', [
-    mojo.internal.StructField('x', 0, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
-    mojo.internal.StructField('y', 4, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
-], [[0, 16],]);
-mojo.internal.Struct(Vector2dFSpec.$, 'Vector2dF', [
-    mojo.internal.StructField('x', 0, 0, mojo.internal.Float, 0, false /* nullable */, 0),
-    mojo.internal.StructField('y', 4, 0, mojo.internal.Float, 0, false /* nullable */, 0),
-], [[0, 16],]);
-mojo.internal.Struct(Vector3dFSpec.$, 'Vector3dF', [
-    mojo.internal.StructField('x', 0, 0, mojo.internal.Float, 0, false /* nullable */, 0),
-    mojo.internal.StructField('y', 4, 0, mojo.internal.Float, 0, false /* nullable */, 0),
-    mojo.internal.StructField('z', 8, 0, mojo.internal.Float, 0, false /* nullable */, 0),
-], [[0, 24],]);
-mojo.internal.Struct(QuaternionSpec.$, 'Quaternion', [
-    mojo.internal.StructField('x', 0, 0, mojo.internal.Double, 0, false /* nullable */, 0),
-    mojo.internal.StructField('y', 8, 0, mojo.internal.Double, 0, false /* nullable */, 0),
-    mojo.internal.StructField('z', 16, 0, mojo.internal.Double, 0, false /* nullable */, 0),
-    mojo.internal.StructField('w', 24, 0, mojo.internal.Double, 0, false /* nullable */, 0),
-], [[0, 40],]);
-mojo.internal.Struct(QuadFSpec.$, 'QuadF', [
-    mojo.internal.StructField('p1', 0, 0, PointFSpec.$, null, false /* nullable */, 0),
-    mojo.internal.StructField('p2', 8, 0, PointFSpec.$, null, false /* nullable */, 0),
-    mojo.internal.StructField('p3', 16, 0, PointFSpec.$, null, false /* nullable */, 0),
-    mojo.internal.StructField('p4', 24, 0, PointFSpec.$, null, false /* nullable */, 0),
-], [[0, 40],]);
-
-// ui/webui/resources/cr_components/help_bubble/help_bubble.mojom-webui.ts is auto generated by mojom_bindings_generator.py, do not edit
-// Copyright 2020 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-const HelpBubbleArrowPositionSpec = { $: mojo.internal.Enum() };
-var HelpBubbleArrowPosition;
-(function (HelpBubbleArrowPosition) {
-    HelpBubbleArrowPosition[HelpBubbleArrowPosition["MIN_VALUE"] = 0] = "MIN_VALUE";
-    HelpBubbleArrowPosition[HelpBubbleArrowPosition["MAX_VALUE"] = 11] = "MAX_VALUE";
-    HelpBubbleArrowPosition[HelpBubbleArrowPosition["TOP_LEFT"] = 0] = "TOP_LEFT";
-    HelpBubbleArrowPosition[HelpBubbleArrowPosition["TOP_CENTER"] = 1] = "TOP_CENTER";
-    HelpBubbleArrowPosition[HelpBubbleArrowPosition["TOP_RIGHT"] = 2] = "TOP_RIGHT";
-    HelpBubbleArrowPosition[HelpBubbleArrowPosition["BOTTOM_LEFT"] = 3] = "BOTTOM_LEFT";
-    HelpBubbleArrowPosition[HelpBubbleArrowPosition["BOTTOM_CENTER"] = 4] = "BOTTOM_CENTER";
-    HelpBubbleArrowPosition[HelpBubbleArrowPosition["BOTTOM_RIGHT"] = 5] = "BOTTOM_RIGHT";
-    HelpBubbleArrowPosition[HelpBubbleArrowPosition["LEFT_TOP"] = 6] = "LEFT_TOP";
-    HelpBubbleArrowPosition[HelpBubbleArrowPosition["LEFT_CENTER"] = 7] = "LEFT_CENTER";
-    HelpBubbleArrowPosition[HelpBubbleArrowPosition["LEFT_BOTTOM"] = 8] = "LEFT_BOTTOM";
-    HelpBubbleArrowPosition[HelpBubbleArrowPosition["RIGHT_TOP"] = 9] = "RIGHT_TOP";
-    HelpBubbleArrowPosition[HelpBubbleArrowPosition["RIGHT_CENTER"] = 10] = "RIGHT_CENTER";
-    HelpBubbleArrowPosition[HelpBubbleArrowPosition["RIGHT_BOTTOM"] = 11] = "RIGHT_BOTTOM";
-})(HelpBubbleArrowPosition || (HelpBubbleArrowPosition = {}));
-const HelpBubbleClosedReasonSpec = { $: mojo.internal.Enum() };
-var HelpBubbleClosedReason;
-(function (HelpBubbleClosedReason) {
-    HelpBubbleClosedReason[HelpBubbleClosedReason["MIN_VALUE"] = 0] = "MIN_VALUE";
-    HelpBubbleClosedReason[HelpBubbleClosedReason["MAX_VALUE"] = 2] = "MAX_VALUE";
-    HelpBubbleClosedReason[HelpBubbleClosedReason["kPageChanged"] = 0] = "kPageChanged";
-    HelpBubbleClosedReason[HelpBubbleClosedReason["kDismissedByUser"] = 1] = "kDismissedByUser";
-    HelpBubbleClosedReason[HelpBubbleClosedReason["kTimedOut"] = 2] = "kTimedOut";
-})(HelpBubbleClosedReason || (HelpBubbleClosedReason = {}));
-class HelpBubbleHandlerFactoryPendingReceiver {
-    constructor(handle) {
-        this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
-    }
-    bindInBrowser(scope = 'context') {
-        mojo.internal.interfaceSupport.bind(this.handle, 'help_bubble.mojom.HelpBubbleHandlerFactory', scope);
-    }
-}
-class HelpBubbleHandlerFactoryRemote {
-    constructor(handle) {
-        this.proxy =
-            new mojo.internal.interfaceSupport.InterfaceRemoteBase(HelpBubbleHandlerFactoryPendingReceiver, handle);
-        this.$ = new mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper(this.proxy);
-        this.onConnectionError = this.proxy.getConnectionErrorEventRouter();
-    }
-    createHelpBubbleHandler(client, handler) {
-        this.proxy.sendMessage(0, HelpBubbleHandlerFactory_CreateHelpBubbleHandler_ParamsSpec.$, null, [
-            client,
-            handler
-        ]);
-    }
-}
-class HelpBubbleHandlerFactory {
-    static get $interfaceName() {
-        return "help_bubble.mojom.HelpBubbleHandlerFactory";
-    }
-    /**
-     * Returns a remote for this interface which sends messages to the browser.
-     * The browser must have an interface request binder registered for this
-     * interface and accessible to the calling document's frame.
-     */
-    static getRemote() {
-        let remote = new HelpBubbleHandlerFactoryRemote;
-        remote.$.bindNewPipeAndPassReceiver().bindInBrowser();
-        return remote;
-    }
-}
-class HelpBubbleHandlerPendingReceiver {
-    constructor(handle) {
-        this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
-    }
-    bindInBrowser(scope = 'context') {
-        mojo.internal.interfaceSupport.bind(this.handle, 'help_bubble.mojom.HelpBubbleHandler', scope);
-    }
-}
-class HelpBubbleHandlerRemote {
-    constructor(handle) {
-        this.proxy =
-            new mojo.internal.interfaceSupport.InterfaceRemoteBase(HelpBubbleHandlerPendingReceiver, handle);
-        this.$ = new mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper(this.proxy);
-        this.onConnectionError = this.proxy.getConnectionErrorEventRouter();
-    }
-    helpBubbleAnchorVisibilityChanged(nativeIdentifier, visible, rect) {
-        this.proxy.sendMessage(0, HelpBubbleHandler_HelpBubbleAnchorVisibilityChanged_ParamsSpec.$, null, [
-            nativeIdentifier,
-            visible,
-            rect
-        ]);
-    }
-    helpBubbleAnchorActivated(nativeIdentifier) {
-        this.proxy.sendMessage(1, HelpBubbleHandler_HelpBubbleAnchorActivated_ParamsSpec.$, null, [
-            nativeIdentifier
-        ]);
-    }
-    helpBubbleAnchorCustomEvent(nativeIdentifier, customEventName) {
-        this.proxy.sendMessage(2, HelpBubbleHandler_HelpBubbleAnchorCustomEvent_ParamsSpec.$, null, [
-            nativeIdentifier,
-            customEventName
-        ]);
-    }
-    helpBubbleButtonPressed(nativeIdentifier, buttonIndex) {
-        this.proxy.sendMessage(3, HelpBubbleHandler_HelpBubbleButtonPressed_ParamsSpec.$, null, [
-            nativeIdentifier,
-            buttonIndex
-        ]);
-    }
-    helpBubbleClosed(nativeIdentifier, reason) {
-        this.proxy.sendMessage(4, HelpBubbleHandler_HelpBubbleClosed_ParamsSpec.$, null, [
-            nativeIdentifier,
-            reason
-        ]);
-    }
-}
-class HelpBubbleClientPendingReceiver {
-    constructor(handle) {
-        this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
-    }
-    bindInBrowser(scope = 'context') {
-        mojo.internal.interfaceSupport.bind(this.handle, 'help_bubble.mojom.HelpBubbleClient', scope);
-    }
-}
-class HelpBubbleClientRemote {
-    constructor(handle) {
-        this.proxy =
-            new mojo.internal.interfaceSupport.InterfaceRemoteBase(HelpBubbleClientPendingReceiver, handle);
-        this.$ = new mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper(this.proxy);
-        this.onConnectionError = this.proxy.getConnectionErrorEventRouter();
-    }
-    showHelpBubble(params) {
-        this.proxy.sendMessage(0, HelpBubbleClient_ShowHelpBubble_ParamsSpec.$, null, [
-            params
-        ]);
-    }
-    toggleFocusForAccessibility(nativeIdentifier) {
-        this.proxy.sendMessage(1, HelpBubbleClient_ToggleFocusForAccessibility_ParamsSpec.$, null, [
-            nativeIdentifier
-        ]);
-    }
-    hideHelpBubble(nativeIdentifier) {
-        this.proxy.sendMessage(2, HelpBubbleClient_HideHelpBubble_ParamsSpec.$, null, [
-            nativeIdentifier
-        ]);
-    }
-    externalHelpBubbleUpdated(nativeIdentifier, shown) {
-        this.proxy.sendMessage(3, HelpBubbleClient_ExternalHelpBubbleUpdated_ParamsSpec.$, null, [
-            nativeIdentifier,
-            shown
-        ]);
-    }
-}
-/**
- * An object which receives request messages for the HelpBubbleClient
- * mojom interface and dispatches them as callbacks. One callback receiver exists
- * on this object for each message defined in the mojom interface, and each
- * receiver can have any number of listeners added to it.
- */
-class HelpBubbleClientCallbackRouter {
-    constructor() {
-        this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(HelpBubbleClientRemote);
-        this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
-        this.router_ = new mojo.internal.interfaceSupport.CallbackRouter;
-        this.showHelpBubble =
-            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(0, HelpBubbleClient_ShowHelpBubble_ParamsSpec.$, null, this.showHelpBubble.createReceiverHandler(false /* expectsResponse */));
-        this.toggleFocusForAccessibility =
-            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(1, HelpBubbleClient_ToggleFocusForAccessibility_ParamsSpec.$, null, this.toggleFocusForAccessibility.createReceiverHandler(false /* expectsResponse */));
-        this.hideHelpBubble =
-            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(2, HelpBubbleClient_HideHelpBubble_ParamsSpec.$, null, this.hideHelpBubble.createReceiverHandler(false /* expectsResponse */));
-        this.externalHelpBubbleUpdated =
-            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(3, HelpBubbleClient_ExternalHelpBubbleUpdated_ParamsSpec.$, null, this.externalHelpBubbleUpdated.createReceiverHandler(false /* expectsResponse */));
-        this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
-    }
-    /**
-     * @param id An ID returned by a prior call to addListener.
-     * @return True iff the identified listener was found and removed.
-     */
-    removeListener(id) {
-        return this.router_.removeListener(id);
-    }
-}
-const HelpBubbleButtonParamsSpec = { $: {} };
-const ProgressSpec = { $: {} };
-const HelpBubbleParamsSpec = { $: {} };
-const HelpBubbleHandlerFactory_CreateHelpBubbleHandler_ParamsSpec = { $: {} };
-const HelpBubbleHandler_HelpBubbleAnchorVisibilityChanged_ParamsSpec = { $: {} };
-const HelpBubbleHandler_HelpBubbleAnchorActivated_ParamsSpec = { $: {} };
-const HelpBubbleHandler_HelpBubbleAnchorCustomEvent_ParamsSpec = { $: {} };
-const HelpBubbleHandler_HelpBubbleButtonPressed_ParamsSpec = { $: {} };
-const HelpBubbleHandler_HelpBubbleClosed_ParamsSpec = { $: {} };
-const HelpBubbleClient_ShowHelpBubble_ParamsSpec = { $: {} };
-const HelpBubbleClient_ToggleFocusForAccessibility_ParamsSpec = { $: {} };
-const HelpBubbleClient_HideHelpBubble_ParamsSpec = { $: {} };
-const HelpBubbleClient_ExternalHelpBubbleUpdated_ParamsSpec = { $: {} };
-mojo.internal.Struct(HelpBubbleButtonParamsSpec.$, 'HelpBubbleButtonParams', [
-    mojo.internal.StructField('text', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
-    mojo.internal.StructField('isDefault', 8, 0, mojo.internal.Bool, false, false /* nullable */, 0),
-], [[0, 24],]);
-mojo.internal.Struct(ProgressSpec.$, 'Progress', [
-    mojo.internal.StructField('current', 0, 0, mojo.internal.Uint8, 0, false /* nullable */, 0),
-    mojo.internal.StructField('total', 1, 0, mojo.internal.Uint8, 0, false /* nullable */, 0),
-], [[0, 16],]);
-mojo.internal.Struct(HelpBubbleParamsSpec.$, 'HelpBubbleParams', [
-    mojo.internal.StructField('nativeIdentifier', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
-    mojo.internal.StructField('position', 8, 0, HelpBubbleArrowPositionSpec.$, HelpBubbleArrowPosition.TOP_CENTER, false /* nullable */, 0),
-    mojo.internal.StructField('titleText', 16, 0, mojo.internal.String, null, true /* nullable */, 0),
-    mojo.internal.StructField('bodyText', 24, 0, mojo.internal.String, null, false /* nullable */, 0),
-    mojo.internal.StructField('closeButtonAltText', 32, 0, mojo.internal.String, null, false /* nullable */, 0),
-    mojo.internal.StructField('bodyIconName', 40, 0, mojo.internal.String, null, true /* nullable */, 0),
-    mojo.internal.StructField('bodyIconAltText', 48, 0, mojo.internal.String, null, false /* nullable */, 0),
-    mojo.internal.StructField('progress', 56, 0, ProgressSpec.$, null, true /* nullable */, 0),
-    mojo.internal.StructField('buttons', 64, 0, mojo.internal.Array(HelpBubbleButtonParamsSpec.$, false), null, false /* nullable */, 0),
-    mojo.internal.StructField('timeout', 72, 0, TimeDeltaSpec.$, null, true /* nullable */, 0),
-], [[0, 88],]);
-mojo.internal.Struct(HelpBubbleHandlerFactory_CreateHelpBubbleHandler_ParamsSpec.$, 'HelpBubbleHandlerFactory_CreateHelpBubbleHandler_Params', [
-    mojo.internal.StructField('client', 0, 0, mojo.internal.InterfaceProxy(HelpBubbleClientRemote), null, false /* nullable */, 0),
-    mojo.internal.StructField('handler', 8, 0, mojo.internal.InterfaceRequest(HelpBubbleHandlerPendingReceiver), null, false /* nullable */, 0),
-], [[0, 24],]);
-mojo.internal.Struct(HelpBubbleHandler_HelpBubbleAnchorVisibilityChanged_ParamsSpec.$, 'HelpBubbleHandler_HelpBubbleAnchorVisibilityChanged_Params', [
-    mojo.internal.StructField('nativeIdentifier', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
-    mojo.internal.StructField('visible', 8, 0, mojo.internal.Bool, false, false /* nullable */, 0),
-    mojo.internal.StructField('rect', 16, 0, RectFSpec.$, null, false /* nullable */, 0),
-], [[0, 32],]);
-mojo.internal.Struct(HelpBubbleHandler_HelpBubbleAnchorActivated_ParamsSpec.$, 'HelpBubbleHandler_HelpBubbleAnchorActivated_Params', [
-    mojo.internal.StructField('nativeIdentifier', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
-], [[0, 16],]);
-mojo.internal.Struct(HelpBubbleHandler_HelpBubbleAnchorCustomEvent_ParamsSpec.$, 'HelpBubbleHandler_HelpBubbleAnchorCustomEvent_Params', [
-    mojo.internal.StructField('nativeIdentifier', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
-    mojo.internal.StructField('customEventName', 8, 0, mojo.internal.String, null, false /* nullable */, 0),
-], [[0, 24],]);
-mojo.internal.Struct(HelpBubbleHandler_HelpBubbleButtonPressed_ParamsSpec.$, 'HelpBubbleHandler_HelpBubbleButtonPressed_Params', [
-    mojo.internal.StructField('nativeIdentifier', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
-    mojo.internal.StructField('buttonIndex', 8, 0, mojo.internal.Uint8, 0, false /* nullable */, 0),
-], [[0, 24],]);
-mojo.internal.Struct(HelpBubbleHandler_HelpBubbleClosed_ParamsSpec.$, 'HelpBubbleHandler_HelpBubbleClosed_Params', [
-    mojo.internal.StructField('nativeIdentifier', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
-    mojo.internal.StructField('reason', 8, 0, HelpBubbleClosedReasonSpec.$, 0, false /* nullable */, 0),
-], [[0, 24],]);
-mojo.internal.Struct(HelpBubbleClient_ShowHelpBubble_ParamsSpec.$, 'HelpBubbleClient_ShowHelpBubble_Params', [
-    mojo.internal.StructField('params', 0, 0, HelpBubbleParamsSpec.$, null, false /* nullable */, 0),
-], [[0, 16],]);
-mojo.internal.Struct(HelpBubbleClient_ToggleFocusForAccessibility_ParamsSpec.$, 'HelpBubbleClient_ToggleFocusForAccessibility_Params', [
-    mojo.internal.StructField('nativeIdentifier', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
-], [[0, 16],]);
-mojo.internal.Struct(HelpBubbleClient_HideHelpBubble_ParamsSpec.$, 'HelpBubbleClient_HideHelpBubble_Params', [
-    mojo.internal.StructField('nativeIdentifier', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
-], [[0, 16],]);
-mojo.internal.Struct(HelpBubbleClient_ExternalHelpBubbleUpdated_ParamsSpec.$, 'HelpBubbleClient_ExternalHelpBubbleUpdated_Params', [
-    mojo.internal.StructField('nativeIdentifier', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
-    mojo.internal.StructField('shown', 8, 0, mojo.internal.Bool, false, false /* nullable */, 0),
-], [[0, 24],]);
-
-// Copyright 2021 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @fileoverview A bubble for displaying in-product help. These are created
- * dynamically by HelpBubbleMixin, and their API should be considered an
- * implementation detail and subject to change (you should not add them to your
- * components directly).
- */
-const ACTION_BUTTON_ID_PREFIX = 'action-button-';
-const HELP_BUBBLE_DISMISSED_EVENT = 'help-bubble-dismissed';
-const HELP_BUBBLE_TIMED_OUT_EVENT = 'help-bubble-timed-out';
-const HELP_BUBBLE_SCROLL_ANCHOR_OPTIONS = {
-    behavior: 'smooth',
-    block: 'center',
-};
-function debounceEnd(fn, time = 50) {
-    let timerId;
-    return () => {
-        clearTimeout(timerId);
-        timerId = setTimeout(fn, time);
-    };
-}
-class HelpBubbleElement extends PolymerElement {
-    constructor() {
-        super(...arguments);
-        this.closeButtonTabIndex = 0;
-        this.buttons = [];
-        this.progress = null;
-        this.timeoutMs = null;
-        this.timeoutTimerId = null;
-        this.debouncedUpdate = null;
-        this.padding = { top: 0, bottom: 0, left: 0, right: 0 };
-        this.fixed = false;
-        /**
-         * HTMLElement corresponding to |this.nativeId|.
-         */
-        this.anchorElement_ = null;
-        /**
-         * Backing data for the dom-repeat that generates progress indicators.
-         * The elements are placeholders only.
-         */
-        this.progressData_ = [];
-        /**
-         * Watches the offsetParent for resize events, allowing the bubble to be
-         * repositioned in response. Useful for when the content around a help bubble
-         * target can be filtered/expanded/repositioned.
-         */
-        this.resizeObserver_ = null;
-    }
-    static get is() {
-        return 'help-bubble';
-    }
-    static get template() {
-        return getTemplate$1();
-    }
-    static get properties() {
-        return {
-            nativeId: {
-                type: String,
-                value: '',
-                reflectToAttribute: true,
-            },
-            position: {
-                type: HelpBubbleArrowPosition,
-                value: HelpBubbleArrowPosition.TOP_CENTER,
-                reflectToAttribute: true,
-            },
-        };
-    }
-    /**
-     * Shows the bubble.
-     */
-    show(anchorElement) {
-        this.anchorElement_ = anchorElement;
-        // Set up the progress track.
-        if (this.progress) {
-            this.progressData_ = new Array(this.progress.total);
-        }
-        else {
-            this.progressData_ = [];
-        }
-        this.closeButtonTabIndex =
-            this.buttons.length ? this.buttons.length + 2 : 1;
-        assert(this.anchorElement_, 'Tried to show a help bubble but anchorElement does not exist');
-        // Reset the aria-hidden attribute as screen readers need to access the
-        // contents of an opened bubble.
-        this.style.display = 'block';
-        this.style.position = this.fixed ? 'fixed' : 'absolute';
-        this.removeAttribute('aria-hidden');
-        this.updatePosition_();
-        this.debouncedUpdate = debounceEnd(() => {
-            if (this.anchorElement_) {
-                this.updatePosition_();
-            }
-        }, 50);
-        this.$.buttonlist.addEventListener('rendered-item-count-changed', this.debouncedUpdate);
-        window.addEventListener('resize', this.debouncedUpdate);
-        if (this.timeoutMs !== null) {
-            const timedOutCallback = () => {
-                this.dispatchEvent(new CustomEvent(HELP_BUBBLE_TIMED_OUT_EVENT, {
-                    detail: {
-                        nativeId: this.nativeId,
-                    },
-                }));
-            };
-            this.timeoutTimerId = setTimeout(timedOutCallback, this.timeoutMs);
-        }
-        if (this.offsetParent && !this.fixed) {
-            this.resizeObserver_ = new ResizeObserver(() => {
-                this.updatePosition_();
-                this.anchorElement_?.scrollIntoView(HELP_BUBBLE_SCROLL_ANCHOR_OPTIONS);
-            });
-            this.resizeObserver_.observe(this.offsetParent);
-        }
-    }
-    /**
-     * Hides the bubble, clears out its contents, and ensures that screen readers
-     * ignore it while hidden.
-     *
-     * TODO(dfried): We are moving towards formalizing help bubbles as single-use;
-     * in which case most of this tear-down logic can be removed since the entire
-     * bubble will go away on hide.
-     */
-    hide() {
-        if (this.resizeObserver_) {
-            this.resizeObserver_.disconnect();
-            this.resizeObserver_ = null;
-        }
-        this.style.display = 'none';
-        this.setAttribute('aria-hidden', 'true');
-        this.anchorElement_ = null;
-        if (this.timeoutTimerId !== null) {
-            clearInterval(this.timeoutTimerId);
-            this.timeoutTimerId = null;
-        }
-        if (this.debouncedUpdate) {
-            window.removeEventListener('resize', this.debouncedUpdate);
-            this.$.buttonlist.removeEventListener('rendered-item-count-changed', this.debouncedUpdate);
-            this.debouncedUpdate = null;
-        }
-    }
-    /**
-     * Retrieves the current anchor element, if set and the bubble is showing,
-     * otherwise null.
-     */
-    getAnchorElement() {
-        return this.anchorElement_;
-    }
-    /**
-     * Returns the button with the given `buttonIndex`, or null if not found.
-     */
-    getButtonForTesting(buttonIndex) {
-        return this.$.buttons.querySelector(`[id="${ACTION_BUTTON_ID_PREFIX + buttonIndex}"]`);
-    }
-    /**
-     * Focuses a button in the bubble.
-     */
-    focus() {
-        this.$.buttonlist.render();
-        const button = this.$.buttons.querySelector('cr-button.default-button') ||
-            this.$.buttons.querySelector('cr-button') || this.$.close;
-        assert(button);
-        button.focus();
-    }
-    /**
-     * Returns whether the default button is leading (true on Windows) vs trailing
-     * (all other platforms).
-     */
-    static isDefaultButtonLeading() {
-        return isWindows;
-    }
-    dismiss_() {
-        assert(this.nativeId, 'Dismiss: expected help bubble to have a native id.');
-        this.dispatchEvent(new CustomEvent(HELP_BUBBLE_DISMISSED_EVENT, {
-            detail: {
-                nativeId: this.nativeId,
-                fromActionButton: false,
-            },
-        }));
-    }
-    /**
-     * Handles ESC keypress (dismiss bubble) and prevents it from propagating up
-     * to parent elements.
-     */
-    onKeyDown_(e) {
-        if (e.key === 'Escape') {
-            e.stopPropagation();
-            this.dismiss_();
-        }
-    }
-    /**
-     * Prevent event propagation. Attach to any event that should not bubble up
-     * out of the help bubble.
-     */
-    blockPropagation_(e) {
-        e.stopPropagation();
-    }
-    getProgressClass_(index) {
-        return index < this.progress.current ? 'current-progress' :
-            'total-progress';
-    }
-    shouldShowTitleInTopContainer_(progress, titleText) {
-        return !!titleText && !progress;
-    }
-    shouldShowBodyInTopContainer_(progress, titleText) {
-        return !progress && !titleText;
-    }
-    shouldShowBodyInMain_(progress, titleText) {
-        return !!progress || !!titleText;
-    }
-    shouldShowBodyIcon_(bodyIconName) {
-        return bodyIconName !== null && bodyIconName !== '';
-    }
-    onButtonClick_(e) {
-        assert(this.nativeId, 'Action button clicked: expected help bubble to have a native ID.');
-        // There is no access to the model index here due to limitations of
-        // dom-repeat. However, the index is stored in the node's identifier.
-        const index = parseInt(e.target.id.substring(ACTION_BUTTON_ID_PREFIX.length));
-        this.dispatchEvent(new CustomEvent(HELP_BUBBLE_DISMISSED_EVENT, {
-            detail: {
-                nativeId: this.nativeId,
-                fromActionButton: true,
-                buttonIndex: index,
-            },
-        }));
-    }
-    getButtonId_(index) {
-        return ACTION_BUTTON_ID_PREFIX + index;
-    }
-    getButtonClass_(isDefault) {
-        return isDefault ? 'default-button focus-outline-visible' :
-            'focus-outline-visible';
-    }
-    getButtonTabIndex_(index, isDefault) {
-        return isDefault ? 1 : index + 2;
-    }
-    buttonSortFunc_(button1, button2) {
-        // Default button is leading on Windows, trailing on other platforms.
-        if (button1.isDefault) {
-            return isWindows ? -1 : 1;
-        }
-        if (button2.isDefault) {
-            return isWindows ? 1 : -1;
-        }
-        return 0;
-    }
-    /**
-     * Determine classes that describe the arrow position relative to the
-     * HelpBubble
-     */
-    getArrowClass_(position) {
-        let classList = '';
-        // `*-edge` classes move arrow to a HelpBubble edge
-        switch (position) {
-            case HelpBubbleArrowPosition.TOP_LEFT:
-            case HelpBubbleArrowPosition.TOP_CENTER:
-            case HelpBubbleArrowPosition.TOP_RIGHT:
-                classList = 'top-edge ';
-                break;
-            case HelpBubbleArrowPosition.BOTTOM_LEFT:
-            case HelpBubbleArrowPosition.BOTTOM_CENTER:
-            case HelpBubbleArrowPosition.BOTTOM_RIGHT:
-                classList = 'bottom-edge ';
-                break;
-            case HelpBubbleArrowPosition.LEFT_TOP:
-            case HelpBubbleArrowPosition.LEFT_CENTER:
-            case HelpBubbleArrowPosition.LEFT_BOTTOM:
-                classList = 'left-edge ';
-                break;
-            case HelpBubbleArrowPosition.RIGHT_TOP:
-            case HelpBubbleArrowPosition.RIGHT_CENTER:
-            case HelpBubbleArrowPosition.RIGHT_BOTTOM:
-                classList = 'right-edge ';
-                break;
-            default:
-                assertNotReached('Unknown help bubble position: ' + position);
-        }
-        // `*-position` classes move arrow along the HelpBubble edge
-        switch (position) {
-            case HelpBubbleArrowPosition.TOP_LEFT:
-            case HelpBubbleArrowPosition.BOTTOM_LEFT:
-                classList += 'left-position';
-                break;
-            case HelpBubbleArrowPosition.TOP_CENTER:
-            case HelpBubbleArrowPosition.BOTTOM_CENTER:
-                classList += 'horizontal-center-position';
-                break;
-            case HelpBubbleArrowPosition.TOP_RIGHT:
-            case HelpBubbleArrowPosition.BOTTOM_RIGHT:
-                classList += 'right-position';
-                break;
-            case HelpBubbleArrowPosition.LEFT_TOP:
-            case HelpBubbleArrowPosition.RIGHT_TOP:
-                classList += 'top-position';
-                break;
-            case HelpBubbleArrowPosition.LEFT_CENTER:
-            case HelpBubbleArrowPosition.RIGHT_CENTER:
-                classList += 'vertical-center-position';
-                break;
-            case HelpBubbleArrowPosition.LEFT_BOTTOM:
-            case HelpBubbleArrowPosition.RIGHT_BOTTOM:
-                classList += 'bottom-position';
-                break;
-            default:
-                assertNotReached('Unknown help bubble position: ' + position);
-        }
-        return classList;
-    }
-    /**
-     * Sets the bubble position, as relative to that of the anchor element and
-     * |this.position|.
-     */
-    updatePosition_() {
-        assert(this.anchorElement_, 'Update position: expected valid anchor element.');
-        // How far HelpBubble is from anchorElement
-        const ANCHOR_OFFSET = 16;
-        const ARROW_WIDTH = 16;
-        // The nearest an arrow can be to the adjacent HelpBubble edge
-        const ARROW_OFFSET_FROM_EDGE = 22 + (ARROW_WIDTH / 2);
-        // Inclusive of 8px visible arrow and 8px margin.
-        const anchorRect = this.anchorElement_.getBoundingClientRect();
-        const anchorRectCenter = {
-            x: anchorRect.left + (anchorRect.width / 2),
-            y: anchorRect.top + (anchorRect.height / 2),
-        };
-        const helpBubbleRect = this.getBoundingClientRect();
-        // component is inserted at mixin root so start with anchor offsets
-        let offsetX = this.anchorElement_.offsetLeft;
-        let offsetY = this.anchorElement_.offsetTop;
-        // Move HelpBubble to correct side of the anchorElement
-        switch (this.position) {
-            case HelpBubbleArrowPosition.TOP_LEFT:
-            case HelpBubbleArrowPosition.TOP_CENTER:
-            case HelpBubbleArrowPosition.TOP_RIGHT:
-                offsetY += anchorRect.height + ANCHOR_OFFSET + this.padding.bottom;
-                break;
-            case HelpBubbleArrowPosition.BOTTOM_LEFT:
-            case HelpBubbleArrowPosition.BOTTOM_CENTER:
-            case HelpBubbleArrowPosition.BOTTOM_RIGHT:
-                offsetY -= (helpBubbleRect.height + ANCHOR_OFFSET + this.padding.top);
-                break;
-            case HelpBubbleArrowPosition.LEFT_TOP:
-            case HelpBubbleArrowPosition.LEFT_CENTER:
-            case HelpBubbleArrowPosition.LEFT_BOTTOM:
-                offsetX += anchorRect.width + ANCHOR_OFFSET + this.padding.right;
-                break;
-            case HelpBubbleArrowPosition.RIGHT_TOP:
-            case HelpBubbleArrowPosition.RIGHT_CENTER:
-            case HelpBubbleArrowPosition.RIGHT_BOTTOM:
-                offsetX -= (helpBubbleRect.width + ANCHOR_OFFSET + this.padding.left);
-                break;
-            default:
-                assertNotReached();
-        }
-        // Move HelpBubble along the anchorElement edge according to arrow position
-        switch (this.position) {
-            case HelpBubbleArrowPosition.TOP_LEFT:
-            case HelpBubbleArrowPosition.BOTTOM_LEFT:
-                // If anchor element width is small, point arrow to center of anchor
-                // element
-                if ((anchorRect.left + ARROW_OFFSET_FROM_EDGE) > anchorRectCenter.x) {
-                    offsetX += (anchorRect.width / 2) - ARROW_OFFSET_FROM_EDGE;
-                }
-                break;
-            case HelpBubbleArrowPosition.TOP_CENTER:
-            case HelpBubbleArrowPosition.BOTTOM_CENTER:
-                offsetX += (anchorRect.width / 2) - (helpBubbleRect.width / 2);
-                break;
-            case HelpBubbleArrowPosition.TOP_RIGHT:
-            case HelpBubbleArrowPosition.BOTTOM_RIGHT:
-                // If anchor element width is small, point arrow to center of anchor
-                // element
-                if ((anchorRect.right - ARROW_OFFSET_FROM_EDGE) < anchorRectCenter.x) {
-                    offsetX += (anchorRect.width / 2) - helpBubbleRect.width +
-                        ARROW_OFFSET_FROM_EDGE;
-                }
-                else {
-                    // Right-align bubble and anchor elements
-                    offsetX += anchorRect.width - helpBubbleRect.width;
-                }
-                break;
-            case HelpBubbleArrowPosition.LEFT_TOP:
-            case HelpBubbleArrowPosition.RIGHT_TOP:
-                // If anchor element height is small, point arrow to center of anchor
-                // element
-                if ((anchorRect.top + ARROW_OFFSET_FROM_EDGE) > anchorRectCenter.y) {
-                    offsetY += (anchorRect.height / 2) - ARROW_OFFSET_FROM_EDGE;
-                }
-                break;
-            case HelpBubbleArrowPosition.LEFT_CENTER:
-            case HelpBubbleArrowPosition.RIGHT_CENTER:
-                offsetY += (anchorRect.height / 2) - (helpBubbleRect.height / 2);
-                break;
-            case HelpBubbleArrowPosition.LEFT_BOTTOM:
-            case HelpBubbleArrowPosition.RIGHT_BOTTOM:
-                // If anchor element height is small, point arrow to center of anchor
-                // element
-                if ((anchorRect.bottom - ARROW_OFFSET_FROM_EDGE) < anchorRectCenter.y) {
-                    offsetY += (anchorRect.height / 2) - helpBubbleRect.height +
-                        ARROW_OFFSET_FROM_EDGE;
-                }
-                else {
-                    // Bottom-align bubble and anchor elements
-                    offsetY += anchorRect.height - helpBubbleRect.height;
-                }
-                break;
-            default:
-                assertNotReached();
-        }
-        this.style.top = offsetY.toString() + 'px';
-        this.style.left = offsetX.toString() + 'px';
-    }
-}
-customElements.define(HelpBubbleElement.is, HelpBubbleElement);
-
-// Copyright 2022 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-const ANCHOR_HIGHLIGHT_CLASS = 'help-anchor-highlight';
-// Return whether the current language is right-to-left
-function isRtlLang(element) {
-    return window.getComputedStyle(element).direction === 'rtl';
-}
-// Reflect arrow position across y-axis
-function reflectArrowPosition(position) {
-    switch (position) {
-        case HelpBubbleArrowPosition.TOP_LEFT:
-            return HelpBubbleArrowPosition.TOP_RIGHT;
-        case HelpBubbleArrowPosition.TOP_RIGHT:
-            return HelpBubbleArrowPosition.TOP_LEFT;
-        case HelpBubbleArrowPosition.BOTTOM_LEFT:
-            return HelpBubbleArrowPosition.BOTTOM_RIGHT;
-        case HelpBubbleArrowPosition.BOTTOM_RIGHT:
-            return HelpBubbleArrowPosition.BOTTOM_LEFT;
-        case HelpBubbleArrowPosition.LEFT_TOP:
-            return HelpBubbleArrowPosition.RIGHT_TOP;
-        case HelpBubbleArrowPosition.LEFT_CENTER:
-            return HelpBubbleArrowPosition.RIGHT_CENTER;
-        case HelpBubbleArrowPosition.LEFT_BOTTOM:
-            return HelpBubbleArrowPosition.RIGHT_BOTTOM;
-        case HelpBubbleArrowPosition.RIGHT_TOP:
-            return HelpBubbleArrowPosition.LEFT_TOP;
-        case HelpBubbleArrowPosition.RIGHT_CENTER:
-            return HelpBubbleArrowPosition.LEFT_CENTER;
-        case HelpBubbleArrowPosition.RIGHT_BOTTOM:
-            return HelpBubbleArrowPosition.LEFT_BOTTOM;
-        default:
-            return position;
-    }
-}
-/**
- * HelpBubble controller class
- * - There should exist only one HelpBubble instance for each nativeId
- * - The mapping between nativeId and htmlId is held within this instance
- * - The rest of the parameters are passed to createBubble
- */
-class HelpBubbleController {
-    constructor(nativeId, root) {
-        this.anchor_ = null;
-        this.bubble_ = null;
-        this.options_ = { padding: { top: 0, bottom: 0, left: 0, right: 0 }, fixed: false };
-        /**
-         * Whether a help bubble (webui or external) is being shown for this
-         * controller
-         */
-        this.isBubbleShowing_ = false;
-        /** Keep track of last known anchor visibility status. */
-        this.isAnchorVisible_ = false;
-        /** Keep track of last known anchor bounds. */
-        this.lastAnchorBounds_ = { x: 0, y: 0, width: 0, height: 0 };
-        /*
-         * This flag is used to know whether to send position updates for
-         * external bubbles
-         */
-        this.isExternal_ = false;
-        assert(nativeId, 'HelpBubble: nativeId was not defined when registering help bubble');
-        assert(root, 'HelpBubble: shadowRoot was not defined when registering help bubble');
-        this.nativeId_ = nativeId;
-        this.root_ = root;
-    }
-    isBubbleShowing() {
-        return this.isBubbleShowing_;
-    }
-    canShowBubble() {
-        return this.hasAnchor();
-    }
-    hasBubble() {
-        return !!this.bubble_;
-    }
-    getBubble() {
-        return this.bubble_;
-    }
-    hasAnchor() {
-        return !!this.anchor_;
-    }
-    getAnchor() {
-        return this.anchor_;
-    }
-    getNativeId() {
-        return this.nativeId_;
-    }
-    getPadding() {
-        return this.options_.padding;
-    }
-    getAnchorVisibility() {
-        return this.isAnchorVisible_;
-    }
-    getLastAnchorBounds() {
-        return this.lastAnchorBounds_;
-    }
-    updateAnchorVisibility(isVisible, bounds) {
-        const changed = isVisible !== this.isAnchorVisible_ ||
-            bounds.x !== this.lastAnchorBounds_.x ||
-            bounds.y !== this.lastAnchorBounds_.y ||
-            bounds.width !== this.lastAnchorBounds_.width ||
-            bounds.height !== this.lastAnchorBounds_.height;
-        this.isAnchorVisible_ = isVisible;
-        this.lastAnchorBounds_ = bounds;
-        return changed;
-    }
-    isAnchorFixed() {
-        return this.options_.fixed;
-    }
-    isExternal() {
-        return this.isExternal_;
-    }
-    updateExternalShowingStatus(isShowing) {
-        this.isExternal_ = true;
-        this.isBubbleShowing_ = isShowing;
-        this.setAnchorHighlight_(isShowing);
-    }
-    track(trackable, options) {
-        assert(!this.anchor_);
-        let anchor = null;
-        if (typeof trackable === 'string') {
-            anchor = this.root_.querySelector(trackable);
-        }
-        else if (Array.isArray(trackable)) {
-            anchor = this.deepQuery(trackable);
-        }
-        else if (trackable instanceof HTMLElement) {
-            anchor = trackable;
-        }
-        else {
-            assertNotReached('HelpBubble: anchor argument was unrecognized when registering ' +
-                'help bubble');
-        }
-        if (!anchor) {
-            return false;
-        }
-        anchor.dataset['nativeId'] = this.nativeId_;
-        this.anchor_ = anchor;
-        this.options_ = options;
-        return true;
-    }
-    deepQuery(selectors) {
-        let cur = this.root_;
-        for (const selector of selectors) {
-            if (cur.shadowRoot) {
-                cur = cur.shadowRoot;
-            }
-            const el = cur.querySelector(selector);
-            if (!el) {
-                return null;
-            }
-            else {
-                cur = el;
-            }
-        }
-        return cur;
-    }
-    show() {
-        this.isExternal_ = false;
-        if (!(this.bubble_ && this.anchor_)) {
-            return;
-        }
-        this.bubble_.show(this.anchor_);
-        this.isBubbleShowing_ = true;
-        this.setAnchorHighlight_(true);
-    }
-    hide() {
-        if (!this.bubble_) {
-            return;
-        }
-        this.bubble_.hide();
-        this.bubble_.remove();
-        this.bubble_ = null;
-        this.isBubbleShowing_ = false;
-        this.setAnchorHighlight_(false);
-    }
-    createBubble(params) {
-        assert(this.anchor_, 'HelpBubble: anchor was not defined when showing help bubble');
-        assert(this.anchor_.parentNode, 'HelpBubble: anchor element not in DOM');
-        this.bubble_ = document.createElement('help-bubble');
-        this.bubble_.nativeId = this.nativeId_;
-        this.bubble_.position = isRtlLang(this.anchor_) ?
-            reflectArrowPosition(params.position) :
-            params.position;
-        this.bubble_.closeButtonAltText = params.closeButtonAltText;
-        this.bubble_.bodyText = params.bodyText;
-        this.bubble_.bodyIconName = params.bodyIconName || null;
-        this.bubble_.bodyIconAltText = params.bodyIconAltText;
-        this.bubble_.titleText = params.titleText || '';
-        this.bubble_.progress = params.progress || null;
-        this.bubble_.buttons = params.buttons;
-        this.bubble_.padding = this.options_.padding;
-        if (params.timeout) {
-            this.bubble_.timeoutMs = Number(params.timeout.microseconds / 1000n);
-            assert(this.bubble_.timeoutMs > 0);
-        }
-        assert(!this.bubble_.progress ||
-            this.bubble_.progress.total >= this.bubble_.progress.current);
-        assert(this.root_);
-        // Because the help bubble uses either absolute or fixed positioning, it
-        // need only be placed within the offset parent of the anchor. However it is
-        // placed as a sibling to the anchor because that guarantees proper tab
-        // order.
-        if (getComputedStyle(this.anchor_).getPropertyValue('position') ===
-            'fixed') {
-            this.bubble_.fixed = true;
-        }
-        this.anchor_.parentNode.insertBefore(this.bubble_, this.anchor_);
-        return this.bubble_;
-    }
-    /**
-     * Styles the anchor element to appear highlighted while the bubble is open,
-     * or removes the highlight.
-     */
-    setAnchorHighlight_(highlight) {
-        assert(this.anchor_, 'Set anchor highlight: expected valid anchor element.');
-        this.anchor_.classList.toggle(ANCHOR_HIGHLIGHT_CLASS, highlight);
-        if (highlight) {
-            (this.bubble_ || this.anchor_).focus();
-            this.anchor_.scrollIntoView(HELP_BUBBLE_SCROLL_ANCHOR_OPTIONS);
-        }
-    }
-    /**
-     * Gets the immediate ancestor element of `element` in the DOM, or null if
-     * none. This steps out of shadow DOMs as it finds them.
-     */
-    static getImmediateAncestor(element) {
-        if (element.parentElement) {
-            return element.parentElement;
-        }
-        if (element.parentNode instanceof ShadowRoot) {
-            return element.parentNode.host;
-        }
-        return null;
-    }
-}
-
-// Copyright 2022 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-class HelpBubbleProxyImpl {
-    constructor() {
-        this.callbackRouter_ = new HelpBubbleClientCallbackRouter();
-        this.handler_ = new HelpBubbleHandlerRemote();
-        const factory = HelpBubbleHandlerFactory.getRemote();
-        factory.createHelpBubbleHandler(this.callbackRouter_.$.bindNewPipeAndPassRemote(), this.handler_.$.bindNewPipeAndPassReceiver());
-    }
-    static getInstance() {
-        return instance$1 || (instance$1 = new HelpBubbleProxyImpl());
-    }
-    static setInstance(obj) {
-        instance$1 = obj;
-    }
-    getHandler() {
-        return this.handler_;
-    }
-    getCallbackRouter() {
-        return this.callbackRouter_;
-    }
-}
-let instance$1 = null;
-
-// Copyright 2022 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @fileoverview Logic common to components that support a help bubble.
- *
- * A component implementing this mixin should call
- * registerHelpBubble() to associate specific element identifiers
- * referenced  in an IPH or Tutorials journey with the ids of the HTML elements
- * that journey cares about (typically, points for help bubbles to anchor to).
- *
- * Multiple components in the same WebUI may have this mixin. Each mixin will
- * receive ALL help bubble-related messages from its associated WebUIController
- * and determines if any given message is relevant. This is done by checking
- * against registered identifier.
- *
- * See README.md for more information.
- */
-const HelpBubbleMixin = dedupingMixin((superClass) => {
-    class HelpBubbleMixin extends superClass {
-        constructor(...args) {
-            super(...args);
-            /**
-             * A map from the name of the native identifier used in the tutorial or
-             * IPH definition to the target element's HTML ID.
-             *
-             * Example entry:
-             *   "kHeightenSecuritySettingsElementId" => "toggleSecureMode"
-             */
-            this.helpBubbleControllerById_ = new Map();
-            this.helpBubbleListenerIds_ = [];
-            this.helpBubbleFixedAnchorObserver_ = null;
-            this.helpBubbleResizeObserver_ = null;
-            this.helpBubbleDismissedEventTracker_ = new EventTracker();
-            this.debouncedAnchorMayHaveChangedCallback_ = null;
-            this.helpBubbleHandler_ =
-                HelpBubbleProxyImpl.getInstance().getHandler();
-            this.helpBubbleCallbackRouter_ =
-                HelpBubbleProxyImpl.getInstance().getCallbackRouter();
-        }
-        connectedCallback() {
-            super.connectedCallback();
-            const router = this.helpBubbleCallbackRouter_;
-            this.helpBubbleListenerIds_.push(router.showHelpBubble.addListener(this.onShowHelpBubble_.bind(this)), router.toggleFocusForAccessibility.addListener(this.onToggleHelpBubbleFocusForAccessibility_.bind(this)), router.hideHelpBubble.addListener(this.onHideHelpBubble_.bind(this)), router.externalHelpBubbleUpdated.addListener(this.onExternalHelpBubbleUpdated_.bind(this)));
-            const isVisible = (element) => {
-                const rect = element.getBoundingClientRect();
-                return rect.height > 0 && rect.width > 0;
-            };
-            this.debouncedAnchorMayHaveChangedCallback_ =
-                debounceEnd(this.onAnchorBoundsMayHaveChanged_.bind(this), 50);
-            this.helpBubbleResizeObserver_ =
-                new ResizeObserver(entries => entries.forEach(({ target }) => {
-                    if (target === document.body) {
-                        if (this.debouncedAnchorMayHaveChangedCallback_) {
-                            this.debouncedAnchorMayHaveChangedCallback_();
-                        }
-                    }
-                    else {
-                        this.onAnchorVisibilityChanged_(target, isVisible(target));
-                    }
-                }));
-            this.helpBubbleFixedAnchorObserver_ = new IntersectionObserver(entries => entries.forEach(({ target, isIntersecting }) => this.onAnchorVisibilityChanged_(target, isIntersecting)), { root: null });
-            document.addEventListener('scroll', this.debouncedAnchorMayHaveChangedCallback_, { passive: true });
-            this.helpBubbleResizeObserver_.observe(document.body);
-            // When the component is connected, if the target elements were
-            // already registered, they should be observed now. Any targets
-            // registered from this point forward will observed on registration.
-            this.controllers.forEach(ctrl => this.observeControllerAnchor_(ctrl));
-        }
-        get controllers() {
-            return Array.from(this.helpBubbleControllerById_.values());
-        }
-        disconnectedCallback() {
-            super.disconnectedCallback();
-            for (const listenerId of this.helpBubbleListenerIds_) {
-                this.helpBubbleCallbackRouter_.removeListener(listenerId);
-            }
-            this.helpBubbleListenerIds_ = [];
-            assert(this.helpBubbleResizeObserver_);
-            this.helpBubbleResizeObserver_.disconnect();
-            this.helpBubbleResizeObserver_ = null;
-            assert(this.helpBubbleFixedAnchorObserver_);
-            this.helpBubbleFixedAnchorObserver_.disconnect();
-            this.helpBubbleFixedAnchorObserver_ = null;
-            this.helpBubbleDismissedEventTracker_.removeAll();
-            this.helpBubbleControllerById_.clear();
-            if (this.debouncedAnchorMayHaveChangedCallback_) {
-                document.removeEventListener('scroll', this.debouncedAnchorMayHaveChangedCallback_);
-                this.debouncedAnchorMayHaveChangedCallback_ = null;
-            }
-        }
-        /**
-         * Maps `nativeId`, which should be the name of a ui::ElementIdentifier
-         * referenced by the WebUIController, with either:
-         * - a selector
-         * - an array of selectors (will traverse shadow DOM elements)
-         * - an arbitrary HTMLElement
-         *
-         * The referenced element should have block display and non-zero size
-         * when visible (inline elements may be supported in the future).
-         *
-         * Example:
-         *   registerHelpBubble(
-         *       'kMyComponentTitleLabelElementIdentifier',
-         *       '#title');
-         *
-         * Example:
-         *   registerHelpBubble(
-         *       'kMyComponentTitleLabelElementIdentifier',
-         *       ['#child-component', '#child-component-button']);
-         *
-         * Example:
-         *   registerHelpBubble(
-         *       'kMyComponentTitleLabelElementIdentifier',
-         *       this.$.list.childNodes[0]);
-         *
-         * See README.md for full instructions.
-         *
-         * This method can be called multiple times to re-register the
-         * nativeId to a new element/selector. If the help bubble is already
-         * showing, the registration will fail and return null. If successful,
-         * this method returns the new controller.
-         *
-         * Optionally, an options object may be supplied to change the
-         * default behavior of the help bubble.
-         *
-         * - Fixed positioning detection:
-         *  e.g. `{fixed: true}`
-         *  By default, this mixin detects anchor elements when
-         *  rendered within the document. This breaks with
-         *  fix-positioned elements since they are not in the regular
-         *  flow of the document but they are always visible. Passing
-         *  {"fixed": true} will detect the anchor element when it is
-         *  visible.
-         *
-         * - Add padding around anchor element:
-         *  e.g. `{anchorPaddingTop: 5}`
-         *  To add to the default margin around the anchor element in all
-         *  4 directions, e.g. {"anchorPaddingTop": 5} adds 5 pixels to
-         *  the margin at the top off the anchor element. The margin is
-         *  used when calculating how far the help bubble should be spaced
-         *  from the anchor element. Larger values equate to a larger visual
-         *  gap. These values must be positive integers in the range [0, 20].
-         *  This option should be used sparingly where the help bubble would
-         *  otherwise conceal important UI.
-         */
-        registerHelpBubble(nativeId, trackable, options = {}) {
-            if (this.helpBubbleControllerById_.has(nativeId)) {
-                const ctrl = this.helpBubbleControllerById_.get(nativeId);
-                if (ctrl && ctrl.isBubbleShowing()) {
-                    return null;
-                }
-                this.unregisterHelpBubble(nativeId);
-            }
-            const controller = new HelpBubbleController(nativeId, this.shadowRoot);
-            controller.track(trackable, parseOptions(options));
-            this.helpBubbleControllerById_.set(nativeId, controller);
-            // This can be called before or after `connectedCallback()`, so if the
-            // component isn't connected and the observer set up yet, delay
-            // observation until it is.
-            if (this.helpBubbleResizeObserver_) {
-                this.observeControllerAnchor_(controller);
-            }
-            return controller;
-        }
-        /**
-         * Unregisters a help bubble nativeId.
-         *
-         * This method will remove listeners, hide the help bubble if
-         * showing, and forget the nativeId.
-         */
-        unregisterHelpBubble(nativeId) {
-            const ctrl = this.helpBubbleControllerById_.get(nativeId);
-            if (ctrl && ctrl.hasAnchor()) {
-                this.onAnchorVisibilityChanged_(ctrl.getAnchor(), false);
-                this.unobserveControllerAnchor_(ctrl);
-            }
-            this.helpBubbleControllerById_.delete(nativeId);
-        }
-        observeControllerAnchor_(controller) {
-            const anchor = controller.getAnchor();
-            assert(anchor, 'Help bubble does not have anchor');
-            if (controller.isAnchorFixed()) {
-                assert(this.helpBubbleFixedAnchorObserver_);
-                this.helpBubbleFixedAnchorObserver_.observe(anchor);
-            }
-            else {
-                assert(this.helpBubbleResizeObserver_);
-                this.helpBubbleResizeObserver_.observe(anchor);
-            }
-        }
-        unobserveControllerAnchor_(controller) {
-            const anchor = controller.getAnchor();
-            assert(anchor, 'Help bubble does not have anchor');
-            if (controller.isAnchorFixed()) {
-                assert(this.helpBubbleFixedAnchorObserver_);
-                this.helpBubbleFixedAnchorObserver_.unobserve(anchor);
-            }
-            else {
-                assert(this.helpBubbleResizeObserver_);
-                this.helpBubbleResizeObserver_.unobserve(anchor);
-            }
-        }
-        /**
-         * Returns whether any help bubble is currently showing in this
-         * component.
-         */
-        isHelpBubbleShowing() {
-            return this.controllers.some(ctrl => ctrl.isBubbleShowing());
-        }
-        /**
-         * Returns whether any help bubble is currently showing on a tag
-         * with this id.
-         */
-        isHelpBubbleShowingForTesting(id) {
-            const ctrls = this.controllers.filter(this.filterMatchingIdForTesting_(id));
-            return !!ctrls[0];
-        }
-        /**
-         * Returns the help bubble currently showing on a tag with this
-         * id.
-         */
-        getHelpBubbleForTesting(id) {
-            const ctrls = this.controllers.filter(this.filterMatchingIdForTesting_(id));
-            return ctrls[0] ? ctrls[0].getBubble() : null;
-        }
-        filterMatchingIdForTesting_(anchorId) {
-            return ctrl => ctrl.isBubbleShowing() && ctrl.getAnchor() !== null &&
-                ctrl.getAnchor().id === anchorId;
-        }
-        /**
-         * Testing method to validate that anchors will be properly
-         * located at runtime
-         *
-         * Call this method in your browser_tests after your help
-         * bubbles have been registered. Results are sorted to be
-         * deterministic.
-         */
-        getSortedAnchorStatusesForTesting() {
-            return this.controllers
-                .sort((a, b) => a.getNativeId().localeCompare(b.getNativeId()))
-                .map(ctrl => ([ctrl.getNativeId(), ctrl.hasAnchor()]));
-        }
-        /**
-         * Returns whether a help bubble can be shown
-         * This requires:
-         * - the mixin is tracking this controller
-         * - the controller is in a state to be shown, e.g.
-         *   `.canShowBubble()`
-         * - no other showing bubbles are anchored to the same element
-         */
-        canShowHelpBubble(controller) {
-            if (!this.helpBubbleControllerById_.has(controller.getNativeId())) {
-                return false;
-            }
-            if (!controller.canShowBubble()) {
-                return false;
-            }
-            const anchor = controller.getAnchor();
-            // Make sure no other help bubble is showing for this anchor.
-            const anchorIsUsed = this.controllers.some(otherCtrl => otherCtrl.isBubbleShowing() &&
-                otherCtrl.getAnchor() === anchor);
-            return !anchorIsUsed;
-        }
-        /**
-         * Displays a help bubble with `params` anchored to the HTML element
-         * with id `anchorId`. Note that `params.nativeIdentifier` is ignored by
-         * this method, since the anchor is already specified.
-         */
-        showHelpBubble(controller, params) {
-            assert(this.canShowHelpBubble(controller), 'Can\'t show help bubble');
-            const bubble = controller.createBubble(params);
-            this.helpBubbleDismissedEventTracker_.add(bubble, HELP_BUBBLE_DISMISSED_EVENT, this.onHelpBubbleDismissed_.bind(this));
-            this.helpBubbleDismissedEventTracker_.add(bubble, HELP_BUBBLE_TIMED_OUT_EVENT, this.onHelpBubbleTimedOut_.bind(this));
-            controller.show();
-        }
-        /**
-         * Hides a help bubble anchored to element with id `anchorId` if there
-         * is one. Returns true if a bubble was hidden.
-         */
-        hideHelpBubble(nativeId) {
-            const ctrl = this.helpBubbleControllerById_.get(nativeId);
-            if (!ctrl || !ctrl.hasBubble()) {
-                // `!ctrl` means this identifier is not handled by this mixin
-                return false;
-            }
-            this.helpBubbleDismissedEventTracker_.remove(ctrl.getBubble(), HELP_BUBBLE_DISMISSED_EVENT);
-            this.helpBubbleDismissedEventTracker_.remove(ctrl.getBubble(), HELP_BUBBLE_TIMED_OUT_EVENT);
-            ctrl.hide();
-            return true;
-        }
-        /**
-         * Sends an "activated" event to the ElementTracker system for the
-         * element with id `anchorId`, which must have been registered as a help
-         * bubble anchor. This event will be processed in the browser and may
-         * e.g. cause a Tutorial or interactive test to advance to the next
-         * step.
-         *
-         * TODO(crbug.com/1376262): Figure out how to automatically send the
-         * activated event when an anchor element is clicked.
-         */
-        notifyHelpBubbleAnchorActivated(nativeId) {
-            const ctrl = this.helpBubbleControllerById_.get(nativeId);
-            if (!ctrl || !ctrl.isBubbleShowing()) {
-                return false;
-            }
-            this.helpBubbleHandler_.helpBubbleAnchorActivated(nativeId);
-            return true;
-        }
-        /**
-         * Sends a custom event to the ElementTracker system for the element
-         * with id `anchorId`, which must have been registered as a help bubble
-         * anchor. This event will be processed in the browser and may e.g.
-         * cause a Tutorial or interactive test to advance to the next step.
-         *
-         * The `customEvent` string should correspond to the name of a
-         * ui::CustomElementEventType declared in the browser code.
-         */
-        notifyHelpBubbleAnchorCustomEvent(nativeId, customEvent) {
-            const ctrl = this.helpBubbleControllerById_.get(nativeId);
-            if (!ctrl || !ctrl.isBubbleShowing()) {
-                return false;
-            }
-            this.helpBubbleHandler_.helpBubbleAnchorCustomEvent(nativeId, customEvent);
-            return true;
-        }
-        /**
-         * This event is emitted by the mojo router
-         */
-        onAnchorVisibilityChanged_(target, isVisible) {
-            const nativeId = target.dataset['nativeId'];
-            assert(nativeId);
-            const ctrl = this.helpBubbleControllerById_.get(nativeId);
-            const hidden = this.hideHelpBubble(nativeId);
-            if (hidden) {
-                this.helpBubbleHandler_.helpBubbleClosed(nativeId, HelpBubbleClosedReason.kPageChanged);
-            }
-            const bounds = isVisible ? this.getElementBounds_(target) :
-                { x: 0, y: 0, width: 0, height: 0 };
-            if (!ctrl || ctrl.updateAnchorVisibility(isVisible, bounds)) {
-                this.helpBubbleHandler_.helpBubbleAnchorVisibilityChanged(nativeId, isVisible, bounds);
-            }
-        }
-        /**
-         * When the document scrolls or resizes, we need to update cached
-         * positions of bubble anchors.
-         */
-        onAnchorBoundsMayHaveChanged_() {
-            for (const ctrl of this.controllers) {
-                if (ctrl.hasAnchor() && ctrl.getAnchorVisibility()) {
-                    const bounds = this.getElementBounds_(ctrl.getAnchor());
-                    if (ctrl.updateAnchorVisibility(true, bounds)) {
-                        this.helpBubbleHandler_.helpBubbleAnchorVisibilityChanged(ctrl.getNativeId(), true, bounds);
-                    }
-                }
-            }
-        }
-        /**
-         * Returns bounds of the anchor element
-         */
-        getElementBounds_(element) {
-            const rect = { x: 0, y: 0, width: 0, height: 0 };
-            const bounds = element.getBoundingClientRect();
-            rect.x = bounds.x;
-            rect.y = bounds.y;
-            rect.width = bounds.width;
-            rect.height = bounds.height;
-            const nativeId = element.dataset['nativeId'];
-            if (!nativeId) {
-                return rect;
-            }
-            const ctrl = this.helpBubbleControllerById_.get(nativeId);
-            if (ctrl) {
-                const padding = ctrl.getPadding();
-                rect.x -= padding.left;
-                rect.y -= padding.top;
-                rect.width += padding.left + padding.right;
-                rect.height += padding.top + padding.bottom;
-            }
-            return rect;
-        }
-        /**
-         * This event is emitted by the mojo router
-         */
-        onShowHelpBubble_(params) {
-            if (!this.helpBubbleControllerById_.has(params.nativeIdentifier)) {
-                // Identifier not handled by this mixin.
-                return;
-            }
-            const ctrl = this.helpBubbleControllerById_.get(params.nativeIdentifier);
-            this.showHelpBubble(ctrl, params);
-        }
-        /**
-         * This event is emitted by the mojo router
-         */
-        onToggleHelpBubbleFocusForAccessibility_(nativeId) {
-            if (!this.helpBubbleControllerById_.has(nativeId)) {
-                // Identifier not handled by this mixin.
-                return;
-            }
-            const ctrl = this.helpBubbleControllerById_.get(nativeId);
-            if (ctrl) {
-                const anchor = ctrl.getAnchor();
-                if (anchor) {
-                    anchor.focus();
-                }
-            }
-        }
-        /**
-         * This event is emitted by the mojo router
-         */
-        onHideHelpBubble_(nativeId) {
-            // This may be called with nativeId not handled by this mixin
-            // Ignore return value to silently fail
-            this.hideHelpBubble(nativeId);
-        }
-        /**
-         * This event is emitted by the mojo router.
-         */
-        onExternalHelpBubbleUpdated_(nativeId, shown) {
-            if (!this.helpBubbleControllerById_.has(nativeId)) {
-                // Identifier not handled by this mixin.
-                return;
-            }
-            // Get the associated bubble and update status
-            const ctrl = this.helpBubbleControllerById_.get(nativeId);
-            ctrl.updateExternalShowingStatus(shown);
-        }
-        /**
-         * This event is emitted by the help-bubble component
-         */
-        onHelpBubbleDismissed_(e) {
-            const nativeId = e.detail.nativeId;
-            assert(nativeId);
-            const hidden = this.hideHelpBubble(nativeId);
-            assert(hidden);
-            if (nativeId) {
-                if (e.detail.fromActionButton) {
-                    this.helpBubbleHandler_.helpBubbleButtonPressed(nativeId, e.detail.buttonIndex);
-                }
-                else {
-                    this.helpBubbleHandler_.helpBubbleClosed(nativeId, HelpBubbleClosedReason.kDismissedByUser);
-                }
-            }
-        }
-        /**
-         * This event is emitted by the help-bubble component
-         */
-        onHelpBubbleTimedOut_(e) {
-            const nativeId = e.detail.nativeId;
-            const ctrl = this.helpBubbleControllerById_.get(nativeId);
-            assert(ctrl);
-            const hidden = this.hideHelpBubble(nativeId);
-            assert(hidden);
-            if (nativeId) {
-                this.helpBubbleHandler_.helpBubbleClosed(nativeId, HelpBubbleClosedReason.kTimedOut);
-            }
-        }
-    }
-    return HelpBubbleMixin;
-});
-function parseOptions(options) {
-    const padding = { top: 0, bottom: 0, left: 0, right: 0 };
-    padding.top = clampPadding(options.anchorPaddingTop);
-    padding.left = clampPadding(options.anchorPaddingLeft);
-    padding.bottom = clampPadding(options.anchorPaddingBottom);
-    padding.right = clampPadding(options.anchorPaddingRight);
-    return {
-        padding,
-        fixed: !!options.fixed,
-    };
-}
-function clampPadding(n = 0) {
-    return Math.max(0, Math.min(20, n));
-}
-
 function getTemplate() {
     return html `<!--_html_template_start_--><style include="cr-shared-style">:host{--cr-focus-outline-color:var(--color-new-tab-page-focus-ring);--ntp-theme-text-shadow:none;--ntp-one-google-bar-height:56px;--ntp-search-box-width:337px;--ntp-menu-shadow:var(--color-new-tab-page-menu-inner-shadow) 0 1px 2px 0,var(--color-new-tab-page-menu-outer-shadow) 0 2px 6px 2px;--ntp-module-width:var(--ntp-search-box-width);--ntp-module-layout-width:var(--ntp-search-box-width);--ntp-module-border-radius:5px;--ntp-protected-icon-background-color:transparent;--ntp-protected-icon-background-color-hovered:rgba(255, 255, 255, .1)}@media (min-width:560px){:host{--ntp-search-box-width:449px}}@media (min-width:672px){:host{--ntp-search-box-width:561px}}@media (min-width:804px){:host([wide-modules-enabled_]){--ntp-module-layout-width:768px;--ntp-module-width:768px}}:host-context([chrome-refresh-2023]) cr-most-visited{--add-shortcut-background-color:var(--color-new-tab-page-add-shortcut-background);--add-shortcut-foreground-color:var(--color-new-tab-page-add-shortcut-foreground)}:host([modules-redesigned-enabled_]){--ntp-module-border-radius:16px;--ntp-module-item-border-radius:12px;--ntp-module-layout-width:360px;--ntp-module-width:360px}:host([show-background-image_]){--ntp-theme-text-shadow:0.5px 0.5px 1px rgba(0, 0, 0, 0.5),0px 0px 2px rgba(0, 0, 0, 0.2),0px 0px 10px rgba(0, 0, 0, 0.1);--ntp-protected-icon-background-color:rgba(0, 0, 0, .6);--ntp-protected-icon-background-color-hovered:rgba(0, 0, 0, .7)}#oneGoogleBarScrim{background:linear-gradient(rgba(0,0,0,.25) 0,rgba(0,0,0,.12) 45%,rgba(0,0,0,.05) 65%,transparent 100%);height:80px;position:absolute;top:0;width:100%}#oneGoogleBarScrim[fixed]{position:fixed}#oneGoogleBar{height:100%;position:absolute;top:0;width:100%}#content{align-items:center;display:flex;flex-direction:column;height:calc(100vh - var(--ntp-one-google-bar-height));min-width:fit-content;padding-top:var(--ntp-one-google-bar-height);position:relative;z-index:1}#logo{margin-bottom:38px;z-index:1}#realboxContainer{display:inherit;margin-bottom:16px;position:relative}ntp-modules{flex-shrink:0;width:var(--ntp-module-layout-width)}#modules:not([hidden]){animation:.3s ease-in-out fade-in-animation}@keyframes fade-in-animation{0%{opacity:0}100%{opacity:1}}ntp-middle-slot-promo{max-width:var(--ntp-search-box-width)}ntp-realbox{visibility:hidden}ntp-realbox[shown]{visibility:visible}cr-most-visited{--cr-menu-shadow:var(--ntp-menu-shadow);--most-visited-focus-shadow:var(--ntp-focus-shadow);--most-visited-text-color:var(--color-new-tab-page-most-visited-foreground);--most-visited-text-shadow:var(--ntp-theme-text-shadow)}ntp-middle-slot-promo:not([hidden])~#modules{margin-top:16px}#customizeButtonContainer{background-color:var(--color-new-tab-page-button-background);border-radius:calc(.5 * var(--cr-button-height));bottom:16px;position:fixed}#customizeButtonContainer:has(help-bubble){z-index:1001}:host-context([dir=ltr]) #customizeButtonContainer{right:16px}:host-context([dir=rtl]) #customizeButtonContainer{left:16px}:host([show-background-image_]) #customizeButtonContainer{background-color:var(--ntp-protected-icon-background-color)}:host([show-background-image_]) #customizeButtonContainer:hover{background-color:var(--ntp-protected-icon-background-color-hovered)}#customizeButton{--hover-bg-color:var(--color-new-tab-page-button-background-hovered);--text-color:var(--color-new-tab-page-button-foreground);border:none;border-radius:calc(.5 * var(--cr-button-height));box-shadow:0 3px 6px rgba(0,0,0,.16),0 1px 2px rgba(0,0,0,.23);font-weight:400;min-width:32px;padding-inline-start:16px;padding-inline-end:16px}:host([show-background-image_]) #customizeButton{box-shadow:none;padding:0}:host-context([chrome-refresh-2023]):host([show-background-image_]) #customizeButton{padding-inline-start:8px}:host-context(.focus-outline-visible) #customizeButton:focus{box-shadow:var(--ntp-focus-shadow)}#customizeIcon{-webkit-mask-image:url(icons/icon_pencil.svg);-webkit-mask-repeat:no-repeat;-webkit-mask-size:100%;background-color:var(--text-color);height:16px;width:16px}@media (forced-colors:active){#customizeIcon{background-color:ButtonText}}:host-context([chrome-refresh-2023]) #customizeButton{--cr-button-height:32px}@media (forced-colors:none){:host([show-background-image_]) #customizeIcon{background-color:#fff}}:host([show-background-image_]) #customizeIcon{margin:0}@media (max-width:550px){:host-context([chrome-refresh-2023]) #customizeButton{padding-inline-start:8px}#customizeButton{padding-inline-start:0;padding-inline-end:0}#customizeText{display:none}}@media (max-width:1110px){:host-context([chrome-refresh-2023]):host([modules-redesigned-enabled_][modules-shown-to-user]) #customizeButton{padding-inline-start:8px}:host([modules-redesigned-enabled_][modules-shown-to-user]) #customizeText{display:none}:host([modules-redesigned-enabled_][modules-shown-to-user]) #customizeButton{padding-inline-start:0;padding-inline-end:0}}@media (max-width:970px){:host-context([chrome-refresh-2023]):host([modules-shown-to-user]) #customizeButton{padding-inline-start:8px}:host([modules-shown-to-user]) #customizeButton{padding-inline-start:0;padding-inline-end:0}:host([modules-shown-to-user]) #customizeText{display:none}}@media (max-width:1020px){:host-context([chrome-refresh-2023]):host([modules-fre-shown]) #customizeButton{padding-inline-start:8px}:host([modules-fre-shown]) #customizeButton{padding-inline-start:0;padding-inline-end:0}:host([modules-fre-shown]) #customizeText{display:none}}#themeAttribution{align-self:flex-start;bottom:16px;color:var(--color-new-tab-page-secondary-foreground);margin-inline-start:16px;position:fixed}#backgroundImageAttribution{border-radius:8px;bottom:16px;color:var(--color-new-tab-page-attribution-foreground);line-height:20px;max-width:50vw;padding:8px;position:fixed;z-index:-1;background-color:var(--ntp-protected-icon-background-color);text-shadow:none}#backgroundImageAttribution:hover{background-color:var(--ntp-protected-icon-background-color-hovered);background:rgba(var(--google-grey-900-rgb),.1)}:host-context([dir=ltr]) #backgroundImageAttribution{left:16px}:host-context([dir=rtl]) #backgroundImageAttribution{right:16px}#backgroundImageAttribution1Container{align-items:center;display:flex;flex-direction:row}#linkIcon{-webkit-mask-image:url(icons/link.svg);-webkit-mask-repeat:no-repeat;-webkit-mask-size:100%;background-color:var(--color-new-tab-page-attribution-foreground);height:16px;margin-inline-end:8px;width:16px}#backgroundImageAttribution1,#backgroundImageAttribution2{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}#backgroundImageAttribution1{font-size:.875rem}#backgroundImageAttribution2{font-size:.75rem}#contentBottomSpacer{flex-shrink:0;height:32px;width:1px}svg{position:fixed}ntp-lens-upload-dialog{left:0;position:absolute;right:0;top:0;z-index:101}#webstoreToast{padding:16px}</style>
 <div id="content" style="--color-new-tab-page-attribution-foreground:[[rgbaOrInherit_(theme_.textColor) ]];--color-new-tab-page-most-visited-foreground:[[rgbaOrInherit_(theme_.textColor) ]];--ntp-logo-color:[[rgbaOrInherit_(logoColor_) ]]">
@@ -4093,7 +2692,7 @@ function getTemplate() {
   <ntp-logo id="logo" single-colored$="[[singleColoredLogo_]]" dark="[[theme_.isDark]]" background-color="[[backgroundColor_]]" hidden$="[[!logoEnabled_]]">
   </ntp-logo>
   <div id="realboxContainer">
-    <ntp-realbox id="realbox" is-dark="[[theme_.isDark]]" single-colored-icons="[[theme_.themeRealboxIcons]]" on-open-lens-search="onOpenLensSearch_" on-open-voice-search="onOpenVoiceSearch_" shown$="[[realboxShown_]]">
+    <ntp-realbox id="realbox" is-dark="[[theme_.isDark]]" color-source-is-baseline="[[colorSourceIsBaseline]]" on-open-lens-search="onOpenLensSearch_" on-open-voice-search="onOpenVoiceSearch_" shown$="[[realboxShown_]]">
     </ntp-realbox>
     <template is="dom-if" if="[[showLensUploadDialog_]]" restamp>
       <ntp-lens-upload-dialog id="lensUploadDialog" on-close-lens-search="onCloseLensSearch_">
@@ -4194,10 +2793,11 @@ function getTemplate() {
  *  resolver.resolve({hello: 'world'});
  */
 class PromiseResolver {
+    resolve_ = () => { };
+    reject_ = () => { };
+    isFulfilled_ = false;
+    promise_;
     constructor() {
-        this.resolve_ = () => { };
-        this.reject_ = () => { };
-        this.isFulfilled_ = false;
         this.promise_ = new Promise((resolve, reject) => {
             this.resolve_ = (resolution) => {
                 resolve(resolution);
@@ -4454,6 +3054,11 @@ class AppElement extends AppElementBase {
                 computed: 'computeBackgroundColor_(showBackgroundImage_, theme_)',
                 type: Object,
             },
+            // Used in ntp-realbox component via host-context.
+            colorSourceIsBaseline: {
+                type: Boolean,
+                computed: 'computeColorSourceIsBaseline(theme_)',
+            },
             customizeChromeEnabled_: {
                 type: Boolean,
                 value: () => loadTimeData.getBoolean('customizeChromeEnabled'),
@@ -4607,8 +3212,7 @@ class AppElement extends AppElementBase {
                 this.showCustomize_ = visible;
             });
         this.showWebstoreToastListenerId_ =
-            NewTabPageProxy.getInstance()
-                .callbackRouter.showWebstoreToast.addListener(() => {
+            this.callbackRouter_.showWebstoreToast.addListener(() => {
                 if (this.showCustomize_) {
                     const toast = $$(this, '#webstoreToast');
                     if (toast) {
@@ -4656,6 +3260,7 @@ class AppElement extends AppElementBase {
         super.disconnectedCallback();
         this.callbackRouter_.removeListener(this.setThemeListenerId_);
         this.callbackRouter_.removeListener(this.setCustomizeChromeSidePanelVisibilityListener_);
+        this.callbackRouter_.removeListener(this.showWebstoreToastListenerId_);
         this.eventTracker_.removeAll();
     }
     ready() {
@@ -4708,7 +3313,7 @@ class AppElement extends AppElementBase {
         // completed.
         document.documentElement.setAttribute('lazy-loaded', String(true));
         this.registerHelpBubble(CUSTOMIZE_CHROME_BUTTON_ELEMENT_ID, '#customizeButton', { fixed: true });
-        this.pageHandler_.maybeShowCustomizeChromeFeaturePromo();
+        this.pageHandler_.maybeShowFeaturePromo(IphFeature.kCustomizeChrome);
     }
     onOpenVoiceSearch_() {
         this.showVoiceSearchOverlay_ = true;
@@ -4800,6 +3405,9 @@ class AppElement extends AppElementBase {
             return null;
         }
         return this.theme_ && this.theme_.backgroundColor;
+    }
+    computeColorSourceIsBaseline() {
+        return this.theme_.isBaseline;
     }
     computeLogoColor_() {
         return this.theme_ &&

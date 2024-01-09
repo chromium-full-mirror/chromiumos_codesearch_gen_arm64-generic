@@ -8,6 +8,7 @@
 #define CHROME_SERVICES_KEYMINT_PUBLIC_MOJOM_CERT_STORE_MOJOM_FEATURES_H_
 
 #include "base/feature_list.h"
+#include "mojo/public/cpp/bindings/runtime_features.h"
 
 
 

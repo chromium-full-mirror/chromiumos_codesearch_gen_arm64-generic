@@ -5,6 +5,7 @@
 import { mojo } from '//resources/mojo/mojo/public/js/bindings.js';
 import { GeolocationInternalsPendingReceiver as device_mojom_GeolocationInternalsPendingReceiver } from './geolocation_internals.mojom-webui.js';
 export class LocationInternalsHandlerPendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -13,6 +14,9 @@ export class LocationInternalsHandlerPendingReceiver {
     }
 }
 export class LocationInternalsHandlerRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(LocationInternalsHandlerPendingReceiver, handle);
@@ -32,6 +36,9 @@ export class LocationInternalsHandlerRemote {
  * interface.
  */
 export class LocationInternalsHandlerReceiver {
+    helper_internal_;
+    $;
+    onConnectionError;
     constructor(impl) {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(LocationInternalsHandlerRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -61,6 +68,11 @@ export class LocationInternalsHandler {
  * receiver can have any number of listeners added to it.
  */
 export class LocationInternalsHandlerCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    bindInternalsInterface;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(LocationInternalsHandlerRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);

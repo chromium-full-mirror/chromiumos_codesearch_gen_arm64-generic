@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/crosapi/mojom/cros_display_config.mojom-features.h"
 #include "chromeos/crosapi/mojom/cros_display_config.mojom-shared.h"
 #include "chromeos/crosapi/mojom/cros_display_config.mojom-forward.h"
 #include "ui/gfx/geometry/mojom/geometry.mojom.h"
@@ -150,7 +151,7 @@ class CrosDisplayConfigController
 
   using OverscanCalibrationCallback = base::OnceCallback<void(DisplayConfigResult)>;
   
-  virtual void OverscanCalibration(const std::string& display_id, DisplayConfigOperation op, const absl::optional<::gfx::Insets>& delta, OverscanCalibrationCallback callback) = 0;
+  virtual void OverscanCalibration(const std::string& display_id, DisplayConfigOperation op, const std::optional<::gfx::Insets>& delta, OverscanCalibrationCallback callback) = 0;
 
 
   using TouchCalibrationCallback = base::OnceCallback<void(DisplayConfigResult)>;
@@ -232,7 +233,7 @@ class  CrosDisplayConfigControllerProxy
   
   void SetUnifiedDesktopEnabled(bool enabled) final;
   
-  void OverscanCalibration(const std::string& display_id, DisplayConfigOperation op, const absl::optional<::gfx::Insets>& delta, OverscanCalibrationCallback callback) final;
+  void OverscanCalibration(const std::string& display_id, DisplayConfigOperation op, const std::optional<::gfx::Insets>& delta, OverscanCalibrationCallback callback) final;
   
   void TouchCalibration(const std::string& display_id, DisplayConfigOperation op, TouchCalibrationPtr calibration, TouchCalibrationCallback callback) final;
   
@@ -1120,9 +1121,9 @@ class  DisplayLayoutInfo {
 
   DisplayLayoutInfo(
       DisplayLayoutMode layout_mode,
-      const absl::optional<std::string>& mirror_source_id,
-      absl::optional<std::vector<std::string>> mirror_destination_ids,
-      absl::optional<std::vector<DisplayLayoutPtr>> layouts);
+      const std::optional<std::string>& mirror_source_id,
+      std::optional<std::vector<std::string>> mirror_destination_ids,
+      std::optional<std::vector<DisplayLayoutPtr>> layouts);
 
 DisplayLayoutInfo(const DisplayLayoutInfo&) = delete;
 DisplayLayoutInfo& operator=(const DisplayLayoutInfo&) = delete;
@@ -1204,11 +1205,11 @@ DisplayLayoutInfo& operator=(const DisplayLayoutInfo&) = delete;
   
   DisplayLayoutMode layout_mode;
   
-  absl::optional<std::string> mirror_source_id;
+  std::optional<std::string> mirror_source_id;
   
-  absl::optional<std::vector<std::string>> mirror_destination_ids;
+  std::optional<std::vector<std::string>> mirror_destination_ids;
   
-  absl::optional<std::vector<DisplayLayoutPtr>> layouts;
+  std::optional<std::vector<DisplayLayoutPtr>> layouts;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1648,9 +1649,9 @@ class  DisplayConfigProperties {
 
   DisplayConfigProperties(
       bool set_primary,
-      const absl::optional<::gfx::Insets>& overscan,
+      const std::optional<::gfx::Insets>& overscan,
       DisplayRotationPtr rotation,
-      const absl::optional<::gfx::Point>& bounds_origin,
+      const std::optional<::gfx::Point>& bounds_origin,
       double display_zoom_factor,
       DisplayModePtr display_mode);
 
@@ -1734,11 +1735,11 @@ DisplayConfigProperties& operator=(const DisplayConfigProperties&) = delete;
   
   bool set_primary;
   
-  absl::optional<::gfx::Insets> overscan;
+  std::optional<::gfx::Insets> overscan;
   
   DisplayRotationPtr rotation;
   
-  absl::optional<::gfx::Point> bounds_origin;
+  std::optional<::gfx::Point> bounds_origin;
   
   double display_zoom_factor;
   

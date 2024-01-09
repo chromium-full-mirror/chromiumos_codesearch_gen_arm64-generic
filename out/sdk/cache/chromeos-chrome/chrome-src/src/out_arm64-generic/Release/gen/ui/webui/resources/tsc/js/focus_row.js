@@ -4,7 +4,7 @@
 // clang-format off
 import { assert, assertInstanceof } from './assert.js';
 import { EventTracker } from './event_tracker.js';
-import { hasKeyModifiers, isRTL } from './util_ts.js';
+import { hasKeyModifiers, isRTL } from './util.js';
 // clang-format on
 const ACTIVE_CLASS = 'focus-row-active';
 /**
@@ -20,6 +20,10 @@ const ACTIVE_CLASS = 'focus-row-active';
  * any focus change deactivates the row.
  */
 export class FocusRow {
+    root;
+    delegate;
+    eventTracker = new EventTracker();
+    boundary_;
     /**
      * @param root The root of this focus row. Focus classes are
      *     applied to |root| and all added elements must live within |root|.
@@ -27,7 +31,6 @@ export class FocusRow {
      * @param delegate An optional event delegate.
      */
     constructor(root, boundary, delegate) {
-        this.eventTracker = new EventTracker();
         this.root = root;
         this.boundary_ = boundary || document.documentElement;
         this.delegate = delegate;

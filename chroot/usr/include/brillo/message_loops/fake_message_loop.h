@@ -48,7 +48,7 @@ class BRILLO_EXPORT FakeMessageLoop : public MessageLoop {
 
   // FakeMessageLoop methods:
 
-  // Return whether there are peding tasks. Useful to check that no
+  // Returns whether there are pending tasks. Useful to check that no
   // callbacks were leaked.
   bool PendingTasks();
 
@@ -70,7 +70,7 @@ class BRILLO_EXPORT FakeMessageLoop : public MessageLoop {
       fire_order_;
 
   base::SimpleTestClock* test_clock_ = nullptr;
-  base::Time current_time_ = base::Time::FromDoubleT(1246996800.);
+  base::Time current_time_ = base::Time::FromSecondsSinceUnixEpoch(1246996800.);
 
   MessageLoop::TaskId last_id_ = kTaskIdNull;
 };

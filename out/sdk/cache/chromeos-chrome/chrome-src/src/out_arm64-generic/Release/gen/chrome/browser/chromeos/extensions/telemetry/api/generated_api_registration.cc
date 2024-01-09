@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -9,6 +9,7 @@
 
 #include "chrome/browser/chromeos/extensions/telemetry/api/diagnostics/diagnostics_api.h"
 #include "chrome/browser/chromeos/extensions/telemetry/api/events/events_api.h"
+#include "chrome/browser/chromeos/extensions/telemetry/api/management/management_api.h"
 #include "chrome/browser/chromeos/extensions/telemetry/api/telemetry/telemetry_api.h"
 
 #include "extensions/browser/extension_function_registry.h"
@@ -200,6 +201,26 @@ void ChromeOSGeneratedFunctionRegistry::RegisterAll(ExtensionFunctionRegistry* r
       OsDiagnosticsIsMemoryRoutineArgumentSupportedFunction::static_histogram_value(),
     },
     {
+      &NewExtensionFunction<OsDiagnosticsCreateVolumeButtonRoutineFunction>,
+      OsDiagnosticsCreateVolumeButtonRoutineFunction::static_function_name(),
+      OsDiagnosticsCreateVolumeButtonRoutineFunction::static_histogram_value(),
+    },
+    {
+      &NewExtensionFunction<OsDiagnosticsIsVolumeButtonRoutineArgumentSupportedFunction>,
+      OsDiagnosticsIsVolumeButtonRoutineArgumentSupportedFunction::static_function_name(),
+      OsDiagnosticsIsVolumeButtonRoutineArgumentSupportedFunction::static_histogram_value(),
+    },
+    {
+      &NewExtensionFunction<OsDiagnosticsCreateFanRoutineFunction>,
+      OsDiagnosticsCreateFanRoutineFunction::static_function_name(),
+      OsDiagnosticsCreateFanRoutineFunction::static_histogram_value(),
+    },
+    {
+      &NewExtensionFunction<OsDiagnosticsIsFanRoutineArgumentSupportedFunction>,
+      OsDiagnosticsIsFanRoutineArgumentSupportedFunction::static_function_name(),
+      OsDiagnosticsIsFanRoutineArgumentSupportedFunction::static_histogram_value(),
+    },
+    {
       &NewExtensionFunction<OsEventsIsEventSupportedFunction>,
       OsEventsIsEventSupportedFunction::static_function_name(),
       OsEventsIsEventSupportedFunction::static_histogram_value(),
@@ -213,6 +234,11 @@ void ChromeOSGeneratedFunctionRegistry::RegisterAll(ExtensionFunctionRegistry* r
       &NewExtensionFunction<OsEventsStopCapturingEventsFunction>,
       OsEventsStopCapturingEventsFunction::static_function_name(),
       OsEventsStopCapturingEventsFunction::static_histogram_value(),
+    },
+    {
+      &NewExtensionFunction<OsManagementSetAudioGainFunction>,
+      OsManagementSetAudioGainFunction::static_function_name(),
+      OsManagementSetAudioGainFunction::static_histogram_value(),
     },
     {
       &NewExtensionFunction<OsTelemetryGetAudioInfoFunction>,

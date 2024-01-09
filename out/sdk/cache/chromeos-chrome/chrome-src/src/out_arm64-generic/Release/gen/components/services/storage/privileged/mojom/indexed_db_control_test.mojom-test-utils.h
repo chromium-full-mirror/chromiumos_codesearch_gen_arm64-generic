@@ -46,6 +46,7 @@ class  IndexedDBControlTestInterceptorForTesting : public IndexedDBControlTest {
   void GetNextBlobNumberForTesting(const ::storage::BucketLocator& bucket_locator, int64_t database_id, GetNextBlobNumberForTestingCallback callback) override;
   void GetPathForBlobForTesting(const ::storage::BucketLocator& bucket_locator, int64_t database_id, int64_t blob_number, GetPathForBlobForTestingCallback callback) override;
   void CompactBackingStoreForTesting(const ::storage::BucketLocator& bucket_locator, CompactBackingStoreForTestingCallback callback) override;
+  void GetUsageForTesting(GetUsageForTestingCallback callback) override;
   void BindMockFailureSingletonForTesting(::mojo::PendingReceiver<MockFailureInjector> receiver) override;
   void GetDatabaseKeysForTesting(GetDatabaseKeysForTestingCallback callback) override;
   void ForceInitializeFromFilesForTesting(ForceInitializeFromFilesForTestingCallback callback) override;
@@ -88,6 +89,9 @@ class  IndexedDBControlTestAsyncWaiter {
   void CompactBackingStoreForTesting(
       const ::storage::BucketLocator& bucket_locator);
   
+  void GetUsageForTesting(
+      int64_t* out_total_usage);
+  int64_t GetUsageForTesting();
   void GetDatabaseKeysForTesting(
       std::string* out_schema_version_key, std::string* out_data_version_key);
   

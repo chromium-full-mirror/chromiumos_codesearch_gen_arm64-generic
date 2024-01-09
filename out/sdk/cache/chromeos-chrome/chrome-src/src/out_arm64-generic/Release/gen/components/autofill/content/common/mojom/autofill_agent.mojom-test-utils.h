@@ -17,14 +17,14 @@ class  AutofillAgentInterceptorForTesting : public AutofillAgent {
   virtual AutofillAgent* GetForwardingInterface() = 0;
   void TriggerFormExtraction() override;
   void TriggerFormExtractionWithResponse(TriggerFormExtractionWithResponseCallback callback) override;
-  void ApplyFormAction(::autofill::mojom::ActionType action_type, ::autofill::mojom::ActionPersistence action_persistence, const ::autofill::FormData& form) override;
-  void ApplyFieldAction(::autofill::mojom::ActionPersistence action_persistence, ::autofill::FieldRendererId field, const ::std::u16string& value) override;
+  void ApplyFormAction(::autofill::mojom::ActionType action_type, ::autofill::mojom::ActionPersistence action_persistence, ::autofill::FormRendererId form_renderer_id, const std::vector<::autofill::FormFieldData>& fields) override;
+  void ApplyFieldAction(::autofill::mojom::ActionPersistence action_persistence, ::autofill::mojom::TextReplacement text_replacement, ::autofill::FieldRendererId field, const ::std::u16string& value) override;
   void ExtractForm(::autofill::FormRendererId form, ExtractFormCallback callback) override;
   void FieldTypePredictionsAvailable(const std::vector<::autofill::FormDataPredictions>& forms) override;
   void ClearSection() override;
   void ClearPreviewedForm() override;
   void TriggerSuggestions(::autofill::FieldRendererId field, ::autofill::mojom::AutofillSuggestionTriggerSource trigger_source) override;
-  void SetSuggestionAvailability(::autofill::FieldRendererId field, ::autofill::mojom::AutofillState type) override;
+  void SetSuggestionAvailability(::autofill::FieldRendererId field, ::autofill::mojom::AutofillSuggestionAvailability suggestion_availability) override;
   void AcceptDataListSuggestion(::autofill::FieldRendererId field, const ::std::u16string& value) override;
   void PreviewPasswordSuggestion(const ::std::u16string& username, const ::std::u16string& password) override;
   void PreviewPasswordGenerationSuggestion(const ::std::u16string& password) override;
@@ -48,8 +48,8 @@ class  AutofillAgentAsyncWaiter {
       bool* out_success);
   bool TriggerFormExtractionWithResponse();
   void ExtractForm(
-      ::autofill::FormRendererId form, absl::optional<::autofill::FormData>* out_form);
-  absl::optional<::autofill::FormData> ExtractForm(::autofill::FormRendererId form);
+      ::autofill::FormRendererId form, std::optional<::autofill::FormData>* out_form);
+  std::optional<::autofill::FormData> ExtractForm(::autofill::FormRendererId form);
   void GetPotentialLastFourCombinationsForStandaloneCvc(
       std::vector<std::string>* out_potential_matches);
   std::vector<std::string> GetPotentialLastFourCombinationsForStandaloneCvc();
@@ -87,6 +87,7 @@ class  PasswordGenerationAgentInterceptorForTesting : public PasswordGenerationA
   void GeneratedPasswordAccepted(const ::std::u16string& generated_password) override;
   void TriggeredGeneratePassword(TriggeredGeneratePasswordCallback callback) override;
   void FoundFormEligibleForGeneration(const ::autofill::PasswordFormGenerationData& form) override;
+  void FocusNextFieldAfterPasswords() override;
 };
 class  PasswordGenerationAgentAsyncWaiter {
  public:
@@ -97,8 +98,8 @@ class  PasswordGenerationAgentAsyncWaiter {
 
   ~PasswordGenerationAgentAsyncWaiter();
   void TriggeredGeneratePassword(
-      absl::optional<::autofill::password_generation::PasswordGenerationUIData>* out_data);
-  absl::optional<::autofill::password_generation::PasswordGenerationUIData> TriggeredGeneratePassword();
+      std::optional<::autofill::password_generation::PasswordGenerationUIData>* out_data);
+  std::optional<::autofill::password_generation::PasswordGenerationUIData> TriggeredGeneratePassword();
 
  private:
   PasswordGenerationAgent* const proxy_;

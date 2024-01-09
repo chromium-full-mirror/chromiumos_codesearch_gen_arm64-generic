@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -48,6 +49,9 @@ const char DeviceService::Name_[] = "device.mojom.DeviceService";
 DeviceService::IPCStableHashFunction DeviceService::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
   switch (message.name()) {
+    case internal::kDeviceService_BindDevicePostureProvider_Name: {
+      return &DeviceService::BindDevicePostureProvider_Sym::IPCStableHash;
+    }
     case internal::kDeviceService_BindFingerprint_Name: {
       return &DeviceService::BindFingerprint_Sym::IPCStableHash;
     }
@@ -119,6 +123,8 @@ const char* DeviceService::MessageToMethodName_(mojo::Message& message) {
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
     switch (message.name()) {
+      case internal::kDeviceService_BindDevicePostureProvider_Name:
+            return "Receive device::mojom::DeviceService::BindDevicePostureProvider";
       case internal::kDeviceService_BindFingerprint_Name:
             return "Receive device::mojom::DeviceService::BindFingerprint";
       case internal::kDeviceService_BindGeolocationConfig_Name:
@@ -162,6 +168,8 @@ const char* DeviceService::MessageToMethodName_(mojo::Message& message) {
     }
   } else {
     switch (message.name()) {
+      case internal::kDeviceService_BindDevicePostureProvider_Name:
+            return "Receive reply device::mojom::DeviceService::BindDevicePostureProvider";
       case internal::kDeviceService_BindFingerprint_Name:
             return "Receive reply device::mojom::DeviceService::BindFingerprint";
       case internal::kDeviceService_BindGeolocationConfig_Name:
@@ -216,6 +224,19 @@ const char* DeviceService::MessageToMethodName_(mojo::Message& message) {
 }
 
 #if !BUILDFLAG(IS_FUCHSIA)
+uint32_t DeviceService::BindDevicePostureProvider_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)device::mojom::DeviceService::BindDevicePostureProvider");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 uint32_t DeviceService::BindFingerprint_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
@@ -482,6 +503,52 @@ DeviceServiceProxy::DeviceServiceProxy(mojo::MessageReceiverWithResponder* recei
     : receiver_(receiver) {
 }
 
+void DeviceServiceProxy::BindDevicePostureProvider(
+    ::mojo::PendingReceiver<::device::mojom::DevicePostureProvider> in_receiver) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send device::mojom::DeviceService::BindDevicePostureProvider", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("receiver"), in_receiver,
+                        "<value of type ::mojo::PendingReceiver<::device::mojom::DevicePostureProvider>>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kDeviceService_BindDevicePostureProvider_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::device::mojom::internal::DeviceService_BindDevicePostureProvider_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<mojo::InterfaceRequestDataView<::device::mojom::DevicePostureProviderInterfaceBase>>(
+      in_receiver, &params->receiver, &params.message());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      !mojo::internal::IsHandleOrInterfaceValid(params->receiver),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
+      "invalid receiver in DeviceService.BindDevicePostureProvider request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(DeviceService::Name_);
+  message.set_method_name("BindDevicePostureProvider");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
 void DeviceServiceProxy::BindFingerprint(
     ::mojo::PendingReceiver<::device::mojom::Fingerprint> in_receiver) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -494,14 +561,17 @@ void DeviceServiceProxy::BindFingerprint(
                         "<value of type ::mojo::PendingReceiver<::device::mojom::Fingerprint>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceService_BindFingerprint_Name, kFlags, 0, 0, nullptr);
@@ -537,14 +607,17 @@ void DeviceServiceProxy::BindGeolocationConfig(
                         "<value of type ::mojo::PendingReceiver<::device::mojom::GeolocationConfig>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceService_BindGeolocationConfig_Name, kFlags, 0, 0, nullptr);
@@ -580,14 +653,17 @@ void DeviceServiceProxy::BindGeolocationContext(
                         "<value of type ::mojo::PendingReceiver<::device::mojom::GeolocationContext>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceService_BindGeolocationContext_Name, kFlags, 0, 0, nullptr);
@@ -623,14 +699,17 @@ void DeviceServiceProxy::BindGeolocationControl(
                         "<value of type ::mojo::PendingReceiver<::device::mojom::GeolocationControl>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceService_BindGeolocationControl_Name, kFlags, 0, 0, nullptr);
@@ -666,14 +745,17 @@ void DeviceServiceProxy::BindGeolocationInternals(
                         "<value of type ::mojo::PendingReceiver<::device::mojom::GeolocationInternals>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceService_BindGeolocationInternals_Name, kFlags, 0, 0, nullptr);
@@ -709,14 +791,17 @@ void DeviceServiceProxy::BindInputDeviceManager(
                         "<value of type ::mojo::PendingReceiver<::device::mojom::InputDeviceManager>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceService_BindInputDeviceManager_Name, kFlags, 0, 0, nullptr);
@@ -752,14 +837,17 @@ void DeviceServiceProxy::BindBatteryMonitor(
                         "<value of type ::mojo::PendingReceiver<::device::mojom::BatteryMonitor>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceService_BindBatteryMonitor_Name, kFlags, 0, 0, nullptr);
@@ -795,14 +883,17 @@ void DeviceServiceProxy::BindPressureManager(
                         "<value of type ::mojo::PendingReceiver<::device::mojom::PressureManager>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceService_BindPressureManager_Name, kFlags, 0, 0, nullptr);
@@ -838,14 +929,17 @@ void DeviceServiceProxy::BindVibrationManager(
                         "<value of type ::mojo::PendingReceiver<::device::mojom::VibrationManager>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceService_BindVibrationManager_Name, kFlags, 0, 0, nullptr);
@@ -881,14 +975,17 @@ void DeviceServiceProxy::BindHidManager(
                         "<value of type ::mojo::PendingReceiver<::device::mojom::HidManager>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceService_BindHidManager_Name, kFlags, 0, 0, nullptr);
@@ -924,14 +1021,17 @@ void DeviceServiceProxy::BindMtpManager(
                         "<value of type ::mojo::PendingReceiver<::device::mojom::MtpManager>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceService_BindMtpManager_Name, kFlags, 0, 0, nullptr);
@@ -967,14 +1067,17 @@ void DeviceServiceProxy::BindPowerMonitor(
                         "<value of type ::mojo::PendingReceiver<::device::mojom::PowerMonitor>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceService_BindPowerMonitor_Name, kFlags, 0, 0, nullptr);
@@ -1010,14 +1113,17 @@ void DeviceServiceProxy::BindPublicIpAddressGeolocationProvider(
                         "<value of type ::mojo::PendingReceiver<::device::mojom::PublicIpAddressGeolocationProvider>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceService_BindPublicIpAddressGeolocationProvider_Name, kFlags, 0, 0, nullptr);
@@ -1053,14 +1159,17 @@ void DeviceServiceProxy::BindScreenOrientationListener(
                         "<value of type ::mojo::PendingReceiver<::device::mojom::ScreenOrientationListener>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceService_BindScreenOrientationListener_Name, kFlags, 0, 0, nullptr);
@@ -1096,14 +1205,17 @@ void DeviceServiceProxy::BindSensorProvider(
                         "<value of type ::mojo::PendingReceiver<::device::mojom::SensorProvider>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceService_BindSensorProvider_Name, kFlags, 0, 0, nullptr);
@@ -1139,14 +1251,17 @@ void DeviceServiceProxy::BindSerialPortManager(
                         "<value of type ::mojo::PendingReceiver<::device::mojom::SerialPortManager>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceService_BindSerialPortManager_Name, kFlags, 0, 0, nullptr);
@@ -1182,14 +1297,17 @@ void DeviceServiceProxy::BindTimeZoneMonitor(
                         "<value of type ::mojo::PendingReceiver<::device::mojom::TimeZoneMonitor>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceService_BindTimeZoneMonitor_Name, kFlags, 0, 0, nullptr);
@@ -1225,14 +1343,17 @@ void DeviceServiceProxy::BindWakeLockProvider(
                         "<value of type ::mojo::PendingReceiver<::device::mojom::WakeLockProvider>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceService_BindWakeLockProvider_Name, kFlags, 0, 0, nullptr);
@@ -1268,14 +1389,17 @@ void DeviceServiceProxy::BindUsbDeviceManager(
                         "<value of type ::mojo::PendingReceiver<::device::mojom::UsbDeviceManager>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceService_BindUsbDeviceManager_Name, kFlags, 0, 0, nullptr);
@@ -1311,14 +1435,17 @@ void DeviceServiceProxy::BindUsbDeviceManagerTest(
                         "<value of type ::mojo::PendingReceiver<::device::mojom::UsbDeviceManagerTest>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDeviceService_BindUsbDeviceManagerTest_Name, kFlags, 0, 0, nullptr);
@@ -1347,6 +1474,34 @@ bool DeviceServiceStubDispatch::Accept(
     DeviceService* impl,
     mojo::Message* message) {
   switch (message->header()->name) {
+    case internal::kDeviceService_BindDevicePostureProvider_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::DeviceService_BindDevicePostureProvider_Params_Data* params =
+          reinterpret_cast<internal::DeviceService_BindDevicePostureProvider_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      ::mojo::PendingReceiver<::device::mojom::DevicePostureProvider> p_receiver{};
+      DeviceService_BindDevicePostureProvider_ParamsDataView input_data_view(params, message);
+      
+      if (success) {
+        p_receiver =
+            input_data_view.TakeReceiver<decltype(p_receiver)>();
+      }
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            DeviceService::Name_, 0, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->BindDevicePostureProvider(
+std::move(p_receiver));
+      return true;
+    }
     case internal::kDeviceService_BindFingerprint_Name: {
 
       DCHECK(message->is_serialized());
@@ -1366,7 +1521,7 @@ bool DeviceServiceStubDispatch::Accept(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            DeviceService::Name_, 0, false);
+            DeviceService::Name_, 1, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1394,7 +1549,7 @@ std::move(p_receiver));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            DeviceService::Name_, 1, false);
+            DeviceService::Name_, 2, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1422,7 +1577,7 @@ std::move(p_receiver));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            DeviceService::Name_, 2, false);
+            DeviceService::Name_, 3, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1450,7 +1605,7 @@ std::move(p_receiver));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            DeviceService::Name_, 3, false);
+            DeviceService::Name_, 4, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1478,7 +1633,7 @@ std::move(p_receiver));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            DeviceService::Name_, 4, false);
+            DeviceService::Name_, 5, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1506,7 +1661,7 @@ std::move(p_receiver));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            DeviceService::Name_, 5, false);
+            DeviceService::Name_, 6, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1534,7 +1689,7 @@ std::move(p_receiver));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            DeviceService::Name_, 6, false);
+            DeviceService::Name_, 7, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1562,7 +1717,7 @@ std::move(p_receiver));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            DeviceService::Name_, 7, false);
+            DeviceService::Name_, 8, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1590,7 +1745,7 @@ std::move(p_receiver));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            DeviceService::Name_, 8, false);
+            DeviceService::Name_, 9, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1618,7 +1773,7 @@ std::move(p_receiver));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            DeviceService::Name_, 9, false);
+            DeviceService::Name_, 10, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1646,7 +1801,7 @@ std::move(p_receiver));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            DeviceService::Name_, 10, false);
+            DeviceService::Name_, 11, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1674,7 +1829,7 @@ std::move(p_receiver));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            DeviceService::Name_, 11, false);
+            DeviceService::Name_, 12, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1702,7 +1857,7 @@ std::move(p_receiver));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            DeviceService::Name_, 12, false);
+            DeviceService::Name_, 13, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1730,7 +1885,7 @@ std::move(p_receiver));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            DeviceService::Name_, 13, false);
+            DeviceService::Name_, 14, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1758,7 +1913,7 @@ std::move(p_receiver));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            DeviceService::Name_, 14, false);
+            DeviceService::Name_, 15, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1786,7 +1941,7 @@ std::move(p_receiver));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            DeviceService::Name_, 15, false);
+            DeviceService::Name_, 16, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1814,7 +1969,7 @@ std::move(p_receiver));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            DeviceService::Name_, 16, false);
+            DeviceService::Name_, 17, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1842,7 +1997,7 @@ std::move(p_receiver));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            DeviceService::Name_, 17, false);
+            DeviceService::Name_, 18, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1870,7 +2025,7 @@ std::move(p_receiver));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            DeviceService::Name_, 18, false);
+            DeviceService::Name_, 19, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1898,7 +2053,7 @@ std::move(p_receiver));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            DeviceService::Name_, 19, false);
+            DeviceService::Name_, 20, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1920,6 +2075,9 @@ bool DeviceServiceStubDispatch::AcceptWithResponder(
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
   switch (message->header()->name) {
+    case internal::kDeviceService_BindDevicePostureProvider_Name: {
+      break;
+    }
     case internal::kDeviceService_BindFingerprint_Name: {
       break;
     }
@@ -1983,48 +2141,50 @@ bool DeviceServiceStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDeviceServiceValidationInfo[] = {
-    {&internal::DeviceService_BindFingerprint_Params_Data::Validate,
+    { &internal::DeviceService_BindDevicePostureProvider_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DeviceService_BindGeolocationConfig_Params_Data::Validate,
+    { &internal::DeviceService_BindFingerprint_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DeviceService_BindGeolocationContext_Params_Data::Validate,
+    { &internal::DeviceService_BindGeolocationConfig_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DeviceService_BindGeolocationControl_Params_Data::Validate,
+    { &internal::DeviceService_BindGeolocationContext_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DeviceService_BindGeolocationInternals_Params_Data::Validate,
+    { &internal::DeviceService_BindGeolocationControl_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DeviceService_BindInputDeviceManager_Params_Data::Validate,
+    { &internal::DeviceService_BindGeolocationInternals_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DeviceService_BindBatteryMonitor_Params_Data::Validate,
+    { &internal::DeviceService_BindInputDeviceManager_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DeviceService_BindPressureManager_Params_Data::Validate,
+    { &internal::DeviceService_BindBatteryMonitor_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DeviceService_BindVibrationManager_Params_Data::Validate,
+    { &internal::DeviceService_BindPressureManager_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DeviceService_BindHidManager_Params_Data::Validate,
+    { &internal::DeviceService_BindVibrationManager_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DeviceService_BindMtpManager_Params_Data::Validate,
+    { &internal::DeviceService_BindHidManager_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DeviceService_BindPowerMonitor_Params_Data::Validate,
+    { &internal::DeviceService_BindMtpManager_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DeviceService_BindPublicIpAddressGeolocationProvider_Params_Data::Validate,
+    { &internal::DeviceService_BindPowerMonitor_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DeviceService_BindScreenOrientationListener_Params_Data::Validate,
+    { &internal::DeviceService_BindPublicIpAddressGeolocationProvider_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DeviceService_BindSensorProvider_Params_Data::Validate,
+    { &internal::DeviceService_BindScreenOrientationListener_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DeviceService_BindSerialPortManager_Params_Data::Validate,
+    { &internal::DeviceService_BindSensorProvider_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DeviceService_BindTimeZoneMonitor_Params_Data::Validate,
+    { &internal::DeviceService_BindSerialPortManager_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DeviceService_BindWakeLockProvider_Params_Data::Validate,
+    { &internal::DeviceService_BindTimeZoneMonitor_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DeviceService_BindUsbDeviceManager_Params_Data::Validate,
+    { &internal::DeviceService_BindWakeLockProvider_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DeviceService_BindUsbDeviceManagerTest_Params_Data::Validate,
+    { &internal::DeviceService_BindUsbDeviceManager_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::DeviceService_BindUsbDeviceManagerTest_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2050,6 +2210,9 @@ namespace mojo {
 namespace device::mojom {
 
 
+void DeviceServiceInterceptorForTesting::BindDevicePostureProvider(::mojo::PendingReceiver<::device::mojom::DevicePostureProvider> receiver) {
+  GetForwardingInterface()->BindDevicePostureProvider(std::move(receiver));
+}
 void DeviceServiceInterceptorForTesting::BindFingerprint(::mojo::PendingReceiver<::device::mojom::Fingerprint> receiver) {
   GetForwardingInterface()->BindFingerprint(std::move(receiver));
 }

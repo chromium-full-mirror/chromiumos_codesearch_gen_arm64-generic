@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -66,7 +67,7 @@ DriveFsConfiguration::DriveFsConfiguration(
 
 DriveFsConfiguration::DriveFsConfiguration(
     const std::string& user_email_in,
-    const absl::optional<std::string>& access_token_in)
+    const std::optional<std::string>& access_token_in)
     : user_email(std::move(user_email_in)),
       access_token(std::move(access_token_in)),
       enable_metrics(false),
@@ -78,7 +79,7 @@ DriveFsConfiguration::DriveFsConfiguration(
 
 DriveFsConfiguration::DriveFsConfiguration(
     const std::string& user_email_in,
-    const absl::optional<std::string>& access_token_in,
+    const std::optional<std::string>& access_token_in,
     bool enable_metrics_in)
     : user_email(std::move(user_email_in)),
       access_token(std::move(access_token_in)),
@@ -91,9 +92,9 @@ DriveFsConfiguration::DriveFsConfiguration(
 
 DriveFsConfiguration::DriveFsConfiguration(
     const std::string& user_email_in,
-    const absl::optional<std::string>& access_token_in,
+    const std::optional<std::string>& access_token_in,
     bool enable_metrics_in,
-    const absl::optional<std::string>& lost_and_found_directory_name_in)
+    const std::optional<std::string>& lost_and_found_directory_name_in)
     : user_email(std::move(user_email_in)),
       access_token(std::move(access_token_in)),
       enable_metrics(std::move(enable_metrics_in)),
@@ -105,9 +106,9 @@ DriveFsConfiguration::DriveFsConfiguration(
 
 DriveFsConfiguration::DriveFsConfiguration(
     const std::string& user_email_in,
-    const absl::optional<std::string>& access_token_in,
+    const std::optional<std::string>& access_token_in,
     bool enable_metrics_in,
-    const absl::optional<std::string>& lost_and_found_directory_name_in,
+    const std::optional<std::string>& lost_and_found_directory_name_in,
     bool enable_experimental_mirroring_in)
     : user_email(std::move(user_email_in)),
       access_token(std::move(access_token_in)),
@@ -120,9 +121,9 @@ DriveFsConfiguration::DriveFsConfiguration(
 
 DriveFsConfiguration::DriveFsConfiguration(
     const std::string& user_email_in,
-    const absl::optional<std::string>& access_token_in,
+    const std::optional<std::string>& access_token_in,
     bool enable_metrics_in,
-    const absl::optional<std::string>& lost_and_found_directory_name_in,
+    const std::optional<std::string>& lost_and_found_directory_name_in,
     bool enable_experimental_mirroring_in,
     bool enable_verbose_logging_in)
     : user_email(std::move(user_email_in)),
@@ -136,9 +137,9 @@ DriveFsConfiguration::DriveFsConfiguration(
 
 DriveFsConfiguration::DriveFsConfiguration(
     const std::string& user_email_in,
-    const absl::optional<std::string>& access_token_in,
+    const std::optional<std::string>& access_token_in,
     bool enable_metrics_in,
-    const absl::optional<std::string>& lost_and_found_directory_name_in,
+    const std::optional<std::string>& lost_and_found_directory_name_in,
     bool enable_experimental_mirroring_in,
     bool enable_verbose_logging_in,
     bool enable_cros_network_in)
@@ -153,9 +154,9 @@ DriveFsConfiguration::DriveFsConfiguration(
 
 DriveFsConfiguration::DriveFsConfiguration(
     const std::string& user_email_in,
-    const absl::optional<std::string>& access_token_in,
+    const std::optional<std::string>& access_token_in,
     bool enable_metrics_in,
-    const absl::optional<std::string>& lost_and_found_directory_name_in,
+    const std::optional<std::string>& lost_and_found_directory_name_in,
     bool enable_experimental_mirroring_in,
     bool enable_verbose_logging_in,
     bool enable_cros_network_in,
@@ -187,7 +188,7 @@ void DriveFsConfiguration::WriteIntoTrace(
     dict.AddItem(
       "access_token"), this->access_token,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -205,7 +206,7 @@ void DriveFsConfiguration::WriteIntoTrace(
     dict.AddItem(
       "lost_and_found_directory_name"), this->lost_and_found_directory_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -253,6 +254,46 @@ bool DriveFsConfiguration::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+AccessToken::AccessToken()
+    : token(),
+      expiry_time() {}
+
+AccessToken::AccessToken(
+    const std::string& token_in,
+    ::base::Time expiry_time_in)
+    : token(std::move(token_in)),
+      expiry_time(std::move(expiry_time_in)) {}
+
+AccessToken::~AccessToken() = default;
+
+void AccessToken::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "token"), this->token,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "expiry_time"), this->expiry_time,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ::base::Time>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool AccessToken::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 DriveError::DriveError()
     : type(),
       path(),
@@ -280,7 +321,7 @@ DriveError::DriveError(
     DriveError::Type type_in,
     const ::base::FilePath& path_in,
     int64_t stable_id_in,
-    const absl::optional<std::string>& shared_drive_in)
+    const std::optional<std::string>& shared_drive_in)
     : type(std::move(type_in)),
       path(std::move(path_in)),
       stable_id(std::move(stable_id_in)),
@@ -322,7 +363,7 @@ void DriveError::WriteIntoTrace(
     dict.AddItem(
       "shared_drive"), this->shared_drive,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -415,7 +456,7 @@ FileMetadata::FileMetadata(
     bool shared_in,
     bool starred_in,
     ImageMetadataPtr image_metadata_in,
-    absl::optional<std::vector<uint8_t>> deprecated_thumbnail_in,
+    std::optional<std::vector<uint8_t>> deprecated_thumbnail_in,
     CapabilitiesPtr capabilities_in)
     : type(std::move(type_in)),
       size(std::move(size_in)),
@@ -457,7 +498,7 @@ FileMetadata::FileMetadata(
     bool shared_in,
     bool starred_in,
     ImageMetadataPtr image_metadata_in,
-    absl::optional<std::vector<uint8_t>> deprecated_thumbnail_in,
+    std::optional<std::vector<uint8_t>> deprecated_thumbnail_in,
     CapabilitiesPtr capabilities_in,
     FolderFeaturePtr folder_feature_in)
     : type(std::move(type_in)),
@@ -500,7 +541,7 @@ FileMetadata::FileMetadata(
     bool shared_in,
     bool starred_in,
     ImageMetadataPtr image_metadata_in,
-    absl::optional<std::vector<uint8_t>> deprecated_thumbnail_in,
+    std::optional<std::vector<uint8_t>> deprecated_thumbnail_in,
     CapabilitiesPtr capabilities_in,
     FolderFeaturePtr folder_feature_in,
     QuickAccessPtr quick_access_in)
@@ -544,7 +585,7 @@ FileMetadata::FileMetadata(
     bool shared_in,
     bool starred_in,
     ImageMetadataPtr image_metadata_in,
-    absl::optional<std::vector<uint8_t>> deprecated_thumbnail_in,
+    std::optional<std::vector<uint8_t>> deprecated_thumbnail_in,
     CapabilitiesPtr capabilities_in,
     FolderFeaturePtr folder_feature_in,
     QuickAccessPtr quick_access_in,
@@ -589,7 +630,7 @@ FileMetadata::FileMetadata(
     bool shared_in,
     bool starred_in,
     ImageMetadataPtr image_metadata_in,
-    absl::optional<std::vector<uint8_t>> deprecated_thumbnail_in,
+    std::optional<std::vector<uint8_t>> deprecated_thumbnail_in,
     CapabilitiesPtr capabilities_in,
     FolderFeaturePtr folder_feature_in,
     QuickAccessPtr quick_access_in,
@@ -635,13 +676,13 @@ FileMetadata::FileMetadata(
     bool shared_in,
     bool starred_in,
     ImageMetadataPtr image_metadata_in,
-    absl::optional<std::vector<uint8_t>> deprecated_thumbnail_in,
+    std::optional<std::vector<uint8_t>> deprecated_thumbnail_in,
     CapabilitiesPtr capabilities_in,
     FolderFeaturePtr folder_feature_in,
     QuickAccessPtr quick_access_in,
     int64_t stable_id_in,
     FileMetadata::CanPinStatus can_pin_in,
-    const absl::optional<std::string>& item_id_in)
+    const std::optional<std::string>& item_id_in)
     : type(std::move(type_in)),
       size(std::move(size_in)),
       content_mime_type(std::move(content_mime_type_in)),
@@ -682,13 +723,13 @@ FileMetadata::FileMetadata(
     bool shared_in,
     bool starred_in,
     ImageMetadataPtr image_metadata_in,
-    absl::optional<std::vector<uint8_t>> deprecated_thumbnail_in,
+    std::optional<std::vector<uint8_t>> deprecated_thumbnail_in,
     CapabilitiesPtr capabilities_in,
     FolderFeaturePtr folder_feature_in,
     QuickAccessPtr quick_access_in,
     int64_t stable_id_in,
     FileMetadata::CanPinStatus can_pin_in,
-    const absl::optional<std::string>& item_id_in,
+    const std::optional<std::string>& item_id_in,
     SharedDriveQuotaPtr shared_drive_quota_in)
     : type(std::move(type_in)),
       size(std::move(size_in)),
@@ -730,13 +771,13 @@ FileMetadata::FileMetadata(
     bool shared_in,
     bool starred_in,
     ImageMetadataPtr image_metadata_in,
-    absl::optional<std::vector<uint8_t>> deprecated_thumbnail_in,
+    std::optional<std::vector<uint8_t>> deprecated_thumbnail_in,
     CapabilitiesPtr capabilities_in,
     FolderFeaturePtr folder_feature_in,
     QuickAccessPtr quick_access_in,
     int64_t stable_id_in,
     FileMetadata::CanPinStatus can_pin_in,
-    const absl::optional<std::string>& item_id_in,
+    const std::optional<std::string>& item_id_in,
     SharedDriveQuotaPtr shared_drive_quota_in,
     ShortcutDetailsPtr shortcut_details_in)
     : type(std::move(type_in)),
@@ -779,13 +820,13 @@ FileMetadata::FileMetadata(
     bool shared_in,
     bool starred_in,
     ImageMetadataPtr image_metadata_in,
-    absl::optional<std::vector<uint8_t>> deprecated_thumbnail_in,
+    std::optional<std::vector<uint8_t>> deprecated_thumbnail_in,
     CapabilitiesPtr capabilities_in,
     FolderFeaturePtr folder_feature_in,
     QuickAccessPtr quick_access_in,
     int64_t stable_id_in,
     FileMetadata::CanPinStatus can_pin_in,
-    const absl::optional<std::string>& item_id_in,
+    const std::optional<std::string>& item_id_in,
     SharedDriveQuotaPtr shared_drive_quota_in,
     ShortcutDetailsPtr shortcut_details_in,
     bool trashed_in)
@@ -949,7 +990,7 @@ void FileMetadata::WriteIntoTrace(
     dict.AddItem(
       "deprecated_thumbnail"), this->deprecated_thumbnail,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<uint8_t>>&>"
+      "<value of type const std::optional<std::vector<uint8_t>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1003,7 +1044,7 @@ void FileMetadata::WriteIntoTrace(
     dict.AddItem(
       "item_id"), this->item_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1057,7 +1098,7 @@ ShortcutDetails::ShortcutDetails(
 ShortcutDetails::ShortcutDetails(
     int64_t target_stable_id_in,
     ShortcutDetails::LookupStatus target_lookup_status_in,
-    const absl::optional<::base::FilePath>& target_path_in)
+    const std::optional<::base::FilePath>& target_path_in)
     : target_stable_id(std::move(target_stable_id_in)),
       target_lookup_status(std::move(target_lookup_status_in)),
       target_path(std::move(target_path_in)) {}
@@ -1089,7 +1130,7 @@ void ShortcutDetails::WriteIntoTrace(
     dict.AddItem(
       "target_path"), this->target_path,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::base::FilePath>&>"
+      "<value of type const std::optional<::base::FilePath>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1553,7 +1594,7 @@ ProgressEvent::ProgressEvent(
     int64_t stable_id_in,
     const std::string& path_in,
     uint8_t progress_in,
-    const absl::optional<::base::FilePath>& file_path_in)
+    const std::optional<::base::FilePath>& file_path_in)
     : stable_id(std::move(stable_id_in)),
       path(std::move(path_in)),
       progress(std::move(progress_in)),
@@ -1595,7 +1636,7 @@ void ProgressEvent::WriteIntoTrace(
     dict.AddItem(
       "file_path"), this->file_path,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::base::FilePath>&>"
+      "<value of type const std::optional<::base::FilePath>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1714,9 +1755,9 @@ QueryParameters::QueryParameters()
 QueryParameters::QueryParameters(
     int32_t page_size_in,
     QueryParameters::QuerySource query_source_in,
-    const absl::optional<std::string>& title_in,
-    const absl::optional<std::string>& text_content_in,
-    const absl::optional<std::string>& mime_type_in,
+    const std::optional<std::string>& title_in,
+    const std::optional<std::string>& text_content_in,
+    const std::optional<std::string>& mime_type_in,
     bool shared_with_me_in,
     bool available_offline_in,
     QueryParameters::SortField sort_field_in,
@@ -1740,9 +1781,9 @@ QueryParameters::QueryParameters(
 QueryParameters::QueryParameters(
     int32_t page_size_in,
     QueryParameters::QuerySource query_source_in,
-    const absl::optional<std::string>& title_in,
-    const absl::optional<std::string>& text_content_in,
-    const absl::optional<std::string>& mime_type_in,
+    const std::optional<std::string>& title_in,
+    const std::optional<std::string>& text_content_in,
+    const std::optional<std::string>& mime_type_in,
     bool shared_with_me_in,
     bool available_offline_in,
     QueryParameters::SortField sort_field_in,
@@ -1767,15 +1808,15 @@ QueryParameters::QueryParameters(
 QueryParameters::QueryParameters(
     int32_t page_size_in,
     QueryParameters::QuerySource query_source_in,
-    const absl::optional<std::string>& title_in,
-    const absl::optional<std::string>& text_content_in,
-    const absl::optional<std::string>& mime_type_in,
+    const std::optional<std::string>& title_in,
+    const std::optional<std::string>& text_content_in,
+    const std::optional<std::string>& mime_type_in,
     bool shared_with_me_in,
     bool available_offline_in,
     QueryParameters::SortField sort_field_in,
     QueryParameters::SortDirection sort_direction_in,
     QueryKind query_kind_in,
-    absl::optional<std::vector<std::string>> mime_types_in)
+    std::optional<std::vector<std::string>> mime_types_in)
     : page_size(std::move(page_size_in)),
       query_source(std::move(query_source_in)),
       title(std::move(title_in)),
@@ -1795,15 +1836,15 @@ QueryParameters::QueryParameters(
 QueryParameters::QueryParameters(
     int32_t page_size_in,
     QueryParameters::QuerySource query_source_in,
-    const absl::optional<std::string>& title_in,
-    const absl::optional<std::string>& text_content_in,
-    const absl::optional<std::string>& mime_type_in,
+    const std::optional<std::string>& title_in,
+    const std::optional<std::string>& text_content_in,
+    const std::optional<std::string>& mime_type_in,
     bool shared_with_me_in,
     bool available_offline_in,
     QueryParameters::SortField sort_field_in,
     QueryParameters::SortDirection sort_direction_in,
     QueryKind query_kind_in,
-    absl::optional<std::vector<std::string>> mime_types_in,
+    std::optional<std::vector<std::string>> mime_types_in,
     bool my_drive_results_only_in)
     : page_size(std::move(page_size_in)),
       query_source(std::move(query_source_in)),
@@ -1824,18 +1865,18 @@ QueryParameters::QueryParameters(
 QueryParameters::QueryParameters(
     int32_t page_size_in,
     QueryParameters::QuerySource query_source_in,
-    const absl::optional<std::string>& title_in,
-    const absl::optional<std::string>& text_content_in,
-    const absl::optional<std::string>& mime_type_in,
+    const std::optional<std::string>& title_in,
+    const std::optional<std::string>& text_content_in,
+    const std::optional<std::string>& mime_type_in,
     bool shared_with_me_in,
     bool available_offline_in,
     QueryParameters::SortField sort_field_in,
     QueryParameters::SortDirection sort_direction_in,
     QueryKind query_kind_in,
-    absl::optional<std::vector<std::string>> mime_types_in,
+    std::optional<std::vector<std::string>> mime_types_in,
     bool my_drive_results_only_in,
     QueryParameters::DateComparisonOperator modified_time_operator_in,
-    absl::optional<::base::Time> modified_time_in)
+    std::optional<::base::Time> modified_time_in)
     : page_size(std::move(page_size_in)),
       query_source(std::move(query_source_in)),
       title(std::move(title_in)),
@@ -1855,18 +1896,18 @@ QueryParameters::QueryParameters(
 QueryParameters::QueryParameters(
     int32_t page_size_in,
     QueryParameters::QuerySource query_source_in,
-    const absl::optional<std::string>& title_in,
-    const absl::optional<std::string>& text_content_in,
-    const absl::optional<std::string>& mime_type_in,
+    const std::optional<std::string>& title_in,
+    const std::optional<std::string>& text_content_in,
+    const std::optional<std::string>& mime_type_in,
     bool shared_with_me_in,
     bool available_offline_in,
     QueryParameters::SortField sort_field_in,
     QueryParameters::SortDirection sort_direction_in,
     QueryKind query_kind_in,
-    absl::optional<std::vector<std::string>> mime_types_in,
+    std::optional<std::vector<std::string>> mime_types_in,
     bool my_drive_results_only_in,
     QueryParameters::DateComparisonOperator modified_time_operator_in,
-    absl::optional<::base::Time> modified_time_in,
+    std::optional<::base::Time> modified_time_in,
     int64_t parent_stable_id_in)
     : page_size(std::move(page_size_in)),
       query_source(std::move(query_source_in)),
@@ -1911,7 +1952,7 @@ void QueryParameters::WriteIntoTrace(
     dict.AddItem(
       "title"), this->title,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1920,7 +1961,7 @@ void QueryParameters::WriteIntoTrace(
     dict.AddItem(
       "text_content"), this->text_content,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1929,7 +1970,7 @@ void QueryParameters::WriteIntoTrace(
     dict.AddItem(
       "mime_type"), this->mime_type,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1983,7 +2024,7 @@ void QueryParameters::WriteIntoTrace(
     dict.AddItem(
       "mime_types"), this->mime_types,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<std::string>>&>"
+      "<value of type const std::optional<std::vector<std::string>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2010,7 +2051,7 @@ void QueryParameters::WriteIntoTrace(
     dict.AddItem(
       "modified_time"), this->modified_time,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::Time>>"
+      "<value of type std::optional<::base::Time>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2608,14 +2649,17 @@ void DriveFsBootstrapProxy::Init(
                         "<value of type ::mojo::PendingRemote<DriveFsDelegate>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFsBootstrap_Init_Name, kFlags, 0, 0, nullptr);
@@ -2718,10 +2762,10 @@ bool DriveFsBootstrapStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDriveFsBootstrapValidationInfo[] = {
-    {&internal::DriveFsBootstrap_Init_Params_Data::Validate,
+    { &internal::DriveFsBootstrap_Init_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -3849,14 +3893,17 @@ void DriveFsProxy::GetMetadata(
                         "<value of type const ::base::FilePath&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFs_GetMetadata_Name, kFlags, 0, 0, nullptr);
@@ -3901,14 +3948,17 @@ void DriveFsProxy::SetPinned(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFs_SetPinned_Name, kFlags, 0, 0, nullptr);
@@ -3954,14 +4004,17 @@ void DriveFsProxy::UpdateNetworkState(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFs_UpdateNetworkState_Name, kFlags, 0, 0, nullptr);
@@ -3986,14 +4039,17 @@ void DriveFsProxy::ResetCache(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send drivefs::mojom::DriveFs::ResetCache");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFs_ResetCache_Name, kFlags, 0, 0, nullptr);
@@ -4027,14 +4083,17 @@ void DriveFsProxy::GetThumbnail(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFs_GetThumbnail_Name, kFlags, 0, 0, nullptr);
@@ -4080,14 +4139,17 @@ void DriveFsProxy::CopyFile(
                         "<value of type const ::base::FilePath&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFs_CopyFile_Name, kFlags, 0, 0, nullptr);
@@ -4143,14 +4205,17 @@ void DriveFsProxy::StartSearchQuery(
                         "<value of type QueryParametersPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFs_StartSearchQuery_Name, kFlags, 0, 0, nullptr);
@@ -4190,14 +4255,17 @@ void DriveFsProxy::FetchAllChangeLogs(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send drivefs::mojom::DriveFs::FetchAllChangeLogs");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFs_FetchAllChangeLogs_Name, kFlags, 0, 0, nullptr);
@@ -4227,14 +4295,17 @@ void DriveFsProxy::FetchChangeLog(
                         "<value of type std::vector<FetchChangeLogOptionsPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFs_FetchChangeLog_Name, kFlags, 0, 0, nullptr);
@@ -4277,14 +4348,17 @@ void DriveFsProxy::SendNativeMessageRequest(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFs_SendNativeMessageRequest_Name, kFlags, 0, 0, nullptr);
@@ -4326,14 +4400,17 @@ void DriveFsProxy::SetStartupArguments(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFs_SetStartupArguments_Name, kFlags, 0, 0, nullptr);
@@ -4368,14 +4445,17 @@ void DriveFsProxy::GetStartupArguments(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send drivefs::mojom::DriveFs::GetStartupArguments");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFs_GetStartupArguments_Name, kFlags, 0, 0, nullptr);
@@ -4406,14 +4486,17 @@ void DriveFsProxy::SetTracingEnabled(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFs_SetTracingEnabled_Name, kFlags, 0, 0, nullptr);
@@ -4444,14 +4527,17 @@ void DriveFsProxy::SetNetworkingEnabled(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFs_SetNetworkingEnabled_Name, kFlags, 0, 0, nullptr);
@@ -4482,14 +4568,17 @@ void DriveFsProxy::ForcePauseSyncing(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFs_ForcePauseSyncing_Name, kFlags, 0, 0, nullptr);
@@ -4513,14 +4602,17 @@ void DriveFsProxy::DumpAccountSettings(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send drivefs::mojom::DriveFs::DumpAccountSettings");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFs_DumpAccountSettings_Name, kFlags, 0, 0, nullptr);
@@ -4543,14 +4635,17 @@ void DriveFsProxy::LoadAccountSettings(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send drivefs::mojom::DriveFs::LoadAccountSettings");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFs_LoadAccountSettings_Name, kFlags, 0, 0, nullptr);
@@ -4586,14 +4681,17 @@ void DriveFsProxy::CreateNativeHostSession(
                         "<value of type ::mojo::PendingRemote<::drivefs::mojom::NativeMessagingPort>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFs_CreateNativeHostSession_Name, kFlags, 0, 0, nullptr);
@@ -4646,14 +4744,17 @@ void DriveFsProxy::LocateFilesByItemIds(
                         "<value of type const std::vector<std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFs_LocateFilesByItemIds_Name, kFlags, 0, 0, nullptr);
@@ -4690,14 +4791,17 @@ void DriveFsProxy::GetQuotaUsage(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send drivefs::mojom::DriveFs::GetQuotaUsage");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFs_GetQuotaUsage_Name, kFlags, 0, 0, nullptr);
@@ -4728,14 +4832,17 @@ void DriveFsProxy::ToggleMirroring(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFs_ToggleMirroring_Name, kFlags, 0, 0, nullptr);
@@ -4770,14 +4877,17 @@ void DriveFsProxy::ToggleSyncForPath(
                         "<value of type MirrorPathStatus>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFs_ToggleSyncForPath_Name, kFlags, 0, 0, nullptr);
@@ -4814,14 +4924,17 @@ void DriveFsProxy::GetSyncingPaths(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send drivefs::mojom::DriveFs::GetSyncingPaths");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFs_GetSyncingPaths_Name, kFlags, 0, 0, nullptr);
@@ -4845,14 +4958,17 @@ void DriveFsProxy::PollHostedFilePinStates(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send drivefs::mojom::DriveFs::PollHostedFilePinStates");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFs_PollHostedFilePinStates_Name, kFlags, 0, 0, nullptr);
@@ -4875,14 +4991,17 @@ void DriveFsProxy::GetPooledQuotaUsage(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send drivefs::mojom::DriveFs::GetPooledQuotaUsage");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFs_GetPooledQuotaUsage_Name, kFlags, 0, 0, nullptr);
@@ -4916,14 +5035,17 @@ void DriveFsProxy::SetPinnedByStableId(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFs_SetPinnedByStableId_Name, kFlags, 0, 0, nullptr);
@@ -4956,14 +5078,17 @@ void DriveFsProxy::GetMetadataByStableId(
                         "<value of type int64_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFs_GetMetadataByStableId_Name, kFlags, 0, 0, nullptr);
@@ -4998,14 +5123,17 @@ void DriveFsProxy::CancelUploadByPath(
                         "<value of type DriveFs::CancelUploadMode>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFs_CancelUploadByPath_Name, kFlags, 0, 0, nullptr);
@@ -5048,14 +5176,17 @@ void DriveFsProxy::SetDocsOfflineEnabled(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFs_SetDocsOfflineEnabled_Name, kFlags, 0, 0, nullptr);
@@ -5080,14 +5211,17 @@ void DriveFsProxy::GetOfflineFilesSpaceUsage(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send drivefs::mojom::DriveFs::GetOfflineFilesSpaceUsage");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFs_GetOfflineFilesSpaceUsage_Name, kFlags, 0, 0, nullptr);
@@ -5111,14 +5245,17 @@ void DriveFsProxy::ClearOfflineFiles(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send drivefs::mojom::DriveFs::ClearOfflineFiles");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFs_ClearOfflineFiles_Name, kFlags, 0, 0, nullptr);
@@ -5149,14 +5286,17 @@ void DriveFsProxy::ImmediatelyUpload(
                         "<value of type const ::base::FilePath&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFs_ImmediatelyUpload_Name, kFlags, 0, 0, nullptr);
@@ -5198,14 +5338,17 @@ void DriveFsProxy::UpdateFromPairedDoc(
                         "<value of type const ::base::FilePath&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFs_UpdateFromPairedDoc_Name, kFlags, 0, 0, nullptr);
@@ -5247,14 +5390,17 @@ void DriveFsProxy::GetItemFromCloudStore(
                         "<value of type const ::base::FilePath&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFs_GetItemFromCloudStore_Name, kFlags, 0, 0, nullptr);
@@ -5289,14 +5435,17 @@ void DriveFsProxy::GetDocsOfflineStats(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send drivefs::mojom::DriveFs::GetDocsOfflineStats");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFs_GetDocsOfflineStats_Name, kFlags, 0, 0, nullptr);
@@ -5413,7 +5562,8 @@ void DriveFs_GetMetadata_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFs_GetMetadata_Name, kFlags, 0, 0, nullptr);
@@ -5539,7 +5689,8 @@ void DriveFs_SetPinned_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFs_SetPinned_Name, kFlags, 0, 0, nullptr);
@@ -5658,7 +5809,8 @@ void DriveFs_ResetCache_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFs_ResetCache_Name, kFlags, 0, 0, nullptr);
@@ -5731,7 +5883,7 @@ class DriveFs_GetThumbnail_ProxyToResponder : public ::mojo::internal::ProxyToRe
 #endif
 
   void Run(
-      const absl::optional<std::vector<uint8_t>>& in_thumbnail);
+      const std::optional<std::vector<uint8_t>>& in_thumbnail);
 };
 
 bool DriveFs_GetThumbnail_ForwardToCallback::Accept(
@@ -5744,7 +5896,7 @@ bool DriveFs_GetThumbnail_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::vector<uint8_t>> p_thumbnail{};
+  std::optional<std::vector<uint8_t>> p_thumbnail{};
   DriveFs_GetThumbnail_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadThumbnail(&p_thumbnail))
@@ -5763,7 +5915,7 @@ std::move(p_thumbnail));
 }
 
 void DriveFs_GetThumbnail_ProxyToResponder::Run(
-    const absl::optional<std::vector<uint8_t>>& in_thumbnail) {
+    const std::optional<std::vector<uint8_t>>& in_thumbnail) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply drivefs::mojom::DriveFs::GetThumbnail", "async_response_parameters",
@@ -5771,13 +5923,14 @@ void DriveFs_GetThumbnail_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("thumbnail"), in_thumbnail,
-                        "<value of type const absl::optional<std::vector<uint8_t>>&>");
+                        "<value of type const std::optional<std::vector<uint8_t>>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFs_GetThumbnail_Name, kFlags, 0, 0, nullptr);
@@ -5903,7 +6056,8 @@ void DriveFs_CopyFile_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFs_CopyFile_Name, kFlags, 0, 0, nullptr);
@@ -6029,7 +6183,8 @@ void DriveFs_SendNativeMessageRequest_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFs_SendNativeMessageRequest_Name, kFlags, 0, 0, nullptr);
@@ -6159,7 +6314,8 @@ void DriveFs_SetStartupArguments_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFs_SetStartupArguments_Name, kFlags, 0, 0, nullptr);
@@ -6277,7 +6433,8 @@ void DriveFs_GetStartupArguments_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFs_GetStartupArguments_Name, kFlags, 0, 0, nullptr);
@@ -6359,7 +6516,7 @@ class DriveFs_LocateFilesByItemIds_ProxyToResponder : public ::mojo::internal::P
 #endif
 
   void Run(
-      absl::optional<std::vector<FilePathOrErrorPtr>> in_response);
+      std::optional<std::vector<FilePathOrErrorPtr>> in_response);
 };
 
 bool DriveFs_LocateFilesByItemIds_ForwardToCallback::Accept(
@@ -6372,7 +6529,7 @@ bool DriveFs_LocateFilesByItemIds_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::vector<FilePathOrErrorPtr>> p_response{};
+  std::optional<std::vector<FilePathOrErrorPtr>> p_response{};
   DriveFs_LocateFilesByItemIds_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -6391,7 +6548,7 @@ std::move(p_response));
 }
 
 void DriveFs_LocateFilesByItemIds_ProxyToResponder::Run(
-    absl::optional<std::vector<FilePathOrErrorPtr>> in_response) {
+    std::optional<std::vector<FilePathOrErrorPtr>> in_response) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply drivefs::mojom::DriveFs::LocateFilesByItemIds", "async_response_parameters",
@@ -6399,13 +6556,14 @@ void DriveFs_LocateFilesByItemIds_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
-                        "<value of type absl::optional<std::vector<FilePathOrErrorPtr>>>");
+                        "<value of type std::optional<std::vector<FilePathOrErrorPtr>>>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFs_LocateFilesByItemIds_Name, kFlags, 0, 0, nullptr);
@@ -6538,7 +6696,8 @@ void DriveFs_GetQuotaUsage_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFs_GetQuotaUsage_Name, kFlags, 0, 0, nullptr);
@@ -6668,7 +6827,8 @@ void DriveFs_ToggleMirroring_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFs_ToggleMirroring_Name, kFlags, 0, 0, nullptr);
@@ -6787,7 +6947,8 @@ void DriveFs_ToggleSyncForPath_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFs_ToggleSyncForPath_Name, kFlags, 0, 0, nullptr);
@@ -6913,7 +7074,8 @@ void DriveFs_GetSyncingPaths_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFs_GetSyncingPaths_Name, kFlags, 0, 0, nullptr);
@@ -7052,7 +7214,8 @@ void DriveFs_GetPooledQuotaUsage_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFs_GetPooledQuotaUsage_Name, kFlags, 0, 0, nullptr);
@@ -7182,7 +7345,8 @@ void DriveFs_SetPinnedByStableId_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFs_SetPinnedByStableId_Name, kFlags, 0, 0, nullptr);
@@ -7308,7 +7472,8 @@ void DriveFs_GetMetadataByStableId_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFs_GetMetadataByStableId_Name, kFlags, 0, 0, nullptr);
@@ -7388,7 +7553,7 @@ class DriveFs_SetDocsOfflineEnabled_ProxyToResponder : public ::mojo::internal::
 #endif
 
   void Run(
-      ::drive::FileError in_error);
+      ::drive::FileError in_error, DocsOfflineEnableStatus in_status);
 };
 
 bool DriveFs_SetDocsOfflineEnabled_ForwardToCallback::Accept(
@@ -7402,9 +7567,12 @@ bool DriveFs_SetDocsOfflineEnabled_ForwardToCallback::Accept(
   
   bool success = true;
   ::drive::FileError p_error{};
+  DocsOfflineEnableStatus p_status{};
   DriveFs_SetDocsOfflineEnabled_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadError(&p_error))
+    success = false;
+  if (success && !input_data_view.ReadStatus(&p_status))
     success = false;
   if (!success) {
     ReportValidationErrorForMessage(
@@ -7415,12 +7583,13 @@ bool DriveFs_SetDocsOfflineEnabled_ForwardToCallback::Accept(
   }
   if (!callback_.is_null())
     std::move(callback_).Run(
-std::move(p_error));
+std::move(p_error), 
+std::move(p_status));
   return true;
 }
 
 void DriveFs_SetDocsOfflineEnabled_ProxyToResponder::Run(
-    ::drive::FileError in_error) {
+    ::drive::FileError in_error, DocsOfflineEnableStatus in_status) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply drivefs::mojom::DriveFs::SetDocsOfflineEnabled", "async_response_parameters",
@@ -7429,12 +7598,16 @@ void DriveFs_SetDocsOfflineEnabled_ProxyToResponder::Run(
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("error"), in_error,
                         "<value of type ::drive::FileError>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("status"), in_status,
+                        "<value of type DocsOfflineEnableStatus>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFs_SetDocsOfflineEnabled_Name, kFlags, 0, 0, nullptr);
@@ -7444,6 +7617,8 @@ void DriveFs_SetDocsOfflineEnabled_ProxyToResponder::Run(
   params.Allocate();
   mojo::internal::Serialize<::drivefs::mojom::FileError>(
       in_error, &params->error);
+  mojo::internal::Serialize<::drivefs::mojom::DocsOfflineEnableStatus>(
+      in_status, &params->status);
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(DriveFs::Name_);
@@ -7560,7 +7735,8 @@ void DriveFs_GetOfflineFilesSpaceUsage_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFs_GetOfflineFilesSpaceUsage_Name, kFlags, 0, 0, nullptr);
@@ -7680,7 +7856,8 @@ void DriveFs_ClearOfflineFiles_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFs_ClearOfflineFiles_Name, kFlags, 0, 0, nullptr);
@@ -7799,7 +7976,8 @@ void DriveFs_ImmediatelyUpload_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFs_ImmediatelyUpload_Name, kFlags, 0, 0, nullptr);
@@ -7918,7 +8096,8 @@ void DriveFs_UpdateFromPairedDoc_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFs_UpdateFromPairedDoc_Name, kFlags, 0, 0, nullptr);
@@ -8037,7 +8216,8 @@ void DriveFs_GetItemFromCloudStore_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFs_GetItemFromCloudStore_Name, kFlags, 0, 0, nullptr);
@@ -8163,7 +8343,8 @@ void DriveFs_GetDocsOfflineStats_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFs_GetDocsOfflineStats_Name, kFlags, 0, 0, nullptr);
@@ -9305,78 +9486,78 @@ std::move(p_path), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDriveFsValidationInfo[] = {
-    {&internal::DriveFs_GetMetadata_Params_Data::Validate,
+    { &internal::DriveFs_GetMetadata_Params_Data::Validate,
      &internal::DriveFs_GetMetadata_ResponseParams_Data::Validate},
-    {&internal::DriveFs_SetPinned_Params_Data::Validate,
+    { &internal::DriveFs_SetPinned_Params_Data::Validate,
      &internal::DriveFs_SetPinned_ResponseParams_Data::Validate},
-    {&internal::DriveFs_UpdateNetworkState_Params_Data::Validate,
+    { &internal::DriveFs_UpdateNetworkState_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DriveFs_ResetCache_Params_Data::Validate,
+    { &internal::DriveFs_ResetCache_Params_Data::Validate,
      &internal::DriveFs_ResetCache_ResponseParams_Data::Validate},
-    {&internal::DriveFs_GetThumbnail_Params_Data::Validate,
+    { &internal::DriveFs_GetThumbnail_Params_Data::Validate,
      &internal::DriveFs_GetThumbnail_ResponseParams_Data::Validate},
-    {&internal::DriveFs_CopyFile_Params_Data::Validate,
+    { &internal::DriveFs_CopyFile_Params_Data::Validate,
      &internal::DriveFs_CopyFile_ResponseParams_Data::Validate},
-    {&internal::DriveFs_StartSearchQuery_Params_Data::Validate,
+    { &internal::DriveFs_StartSearchQuery_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DriveFs_FetchAllChangeLogs_Params_Data::Validate,
+    { &internal::DriveFs_FetchAllChangeLogs_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DriveFs_FetchChangeLog_Params_Data::Validate,
+    { &internal::DriveFs_FetchChangeLog_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DriveFs_SendNativeMessageRequest_Params_Data::Validate,
+    { &internal::DriveFs_SendNativeMessageRequest_Params_Data::Validate,
      &internal::DriveFs_SendNativeMessageRequest_ResponseParams_Data::Validate},
-    {&internal::DriveFs_SetStartupArguments_Params_Data::Validate,
+    { &internal::DriveFs_SetStartupArguments_Params_Data::Validate,
      &internal::DriveFs_SetStartupArguments_ResponseParams_Data::Validate},
-    {&internal::DriveFs_GetStartupArguments_Params_Data::Validate,
+    { &internal::DriveFs_GetStartupArguments_Params_Data::Validate,
      &internal::DriveFs_GetStartupArguments_ResponseParams_Data::Validate},
-    {&internal::DriveFs_SetTracingEnabled_Params_Data::Validate,
+    { &internal::DriveFs_SetTracingEnabled_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DriveFs_SetNetworkingEnabled_Params_Data::Validate,
+    { &internal::DriveFs_SetNetworkingEnabled_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DriveFs_ForcePauseSyncing_Params_Data::Validate,
+    { &internal::DriveFs_ForcePauseSyncing_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DriveFs_DumpAccountSettings_Params_Data::Validate,
+    { &internal::DriveFs_DumpAccountSettings_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DriveFs_LoadAccountSettings_Params_Data::Validate,
+    { &internal::DriveFs_LoadAccountSettings_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DriveFs_CreateNativeHostSession_Params_Data::Validate,
+    { &internal::DriveFs_CreateNativeHostSession_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DriveFs_LocateFilesByItemIds_Params_Data::Validate,
+    { &internal::DriveFs_LocateFilesByItemIds_Params_Data::Validate,
      &internal::DriveFs_LocateFilesByItemIds_ResponseParams_Data::Validate},
-    {&internal::DriveFs_GetQuotaUsage_Params_Data::Validate,
+    { &internal::DriveFs_GetQuotaUsage_Params_Data::Validate,
      &internal::DriveFs_GetQuotaUsage_ResponseParams_Data::Validate},
-    {&internal::DriveFs_ToggleMirroring_Params_Data::Validate,
+    { &internal::DriveFs_ToggleMirroring_Params_Data::Validate,
      &internal::DriveFs_ToggleMirroring_ResponseParams_Data::Validate},
-    {&internal::DriveFs_ToggleSyncForPath_Params_Data::Validate,
+    { &internal::DriveFs_ToggleSyncForPath_Params_Data::Validate,
      &internal::DriveFs_ToggleSyncForPath_ResponseParams_Data::Validate},
-    {&internal::DriveFs_GetSyncingPaths_Params_Data::Validate,
+    { &internal::DriveFs_GetSyncingPaths_Params_Data::Validate,
      &internal::DriveFs_GetSyncingPaths_ResponseParams_Data::Validate},
-    {&internal::DriveFs_PollHostedFilePinStates_Params_Data::Validate,
+    { &internal::DriveFs_PollHostedFilePinStates_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DriveFs_GetPooledQuotaUsage_Params_Data::Validate,
+    { &internal::DriveFs_GetPooledQuotaUsage_Params_Data::Validate,
      &internal::DriveFs_GetPooledQuotaUsage_ResponseParams_Data::Validate},
-    {&internal::DriveFs_SetPinnedByStableId_Params_Data::Validate,
+    { &internal::DriveFs_SetPinnedByStableId_Params_Data::Validate,
      &internal::DriveFs_SetPinnedByStableId_ResponseParams_Data::Validate},
-    {&internal::DriveFs_GetMetadataByStableId_Params_Data::Validate,
+    { &internal::DriveFs_GetMetadataByStableId_Params_Data::Validate,
      &internal::DriveFs_GetMetadataByStableId_ResponseParams_Data::Validate},
-    {&internal::DriveFs_CancelUploadByPath_Params_Data::Validate,
+    { &internal::DriveFs_CancelUploadByPath_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DriveFs_SetDocsOfflineEnabled_Params_Data::Validate,
+    { &internal::DriveFs_SetDocsOfflineEnabled_Params_Data::Validate,
      &internal::DriveFs_SetDocsOfflineEnabled_ResponseParams_Data::Validate},
-    {&internal::DriveFs_GetOfflineFilesSpaceUsage_Params_Data::Validate,
+    { &internal::DriveFs_GetOfflineFilesSpaceUsage_Params_Data::Validate,
      &internal::DriveFs_GetOfflineFilesSpaceUsage_ResponseParams_Data::Validate},
-    {&internal::DriveFs_ClearOfflineFiles_Params_Data::Validate,
+    { &internal::DriveFs_ClearOfflineFiles_Params_Data::Validate,
      &internal::DriveFs_ClearOfflineFiles_ResponseParams_Data::Validate},
-    {&internal::DriveFs_ImmediatelyUpload_Params_Data::Validate,
+    { &internal::DriveFs_ImmediatelyUpload_Params_Data::Validate,
      &internal::DriveFs_ImmediatelyUpload_ResponseParams_Data::Validate},
-    {&internal::DriveFs_UpdateFromPairedDoc_Params_Data::Validate,
+    { &internal::DriveFs_UpdateFromPairedDoc_Params_Data::Validate,
      &internal::DriveFs_UpdateFromPairedDoc_ResponseParams_Data::Validate},
-    {&internal::DriveFs_GetItemFromCloudStore_Params_Data::Validate,
+    { &internal::DriveFs_GetItemFromCloudStore_Params_Data::Validate,
      &internal::DriveFs_GetItemFromCloudStore_ResponseParams_Data::Validate},
-    {&internal::DriveFs_GetDocsOfflineStats_Params_Data::Validate,
+    { &internal::DriveFs_GetDocsOfflineStats_Params_Data::Validate,
      &internal::DriveFs_GetDocsOfflineStats_ResponseParams_Data::Validate},
 };
 
@@ -9445,6 +9626,9 @@ DriveFsDelegate::IPCStableHashFunction DriveFsDelegate::MessageToMethodInfo_(moj
     case internal::kDriveFsDelegate_OnItemProgress_Name: {
       return &DriveFsDelegate::OnItemProgress_Sym::IPCStableHash;
     }
+    case internal::kDriveFsDelegate_GetAccessTokenWithExpiry_Name: {
+      return &DriveFsDelegate::GetAccessTokenWithExpiry_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -9490,6 +9674,8 @@ const char* DriveFsDelegate::MessageToMethodName_(mojo::Message& message) {
             return "Receive drivefs::mojom::DriveFsDelegate::OnMirrorSyncingStatusUpdate";
       case internal::kDriveFsDelegate_OnItemProgress_Name:
             return "Receive drivefs::mojom::DriveFsDelegate::OnItemProgress";
+      case internal::kDriveFsDelegate_GetAccessTokenWithExpiry_Name:
+            return "Receive drivefs::mojom::DriveFsDelegate::GetAccessTokenWithExpiry";
     }
   } else {
     switch (message.name()) {
@@ -9527,6 +9713,8 @@ const char* DriveFsDelegate::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply drivefs::mojom::DriveFsDelegate::OnMirrorSyncingStatusUpdate";
       case internal::kDriveFsDelegate_OnItemProgress_Name:
             return "Receive reply drivefs::mojom::DriveFsDelegate::OnItemProgress";
+      case internal::kDriveFsDelegate_GetAccessTokenWithExpiry_Name:
+            return "Receive reply drivefs::mojom::DriveFsDelegate::GetAccessTokenWithExpiry";
     }
   }
   return "Receive unknown mojo message";
@@ -9762,6 +9950,19 @@ uint32_t DriveFsDelegate::OnItemProgress_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t DriveFsDelegate::GetAccessTokenWithExpiry_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)drivefs::mojom::DriveFsDelegate::GetAccessTokenWithExpiry");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 class DriveFsDelegate_GetAccessToken_ForwardToCallback
@@ -9828,6 +10029,22 @@ class DriveFsDelegate_GetMachineRootID_ForwardToCallback
   DriveFsDelegate::GetMachineRootIDCallback callback_;
 };
 
+class DriveFsDelegate_GetAccessTokenWithExpiry_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  DriveFsDelegate_GetAccessTokenWithExpiry_ForwardToCallback(
+      DriveFsDelegate::GetAccessTokenWithExpiryCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  DriveFsDelegate_GetAccessTokenWithExpiry_ForwardToCallback(const DriveFsDelegate_GetAccessTokenWithExpiry_ForwardToCallback&) = delete;
+  DriveFsDelegate_GetAccessTokenWithExpiry_ForwardToCallback& operator=(const DriveFsDelegate_GetAccessTokenWithExpiry_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  DriveFsDelegate::GetAccessTokenWithExpiryCallback callback_;
+};
+
 DriveFsDelegateProxy::DriveFsDelegateProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
 }
@@ -9850,14 +10067,17 @@ void DriveFsDelegateProxy::GetAccessToken(
                         "<value of type const std::vector<std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFsDelegate_GetAccessToken_Name, kFlags, 0, 0, nullptr);
@@ -9916,14 +10136,17 @@ void DriveFsDelegateProxy::OnMounted(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send drivefs::mojom::DriveFsDelegate::OnMounted");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFsDelegate_OnMounted_Name, kFlags, 0, 0, nullptr);
@@ -9942,7 +10165,7 @@ void DriveFsDelegateProxy::OnMounted(
 }
 
 void DriveFsDelegateProxy::OnMountFailed(
-    absl::optional<::base::TimeDelta> in_retry_delay) {
+    std::optional<::base::TimeDelta> in_retry_delay) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send drivefs::mojom::DriveFsDelegate::OnMountFailed", "input_parameters",
@@ -9950,17 +10173,20 @@ void DriveFsDelegateProxy::OnMountFailed(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("retry_delay"), in_retry_delay,
-                        "<value of type absl::optional<::base::TimeDelta>>");
+                        "<value of type std::optional<::base::TimeDelta>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFsDelegate_OnMountFailed_Name, kFlags, 0, 0, nullptr);
@@ -9986,7 +10212,7 @@ void DriveFsDelegateProxy::OnMountFailed(
 }
 
 void DriveFsDelegateProxy::OnUnmounted(
-    absl::optional<::base::TimeDelta> in_retry_delay) {
+    std::optional<::base::TimeDelta> in_retry_delay) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send drivefs::mojom::DriveFsDelegate::OnUnmounted", "input_parameters",
@@ -9994,17 +10220,20 @@ void DriveFsDelegateProxy::OnUnmounted(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("retry_delay"), in_retry_delay,
-                        "<value of type absl::optional<::base::TimeDelta>>");
+                        "<value of type std::optional<::base::TimeDelta>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFsDelegate_OnUnmounted_Name, kFlags, 0, 0, nullptr);
@@ -10041,14 +10270,17 @@ void DriveFsDelegateProxy::OnSyncingStatusUpdate(
                         "<value of type SyncingStatusPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFsDelegate_OnSyncingStatusUpdate_Name, kFlags, 0, 0, nullptr);
@@ -10089,14 +10321,17 @@ void DriveFsDelegateProxy::OnFilesChanged(
                         "<value of type std::vector<FileChangePtr>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFsDelegate_OnFilesChanged_Name, kFlags, 0, 0, nullptr);
@@ -10139,14 +10374,17 @@ void DriveFsDelegateProxy::OnError(
                         "<value of type DriveErrorPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFsDelegate_OnError_Name, kFlags, 0, 0, nullptr);
@@ -10187,14 +10425,17 @@ void DriveFsDelegateProxy::OnTeamDrivesListReady(
                         "<value of type const std::vector<std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFsDelegate_OnTeamDrivesListReady_Name, kFlags, 0, 0, nullptr);
@@ -10240,14 +10481,17 @@ void DriveFsDelegateProxy::OnTeamDriveChanged(
                         "<value of type DriveFsDelegate::CreateOrDelete>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFsDelegate_OnTeamDriveChanged_Name, kFlags, 0, 0, nullptr);
@@ -10283,14 +10527,17 @@ void DriveFsDelegateProxy::OnHeartbeat(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send drivefs::mojom::DriveFsDelegate::OnHeartbeat");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFsDelegate_OnHeartbeat_Name, kFlags, 0, 0, nullptr);
@@ -10326,14 +10573,17 @@ void DriveFsDelegateProxy::ConnectToExtension(
                         "<value of type ::mojo::PendingRemote<::drivefs::mojom::NativeMessagingHost>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFsDelegate_ConnectToExtension_Name, kFlags, 0, 0, nullptr);
@@ -10387,14 +10637,17 @@ void DriveFsDelegateProxy::DisplayConfirmDialog(
                         "<value of type DialogReasonPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFsDelegate_DisplayConfirmDialog_Name, kFlags, 0, 0, nullptr);
@@ -10439,14 +10692,17 @@ void DriveFsDelegateProxy::ExecuteHttpRequest(
                         "<value of type ::mojo::PendingRemote<HttpDelegate>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFsDelegate_ExecuteHttpRequest_Name, kFlags, 0, 0, nullptr);
@@ -10486,14 +10742,17 @@ void DriveFsDelegateProxy::GetMachineRootID(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send drivefs::mojom::DriveFsDelegate::GetMachineRootID");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFsDelegate_GetMachineRootID_Name, kFlags, 0, 0, nullptr);
@@ -10524,14 +10783,17 @@ void DriveFsDelegateProxy::PersistMachineRootID(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFsDelegate_PersistMachineRootID_Name, kFlags, 0, 0, nullptr);
@@ -10572,14 +10834,17 @@ void DriveFsDelegateProxy::OnMirrorSyncingStatusUpdate(
                         "<value of type SyncingStatusPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFsDelegate_OnMirrorSyncingStatusUpdate_Name, kFlags, 0, 0, nullptr);
@@ -10620,14 +10885,17 @@ void DriveFsDelegateProxy::OnItemProgress(
                         "<value of type ProgressEventPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFsDelegate_OnItemProgress_Name, kFlags, 0, 0, nullptr);
@@ -10654,6 +10922,88 @@ void DriveFsDelegateProxy::OnItemProgress(
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
   ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void DriveFsDelegateProxy::GetAccessTokenWithExpiry(
+    const std::string& in_client_id, const std::string& in_app_id, const std::vector<std::string>& in_scopes, GetAccessTokenWithExpiryCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send drivefs::mojom::DriveFsDelegate::GetAccessTokenWithExpiry", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("client_id"), in_client_id,
+                        "<value of type const std::string&>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("app_id"), in_app_id,
+                        "<value of type const std::string&>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("scopes"), in_scopes,
+                        "<value of type const std::vector<std::string>&>");
+   });
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kDriveFsDelegate_GetAccessTokenWithExpiry_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::drivefs::mojom::internal::DriveFsDelegate_GetAccessTokenWithExpiry_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->client_id)::BaseType> client_id_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_client_id, client_id_fragment);
+  params->client_id.Set(
+      client_id_fragment.is_null() ? nullptr : client_id_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->client_id.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null client_id in DriveFsDelegate.GetAccessTokenWithExpiry request");
+  mojo::internal::MessageFragment<
+      typename decltype(params->app_id)::BaseType> app_id_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_app_id, app_id_fragment);
+  params->app_id.Set(
+      app_id_fragment.is_null() ? nullptr : app_id_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->app_id.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null app_id in DriveFsDelegate.GetAccessTokenWithExpiry request");
+  mojo::internal::MessageFragment<
+      typename decltype(params->scopes)::BaseType>
+      scopes_fragment(params.message());
+  constexpr const mojo::internal::ContainerValidateParams& scopes_validate_params =
+      mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
+  mojo::internal::Serialize<mojo::ArrayDataView<mojo::StringDataView>>(
+      in_scopes, scopes_fragment, &scopes_validate_params);
+  params->scopes.Set(
+      scopes_fragment.is_null() ? nullptr : scopes_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->scopes.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null scopes in DriveFsDelegate.GetAccessTokenWithExpiry request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(DriveFsDelegate::Name_);
+  message.set_method_name("GetAccessTokenWithExpiry");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new DriveFsDelegate_GetAccessTokenWithExpiry_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 class DriveFsDelegate_GetAccessToken_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
@@ -10754,7 +11104,8 @@ void DriveFsDelegate_GetAccessToken_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFsDelegate_GetAccessToken_Name, kFlags, 0, 0, nullptr);
@@ -10884,7 +11235,8 @@ void DriveFsDelegate_ConnectToExtension_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFsDelegate_ConnectToExtension_Name, kFlags, 0, 0, nullptr);
@@ -11003,7 +11355,8 @@ void DriveFsDelegate_DisplayConfirmDialog_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFsDelegate_DisplayConfirmDialog_Name, kFlags, 0, 0, nullptr);
@@ -11122,7 +11475,8 @@ void DriveFsDelegate_GetMachineRootID_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDriveFsDelegate_GetMachineRootID_Name, kFlags, 0, 0, nullptr);
@@ -11145,6 +11499,140 @@ void DriveFsDelegate_GetMachineRootID_ProxyToResponder::Run(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(DriveFsDelegate::Name_);
   message.set_method_name("GetMachineRootID");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class DriveFsDelegate_GetAccessTokenWithExpiry_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static DriveFsDelegate::GetAccessTokenWithExpiryCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<DriveFsDelegate_GetAccessTokenWithExpiry_ProxyToResponder> proxy(
+        new DriveFsDelegate_GetAccessTokenWithExpiry_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&DriveFsDelegate_GetAccessTokenWithExpiry_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~DriveFsDelegate_GetAccessTokenWithExpiry_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  DriveFsDelegate_GetAccessTokenWithExpiry_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "DriveFsDelegate::GetAccessTokenWithExpiryCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      AccessTokenStatus in_status, AccessTokenPtr in_access_token);
+};
+
+bool DriveFsDelegate_GetAccessTokenWithExpiry_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::DriveFsDelegate_GetAccessTokenWithExpiry_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::DriveFsDelegate_GetAccessTokenWithExpiry_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  AccessTokenStatus p_status{};
+  AccessTokenPtr p_access_token{};
+  DriveFsDelegate_GetAccessTokenWithExpiry_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadStatus(&p_status))
+    success = false;
+  if (success && !input_data_view.ReadAccessToken(&p_access_token))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        DriveFsDelegate::Name_, 17, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_status), 
+std::move(p_access_token));
+  return true;
+}
+
+void DriveFsDelegate_GetAccessTokenWithExpiry_ProxyToResponder::Run(
+    AccessTokenStatus in_status, AccessTokenPtr in_access_token) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply drivefs::mojom::DriveFsDelegate::GetAccessTokenWithExpiry", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("status"), in_status,
+                        "<value of type AccessTokenStatus>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("access_token"), in_access_token,
+                        "<value of type AccessTokenPtr>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kDriveFsDelegate_GetAccessTokenWithExpiry_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::drivefs::mojom::internal::DriveFsDelegate_GetAccessTokenWithExpiry_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<::drivefs::mojom::AccessTokenStatus>(
+      in_status, &params->status);
+  mojo::internal::MessageFragment<
+      typename decltype(params->access_token)::BaseType> access_token_fragment(
+          params.message());
+  mojo::internal::Serialize<::drivefs::mojom::AccessTokenDataView>(
+      in_access_token, access_token_fragment);
+  params->access_token.Set(
+      access_token_fragment.is_null() ? nullptr : access_token_fragment.data());
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(DriveFsDelegate::Name_);
+  message.set_method_name("GetAccessTokenWithExpiry");
 #endif
 
   message.set_request_id(request_id_);
@@ -11197,7 +11685,7 @@ bool DriveFsDelegateStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      absl::optional<::base::TimeDelta> p_retry_delay{};
+      std::optional<::base::TimeDelta> p_retry_delay{};
       DriveFsDelegate_OnMountFailed_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadRetryDelay(&p_retry_delay))
@@ -11223,7 +11711,7 @@ std::move(p_retry_delay));
               message->mutable_payload());
       
       bool success = true;
-      absl::optional<::base::TimeDelta> p_retry_delay{};
+      std::optional<::base::TimeDelta> p_retry_delay{};
       DriveFsDelegate_OnUnmounted_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadRetryDelay(&p_retry_delay))
@@ -11516,6 +12004,9 @@ std::move(p_status));
 std::move(p_progress_event));
       return true;
     }
+    case internal::kDriveFsDelegate_GetAccessTokenWithExpiry_Name: {
+      break;
+    }
   }
   return false;
 }
@@ -11700,46 +12191,85 @@ std::move(p_reason), std::move(callback));
     case internal::kDriveFsDelegate_OnItemProgress_Name: {
       break;
     }
+    case internal::kDriveFsDelegate_GetAccessTokenWithExpiry_Name: {
+
+      internal::DriveFsDelegate_GetAccessTokenWithExpiry_Params_Data* params =
+          reinterpret_cast<
+              internal::DriveFsDelegate_GetAccessTokenWithExpiry_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      std::string p_client_id{};
+      std::string p_app_id{};
+      std::vector<std::string> p_scopes{};
+      DriveFsDelegate_GetAccessTokenWithExpiry_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadClientId(&p_client_id))
+        success = false;
+      if (success && !input_data_view.ReadAppId(&p_app_id))
+        success = false;
+      if (success && !input_data_view.ReadScopes(&p_scopes))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            DriveFsDelegate::Name_, 17, false);
+        return false;
+      }
+      DriveFsDelegate::GetAccessTokenWithExpiryCallback callback =
+          DriveFsDelegate_GetAccessTokenWithExpiry_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->GetAccessTokenWithExpiry(
+std::move(p_client_id), 
+std::move(p_app_id), 
+std::move(p_scopes), std::move(callback));
+      return true;
+    }
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDriveFsDelegateValidationInfo[] = {
-    {&internal::DriveFsDelegate_GetAccessToken_Params_Data::Validate,
+    { &internal::DriveFsDelegate_GetAccessToken_Params_Data::Validate,
      &internal::DriveFsDelegate_GetAccessToken_ResponseParams_Data::Validate},
-    {&internal::DriveFsDelegate_OnMounted_Params_Data::Validate,
+    { &internal::DriveFsDelegate_OnMounted_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DriveFsDelegate_OnMountFailed_Params_Data::Validate,
+    { &internal::DriveFsDelegate_OnMountFailed_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DriveFsDelegate_OnUnmounted_Params_Data::Validate,
+    { &internal::DriveFsDelegate_OnUnmounted_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DriveFsDelegate_OnSyncingStatusUpdate_Params_Data::Validate,
+    { &internal::DriveFsDelegate_OnSyncingStatusUpdate_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DriveFsDelegate_OnFilesChanged_Params_Data::Validate,
+    { &internal::DriveFsDelegate_OnFilesChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DriveFsDelegate_OnError_Params_Data::Validate,
+    { &internal::DriveFsDelegate_OnError_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DriveFsDelegate_OnTeamDrivesListReady_Params_Data::Validate,
+    { &internal::DriveFsDelegate_OnTeamDrivesListReady_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DriveFsDelegate_OnTeamDriveChanged_Params_Data::Validate,
+    { &internal::DriveFsDelegate_OnTeamDriveChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DriveFsDelegate_OnHeartbeat_Params_Data::Validate,
+    { &internal::DriveFsDelegate_OnHeartbeat_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DriveFsDelegate_ConnectToExtension_Params_Data::Validate,
+    { &internal::DriveFsDelegate_ConnectToExtension_Params_Data::Validate,
      &internal::DriveFsDelegate_ConnectToExtension_ResponseParams_Data::Validate},
-    {&internal::DriveFsDelegate_DisplayConfirmDialog_Params_Data::Validate,
+    { &internal::DriveFsDelegate_DisplayConfirmDialog_Params_Data::Validate,
      &internal::DriveFsDelegate_DisplayConfirmDialog_ResponseParams_Data::Validate},
-    {&internal::DriveFsDelegate_ExecuteHttpRequest_Params_Data::Validate,
+    { &internal::DriveFsDelegate_ExecuteHttpRequest_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DriveFsDelegate_GetMachineRootID_Params_Data::Validate,
+    { &internal::DriveFsDelegate_GetMachineRootID_Params_Data::Validate,
      &internal::DriveFsDelegate_GetMachineRootID_ResponseParams_Data::Validate},
-    {&internal::DriveFsDelegate_PersistMachineRootID_Params_Data::Validate,
+    { &internal::DriveFsDelegate_PersistMachineRootID_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DriveFsDelegate_OnMirrorSyncingStatusUpdate_Params_Data::Validate,
+    { &internal::DriveFsDelegate_OnMirrorSyncingStatusUpdate_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DriveFsDelegate_OnItemProgress_Params_Data::Validate,
+    { &internal::DriveFsDelegate_OnItemProgress_Params_Data::Validate,
      nullptr /* no response */},
+    { &internal::DriveFsDelegate_GetAccessTokenWithExpiry_Params_Data::Validate,
+     &internal::DriveFsDelegate_GetAccessTokenWithExpiry_ResponseParams_Data::Validate},
 };
 
 bool DriveFsDelegateRequestValidator::Accept(mojo::Message* message) {
@@ -11831,14 +12361,17 @@ void SearchQueryProxy::GetNextPage(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send drivefs::mojom::SearchQuery::GetNextPage");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSearchQuery_GetNextPage_Name, kFlags, 0, 0, nullptr);
@@ -11902,7 +12435,7 @@ class SearchQuery_GetNextPage_ProxyToResponder : public ::mojo::internal::ProxyT
 #endif
 
   void Run(
-      ::drive::FileError in_error, absl::optional<std::vector<QueryItemPtr>> in_results);
+      ::drive::FileError in_error, std::optional<std::vector<QueryItemPtr>> in_results);
 };
 
 bool SearchQuery_GetNextPage_ForwardToCallback::Accept(
@@ -11916,7 +12449,7 @@ bool SearchQuery_GetNextPage_ForwardToCallback::Accept(
   
   bool success = true;
   ::drive::FileError p_error{};
-  absl::optional<std::vector<QueryItemPtr>> p_results{};
+  std::optional<std::vector<QueryItemPtr>> p_results{};
   SearchQuery_GetNextPage_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadError(&p_error))
@@ -11938,7 +12471,7 @@ std::move(p_results));
 }
 
 void SearchQuery_GetNextPage_ProxyToResponder::Run(
-    ::drive::FileError in_error, absl::optional<std::vector<QueryItemPtr>> in_results) {
+    ::drive::FileError in_error, std::optional<std::vector<QueryItemPtr>> in_results) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply drivefs::mojom::SearchQuery::GetNextPage", "async_response_parameters",
@@ -11949,13 +12482,14 @@ void SearchQuery_GetNextPage_ProxyToResponder::Run(
                         "<value of type ::drive::FileError>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("results"), in_results,
-                        "<value of type absl::optional<std::vector<QueryItemPtr>>>");
+                        "<value of type std::optional<std::vector<QueryItemPtr>>>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSearchQuery_GetNextPage_Name, kFlags, 0, 0, nullptr);
@@ -12041,10 +12575,10 @@ bool SearchQueryStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSearchQueryValidationInfo[] = {
-    {&internal::SearchQuery_GetNextPage_Params_Data::Validate,
+    { &internal::SearchQuery_GetNextPage_Params_Data::Validate,
      &internal::SearchQuery_GetNextPage_ResponseParams_Data::Validate},
 };
 
@@ -12188,14 +12722,17 @@ void HttpDelegateProxy::GetRequestBody(
                         "<value of type ::mojo::ScopedDataPipeProducerHandle>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHttpDelegate_GetRequestBody_Name, kFlags, 0, 0, nullptr);
@@ -12231,14 +12768,17 @@ void HttpDelegateProxy::OnReceiveResponse(
                         "<value of type HttpResponsePtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHttpDelegate_OnReceiveResponse_Name, kFlags, 0, 0, nullptr);
@@ -12279,14 +12819,17 @@ void HttpDelegateProxy::OnReceiveBody(
                         "<value of type ::mojo::ScopedDataPipeConsumerHandle>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHttpDelegate_OnReceiveBody_Name, kFlags, 0, 0, nullptr);
@@ -12322,14 +12865,17 @@ void HttpDelegateProxy::OnRequestComplete(
                         "<value of type HttpCompletionStatusPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHttpDelegate_OnRequestComplete_Name, kFlags, 0, 0, nullptr);
@@ -12495,16 +13041,16 @@ bool HttpDelegateStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kHttpDelegateValidationInfo[] = {
-    {&internal::HttpDelegate_GetRequestBody_Params_Data::Validate,
+    { &internal::HttpDelegate_GetRequestBody_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::HttpDelegate_OnReceiveResponse_Params_Data::Validate,
+    { &internal::HttpDelegate_OnReceiveResponse_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::HttpDelegate_OnReceiveBody_Params_Data::Validate,
+    { &internal::HttpDelegate_OnReceiveBody_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::HttpDelegate_OnRequestComplete_Params_Data::Validate,
+    { &internal::HttpDelegate_OnRequestComplete_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -12543,6 +13089,22 @@ bool StructTraits<::drivefs::mojom::DriveFsConfiguration::DataView, ::drivefs::m
       if (success)
         result->enable_cros_network = input.enable_cros_network();
       if (success && !input.ReadCseSupport(&result->cse_support))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::drivefs::mojom::AccessToken::DataView, ::drivefs::mojom::AccessTokenPtr>::Read(
+    ::drivefs::mojom::AccessToken::DataView input,
+    ::drivefs::mojom::AccessTokenPtr* output) {
+  bool success = true;
+  ::drivefs::mojom::AccessTokenPtr result(::drivefs::mojom::AccessToken::New());
+  
+      if (success && !input.ReadToken(&result->token))
+        success = false;
+      if (success && !input.ReadExpiryTime(&result->expiry_time))
         success = false;
   *output = std::move(result);
   return success;
@@ -13258,14 +13820,14 @@ void DriveFsAsyncWaiter::ResetCache(
 }
 
 void DriveFsAsyncWaiter::GetThumbnail(
-    const ::base::FilePath& path, bool crop_to_square, absl::optional<std::vector<uint8_t>>* out_thumbnail) {
+    const ::base::FilePath& path, bool crop_to_square, std::optional<std::vector<uint8_t>>* out_thumbnail) {
   base::RunLoop loop;
   proxy_->GetThumbnail(std::move(path),std::move(crop_to_square),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<std::vector<uint8_t>>* out_thumbnail
+             std::optional<std::vector<uint8_t>>* out_thumbnail
 ,
-             const absl::optional<std::vector<uint8_t>>& thumbnail) {*out_thumbnail = std::move(thumbnail);
+             const std::optional<std::vector<uint8_t>>& thumbnail) {*out_thumbnail = std::move(thumbnail);
             loop->Quit();
           },
           &loop,
@@ -13273,9 +13835,9 @@ void DriveFsAsyncWaiter::GetThumbnail(
   loop.Run();
 }
 
-absl::optional<std::vector<uint8_t>> DriveFsAsyncWaiter::GetThumbnail(
+std::optional<std::vector<uint8_t>> DriveFsAsyncWaiter::GetThumbnail(
     const ::base::FilePath& path, bool crop_to_square) {
-  absl::optional<std::vector<uint8_t>> async_wait_result;
+  std::optional<std::vector<uint8_t>> async_wait_result;
   GetThumbnail(std::move(path),std::move(crop_to_square),&async_wait_result);
   return async_wait_result;
 }
@@ -13372,14 +13934,14 @@ std::string DriveFsAsyncWaiter::GetStartupArguments(
 }
 
 void DriveFsAsyncWaiter::LocateFilesByItemIds(
-    const std::vector<std::string>& item_ids, absl::optional<std::vector<FilePathOrErrorPtr>>* out_response) {
+    const std::vector<std::string>& item_ids, std::optional<std::vector<FilePathOrErrorPtr>>* out_response) {
   base::RunLoop loop;
   proxy_->LocateFilesByItemIds(std::move(item_ids),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<std::vector<FilePathOrErrorPtr>>* out_response
+             std::optional<std::vector<FilePathOrErrorPtr>>* out_response
 ,
-             absl::optional<std::vector<FilePathOrErrorPtr>> response) {*out_response = std::move(response);
+             std::optional<std::vector<FilePathOrErrorPtr>> response) {*out_response = std::move(response);
             loop->Quit();
           },
           &loop,
@@ -13387,9 +13949,9 @@ void DriveFsAsyncWaiter::LocateFilesByItemIds(
   loop.Run();
 }
 
-absl::optional<std::vector<FilePathOrErrorPtr>> DriveFsAsyncWaiter::LocateFilesByItemIds(
+std::optional<std::vector<FilePathOrErrorPtr>> DriveFsAsyncWaiter::LocateFilesByItemIds(
     const std::vector<std::string>& item_ids) {
-  absl::optional<std::vector<FilePathOrErrorPtr>> async_wait_result;
+  std::optional<std::vector<FilePathOrErrorPtr>> async_wait_result;
   LocateFilesByItemIds(std::move(item_ids),&async_wait_result);
   return async_wait_result;
 }
@@ -13552,27 +14114,26 @@ void DriveFsAsyncWaiter::GetMetadataByStableId(
 
 
 void DriveFsAsyncWaiter::SetDocsOfflineEnabled(
-    bool enabled, ::drive::FileError* out_error) {
+    bool enabled, ::drive::FileError* out_error, DocsOfflineEnableStatus* out_status) {
   base::RunLoop loop;
   proxy_->SetDocsOfflineEnabled(std::move(enabled),
       base::BindOnce(
           [](base::RunLoop* loop,
              ::drive::FileError* out_error
 ,
-             ::drive::FileError error) {*out_error = std::move(error);
+             DocsOfflineEnableStatus* out_status
+,
+             ::drive::FileError error,
+             DocsOfflineEnableStatus status) {*out_error = std::move(error);*out_status = std::move(status);
             loop->Quit();
           },
           &loop,
-          out_error));
+          out_error,
+          out_status));
   loop.Run();
 }
 
-::drive::FileError DriveFsAsyncWaiter::SetDocsOfflineEnabled(
-    bool enabled) {
-  ::drive::FileError async_wait_result;
-  SetDocsOfflineEnabled(std::move(enabled),&async_wait_result);
-  return async_wait_result;
-}
+
 
 void DriveFsAsyncWaiter::GetOfflineFilesSpaceUsage(
     ::drive::FileError* out_error, int64_t* out_space_used) {
@@ -13719,10 +14280,10 @@ void DriveFsDelegateInterceptorForTesting::GetAccessToken(const std::string& cli
 void DriveFsDelegateInterceptorForTesting::OnMounted() {
   GetForwardingInterface()->OnMounted();
 }
-void DriveFsDelegateInterceptorForTesting::OnMountFailed(absl::optional<::base::TimeDelta> retry_delay) {
+void DriveFsDelegateInterceptorForTesting::OnMountFailed(std::optional<::base::TimeDelta> retry_delay) {
   GetForwardingInterface()->OnMountFailed(std::move(retry_delay));
 }
-void DriveFsDelegateInterceptorForTesting::OnUnmounted(absl::optional<::base::TimeDelta> retry_delay) {
+void DriveFsDelegateInterceptorForTesting::OnUnmounted(std::optional<::base::TimeDelta> retry_delay) {
   GetForwardingInterface()->OnUnmounted(std::move(retry_delay));
 }
 void DriveFsDelegateInterceptorForTesting::OnSyncingStatusUpdate(SyncingStatusPtr status) {
@@ -13763,6 +14324,9 @@ void DriveFsDelegateInterceptorForTesting::OnMirrorSyncingStatusUpdate(SyncingSt
 }
 void DriveFsDelegateInterceptorForTesting::OnItemProgress(ProgressEventPtr progress_event) {
   GetForwardingInterface()->OnItemProgress(std::move(progress_event));
+}
+void DriveFsDelegateInterceptorForTesting::GetAccessTokenWithExpiry(const std::string& client_id, const std::string& app_id, const std::vector<std::string>& scopes, GetAccessTokenWithExpiryCallback callback) {
+  GetForwardingInterface()->GetAccessTokenWithExpiry(std::move(client_id), std::move(app_id), std::move(scopes), std::move(callback));
 }
 DriveFsDelegateAsyncWaiter::DriveFsDelegateAsyncWaiter(
     DriveFsDelegate* proxy) : proxy_(proxy) {}
@@ -13860,6 +14424,28 @@ std::string DriveFsDelegateAsyncWaiter::GetMachineRootID(
   return async_wait_result;
 }
 
+void DriveFsDelegateAsyncWaiter::GetAccessTokenWithExpiry(
+    const std::string& client_id, const std::string& app_id, const std::vector<std::string>& scopes, AccessTokenStatus* out_status, AccessTokenPtr* out_access_token) {
+  base::RunLoop loop;
+  proxy_->GetAccessTokenWithExpiry(std::move(client_id),std::move(app_id),std::move(scopes),
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             AccessTokenStatus* out_status
+,
+             AccessTokenPtr* out_access_token
+,
+             AccessTokenStatus status,
+             AccessTokenPtr access_token) {*out_status = std::move(status);*out_access_token = std::move(access_token);
+            loop->Quit();
+          },
+          &loop,
+          out_status,
+          out_access_token));
+  loop.Run();
+}
+
+
+
 
 
 
@@ -13872,17 +14458,17 @@ SearchQueryAsyncWaiter::SearchQueryAsyncWaiter(
 SearchQueryAsyncWaiter::~SearchQueryAsyncWaiter() = default;
 
 void SearchQueryAsyncWaiter::GetNextPage(
-    ::drive::FileError* out_error, absl::optional<std::vector<QueryItemPtr>>* out_results) {
+    ::drive::FileError* out_error, std::optional<std::vector<QueryItemPtr>>* out_results) {
   base::RunLoop loop;
   proxy_->GetNextPage(
       base::BindOnce(
           [](base::RunLoop* loop,
              ::drive::FileError* out_error
 ,
-             absl::optional<std::vector<QueryItemPtr>>* out_results
+             std::optional<std::vector<QueryItemPtr>>* out_results
 ,
              ::drive::FileError error,
-             absl::optional<std::vector<QueryItemPtr>> results) {*out_error = std::move(error);*out_results = std::move(results);
+             std::optional<std::vector<QueryItemPtr>> results) {*out_error = std::move(error);*out_results = std::move(results);
             loop->Quit();
           },
           &loop,

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/services/network_health/public/mojom/network_health_types.mojom-features.h"
 #include "chromeos/services/network_health/public/mojom/network_health_types.mojom-shared.h"
 #include "chromeos/services/network_health/public/mojom/network_health_types.mojom-forward.h"
 #include "chromeos/services/network_config/public/mojom/network_types.mojom-forward.h"
@@ -365,22 +366,22 @@ class  Network {
   Network(
       ::chromeos::network_config::mojom::NetworkType type,
       NetworkState state,
-      const absl::optional<std::string>& guid,
-      const absl::optional<std::string>& name,
-      const absl::optional<std::string>& mac_address,
+      const std::optional<std::string>& guid,
+      const std::optional<std::string>& name,
+      const std::optional<std::string>& mac_address,
       UInt32ValuePtr signal_strength,
-      const absl::optional<std::string>& ipv4_address,
+      const std::optional<std::string>& ipv4_address,
       std::vector<std::string> ipv6_addresses,
       ::chromeos::network_config::mojom::PortalState portal_state);
 
   Network(
       ::chromeos::network_config::mojom::NetworkType type,
       NetworkState state,
-      const absl::optional<std::string>& guid,
-      const absl::optional<std::string>& name,
-      const absl::optional<std::string>& mac_address,
+      const std::optional<std::string>& guid,
+      const std::optional<std::string>& name,
+      const std::optional<std::string>& mac_address,
       UInt32ValuePtr signal_strength,
-      const absl::optional<std::string>& ipv4_address,
+      const std::optional<std::string>& ipv4_address,
       std::vector<std::string> ipv6_addresses,
       ::chromeos::network_config::mojom::PortalState portal_state,
       SignalStrengthStatsPtr signal_strength_stats);
@@ -388,15 +389,15 @@ class  Network {
   Network(
       ::chromeos::network_config::mojom::NetworkType type,
       NetworkState state,
-      const absl::optional<std::string>& guid,
-      const absl::optional<std::string>& name,
-      const absl::optional<std::string>& mac_address,
+      const std::optional<std::string>& guid,
+      const std::optional<std::string>& name,
+      const std::optional<std::string>& mac_address,
       UInt32ValuePtr signal_strength,
-      const absl::optional<std::string>& ipv4_address,
+      const std::optional<std::string>& ipv4_address,
       std::vector<std::string> ipv6_addresses,
       ::chromeos::network_config::mojom::PortalState portal_state,
       SignalStrengthStatsPtr signal_strength_stats,
-      const absl::optional<::GURL>& portal_probe_url);
+      const std::optional<::GURL>& portal_probe_url);
 
 Network(const Network&) = delete;
 Network& operator=(const Network&) = delete;
@@ -480,15 +481,15 @@ Network& operator=(const Network&) = delete;
   
   NetworkState state;
   
-  absl::optional<std::string> guid;
+  std::optional<std::string> guid;
   
-  absl::optional<std::string> name;
+  std::optional<std::string> name;
   
-  absl::optional<std::string> mac_address;
+  std::optional<std::string> mac_address;
   
   UInt32ValuePtr signal_strength;
   
-  absl::optional<std::string> ipv4_address;
+  std::optional<std::string> ipv4_address;
   
   std::vector<std::string> ipv6_addresses;
   
@@ -496,7 +497,7 @@ Network& operator=(const Network&) = delete;
   
   SignalStrengthStatsPtr signal_strength_stats;
   
-  absl::optional<::GURL> portal_probe_url;
+  std::optional<::GURL> portal_probe_url;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

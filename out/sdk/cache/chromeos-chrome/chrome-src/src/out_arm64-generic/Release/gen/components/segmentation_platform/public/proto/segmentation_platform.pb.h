@@ -75,11 +75,12 @@ enum SegmentId : int {
   DEVICE_TIER_SEGMENT = 1005,
   TAB_RESUMPTION_CLASSIFIER = 1006,
   PASSWORD_MANAGER_USER = 1007,
-  MOST_VISITED_TILES_USER = 1008
+  MOST_VISITED_TILES_USER = 1008,
+  DATABASE_API_CLIENTS = 1009
 };
 bool SegmentId_IsValid(int value);
 constexpr SegmentId SegmentId_MIN = OPTIMIZATION_TARGET_UNKNOWN;
-constexpr SegmentId SegmentId_MAX = MOST_VISITED_TILES_USER;
+constexpr SegmentId SegmentId_MAX = DATABASE_API_CLIENTS;
 constexpr int SegmentId_ARRAYSIZE = SegmentId_MAX + 1;
 
 const std::string& SegmentId_Name(SegmentId value);

@@ -75,11 +75,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, FileReader>::value,
     "FileReader does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&FileReader::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "FileReader is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -92,8 +87,9 @@ BLINK_BINDINGS_TRACE_EVENT("FileReader.readyState.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-FileReader* blink_receiver = V8FileReader::ToWrappableUnsafe(v8_receiver);
+FileReader* blink_receiver = V8FileReader::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getReadyState();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint16_t>());
 }
@@ -111,7 +107,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-FileReader* blink_receiver = V8FileReader::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+FileReader* blink_receiver = V8FileReader::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->result();
 if (!ToV8Traits<IDLNullable<V8UnionArrayBufferOrString>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -127,8 +124,9 @@ BLINK_BINDINGS_TRACE_EVENT("FileReader.error.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-FileReader* blink_receiver = V8FileReader::ToWrappableUnsafe(v8_receiver);
+FileReader* blink_receiver = V8FileReader::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->error();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -141,10 +139,10 @@ BLINK_BINDINGS_TRACE_EVENT("FileReader.onloadstart.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-FileReader* blink_receiver = V8FileReader::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onloadstart();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+FileReader* blink_receiver = V8FileReader::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onloadstart();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -157,8 +155,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-FileReader* blink_receiver = V8FileReader::ToWrappableUnsafe(v8_receiver);
+FileReader* blink_receiver = V8FileReader::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnloadstart(event_handler);
 }
 
@@ -169,10 +168,10 @@ BLINK_BINDINGS_TRACE_EVENT("FileReader.onprogress.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-FileReader* blink_receiver = V8FileReader::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onprogress();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+FileReader* blink_receiver = V8FileReader::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onprogress();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -185,8 +184,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-FileReader* blink_receiver = V8FileReader::ToWrappableUnsafe(v8_receiver);
+FileReader* blink_receiver = V8FileReader::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnprogress(event_handler);
 }
 
@@ -197,10 +197,10 @@ BLINK_BINDINGS_TRACE_EVENT("FileReader.onload.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-FileReader* blink_receiver = V8FileReader::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onload();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+FileReader* blink_receiver = V8FileReader::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onload();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -213,8 +213,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-FileReader* blink_receiver = V8FileReader::ToWrappableUnsafe(v8_receiver);
+FileReader* blink_receiver = V8FileReader::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnload(event_handler);
 }
 
@@ -225,10 +226,10 @@ BLINK_BINDINGS_TRACE_EVENT("FileReader.onabort.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-FileReader* blink_receiver = V8FileReader::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onabort();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+FileReader* blink_receiver = V8FileReader::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onabort();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -241,8 +242,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-FileReader* blink_receiver = V8FileReader::ToWrappableUnsafe(v8_receiver);
+FileReader* blink_receiver = V8FileReader::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnabort(event_handler);
 }
 
@@ -253,10 +255,10 @@ BLINK_BINDINGS_TRACE_EVENT("FileReader.onerror.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-FileReader* blink_receiver = V8FileReader::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onerror();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+FileReader* blink_receiver = V8FileReader::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onerror();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -269,8 +271,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-FileReader* blink_receiver = V8FileReader::ToWrappableUnsafe(v8_receiver);
+FileReader* blink_receiver = V8FileReader::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnerror(event_handler);
 }
 
@@ -281,10 +284,10 @@ BLINK_BINDINGS_TRACE_EVENT("FileReader.onloadend.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-FileReader* blink_receiver = V8FileReader::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onloadend();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+FileReader* blink_receiver = V8FileReader::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onloadend();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -297,8 +300,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-FileReader* blink_receiver = V8FileReader::ToWrappableUnsafe(v8_receiver);
+FileReader* blink_receiver = V8FileReader::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnloadend(event_handler);
 }
 
@@ -344,8 +348,9 @@ BLINK_BINDINGS_TRACE_EVENT("FileReader.abort");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-FileReader* blink_receiver = V8FileReader::ToWrappableUnsafe(v8_receiver);
+FileReader* blink_receiver = V8FileReader::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->abort();
 
 }
@@ -371,7 +376,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-FileReader* blink_receiver = V8FileReader::ToWrappableUnsafe(v8_receiver);
+FileReader* blink_receiver = V8FileReader::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_blob = NativeValueTraits<Blob>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -404,7 +409,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-FileReader* blink_receiver = V8FileReader::ToWrappableUnsafe(v8_receiver);
+FileReader* blink_receiver = V8FileReader::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_blob = NativeValueTraits<Blob>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -437,7 +442,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-FileReader* blink_receiver = V8FileReader::ToWrappableUnsafe(v8_receiver);
+FileReader* blink_receiver = V8FileReader::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_blob = NativeValueTraits<Blob>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -472,7 +477,7 @@ return;
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
 v8::Local<v8::Object> v8_receiver = info.This();
-FileReader* blink_receiver = V8FileReader::ToWrappableUnsafe(v8_receiver);
+FileReader* blink_receiver = V8FileReader::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_blob = NativeValueTraits<Blob>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

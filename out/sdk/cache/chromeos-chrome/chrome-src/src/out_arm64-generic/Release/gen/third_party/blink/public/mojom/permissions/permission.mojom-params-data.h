@@ -72,6 +72,40 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) PermissionService_HasPe
 };
 static_assert(sizeof(PermissionService_HasPermission_ResponseParams_Data) == 16,
               "Bad sizeof(PermissionService_HasPermission_ResponseParams_Data)");
+class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) PermissionService_RegisterPageEmbeddedPermissionControl_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::PermissionDescriptor_Data>>> permissions;
+
+ private:
+  friend class mojo::internal::MessageFragment<PermissionService_RegisterPageEmbeddedPermissionControl_Params_Data>;
+
+  PermissionService_RegisterPageEmbeddedPermissionControl_Params_Data();
+  ~PermissionService_RegisterPageEmbeddedPermissionControl_Params_Data() = delete;
+};
+static_assert(sizeof(PermissionService_RegisterPageEmbeddedPermissionControl_Params_Data) == 16,
+              "Bad sizeof(PermissionService_RegisterPageEmbeddedPermissionControl_Params_Data)");
+class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) PermissionService_RegisterPageEmbeddedPermissionControl_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t allowed : 1;
+  uint8_t pad0_[7];
+  mojo::internal::Pointer<mojo::internal::Array_Data<int32_t>> statuses;
+
+ private:
+  friend class mojo::internal::MessageFragment<PermissionService_RegisterPageEmbeddedPermissionControl_ResponseParams_Data>;
+
+  PermissionService_RegisterPageEmbeddedPermissionControl_ResponseParams_Data();
+  ~PermissionService_RegisterPageEmbeddedPermissionControl_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(PermissionService_RegisterPageEmbeddedPermissionControl_ResponseParams_Data) == 24,
+              "Bad sizeof(PermissionService_RegisterPageEmbeddedPermissionControl_ResponseParams_Data)");
 class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) PermissionService_RequestPageEmbeddedPermission_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -322,6 +356,71 @@ class PermissionService_HasPermission_ResponseParamsDataView {
   }
  private:
   internal::PermissionService_HasPermission_ResponseParams_Data* data_ = nullptr;
+};
+
+
+class PermissionService_RegisterPageEmbeddedPermissionControl_ParamsDataView {
+ public:
+  PermissionService_RegisterPageEmbeddedPermissionControl_ParamsDataView() = default;
+
+  PermissionService_RegisterPageEmbeddedPermissionControl_ParamsDataView(
+      internal::PermissionService_RegisterPageEmbeddedPermissionControl_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetPermissionsDataView(
+      mojo::ArrayDataView<PermissionDescriptorDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadPermissions(UserType* output) {
+    
+    auto* pointer = data_->permissions.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::blink::mojom::PermissionDescriptorDataView>>(
+        pointer, output, message_);
+  }
+ private:
+  internal::PermissionService_RegisterPageEmbeddedPermissionControl_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class PermissionService_RegisterPageEmbeddedPermissionControl_ResponseParamsDataView {
+ public:
+  PermissionService_RegisterPageEmbeddedPermissionControl_ResponseParamsDataView() = default;
+
+  PermissionService_RegisterPageEmbeddedPermissionControl_ResponseParamsDataView(
+      internal::PermissionService_RegisterPageEmbeddedPermissionControl_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  bool allowed() const {
+    return data_->allowed;
+  }
+  inline void GetStatusesDataView(
+      mojo::ArrayDataView<::blink::mojom::PermissionStatus>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadStatuses(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::ArrayDataView<::blink::mojom::PermissionStatus>, UserType>(),
+    "Attempting to read the optional `statuses` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadStatuses` instead "
+    "of `ReadStatuses if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->statuses.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::blink::mojom::PermissionStatus>>(
+        pointer, output, message_);
+  }
+ private:
+  internal::PermissionService_RegisterPageEmbeddedPermissionControl_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
 };
 
 
@@ -628,6 +727,20 @@ inline void PermissionService_HasPermission_ParamsDataView::GetPermissionDataVie
 }
 
 
+
+
+inline void PermissionService_RegisterPageEmbeddedPermissionControl_ParamsDataView::GetPermissionsDataView(
+    mojo::ArrayDataView<PermissionDescriptorDataView>* output) {
+  auto pointer = data_->permissions.Get();
+  *output = mojo::ArrayDataView<PermissionDescriptorDataView>(pointer, message_);
+}
+
+
+inline void PermissionService_RegisterPageEmbeddedPermissionControl_ResponseParamsDataView::GetStatusesDataView(
+    mojo::ArrayDataView<::blink::mojom::PermissionStatus>* output) {
+  auto pointer = data_->statuses.Get();
+  *output = mojo::ArrayDataView<::blink::mojom::PermissionStatus>(pointer, message_);
+}
 
 
 inline void PermissionService_RequestPageEmbeddedPermission_ParamsDataView::GetDescriptorDataView(

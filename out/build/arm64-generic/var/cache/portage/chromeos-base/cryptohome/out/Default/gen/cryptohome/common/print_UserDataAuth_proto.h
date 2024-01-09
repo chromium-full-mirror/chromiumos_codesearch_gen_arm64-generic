@@ -1,15 +1,16 @@
-// Copyright 2023 The ChromiumOS Authors
+// Copyright 2024 The ChromiumOS Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
 // THIS CODE IS GENERATED.
 // Generated with command:
-// ../../../../../../../tmp/portage/chromeos-base/cryptohome-9999/work/cryptohome-9999/platform2/libhwsec-foundation/utility/proto_print.py
+// ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5635/work/cryptohome-0.0.2/platform2/libhwsec-foundation/utility/proto_print.py
 // --package-dir cryptohome --subdir common --proto-include
 // cryptohome/proto_bindings --output-dir
 // /build/arm64-generic/var/cache/portage/chromeos-base/cryptohome/out/Default/gen/cryptohome/common
 // /build/arm64-generic/usr/include/chromeos/dbus/cryptohome/auth_factor.proto
 // /build/arm64-generic/usr/include/chromeos/dbus/cryptohome/fido.proto
+// /build/arm64-generic/usr/include/chromeos/dbus/cryptohome/recoverable_key_store.proto
 // /build/arm64-generic/usr/include/chromeos/dbus/cryptohome/key.proto
 // /build/arm64-generic/usr/include/chromeos/dbus/cryptohome/rpc.proto
 // /build/arm64-generic/usr/include/chromeos/dbus/cryptohome/UserDataAuth.proto
@@ -92,12 +93,6 @@ BRILLO_EXPORT std::string GetProtoDebugString(const RemoveRequest& value);
 std::string GetProtoDebugStringWithIndent(const RemoveReply& value,
                                           int indent_size);
 BRILLO_EXPORT std::string GetProtoDebugString(const RemoveReply& value);
-std::string GetProtoDebugStringWithIndent(const CheckKeyRequest& value,
-                                          int indent_size);
-BRILLO_EXPORT std::string GetProtoDebugString(const CheckKeyRequest& value);
-std::string GetProtoDebugStringWithIndent(const CheckKeyReply& value,
-                                          int indent_size);
-BRILLO_EXPORT std::string GetProtoDebugString(const CheckKeyReply& value);
 std::string GetProtoDebugStringWithIndent(
     const StartFingerprintAuthSessionRequest& value,
     int indent_size);
@@ -246,6 +241,18 @@ std::string GetProtoDebugStringWithIndent(
     int indent_size);
 BRILLO_EXPORT std::string GetProtoDebugString(
     const CreatePersistentUserRequest& value);
+std::string GetProtoDebugStringWithIndent(const AuthFactorAdded& value,
+                                          int indent_size);
+BRILLO_EXPORT std::string GetProtoDebugString(const AuthFactorAdded& value);
+std::string GetProtoDebugStringWithIndent(const AuthFactorRemoved& value,
+                                          int indent_size);
+BRILLO_EXPORT std::string GetProtoDebugString(const AuthFactorRemoved& value);
+std::string GetProtoDebugStringWithIndent(const AuthFactorUpdated& value,
+                                          int indent_size);
+BRILLO_EXPORT std::string GetProtoDebugString(const AuthFactorUpdated& value);
+std::string GetProtoDebugStringWithIndent(const AuthSessionExpiring& value,
+                                          int indent_size);
+BRILLO_EXPORT std::string GetProtoDebugString(const AuthSessionExpiring& value);
 std::string GetProtoDebugStringWithIndent(
     const CreatePersistentUserReply& value,
     int indent_size);
@@ -676,6 +683,16 @@ BRILLO_EXPORT std::string GetProtoDebugString(
 std::string GetProtoDebugStringWithIndent(const EvictedKeyRestored& value,
                                           int indent_size);
 BRILLO_EXPORT std::string GetProtoDebugString(const EvictedKeyRestored& value);
+std::string GetProtoDebugStringWithIndent(
+    const GetRecoverableKeyStoresRequest& value,
+    int indent_size);
+BRILLO_EXPORT std::string GetProtoDebugString(
+    const GetRecoverableKeyStoresRequest& value);
+std::string GetProtoDebugStringWithIndent(
+    const GetRecoverableKeyStoresReply& value,
+    int indent_size);
+BRILLO_EXPORT std::string GetProtoDebugString(
+    const GetRecoverableKeyStoresReply& value);
 
 }  // namespace user_data_auth
 

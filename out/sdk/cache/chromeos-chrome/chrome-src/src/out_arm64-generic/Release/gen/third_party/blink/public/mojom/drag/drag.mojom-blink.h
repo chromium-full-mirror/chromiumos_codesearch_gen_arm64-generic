@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/drag/drag.mojom-features.h"
 #include "third_party/blink/public/mojom/drag/drag.mojom-shared.h"
 #include "third_party/blink/public/mojom/drag/drag.mojom-blink-forward.h"
 #include "mojo/public/mojom/base/file_path.mojom-blink.h"
@@ -227,33 +228,33 @@ class PLATFORM_EXPORT DragItem {
   // Construct an instance holding |string|.
   static DragItemPtr
   NewString(
-      DragItemStringPtr string) {
+      DragItemStringPtr value) {
     auto result = DragItemPtr(absl::in_place);
-    result->set_string(std::move(string));
+    result->set_string(std::move(value));
     return result;
   }
   // Construct an instance holding |file|.
   static DragItemPtr
   NewFile(
-      ::blink::mojom::blink::DataTransferFilePtr file) {
+      ::blink::mojom::blink::DataTransferFilePtr value) {
     auto result = DragItemPtr(absl::in_place);
-    result->set_file(std::move(file));
+    result->set_file(std::move(value));
     return result;
   }
   // Construct an instance holding |binary|.
   static DragItemPtr
   NewBinary(
-      DragItemBinaryPtr binary) {
+      DragItemBinaryPtr value) {
     auto result = DragItemPtr(absl::in_place);
-    result->set_binary(std::move(binary));
+    result->set_binary(std::move(value));
     return result;
   }
   // Construct an instance holding |file_system_file|.
   static DragItemPtr
   NewFileSystemFile(
-      DragItemFileSystemFilePtr file_system_file) {
+      DragItemFileSystemFilePtr value) {
     auto result = DragItemPtr(absl::in_place);
-    result->set_file_system_file(std::move(file_system_file));
+    result->set_file_system_file(std::move(value));
     return result;
   }
 
@@ -413,7 +414,7 @@ class PLATFORM_EXPORT DragItemString {
       const WTF::String& string_type,
       const ::WTF::String& string_data,
       const ::WTF::String& title,
-      const absl::optional<::blink::KURL>& base_url);
+      const std::optional<::blink::KURL>& base_url);
 
 
   ~DragItemString();
@@ -492,7 +493,7 @@ class PLATFORM_EXPORT DragItemString {
   
   ::WTF::String title;
   
-  absl::optional<::blink::KURL> base_url;
+  std::optional<::blink::KURL> base_url;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

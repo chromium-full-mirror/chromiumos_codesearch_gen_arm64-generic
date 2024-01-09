@@ -6,7 +6,6 @@ import * as SDK from '../../../../../front_end/core/sdk/sdk.js';
 import * as Common from '../../../../../front_end/core/common/common.js';
 import * as Persistence from '../../../../../front_end/models/persistence/persistence.js';
 import * as Platform from '../../../../../front_end/core/platform/platform.js';
-import * as Root from '../../../../../front_end/core/root/root.js';
 import { createTarget, describeWithEnvironment } from '../../helpers/EnvironmentHelpers.js';
 import { createWorkspaceProject } from '../../helpers/OverridesHelpers.js';
 import { describeWithMockConnection } from '../../helpers/MockConnection.js';
@@ -62,6 +61,9 @@ describe('NetworkDispatcher', () => {
         let networkDispatcher;
         beforeEach(() => {
             const networkManager = new Common.ObjectWrapper.ObjectWrapper();
+            networkManager.target = () => ({
+                model: () => null,
+            });
             networkDispatcher = new SDK.NetworkManager.NetworkDispatcher(networkManager);
         });
         it('is preserved after loadingFinished', () => {
@@ -263,7 +265,6 @@ describeWithMockConnection('InterceptedRequest', () => {
     }
     beforeEach(async () => {
         SDK.NetworkManager.MultitargetNetworkManager.dispose();
-        Root.Runtime.experiments.enableForTest(Root.Runtime.ExperimentName.HEADER_OVERRIDES);
         target = createTarget();
         const networkPersistenceManager = await createWorkspaceProject('file:///path/to/overrides', [
             {
@@ -541,25 +542,6 @@ describeWithMockConnection('InterceptedRequest', () => {
                 { name: 'age', value: 'overridden' },
                 { name: 'content-type', value: 'text/html; charset=utf-8' },
             ],
-        });
-    });
-    it('can override content for a request with a \'file:/\'-URL', async () => {
-        Root.Runtime.experiments.disableForTest(Root.Runtime.ExperimentName.HEADER_OVERRIDES);
-        const responseCode = 200;
-        const requestId = 'request_id_7';
-        const responseBody = 'interceptedRequest content';
-        const responseHeaders = [
-            { name: 'age', value: 'original' },
-            { name: 'content-type', value: 'text/html; charset=utf-8' },
-        ];
-        await checkRequestOverride(target, {
-            method: 'GET',
-            url: 'file:///usr/local/foo/content/something.html',
-        }, requestId, responseCode, responseHeaders, responseBody, {
-            requestId,
-            responseCode,
-            body: btoa('Override for something'),
-            responseHeaders,
         });
     });
     it('can override headers and content for a request with a \'file:/\'-URL', async () => {

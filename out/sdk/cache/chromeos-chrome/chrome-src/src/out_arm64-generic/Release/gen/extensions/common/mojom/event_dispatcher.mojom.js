@@ -309,6 +309,73 @@
     encoder.encodeStructPointer(DispatchEventParams, val.params);
     encoder.encodeStructPointer(values$.ListValue, val.eventArgs);
   };
+  function EventDispatcher_DispatchEvent_ResponseParams(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  EventDispatcher_DispatchEvent_ResponseParams.prototype.initDefaults_ = function() {
+    this.eventWillRunInLazyBackgroundPageScript = false;
+  };
+  EventDispatcher_DispatchEvent_ResponseParams.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  EventDispatcher_DispatchEvent_ResponseParams.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 16}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    return validator.validationError.NONE;
+  };
+
+  EventDispatcher_DispatchEvent_ResponseParams.encodedSize = codec.kStructHeaderSize + 8;
+
+  EventDispatcher_DispatchEvent_ResponseParams.decode = function(decoder) {
+    var packed;
+    var val = new EventDispatcher_DispatchEvent_ResponseParams();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    packed = decoder.readUint8();
+    val.eventWillRunInLazyBackgroundPageScript = (packed >> 0) & 1 ? true : false;
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    return val;
+  };
+
+  EventDispatcher_DispatchEvent_ResponseParams.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(EventDispatcher_DispatchEvent_ResponseParams.encodedSize);
+    encoder.writeUint32(0);
+    packed = 0;
+    packed |= (val.eventWillRunInLazyBackgroundPageScript & 1) << 0
+    encoder.writeUint8(packed);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+  };
   var kEventDispatcher_DispatchEvent_Name = 0;
 
   function EventDispatcherPtr(handleOrPtrInfo) {
@@ -338,12 +405,22 @@
     var params_ = new EventDispatcher_DispatchEvent_Params();
     params_.params = params;
     params_.eventArgs = eventArgs;
-    var builder = new codec.MessageV0Builder(
-        kEventDispatcher_DispatchEvent_Name,
-        codec.align(EventDispatcher_DispatchEvent_Params.encodedSize));
-    builder.encodeStruct(EventDispatcher_DispatchEvent_Params, params_);
-    var message = builder.finish();
-    this.receiver_.accept(message);
+    return new Promise(function(resolve, reject) {
+      var builder = new codec.MessageV1Builder(
+          kEventDispatcher_DispatchEvent_Name,
+          codec.align(EventDispatcher_DispatchEvent_Params.encodedSize),
+          codec.kMessageExpectsResponse, 0);
+      builder.encodeStruct(EventDispatcher_DispatchEvent_Params, params_);
+      var message = builder.finish();
+      this.receiver_.acceptAndExpectResponse(message).then(function(message) {
+        var reader = new codec.MessageReader(message);
+        var responseParams =
+            reader.decodeStruct(EventDispatcher_DispatchEvent_ResponseParams);
+        resolve(responseParams);
+      }).catch(function(result) {
+        reject(Error("Connection error: " + result));
+      });
+    }.bind(this));
   };
 
   function EventDispatcherStub(delegate) {
@@ -356,10 +433,6 @@
   EventDispatcherStub.prototype.accept = function(message) {
     var reader = new codec.MessageReader(message);
     switch (reader.messageName) {
-    case kEventDispatcher_DispatchEvent_Name:
-      var params = reader.decodeStruct(EventDispatcher_DispatchEvent_Params);
-      this.dispatchEvent(params.params, params.eventArgs);
-      return true;
     default:
       return false;
     }
@@ -369,6 +442,22 @@
       function(message, responder) {
     var reader = new codec.MessageReader(message);
     switch (reader.messageName) {
+    case kEventDispatcher_DispatchEvent_Name:
+      var params = reader.decodeStruct(EventDispatcher_DispatchEvent_Params);
+      this.dispatchEvent(params.params, params.eventArgs).then(function(response) {
+        var responseParams =
+            new EventDispatcher_DispatchEvent_ResponseParams();
+        responseParams.eventWillRunInLazyBackgroundPageScript = response.eventWillRunInLazyBackgroundPageScript;
+        var builder = new codec.MessageV1Builder(
+            kEventDispatcher_DispatchEvent_Name,
+            codec.align(EventDispatcher_DispatchEvent_ResponseParams.encodedSize),
+            codec.kMessageIsResponse, reader.requestID);
+        builder.encodeStruct(EventDispatcher_DispatchEvent_ResponseParams,
+                             responseParams);
+        var message = builder.finish();
+        responder.accept(message);
+      });
+      return true;
     default:
       return false;
     }
@@ -379,7 +468,7 @@
     var paramsClass = null;
     switch (message.getName()) {
       case kEventDispatcher_DispatchEvent_Name:
-        if (!message.expectsResponse() && !message.isResponse())
+        if (message.expectsResponse())
           paramsClass = EventDispatcher_DispatchEvent_Params;
       break;
     }
@@ -389,7 +478,17 @@
   }
 
   function validateEventDispatcherResponse(messageValidator) {
-    return validator.validationError.NONE;
+   var message = messageValidator.message;
+   var paramsClass = null;
+   switch (message.getName()) {
+      case kEventDispatcher_DispatchEvent_Name:
+        if (message.isResponse())
+          paramsClass = EventDispatcher_DispatchEvent_ResponseParams;
+        break;
+    }
+    if (paramsClass === null)
+      return validator.validationError.NONE;
+    return paramsClass.validate(messageValidator, messageValidator.message.getHeaderNumBytes());
   }
 
   var EventDispatcher = {
@@ -399,10 +498,10 @@
     proxyClass: EventDispatcherProxy,
     stubClass: EventDispatcherStub,
     validateRequest: validateEventDispatcherRequest,
-    validateResponse: null,
+    validateResponse: validateEventDispatcherResponse,
   };
   EventDispatcherStub.prototype.validator = validateEventDispatcherRequest;
-  EventDispatcherProxy.prototype.validator = null;
+  EventDispatcherProxy.prototype.validator = validateEventDispatcherResponse;
   exports.EventFilteringInfo = EventFilteringInfo;
   exports.DispatchEventParams = DispatchEventParams;
   exports.EventDispatcher = EventDispatcher;

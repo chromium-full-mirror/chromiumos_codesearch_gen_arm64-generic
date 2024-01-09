@@ -77,7 +77,8 @@ class  AutofillAgent_ApplyFormAction_Params_Data {
   mojo::internal::StructHeader header_;
   int32_t action_type;
   int32_t action_persistence;
-  mojo::internal::Pointer<::autofill::mojom::internal::FormData_Data> form;
+  mojo::internal::Pointer<::autofill::mojom::internal::FormRendererId_Data> form_renderer_id;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<::autofill::mojom::internal::FormFieldData_Data>>> fields;
 
  private:
   friend class mojo::internal::MessageFragment<AutofillAgent_ApplyFormAction_Params_Data>;
@@ -85,7 +86,7 @@ class  AutofillAgent_ApplyFormAction_Params_Data {
   AutofillAgent_ApplyFormAction_Params_Data();
   ~AutofillAgent_ApplyFormAction_Params_Data() = delete;
 };
-static_assert(sizeof(AutofillAgent_ApplyFormAction_Params_Data) == 24,
+static_assert(sizeof(AutofillAgent_ApplyFormAction_Params_Data) == 32,
               "Bad sizeof(AutofillAgent_ApplyFormAction_Params_Data)");
 class  AutofillAgent_ApplyFieldAction_Params_Data {
  public:
@@ -94,7 +95,7 @@ class  AutofillAgent_ApplyFieldAction_Params_Data {
 
   mojo::internal::StructHeader header_;
   int32_t action_persistence;
-  uint8_t pad0_[4];
+  int32_t text_replacement;
   mojo::internal::Pointer<::autofill::mojom::internal::FieldRendererId_Data> field;
   mojo::internal::Pointer<::mojo_base::mojom::internal::String16_Data> value;
 
@@ -209,7 +210,7 @@ class  AutofillAgent_SetSuggestionAvailability_Params_Data {
 
   mojo::internal::StructHeader header_;
   mojo::internal::Pointer<::autofill::mojom::internal::FieldRendererId_Data> field;
-  int32_t type;
+  int32_t suggestion_availability;
   uint8_t padfinal_[4];
 
  private:
@@ -564,6 +565,21 @@ class  PasswordGenerationAgent_FoundFormEligibleForGeneration_Params_Data {
 };
 static_assert(sizeof(PasswordGenerationAgent_FoundFormEligibleForGeneration_Params_Data) == 16,
               "Bad sizeof(PasswordGenerationAgent_FoundFormEligibleForGeneration_Params_Data)");
+class  PasswordGenerationAgent_FocusNextFieldAfterPasswords_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<PasswordGenerationAgent_FocusNextFieldAfterPasswords_Params_Data>;
+
+  PasswordGenerationAgent_FocusNextFieldAfterPasswords_Params_Data();
+  ~PasswordGenerationAgent_FocusNextFieldAfterPasswords_Params_Data() = delete;
+};
+static_assert(sizeof(PasswordGenerationAgent_FocusNextFieldAfterPasswords_Params_Data) == 8,
+              "Bad sizeof(PasswordGenerationAgent_FocusNextFieldAfterPasswords_Params_Data)");
 
 }  // namespace internal
 
@@ -646,14 +662,24 @@ class AutofillAgent_ApplyFormAction_ParamsDataView {
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::autofill::mojom::ActionPersistence>(data_->action_persistence));
   }
-  inline void GetFormDataView(
-      ::autofill::mojom::FormDataDataView* output);
+  inline void GetFormRendererIdDataView(
+      ::autofill::mojom::FormRendererIdDataView* output);
 
   template <typename UserType>
-  [[nodiscard]] bool ReadForm(UserType* output) {
+  [[nodiscard]] bool ReadFormRendererId(UserType* output) {
     
-    auto* pointer = data_->form.Get();
-    return mojo::internal::Deserialize<::autofill::mojom::FormDataDataView>(
+    auto* pointer = data_->form_renderer_id.Get();
+    return mojo::internal::Deserialize<::autofill::mojom::FormRendererIdDataView>(
+        pointer, output, message_);
+  }
+  inline void GetFieldsDataView(
+      mojo::ArrayDataView<::autofill::mojom::FormFieldDataDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadFields(UserType* output) {
+    
+    auto* pointer = data_->fields.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::autofill::mojom::FormFieldDataDataView>>(
         pointer, output, message_);
   }
  private:
@@ -681,6 +707,16 @@ class AutofillAgent_ApplyFieldAction_ParamsDataView {
   ::autofill::mojom::ActionPersistence action_persistence() const {
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::autofill::mojom::ActionPersistence>(data_->action_persistence));
+  }
+  template <typename UserType>
+  [[nodiscard]] bool ReadTextReplacement(UserType* output) const {
+    auto data_value = data_->text_replacement;
+    return mojo::internal::Deserialize<::autofill::mojom::TextReplacement>(
+        data_value, output);
+  }
+  ::autofill::mojom::TextReplacement text_replacement() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::autofill::mojom::TextReplacement>(data_->text_replacement));
   }
   inline void GetFieldDataView(
       ::autofill::mojom::FieldRendererIdDataView* output);
@@ -883,14 +919,14 @@ class AutofillAgent_SetSuggestionAvailability_ParamsDataView {
         pointer, output, message_);
   }
   template <typename UserType>
-  [[nodiscard]] bool ReadType(UserType* output) const {
-    auto data_value = data_->type;
-    return mojo::internal::Deserialize<::autofill::mojom::AutofillState>(
+  [[nodiscard]] bool ReadSuggestionAvailability(UserType* output) const {
+    auto data_value = data_->suggestion_availability;
+    return mojo::internal::Deserialize<::autofill::mojom::AutofillSuggestionAvailability>(
         data_value, output);
   }
-  ::autofill::mojom::AutofillState type() const {
+  ::autofill::mojom::AutofillSuggestionAvailability suggestion_availability() const {
     return ::mojo::internal::ToKnownEnumValueHelper(
-          static_cast<::autofill::mojom::AutofillState>(data_->type));
+          static_cast<::autofill::mojom::AutofillSuggestionAvailability>(data_->suggestion_availability));
   }
  private:
   internal::AutofillAgent_SetSuggestionAvailability_Params_Data* data_ = nullptr;
@@ -1406,15 +1442,35 @@ class PasswordGenerationAgent_FoundFormEligibleForGeneration_ParamsDataView {
 };
 
 
+class PasswordGenerationAgent_FocusNextFieldAfterPasswords_ParamsDataView {
+ public:
+  PasswordGenerationAgent_FocusNextFieldAfterPasswords_ParamsDataView() = default;
+
+  PasswordGenerationAgent_FocusNextFieldAfterPasswords_ParamsDataView(
+      internal::PasswordGenerationAgent_FocusNextFieldAfterPasswords_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::PasswordGenerationAgent_FocusNextFieldAfterPasswords_Params_Data* data_ = nullptr;
+};
 
 
 
 
 
-inline void AutofillAgent_ApplyFormAction_ParamsDataView::GetFormDataView(
-    ::autofill::mojom::FormDataDataView* output) {
-  auto pointer = data_->form.Get();
-  *output = ::autofill::mojom::FormDataDataView(pointer, message_);
+
+
+inline void AutofillAgent_ApplyFormAction_ParamsDataView::GetFormRendererIdDataView(
+    ::autofill::mojom::FormRendererIdDataView* output) {
+  auto pointer = data_->form_renderer_id.Get();
+  *output = ::autofill::mojom::FormRendererIdDataView(pointer, message_);
+}
+inline void AutofillAgent_ApplyFormAction_ParamsDataView::GetFieldsDataView(
+    mojo::ArrayDataView<::autofill::mojom::FormFieldDataDataView>* output) {
+  auto pointer = data_->fields.Get();
+  *output = mojo::ArrayDataView<::autofill::mojom::FormFieldDataDataView>(pointer, message_);
 }
 
 
@@ -1584,6 +1640,8 @@ inline void PasswordGenerationAgent_FoundFormEligibleForGeneration_ParamsDataVie
   auto pointer = data_->form.Get();
   *output = ::autofill::mojom::PasswordFormGenerationDataDataView(pointer, message_);
 }
+
+
 
 
 

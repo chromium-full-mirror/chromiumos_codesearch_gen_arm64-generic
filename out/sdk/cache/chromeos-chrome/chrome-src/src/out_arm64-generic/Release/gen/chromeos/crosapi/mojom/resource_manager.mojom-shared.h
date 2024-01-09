@@ -24,6 +24,7 @@
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
 #include "chromeos/crosapi/mojom/resource_manager.mojom-shared-internal.h"
+#include "mojo/public/mojom/base/time.mojom-shared.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
 #include "mojo/public/cpp/system/data_pipe.h"
 
@@ -111,7 +112,7 @@ class MemoryPressureDataView {
   MemoryPressureDataView(
       internal::MemoryPressure_Data* data,
       mojo::Message* message)
-      : data_(data) {}
+      : data_(data), message_(message) {}
 
   bool is_null() const { return !data_; }
   template <typename UserType>
@@ -127,8 +128,30 @@ class MemoryPressureDataView {
   uint64_t reclaim_target_kb() const {
     return data_->reclaim_target_kb;
   }
+  inline void GetSignalOriginDataView(
+      ::mojo_base::mojom::TimeTicksDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadSignalOrigin(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::mojo_base::mojom::TimeTicksDataView, UserType>(),
+    "Attempting to read the optional `signal_origin` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadSignalOrigin` instead "
+    "of `ReadSignalOrigin if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->header_.version >= 1
+                    ? data_->signal_origin.Get() : nullptr;
+    return mojo::internal::Deserialize<::mojo_base::mojom::TimeTicksDataView>(
+        pointer, output, message_);
+  }
  private:
   internal::MemoryPressure_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
 };
 
 
@@ -210,6 +233,14 @@ struct Serializer<::crosapi::mojom::MemoryPressureDataView, MaybeConstUserType> 
     mojo::internal::Serialize<::crosapi::mojom::MemoryPressureLevel>(
         Traits::level(input), &fragment->level);
     fragment->reclaim_target_kb = Traits::reclaim_target_kb(input);
+    decltype(Traits::signal_origin(input)) in_signal_origin = Traits::signal_origin(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->signal_origin)::BaseType> signal_origin_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::mojo_base::mojom::TimeTicksDataView>(
+        in_signal_origin, signal_origin_fragment);
+    fragment->signal_origin.Set(
+        signal_origin_fragment.is_null() ? nullptr : signal_origin_fragment.data());
   }
 
   static bool Deserialize(::crosapi::mojom::internal::MemoryPressure_Data* input,
@@ -263,6 +294,12 @@ struct Serializer<::crosapi::mojom::PageProcessDataView, MaybeConstUserType> {
 
 namespace crosapi::mojom {
 
+inline void MemoryPressureDataView::GetSignalOriginDataView(
+    ::mojo_base::mojom::TimeTicksDataView* output) {
+  auto pointer = data_->header_.version >= 1
+                 ? data_->signal_origin.Get() : nullptr;
+  *output = ::mojo_base::mojom::TimeTicksDataView(pointer, message_);
+}
 
 
 

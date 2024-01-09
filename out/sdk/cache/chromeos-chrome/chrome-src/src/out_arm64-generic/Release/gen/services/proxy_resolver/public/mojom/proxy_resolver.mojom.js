@@ -89,7 +89,7 @@
 
 
   ProxyInfo.prototype.initDefaults_ = function() {
-    this.proxyServers = null;
+    this.proxyChains = null;
   };
   ProxyInfo.prototype.initFields_ = function(fields) {
     for(var field in fields) {
@@ -112,8 +112,8 @@
         return err;
 
 
-    // validate ProxyInfo.proxyServers
-    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 0, 8, new codec.PointerTo(network_param$.ProxyServer), false, [0], 0);
+    // validate ProxyInfo.proxyChains
+    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 0, 8, new codec.PointerTo(network_param$.ProxyChain), false, [0], 0);
     if (err !== validator.validationError.NONE)
         return err;
 
@@ -127,8 +127,8 @@
     var val = new ProxyInfo();
     var numberOfBytes = decoder.readUint32();
     var version = decoder.readUint32();
-    val.proxyServers =
-        decoder.decodeArrayPointer(new codec.PointerTo(network_param$.ProxyServer));
+    val.proxyChains =
+        decoder.decodeArrayPointer(new codec.PointerTo(network_param$.ProxyChain));
     return val;
   };
 
@@ -136,7 +136,7 @@
     var packed;
     encoder.writeUint32(ProxyInfo.encodedSize);
     encoder.writeUint32(0);
-    encoder.encodeArrayPointer(new codec.PointerTo(network_param$.ProxyServer), val.proxyServers);
+    encoder.encodeArrayPointer(new codec.PointerTo(network_param$.ProxyChain), val.proxyChains);
   };
   function HostResolverRequestClient_ReportResult_Params(values) {
     this.initDefaults_();

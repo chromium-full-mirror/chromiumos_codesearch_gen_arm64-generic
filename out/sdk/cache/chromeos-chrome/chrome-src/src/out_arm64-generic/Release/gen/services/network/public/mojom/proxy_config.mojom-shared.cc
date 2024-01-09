@@ -47,6 +47,30 @@ std::ostream& operator<<(std::ostream& os, ProxyRulesType value) {
   return os << ProxyRulesTypeToString(value);
 }
 
+NOINLINE static const char* IpProtectionProxyBypassPolicyToStringHelper(IpProtectionProxyBypassPolicy value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case IpProtectionProxyBypassPolicy::kNone:
+      return "kNone";
+    case IpProtectionProxyBypassPolicy::kFirstPartyToTopLevelFrame:
+      return "kFirstPartyToTopLevelFrame";
+    default:
+      return nullptr;
+  }
+}
+
+std::string IpProtectionProxyBypassPolicyToString(IpProtectionProxyBypassPolicy value) {
+  const char *str = IpProtectionProxyBypassPolicyToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown IpProtectionProxyBypassPolicy value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, IpProtectionProxyBypassPolicy value) {
+  return os << IpProtectionProxyBypassPolicyToString(value);
+}
+
 namespace internal {
 
 
@@ -105,7 +129,7 @@ bool ProxyList_Data::Validate(
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& proxies_validate_params =
-      mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
+      mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>()>();
   if (!mojo::internal::ValidateContainer(object->proxies, validation_context,
                                          &proxies_validate_params)) {
     return false;
@@ -234,6 +258,16 @@ namespace perfetto {
 void TraceFormatTraits<::network::mojom::ProxyRulesType>::WriteIntoTrace(
    perfetto::TracedValue context, ::network::mojom::ProxyRulesType value) {
   return std::move(context).WriteString(::network::mojom::ProxyRulesTypeToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::network::mojom::IpProtectionProxyBypassPolicy>::WriteIntoTrace(
+   perfetto::TracedValue context, ::network::mojom::IpProtectionProxyBypassPolicy value) {
+  return std::move(context).WriteString(::network::mojom::IpProtectionProxyBypassPolicyToString(value));
 }
 
 } // namespace perfetto

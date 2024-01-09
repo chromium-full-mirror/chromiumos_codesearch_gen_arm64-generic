@@ -66,6 +66,7 @@
 #include "src/objects/turboshaft-types.h"
 #include "src/torque/runtime-support.h"
 #include "src/wasm/wasm-linkage.h"
+#include "src/codegen/code-stub-assembler-inl.h"
 // Required Builtins:
 #include "torque-generated/src/builtins/array-findlast-tq-csa.h"
 #include "torque-generated/src/builtins/array-every-tq-csa.h"
@@ -556,7 +557,7 @@ TF_BUILTIN(ArrayPrototypeFindLast, CodeStubAssembler) {
   TNode<Object> tmp14;
   if (block10.is_used()) {
     ca_.Bind(&block10);
-    tmp14 = ca_.CallStub<Object>(Builtins::CallableFor(ca_.isolate(), Builtin::kArrayFindLastLoopContinuation), parameter0, tmp7, tmp10, tmp1, tmp13.value());
+    tmp14 = ca_.CallBuiltin<Object>(Builtin::kArrayFindLastLoopContinuation, parameter0, tmp7, tmp10, tmp1, tmp13.value());
     arguments.PopAndReturn(tmp14);
   }
 

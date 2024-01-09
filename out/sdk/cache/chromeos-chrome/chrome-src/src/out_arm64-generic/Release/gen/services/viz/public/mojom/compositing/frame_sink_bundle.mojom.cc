@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -94,7 +95,7 @@ BundledCompositorFrame::BundledCompositorFrame()
 BundledCompositorFrame::BundledCompositorFrame(
     const ::viz::LocalSurfaceId& local_surface_id_in,
     ::viz::CompositorFrame frame_in,
-    absl::optional<::viz::HitTestRegionList> hit_test_region_list_in,
+    std::optional<::viz::HitTestRegionList> hit_test_region_list_in,
     uint64_t submit_time_in)
     : local_surface_id(std::move(local_surface_id_in)),
       frame(std::move(frame_in)),
@@ -128,7 +129,7 @@ void BundledCompositorFrame::WriteIntoTrace(
     dict.AddItem(
       "hit_test_region_list"), this->hit_test_region_list,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::viz::HitTestRegionList>>"
+      "<value of type std::optional<::viz::HitTestRegionList>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -342,6 +343,9 @@ FrameSinkBundle::IPCStableHashFunction FrameSinkBundle::MessageToMethodInfo_(moj
     case internal::kFrameSinkBundle_SetNeedsBeginFrame_Name: {
       return &FrameSinkBundle::SetNeedsBeginFrame_Sym::IPCStableHash;
     }
+    case internal::kFrameSinkBundle_SetWantsBeginFrameAcks_Name: {
+      return &FrameSinkBundle::SetWantsBeginFrameAcks_Sym::IPCStableHash;
+    }
     case internal::kFrameSinkBundle_Submit_Name: {
       return &FrameSinkBundle::Submit_Sym::IPCStableHash;
     }
@@ -363,6 +367,8 @@ const char* FrameSinkBundle::MessageToMethodName_(mojo::Message& message) {
             return "Receive viz::mojom::FrameSinkBundle::InitializeCompositorFrameSinkType";
       case internal::kFrameSinkBundle_SetNeedsBeginFrame_Name:
             return "Receive viz::mojom::FrameSinkBundle::SetNeedsBeginFrame";
+      case internal::kFrameSinkBundle_SetWantsBeginFrameAcks_Name:
+            return "Receive viz::mojom::FrameSinkBundle::SetWantsBeginFrameAcks";
       case internal::kFrameSinkBundle_Submit_Name:
             return "Receive viz::mojom::FrameSinkBundle::Submit";
       case internal::kFrameSinkBundle_DidAllocateSharedBitmap_Name:
@@ -374,6 +380,8 @@ const char* FrameSinkBundle::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply viz::mojom::FrameSinkBundle::InitializeCompositorFrameSinkType";
       case internal::kFrameSinkBundle_SetNeedsBeginFrame_Name:
             return "Receive reply viz::mojom::FrameSinkBundle::SetNeedsBeginFrame";
+      case internal::kFrameSinkBundle_SetWantsBeginFrameAcks_Name:
+            return "Receive reply viz::mojom::FrameSinkBundle::SetWantsBeginFrameAcks";
       case internal::kFrameSinkBundle_Submit_Name:
             return "Receive reply viz::mojom::FrameSinkBundle::Submit";
       case internal::kFrameSinkBundle_DidAllocateSharedBitmap_Name:
@@ -414,6 +422,19 @@ uint32_t FrameSinkBundle::SetNeedsBeginFrame_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)viz::mojom::FrameSinkBundle::SetNeedsBeginFrame");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t FrameSinkBundle::SetWantsBeginFrameAcks_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)viz::mojom::FrameSinkBundle::SetWantsBeginFrameAcks");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -465,14 +486,17 @@ void FrameSinkBundleProxy::InitializeCompositorFrameSinkType(
                         "<value of type ::viz::mojom::CompositorFrameSinkType>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameSinkBundle_InitializeCompositorFrameSinkType_Name, kFlags, 0, 0, nullptr);
@@ -508,14 +532,17 @@ void FrameSinkBundleProxy::SetNeedsBeginFrame(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameSinkBundle_SetNeedsBeginFrame_Name, kFlags, 0, 0, nullptr);
@@ -535,6 +562,47 @@ void FrameSinkBundleProxy::SetNeedsBeginFrame(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
+void FrameSinkBundleProxy::SetWantsBeginFrameAcks(
+    uint32_t in_sink_id) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send viz::mojom::FrameSinkBundle::SetWantsBeginFrameAcks", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("sink_id"), in_sink_id,
+                        "<value of type uint32_t>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kFrameSinkBundle_SetWantsBeginFrameAcks_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::viz::mojom::internal::FrameSinkBundle_SetWantsBeginFrameAcks_Params_Data> params(
+          message);
+  params.Allocate();
+  params->sink_id = in_sink_id;
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(FrameSinkBundle::Name_);
+  message.set_method_name("SetWantsBeginFrameAcks");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
 void FrameSinkBundleProxy::Submit(
     std::vector<BundledFrameSubmissionPtr> in_submissions) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -547,14 +615,17 @@ void FrameSinkBundleProxy::Submit(
                         "<value of type std::vector<BundledFrameSubmissionPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameSinkBundle_Submit_Name, kFlags, 0, 0,
@@ -604,14 +675,17 @@ void FrameSinkBundleProxy::DidAllocateSharedBitmap(
                         "<value of type const ::gpu::Mailbox&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameSinkBundle_DidAllocateSharedBitmap_Name, kFlags, 0, 0, nullptr);
@@ -717,6 +791,32 @@ std::move(p_sink_id),
 std::move(p_needs_begin_frame));
       return true;
     }
+    case internal::kFrameSinkBundle_SetWantsBeginFrameAcks_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::FrameSinkBundle_SetWantsBeginFrameAcks_Params_Data* params =
+          reinterpret_cast<internal::FrameSinkBundle_SetWantsBeginFrameAcks_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      uint32_t p_sink_id{};
+      FrameSinkBundle_SetWantsBeginFrameAcks_ParamsDataView input_data_view(params, message);
+      
+      if (success)
+        p_sink_id = input_data_view.sink_id();
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            FrameSinkBundle::Name_, 2, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->SetWantsBeginFrameAcks(
+std::move(p_sink_id));
+      return true;
+    }
     case internal::kFrameSinkBundle_Submit_Name: {
 
       DCHECK(message->is_serialized());
@@ -734,7 +834,7 @@ std::move(p_needs_begin_frame));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            FrameSinkBundle::Name_, 2, false);
+            FrameSinkBundle::Name_, 3, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -766,7 +866,7 @@ std::move(p_submissions));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            FrameSinkBundle::Name_, 3, false);
+            FrameSinkBundle::Name_, 4, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -796,6 +896,9 @@ bool FrameSinkBundleStubDispatch::AcceptWithResponder(
     case internal::kFrameSinkBundle_SetNeedsBeginFrame_Name: {
       break;
     }
+    case internal::kFrameSinkBundle_SetWantsBeginFrameAcks_Name: {
+      break;
+    }
     case internal::kFrameSinkBundle_Submit_Name: {
       break;
     }
@@ -805,16 +908,18 @@ bool FrameSinkBundleStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kFrameSinkBundleValidationInfo[] = {
-    {&internal::FrameSinkBundle_InitializeCompositorFrameSinkType_Params_Data::Validate,
+    { &internal::FrameSinkBundle_InitializeCompositorFrameSinkType_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameSinkBundle_SetNeedsBeginFrame_Params_Data::Validate,
+    { &internal::FrameSinkBundle_SetNeedsBeginFrame_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameSinkBundle_Submit_Params_Data::Validate,
+    { &internal::FrameSinkBundle_SetWantsBeginFrameAcks_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameSinkBundle_DidAllocateSharedBitmap_Params_Data::Validate,
+    { &internal::FrameSinkBundle_Submit_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::FrameSinkBundle_DidAllocateSharedBitmap_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -940,14 +1045,17 @@ void FrameSinkBundleClientProxy::FlushNotifications(
                         "<value of type std::vector<BundledReturnedResourcesPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameSinkBundleClient_FlushNotifications_Name, kFlags, 0, 0, nullptr);
@@ -1019,14 +1127,17 @@ void FrameSinkBundleClientProxy::OnBeginFramePausedChanged(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameSinkBundleClient_OnBeginFramePausedChanged_Name, kFlags, 0, 0, nullptr);
@@ -1061,14 +1172,17 @@ void FrameSinkBundleClientProxy::OnCompositorFrameTransitionDirectiveProcessed(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFrameSinkBundleClient_OnCompositorFrameTransitionDirectiveProcessed_Name, kFlags, 0, 0, nullptr);
@@ -1212,14 +1326,14 @@ bool FrameSinkBundleClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kFrameSinkBundleClientValidationInfo[] = {
-    {&internal::FrameSinkBundleClient_FlushNotifications_Params_Data::Validate,
+    { &internal::FrameSinkBundleClient_FlushNotifications_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameSinkBundleClient_OnBeginFramePausedChanged_Params_Data::Validate,
+    { &internal::FrameSinkBundleClient_OnBeginFramePausedChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FrameSinkBundleClient_OnCompositorFrameTransitionDirectiveProcessed_Params_Data::Validate,
+    { &internal::FrameSinkBundleClient_OnCompositorFrameTransitionDirectiveProcessed_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1366,6 +1480,9 @@ void FrameSinkBundleInterceptorForTesting::InitializeCompositorFrameSinkType(uin
 }
 void FrameSinkBundleInterceptorForTesting::SetNeedsBeginFrame(uint32_t sink_id, bool needs_begin_frame) {
   GetForwardingInterface()->SetNeedsBeginFrame(std::move(sink_id), std::move(needs_begin_frame));
+}
+void FrameSinkBundleInterceptorForTesting::SetWantsBeginFrameAcks(uint32_t sink_id) {
+  GetForwardingInterface()->SetWantsBeginFrameAcks(std::move(sink_id));
 }
 void FrameSinkBundleInterceptorForTesting::Submit(std::vector<BundledFrameSubmissionPtr> submissions) {
   GetForwardingInterface()->Submit(std::move(submissions));

@@ -1,0 +1,117 @@
+{
+  "extends": "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/cr_elements/tsconfig_base.json",
+  "compilerOptions": {
+    "rootDir": "preprocessed",
+    "outDir": "tsc",
+    "paths": {
+      "//resources/lit/v3_0/lit.rollup.js": [
+        "./../../../../../third_party/lit/v3_0/lit.d.ts"
+      ],
+      "chrome://resources/lit/v3_0/lit.rollup.js": [
+        "./../../../../../third_party/lit/v3_0/lit.d.ts"
+      ],
+      "//resources/polymer/v3_0/polymer/polymer_bundled.min.js": [
+        "./../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/polymer/polymer.d.ts"
+      ],
+      "chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js": [
+        "./../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/polymer/polymer.d.ts"
+      ],
+      "//resources/polymer/v3_0/*": [
+        "./../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/*"
+      ],
+      "chrome://resources/polymer/v3_0/*": [
+        "./../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/*"
+      ],
+      "//resources/cr_elements/*": [
+        "./../../../../../ui/webui/resources/tsc/cr_elements/*"
+      ],
+      "chrome://resources/cr_elements/*": [
+        "./../../../../../ui/webui/resources/tsc/cr_elements/*"
+      ],
+      "//resources/js/*": [
+        "./../../../../../ui/webui/resources/tsc/js/*"
+      ],
+      "chrome://resources/js/*": [
+        "./../../../../../ui/webui/resources/tsc/js/*"
+      ],
+      "/tools/typescript/definitions/*": [
+        "./../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/*"
+      ],
+      "chrome://webui-test/*": [
+        "./../tsc/*"
+      ]
+    }
+  },
+  "files": [
+    "preprocessed/cr_a11y_announcer_test.ts",
+    "preprocessed/cr_action_menu_test.ts",
+    "preprocessed/cr_auto_img_test.ts",
+    "preprocessed/cr_button_test.ts",
+    "preprocessed/cr_card_radio_button_test.ts",
+    "preprocessed/cr_checkbox_test.ts",
+    "preprocessed/cr_container_shadow_mixin_test.ts",
+    "preprocessed/cr_dialog_test.ts",
+    "preprocessed/cr_drawer_test.ts",
+    "preprocessed/cr_expand_button_test.ts",
+    "preprocessed/cr_feedback_buttons_test.ts",
+    "preprocessed/cr_fingerprint_progress_arc_test.ts",
+    "preprocessed/cr_focus_row_mixin_test.ts",
+    "preprocessed/cr_grid_focus_test.ts",
+    "preprocessed/cr_icon_button_test.ts",
+    "preprocessed/cr_input_test.ts",
+    "preprocessed/cr_lazy_render_test.ts",
+    "preprocessed/cr_link_row_test.ts",
+    "preprocessed/cr_lit_element_test.ts",
+    "preprocessed/cr_loading_gradient_test.ts",
+    "preprocessed/cr_lottie_test.ts",
+    "preprocessed/cr_menu_selector_focus_test.ts",
+    "preprocessed/cr_policy_indicator_mixin_test.ts",
+    "preprocessed/cr_policy_indicator_test.ts",
+    "preprocessed/cr_policy_pref_indicator_test.ts",
+    "preprocessed/cr_policy_strings.ts",
+    "preprocessed/cr_profile_avatar_selector_test.ts",
+    "preprocessed/cr_radio_button_test.ts",
+    "preprocessed/cr_radio_group_test.ts",
+    "preprocessed/cr_scrollable_mixin_test.ts",
+    "preprocessed/cr_search_field_test.ts",
+    "preprocessed/cr_slider_test.ts",
+    "preprocessed/cr_splitter_test.ts",
+    "preprocessed/cr_tabs_test.ts",
+    "preprocessed/cr_textarea_focus_test.ts",
+    "preprocessed/cr_toast_manager_test.ts",
+    "preprocessed/cr_toast_test.ts",
+    "preprocessed/cr_toggle_test.ts",
+    "preprocessed/cr_toolbar_focus_test.ts",
+    "preprocessed/cr_toolbar_search_field_test.ts",
+    "preprocessed/cr_toolbar_test.ts",
+    "preprocessed/cr_tree_test.ts",
+    "preprocessed/cr_url_list_item_test.ts",
+    "preprocessed/cr_view_manager_test.ts",
+    "preprocessed/find_shortcut_mixin_test.ts",
+    "preprocessed/i18n_mixin_test.ts",
+    "preprocessed/iron_list_focus_test.ts",
+    "preprocessed/list_property_update_mixin_test.ts",
+    "preprocessed/store_client_test.ts",
+    "preprocessed/web_ui_listener_mixin_test.ts",
+    "preprocessed/cr_searchable_drop_down_test.ts",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/pending.d.ts",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/settings_private.d.ts"
+  ],
+  "references": [
+    {
+      "path": "../tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../../third_party/lit/v3_0/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../../third_party/polymer/v3_0/tsconfig_library.json"
+    },
+    {
+      "path": "../../../../../ui/webui/resources/cr_elements/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../../ui/webui/resources/js/tsconfig_build_ts.json"
+    }
+  ]
+}

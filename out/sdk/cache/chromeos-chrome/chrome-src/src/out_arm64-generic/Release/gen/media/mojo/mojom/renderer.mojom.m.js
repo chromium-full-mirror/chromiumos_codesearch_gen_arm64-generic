@@ -1141,8 +1141,16 @@ mojo.internal.Struct(
         false /* nullable */,
         0,
       ),
+      mojo.internal.StructField(
+        'headers', 32,
+        0,
+        mojo.internal.Map(mojo.internal.String, mojo.internal.String, false),
+        null,
+        false /* nullable */,
+        0,
+      ),
     ],
-    [[0, 40],]);
+    [[0, 48],]);
 
 
 
@@ -1163,6 +1171,8 @@ export class MediaUrlParams {
     this.allowCredentials;
     /** @type { !boolean } */
     this.isHls;
+    /** @type { !Object<!string, !string> } */
+    this.headers;
   }
 }
 

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -321,14 +322,17 @@ void LocalStorageControlProxy::BindStorageArea(
                         "<value of type ::mojo::PendingReceiver<::blink::mojom::StorageArea>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalStorageControl_BindStorageArea_Name, kFlags, 0, 0, nullptr);
@@ -368,14 +372,17 @@ void LocalStorageControlProxy::GetUsage(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send storage::mojom::LocalStorageControl::GetUsage");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalStorageControl_GetUsage_Name, kFlags, 0, 0, nullptr);
@@ -406,14 +413,17 @@ void LocalStorageControlProxy::DeleteStorage(
                         "<value of type const ::blink::StorageKey&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalStorageControl_DeleteStorage_Name, kFlags, 0, 0, nullptr);
@@ -448,14 +458,17 @@ void LocalStorageControlProxy::CleanUpStorage(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send storage::mojom::LocalStorageControl::CleanUpStorage");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalStorageControl_CleanUpStorage_Name, kFlags, 0, 0, nullptr);
@@ -479,14 +492,17 @@ void LocalStorageControlProxy::Flush(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send storage::mojom::LocalStorageControl::Flush");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalStorageControl_Flush_Name, kFlags, 0, 0, nullptr);
@@ -510,14 +526,17 @@ void LocalStorageControlProxy::PurgeMemory(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send storage::mojom::LocalStorageControl::PurgeMemory");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalStorageControl_PurgeMemory_Name, kFlags, 0, 0, nullptr);
@@ -547,14 +566,17 @@ void LocalStorageControlProxy::ApplyPolicyUpdates(
                         "<value of type std::vector<::storage::mojom::StoragePolicyUpdatePtr>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalStorageControl_ApplyPolicyUpdates_Name, kFlags, 0, 0, nullptr);
@@ -590,14 +612,17 @@ void LocalStorageControlProxy::ForceKeepSessionState(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send storage::mojom::LocalStorageControl::ForceKeepSessionState");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalStorageControl_ForceKeepSessionState_Name, kFlags, 0, 0, nullptr);
@@ -706,7 +731,8 @@ void LocalStorageControl_GetUsage_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalStorageControl_GetUsage_Name, kFlags, 0, 0, nullptr);
@@ -825,7 +851,8 @@ void LocalStorageControl_DeleteStorage_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalStorageControl_DeleteStorage_Name, kFlags, 0, 0, nullptr);
@@ -931,7 +958,8 @@ void LocalStorageControl_CleanUpStorage_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalStorageControl_CleanUpStorage_Name, kFlags, 0, 0, nullptr);
@@ -1037,7 +1065,8 @@ void LocalStorageControl_Flush_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalStorageControl_Flush_Name, kFlags, 0, 0, nullptr);
@@ -1314,24 +1343,24 @@ std::move(p_storage_key), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kLocalStorageControlValidationInfo[] = {
-    {&internal::LocalStorageControl_BindStorageArea_Params_Data::Validate,
+    { &internal::LocalStorageControl_BindStorageArea_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalStorageControl_GetUsage_Params_Data::Validate,
+    { &internal::LocalStorageControl_GetUsage_Params_Data::Validate,
      &internal::LocalStorageControl_GetUsage_ResponseParams_Data::Validate},
-    {&internal::LocalStorageControl_DeleteStorage_Params_Data::Validate,
+    { &internal::LocalStorageControl_DeleteStorage_Params_Data::Validate,
      &internal::LocalStorageControl_DeleteStorage_ResponseParams_Data::Validate},
-    {&internal::LocalStorageControl_CleanUpStorage_Params_Data::Validate,
+    { &internal::LocalStorageControl_CleanUpStorage_Params_Data::Validate,
      &internal::LocalStorageControl_CleanUpStorage_ResponseParams_Data::Validate},
-    {&internal::LocalStorageControl_Flush_Params_Data::Validate,
+    { &internal::LocalStorageControl_Flush_Params_Data::Validate,
      &internal::LocalStorageControl_Flush_ResponseParams_Data::Validate},
-    {&internal::LocalStorageControl_PurgeMemory_Params_Data::Validate,
+    { &internal::LocalStorageControl_PurgeMemory_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalStorageControl_ApplyPolicyUpdates_Params_Data::Validate,
+    { &internal::LocalStorageControl_ApplyPolicyUpdates_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalStorageControl_ForceKeepSessionState_Params_Data::Validate,
+    { &internal::LocalStorageControl_ForceKeepSessionState_Params_Data::Validate,
      nullptr /* no response */},
 };
 

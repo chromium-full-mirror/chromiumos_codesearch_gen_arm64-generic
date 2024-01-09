@@ -100,12 +100,6 @@ export const ClipboardSequenceNumberTokenSpec =
 /**
  * @const { {$:!mojo.internal.MojomType}}
  */
-export const PortalTokenSpec =
-    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
-
-/**
- * @const { {$:!mojo.internal.MojomType}}
- */
 export const V8ContextTokenSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
@@ -540,35 +534,6 @@ mojo.internal.Struct(
  * @record
  */
 export class ClipboardSequenceNumberToken {
-  constructor() {
-    /** @type { !mojoBase_mojom_UnguessableToken } */
-    this.value;
-  }
-}
-
-
-
-mojo.internal.Struct(
-    PortalTokenSpec.$,
-    'PortalToken',
-    [
-      mojo.internal.StructField(
-        'value', 0,
-        0,
-        mojoBase_mojom_UnguessableTokenSpec.$,
-        null,
-        false /* nullable */,
-        0,
-      ),
-    ],
-    [[0, 16],]);
-
-
-
-/**
- * @record
- */
-export class PortalToken {
   constructor() {
     /** @type { !mojoBase_mojom_UnguessableToken } */
     this.value;

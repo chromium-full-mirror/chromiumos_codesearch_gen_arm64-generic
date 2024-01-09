@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,8 +23,10 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chrome/browser/ui/webui/tab_search/tab_search.mojom-features.h"
 #include "chrome/browser/ui/webui/tab_search/tab_search.mojom-shared.h"
 #include "chrome/browser/ui/webui/tab_search/tab_search.mojom-forward.h"
+#include "mojo/public/mojom/base/string16.mojom.h"
 #include "components/tab_groups/public/mojom/tab_group_types.mojom.h"
 #include "mojo/public/mojom/base/time.mojom.h"
 #include "mojo/public/mojom/base/token.mojom.h"
@@ -126,8 +128,17 @@ class PageHandler
     kSwitchToTabMinVersion = 0,
     kOpenRecentlyClosedEntryMinVersion = 0,
     kRequestTabOrganizationMinVersion = 0,
+    kRemoveTabFromOrganizationMinVersion = 0,
+    kResetSessionMinVersion = 0,
     kSaveRecentlyClosedExpandedPrefMinVersion = 0,
     kSetTabIndexMinVersion = 0,
+    kStartTabGroupTutorialMinVersion = 0,
+    kTriggerFeedbackMinVersion = 0,
+    kTriggerSyncMinVersion = 0,
+    kTriggerSignInMinVersion = 0,
+    kOpenHelpPageMinVersion = 0,
+    kOpenSyncSettingsMinVersion = 0,
+    kSetUserFeedbackMinVersion = 0,
     kShowUIMinVersion = 0,
   };
 
@@ -158,10 +169,37 @@ class PageHandler
   struct RequestTabOrganization_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
+  struct RemoveTabFromOrganization_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct ResetSession_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
   struct SaveRecentlyClosedExpandedPref_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct SetTabIndex_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct StartTabGroupTutorial_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct TriggerFeedback_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct TriggerSync_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct TriggerSignIn_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct OpenHelpPage_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct OpenSyncSettings_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct SetUserFeedback_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct ShowUI_Sym {
@@ -174,7 +212,7 @@ class PageHandler
   virtual void CloseTab(int32_t tab_id) = 0;
 
   
-  virtual void AcceptTabOrganization(int32_t session_id, int32_t organization_id, const std::string& name, std::vector<TabPtr> tabs) = 0;
+  virtual void AcceptTabOrganization(int32_t session_id, int32_t organization_id, const ::std::u16string& name, std::vector<TabPtr> tabs) = 0;
 
   
   virtual void RejectTabOrganization(int32_t session_id, int32_t organization_id) = 0;
@@ -199,10 +237,37 @@ class PageHandler
   virtual void RequestTabOrganization() = 0;
 
   
+  virtual void RemoveTabFromOrganization(int32_t session_id, int32_t organization_id, TabPtr tab) = 0;
+
+  
+  virtual void ResetSession() = 0;
+
+  
   virtual void SaveRecentlyClosedExpandedPref(bool expanded) = 0;
 
   
   virtual void SetTabIndex(int32_t index) = 0;
+
+  
+  virtual void StartTabGroupTutorial() = 0;
+
+  
+  virtual void TriggerFeedback(int32_t session_id) = 0;
+
+  
+  virtual void TriggerSync() = 0;
+
+  
+  virtual void TriggerSignIn() = 0;
+
+  
+  virtual void OpenHelpPage() = 0;
+
+  
+  virtual void OpenSyncSettings() = 0;
+
+  
+  virtual void SetUserFeedback(int32_t session_id, int32_t organization_id, UserFeedback feedback) = 0;
 
   
   virtual void ShowUI() = 0;
@@ -300,7 +365,7 @@ class  PageHandlerProxy
   
   void CloseTab(int32_t tab_id) final;
   
-  void AcceptTabOrganization(int32_t session_id, int32_t organization_id, const std::string& name, std::vector<TabPtr> tabs) final;
+  void AcceptTabOrganization(int32_t session_id, int32_t organization_id, const ::std::u16string& name, std::vector<TabPtr> tabs) final;
   
   void RejectTabOrganization(int32_t session_id, int32_t organization_id) final;
   
@@ -314,9 +379,27 @@ class  PageHandlerProxy
   
   void RequestTabOrganization() final;
   
+  void RemoveTabFromOrganization(int32_t session_id, int32_t organization_id, TabPtr tab) final;
+  
+  void ResetSession() final;
+  
   void SaveRecentlyClosedExpandedPref(bool expanded) final;
   
   void SetTabIndex(int32_t index) final;
+  
+  void StartTabGroupTutorial() final;
+  
+  void TriggerFeedback(int32_t session_id) final;
+  
+  void TriggerSync() final;
+  
+  void TriggerSignIn() final;
+  
+  void OpenHelpPage() final;
+  
+  void OpenSyncSettings() final;
+  
+  void SetUserFeedback(int32_t session_id, int32_t organization_id, UserFeedback feedback) final;
   
   void ShowUI() final;
 
@@ -974,11 +1057,11 @@ class  Tab {
       std::vector<::TabAlertState> alert_states,
       int32_t index,
       int32_t tab_id,
-      const absl::optional<::base::Token>& group_id,
+      const std::optional<::base::Token>& group_id,
       bool pinned,
       const std::string& title,
       const ::GURL& url,
-      const absl::optional<::GURL>& favicon_url,
+      const std::optional<::GURL>& favicon_url,
       bool is_default_favicon,
       bool show_icon,
       ::base::TimeTicks last_active_time_ticks,
@@ -1068,7 +1151,7 @@ class  Tab {
   
   int32_t tab_id;
   
-  absl::optional<::base::Token> group_id;
+  std::optional<::base::Token> group_id;
   
   bool pinned;
   
@@ -1076,7 +1159,7 @@ class  Tab {
   
   ::GURL url;
   
-  absl::optional<::GURL> favicon_url;
+  std::optional<::GURL> favicon_url;
   
   bool is_default_favicon;
   
@@ -1147,7 +1230,7 @@ class  RecentlyClosedTab {
 
   RecentlyClosedTab(
       int32_t tab_id,
-      const absl::optional<::base::Token>& group_id,
+      const std::optional<::base::Token>& group_id,
       const std::string& title,
       const ::GURL& url,
       ::base::Time last_active_time,
@@ -1231,7 +1314,7 @@ class  RecentlyClosedTab {
   
   int32_t tab_id;
   
-  absl::optional<::base::Token> group_id;
+  std::optional<::base::Token> group_id;
   
   std::string title;
   
@@ -1608,7 +1691,7 @@ class  TabOrganization {
   TabOrganization(
       int32_t organization_id,
       std::vector<TabPtr> tabs,
-      const std::string& name);
+      const ::std::u16string& name);
 
 TabOrganization(const TabOrganization&) = delete;
 TabOrganization& operator=(const TabOrganization&) = delete;
@@ -1692,7 +1775,7 @@ TabOrganization& operator=(const TabOrganization&) = delete;
   
   std::vector<TabPtr> tabs;
   
-  std::string name;
+  ::std::u16string name;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

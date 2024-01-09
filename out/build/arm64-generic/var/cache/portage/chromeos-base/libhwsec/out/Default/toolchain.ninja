@@ -34,11 +34,9 @@ rule copy
   description = COPY ${in} ${out}
 
 build obj/common-mk/gn_root/root.stamp: stamp obj/libhwsec/all.stamp
-subninja obj/common-mk/testrunner/testrunner.ninja
 build obj/libhwsec/_libhwsec-install_config.stamp: stamp
 build obj/libhwsec/_libhwsec_client-install_config.stamp: stamp
-build obj/libhwsec/_libhwsec_test-install_config.stamp: stamp
-build obj/libhwsec/all.stamp: stamp obj/libhwsec/install_error_h.stamp obj/libhwsec/install_headers.stamp obj/libhwsec/install_headers_overalls.stamp obj/libhwsec/install_headers_structures.stamp ./lib/libhwsec.so ./libhwsec_client ./hwsec_testrunner ./lib/libhwsec_test.so
+build obj/libhwsec/all.stamp: stamp obj/libhwsec/install_error_h.stamp obj/libhwsec/install_headers.stamp obj/libhwsec/install_headers_overalls.stamp obj/libhwsec/install_headers_structures.stamp ./lib/libhwsec.so ./libhwsec_client
 subninja obj/libhwsec/error_library.ninja
 build gen/python/flatbuffer_cpp_binding_generator.py: copy ../../../../../../../../../mnt/host/source/src/platform2/libhwsec-foundation/flatbuffers/flatbuffer_cpp_binding_generator.py || obj/libhwsec/python-flatbuffers-reflection.stamp
 
@@ -46,7 +44,6 @@ build obj/libhwsec/flatbuffers-binding-generator.stamp: stamp gen/python/flatbuf
 subninja obj/libhwsec/hardware_abstraction_external_library.ninja
 subninja obj/libhwsec/hardware_abstraction_external_thread_local_library.ninja
 subninja obj/libhwsec/hardware_abstraction_internal_library.ninja
-subninja obj/libhwsec/hwsec_testrunner.ninja
 build obj/libhwsec/install_error_h.stamp: stamp
 build obj/libhwsec/install_headers.stamp: stamp
 build obj/libhwsec/install_headers_overalls.stamp: stamp
@@ -56,7 +53,6 @@ build obj/libhwsec/install_tpm1_headers.stamp: stamp
 build obj/libhwsec/install_tpm2_error_h.stamp: stamp
 subninja obj/libhwsec/libhwsec.ninja
 subninja obj/libhwsec/libhwsec_client.ninja
-subninja obj/libhwsec/libhwsec_test.ninja
 subninja obj/libhwsec/oobe_config_encrypted_data_proto.ninja
 rule __libhwsec_oobe_config_encrypted_data_proto_gen___common-mk_toolchain_toolchain__rule
   command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py protoc frontend/oobe_config/encrypted_data.proto --proto_path /mnt/host/source/src/platform2/libhwsec --proto_path /build/arm64-generic/usr/share/proto --cpp_out=/build/arm64-generic/var/cache/portage/chromeos-base/libhwsec/out/Default/gen/include/libhwsec/

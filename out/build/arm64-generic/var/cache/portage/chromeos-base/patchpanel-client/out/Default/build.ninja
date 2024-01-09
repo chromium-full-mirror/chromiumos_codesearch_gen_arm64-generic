@@ -19,26 +19,17 @@ build build.ninja: phony build.ninja.stamp
 subninja toolchain.ninja
 
 build libpatchpanel-client: phony ./lib/libpatchpanel-client.so
-build patchpanel_client_test_support: phony obj/patchpanel/dbus/patchpanel_client_test_support.stamp
 build patchpanel_dbus_proxies: phony obj/patchpanel/dbus/patchpanel_dbus_proxies.stamp
 build root: phony obj/common-mk/gn_root/root.stamp
-build testrunner: phony ./libtestrunner.a
 build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
-build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
-build common-mk/testrunner: phony ./libtestrunner.a
 build patchpanel/dbus$:all: phony obj/patchpanel/dbus/all.stamp
 build patchpanel/dbus$:libpatchpanel-client: phony ./lib/libpatchpanel-client.so
-build patchpanel/dbus$:patchpanel-client_testrunner: phony ./patchpanel-client_testrunner
-build patchpanel/dbus$:patchpanel_client_test_support: phony obj/patchpanel/dbus/patchpanel_client_test_support.stamp
 build patchpanel/dbus$:patchpanel_dbus_proxies: phony obj/patchpanel/dbus/patchpanel_dbus_proxies.stamp
 
 build all: phony $
     obj/common-mk/gn_root/root.stamp $
-    ./libtestrunner.a $
     obj/patchpanel/dbus/all.stamp $
     ./lib/libpatchpanel-client.so $
-    ./patchpanel-client_testrunner $
-    obj/patchpanel/dbus/patchpanel_client_test_support.stamp $
     obj/patchpanel/dbus/patchpanel_dbus_proxies.stamp
 
 default all

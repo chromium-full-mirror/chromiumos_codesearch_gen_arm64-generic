@@ -1,0 +1,4 @@
+// Copyright 2022 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+import{FakeMethodResolver}from"chrome://resources/ash/common/fake_method_resolver.js";import{mojoString16ToString}from"chrome://resources/js/mojo_type_util.js";export class FakeHelpContentProvider{constructor(){this.lastQuery="";this.getHelpContentsMethodCallCount=0;this.methods=new FakeMethodResolver;this.methods.register("getHelpContents")}getLastQuery(){return this.lastQuery}getHelpContents(request){++this.getHelpContentsMethodCallCount;this.lastQuery=mojoString16ToString(request.query);return this.methods.resolveMethod("getHelpContents")}getHelpContentsCallCount(){return this.getHelpContentsMethodCallCount}setFakeSearchResponse(response){this.methods.setResult("getHelpContents",{response:response})}}

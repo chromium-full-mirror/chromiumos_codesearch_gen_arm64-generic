@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "extensions/common/api/power.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -36,11 +37,11 @@ namespace power {
 
 const char* ToString(Level enum_param) {
   switch (enum_param) {
-    case LEVEL_SYSTEM:
+    case Level::kSystem:
       return "system";
-    case LEVEL_DISPLAY:
+    case Level::kDisplay:
       return "display";
-    case LEVEL_NONE:
+    case Level::kNone:
       return "";
   }
   NOTREACHED();
@@ -49,10 +50,10 @@ const char* ToString(Level enum_param) {
 
 Level ParseLevel(base::StringPiece enum_string) {
   if (enum_string == "system")
-    return LEVEL_SYSTEM;
+    return Level::kSystem;
   if (enum_string == "display")
-    return LEVEL_DISPLAY;
-  return LEVEL_NONE;
+    return Level::kDisplay;
+  return Level::kNone;
 }
 
 std::u16string GetLevelParseError(base::StringPiece enum_string) {
@@ -69,13 +70,13 @@ namespace RequestKeepAwake {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -85,16 +86,16 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       const std::string* level_as_string = level_value.GetIfString();
       if (!level_as_string) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.level = ParseLevel(*level_as_string);
       if (params.level == Level()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;

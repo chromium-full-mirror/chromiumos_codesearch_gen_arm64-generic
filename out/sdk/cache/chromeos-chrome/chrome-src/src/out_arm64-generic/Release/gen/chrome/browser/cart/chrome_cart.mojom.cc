@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -723,14 +724,17 @@ void CartHandlerProxy::GetMerchantCarts(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send chrome_cart::mojom::CartHandler::GetMerchantCarts");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCartHandler_GetMerchantCarts_Name, kFlags, 0, 0, nullptr);
@@ -754,14 +758,17 @@ void CartHandlerProxy::GetCartFeatureEnabled(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send chrome_cart::mojom::CartHandler::GetCartFeatureEnabled");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCartHandler_GetCartFeatureEnabled_Name, kFlags, 0, 0, nullptr);
@@ -785,14 +792,17 @@ void CartHandlerProxy::HideCartModule(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send chrome_cart::mojom::CartHandler::HideCartModule");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCartHandler_HideCartModule_Name, kFlags, 0, 0, nullptr);
@@ -815,14 +825,17 @@ void CartHandlerProxy::RestoreHiddenCartModule(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send chrome_cart::mojom::CartHandler::RestoreHiddenCartModule");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCartHandler_RestoreHiddenCartModule_Name, kFlags, 0, 0, nullptr);
@@ -852,14 +865,17 @@ void CartHandlerProxy::HideCart(
                         "<value of type const ::GURL&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCartHandler_HideCart_Name, kFlags, 0, 0, nullptr);
@@ -901,14 +917,17 @@ void CartHandlerProxy::RestoreHiddenCart(
                         "<value of type const ::GURL&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCartHandler_RestoreHiddenCart_Name, kFlags, 0, 0, nullptr);
@@ -950,14 +969,17 @@ void CartHandlerProxy::RemoveCart(
                         "<value of type const ::GURL&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCartHandler_RemoveCart_Name, kFlags, 0, 0, nullptr);
@@ -999,14 +1021,17 @@ void CartHandlerProxy::RestoreRemovedCart(
                         "<value of type const ::GURL&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCartHandler_RestoreRemovedCart_Name, kFlags, 0, 0, nullptr);
@@ -1041,14 +1066,17 @@ void CartHandlerProxy::GetWarmWelcomeVisible(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send chrome_cart::mojom::CartHandler::GetWarmWelcomeVisible");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCartHandler_GetWarmWelcomeVisible_Name, kFlags, 0, 0, nullptr);
@@ -1079,14 +1107,17 @@ void CartHandlerProxy::GetDiscountURL(
                         "<value of type const ::GURL&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCartHandler_GetDiscountURL_Name, kFlags, 0, 0, nullptr);
@@ -1121,14 +1152,17 @@ void CartHandlerProxy::GetDiscountConsentCardVisible(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send chrome_cart::mojom::CartHandler::GetDiscountConsentCardVisible");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCartHandler_GetDiscountConsentCardVisible_Name, kFlags, 0, 0, nullptr);
@@ -1152,14 +1186,17 @@ void CartHandlerProxy::GetDiscountToggleVisible(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send chrome_cart::mojom::CartHandler::GetDiscountToggleVisible");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCartHandler_GetDiscountToggleVisible_Name, kFlags, 0, 0, nullptr);
@@ -1190,14 +1227,17 @@ void CartHandlerProxy::OnDiscountConsentAcknowledged(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCartHandler_OnDiscountConsentAcknowledged_Name, kFlags, 0, 0, nullptr);
@@ -1221,14 +1261,17 @@ void CartHandlerProxy::OnDiscountConsentDismissed(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send chrome_cart::mojom::CartHandler::OnDiscountConsentDismissed");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCartHandler_OnDiscountConsentDismissed_Name, kFlags, 0, 0, nullptr);
@@ -1251,14 +1294,17 @@ void CartHandlerProxy::OnDiscountConsentContinued(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send chrome_cart::mojom::CartHandler::OnDiscountConsentContinued");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCartHandler_OnDiscountConsentContinued_Name, kFlags, 0, 0, nullptr);
@@ -1281,14 +1327,17 @@ void CartHandlerProxy::ShowNativeConsentDialog(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send chrome_cart::mojom::CartHandler::ShowNativeConsentDialog");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCartHandler_ShowNativeConsentDialog_Name, kFlags, 0, 0, nullptr);
@@ -1312,14 +1361,17 @@ void CartHandlerProxy::GetDiscountEnabled(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send chrome_cart::mojom::CartHandler::GetDiscountEnabled");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCartHandler_GetDiscountEnabled_Name, kFlags, 0, 0, nullptr);
@@ -1350,14 +1402,17 @@ void CartHandlerProxy::SetDiscountEnabled(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCartHandler_SetDiscountEnabled_Name, kFlags, 0, 0, nullptr);
@@ -1391,14 +1446,17 @@ void CartHandlerProxy::PrepareForNavigation(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCartHandler_PrepareForNavigation_Name, kFlags, 0, 0, nullptr);
@@ -1519,7 +1577,8 @@ void CartHandler_GetMerchantCarts_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCartHandler_GetMerchantCarts_Name, kFlags, 0, 0, nullptr);
@@ -1649,7 +1708,8 @@ void CartHandler_GetCartFeatureEnabled_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCartHandler_GetCartFeatureEnabled_Name, kFlags, 0, 0, nullptr);
@@ -1767,7 +1827,8 @@ void CartHandler_HideCart_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCartHandler_HideCart_Name, kFlags, 0, 0, nullptr);
@@ -1885,7 +1946,8 @@ void CartHandler_RestoreHiddenCart_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCartHandler_RestoreHiddenCart_Name, kFlags, 0, 0, nullptr);
@@ -2003,7 +2065,8 @@ void CartHandler_RemoveCart_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCartHandler_RemoveCart_Name, kFlags, 0, 0, nullptr);
@@ -2121,7 +2184,8 @@ void CartHandler_RestoreRemovedCart_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCartHandler_RestoreRemovedCart_Name, kFlags, 0, 0, nullptr);
@@ -2239,7 +2303,8 @@ void CartHandler_GetWarmWelcomeVisible_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCartHandler_GetWarmWelcomeVisible_Name, kFlags, 0, 0, nullptr);
@@ -2357,7 +2422,8 @@ void CartHandler_GetDiscountURL_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCartHandler_GetDiscountURL_Name, kFlags, 0, 0, nullptr);
@@ -2485,7 +2551,8 @@ void CartHandler_GetDiscountConsentCardVisible_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCartHandler_GetDiscountConsentCardVisible_Name, kFlags, 0, 0, nullptr);
@@ -2603,7 +2670,8 @@ void CartHandler_GetDiscountToggleVisible_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCartHandler_GetDiscountToggleVisible_Name, kFlags, 0, 0, nullptr);
@@ -2721,7 +2789,8 @@ void CartHandler_ShowNativeConsentDialog_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCartHandler_ShowNativeConsentDialog_Name, kFlags, 0, 0, nullptr);
@@ -2840,7 +2909,8 @@ void CartHandler_GetDiscountEnabled_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCartHandler_GetDiscountEnabled_Name, kFlags, 0, 0, nullptr);
@@ -3435,46 +3505,46 @@ std::move(p_cart_url), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kCartHandlerValidationInfo[] = {
-    {&internal::CartHandler_GetMerchantCarts_Params_Data::Validate,
+    { &internal::CartHandler_GetMerchantCarts_Params_Data::Validate,
      &internal::CartHandler_GetMerchantCarts_ResponseParams_Data::Validate},
-    {&internal::CartHandler_GetCartFeatureEnabled_Params_Data::Validate,
+    { &internal::CartHandler_GetCartFeatureEnabled_Params_Data::Validate,
      &internal::CartHandler_GetCartFeatureEnabled_ResponseParams_Data::Validate},
-    {&internal::CartHandler_HideCartModule_Params_Data::Validate,
+    { &internal::CartHandler_HideCartModule_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CartHandler_RestoreHiddenCartModule_Params_Data::Validate,
+    { &internal::CartHandler_RestoreHiddenCartModule_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CartHandler_HideCart_Params_Data::Validate,
+    { &internal::CartHandler_HideCart_Params_Data::Validate,
      &internal::CartHandler_HideCart_ResponseParams_Data::Validate},
-    {&internal::CartHandler_RestoreHiddenCart_Params_Data::Validate,
+    { &internal::CartHandler_RestoreHiddenCart_Params_Data::Validate,
      &internal::CartHandler_RestoreHiddenCart_ResponseParams_Data::Validate},
-    {&internal::CartHandler_RemoveCart_Params_Data::Validate,
+    { &internal::CartHandler_RemoveCart_Params_Data::Validate,
      &internal::CartHandler_RemoveCart_ResponseParams_Data::Validate},
-    {&internal::CartHandler_RestoreRemovedCart_Params_Data::Validate,
+    { &internal::CartHandler_RestoreRemovedCart_Params_Data::Validate,
      &internal::CartHandler_RestoreRemovedCart_ResponseParams_Data::Validate},
-    {&internal::CartHandler_GetWarmWelcomeVisible_Params_Data::Validate,
+    { &internal::CartHandler_GetWarmWelcomeVisible_Params_Data::Validate,
      &internal::CartHandler_GetWarmWelcomeVisible_ResponseParams_Data::Validate},
-    {&internal::CartHandler_GetDiscountURL_Params_Data::Validate,
+    { &internal::CartHandler_GetDiscountURL_Params_Data::Validate,
      &internal::CartHandler_GetDiscountURL_ResponseParams_Data::Validate},
-    {&internal::CartHandler_GetDiscountConsentCardVisible_Params_Data::Validate,
+    { &internal::CartHandler_GetDiscountConsentCardVisible_Params_Data::Validate,
      &internal::CartHandler_GetDiscountConsentCardVisible_ResponseParams_Data::Validate},
-    {&internal::CartHandler_GetDiscountToggleVisible_Params_Data::Validate,
+    { &internal::CartHandler_GetDiscountToggleVisible_Params_Data::Validate,
      &internal::CartHandler_GetDiscountToggleVisible_ResponseParams_Data::Validate},
-    {&internal::CartHandler_OnDiscountConsentAcknowledged_Params_Data::Validate,
+    { &internal::CartHandler_OnDiscountConsentAcknowledged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CartHandler_OnDiscountConsentDismissed_Params_Data::Validate,
+    { &internal::CartHandler_OnDiscountConsentDismissed_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CartHandler_OnDiscountConsentContinued_Params_Data::Validate,
+    { &internal::CartHandler_OnDiscountConsentContinued_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CartHandler_ShowNativeConsentDialog_Params_Data::Validate,
+    { &internal::CartHandler_ShowNativeConsentDialog_Params_Data::Validate,
      &internal::CartHandler_ShowNativeConsentDialog_ResponseParams_Data::Validate},
-    {&internal::CartHandler_GetDiscountEnabled_Params_Data::Validate,
+    { &internal::CartHandler_GetDiscountEnabled_Params_Data::Validate,
      &internal::CartHandler_GetDiscountEnabled_ResponseParams_Data::Validate},
-    {&internal::CartHandler_SetDiscountEnabled_Params_Data::Validate,
+    { &internal::CartHandler_SetDiscountEnabled_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CartHandler_PrepareForNavigation_Params_Data::Validate,
+    { &internal::CartHandler_PrepareForNavigation_Params_Data::Validate,
      nullptr /* no response */},
 };
 

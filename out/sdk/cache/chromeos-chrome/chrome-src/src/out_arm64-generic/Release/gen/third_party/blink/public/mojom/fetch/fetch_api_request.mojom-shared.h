@@ -144,23 +144,25 @@ enum class RequestContextType : int32_t {
   
   SHARED_WORKER = 26,
   
-  SUBRESOURCE = 27,
+  SPECULATION_RULES = 27,
   
-  SUBRESOURCE_WEBBUNDLE = 28,
+  SUBRESOURCE = 28,
   
-  STYLE = 29,
+  SUBRESOURCE_WEBBUNDLE = 29,
   
-  TRACK = 30,
+  STYLE = 30,
   
-  VIDEO = 31,
+  TRACK = 31,
   
-  WORKER = 32,
+  VIDEO = 32,
   
-  XML_HTTP_REQUEST = 33,
+  WORKER = 33,
   
-  XSLT = 34,
+  XML_HTTP_REQUEST = 34,
+  
+  XSLT = 35,
   kMinValue = 0,
-  kMaxValue = 34,
+  kMaxValue = 35,
 };
 
 COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) std::ostream& operator<<(std::ostream& os, RequestContextType value);

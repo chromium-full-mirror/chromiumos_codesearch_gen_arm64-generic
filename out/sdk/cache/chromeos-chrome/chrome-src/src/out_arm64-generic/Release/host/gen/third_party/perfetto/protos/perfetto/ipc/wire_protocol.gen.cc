@@ -144,7 +144,8 @@ IPCFrame_SetPeerIdentity& IPCFrame_SetPeerIdentity::operator=(IPCFrame_SetPeerId
 bool IPCFrame_SetPeerIdentity::operator==(const IPCFrame_SetPeerIdentity& other) const {
   return ::protozero::internal::gen_helpers::EqualsField(unknown_fields_, other.unknown_fields_)
    && ::protozero::internal::gen_helpers::EqualsField(pid_, other.pid_)
-   && ::protozero::internal::gen_helpers::EqualsField(uid_, other.uid_);
+   && ::protozero::internal::gen_helpers::EqualsField(uid_, other.uid_)
+   && ::protozero::internal::gen_helpers::EqualsField(machine_id_hint_, other.machine_id_hint_);
 }
 
 bool IPCFrame_SetPeerIdentity::ParseFromArray(const void* raw, size_t size) {
@@ -162,6 +163,9 @@ bool IPCFrame_SetPeerIdentity::ParseFromArray(const void* raw, size_t size) {
         break;
       case 2 /* uid */:
         field.get(&uid_);
+        break;
+      case 3 /* machine_id_hint */:
+        ::protozero::internal::gen_helpers::DeserializeString(field, &machine_id_hint_);
         break;
       default:
         field.SerializeAndAppendTo(&unknown_fields_);
@@ -192,6 +196,11 @@ void IPCFrame_SetPeerIdentity::Serialize(::protozero::Message* msg) const {
   // Field 2: uid
   if (_has_field_[2]) {
     ::protozero::internal::gen_helpers::SerializeVarInt(2, uid_, msg);
+  }
+
+  // Field 3: machine_id_hint
+  if (_has_field_[3]) {
+    ::protozero::internal::gen_helpers::SerializeString(3, machine_id_hint_, msg);
   }
 
   protozero::internal::gen_helpers::SerializeUnknownFields(unknown_fields_, msg);

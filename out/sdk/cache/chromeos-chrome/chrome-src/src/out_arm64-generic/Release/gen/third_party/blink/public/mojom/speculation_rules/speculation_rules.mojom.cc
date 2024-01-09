@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -51,7 +52,7 @@ SpeculationCandidate::SpeculationCandidate()
       target_browsing_context_name_hint(SpeculationTargetHint::kNoHint),
       eagerness(SpeculationEagerness::kConservative),
       no_vary_search_hint(),
-      injection_world(SpeculationInjectionWorld::kNone) {}
+      injection_type(SpeculationInjectionType::kNone) {}
 
 SpeculationCandidate::SpeculationCandidate(
     const ::GURL& url_in,
@@ -61,7 +62,7 @@ SpeculationCandidate::SpeculationCandidate(
     SpeculationTargetHint target_browsing_context_name_hint_in,
     SpeculationEagerness eagerness_in,
     ::network::mojom::NoVarySearchPtr no_vary_search_hint_in,
-    SpeculationInjectionWorld injection_world_in)
+    SpeculationInjectionType injection_type_in)
     : url(std::move(url_in)),
       action(std::move(action_in)),
       referrer(std::move(referrer_in)),
@@ -69,7 +70,7 @@ SpeculationCandidate::SpeculationCandidate(
       target_browsing_context_name_hint(std::move(target_browsing_context_name_hint_in)),
       eagerness(std::move(eagerness_in)),
       no_vary_search_hint(std::move(no_vary_search_hint_in)),
-      injection_world(std::move(injection_world_in)) {}
+      injection_type(std::move(injection_type_in)) {}
 
 SpeculationCandidate::~SpeculationCandidate() = default;
 
@@ -141,9 +142,9 @@ void SpeculationCandidate::WriteIntoTrace(
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "injection_world"), this->injection_world,
+      "injection_type"), this->injection_type,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type SpeculationInjectionWorld>"
+      "<value of type SpeculationInjectionType>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -266,14 +267,17 @@ void SpeculationHostProxy::UpdateSpeculationCandidates(
                         "<value of type std::vector<SpeculationCandidatePtr>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSpeculationHost_UpdateSpeculationCandidates_Name, kFlags, 0, 0, nullptr);
@@ -309,14 +313,17 @@ void SpeculationHostProxy::EnableNoVarySearchSupport(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::SpeculationHost::EnableNoVarySearchSupport");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSpeculationHost_EnableNoVarySearchSupport_Name, kFlags, 0, 0, nullptr);
@@ -346,14 +353,17 @@ void SpeculationHostProxy::InitiatePreview(
                         "<value of type const ::GURL&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSpeculationHost_InitiatePreview_Name, kFlags, 0, 0, nullptr);
@@ -486,14 +496,14 @@ bool SpeculationHostStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSpeculationHostValidationInfo[] = {
-    {&internal::SpeculationHost_UpdateSpeculationCandidates_Params_Data::Validate,
+    { &internal::SpeculationHost_UpdateSpeculationCandidates_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SpeculationHost_EnableNoVarySearchSupport_Params_Data::Validate,
+    { &internal::SpeculationHost_EnableNoVarySearchSupport_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SpeculationHost_InitiatePreview_Params_Data::Validate,
+    { &internal::SpeculationHost_InitiatePreview_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -531,7 +541,7 @@ bool StructTraits<::blink::mojom::SpeculationCandidate::DataView, ::blink::mojom
         success = false;
       if (success && !input.ReadNoVarySearchHint(&result->no_vary_search_hint))
         success = false;
-      if (success && !input.ReadInjectionWorld(&result->injection_world))
+      if (success && !input.ReadInjectionType(&result->injection_type))
         success = false;
   *output = std::move(result);
   return success;

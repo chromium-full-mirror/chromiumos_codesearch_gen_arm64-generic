@@ -142,7 +142,7 @@ UI.ActionRegistration.registerActionExtension({
     },
     async loadActionDelegate() {
         const Timeline = await loadTimelineModule();
-        return Timeline.TimelinePanel.ActionDelegate.instance();
+        return new Timeline.TimelinePanel.ActionDelegate();
     },
     options: [
         {
@@ -175,7 +175,7 @@ UI.ActionRegistration.registerActionExtension({
     title: i18nLazyString(UIStrings.startProfilingAndReloadPage),
     async loadActionDelegate() {
         const Timeline = await loadTimelineModule();
-        return Timeline.TimelinePanel.ActionDelegate.instance();
+        return new Timeline.TimelinePanel.ActionDelegate();
     },
     bindings: [
         {
@@ -196,7 +196,7 @@ UI.ActionRegistration.registerActionExtension({
     },
     async loadActionDelegate() {
         const Timeline = await loadTimelineModule();
-        return Timeline.TimelinePanel.ActionDelegate.instance();
+        return new Timeline.TimelinePanel.ActionDelegate();
     },
     title: i18nLazyString(UIStrings.saveProfile),
     bindings: [
@@ -218,7 +218,7 @@ UI.ActionRegistration.registerActionExtension({
     },
     async loadActionDelegate() {
         const Timeline = await loadTimelineModule();
-        return Timeline.TimelinePanel.ActionDelegate.instance();
+        return new Timeline.TimelinePanel.ActionDelegate();
     },
     title: i18nLazyString(UIStrings.loadProfile),
     bindings: [
@@ -241,7 +241,7 @@ UI.ActionRegistration.registerActionExtension({
     },
     async loadActionDelegate() {
         const Timeline = await loadTimelineModule();
-        return Timeline.TimelinePanel.ActionDelegate.instance();
+        return new Timeline.TimelinePanel.ActionDelegate();
     },
     bindings: [
         {
@@ -258,7 +258,7 @@ UI.ActionRegistration.registerActionExtension({
     },
     async loadActionDelegate() {
         const Timeline = await loadTimelineModule();
-        return Timeline.TimelinePanel.ActionDelegate.instance();
+        return new Timeline.TimelinePanel.ActionDelegate();
     },
     bindings: [
         {
@@ -270,7 +270,7 @@ UI.ActionRegistration.registerActionExtension({
     actionId: 'timeline.show-history',
     async loadActionDelegate() {
         const Timeline = await loadTimelineModule();
-        return Timeline.TimelinePanel.ActionDelegate.instance();
+        return new Timeline.TimelinePanel.ActionDelegate();
     },
     category: UI.ActionRegistration.ActionCategory.PERFORMANCE,
     title: i18nLazyString(UIStrings.showRecentTimelineSessions),
@@ -293,7 +293,7 @@ UI.ActionRegistration.registerActionExtension({
     category: UI.ActionRegistration.ActionCategory.PERFORMANCE,
     async loadActionDelegate() {
         const Timeline = await loadTimelineModule();
-        return Timeline.TimelinePanel.ActionDelegate.instance();
+        return new Timeline.TimelinePanel.ActionDelegate();
     },
     title: i18nLazyString(UIStrings.previousRecording),
     contextTypes() {
@@ -315,7 +315,7 @@ UI.ActionRegistration.registerActionExtension({
     category: UI.ActionRegistration.ActionCategory.PERFORMANCE,
     async loadActionDelegate() {
         const Timeline = await loadTimelineModule();
-        return Timeline.TimelinePanel.ActionDelegate.instance();
+        return new Timeline.TimelinePanel.ActionDelegate();
     },
     title: i18nLazyString(UIStrings.nextRecording),
     contextTypes() {

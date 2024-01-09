@@ -78,11 +78,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, RTCIceTransport>::value,
     "RTCIceTransport does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&RTCIceTransport::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "RTCIceTransport is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -101,7 +96,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8RTCIceTransport_Role
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCIceTransport* blink_receiver = V8RTCIceTransport::ToWrappableUnsafe(v8_receiver);
+RTCIceTransport* blink_receiver = V8RTCIceTransport::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->role();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
 }
@@ -120,7 +115,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8RTCIceTransport_Stat
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCIceTransport* blink_receiver = V8RTCIceTransport::ToWrappableUnsafe(v8_receiver);
+RTCIceTransport* blink_receiver = V8RTCIceTransport::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->state();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
@@ -139,7 +134,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8RTCIceTransport_Gath
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCIceTransport* blink_receiver = V8RTCIceTransport::ToWrappableUnsafe(v8_receiver);
+RTCIceTransport* blink_receiver = V8RTCIceTransport::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->gatheringState();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
@@ -152,10 +147,10 @@ BLINK_BINDINGS_TRACE_EVENT("RTCIceTransport.onstatechange.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-RTCIceTransport* blink_receiver = V8RTCIceTransport::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onstatechange();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+RTCIceTransport* blink_receiver = V8RTCIceTransport::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onstatechange();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -168,8 +163,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCIceTransport* blink_receiver = V8RTCIceTransport::ToWrappableUnsafe(v8_receiver);
+RTCIceTransport* blink_receiver = V8RTCIceTransport::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnstatechange(event_handler);
 }
 
@@ -180,10 +176,10 @@ BLINK_BINDINGS_TRACE_EVENT("RTCIceTransport.ongatheringstatechange.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-RTCIceTransport* blink_receiver = V8RTCIceTransport::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->ongatheringstatechange();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+RTCIceTransport* blink_receiver = V8RTCIceTransport::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->ongatheringstatechange();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -196,8 +192,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCIceTransport* blink_receiver = V8RTCIceTransport::ToWrappableUnsafe(v8_receiver);
+RTCIceTransport* blink_receiver = V8RTCIceTransport::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOngatheringstatechange(event_handler);
 }
 
@@ -208,10 +205,10 @@ BLINK_BINDINGS_TRACE_EVENT("RTCIceTransport.onselectedcandidatepairchange.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-RTCIceTransport* blink_receiver = V8RTCIceTransport::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onselectedcandidatepairchange();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+RTCIceTransport* blink_receiver = V8RTCIceTransport::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onselectedcandidatepairchange();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -224,8 +221,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCIceTransport* blink_receiver = V8RTCIceTransport::ToWrappableUnsafe(v8_receiver);
+RTCIceTransport* blink_receiver = V8RTCIceTransport::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnselectedcandidatepairchange(event_handler);
 }
 
@@ -250,7 +248,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-RTCIceTransport* blink_receiver = V8RTCIceTransport::ToWrappableUnsafe(v8_receiver);
+RTCIceTransport* blink_receiver = V8RTCIceTransport::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getLocalCandidates();
 if (!ToV8Traits<IDLSequence<RTCIceCandidate>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -279,7 +277,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-RTCIceTransport* blink_receiver = V8RTCIceTransport::ToWrappableUnsafe(v8_receiver);
+RTCIceTransport* blink_receiver = V8RTCIceTransport::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getLocalParameters();
 if (!ToV8Traits<IDLNullable<RTCIceParameters>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -308,7 +306,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-RTCIceTransport* blink_receiver = V8RTCIceTransport::ToWrappableUnsafe(v8_receiver);
+RTCIceTransport* blink_receiver = V8RTCIceTransport::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getRemoteCandidates();
 if (!ToV8Traits<IDLSequence<RTCIceCandidate>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -337,7 +335,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-RTCIceTransport* blink_receiver = V8RTCIceTransport::ToWrappableUnsafe(v8_receiver);
+RTCIceTransport* blink_receiver = V8RTCIceTransport::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getRemoteParameters();
 if (!ToV8Traits<IDLNullable<RTCIceParameters>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -366,7 +364,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-RTCIceTransport* blink_receiver = V8RTCIceTransport::ToWrappableUnsafe(v8_receiver);
+RTCIceTransport* blink_receiver = V8RTCIceTransport::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getSelectedCandidatePair();
 if (!ToV8Traits<IDLNullable<RTCIceCandidatePair>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;

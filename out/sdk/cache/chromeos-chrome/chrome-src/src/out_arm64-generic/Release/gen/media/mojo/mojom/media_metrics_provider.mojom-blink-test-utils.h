@@ -27,6 +27,7 @@ class BLINK_PLATFORM_EXPORT MediaMetricsProviderInterceptorForTesting : public M
   void SetTimeToPlayReady(::base::TimeDelta elapsed) override;
   void SetRendererType(::media::mojom::blink::RendererType renderer_type) override;
   void SetKeySystem(const WTF::String& key_system) override;
+  void SetHasWaitingForKey() override;
   void SetIsHardwareSecure() override;
   void SetContainerName(::media::mojom::blink::MediaContainerName container_name) override;
   void AcquireWatchTimeRecorder(::media::mojom::blink::PlaybackPropertiesPtr properties, ::mojo::PendingReceiver<::media::mojom::blink::WatchTimeRecorder> recorder) override;

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -232,7 +233,7 @@ VideoFrameHandleReleaserProxy::VideoFrameHandleReleaserProxy(mojo::MessageReceiv
 }
 
 void VideoFrameHandleReleaserProxy::ReleaseVideoFrame(
-    const ::base::UnguessableToken& in_release_token, const absl::optional<::gpu::SyncToken>& in_release_sync_token) {
+    const ::base::UnguessableToken& in_release_token, const std::optional<::gpu::SyncToken>& in_release_sync_token) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send media::mojom::VideoFrameHandleReleaser::ReleaseVideoFrame", "input_parameters",
@@ -243,17 +244,20 @@ void VideoFrameHandleReleaserProxy::ReleaseVideoFrame(
                         "<value of type const ::base::UnguessableToken&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("release_sync_token"), in_release_sync_token,
-                        "<value of type const absl::optional<::gpu::SyncToken>&>");
+                        "<value of type const std::optional<::gpu::SyncToken>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoFrameHandleReleaser_ReleaseVideoFrame_Name, kFlags, 0, 0, nullptr);
@@ -303,7 +307,7 @@ bool VideoFrameHandleReleaserStubDispatch::Accept(
       
       bool success = true;
       ::base::UnguessableToken p_release_token{};
-      absl::optional<::gpu::SyncToken> p_release_sync_token{};
+      std::optional<::gpu::SyncToken> p_release_sync_token{};
       VideoFrameHandleReleaser_ReleaseVideoFrame_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadReleaseToken(&p_release_token))
@@ -343,10 +347,10 @@ bool VideoFrameHandleReleaserStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kVideoFrameHandleReleaserValidationInfo[] = {
-    {&internal::VideoFrameHandleReleaser_ReleaseVideoFrame_Params_Data::Validate,
+    { &internal::VideoFrameHandleReleaser_ReleaseVideoFrame_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -605,15 +609,18 @@ bool VideoDecoderProxy::GetSupportedConfigs(
 #else
   TRACE_EVENT0("mojom", "VideoDecoder::GetSupportedConfigs");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoDecoder_GetSupportedConfigs_Name, kFlags, 0, 0, nullptr);
@@ -653,14 +660,17 @@ void VideoDecoderProxy::GetSupportedConfigs(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send media::mojom::VideoDecoder::GetSupportedConfigs");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoDecoder_GetSupportedConfigs_Name, kFlags, 0, 0, nullptr);
@@ -706,14 +716,17 @@ void VideoDecoderProxy::Construct(
                         "<value of type const ::gfx::ColorSpace&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoDecoder_Construct_Name, kFlags, 0, 0, nullptr);
@@ -774,7 +787,7 @@ void VideoDecoderProxy::Construct(
 }
 
 void VideoDecoderProxy::Initialize(
-    const ::media::VideoDecoderConfig& in_config, bool in_low_delay, const absl::optional<::base::UnguessableToken>& in_cdm_id, InitializeCallback callback) {
+    const ::media::VideoDecoderConfig& in_config, bool in_low_delay, const std::optional<::base::UnguessableToken>& in_cdm_id, InitializeCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send media::mojom::VideoDecoder::Initialize", "input_parameters",
@@ -788,17 +801,20 @@ void VideoDecoderProxy::Initialize(
                         "<value of type bool>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("cdm_id"), in_cdm_id,
-                        "<value of type const absl::optional<::base::UnguessableToken>&>");
+                        "<value of type const std::optional<::base::UnguessableToken>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoDecoder_Initialize_Name, kFlags, 0, 0, nullptr);
@@ -848,14 +864,17 @@ void VideoDecoderProxy::Decode(
                         "<value of type ::media::mojom::DecoderBufferPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoDecoder_Decode_Name, kFlags, 0, 0, nullptr);
@@ -890,14 +909,17 @@ void VideoDecoderProxy::Reset(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send media::mojom::VideoDecoder::Reset");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoDecoder_Reset_Name, kFlags, 0, 0, nullptr);
@@ -928,14 +950,17 @@ void VideoDecoderProxy::OnOverlayInfoChanged(
                         "<value of type const ::media::OverlayInfo&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoDecoder_OnOverlayInfoChanged_Name, kFlags, 0, 0, nullptr);
@@ -1062,7 +1087,8 @@ void VideoDecoder_GetSupportedConfigs_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoDecoder_GetSupportedConfigs_Name, kFlags, 0, 0, nullptr);
@@ -1244,7 +1270,8 @@ void VideoDecoder_Initialize_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoDecoder_Initialize_Name, kFlags, 0, 0, nullptr);
@@ -1376,7 +1403,8 @@ void VideoDecoder_Decode_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoDecoder_Decode_Name, kFlags, 0, 0, nullptr);
@@ -1493,7 +1521,8 @@ void VideoDecoder_Reset_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoDecoder_Reset_Name, kFlags, 0, 0, nullptr);
@@ -1665,7 +1694,7 @@ bool VideoDecoderStubDispatch::AcceptWithResponder(
       bool success = true;
       ::media::VideoDecoderConfig p_config{};
       bool p_low_delay{};
-      absl::optional<::base::UnguessableToken> p_cdm_id{};
+      std::optional<::base::UnguessableToken> p_cdm_id{};
       VideoDecoder_Initialize_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadConfig(&p_config))
@@ -1752,20 +1781,20 @@ std::move(p_buffer), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kVideoDecoderValidationInfo[] = {
-    {&internal::VideoDecoder_GetSupportedConfigs_Params_Data::Validate,
+    { &internal::VideoDecoder_GetSupportedConfigs_Params_Data::Validate,
      &internal::VideoDecoder_GetSupportedConfigs_ResponseParams_Data::Validate},
-    {&internal::VideoDecoder_Construct_Params_Data::Validate,
+    { &internal::VideoDecoder_Construct_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::VideoDecoder_Initialize_Params_Data::Validate,
+    { &internal::VideoDecoder_Initialize_Params_Data::Validate,
      &internal::VideoDecoder_Initialize_ResponseParams_Data::Validate},
-    {&internal::VideoDecoder_Decode_Params_Data::Validate,
+    { &internal::VideoDecoder_Decode_Params_Data::Validate,
      &internal::VideoDecoder_Decode_ResponseParams_Data::Validate},
-    {&internal::VideoDecoder_Reset_Params_Data::Validate,
+    { &internal::VideoDecoder_Reset_Params_Data::Validate,
      &internal::VideoDecoder_Reset_ResponseParams_Data::Validate},
-    {&internal::VideoDecoder_OnOverlayInfoChanged_Params_Data::Validate,
+    { &internal::VideoDecoder_OnOverlayInfoChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1878,7 +1907,7 @@ VideoDecoderClientProxy::VideoDecoderClientProxy(mojo::MessageReceiverWithRespon
 }
 
 void VideoDecoderClientProxy::OnVideoFrameDecoded(
-    const ::scoped_refptr<::media::VideoFrame>& in_frame, bool in_can_read_without_stalling, const absl::optional<::base::UnguessableToken>& in_release_token) {
+    const ::scoped_refptr<::media::VideoFrame>& in_frame, bool in_can_read_without_stalling, const std::optional<::base::UnguessableToken>& in_release_token) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send media::mojom::VideoDecoderClient::OnVideoFrameDecoded", "input_parameters",
@@ -1892,17 +1921,20 @@ void VideoDecoderClientProxy::OnVideoFrameDecoded(
                         "<value of type bool>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("release_token"), in_release_token,
-                        "<value of type const absl::optional<::base::UnguessableToken>&>");
+                        "<value of type const std::optional<::base::UnguessableToken>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoDecoderClient_OnVideoFrameDecoded_Name, kFlags, 0, 0, nullptr);
@@ -1951,14 +1983,17 @@ void VideoDecoderClientProxy::OnWaiting(
                         "<value of type ::media::WaitingReason>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoDecoderClient_OnWaiting_Name, kFlags, 0, 0, nullptr);
@@ -1990,14 +2025,17 @@ void VideoDecoderClientProxy::RequestOverlayInfo(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kVideoDecoderClient_RequestOverlayInfo_Name, kFlags, 0, 0, nullptr);
@@ -2031,7 +2069,7 @@ bool VideoDecoderClientStubDispatch::Accept(
       bool success = true;
       ::scoped_refptr<::media::VideoFrame> p_frame{};
       bool p_can_read_without_stalling{};
-      absl::optional<::base::UnguessableToken> p_release_token{};
+      std::optional<::base::UnguessableToken> p_release_token{};
       VideoDecoderClient_OnVideoFrameDecoded_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadFrame(&p_frame))
@@ -2132,14 +2170,14 @@ bool VideoDecoderClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kVideoDecoderClientValidationInfo[] = {
-    {&internal::VideoDecoderClient_OnVideoFrameDecoded_Params_Data::Validate,
+    { &internal::VideoDecoderClient_OnVideoFrameDecoded_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::VideoDecoderClient_OnWaiting_Params_Data::Validate,
+    { &internal::VideoDecoderClient_OnWaiting_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::VideoDecoderClient_RequestOverlayInfo_Params_Data::Validate,
+    { &internal::VideoDecoderClient_RequestOverlayInfo_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2205,7 +2243,7 @@ bool StructTraits<::media::mojom::CommandBufferId::DataView, ::media::mojom::Com
 namespace media::mojom {
 
 
-void VideoFrameHandleReleaserInterceptorForTesting::ReleaseVideoFrame(const ::base::UnguessableToken& release_token, const absl::optional<::gpu::SyncToken>& release_sync_token) {
+void VideoFrameHandleReleaserInterceptorForTesting::ReleaseVideoFrame(const ::base::UnguessableToken& release_token, const std::optional<::gpu::SyncToken>& release_sync_token) {
   GetForwardingInterface()->ReleaseVideoFrame(std::move(release_token), std::move(release_sync_token));
 }
 VideoFrameHandleReleaserAsyncWaiter::VideoFrameHandleReleaserAsyncWaiter(
@@ -2222,7 +2260,7 @@ void VideoDecoderInterceptorForTesting::GetSupportedConfigs(GetSupportedConfigsC
 void VideoDecoderInterceptorForTesting::Construct(::mojo::PendingAssociatedRemote<VideoDecoderClient> client, ::mojo::PendingRemote<::media::mojom::MediaLog> media_log, ::mojo::PendingReceiver<VideoFrameHandleReleaser> video_frame_handle_releaser, ::mojo::ScopedDataPipeConsumerHandle decoder_buffer_pipe, CommandBufferIdPtr command_buffer_id, const ::gfx::ColorSpace& target_color_space) {
   GetForwardingInterface()->Construct(std::move(client), std::move(media_log), std::move(video_frame_handle_releaser), std::move(decoder_buffer_pipe), std::move(command_buffer_id), std::move(target_color_space));
 }
-void VideoDecoderInterceptorForTesting::Initialize(const ::media::VideoDecoderConfig& config, bool low_delay, const absl::optional<::base::UnguessableToken>& cdm_id, InitializeCallback callback) {
+void VideoDecoderInterceptorForTesting::Initialize(const ::media::VideoDecoderConfig& config, bool low_delay, const std::optional<::base::UnguessableToken>& cdm_id, InitializeCallback callback) {
   GetForwardingInterface()->Initialize(std::move(config), std::move(low_delay), std::move(cdm_id), std::move(callback));
 }
 void VideoDecoderInterceptorForTesting::Decode(::media::mojom::DecoderBufferPtr buffer, DecodeCallback callback) {
@@ -2262,7 +2300,7 @@ void VideoDecoderAsyncWaiter::GetSupportedConfigs(
 
 
 void VideoDecoderAsyncWaiter::Initialize(
-    const ::media::VideoDecoderConfig& config, bool low_delay, const absl::optional<::base::UnguessableToken>& cdm_id, ::media::DecoderStatus* out_status, bool* out_needs_bitstream_conversion, int32_t* out_max_decode_requests, ::media::VideoDecoderType* out_decoder_type) {
+    const ::media::VideoDecoderConfig& config, bool low_delay, const std::optional<::base::UnguessableToken>& cdm_id, ::media::DecoderStatus* out_status, bool* out_needs_bitstream_conversion, int32_t* out_max_decode_requests, ::media::VideoDecoderType* out_decoder_type) {
   base::RunLoop loop;
   proxy_->Initialize(std::move(config),std::move(low_delay),std::move(cdm_id),
       base::BindOnce(
@@ -2331,7 +2369,7 @@ void VideoDecoderAsyncWaiter::Reset(
 
 
 
-void VideoDecoderClientInterceptorForTesting::OnVideoFrameDecoded(const ::scoped_refptr<::media::VideoFrame>& frame, bool can_read_without_stalling, const absl::optional<::base::UnguessableToken>& release_token) {
+void VideoDecoderClientInterceptorForTesting::OnVideoFrameDecoded(const ::scoped_refptr<::media::VideoFrame>& frame, bool can_read_without_stalling, const std::optional<::base::UnguessableToken>& release_token) {
   GetForwardingInterface()->OnVideoFrameDecoded(std::move(frame), std::move(can_read_without_stalling), std::move(release_token));
 }
 void VideoDecoderClientInterceptorForTesting::OnWaiting(::media::WaitingReason reason) {

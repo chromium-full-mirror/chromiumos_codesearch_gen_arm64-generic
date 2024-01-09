@@ -6,5 +6,6 @@
  */
 export var Flag;
 (function (Flag) {
-    Flag["TIME_LAPSE"] = "timeLapse";
+    Flag["AUTO_QR"] = "auto_qr";
+    Flag["DIGITAL_ZOOM"] = "digital_zoom";
 })(Flag || (Flag = {}));

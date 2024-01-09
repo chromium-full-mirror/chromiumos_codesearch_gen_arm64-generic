@@ -116,12 +116,14 @@ const MS_OS_20_PLATFORM_CAPABILITY_UUID = [
     0x9F,
 ];
 export class DescriptorPanel {
+    usbDeviceProxy_;
+    rootElement_;
+    stringDescriptorPanel_ = null;
+    languageCodesListElement_ = null;
+    indexInput_ = null;
+    stringDescriptorIndexes = new Set();
+    indexesListElement = null;
     constructor(usbDeviceProxy, rootElement) {
-        this.stringDescriptorPanel_ = null;
-        this.languageCodesListElement_ = null;
-        this.indexInput_ = null;
-        this.stringDescriptorIndexes = new Set();
-        this.indexesListElement = null;
         this.usbDeviceProxy_ = usbDeviceProxy;
         this.rootElement_ = rootElement;
     }

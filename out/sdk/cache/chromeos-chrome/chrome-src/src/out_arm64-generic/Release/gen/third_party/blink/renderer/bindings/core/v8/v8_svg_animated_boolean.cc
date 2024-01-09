@@ -67,11 +67,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, SVGAnimatedBoolean>::value,
     "SVGAnimatedBoolean inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&SVGAnimatedBoolean::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "SVGAnimatedBoolean is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -84,8 +79,9 @@ BLINK_BINDINGS_TRACE_EVENT("SVGAnimatedBoolean.baseVal.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGAnimatedBoolean* blink_receiver = V8SVGAnimatedBoolean::ToWrappableUnsafe(v8_receiver);
+SVGAnimatedBoolean* blink_receiver = V8SVGAnimatedBoolean::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->baseVal();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -97,9 +93,9 @@ BLINK_BINDINGS_TRACE_EVENT("SVGAnimatedBoolean.baseVal.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGAnimatedBoolean* blink_receiver = V8SVGAnimatedBoolean::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGAnimatedBoolean* blink_receiver = V8SVGAnimatedBoolean::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "SVGAnimatedBoolean";
@@ -123,8 +119,9 @@ BLINK_BINDINGS_TRACE_EVENT("SVGAnimatedBoolean.animVal.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGAnimatedBoolean* blink_receiver = V8SVGAnimatedBoolean::ToWrappableUnsafe(v8_receiver);
+SVGAnimatedBoolean* blink_receiver = V8SVGAnimatedBoolean::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->animVal();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }

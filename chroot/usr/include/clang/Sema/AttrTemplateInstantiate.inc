@@ -187,8 +187,32 @@ Attr *instantiateTemplateAttribute(const Attr *At, ASTContext &C, Sema &S,
       const auto *A = cast<ArmBuiltinAliasAttr>(At);
       return A->clone(C);
     }
+    case attr::ArmLocallyStreaming: {
+      const auto *A = cast<ArmLocallyStreamingAttr>(At);
+      return A->clone(C);
+    }
     case attr::ArmMveStrictPolymorphism: {
       const auto *A = cast<ArmMveStrictPolymorphismAttr>(At);
+      return A->clone(C);
+    }
+    case attr::ArmNewZA: {
+      const auto *A = cast<ArmNewZAAttr>(At);
+      return A->clone(C);
+    }
+    case attr::ArmPreservesZA: {
+      const auto *A = cast<ArmPreservesZAAttr>(At);
+      return A->clone(C);
+    }
+    case attr::ArmSharedZA: {
+      const auto *A = cast<ArmSharedZAAttr>(At);
+      return A->clone(C);
+    }
+    case attr::ArmStreaming: {
+      const auto *A = cast<ArmStreamingAttr>(At);
+      return A->clone(C);
+    }
+    case attr::ArmStreamingCompatible: {
+      const auto *A = cast<ArmStreamingCompatibleAttr>(At);
       return A->clone(C);
     }
     case attr::Artificial: {
@@ -260,6 +284,10 @@ Attr *instantiateTemplateAttribute(const Attr *At, ASTContext &C, Sema &S,
     }
     case attr::Availability: {
       const auto *A = cast<AvailabilityAttr>(At);
+      return A->clone(C);
+    }
+    case attr::AvailableOnlyInDefaultEvalMethod: {
+      const auto *A = cast<AvailableOnlyInDefaultEvalMethodAttr>(At);
       return A->clone(C);
     }
     case attr::BPFPreserveAccessIndex: {
@@ -1826,7 +1854,25 @@ Attr *instantiateTemplateAttributeForDecl(const Attr *At,
     case attr::ArmBuiltinAlias: {
       return nullptr;
     }
+    case attr::ArmLocallyStreaming: {
+      return nullptr;
+    }
     case attr::ArmMveStrictPolymorphism: {
+      return nullptr;
+    }
+    case attr::ArmNewZA: {
+      return nullptr;
+    }
+    case attr::ArmPreservesZA: {
+      return nullptr;
+    }
+    case attr::ArmSharedZA: {
+      return nullptr;
+    }
+    case attr::ArmStreaming: {
+      return nullptr;
+    }
+    case attr::ArmStreamingCompatible: {
       return nullptr;
     }
     case attr::Artificial: {
@@ -1851,6 +1897,9 @@ Attr *instantiateTemplateAttributeForDecl(const Attr *At,
       return nullptr;
     }
     case attr::Availability: {
+      return nullptr;
+    }
+    case attr::AvailableOnlyInDefaultEvalMethod: {
       return nullptr;
     }
     case attr::BPFPreserveAccessIndex: {

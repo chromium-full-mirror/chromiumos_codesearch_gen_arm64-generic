@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "extensions/common/api/app_runtime.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -38,8 +39,8 @@ LaunchItem::Entry::Entry()
  {}
 
 LaunchItem::Entry::~Entry() = default;
-LaunchItem::Entry::Entry(Entry&& rhs) = default;
-LaunchItem::Entry& LaunchItem::Entry::operator=(Entry&& rhs) = default;
+LaunchItem::Entry::Entry(Entry&& rhs) noexcept = default;
+LaunchItem::Entry& LaunchItem::Entry::operator=(Entry&& rhs) noexcept = default;
 LaunchItem::Entry LaunchItem::Entry::Clone() const {
   Entry out;
   return out;
@@ -62,21 +63,21 @@ bool LaunchItem::Entry::Populate(
 }
 
 // static
-absl::optional<LaunchItem::Entry> LaunchItem::Entry::FromValue(const base::Value::Dict& value) {
+std::optional<LaunchItem::Entry> LaunchItem::Entry::FromValue(const base::Value::Dict& value) {
   Entry out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<LaunchItem::Entry> LaunchItem::Entry::FromValue(const base::Value& value) {
+std::optional<LaunchItem::Entry> LaunchItem::Entry::FromValue(const base::Value& value) {
   Entry out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -95,8 +96,8 @@ LaunchItem::LaunchItem()
  {}
 
 LaunchItem::~LaunchItem() = default;
-LaunchItem::LaunchItem(LaunchItem&& rhs) = default;
-LaunchItem& LaunchItem::operator=(LaunchItem&& rhs) = default;
+LaunchItem::LaunchItem(LaunchItem&& rhs) noexcept = default;
+LaunchItem& LaunchItem::operator=(LaunchItem&& rhs) noexcept = default;
 LaunchItem LaunchItem::Clone() const {
   LaunchItem out;
   out.entry = entry.Clone();
@@ -125,7 +126,7 @@ bool LaunchItem::Populate(
     {
       auto* temp = (*type_value).GetIfString();
       if (!temp) {
-        out.type = absl::nullopt;
+        out.type = std::nullopt;
         return false;
       }
       out.type = *temp;
@@ -145,34 +146,21 @@ bool LaunchItem::Populate(
 }
 
 // static
-std::unique_ptr<LaunchItem> LaunchItem::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<LaunchItem>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<LaunchItem> LaunchItem::FromValue(const base::Value::Dict& value) {
+  LaunchItem out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<LaunchItem> LaunchItem::FromValue(const base::Value::Dict& value) {
+std::optional<LaunchItem> LaunchItem::FromValue(const base::Value& value) {
   LaunchItem out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<LaunchItem> LaunchItem::FromValue(const base::Value& value) {
-  LaunchItem out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -331,8 +319,8 @@ ActionData::ActionData()
 : action_type() {}
 
 ActionData::~ActionData() = default;
-ActionData::ActionData(ActionData&& rhs) = default;
-ActionData& ActionData::operator=(ActionData&& rhs) = default;
+ActionData::ActionData(ActionData&& rhs) noexcept = default;
+ActionData& ActionData::operator=(ActionData&& rhs) noexcept = default;
 ActionData ActionData::Clone() const {
   ActionData out;
   out.action_type = action_type;
@@ -364,7 +352,7 @@ bool ActionData::Populate(
     {
       auto temp = (*is_lock_screen_action_value).GetIfBool();
       if (!temp.has_value()) {
-        out.is_lock_screen_action = absl::nullopt;
+        out.is_lock_screen_action = std::nullopt;
         return false;
       }
       out.is_lock_screen_action = *temp;
@@ -376,7 +364,7 @@ bool ActionData::Populate(
     {
       auto temp = (*restore_last_action_state_value).GetIfBool();
       if (!temp.has_value()) {
-        out.restore_last_action_state = absl::nullopt;
+        out.restore_last_action_state = std::nullopt;
         return false;
       }
       out.restore_last_action_state = *temp;
@@ -396,34 +384,21 @@ bool ActionData::Populate(
 }
 
 // static
-std::unique_ptr<ActionData> ActionData::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ActionData>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ActionData> ActionData::FromValue(const base::Value::Dict& value) {
+  ActionData out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ActionData> ActionData::FromValue(const base::Value::Dict& value) {
+std::optional<ActionData> ActionData::FromValue(const base::Value& value) {
   ActionData out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ActionData> ActionData::FromValue(const base::Value& value) {
-  ActionData out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -450,8 +425,8 @@ LaunchData::LaunchData()
 : source() {}
 
 LaunchData::~LaunchData() = default;
-LaunchData::LaunchData(LaunchData&& rhs) = default;
-LaunchData& LaunchData::operator=(LaunchData&& rhs) = default;
+LaunchData::LaunchData(LaunchData&& rhs) noexcept = default;
+LaunchData& LaunchData::operator=(LaunchData&& rhs) noexcept = default;
 LaunchData LaunchData::Clone() const {
   LaunchData out;
   out.id = id;
@@ -483,7 +458,7 @@ bool LaunchData::Populate(
     {
       auto* temp = (*id_value).GetIfString();
       if (!temp) {
-        out.id = absl::nullopt;
+        out.id = std::nullopt;
         return false;
       }
       out.id = *temp;
@@ -509,7 +484,7 @@ bool LaunchData::Populate(
     {
       auto* temp = (*url_value).GetIfString();
       if (!temp) {
-        out.url = absl::nullopt;
+        out.url = std::nullopt;
         return false;
       }
       out.url = *temp;
@@ -521,7 +496,7 @@ bool LaunchData::Populate(
     {
       auto* temp = (*referrer_url_value).GetIfString();
       if (!temp) {
-        out.referrer_url = absl::nullopt;
+        out.referrer_url = std::nullopt;
         return false;
       }
       out.referrer_url = *temp;
@@ -533,7 +508,7 @@ bool LaunchData::Populate(
     {
       auto temp = (*is_demo_session_value).GetIfBool();
       if (!temp.has_value()) {
-        out.is_demo_session = absl::nullopt;
+        out.is_demo_session = std::nullopt;
         return false;
       }
       out.is_demo_session = *temp;
@@ -545,7 +520,7 @@ bool LaunchData::Populate(
     {
       auto temp = (*is_kiosk_session_value).GetIfBool();
       if (!temp.has_value()) {
-        out.is_kiosk_session = absl::nullopt;
+        out.is_kiosk_session = std::nullopt;
         return false;
       }
       out.is_kiosk_session = *temp;
@@ -557,7 +532,7 @@ bool LaunchData::Populate(
     {
       auto temp = (*is_public_session_value).GetIfBool();
       if (!temp.has_value()) {
-        out.is_public_session = absl::nullopt;
+        out.is_public_session = std::nullopt;
         return false;
       }
       out.is_public_session = *temp;
@@ -608,34 +583,21 @@ bool LaunchData::Populate(
 }
 
 // static
-std::unique_ptr<LaunchData> LaunchData::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<LaunchData>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<LaunchData> LaunchData::FromValue(const base::Value::Dict& value) {
+  LaunchData out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<LaunchData> LaunchData::FromValue(const base::Value::Dict& value) {
+std::optional<LaunchData> LaunchData::FromValue(const base::Value& value) {
   LaunchData out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<LaunchData> LaunchData::FromValue(const base::Value& value) {
-  LaunchData out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -688,8 +650,8 @@ EmbedRequest::EmbedRequest()
  {}
 
 EmbedRequest::~EmbedRequest() = default;
-EmbedRequest::EmbedRequest(EmbedRequest&& rhs) = default;
-EmbedRequest& EmbedRequest::operator=(EmbedRequest&& rhs) = default;
+EmbedRequest::EmbedRequest(EmbedRequest&& rhs) noexcept = default;
+EmbedRequest& EmbedRequest::operator=(EmbedRequest&& rhs) noexcept = default;
 EmbedRequest EmbedRequest::Clone() const {
   EmbedRequest out;
   out.embedder_id = embedder_id;
@@ -734,34 +696,21 @@ bool EmbedRequest::Populate(
 }
 
 // static
-std::unique_ptr<EmbedRequest> EmbedRequest::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<EmbedRequest>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<EmbedRequest> EmbedRequest::FromValue(const base::Value::Dict& value) {
+  EmbedRequest out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<EmbedRequest> EmbedRequest::FromValue(const base::Value::Dict& value) {
+std::optional<EmbedRequest> EmbedRequest::FromValue(const base::Value& value) {
   EmbedRequest out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<EmbedRequest> EmbedRequest::FromValue(const base::Value& value) {
-  EmbedRequest out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }

@@ -76,12 +76,12 @@ BLINK_BINDINGS_TRACE_EVENT("SyncIterator_FontFaceSet.next");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SyncIterator<FontFaceSet>* blink_receiver = V8SyncIteratorFontFaceSet::ToWrappableUnsafe(v8_receiver);
+SyncIterator<FontFaceSet>* blink_receiver = V8SyncIteratorFontFaceSet::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "SyncIterator_FontFaceSet";
 const char* const property_name = "next";

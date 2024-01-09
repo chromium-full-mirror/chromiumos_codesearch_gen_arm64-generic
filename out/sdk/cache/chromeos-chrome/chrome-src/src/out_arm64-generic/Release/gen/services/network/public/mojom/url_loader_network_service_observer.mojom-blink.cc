@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -316,14 +317,17 @@ void ClientCertificateResponderProxy::ContinueWithCertificate(
                         "<value of type ::mojo::PendingRemote<SSLPrivateKey>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kClientCertificateResponder_ContinueWithCertificate_Name, kFlags, 0, 0, nullptr);
@@ -387,14 +391,17 @@ void ClientCertificateResponderProxy::ContinueWithoutCertificate(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send network::mojom::ClientCertificateResponder::ContinueWithoutCertificate");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kClientCertificateResponder_ContinueWithoutCertificate_Name, kFlags, 0, 0, nullptr);
@@ -417,14 +424,17 @@ void ClientCertificateResponderProxy::CancelRequest(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send network::mojom::ClientCertificateResponder::CancelRequest");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kClientCertificateResponder_CancelRequest_Name, kFlags, 0, 0, nullptr);
@@ -556,14 +566,14 @@ bool ClientCertificateResponderStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kClientCertificateResponderValidationInfo[] = {
-    {&internal::ClientCertificateResponder_ContinueWithCertificate_Params_Data::Validate,
+    { &internal::ClientCertificateResponder_ContinueWithCertificate_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ClientCertificateResponder_ContinueWithoutCertificate_Params_Data::Validate,
+    { &internal::ClientCertificateResponder_ContinueWithoutCertificate_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ClientCertificateResponder_CancelRequest_Params_Data::Validate,
+    { &internal::ClientCertificateResponder_CancelRequest_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -662,14 +672,17 @@ void SSLPrivateKeyProxy::Sign(
                         "<value of type const WTF::Vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSSLPrivateKey_Sign_Name, kFlags, 0, 0, nullptr);
@@ -800,7 +813,8 @@ void SSLPrivateKey_Sign_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSSLPrivateKey_Sign_Name, kFlags, 0, 0, nullptr);
@@ -897,10 +911,10 @@ std::move(p_input), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSSLPrivateKeyValidationInfo[] = {
-    {&internal::SSLPrivateKey_Sign_Params_Data::Validate,
+    { &internal::SSLPrivateKey_Sign_Params_Data::Validate,
      &internal::SSLPrivateKey_Sign_ResponseParams_Data::Validate},
 };
 
@@ -984,14 +998,17 @@ void AuthChallengeResponderProxy::OnAuthCredentials(
                         "<value of type ::network::mojom::blink::AuthCredentialsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAuthChallengeResponder_OnAuthCredentials_Name, kFlags, 0, 0, nullptr);
@@ -1066,10 +1083,10 @@ bool AuthChallengeResponderStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kAuthChallengeResponderValidationInfo[] = {
-    {&internal::AuthChallengeResponder_OnAuthCredentials_Params_Data::Validate,
+    { &internal::AuthChallengeResponder_OnAuthCredentials_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1398,14 +1415,17 @@ void URLLoaderNetworkServiceObserverProxy::OnSSLCertificateError(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kURLLoaderNetworkServiceObserver_OnSSLCertificateError_Name, kFlags, 0, 0, nullptr);
@@ -1449,7 +1469,7 @@ void URLLoaderNetworkServiceObserverProxy::OnSSLCertificateError(
 }
 
 void URLLoaderNetworkServiceObserverProxy::OnCertificateRequested(
-    const absl::optional<::base::UnguessableToken>& in_window_id, ::network::mojom::blink::SSLCertRequestInfoPtr in_cert_info, ::mojo::PendingRemote<ClientCertificateResponder> in_cert_responder) {
+    const std::optional<::base::UnguessableToken>& in_window_id, ::network::mojom::blink::SSLCertRequestInfoPtr in_cert_info, ::mojo::PendingRemote<ClientCertificateResponder> in_cert_responder) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send network::mojom::URLLoaderNetworkServiceObserver::OnCertificateRequested", "input_parameters",
@@ -1457,7 +1477,7 @@ void URLLoaderNetworkServiceObserverProxy::OnCertificateRequested(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("window_id"), in_window_id,
-                        "<value of type const absl::optional<::base::UnguessableToken>&>");
+                        "<value of type const std::optional<::base::UnguessableToken>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("cert_info"), in_cert_info,
                         "<value of type ::network::mojom::blink::SSLCertRequestInfoPtr>");
@@ -1466,14 +1486,17 @@ void URLLoaderNetworkServiceObserverProxy::OnCertificateRequested(
                         "<value of type ::mojo::PendingRemote<ClientCertificateResponder>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kURLLoaderNetworkServiceObserver_OnCertificateRequested_Name, kFlags, 0, 0, nullptr);
@@ -1516,7 +1539,7 @@ void URLLoaderNetworkServiceObserverProxy::OnCertificateRequested(
 }
 
 void URLLoaderNetworkServiceObserverProxy::OnAuthRequired(
-    const absl::optional<::base::UnguessableToken>& in_window_id, uint32_t in_request_id, const ::blink::KURL& in_url, bool in_first_auth_attempt, const ::net::AuthChallengeInfo& in_auth_info, ::network::mojom::blink::HttpResponseHeadersPtr in_head_headers, ::mojo::PendingRemote<AuthChallengeResponder> in_auth_challenge_responder) {
+    const std::optional<::base::UnguessableToken>& in_window_id, uint32_t in_request_id, const ::blink::KURL& in_url, bool in_first_auth_attempt, const ::net::AuthChallengeInfo& in_auth_info, ::network::mojom::blink::HttpResponseHeadersPtr in_head_headers, ::mojo::PendingRemote<AuthChallengeResponder> in_auth_challenge_responder) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send network::mojom::URLLoaderNetworkServiceObserver::OnAuthRequired", "input_parameters",
@@ -1524,7 +1547,7 @@ void URLLoaderNetworkServiceObserverProxy::OnAuthRequired(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("window_id"), in_window_id,
-                        "<value of type const absl::optional<::base::UnguessableToken>&>");
+                        "<value of type const std::optional<::base::UnguessableToken>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("request_id"), in_request_id,
                         "<value of type uint32_t>");
@@ -1545,14 +1568,17 @@ void URLLoaderNetworkServiceObserverProxy::OnAuthRequired(
                         "<value of type ::mojo::PendingRemote<AuthChallengeResponder>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kURLLoaderNetworkServiceObserver_OnAuthRequired_Name, kFlags, 0, 0, nullptr);
@@ -1635,14 +1661,17 @@ void URLLoaderNetworkServiceObserverProxy::OnPrivateNetworkAccessPermissionRequi
                         "<value of type const WTF::String&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kURLLoaderNetworkServiceObserver_OnPrivateNetworkAccessPermissionRequired_Name, kFlags, 0, 0, nullptr);
@@ -1721,14 +1750,17 @@ void URLLoaderNetworkServiceObserverProxy::OnClearSiteData(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kURLLoaderNetworkServiceObserver_OnClearSiteData_Name, kFlags, 0, 0, nullptr);
@@ -1790,14 +1822,17 @@ void URLLoaderNetworkServiceObserverProxy::OnLoadingStateUpdate(
                         "<value of type LoadInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kURLLoaderNetworkServiceObserver_OnLoadingStateUpdate_Name, kFlags, 0, 0, nullptr);
@@ -1845,14 +1880,17 @@ void URLLoaderNetworkServiceObserverProxy::OnDataUseUpdate(
                         "<value of type int64_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kURLLoaderNetworkServiceObserver_OnDataUseUpdate_Name, kFlags, 0, 0, nullptr);
@@ -1888,14 +1926,17 @@ void URLLoaderNetworkServiceObserverProxy::OnSharedStorageHeaderReceived(
                         "<value of type WTF::Vector<SharedStorageOperationPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kURLLoaderNetworkServiceObserver_OnSharedStorageHeaderReceived_Name, kFlags, 0, 0, nullptr);
@@ -1950,14 +1991,17 @@ void URLLoaderNetworkServiceObserverProxy::Clone(
                         "<value of type ::mojo::PendingReceiver<URLLoaderNetworkServiceObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kURLLoaderNetworkServiceObserver_Clone_Name, kFlags, 0, 0, nullptr);
@@ -2072,7 +2116,8 @@ void URLLoaderNetworkServiceObserver_OnSSLCertificateError_ProxyToResponder::Run
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kURLLoaderNetworkServiceObserver_OnSSLCertificateError_Name, kFlags, 0, 0, nullptr);
@@ -2190,7 +2235,8 @@ void URLLoaderNetworkServiceObserver_OnPrivateNetworkAccessPermissionRequired_Pr
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kURLLoaderNetworkServiceObserver_OnPrivateNetworkAccessPermissionRequired_Name, kFlags, 0, 0, nullptr);
@@ -2297,7 +2343,8 @@ void URLLoaderNetworkServiceObserver_OnClearSiteData_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kURLLoaderNetworkServiceObserver_OnClearSiteData_Name, kFlags, 0, 0, nullptr);
@@ -2403,7 +2450,8 @@ void URLLoaderNetworkServiceObserver_OnLoadingStateUpdate_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kURLLoaderNetworkServiceObserver_OnLoadingStateUpdate_Name, kFlags, 0, 0, nullptr);
@@ -2509,7 +2557,8 @@ void URLLoaderNetworkServiceObserver_OnSharedStorageHeaderReceived_ProxyToRespon
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kURLLoaderNetworkServiceObserver_OnSharedStorageHeaderReceived_Name, kFlags, 0, 0, nullptr);
@@ -2551,7 +2600,7 @@ bool URLLoaderNetworkServiceObserverStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      absl::optional<::base::UnguessableToken> p_window_id{};
+      std::optional<::base::UnguessableToken> p_window_id{};
       ::network::mojom::blink::SSLCertRequestInfoPtr p_cert_info{};
       ::mojo::PendingRemote<ClientCertificateResponder> p_cert_responder{};
       URLLoaderNetworkServiceObserver_OnCertificateRequested_ParamsDataView input_data_view(params, message);
@@ -2587,7 +2636,7 @@ std::move(p_cert_responder));
               message->mutable_payload());
       
       bool success = true;
-      absl::optional<::base::UnguessableToken> p_window_id{};
+      std::optional<::base::UnguessableToken> p_window_id{};
       uint32_t p_request_id{};
       ::blink::KURL p_url{};
       bool p_first_auth_attempt{};
@@ -2922,26 +2971,26 @@ std::move(p_operations), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kURLLoaderNetworkServiceObserverValidationInfo[] = {
-    {&internal::URLLoaderNetworkServiceObserver_OnSSLCertificateError_Params_Data::Validate,
+    { &internal::URLLoaderNetworkServiceObserver_OnSSLCertificateError_Params_Data::Validate,
      &internal::URLLoaderNetworkServiceObserver_OnSSLCertificateError_ResponseParams_Data::Validate},
-    {&internal::URLLoaderNetworkServiceObserver_OnCertificateRequested_Params_Data::Validate,
+    { &internal::URLLoaderNetworkServiceObserver_OnCertificateRequested_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::URLLoaderNetworkServiceObserver_OnAuthRequired_Params_Data::Validate,
+    { &internal::URLLoaderNetworkServiceObserver_OnAuthRequired_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::URLLoaderNetworkServiceObserver_OnPrivateNetworkAccessPermissionRequired_Params_Data::Validate,
+    { &internal::URLLoaderNetworkServiceObserver_OnPrivateNetworkAccessPermissionRequired_Params_Data::Validate,
      &internal::URLLoaderNetworkServiceObserver_OnPrivateNetworkAccessPermissionRequired_ResponseParams_Data::Validate},
-    {&internal::URLLoaderNetworkServiceObserver_OnClearSiteData_Params_Data::Validate,
+    { &internal::URLLoaderNetworkServiceObserver_OnClearSiteData_Params_Data::Validate,
      &internal::URLLoaderNetworkServiceObserver_OnClearSiteData_ResponseParams_Data::Validate},
-    {&internal::URLLoaderNetworkServiceObserver_OnLoadingStateUpdate_Params_Data::Validate,
+    { &internal::URLLoaderNetworkServiceObserver_OnLoadingStateUpdate_Params_Data::Validate,
      &internal::URLLoaderNetworkServiceObserver_OnLoadingStateUpdate_ResponseParams_Data::Validate},
-    {&internal::URLLoaderNetworkServiceObserver_OnDataUseUpdate_Params_Data::Validate,
+    { &internal::URLLoaderNetworkServiceObserver_OnDataUseUpdate_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::URLLoaderNetworkServiceObserver_OnSharedStorageHeaderReceived_Params_Data::Validate,
+    { &internal::URLLoaderNetworkServiceObserver_OnSharedStorageHeaderReceived_Params_Data::Validate,
      &internal::URLLoaderNetworkServiceObserver_OnSharedStorageHeaderReceived_ResponseParams_Data::Validate},
-    {&internal::URLLoaderNetworkServiceObserver_Clone_Params_Data::Validate,
+    { &internal::URLLoaderNetworkServiceObserver_Clone_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -3079,10 +3128,10 @@ AuthChallengeResponderAsyncWaiter::~AuthChallengeResponderAsyncWaiter() = defaul
 void URLLoaderNetworkServiceObserverInterceptorForTesting::OnSSLCertificateError(const ::blink::KURL& url, int32_t net_error, ::network::mojom::blink::SSLInfoPtr ssl_info, bool fatal, OnSSLCertificateErrorCallback callback) {
   GetForwardingInterface()->OnSSLCertificateError(std::move(url), std::move(net_error), std::move(ssl_info), std::move(fatal), std::move(callback));
 }
-void URLLoaderNetworkServiceObserverInterceptorForTesting::OnCertificateRequested(const absl::optional<::base::UnguessableToken>& window_id, ::network::mojom::blink::SSLCertRequestInfoPtr cert_info, ::mojo::PendingRemote<ClientCertificateResponder> cert_responder) {
+void URLLoaderNetworkServiceObserverInterceptorForTesting::OnCertificateRequested(const std::optional<::base::UnguessableToken>& window_id, ::network::mojom::blink::SSLCertRequestInfoPtr cert_info, ::mojo::PendingRemote<ClientCertificateResponder> cert_responder) {
   GetForwardingInterface()->OnCertificateRequested(std::move(window_id), std::move(cert_info), std::move(cert_responder));
 }
-void URLLoaderNetworkServiceObserverInterceptorForTesting::OnAuthRequired(const absl::optional<::base::UnguessableToken>& window_id, uint32_t request_id, const ::blink::KURL& url, bool first_auth_attempt, const ::net::AuthChallengeInfo& auth_info, ::network::mojom::blink::HttpResponseHeadersPtr head_headers, ::mojo::PendingRemote<AuthChallengeResponder> auth_challenge_responder) {
+void URLLoaderNetworkServiceObserverInterceptorForTesting::OnAuthRequired(const std::optional<::base::UnguessableToken>& window_id, uint32_t request_id, const ::blink::KURL& url, bool first_auth_attempt, const ::net::AuthChallengeInfo& auth_info, ::network::mojom::blink::HttpResponseHeadersPtr head_headers, ::mojo::PendingRemote<AuthChallengeResponder> auth_challenge_responder) {
   GetForwardingInterface()->OnAuthRequired(std::move(window_id), std::move(request_id), std::move(url), std::move(first_auth_attempt), std::move(auth_info), std::move(head_headers), std::move(auth_challenge_responder));
 }
 void URLLoaderNetworkServiceObserverInterceptorForTesting::OnPrivateNetworkAccessPermissionRequired(const ::blink::KURL& url, const ::net::IPAddress& ip_address, const WTF::String& private_network_device_id, const WTF::String& private_network_device_name, OnPrivateNetworkAccessPermissionRequiredCallback callback) {

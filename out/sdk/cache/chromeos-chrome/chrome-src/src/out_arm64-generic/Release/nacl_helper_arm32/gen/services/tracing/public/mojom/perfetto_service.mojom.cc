@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -42,8 +43,10 @@
 #include "services/tracing/public/mojom/perfetto_service.mojom-test-utils.h"
 #include "services/tracing/public/mojom/chrome_config_mojom_traits.h"
 #include "services/tracing/public/mojom/commit_data_request_mojom_traits.h"
+#include "services/tracing/public/mojom/console_config_mojom_traits.h"
 #include "services/tracing/public/mojom/data_source_config_mojom_traits.h"
 #include "services/tracing/public/mojom/data_source_descriptor_mojom_traits.h"
+#include "services/tracing/public/mojom/interceptor_config_mojom_traits.h"
 #include "services/tracing/public/mojom/trace_config_mojom_traits.h"
 
 
@@ -342,12 +345,98 @@ bool ChromeConfig::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+ConsoleConfig::ConsoleConfig()
+    : output(),
+      enable_colors() {}
+
+ConsoleConfig::ConsoleConfig(
+    ConsoleOutput output_in,
+    bool enable_colors_in)
+    : output(std::move(output_in)),
+      enable_colors(std::move(enable_colors_in)) {}
+
+ConsoleConfig::~ConsoleConfig() = default;
+size_t ConsoleConfig::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->output);
+  seed = mojo::internal::Hash(seed, this->enable_colors);
+  return seed;
+}
+
+void ConsoleConfig::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "output"), this->output,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ConsoleOutput>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "enable_colors"), this->enable_colors,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool ConsoleConfig::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+InterceptorConfig::InterceptorConfig()
+    : name(),
+      console_config() {}
+
+InterceptorConfig::InterceptorConfig(
+    const std::string& name_in,
+    ConsoleConfigPtr console_config_in)
+    : name(std::move(name_in)),
+      console_config(std::move(console_config_in)) {}
+
+InterceptorConfig::~InterceptorConfig() = default;
+
+void InterceptorConfig::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "name"), this->name,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "console_config"), this->console_config,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ConsoleConfigPtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool InterceptorConfig::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 DataSourceConfig::DataSourceConfig()
     : name(),
       target_buffer(),
       trace_duration_ms(),
       tracing_session_id(),
       chrome_config(),
+      interceptor_config(),
       legacy_config(),
       track_event_config_raw() {}
 
@@ -357,6 +446,7 @@ DataSourceConfig::DataSourceConfig(
     uint32_t trace_duration_ms_in,
     uint64_t tracing_session_id_in,
     const ::perfetto::ChromeConfig& chrome_config_in,
+    InterceptorConfigPtr interceptor_config_in,
     const std::string& legacy_config_in,
     const std::string& track_event_config_raw_in)
     : name(std::move(name_in)),
@@ -364,6 +454,7 @@ DataSourceConfig::DataSourceConfig(
       trace_duration_ms(std::move(trace_duration_ms_in)),
       tracing_session_id(std::move(tracing_session_id_in)),
       chrome_config(std::move(chrome_config_in)),
+      interceptor_config(std::move(interceptor_config_in)),
       legacy_config(std::move(legacy_config_in)),
       track_event_config_raw(std::move(track_event_config_raw_in)) {}
 
@@ -413,6 +504,15 @@ void DataSourceConfig::WriteIntoTrace(
       "chrome_config"), this->chrome_config,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type const ::perfetto::ChromeConfig&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "interceptor_config"), this->interceptor_config,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type InterceptorConfigPtr>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -696,7 +796,8 @@ TraceConfig::TraceConfig()
       buffers(),
       incremental_state_config(),
       duration_ms(),
-      write_into_file() {}
+      write_into_file(),
+      trace_uuid() {}
 
 TraceConfig::TraceConfig(
     std::vector<DataSourcePtr> data_sources_in,
@@ -704,13 +805,15 @@ TraceConfig::TraceConfig(
     std::vector<BufferConfigPtr> buffers_in,
     const ::perfetto::TraceConfig::IncrementalStateConfig& incremental_state_config_in,
     uint32_t duration_ms_in,
-    bool write_into_file_in)
+    bool write_into_file_in,
+    const std::optional<::base::Token>& trace_uuid_in)
     : data_sources(std::move(data_sources_in)),
       perfetto_builtin_data_source(std::move(perfetto_builtin_data_source_in)),
       buffers(std::move(buffers_in)),
       incremental_state_config(std::move(incremental_state_config_in)),
       duration_ms(std::move(duration_ms_in)),
-      write_into_file(std::move(write_into_file_in)) {}
+      write_into_file(std::move(write_into_file_in)),
+      trace_uuid(std::move(trace_uuid_in)) {}
 
 TraceConfig::~TraceConfig() = default;
 
@@ -767,6 +870,15 @@ void TraceConfig::WriteIntoTrace(
       "write_into_file"), this->write_into_file,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "trace_uuid"), this->trace_uuid,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::optional<::base::Token>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -925,14 +1037,17 @@ void ProducerHostProxy::CommitData(
                         "<value of type const ::perfetto::CommitDataRequest&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProducerHost_CommitData_Name, kFlags, 0, 0, nullptr);
@@ -974,14 +1089,17 @@ void ProducerHostProxy::RegisterDataSource(
                         "<value of type const ::perfetto::DataSourceDescriptor&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProducerHost_RegisterDataSource_Name, kFlags, 0, 0, nullptr);
@@ -1025,14 +1143,17 @@ void ProducerHostProxy::RegisterTraceWriter(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProducerHost_RegisterTraceWriter_Name, kFlags, 0, 0, nullptr);
@@ -1064,14 +1185,17 @@ void ProducerHostProxy::UnregisterTraceWriter(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProducerHost_UnregisterTraceWriter_Name, kFlags, 0, 0, nullptr);
@@ -1170,7 +1294,8 @@ void ProducerHost_CommitData_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProducerHost_CommitData_Name, kFlags, 0, 0, nullptr);
@@ -1340,16 +1465,16 @@ std::move(p_data_request), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kProducerHostValidationInfo[] = {
-    {&internal::ProducerHost_CommitData_Params_Data::Validate,
+    { &internal::ProducerHost_CommitData_Params_Data::Validate,
      &internal::ProducerHost_CommitData_ResponseParams_Data::Validate},
-    {&internal::ProducerHost_RegisterDataSource_Params_Data::Validate,
+    { &internal::ProducerHost_RegisterDataSource_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ProducerHost_RegisterTraceWriter_Params_Data::Validate,
+    { &internal::ProducerHost_RegisterTraceWriter_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ProducerHost_UnregisterTraceWriter_Params_Data::Validate,
+    { &internal::ProducerHost_UnregisterTraceWriter_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1538,14 +1663,17 @@ void ProducerClientProxy::OnTracingStart(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send tracing::mojom::ProducerClient::OnTracingStart");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProducerClient_OnTracingStart_Name, kFlags, 0, 0, nullptr);
@@ -1578,14 +1706,17 @@ void ProducerClientProxy::StartDataSource(
                         "<value of type const ::perfetto::DataSourceConfig&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProducerClient_StartDataSource_Name, kFlags, 0, 0, nullptr);
@@ -1628,14 +1759,17 @@ void ProducerClientProxy::StopDataSource(
                         "<value of type uint64_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProducerClient_StopDataSource_Name, kFlags, 0, 0, nullptr);
@@ -1670,14 +1804,17 @@ void ProducerClientProxy::Flush(
                         "<value of type const std::vector<uint64_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProducerClient_Flush_Name, kFlags, 0, 0, nullptr);
@@ -1714,14 +1851,17 @@ void ProducerClientProxy::ClearIncrementalState(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send tracing::mojom::ProducerClient::ClearIncrementalState");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProducerClient_ClearIncrementalState_Name, kFlags, 0, 0, nullptr);
@@ -1819,7 +1959,8 @@ void ProducerClient_StartDataSource_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProducerClient_StartDataSource_Name, kFlags, 0, 0, nullptr);
@@ -1925,7 +2066,8 @@ void ProducerClient_StopDataSource_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kProducerClient_StopDataSource_Name, kFlags, 0, 0, nullptr);
@@ -2123,18 +2265,18 @@ std::move(p_id), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kProducerClientValidationInfo[] = {
-    {&internal::ProducerClient_OnTracingStart_Params_Data::Validate,
+    { &internal::ProducerClient_OnTracingStart_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ProducerClient_StartDataSource_Params_Data::Validate,
+    { &internal::ProducerClient_StartDataSource_Params_Data::Validate,
      &internal::ProducerClient_StartDataSource_ResponseParams_Data::Validate},
-    {&internal::ProducerClient_StopDataSource_Params_Data::Validate,
+    { &internal::ProducerClient_StopDataSource_Params_Data::Validate,
      &internal::ProducerClient_StopDataSource_ResponseParams_Data::Validate},
-    {&internal::ProducerClient_Flush_Params_Data::Validate,
+    { &internal::ProducerClient_Flush_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ProducerClient_ClearIncrementalState_Params_Data::Validate,
+    { &internal::ProducerClient_ClearIncrementalState_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2227,14 +2369,17 @@ void PerfettoServiceProxy::ConnectToProducerHost(
                         "<value of type uint64_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPerfettoService_ConnectToProducerHost_Name, kFlags, 0, 0, nullptr);
@@ -2342,10 +2487,10 @@ bool PerfettoServiceStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPerfettoServiceValidationInfo[] = {
-    {&internal::PerfettoService_ConnectToProducerHost_Params_Data::Validate,
+    { &internal::PerfettoService_ConnectToProducerHost_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2434,14 +2579,17 @@ void ConsumerHostProxy::EnableTracing(
                         "<value of type ::base::File>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kConsumerHost_EnableTracing_Name, kFlags, 0, 0, nullptr);
@@ -2555,10 +2703,10 @@ bool ConsumerHostStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kConsumerHostValidationInfo[] = {
-    {&internal::ConsumerHost_EnableTracing_Params_Data::Validate,
+    { &internal::ConsumerHost_EnableTracing_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2766,14 +2914,17 @@ void TracingSessionHostProxy::ChangeTraceConfig(
                         "<value of type const ::perfetto::TraceConfig&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTracingSessionHost_ChangeTraceConfig_Name, kFlags, 0, 0, nullptr);
@@ -2807,14 +2958,17 @@ void TracingSessionHostProxy::DisableTracing(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send tracing::mojom::TracingSessionHost::DisableTracing");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTracingSessionHost_DisableTracing_Name, kFlags, 0, 0, nullptr);
@@ -2844,14 +2998,17 @@ void TracingSessionHostProxy::ReadBuffers(
                         "<value of type ::mojo::ScopedDataPipeProducerHandle>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTracingSessionHost_ReadBuffers_Name, kFlags, 0, 0, nullptr);
@@ -2881,14 +3038,17 @@ void TracingSessionHostProxy::RequestBufferUsage(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send tracing::mojom::TracingSessionHost::RequestBufferUsage");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTracingSessionHost_RequestBufferUsage_Name, kFlags, 0, 0, nullptr);
@@ -2925,14 +3085,17 @@ void TracingSessionHostProxy::DisableTracingAndEmitJson(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTracingSessionHost_DisableTracingAndEmitJson_Name, kFlags, 0, 0, nullptr);
@@ -3049,7 +3212,8 @@ void TracingSessionHost_ReadBuffers_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTracingSessionHost_ReadBuffers_Name, kFlags, 0, 0, nullptr);
@@ -3180,7 +3344,8 @@ void TracingSessionHost_RequestBufferUsage_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTracingSessionHost_RequestBufferUsage_Name, kFlags, 0, 0, nullptr);
@@ -3289,7 +3454,8 @@ void TracingSessionHost_DisableTracingAndEmitJson_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTracingSessionHost_DisableTracingAndEmitJson_Name, kFlags, 0, 0, nullptr);
@@ -3490,18 +3656,18 @@ std::move(p_privacy_filtering_enabled), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kTracingSessionHostValidationInfo[] = {
-    {&internal::TracingSessionHost_ChangeTraceConfig_Params_Data::Validate,
+    { &internal::TracingSessionHost_ChangeTraceConfig_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::TracingSessionHost_DisableTracing_Params_Data::Validate,
+    { &internal::TracingSessionHost_DisableTracing_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::TracingSessionHost_ReadBuffers_Params_Data::Validate,
+    { &internal::TracingSessionHost_ReadBuffers_Params_Data::Validate,
      &internal::TracingSessionHost_ReadBuffers_ResponseParams_Data::Validate},
-    {&internal::TracingSessionHost_RequestBufferUsage_Params_Data::Validate,
+    { &internal::TracingSessionHost_RequestBufferUsage_Params_Data::Validate,
      &internal::TracingSessionHost_RequestBufferUsage_ResponseParams_Data::Validate},
-    {&internal::TracingSessionHost_DisableTracingAndEmitJson_Params_Data::Validate,
+    { &internal::TracingSessionHost_DisableTracingAndEmitJson_Params_Data::Validate,
      &internal::TracingSessionHost_DisableTracingAndEmitJson_ResponseParams_Data::Validate},
 };
 
@@ -3598,14 +3764,17 @@ void TracingSessionClientProxy::OnTracingEnabled(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send tracing::mojom::TracingSessionClient::OnTracingEnabled");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTracingSessionClient_OnTracingEnabled_Name, kFlags, 0, 0, nullptr);
@@ -3635,14 +3804,17 @@ void TracingSessionClientProxy::OnTracingDisabled(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTracingSessionClient_OnTracingDisabled_Name, kFlags, 0, 0, nullptr);
@@ -3736,12 +3908,12 @@ bool TracingSessionClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kTracingSessionClientValidationInfo[] = {
-    {&internal::TracingSessionClient_OnTracingEnabled_Params_Data::Validate,
+    { &internal::TracingSessionClient_OnTracingEnabled_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::TracingSessionClient_OnTracingDisabled_Params_Data::Validate,
+    { &internal::TracingSessionClient_OnTracingDisabled_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -3853,6 +4025,38 @@ bool StructTraits<::tracing::mojom::ChromeConfig::DataView, ::tracing::mojom::Ch
 
 
 // static
+bool StructTraits<::tracing::mojom::ConsoleConfig::DataView, ::tracing::mojom::ConsoleConfigPtr>::Read(
+    ::tracing::mojom::ConsoleConfig::DataView input,
+    ::tracing::mojom::ConsoleConfigPtr* output) {
+  bool success = true;
+  ::tracing::mojom::ConsoleConfigPtr result(::tracing::mojom::ConsoleConfig::New());
+  
+      if (success && !input.ReadOutput(&result->output))
+        success = false;
+      if (success)
+        result->enable_colors = input.enable_colors();
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::tracing::mojom::InterceptorConfig::DataView, ::tracing::mojom::InterceptorConfigPtr>::Read(
+    ::tracing::mojom::InterceptorConfig::DataView input,
+    ::tracing::mojom::InterceptorConfigPtr* output) {
+  bool success = true;
+  ::tracing::mojom::InterceptorConfigPtr result(::tracing::mojom::InterceptorConfig::New());
+  
+      if (success && !input.ReadName(&result->name))
+        success = false;
+      if (success && !input.ReadConsoleConfig(&result->console_config))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
 bool StructTraits<::tracing::mojom::DataSourceConfig::DataView, ::tracing::mojom::DataSourceConfigPtr>::Read(
     ::tracing::mojom::DataSourceConfig::DataView input,
     ::tracing::mojom::DataSourceConfigPtr* output) {
@@ -3868,6 +4072,8 @@ bool StructTraits<::tracing::mojom::DataSourceConfig::DataView, ::tracing::mojom
       if (success)
         result->tracing_session_id = input.tracing_session_id();
       if (success && !input.ReadChromeConfig(&result->chrome_config))
+        success = false;
+      if (success && !input.ReadInterceptorConfig(&result->interceptor_config))
         success = false;
       if (success && !input.ReadLegacyConfig(&result->legacy_config))
         success = false;
@@ -3985,6 +4191,8 @@ bool StructTraits<::tracing::mojom::TraceConfig::DataView, ::tracing::mojom::Tra
         result->duration_ms = input.duration_ms();
       if (success)
         result->write_into_file = input.write_into_file();
+      if (success && !input.ReadTraceUuid(&result->trace_uuid))
+        success = false;
   *output = std::move(result);
   return success;
 }

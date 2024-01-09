@@ -36,8 +36,6 @@ NOINLINE static const char* AppTypeToStringHelper(AppType value) {
       return "kChromeApp";
     case AppType::kWeb:
       return "kWeb";
-    case AppType::kMacOs:
-      return "kMacOs";
     case AppType::kPluginVm:
       return "kPluginVm";
     case AppType::kStandaloneBrowser:
@@ -71,32 +69,6 @@ std::string AppTypeToString(AppType value) {
 
 std::ostream& operator<<(std::ostream& os, AppType value) {
   return os << AppTypeToString(value);
-}
-
-NOINLINE static const char* OptionalBoolToStringHelper(OptionalBool value) {
-  // Defined in a helper function to ensure that Clang generates a lookup table.
-  switch(value) {
-    case OptionalBool::kUnknown:
-      return "kUnknown";
-    case OptionalBool::kFalse:
-      return "kFalse";
-    case OptionalBool::kTrue:
-      return "kTrue";
-    default:
-      return nullptr;
-  }
-}
-
-std::string OptionalBoolToString(OptionalBool value) {
-  const char *str = OptionalBoolToStringHelper(value);
-  if (!str) {
-    return base::StringPrintf("Unknown OptionalBool value: %i", static_cast<int32_t>(value));
-  }
-  return str;
-}
-
-std::ostream& operator<<(std::ostream& os, OptionalBool value) {
-  return os << OptionalBoolToString(value);
 }
 
 NOINLINE static const char* PermissionTypeToStringHelper(PermissionType value) {
@@ -412,13 +384,69 @@ RunOnOsLogin_Data::RunOnOsLogin_Data()
 
 
 // static
+bool Locale_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 32, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Locale_Data* object =
+      static_cast<const Locale_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->locale_tag, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& locale_tag_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->locale_tag, validation_context,
+                                         &locale_tag_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->display_name, 2, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& display_name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->display_name, validation_context,
+                                         &display_name_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->native_display_name, 3, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& native_display_name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->native_display_name, validation_context,
+                                         &native_display_name_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+Locale_Data::Locale_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool App_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 152, validation_context)) {
+          data, 160, validation_context)) {
     return false;
   }
 
@@ -457,16 +485,6 @@ bool App_Data::Validate(
     return false;
   }
 
-
-  if (!::app_management::mojom::internal::OptionalBool_Data
-        ::Validate(object->is_pinned, validation_context))
-    return false;
-
-
-  if (!::app_management::mojom::internal::OptionalBool_Data
-        ::Validate(object->is_policy_pinned, validation_context))
-    return false;
-
   constexpr const mojo::internal::ContainerValidateParams& version_validate_params =
       mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->version, validation_context,
@@ -482,7 +500,7 @@ bool App_Data::Validate(
   }
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->permissions, 9, validation_context)) {
+          object->permissions, 11, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& permissions_validate_params =
@@ -508,7 +526,7 @@ bool App_Data::Validate(
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->supported_links, 19, validation_context)) {
+          object->supported_links, 21, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& supported_links_validate_params =
@@ -539,7 +557,7 @@ bool App_Data::Validate(
   }
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->publisher_id, 24, validation_context)) {
+          object->publisher_id, 26, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& publisher_id_validate_params =
@@ -557,7 +575,7 @@ bool App_Data::Validate(
   }
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->scope_extensions, 26, validation_context)) {
+          object->scope_extensions, 28, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& scope_extensions_validate_params =
@@ -566,6 +584,20 @@ bool App_Data::Validate(
                                          &scope_extensions_validate_params)) {
     return false;
   }
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->supported_locales, 29, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& supported_locales_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->supported_locales, validation_context,
+                                         &supported_locales_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidateStruct(object->selected_locale, validation_context))
+    return false;
 
   return true;
 }
@@ -976,11 +1008,6 @@ bool PageHandler_SetPinned_Params_Data::Validate(
                                          &app_id_validate_params)) {
     return false;
   }
-
-
-  if (!::app_management::mojom::internal::OptionalBool_Data
-        ::Validate(object->pinned, validation_context))
-    return false;
 
   return true;
 }
@@ -1438,6 +1465,51 @@ PageHandler_OpenStorePage_Params_Data::PageHandler_OpenStorePage_Params_Data()
 
 
 // static
+bool PageHandler_SetAppLocale_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const PageHandler_SetAppLocale_Params_Data* object =
+      static_cast<const PageHandler_SetAppLocale_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->app_id, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& app_id_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->app_id, validation_context,
+                                         &app_id_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->locale_tag, 2, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& locale_tag_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->locale_tag, validation_context,
+                                         &locale_tag_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+PageHandler_SetAppLocale_Params_Data::PageHandler_SetAppLocale_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool Page_OnAppAdded_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -1540,16 +1612,6 @@ namespace perfetto {
 void TraceFormatTraits<::app_management::mojom::AppType>::WriteIntoTrace(
    perfetto::TracedValue context, ::app_management::mojom::AppType value) {
   return std::move(context).WriteString(::app_management::mojom::AppTypeToString(value));
-}
-
-} // namespace perfetto
-
-namespace perfetto {
-
-// static
-void TraceFormatTraits<::app_management::mojom::OptionalBool>::WriteIntoTrace(
-   perfetto::TracedValue context, ::app_management::mojom::OptionalBool value) {
-  return std::move(context).WriteString(::app_management::mojom::OptionalBoolToString(value));
 }
 
 } // namespace perfetto

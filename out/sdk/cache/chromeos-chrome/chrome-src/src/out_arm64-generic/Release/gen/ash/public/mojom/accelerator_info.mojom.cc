@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -119,7 +120,7 @@ StandardAcceleratorProperties::StandardAcceleratorProperties()
 StandardAcceleratorProperties::StandardAcceleratorProperties(
     const ::ui::Accelerator& accelerator_in,
     const ::std::u16string& key_display_in,
-    const absl::optional<::ui::Accelerator>& original_accelerator_in)
+    const std::optional<::ui::Accelerator>& original_accelerator_in)
     : accelerator(std::move(accelerator_in)),
       key_display(std::move(key_display_in)),
       original_accelerator(std::move(original_accelerator_in)) {}
@@ -151,7 +152,7 @@ void StandardAcceleratorProperties::WriteIntoTrace(
     dict.AddItem(
       "original_accelerator"), this->original_accelerator,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::ui::Accelerator>&>"
+      "<value of type const std::optional<::ui::Accelerator>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

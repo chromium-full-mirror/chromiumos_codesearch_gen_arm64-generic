@@ -3,6 +3,8 @@
 // found in the LICENSE file.
 import { PageCallbackRouter, PageHandlerFactory, PageHandlerRemote } from './history_clusters_internals.mojom-webui.js';
 export class HistoryClustersInternalsBrowserProxy {
+    callbackRouter;
+    handler;
     constructor() {
         this.callbackRouter = new PageCallbackRouter();
         const factory = PageHandlerFactory.getRemote();

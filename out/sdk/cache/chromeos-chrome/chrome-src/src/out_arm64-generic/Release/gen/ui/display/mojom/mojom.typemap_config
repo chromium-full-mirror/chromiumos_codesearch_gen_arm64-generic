@@ -144,6 +144,23 @@
     ]
   },
   {
+    "traits_headers": [
+      "ui/display/mojom/display_color_management_mojom_traits.h"
+    ],
+    "traits_public_deps": [
+      "//ui/display"
+    ],
+    "traits_sources": [
+      "display_color_management_mojom_traits.cc"
+    ],
+    "types": [
+      {
+        "cpp": "::display::GammaCurve",
+        "mojom": "display.mojom.GammaCurve"
+      }
+    ]
+  },
+  {
     "traits_deps": [
       "//ui/gfx/geometry"
     ],
@@ -158,8 +175,20 @@
     ],
     "types": [
       {
+        "cpp": "::display::ColorCalibration",
+        "mojom": "display.mojom.ColorCalibration"
+      },
+      {
+        "cpp": "::display::ColorTemperatureAdjustment",
+        "mojom": "display.mojom.ColorTemperatureAdjustment"
+      },
+      {
         "cpp": "::display::DisplayConfigurationParams",
         "mojom": "display.mojom.DisplayConfigurationParams"
+      },
+      {
+        "cpp": "::display::GammaAdjustment",
+        "mojom": "display.mojom.GammaAdjustment"
       }
     ]
   },

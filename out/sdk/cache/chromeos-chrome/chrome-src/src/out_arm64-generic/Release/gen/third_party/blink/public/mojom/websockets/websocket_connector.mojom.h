@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/websockets/websocket_connector.mojom-features.h"
 #include "third_party/blink/public/mojom/websockets/websocket_connector.mojom-shared.h"
 #include "third_party/blink/public/mojom/websockets/websocket_connector.mojom-forward.h"
 #include "mojo/public/mojom/base/unguessable_token.mojom.h"
@@ -85,7 +86,7 @@ class BLINK_COMMON_EXPORT WebSocketConnector
   virtual ~WebSocketConnector() = default;
 
   
-  virtual void Connect(const ::GURL& url, const std::vector<std::string>& requested_protocols, const ::net::SiteForCookies& site_for_cookies, const absl::optional<std::string>& user_agent, ::mojo::PendingRemote<::network::mojom::WebSocketHandshakeClient> handshake_client, const absl::optional<::base::UnguessableToken>& throttling_profile_id) = 0;
+  virtual void Connect(const ::GURL& url, const std::vector<std::string>& requested_protocols, const ::net::SiteForCookies& site_for_cookies, const std::optional<std::string>& user_agent, bool has_storage_access, ::mojo::PendingRemote<::network::mojom::WebSocketHandshakeClient> handshake_client, const std::optional<::base::UnguessableToken>& throttling_profile_id) = 0;
 };
 
 
@@ -97,7 +98,7 @@ class BLINK_COMMON_EXPORT WebSocketConnectorProxy
 
   explicit WebSocketConnectorProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void Connect(const ::GURL& url, const std::vector<std::string>& requested_protocols, const ::net::SiteForCookies& site_for_cookies, const absl::optional<std::string>& user_agent, ::mojo::PendingRemote<::network::mojom::WebSocketHandshakeClient> handshake_client, const absl::optional<::base::UnguessableToken>& throttling_profile_id) final;
+  void Connect(const ::GURL& url, const std::vector<std::string>& requested_protocols, const ::net::SiteForCookies& site_for_cookies, const std::optional<std::string>& user_agent, bool has_storage_access, ::mojo::PendingRemote<::network::mojom::WebSocketHandshakeClient> handshake_client, const std::optional<::base::UnguessableToken>& throttling_profile_id) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

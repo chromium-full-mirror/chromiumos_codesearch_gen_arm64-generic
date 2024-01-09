@@ -20,7 +20,7 @@ import { BackgroundManager } from './background_manager.js';
 import { CustomizeDialogPage } from './customize_dialog_types.js';
 import { loadTimeData } from './i18n_setup.js';
 import { recordDuration, recordLoadDuration } from './metrics_utils.js';
-import { CustomizeChromeSection, NtpBackgroundImageSource } from './new_tab_page.mojom-webui.js';
+import { CustomizeChromeSection, IphFeature, NtpBackgroundImageSource } from './new_tab_page.mojom-webui.js';
 import { NewTabPageProxy } from './new_tab_page_proxy.js';
 import { $$ } from './utils.js';
 import { Action as VoiceAction, recordVoiceAction } from './voice_search_overlay.js';
@@ -131,6 +131,11 @@ export class AppElement extends AppElementBase {
             backgroundColor_: {
                 computed: 'computeBackgroundColor_(showBackgroundImage_, theme_)',
                 type: Object,
+            },
+            // Used in ntp-realbox component via host-context.
+            colorSourceIsBaseline: {
+                type: Boolean,
+                computed: 'computeColorSourceIsBaseline(theme_)',
             },
             customizeChromeEnabled_: {
                 type: Boolean,
@@ -285,8 +290,7 @@ export class AppElement extends AppElementBase {
                 this.showCustomize_ = visible;
             });
         this.showWebstoreToastListenerId_ =
-            NewTabPageProxy.getInstance()
-                .callbackRouter.showWebstoreToast.addListener(() => {
+            this.callbackRouter_.showWebstoreToast.addListener(() => {
                 if (this.showCustomize_) {
                     const toast = $$(this, '#webstoreToast');
                     if (toast) {
@@ -334,6 +338,7 @@ export class AppElement extends AppElementBase {
         super.disconnectedCallback();
         this.callbackRouter_.removeListener(this.setThemeListenerId_);
         this.callbackRouter_.removeListener(this.setCustomizeChromeSidePanelVisibilityListener_);
+        this.callbackRouter_.removeListener(this.showWebstoreToastListenerId_);
         this.eventTracker_.removeAll();
     }
     ready() {
@@ -386,7 +391,7 @@ export class AppElement extends AppElementBase {
         // completed.
         document.documentElement.setAttribute('lazy-loaded', String(true));
         this.registerHelpBubble(CUSTOMIZE_CHROME_BUTTON_ELEMENT_ID, '#customizeButton', { fixed: true });
-        this.pageHandler_.maybeShowCustomizeChromeFeaturePromo();
+        this.pageHandler_.maybeShowFeaturePromo(IphFeature.kCustomizeChrome);
     }
     onOpenVoiceSearch_() {
         this.showVoiceSearchOverlay_ = true;
@@ -478,6 +483,9 @@ export class AppElement extends AppElementBase {
             return null;
         }
         return this.theme_ && this.theme_.backgroundColor;
+    }
+    computeColorSourceIsBaseline() {
+        return this.theme_.isBaseline;
     }
     computeLogoColor_() {
         return this.theme_ &&

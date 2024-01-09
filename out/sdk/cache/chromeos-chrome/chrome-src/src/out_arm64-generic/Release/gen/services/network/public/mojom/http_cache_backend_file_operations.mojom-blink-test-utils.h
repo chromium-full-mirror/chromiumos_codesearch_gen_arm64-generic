@@ -74,8 +74,8 @@ class BLINK_PLATFORM_EXPORT HttpCacheBackendFileOperationsAsyncWaiter {
       const ::base::FilePath& from_path, const ::base::FilePath& to_path, ::base::File::Error* out_error);
   ::base::File::Error RenameFile(const ::base::FilePath& from_path, const ::base::FilePath& to_path);
   void GetFileInfo(
-      const ::base::FilePath& path, absl::optional<::base::File::Info>* out_info);
-  absl::optional<::base::File::Info> GetFileInfo(const ::base::FilePath& path);
+      const ::base::FilePath& path, std::optional<::base::File::Info>* out_info);
+  std::optional<::base::File::Info> GetFileInfo(const ::base::FilePath& path);
   void CleanupDirectory(
       const ::base::FilePath& path, bool* out_result);
   bool CleanupDirectory(const ::base::FilePath& path);

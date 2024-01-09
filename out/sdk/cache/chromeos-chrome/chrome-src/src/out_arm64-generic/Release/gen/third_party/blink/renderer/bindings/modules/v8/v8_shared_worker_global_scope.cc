@@ -233,10 +233,10 @@ BLINK_BINDINGS_TRACE_EVENT("SharedWorkerGlobalScope.name.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SharedWorkerGlobalScope* blink_receiver = V8SharedWorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->name();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SharedWorkerGlobalScope* blink_receiver = V8SharedWorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->name();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -272,10 +272,10 @@ BLINK_BINDINGS_TRACE_EVENT("SharedWorkerGlobalScope.onconnect.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SharedWorkerGlobalScope* blink_receiver = V8SharedWorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onconnect();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SharedWorkerGlobalScope* blink_receiver = V8SharedWorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onconnect();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -288,8 +288,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SharedWorkerGlobalScope* blink_receiver = V8SharedWorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
+SharedWorkerGlobalScope* blink_receiver = V8SharedWorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnconnect(event_handler);
 }
 
@@ -1545,8 +1546,9 @@ BLINK_BINDINGS_TRACE_EVENT("SharedWorkerGlobalScope.close");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SharedWorkerGlobalScope* blink_receiver = V8SharedWorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
+SharedWorkerGlobalScope* blink_receiver = V8SharedWorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->close();
 
 }
@@ -1576,7 +1578,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SharedWorkerGlobalScope* blink_receiver = V8SharedWorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
+SharedWorkerGlobalScope* blink_receiver = V8SharedWorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_type = NativeValueTraits<IDLUnsignedShort>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1628,7 +1630,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SharedWorkerGlobalScope* blink_receiver = V8SharedWorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
+SharedWorkerGlobalScope* blink_receiver = V8SharedWorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_type = NativeValueTraits<IDLUnsignedShort>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1665,7 +1667,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SharedWorkerGlobalScope* blink_receiver = V8SharedWorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
+SharedWorkerGlobalScope* blink_receiver = V8SharedWorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_url = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1698,7 +1700,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SharedWorkerGlobalScope* blink_receiver = V8SharedWorkerGlobalScope::ToWrappableUnsafe(v8_receiver);
+SharedWorkerGlobalScope* blink_receiver = V8SharedWorkerGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_url = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -2027,14 +2029,6 @@ v8::Local<v8::FunctionTemplate> interface_function_template = interface_template
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
 IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_template, prototype_template, interface_template, signature, kExposedConstructTable);
 }
-if (RuntimeEnabledFeatures::ElementCaptureEnabled()) {
-  static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
-{"RestrictionTarget", RestrictionTargetExposedConstructCallback}, 
-};
-v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
-v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
-IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_template, prototype_template, interface_template, signature, kExposedConstructTable);
-}
 if (RuntimeEnabledFeatures::WebSocketStreamEnabled()) {
   static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
 {"WebSocketStream", WebSocketStreamExposedConstructCallback}, 
@@ -2149,6 +2143,15 @@ if (is_in_secure_context && ((feature_selector.IsAll() && RuntimeEnabledFeatures
   static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
 {"PressureObserver", PressureObserverExposedConstructCallback}, 
 {"PressureRecord", PressureRecordExposedConstructCallback}, 
+};
+v8::Isolate* isolate = context->GetIsolate();
+v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
+v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
+IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_object, prototype_object, interface_object, signature, kExposedConstructTable);
+}
+if ((feature_selector.IsAll() && RuntimeEnabledFeatures::ElementCaptureEnabled(execution_context)) || feature_selector.IsAnyOf(mojom::blink::OriginTrialFeature::kElementCapture)) {
+  static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
+{"RestrictionTarget", RestrictionTargetExposedConstructCallback}, 
 };
 v8::Isolate* isolate = context->GetIsolate();
 v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();

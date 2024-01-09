@@ -69,11 +69,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, MojoWatcher>::value,
     "MojoWatcher does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&MojoWatcher::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "MojoWatcher is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -90,8 +85,9 @@ BLINK_BINDINGS_TRACE_EVENT("MojoWatcher.cancel");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MojoWatcher* blink_receiver = V8MojoWatcher::ToWrappableUnsafe(v8_receiver);
+MojoWatcher* blink_receiver = V8MojoWatcher::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->cancel();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }

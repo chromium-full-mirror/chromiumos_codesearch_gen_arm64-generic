@@ -59,6 +59,8 @@ const LAST_ELEMENT_SELECTOR = '.cm-executionLine > span:last-child';
     });
     (0, mocha_extensions_js_1.it)('shows correct preview for `this.#x` member expressions despite Terser minification', async () => {
         const { target, frontend } = (0, helper_js_1.getBrowserAndPages)();
+        // This only works without consistent source map variable experiment.
+        await (0, helper_js_1.disableExperiment)('evaluateExpressionsWithSourceMaps');
         await (0, sources_helpers_js_1.openSourceCodeEditorForFile)('popover-terser.js', 'popover-terser.html');
         await (0, sources_helpers_js_1.addBreakpointForLine)(frontend, 5);
         const scriptEvaluation = target.evaluate('test();');

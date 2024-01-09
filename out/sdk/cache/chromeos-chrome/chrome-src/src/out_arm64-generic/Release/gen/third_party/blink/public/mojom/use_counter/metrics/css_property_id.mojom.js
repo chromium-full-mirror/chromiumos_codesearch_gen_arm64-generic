@@ -675,10 +675,6 @@
   CSSSampleId.kViewTransitionName = 712;
   CSSSampleId.kObjectViewBox = 713;
   CSSSampleId.kObjectOverflow = 714;
-  CSSSampleId.kToggleGroup = 715;
-  CSSSampleId.kToggleRoot = 716;
-  CSSSampleId.kToggleTrigger = 717;
-  CSSSampleId.kToggle = 718;
   CSSSampleId.kAnchorName = 719;
   CSSSampleId.kPositionFallback = 720;
   CSSSampleId.kPopoverShowDelay = 722;
@@ -691,7 +687,6 @@
   CSSSampleId.kViewTimelineAxis = 729;
   CSSSampleId.kViewTimelineInset = 730;
   CSSSampleId.kViewTimelineName = 731;
-  CSSSampleId.kToggleVisibility = 732;
   CSSSampleId.kInitialLetter = 733;
   CSSSampleId.kHyphenateLimitChars = 734;
   CSSSampleId.kAnimationDelayStart = 735;
@@ -726,7 +721,7 @@
   CSSSampleId.kPositionFallbackBounds = 765;
   CSSSampleId.kTransitionBehavior = 766;
   CSSSampleId.kTextAutospace = 767;
-  CSSSampleId.kNavigationTrigger = 768;
+  CSSSampleId.kNavigation = 768;
   CSSSampleId.kDynamicRangeLimit = 769;
   CSSSampleId.kFieldSizing = 770;
   CSSSampleId.kTextSpacingTrim = 771;
@@ -737,8 +732,11 @@
   CSSSampleId.kTextSpacing = 776;
   CSSSampleId.kMaskRepeat = 777;
   CSSSampleId.kMaskComposite = 778;
+  CSSSampleId.kMaskPosition = 779;
+  CSSSampleId.kMaskMode = 780;
+  CSSSampleId.kInsetArea = 781;
   CSSSampleId.MIN_VALUE = 0;
-  CSSSampleId.MAX_VALUE = 778;
+  CSSSampleId.MAX_VALUE = 781;
 
   CSSSampleId.isKnownEnumValue = function(value) {
     switch (value) {
@@ -1365,10 +1363,6 @@
     case 712:
     case 713:
     case 714:
-    case 715:
-    case 716:
-    case 717:
-    case 718:
     case 719:
     case 720:
     case 722:
@@ -1381,7 +1375,6 @@
     case 729:
     case 730:
     case 731:
-    case 732:
     case 733:
     case 734:
     case 735:
@@ -1427,6 +1420,9 @@
     case 776:
     case 777:
     case 778:
+    case 779:
+    case 780:
+    case 781:
       return true;
     }
     return false;

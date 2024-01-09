@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuites tests="4" failures="0" disabled="0" errors="0" time="0.023" timestamp="2023-10-27T00:18:35.648" name="AllTests">
-  <testsuite name="SpeakOnMuteDetector" tests="4" failures="0" disabled="0" skipped="0" errors="0" time="0.009" timestamp="2023-10-27T00:18:35.661">
-    <testcase name="Window3Threshold3NoRateLimit" file="cras/src/tests/speak_on_mute_detector_unittest.cc" line="21" status="run" result="completed" time="0.003" timestamp="2023-10-27T00:18:35.662" classname="SpeakOnMuteDetector" />
-    <testcase name="Window3Threshold3" file="cras/src/tests/speak_on_mute_detector_unittest.cc" line="48" status="run" result="completed" time="0." timestamp="2023-10-27T00:18:35.667" classname="SpeakOnMuteDetector" />
-    <testcase name="Window5Threshold3" file="cras/src/tests/speak_on_mute_detector_unittest.cc" line="83" status="run" result="completed" time="0." timestamp="2023-10-27T00:18:35.668" classname="SpeakOnMuteDetector" />
-    <testcase name="Bounds" file="cras/src/tests/speak_on_mute_detector_unittest.cc" line="116" status="run" result="completed" time="0." timestamp="2023-10-27T00:18:35.670" classname="SpeakOnMuteDetector" />
-  </testsuite>
-</testsuites>

@@ -38,11 +38,11 @@ build obj/puffin/all.stamp: stamp ./libpuffin-proto.a ./libpuffdiff.a ./libpuffp
 subninja obj/puffin/libpuffdiff.ninja
 subninja obj/puffin/libpuffin-proto.ninja
 rule __puffin_libpuffin-proto_gen___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../tmp/portage/dev-util/puffin-1.0.0-r448/work/puffin-1.0.0/platform2/common-mk/file_generator_wrapper.py protoc puffin.proto --proto_path /var/tmp/portage/dev-util/puffin-1.0.0-r448/work/puffin-1.0.0/platform2/puffin/src --proto_path /./usr/share/proto --cpp_out=/var/cache/portage/dev-util/puffin/out/Default/gen/include/puffin/src
+  command = /usr/bin/env ../../../../../../tmp/portage/dev-util/puffin-1.0.0-r449/work/puffin-1.0.0/platform2/common-mk/file_generator_wrapper.py protoc puffin.proto --proto_path /var/tmp/portage/dev-util/puffin-1.0.0-r449/work/puffin-1.0.0/platform2/puffin/src --proto_path /./usr/share/proto --cpp_out=/var/cache/portage/dev-util/puffin/out/Default/gen/include/puffin/src
   description = ACTION //puffin:libpuffin-proto_gen(//common-mk/toolchain:toolchain)
   restat = 1
 
-build gen/include/puffin/src/puffin.pb.cc gen/include/puffin/src/puffin.pb.h: __puffin_libpuffin-proto_gen___common-mk_toolchain_toolchain__rule | ../../../../../../tmp/portage/dev-util/puffin-1.0.0-r448/work/puffin-1.0.0/platform2/common-mk/file_generator_wrapper.py ../../../../../../tmp/portage/dev-util/puffin-1.0.0-r448/work/puffin-1.0.0/platform2/puffin/src/puffin.proto
+build gen/include/puffin/src/puffin.pb.cc gen/include/puffin/src/puffin.pb.h: __puffin_libpuffin-proto_gen___common-mk_toolchain_toolchain__rule | ../../../../../../tmp/portage/dev-util/puffin-1.0.0-r449/work/puffin-1.0.0/platform2/common-mk/file_generator_wrapper.py ../../../../../../tmp/portage/dev-util/puffin-1.0.0-r449/work/puffin-1.0.0/platform2/puffin/src/puffin.proto
 
 build obj/puffin/libpuffin-proto_gen.stamp: stamp gen/include/puffin/src/puffin.pb.cc gen/include/puffin/src/puffin.pb.h
 subninja obj/puffin/libpuffpatch.ninja

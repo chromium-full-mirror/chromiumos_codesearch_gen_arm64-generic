@@ -815,6 +815,8 @@ bool bluetooth$common$init_flags$cxxbridge1$always_use_private_gatt_for_debuggin
 
 bool bluetooth$common$init_flags$cxxbridge1$bta_dm_clear_conn_id_on_client_close_is_enabled() noexcept;
 
+bool bluetooth$common$init_flags$cxxbridge1$bluetooth_power_telemetry_is_enabled() noexcept;
+
 bool bluetooth$common$init_flags$cxxbridge1$delay_hidh_cleanup_until_hidh_ready_start_is_enabled() noexcept;
 
 bool bluetooth$common$init_flags$cxxbridge1$btm_dm_flush_discovery_queue_on_search_cancel_is_enabled() noexcept;
@@ -848,10 +850,6 @@ bool bluetooth$common$init_flags$cxxbridge1$hfp_dynamic_version_is_enabled() noe
 bool bluetooth$common$init_flags$cxxbridge1$irk_rotation_is_enabled() noexcept;
 
 bool bluetooth$common$init_flags$cxxbridge1$leaudio_targeted_announcement_reconnection_mode_is_enabled() noexcept;
-
-bool bluetooth$common$init_flags$cxxbridge1$leaudio_enable_health_based_actions_is_enabled() noexcept;
-
-bool bluetooth$common$init_flags$cxxbridge1$pass_phy_update_callback_is_enabled() noexcept;
 
 bool bluetooth$common$init_flags$cxxbridge1$pbap_pse_dynamic_version_upgrade_is_enabled() noexcept;
 
@@ -915,6 +913,10 @@ bool always_use_private_gatt_for_debugging_is_enabled() noexcept {
 
 bool bta_dm_clear_conn_id_on_client_close_is_enabled() noexcept {
   return bluetooth$common$init_flags$cxxbridge1$bta_dm_clear_conn_id_on_client_close_is_enabled();
+}
+
+bool bluetooth_power_telemetry_is_enabled() noexcept {
+  return bluetooth$common$init_flags$cxxbridge1$bluetooth_power_telemetry_is_enabled();
 }
 
 bool delay_hidh_cleanup_until_hidh_ready_start_is_enabled() noexcept {
@@ -983,14 +985,6 @@ bool irk_rotation_is_enabled() noexcept {
 
 bool leaudio_targeted_announcement_reconnection_mode_is_enabled() noexcept {
   return bluetooth$common$init_flags$cxxbridge1$leaudio_targeted_announcement_reconnection_mode_is_enabled();
-}
-
-bool leaudio_enable_health_based_actions_is_enabled() noexcept {
-  return bluetooth$common$init_flags$cxxbridge1$leaudio_enable_health_based_actions_is_enabled();
-}
-
-bool pass_phy_update_callback_is_enabled() noexcept {
-  return bluetooth$common$init_flags$cxxbridge1$pass_phy_update_callback_is_enabled();
 }
 
 bool pbap_pse_dynamic_version_upgrade_is_enabled() noexcept {

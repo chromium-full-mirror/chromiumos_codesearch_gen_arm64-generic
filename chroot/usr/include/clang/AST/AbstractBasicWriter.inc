@@ -921,10 +921,13 @@ public:
         lvalueBase ? lvalueBase.dyn_cast<const Expr *>() : nullptr;
     bool lvalueBaseIsExpr = (bool) expr;
     bool lvalueBaseIsTypeInfo = lvalueBase.is<TypeInfoLValue>();
+    bool lvalueBaseIsDynamicAlloc = lvalueBase.is<DynamicAllocLValue>();
     QualType elemTy;
     if (lvalueBase) {
       if (lvalueBaseIsTypeInfo) {
         elemTy = lvalueBase.getTypeInfoType();
+      } else if (lvalueBaseIsDynamicAlloc) {
+        elemTy = lvalueBase.getDynamicAllocType();
       } else if (lvalueBaseIsExpr) {
         elemTy = expr->getType();
       } else {
@@ -940,6 +943,8 @@ public:
     subW.find("isExpr").writeBool(isExpr);
     bool isTypeInfo = ( lvalueBaseIsTypeInfo );
     subW.find("isTypeInfo").writeBool(isTypeInfo);
+    bool isDynamicAlloc = ( lvalueBaseIsDynamicAlloc );
+    subW.find("isDynamicAlloc").writeBool(isDynamicAlloc);
     bool hasBase = ( static_cast<bool>(lvalueBase) );
     subW.find("hasBase").writeBool(hasBase);
     bool isNullPtr = ( node.isNullPointer() );
@@ -950,8 +955,16 @@ public:
     );
     subW.find("typeInfo").writeQualType(typeInfo);
     }
-    if ( hasBase && isTypeInfo ) {
-    QualType type = ( node.getLValueBase().getTypeInfoType() );
+    if ( hasBase && isDynamicAlloc ) {
+    uint32_t dynamicAlloc = ( node.getLValueBase().get<DynamicAllocLValue>().getIndex() );
+    subW.find("dynamicAlloc").writeUInt32(dynamicAlloc);
+    }
+    if ( hasBase && (isTypeInfo || isDynamicAlloc) ) {
+    QualType type = (
+      isTypeInfo
+        ? node.getLValueBase().getTypeInfoType()
+        : node.getLValueBase().getDynamicAllocType()
+    );
     subW.find("type").writeQualType(type);
     }
     if ( hasBase && !isTypeInfo ) {
@@ -966,7 +979,7 @@ public:
     const Stmt* stmt = ( const_cast<Expr *>(expr) );
     subW.find("stmt").writeStmtRef(stmt);
     }
-    if ( hasBase && !isTypeInfo && !isExpr ) {
+    if ( hasBase && !isTypeInfo && !isDynamicAlloc && !isExpr ) {
     const Decl* decl = ( lvalueBase.get<const ValueDecl *>() );
     subW.find("decl").writeDeclRef(decl);
     }

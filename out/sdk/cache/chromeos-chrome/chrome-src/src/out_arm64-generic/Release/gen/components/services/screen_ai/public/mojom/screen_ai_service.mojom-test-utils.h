@@ -118,31 +118,6 @@ class  MainContentExtractionServiceAsyncWaiter {
 };
 
 
-class  ScreenAIServiceFactoryInterceptorForTesting : public ScreenAIServiceFactory {
-  virtual ScreenAIServiceFactory* GetForwardingInterface() = 0;
-  void InitializeOCR(const ::base::FilePath& library_path, ::mojo::PendingReceiver<OCRService> ocr_service_receiver, InitializeOCRCallback callback) override;
-  void InitializeMainContentExtraction(const ::base::FilePath& library_path, base::flat_map<std::string, ::base::File> model_files, ::mojo::PendingReceiver<MainContentExtractionService> main_content_extractor_service, InitializeMainContentExtractionCallback callback) override;
-};
-class  ScreenAIServiceFactoryAsyncWaiter {
- public:
-  explicit ScreenAIServiceFactoryAsyncWaiter(ScreenAIServiceFactory* proxy);
-
-  ScreenAIServiceFactoryAsyncWaiter(const ScreenAIServiceFactoryAsyncWaiter&) = delete;
-  ScreenAIServiceFactoryAsyncWaiter& operator=(const ScreenAIServiceFactoryAsyncWaiter&) = delete;
-
-  ~ScreenAIServiceFactoryAsyncWaiter();
-  void InitializeOCR(
-      const ::base::FilePath& library_path, ::mojo::PendingReceiver<OCRService> ocr_service_receiver, bool* out_initialized);
-  bool InitializeOCR(const ::base::FilePath& library_path, ::mojo::PendingReceiver<OCRService> ocr_service_receiver);
-  void InitializeMainContentExtraction(
-      const ::base::FilePath& library_path, base::flat_map<std::string, ::base::File> model_files, ::mojo::PendingReceiver<MainContentExtractionService> main_content_extractor_service, bool* out_initialized);
-  bool InitializeMainContentExtraction(const ::base::FilePath& library_path, base::flat_map<std::string, ::base::File> model_files, ::mojo::PendingReceiver<MainContentExtractionService> main_content_extractor_service);
-
- private:
-  ScreenAIServiceFactory* const proxy_;
-};
-
-
 
 
 }  // screen_ai::mojom

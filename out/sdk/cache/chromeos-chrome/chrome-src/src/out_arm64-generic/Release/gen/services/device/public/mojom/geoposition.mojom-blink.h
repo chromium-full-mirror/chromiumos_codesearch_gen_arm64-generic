@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/device/public/mojom/geoposition.mojom-features.h"
 #include "services/device/public/mojom/geoposition.mojom-shared.h"
 #include "services/device/public/mojom/geoposition.mojom-blink-forward.h"
 #include "mojo/public/mojom/base/time.mojom-blink.h"
@@ -38,18 +39,6 @@
 #include "third_party/blink/public/platform/web_common.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::device::mojom::GeopositionErrorCode>
-    : EnumHashTraits<::device::mojom::GeopositionErrorCode, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace device::mojom::blink {
@@ -225,17 +214,17 @@ class BLINK_PLATFORM_EXPORT GeopositionResult {
   // Construct an instance holding |position|.
   static GeopositionResultPtr
   NewPosition(
-      GeopositionPtr position) {
+      GeopositionPtr value) {
     auto result = GeopositionResultPtr(absl::in_place);
-    result->set_position(std::move(position));
+    result->set_position(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static GeopositionResultPtr
   NewError(
-      GeopositionErrorPtr error) {
+      GeopositionErrorPtr value) {
     auto result = GeopositionResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 

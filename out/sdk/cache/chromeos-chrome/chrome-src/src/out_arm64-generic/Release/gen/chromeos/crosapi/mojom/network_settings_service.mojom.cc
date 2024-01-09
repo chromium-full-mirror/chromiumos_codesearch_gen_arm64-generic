@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -451,6 +452,9 @@ NetworkSettingsObserver::IPCStableHashFunction NetworkSettingsObserver::MessageT
     case internal::kNetworkSettingsObserver_OnProxyChanged_Name: {
       return &NetworkSettingsObserver::OnProxyChanged_Sym::IPCStableHash;
     }
+    case internal::kNetworkSettingsObserver_OnAlwaysOnVpnPreConnectUrlAllowlistEnforcedChanged_Name: {
+      return &NetworkSettingsObserver::OnAlwaysOnVpnPreConnectUrlAllowlistEnforcedChanged_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -464,11 +468,15 @@ const char* NetworkSettingsObserver::MessageToMethodName_(mojo::Message& message
     switch (message.name()) {
       case internal::kNetworkSettingsObserver_OnProxyChanged_Name:
             return "Receive crosapi::mojom::NetworkSettingsObserver::OnProxyChanged";
+      case internal::kNetworkSettingsObserver_OnAlwaysOnVpnPreConnectUrlAllowlistEnforcedChanged_Name:
+            return "Receive crosapi::mojom::NetworkSettingsObserver::OnAlwaysOnVpnPreConnectUrlAllowlistEnforcedChanged";
     }
   } else {
     switch (message.name()) {
       case internal::kNetworkSettingsObserver_OnProxyChanged_Name:
             return "Receive reply crosapi::mojom::NetworkSettingsObserver::OnProxyChanged";
+      case internal::kNetworkSettingsObserver_OnAlwaysOnVpnPreConnectUrlAllowlistEnforcedChanged_Name:
+            return "Receive reply crosapi::mojom::NetworkSettingsObserver::OnAlwaysOnVpnPreConnectUrlAllowlistEnforcedChanged";
     }
   }
   return "Receive unknown mojo message";
@@ -496,6 +504,19 @@ uint32_t NetworkSettingsObserver::OnProxyChanged_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t NetworkSettingsObserver::OnAlwaysOnVpnPreConnectUrlAllowlistEnforcedChanged_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)crosapi::mojom::NetworkSettingsObserver::OnAlwaysOnVpnPreConnectUrlAllowlistEnforcedChanged");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 NetworkSettingsObserverProxy::NetworkSettingsObserverProxy(mojo::MessageReceiverWithResponder* receiver)
@@ -514,14 +535,17 @@ void NetworkSettingsObserverProxy::OnProxyChanged(
                         "<value of type ProxyConfigPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkSettingsObserver_OnProxyChanged_Name, kFlags, 0, 0, nullptr);
@@ -544,6 +568,47 @@ void NetworkSettingsObserverProxy::OnProxyChanged(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(NetworkSettingsObserver::Name_);
   message.set_method_name("OnProxyChanged");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void NetworkSettingsObserverProxy::OnAlwaysOnVpnPreConnectUrlAllowlistEnforcedChanged(
+    bool in_enfoced) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send crosapi::mojom::NetworkSettingsObserver::OnAlwaysOnVpnPreConnectUrlAllowlistEnforcedChanged", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("enfoced"), in_enfoced,
+                        "<value of type bool>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kNetworkSettingsObserver_OnAlwaysOnVpnPreConnectUrlAllowlistEnforcedChanged_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::NetworkSettingsObserver_OnAlwaysOnVpnPreConnectUrlAllowlistEnforcedChanged_Params_Data> params(
+          message);
+  params.Allocate();
+  params->enfoced = in_enfoced;
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(NetworkSettingsObserver::Name_);
+  message.set_method_name("OnAlwaysOnVpnPreConnectUrlAllowlistEnforcedChanged");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
@@ -581,6 +646,32 @@ bool NetworkSettingsObserverStubDispatch::Accept(
 std::move(p_proxy_config));
       return true;
     }
+    case internal::kNetworkSettingsObserver_OnAlwaysOnVpnPreConnectUrlAllowlistEnforcedChanged_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::NetworkSettingsObserver_OnAlwaysOnVpnPreConnectUrlAllowlistEnforcedChanged_Params_Data* params =
+          reinterpret_cast<internal::NetworkSettingsObserver_OnAlwaysOnVpnPreConnectUrlAllowlistEnforcedChanged_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      bool p_enfoced{};
+      NetworkSettingsObserver_OnAlwaysOnVpnPreConnectUrlAllowlistEnforcedChanged_ParamsDataView input_data_view(params, message);
+      
+      if (success)
+        p_enfoced = input_data_view.enfoced();
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            NetworkSettingsObserver::Name_, 1, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->OnAlwaysOnVpnPreConnectUrlAllowlistEnforcedChanged(
+std::move(p_enfoced));
+      return true;
+    }
   }
   return false;
 }
@@ -597,13 +688,18 @@ bool NetworkSettingsObserverStubDispatch::AcceptWithResponder(
     case internal::kNetworkSettingsObserver_OnProxyChanged_Name: {
       break;
     }
+    case internal::kNetworkSettingsObserver_OnAlwaysOnVpnPreConnectUrlAllowlistEnforcedChanged_Name: {
+      break;
+    }
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kNetworkSettingsObserverValidationInfo[] = {
-    {&internal::NetworkSettingsObserver_OnProxyChanged_Params_Data::Validate,
+    { &internal::NetworkSettingsObserver_OnProxyChanged_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::NetworkSettingsObserver_OnAlwaysOnVpnPreConnectUrlAllowlistEnforcedChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -633,6 +729,9 @@ NetworkSettingsService::IPCStableHashFunction NetworkSettingsService::MessageToM
     case internal::kNetworkSettingsService_ClearExtensionControllingProxyMetadata_Name: {
       return &NetworkSettingsService::ClearExtensionControllingProxyMetadata_Sym::IPCStableHash;
     }
+    case internal::kNetworkSettingsService_IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_Name: {
+      return &NetworkSettingsService::IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -654,6 +753,8 @@ const char* NetworkSettingsService::MessageToMethodName_(mojo::Message& message)
             return "Receive crosapi::mojom::NetworkSettingsService::SetExtensionControllingProxyMetadata";
       case internal::kNetworkSettingsService_ClearExtensionControllingProxyMetadata_Name:
             return "Receive crosapi::mojom::NetworkSettingsService::ClearExtensionControllingProxyMetadata";
+      case internal::kNetworkSettingsService_IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_Name:
+            return "Receive crosapi::mojom::NetworkSettingsService::IsAlwaysOnVpnPreConnectUrlAllowlistEnforced";
     }
   } else {
     switch (message.name()) {
@@ -667,6 +768,8 @@ const char* NetworkSettingsService::MessageToMethodName_(mojo::Message& message)
             return "Receive reply crosapi::mojom::NetworkSettingsService::SetExtensionControllingProxyMetadata";
       case internal::kNetworkSettingsService_ClearExtensionControllingProxyMetadata_Name:
             return "Receive reply crosapi::mojom::NetworkSettingsService::ClearExtensionControllingProxyMetadata";
+      case internal::kNetworkSettingsService_IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_Name:
+            return "Receive reply crosapi::mojom::NetworkSettingsService::IsAlwaysOnVpnPreConnectUrlAllowlistEnforced";
     }
   }
   return "Receive unknown mojo message";
@@ -746,7 +849,36 @@ uint32_t NetworkSettingsService::ClearExtensionControllingProxyMetadata_Sym::IPC
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t NetworkSettingsService::IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)crosapi::mojom::NetworkSettingsService::IsAlwaysOnVpnPreConnectUrlAllowlistEnforced");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
+
+class NetworkSettingsService_IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  NetworkSettingsService_IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_ForwardToCallback(
+      NetworkSettingsService::IsAlwaysOnVpnPreConnectUrlAllowlistEnforcedCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  NetworkSettingsService_IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_ForwardToCallback(const NetworkSettingsService_IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_ForwardToCallback&) = delete;
+  NetworkSettingsService_IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_ForwardToCallback& operator=(const NetworkSettingsService_IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  NetworkSettingsService::IsAlwaysOnVpnPreConnectUrlAllowlistEnforcedCallback callback_;
+};
 
 NetworkSettingsServiceProxy::NetworkSettingsServiceProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
@@ -764,14 +896,17 @@ void NetworkSettingsServiceProxy::AddNetworkSettingsObserver(
                         "<value of type ::mojo::PendingRemote<NetworkSettingsObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkSettingsService_AddNetworkSettingsObserver_Name, kFlags, 0, 0, nullptr);
@@ -807,14 +942,17 @@ void NetworkSettingsServiceProxy::SetExtensionProxy(
                         "<value of type ProxyConfigPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkSettingsService_SetExtensionProxy_Name, kFlags, 0, 0, nullptr);
@@ -848,14 +986,17 @@ void NetworkSettingsServiceProxy::ClearExtensionProxy(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::NetworkSettingsService::ClearExtensionProxy");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkSettingsService_ClearExtensionProxy_Name, kFlags, 0, 0, nullptr);
@@ -885,14 +1026,17 @@ void NetworkSettingsServiceProxy::SetExtensionControllingProxyMetadata(
                         "<value of type ExtensionControllingProxyPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkSettingsService_SetExtensionControllingProxyMetadata_Name, kFlags, 0, 0, nullptr);
@@ -926,14 +1070,17 @@ void NetworkSettingsServiceProxy::ClearExtensionControllingProxyMetadata(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::NetworkSettingsService::ClearExtensionControllingProxyMetadata");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNetworkSettingsService_ClearExtensionControllingProxyMetadata_Name, kFlags, 0, 0, nullptr);
@@ -949,6 +1096,159 @@ void NetworkSettingsServiceProxy::ClearExtensionControllingProxyMetadata(
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
   ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void NetworkSettingsServiceProxy::IsAlwaysOnVpnPreConnectUrlAllowlistEnforced(
+    IsAlwaysOnVpnPreConnectUrlAllowlistEnforcedCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send crosapi::mojom::NetworkSettingsService::IsAlwaysOnVpnPreConnectUrlAllowlistEnforced");
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kNetworkSettingsService_IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::NetworkSettingsService_IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(NetworkSettingsService::Name_);
+  message.set_method_name("IsAlwaysOnVpnPreConnectUrlAllowlistEnforced");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new NetworkSettingsService_IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+class NetworkSettingsService_IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static NetworkSettingsService::IsAlwaysOnVpnPreConnectUrlAllowlistEnforcedCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<NetworkSettingsService_IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_ProxyToResponder> proxy(
+        new NetworkSettingsService_IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&NetworkSettingsService_IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~NetworkSettingsService_IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  NetworkSettingsService_IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "NetworkSettingsService::IsAlwaysOnVpnPreConnectUrlAllowlistEnforcedCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      bool in_enabled);
+};
+
+bool NetworkSettingsService_IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::NetworkSettingsService_IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::NetworkSettingsService_IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  bool p_enabled{};
+  NetworkSettingsService_IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success)
+    p_enabled = input_data_view.enabled();
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        NetworkSettingsService::Name_, 5, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_enabled));
+  return true;
+}
+
+void NetworkSettingsService_IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_ProxyToResponder::Run(
+    bool in_enabled) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply crosapi::mojom::NetworkSettingsService::IsAlwaysOnVpnPreConnectUrlAllowlistEnforced", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("enabled"), in_enabled,
+                        "<value of type bool>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kNetworkSettingsService_IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::NetworkSettingsService_IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  params->enabled = in_enabled;
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(NetworkSettingsService::Name_);
+  message.set_method_name("IsAlwaysOnVpnPreConnectUrlAllowlistEnforced");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
 }
 
 // static
@@ -1080,6 +1380,9 @@ std::move(p_extension));
       impl->ClearExtensionControllingProxyMetadata();
       return true;
     }
+    case internal::kNetworkSettingsService_IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_Name: {
+      break;
+    }
   }
   return false;
 }
@@ -1108,22 +1411,49 @@ bool NetworkSettingsServiceStubDispatch::AcceptWithResponder(
     case internal::kNetworkSettingsService_ClearExtensionControllingProxyMetadata_Name: {
       break;
     }
+    case internal::kNetworkSettingsService_IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_Name: {
+
+      internal::NetworkSettingsService_IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_Params_Data* params =
+          reinterpret_cast<
+              internal::NetworkSettingsService_IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      NetworkSettingsService_IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            NetworkSettingsService::Name_, 5, false);
+        return false;
+      }
+      NetworkSettingsService::IsAlwaysOnVpnPreConnectUrlAllowlistEnforcedCallback callback =
+          NetworkSettingsService_IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->IsAlwaysOnVpnPreConnectUrlAllowlistEnforced(std::move(callback));
+      return true;
+    }
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kNetworkSettingsServiceValidationInfo[] = {
-    {&internal::NetworkSettingsService_AddNetworkSettingsObserver_Params_Data::Validate,
+    { &internal::NetworkSettingsService_AddNetworkSettingsObserver_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NetworkSettingsService_SetExtensionProxy_Params_Data::Validate,
+    { &internal::NetworkSettingsService_SetExtensionProxy_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NetworkSettingsService_ClearExtensionProxy_Params_Data::Validate,
+    { &internal::NetworkSettingsService_ClearExtensionProxy_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NetworkSettingsService_SetExtensionControllingProxyMetadata_Params_Data::Validate,
+    { &internal::NetworkSettingsService_SetExtensionControllingProxyMetadata_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::NetworkSettingsService_ClearExtensionControllingProxyMetadata_Params_Data::Validate,
+    { &internal::NetworkSettingsService_ClearExtensionControllingProxyMetadata_Params_Data::Validate,
      nullptr /* no response */},
+    { &internal::NetworkSettingsService_IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_Params_Data::Validate,
+     &internal::NetworkSettingsService_IsAlwaysOnVpnPreConnectUrlAllowlistEnforced_ResponseParams_Data::Validate},
 };
 
 bool NetworkSettingsServiceRequestValidator::Accept(mojo::Message* message) {
@@ -1131,6 +1461,10 @@ bool NetworkSettingsServiceRequestValidator::Accept(mojo::Message* message) {
   return mojo::internal::ValidateRequestGenericPacked(message, name, kNetworkSettingsServiceValidationInfo);
 }
 
+bool NetworkSettingsServiceResponseValidator::Accept(mojo::Message* message) {
+  const char* name = ::crosapi::mojom::NetworkSettingsService::Name_;
+  return mojo::internal::ValidateResponseGenericPacked(message, name, kNetworkSettingsServiceValidationInfo);
+}
 
 
 }  // crosapi::mojom
@@ -1316,6 +1650,9 @@ namespace crosapi::mojom {
 void NetworkSettingsObserverInterceptorForTesting::OnProxyChanged(ProxyConfigPtr proxy_config) {
   GetForwardingInterface()->OnProxyChanged(std::move(proxy_config));
 }
+void NetworkSettingsObserverInterceptorForTesting::OnAlwaysOnVpnPreConnectUrlAllowlistEnforcedChanged(bool enfoced) {
+  GetForwardingInterface()->OnAlwaysOnVpnPreConnectUrlAllowlistEnforcedChanged(std::move(enfoced));
+}
 NetworkSettingsObserverAsyncWaiter::NetworkSettingsObserverAsyncWaiter(
     NetworkSettingsObserver* proxy) : proxy_(proxy) {}
 
@@ -1339,10 +1676,36 @@ void NetworkSettingsServiceInterceptorForTesting::SetExtensionControllingProxyMe
 void NetworkSettingsServiceInterceptorForTesting::ClearExtensionControllingProxyMetadata() {
   GetForwardingInterface()->ClearExtensionControllingProxyMetadata();
 }
+void NetworkSettingsServiceInterceptorForTesting::IsAlwaysOnVpnPreConnectUrlAllowlistEnforced(IsAlwaysOnVpnPreConnectUrlAllowlistEnforcedCallback callback) {
+  GetForwardingInterface()->IsAlwaysOnVpnPreConnectUrlAllowlistEnforced(std::move(callback));
+}
 NetworkSettingsServiceAsyncWaiter::NetworkSettingsServiceAsyncWaiter(
     NetworkSettingsService* proxy) : proxy_(proxy) {}
 
 NetworkSettingsServiceAsyncWaiter::~NetworkSettingsServiceAsyncWaiter() = default;
+
+void NetworkSettingsServiceAsyncWaiter::IsAlwaysOnVpnPreConnectUrlAllowlistEnforced(
+    bool* out_enabled) {
+  base::RunLoop loop;
+  proxy_->IsAlwaysOnVpnPreConnectUrlAllowlistEnforced(
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             bool* out_enabled
+,
+             bool enabled) {*out_enabled = std::move(enabled);
+            loop->Quit();
+          },
+          &loop,
+          out_enabled));
+  loop.Run();
+}
+
+bool NetworkSettingsServiceAsyncWaiter::IsAlwaysOnVpnPreConnectUrlAllowlistEnforced(
+    ) {
+  bool async_wait_result;
+  IsAlwaysOnVpnPreConnectUrlAllowlistEnforced(&async_wait_result);
+  return async_wait_result;
+}
 
 
 

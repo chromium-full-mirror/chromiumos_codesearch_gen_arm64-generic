@@ -34,6 +34,8 @@
 #include "services/network/public/mojom/referrer_policy.mojom-blink-import-headers.h"
 #include "services/network/public/mojom/request_priority.mojom-blink.h"
 #include "services/network/public/mojom/request_priority.mojom-blink-import-headers.h"
+#include "services/network/public/mojom/service_worker_router_info.mojom-blink.h"
+#include "services/network/public/mojom/service_worker_router_info.mojom-blink-import-headers.h"
 #include "services/network/public/mojom/trust_tokens.mojom-blink.h"
 #include "services/network/public/mojom/trust_tokens.mojom-blink-import-headers.h"
 #include "services/network/public/mojom/ip_endpoint.mojom-blink.h"

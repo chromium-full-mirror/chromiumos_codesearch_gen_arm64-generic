@@ -67,11 +67,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, IdleDeadline>::value,
     "IdleDeadline inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&IdleDeadline::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "IdleDeadline is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -84,8 +79,9 @@ BLINK_BINDINGS_TRACE_EVENT("IdleDeadline.didTimeout.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-IdleDeadline* blink_receiver = V8IdleDeadline::ToWrappableUnsafe(v8_receiver);
+IdleDeadline* blink_receiver = V8IdleDeadline::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->didTimeout();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -102,8 +98,9 @@ BLINK_BINDINGS_TRACE_EVENT("IdleDeadline.timeRemaining");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-IdleDeadline* blink_receiver = V8IdleDeadline::ToWrappableUnsafe(v8_receiver);
+IdleDeadline* blink_receiver = V8IdleDeadline::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->timeRemaining();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -75,7 +76,7 @@ ProxyList::ProxyList()
     : proxies() {}
 
 ProxyList::ProxyList(
-    std::vector<std::string> proxies_in)
+    std::vector<std::vector<std::string>> proxies_in)
     : proxies(std::move(proxies_in)) {}
 
 ProxyList::~ProxyList() = default;
@@ -87,7 +88,7 @@ void ProxyList::WriteIntoTrace(
     dict.AddItem(
       "proxies"), this->proxies,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const std::vector<std::string>&>"
+      "<value of type const std::vector<std::vector<std::string>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

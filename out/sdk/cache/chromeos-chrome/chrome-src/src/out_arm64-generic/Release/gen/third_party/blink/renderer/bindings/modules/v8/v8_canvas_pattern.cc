@@ -68,11 +68,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, CanvasPattern>::value,
     "CanvasPattern inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&CanvasPattern::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "CanvasPattern is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -89,10 +84,10 @@ BLINK_BINDINGS_TRACE_EVENT("CanvasPattern.setTransform");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CanvasPattern* blink_receiver = V8CanvasPattern::ToWrappableUnsafe(v8_receiver);
-decltype(NativeValueTraits<DOMMatrix2DInit>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_transform;
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CanvasPattern* blink_receiver = V8CanvasPattern::ToWrappableUnsafe(isolate, v8_receiver);
+decltype(NativeValueTraits<DOMMatrix2DInit>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_transform;
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "CanvasPattern";
 const char* const property_name = "setTransform";

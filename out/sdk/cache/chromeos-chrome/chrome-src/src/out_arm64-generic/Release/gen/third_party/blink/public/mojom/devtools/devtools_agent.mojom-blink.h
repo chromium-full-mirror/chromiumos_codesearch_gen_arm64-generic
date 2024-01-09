@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/devtools/devtools_agent.mojom-features.h"
 #include "third_party/blink/public/mojom/devtools/devtools_agent.mojom-shared.h"
 #include "third_party/blink/public/mojom/devtools/devtools_agent.mojom-blink-forward.h"
 #include "mojo/public/mojom/base/big_buffer.mojom-blink.h"
@@ -43,18 +44,6 @@
 #include "third_party/blink/renderer/platform/platform_export.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::DevToolsExecutionContextType>
-    : EnumHashTraits<::blink::mojom::DevToolsExecutionContextType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace blink::mojom::blink {
@@ -714,7 +703,7 @@ class PLATFORM_EXPORT DevToolsSessionState {
   DevToolsSessionState();
 
   explicit DevToolsSessionState(
-      const WTF::HashMap<WTF::String, absl::optional<WTF::Vector<uint8_t>>>& entries);
+      const WTF::HashMap<WTF::String, std::optional<WTF::Vector<uint8_t>>>& entries);
 
 
   ~DevToolsSessionState();
@@ -792,7 +781,7 @@ class PLATFORM_EXPORT DevToolsSessionState {
   }
 
   
-  WTF::HashMap<WTF::String, absl::optional<WTF::Vector<uint8_t>>> entries;
+  WTF::HashMap<WTF::String, std::optional<WTF::Vector<uint8_t>>> entries;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

@@ -455,6 +455,7 @@
     this.sets = null;
     this.aliases = null;
     this.manualConfig = null;
+    this.manualAliases = null;
   };
   GlobalFirstPartySets.prototype.initFields_ = function(fields) {
     for(var field in fields) {
@@ -470,7 +471,7 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 40}
+      {version: 0, numBytes: 48}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
@@ -500,10 +501,16 @@
     if (err !== validator.validationError.NONE)
         return err;
 
+
+    // validate GlobalFirstPartySets.manualAliases
+    err = messageValidator.validateMapPointer(offset + codec.kStructHeaderSize + 32, false, new codec.PointerTo(schemeful_site$.SchemefulSite), new codec.PointerTo(schemeful_site$.SchemefulSite), false);
+    if (err !== validator.validationError.NONE)
+        return err;
+
     return validator.validationError.NONE;
   };
 
-  GlobalFirstPartySets.encodedSize = codec.kStructHeaderSize + 32;
+  GlobalFirstPartySets.encodedSize = codec.kStructHeaderSize + 40;
 
   GlobalFirstPartySets.decode = function(decoder) {
     var packed;
@@ -518,6 +525,8 @@
         decoder.decodeMapPointer(new codec.PointerTo(schemeful_site$.SchemefulSite), new codec.PointerTo(schemeful_site$.SchemefulSite));
     val.manualConfig =
         decoder.decodeStructPointer(FirstPartySetsContextConfig);
+    val.manualAliases =
+        decoder.decodeMapPointer(new codec.PointerTo(schemeful_site$.SchemefulSite), new codec.PointerTo(schemeful_site$.SchemefulSite));
     return val;
   };
 
@@ -529,6 +538,7 @@
     encoder.encodeMapPointer(new codec.PointerTo(schemeful_site$.SchemefulSite), new codec.PointerTo(FirstPartySetEntry), val.sets);
     encoder.encodeMapPointer(new codec.PointerTo(schemeful_site$.SchemefulSite), new codec.PointerTo(schemeful_site$.SchemefulSite), val.aliases);
     encoder.encodeStructPointer(FirstPartySetsContextConfig, val.manualConfig);
+    encoder.encodeMapPointer(new codec.PointerTo(schemeful_site$.SchemefulSite), new codec.PointerTo(schemeful_site$.SchemefulSite), val.manualAliases);
   };
   exports.SiteType = SiteType;
   exports.SiteIndex = SiteIndex;

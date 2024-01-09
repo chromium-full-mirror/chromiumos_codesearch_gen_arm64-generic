@@ -87,6 +87,7 @@ const char AutofillInferred[] = "autofillInferred";
 
 CRDTP_BEGIN_DESERIALIZER(FilledField)
     CRDTP_DESERIALIZE_FIELD("autofillType", m_autofillType),
+    CRDTP_DESERIALIZE_FIELD("fieldId", m_fieldId),
     CRDTP_DESERIALIZE_FIELD("fillingStrategy", m_fillingStrategy),
     CRDTP_DESERIALIZE_FIELD("htmlType", m_htmlType),
     CRDTP_DESERIALIZE_FIELD("id", m_id),
@@ -101,6 +102,7 @@ CRDTP_BEGIN_SERIALIZER(FilledField)
     CRDTP_SERIALIZE_FIELD("value", m_value);
     CRDTP_SERIALIZE_FIELD("autofillType", m_autofillType);
     CRDTP_SERIALIZE_FIELD("fillingStrategy", m_fillingStrategy);
+    CRDTP_SERIALIZE_FIELD("fieldId", m_fieldId);
 CRDTP_END_SERIALIZER();
 
 

@@ -70,11 +70,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, CSSStyleDeclaration>::value,
     "CSSStyleDeclaration inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&CSSStyleDeclaration::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "CSSStyleDeclaration is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 void V8CSSStyleDeclaration::NamedPropertyGetterCallback(v8::Local<v8::Name> v8_property_name, const v8::PropertyCallbackInfo<v8::Value>& info) {
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_CSSStyleDeclaration_NamedPropertyGetter");
@@ -83,9 +78,10 @@ void V8CSSStyleDeclaration::NamedPropertyGetterCallback(v8::Local<v8::Name> v8_p
 // https://webidl.spec.whatwg.org/#LegacyPlatformObjectGetOwnProperty
 // "If the result of running the named property visibility
 //  algorithm with property name P and object O is true, then:"
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.Holder();
-CSSStyleDeclaration* blink_receiver = V8CSSStyleDeclaration::ToWrappableUnsafe(v8_receiver);
-const AtomicString& blink_property_name = ToCoreAtomicString(v8_property_name);
+CSSStyleDeclaration* blink_receiver = V8CSSStyleDeclaration::ToWrappableUnsafe(isolate, v8_receiver);
+const AtomicString& blink_property_name = ToCoreAtomicString(isolate, v8_property_name);
 auto&& return_value = blink_receiver->AnonymousNamedGetter(blink_property_name);
 if (return_value.IsNull()) {
   // "Return OrdinaryGetOwnProperty(O, P)."
@@ -97,7 +93,6 @@ return;  // Do not intercept.
 // "Otherwise, operation was defined with an identifier. Set value to the result
 //  of performing the steps listed in the description of operation with P as the
 //  only argument value."
-v8::Isolate* isolate = info.GetIsolate();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -112,14 +107,14 @@ if (info.Holder() == info.This()) {
 v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kNamedPropertySetter;
 const char* const class_like_name = "CSSStyleDeclaration";
-const AtomicString& blink_property_name = ToCoreAtomicString(v8_property_name);
+const AtomicString& blink_property_name = ToCoreAtomicString(isolate, v8_property_name);
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, blink_property_name, ExceptionState::kForInterceptor);
 
 // [CEReactions]
 CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.Holder();
-CSSStyleDeclaration* blink_receiver = V8CSSStyleDeclaration::ToWrappableUnsafe(v8_receiver);
+CSSStyleDeclaration* blink_receiver = V8CSSStyleDeclaration::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -144,15 +139,15 @@ void V8CSSStyleDeclaration::NamedPropertyDeleterCallback(v8::Local<v8::Name> v8_
 // 3.9.4. [[Delete]]
 // https://webidl.spec.whatwg.org/#legacy-platform-object-delete
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.Holder();
-CSSStyleDeclaration* blink_receiver = V8CSSStyleDeclaration::ToWrappableUnsafe(v8_receiver);
-const AtomicString& blink_property_name = ToCoreAtomicString(v8_property_name);
+CSSStyleDeclaration* blink_receiver = V8CSSStyleDeclaration::ToWrappableUnsafe(isolate, v8_receiver);
+const AtomicString& blink_property_name = ToCoreAtomicString(isolate, v8_property_name);
 auto&& return_value = blink_receiver->AnonymousNamedDeleter(blink_property_name);
 bindings::V8SetReturnValue(info, return_value);
 if (return_value == NamedPropertyDeleterResult::kDidNotDelete) {
   if (info.ShouldThrowOnError()) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kNamedPropertyDeleter;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kNamedPropertyDeleter;
 const char* const class_like_name = "CSSStyleDeclaration";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, blink_property_name, ExceptionState::kForInterceptor);
 exception_state.ThrowTypeError("Failed to delete a property.");
@@ -217,10 +212,10 @@ bindings::V8SetReturnValue(info, desc);
 void V8CSSStyleDeclaration::NamedPropertyQueryCallback(v8::Local<v8::Name> v8_property_name, const v8::PropertyCallbackInfo<v8::Integer>& info) {
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_CSSStyleDeclaration_NamedPropertyQuery");
 
-v8::Local<v8::Object> v8_receiver = info.Holder();
-CSSStyleDeclaration* blink_receiver = V8CSSStyleDeclaration::ToWrappableUnsafe(v8_receiver);
-const AtomicString& blink_property_name = ToCoreAtomicString(v8_property_name);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.Holder();
+CSSStyleDeclaration* blink_receiver = V8CSSStyleDeclaration::ToWrappableUnsafe(isolate, v8_receiver);
+const AtomicString& blink_property_name = ToCoreAtomicString(isolate, v8_property_name);
 const ExceptionContextType exception_context_type = ExceptionContextType::kNamedPropertyQuery;
 const char* const class_like_name = "CSSStyleDeclaration";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, blink_property_name, ExceptionState::kForInterceptor);
@@ -240,9 +235,9 @@ void V8CSSStyleDeclaration::NamedPropertyEnumeratorCallback(const v8::PropertyCa
 //   property names that is visible according to the named property
 //   visibility algorithm, append P to keys.
 Vector<String> blink_property_names;
-v8::Local<v8::Object> v8_receiver = info.Holder();
-CSSStyleDeclaration* blink_receiver = V8CSSStyleDeclaration::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.Holder();
+CSSStyleDeclaration* blink_receiver = V8CSSStyleDeclaration::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kNamedPropertyEnumerator;
 const char* const class_like_name = "CSSStyleDeclaration";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name);
@@ -259,8 +254,9 @@ bindings::V8SetReturnValue(
 void V8CSSStyleDeclaration::IndexedPropertyGetterCallback(uint32_t index, const v8::PropertyCallbackInfo<v8::Value>& info) {
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_CSSStyleDeclaration_IndexedPropertyGetter");
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.Holder();
-CSSStyleDeclaration* blink_receiver = V8CSSStyleDeclaration::ToWrappableUnsafe(v8_receiver);
+CSSStyleDeclaration* blink_receiver = V8CSSStyleDeclaration::ToWrappableUnsafe(isolate, v8_receiver);
 // LegacyPlatformObjectGetOwnProperty
 // https://webidl.spec.whatwg.org/#LegacyPlatformObjectGetOwnProperty
 // step 1.2. If index is a supported property index, then:
@@ -269,7 +265,6 @@ if (index >= blink_receiver->length())
   return;  // Do not intercept.  Fallback to OrdinaryGetOwnProperty.
 
 auto&& return_value = blink_receiver->item(index);
-v8::Isolate* isolate = info.GetIsolate();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -299,13 +294,13 @@ void V8CSSStyleDeclaration::IndexedPropertyDeleterCallback(uint32_t index, const
 // https://webidl.spec.whatwg.org/#legacy-platform-object-delete
 // step 1.2. If index is not a supported property index, then return true.
 // step 1.3. Return false.
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.Holder();
-CSSStyleDeclaration* blink_receiver = V8CSSStyleDeclaration::ToWrappableUnsafe(v8_receiver);
+CSSStyleDeclaration* blink_receiver = V8CSSStyleDeclaration::ToWrappableUnsafe(isolate, v8_receiver);
 const bool is_supported = index < blink_receiver->length();
 bindings::V8SetReturnValue(info, !is_supported);
 if (is_supported && info.ShouldThrowOnError()) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kIndexedPropertyDeleter;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kIndexedPropertyDeleter;
 const char* const class_like_name = "CSSStyleDeclaration";
 const AtomicString& blink_property_index = AtomicString::Number(index);
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, blink_property_index, ExceptionState::kForInterceptor);
@@ -378,9 +373,9 @@ bindings::V8SetReturnValue(info, desc);
 void V8CSSStyleDeclaration::IndexedPropertyEnumeratorCallback(const v8::PropertyCallbackInfo<v8::Array>& info) {
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_CSSStyleDeclaration_IndexedPropertyEnumerator");
 
-v8::Local<v8::Object> v8_receiver = info.Holder();
-CSSStyleDeclaration* blink_receiver = V8CSSStyleDeclaration::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.Holder();
+CSSStyleDeclaration* blink_receiver = V8CSSStyleDeclaration::ToWrappableUnsafe(isolate, v8_receiver);
 // 3.9.6. [[OwnPropertyKeys]]
 // https://webidl.spec.whatwg.org/#legacy-platform-object-ownpropertykeys
 // step 2. If O supports indexed properties, then for each index of O's
@@ -405,10 +400,10 @@ BLINK_BINDINGS_TRACE_EVENT("CSSStyleDeclaration.cssText.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CSSStyleDeclaration* blink_receiver = V8CSSStyleDeclaration::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->cssText();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CSSStyleDeclaration* blink_receiver = V8CSSStyleDeclaration::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->cssText();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -428,7 +423,7 @@ ExceptionState exception_state(isolate, exception_context_type, class_like_name,
 CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
-CSSStyleDeclaration* blink_receiver = V8CSSStyleDeclaration::ToWrappableUnsafe(v8_receiver);
+CSSStyleDeclaration* blink_receiver = V8CSSStyleDeclaration::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
 ExecutionContext* execution_context = receiver_execution_context;
@@ -451,8 +446,9 @@ BLINK_BINDINGS_TRACE_EVENT("CSSStyleDeclaration.length.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CSSStyleDeclaration* blink_receiver = V8CSSStyleDeclaration::ToWrappableUnsafe(v8_receiver);
+CSSStyleDeclaration* blink_receiver = V8CSSStyleDeclaration::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->length();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -465,8 +461,9 @@ BLINK_BINDINGS_TRACE_EVENT("CSSStyleDeclaration.parentRule.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CSSStyleDeclaration* blink_receiver = V8CSSStyleDeclaration::ToWrappableUnsafe(v8_receiver);
+CSSStyleDeclaration* blink_receiver = V8CSSStyleDeclaration::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->parentRule();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -479,10 +476,10 @@ BLINK_BINDINGS_TRACE_EVENT("CSSStyleDeclaration.cssFloat.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CSSStyleDeclaration* blink_receiver = V8CSSStyleDeclaration::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->cssFloat();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CSSStyleDeclaration* blink_receiver = V8CSSStyleDeclaration::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->cssFloat();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -502,7 +499,7 @@ ExceptionState exception_state(isolate, exception_context_type, class_like_name,
 CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
-CSSStyleDeclaration* blink_receiver = V8CSSStyleDeclaration::ToWrappableUnsafe(v8_receiver);
+CSSStyleDeclaration* blink_receiver = V8CSSStyleDeclaration::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
 ExecutionContext* execution_context = receiver_execution_context;
@@ -539,10 +536,10 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-CSSStyleDeclaration* blink_receiver = V8CSSStyleDeclaration::ToWrappableUnsafe(v8_receiver);
+CSSStyleDeclaration* blink_receiver = V8CSSStyleDeclaration::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_property;
 if (LIKELY(info[0]->IsString())) {
-  arg1_property.Init(info[0].As<v8::String>());
+  arg1_property.Init(isolate, info[0].As<v8::String>());
 } else {
   const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "CSSStyleDeclaration";
@@ -578,10 +575,10 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-CSSStyleDeclaration* blink_receiver = V8CSSStyleDeclaration::ToWrappableUnsafe(v8_receiver);
+CSSStyleDeclaration* blink_receiver = V8CSSStyleDeclaration::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_property;
 if (LIKELY(info[0]->IsString())) {
-  arg1_property.Init(info[0].As<v8::String>());
+  arg1_property.Init(isolate, info[0].As<v8::String>());
 } else {
   const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "CSSStyleDeclaration";
@@ -617,7 +614,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-CSSStyleDeclaration* blink_receiver = V8CSSStyleDeclaration::ToWrappableUnsafe(v8_receiver);
+CSSStyleDeclaration* blink_receiver = V8CSSStyleDeclaration::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_index = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -650,7 +647,7 @@ CEReactionsScope ce_reactions_scope;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-CSSStyleDeclaration* blink_receiver = V8CSSStyleDeclaration::ToWrappableUnsafe(v8_receiver);
+CSSStyleDeclaration* blink_receiver = V8CSSStyleDeclaration::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_property = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -686,7 +683,7 @@ CEReactionsScope ce_reactions_scope;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-CSSStyleDeclaration* blink_receiver = V8CSSStyleDeclaration::ToWrappableUnsafe(v8_receiver);
+CSSStyleDeclaration* blink_receiver = V8CSSStyleDeclaration::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
 ExecutionContext* execution_context = receiver_execution_context;

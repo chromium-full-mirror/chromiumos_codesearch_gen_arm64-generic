@@ -35,6 +35,7 @@ class V8UnionFileOrFormDataOrUSVString;
 class V8UnionFileOrUSVString;
 class V8UnionFloat32ArrayOrUint16ArrayOrUint8ClampedArray;
 class V8UnionHTMLScriptElementOrSVGScriptElement;
+class V8UnionObserverOrObserverCallback;
 class V8UnionOpaquePropertyOrUSVString;
 class V8UnionOpaquePropertyOrUnsignedLong;
 class V8UnionReadableByteStreamControllerOrReadableStreamDefaultController;
@@ -43,6 +44,7 @@ class V8UnionRequestOrRequestOrUSVStringSequenceOrUSVString;
 class V8UnionRequestOrUSVString;
 class V8UnionTrustedHTMLOrTrustedScriptOrTrustedScriptURL;
 class V8UnionURLPatternInitOrUSVString;
+class V8UnionURLPatternOrURLPatternInitOrUSVString;
 
 // Typedefs to IDL unions
 using V8BinaryData = V8UnionArrayBufferOrArrayBufferView;
@@ -60,12 +62,14 @@ using V8HTMLOrSVGScriptElement = V8UnionHTMLScriptElementOrSVGScriptElement;
 using V8HeadersInit = V8UnionByteStringByteStringRecordOrByteStringSequenceSequence;
 using V8ImageDataArray = V8UnionFloat32ArrayOrUint16ArrayOrUint8ClampedArray;
 using V8KeyframeOffset = V8UnionDoubleOrStringOrTimelineRangeOffset;
+using V8ObserverUnion = V8UnionObserverOrObserverCallback;
 using V8PartRoot = V8UnionChildNodePartOrDocumentPartRoot;
 using V8ReadableStreamController = V8UnionReadableByteStreamControllerOrReadableStreamDefaultController;
 using V8ReadableStreamReader = V8UnionReadableStreamBYOBReaderOrReadableStreamDefaultReader;
 using V8ReportEventType = V8UnionFenceEventOrString;
 using V8RequestInfo = V8UnionRequestOrUSVString;
 using V8TrustedType = V8UnionTrustedHTMLOrTrustedScriptOrTrustedScriptURL;
+using V8URLPatternCompatible = V8UnionURLPatternOrURLPatternInitOrUSVString;
 using V8URLPatternInput = V8UnionURLPatternInitOrUSVString;
 using V8XMLHttpRequestBodyInit = V8UnionArrayBufferOrArrayBufferViewOrBlobOrFormDataOrURLSearchParamsOrUSVString;
 

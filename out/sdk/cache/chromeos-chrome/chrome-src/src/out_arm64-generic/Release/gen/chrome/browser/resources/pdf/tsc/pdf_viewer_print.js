@@ -6,13 +6,13 @@ import './elements/viewer-page-indicator.js';
 import './elements/viewer-zoom-toolbar.js';
 import './pdf_viewer_shared_style.css.js';
 import { assert, assertNotReached } from 'chrome://resources/js/assert.js';
-import { isRTL } from 'chrome://resources/js/util_ts.js';
+import { isRTL } from 'chrome://resources/js/util.js';
 import { FittingType } from './constants.js';
 import { PluginController } from './controller.js';
 import { deserializeKeyEvent, LoadState, serializeKeyEvent } from './pdf_scripting_api.js';
 import { PdfViewerBaseElement } from './pdf_viewer_base.js';
 import { getTemplate } from './pdf_viewer_print.html.js';
-import { hasCtrlModifier, shouldIgnoreKeyEvents } from './pdf_viewer_utils.js';
+import { hasCtrlModifierOnly, shouldIgnoreKeyEvents } from './pdf_viewer_utils.js';
 import { ToolbarManager } from './toolbar_manager.js';
 let pluginLoaderPolicy = null;
 export class PdfViewerPrintElement extends PdfViewerBaseElement {
@@ -87,7 +87,7 @@ export class PdfViewerPrintElement extends PdfViewerBaseElement {
             case 'Escape':
                 break; // Ensure escape falls through to the print-preview handler.
             case 'a':
-                if (hasCtrlModifier(e)) {
+                if (hasCtrlModifierOnly(e)) {
                     this.pluginController_.selectAll();
                     // Since we do selection ourselves.
                     e.preventDefault();

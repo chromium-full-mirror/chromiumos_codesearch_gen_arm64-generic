@@ -486,6 +486,16 @@ class PageHandler_GetDialogArgs_ResponseParamsDataView {
   template <typename UserType>
   [[nodiscard]] bool ReadArgs(UserType* output) {
     
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::ash::cloud_upload::mojom::DialogArgsDataView, UserType>(),
+    "Attempting to read the optional `args` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadArgs` instead "
+    "of `ReadArgs if you're fine with null values being "
+    "silently ignored in this case.");
     auto* pointer = data_->args.Get();
     return mojo::internal::Deserialize<::ash::cloud_upload::mojom::DialogArgsDataView>(
         pointer, output, message_);

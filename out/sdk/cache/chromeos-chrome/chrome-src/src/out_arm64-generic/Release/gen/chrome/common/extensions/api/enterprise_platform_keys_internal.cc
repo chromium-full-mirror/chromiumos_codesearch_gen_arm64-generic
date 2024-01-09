@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/extensions/api/enterprise_platform_keys_internal.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -36,8 +37,8 @@ Hash::Hash()
  {}
 
 Hash::~Hash() = default;
-Hash::Hash(Hash&& rhs) = default;
-Hash& Hash::operator=(Hash&& rhs) = default;
+Hash::Hash(Hash&& rhs) noexcept = default;
+Hash& Hash::operator=(Hash&& rhs) noexcept = default;
 Hash Hash::Clone() const {
   Hash out;
   out.name = name;
@@ -72,34 +73,21 @@ bool Hash::Populate(
 }
 
 // static
-std::unique_ptr<Hash> Hash::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<Hash>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<Hash> Hash::FromValue(const base::Value::Dict& value) {
+  Hash out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Hash> Hash::FromValue(const base::Value::Dict& value) {
+std::optional<Hash> Hash::FromValue(const base::Value& value) {
   Hash out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<Hash> Hash::FromValue(const base::Value& value) {
-  Hash out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -118,8 +106,8 @@ Algorithm::Algorithm()
  {}
 
 Algorithm::~Algorithm() = default;
-Algorithm::Algorithm(Algorithm&& rhs) = default;
-Algorithm& Algorithm::operator=(Algorithm&& rhs) = default;
+Algorithm::Algorithm(Algorithm&& rhs) noexcept = default;
+Algorithm& Algorithm::operator=(Algorithm&& rhs) noexcept = default;
 Algorithm Algorithm::Clone() const {
   Algorithm out;
   out.name = name;
@@ -152,7 +140,7 @@ bool Algorithm::Populate(
     {
       auto temp = (*modulus_length_value).GetIfInt();
       if (!temp.has_value()) {
-        out.modulus_length = absl::nullopt;
+        out.modulus_length = std::nullopt;
         return false;
       }
       out.modulus_length = *temp;
@@ -191,7 +179,7 @@ bool Algorithm::Populate(
     {
       auto* temp = (*named_curve_value).GetIfString();
       if (!temp) {
-        out.named_curve = absl::nullopt;
+        out.named_curve = std::nullopt;
         return false;
       }
       out.named_curve = *temp;
@@ -211,34 +199,21 @@ bool Algorithm::Populate(
 }
 
 // static
-std::unique_ptr<Algorithm> Algorithm::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<Algorithm>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<Algorithm> Algorithm::FromValue(const base::Value::Dict& value) {
+  Algorithm out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Algorithm> Algorithm::FromValue(const base::Value::Dict& value) {
+std::optional<Algorithm> Algorithm::FromValue(const base::Value& value) {
   Algorithm out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<Algorithm> Algorithm::FromValue(const base::Value& value) {
-  Algorithm out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -289,13 +264,13 @@ namespace GenerateKey {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 3) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -305,13 +280,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = token_id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.token_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -319,15 +294,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& algorithm_value = args[1];
     {
       if (!algorithm_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!Algorithm::Populate(algorithm_value.GetDict(), params.algorithm)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (2 < args.size() &&
@@ -336,13 +311,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = software_backed_value.GetIfBool();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.software_backed = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;

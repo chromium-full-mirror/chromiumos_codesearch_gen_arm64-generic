@@ -80,11 +80,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, HTMLOutputElement>::value,
     "HTMLOutputElement inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&HTMLOutputElement::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "HTMLOutputElement is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -97,8 +92,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLOutputElement.htmlFor.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLOutputElement* blink_receiver = V8HTMLOutputElement::ToWrappableUnsafe(v8_receiver);
+HTMLOutputElement* blink_receiver = V8HTMLOutputElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->htmlFor();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -146,8 +142,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLOutputElement.form.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLOutputElement* blink_receiver = V8HTMLOutputElement::ToWrappableUnsafe(v8_receiver);
+HTMLOutputElement* blink_receiver = V8HTMLOutputElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->formOwner();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -160,10 +157,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLOutputElement.name.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLOutputElement* blink_receiver = V8HTMLOutputElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->GetNameAttribute();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLOutputElement* blink_receiver = V8HTMLOutputElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->GetNameAttribute();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -184,10 +181,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLOutputElement.type.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLOutputElement* blink_receiver = V8HTMLOutputElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->type();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLOutputElement* blink_receiver = V8HTMLOutputElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->type();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -199,10 +196,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLOutputElement.defaultValue.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLOutputElement* blink_receiver = V8HTMLOutputElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->defaultValue();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLOutputElement* blink_receiver = V8HTMLOutputElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->defaultValue();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -222,7 +219,7 @@ ExceptionState exception_state(isolate, exception_context_type, class_like_name,
 CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLOutputElement* blink_receiver = V8HTMLOutputElement::ToWrappableUnsafe(v8_receiver);
+HTMLOutputElement* blink_receiver = V8HTMLOutputElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLString>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -239,10 +236,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLOutputElement.value.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLOutputElement* blink_receiver = V8HTMLOutputElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->value();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLOutputElement* blink_receiver = V8HTMLOutputElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->value();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -262,7 +259,7 @@ ExceptionState exception_state(isolate, exception_context_type, class_like_name,
 CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLOutputElement* blink_receiver = V8HTMLOutputElement::ToWrappableUnsafe(v8_receiver);
+HTMLOutputElement* blink_receiver = V8HTMLOutputElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLString>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -279,8 +276,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLOutputElement.willValidate.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLOutputElement* blink_receiver = V8HTMLOutputElement::ToWrappableUnsafe(v8_receiver);
+HTMLOutputElement* blink_receiver = V8HTMLOutputElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->willValidate();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -293,8 +291,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLOutputElement.validity.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLOutputElement* blink_receiver = V8HTMLOutputElement::ToWrappableUnsafe(v8_receiver);
+HTMLOutputElement* blink_receiver = V8HTMLOutputElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->validity();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -307,10 +306,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLOutputElement.validationMessage.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLOutputElement* blink_receiver = V8HTMLOutputElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->validationMessage();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLOutputElement* blink_receiver = V8HTMLOutputElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->validationMessage();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -322,8 +321,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLOutputElement.labels.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLOutputElement* blink_receiver = V8HTMLOutputElement::ToWrappableUnsafe(v8_receiver);
+HTMLOutputElement* blink_receiver = V8HTMLOutputElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->labels();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -364,8 +364,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLOutputElement.checkValidity");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLOutputElement* blink_receiver = V8HTMLOutputElement::ToWrappableUnsafe(v8_receiver);
+HTMLOutputElement* blink_receiver = V8HTMLOutputElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->checkValidity();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -381,8 +382,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLOutputElement.reportValidity");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLOutputElement* blink_receiver = V8HTMLOutputElement::ToWrappableUnsafe(v8_receiver);
+HTMLOutputElement* blink_receiver = V8HTMLOutputElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->reportValidity();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -395,9 +397,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLOutputElement.setCustomValidity");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 if (UNLIKELY(info.Length() < 1)) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "HTMLOutputElement";
 const char* const property_name = "setCustomValidity";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -408,13 +410,12 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLOutputElement* blink_receiver = V8HTMLOutputElement::ToWrappableUnsafe(v8_receiver);
+HTMLOutputElement* blink_receiver = V8HTMLOutputElement::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_error;
 if (LIKELY(info[0]->IsString())) {
-  arg1_error.Init(info[0].As<v8::String>());
+  arg1_error.Init(isolate, info[0].As<v8::String>());
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "HTMLOutputElement";
 const char* const property_name = "setCustomValidity";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);

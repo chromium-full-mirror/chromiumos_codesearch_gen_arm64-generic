@@ -25,10 +25,7 @@ build libmist: phony ./libmist.a
 build mist-protos: phony ./libmist-protos.a
 build mist-protos_gen: phony obj/mist/mist-protos_gen.stamp
 build root: phony obj/common-mk/gn_root/root.stamp
-build testrunner: phony ./libtestrunner.a
 build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
-build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
-build common-mk/testrunner: phony ./libtestrunner.a
 build mist$:_mist-install_config: phony obj/mist/_mist-install_config.stamp
 build mist$:all: phony obj/mist/all.stamp
 build mist$:install_conf: phony obj/mist/install_conf.stamp
@@ -37,11 +34,9 @@ build mist$:libmist: phony ./libmist.a
 build mist$:mist: phony ./mist
 build mist$:mist-protos: phony ./libmist-protos.a
 build mist$:mist-protos_gen: phony obj/mist/mist-protos_gen.stamp
-build mist$:mist_testrunner: phony ./mist_testrunner
 
 build all: phony $
     obj/common-mk/gn_root/root.stamp $
-    ./libtestrunner.a $
     obj/mist/_mist-install_config.stamp $
     obj/mist/all.stamp $
     obj/mist/install_conf.stamp $
@@ -49,7 +44,6 @@ build all: phony $
     ./libmist.a $
     ./mist $
     ./libmist-protos.a $
-    obj/mist/mist-protos_gen.stamp $
-    ./mist_testrunner
+    obj/mist/mist-protos_gen.stamp
 
 default all

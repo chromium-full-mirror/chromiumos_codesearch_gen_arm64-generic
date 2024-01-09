@@ -1,6 +1,6 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_--><style include="common">#toggleRowTitle{margin:0 8px 2px 0}</style>
+    return html `<!--_html_template_start_--><style include="common">#toggleRowTitle{margin:0 8px 2px 0}#toggle{margin-inline-end:8px}</style>
 <template is="dom-if" if="[[isPersonalizationJellyEnabled_]]">
   <h3 id="toggleRowTitle" class="ambient-subpage-element-title" aria-hidden="true">
     [[getToggleRowTitle_(ambientModeEnabled_)]]

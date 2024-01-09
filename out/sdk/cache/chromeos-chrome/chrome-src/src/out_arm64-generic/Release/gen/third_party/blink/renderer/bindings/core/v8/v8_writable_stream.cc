@@ -72,11 +72,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, WritableStream>::value,
     "WritableStream inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&WritableStream::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "WritableStream is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -89,8 +84,9 @@ BLINK_BINDINGS_TRACE_EVENT("WritableStream.locked.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WritableStream* blink_receiver = V8WritableStream::ToWrappableUnsafe(v8_receiver);
+WritableStream* blink_receiver = V8WritableStream::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->locked();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -176,7 +172,7 @@ return;
 ScriptPromise return_value;
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
-WritableStream* blink_receiver = V8WritableStream::ToWrappableUnsafe(v8_receiver);
+WritableStream* blink_receiver = V8WritableStream::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -219,7 +215,7 @@ return;
 
 
 
-WritableStream* blink_receiver = V8WritableStream::ToWrappableUnsafe(v8_receiver);
+WritableStream* blink_receiver = V8WritableStream::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -241,12 +237,12 @@ BLINK_BINDINGS_TRACE_EVENT("WritableStream.getWriter");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WritableStream* blink_receiver = V8WritableStream::ToWrappableUnsafe(v8_receiver);
+WritableStream* blink_receiver = V8WritableStream::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "WritableStream";
 const char* const property_name = "getWriter";

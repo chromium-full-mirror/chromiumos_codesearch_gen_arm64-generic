@@ -13,6 +13,7 @@
     "mojom_structured_headers.build_metadata",
     "url_loader_base.build_metadata",
     "websocket_mojom.build_metadata",
+    "../../../../components/os_crypt/async/common/common_mojom.build_metadata",
     "../../../../mojo/public/mojom/base/base.build_metadata",
     "../../../../sandbox/policy/mojom/mojom.build_metadata",
     "../../../proxy_resolver/public/mojom/mojom.build_metadata",
@@ -23,6 +24,7 @@
   "sources": [
     "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/services/network/public/mojom/cert_verifier_service.mojom",
     "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/services/network/public/mojom/clear_data_filter.mojom",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/services/network/public/mojom/cookie_encryption_provider.mojom",
     "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/services/network/public/mojom/cors_origin_pattern.mojom",
     "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/services/network/public/mojom/default_credentials.mojom",
     "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/services/network/public/mojom/dhcp_wpad_url_client.mojom",

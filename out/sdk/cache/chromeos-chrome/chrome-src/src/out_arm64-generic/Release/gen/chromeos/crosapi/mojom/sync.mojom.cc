@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -168,14 +169,17 @@ void SyncExplicitPassphraseClientObserverProxy::OnPassphraseRequired(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::SyncExplicitPassphraseClientObserver::OnPassphraseRequired");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSyncExplicitPassphraseClientObserver_OnPassphraseRequired_Name, kFlags, 0, 0, nullptr);
@@ -198,14 +202,17 @@ void SyncExplicitPassphraseClientObserverProxy::OnPassphraseAvailable(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::SyncExplicitPassphraseClientObserver::OnPassphraseAvailable");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSyncExplicitPassphraseClientObserver_OnPassphraseAvailable_Name, kFlags, 0, 0, nullptr);
@@ -294,12 +301,12 @@ bool SyncExplicitPassphraseClientObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSyncExplicitPassphraseClientObserverValidationInfo[] = {
-    {&internal::SyncExplicitPassphraseClientObserver_OnPassphraseRequired_Params_Data::Validate,
+    { &internal::SyncExplicitPassphraseClientObserver_OnPassphraseRequired_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SyncExplicitPassphraseClientObserver_OnPassphraseAvailable_Params_Data::Validate,
+    { &internal::SyncExplicitPassphraseClientObserver_OnPassphraseAvailable_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -436,14 +443,17 @@ void SyncExplicitPassphraseClientProxy::AddObserver(
                         "<value of type ::mojo::PendingRemote<SyncExplicitPassphraseClientObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSyncExplicitPassphraseClient_AddObserver_Name, kFlags, 0, 0, nullptr);
@@ -479,14 +489,17 @@ void SyncExplicitPassphraseClientProxy::GetDecryptionNigoriKey(
                         "<value of type ::crosapi::mojom::AccountKeyPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSyncExplicitPassphraseClient_GetDecryptionNigoriKey_Name, kFlags, 0, 0, nullptr);
@@ -531,14 +544,17 @@ void SyncExplicitPassphraseClientProxy::SetDecryptionNigoriKey(
                         "<value of type NigoriKeyPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSyncExplicitPassphraseClient_SetDecryptionNigoriKey_Name, kFlags, 0, 0, nullptr);
@@ -669,7 +685,8 @@ void SyncExplicitPassphraseClient_GetDecryptionNigoriKey_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSyncExplicitPassphraseClient_GetDecryptionNigoriKey_Name, kFlags, 0, 0, nullptr);
@@ -819,14 +836,14 @@ std::move(p_account_key), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSyncExplicitPassphraseClientValidationInfo[] = {
-    {&internal::SyncExplicitPassphraseClient_AddObserver_Params_Data::Validate,
+    { &internal::SyncExplicitPassphraseClient_AddObserver_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SyncExplicitPassphraseClient_GetDecryptionNigoriKey_Params_Data::Validate,
+    { &internal::SyncExplicitPassphraseClient_GetDecryptionNigoriKey_Params_Data::Validate,
      &internal::SyncExplicitPassphraseClient_GetDecryptionNigoriKey_ResponseParams_Data::Validate},
-    {&internal::SyncExplicitPassphraseClient_SetDecryptionNigoriKey_Params_Data::Validate,
+    { &internal::SyncExplicitPassphraseClient_SetDecryptionNigoriKey_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -911,14 +928,17 @@ void SyncUserSettingsClientObserverProxy::OnAppsSyncEnabledChanged(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSyncUserSettingsClientObserver_OnAppsSyncEnabledChanged_Name, kFlags, 0, 0, nullptr);
@@ -987,10 +1007,10 @@ bool SyncUserSettingsClientObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSyncUserSettingsClientObserverValidationInfo[] = {
-    {&internal::SyncUserSettingsClientObserver_OnAppsSyncEnabledChanged_Params_Data::Validate,
+    { &internal::SyncUserSettingsClientObserver_OnAppsSyncEnabledChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1107,14 +1127,17 @@ void SyncUserSettingsClientProxy::AddObserver(
                         "<value of type ::mojo::PendingRemote<SyncUserSettingsClientObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSyncUserSettingsClient_AddObserver_Name, kFlags, 0, 0, nullptr);
@@ -1143,14 +1166,17 @@ void SyncUserSettingsClientProxy::IsAppsSyncEnabled(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::SyncUserSettingsClient::IsAppsSyncEnabled");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSyncUserSettingsClient_IsAppsSyncEnabled_Name, kFlags, 0, 0, nullptr);
@@ -1260,7 +1286,8 @@ void SyncUserSettingsClient_IsAppsSyncEnabled_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSyncUserSettingsClient_IsAppsSyncEnabled_Name, kFlags, 0, 0, nullptr);
@@ -1367,12 +1394,12 @@ bool SyncUserSettingsClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSyncUserSettingsClientValidationInfo[] = {
-    {&internal::SyncUserSettingsClient_AddObserver_Params_Data::Validate,
+    { &internal::SyncUserSettingsClient_AddObserver_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SyncUserSettingsClient_IsAppsSyncEnabled_Params_Data::Validate,
+    { &internal::SyncUserSettingsClient_IsAppsSyncEnabled_Params_Data::Validate,
      &internal::SyncUserSettingsClient_IsAppsSyncEnabled_ResponseParams_Data::Validate},
 };
 
@@ -1533,14 +1560,17 @@ void SyncServiceProxy::BindExplicitPassphraseClient(
                         "<value of type ::mojo::PendingReceiver<SyncExplicitPassphraseClient>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSyncService_BindExplicitPassphraseClient_Name, kFlags, 0, 0, nullptr);
@@ -1576,14 +1606,17 @@ void SyncServiceProxy::BindUserSettingsClient(
                         "<value of type ::mojo::PendingReceiver<SyncUserSettingsClient>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSyncService_BindUserSettingsClient_Name, kFlags, 0, 0, nullptr);
@@ -1619,14 +1652,17 @@ void SyncServiceProxy::DEPRECATED_BindSyncedSessionClient(
                         "<value of type ::mojo::PendingReceiver<::crosapi::mojom::SyncedSessionClient>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSyncService_DEPRECATED_BindSyncedSessionClient_Name, kFlags, 0, 0, nullptr);
@@ -1655,14 +1691,17 @@ void SyncServiceProxy::CreateSyncedSessionClient(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::SyncService::CreateSyncedSessionClient");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSyncService_CreateSyncedSessionClient_Name, kFlags, 0, 0, nullptr);
@@ -1774,7 +1813,8 @@ void SyncService_CreateSyncedSessionClient_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSyncService_CreateSyncedSessionClient_Name, kFlags, 0, 0, nullptr);
@@ -1944,16 +1984,16 @@ bool SyncServiceStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSyncServiceValidationInfo[] = {
-    {&internal::SyncService_BindExplicitPassphraseClient_Params_Data::Validate,
+    { &internal::SyncService_BindExplicitPassphraseClient_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SyncService_BindUserSettingsClient_Params_Data::Validate,
+    { &internal::SyncService_BindUserSettingsClient_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SyncService_DEPRECATED_BindSyncedSessionClient_Params_Data::Validate,
+    { &internal::SyncService_DEPRECATED_BindSyncedSessionClient_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SyncService_CreateSyncedSessionClient_Params_Data::Validate,
+    { &internal::SyncService_CreateSyncedSessionClient_Params_Data::Validate,
      &internal::SyncService_CreateSyncedSessionClient_ResponseParams_Data::Validate},
 };
 

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "media/mojo/mojom/audio_decoder.mojom-features.h"
 #include "media/mojo/mojom/audio_decoder.mojom-shared.h"
 #include "media/mojo/mojom/audio_decoder.mojom-blink-forward.h"
 #include "media/mojo/mojom/media_log.mojom-blink-forward.h"
@@ -109,7 +110,7 @@ class BLINK_PLATFORM_EXPORT AudioDecoder
 
   using InitializeCallback = base::OnceCallback<void(::media::mojom::blink::DecoderStatusPtr, bool, ::media::mojom::blink::AudioDecoderType)>;
   
-  virtual void Initialize(::media::mojom::blink::AudioDecoderConfigPtr config, const absl::optional<::base::UnguessableToken>& cdm_id, InitializeCallback callback) = 0;
+  virtual void Initialize(::media::mojom::blink::AudioDecoderConfigPtr config, const std::optional<::base::UnguessableToken>& cdm_id, InitializeCallback callback) = 0;
 
   
   virtual void SetDataSource(::mojo::ScopedDataPipeConsumerHandle receive_pipe) = 0;
@@ -188,7 +189,7 @@ class BLINK_PLATFORM_EXPORT AudioDecoderProxy
   
   void Construct(::mojo::PendingAssociatedRemote<AudioDecoderClient> client, ::mojo::PendingRemote<::media::mojom::blink::MediaLog> media_log) final;
   
-  void Initialize(::media::mojom::blink::AudioDecoderConfigPtr config, const absl::optional<::base::UnguessableToken>& cdm_id, InitializeCallback callback) final;
+  void Initialize(::media::mojom::blink::AudioDecoderConfigPtr config, const std::optional<::base::UnguessableToken>& cdm_id, InitializeCallback callback) final;
   
   void SetDataSource(::mojo::ScopedDataPipeConsumerHandle receive_pipe) final;
   

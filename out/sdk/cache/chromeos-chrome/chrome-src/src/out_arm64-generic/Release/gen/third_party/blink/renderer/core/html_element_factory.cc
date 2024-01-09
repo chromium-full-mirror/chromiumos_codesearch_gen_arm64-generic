@@ -95,7 +95,6 @@
 #include "third_party/blink/renderer/core/html/html_wbr_element.h"
 #include "third_party/blink/renderer/core/html/media/html_audio_element.h"
 #include "third_party/blink/renderer/core/html/media/html_video_element.h"
-#include "third_party/blink/renderer/core/html/portal/html_portal_element.h"
 #include "third_party/blink/renderer/core/html/track/html_track_element.h"
 #include "third_party/blink/renderer/core/html/html_unknown_element.h"
 #include "third_party/blink/renderer/platform/heap/garbage_collected.h"
@@ -513,12 +512,6 @@ static HTMLElement* HTMLPlaintextConstructor(
     Document& document, const CreateElementFlags flags) {
   return MakeGarbageCollected<HTMLElement>(html_names::kPlaintextTag, document);
 }
-static HTMLElement* HTMLPortalConstructor(
-    Document& document, const CreateElementFlags flags) {
-  if (!RuntimeEnabledFeatures::PortalsEnabled(document.GetExecutionContext()))
-    return MakeGarbageCollected<HTMLUnknownElement>(html_names::kPortalTag, document);
-  return MakeGarbageCollected<HTMLPortalElement>(document);
-}
 static HTMLElement* HTMLPreConstructor(
     Document& document, const CreateElementFlags flags) {
   return MakeGarbageCollected<HTMLPreElement>(html_names::kPreTag, document);
@@ -816,7 +809,6 @@ static void CreateHTMLFunctionMap() {
     { html_names::kPermissionTag, HTMLPermissionConstructor },
     { html_names::kPictureTag, HTMLPictureConstructor },
     { html_names::kPlaintextTag, HTMLPlaintextConstructor },
-    { html_names::kPortalTag, HTMLPortalConstructor },
     { html_names::kPreTag, HTMLPreConstructor },
     { html_names::kProgressTag, HTMLProgressConstructor },
     { html_names::kQTag, HTMLQConstructor },

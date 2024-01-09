@@ -24,12 +24,15 @@ namespace network::mojom {
 
 enum class ProxyRulesType : int32_t;
 
+enum class IpProtectionProxyBypassPolicy : int32_t;
+
 
 }  // network::mojom
 
 
 namespace network::mojom::blink {
 using ProxyRulesType = ProxyRulesType;
+using IpProtectionProxyBypassPolicy = IpProtectionProxyBypassPolicy;
 class ProxyBypassRules;
 using ProxyBypassRulesPtr = mojo::StructPtr<ProxyBypassRules>;
 

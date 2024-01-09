@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,14 +23,17 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/crosapi/mojom/test_controller.mojom-features.h"
 #include "chromeos/crosapi/mojom/test_controller.mojom-shared.h"
 #include "chromeos/crosapi/mojom/test_controller.mojom-forward.h"
 #include "chromeos/crosapi/mojom/app_service_types.mojom.h"
 #include "chromeos/crosapi/mojom/extension_keeplist.mojom-forward.h"
 #include "chromeos/crosapi/mojom/tts.mojom-forward.h"
+#include "mojo/public/mojom/base/file_path.mojom.h"
 #include "mojo/public/mojom/base/values.mojom.h"
 #include "ui/gfx/geometry/mojom/geometry.mojom.h"
 #include "ui/gfx/range/mojom/range.mojom.h"
+#include "url/mojom/url.mojom.h"
 #include <string>
 #include <vector>
 
@@ -44,6 +47,51 @@
 
 
 namespace crosapi::mojom {
+
+class DomMessageObserverProxy;
+
+template <typename ImplRefTraits>
+class DomMessageObserverStub;
+
+class DomMessageObserverRequestValidator;
+
+
+class DomMessageObserver
+    : public DomMessageObserverInterfaceBase {
+ public:
+  using IPCStableHashFunction = uint32_t(*)();
+
+  static const char Name_[];
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
+  static const char* MessageToMethodName_(mojo::Message& message);
+  static constexpr uint32_t Version_ = 0;
+  static constexpr bool PassesAssociatedKinds_ = false;
+  static constexpr bool HasUninterruptableMethods_ = false;
+
+  using Base_ = DomMessageObserverInterfaceBase;
+  using Proxy_ = DomMessageObserverProxy;
+
+  template <typename ImplRefTraits>
+  using Stub_ = DomMessageObserverStub<ImplRefTraits>;
+
+  using RequestValidator_ = DomMessageObserverRequestValidator;
+  using ResponseValidator_ = mojo::PassThroughFilter;
+  enum MethodMinVersions : uint32_t {
+    kOnMessageMinVersion = 0,
+  };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+  struct OnMessage_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+#endif // !BUILDFLAG(IS_FUCHSIA)
+  virtual ~DomMessageObserver() = default;
+
+  
+  virtual void OnMessage(const std::string& message) = 0;
+};
 
 class StandaloneBrowserTestControllerProxy;
 
@@ -64,7 +112,7 @@ class StandaloneBrowserTestController
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr base::Token Uuid_{ 2371127826186324697ULL,
                                       13659889746506880260ULL };
-  static constexpr uint32_t Version_ = 5;
+  static constexpr uint32_t Version_ = 9;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -83,6 +131,12 @@ class StandaloneBrowserTestController
     kGetExtensionKeeplistMinVersion = 3,
     kTtsSpeakMinVersion = 4,
     kInstallSubAppMinVersion = 5,
+    kInstallIsolatedWebAppMinVersion = 6,
+    kSetWebAppSettingsPrefMinVersion = 7,
+    kInstallUnpackedExtensionMinVersion = 8,
+    kRemoveComponentExtensionMinVersion = 8,
+    kObserveDomMessagesMinVersion = 8,
+    kSetWebAppInstallForceListPrefMinVersion = 9,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -104,6 +158,24 @@ class StandaloneBrowserTestController
     NOINLINE static uint32_t IPCStableHash();
   };
   struct InstallSubApp_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct InstallIsolatedWebApp_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct SetWebAppSettingsPref_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct InstallUnpackedExtension_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct RemoveComponentExtension_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct ObserveDomMessages_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct SetWebAppInstallForceListPref_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -135,7 +207,37 @@ class StandaloneBrowserTestController
 
   using InstallSubAppCallback = base::OnceCallback<void(const std::string&)>;
   
-  virtual void InstallSubApp(const std::string& parent_app_id, const std::string& sub_app_start_url, InstallSubAppCallback callback) = 0;
+  virtual void InstallSubApp(const std::string& parent_app_id, const std::string& sub_app_path, InstallSubAppCallback callback) = 0;
+
+
+  using InstallIsolatedWebAppCallback = base::OnceCallback<void(InstallWebAppResultPtr)>;
+  
+  virtual void InstallIsolatedWebApp(IsolatedWebAppLocationPtr location, bool dev_mode, InstallIsolatedWebAppCallback callback) = 0;
+
+
+  using SetWebAppSettingsPrefCallback = base::OnceCallback<void(bool)>;
+  
+  virtual void SetWebAppSettingsPref(const std::string& policy, SetWebAppSettingsPrefCallback callback) = 0;
+
+
+  using InstallUnpackedExtensionCallback = base::OnceCallback<void(const std::string&)>;
+  
+  virtual void InstallUnpackedExtension(const std::string& path, InstallUnpackedExtensionCallback callback) = 0;
+
+
+  using RemoveComponentExtensionCallback = base::OnceCallback<void()>;
+  
+  virtual void RemoveComponentExtension(const std::string& extension_id, RemoveComponentExtensionCallback callback) = 0;
+
+
+  using ObserveDomMessagesCallback = base::OnceCallback<void()>;
+  
+  virtual void ObserveDomMessages(::mojo::PendingRemote<DomMessageObserver> observer, ObserveDomMessagesCallback callback) = 0;
+
+
+  using SetWebAppInstallForceListPrefCallback = base::OnceCallback<void(bool)>;
+  
+  virtual void SetWebAppInstallForceListPref(const std::string& policy, SetWebAppInstallForceListPrefCallback callback) = 0;
 };
 
 class TestShillControllerProxy;
@@ -473,7 +575,7 @@ class TestController
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr base::Token Uuid_{ 2275436942397425260ULL,
                                       11994706605012627667ULL };
-  static constexpr uint32_t Version_ = 28;
+  static constexpr uint32_t Version_ = 30;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -528,6 +630,8 @@ class TestController
     kSetAppListItemAttributesMinVersion = 27,
     kCloseAllAshBrowserWindowsAndConfirmMinVersion = 28,
     kCheckAtLeastOneAshBrowserWindowOpenMinVersion = 28,
+    kGetAllOpenTabURLsMinVersion = 29,
+    kSetAlmanacEndpointUrlForTestingMinVersion = 30,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -659,6 +763,12 @@ class TestController
   struct CheckAtLeastOneAshBrowserWindowOpen_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
+  struct GetAllOpenTabURLs_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct SetAlmanacEndpointUrlForTesting_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~TestController() = default;
 
@@ -716,7 +826,7 @@ class TestController
   virtual void GetMinimizeOnBackKeyWindowProperty(const std::string& window_id, GetMinimizeOnBackKeyWindowPropertyCallback callback) = 0;
 
 
-  using GetWindowPositionInScreenCallback = base::OnceCallback<void(const absl::optional<::gfx::Point>&)>;
+  using GetWindowPositionInScreenCallback = base::OnceCallback<void(const std::optional<::gfx::Point>&)>;
   
   virtual void GetWindowPositionInScreen(const std::string& window_id, GetWindowPositionInScreenCallback callback) = 0;
 
@@ -857,6 +967,31 @@ class TestController
   using CheckAtLeastOneAshBrowserWindowOpenCallback = base::OnceCallback<void(bool)>;
   
   virtual void CheckAtLeastOneAshBrowserWindowOpen(CheckAtLeastOneAshBrowserWindowOpenCallback callback) = 0;
+
+
+  using GetAllOpenTabURLsCallback = base::OnceCallback<void(const std::vector<::GURL>&)>;
+  
+  virtual void GetAllOpenTabURLs(GetAllOpenTabURLsCallback callback) = 0;
+
+
+  using SetAlmanacEndpointUrlForTestingCallback = base::OnceCallback<void()>;
+  
+  virtual void SetAlmanacEndpointUrlForTesting(const std::optional<std::string>& override, SetAlmanacEndpointUrlForTestingCallback callback) = 0;
+};
+
+
+
+class  DomMessageObserverProxy
+    : public DomMessageObserver {
+ public:
+  using InterfaceType = DomMessageObserver;
+
+  explicit DomMessageObserverProxy(mojo::MessageReceiverWithResponder* receiver);
+  
+  void OnMessage(const std::string& message) final;
+
+ private:
+  mojo::MessageReceiverWithResponder* receiver_;
 };
 
 
@@ -878,7 +1013,19 @@ class  StandaloneBrowserTestControllerProxy
   
   void TtsSpeak(::crosapi::mojom::TtsUtterancePtr utterance, ::mojo::PendingRemote<::crosapi::mojom::TtsUtteranceClient> utterance_client) final;
   
-  void InstallSubApp(const std::string& parent_app_id, const std::string& sub_app_start_url, InstallSubAppCallback callback) final;
+  void InstallSubApp(const std::string& parent_app_id, const std::string& sub_app_path, InstallSubAppCallback callback) final;
+  
+  void InstallIsolatedWebApp(IsolatedWebAppLocationPtr location, bool dev_mode, InstallIsolatedWebAppCallback callback) final;
+  
+  void SetWebAppSettingsPref(const std::string& policy, SetWebAppSettingsPrefCallback callback) final;
+  
+  void InstallUnpackedExtension(const std::string& path, InstallUnpackedExtensionCallback callback) final;
+  
+  void RemoveComponentExtension(const std::string& extension_id, RemoveComponentExtensionCallback callback) final;
+  
+  void ObserveDomMessages(::mojo::PendingRemote<DomMessageObserver> observer, ObserveDomMessagesCallback callback) final;
+  
+  void SetWebAppInstallForceListPref(const std::string& policy, SetWebAppInstallForceListPrefCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -1059,9 +1206,54 @@ class  TestControllerProxy
   void CloseAllAshBrowserWindowsAndConfirm(CloseAllAshBrowserWindowsAndConfirmCallback callback) final;
   
   void CheckAtLeastOneAshBrowserWindowOpen(CheckAtLeastOneAshBrowserWindowOpenCallback callback) final;
+  
+  void GetAllOpenTabURLs(GetAllOpenTabURLsCallback callback) final;
+  
+  void SetAlmanacEndpointUrlForTesting(const std::optional<std::string>& override, SetAlmanacEndpointUrlForTestingCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
+};
+class  DomMessageObserverStubDispatch {
+ public:
+  static bool Accept(DomMessageObserver* impl, mojo::Message* message);
+  static bool AcceptWithResponder(
+      DomMessageObserver* impl,
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder);
+};
+
+template <typename ImplRefTraits =
+              mojo::RawPtrImplRefTraits<DomMessageObserver>>
+class DomMessageObserverStub
+    : public mojo::MessageReceiverWithResponderStatus {
+ public:
+  using ImplPointerType = typename ImplRefTraits::PointerType;
+
+  DomMessageObserverStub() = default;
+  ~DomMessageObserverStub() override = default;
+
+  void set_sink(ImplPointerType sink) { sink_ = std::move(sink); }
+  ImplPointerType& sink() { return sink_; }
+
+  bool Accept(mojo::Message* message) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return DomMessageObserverStubDispatch::Accept(
+        ImplRefTraits::GetRawPointer(&sink_), message);
+  }
+
+  bool AcceptWithResponder(
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return DomMessageObserverStubDispatch::AcceptWithResponder(
+        ImplRefTraits::GetRawPointer(&sink_), message, std::move(responder));
+  }
+
+ private:
+  ImplPointerType sink_;
 };
 class  StandaloneBrowserTestControllerStubDispatch {
  public:
@@ -1267,6 +1459,10 @@ class TestControllerStub
 
  private:
   ImplPointerType sink_;
+};
+class  DomMessageObserverRequestValidator : public mojo::MessageReceiver {
+ public:
+  bool Accept(mojo::Message* message) override;
 };
 class  StandaloneBrowserTestControllerRequestValidator : public mojo::MessageReceiver {
  public:
@@ -1595,6 +1791,267 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+class  IsolatedWebAppLocation {
+ public:
+  using DataView = IsolatedWebAppLocationDataView;
+  using Data_ = internal::IsolatedWebAppLocation_Data;
+  using Tag = Data_::IsolatedWebAppLocation_Tag;
+
+  template <typename... Args>
+  static IsolatedWebAppLocationPtr New(Args&&... args) {
+    static_assert(
+        sizeof...(args) < 0,
+        "Do not use Union::New(); to create a union of a given subtype, use "
+        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
+        "an empty union, mark the field or parameter as nullable in the mojom "
+        "definition.");
+    return nullptr;
+  }
+  // Construct an instance holding |proxy_origin|.
+  static IsolatedWebAppLocationPtr
+  NewProxyOrigin(
+      const ::GURL& value) {
+    auto result = IsolatedWebAppLocationPtr(absl::in_place);
+    result->set_proxy_origin(std::move(value));
+    return result;
+  }
+  // Construct an instance holding |bundle_path|.
+  static IsolatedWebAppLocationPtr
+  NewBundlePath(
+      const ::base::FilePath& value) {
+    auto result = IsolatedWebAppLocationPtr(absl::in_place);
+    result->set_bundle_path(std::move(value));
+    return result;
+  }
+
+  template <typename U>
+  static IsolatedWebAppLocationPtr From(const U& u) {
+    return mojo::TypeConverter<IsolatedWebAppLocationPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, IsolatedWebAppLocation>::Convert(*this);
+  }
+
+  IsolatedWebAppLocation();
+  ~IsolatedWebAppLocation();
+  // Delete the copy constructor and copy assignment operators because `data_`
+  // contains raw pointers that must not be copied.
+  IsolatedWebAppLocation(const IsolatedWebAppLocation& other) = delete;
+  IsolatedWebAppLocation& operator=(const IsolatedWebAppLocation& other) = delete;
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename UnionPtrType = IsolatedWebAppLocationPtr>
+  IsolatedWebAppLocationPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T,
+            typename std::enable_if<std::is_same<
+                T, IsolatedWebAppLocation>::value>::type* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T,
+            typename std::enable_if<std::is_same<
+                T, IsolatedWebAppLocation>::value>::type* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  Tag which() const {
+    return tag_;
+  }
+
+
+  
+  bool is_proxy_origin() const { return tag_ == Tag::kProxyOrigin; }
+
+  
+  ::GURL& get_proxy_origin() const {
+    CHECK(tag_ == Tag::kProxyOrigin);
+    return *(data_.proxy_origin);
+  }
+
+  
+  void set_proxy_origin(
+      const ::GURL& proxy_origin);
+  
+  bool is_bundle_path() const { return tag_ == Tag::kBundlePath; }
+
+  
+  ::base::FilePath& get_bundle_path() const {
+    CHECK(tag_ == Tag::kBundlePath);
+    return *(data_.bundle_path);
+  }
+
+  
+  void set_bundle_path(
+      const ::base::FilePath& bundle_path);
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        IsolatedWebAppLocation::DataView>(input);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    return mojo::internal::DeserializeImpl<IsolatedWebAppLocation::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+ private:
+  union Union_ {
+    Union_() = default;
+    ~Union_() = default;
+    ::GURL* proxy_origin;
+    ::base::FilePath* bundle_path;
+  };
+
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  void DestroyActive();
+  Tag tag_;
+  Union_ data_;
+};
+
+
+
+class  InstallWebAppResult {
+ public:
+  using DataView = InstallWebAppResultDataView;
+  using Data_ = internal::InstallWebAppResult_Data;
+  using Tag = Data_::InstallWebAppResult_Tag;
+
+  template <typename... Args>
+  static InstallWebAppResultPtr New(Args&&... args) {
+    static_assert(
+        sizeof...(args) < 0,
+        "Do not use Union::New(); to create a union of a given subtype, use "
+        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
+        "an empty union, mark the field or parameter as nullable in the mojom "
+        "definition.");
+    return nullptr;
+  }
+  // Construct an instance holding |app_id|.
+  static InstallWebAppResultPtr
+  NewAppId(
+      const std::string& value) {
+    auto result = InstallWebAppResultPtr(absl::in_place);
+    result->set_app_id(std::move(value));
+    return result;
+  }
+  // Construct an instance holding |error_message|.
+  static InstallWebAppResultPtr
+  NewErrorMessage(
+      const std::string& value) {
+    auto result = InstallWebAppResultPtr(absl::in_place);
+    result->set_error_message(std::move(value));
+    return result;
+  }
+
+  template <typename U>
+  static InstallWebAppResultPtr From(const U& u) {
+    return mojo::TypeConverter<InstallWebAppResultPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, InstallWebAppResult>::Convert(*this);
+  }
+
+  InstallWebAppResult();
+  ~InstallWebAppResult();
+  // Delete the copy constructor and copy assignment operators because `data_`
+  // contains raw pointers that must not be copied.
+  InstallWebAppResult(const InstallWebAppResult& other) = delete;
+  InstallWebAppResult& operator=(const InstallWebAppResult& other) = delete;
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename UnionPtrType = InstallWebAppResultPtr>
+  InstallWebAppResultPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T,
+            typename std::enable_if<std::is_same<
+                T, InstallWebAppResult>::value>::type* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T,
+            typename std::enable_if<std::is_same<
+                T, InstallWebAppResult>::value>::type* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+  size_t Hash(size_t seed) const;
+
+  Tag which() const {
+    return tag_;
+  }
+
+
+  
+  bool is_app_id() const { return tag_ == Tag::kAppId; }
+
+  
+  std::string& get_app_id() const {
+    CHECK(tag_ == Tag::kAppId);
+    return *(data_.app_id);
+  }
+
+  
+  void set_app_id(
+      const std::string& app_id);
+  
+  bool is_error_message() const { return tag_ == Tag::kErrorMessage; }
+
+  
+  std::string& get_error_message() const {
+    CHECK(tag_ == Tag::kErrorMessage);
+    return *(data_.error_message);
+  }
+
+  
+  void set_error_message(
+      const std::string& error_message);
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        InstallWebAppResult::DataView>(input);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    return mojo::internal::DeserializeImpl<InstallWebAppResult::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+ private:
+  union Union_ {
+    Union_() = default;
+    ~Union_() = default;
+    std::string* app_id;
+    std::string* error_message;
+  };
+
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  void DestroyActive();
+  Tag tag_;
+  Union_ data_;
+};
+
+
+
 
 
 
@@ -1754,6 +2211,64 @@ bool operator>=(const T& lhs, const T& rhs) {
 }
 
 
+template <typename UnionPtrType>
+IsolatedWebAppLocationPtr IsolatedWebAppLocation::Clone() const {
+  switch (tag_) {
+    case Tag::kProxyOrigin:
+      return NewProxyOrigin(
+          mojo::Clone(*data_.proxy_origin));
+    case Tag::kBundlePath:
+      return NewBundlePath(
+          mojo::Clone(*data_.bundle_path));
+  }
+  return nullptr;
+}
+
+template <typename T,
+          typename std::enable_if<std::is_same<
+              T, IsolatedWebAppLocation>::value>::type*>
+bool IsolatedWebAppLocation::Equals(const T& other) const {
+  if (tag_ != other.which())
+    return false;
+
+  switch (tag_) {
+    case Tag::kProxyOrigin:
+      return mojo::Equals(*(data_.proxy_origin), *(other.data_.proxy_origin));
+    case Tag::kBundlePath:
+      return mojo::Equals(*(data_.bundle_path), *(other.data_.bundle_path));
+  }
+
+  return false;
+}
+template <typename UnionPtrType>
+InstallWebAppResultPtr InstallWebAppResult::Clone() const {
+  switch (tag_) {
+    case Tag::kAppId:
+      return NewAppId(
+          mojo::Clone(*data_.app_id));
+    case Tag::kErrorMessage:
+      return NewErrorMessage(
+          mojo::Clone(*data_.error_message));
+  }
+  return nullptr;
+}
+
+template <typename T,
+          typename std::enable_if<std::is_same<
+              T, InstallWebAppResult>::value>::type*>
+bool InstallWebAppResult::Equals(const T& other) const {
+  if (tag_ != other.which())
+    return false;
+
+  switch (tag_) {
+    case Tag::kAppId:
+      return mojo::Equals(*(data_.app_id), *(other.data_.app_id));
+    case Tag::kErrorMessage:
+      return mojo::Equals(*(data_.error_message), *(other.data_.error_message));
+  }
+
+  return false;
+}
 template <typename StructPtrType>
 AppListItemAttributesPtr AppListItemAttributes::Clone() const {
   return New(
@@ -1929,6 +2444,50 @@ struct  StructTraits<::crosapi::mojom::InputMethod::DataView,
   }
 
   static bool Read(::crosapi::mojom::InputMethod::DataView input, ::crosapi::mojom::InputMethodPtr* output);
+};
+
+
+template <>
+struct  UnionTraits<::crosapi::mojom::IsolatedWebAppLocation::DataView,
+                                        ::crosapi::mojom::IsolatedWebAppLocationPtr> {
+  static bool IsNull(const ::crosapi::mojom::IsolatedWebAppLocationPtr& input) { return !input; }
+  static void SetToNull(::crosapi::mojom::IsolatedWebAppLocationPtr* output) { output->reset(); }
+
+  static ::crosapi::mojom::IsolatedWebAppLocation::Tag GetTag(const ::crosapi::mojom::IsolatedWebAppLocationPtr& input) {
+    return input->which();
+  }
+
+  static const ::GURL& proxy_origin(const ::crosapi::mojom::IsolatedWebAppLocationPtr& input) {
+    return input->get_proxy_origin();
+  }
+
+  static const ::base::FilePath& bundle_path(const ::crosapi::mojom::IsolatedWebAppLocationPtr& input) {
+    return input->get_bundle_path();
+  }
+
+  static bool Read(::crosapi::mojom::IsolatedWebAppLocation::DataView input, ::crosapi::mojom::IsolatedWebAppLocationPtr* output);
+};
+
+
+template <>
+struct  UnionTraits<::crosapi::mojom::InstallWebAppResult::DataView,
+                                        ::crosapi::mojom::InstallWebAppResultPtr> {
+  static bool IsNull(const ::crosapi::mojom::InstallWebAppResultPtr& input) { return !input; }
+  static void SetToNull(::crosapi::mojom::InstallWebAppResultPtr* output) { output->reset(); }
+
+  static ::crosapi::mojom::InstallWebAppResult::Tag GetTag(const ::crosapi::mojom::InstallWebAppResultPtr& input) {
+    return input->which();
+  }
+
+  static const std::string& app_id(const ::crosapi::mojom::InstallWebAppResultPtr& input) {
+    return input->get_app_id();
+  }
+
+  static const std::string& error_message(const ::crosapi::mojom::InstallWebAppResultPtr& input) {
+    return input->get_error_message();
+  }
+
+  static bool Read(::crosapi::mojom::InstallWebAppResult::DataView input, ::crosapi::mojom::InstallWebAppResultPtr* output);
 };
 
 }  // namespace mojo

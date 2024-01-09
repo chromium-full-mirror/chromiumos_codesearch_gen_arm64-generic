@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "dev-libs", "name": "libsuggest", "version": "0.165.0", "revision": 1, "fullname": "dev-libs/libsuggest", "fullnamerev": "dev-libs/libsuggest-0.165.0-r1", "license_names": ["BSD-Google"], "license_text_scanned": [], "homepages": ["https://www.chromium.org/chromium-os"], "skip": false, "tainted": false, "ebuild_path": null}

@@ -11,7 +11,8 @@ import './dialogs/add_password_dialog.js';
 import './dialogs/auth_timed_out_dialog.js';
 import './dialogs/move_passwords_dialog.js';
 import './user_utils_mixin.js';
-// 
+import './promo_cards/promo_card.js';
+import './promo_cards/promo_cards_browser_proxy.js';
 import { PrefsMixin } from 'chrome://resources/cr_components/settings_prefs/prefs_mixin.js';
 import { getInstance as getAnnouncerInstance } from 'chrome://resources/cr_elements/cr_a11y_announcer/cr_a11y_announcer.js';
 import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
@@ -22,7 +23,8 @@ import { PluralStringProxyImpl } from 'chrome://resources/js/plural_string_proxy
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { PasswordManagerImpl } from './password_manager_proxy.js';
 import { getTemplate } from './passwords_section.html.js';
-// 
+import { PromoCardId } from './promo_cards/promo_card.js';
+import { PromoCardsProxyImpl } from './promo_cards/promo_cards_browser_proxy.js';
 import { Page, RouteObserverMixin, Router, UrlParam } from './router.js';
 import { UserUtilMixin } from './user_utils_mixin.js';
 const PasswordsSectionElementBase = PrefsMixin(UserUtilMixin(RouteObserverMixin(I18nMixin(PolymerElement))));
@@ -84,7 +86,10 @@ export class PasswordsSectionElement extends PasswordsSectionElementBase {
                 type: Boolean,
                 computed: 'computeShowPasswordsDescription_(groups_, searchTerm_)',
             },
-            // 
+            promoCard_: {
+                type: Object,
+                value: null,
+            },
             passwordManagerDisabled_: {
                 type: Boolean,
                 computed: 'computePasswordManagerDisabled_(' +
@@ -109,12 +114,15 @@ export class PasswordsSectionElement extends PasswordsSectionElementBase {
             PasswordManagerImpl.getInstance().getCredentialGroups().then(groups => this.groups_ = groups);
         };
         this.setSavedPasswordsListener_ = _passwordList => {
-            // 
+            if (_passwordList.length === 0 &&
+                this.promoCard_?.id === PromoCardId.CHECKUP) {
+                this.promoCard_ = null;
+            }
             updateGroups();
         };
         updateGroups();
         PasswordManagerImpl.getInstance().addSavedPasswordListChangedListener(this.setSavedPasswordsListener_);
-        // 
+        PromoCardsProxyImpl.getInstance().getAvailablePromoCard().then(promo => this.promoCard_ = promo);
         this.authTimedOutListener_ = this.onAuthTimedOut_.bind(this);
         window.addEventListener('auth-timed-out', this.authTimedOutListener_);
     }
@@ -236,7 +244,9 @@ export class PasswordsSectionElement extends PasswordsSectionElementBase {
             Router.getInstance().navigateTo(Page.SETTINGS, null, params);
         });
     }
-    // 
+    onPromoClosed_() {
+        this.promoCard_ = null;
+    }
     computePasswordManagerDisabled_() {
         const pref = this.getPref('credentials_enable_service');
         return pref.enforcement === chrome.settingsPrivate.Enforcement.ENFORCED &&

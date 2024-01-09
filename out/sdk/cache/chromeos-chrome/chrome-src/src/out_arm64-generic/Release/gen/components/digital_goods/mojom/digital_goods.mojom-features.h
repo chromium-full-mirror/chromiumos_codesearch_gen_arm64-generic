@@ -8,6 +8,7 @@
 #define COMPONENTS_DIGITAL_GOODS_MOJOM_DIGITAL_GOODS_MOJOM_FEATURES_H_
 
 #include "base/feature_list.h"
+#include "mojo/public/cpp/bindings/runtime_features.h"
 
 
 

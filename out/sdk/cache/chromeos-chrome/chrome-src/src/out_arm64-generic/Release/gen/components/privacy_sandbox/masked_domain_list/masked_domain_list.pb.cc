@@ -20,11 +20,11 @@ namespace _pbi = _pb::internal;
 namespace masked_domain_list {
 PROTOBUF_CONSTEXPR Resource::Resource(
     ::_pbi::ConstantInitialized)
-  : categories_()
-  , _categories_cached_byte_size_(0)
-  , experiments_()
+  : experiments_()
   , _experiments_cached_byte_size_(0)
-  , domain_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}){}
+  , experiment_group_ids_()
+  , domain_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , exclude_default_group_(false){}
 struct ResourceDefaultTypeInternal {
   PROTOBUF_CONSTEXPR ResourceDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -62,59 +62,6 @@ struct MaskedDomainListDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 MaskedDomainListDefaultTypeInternal _MaskedDomainList_default_instance_;
 }  // namespace masked_domain_list
 namespace masked_domain_list {
-bool Resource_Category_IsValid(int value) {
-  switch (value) {
-    case 0:
-      return true;
-    default:
-      return false;
-  }
-}
-
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> Resource_Category_strings[1] = {};
-
-static const char Resource_Category_names[] =
-  "CATEGORY_UNKNOWN";
-
-static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry Resource_Category_entries[] = {
-  { {Resource_Category_names + 0, 16}, 0 },
-};
-
-static const int Resource_Category_entries_by_number[] = {
-  0, // 0 -> CATEGORY_UNKNOWN
-};
-
-const std::string& Resource_Category_Name(
-    Resource_Category value) {
-  static const bool dummy =
-      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
-          Resource_Category_entries,
-          Resource_Category_entries_by_number,
-          1, Resource_Category_strings);
-  (void) dummy;
-  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
-      Resource_Category_entries,
-      Resource_Category_entries_by_number,
-      1, value);
-  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
-                     Resource_Category_strings[idx].get();
-}
-bool Resource_Category_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, Resource_Category* value) {
-  int int_value;
-  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      Resource_Category_entries, 1, name, &int_value);
-  if (success) {
-    *value = static_cast<Resource_Category>(int_value);
-  }
-  return success;
-}
-#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
-constexpr Resource_Category Resource::CATEGORY_UNKNOWN;
-constexpr Resource_Category Resource::Category_MIN;
-constexpr Resource_Category Resource::Category_MAX;
-constexpr int Resource::Category_ARRAYSIZE;
-#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 bool Resource_Experiment_IsValid(int value) {
   switch (value) {
     case 0:
@@ -182,21 +129,24 @@ class Resource::_Internal {
   static void set_has_domain(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
+  static void set_has_exclude_default_group(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
 };
 
 Resource::Resource(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  categories_(arena),
-  experiments_(arena) {
+  experiments_(arena),
+  experiment_group_ids_(arena) {
   SharedCtor();
   // @@protoc_insertion_point(arena_constructor:masked_domain_list.Resource)
 }
 Resource::Resource(const Resource& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
       _has_bits_(from._has_bits_),
-      categories_(from.categories_),
-      experiments_(from.experiments_) {
+      experiments_(from.experiments_),
+      experiment_group_ids_(from.experiment_group_ids_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   domain_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
@@ -206,6 +156,7 @@ Resource::Resource(const Resource& from)
     domain_.Set(from._internal_domain(), 
       GetArenaForAllocation());
   }
+  exclude_default_group_ = from.exclude_default_group_;
   // @@protoc_insertion_point(copy_constructor:masked_domain_list.Resource)
 }
 
@@ -214,6 +165,7 @@ domain_.InitDefault();
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   domain_.Set("", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+exclude_default_group_ = false;
 }
 
 Resource::~Resource() {
@@ -240,12 +192,13 @@ void Resource::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  categories_.Clear();
   experiments_.Clear();
+  experiment_group_ids_.Clear();
   cached_has_bits = _has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     domain_.ClearNonDefaultToEmpty();
   }
+  exclude_default_group_ = false;
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
@@ -266,22 +219,6 @@ const char* Resource::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx)
         } else
           goto handle_unusual;
         continue;
-      // repeated .masked_domain_list.Resource.Category categories = 2 [packed = true];
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedEnumParser<std::string>(_internal_mutable_categories(), ptr, ctx, ::masked_domain_list::Resource_Category_IsValid, &_internal_metadata_, 2);
-          CHK_(ptr);
-        } else if (static_cast<uint8_t>(tag) == 16) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-          if (PROTOBUF_PREDICT_TRUE(::masked_domain_list::Resource_Category_IsValid(val))) {
-            _internal_add_categories(static_cast<::masked_domain_list::Resource_Category>(val));
-          } else {
-            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(2, val, mutable_unknown_fields());
-          }
-        } else
-          goto handle_unusual;
-        continue;
       // repeated .masked_domain_list.Resource.Experiment experiments = 3 [packed = true];
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
@@ -295,6 +232,31 @@ const char* Resource::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx)
           } else {
             ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(3, val, mutable_unknown_fields());
           }
+        } else
+          goto handle_unusual;
+        continue;
+      // optional bool exclude_default_group = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+          _Internal::set_has_exclude_default_group(&has_bits);
+          exclude_default_group_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated int64 experiment_group_ids = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            _internal_add_experiment_group_ids(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr));
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<40>(ptr));
+        } else if (static_cast<uint8_t>(tag) == 42) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedInt64Parser(_internal_mutable_experiment_group_ids(), ptr, ctx);
+          CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
@@ -335,15 +297,6 @@ uint8_t* Resource::_InternalSerialize(
         1, this->_internal_domain(), target);
   }
 
-  // repeated .masked_domain_list.Resource.Category categories = 2 [packed = true];
-  {
-    int byte_size = _categories_cached_byte_size_.load(std::memory_order_relaxed);
-    if (byte_size > 0) {
-      target = stream->WriteEnumPacked(
-          2, categories_, byte_size, target);
-    }
-  }
-
   // repeated .masked_domain_list.Resource.Experiment experiments = 3 [packed = true];
   {
     int byte_size = _experiments_cached_byte_size_.load(std::memory_order_relaxed);
@@ -351,6 +304,18 @@ uint8_t* Resource::_InternalSerialize(
       target = stream->WriteEnumPacked(
           3, experiments_, byte_size, target);
     }
+  }
+
+  // optional bool exclude_default_group = 4;
+  if (cached_has_bits & 0x00000002u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(4, this->_internal_exclude_default_group(), target);
+  }
+
+  // repeated int64 experiment_group_ids = 5;
+  for (int i = 0, n = this->_internal_experiment_group_ids_size(); i < n; i++) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(5, this->_internal_experiment_group_ids(i), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -369,23 +334,6 @@ size_t Resource::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // repeated .masked_domain_list.Resource.Category categories = 2 [packed = true];
-  {
-    size_t data_size = 0;
-    unsigned int count = static_cast<unsigned int>(this->_internal_categories_size());for (unsigned int i = 0; i < count; i++) {
-      data_size += ::_pbi::WireFormatLite::EnumSize(
-        this->_internal_categories(static_cast<int>(i)));
-    }
-    if (data_size > 0) {
-      total_size += 1 +
-        ::_pbi::WireFormatLite::Int32Size(static_cast<int32_t>(data_size));
-    }
-    int cached_size = ::_pbi::ToCachedSize(data_size);
-    _categories_cached_byte_size_.store(cached_size,
-                                    std::memory_order_relaxed);
-    total_size += data_size;
-  }
-
   // repeated .masked_domain_list.Resource.Experiment experiments = 3 [packed = true];
   {
     size_t data_size = 0;
@@ -403,14 +351,30 @@ size_t Resource::ByteSizeLong() const {
     total_size += data_size;
   }
 
-  // optional string domain = 1;
-  cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000001u) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_domain());
+  // repeated int64 experiment_group_ids = 5;
+  {
+    size_t data_size = ::_pbi::WireFormatLite::
+      Int64Size(this->experiment_group_ids_);
+    total_size += 1 *
+                  ::_pbi::FromIntSize(this->_internal_experiment_group_ids_size());
+    total_size += data_size;
   }
 
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    // optional string domain = 1;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_domain());
+    }
+
+    // optional bool exclude_default_group = 4;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += 1 + 1;
+    }
+
+  }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -431,10 +395,17 @@ void Resource::MergeFrom(const Resource& from) {
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  categories_.MergeFrom(from.categories_);
   experiments_.MergeFrom(from.experiments_);
-  if (from._internal_has_domain()) {
-    _internal_set_domain(from._internal_domain());
+  experiment_group_ids_.MergeFrom(from.experiment_group_ids_);
+  cached_has_bits = from._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      _internal_set_domain(from._internal_domain());
+    }
+    if (cached_has_bits & 0x00000002u) {
+      exclude_default_group_ = from.exclude_default_group_;
+    }
+    _has_bits_[0] |= cached_has_bits;
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -456,12 +427,13 @@ void Resource::InternalSwap(Resource* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
-  categories_.InternalSwap(&other->categories_);
   experiments_.InternalSwap(&other->experiments_);
+  experiment_group_ids_.InternalSwap(&other->experiment_group_ids_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &domain_, lhs_arena,
       &other->domain_, rhs_arena
   );
+  swap(exclude_default_group_, other->exclude_default_group_);
 }
 
 std::string Resource::GetTypeName() const {

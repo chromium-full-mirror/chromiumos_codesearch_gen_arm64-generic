@@ -1,0 +1,231 @@
+{
+  "extends": "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/tsconfig_base.json",
+  "compilerOptions": {
+    "rootDir": "preprocessed",
+    "outDir": "tsc",
+    "paths": {
+      "//resources/polymer/v3_0/polymer/polymer_bundled.min.js": [
+        "./../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/polymer/polymer.d.ts"
+      ],
+      "chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js": [
+        "./../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/polymer/polymer.d.ts"
+      ],
+      "//resources/polymer/v3_0/*": [
+        "./../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/*"
+      ],
+      "chrome://resources/polymer/v3_0/*": [
+        "./../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/*"
+      ],
+      "//resources/cr_components/app_management/*": [
+        "./../../../../../ui/webui/resources/tsc/cr_components/app_management/*"
+      ],
+      "chrome://resources/cr_components/app_management/*": [
+        "./../../../../../ui/webui/resources/tsc/cr_components/app_management/*"
+      ],
+      "//resources/cr_components/color_change_listener/*": [
+        "./../../../../../ui/webui/resources/tsc/cr_components/color_change_listener/*"
+      ],
+      "chrome://resources/cr_components/color_change_listener/*": [
+        "./../../../../../ui/webui/resources/tsc/cr_components/color_change_listener/*"
+      ],
+      "//resources/cr_components/customize_color_scheme_mode/*": [
+        "./../../../../../ui/webui/resources/tsc/cr_components/customize_color_scheme_mode/*"
+      ],
+      "chrome://resources/cr_components/customize_color_scheme_mode/*": [
+        "./../../../../../ui/webui/resources/tsc/cr_components/customize_color_scheme_mode/*"
+      ],
+      "//resources/cr_components/customize_themes/*": [
+        "./../../../../../ui/webui/resources/tsc/cr_components/customize_themes/*"
+      ],
+      "chrome://resources/cr_components/customize_themes/*": [
+        "./../../../../../ui/webui/resources/tsc/cr_components/customize_themes/*"
+      ],
+      "//resources/cr_components/help_bubble/*": [
+        "./../../../../../ui/webui/resources/tsc/cr_components/help_bubble/*"
+      ],
+      "chrome://resources/cr_components/help_bubble/*": [
+        "./../../../../../ui/webui/resources/tsc/cr_components/help_bubble/*"
+      ],
+      "//resources/cr_components/history_clusters/*": [
+        "./../../../../../ui/webui/resources/tsc/cr_components/history_clusters/*"
+      ],
+      "chrome://resources/cr_components/history_clusters/*": [
+        "./../../../../../ui/webui/resources/tsc/cr_components/history_clusters/*"
+      ],
+      "//resources/cr_components/localized_link/*": [
+        "./../../../../../ui/webui/resources/tsc/cr_components/localized_link/*"
+      ],
+      "chrome://resources/cr_components/localized_link/*": [
+        "./../../../../../ui/webui/resources/tsc/cr_components/localized_link/*"
+      ],
+      "//resources/cr_components/managed_dialog/*": [
+        "./../../../../../ui/webui/resources/tsc/cr_components/managed_dialog/*"
+      ],
+      "chrome://resources/cr_components/managed_dialog/*": [
+        "./../../../../../ui/webui/resources/tsc/cr_components/managed_dialog/*"
+      ],
+      "//resources/cr_components/managed_footnote/*": [
+        "./../../../../../ui/webui/resources/tsc/cr_components/managed_footnote/*"
+      ],
+      "chrome://resources/cr_components/managed_footnote/*": [
+        "./../../../../../ui/webui/resources/tsc/cr_components/managed_footnote/*"
+      ],
+      "//resources/cr_components/most_visited/*": [
+        "./../../../../../ui/webui/resources/tsc/cr_components/most_visited/*"
+      ],
+      "chrome://resources/cr_components/most_visited/*": [
+        "./../../../../../ui/webui/resources/tsc/cr_components/most_visited/*"
+      ],
+      "//resources/cr_components/omnibox/*": [
+        "./../../../../../ui/webui/resources/tsc/cr_components/omnibox/*"
+      ],
+      "chrome://resources/cr_components/omnibox/*": [
+        "./../../../../../ui/webui/resources/tsc/cr_components/omnibox/*"
+      ],
+      "//resources/cr_components/page_image_service/*": [
+        "./../../../../../ui/webui/resources/tsc/cr_components/page_image_service/*"
+      ],
+      "chrome://resources/cr_components/page_image_service/*": [
+        "./../../../../../ui/webui/resources/tsc/cr_components/page_image_service/*"
+      ],
+      "//resources/cr_components/settings_prefs/*": [
+        "./../../../../../ui/webui/resources/tsc/cr_components/settings_prefs/*"
+      ],
+      "chrome://resources/cr_components/settings_prefs/*": [
+        "./../../../../../ui/webui/resources/tsc/cr_components/settings_prefs/*"
+      ],
+      "//resources/cr_components/theme_color_picker/*": [
+        "./../../../../../ui/webui/resources/tsc/cr_components/theme_color_picker/*"
+      ],
+      "chrome://resources/cr_components/theme_color_picker/*": [
+        "./../../../../../ui/webui/resources/tsc/cr_components/theme_color_picker/*"
+      ],
+      "//resources/cr_elements/*": [
+        "./../../../../../ui/webui/resources/tsc/cr_elements/*"
+      ],
+      "chrome://resources/cr_elements/*": [
+        "./../../../../../ui/webui/resources/tsc/cr_elements/*"
+      ],
+      "//resources/js/*": [
+        "./../../../../../ui/webui/resources/tsc/js/*"
+      ],
+      "chrome://resources/js/*": [
+        "./../../../../../ui/webui/resources/tsc/js/*"
+      ],
+      "//resources/mojo/*": [
+        "./../../../../../ui/webui/resources/tsc/mojo/*"
+      ],
+      "chrome://resources/mojo/*": [
+        "./../../../../../ui/webui/resources/tsc/mojo/*"
+      ],
+      "//resources/cr_components/certificate_manager/*": [
+        "./../../../../../ui/webui/resources/tsc/cr_components/certificate_manager/*"
+      ],
+      "chrome://resources/cr_components/certificate_manager/*": [
+        "./../../../../../ui/webui/resources/tsc/cr_components/certificate_manager/*"
+      ],
+      "/tools/typescript/definitions/*": [
+        "./../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/*"
+      ],
+      "chrome://webui-test/*": [
+        "./../tsc/*"
+      ]
+    }
+  },
+  "files": [
+    "preprocessed/app_management/app_management_test_support.ts",
+    "preprocessed/app_management/file_handling_item_test.ts",
+    "preprocessed/app_management/permission_item_test.ts",
+    "preprocessed/app_management/supported_links_item_test.ts",
+    "preprocessed/app_management/uninstall_button_test.ts",
+    "preprocessed/app_management/window_mode_item_test.ts",
+    "preprocessed/color_change_listener_test.ts",
+    "preprocessed/customize_color_scheme_mode_test.ts",
+    "preprocessed/customize_themes_test.ts",
+    "preprocessed/help_bubble_mixin_test.ts",
+    "preprocessed/help_bubble_test.ts",
+    "preprocessed/history_clusters/history_clusters_test.ts",
+    "preprocessed/history_clusters/horizontal_carousel_test.ts",
+    "preprocessed/localized_link_test.ts",
+    "preprocessed/managed_dialog_test.ts",
+    "preprocessed/most_visited_focus_test.ts",
+    "preprocessed/most_visited_test.ts",
+    "preprocessed/most_visited_test_support.ts",
+    "preprocessed/managed_footnote_test.ts",
+    "preprocessed/omnibox/realbox_match_test.ts",
+    "preprocessed/omnibox/realbox_test_utils.ts",
+    "preprocessed/settings_prefs_test_cases.ts",
+    "preprocessed/settings_prefs_test.ts",
+    "preprocessed/settings_pref_util_test.ts",
+    "preprocessed/theme_color_picker/check_mark_wrapper_test.ts",
+    "preprocessed/theme_color_picker/theme_color_picker_focus_test.ts",
+    "preprocessed/theme_color_picker/theme_color_test.ts",
+    "preprocessed/theme_color_picker/theme_color_picker_test.ts",
+    "preprocessed/theme_color_picker/theme_hue_slider_dialog_test.ts",
+    "preprocessed/certificate_manager_test.ts",
+    "preprocessed/certificate_manager_provisioning_test.ts",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/settings_private.d.ts"
+  ],
+  "references": [
+    {
+      "path": "../tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../../third_party/polymer/v3_0/tsconfig_library.json"
+    },
+    {
+      "path": "../../../../../ui/webui/resources/cr_components/app_management/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../../ui/webui/resources/cr_components/color_change_listener/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../../ui/webui/resources/cr_components/customize_color_scheme_mode/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../../ui/webui/resources/cr_components/customize_themes/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../../ui/webui/resources/cr_components/help_bubble/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../../ui/webui/resources/cr_components/history_clusters/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../../ui/webui/resources/cr_components/localized_link/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../../ui/webui/resources/cr_components/managed_dialog/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../../ui/webui/resources/cr_components/managed_footnote/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../../ui/webui/resources/cr_components/most_visited/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../../ui/webui/resources/cr_components/omnibox/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../../ui/webui/resources/cr_components/page_image_service/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../../ui/webui/resources/cr_components/settings_prefs/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../../ui/webui/resources/cr_components/theme_color_picker/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../../ui/webui/resources/cr_elements/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../../ui/webui/resources/js/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../../ui/webui/resources/mojo/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../../ui/webui/resources/cr_components/certificate_manager/tsconfig_build_ts.json"
+    }
+  ]
+}

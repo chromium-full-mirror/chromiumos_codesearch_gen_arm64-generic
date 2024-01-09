@@ -1,9 +1,13 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_--><style include="settings-shared"></style>
+    return html `<!--_html_template_start_--><style include="settings-shared">#restoreIcon{fill:var(--cros-sys-primary);margin-inline-end:16px}</style>
 
 <settings-card header-text="$i18n{onStartupSettingsCardTitle}">
-  <div class="settings-box">
+  <div class="settings-box first two-line">
+    <template is="dom-if" if="[[isRevampWayfindingEnabled_]]">
+      <iron-icon id="restoreIcon" icon="os-settings:restore-revamp">
+      </iron-icon>
+    </template>
     <div class="start settings-box-text" aria-hidden="true">
       $i18n{onStartupTitle}
       <div class="secondary">$i18n{onStartupDescription}</div>

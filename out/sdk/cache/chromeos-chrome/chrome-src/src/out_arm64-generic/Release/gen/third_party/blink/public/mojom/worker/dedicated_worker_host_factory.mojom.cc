@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -161,14 +162,17 @@ void DedicatedWorkerHostFactoryClientProxy::OnWorkerHostCreated(
                         "<value of type ::mojo::PendingRemote<::blink::mojom::DedicatedWorkerHost>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDedicatedWorkerHostFactoryClient_OnWorkerHostCreated_Name, kFlags, 0, 0, nullptr);
@@ -225,14 +229,17 @@ void DedicatedWorkerHostFactoryClientProxy::OnScriptLoadStarted(
                         "<value of type ::mojo::PendingRemote<::blink::mojom::BackForwardCacheControllerHost>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDedicatedWorkerHostFactoryClient_OnScriptLoadStarted_Name, kFlags, 0, 0, nullptr);
@@ -303,14 +310,17 @@ void DedicatedWorkerHostFactoryClientProxy::OnScriptLoadStartFailed(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::DedicatedWorkerHostFactoryClient::OnScriptLoadStartFailed");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDedicatedWorkerHostFactoryClient_OnScriptLoadStartFailed_Name, kFlags, 0, 0, nullptr);
@@ -464,14 +474,14 @@ bool DedicatedWorkerHostFactoryClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDedicatedWorkerHostFactoryClientValidationInfo[] = {
-    {&internal::DedicatedWorkerHostFactoryClient_OnWorkerHostCreated_Params_Data::Validate,
+    { &internal::DedicatedWorkerHostFactoryClient_OnWorkerHostCreated_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DedicatedWorkerHostFactoryClient_OnScriptLoadStarted_Params_Data::Validate,
+    { &internal::DedicatedWorkerHostFactoryClient_OnScriptLoadStarted_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DedicatedWorkerHostFactoryClient_OnScriptLoadStartFailed_Params_Data::Validate,
+    { &internal::DedicatedWorkerHostFactoryClient_OnScriptLoadStartFailed_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -596,14 +606,17 @@ void DedicatedWorkerHostFactoryProxy::CreateWorkerHost(
                         "<value of type ::mojo::PendingReceiver<::blink::mojom::DedicatedWorkerHost>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDedicatedWorkerHostFactory_CreateWorkerHost_Name, kFlags, 0, 0, nullptr);
@@ -683,14 +696,17 @@ void DedicatedWorkerHostFactoryProxy::CreateWorkerHostAndStartScriptLoad(
                         "<value of type ::mojo::PendingRemote<DedicatedWorkerHostFactoryClient>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDedicatedWorkerHostFactory_CreateWorkerHostAndStartScriptLoad_Name, kFlags, 0, 0, nullptr);
@@ -851,7 +867,8 @@ void DedicatedWorkerHostFactory_CreateWorkerHost_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDedicatedWorkerHostFactory_CreateWorkerHost_Name, kFlags, 0, 0, nullptr);
@@ -1012,12 +1029,12 @@ std::move(p_host), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDedicatedWorkerHostFactoryValidationInfo[] = {
-    {&internal::DedicatedWorkerHostFactory_CreateWorkerHost_Params_Data::Validate,
+    { &internal::DedicatedWorkerHostFactory_CreateWorkerHost_Params_Data::Validate,
      &internal::DedicatedWorkerHostFactory_CreateWorkerHost_ResponseParams_Data::Validate},
-    {&internal::DedicatedWorkerHostFactory_CreateWorkerHostAndStartScriptLoad_Params_Data::Validate,
+    { &internal::DedicatedWorkerHostFactory_CreateWorkerHostAndStartScriptLoad_Params_Data::Validate,
      nullptr /* no response */},
 };
 

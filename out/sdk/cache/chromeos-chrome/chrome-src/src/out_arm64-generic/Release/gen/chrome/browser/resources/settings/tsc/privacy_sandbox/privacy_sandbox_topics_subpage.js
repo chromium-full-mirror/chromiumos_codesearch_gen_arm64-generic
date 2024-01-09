@@ -15,9 +15,11 @@ import { assert } from 'chrome://resources/js/assert.js';
 import { afterNextRender, PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { HatsBrowserProxyImpl, TrustSafetyInteraction } from '../hats_browser_proxy.js';
 import { MetricsBrowserProxyImpl } from '../metrics_browser_proxy.js';
+import { routes } from '../route.js';
+import { RouteObserverMixin } from '../router.js';
 import { PrivacySandboxBrowserProxyImpl } from './privacy_sandbox_browser_proxy.js';
 import { getTemplate } from './privacy_sandbox_topics_subpage.html.js';
-const SettingsPrivacySandboxTopicsSubpageElementBase = I18nMixin(PrefsMixin(PolymerElement));
+const SettingsPrivacySandboxTopicsSubpageElementBase = RouteObserverMixin(I18nMixin(PrefsMixin(PolymerElement)));
 export class SettingsPrivacySandboxTopicsSubpageElement extends SettingsPrivacySandboxTopicsSubpageElementBase {
     constructor() {
         super(...arguments);
@@ -76,8 +78,12 @@ export class SettingsPrivacySandboxTopicsSubpageElement extends SettingsPrivacyS
     ready() {
         super.ready();
         this.privacySandboxBrowserProxy_.getTopicsState().then(state => this.onTopicsStateChanged_(state));
-        this.$.footer.querySelectorAll('a').forEach(link => link.title = this.i18n('opensInNewTab'));
-        HatsBrowserProxyImpl.getInstance().trustSafetyInteractionOccurred(TrustSafetyInteraction.OPENED_TOPICS_SUBPAGE);
+        this.$.footer.querySelectorAll('a').forEach(link => link.setAttribute('aria-description', this.i18n('opensInNewTab')));
+    }
+    currentRouteChanged(newRoute) {
+        if (newRoute === routes.PRIVACY_SANDBOX_TOPICS) {
+            HatsBrowserProxyImpl.getInstance().trustSafetyInteractionOccurred(TrustSafetyInteraction.OPENED_TOPICS_SUBPAGE);
+        }
     }
     isTopicsPrefManaged_() {
         const topicsEnabledPref = this.getPref('privacy_sandbox.m1.topics_enabled');

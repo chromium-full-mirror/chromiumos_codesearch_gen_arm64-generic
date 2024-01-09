@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chrome/common/chrome_render_frame.mojom-features.h"
 #include "chrome/common/chrome_render_frame.mojom-shared.h"
 #include "chrome/common/chrome_render_frame.mojom-forward.h"
 #include "components/lens/lens_metadata.mojom-forward.h"
@@ -81,6 +82,7 @@ class ChromeRenderFrame
     kExecuteWebUIJavaScriptMinVersion = 0,
     kGetMediaFeedURLMinVersion = 0,
     kLoadBlockedPluginsMinVersion = 0,
+    kSetSupportsAppRegionMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -107,6 +109,9 @@ class ChromeRenderFrame
   struct LoadBlockedPlugins_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
+  struct SetSupportsAppRegion_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~ChromeRenderFrame() = default;
 
@@ -130,12 +135,15 @@ class ChromeRenderFrame
   virtual void ExecuteWebUIJavaScript(const ::std::u16string& javascript) = 0;
 
 
-  using GetMediaFeedURLCallback = base::OnceCallback<void(const absl::optional<::GURL>&)>;
+  using GetMediaFeedURLCallback = base::OnceCallback<void(const std::optional<::GURL>&)>;
   
   virtual void GetMediaFeedURL(GetMediaFeedURLCallback callback) = 0;
 
   
   virtual void LoadBlockedPlugins(const std::string& identifier) = 0;
+
+  
+  virtual void SetSupportsAppRegion(bool supports_app_region) = 0;
 };
 
 
@@ -160,6 +168,8 @@ class  ChromeRenderFrameProxy
   void GetMediaFeedURL(GetMediaFeedURLCallback callback) final;
   
   void LoadBlockedPlugins(const std::string& identifier) final;
+  
+  void SetSupportsAppRegion(bool supports_app_region) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

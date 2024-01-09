@@ -423,37 +423,6 @@ class  PrintRenderFrame_PrintNodeUnderContextMenu_Params_Data {
 };
 static_assert(sizeof(PrintRenderFrame_PrintNodeUnderContextMenu_Params_Data) == 8,
               "Bad sizeof(PrintRenderFrame_PrintNodeUnderContextMenu_Params_Data)");
-class  PrintRenderFrame_SnapshotForContentAnalysis_Params_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-
- private:
-  friend class mojo::internal::MessageFragment<PrintRenderFrame_SnapshotForContentAnalysis_Params_Data>;
-
-  PrintRenderFrame_SnapshotForContentAnalysis_Params_Data();
-  ~PrintRenderFrame_SnapshotForContentAnalysis_Params_Data() = delete;
-};
-static_assert(sizeof(PrintRenderFrame_SnapshotForContentAnalysis_Params_Data) == 8,
-              "Bad sizeof(PrintRenderFrame_SnapshotForContentAnalysis_Params_Data)");
-class  PrintRenderFrame_SnapshotForContentAnalysis_ResponseParams_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<internal::DidPrintDocumentParams_Data> params;
-
- private:
-  friend class mojo::internal::MessageFragment<PrintRenderFrame_SnapshotForContentAnalysis_ResponseParams_Data>;
-
-  PrintRenderFrame_SnapshotForContentAnalysis_ResponseParams_Data();
-  ~PrintRenderFrame_SnapshotForContentAnalysis_ResponseParams_Data() = delete;
-};
-static_assert(sizeof(PrintRenderFrame_SnapshotForContentAnalysis_ResponseParams_Data) == 16,
-              "Bad sizeof(PrintRenderFrame_SnapshotForContentAnalysis_ResponseParams_Data)");
 class  PrintManagerHost_DidGetPrintedPagesCount_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -1368,57 +1337,6 @@ class PrintRenderFrame_PrintNodeUnderContextMenu_ParamsDataView {
 };
 
 
-class PrintRenderFrame_SnapshotForContentAnalysis_ParamsDataView {
- public:
-  PrintRenderFrame_SnapshotForContentAnalysis_ParamsDataView() = default;
-
-  PrintRenderFrame_SnapshotForContentAnalysis_ParamsDataView(
-      internal::PrintRenderFrame_SnapshotForContentAnalysis_Params_Data* data,
-      mojo::Message* message)
-      : data_(data) {}
-
-  bool is_null() const { return !data_; }
- private:
-  internal::PrintRenderFrame_SnapshotForContentAnalysis_Params_Data* data_ = nullptr;
-};
-
-
-class PrintRenderFrame_SnapshotForContentAnalysis_ResponseParamsDataView {
- public:
-  PrintRenderFrame_SnapshotForContentAnalysis_ResponseParamsDataView() = default;
-
-  PrintRenderFrame_SnapshotForContentAnalysis_ResponseParamsDataView(
-      internal::PrintRenderFrame_SnapshotForContentAnalysis_ResponseParams_Data* data,
-      mojo::Message* message)
-      : data_(data), message_(message) {}
-
-  bool is_null() const { return !data_; }
-  inline void GetParamsDataView(
-      DidPrintDocumentParamsDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadParams(UserType* output) {
-    
-static_assert(
-    mojo::internal::IsValidUserTypeForOptionalValue<
-        ::printing::mojom::DidPrintDocumentParamsDataView, UserType>(),
-    "Attempting to read the optional `params` field into a type which "
-    "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
-    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
-    "SetToNull methods, or use `MaybeReadParams` instead "
-    "of `ReadParams if you're fine with null values being "
-    "silently ignored in this case.");
-    auto* pointer = data_->params.Get();
-    return mojo::internal::Deserialize<::printing::mojom::DidPrintDocumentParamsDataView>(
-        pointer, output, message_);
-  }
- private:
-  internal::PrintRenderFrame_SnapshotForContentAnalysis_ResponseParams_Data* data_ = nullptr;
-  mojo::Message* message_ = nullptr;
-};
-
-
 class PrintManagerHost_DidGetPrintedPagesCount_ParamsDataView {
  public:
   PrintManagerHost_DidGetPrintedPagesCount_ParamsDataView() = default;
@@ -1987,15 +1905,6 @@ inline void PrintRenderFrame_PrintFrameContent_ResponseParamsDataView::GetParams
 
 
 
-
-
-
-
-inline void PrintRenderFrame_SnapshotForContentAnalysis_ResponseParamsDataView::GetParamsDataView(
-    DidPrintDocumentParamsDataView* output) {
-  auto pointer = data_->params.Get();
-  *output = DidPrintDocumentParamsDataView(pointer, message_);
-}
 
 
 

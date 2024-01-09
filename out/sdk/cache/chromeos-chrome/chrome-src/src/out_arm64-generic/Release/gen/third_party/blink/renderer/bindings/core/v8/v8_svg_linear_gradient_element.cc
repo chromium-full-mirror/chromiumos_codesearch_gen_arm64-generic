@@ -72,11 +72,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, SVGLinearGradientElement>::value,
     "SVGLinearGradientElement inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&SVGLinearGradientElement::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "SVGLinearGradientElement is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -95,7 +90,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMPaintServer);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGLinearGradientElement* blink_receiver = V8SVGLinearGradientElement::ToWrappableUnsafe(v8_receiver);
+SVGLinearGradientElement* blink_receiver = V8SVGLinearGradientElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->x1();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -114,7 +109,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMPaintServer);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGLinearGradientElement* blink_receiver = V8SVGLinearGradientElement::ToWrappableUnsafe(v8_receiver);
+SVGLinearGradientElement* blink_receiver = V8SVGLinearGradientElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->y1();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -133,7 +128,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMPaintServer);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGLinearGradientElement* blink_receiver = V8SVGLinearGradientElement::ToWrappableUnsafe(v8_receiver);
+SVGLinearGradientElement* blink_receiver = V8SVGLinearGradientElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->x2();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -152,7 +147,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMPaintServer);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGLinearGradientElement* blink_receiver = V8SVGLinearGradientElement::ToWrappableUnsafe(v8_receiver);
+SVGLinearGradientElement* blink_receiver = V8SVGLinearGradientElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->y2();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }

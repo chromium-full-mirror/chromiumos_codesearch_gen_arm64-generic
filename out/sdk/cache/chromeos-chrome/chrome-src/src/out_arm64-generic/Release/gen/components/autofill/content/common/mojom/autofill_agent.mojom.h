@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "components/autofill/content/common/mojom/autofill_agent.mojom-features.h"
 #include "components/autofill/content/common/mojom/autofill_agent.mojom-shared.h"
 #include "components/autofill/content/common/mojom/autofill_agent.mojom-forward.h"
 #include "components/autofill/core/common/mojom/autofill_types.mojom.h"
@@ -167,13 +168,13 @@ class AutofillAgent
   virtual void TriggerFormExtractionWithResponse(TriggerFormExtractionWithResponseCallback callback) = 0;
 
   
-  virtual void ApplyFormAction(::autofill::mojom::ActionType action_type, ::autofill::mojom::ActionPersistence action_persistence, const ::autofill::FormData& form) = 0;
+  virtual void ApplyFormAction(::autofill::mojom::ActionType action_type, ::autofill::mojom::ActionPersistence action_persistence, ::autofill::FormRendererId form_renderer_id, const std::vector<::autofill::FormFieldData>& fields) = 0;
 
   
-  virtual void ApplyFieldAction(::autofill::mojom::ActionPersistence action_persistence, ::autofill::FieldRendererId field, const ::std::u16string& value) = 0;
+  virtual void ApplyFieldAction(::autofill::mojom::ActionPersistence action_persistence, ::autofill::mojom::TextReplacement text_replacement, ::autofill::FieldRendererId field, const ::std::u16string& value) = 0;
 
 
-  using ExtractFormCallback = base::OnceCallback<void(const absl::optional<::autofill::FormData>&)>;
+  using ExtractFormCallback = base::OnceCallback<void(const std::optional<::autofill::FormData>&)>;
   
   virtual void ExtractForm(::autofill::FormRendererId form, ExtractFormCallback callback) = 0;
 
@@ -190,7 +191,7 @@ class AutofillAgent
   virtual void TriggerSuggestions(::autofill::FieldRendererId field, ::autofill::mojom::AutofillSuggestionTriggerSource trigger_source) = 0;
 
   
-  virtual void SetSuggestionAvailability(::autofill::FieldRendererId field, ::autofill::mojom::AutofillState type) = 0;
+  virtual void SetSuggestionAvailability(::autofill::FieldRendererId field, ::autofill::mojom::AutofillSuggestionAvailability suggestion_availability) = 0;
 
   
   virtual void AcceptDataListSuggestion(::autofill::FieldRendererId field, const ::std::u16string& value) = 0;
@@ -338,6 +339,7 @@ class PasswordGenerationAgent
     kGeneratedPasswordAcceptedMinVersion = 0,
     kTriggeredGeneratePasswordMinVersion = 0,
     kFoundFormEligibleForGenerationMinVersion = 0,
+    kFocusNextFieldAfterPasswordsMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -352,6 +354,9 @@ class PasswordGenerationAgent
   struct FoundFormEligibleForGeneration_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
+  struct FocusNextFieldAfterPasswords_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~PasswordGenerationAgent() = default;
 
@@ -359,12 +364,15 @@ class PasswordGenerationAgent
   virtual void GeneratedPasswordAccepted(const ::std::u16string& generated_password) = 0;
 
 
-  using TriggeredGeneratePasswordCallback = base::OnceCallback<void(const absl::optional<::autofill::password_generation::PasswordGenerationUIData>&)>;
+  using TriggeredGeneratePasswordCallback = base::OnceCallback<void(const std::optional<::autofill::password_generation::PasswordGenerationUIData>&)>;
   
   virtual void TriggeredGeneratePassword(TriggeredGeneratePasswordCallback callback) = 0;
 
   
   virtual void FoundFormEligibleForGeneration(const ::autofill::PasswordFormGenerationData& form) = 0;
+
+  
+  virtual void FocusNextFieldAfterPasswords() = 0;
 };
 
 
@@ -380,9 +388,9 @@ class  AutofillAgentProxy
   
   void TriggerFormExtractionWithResponse(TriggerFormExtractionWithResponseCallback callback) final;
   
-  void ApplyFormAction(::autofill::mojom::ActionType action_type, ::autofill::mojom::ActionPersistence action_persistence, const ::autofill::FormData& form) final;
+  void ApplyFormAction(::autofill::mojom::ActionType action_type, ::autofill::mojom::ActionPersistence action_persistence, ::autofill::FormRendererId form_renderer_id, const std::vector<::autofill::FormFieldData>& fields) final;
   
-  void ApplyFieldAction(::autofill::mojom::ActionPersistence action_persistence, ::autofill::FieldRendererId field, const ::std::u16string& value) final;
+  void ApplyFieldAction(::autofill::mojom::ActionPersistence action_persistence, ::autofill::mojom::TextReplacement text_replacement, ::autofill::FieldRendererId field, const ::std::u16string& value) final;
   
   void ExtractForm(::autofill::FormRendererId form, ExtractFormCallback callback) final;
   
@@ -394,7 +402,7 @@ class  AutofillAgentProxy
   
   void TriggerSuggestions(::autofill::FieldRendererId field, ::autofill::mojom::AutofillSuggestionTriggerSource trigger_source) final;
   
-  void SetSuggestionAvailability(::autofill::FieldRendererId field, ::autofill::mojom::AutofillState type) final;
+  void SetSuggestionAvailability(::autofill::FieldRendererId field, ::autofill::mojom::AutofillSuggestionAvailability suggestion_availability) final;
   
   void AcceptDataListSuggestion(::autofill::FieldRendererId field, const ::std::u16string& value) final;
   
@@ -459,6 +467,8 @@ class  PasswordGenerationAgentProxy
   void TriggeredGeneratePassword(TriggeredGeneratePasswordCallback callback) final;
   
   void FoundFormEligibleForGeneration(const ::autofill::PasswordFormGenerationData& form) final;
+  
+  void FocusNextFieldAfterPasswords() final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

@@ -12,9 +12,14 @@
 goog.require('mojo.internal');
 goog.require('mojo.internal.interfaceSupport');
 
+goog.require('extensions.mojom.ChannelType');
 goog.require('extensions.mojom.EventDispatcher');
+goog.require('extensions.mojom.MessagePort');
+goog.require('extensions.mojom.MessagePortHost');
+goog.require('extensions.mojom.ExternalConnectionInfo');
 goog.require('extensions.mojom.ExtraResponseData');
 goog.require('mojoBase.mojom.ListValue');
+goog.require('extensions.mojom.PortId');
 goog.require('extensions.mojom.RequestParams');
 goog.require('mojoBase.mojom.UnguessableToken');
 goog.require('url.mojom.Url');
@@ -104,6 +109,39 @@ extensions.mojom.ServiceWorkerHostInterface = class {
    */
 
   workerResponseAck(requestUuid) {}
+  
+  /**
+   * @param { !extensions.mojom.ExternalConnectionInfo } info
+   * @param { !extensions.mojom.ChannelType } channelType
+   * @param { !string } channelName
+   * @param { !extensions.mojom.PortId } portId
+   * @param { !Object } port
+   * @param { !Object } portHost
+   */
+
+  openChannelToExtension(info, channelType, channelName, portId, port, portHost) {}
+  
+  /**
+   * @param { !string } nativeAppName
+   * @param { !extensions.mojom.PortId } portId
+   * @param { !Object } port
+   * @param { !Object } portHost
+   */
+
+  openChannelToNativeApp(nativeAppName, portId, port, portHost) {}
+  
+  /**
+   * @param { !number } tabId
+   * @param { !number } frameId
+   * @param { ?string } documentId
+   * @param { !extensions.mojom.ChannelType } channelType
+   * @param { !string } channelName
+   * @param { !extensions.mojom.PortId } portId
+   * @param { !Object } port
+   * @param { !Object } portHost
+   */
+
+  openChannelToTab(tabId, frameId, documentId, channelType, channelName, portId, port, portHost) {}
 };
 
 /**
@@ -248,6 +286,99 @@ extensions.mojom.ServiceWorkerHostRemote = class {
           requestUuid
         ]);
   }
+
+  
+  /**
+   * @param { !extensions.mojom.ExternalConnectionInfo } info
+   * @param { !extensions.mojom.ChannelType } channelType
+   * @param { !string } channelName
+   * @param { !extensions.mojom.PortId } portId
+   * @param { !Object } port
+   * @param { !Object } portHost
+   */
+
+  openChannelToExtension(
+      info,
+      channelType,
+      channelName,
+      portId,
+      port,
+      portHost) {
+    this.proxy.sendMessage(
+        5,
+        extensions.mojom.ServiceWorkerHost_OpenChannelToExtension_ParamsSpec.$,
+        null,
+        [
+          info,
+          channelType,
+          channelName,
+          portId,
+          port,
+          portHost
+        ]);
+  }
+
+  
+  /**
+   * @param { !string } nativeAppName
+   * @param { !extensions.mojom.PortId } portId
+   * @param { !Object } port
+   * @param { !Object } portHost
+   */
+
+  openChannelToNativeApp(
+      nativeAppName,
+      portId,
+      port,
+      portHost) {
+    this.proxy.sendMessage(
+        6,
+        extensions.mojom.ServiceWorkerHost_OpenChannelToNativeApp_ParamsSpec.$,
+        null,
+        [
+          nativeAppName,
+          portId,
+          port,
+          portHost
+        ]);
+  }
+
+  
+  /**
+   * @param { !number } tabId
+   * @param { !number } frameId
+   * @param { ?string } documentId
+   * @param { !extensions.mojom.ChannelType } channelType
+   * @param { !string } channelName
+   * @param { !extensions.mojom.PortId } portId
+   * @param { !Object } port
+   * @param { !Object } portHost
+   */
+
+  openChannelToTab(
+      tabId,
+      frameId,
+      documentId,
+      channelType,
+      channelName,
+      portId,
+      port,
+      portHost) {
+    this.proxy.sendMessage(
+        7,
+        extensions.mojom.ServiceWorkerHost_OpenChannelToTab_ParamsSpec.$,
+        null,
+        [
+          tabId,
+          frameId,
+          documentId,
+          channelType,
+          channelName,
+          portId,
+          port,
+          portHost
+        ]);
+  }
 };
 
 /**
@@ -297,6 +428,21 @@ extensions.mojom.ServiceWorkerHostReceiver = class {
         extensions.mojom.ServiceWorkerHost_WorkerResponseAck_ParamsSpec.$,
         null,
         impl.workerResponseAck.bind(impl));
+    this.helper_internal_.registerHandler(
+        5,
+        extensions.mojom.ServiceWorkerHost_OpenChannelToExtension_ParamsSpec.$,
+        null,
+        impl.openChannelToExtension.bind(impl));
+    this.helper_internal_.registerHandler(
+        6,
+        extensions.mojom.ServiceWorkerHost_OpenChannelToNativeApp_ParamsSpec.$,
+        null,
+        impl.openChannelToNativeApp.bind(impl));
+    this.helper_internal_.registerHandler(
+        7,
+        extensions.mojom.ServiceWorkerHost_OpenChannelToTab_ParamsSpec.$,
+        null,
+        impl.openChannelToTab.bind(impl));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -409,6 +555,42 @@ extensions.mojom.ServiceWorkerHostCallbackRouter = class {
         extensions.mojom.ServiceWorkerHost_WorkerResponseAck_ParamsSpec.$,
         null,
         this.workerResponseAck.createReceiverHandler(false /* expectsResponse */));
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.openChannelToExtension =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        5,
+        extensions.mojom.ServiceWorkerHost_OpenChannelToExtension_ParamsSpec.$,
+        null,
+        this.openChannelToExtension.createReceiverHandler(false /* expectsResponse */));
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.openChannelToNativeApp =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        6,
+        extensions.mojom.ServiceWorkerHost_OpenChannelToNativeApp_ParamsSpec.$,
+        null,
+        this.openChannelToNativeApp.createReceiverHandler(false /* expectsResponse */));
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.openChannelToTab =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        7,
+        extensions.mojom.ServiceWorkerHost_OpenChannelToTab_ParamsSpec.$,
+        null,
+        this.openChannelToTab.createReceiverHandler(false /* expectsResponse */));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -470,6 +652,30 @@ goog.provide('extensions.mojom.ServiceWorkerHost_WorkerResponseAck_ParamsSpec');
  * @export
  */
 extensions.mojom.ServiceWorkerHost_WorkerResponseAck_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+goog.provide('extensions.mojom.ServiceWorkerHost_OpenChannelToExtension_ParamsSpec');
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+extensions.mojom.ServiceWorkerHost_OpenChannelToExtension_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+goog.provide('extensions.mojom.ServiceWorkerHost_OpenChannelToNativeApp_ParamsSpec');
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+extensions.mojom.ServiceWorkerHost_OpenChannelToNativeApp_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+goog.provide('extensions.mojom.ServiceWorkerHost_OpenChannelToTab_ParamsSpec');
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+extensions.mojom.ServiceWorkerHost_OpenChannelToTab_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 
@@ -784,6 +990,243 @@ extensions.mojom.ServiceWorkerHost_WorkerResponseAck_Params = class {
   constructor() {
     /** @export { !mojoBase.mojom.Uuid } */
     this.requestUuid;
+  }
+};
+
+
+
+mojo.internal.Struct(
+    extensions.mojom.ServiceWorkerHost_OpenChannelToExtension_ParamsSpec.$,
+    'ServiceWorkerHost_OpenChannelToExtension_Params',
+    [
+      mojo.internal.StructField(
+        'info', 0,
+        0,
+        extensions.mojom.ExternalConnectionInfoSpec.$,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'channelType', 8,
+        0,
+        extensions.mojom.ChannelTypeSpec.$,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'channelName', 16,
+        0,
+        mojo.internal.String,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'portId', 24,
+        0,
+        extensions.mojom.PortIdSpec.$,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'port', 32,
+        0,
+        mojo.internal.AssociatedInterfaceProxy(extensions.mojom.MessagePortRemote),
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'portHost', 12,
+        0,
+        mojo.internal.AssociatedInterfaceRequest(extensions.mojom.MessagePortHostPendingReceiver),
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 48],]);
+
+
+
+goog.provide('extensions.mojom.ServiceWorkerHost_OpenChannelToExtension_Params');
+
+/** @record */
+extensions.mojom.ServiceWorkerHost_OpenChannelToExtension_Params = class {
+  constructor() {
+    /** @export { !extensions.mojom.ExternalConnectionInfo } */
+    this.info;
+    /** @export { !extensions.mojom.ChannelType } */
+    this.channelType;
+    /** @export { !string } */
+    this.channelName;
+    /** @export { !extensions.mojom.PortId } */
+    this.portId;
+    /** @export { !Object } */
+    this.port;
+    /** @export { !Object } */
+    this.portHost;
+  }
+};
+
+
+
+mojo.internal.Struct(
+    extensions.mojom.ServiceWorkerHost_OpenChannelToNativeApp_ParamsSpec.$,
+    'ServiceWorkerHost_OpenChannelToNativeApp_Params',
+    [
+      mojo.internal.StructField(
+        'nativeAppName', 0,
+        0,
+        mojo.internal.String,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'portId', 8,
+        0,
+        extensions.mojom.PortIdSpec.$,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'port', 16,
+        0,
+        mojo.internal.AssociatedInterfaceProxy(extensions.mojom.MessagePortRemote),
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'portHost', 24,
+        0,
+        mojo.internal.AssociatedInterfaceRequest(extensions.mojom.MessagePortHostPendingReceiver),
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 40],]);
+
+
+
+goog.provide('extensions.mojom.ServiceWorkerHost_OpenChannelToNativeApp_Params');
+
+/** @record */
+extensions.mojom.ServiceWorkerHost_OpenChannelToNativeApp_Params = class {
+  constructor() {
+    /** @export { !string } */
+    this.nativeAppName;
+    /** @export { !extensions.mojom.PortId } */
+    this.portId;
+    /** @export { !Object } */
+    this.port;
+    /** @export { !Object } */
+    this.portHost;
+  }
+};
+
+
+
+mojo.internal.Struct(
+    extensions.mojom.ServiceWorkerHost_OpenChannelToTab_ParamsSpec.$,
+    'ServiceWorkerHost_OpenChannelToTab_Params',
+    [
+      mojo.internal.StructField(
+        'tabId', 0,
+        0,
+        mojo.internal.Int32,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'frameId', 4,
+        0,
+        mojo.internal.Int32,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'documentId', 8,
+        0,
+        mojo.internal.String,
+        null,
+        true, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'channelType', 16,
+        0,
+        extensions.mojom.ChannelTypeSpec.$,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'channelName', 24,
+        0,
+        mojo.internal.String,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'portId', 32,
+        0,
+        extensions.mojom.PortIdSpec.$,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'port', 40,
+        0,
+        mojo.internal.AssociatedInterfaceProxy(extensions.mojom.MessagePortRemote),
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'portHost', 20,
+        0,
+        mojo.internal.AssociatedInterfaceRequest(extensions.mojom.MessagePortHostPendingReceiver),
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 56],]);
+
+
+
+goog.provide('extensions.mojom.ServiceWorkerHost_OpenChannelToTab_Params');
+
+/** @record */
+extensions.mojom.ServiceWorkerHost_OpenChannelToTab_Params = class {
+  constructor() {
+    /** @export { !number } */
+    this.tabId;
+    /** @export { !number } */
+    this.frameId;
+    /** @export { (string|undefined) } */
+    this.documentId;
+    /** @export { !extensions.mojom.ChannelType } */
+    this.channelType;
+    /** @export { !string } */
+    this.channelName;
+    /** @export { !extensions.mojom.PortId } */
+    this.portId;
+    /** @export { !Object } */
+    this.port;
+    /** @export { !Object } */
+    this.portHost;
   }
 };
 

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/device/public/mojom/hid.mojom-features.h"
 #include "services/device/public/mojom/hid.mojom-shared.h"
 #include "services/device/public/mojom/hid.mojom-blink-forward.h"
 
@@ -39,18 +40,6 @@
 #include "third_party/blink/public/platform/web_common.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::device::mojom::HidBusType>
-    : EnumHashTraits<::device::mojom::HidBusType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace device::mojom::blink {
@@ -248,7 +237,7 @@ class BLINK_PLATFORM_EXPORT HidConnection
   virtual ~HidConnection() = default;
 
 
-  using ReadCallback = base::OnceCallback<void(bool, uint8_t, const absl::optional<WTF::Vector<uint8_t>>&)>;
+  using ReadCallback = base::OnceCallback<void(bool, uint8_t, const std::optional<WTF::Vector<uint8_t>>&)>;
   
   virtual void Read(ReadCallback callback) = 0;
 
@@ -258,7 +247,7 @@ class BLINK_PLATFORM_EXPORT HidConnection
   virtual void Write(uint8_t report_id, const WTF::Vector<uint8_t>& buffer, WriteCallback callback) = 0;
 
 
-  using GetFeatureReportCallback = base::OnceCallback<void(bool, const absl::optional<WTF::Vector<uint8_t>>&)>;
+  using GetFeatureReportCallback = base::OnceCallback<void(bool, const std::optional<WTF::Vector<uint8_t>>&)>;
   
   virtual void GetFeatureReport(uint8_t report_id, GetFeatureReportCallback callback) = 0;
 
@@ -1408,9 +1397,9 @@ class BLINK_PLATFORM_EXPORT HidDeviceInfo {
       uint64_t max_output_report_size,
       uint64_t max_feature_report_size,
       const WTF::String& device_node,
-      absl::optional<WTF::Vector<uint8_t>> protected_input_report_ids,
-      absl::optional<WTF::Vector<uint8_t>> protected_output_report_ids,
-      absl::optional<WTF::Vector<uint8_t>> protected_feature_report_ids);
+      std::optional<WTF::Vector<uint8_t>> protected_input_report_ids,
+      std::optional<WTF::Vector<uint8_t>> protected_output_report_ids,
+      std::optional<WTF::Vector<uint8_t>> protected_feature_report_ids);
 
   HidDeviceInfo(
       const WTF::String& guid,
@@ -1427,9 +1416,9 @@ class BLINK_PLATFORM_EXPORT HidDeviceInfo {
       uint64_t max_output_report_size,
       uint64_t max_feature_report_size,
       const WTF::String& device_node,
-      absl::optional<WTF::Vector<uint8_t>> protected_input_report_ids,
-      absl::optional<WTF::Vector<uint8_t>> protected_output_report_ids,
-      absl::optional<WTF::Vector<uint8_t>> protected_feature_report_ids,
+      std::optional<WTF::Vector<uint8_t>> protected_input_report_ids,
+      std::optional<WTF::Vector<uint8_t>> protected_output_report_ids,
+      std::optional<WTF::Vector<uint8_t>> protected_feature_report_ids,
       bool is_excluded_by_blocklist);
 
 HidDeviceInfo(const HidDeviceInfo&) = delete;
@@ -1538,11 +1527,11 @@ HidDeviceInfo& operator=(const HidDeviceInfo&) = delete;
   
   WTF::String device_node;
   
-  absl::optional<WTF::Vector<uint8_t>> protected_input_report_ids;
+  std::optional<WTF::Vector<uint8_t>> protected_input_report_ids;
   
-  absl::optional<WTF::Vector<uint8_t>> protected_output_report_ids;
+  std::optional<WTF::Vector<uint8_t>> protected_output_report_ids;
   
-  absl::optional<WTF::Vector<uint8_t>> protected_feature_report_ids;
+  std::optional<WTF::Vector<uint8_t>> protected_feature_report_ids;
   
   bool is_excluded_by_blocklist;
 

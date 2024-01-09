@@ -72,11 +72,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, CSSFontFaceRule>::value,
     "CSSFontFaceRule inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&CSSFontFaceRule::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "CSSFontFaceRule is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -95,7 +90,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8CSSFontFaceRule_Styl
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-CSSFontFaceRule* blink_receiver = V8CSSFontFaceRule::ToWrappableUnsafe(v8_receiver);
+CSSFontFaceRule* blink_receiver = V8CSSFontFaceRule::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->style();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }

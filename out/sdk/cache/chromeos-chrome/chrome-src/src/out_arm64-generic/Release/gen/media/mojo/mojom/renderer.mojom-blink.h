@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "media/mojo/mojom/renderer.mojom-features.h"
 #include "media/mojo/mojom/renderer.mojom-shared.h"
 #include "media/mojo/mojom/renderer.mojom-blink-forward.h"
 #include "media/mojo/mojom/demuxer_stream.mojom-blink-forward.h"
@@ -115,7 +116,7 @@ class BLINK_PLATFORM_EXPORT Renderer
 
   using InitializeCallback = base::OnceCallback<void(bool)>;
   
-  virtual void Initialize(::mojo::PendingAssociatedRemote<RendererClient> client, absl::optional<WTF::Vector<::mojo::PendingRemote<::media::mojom::blink::DemuxerStream>>> streams, MediaUrlParamsPtr media_url_params, InitializeCallback callback) = 0;
+  virtual void Initialize(::mojo::PendingAssociatedRemote<RendererClient> client, std::optional<WTF::Vector<::mojo::PendingRemote<::media::mojom::blink::DemuxerStream>>> streams, MediaUrlParamsPtr media_url_params, InitializeCallback callback) = 0;
 
 
   using FlushCallback = base::OnceCallback<void()>;
@@ -134,7 +135,7 @@ class BLINK_PLATFORM_EXPORT Renderer
 
   using SetCdmCallback = base::OnceCallback<void(bool)>;
   
-  virtual void SetCdm(const absl::optional<::base::UnguessableToken>& cdm_id, SetCdmCallback callback) = 0;
+  virtual void SetCdm(const std::optional<::base::UnguessableToken>& cdm_id, SetCdmCallback callback) = 0;
 };
 
 class RendererClientProxy;
@@ -254,7 +255,7 @@ class BLINK_PLATFORM_EXPORT RendererProxy
 
   explicit RendererProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void Initialize(::mojo::PendingAssociatedRemote<RendererClient> client, absl::optional<WTF::Vector<::mojo::PendingRemote<::media::mojom::blink::DemuxerStream>>> streams, MediaUrlParamsPtr media_url_params, InitializeCallback callback) final;
+  void Initialize(::mojo::PendingAssociatedRemote<RendererClient> client, std::optional<WTF::Vector<::mojo::PendingRemote<::media::mojom::blink::DemuxerStream>>> streams, MediaUrlParamsPtr media_url_params, InitializeCallback callback) final;
   
   void Flush(FlushCallback callback) final;
   
@@ -264,7 +265,7 @@ class BLINK_PLATFORM_EXPORT RendererProxy
   
   void SetVolume(float volume) final;
   
-  void SetCdm(const absl::optional<::base::UnguessableToken>& cdm_id, SetCdmCallback callback) final;
+  void SetCdm(const std::optional<::base::UnguessableToken>& cdm_id, SetCdmCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -436,7 +437,8 @@ class BLINK_PLATFORM_EXPORT MediaUrlParams {
       const ::scoped_refptr<const ::blink::SecurityOrigin>& top_frame_origin,
       bool has_storage_access,
       bool allow_credentials,
-      bool is_hls);
+      bool is_hls,
+      const WTF::HashMap<WTF::String, WTF::String>& headers);
 
 
   ~MediaUrlParams();
@@ -525,6 +527,8 @@ class BLINK_PLATFORM_EXPORT MediaUrlParams {
   bool allow_credentials;
   
   bool is_hls;
+  
+  WTF::HashMap<WTF::String, WTF::String> headers;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -563,7 +567,8 @@ MediaUrlParamsPtr MediaUrlParams::Clone() const {
       mojo::Clone(top_frame_origin),
       mojo::Clone(has_storage_access),
       mojo::Clone(allow_credentials),
-      mojo::Clone(is_hls)
+      mojo::Clone(is_hls),
+      mojo::Clone(headers)
   );
 }
 
@@ -580,6 +585,8 @@ bool MediaUrlParams::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->allow_credentials, other_struct.allow_credentials))
     return false;
   if (!mojo::Equals(this->is_hls, other_struct.is_hls))
+    return false;
+  if (!mojo::Equals(this->headers, other_struct.headers))
     return false;
   return true;
 }
@@ -609,6 +616,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.is_hls < rhs.is_hls)
     return true;
   if (rhs.is_hls < lhs.is_hls)
+    return false;
+  if (lhs.headers < rhs.headers)
+    return true;
+  if (rhs.headers < lhs.headers)
     return false;
   return false;
 }
@@ -653,6 +664,11 @@ struct BLINK_PLATFORM_EXPORT StructTraits<::media::mojom::blink::MediaUrlParams:
   static decltype(::media::mojom::blink::MediaUrlParams::is_hls) is_hls(
       const ::media::mojom::blink::MediaUrlParamsPtr& input) {
     return input->is_hls;
+  }
+
+  static const decltype(::media::mojom::blink::MediaUrlParams::headers)& headers(
+      const ::media::mojom::blink::MediaUrlParamsPtr& input) {
+    return input->headers;
   }
 
   static bool Read(::media::mojom::blink::MediaUrlParams::DataView input, ::media::mojom::blink::MediaUrlParamsPtr* output);

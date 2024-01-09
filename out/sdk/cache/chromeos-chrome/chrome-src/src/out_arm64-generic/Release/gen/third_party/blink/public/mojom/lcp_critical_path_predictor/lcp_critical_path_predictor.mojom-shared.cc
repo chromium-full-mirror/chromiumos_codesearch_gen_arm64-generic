@@ -87,7 +87,7 @@ bool LCPCriticalPathPredictorHost_SetLcpElementLocator_Params_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
+          data, 24, validation_context)) {
     return false;
   }
 
@@ -171,6 +171,43 @@ bool LCPCriticalPathPredictorHost_NotifyFetchedFont_Params_Data::Validate(
 }
 
 LCPCriticalPathPredictorHost_NotifyFetchedFont_Params_Data::LCPCriticalPathPredictorHost_NotifyFetchedFont_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool LCPCriticalPathPredictorHost_NotifyFetchedSubresource_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const LCPCriticalPathPredictorHost_NotifyFetchedSubresource_Params_Data* object =
+      static_cast<const LCPCriticalPathPredictorHost_NotifyFetchedSubresource_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->subresource_url, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->subresource_url, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->subresource_load_start, 2, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->subresource_load_start, validation_context))
+    return false;
+
+  return true;
+}
+
+LCPCriticalPathPredictorHost_NotifyFetchedSubresource_Params_Data::LCPCriticalPathPredictorHost_NotifyFetchedSubresource_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 }  // namespace internal

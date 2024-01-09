@@ -65,11 +65,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, TypeConversions>::value,
     "TypeConversions inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&TypeConversions::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "TypeConversions is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -82,8 +77,9 @@ BLINK_BINDINGS_TRACE_EVENT("TypeConversions.testLong.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(v8_receiver);
+TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->testLong();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 }
@@ -95,9 +91,9 @@ BLINK_BINDINGS_TRACE_EVENT("TypeConversions.testLong.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "TypeConversions";
@@ -118,8 +114,9 @@ BLINK_BINDINGS_TRACE_EVENT("TypeConversions.testEnforceRangeLong.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(v8_receiver);
+TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->testLong();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 }
@@ -131,9 +128,9 @@ BLINK_BINDINGS_TRACE_EVENT("TypeConversions.testEnforceRangeLong.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "TypeConversions";
@@ -154,8 +151,9 @@ BLINK_BINDINGS_TRACE_EVENT("TypeConversions.testUnsignedLong.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(v8_receiver);
+TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->testUnsignedLong();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -167,9 +165,9 @@ BLINK_BINDINGS_TRACE_EVENT("TypeConversions.testUnsignedLong.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "TypeConversions";
@@ -190,8 +188,9 @@ BLINK_BINDINGS_TRACE_EVENT("TypeConversions.testEnforceRangeUnsignedLong.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(v8_receiver);
+TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->testUnsignedLong();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -203,9 +202,9 @@ BLINK_BINDINGS_TRACE_EVENT("TypeConversions.testEnforceRangeUnsignedLong.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "TypeConversions";
@@ -226,8 +225,9 @@ BLINK_BINDINGS_TRACE_EVENT("TypeConversions.testLongLong.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(v8_receiver);
+TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->testLongLong();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int64_t>());
 }
@@ -239,9 +239,9 @@ BLINK_BINDINGS_TRACE_EVENT("TypeConversions.testLongLong.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "TypeConversions";
@@ -262,8 +262,9 @@ BLINK_BINDINGS_TRACE_EVENT("TypeConversions.testEnforceRangeLongLong.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(v8_receiver);
+TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->testLongLong();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int64_t>());
 }
@@ -275,9 +276,9 @@ BLINK_BINDINGS_TRACE_EVENT("TypeConversions.testEnforceRangeLongLong.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "TypeConversions";
@@ -298,8 +299,9 @@ BLINK_BINDINGS_TRACE_EVENT("TypeConversions.testUnsignedLongLong.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(v8_receiver);
+TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->testUnsignedLongLong();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint64_t>());
 }
@@ -311,9 +313,9 @@ BLINK_BINDINGS_TRACE_EVENT("TypeConversions.testUnsignedLongLong.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "TypeConversions";
@@ -334,8 +336,9 @@ BLINK_BINDINGS_TRACE_EVENT("TypeConversions.testEnforceRangeUnsignedLongLong.get
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(v8_receiver);
+TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->testUnsignedLongLong();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint64_t>());
 }
@@ -347,9 +350,9 @@ BLINK_BINDINGS_TRACE_EVENT("TypeConversions.testEnforceRangeUnsignedLongLong.set
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "TypeConversions";
@@ -370,8 +373,9 @@ BLINK_BINDINGS_TRACE_EVENT("TypeConversions.testByte.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(v8_receiver);
+TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->testByte();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int8_t>());
 }
@@ -383,9 +387,9 @@ BLINK_BINDINGS_TRACE_EVENT("TypeConversions.testByte.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "TypeConversions";
@@ -406,8 +410,9 @@ BLINK_BINDINGS_TRACE_EVENT("TypeConversions.testEnforceRangeByte.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(v8_receiver);
+TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->testByte();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int8_t>());
 }
@@ -419,9 +424,9 @@ BLINK_BINDINGS_TRACE_EVENT("TypeConversions.testEnforceRangeByte.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "TypeConversions";
@@ -442,8 +447,9 @@ BLINK_BINDINGS_TRACE_EVENT("TypeConversions.testOctet.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(v8_receiver);
+TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->testOctet();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint8_t>());
 }
@@ -455,9 +461,9 @@ BLINK_BINDINGS_TRACE_EVENT("TypeConversions.testOctet.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "TypeConversions";
@@ -478,8 +484,9 @@ BLINK_BINDINGS_TRACE_EVENT("TypeConversions.testEnforceRangeOctet.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(v8_receiver);
+TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->testOctet();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint8_t>());
 }
@@ -491,9 +498,9 @@ BLINK_BINDINGS_TRACE_EVENT("TypeConversions.testEnforceRangeOctet.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "TypeConversions";
@@ -514,8 +521,9 @@ BLINK_BINDINGS_TRACE_EVENT("TypeConversions.testShort.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(v8_receiver);
+TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->testShort();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int16_t>());
 }
@@ -527,9 +535,9 @@ BLINK_BINDINGS_TRACE_EVENT("TypeConversions.testShort.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "TypeConversions";
@@ -550,8 +558,9 @@ BLINK_BINDINGS_TRACE_EVENT("TypeConversions.testEnforceRangeShort.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(v8_receiver);
+TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->testShort();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int16_t>());
 }
@@ -563,9 +572,9 @@ BLINK_BINDINGS_TRACE_EVENT("TypeConversions.testEnforceRangeShort.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "TypeConversions";
@@ -586,8 +595,9 @@ BLINK_BINDINGS_TRACE_EVENT("TypeConversions.testUnsignedShort.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(v8_receiver);
+TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->testUnsignedShort();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint16_t>());
 }
@@ -599,9 +609,9 @@ BLINK_BINDINGS_TRACE_EVENT("TypeConversions.testUnsignedShort.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "TypeConversions";
@@ -622,8 +632,9 @@ BLINK_BINDINGS_TRACE_EVENT("TypeConversions.testEnforceRangeUnsignedShort.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(v8_receiver);
+TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->testUnsignedShort();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint16_t>());
 }
@@ -635,9 +646,9 @@ BLINK_BINDINGS_TRACE_EVENT("TypeConversions.testEnforceRangeUnsignedShort.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "TypeConversions";
@@ -658,10 +669,10 @@ BLINK_BINDINGS_TRACE_EVENT("TypeConversions.testByteString.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->testByteString();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->testByteString();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -672,9 +683,9 @@ BLINK_BINDINGS_TRACE_EVENT("TypeConversions.testByteString.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "TypeConversions";
@@ -695,10 +706,10 @@ BLINK_BINDINGS_TRACE_EVENT("TypeConversions.testUSVString.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->testUSVString();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->testUSVString();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -709,9 +720,9 @@ BLINK_BINDINGS_TRACE_EVENT("TypeConversions.testUSVString.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "TypeConversions";
@@ -732,10 +743,10 @@ BLINK_BINDINGS_TRACE_EVENT("TypeConversions.testUSVStringOrNull.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->testUSVStringOrNull();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->testUSVStringOrNull();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
 }
 
@@ -756,7 +767,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(v8_receiver);
+TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLNullable<IDLUSVString>>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -787,7 +798,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(v8_receiver);
+TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_byte_string = NativeValueTraits<IDLByteString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -817,7 +828,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(v8_receiver);
+TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_usv_string = NativeValueTraits<IDLUSVString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -847,7 +858,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(v8_receiver);
+TypeConversions* blink_receiver = V8TypeConversions::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_usv_string_or_null = NativeValueTraits<IDLNullable<IDLUSVString>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

@@ -1,0 +1,38 @@
+import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+export function getTemplate() {
+    return html `<!--_html_template_start_--><!--
+Copyright 2018 The Chromium Authors
+Use of this source code is governed by a BSD-style license that can be
+found in the LICENSE file.
+-->
+
+<style include="oobe-dialog-host-styles">
+  #video-container {
+    height: 80%;
+    min-width: 344px;
+    width: 80%;
+  }
+</style>
+<oobe-adaptive-dialog id="app-downloading-dialog" role="dialog"
+    aria-label$="[[i18nDynamic(locale, 'appDownloadingScreenTitle')]]"
+    no-footer-padding>
+  <iron-icon src="../../../arc_support/icon/playstore.svg" slot="icon">
+  </iron-icon>
+  <h1 slot="title" id="title">
+    [[i18nDynamic(locale, 'appDownloadingScreenTitle')]]
+  </h1>
+  <div slot="subtitle">
+    [[i18nDynamic(locale, 'appDownloadingScreenDescription')]]
+  </div>
+  <div id="video-container" slot="content" class="content-centered">
+    
+  </div>
+  <div slot="bottom-buttons">
+    <oobe-text-button id="continue-setup-button"
+        text-key="appDownloadingContinueSetup" on-click="onContinue_"
+        class="focus-on-show" inverse></oobe-text-button>
+  </div>
+</oobe-adaptive-dialog>
+
+<!--_html_template_end_-->`;
+}

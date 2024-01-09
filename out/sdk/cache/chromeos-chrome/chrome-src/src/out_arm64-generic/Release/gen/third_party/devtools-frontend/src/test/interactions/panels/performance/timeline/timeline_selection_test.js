@@ -8,10 +8,10 @@ const helper_js_1 = require("../../../../shared/helper.js");
 const mocha_extensions_js_1 = require("../../../../shared/mocha-extensions.js");
 const shared_js_1 = require("../../../helpers/shared.js");
 (0, mocha_extensions_js_1.describe)('FlameChart', function () {
-    // TODO(crbug.com/1492405): Improve perf panel trace load speed to
+    (0, shared_js_1.preloadForCodeCoverage)('performance_panel/basic.html');
+    // TODO(crbug.com/1472155): Improve perf panel trace load speed to
     // prevent timeout bump.
     this.timeout(20_000);
-    (0, shared_js_1.preloadForCodeCoverage)('performance_panel/basic.html');
     async function getCoordinatesForEntryWithTitleAndTs(title, tsMicroSecs) {
         const perfPanel = await (0, helper_js_1.waitFor)('.vbox.panel.timeline');
         return await perfPanel.evaluate((element, title, ts) => {
@@ -35,8 +35,8 @@ const shared_js_1 = require("../../../helpers/shared.js");
             return { x, y };
         }, title, tsMicroSecs);
     }
-    it('shows the details of an entry when selected on the timeline', async () => {
-        await (0, shared_js_1.loadComponentDocExample)('performance_panel/basic.html?trace=simple-js-program&threadTracksSource=new');
+    (0, mocha_extensions_js_1.it)('shows the details of an entry when selected on the timeline', async () => {
+        await (0, shared_js_1.loadComponentDocExample)('performance_panel/basic.html?trace=simple-js-program');
         await (0, helper_js_1.waitFor)('.timeline-flamechart');
         const { frontend } = (0, helper_js_1.getBrowserAndPages)();
         // Add some margin to the coordinates so that we don't click right
@@ -70,8 +70,8 @@ const shared_js_1 = require("../../../helpers/shared.js");
         mainEntryName = await mainEntryNameHandle.evaluate(element => element.innerHTML);
         chai_1.assert.isTrue(mainEntryName.includes('Task'));
     });
-    it('reveals an event\'s initiator in the flamechart', async () => {
-        await (0, shared_js_1.loadComponentDocExample)('performance_panel/basic.html?trace=web-dev&threadTracksSource=new');
+    (0, mocha_extensions_js_1.it)('reveals an event\'s initiator in the flamechart', async () => {
+        await (0, shared_js_1.loadComponentDocExample)('performance_panel/basic.html?trace=web-dev');
         await (0, helper_js_1.waitFor)('.timeline-flamechart');
         const { frontend } = (0, helper_js_1.getBrowserAndPages)();
         // Add some margin to the coordinates so that we don't click right

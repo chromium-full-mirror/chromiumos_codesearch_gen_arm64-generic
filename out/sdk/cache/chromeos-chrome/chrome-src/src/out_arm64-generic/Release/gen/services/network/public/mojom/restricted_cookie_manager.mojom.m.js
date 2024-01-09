@@ -112,12 +112,13 @@ export class RestrictedCookieManagerInterface {
    * @param { !url_mojom_Origin } topFrameOrigin
    * @param { !boolean } hasStorageAccess
    * @param { !CookieManagerGetOptions } options
+   * @param { !boolean } isAdTagged
    * @return {!Promise<{
         cookies: !Array<!network_mojom_CookieWithAccessResult>,
    *  }>}
    */
 
-  getAllForUrl(url, siteForCookies, topFrameOrigin, hasStorageAccess, options) {}
+  getAllForUrl(url, siteForCookies, topFrameOrigin, hasStorageAccess, options, isAdTagged) {}
   
   /**
    * @param { !network_mojom_CanonicalCookie } cookie
@@ -161,6 +162,7 @@ export class RestrictedCookieManagerInterface {
    * @param { !url_mojom_Origin } topFrameOrigin
    * @param { !boolean } hasStorageAccess
    * @param { !boolean } getVersionSharedMemory
+   * @param { !boolean } isAdTagged
    * @return {!Promise<{
         version: !bigint,
         versionBuffer: ?mojoBase_mojom_ReadOnlySharedMemoryRegion,
@@ -168,7 +170,7 @@ export class RestrictedCookieManagerInterface {
    *  }>}
    */
 
-  getCookiesString(url, siteForCookies, topFrameOrigin, hasStorageAccess, getVersionSharedMemory) {}
+  getCookiesString(url, siteForCookies, topFrameOrigin, hasStorageAccess, getVersionSharedMemory, isAdTagged) {}
   
   /**
    * @param { !url_mojom_Url } url
@@ -213,6 +215,7 @@ export class RestrictedCookieManagerRemote {
    * @param { !url_mojom_Origin } topFrameOrigin
    * @param { !boolean } hasStorageAccess
    * @param { !CookieManagerGetOptions } options
+   * @param { !boolean } isAdTagged
    * @return {!Promise<{
         cookies: !Array<!network_mojom_CookieWithAccessResult>,
    *  }>}
@@ -223,7 +226,8 @@ export class RestrictedCookieManagerRemote {
       siteForCookies,
       topFrameOrigin,
       hasStorageAccess,
-      options) {
+      options,
+      isAdTagged) {
     return this.proxy.sendMessage(
         0,
         RestrictedCookieManager_GetAllForUrl_ParamsSpec.$,
@@ -233,7 +237,8 @@ export class RestrictedCookieManagerRemote {
           siteForCookies,
           topFrameOrigin,
           hasStorageAccess,
-          options
+          options,
+          isAdTagged
         ]);
   }
 
@@ -336,6 +341,7 @@ export class RestrictedCookieManagerRemote {
    * @param { !url_mojom_Origin } topFrameOrigin
    * @param { !boolean } hasStorageAccess
    * @param { !boolean } getVersionSharedMemory
+   * @param { !boolean } isAdTagged
    * @return {!Promise<{
         version: !bigint,
         versionBuffer: ?mojoBase_mojom_ReadOnlySharedMemoryRegion,
@@ -348,7 +354,8 @@ export class RestrictedCookieManagerRemote {
       siteForCookies,
       topFrameOrigin,
       hasStorageAccess,
-      getVersionSharedMemory) {
+      getVersionSharedMemory,
+      isAdTagged) {
     return this.proxy.sendMessage(
         4,
         RestrictedCookieManager_GetCookiesString_ParamsSpec.$,
@@ -358,7 +365,8 @@ export class RestrictedCookieManagerRemote {
           siteForCookies,
           topFrameOrigin,
           hasStorageAccess,
-          getVersionSharedMemory
+          getVersionSharedMemory,
+          isAdTagged
         ]);
   }
 
@@ -736,6 +744,14 @@ mojo.internal.Struct(
         false /* nullable */,
         0,
       ),
+      mojo.internal.StructField(
+        'isAdTagged', 24,
+        1,
+        mojo.internal.Bool,
+        false,
+        false /* nullable */,
+        0,
+      ),
     ],
     [[0, 48],]);
 
@@ -756,6 +772,8 @@ export class RestrictedCookieManager_GetAllForUrl_Params {
     this.hasStorageAccess;
     /** @type { !CookieManagerGetOptions } */
     this.options;
+    /** @type { !boolean } */
+    this.isAdTagged;
   }
 }
 
@@ -1118,6 +1136,14 @@ mojo.internal.Struct(
         false /* nullable */,
         0,
       ),
+      mojo.internal.StructField(
+        'isAdTagged', 24,
+        2,
+        mojo.internal.Bool,
+        false,
+        false /* nullable */,
+        0,
+      ),
     ],
     [[0, 40],]);
 
@@ -1138,6 +1164,8 @@ export class RestrictedCookieManager_GetCookiesString_Params {
     this.hasStorageAccess;
     /** @type { !boolean } */
     this.getVersionSharedMemory;
+    /** @type { !boolean } */
+    this.isAdTagged;
   }
 }
 

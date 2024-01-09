@@ -1,11 +1,11 @@
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
+import 'chrome://resources/cr_components/localized_link/localized_link.js';
+import 'chrome://resources/cr_elements/action_link.css.js';
 import 'chrome://resources/cr_elements/cr_button/cr_button.js';
 import 'chrome://resources/cr_elements/policy/cr_policy_pref_indicator.js';
 import 'chrome://resources/js/action_link.js';
-import 'chrome://resources/cr_elements/action_link.css.js';
-import 'chrome://resources/cr_components/localized_link/localized_link.js';
 import '../settings_shared.css.js';
 import '../settings_vars.css.js';
 import '//resources/polymer/v3_0/paper-tooltip/paper-tooltip.js';
@@ -14,21 +14,21 @@ import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
 import { assertNotReached } from 'chrome://resources/js/assert.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
-import { DeepLinkingMixin } from '../deep_linking_mixin.js';
+import { DeepLinkingMixin } from '../common/deep_linking_mixin.js';
+import { RouteObserverMixin } from '../common/route_observer_mixin.js';
 import { Setting } from '../mojom-webui/setting.mojom-webui.js';
-import { RouteObserverMixin } from '../route_observer_mixin.js';
 import { routes } from '../router.js';
 import { GoogleDriveBrowserProxy, Stage } from './google_drive_browser_proxy.js';
 import { getTemplate } from './google_drive_subpage.html.js';
 const SettingsGoogleDriveSubpageElementBase = I18nMixin(PrefsMixin(DeepLinkingMixin(RouteObserverMixin(PolymerElement))));
 /**
- * The preference containing the value whether Google drive is disabled or not.
+ * The preference containing the value whether Google Drive is disabled or not.
  */
 const GOOGLE_DRIVE_DISABLED_PREF = 'gdata.disabled';
 /**
  * The preference containing the value whether bulk pinning is enabled or not.
  */
-const GOOGLE_DRIVE_BULK_PINNING_PREF = 'drivefs.bulk_pinning_enabled';
+const GOOGLE_DRIVE_BULK_PINNING_ENABLED_PREF = 'drivefs.bulk_pinning_enabled';
 /**
  * A list of possible confirmation dialogs that may be shown.
  */
@@ -132,7 +132,8 @@ export class SettingsGoogleDriveSubpageElement extends SettingsGoogleDriveSubpag
      */
     static get observers() {
         return [
-            `updateDriveDisabled_(prefs.${GOOGLE_DRIVE_DISABLED_PREF}.*)`,
+            `updateDriveDisabled_(prefs.${GOOGLE_DRIVE_DISABLED_PREF}.value)`,
+            `updateBulkPinningVisible_(prefs.drivefs.bulk_pinning.visible.value)`,
         ];
     }
     /**
@@ -182,11 +183,10 @@ export class SettingsGoogleDriveSubpageElement extends SettingsGoogleDriveSubpag
         return this.dialogType_;
     }
     /**
-     * Returns the current bulk pinning stage, or 'unknown' if not defined.
-     * Used for testing.
+     * Returns the current bulk pinning stage, or `undefined` if not defined.
      */
     get stage() {
-        return this.bulkPinningStatus_?.stage || 'unknown';
+        return this.bulkPinningStatus_?.stage;
     }
     connectedCallback() {
         super.connectedCallback();
@@ -210,7 +210,7 @@ export class SettingsGoogleDriveSubpageElement extends SettingsGoogleDriveSubpag
      */
     onProgress_(status) {
         this.bulkPinningServiceUnavailable_ = false;
-        if (status.stage !== this.bulkPinningStatus_?.stage ||
+        if (status.stage !== this.stage ||
             status.freeSpace !== this.bulkPinningStatus_?.freeSpace ||
             status.requiredSpace !== this.bulkPinningStatus_?.requiredSpace ||
             status.listedFiles !== this.bulkPinningStatus_?.listedFiles) {
@@ -228,13 +228,13 @@ export class SettingsGoogleDriveSubpageElement extends SettingsGoogleDriveSubpag
         }
         let requiredSpace;
         try {
-            requiredSpace = parseInt(status?.requiredSpace);
+            requiredSpace = parseInt(status.requiredSpace);
         }
         catch (e) {
             console.error('Could not parse required space', e);
             return;
         }
-        this.showSpinner = (status?.stage === Stage.kSyncing && requiredSpace > 0);
+        this.showSpinner = (status.stage === Stage.kSyncing && requiredSpace > 0);
     }
     /**
      * Whilst listing files an interval is maintained to not update the UI with
@@ -268,12 +268,21 @@ export class SettingsGoogleDriveSubpageElement extends SettingsGoogleDriveSubpag
     /**
      * Invoked when the `prefs.gdata.disabled` preference changes value.
      */
-    updateDriveDisabled_() {
-        const disabled = this.getPref(GOOGLE_DRIVE_DISABLED_PREF).value;
+    updateDriveDisabled_(disabled) {
         this.driveDisabled_ = disabled;
         if (disabled) {
             this.showSpinner = false;
         }
+    }
+    /**
+     * Invoked when the `prefs.drivefs.bulk_pinning.visible` preference changes
+     * value.
+     */
+    updateBulkPinningVisible_(visible) {
+        this.bulkPinningVisible_ = visible;
+    }
+    and_(a, b) {
+        return a && b;
     }
     currentRouteChanged(route, _oldRoute) {
         // Does not apply to this page.
@@ -293,6 +302,11 @@ export class SettingsGoogleDriveSubpageElement extends SettingsGoogleDriveSubpag
         clearInterval(this.updateContentCacheSizeInterval_);
         this.updateContentCacheSizeInterval_ =
             setInterval(this.updateContentCacheSize_.bind(this), 5000);
+    }
+    getDriveAccountStatusLabel_() {
+        return this.driveDisabled_ ?
+            this.i18nAdvanced('googleDriveReconnectAs', { attrs: ['id'] }) :
+            this.i18nAdvanced('googleDriveSignedInAs', { attrs: ['id'] });
     }
     /**
      * Returns the value for the button to Connect/Disconnect Google drive
@@ -324,7 +338,7 @@ export class SettingsGoogleDriveSubpageElement extends SettingsGoogleDriveSubpag
             this.contentCacheSize_ === ContentCacheSizeType.CALCULATING) {
             return this.i18n('googleDriveCleanUpStorageDisabledUnknownStorageTooltip');
         }
-        if (this.getPref(GOOGLE_DRIVE_BULK_PINNING_PREF).value &&
+        if (this.getPref(GOOGLE_DRIVE_BULK_PINNING_ENABLED_PREF).value &&
             this.contentCacheSize_ !== '0 B') {
             return this.i18n('googleDriveCleanUpStorageDisabledFileSyncTooltip');
         }
@@ -356,10 +370,10 @@ export class SettingsGoogleDriveSubpageElement extends SettingsGoogleDriveSubpag
         switch (closedDialogType) {
             case ConfirmationDialogType.DISCONNECT:
                 this.setPrefValue(GOOGLE_DRIVE_DISABLED_PREF, true);
-                this.setPrefValue(GOOGLE_DRIVE_BULK_PINNING_PREF, false);
+                this.setPrefValue(GOOGLE_DRIVE_BULK_PINNING_ENABLED_PREF, false);
                 break;
             case ConfirmationDialogType.BULK_PINNING_DISABLE:
-                this.setPrefValue(GOOGLE_DRIVE_BULK_PINNING_PREF, false);
+                this.setPrefValue(GOOGLE_DRIVE_BULK_PINNING_ENABLED_PREF, false);
                 break;
             case ConfirmationDialogType.BULK_PINNING_CLEAN_UP_STORAGE:
                 await this.proxy_.handler.clearPinnedFiles();
@@ -377,8 +391,7 @@ export class SettingsGoogleDriveSubpageElement extends SettingsGoogleDriveSubpag
      * sublabel.
      */
     getBulkPinningSubLabel_() {
-        if (!this.bulkPinningStatus_ ||
-            this.bulkPinningStatus_?.stage !== Stage.kSuccess ||
+        if (!this.bulkPinningStatus_ || this.stage !== Stage.kSuccess ||
             this.bulkPinningServiceUnavailable_) {
             return this.i18n('googleDriveFileSyncSubtitleWithoutStorage');
         }
@@ -399,7 +412,7 @@ export class SettingsGoogleDriveSubpageElement extends SettingsGoogleDriveSubpag
      */
     onToggleBulkPinning_(e) {
         const target = e.target;
-        const newValueAfterToggle = !this.getPref(GOOGLE_DRIVE_BULK_PINNING_PREF).value;
+        const newValueAfterToggle = !this.getPref(GOOGLE_DRIVE_BULK_PINNING_ENABLED_PREF).value;
         if (newValueAfterToggle) {
             this.tryEnableBulkPinning_(target);
             return;
@@ -419,20 +432,20 @@ export class SettingsGoogleDriveSubpageElement extends SettingsGoogleDriveSubpag
     tryEnableBulkPinning_(target) {
         target.checked = false;
         // When the device is offline, don't allow the user to enable the toggle.
-        if (this.bulkPinningStatus_?.stage === Stage.kPausedOffline) {
+        if (this.stage === Stage.kPausedOffline) {
             this.dialogType_ = ConfirmationDialogType.BULK_PINNING_OFFLINE;
             return;
         }
         // If currently enumerating the files, don't allow the user to enable file
         // sync until we're certain the corpus will fit on the device.
-        if (this.bulkPinningStatus_?.stage === Stage.kListingFiles) {
+        if (this.stage === Stage.kListingFiles) {
             this.dialogType_ = ConfirmationDialogType.BULK_PINNING_LISTING_FILES;
             return;
         }
         if (this.bulkPinningStatus_?.isError) {
             // If there is not enough free space for the user to reliably turn on bulk
             // pinning, spawn a dialog.
-            if (this.bulkPinningStatus_?.stage === Stage.kNotEnoughSpace) {
+            if (this.stage === Stage.kNotEnoughSpace) {
                 this.dialogType_ = ConfirmationDialogType.BULK_PINNING_NOT_ENOUGH_SPACE;
                 return;
             }
@@ -442,17 +455,21 @@ export class SettingsGoogleDriveSubpageElement extends SettingsGoogleDriveSubpag
             return;
         }
         target.checked = true;
-        this.setPrefValue(GOOGLE_DRIVE_BULK_PINNING_PREF, true);
+        this.setPrefValue(GOOGLE_DRIVE_BULK_PINNING_ENABLED_PREF, true);
         this.proxy_.handler.recordBulkPinningEnabledMetric();
     }
     /**
-     * Returns true if the bulk pinning preference is disabled.
+     * Returns true if the "Clean up storage" button should be enabled.
      */
-    shouldEnableCleanUpStorageButton_() {
-        return !this.getPref(GOOGLE_DRIVE_BULK_PINNING_PREF).value &&
-            this.contentCacheSize_ !== ContentCacheSizeType.UNKNOWN &&
-            this.contentCacheSize_ !== ContentCacheSizeType.CALCULATING &&
-            this.contentCacheSize_ !== '0 B';
+    shouldEnableCleanUpStorageButton_(status, cacheSize) {
+        const stage = status?.stage;
+        return (stage === undefined || stage === Stage.kStopped ||
+            stage === Stage.kSuccess || stage === Stage.kNotEnoughSpace ||
+            stage === Stage.kCannotGetFreeSpace ||
+            stage === Stage.kCannotListFiles ||
+            stage === Stage.kCannotEnableDocsOffline) &&
+            cacheSize !== ContentCacheSizeType.UNKNOWN &&
+            cacheSize !== ContentCacheSizeType.CALCULATING && cacheSize !== '0 B';
     }
     /**
      * Returns the string used in the confirmation dialog when cleaning the users

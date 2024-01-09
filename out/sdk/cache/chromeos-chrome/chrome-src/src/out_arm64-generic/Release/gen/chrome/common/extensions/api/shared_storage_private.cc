@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/extensions/api/shared_storage_private.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -38,8 +39,8 @@ Results::Items::Items()
  {}
 
 Results::Items::~Items() = default;
-Results::Items::Items(Items&& rhs) = default;
-Results::Items& Results::Items::operator=(Items&& rhs) = default;
+Results::Items::Items(Items&& rhs) noexcept = default;
+Results::Items& Results::Items::operator=(Items&& rhs) noexcept = default;
 base::Value::Dict Results::Items::ToValue() const {
   base::Value::Dict to_value_result;
 
@@ -64,8 +65,8 @@ Params::Items::Items()
  {}
 
 Params::Items::~Items() = default;
-Params::Items::Items(Items&& rhs) = default;
-Params::Items& Params::Items::operator=(Items&& rhs) = default;
+Params::Items::Items(Items&& rhs) noexcept = default;
+Params::Items& Params::Items::operator=(Items&& rhs) noexcept = default;
 Params::Items Params::Items::Clone() const {
   Items out;
   return out;
@@ -88,21 +89,21 @@ bool Params::Items::Populate(
 }
 
 // static
-absl::optional<Params::Items> Params::Items::FromValue(const base::Value::Dict& value) {
+std::optional<Params::Items> Params::Items::FromValue(const base::Value::Dict& value) {
   Items out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Params::Items> Params::Items::FromValue(const base::Value& value) {
+std::optional<Params::Items> Params::Items::FromValue(const base::Value& value) {
   Items out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -110,13 +111,13 @@ absl::optional<Params::Items> Params::Items::FromValue(const base::Value& value)
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -125,15 +126,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& items_value = args[0];
     {
       if (!items_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!Items::Populate(items_value.GetDict(), params.items)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -151,13 +152,13 @@ namespace Remove {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -166,17 +167,17 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& keys_value = args[0];
     {
       if (!keys_value.is_list()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         if (!json_schema_compiler::util::PopulateArrayFromList(keys_value.GetList(), params.keys)) {
-          return absl::nullopt;
+          return std::nullopt;
         }
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;

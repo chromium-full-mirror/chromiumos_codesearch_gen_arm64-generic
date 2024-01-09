@@ -72,11 +72,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, XRRenderState>::value,
     "XRRenderState inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&XRRenderState::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "XRRenderState is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -89,8 +84,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRRenderState.depthNear.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRRenderState* blink_receiver = V8XRRenderState::ToWrappableUnsafe(v8_receiver);
+XRRenderState* blink_receiver = V8XRRenderState::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->depthNear();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -103,8 +99,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRRenderState.depthFar.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRRenderState* blink_receiver = V8XRRenderState::ToWrappableUnsafe(v8_receiver);
+XRRenderState* blink_receiver = V8XRRenderState::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->depthFar();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -117,8 +114,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRRenderState.inlineVerticalFieldOfView.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRRenderState* blink_receiver = V8XRRenderState::ToWrappableUnsafe(v8_receiver);
+XRRenderState* blink_receiver = V8XRRenderState::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->inlineVerticalFieldOfView();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -131,8 +129,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRRenderState.baseLayer.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRRenderState* blink_receiver = V8XRRenderState::ToWrappableUnsafe(v8_receiver);
+XRRenderState* blink_receiver = V8XRRenderState::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->baseLayer();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -150,7 +149,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-XRRenderState* blink_receiver = V8XRRenderState::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+XRRenderState* blink_receiver = V8XRRenderState::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->layers();
 if (!ToV8Traits<IDLArray<XRLayer>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;

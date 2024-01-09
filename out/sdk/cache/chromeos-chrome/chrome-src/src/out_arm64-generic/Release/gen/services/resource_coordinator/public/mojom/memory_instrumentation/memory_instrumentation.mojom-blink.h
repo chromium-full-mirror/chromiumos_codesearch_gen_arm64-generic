@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/resource_coordinator/public/mojom/memory_instrumentation/memory_instrumentation.mojom-features.h"
 #include "services/resource_coordinator/public/mojom/memory_instrumentation/memory_instrumentation.mojom-shared.h"
 #include "services/resource_coordinator/public/mojom/memory_instrumentation/memory_instrumentation.mojom-blink-forward.h"
 #include "mojo/public/mojom/base/big_string.mojom-blink.h"
@@ -41,66 +42,6 @@
 #include "base/component_export.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::memory_instrumentation::mojom::DumpType>
-    : EnumHashTraits<::memory_instrumentation::mojom::DumpType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::memory_instrumentation::mojom::LevelOfDetail>
-    : EnumHashTraits<::memory_instrumentation::mojom::LevelOfDetail, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::memory_instrumentation::mojom::Determinism>
-    : EnumHashTraits<::memory_instrumentation::mojom::Determinism, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::memory_instrumentation::mojom::ProcessType>
-    : EnumHashTraits<::memory_instrumentation::mojom::ProcessType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::memory_instrumentation::mojom::MemoryMapOption>
-    : EnumHashTraits<::memory_instrumentation::mojom::MemoryMapOption, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace memory_instrumentation::mojom::blink {
@@ -1183,17 +1124,17 @@ class COMPONENT_EXPORT(RESOURCE_COORDINATOR_PUBLIC_MOJOM_BLINK) RawAllocatorDump
   // Construct an instance holding |value_uint64|.
   static RawAllocatorDumpEntryValuePtr
   NewValueUint64(
-      uint64_t value_uint64) {
+      uint64_t value) {
     auto result = RawAllocatorDumpEntryValuePtr(absl::in_place);
-    result->set_value_uint64(std::move(value_uint64));
+    result->set_value_uint64(std::move(value));
     return result;
   }
   // Construct an instance holding |value_string|.
   static RawAllocatorDumpEntryValuePtr
   NewValueString(
-      const WTF::String& value_string) {
+      const WTF::String& value) {
     auto result = RawAllocatorDumpEntryValuePtr(absl::in_place);
-    result->set_value_string(std::move(value_string));
+    result->set_value_string(std::move(value));
     return result;
   }
 

@@ -150,20 +150,20 @@
     void SetLazyFrameLoadingDistanceThresholdPxSlow2G(int lazy_frame_loading_distance_threshold_px_slow_2_g); \
     int GetLazyFrameLoadingDistanceThresholdPxUnknown() const { return lazy_frame_loading_distance_threshold_px_unknown_; } \
     void SetLazyFrameLoadingDistanceThresholdPxUnknown(int lazy_frame_loading_distance_threshold_px_unknown); \
-    int GetLazyImageLoadingDistanceThresholdPx2G() const { return lazy_image_loading_distance_threshold_px_2_g_; } \
-    void SetLazyImageLoadingDistanceThresholdPx2G(int lazy_image_loading_distance_threshold_px_2_g); \
-    int GetLazyImageLoadingDistanceThresholdPx3G() const { return lazy_image_loading_distance_threshold_px_3_g_; } \
-    void SetLazyImageLoadingDistanceThresholdPx3G(int lazy_image_loading_distance_threshold_px_3_g); \
-    int GetLazyImageLoadingDistanceThresholdPx4G() const { return lazy_image_loading_distance_threshold_px_4_g_; } \
-    void SetLazyImageLoadingDistanceThresholdPx4G(int lazy_image_loading_distance_threshold_px_4_g); \
-    int GetLazyImageLoadingDistanceThresholdPxOffline() const { return lazy_image_loading_distance_threshold_px_offline_; } \
-    void SetLazyImageLoadingDistanceThresholdPxOffline(int lazy_image_loading_distance_threshold_px_offline); \
-    int GetLazyImageLoadingDistanceThresholdPxSlow2G() const { return lazy_image_loading_distance_threshold_px_slow_2_g_; } \
-    void SetLazyImageLoadingDistanceThresholdPxSlow2G(int lazy_image_loading_distance_threshold_px_slow_2_g); \
-    int GetLazyImageLoadingDistanceThresholdPxUnknown() const { return lazy_image_loading_distance_threshold_px_unknown_; } \
-    void SetLazyImageLoadingDistanceThresholdPxUnknown(int lazy_image_loading_distance_threshold_px_unknown); \
     bool GetLazyLoadEnabled() const { return lazy_load_enabled_; } \
     void SetLazyLoadEnabled(bool lazy_load_enabled); \
+    int GetLazyLoadingImageMarginPx2G() const { return lazy_loading_image_margin_px_2_g_; } \
+    void SetLazyLoadingImageMarginPx2G(int lazy_loading_image_margin_px_2_g); \
+    int GetLazyLoadingImageMarginPx3G() const { return lazy_loading_image_margin_px_3_g_; } \
+    void SetLazyLoadingImageMarginPx3G(int lazy_loading_image_margin_px_3_g); \
+    int GetLazyLoadingImageMarginPx4G() const { return lazy_loading_image_margin_px_4_g_; } \
+    void SetLazyLoadingImageMarginPx4G(int lazy_loading_image_margin_px_4_g); \
+    int GetLazyLoadingImageMarginPxOffline() const { return lazy_loading_image_margin_px_offline_; } \
+    void SetLazyLoadingImageMarginPxOffline(int lazy_loading_image_margin_px_offline); \
+    int GetLazyLoadingImageMarginPxSlow2G() const { return lazy_loading_image_margin_px_slow_2_g_; } \
+    void SetLazyLoadingImageMarginPxSlow2G(int lazy_loading_image_margin_px_slow_2_g); \
+    int GetLazyLoadingImageMarginPxUnknown() const { return lazy_loading_image_margin_px_unknown_; } \
+    void SetLazyLoadingImageMarginPxUnknown(int lazy_loading_image_margin_px_unknown); \
     bool GetLoadWithOverviewMode() const { return load_with_overview_mode_; } \
     void SetLoadWithOverviewMode(bool load_with_overview_mode); \
     bool GetLoadsImagesAutomatically() const { return loads_images_automatically_; } \
@@ -387,12 +387,12 @@
     int lazy_frame_loading_distance_threshold_px_offline_; \
     int lazy_frame_loading_distance_threshold_px_slow_2_g_; \
     int lazy_frame_loading_distance_threshold_px_unknown_; \
-    int lazy_image_loading_distance_threshold_px_2_g_; \
-    int lazy_image_loading_distance_threshold_px_3_g_; \
-    int lazy_image_loading_distance_threshold_px_4_g_; \
-    int lazy_image_loading_distance_threshold_px_offline_; \
-    int lazy_image_loading_distance_threshold_px_slow_2_g_; \
-    int lazy_image_loading_distance_threshold_px_unknown_; \
+    int lazy_loading_image_margin_px_2_g_; \
+    int lazy_loading_image_margin_px_3_g_; \
+    int lazy_loading_image_margin_px_4_g_; \
+    int lazy_loading_image_margin_px_offline_; \
+    int lazy_loading_image_margin_px_slow_2_g_; \
+    int lazy_loading_image_margin_px_unknown_; \
     WebEffectiveConnectionType low_priority_iframes_threshold_; \
     int max_touch_points_; \
     String media_type_override_; \
@@ -562,12 +562,12 @@
     , lazy_frame_loading_distance_threshold_px_offline_(8000) \
     , lazy_frame_loading_distance_threshold_px_slow_2_g_(8000) \
     , lazy_frame_loading_distance_threshold_px_unknown_(4000) \
-    , lazy_image_loading_distance_threshold_px_2_g_(6000) \
-    , lazy_image_loading_distance_threshold_px_3_g_(2500) \
-    , lazy_image_loading_distance_threshold_px_4_g_(1250) \
-    , lazy_image_loading_distance_threshold_px_offline_(8000) \
-    , lazy_image_loading_distance_threshold_px_slow_2_g_(8000) \
-    , lazy_image_loading_distance_threshold_px_unknown_(3000) \
+    , lazy_loading_image_margin_px_2_g_(6000) \
+    , lazy_loading_image_margin_px_3_g_(2500) \
+    , lazy_loading_image_margin_px_4_g_(1250) \
+    , lazy_loading_image_margin_px_offline_(8000) \
+    , lazy_loading_image_margin_px_slow_2_g_(8000) \
+    , lazy_loading_image_margin_px_unknown_(3000) \
     , low_priority_iframes_threshold_(WebEffectiveConnectionType::kTypeUnknown) \
     , max_touch_points_(0) \
     , media_type_override_("") \
@@ -1072,40 +1072,40 @@ void Settings::SetLazyFrameLoadingDistanceThresholdPxUnknown(int lazy_frame_load
     return; \
   lazy_frame_loading_distance_threshold_px_unknown_ = lazy_frame_loading_distance_threshold_px_unknown; \
 } \
-void Settings::SetLazyImageLoadingDistanceThresholdPx2G(int lazy_image_loading_distance_threshold_px_2_g) { \
-  if (lazy_image_loading_distance_threshold_px_2_g_ == lazy_image_loading_distance_threshold_px_2_g) \
-    return; \
-  lazy_image_loading_distance_threshold_px_2_g_ = lazy_image_loading_distance_threshold_px_2_g; \
-} \
-void Settings::SetLazyImageLoadingDistanceThresholdPx3G(int lazy_image_loading_distance_threshold_px_3_g) { \
-  if (lazy_image_loading_distance_threshold_px_3_g_ == lazy_image_loading_distance_threshold_px_3_g) \
-    return; \
-  lazy_image_loading_distance_threshold_px_3_g_ = lazy_image_loading_distance_threshold_px_3_g; \
-} \
-void Settings::SetLazyImageLoadingDistanceThresholdPx4G(int lazy_image_loading_distance_threshold_px_4_g) { \
-  if (lazy_image_loading_distance_threshold_px_4_g_ == lazy_image_loading_distance_threshold_px_4_g) \
-    return; \
-  lazy_image_loading_distance_threshold_px_4_g_ = lazy_image_loading_distance_threshold_px_4_g; \
-} \
-void Settings::SetLazyImageLoadingDistanceThresholdPxOffline(int lazy_image_loading_distance_threshold_px_offline) { \
-  if (lazy_image_loading_distance_threshold_px_offline_ == lazy_image_loading_distance_threshold_px_offline) \
-    return; \
-  lazy_image_loading_distance_threshold_px_offline_ = lazy_image_loading_distance_threshold_px_offline; \
-} \
-void Settings::SetLazyImageLoadingDistanceThresholdPxSlow2G(int lazy_image_loading_distance_threshold_px_slow_2_g) { \
-  if (lazy_image_loading_distance_threshold_px_slow_2_g_ == lazy_image_loading_distance_threshold_px_slow_2_g) \
-    return; \
-  lazy_image_loading_distance_threshold_px_slow_2_g_ = lazy_image_loading_distance_threshold_px_slow_2_g; \
-} \
-void Settings::SetLazyImageLoadingDistanceThresholdPxUnknown(int lazy_image_loading_distance_threshold_px_unknown) { \
-  if (lazy_image_loading_distance_threshold_px_unknown_ == lazy_image_loading_distance_threshold_px_unknown) \
-    return; \
-  lazy_image_loading_distance_threshold_px_unknown_ = lazy_image_loading_distance_threshold_px_unknown; \
-} \
 void Settings::SetLazyLoadEnabled(bool lazy_load_enabled) { \
   if (lazy_load_enabled_ == lazy_load_enabled) \
     return; \
   lazy_load_enabled_ = lazy_load_enabled; \
+} \
+void Settings::SetLazyLoadingImageMarginPx2G(int lazy_loading_image_margin_px_2_g) { \
+  if (lazy_loading_image_margin_px_2_g_ == lazy_loading_image_margin_px_2_g) \
+    return; \
+  lazy_loading_image_margin_px_2_g_ = lazy_loading_image_margin_px_2_g; \
+} \
+void Settings::SetLazyLoadingImageMarginPx3G(int lazy_loading_image_margin_px_3_g) { \
+  if (lazy_loading_image_margin_px_3_g_ == lazy_loading_image_margin_px_3_g) \
+    return; \
+  lazy_loading_image_margin_px_3_g_ = lazy_loading_image_margin_px_3_g; \
+} \
+void Settings::SetLazyLoadingImageMarginPx4G(int lazy_loading_image_margin_px_4_g) { \
+  if (lazy_loading_image_margin_px_4_g_ == lazy_loading_image_margin_px_4_g) \
+    return; \
+  lazy_loading_image_margin_px_4_g_ = lazy_loading_image_margin_px_4_g; \
+} \
+void Settings::SetLazyLoadingImageMarginPxOffline(int lazy_loading_image_margin_px_offline) { \
+  if (lazy_loading_image_margin_px_offline_ == lazy_loading_image_margin_px_offline) \
+    return; \
+  lazy_loading_image_margin_px_offline_ = lazy_loading_image_margin_px_offline; \
+} \
+void Settings::SetLazyLoadingImageMarginPxSlow2G(int lazy_loading_image_margin_px_slow_2_g) { \
+  if (lazy_loading_image_margin_px_slow_2_g_ == lazy_loading_image_margin_px_slow_2_g) \
+    return; \
+  lazy_loading_image_margin_px_slow_2_g_ = lazy_loading_image_margin_px_slow_2_g; \
+} \
+void Settings::SetLazyLoadingImageMarginPxUnknown(int lazy_loading_image_margin_px_unknown) { \
+  if (lazy_loading_image_margin_px_unknown_ == lazy_loading_image_margin_px_unknown) \
+    return; \
+  lazy_loading_image_margin_px_unknown_ = lazy_loading_image_margin_px_unknown; \
 } \
 void Settings::SetLoadWithOverviewMode(bool load_with_overview_mode) { \
   if (load_with_overview_mode_ == load_with_overview_mode) \
@@ -1903,32 +1903,32 @@ void Settings::SetFromStrings(const String& name, const String& value) { \
     SetLazyFrameLoadingDistanceThresholdPxUnknown(FromString<int>()(value)); \
     return; \
   } \
-  if (name == "lazyImageLoadingDistanceThresholdPx2G") { \
-    SetLazyImageLoadingDistanceThresholdPx2G(FromString<int>()(value)); \
-    return; \
-  } \
-  if (name == "lazyImageLoadingDistanceThresholdPx3G") { \
-    SetLazyImageLoadingDistanceThresholdPx3G(FromString<int>()(value)); \
-    return; \
-  } \
-  if (name == "lazyImageLoadingDistanceThresholdPx4G") { \
-    SetLazyImageLoadingDistanceThresholdPx4G(FromString<int>()(value)); \
-    return; \
-  } \
-  if (name == "lazyImageLoadingDistanceThresholdPxOffline") { \
-    SetLazyImageLoadingDistanceThresholdPxOffline(FromString<int>()(value)); \
-    return; \
-  } \
-  if (name == "lazyImageLoadingDistanceThresholdPxSlow2G") { \
-    SetLazyImageLoadingDistanceThresholdPxSlow2G(FromString<int>()(value)); \
-    return; \
-  } \
-  if (name == "lazyImageLoadingDistanceThresholdPxUnknown") { \
-    SetLazyImageLoadingDistanceThresholdPxUnknown(FromString<int>()(value)); \
-    return; \
-  } \
   if (name == "lazyLoadEnabled") { \
     SetLazyLoadEnabled(FromString<bool>()(value)); \
+    return; \
+  } \
+  if (name == "lazyLoadingImageMarginPx2G") { \
+    SetLazyLoadingImageMarginPx2G(FromString<int>()(value)); \
+    return; \
+  } \
+  if (name == "lazyLoadingImageMarginPx3G") { \
+    SetLazyLoadingImageMarginPx3G(FromString<int>()(value)); \
+    return; \
+  } \
+  if (name == "lazyLoadingImageMarginPx4G") { \
+    SetLazyLoadingImageMarginPx4G(FromString<int>()(value)); \
+    return; \
+  } \
+  if (name == "lazyLoadingImageMarginPxOffline") { \
+    SetLazyLoadingImageMarginPxOffline(FromString<int>()(value)); \
+    return; \
+  } \
+  if (name == "lazyLoadingImageMarginPxSlow2G") { \
+    SetLazyLoadingImageMarginPxSlow2G(FromString<int>()(value)); \
+    return; \
+  } \
+  if (name == "lazyLoadingImageMarginPxUnknown") { \
+    SetLazyLoadingImageMarginPxUnknown(FromString<int>()(value)); \
     return; \
   } \
   if (name == "loadWithOverviewMode") { \

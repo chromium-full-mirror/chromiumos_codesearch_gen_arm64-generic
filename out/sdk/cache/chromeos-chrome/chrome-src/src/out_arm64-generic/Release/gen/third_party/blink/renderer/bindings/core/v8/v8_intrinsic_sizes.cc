@@ -67,11 +67,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, CustomIntrinsicSizes>::value,
     "CustomIntrinsicSizes inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&CustomIntrinsicSizes::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "CustomIntrinsicSizes is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -84,8 +79,9 @@ BLINK_BINDINGS_TRACE_EVENT("IntrinsicSizes.minContentSize.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CustomIntrinsicSizes* blink_receiver = V8IntrinsicSizes::ToWrappableUnsafe(v8_receiver);
+CustomIntrinsicSizes* blink_receiver = V8IntrinsicSizes::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->minContentSize();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -98,8 +94,9 @@ BLINK_BINDINGS_TRACE_EVENT("IntrinsicSizes.maxContentSize.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CustomIntrinsicSizes* blink_receiver = V8IntrinsicSizes::ToWrappableUnsafe(v8_receiver);
+CustomIntrinsicSizes* blink_receiver = V8IntrinsicSizes::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->maxContentSize();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }

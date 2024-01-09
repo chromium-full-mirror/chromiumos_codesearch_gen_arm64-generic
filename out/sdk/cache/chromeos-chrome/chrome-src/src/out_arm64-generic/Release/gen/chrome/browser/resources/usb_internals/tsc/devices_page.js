@@ -14,6 +14,8 @@ import { UsbDeviceRemote, UsbTransferDirection, UsbTransferType } from './usb_de
  * Page that contains a tab header and a tab panel displaying devices table.
  */
 export class DevicesPage {
+    usbManager_;
+    root_;
     constructor(usbManager, root) {
         this.usbManager_ = usbManager;
         this.root_ = root;
@@ -76,6 +78,8 @@ export class DevicesPage {
  * descriptors.
  */
 class DevicePage {
+    usbManager_;
+    root;
     constructor(usbManager, device, root) {
         this.usbManager_ = usbManager;
         this.root = root;

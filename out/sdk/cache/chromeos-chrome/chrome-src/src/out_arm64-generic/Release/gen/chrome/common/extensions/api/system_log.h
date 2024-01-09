@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -32,8 +33,8 @@ struct MessageOptions {
   ~MessageOptions();
   MessageOptions(const MessageOptions&) = delete;
   MessageOptions& operator=(const MessageOptions&) = delete;
-  MessageOptions(MessageOptions&& rhs);
-  MessageOptions& operator=(MessageOptions&& rhs);
+  MessageOptions(MessageOptions&& rhs) noexcept;
+  MessageOptions& operator=(MessageOptions&& rhs) noexcept;
 
   // Populates a MessageOptions object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -46,15 +47,12 @@ struct MessageOptions {
   // Creates a deep copy of MessageOptions.
   MessageOptions Clone() const;
 
-  // Creates a MessageOptions object from a base::Value, or NULL on failure.
-  static std::unique_ptr<MessageOptions> FromValueDeprecated(const base::Value& value);
-
   // Creates a MessageOptions object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<MessageOptions> FromValue(const base::Value::Dict& value);
+  static std::optional<MessageOptions> FromValue(const base::Value::Dict& value);
 
   // Creates a MessageOptions object from a base::Value, or nullopt on failure.
-  static absl::optional<MessageOptions> FromValue(const base::Value& value);
+  static std::optional<MessageOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisMessageOptions object.
@@ -72,11 +70,11 @@ struct MessageOptions {
 namespace Add {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The logging options.

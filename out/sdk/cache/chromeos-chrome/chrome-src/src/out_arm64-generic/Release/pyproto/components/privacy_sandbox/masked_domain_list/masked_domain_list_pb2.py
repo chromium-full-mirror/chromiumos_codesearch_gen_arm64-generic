@@ -13,7 +13,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x18masked_domain_list.proto\x12\x12masked_domain_list\"\xf7\x01\n\x08Resource\x12\x0e\n\x06\x64omain\x18\x01 \x01(\t\x12=\n\ncategories\x18\x02 \x03(\x0e\x32%.masked_domain_list.Resource.CategoryB\x02\x10\x01\x12@\n\x0b\x65xperiments\x18\x03 \x03(\x0e\x32\'.masked_domain_list.Resource.ExperimentB\x02\x10\x01\" \n\x08\x43\x61tegory\x12\x14\n\x10\x43\x41TEGORY_UNKNOWN\x10\x00\"8\n\nExperiment\x12\x16\n\x12\x45XPERIMENT_UNKNOWN\x10\x00\x12\x12\n\x0e\x45XPERIMENT_AFP\x10\x01\"t\n\rResourceOwner\x12\x12\n\nowner_name\x18\x01 \x01(\t\x12\x18\n\x10owned_properties\x18\x02 \x03(\t\x12\x35\n\x0fowned_resources\x18\x03 \x03(\x0b\x32\x1c.masked_domain_list.Resource\"N\n\x10MaskedDomainList\x12:\n\x0fresource_owners\x18\x01 \x03(\x0b\x32!.masked_domain_list.ResourceOwnerB\x02H\x03')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x18masked_domain_list.proto\x12\x12masked_domain_list\"\xd9\x01\n\x08Resource\x12\x0e\n\x06\x64omain\x18\x01 \x01(\t\x12@\n\x0b\x65xperiments\x18\x03 \x03(\x0e\x32\'.masked_domain_list.Resource.ExperimentB\x02\x10\x01\x12\x1d\n\x15\x65xclude_default_group\x18\x04 \x01(\x08\x12\x1c\n\x14\x65xperiment_group_ids\x18\x05 \x03(\x03\"8\n\nExperiment\x12\x16\n\x12\x45XPERIMENT_UNKNOWN\x10\x00\x12\x12\n\x0e\x45XPERIMENT_AFP\x10\x01J\x04\x08\x02\x10\x03\"t\n\rResourceOwner\x12\x12\n\nowner_name\x18\x01 \x01(\t\x12\x18\n\x10owned_properties\x18\x02 \x03(\t\x12\x35\n\x0fowned_resources\x18\x03 \x03(\x0b\x32\x1c.masked_domain_list.Resource\"N\n\x10MaskedDomainList\x12:\n\x0fresource_owners\x18\x01 \x03(\x0b\x32!.masked_domain_list.ResourceOwnerB\x02H\x03')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'masked_domain_list_pb2', globals())
@@ -21,18 +21,14 @@ if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'H\003'
-  _RESOURCE.fields_by_name['categories']._options = None
-  _RESOURCE.fields_by_name['categories']._serialized_options = b'\020\001'
   _RESOURCE.fields_by_name['experiments']._options = None
   _RESOURCE.fields_by_name['experiments']._serialized_options = b'\020\001'
   _RESOURCE._serialized_start=49
-  _RESOURCE._serialized_end=296
-  _RESOURCE_CATEGORY._serialized_start=206
-  _RESOURCE_CATEGORY._serialized_end=238
-  _RESOURCE_EXPERIMENT._serialized_start=240
-  _RESOURCE_EXPERIMENT._serialized_end=296
-  _RESOURCEOWNER._serialized_start=298
-  _RESOURCEOWNER._serialized_end=414
-  _MASKEDDOMAINLIST._serialized_start=416
-  _MASKEDDOMAINLIST._serialized_end=494
+  _RESOURCE._serialized_end=266
+  _RESOURCE_EXPERIMENT._serialized_start=204
+  _RESOURCE_EXPERIMENT._serialized_end=260
+  _RESOURCEOWNER._serialized_start=268
+  _RESOURCEOWNER._serialized_end=384
+  _MASKEDDOMAINLIST._serialized_start=386
+  _MASKEDDOMAINLIST._serialized_end=464
 # @@protoc_insertion_point(module_scope)

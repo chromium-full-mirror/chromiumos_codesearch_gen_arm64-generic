@@ -539,16 +539,8 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'enableGpuBlockedTimeMetric', 36,
-        6,
-        mojo.internal.Bool,
-        false,
-        false /* nullable */,
-        0,
-      ),
-      mojo.internal.StructField(
         'enablePerfDataCollection', 36,
-        7,
+        6,
         mojo.internal.Bool,
         false,
         false /* nullable */,
@@ -563,8 +555,8 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'enableNativeGpuMemoryBuffers', 37,
-        0,
+        'enableNativeGpuMemoryBuffers', 36,
+        7,
         mojo.internal.Bool,
         false,
         false /* nullable */,
@@ -572,7 +564,7 @@ mojo.internal.Struct(
       ),
       mojo.internal.StructField(
         'enableChromeosDirectVideoDecoder', 37,
-        1,
+        0,
         mojo.internal.Bool,
         false,
         false /* nullable */,
@@ -580,7 +572,7 @@ mojo.internal.Struct(
       ),
       mojo.internal.StructField(
         'forceSeparateEglDisplayForWebglTesting', 37,
-        2,
+        1,
         mojo.internal.Bool,
         false,
         false /* nullable */,
@@ -700,8 +692,6 @@ export class GpuPreferences {
     this.enabledDawnFeaturesList;
     /** @type { !Array<!string> } */
     this.disabledDawnFeaturesList;
-    /** @type { !boolean } */
-    this.enableGpuBlockedTimeMetric;
     /** @type { !boolean } */
     this.enablePerfDataCollection;
     /** @type { !mojoBase_mojom_MessagePumpType } */

@@ -16,7 +16,7 @@ namespace arc::mojom {
 class  CompatibilityModeInstanceInterceptorForTesting : public CompatibilityModeInstance {
   virtual CompatibilityModeInstance* GetForwardingInterface() = 0;
   void SetResizeLockState(const std::string& package_name, ArcResizeLockState state) override;
-  void IsGioApplicable(const std::string& package_name, IsGioApplicableCallback callback) override;
+  void IsOptimizedForCrosApp(const std::string& package_name, IsOptimizedForCrosAppCallback callback) override;
 };
 class  CompatibilityModeInstanceAsyncWaiter {
  public:
@@ -26,9 +26,9 @@ class  CompatibilityModeInstanceAsyncWaiter {
   CompatibilityModeInstanceAsyncWaiter& operator=(const CompatibilityModeInstanceAsyncWaiter&) = delete;
 
   ~CompatibilityModeInstanceAsyncWaiter();
-  void IsGioApplicable(
-      const std::string& package_name, bool* out_is_gio_applicable);
-  bool IsGioApplicable(const std::string& package_name);
+  void IsOptimizedForCrosApp(
+      const std::string& package_name, bool* out_is_o4c_app);
+  bool IsOptimizedForCrosApp(const std::string& package_name);
 
  private:
   CompatibilityModeInstance* const proxy_;

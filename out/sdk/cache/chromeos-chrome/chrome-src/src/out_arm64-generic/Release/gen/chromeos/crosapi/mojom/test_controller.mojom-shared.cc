@@ -160,6 +160,128 @@ std::ostream& operator<<(std::ostream& os, AssistiveTechnologyType value) {
 }
 
 namespace internal {
+// static
+bool IsolatedWebAppLocation_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context,
+    bool inlined) {
+  if (!data) {
+    DCHECK(!inlined);
+    return true;
+  }
+
+  // If it is inlined, the alignment is already enforced by its enclosing
+  // object. We don't have to validate that.
+  DCHECK(!inlined || mojo::internal::IsAligned(data));
+
+  if (!inlined &&
+      !mojo::internal::ValidateNonInlinedUnionHeaderAndClaimMemory(
+          data, validation_context)) {
+    return false;
+  }
+
+  const IsolatedWebAppLocation_Data* object = static_cast<const IsolatedWebAppLocation_Data*>(data);
+
+  if (inlined && object->is_null())
+    return true;
+
+  switch (object->tag) {
+
+    case IsolatedWebAppLocation_Tag::kProxyOrigin: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_proxy_origin, 1, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_proxy_origin, validation_context))
+        return false;
+      return true;
+    }
+    case IsolatedWebAppLocation_Tag::kBundlePath: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_bundle_path, 2, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_bundle_path, validation_context))
+        return false;
+      return true;
+    }
+    default: {
+
+      ReportValidationError(
+          validation_context,
+          mojo::internal::VALIDATION_ERROR_UNKNOWN_UNION_TAG,
+          "unknown tag in IsolatedWebAppLocation");
+      return false;
+    }
+  }
+}
+// static
+bool InstallWebAppResult_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context,
+    bool inlined) {
+  if (!data) {
+    DCHECK(!inlined);
+    return true;
+  }
+
+  // If it is inlined, the alignment is already enforced by its enclosing
+  // object. We don't have to validate that.
+  DCHECK(!inlined || mojo::internal::IsAligned(data));
+
+  if (!inlined &&
+      !mojo::internal::ValidateNonInlinedUnionHeaderAndClaimMemory(
+          data, validation_context)) {
+    return false;
+  }
+
+  const InstallWebAppResult_Data* object = static_cast<const InstallWebAppResult_Data*>(data);
+
+  if (inlined && object->is_null())
+    return true;
+
+  switch (object->tag) {
+
+    case InstallWebAppResult_Tag::kAppId: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_app_id, 1, validation_context)) {
+        return false;
+      }
+      constexpr const mojo::internal::ContainerValidateParams& app_id_validate_params =
+          mojo::internal::GetArrayValidator<0, false, nullptr>();
+      if (!mojo::internal::ValidateContainer(object->data.f_app_id, validation_context,
+                                             &app_id_validate_params)) {
+        return false;
+      }
+      return true;
+    }
+    case InstallWebAppResult_Tag::kErrorMessage: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_error_message, 2, validation_context)) {
+        return false;
+      }
+      constexpr const mojo::internal::ContainerValidateParams& error_message_validate_params =
+          mojo::internal::GetArrayValidator<0, false, nullptr>();
+      if (!mojo::internal::ValidateContainer(object->data.f_error_message, validation_context,
+                                             &error_message_validate_params)) {
+        return false;
+      }
+      return true;
+    }
+    default: {
+
+      ReportValidationError(
+          validation_context,
+          mojo::internal::VALIDATION_ERROR_UNKNOWN_UNION_TAG,
+          "unknown tag in InstallWebAppResult");
+      return false;
+    }
+  }
+}
 
 
 // static
@@ -270,6 +392,40 @@ bool InputMethod_Data::Validate(
 }
 
 InputMethod_Data::InputMethod_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool DomMessageObserver_OnMessage_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const DomMessageObserver_OnMessage_Params_Data* object =
+      static_cast<const DomMessageObserver_OnMessage_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->message, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& message_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->message, validation_context,
+                                         &message_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+DomMessageObserver_OnMessage_Params_Data::DomMessageObserver_OnMessage_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -591,13 +747,13 @@ bool StandaloneBrowserTestController_InstallSubApp_Params_Data::Validate(
   }
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->sub_app_start_url, 2, validation_context)) {
+          object->sub_app_path, 2, validation_context)) {
     return false;
   }
-  constexpr const mojo::internal::ContainerValidateParams& sub_app_start_url_validate_params =
+  constexpr const mojo::internal::ContainerValidateParams& sub_app_path_validate_params =
       mojo::internal::GetArrayValidator<0, false, nullptr>();
-  if (!mojo::internal::ValidateContainer(object->sub_app_start_url, validation_context,
-                                         &sub_app_start_url_validate_params)) {
+  if (!mojo::internal::ValidateContainer(object->sub_app_path, validation_context,
+                                         &sub_app_path_validate_params)) {
     return false;
   }
 
@@ -639,6 +795,360 @@ bool StandaloneBrowserTestController_InstallSubApp_ResponseParams_Data::Validate
 }
 
 StandaloneBrowserTestController_InstallSubApp_ResponseParams_Data::StandaloneBrowserTestController_InstallSubApp_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool StandaloneBrowserTestController_InstallIsolatedWebApp_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 32, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const StandaloneBrowserTestController_InstallIsolatedWebApp_Params_Data* object =
+      static_cast<const StandaloneBrowserTestController_InstallIsolatedWebApp_Params_Data*>(data);
+
+  if (!mojo::internal::ValidateInlinedUnionNonNullable(
+          object->location, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateInlinedUnion(object->location, validation_context))
+    return false;
+
+  return true;
+}
+
+StandaloneBrowserTestController_InstallIsolatedWebApp_Params_Data::StandaloneBrowserTestController_InstallIsolatedWebApp_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool StandaloneBrowserTestController_InstallIsolatedWebApp_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const StandaloneBrowserTestController_InstallIsolatedWebApp_ResponseParams_Data* object =
+      static_cast<const StandaloneBrowserTestController_InstallIsolatedWebApp_ResponseParams_Data*>(data);
+
+  if (!mojo::internal::ValidateInlinedUnionNonNullable(
+          object->result, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateInlinedUnion(object->result, validation_context))
+    return false;
+
+  return true;
+}
+
+StandaloneBrowserTestController_InstallIsolatedWebApp_ResponseParams_Data::StandaloneBrowserTestController_InstallIsolatedWebApp_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool StandaloneBrowserTestController_SetWebAppSettingsPref_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const StandaloneBrowserTestController_SetWebAppSettingsPref_Params_Data* object =
+      static_cast<const StandaloneBrowserTestController_SetWebAppSettingsPref_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->policy, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& policy_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->policy, validation_context,
+                                         &policy_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+StandaloneBrowserTestController_SetWebAppSettingsPref_Params_Data::StandaloneBrowserTestController_SetWebAppSettingsPref_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool StandaloneBrowserTestController_SetWebAppSettingsPref_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const StandaloneBrowserTestController_SetWebAppSettingsPref_ResponseParams_Data* object =
+      static_cast<const StandaloneBrowserTestController_SetWebAppSettingsPref_ResponseParams_Data*>(data);
+
+  return true;
+}
+
+StandaloneBrowserTestController_SetWebAppSettingsPref_ResponseParams_Data::StandaloneBrowserTestController_SetWebAppSettingsPref_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool StandaloneBrowserTestController_InstallUnpackedExtension_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const StandaloneBrowserTestController_InstallUnpackedExtension_Params_Data* object =
+      static_cast<const StandaloneBrowserTestController_InstallUnpackedExtension_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->path, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& path_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->path, validation_context,
+                                         &path_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+StandaloneBrowserTestController_InstallUnpackedExtension_Params_Data::StandaloneBrowserTestController_InstallUnpackedExtension_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool StandaloneBrowserTestController_InstallUnpackedExtension_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const StandaloneBrowserTestController_InstallUnpackedExtension_ResponseParams_Data* object =
+      static_cast<const StandaloneBrowserTestController_InstallUnpackedExtension_ResponseParams_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->extension_id, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& extension_id_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->extension_id, validation_context,
+                                         &extension_id_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+StandaloneBrowserTestController_InstallUnpackedExtension_ResponseParams_Data::StandaloneBrowserTestController_InstallUnpackedExtension_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool StandaloneBrowserTestController_RemoveComponentExtension_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const StandaloneBrowserTestController_RemoveComponentExtension_Params_Data* object =
+      static_cast<const StandaloneBrowserTestController_RemoveComponentExtension_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->extension_id, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& extension_id_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->extension_id, validation_context,
+                                         &extension_id_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+StandaloneBrowserTestController_RemoveComponentExtension_Params_Data::StandaloneBrowserTestController_RemoveComponentExtension_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool StandaloneBrowserTestController_RemoveComponentExtension_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const StandaloneBrowserTestController_RemoveComponentExtension_ResponseParams_Data* object =
+      static_cast<const StandaloneBrowserTestController_RemoveComponentExtension_ResponseParams_Data*>(data);
+
+  return true;
+}
+
+StandaloneBrowserTestController_RemoveComponentExtension_ResponseParams_Data::StandaloneBrowserTestController_RemoveComponentExtension_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool StandaloneBrowserTestController_ObserveDomMessages_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const StandaloneBrowserTestController_ObserveDomMessages_Params_Data* object =
+      static_cast<const StandaloneBrowserTestController_ObserveDomMessages_Params_Data*>(data);
+
+  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
+          object->observer, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateHandleOrInterface(object->observer,
+                                                 validation_context)) {
+    return false;
+  }
+
+  return true;
+}
+
+StandaloneBrowserTestController_ObserveDomMessages_Params_Data::StandaloneBrowserTestController_ObserveDomMessages_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool StandaloneBrowserTestController_ObserveDomMessages_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const StandaloneBrowserTestController_ObserveDomMessages_ResponseParams_Data* object =
+      static_cast<const StandaloneBrowserTestController_ObserveDomMessages_ResponseParams_Data*>(data);
+
+  return true;
+}
+
+StandaloneBrowserTestController_ObserveDomMessages_ResponseParams_Data::StandaloneBrowserTestController_ObserveDomMessages_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool StandaloneBrowserTestController_SetWebAppInstallForceListPref_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const StandaloneBrowserTestController_SetWebAppInstallForceListPref_Params_Data* object =
+      static_cast<const StandaloneBrowserTestController_SetWebAppInstallForceListPref_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->policy, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& policy_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->policy, validation_context,
+                                         &policy_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+StandaloneBrowserTestController_SetWebAppInstallForceListPref_Params_Data::StandaloneBrowserTestController_SetWebAppInstallForceListPref_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool StandaloneBrowserTestController_SetWebAppInstallForceListPref_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const StandaloneBrowserTestController_SetWebAppInstallForceListPref_ResponseParams_Data* object =
+      static_cast<const StandaloneBrowserTestController_SetWebAppInstallForceListPref_ResponseParams_Data*>(data);
+
+  return true;
+}
+
+StandaloneBrowserTestController_SetWebAppInstallForceListPref_ResponseParams_Data::StandaloneBrowserTestController_SetWebAppInstallForceListPref_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -4074,6 +4584,116 @@ bool TestController_CheckAtLeastOneAshBrowserWindowOpen_ResponseParams_Data::Val
 }
 
 TestController_CheckAtLeastOneAshBrowserWindowOpen_ResponseParams_Data::TestController_CheckAtLeastOneAshBrowserWindowOpen_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool TestController_GetAllOpenTabURLs_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const TestController_GetAllOpenTabURLs_Params_Data* object =
+      static_cast<const TestController_GetAllOpenTabURLs_Params_Data*>(data);
+
+  return true;
+}
+
+TestController_GetAllOpenTabURLs_Params_Data::TestController_GetAllOpenTabURLs_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool TestController_GetAllOpenTabURLs_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const TestController_GetAllOpenTabURLs_ResponseParams_Data* object =
+      static_cast<const TestController_GetAllOpenTabURLs_ResponseParams_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->urls, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& urls_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->urls, validation_context,
+                                         &urls_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+TestController_GetAllOpenTabURLs_ResponseParams_Data::TestController_GetAllOpenTabURLs_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool TestController_SetAlmanacEndpointUrlForTesting_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const TestController_SetAlmanacEndpointUrlForTesting_Params_Data* object =
+      static_cast<const TestController_SetAlmanacEndpointUrlForTesting_Params_Data*>(data);
+
+  constexpr const mojo::internal::ContainerValidateParams& override_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->override, validation_context,
+                                         &override_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+TestController_SetAlmanacEndpointUrlForTesting_Params_Data::TestController_SetAlmanacEndpointUrlForTesting_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool TestController_SetAlmanacEndpointUrlForTesting_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const TestController_SetAlmanacEndpointUrlForTesting_ResponseParams_Data* object =
+      static_cast<const TestController_SetAlmanacEndpointUrlForTesting_ResponseParams_Data*>(data);
+
+  return true;
+}
+
+TestController_SetAlmanacEndpointUrlForTesting_ResponseParams_Data::TestController_SetAlmanacEndpointUrlForTesting_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
 }  // namespace internal

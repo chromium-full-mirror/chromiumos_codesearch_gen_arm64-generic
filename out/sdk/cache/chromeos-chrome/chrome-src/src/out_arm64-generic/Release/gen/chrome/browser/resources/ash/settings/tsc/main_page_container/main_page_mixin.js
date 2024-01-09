@@ -11,8 +11,8 @@ import { assert, assertNotReached } from 'chrome://resources/js/assert.js';
 import { beforeNextRender, dedupingMixin } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { castExists } from '../assert_extras.js';
 import { isRevampWayfindingEnabled } from '../common/load_time_booleans.js';
+import { RouteObserverMixin } from '../common/route_observer_mixin.js';
 import { ensureLazyLoaded } from '../ensure_lazy_loaded.js';
-import { RouteObserverMixin } from '../route_observer_mixin.js';
 import { isAboutRoute, isAdvancedRoute, Router, routes } from '../router.js';
 /**
  * A categorization of every possible Settings URL, necessary for implementing

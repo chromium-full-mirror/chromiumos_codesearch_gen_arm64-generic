@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -34,8 +35,8 @@ struct AccountInfo {
   ~AccountInfo();
   AccountInfo(const AccountInfo&) = delete;
   AccountInfo& operator=(const AccountInfo&) = delete;
-  AccountInfo(AccountInfo&& rhs);
-  AccountInfo& operator=(AccountInfo&& rhs);
+  AccountInfo(AccountInfo&& rhs) noexcept;
+  AccountInfo& operator=(AccountInfo&& rhs) noexcept;
 
   // Populates a AccountInfo object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -48,15 +49,12 @@ struct AccountInfo {
   // Creates a deep copy of AccountInfo.
   AccountInfo Clone() const;
 
-  // Creates a AccountInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<AccountInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a AccountInfo object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<AccountInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<AccountInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a AccountInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<AccountInfo> FromValue(const base::Value& value);
+  static std::optional<AccountInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisAccountInfo object.
@@ -70,8 +68,8 @@ struct AccountInfo {
 
 };
 
-// Fields used as part of an address.
-enum class ServerFieldType {
+// A copy of FieldType from chrome/common/extensions/api/autofill_private.idl
+enum class FieldType {
   kNone = 0,
   kNoServerData,
   kUnknownType,
@@ -165,14 +163,17 @@ enum class ServerFieldType {
   kAddressHomeBetweenStreets1,
   kAddressHomeBetweenStreets2,
   kSingleUsernameForgotPassword,
+  kAddressHomeApt,
+  kAddressHomeAptType,
+  kSingleUsernameWithIntermediateValues,
   kMaxValidFieldType,
   kMaxValue = kMaxValidFieldType,
 };
 
 
-const char* ToString(ServerFieldType as_enum);
-ServerFieldType ParseServerFieldType(base::StringPiece as_string);
-std::u16string GetServerFieldTypeParseError(base::StringPiece as_string);
+const char* ToString(FieldType as_enum);
+FieldType ParseFieldType(base::StringPiece as_string);
+std::u16string GetFieldTypeParseError(base::StringPiece as_string);
 
 // The address source origin. Describes where the address is stored.
 enum class AddressSource {
@@ -192,8 +193,8 @@ struct AutofillMetadata {
   ~AutofillMetadata();
   AutofillMetadata(const AutofillMetadata&) = delete;
   AutofillMetadata& operator=(const AutofillMetadata&) = delete;
-  AutofillMetadata(AutofillMetadata&& rhs);
-  AutofillMetadata& operator=(AutofillMetadata&& rhs);
+  AutofillMetadata(AutofillMetadata&& rhs) noexcept;
+  AutofillMetadata& operator=(AutofillMetadata&& rhs) noexcept;
 
   // Populates a AutofillMetadata object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -206,16 +207,13 @@ struct AutofillMetadata {
   // Creates a deep copy of AutofillMetadata.
   AutofillMetadata Clone() const;
 
-  // Creates a AutofillMetadata object from a base::Value, or NULL on failure.
-  static std::unique_ptr<AutofillMetadata> FromValueDeprecated(const base::Value& value);
-
   // Creates a AutofillMetadata object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<AutofillMetadata> FromValue(const base::Value::Dict& value);
+  static std::optional<AutofillMetadata> FromValue(const base::Value::Dict& value);
 
   // Creates a AutofillMetadata object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<AutofillMetadata> FromValue(const base::Value& value);
+  static std::optional<AutofillMetadata> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisAutofillMetadata object.
@@ -229,29 +227,29 @@ struct AutofillMetadata {
   // Short, secondary summary of the address/credit card which is displayed in the
   // UI; an undefined value means that this entry has just been created on the
   // client and has not yet been given a summary.
-  absl::optional<std::string> summary_sublabel;
+  std::optional<std::string> summary_sublabel;
 
   // For addresses. Describes where the address is stored.
   AddressSource source;
 
   // For credit cards, whether the entry is locally owned by Chrome (as opposed to
   // being synced down from the server). Non-local entries may not be editable.
-  absl::optional<bool> is_local;
+  std::optional<bool> is_local;
 
   // For credit cards, whether this is a full copy of the card
-  absl::optional<bool> is_cached;
+  std::optional<bool> is_cached;
 
   // For credit cards, whether this is migratable (both the card number and
   // expiration date valid and does not have the duplicated server card).
-  absl::optional<bool> is_migratable;
+  std::optional<bool> is_migratable;
 
   // For credit cards. Indicates whether a card is eligible for virtual cards
   // enrollment.
-  absl::optional<bool> is_virtual_card_enrollment_eligible;
+  std::optional<bool> is_virtual_card_enrollment_eligible;
 
   // For credit cards. Indicates whether a card has been enrolled in virtual cards
   // if it is eligible.
-  absl::optional<bool> is_virtual_card_enrolled;
+  std::optional<bool> is_virtual_card_enrolled;
 
 };
 
@@ -260,8 +258,8 @@ struct AddressField {
   ~AddressField();
   AddressField(const AddressField&) = delete;
   AddressField& operator=(const AddressField&) = delete;
-  AddressField(AddressField&& rhs);
-  AddressField& operator=(AddressField&& rhs);
+  AddressField(AddressField&& rhs) noexcept;
+  AddressField& operator=(AddressField&& rhs) noexcept;
 
   // Populates a AddressField object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -274,21 +272,18 @@ struct AddressField {
   // Creates a deep copy of AddressField.
   AddressField Clone() const;
 
-  // Creates a AddressField object from a base::Value, or NULL on failure.
-  static std::unique_ptr<AddressField> FromValueDeprecated(const base::Value& value);
-
   // Creates a AddressField object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<AddressField> FromValue(const base::Value::Dict& value);
+  static std::optional<AddressField> FromValue(const base::Value::Dict& value);
 
   // Creates a AddressField object from a base::Value, or nullopt on failure.
-  static absl::optional<AddressField> FromValue(const base::Value& value);
+  static std::optional<AddressField> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisAddressField object.
   base::Value::Dict ToValue() const;
 
-  ServerFieldType type;
+  FieldType type;
 
   std::string value;
 
@@ -299,8 +294,8 @@ struct AddressEntry {
   ~AddressEntry();
   AddressEntry(const AddressEntry&) = delete;
   AddressEntry& operator=(const AddressEntry&) = delete;
-  AddressEntry(AddressEntry&& rhs);
-  AddressEntry& operator=(AddressEntry&& rhs);
+  AddressEntry(AddressEntry&& rhs) noexcept;
+  AddressEntry& operator=(AddressEntry&& rhs) noexcept;
 
   // Populates a AddressEntry object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -313,30 +308,27 @@ struct AddressEntry {
   // Creates a deep copy of AddressEntry.
   AddressEntry Clone() const;
 
-  // Creates a AddressEntry object from a base::Value, or NULL on failure.
-  static std::unique_ptr<AddressEntry> FromValueDeprecated(const base::Value& value);
-
   // Creates a AddressEntry object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<AddressEntry> FromValue(const base::Value::Dict& value);
+  static std::optional<AddressEntry> FromValue(const base::Value::Dict& value);
 
   // Creates a AddressEntry object from a base::Value, or nullopt on failure.
-  static absl::optional<AddressEntry> FromValue(const base::Value& value);
+  static std::optional<AddressEntry> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisAddressEntry object.
   base::Value::Dict ToValue() const;
 
   // Globally unique identifier for this entry.
-  absl::optional<std::string> guid;
+  std::optional<std::string> guid;
 
   // Fields have to be stored in the array with every field style stored only
   // once.
   std::vector<AddressField> fields;
 
-  absl::optional<std::string> language_code;
+  std::optional<std::string> language_code;
 
-  absl::optional<AutofillMetadata> metadata;
+  std::optional<AutofillMetadata> metadata;
 
 };
 
@@ -345,8 +337,8 @@ struct CountryEntry {
   ~CountryEntry();
   CountryEntry(const CountryEntry&) = delete;
   CountryEntry& operator=(const CountryEntry&) = delete;
-  CountryEntry(CountryEntry&& rhs);
-  CountryEntry& operator=(CountryEntry&& rhs);
+  CountryEntry(CountryEntry&& rhs) noexcept;
+  CountryEntry& operator=(CountryEntry&& rhs) noexcept;
 
   // Populates a CountryEntry object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -359,25 +351,22 @@ struct CountryEntry {
   // Creates a deep copy of CountryEntry.
   CountryEntry Clone() const;
 
-  // Creates a CountryEntry object from a base::Value, or NULL on failure.
-  static std::unique_ptr<CountryEntry> FromValueDeprecated(const base::Value& value);
-
   // Creates a CountryEntry object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<CountryEntry> FromValue(const base::Value::Dict& value);
+  static std::optional<CountryEntry> FromValue(const base::Value::Dict& value);
 
   // Creates a CountryEntry object from a base::Value, or nullopt on failure.
-  static absl::optional<CountryEntry> FromValue(const base::Value& value);
+  static std::optional<CountryEntry> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisCountryEntry object.
   base::Value::Dict ToValue() const;
 
   // The internationalized name of the country.
-  absl::optional<std::string> name;
+  std::optional<std::string> name;
 
   // A two-character string representing the country.
-  absl::optional<std::string> country_code;
+  std::optional<std::string> country_code;
 
 };
 
@@ -386,8 +375,8 @@ struct AddressComponent {
   ~AddressComponent();
   AddressComponent(const AddressComponent&) = delete;
   AddressComponent& operator=(const AddressComponent&) = delete;
-  AddressComponent(AddressComponent&& rhs);
-  AddressComponent& operator=(AddressComponent&& rhs);
+  AddressComponent(AddressComponent&& rhs) noexcept;
+  AddressComponent& operator=(AddressComponent&& rhs) noexcept;
 
   // Populates a AddressComponent object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -400,23 +389,20 @@ struct AddressComponent {
   // Creates a deep copy of AddressComponent.
   AddressComponent Clone() const;
 
-  // Creates a AddressComponent object from a base::Value, or NULL on failure.
-  static std::unique_ptr<AddressComponent> FromValueDeprecated(const base::Value& value);
-
   // Creates a AddressComponent object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<AddressComponent> FromValue(const base::Value::Dict& value);
+  static std::optional<AddressComponent> FromValue(const base::Value::Dict& value);
 
   // Creates a AddressComponent object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<AddressComponent> FromValue(const base::Value& value);
+  static std::optional<AddressComponent> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisAddressComponent object.
   base::Value::Dict ToValue() const;
 
   // The field type.
-  ServerFieldType field;
+  FieldType field;
 
   // The name of the field.
   std::string field_name;
@@ -429,7 +415,7 @@ struct AddressComponent {
 
   // A placeholder for the text field to be used when the user has not yet input a
   // value for the field.
-  absl::optional<std::string> placeholder;
+  std::optional<std::string> placeholder;
 
 };
 
@@ -438,8 +424,8 @@ struct AddressComponentRow {
   ~AddressComponentRow();
   AddressComponentRow(const AddressComponentRow&) = delete;
   AddressComponentRow& operator=(const AddressComponentRow&) = delete;
-  AddressComponentRow(AddressComponentRow&& rhs);
-  AddressComponentRow& operator=(AddressComponentRow&& rhs);
+  AddressComponentRow(AddressComponentRow&& rhs) noexcept;
+  AddressComponentRow& operator=(AddressComponentRow&& rhs) noexcept;
 
   // Populates a AddressComponentRow object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -452,17 +438,13 @@ struct AddressComponentRow {
   // Creates a deep copy of AddressComponentRow.
   AddressComponentRow Clone() const;
 
-  // Creates a AddressComponentRow object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<AddressComponentRow> FromValueDeprecated(const base::Value& value);
-
   // Creates a AddressComponentRow object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<AddressComponentRow> FromValue(const base::Value::Dict& value);
+  static std::optional<AddressComponentRow> FromValue(const base::Value::Dict& value);
 
   // Creates a AddressComponentRow object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<AddressComponentRow> FromValue(const base::Value& value);
+  static std::optional<AddressComponentRow> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisAddressComponentRow object.
@@ -477,8 +459,8 @@ struct AddressComponents {
   ~AddressComponents();
   AddressComponents(const AddressComponents&) = delete;
   AddressComponents& operator=(const AddressComponents&) = delete;
-  AddressComponents(AddressComponents&& rhs);
-  AddressComponents& operator=(AddressComponents&& rhs);
+  AddressComponents(AddressComponents&& rhs) noexcept;
+  AddressComponents& operator=(AddressComponents&& rhs) noexcept;
 
   // Populates a AddressComponents object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -491,16 +473,13 @@ struct AddressComponents {
   // Creates a deep copy of AddressComponents.
   AddressComponents Clone() const;
 
-  // Creates a AddressComponents object from a base::Value, or NULL on failure.
-  static std::unique_ptr<AddressComponents> FromValueDeprecated(const base::Value& value);
-
   // Creates a AddressComponents object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<AddressComponents> FromValue(const base::Value::Dict& value);
+  static std::optional<AddressComponents> FromValue(const base::Value::Dict& value);
 
   // Creates a AddressComponents object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<AddressComponents> FromValue(const base::Value& value);
+  static std::optional<AddressComponents> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisAddressComponents object.
@@ -519,8 +498,8 @@ struct CreditCardEntry {
   ~CreditCardEntry();
   CreditCardEntry(const CreditCardEntry&) = delete;
   CreditCardEntry& operator=(const CreditCardEntry&) = delete;
-  CreditCardEntry(CreditCardEntry&& rhs);
-  CreditCardEntry& operator=(CreditCardEntry&& rhs);
+  CreditCardEntry(CreditCardEntry&& rhs) noexcept;
+  CreditCardEntry& operator=(CreditCardEntry&& rhs) noexcept;
 
   // Populates a CreditCardEntry object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -533,51 +512,48 @@ struct CreditCardEntry {
   // Creates a deep copy of CreditCardEntry.
   CreditCardEntry Clone() const;
 
-  // Creates a CreditCardEntry object from a base::Value, or NULL on failure.
-  static std::unique_ptr<CreditCardEntry> FromValueDeprecated(const base::Value& value);
-
   // Creates a CreditCardEntry object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<CreditCardEntry> FromValue(const base::Value::Dict& value);
+  static std::optional<CreditCardEntry> FromValue(const base::Value::Dict& value);
 
   // Creates a CreditCardEntry object from a base::Value, or nullopt on failure.
-  static absl::optional<CreditCardEntry> FromValue(const base::Value& value);
+  static std::optional<CreditCardEntry> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisCreditCardEntry object.
   base::Value::Dict ToValue() const;
 
   // Globally unique identifier for this entry.
-  absl::optional<std::string> guid;
+  std::optional<std::string> guid;
 
   // The card's instrument ID from the GPay server, if applicable.
-  absl::optional<std::string> instrument_id;
+  std::optional<std::string> instrument_id;
 
   // Name of the person who owns the credit card.
-  absl::optional<std::string> name;
+  std::optional<std::string> name;
 
   // Credit card number.
-  absl::optional<std::string> card_number;
+  std::optional<std::string> card_number;
 
   // Month as 2-character string ("01" = January, "12" = December).
-  absl::optional<std::string> expiration_month;
+  std::optional<std::string> expiration_month;
 
   // Year as a 4-character string (as in "2015").
-  absl::optional<std::string> expiration_year;
+  std::optional<std::string> expiration_year;
 
   // Credit card's nickname.
-  absl::optional<std::string> nickname;
+  std::optional<std::string> nickname;
 
   // Credit card's network.
-  absl::optional<std::string> network;
+  std::optional<std::string> network;
 
   // Credit card's image source.
-  absl::optional<std::string> image_src;
+  std::optional<std::string> image_src;
 
   // Credit card's masked cvc.
-  absl::optional<std::string> cvc;
+  std::optional<std::string> cvc;
 
-  absl::optional<AutofillMetadata> metadata;
+  std::optional<AutofillMetadata> metadata;
 
 };
 
@@ -586,8 +562,8 @@ struct IbanEntry {
   ~IbanEntry();
   IbanEntry(const IbanEntry&) = delete;
   IbanEntry& operator=(const IbanEntry&) = delete;
-  IbanEntry(IbanEntry&& rhs);
-  IbanEntry& operator=(IbanEntry&& rhs);
+  IbanEntry(IbanEntry&& rhs) noexcept;
+  IbanEntry& operator=(IbanEntry&& rhs) noexcept;
 
   // Populates a IbanEntry object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -600,29 +576,26 @@ struct IbanEntry {
   // Creates a deep copy of IbanEntry.
   IbanEntry Clone() const;
 
-  // Creates a IbanEntry object from a base::Value, or NULL on failure.
-  static std::unique_ptr<IbanEntry> FromValueDeprecated(const base::Value& value);
-
   // Creates a IbanEntry object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<IbanEntry> FromValue(const base::Value::Dict& value);
+  static std::optional<IbanEntry> FromValue(const base::Value::Dict& value);
 
   // Creates a IbanEntry object from a base::Value, or nullopt on failure.
-  static absl::optional<IbanEntry> FromValue(const base::Value& value);
+  static std::optional<IbanEntry> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisIbanEntry object.
   base::Value::Dict ToValue() const;
 
   // Globally unique identifier for this entry.
-  absl::optional<std::string> guid;
+  std::optional<std::string> guid;
 
   // IBAN value.
-  absl::optional<std::string> value;
+  std::optional<std::string> value;
 
   // IBAN's nickname.
-  absl::optional<std::string> nickname;
+  std::optional<std::string> nickname;
 
-  absl::optional<AutofillMetadata> metadata;
+  std::optional<AutofillMetadata> metadata;
 
 };
 
@@ -643,11 +616,11 @@ base::Value::List Create(const AccountInfo& account_info);
 namespace SaveAddress {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The address entry to save.
@@ -672,11 +645,11 @@ base::Value::List Create(const std::vector<CountryEntry>& countries);
 namespace GetAddressComponents {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // A two-character string representing the address' country     whose components
@@ -707,11 +680,11 @@ base::Value::List Create(const std::vector<AddressEntry>& entries);
 namespace SaveCreditCard {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The card entry to save.
@@ -727,11 +700,11 @@ struct Params {
 namespace SaveIban {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The IBAN entry to save.
@@ -747,11 +720,11 @@ struct Params {
 namespace RemoveEntry {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // ID of the entry to remove.
@@ -785,11 +758,11 @@ base::Value::List Create(const std::vector<IbanEntry>& entries);
 namespace IsValidIban {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string iban_value;
@@ -809,11 +782,11 @@ base::Value::List Create(bool is_valid);
 namespace MaskCreditCard {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // GUID of the credit card to mask.
@@ -837,11 +810,11 @@ namespace LogServerCardLinkClicked {
 namespace SetCreditCardFIDOAuthEnabledState {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   bool enabled;
@@ -856,11 +829,11 @@ struct Params {
 namespace AddVirtualCard {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The server side id of the credit card to be enrolled. Note it refers to the
@@ -877,11 +850,11 @@ struct Params {
 namespace RemoveVirtualCard {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The server side id of the credit card to be unenrolled. Note it refers to the
@@ -902,11 +875,11 @@ namespace AuthenticateUserAndFlipMandatoryAuthToggle {
 namespace GetLocalCard {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string guid;
@@ -931,6 +904,10 @@ base::Value::List Create(bool is_device_auth_available);
 }  // namespace Results
 
 }  // namespace CheckIfDeviceAuthAvailable
+
+namespace BulkDeleteAllCvcs {
+
+}  // namespace BulkDeleteAllCvcs
 
 //
 // Events

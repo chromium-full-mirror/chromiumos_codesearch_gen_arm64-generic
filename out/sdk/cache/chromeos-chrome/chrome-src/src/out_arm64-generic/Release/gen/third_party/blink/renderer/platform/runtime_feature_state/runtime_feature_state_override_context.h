@@ -88,7 +88,6 @@ class PLATFORM_EXPORT RuntimeFeatureStateOverrideContext
 
   void SetFedCmIdpSigninStatusForceEnabled();
 
-  bool SetFedCmIdpSigninStatusEnabled(const WTF::Vector<WTF::String>& tokens);
   bool IsOriginTrialsSampleAPIBrowserReadWriteForceDisabled() const;
 
   bool IsOriginTrialsSampleAPIBrowserReadWriteForceEnabled() const;

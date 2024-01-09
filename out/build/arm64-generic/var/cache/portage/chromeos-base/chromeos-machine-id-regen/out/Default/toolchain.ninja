@@ -34,13 +34,11 @@ rule copy
   description = COPY ${in} ${out}
 
 build obj/common-mk/gn_root/root.stamp: stamp obj/machine-id-regen/all.stamp
-subninja obj/common-mk/testrunner/testrunner.ninja
 build obj/machine-id-regen/_machine-id-regen-install_config.stamp: stamp
-build obj/machine-id-regen/all.stamp: stamp ./lib-machine-id-regen.a ./machine-id-regen obj/machine-id-regen/tmpfile_confs.stamp obj/machine-id-regen/init_confs.stamp ./machine-id-regen-test
+build obj/machine-id-regen/all.stamp: stamp ./lib-machine-id-regen.a ./machine-id-regen obj/machine-id-regen/tmpfile_confs.stamp obj/machine-id-regen/init_confs.stamp
 build obj/machine-id-regen/init_confs.stamp: stamp
 subninja obj/machine-id-regen/lib-machine-id-regen.ninja
 subninja obj/machine-id-regen/machine-id-regen.ninja
-subninja obj/machine-id-regen/machine-id-regen-test.ninja
 build obj/machine-id-regen/tmpfile_confs.stamp: stamp
 rule __machine-id-regen_upstart_proxies___common-mk_toolchain_toolchain__rule
   command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py go-generate-chromeos-dbus-bindings -service-config= -proxy=/build/arm64-generic/var/cache/portage/chromeos-base/chromeos-machine-id-regen/out/Default/gen/include/upstart/dbus-proxies.h ../../../../../../../usr/share/dbus-1/interfaces/com.ubuntu.Upstart.xml

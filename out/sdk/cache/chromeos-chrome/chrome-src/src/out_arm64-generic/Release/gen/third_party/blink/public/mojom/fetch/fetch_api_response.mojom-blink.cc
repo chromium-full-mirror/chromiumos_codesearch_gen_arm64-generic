@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -87,11 +88,11 @@ FetchAPIResponse::FetchAPIResponse(
     const ::scoped_refptr<::blink::BlobDataHandle>& side_data_blob_in,
     const ::scoped_refptr<::blink::BlobDataHandle>& side_data_blob_for_cache_put_in,
     ::network::mojom::blink::ParsedHeadersPtr parsed_headers_in,
-    ::net::HttpResponseInfo::ConnectionInfo connection_info_in,
+    ::net::HttpConnectionInfo connection_info_in,
     const WTF::String& alpn_negotiated_protocol_in,
     bool was_fetched_via_spdy_in,
     bool has_range_requested_in,
-    const absl::optional<::net::AuthChallengeInfo>& auth_challenge_info_in,
+    const std::optional<::net::AuthChallengeInfo>& auth_challenge_info_in,
     bool request_include_credentials_in)
     : url_list(std::move(url_list_in)),
       status_code(std::move(status_code_in)),
@@ -279,7 +280,7 @@ void FetchAPIResponse::WriteIntoTrace(
     dict.AddItem(
       "connection_info"), this->connection_info,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type ::net::HttpResponseInfo::ConnectionInfo>"
+      "<value of type ::net::HttpConnectionInfo>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -315,7 +316,7 @@ void FetchAPIResponse::WriteIntoTrace(
     dict.AddItem(
       "auth_challenge_info"), this->auth_challenge_info,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::net::AuthChallengeInfo>&>"
+      "<value of type const std::optional<::net::AuthChallengeInfo>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

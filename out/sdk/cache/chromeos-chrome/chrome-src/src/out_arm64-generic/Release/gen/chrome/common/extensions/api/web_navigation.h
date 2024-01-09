@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -35,20 +36,20 @@ namespace web_navigation {
 // href="history#transition_types">history API</a> except with
 // <code>"start_page"</code> in place of <code>"auto_toplevel"</code> (for
 // backwards compatibility).
-enum  TransitionType {
-  TRANSITION_TYPE_NONE = 0,
-  TRANSITION_TYPE_LINK,
-  TRANSITION_TYPE_TYPED,
-  TRANSITION_TYPE_AUTO_BOOKMARK,
-  TRANSITION_TYPE_AUTO_SUBFRAME,
-  TRANSITION_TYPE_MANUAL_SUBFRAME,
-  TRANSITION_TYPE_GENERATED,
-  TRANSITION_TYPE_START_PAGE,
-  TRANSITION_TYPE_FORM_SUBMIT,
-  TRANSITION_TYPE_RELOAD,
-  TRANSITION_TYPE_KEYWORD,
-  TRANSITION_TYPE_KEYWORD_GENERATED,
-  TRANSITION_TYPE_LAST = TRANSITION_TYPE_KEYWORD_GENERATED,
+enum class TransitionType {
+  kNone = 0,
+  kLink,
+  kTyped,
+  kAutoBookmark,
+  kAutoSubframe,
+  kManualSubframe,
+  kGenerated,
+  kStartPage,
+  kFormSubmit,
+  kReload,
+  kKeyword,
+  kKeywordGenerated,
+  kMaxValue = kKeywordGenerated,
 };
 
 
@@ -56,13 +57,13 @@ const char* ToString(TransitionType as_enum);
 TransitionType ParseTransitionType(base::StringPiece as_string);
 std::u16string GetTransitionTypeParseError(base::StringPiece as_string);
 
-enum  TransitionQualifier {
-  TRANSITION_QUALIFIER_NONE = 0,
-  TRANSITION_QUALIFIER_CLIENT_REDIRECT,
-  TRANSITION_QUALIFIER_SERVER_REDIRECT,
-  TRANSITION_QUALIFIER_FORWARD_BACK,
-  TRANSITION_QUALIFIER_FROM_ADDRESS_BAR,
-  TRANSITION_QUALIFIER_LAST = TRANSITION_QUALIFIER_FROM_ADDRESS_BAR,
+enum class TransitionQualifier {
+  kNone = 0,
+  kClientRedirect,
+  kServerRedirect,
+  kForwardBack,
+  kFromAddressBar,
+  kMaxValue = kFromAddressBar,
 };
 
 
@@ -78,11 +79,11 @@ std::u16string GetTransitionQualifierParseError(base::StringPiece as_string);
 namespace GetFrame {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Information about the frame to retrieve information about.
@@ -91,8 +92,8 @@ struct Params {
     ~Details();
     Details(const Details&) = delete;
     Details& operator=(const Details&) = delete;
-    Details(Details&& rhs);
-    Details& operator=(Details&& rhs);
+    Details(Details&& rhs) noexcept;
+    Details& operator=(Details&& rhs) noexcept;
 
     // Populates a Details object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -106,23 +107,23 @@ struct Params {
     Details Clone() const;
 
     // Creates a Details object from a base::Value::Dict, or nullopt on failure.
-    static absl::optional<Details> FromValue(const base::Value::Dict& value);
+    static std::optional<Details> FromValue(const base::Value::Dict& value);
 
     // Creates a Details object from a base::Value, or nullopt on failure.
-    static absl::optional<Details> FromValue(const base::Value& value);
+    static std::optional<Details> FromValue(const base::Value& value);
 
     // The ID of the tab in which the frame is.
-    absl::optional<int> tab_id;
+    std::optional<int> tab_id;
 
     // The ID of the process that runs the renderer for this tab.
-    absl::optional<int> process_id;
+    std::optional<int> process_id;
 
     // The ID of the frame in the given tab.
-    absl::optional<int> frame_id;
+    std::optional<int> frame_id;
 
     // The UUID of the document. If the frameId and/or tabId are provided they will
     // be validated to match the document found by provided document ID.
-    absl::optional<std::string> document_id;
+    std::optional<std::string> document_id;
 
   };
 
@@ -144,8 +145,8 @@ struct Details {
   ~Details();
   Details(const Details&) = delete;
   Details& operator=(const Details&) = delete;
-  Details(Details&& rhs);
-  Details& operator=(Details&& rhs);
+  Details(Details&& rhs) noexcept;
+  Details& operator=(Details&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDetails object.
@@ -169,7 +170,7 @@ struct Details {
 
   // A UUID of the parent document owning this frame. This is not set if there is
   // no parent.
-  absl::optional<std::string> parent_document_id;
+  std::optional<std::string> parent_document_id;
 
   // The lifecycle the document is in.
   extensions::api::extension_types::DocumentLifecycle document_lifecycle;
@@ -190,11 +191,11 @@ base::Value::List Create(const Details& details);
 namespace GetAllFrames {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Information about the tab to retrieve all frames from.
@@ -203,8 +204,8 @@ struct Params {
     ~Details();
     Details(const Details&) = delete;
     Details& operator=(const Details&) = delete;
-    Details(Details&& rhs);
-    Details& operator=(Details&& rhs);
+    Details(Details&& rhs) noexcept;
+    Details& operator=(Details&& rhs) noexcept;
 
     // Populates a Details object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -218,10 +219,10 @@ struct Params {
     Details Clone() const;
 
     // Creates a Details object from a base::Value::Dict, or nullopt on failure.
-    static absl::optional<Details> FromValue(const base::Value::Dict& value);
+    static std::optional<Details> FromValue(const base::Value::Dict& value);
 
     // Creates a Details object from a base::Value, or nullopt on failure.
-    static absl::optional<Details> FromValue(const base::Value& value);
+    static std::optional<Details> FromValue(const base::Value& value);
 
     // The ID of the tab.
     int tab_id;
@@ -244,8 +245,8 @@ struct DetailsType {
   ~DetailsType();
   DetailsType(const DetailsType&) = delete;
   DetailsType& operator=(const DetailsType&) = delete;
-  DetailsType(DetailsType&& rhs);
-  DetailsType& operator=(DetailsType&& rhs);
+  DetailsType(DetailsType&& rhs) noexcept;
+  DetailsType& operator=(DetailsType&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDetailsType object.
@@ -273,7 +274,7 @@ struct DetailsType {
 
   // A UUID of the parent document owning this frame. This is not set if there is
   // no parent.
-  absl::optional<std::string> parent_document_id;
+  std::optional<std::string> parent_document_id;
 
   // The lifecycle the document is in.
   extensions::api::extension_types::DocumentLifecycle document_lifecycle;
@@ -304,8 +305,8 @@ struct Details {
   ~Details();
   Details(const Details&) = delete;
   Details& operator=(const Details&) = delete;
-  Details(Details&& rhs);
-  Details& operator=(Details&& rhs);
+  Details(Details&& rhs) noexcept;
+  Details& operator=(Details&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDetails object.
@@ -333,7 +334,7 @@ struct Details {
 
   // A UUID of the parent document owning this frame. This is not set if there is
   // no parent.
-  absl::optional<std::string> parent_document_id;
+  std::optional<std::string> parent_document_id;
 
   // The lifecycle the document is in.
   extensions::api::extension_types::DocumentLifecycle document_lifecycle;
@@ -356,8 +357,8 @@ struct Details {
   ~Details();
   Details(const Details&) = delete;
   Details& operator=(const Details&) = delete;
-  Details(Details&& rhs);
-  Details& operator=(Details&& rhs);
+  Details(Details&& rhs) noexcept;
+  Details& operator=(Details&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDetails object.
@@ -392,7 +393,7 @@ struct Details {
 
   // A UUID of the parent document owning this frame. This is not set if there is
   // no parent.
-  absl::optional<std::string> parent_document_id;
+  std::optional<std::string> parent_document_id;
 
   // The lifecycle the document is in.
   extensions::api::extension_types::DocumentLifecycle document_lifecycle;
@@ -415,8 +416,8 @@ struct Details {
   ~Details();
   Details(const Details&) = delete;
   Details& operator=(const Details&) = delete;
-  Details(Details&& rhs);
-  Details& operator=(Details&& rhs);
+  Details(Details&& rhs) noexcept;
+  Details& operator=(Details&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDetails object.
@@ -446,7 +447,7 @@ struct Details {
 
   // A UUID of the parent document owning this frame. This is not set if there is
   // no parent.
-  absl::optional<std::string> parent_document_id;
+  std::optional<std::string> parent_document_id;
 
   // The lifecycle the document is in.
   extensions::api::extension_types::DocumentLifecycle document_lifecycle;
@@ -469,8 +470,8 @@ struct Details {
   ~Details();
   Details(const Details&) = delete;
   Details& operator=(const Details&) = delete;
-  Details(Details&& rhs);
-  Details& operator=(Details&& rhs);
+  Details(Details&& rhs) noexcept;
+  Details& operator=(Details&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDetails object.
@@ -499,7 +500,7 @@ struct Details {
 
   // A UUID of the parent document owning this frame. This is not set if there is
   // no parent.
-  absl::optional<std::string> parent_document_id;
+  std::optional<std::string> parent_document_id;
 
   // The lifecycle the document is in.
   extensions::api::extension_types::DocumentLifecycle document_lifecycle;
@@ -522,8 +523,8 @@ struct Details {
   ~Details();
   Details(const Details&) = delete;
   Details& operator=(const Details&) = delete;
-  Details(Details&& rhs);
-  Details& operator=(Details&& rhs);
+  Details(Details&& rhs) noexcept;
+  Details& operator=(Details&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDetails object.
@@ -555,7 +556,7 @@ struct Details {
 
   // A UUID of the parent document owning this frame. This is not set if there is
   // no parent.
-  absl::optional<std::string> parent_document_id;
+  std::optional<std::string> parent_document_id;
 
   // The lifecycle the document is in.
   extensions::api::extension_types::DocumentLifecycle document_lifecycle;
@@ -578,8 +579,8 @@ struct Details {
   ~Details();
   Details(const Details&) = delete;
   Details& operator=(const Details&) = delete;
-  Details(Details&& rhs);
-  Details& operator=(Details&& rhs);
+  Details(Details&& rhs) noexcept;
+  Details& operator=(Details&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDetails object.
@@ -620,8 +621,8 @@ struct Details {
   ~Details();
   Details(const Details&) = delete;
   Details& operator=(const Details&) = delete;
-  Details(Details&& rhs);
-  Details& operator=(Details&& rhs);
+  Details(Details&& rhs) noexcept;
+  Details& operator=(Details&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDetails object.
@@ -656,7 +657,7 @@ struct Details {
 
   // A UUID of the parent document owning this frame. This is not set if there is
   // no parent.
-  absl::optional<std::string> parent_document_id;
+  std::optional<std::string> parent_document_id;
 
   // The lifecycle the document is in.
   extensions::api::extension_types::DocumentLifecycle document_lifecycle;
@@ -679,8 +680,8 @@ struct Details {
   ~Details();
   Details(const Details&) = delete;
   Details& operator=(const Details&) = delete;
-  Details(Details&& rhs);
-  Details& operator=(Details&& rhs);
+  Details(Details&& rhs) noexcept;
+  Details& operator=(Details&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDetails object.
@@ -710,8 +711,8 @@ struct Details {
   ~Details();
   Details(const Details&) = delete;
   Details& operator=(const Details&) = delete;
-  Details(Details&& rhs);
-  Details& operator=(Details&& rhs);
+  Details(Details&& rhs) noexcept;
+  Details& operator=(Details&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDetails object.
@@ -746,7 +747,7 @@ struct Details {
 
   // A UUID of the parent document owning this frame. This is not set if there is
   // no parent.
-  absl::optional<std::string> parent_document_id;
+  std::optional<std::string> parent_document_id;
 
   // The lifecycle the document is in.
   extensions::api::extension_types::DocumentLifecycle document_lifecycle;

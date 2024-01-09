@@ -1207,6 +1207,26 @@ static_assert(
     return mojo::internal::Deserialize<::blink::mojom::RendererContentSettingsDataView>(
         pointer, output, message_);
   }
+  inline void GetCookieDeprecationLabelDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadCookieDeprecationLabel(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::StringDataView, UserType>(),
+    "Attempting to read the optional `cookie_deprecation_label` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadCookieDeprecationLabel` instead "
+    "of `ReadCookieDeprecationLabel if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->cookie_deprecation_label.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
  private:
   internal::CommitNavigationParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -2134,6 +2154,14 @@ struct Serializer<::blink::mojom::CommitNavigationParamsDataView, MaybeConstUser
         fragment->content_settings.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null content_settings in CommitNavigationParams struct");
+    decltype(Traits::cookie_deprecation_label(input)) in_cookie_deprecation_label = Traits::cookie_deprecation_label(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->cookie_deprecation_label)::BaseType> cookie_deprecation_label_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_cookie_deprecation_label, cookie_deprecation_label_fragment);
+    fragment->cookie_deprecation_label.Set(
+        cookie_deprecation_label_fragment.is_null() ? nullptr : cookie_deprecation_label_fragment.data());
   }
 
   static bool Deserialize(::blink::mojom::internal::CommitNavigationParams_Data* input,
@@ -2451,6 +2479,11 @@ inline void CommitNavigationParamsDataView::GetContentSettingsDataView(
     ::blink::mojom::RendererContentSettingsDataView* output) {
   auto pointer = data_->content_settings.Get();
   *output = ::blink::mojom::RendererContentSettingsDataView(pointer, message_);
+}
+inline void CommitNavigationParamsDataView::GetCookieDeprecationLabelDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->cookie_deprecation_label.Get();
+  *output = mojo::StringDataView(pointer, message_);
 }
 
 

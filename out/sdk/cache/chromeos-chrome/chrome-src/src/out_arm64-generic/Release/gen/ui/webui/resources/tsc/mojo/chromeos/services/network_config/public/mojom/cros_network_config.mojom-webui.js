@@ -266,6 +266,20 @@ export const ApnType = {
 /**
  * @const { {$: !mojo.internal.MojomType} }
  */
+export const SuppressionTypeSpec = { $: mojo.internal.Enum() };
+/**
+ * @enum {number}
+ */
+export const SuppressionType = {
+    kUnset: 0,
+    kAllow: 1,
+    kSuppress: 2,
+    MIN_VALUE: 0,
+    MAX_VALUE: 2,
+};
+/**
+ * @const { {$: !mojo.internal.MojomType} }
+ */
 export const TrafficCounterSourceSpec = { $: mojo.internal.Enum() };
 /**
  * @enum {number}
@@ -461,6 +475,9 @@ export class CrosNetworkConfigInterface {
     /**
      * @param { !string } networkGuid
      * @param { !ApnProperties } apn
+     * @return {!Promise<{
+          success: !boolean,
+     *  }>}
      */
     createCustomApn(networkGuid, apn) { }
     /**
@@ -742,9 +759,12 @@ export class CrosNetworkConfigRemote {
     /**
      * @param { !string } networkGuid
      * @param { !ApnProperties } apn
+     * @return {!Promise<{
+          success: !boolean,
+     *  }>}
      */
     createCustomApn(networkGuid, apn) {
-        this.proxy.sendMessage(24, CrosNetworkConfig_CreateCustomApn_ParamsSpec.$, null, [
+        return this.proxy.sendMessage(24, CrosNetworkConfig_CreateCustomApn_ParamsSpec.$, CrosNetworkConfig_CreateCustomApn_ResponseParamsSpec.$, [
             networkGuid,
             apn
         ]);
@@ -810,7 +830,7 @@ export class CrosNetworkConfigReceiver {
         this.helper_internal_.registerHandler(21, CrosNetworkConfig_RequestTrafficCounters_ParamsSpec.$, CrosNetworkConfig_RequestTrafficCounters_ResponseParamsSpec.$, impl.requestTrafficCounters.bind(impl));
         this.helper_internal_.registerHandler(22, CrosNetworkConfig_ResetTrafficCounters_ParamsSpec.$, null, impl.resetTrafficCounters.bind(impl));
         this.helper_internal_.registerHandler(23, CrosNetworkConfig_SetTrafficCountersAutoReset_ParamsSpec.$, CrosNetworkConfig_SetTrafficCountersAutoReset_ResponseParamsSpec.$, impl.setTrafficCountersAutoReset.bind(impl));
-        this.helper_internal_.registerHandler(24, CrosNetworkConfig_CreateCustomApn_ParamsSpec.$, null, impl.createCustomApn.bind(impl));
+        this.helper_internal_.registerHandler(24, CrosNetworkConfig_CreateCustomApn_ParamsSpec.$, CrosNetworkConfig_CreateCustomApn_ResponseParamsSpec.$, impl.createCustomApn.bind(impl));
         this.helper_internal_.registerHandler(25, CrosNetworkConfig_RemoveCustomApn_ParamsSpec.$, null, impl.removeCustomApn.bind(impl));
         this.helper_internal_.registerHandler(26, CrosNetworkConfig_ModifyCustomApn_ParamsSpec.$, null, impl.modifyCustomApn.bind(impl));
         /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
@@ -1000,7 +1020,7 @@ export class CrosNetworkConfigCallbackRouter {
          */
         this.createCustomApn =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(24, CrosNetworkConfig_CreateCustomApn_ParamsSpec.$, null, this.createCustomApn.createReceiverHandler(false /* expectsResponse */));
+        this.helper_internal_.registerHandler(24, CrosNetworkConfig_CreateCustomApn_ParamsSpec.$, CrosNetworkConfig_CreateCustomApn_ResponseParamsSpec.$, this.createCustomApn.createReceiverHandler(true /* expectsResponse */));
         /**
          * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
          */
@@ -1699,6 +1719,10 @@ export const CrosNetworkConfig_CreateCustomApn_ParamsSpec = { $: /** @type {!moj
 /**
  * @const { {$:!mojo.internal.MojomType}}
  */
+export const CrosNetworkConfig_CreateCustomApn_ResponseParamsSpec = { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ */
 export const CrosNetworkConfig_RemoveCustomApn_ParamsSpec = { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 /**
  * @const { {$:!mojo.internal.MojomType}}
@@ -1974,6 +1998,7 @@ mojo.internal.Struct(DeviceStatePropertiesSpec.$, 'DeviceStateProperties', [
     mojo.internal.StructField('type', 60, 0, chromeos_networkConfig_mojom_NetworkTypeSpec.$, 0, false /* nullable */, 0),
     mojo.internal.StructField('managedNetworkAvailable', 32, 2, mojo.internal.Bool, false, false /* nullable */, 0),
     mojo.internal.StructField('serial', 64, 0, mojo.internal.String, null, true /* nullable */, 0),
+    mojo.internal.StructField('isCarrierLocked', 32, 3, mojo.internal.Bool, false, false /* nullable */, 0),
 ], [[0, 80],]);
 /**
  * @record
@@ -2006,6 +2031,8 @@ export class DeviceStateProperties {
         this.managedNetworkAvailable;
         /** @type { (string|undefined) } */
         this.serial;
+        /** @type { !boolean } */
+        this.isCarrierLocked;
     }
 }
 mojo.internal.Struct(NetworkFilterSpec.$, 'NetworkFilter', [
@@ -3558,6 +3585,7 @@ mojo.internal.Struct(GlobalPolicySpec.$, 'GlobalPolicy', [
     mojo.internal.StructField('blockedHexSsids', 8, 0, mojo.internal.Array(mojo.internal.String, false), null, false /* nullable */, 0),
     mojo.internal.StructField('recommendedValuesAreEphemeral', 1, 0, mojo.internal.Bool, false, false /* nullable */, 0),
     mojo.internal.StructField('userCreatedNetworkConfigurationsAreEphemeral', 1, 1, mojo.internal.Bool, false, false /* nullable */, 0),
+    mojo.internal.StructField('allowTextMessages', 4, 0, SuppressionTypeSpec.$, SuppressionType.kUnset, false /* nullable */, 0),
 ], [[0, 24],]);
 /**
  * @record
@@ -3586,6 +3614,8 @@ export class GlobalPolicy {
         this.recommendedValuesAreEphemeral;
         /** @type { !boolean } */
         this.userCreatedNetworkConfigurationsAreEphemeral;
+        /** @type { !SuppressionType } */
+        this.allowTextMessages;
     }
 }
 mojo.internal.Struct(VpnProviderSpec.$, 'VpnProvider', [
@@ -4213,6 +4243,18 @@ export class CrosNetworkConfig_CreateCustomApn_Params {
         this.networkGuid;
         /** @type { !ApnProperties } */
         this.apn;
+    }
+}
+mojo.internal.Struct(CrosNetworkConfig_CreateCustomApn_ResponseParamsSpec.$, 'CrosNetworkConfig_CreateCustomApn_ResponseParams', [
+    mojo.internal.StructField('success', 0, 0, mojo.internal.Bool, false, false /* nullable */, 0),
+], [[0, 16],]);
+/**
+ * @record
+ */
+export class CrosNetworkConfig_CreateCustomApn_ResponseParams {
+    constructor() {
+        /** @type { !boolean } */
+        this.success;
     }
 }
 mojo.internal.Struct(CrosNetworkConfig_RemoveCustomApn_ParamsSpec.$, 'CrosNetworkConfig_RemoveCustomApn_Params', [

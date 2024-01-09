@@ -45,10 +45,10 @@ export class SettingsPersonalizationPageElement extends SettingsPersonalizationP
         this.personalizationHubBrowserProxy_ =
             PersonalizationHubBrowserProxyImpl.getInstance();
     }
-    getSublabel_() {
+    getPersonalizationRowIcon_() {
         return this.isRevampWayfindingEnabled_ ?
-            null :
-            this.i18n('personalizationHubSubtitle');
+            'os-settings:personalization-revamp' :
+            '';
     }
     openPersonalizationHub_() {
         this.personalizationHubBrowserProxy_.openPersonalizationHub();

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -70,17 +71,17 @@ SearchResult::SearchResult()
 SearchResult::SearchResult(
     SearchResultType type_in,
     double relevance_in,
-    const absl::optional<::GURL>& destination_url_in,
+    const std::optional<::GURL>& destination_url_in,
     SearchResult::OptionalBool is_omnibox_search_in,
     SearchResult::OptionalBool is_answer_in,
     SearchResult::OmniboxType omnibox_type_in,
     SearchResult::AnswerType answer_type_in,
-    const absl::optional<::GURL>& image_url_in,
+    const std::optional<::GURL>& image_url_in,
     const ::gfx::ImageSkia& favicon_in,
-    const absl::optional<::std::u16string>& contents_in,
-    const absl::optional<::std::u16string>& additional_contents_in,
-    const absl::optional<::std::u16string>& description_in,
-    const absl::optional<::std::u16string>& additional_description_in,
+    const std::optional<::std::u16string>& contents_in,
+    const std::optional<::std::u16string>& additional_contents_in,
+    const std::optional<::std::u16string>& description_in,
+    const std::optional<::std::u16string>& additional_description_in,
     SearchResult::TextType additional_description_type_in)
     : type(std::move(type_in)),
       relevance(std::move(relevance_in)),
@@ -108,22 +109,22 @@ SearchResult::SearchResult(
 SearchResult::SearchResult(
     SearchResultType type_in,
     double relevance_in,
-    const absl::optional<::GURL>& destination_url_in,
-    const absl::optional<::GURL>& stripped_destination_url_in,
+    const std::optional<::GURL>& destination_url_in,
+    const std::optional<::GURL>& stripped_destination_url_in,
     SearchResult::OptionalBool is_omnibox_search_in,
     SearchResult::OptionalBool is_answer_in,
     SearchResult::OmniboxType omnibox_type_in,
     SearchResult::AnswerType answer_type_in,
     SearchResult::PageTransition page_transition_in,
-    const absl::optional<::GURL>& image_url_in,
+    const std::optional<::GURL>& image_url_in,
     const ::gfx::ImageSkia& favicon_in,
-    const absl::optional<::std::u16string>& contents_in,
+    const std::optional<::std::u16string>& contents_in,
     SearchResult::TextType contents_type_in,
-    const absl::optional<::std::u16string>& additional_contents_in,
+    const std::optional<::std::u16string>& additional_contents_in,
     SearchResult::TextType additional_contents_type_in,
-    const absl::optional<::std::u16string>& description_in,
+    const std::optional<::std::u16string>& description_in,
     SearchResult::TextType description_type_in,
-    const absl::optional<::std::u16string>& additional_description_in,
+    const std::optional<::std::u16string>& additional_description_in,
     SearchResult::TextType additional_description_type_in)
     : type(std::move(type_in)),
       relevance(std::move(relevance_in)),
@@ -151,23 +152,23 @@ SearchResult::SearchResult(
 SearchResult::SearchResult(
     SearchResultType type_in,
     double relevance_in,
-    const absl::optional<::GURL>& destination_url_in,
-    const absl::optional<::GURL>& stripped_destination_url_in,
+    const std::optional<::GURL>& destination_url_in,
+    const std::optional<::GURL>& stripped_destination_url_in,
     SearchResult::OptionalBool is_omnibox_search_in,
     SearchResult::OptionalBool is_answer_in,
     SearchResult::OmniboxType omnibox_type_in,
     SearchResult::AnswerType answer_type_in,
     SearchResult::PageTransition page_transition_in,
-    const absl::optional<::GURL>& image_url_in,
+    const std::optional<::GURL>& image_url_in,
     const ::gfx::ImageSkia& favicon_in,
-    const absl::optional<::std::u16string>& description_a11y_label_in,
-    const absl::optional<::std::u16string>& contents_in,
+    const std::optional<::std::u16string>& description_a11y_label_in,
+    const std::optional<::std::u16string>& contents_in,
     SearchResult::TextType contents_type_in,
-    const absl::optional<::std::u16string>& additional_contents_in,
+    const std::optional<::std::u16string>& additional_contents_in,
     SearchResult::TextType additional_contents_type_in,
-    const absl::optional<::std::u16string>& description_in,
+    const std::optional<::std::u16string>& description_in,
     SearchResult::TextType description_type_in,
-    const absl::optional<::std::u16string>& additional_description_in,
+    const std::optional<::std::u16string>& additional_description_in,
     SearchResult::TextType additional_description_type_in)
     : type(std::move(type_in)),
       relevance(std::move(relevance_in)),
@@ -195,25 +196,25 @@ SearchResult::SearchResult(
 SearchResult::SearchResult(
     SearchResultType type_in,
     double relevance_in,
-    const absl::optional<::GURL>& destination_url_in,
-    const absl::optional<::GURL>& stripped_destination_url_in,
+    const std::optional<::GURL>& destination_url_in,
+    const std::optional<::GURL>& stripped_destination_url_in,
     SearchResult::OptionalBool is_omnibox_search_in,
     SearchResult::OptionalBool is_answer_in,
     SearchResult::MetricsType metrics_type_in,
     SearchResult::OmniboxType omnibox_type_in,
     SearchResult::AnswerType answer_type_in,
     SearchResult::PageTransition page_transition_in,
-    const absl::optional<::GURL>& image_url_in,
+    const std::optional<::GURL>& image_url_in,
     const ::gfx::ImageSkia& favicon_in,
     ::mojo::PendingReceiver<SearchResultConsumer> receiver_in,
-    const absl::optional<::std::u16string>& description_a11y_label_in,
-    const absl::optional<::std::u16string>& contents_in,
+    const std::optional<::std::u16string>& description_a11y_label_in,
+    const std::optional<::std::u16string>& contents_in,
     SearchResult::TextType contents_type_in,
-    const absl::optional<::std::u16string>& additional_contents_in,
+    const std::optional<::std::u16string>& additional_contents_in,
     SearchResult::TextType additional_contents_type_in,
-    const absl::optional<::std::u16string>& description_in,
+    const std::optional<::std::u16string>& description_in,
     SearchResult::TextType description_type_in,
-    const absl::optional<::std::u16string>& additional_description_in,
+    const std::optional<::std::u16string>& additional_description_in,
     SearchResult::TextType additional_description_type_in)
     : type(std::move(type_in)),
       relevance(std::move(relevance_in)),
@@ -265,7 +266,7 @@ void SearchResult::WriteIntoTrace(
     dict.AddItem(
       "destination_url"), this->destination_url,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::GURL>&>"
+      "<value of type const std::optional<::GURL>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -274,7 +275,7 @@ void SearchResult::WriteIntoTrace(
     dict.AddItem(
       "stripped_destination_url"), this->stripped_destination_url,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::GURL>&>"
+      "<value of type const std::optional<::GURL>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -337,7 +338,7 @@ void SearchResult::WriteIntoTrace(
     dict.AddItem(
       "image_url"), this->image_url,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::GURL>&>"
+      "<value of type const std::optional<::GURL>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -364,7 +365,7 @@ void SearchResult::WriteIntoTrace(
     dict.AddItem(
       "description_a11y_label"), this->description_a11y_label,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::std::u16string>&>"
+      "<value of type const std::optional<::std::u16string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -373,7 +374,7 @@ void SearchResult::WriteIntoTrace(
     dict.AddItem(
       "contents"), this->contents,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::std::u16string>&>"
+      "<value of type const std::optional<::std::u16string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -391,7 +392,7 @@ void SearchResult::WriteIntoTrace(
     dict.AddItem(
       "additional_contents"), this->additional_contents,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::std::u16string>&>"
+      "<value of type const std::optional<::std::u16string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -409,7 +410,7 @@ void SearchResult::WriteIntoTrace(
     dict.AddItem(
       "description"), this->description,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::std::u16string>&>"
+      "<value of type const std::optional<::std::u16string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -427,7 +428,7 @@ void SearchResult::WriteIntoTrace(
     dict.AddItem(
       "additional_description"), this->additional_description,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::std::u16string>&>"
+      "<value of type const std::optional<::std::u16string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -509,7 +510,7 @@ SearchResultsPublisherProxy::SearchResultsPublisherProxy(mojo::MessageReceiverWi
 }
 
 void SearchResultsPublisherProxy::OnSearchResultsReceived(
-    SearchStatus in_status, absl::optional<std::vector<SearchResultPtr>> in_result) {
+    SearchStatus in_status, std::optional<std::vector<SearchResultPtr>> in_result) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send crosapi::mojom::SearchResultsPublisher::OnSearchResultsReceived", "input_parameters",
@@ -520,17 +521,20 @@ void SearchResultsPublisherProxy::OnSearchResultsReceived(
                         "<value of type SearchStatus>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("result"), in_result,
-                        "<value of type absl::optional<std::vector<SearchResultPtr>>>");
+                        "<value of type std::optional<std::vector<SearchResultPtr>>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSearchResultsPublisher_OnSearchResultsReceived_Name, kFlags, 0, 0, nullptr);
@@ -573,7 +577,7 @@ bool SearchResultsPublisherStubDispatch::Accept(
       
       bool success = true;
       SearchStatus p_status{};
-      absl::optional<std::vector<SearchResultPtr>> p_result{};
+      std::optional<std::vector<SearchResultPtr>> p_result{};
       SearchResultsPublisher_OnSearchResultsReceived_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadStatus(&p_status))
@@ -613,10 +617,10 @@ bool SearchResultsPublisherStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSearchResultsPublisherValidationInfo[] = {
-    {&internal::SearchResultsPublisher_OnSearchResultsReceived_Params_Data::Validate,
+    { &internal::SearchResultsPublisher_OnSearchResultsReceived_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -713,14 +717,17 @@ void SearchControllerProxy::Search(
                         "<value of type const ::std::u16string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSearchController_Search_Name, kFlags, 0, 0, nullptr);
@@ -843,7 +850,8 @@ void SearchController_Search_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSearchController_Search_Name, kFlags, 0, 0, nullptr);
@@ -928,10 +936,10 @@ std::move(p_query), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSearchControllerValidationInfo[] = {
-    {&internal::SearchController_Search_Params_Data::Validate,
+    { &internal::SearchController_Search_Params_Data::Validate,
      &internal::SearchController_Search_ResponseParams_Data::Validate},
 };
 
@@ -1016,14 +1024,17 @@ void SearchControllerRegistryProxy::RegisterSearchController(
                         "<value of type ::mojo::PendingRemote<SearchController>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSearchControllerRegistry_RegisterSearchController_Name, kFlags, 0, 0, nullptr);
@@ -1099,10 +1110,10 @@ bool SearchControllerRegistryStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSearchControllerRegistryValidationInfo[] = {
-    {&internal::SearchControllerRegistry_RegisterSearchController_Params_Data::Validate,
+    { &internal::SearchControllerRegistry_RegisterSearchController_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1183,14 +1194,17 @@ void SearchResultConsumerProxy::OnFaviconReceived(
                         "<value of type const ::gfx::ImageSkia&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSearchResultConsumer_OnFaviconReceived_Name, kFlags, 0, 0, nullptr);
@@ -1269,10 +1283,10 @@ bool SearchResultConsumerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSearchResultConsumerValidationInfo[] = {
-    {&internal::SearchResultConsumer_OnFaviconReceived_Params_Data::Validate,
+    { &internal::SearchResultConsumer_OnFaviconReceived_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1356,7 +1370,7 @@ bool StructTraits<::crosapi::mojom::SearchResult::DataView, ::crosapi::mojom::Se
 namespace crosapi::mojom {
 
 
-void SearchResultsPublisherInterceptorForTesting::OnSearchResultsReceived(SearchStatus status, absl::optional<std::vector<SearchResultPtr>> result) {
+void SearchResultsPublisherInterceptorForTesting::OnSearchResultsReceived(SearchStatus status, std::optional<std::vector<SearchResultPtr>> result) {
   GetForwardingInterface()->OnSearchResultsReceived(std::move(status), std::move(result));
 }
 SearchResultsPublisherAsyncWaiter::SearchResultsPublisherAsyncWaiter(

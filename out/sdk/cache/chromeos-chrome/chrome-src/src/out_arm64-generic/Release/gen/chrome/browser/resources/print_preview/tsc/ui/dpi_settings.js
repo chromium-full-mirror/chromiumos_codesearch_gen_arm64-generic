@@ -39,7 +39,7 @@ export class PrintPreviewDpiSettingsElement extends PrintPreviewDpiSettingsEleme
         if (this.capability === undefined) {
             return null;
         }
-        const result = JSON.parse(JSON.stringify(this.capability));
+        const result = structuredClone(this.capability);
         this.capability.option.forEach((dpiOption, index) => {
             const hDpi = dpiOption.horizontal_dpi || 0;
             const vDpi = dpiOption.vertical_dpi || 0;

@@ -1324,18 +1324,18 @@ void PrepareRequestImpl(CoreProbeSink* param_core_probe_sink, DocumentLoader* pa
   }
 }
 
-void WillSendRequestImpl(CoreProbeSink* param_core_probe_sink, DocumentLoader* param_document_loader, const KURL& fetch_context_url, const ResourceRequest& param_resource_request, const ResourceResponse& redirect_response, const ResourceLoaderOptions& param_resource_loader_options, ResourceType param_resource_type, RenderBlockingBehavior param_render_blocking_behavior, base::TimeTicks timestamp) {
-  CoreProbeSink* probe_sink = ToCoreProbeSink(param_core_probe_sink);
+void WillSendRequestImpl(ExecutionContext* param_execution_context, DocumentLoader* param_document_loader, const KURL& fetch_context_url, const ResourceRequest& param_resource_request, const ResourceResponse& redirect_response, const ResourceLoaderOptions& param_resource_loader_options, ResourceType param_resource_type, RenderBlockingBehavior param_render_blocking_behavior, base::TimeTicks timestamp) {
+  CoreProbeSink* probe_sink = ToCoreProbeSink(param_execution_context);
   if (!probe_sink)
     return;
   if (probe_sink->HasInspectorNetworkAgents()) {
     probe_sink->InspectorNetworkAgents().ForEachAgent([&](InspectorNetworkAgent* agent) {
-      agent->WillSendRequest(param_document_loader, fetch_context_url, param_resource_request, redirect_response, param_resource_loader_options, param_resource_type, param_render_blocking_behavior, timestamp);
+      agent->WillSendRequest(param_execution_context, param_document_loader, fetch_context_url, param_resource_request, redirect_response, param_resource_loader_options, param_resource_type, param_render_blocking_behavior, timestamp);
     });
   }
   if (probe_sink->HasInspectorTraceEventss()) {
     probe_sink->InspectorTraceEventss().ForEachAgent([&](InspectorTraceEvents* agent) {
-      agent->WillSendRequest(param_document_loader, fetch_context_url, param_resource_request, redirect_response, param_resource_loader_options, param_resource_type, param_render_blocking_behavior, timestamp);
+      agent->WillSendRequest(param_execution_context, param_document_loader, fetch_context_url, param_resource_request, redirect_response, param_resource_loader_options, param_resource_type, param_render_blocking_behavior, timestamp);
     });
   }
 }
@@ -2102,7 +2102,7 @@ void WillHandlePromiseImpl(ExecutionContext* context, ScriptState* script_state,
     return;
   if (probe_sink->HasAnimationFrameTimingMonitors()) {
     probe_sink->AnimationFrameTimingMonitors().ForEachAgent([&](AnimationFrameTimingMonitor* agent) {
-      agent->WillHandlePromise(context, script_state, resolving, class_like_name, property_like_name, script_url);
+      agent->WillHandlePromise(script_state, resolving, class_like_name, property_like_name, script_url);
     });
   }
 }
@@ -2221,11 +2221,12 @@ UpdateLayout::~UpdateLayout() {
   }
 }
 
-EvaluateScriptBlock::EvaluateScriptBlock(ExecutionContext* context, std::reference_wrapper<std::remove_reference_t<const KURL&>> source_url, bool is_module) :
-    context(context),
+EvaluateScriptBlock::EvaluateScriptBlock(ScriptState* script_state, std::reference_wrapper<std::remove_reference_t<const KURL&>> source_url, bool is_module, bool sanitize) :
+    script_state(script_state),
     source_url(source_url),
-    is_module(is_module) {
-  probe_sink = ToCoreProbeSink(context);
+    is_module(is_module),
+    sanitize(sanitize) {
+  probe_sink = ToCoreProbeSink(script_state);
   if (!probe_sink)
     return;
   if (probe_sink->HasAnimationFrameTimingMonitors()) {
@@ -2433,12 +2434,12 @@ UserCallback::~UserCallback() {
   }
 }
 
-InvokeCallback::InvokeCallback(ExecutionContext* context, const char* name, CallbackFunctionBase* callback, v8::MaybeLocal<v8::Value> function) :
-    context(context),
+InvokeCallback::InvokeCallback(ScriptState* script_state, const char* name, CallbackFunctionBase* callback, v8::MaybeLocal<v8::Value> function) :
+    script_state(script_state),
     name(name),
     callback(callback),
     function(function) {
-  probe_sink = ToCoreProbeSink(context);
+  probe_sink = ToCoreProbeSink(script_state);
   if (!probe_sink)
     return;
   if (probe_sink->HasAnimationFrameTimingMonitors()) {
@@ -2458,12 +2459,11 @@ InvokeCallback::~InvokeCallback() {
   }
 }
 
-InvokeEventHandler::InvokeEventHandler(ExecutionContext* context, EventTarget* event_target, Event* event, EventListener* listener) :
-    context(context),
-    event_target(event_target),
+InvokeEventHandler::InvokeEventHandler(ScriptState* script_state, Event* event, JSBasedEventListener* listener) :
+    script_state(script_state),
     event(event),
     listener(listener) {
-  probe_sink = ToCoreProbeSink(context);
+  probe_sink = ToCoreProbeSink(script_state);
   if (!probe_sink)
     return;
   if (probe_sink->HasAnimationFrameTimingMonitors()) {
@@ -2727,17 +2727,6 @@ void NodeCreatedImpl(Node* node) {
   }
 }
 
-void PortalRemoteFrameCreatedImpl(Document* param_document, HTMLPortalElement* portal_element) {
-  CoreProbeSink* probe_sink = ToCoreProbeSink(param_document);
-  if (!probe_sink)
-    return;
-  if (probe_sink->HasInspectorDOMAgents()) {
-    probe_sink->InspectorDOMAgents().ForEachAgent([&](InspectorDOMAgent* agent) {
-      agent->PortalRemoteFrameCreated(portal_element);
-    });
-  }
-}
-
 void FileChooserOpenedImpl(LocalFrame* frame, HTMLInputElement* element, bool multiple, bool* intercepted) {
   CoreProbeSink* probe_sink = ToCoreProbeSink(frame);
   if (!probe_sink)
@@ -2822,6 +2811,17 @@ void DidMutateStyleSheetImpl(Document* param_document, CSSStyleSheet* style_shee
   if (probe_sink->HasInspectorCSSAgents()) {
     probe_sink->InspectorCSSAgents().ForEachAgent([&](InspectorCSSAgent* agent) {
       agent->DidMutateStyleSheet(style_sheet);
+    });
+  }
+}
+
+void DidReplaceStyleSheetTextImpl(Document* param_document, CSSStyleSheet* style_sheet, const String& text) {
+  CoreProbeSink* probe_sink = ToCoreProbeSink(param_document);
+  if (!probe_sink)
+    return;
+  if (probe_sink->HasInspectorCSSAgents()) {
+    probe_sink->InspectorCSSAgents().ForEachAgent([&](InspectorCSSAgent* agent) {
+      agent->DidReplaceStyleSheetText(style_sheet, text);
     });
   }
 }

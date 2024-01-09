@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/device/public/mojom/geoposition.mojom-features.h"
 #include "services/device/public/mojom/geoposition.mojom-shared.h"
 #include "services/device/public/mojom/geoposition.mojom-forward.h"
 #include "mojo/public/mojom/base/time.mojom.h"
@@ -209,17 +210,17 @@ class  GeopositionResult {
   // Construct an instance holding |position|.
   static GeopositionResultPtr
   NewPosition(
-      GeopositionPtr position) {
+      GeopositionPtr value) {
     auto result = GeopositionResultPtr(absl::in_place);
-    result->set_position(std::move(position));
+    result->set_position(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static GeopositionResultPtr
   NewError(
-      GeopositionErrorPtr error) {
+      GeopositionErrorPtr value) {
     auto result = GeopositionResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 

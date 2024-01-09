@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -119,7 +120,7 @@ QuickStartDecoderProxy::QuickStartDecoderProxy(mojo::MessageReceiverWithResponde
 }
 
 void QuickStartDecoderProxy::DecodeQuickStartMessage(
-    const absl::optional<std::vector<uint8_t>>& in_data, DecodeQuickStartMessageCallback callback) {
+    const std::optional<std::vector<uint8_t>>& in_data, DecodeQuickStartMessageCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::quick_start::mojom::QuickStartDecoder::DecodeQuickStartMessage", "input_parameters",
@@ -127,17 +128,20 @@ void QuickStartDecoderProxy::DecodeQuickStartMessage(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("data"), in_data,
-                        "<value of type const absl::optional<std::vector<uint8_t>>&>");
+                        "<value of type const std::optional<std::vector<uint8_t>>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kQuickStartDecoder_DecodeQuickStartMessage_Name, kFlags, 0, 0, nullptr);
@@ -210,7 +214,7 @@ class QuickStartDecoder_DecodeQuickStartMessage_ProxyToResponder : public ::mojo
 #endif
 
   void Run(
-      ::ash::quick_start::mojom::QuickStartMessagePtr in_result, absl::optional<::ash::quick_start::mojom::QuickStartDecoderError> in_error);
+      ::ash::quick_start::mojom::QuickStartMessagePtr in_result, std::optional<::ash::quick_start::mojom::QuickStartDecoderError> in_error);
 };
 
 bool QuickStartDecoder_DecodeQuickStartMessage_ForwardToCallback::Accept(
@@ -224,7 +228,7 @@ bool QuickStartDecoder_DecodeQuickStartMessage_ForwardToCallback::Accept(
   
   bool success = true;
   ::ash::quick_start::mojom::QuickStartMessagePtr p_result{};
-  absl::optional<::ash::quick_start::mojom::QuickStartDecoderError> p_error{};
+  std::optional<::ash::quick_start::mojom::QuickStartDecoderError> p_error{};
   QuickStartDecoder_DecodeQuickStartMessage_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -247,7 +251,7 @@ std::move(p_error));
 }
 
 void QuickStartDecoder_DecodeQuickStartMessage_ProxyToResponder::Run(
-    ::ash::quick_start::mojom::QuickStartMessagePtr in_result, absl::optional<::ash::quick_start::mojom::QuickStartDecoderError> in_error) {
+    ::ash::quick_start::mojom::QuickStartMessagePtr in_result, std::optional<::ash::quick_start::mojom::QuickStartDecoderError> in_error) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::quick_start::mojom::QuickStartDecoder::DecodeQuickStartMessage", "async_response_parameters",
@@ -258,13 +262,14 @@ void QuickStartDecoder_DecodeQuickStartMessage_ProxyToResponder::Run(
                         "<value of type ::ash::quick_start::mojom::QuickStartMessagePtr>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("error"), in_error,
-                        "<value of type absl::optional<::ash::quick_start::mojom::QuickStartDecoderError>>");
+                        "<value of type std::optional<::ash::quick_start::mojom::QuickStartDecoderError>>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kQuickStartDecoder_DecodeQuickStartMessage_Name, kFlags, 0, 0, nullptr);
@@ -332,7 +337,7 @@ bool QuickStartDecoderStubDispatch::AcceptWithResponder(
                   message->mutable_payload());
       
       bool success = true;
-      absl::optional<std::vector<uint8_t>> p_data{};
+      std::optional<std::vector<uint8_t>> p_data{};
       QuickStartDecoder_DecodeQuickStartMessage_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadData(&p_data))
@@ -356,10 +361,10 @@ std::move(p_data), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kQuickStartDecoderValidationInfo[] = {
-    {&internal::QuickStartDecoder_DecodeQuickStartMessage_Params_Data::Validate,
+    { &internal::QuickStartDecoder_DecodeQuickStartMessage_Params_Data::Validate,
      &internal::QuickStartDecoder_DecodeQuickStartMessage_ResponseParams_Data::Validate},
 };
 
@@ -389,7 +394,7 @@ namespace mojo {
 namespace ash::quick_start::mojom {
 
 
-void QuickStartDecoderInterceptorForTesting::DecodeQuickStartMessage(const absl::optional<std::vector<uint8_t>>& data, DecodeQuickStartMessageCallback callback) {
+void QuickStartDecoderInterceptorForTesting::DecodeQuickStartMessage(const std::optional<std::vector<uint8_t>>& data, DecodeQuickStartMessageCallback callback) {
   GetForwardingInterface()->DecodeQuickStartMessage(std::move(data), std::move(callback));
 }
 QuickStartDecoderAsyncWaiter::QuickStartDecoderAsyncWaiter(
@@ -398,17 +403,17 @@ QuickStartDecoderAsyncWaiter::QuickStartDecoderAsyncWaiter(
 QuickStartDecoderAsyncWaiter::~QuickStartDecoderAsyncWaiter() = default;
 
 void QuickStartDecoderAsyncWaiter::DecodeQuickStartMessage(
-    const absl::optional<std::vector<uint8_t>>& data, ::ash::quick_start::mojom::QuickStartMessagePtr* out_result, absl::optional<::ash::quick_start::mojom::QuickStartDecoderError>* out_error) {
+    const std::optional<std::vector<uint8_t>>& data, ::ash::quick_start::mojom::QuickStartMessagePtr* out_result, std::optional<::ash::quick_start::mojom::QuickStartDecoderError>* out_error) {
   base::RunLoop loop;
   proxy_->DecodeQuickStartMessage(std::move(data),
       base::BindOnce(
           [](base::RunLoop* loop,
              ::ash::quick_start::mojom::QuickStartMessagePtr* out_result
 ,
-             absl::optional<::ash::quick_start::mojom::QuickStartDecoderError>* out_error
+             std::optional<::ash::quick_start::mojom::QuickStartDecoderError>* out_error
 ,
              ::ash::quick_start::mojom::QuickStartMessagePtr result,
-             absl::optional<::ash::quick_start::mojom::QuickStartDecoderError> error) {*out_result = std::move(result);*out_error = std::move(error);
+             std::optional<::ash::quick_start::mojom::QuickStartDecoderError> error) {*out_result = std::move(result);*out_error = std::move(error);
             loop->Quit();
           },
           &loop,

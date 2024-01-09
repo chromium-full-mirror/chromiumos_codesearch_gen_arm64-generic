@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -13,7 +13,9 @@
 #include "extensions/common/features/feature_provider.h"
 #include "extensions/common/features/manifest_feature.h"
 #include "extensions/common/features/permission_feature.h"
+#include "extensions/common/mojom/context_type.mojom.h"
 #include "extensions/common/mojom/feature_session_type.mojom.h"
+#include "printing/buildflags/buildflags.h"
 
 namespace extensions {
 
@@ -478,6 +480,15 @@ void AddCorePermissionFeatures(FeatureProvider* provider) {
     provider->AddFeature("networkingPrivate", feature);
   }
   {
+    PermissionFeature* feature = new PermissionFeature();
+    feature->set_name("odfsConfigPrivate");
+    feature->set_allowlist({"1B1388598AC9A5608F43DE38316D6FB5FAD3574A"});
+    feature->set_channel(version_info::Channel::DEV);
+    feature->set_extension_types({Manifest::TYPE_EXTENSION});
+    feature->set_platforms({Feature::CHROMEOS_PLATFORM,Feature::LACROS_PLATFORM});
+    provider->AddFeature("odfsConfigPrivate", feature);
+  }
+  {
     std::vector<Feature*> features;
     {
       PermissionFeature* feature = new PermissionFeature();
@@ -779,7 +790,7 @@ void AddCorePermissionFeatures(FeatureProvider* provider) {
   {
     PermissionFeature* feature = new PermissionFeature();
     feature->set_name("userScripts");
-    feature->set_channel(version_info::Channel::UNKNOWN);
+    feature->set_channel(version_info::Channel::STABLE);
     feature->set_extension_types({Manifest::TYPE_EXTENSION});
     feature->set_feature_flag("ApiUserScripts");
     feature->set_min_manifest_version(3);

@@ -17,7 +17,7 @@ namespace media::mojom::blink {
 class BLINK_PLATFORM_EXPORT AudioDecoderInterceptorForTesting : public AudioDecoder {
   virtual AudioDecoder* GetForwardingInterface() = 0;
   void Construct(::mojo::PendingAssociatedRemote<AudioDecoderClient> client, ::mojo::PendingRemote<::media::mojom::blink::MediaLog> media_log) override;
-  void Initialize(::media::mojom::blink::AudioDecoderConfigPtr config, const absl::optional<::base::UnguessableToken>& cdm_id, InitializeCallback callback) override;
+  void Initialize(::media::mojom::blink::AudioDecoderConfigPtr config, const std::optional<::base::UnguessableToken>& cdm_id, InitializeCallback callback) override;
   void SetDataSource(::mojo::ScopedDataPipeConsumerHandle receive_pipe) override;
   void Decode(::media::mojom::blink::DecoderBufferPtr buffer, DecodeCallback callback) override;
   void Reset(ResetCallback callback) override;
@@ -31,7 +31,7 @@ class BLINK_PLATFORM_EXPORT AudioDecoderAsyncWaiter {
 
   ~AudioDecoderAsyncWaiter();
   void Initialize(
-      ::media::mojom::blink::AudioDecoderConfigPtr config, const absl::optional<::base::UnguessableToken>& cdm_id, ::media::mojom::blink::DecoderStatusPtr* out_success, bool* out_needs_bitstream_conversion, ::media::mojom::blink::AudioDecoderType* out_decoder_type);
+      ::media::mojom::blink::AudioDecoderConfigPtr config, const std::optional<::base::UnguessableToken>& cdm_id, ::media::mojom::blink::DecoderStatusPtr* out_success, bool* out_needs_bitstream_conversion, ::media::mojom::blink::AudioDecoderType* out_decoder_type);
   
   void Decode(
       ::media::mojom::blink::DecoderBufferPtr buffer, ::media::mojom::blink::DecoderStatusPtr* out_status);

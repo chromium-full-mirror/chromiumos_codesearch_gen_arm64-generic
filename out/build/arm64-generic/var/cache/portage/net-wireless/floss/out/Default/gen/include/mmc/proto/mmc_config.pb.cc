@@ -4,244 +4,136 @@
 #include "mmc_config.pb.h"
 
 #include <algorithm>
-
-#include <google/protobuf/io/coded_stream.h>
-#include <google/protobuf/extension_set.h>
-#include <google/protobuf/wire_format_lite.h>
-#include <google/protobuf/descriptor.h>
-#include <google/protobuf/generated_message_reflection.h>
-#include <google/protobuf/reflection_ops.h>
-#include <google/protobuf/wire_format.h>
+#include "google/protobuf/io/coded_stream.h"
+#include "google/protobuf/extension_set.h"
+#include "google/protobuf/wire_format_lite.h"
+#include "google/protobuf/io/zero_copy_stream_impl_lite.h"
 // @@protoc_insertion_point(includes)
-#include <google/protobuf/port_def.inc>
 
+// Must be included last.
+#include "google/protobuf/port_def.inc"
 PROTOBUF_PRAGMA_INIT_SEG
-
 namespace _pb = ::PROTOBUF_NAMESPACE_ID;
-namespace _pbi = _pb::internal;
-
+namespace _pbi = ::PROTOBUF_NAMESPACE_ID::internal;
 namespace mmc {
+template <typename>
 PROTOBUF_CONSTEXPR Lc3Param::Lc3Param(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.dt_us_)*/0
-  , /*decltype(_impl_.sr_hz_)*/0
-  , /*decltype(_impl_.sr_pcm_hz_)*/0
-  , /*decltype(_impl_.fmt_)*/0
-  , /*decltype(_impl_.stride_)*/0
+    /*decltype(_impl_.dt_us_)*/ 0
+
+  , /*decltype(_impl_.sr_hz_)*/ 0
+
+  , /*decltype(_impl_.sr_pcm_hz_)*/ 0
+
+  , /*decltype(_impl_.fmt_)*/ 0
+
+  , /*decltype(_impl_.stride_)*/ 0
+
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct Lc3ParamDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR Lc3ParamDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR Lc3ParamDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~Lc3ParamDefaultTypeInternal() {}
   union {
     Lc3Param _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 Lc3ParamDefaultTypeInternal _Lc3Param_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 Lc3ParamDefaultTypeInternal _Lc3Param_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR SbcEncoderParam::SbcEncoderParam(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.num_of_subbands_)*/0
-  , /*decltype(_impl_.num_of_channels_)*/0
-  , /*decltype(_impl_.num_of_blocks_)*/0
-  , /*decltype(_impl_.bit_pool_)*/0
-  , /*decltype(_impl_.bit_rate_)*/0
-  , /*decltype(_impl_.sampling_freq_)*/0
-  , /*decltype(_impl_.channel_mode_)*/0
-  , /*decltype(_impl_.allocation_method_)*/0
-  , /*decltype(_impl_.format_)*/0
+    /*decltype(_impl_.num_of_subbands_)*/ 0
+
+  , /*decltype(_impl_.num_of_channels_)*/ 0
+
+  , /*decltype(_impl_.num_of_blocks_)*/ 0
+
+  , /*decltype(_impl_.bit_pool_)*/ 0
+
+  , /*decltype(_impl_.bit_rate_)*/ 0
+
+  , /*decltype(_impl_.sampling_freq_)*/ 0
+
+  , /*decltype(_impl_.channel_mode_)*/ 0
+
+  , /*decltype(_impl_.allocation_method_)*/ 0
+
+  , /*decltype(_impl_.format_)*/ 0
+
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct SbcEncoderParamDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR SbcEncoderParamDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR SbcEncoderParamDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~SbcEncoderParamDefaultTypeInternal() {}
   union {
     SbcEncoderParam _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SbcEncoderParamDefaultTypeInternal _SbcEncoderParam_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SbcEncoderParamDefaultTypeInternal _SbcEncoderParam_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR SbcDecoderParam::SbcDecoderParam(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.max_channels_)*/0
-  , /*decltype(_impl_.stride_)*/0
-  , /*decltype(_impl_.enhanced_)*/false
+    /*decltype(_impl_.max_channels_)*/ 0
+
+  , /*decltype(_impl_.stride_)*/ 0
+
+  , /*decltype(_impl_.enhanced_)*/ false
+
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct SbcDecoderParamDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR SbcDecoderParamDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR SbcDecoderParamDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~SbcDecoderParamDefaultTypeInternal() {}
   union {
     SbcDecoderParam _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SbcDecoderParamDefaultTypeInternal _SbcDecoderParam_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SbcDecoderParamDefaultTypeInternal _SbcDecoderParam_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR AacEncoderParam::AacEncoderParam(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.sample_rate_)*/0
-  , /*decltype(_impl_.channel_count_)*/0
-  , /*decltype(_impl_.bit_rate_)*/0
-  , /*decltype(_impl_.bit_depth_)*/0
-  , /*decltype(_impl_.effective_frame_size_)*/0
+    /*decltype(_impl_.sample_rate_)*/ 0
+
+  , /*decltype(_impl_.channel_count_)*/ 0
+
+  , /*decltype(_impl_.bit_rate_)*/ 0
+
+  , /*decltype(_impl_.bit_depth_)*/ 0
+
+  , /*decltype(_impl_.effective_frame_size_)*/ 0
+
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct AacEncoderParamDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR AacEncoderParamDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR AacEncoderParamDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~AacEncoderParamDefaultTypeInternal() {}
   union {
     AacEncoderParam _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AacEncoderParamDefaultTypeInternal _AacEncoderParam_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AacEncoderParamDefaultTypeInternal _AacEncoderParam_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR ConfigParam::ConfigParam(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.codec_param_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
   , /*decltype(_impl_._oneof_case_)*/{}} {}
 struct ConfigParamDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR ConfigParamDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR ConfigParamDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~ConfigParamDefaultTypeInternal() {}
   union {
     ConfigParam _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ConfigParamDefaultTypeInternal _ConfigParam_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ConfigParamDefaultTypeInternal _ConfigParam_default_instance_;
 }  // namespace mmc
-static ::_pb::Metadata file_level_metadata_mmc_5fconfig_2eproto[5];
-static const ::_pb::EnumDescriptor* file_level_enum_descriptors_mmc_5fconfig_2eproto[5];
-static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors_mmc_5fconfig_2eproto = nullptr;
-
-const uint32_t TableStruct_mmc_5fconfig_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::mmc::Lc3Param, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::mmc::Lc3Param, _impl_.dt_us_),
-  PROTOBUF_FIELD_OFFSET(::mmc::Lc3Param, _impl_.sr_hz_),
-  PROTOBUF_FIELD_OFFSET(::mmc::Lc3Param, _impl_.sr_pcm_hz_),
-  PROTOBUF_FIELD_OFFSET(::mmc::Lc3Param, _impl_.fmt_),
-  PROTOBUF_FIELD_OFFSET(::mmc::Lc3Param, _impl_.stride_),
-  ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::mmc::SbcEncoderParam, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::mmc::SbcEncoderParam, _impl_.num_of_subbands_),
-  PROTOBUF_FIELD_OFFSET(::mmc::SbcEncoderParam, _impl_.num_of_channels_),
-  PROTOBUF_FIELD_OFFSET(::mmc::SbcEncoderParam, _impl_.num_of_blocks_),
-  PROTOBUF_FIELD_OFFSET(::mmc::SbcEncoderParam, _impl_.bit_pool_),
-  PROTOBUF_FIELD_OFFSET(::mmc::SbcEncoderParam, _impl_.bit_rate_),
-  PROTOBUF_FIELD_OFFSET(::mmc::SbcEncoderParam, _impl_.sampling_freq_),
-  PROTOBUF_FIELD_OFFSET(::mmc::SbcEncoderParam, _impl_.channel_mode_),
-  PROTOBUF_FIELD_OFFSET(::mmc::SbcEncoderParam, _impl_.allocation_method_),
-  PROTOBUF_FIELD_OFFSET(::mmc::SbcEncoderParam, _impl_.format_),
-  ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::mmc::SbcDecoderParam, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::mmc::SbcDecoderParam, _impl_.max_channels_),
-  PROTOBUF_FIELD_OFFSET(::mmc::SbcDecoderParam, _impl_.stride_),
-  PROTOBUF_FIELD_OFFSET(::mmc::SbcDecoderParam, _impl_.enhanced_),
-  ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::mmc::AacEncoderParam, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::mmc::AacEncoderParam, _impl_.sample_rate_),
-  PROTOBUF_FIELD_OFFSET(::mmc::AacEncoderParam, _impl_.channel_count_),
-  PROTOBUF_FIELD_OFFSET(::mmc::AacEncoderParam, _impl_.bit_rate_),
-  PROTOBUF_FIELD_OFFSET(::mmc::AacEncoderParam, _impl_.bit_depth_),
-  PROTOBUF_FIELD_OFFSET(::mmc::AacEncoderParam, _impl_.effective_frame_size_),
-  ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::mmc::ConfigParam, _internal_metadata_),
-  ~0u,  // no _extensions_
-  PROTOBUF_FIELD_OFFSET(::mmc::ConfigParam, _impl_._oneof_case_[0]),
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  ::_pbi::kInvalidFieldOffsetTag,
-  ::_pbi::kInvalidFieldOffsetTag,
-  ::_pbi::kInvalidFieldOffsetTag,
-  ::_pbi::kInvalidFieldOffsetTag,
-  ::_pbi::kInvalidFieldOffsetTag,
-  PROTOBUF_FIELD_OFFSET(::mmc::ConfigParam, _impl_.codec_param_),
-};
-static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, -1, -1, sizeof(::mmc::Lc3Param)},
-  { 11, -1, -1, sizeof(::mmc::SbcEncoderParam)},
-  { 26, -1, -1, sizeof(::mmc::SbcDecoderParam)},
-  { 35, -1, -1, sizeof(::mmc::AacEncoderParam)},
-  { 46, -1, -1, sizeof(::mmc::ConfigParam)},
-};
-
-static const ::_pb::Message* const file_default_instances[] = {
-  &::mmc::_Lc3Param_default_instance_._instance,
-  &::mmc::_SbcEncoderParam_default_instance_._instance,
-  &::mmc::_SbcDecoderParam_default_instance_._instance,
-  &::mmc::_AacEncoderParam_default_instance_._instance,
-  &::mmc::_ConfigParam_default_instance_._instance,
-};
-
-const char descriptor_table_protodef_mmc_5fconfig_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\020mmc_config.proto\022\003mmc\"\244\001\n\010Lc3Param\022\r\n\005"
-  "dt_us\030\001 \001(\005\022\r\n\005sr_hz\030\002 \001(\005\022\021\n\tsr_pcm_hz\030"
-  "\003 \001(\005\022!\n\003fmt\030\004 \001(\0162\024.mmc.Lc3Param.PcmFmt"
-  "\022\016\n\006stride\030\005 \001(\005\"4\n\006PcmFmt\022\024\n\020kLc3PcmFor"
-  "matS16\020\000\022\024\n\020kLc3PcmFormatS24\020\001\"\353\004\n\017SbcEn"
-  "coderParam\022\027\n\017num_of_subbands\030\001 \001(\005\022\027\n\017n"
-  "um_of_channels\030\002 \001(\005\022\025\n\rnum_of_blocks\030\003 "
-  "\001(\005\022\020\n\010bit_pool\030\004 \001(\005\022\020\n\010bit_rate\030\005 \001(\005\022"
-  "8\n\rsampling_freq\030\006 \001(\0162!.mmc.SbcEncoderP"
-  "aram.SamplingFreq\0226\n\014channel_mode\030\007 \001(\0162"
-  " .mmc.SbcEncoderParam.ChannelMode\022@\n\021all"
-  "ocation_method\030\010 \001(\0162%.mmc.SbcEncoderPar"
-  "am.AllocationMethod\022+\n\006format\030\t \001(\0162\033.mm"
-  "c.SbcEncoderParam.Format\"R\n\014SamplingFreq"
-  "\022\017\n\013kSbcSf16000\020\000\022\017\n\013kSbcSf32000\020\001\022\017\n\013kS"
-  "bcSf44100\020\002\022\017\n\013kSbcSf48000\020\003\"N\n\013ChannelM"
-  "ode\022\014\n\010kSbcMono\020\000\022\014\n\010kSbcDual\020\001\022\016\n\nkSbcS"
-  "tereo\020\002\022\023\n\017kSbcJointStereo\020\003\"1\n\020Allocati"
-  "onMethod\022\020\n\014kSbcLoudNess\020\000\022\013\n\007kSbcSnr\020\001\""
-  "3\n\006Format\022\025\n\021kSbcFormatGeneral\020\000\022\022\n\016kSbc"
-  "FormatMsbc\020\001\"I\n\017SbcDecoderParam\022\024\n\014max_c"
-  "hannels\030\001 \001(\005\022\016\n\006stride\030\002 \001(\005\022\020\n\010enhance"
-  "d\030\003 \001(\010\"\200\001\n\017AacEncoderParam\022\023\n\013sample_ra"
-  "te\030\001 \001(\005\022\025\n\rchannel_count\030\002 \001(\005\022\020\n\010bit_r"
-  "ate\030\003 \001(\005\022\021\n\tbit_depth\030\004 \001(\005\022\034\n\024effectiv"
-  "e_frame_size\030\005 \001(\005\"\244\002\n\013ConfigParam\022.\n\025hf"
-  "p_lc3_encoder_param\030\001 \001(\0132\r.mmc.Lc3Param"
-  "H\000\022.\n\025hfp_lc3_decoder_param\030\002 \001(\0132\r.mmc."
-  "Lc3ParamH\000\0226\n\026hfp_msbc_encoder_param\030\003 \001"
-  "(\0132\024.mmc.SbcEncoderParamH\000\0226\n\026hfp_msbc_d"
-  "ecoder_param\030\004 \001(\0132\024.mmc.SbcDecoderParam"
-  "H\000\0226\n\026a2dp_aac_encoder_param\030\005 \001(\0132\024.mmc"
-  ".AacEncoderParamH\000B\r\n\013codec_paramB\002H\003b\006p"
-  "roto3"
-  ;
-static ::_pbi::once_flag descriptor_table_mmc_5fconfig_2eproto_once;
-const ::_pbi::DescriptorTable descriptor_table_mmc_5fconfig_2eproto = {
-    false, false, 1325, descriptor_table_protodef_mmc_5fconfig_2eproto,
-    "mmc_config.proto",
-    &descriptor_table_mmc_5fconfig_2eproto_once, nullptr, 0, 5,
-    schemas, file_default_instances, TableStruct_mmc_5fconfig_2eproto::offsets,
-    file_level_metadata_mmc_5fconfig_2eproto, file_level_enum_descriptors_mmc_5fconfig_2eproto,
-    file_level_service_descriptors_mmc_5fconfig_2eproto,
-};
-PROTOBUF_ATTRIBUTE_WEAK const ::_pbi::DescriptorTable* descriptor_table_mmc_5fconfig_2eproto_getter() {
-  return &descriptor_table_mmc_5fconfig_2eproto;
-}
-
-// Force running AddDescriptors() at dynamic initialization time.
-PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 static ::_pbi::AddDescriptorsRunner dynamic_init_dummy_mmc_5fconfig_2eproto(&descriptor_table_mmc_5fconfig_2eproto);
 namespace mmc {
-const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* Lc3Param_PcmFmt_descriptor() {
-  ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_mmc_5fconfig_2eproto);
-  return file_level_enum_descriptors_mmc_5fconfig_2eproto[0];
-}
 bool Lc3Param_PcmFmt_IsValid(int value) {
   switch (value) {
     case 0:
@@ -251,18 +143,59 @@ bool Lc3Param_PcmFmt_IsValid(int value) {
       return false;
   }
 }
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string>
+    Lc3Param_PcmFmt_strings[2] = {};
 
-#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+static const char Lc3Param_PcmFmt_names[] = {
+    "kLc3PcmFormatS16"
+    "kLc3PcmFormatS24"
+};
+
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry Lc3Param_PcmFmt_entries[] =
+    {
+        {{&Lc3Param_PcmFmt_names[0], 16}, 0},
+        {{&Lc3Param_PcmFmt_names[16], 16}, 1},
+};
+
+static const int Lc3Param_PcmFmt_entries_by_number[] = {
+    0,  // 0 -> kLc3PcmFormatS16
+    1,  // 1 -> kLc3PcmFormatS24
+};
+
+const std::string& Lc3Param_PcmFmt_Name(Lc3Param_PcmFmt value) {
+  static const bool kDummy =
+      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
+          Lc3Param_PcmFmt_entries, Lc3Param_PcmFmt_entries_by_number,
+          2, Lc3Param_PcmFmt_strings);
+  (void)kDummy;
+
+  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
+      Lc3Param_PcmFmt_entries, Lc3Param_PcmFmt_entries_by_number, 2,
+      value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString()
+                   : Lc3Param_PcmFmt_strings[idx].get();
+}
+
+bool Lc3Param_PcmFmt_Parse(absl::string_view name, Lc3Param_PcmFmt* value) {
+  int int_value;
+  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
+      Lc3Param_PcmFmt_entries, 2, name, &int_value);
+  if (success) {
+    *value = static_cast<Lc3Param_PcmFmt>(int_value);
+  }
+  return success;
+}
+#if (__cplusplus < 201703) && \
+  (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+
 constexpr Lc3Param_PcmFmt Lc3Param::kLc3PcmFormatS16;
 constexpr Lc3Param_PcmFmt Lc3Param::kLc3PcmFormatS24;
 constexpr Lc3Param_PcmFmt Lc3Param::PcmFmt_MIN;
 constexpr Lc3Param_PcmFmt Lc3Param::PcmFmt_MAX;
 constexpr int Lc3Param::PcmFmt_ARRAYSIZE;
-#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
-const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* SbcEncoderParam_SamplingFreq_descriptor() {
-  ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_mmc_5fconfig_2eproto);
-  return file_level_enum_descriptors_mmc_5fconfig_2eproto[1];
-}
+
+#endif  // (__cplusplus < 201703) &&
+        // (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 bool SbcEncoderParam_SamplingFreq_IsValid(int value) {
   switch (value) {
     case 0:
@@ -274,8 +207,57 @@ bool SbcEncoderParam_SamplingFreq_IsValid(int value) {
       return false;
   }
 }
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string>
+    SbcEncoderParam_SamplingFreq_strings[4] = {};
 
-#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+static const char SbcEncoderParam_SamplingFreq_names[] = {
+    "kSbcSf16000"
+    "kSbcSf32000"
+    "kSbcSf44100"
+    "kSbcSf48000"
+};
+
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry SbcEncoderParam_SamplingFreq_entries[] =
+    {
+        {{&SbcEncoderParam_SamplingFreq_names[0], 11}, 0},
+        {{&SbcEncoderParam_SamplingFreq_names[11], 11}, 1},
+        {{&SbcEncoderParam_SamplingFreq_names[22], 11}, 2},
+        {{&SbcEncoderParam_SamplingFreq_names[33], 11}, 3},
+};
+
+static const int SbcEncoderParam_SamplingFreq_entries_by_number[] = {
+    0,  // 0 -> kSbcSf16000
+    1,  // 1 -> kSbcSf32000
+    2,  // 2 -> kSbcSf44100
+    3,  // 3 -> kSbcSf48000
+};
+
+const std::string& SbcEncoderParam_SamplingFreq_Name(SbcEncoderParam_SamplingFreq value) {
+  static const bool kDummy =
+      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
+          SbcEncoderParam_SamplingFreq_entries, SbcEncoderParam_SamplingFreq_entries_by_number,
+          4, SbcEncoderParam_SamplingFreq_strings);
+  (void)kDummy;
+
+  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
+      SbcEncoderParam_SamplingFreq_entries, SbcEncoderParam_SamplingFreq_entries_by_number, 4,
+      value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString()
+                   : SbcEncoderParam_SamplingFreq_strings[idx].get();
+}
+
+bool SbcEncoderParam_SamplingFreq_Parse(absl::string_view name, SbcEncoderParam_SamplingFreq* value) {
+  int int_value;
+  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
+      SbcEncoderParam_SamplingFreq_entries, 4, name, &int_value);
+  if (success) {
+    *value = static_cast<SbcEncoderParam_SamplingFreq>(int_value);
+  }
+  return success;
+}
+#if (__cplusplus < 201703) && \
+  (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+
 constexpr SbcEncoderParam_SamplingFreq SbcEncoderParam::kSbcSf16000;
 constexpr SbcEncoderParam_SamplingFreq SbcEncoderParam::kSbcSf32000;
 constexpr SbcEncoderParam_SamplingFreq SbcEncoderParam::kSbcSf44100;
@@ -283,11 +265,9 @@ constexpr SbcEncoderParam_SamplingFreq SbcEncoderParam::kSbcSf48000;
 constexpr SbcEncoderParam_SamplingFreq SbcEncoderParam::SamplingFreq_MIN;
 constexpr SbcEncoderParam_SamplingFreq SbcEncoderParam::SamplingFreq_MAX;
 constexpr int SbcEncoderParam::SamplingFreq_ARRAYSIZE;
-#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
-const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* SbcEncoderParam_ChannelMode_descriptor() {
-  ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_mmc_5fconfig_2eproto);
-  return file_level_enum_descriptors_mmc_5fconfig_2eproto[2];
-}
+
+#endif  // (__cplusplus < 201703) &&
+        // (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 bool SbcEncoderParam_ChannelMode_IsValid(int value) {
   switch (value) {
     case 0:
@@ -299,8 +279,57 @@ bool SbcEncoderParam_ChannelMode_IsValid(int value) {
       return false;
   }
 }
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string>
+    SbcEncoderParam_ChannelMode_strings[4] = {};
 
-#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+static const char SbcEncoderParam_ChannelMode_names[] = {
+    "kSbcDual"
+    "kSbcJointStereo"
+    "kSbcMono"
+    "kSbcStereo"
+};
+
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry SbcEncoderParam_ChannelMode_entries[] =
+    {
+        {{&SbcEncoderParam_ChannelMode_names[0], 8}, 1},
+        {{&SbcEncoderParam_ChannelMode_names[8], 15}, 3},
+        {{&SbcEncoderParam_ChannelMode_names[23], 8}, 0},
+        {{&SbcEncoderParam_ChannelMode_names[31], 10}, 2},
+};
+
+static const int SbcEncoderParam_ChannelMode_entries_by_number[] = {
+    2,  // 0 -> kSbcMono
+    0,  // 1 -> kSbcDual
+    3,  // 2 -> kSbcStereo
+    1,  // 3 -> kSbcJointStereo
+};
+
+const std::string& SbcEncoderParam_ChannelMode_Name(SbcEncoderParam_ChannelMode value) {
+  static const bool kDummy =
+      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
+          SbcEncoderParam_ChannelMode_entries, SbcEncoderParam_ChannelMode_entries_by_number,
+          4, SbcEncoderParam_ChannelMode_strings);
+  (void)kDummy;
+
+  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
+      SbcEncoderParam_ChannelMode_entries, SbcEncoderParam_ChannelMode_entries_by_number, 4,
+      value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString()
+                   : SbcEncoderParam_ChannelMode_strings[idx].get();
+}
+
+bool SbcEncoderParam_ChannelMode_Parse(absl::string_view name, SbcEncoderParam_ChannelMode* value) {
+  int int_value;
+  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
+      SbcEncoderParam_ChannelMode_entries, 4, name, &int_value);
+  if (success) {
+    *value = static_cast<SbcEncoderParam_ChannelMode>(int_value);
+  }
+  return success;
+}
+#if (__cplusplus < 201703) && \
+  (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+
 constexpr SbcEncoderParam_ChannelMode SbcEncoderParam::kSbcMono;
 constexpr SbcEncoderParam_ChannelMode SbcEncoderParam::kSbcDual;
 constexpr SbcEncoderParam_ChannelMode SbcEncoderParam::kSbcStereo;
@@ -308,11 +337,9 @@ constexpr SbcEncoderParam_ChannelMode SbcEncoderParam::kSbcJointStereo;
 constexpr SbcEncoderParam_ChannelMode SbcEncoderParam::ChannelMode_MIN;
 constexpr SbcEncoderParam_ChannelMode SbcEncoderParam::ChannelMode_MAX;
 constexpr int SbcEncoderParam::ChannelMode_ARRAYSIZE;
-#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
-const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* SbcEncoderParam_AllocationMethod_descriptor() {
-  ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_mmc_5fconfig_2eproto);
-  return file_level_enum_descriptors_mmc_5fconfig_2eproto[3];
-}
+
+#endif  // (__cplusplus < 201703) &&
+        // (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 bool SbcEncoderParam_AllocationMethod_IsValid(int value) {
   switch (value) {
     case 0:
@@ -322,18 +349,59 @@ bool SbcEncoderParam_AllocationMethod_IsValid(int value) {
       return false;
   }
 }
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string>
+    SbcEncoderParam_AllocationMethod_strings[2] = {};
 
-#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+static const char SbcEncoderParam_AllocationMethod_names[] = {
+    "kSbcLoudNess"
+    "kSbcSnr"
+};
+
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry SbcEncoderParam_AllocationMethod_entries[] =
+    {
+        {{&SbcEncoderParam_AllocationMethod_names[0], 12}, 0},
+        {{&SbcEncoderParam_AllocationMethod_names[12], 7}, 1},
+};
+
+static const int SbcEncoderParam_AllocationMethod_entries_by_number[] = {
+    0,  // 0 -> kSbcLoudNess
+    1,  // 1 -> kSbcSnr
+};
+
+const std::string& SbcEncoderParam_AllocationMethod_Name(SbcEncoderParam_AllocationMethod value) {
+  static const bool kDummy =
+      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
+          SbcEncoderParam_AllocationMethod_entries, SbcEncoderParam_AllocationMethod_entries_by_number,
+          2, SbcEncoderParam_AllocationMethod_strings);
+  (void)kDummy;
+
+  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
+      SbcEncoderParam_AllocationMethod_entries, SbcEncoderParam_AllocationMethod_entries_by_number, 2,
+      value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString()
+                   : SbcEncoderParam_AllocationMethod_strings[idx].get();
+}
+
+bool SbcEncoderParam_AllocationMethod_Parse(absl::string_view name, SbcEncoderParam_AllocationMethod* value) {
+  int int_value;
+  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
+      SbcEncoderParam_AllocationMethod_entries, 2, name, &int_value);
+  if (success) {
+    *value = static_cast<SbcEncoderParam_AllocationMethod>(int_value);
+  }
+  return success;
+}
+#if (__cplusplus < 201703) && \
+  (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+
 constexpr SbcEncoderParam_AllocationMethod SbcEncoderParam::kSbcLoudNess;
 constexpr SbcEncoderParam_AllocationMethod SbcEncoderParam::kSbcSnr;
 constexpr SbcEncoderParam_AllocationMethod SbcEncoderParam::AllocationMethod_MIN;
 constexpr SbcEncoderParam_AllocationMethod SbcEncoderParam::AllocationMethod_MAX;
 constexpr int SbcEncoderParam::AllocationMethod_ARRAYSIZE;
-#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
-const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* SbcEncoderParam_Format_descriptor() {
-  ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_mmc_5fconfig_2eproto);
-  return file_level_enum_descriptors_mmc_5fconfig_2eproto[4];
-}
+
+#endif  // (__cplusplus < 201703) &&
+        // (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 bool SbcEncoderParam_Format_IsValid(int value) {
   switch (value) {
     case 0:
@@ -343,62 +411,97 @@ bool SbcEncoderParam_Format_IsValid(int value) {
       return false;
   }
 }
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string>
+    SbcEncoderParam_Format_strings[2] = {};
 
-#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+static const char SbcEncoderParam_Format_names[] = {
+    "kSbcFormatGeneral"
+    "kSbcFormatMsbc"
+};
+
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry SbcEncoderParam_Format_entries[] =
+    {
+        {{&SbcEncoderParam_Format_names[0], 17}, 0},
+        {{&SbcEncoderParam_Format_names[17], 14}, 1},
+};
+
+static const int SbcEncoderParam_Format_entries_by_number[] = {
+    0,  // 0 -> kSbcFormatGeneral
+    1,  // 1 -> kSbcFormatMsbc
+};
+
+const std::string& SbcEncoderParam_Format_Name(SbcEncoderParam_Format value) {
+  static const bool kDummy =
+      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
+          SbcEncoderParam_Format_entries, SbcEncoderParam_Format_entries_by_number,
+          2, SbcEncoderParam_Format_strings);
+  (void)kDummy;
+
+  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
+      SbcEncoderParam_Format_entries, SbcEncoderParam_Format_entries_by_number, 2,
+      value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString()
+                   : SbcEncoderParam_Format_strings[idx].get();
+}
+
+bool SbcEncoderParam_Format_Parse(absl::string_view name, SbcEncoderParam_Format* value) {
+  int int_value;
+  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
+      SbcEncoderParam_Format_entries, 2, name, &int_value);
+  if (success) {
+    *value = static_cast<SbcEncoderParam_Format>(int_value);
+  }
+  return success;
+}
+#if (__cplusplus < 201703) && \
+  (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+
 constexpr SbcEncoderParam_Format SbcEncoderParam::kSbcFormatGeneral;
 constexpr SbcEncoderParam_Format SbcEncoderParam::kSbcFormatMsbc;
 constexpr SbcEncoderParam_Format SbcEncoderParam::Format_MIN;
 constexpr SbcEncoderParam_Format SbcEncoderParam::Format_MAX;
 constexpr int SbcEncoderParam::Format_ARRAYSIZE;
-#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 
+#endif  // (__cplusplus < 201703) &&
+        // (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 // ===================================================================
 
 class Lc3Param::_Internal {
  public:
 };
 
-Lc3Param::Lc3Param(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+Lc3Param::Lc3Param(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:mmc.Lc3Param)
 }
 Lc3Param::Lc3Param(const Lc3Param& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message() {
-  Lc3Param* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_.dt_us_){}
-    , decltype(_impl_.sr_hz_){}
-    , decltype(_impl_.sr_pcm_hz_){}
-    , decltype(_impl_.fmt_){}
-    , decltype(_impl_.stride_){}
-    , /*decltype(_impl_._cached_size_)*/{}};
-
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::memcpy(&_impl_.dt_us_, &from._impl_.dt_us_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.stride_) -
-    reinterpret_cast<char*>(&_impl_.dt_us_)) + sizeof(_impl_.stride_));
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(), _impl_(from._impl_) {
+  _internal_metadata_.MergeFrom<std::string>(
+      from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:mmc.Lc3Param)
 }
 
-inline void Lc3Param::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void Lc3Param::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.dt_us_){0}
-    , decltype(_impl_.sr_hz_){0}
-    , decltype(_impl_.sr_pcm_hz_){0}
-    , decltype(_impl_.fmt_){0}
-    , decltype(_impl_.stride_){0}
+      decltype(_impl_.dt_us_) { 0 }
+
+    , decltype(_impl_.sr_hz_) { 0 }
+
+    , decltype(_impl_.sr_pcm_hz_) { 0 }
+
+    , decltype(_impl_.fmt_) { 0 }
+
+    , decltype(_impl_.stride_) { 0 }
+
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
 
 Lc3Param::~Lc3Param() {
   // @@protoc_insertion_point(destructor:mmc.Lc3Param)
-  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
   (void)arena;
     return;
   }
@@ -406,7 +509,7 @@ Lc3Param::~Lc3Param() {
 }
 
 inline void Lc3Param::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void Lc3Param::SetCachedSize(int size) const {
@@ -415,62 +518,67 @@ void Lc3Param::SetCachedSize(int size) const {
 
 void Lc3Param::Clear() {
 // @@protoc_insertion_point(message_clear_start:mmc.Lc3Param)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ::memset(&_impl_.dt_us_, 0, static_cast<size_t>(
+  ::memset(&_impl_.dt_us_, 0, static_cast<::size_t>(
       reinterpret_cast<char*>(&_impl_.stride_) -
       reinterpret_cast<char*>(&_impl_.dt_us_)) + sizeof(_impl_.stride_));
-  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  _internal_metadata_.Clear<std::string>();
 }
 
 const char* Lc3Param::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // int32 dt_us = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _impl_.dt_us_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // int32 sr_hz = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _impl_.sr_hz_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // int32 sr_pcm_hz = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 24)) {
           _impl_.sr_pcm_hz_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .mmc.Lc3Param.PcmFmt fmt = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 32)) {
+          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
           _internal_set_fmt(static_cast<::mmc::Lc3Param_PcmFmt>(val));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // int32 stride = 5;
       case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 40)) {
           _impl_.stride_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -483,7 +591,7 @@ const char* Lc3Param::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx)
     }
     ptr = UnknownFieldParse(
         tag,
-        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
         ptr, ctx);
     CHK_(ptr != nullptr);
   }  // while
@@ -495,101 +603,112 @@ failure:
 #undef CHK_
 }
 
-uint8_t* Lc3Param::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* Lc3Param::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:mmc.Lc3Param)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // int32 dt_us = 1;
   if (this->_internal_dt_us() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_dt_us(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        1, this->_internal_dt_us(), target);
   }
 
   // int32 sr_hz = 2;
   if (this->_internal_sr_hz() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_sr_hz(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        2, this->_internal_sr_hz(), target);
   }
 
   // int32 sr_pcm_hz = 3;
   if (this->_internal_sr_pcm_hz() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(3, this->_internal_sr_pcm_hz(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        3, this->_internal_sr_pcm_hz(), target);
   }
 
   // .mmc.Lc3Param.PcmFmt fmt = 4;
   if (this->_internal_fmt() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      4, this->_internal_fmt(), target);
+        4, this->_internal_fmt(), target);
   }
 
   // int32 stride = 5;
   if (this->_internal_stride() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(5, this->_internal_stride(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        5, this->_internal_stride(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
   }
   // @@protoc_insertion_point(serialize_to_array_end:mmc.Lc3Param)
   return target;
 }
 
-size_t Lc3Param::ByteSizeLong() const {
+::size_t Lc3Param::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:mmc.Lc3Param)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // int32 dt_us = 1;
   if (this->_internal_dt_us() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_dt_us());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+        this->_internal_dt_us());
   }
 
   // int32 sr_hz = 2;
   if (this->_internal_sr_hz() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_sr_hz());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+        this->_internal_sr_hz());
   }
 
   // int32 sr_pcm_hz = 3;
   if (this->_internal_sr_pcm_hz() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_sr_pcm_hz());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+        this->_internal_sr_pcm_hz());
   }
 
   // .mmc.Lc3Param.PcmFmt fmt = 4;
   if (this->_internal_fmt() != 0) {
     total_size += 1 +
-      ::_pbi::WireFormatLite::EnumSize(this->_internal_fmt());
+                  ::_pbi::WireFormatLite::EnumSize(this->_internal_fmt());
   }
 
   // int32 stride = 5;
   if (this->_internal_stride() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_stride());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+        this->_internal_stride());
   }
 
-  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData Lc3Param::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
-    Lc3Param::MergeImpl
-};
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*Lc3Param::GetClassData() const { return &_class_data_; }
+void Lc3Param::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const Lc3Param*>(
+      &from));
+}
 
-
-void Lc3Param::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
-  auto* const _this = static_cast<Lc3Param*>(&to_msg);
-  auto& from = static_cast<const Lc3Param&>(from_msg);
+void Lc3Param::MergeFrom(const Lc3Param& from) {
+  Lc3Param* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:mmc.Lc3Param)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_dt_us() != 0) {
@@ -607,7 +726,7 @@ void Lc3Param::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTO
   if (from._internal_stride() != 0) {
     _this->_internal_set_stride(from._internal_stride());
   }
-  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void Lc3Param::CopyFrom(const Lc3Param& from) {
@@ -632,10 +751,8 @@ void Lc3Param::InternalSwap(Lc3Param* other) {
           reinterpret_cast<char*>(&other->_impl_.dt_us_));
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata Lc3Param::GetMetadata() const {
-  return ::_pbi::AssignDescriptors(
-      &descriptor_table_mmc_5fconfig_2eproto_getter, &descriptor_table_mmc_5fconfig_2eproto_once,
-      file_level_metadata_mmc_5fconfig_2eproto[0]);
+std::string Lc3Param::GetTypeName() const {
+  return "mmc.Lc3Param";
 }
 
 // ===================================================================
@@ -644,55 +761,46 @@ class SbcEncoderParam::_Internal {
  public:
 };
 
-SbcEncoderParam::SbcEncoderParam(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+SbcEncoderParam::SbcEncoderParam(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:mmc.SbcEncoderParam)
 }
 SbcEncoderParam::SbcEncoderParam(const SbcEncoderParam& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message() {
-  SbcEncoderParam* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_.num_of_subbands_){}
-    , decltype(_impl_.num_of_channels_){}
-    , decltype(_impl_.num_of_blocks_){}
-    , decltype(_impl_.bit_pool_){}
-    , decltype(_impl_.bit_rate_){}
-    , decltype(_impl_.sampling_freq_){}
-    , decltype(_impl_.channel_mode_){}
-    , decltype(_impl_.allocation_method_){}
-    , decltype(_impl_.format_){}
-    , /*decltype(_impl_._cached_size_)*/{}};
-
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::memcpy(&_impl_.num_of_subbands_, &from._impl_.num_of_subbands_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.format_) -
-    reinterpret_cast<char*>(&_impl_.num_of_subbands_)) + sizeof(_impl_.format_));
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(), _impl_(from._impl_) {
+  _internal_metadata_.MergeFrom<std::string>(
+      from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:mmc.SbcEncoderParam)
 }
 
-inline void SbcEncoderParam::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void SbcEncoderParam::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.num_of_subbands_){0}
-    , decltype(_impl_.num_of_channels_){0}
-    , decltype(_impl_.num_of_blocks_){0}
-    , decltype(_impl_.bit_pool_){0}
-    , decltype(_impl_.bit_rate_){0}
-    , decltype(_impl_.sampling_freq_){0}
-    , decltype(_impl_.channel_mode_){0}
-    , decltype(_impl_.allocation_method_){0}
-    , decltype(_impl_.format_){0}
+      decltype(_impl_.num_of_subbands_) { 0 }
+
+    , decltype(_impl_.num_of_channels_) { 0 }
+
+    , decltype(_impl_.num_of_blocks_) { 0 }
+
+    , decltype(_impl_.bit_pool_) { 0 }
+
+    , decltype(_impl_.bit_rate_) { 0 }
+
+    , decltype(_impl_.sampling_freq_) { 0 }
+
+    , decltype(_impl_.channel_mode_) { 0 }
+
+    , decltype(_impl_.allocation_method_) { 0 }
+
+    , decltype(_impl_.format_) { 0 }
+
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
 
 SbcEncoderParam::~SbcEncoderParam() {
   // @@protoc_insertion_point(destructor:mmc.SbcEncoderParam)
-  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
   (void)arena;
     return;
   }
@@ -700,7 +808,7 @@ SbcEncoderParam::~SbcEncoderParam() {
 }
 
 inline void SbcEncoderParam::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void SbcEncoderParam::SetCachedSize(int size) const {
@@ -709,97 +817,106 @@ void SbcEncoderParam::SetCachedSize(int size) const {
 
 void SbcEncoderParam::Clear() {
 // @@protoc_insertion_point(message_clear_start:mmc.SbcEncoderParam)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ::memset(&_impl_.num_of_subbands_, 0, static_cast<size_t>(
+  ::memset(&_impl_.num_of_subbands_, 0, static_cast<::size_t>(
       reinterpret_cast<char*>(&_impl_.format_) -
       reinterpret_cast<char*>(&_impl_.num_of_subbands_)) + sizeof(_impl_.format_));
-  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  _internal_metadata_.Clear<std::string>();
 }
 
 const char* SbcEncoderParam::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // int32 num_of_subbands = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _impl_.num_of_subbands_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // int32 num_of_channels = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _impl_.num_of_channels_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // int32 num_of_blocks = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 24)) {
           _impl_.num_of_blocks_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // int32 bit_pool = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 32)) {
           _impl_.bit_pool_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // int32 bit_rate = 5;
       case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 40)) {
           _impl_.bit_rate_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .mmc.SbcEncoderParam.SamplingFreq sampling_freq = 6;
       case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 48)) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 48)) {
+          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
           _internal_set_sampling_freq(static_cast<::mmc::SbcEncoderParam_SamplingFreq>(val));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .mmc.SbcEncoderParam.ChannelMode channel_mode = 7;
       case 7:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 56)) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 56)) {
+          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
           _internal_set_channel_mode(static_cast<::mmc::SbcEncoderParam_ChannelMode>(val));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .mmc.SbcEncoderParam.AllocationMethod allocation_method = 8;
       case 8:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 64)) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 64)) {
+          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
           _internal_set_allocation_method(static_cast<::mmc::SbcEncoderParam_AllocationMethod>(val));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .mmc.SbcEncoderParam.Format format = 9;
       case 9:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 72)) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 72)) {
+          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
           _internal_set_format(static_cast<::mmc::SbcEncoderParam_Format>(val));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -812,7 +929,7 @@ const char* SbcEncoderParam::_InternalParse(const char* ptr, ::_pbi::ParseContex
     }
     ptr = UnknownFieldParse(
         tag,
-        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
         ptr, ctx);
     CHK_(ptr != nullptr);
   }  // while
@@ -824,151 +941,164 @@ failure:
 #undef CHK_
 }
 
-uint8_t* SbcEncoderParam::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* SbcEncoderParam::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:mmc.SbcEncoderParam)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // int32 num_of_subbands = 1;
   if (this->_internal_num_of_subbands() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_num_of_subbands(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        1, this->_internal_num_of_subbands(), target);
   }
 
   // int32 num_of_channels = 2;
   if (this->_internal_num_of_channels() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_num_of_channels(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        2, this->_internal_num_of_channels(), target);
   }
 
   // int32 num_of_blocks = 3;
   if (this->_internal_num_of_blocks() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(3, this->_internal_num_of_blocks(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        3, this->_internal_num_of_blocks(), target);
   }
 
   // int32 bit_pool = 4;
   if (this->_internal_bit_pool() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(4, this->_internal_bit_pool(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        4, this->_internal_bit_pool(), target);
   }
 
   // int32 bit_rate = 5;
   if (this->_internal_bit_rate() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(5, this->_internal_bit_rate(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        5, this->_internal_bit_rate(), target);
   }
 
   // .mmc.SbcEncoderParam.SamplingFreq sampling_freq = 6;
   if (this->_internal_sampling_freq() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      6, this->_internal_sampling_freq(), target);
+        6, this->_internal_sampling_freq(), target);
   }
 
   // .mmc.SbcEncoderParam.ChannelMode channel_mode = 7;
   if (this->_internal_channel_mode() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      7, this->_internal_channel_mode(), target);
+        7, this->_internal_channel_mode(), target);
   }
 
   // .mmc.SbcEncoderParam.AllocationMethod allocation_method = 8;
   if (this->_internal_allocation_method() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      8, this->_internal_allocation_method(), target);
+        8, this->_internal_allocation_method(), target);
   }
 
   // .mmc.SbcEncoderParam.Format format = 9;
   if (this->_internal_format() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      9, this->_internal_format(), target);
+        9, this->_internal_format(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
   }
   // @@protoc_insertion_point(serialize_to_array_end:mmc.SbcEncoderParam)
   return target;
 }
 
-size_t SbcEncoderParam::ByteSizeLong() const {
+::size_t SbcEncoderParam::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:mmc.SbcEncoderParam)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // int32 num_of_subbands = 1;
   if (this->_internal_num_of_subbands() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_num_of_subbands());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+        this->_internal_num_of_subbands());
   }
 
   // int32 num_of_channels = 2;
   if (this->_internal_num_of_channels() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_num_of_channels());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+        this->_internal_num_of_channels());
   }
 
   // int32 num_of_blocks = 3;
   if (this->_internal_num_of_blocks() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_num_of_blocks());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+        this->_internal_num_of_blocks());
   }
 
   // int32 bit_pool = 4;
   if (this->_internal_bit_pool() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_bit_pool());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+        this->_internal_bit_pool());
   }
 
   // int32 bit_rate = 5;
   if (this->_internal_bit_rate() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_bit_rate());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+        this->_internal_bit_rate());
   }
 
   // .mmc.SbcEncoderParam.SamplingFreq sampling_freq = 6;
   if (this->_internal_sampling_freq() != 0) {
     total_size += 1 +
-      ::_pbi::WireFormatLite::EnumSize(this->_internal_sampling_freq());
+                  ::_pbi::WireFormatLite::EnumSize(this->_internal_sampling_freq());
   }
 
   // .mmc.SbcEncoderParam.ChannelMode channel_mode = 7;
   if (this->_internal_channel_mode() != 0) {
     total_size += 1 +
-      ::_pbi::WireFormatLite::EnumSize(this->_internal_channel_mode());
+                  ::_pbi::WireFormatLite::EnumSize(this->_internal_channel_mode());
   }
 
   // .mmc.SbcEncoderParam.AllocationMethod allocation_method = 8;
   if (this->_internal_allocation_method() != 0) {
     total_size += 1 +
-      ::_pbi::WireFormatLite::EnumSize(this->_internal_allocation_method());
+                  ::_pbi::WireFormatLite::EnumSize(this->_internal_allocation_method());
   }
 
   // .mmc.SbcEncoderParam.Format format = 9;
   if (this->_internal_format() != 0) {
     total_size += 1 +
-      ::_pbi::WireFormatLite::EnumSize(this->_internal_format());
+                  ::_pbi::WireFormatLite::EnumSize(this->_internal_format());
   }
 
-  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData SbcEncoderParam::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
-    SbcEncoderParam::MergeImpl
-};
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*SbcEncoderParam::GetClassData() const { return &_class_data_; }
+void SbcEncoderParam::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const SbcEncoderParam*>(
+      &from));
+}
 
-
-void SbcEncoderParam::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
-  auto* const _this = static_cast<SbcEncoderParam*>(&to_msg);
-  auto& from = static_cast<const SbcEncoderParam&>(from_msg);
+void SbcEncoderParam::MergeFrom(const SbcEncoderParam& from) {
+  SbcEncoderParam* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:mmc.SbcEncoderParam)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_num_of_subbands() != 0) {
@@ -998,7 +1128,7 @@ void SbcEncoderParam::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const 
   if (from._internal_format() != 0) {
     _this->_internal_set_format(from._internal_format());
   }
-  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void SbcEncoderParam::CopyFrom(const SbcEncoderParam& from) {
@@ -1023,10 +1153,8 @@ void SbcEncoderParam::InternalSwap(SbcEncoderParam* other) {
           reinterpret_cast<char*>(&other->_impl_.num_of_subbands_));
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata SbcEncoderParam::GetMetadata() const {
-  return ::_pbi::AssignDescriptors(
-      &descriptor_table_mmc_5fconfig_2eproto_getter, &descriptor_table_mmc_5fconfig_2eproto_once,
-      file_level_metadata_mmc_5fconfig_2eproto[1]);
+std::string SbcEncoderParam::GetTypeName() const {
+  return "mmc.SbcEncoderParam";
 }
 
 // ===================================================================
@@ -1035,43 +1163,34 @@ class SbcDecoderParam::_Internal {
  public:
 };
 
-SbcDecoderParam::SbcDecoderParam(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+SbcDecoderParam::SbcDecoderParam(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:mmc.SbcDecoderParam)
 }
 SbcDecoderParam::SbcDecoderParam(const SbcDecoderParam& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message() {
-  SbcDecoderParam* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_.max_channels_){}
-    , decltype(_impl_.stride_){}
-    , decltype(_impl_.enhanced_){}
-    , /*decltype(_impl_._cached_size_)*/{}};
-
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::memcpy(&_impl_.max_channels_, &from._impl_.max_channels_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.enhanced_) -
-    reinterpret_cast<char*>(&_impl_.max_channels_)) + sizeof(_impl_.enhanced_));
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(), _impl_(from._impl_) {
+  _internal_metadata_.MergeFrom<std::string>(
+      from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:mmc.SbcDecoderParam)
 }
 
-inline void SbcDecoderParam::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void SbcDecoderParam::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.max_channels_){0}
-    , decltype(_impl_.stride_){0}
-    , decltype(_impl_.enhanced_){false}
+      decltype(_impl_.max_channels_) { 0 }
+
+    , decltype(_impl_.stride_) { 0 }
+
+    , decltype(_impl_.enhanced_) { false }
+
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
 
 SbcDecoderParam::~SbcDecoderParam() {
   // @@protoc_insertion_point(destructor:mmc.SbcDecoderParam)
-  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
   (void)arena;
     return;
   }
@@ -1079,7 +1198,7 @@ SbcDecoderParam::~SbcDecoderParam() {
 }
 
 inline void SbcDecoderParam::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void SbcDecoderParam::SetCachedSize(int size) const {
@@ -1088,45 +1207,48 @@ void SbcDecoderParam::SetCachedSize(int size) const {
 
 void SbcDecoderParam::Clear() {
 // @@protoc_insertion_point(message_clear_start:mmc.SbcDecoderParam)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ::memset(&_impl_.max_channels_, 0, static_cast<size_t>(
+  ::memset(&_impl_.max_channels_, 0, static_cast<::size_t>(
       reinterpret_cast<char*>(&_impl_.enhanced_) -
       reinterpret_cast<char*>(&_impl_.max_channels_)) + sizeof(_impl_.enhanced_));
-  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  _internal_metadata_.Clear<std::string>();
 }
 
 const char* SbcDecoderParam::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // int32 max_channels = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _impl_.max_channels_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // int32 stride = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _impl_.stride_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // bool enhanced = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 24)) {
           _impl_.enhanced_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -1139,7 +1261,7 @@ const char* SbcDecoderParam::_InternalParse(const char* ptr, ::_pbi::ParseContex
     }
     ptr = UnknownFieldParse(
         tag,
-        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
         ptr, ctx);
     CHK_(ptr != nullptr);
   }  // while
@@ -1151,77 +1273,85 @@ failure:
 #undef CHK_
 }
 
-uint8_t* SbcDecoderParam::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* SbcDecoderParam::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:mmc.SbcDecoderParam)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // int32 max_channels = 1;
   if (this->_internal_max_channels() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_max_channels(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        1, this->_internal_max_channels(), target);
   }
 
   // int32 stride = 2;
   if (this->_internal_stride() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_stride(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        2, this->_internal_stride(), target);
   }
 
   // bool enhanced = 3;
   if (this->_internal_enhanced() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(3, this->_internal_enhanced(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        3, this->_internal_enhanced(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
   }
   // @@protoc_insertion_point(serialize_to_array_end:mmc.SbcDecoderParam)
   return target;
 }
 
-size_t SbcDecoderParam::ByteSizeLong() const {
+::size_t SbcDecoderParam::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:mmc.SbcDecoderParam)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // int32 max_channels = 1;
   if (this->_internal_max_channels() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_max_channels());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+        this->_internal_max_channels());
   }
 
   // int32 stride = 2;
   if (this->_internal_stride() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_stride());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+        this->_internal_stride());
   }
 
   // bool enhanced = 3;
   if (this->_internal_enhanced() != 0) {
-    total_size += 1 + 1;
+    total_size += 2;
   }
 
-  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData SbcDecoderParam::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
-    SbcDecoderParam::MergeImpl
-};
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*SbcDecoderParam::GetClassData() const { return &_class_data_; }
+void SbcDecoderParam::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const SbcDecoderParam*>(
+      &from));
+}
 
-
-void SbcDecoderParam::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
-  auto* const _this = static_cast<SbcDecoderParam*>(&to_msg);
-  auto& from = static_cast<const SbcDecoderParam&>(from_msg);
+void SbcDecoderParam::MergeFrom(const SbcDecoderParam& from) {
+  SbcDecoderParam* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:mmc.SbcDecoderParam)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_max_channels() != 0) {
@@ -1233,7 +1363,7 @@ void SbcDecoderParam::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const 
   if (from._internal_enhanced() != 0) {
     _this->_internal_set_enhanced(from._internal_enhanced());
   }
-  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void SbcDecoderParam::CopyFrom(const SbcDecoderParam& from) {
@@ -1258,10 +1388,8 @@ void SbcDecoderParam::InternalSwap(SbcDecoderParam* other) {
           reinterpret_cast<char*>(&other->_impl_.max_channels_));
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata SbcDecoderParam::GetMetadata() const {
-  return ::_pbi::AssignDescriptors(
-      &descriptor_table_mmc_5fconfig_2eproto_getter, &descriptor_table_mmc_5fconfig_2eproto_once,
-      file_level_metadata_mmc_5fconfig_2eproto[2]);
+std::string SbcDecoderParam::GetTypeName() const {
+  return "mmc.SbcDecoderParam";
 }
 
 // ===================================================================
@@ -1270,47 +1398,38 @@ class AacEncoderParam::_Internal {
  public:
 };
 
-AacEncoderParam::AacEncoderParam(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+AacEncoderParam::AacEncoderParam(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:mmc.AacEncoderParam)
 }
 AacEncoderParam::AacEncoderParam(const AacEncoderParam& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message() {
-  AacEncoderParam* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_.sample_rate_){}
-    , decltype(_impl_.channel_count_){}
-    , decltype(_impl_.bit_rate_){}
-    , decltype(_impl_.bit_depth_){}
-    , decltype(_impl_.effective_frame_size_){}
-    , /*decltype(_impl_._cached_size_)*/{}};
-
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::memcpy(&_impl_.sample_rate_, &from._impl_.sample_rate_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.effective_frame_size_) -
-    reinterpret_cast<char*>(&_impl_.sample_rate_)) + sizeof(_impl_.effective_frame_size_));
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(), _impl_(from._impl_) {
+  _internal_metadata_.MergeFrom<std::string>(
+      from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:mmc.AacEncoderParam)
 }
 
-inline void AacEncoderParam::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void AacEncoderParam::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.sample_rate_){0}
-    , decltype(_impl_.channel_count_){0}
-    , decltype(_impl_.bit_rate_){0}
-    , decltype(_impl_.bit_depth_){0}
-    , decltype(_impl_.effective_frame_size_){0}
+      decltype(_impl_.sample_rate_) { 0 }
+
+    , decltype(_impl_.channel_count_) { 0 }
+
+    , decltype(_impl_.bit_rate_) { 0 }
+
+    , decltype(_impl_.bit_depth_) { 0 }
+
+    , decltype(_impl_.effective_frame_size_) { 0 }
+
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
 
 AacEncoderParam::~AacEncoderParam() {
   // @@protoc_insertion_point(destructor:mmc.AacEncoderParam)
-  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
   (void)arena;
     return;
   }
@@ -1318,7 +1437,7 @@ AacEncoderParam::~AacEncoderParam() {
 }
 
 inline void AacEncoderParam::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void AacEncoderParam::SetCachedSize(int size) const {
@@ -1327,61 +1446,66 @@ void AacEncoderParam::SetCachedSize(int size) const {
 
 void AacEncoderParam::Clear() {
 // @@protoc_insertion_point(message_clear_start:mmc.AacEncoderParam)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ::memset(&_impl_.sample_rate_, 0, static_cast<size_t>(
+  ::memset(&_impl_.sample_rate_, 0, static_cast<::size_t>(
       reinterpret_cast<char*>(&_impl_.effective_frame_size_) -
       reinterpret_cast<char*>(&_impl_.sample_rate_)) + sizeof(_impl_.effective_frame_size_));
-  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  _internal_metadata_.Clear<std::string>();
 }
 
 const char* AacEncoderParam::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // int32 sample_rate = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _impl_.sample_rate_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // int32 channel_count = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _impl_.channel_count_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // int32 bit_rate = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 24)) {
           _impl_.bit_rate_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // int32 bit_depth = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 32)) {
           _impl_.bit_depth_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // int32 effective_frame_size = 5;
       case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 40)) {
           _impl_.effective_frame_size_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -1394,7 +1518,7 @@ const char* AacEncoderParam::_InternalParse(const char* ptr, ::_pbi::ParseContex
     }
     ptr = UnknownFieldParse(
         tag,
-        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
         ptr, ctx);
     CHK_(ptr != nullptr);
   }  // while
@@ -1406,99 +1530,112 @@ failure:
 #undef CHK_
 }
 
-uint8_t* AacEncoderParam::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* AacEncoderParam::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:mmc.AacEncoderParam)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // int32 sample_rate = 1;
   if (this->_internal_sample_rate() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_sample_rate(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        1, this->_internal_sample_rate(), target);
   }
 
   // int32 channel_count = 2;
   if (this->_internal_channel_count() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_channel_count(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        2, this->_internal_channel_count(), target);
   }
 
   // int32 bit_rate = 3;
   if (this->_internal_bit_rate() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(3, this->_internal_bit_rate(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        3, this->_internal_bit_rate(), target);
   }
 
   // int32 bit_depth = 4;
   if (this->_internal_bit_depth() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(4, this->_internal_bit_depth(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        4, this->_internal_bit_depth(), target);
   }
 
   // int32 effective_frame_size = 5;
   if (this->_internal_effective_frame_size() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(5, this->_internal_effective_frame_size(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        5, this->_internal_effective_frame_size(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
   }
   // @@protoc_insertion_point(serialize_to_array_end:mmc.AacEncoderParam)
   return target;
 }
 
-size_t AacEncoderParam::ByteSizeLong() const {
+::size_t AacEncoderParam::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:mmc.AacEncoderParam)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // int32 sample_rate = 1;
   if (this->_internal_sample_rate() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_sample_rate());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+        this->_internal_sample_rate());
   }
 
   // int32 channel_count = 2;
   if (this->_internal_channel_count() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_channel_count());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+        this->_internal_channel_count());
   }
 
   // int32 bit_rate = 3;
   if (this->_internal_bit_rate() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_bit_rate());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+        this->_internal_bit_rate());
   }
 
   // int32 bit_depth = 4;
   if (this->_internal_bit_depth() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_bit_depth());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+        this->_internal_bit_depth());
   }
 
   // int32 effective_frame_size = 5;
   if (this->_internal_effective_frame_size() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_effective_frame_size());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+        this->_internal_effective_frame_size());
   }
 
-  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData AacEncoderParam::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
-    AacEncoderParam::MergeImpl
-};
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*AacEncoderParam::GetClassData() const { return &_class_data_; }
+void AacEncoderParam::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const AacEncoderParam*>(
+      &from));
+}
 
-
-void AacEncoderParam::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
-  auto* const _this = static_cast<AacEncoderParam*>(&to_msg);
-  auto& from = static_cast<const AacEncoderParam&>(from_msg);
+void AacEncoderParam::MergeFrom(const AacEncoderParam& from) {
+  AacEncoderParam* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:mmc.AacEncoderParam)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_sample_rate() != 0) {
@@ -1516,7 +1653,7 @@ void AacEncoderParam::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const 
   if (from._internal_effective_frame_size() != 0) {
     _this->_internal_set_effective_frame_size(from._internal_effective_frame_size());
   }
-  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void AacEncoderParam::CopyFrom(const AacEncoderParam& from) {
@@ -1541,16 +1678,16 @@ void AacEncoderParam::InternalSwap(AacEncoderParam* other) {
           reinterpret_cast<char*>(&other->_impl_.sample_rate_));
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata AacEncoderParam::GetMetadata() const {
-  return ::_pbi::AssignDescriptors(
-      &descriptor_table_mmc_5fconfig_2eproto_getter, &descriptor_table_mmc_5fconfig_2eproto_once,
-      file_level_metadata_mmc_5fconfig_2eproto[3]);
+std::string AacEncoderParam::GetTypeName() const {
+  return "mmc.AacEncoderParam";
 }
 
 // ===================================================================
 
 class ConfigParam::_Internal {
  public:
+  static constexpr ::int32_t kOneofCaseOffset =
+    PROTOBUF_FIELD_OFFSET(::mmc::ConfigParam, _impl_._oneof_case_);
   static const ::mmc::Lc3Param& hfp_lc3_encoder_param(const ConfigParam* msg);
   static const ::mmc::Lc3Param& hfp_lc3_decoder_param(const ConfigParam* msg);
   static const ::mmc::SbcEncoderParam& hfp_msbc_encoder_param(const ConfigParam* msg);
@@ -1653,21 +1790,20 @@ void ConfigParam::set_allocated_a2dp_aac_encoder_param(::mmc::AacEncoderParam* a
   }
   // @@protoc_insertion_point(field_set_allocated:mmc.ConfigParam.a2dp_aac_encoder_param)
 }
-ConfigParam::ConfigParam(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+ConfigParam::ConfigParam(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:mmc.ConfigParam)
 }
 ConfigParam::ConfigParam(const ConfigParam& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
   ConfigParam* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.codec_param_){}
     , /*decltype(_impl_._cached_size_)*/{}
     , /*decltype(_impl_._oneof_case_)*/{}};
 
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   clear_has_codec_param();
   switch (from.codec_param_case()) {
     case kHfpLc3EncoderParam: {
@@ -1702,10 +1838,8 @@ ConfigParam::ConfigParam(const ConfigParam& from)
   // @@protoc_insertion_point(copy_constructor:mmc.ConfigParam)
 }
 
-inline void ConfigParam::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void ConfigParam::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_.codec_param_){}
     , /*decltype(_impl_._cached_size_)*/{}
@@ -1716,7 +1850,7 @@ inline void ConfigParam::SharedCtor(
 
 ConfigParam::~ConfigParam() {
   // @@protoc_insertion_point(destructor:mmc.ConfigParam)
-  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
   (void)arena;
     return;
   }
@@ -1724,7 +1858,7 @@ ConfigParam::~ConfigParam() {
 }
 
 inline void ConfigParam::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   if (has_codec_param()) {
     clear_codec_param();
   }
@@ -1777,59 +1911,64 @@ void ConfigParam::clear_codec_param() {
 
 void ConfigParam::Clear() {
 // @@protoc_insertion_point(message_clear_start:mmc.ConfigParam)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   clear_codec_param();
-  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  _internal_metadata_.Clear<std::string>();
 }
 
 const char* ConfigParam::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .mmc.Lc3Param hfp_lc3_encoder_param = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_hfp_lc3_encoder_param(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .mmc.Lc3Param hfp_lc3_decoder_param = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_hfp_lc3_decoder_param(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .mmc.SbcEncoderParam hfp_msbc_encoder_param = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 26)) {
           ptr = ctx->ParseMessage(_internal_mutable_hfp_msbc_encoder_param(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .mmc.SbcDecoderParam hfp_msbc_decoder_param = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 34)) {
           ptr = ctx->ParseMessage(_internal_mutable_hfp_msbc_decoder_param(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // .mmc.AacEncoderParam a2dp_aac_encoder_param = 5;
       case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 42)) {
           ptr = ctx->ParseMessage(_internal_mutable_a2dp_aac_encoder_param(), ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -1842,7 +1981,7 @@ const char* ConfigParam::_InternalParse(const char* ptr, ::_pbi::ParseContext* c
     }
     ptr = UnknownFieldParse(
         tag,
-        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
         ptr, ctx);
     CHK_(ptr != nullptr);
   }  // while
@@ -1854,60 +1993,58 @@ failure:
 #undef CHK_
 }
 
-uint8_t* ConfigParam::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* ConfigParam::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:mmc.ConfigParam)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // .mmc.Lc3Param hfp_lc3_encoder_param = 1;
-  if (_internal_has_hfp_lc3_encoder_param()) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(1, _Internal::hfp_lc3_encoder_param(this),
-        _Internal::hfp_lc3_encoder_param(this).GetCachedSize(), target, stream);
+  switch (codec_param_case()) {
+    case kHfpLc3EncoderParam: {
+      target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(1, _Internal::hfp_lc3_encoder_param(this),
+          _Internal::hfp_lc3_encoder_param(this).GetCachedSize(), target, stream);
+      break;
+    }
+    case kHfpLc3DecoderParam: {
+      target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(2, _Internal::hfp_lc3_decoder_param(this),
+          _Internal::hfp_lc3_decoder_param(this).GetCachedSize(), target, stream);
+      break;
+    }
+    case kHfpMsbcEncoderParam: {
+      target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(3, _Internal::hfp_msbc_encoder_param(this),
+          _Internal::hfp_msbc_encoder_param(this).GetCachedSize(), target, stream);
+      break;
+    }
+    case kHfpMsbcDecoderParam: {
+      target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(4, _Internal::hfp_msbc_decoder_param(this),
+          _Internal::hfp_msbc_decoder_param(this).GetCachedSize(), target, stream);
+      break;
+    }
+    case kA2DpAacEncoderParam: {
+      target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(5, _Internal::a2dp_aac_encoder_param(this),
+          _Internal::a2dp_aac_encoder_param(this).GetCachedSize(), target, stream);
+      break;
+    }
+    default: ;
   }
-
-  // .mmc.Lc3Param hfp_lc3_decoder_param = 2;
-  if (_internal_has_hfp_lc3_decoder_param()) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(2, _Internal::hfp_lc3_decoder_param(this),
-        _Internal::hfp_lc3_decoder_param(this).GetCachedSize(), target, stream);
-  }
-
-  // .mmc.SbcEncoderParam hfp_msbc_encoder_param = 3;
-  if (_internal_has_hfp_msbc_encoder_param()) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(3, _Internal::hfp_msbc_encoder_param(this),
-        _Internal::hfp_msbc_encoder_param(this).GetCachedSize(), target, stream);
-  }
-
-  // .mmc.SbcDecoderParam hfp_msbc_decoder_param = 4;
-  if (_internal_has_hfp_msbc_decoder_param()) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(4, _Internal::hfp_msbc_decoder_param(this),
-        _Internal::hfp_msbc_decoder_param(this).GetCachedSize(), target, stream);
-  }
-
-  // .mmc.AacEncoderParam a2dp_aac_encoder_param = 5;
-  if (_internal_has_a2dp_aac_encoder_param()) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(5, _Internal::a2dp_aac_encoder_param(this),
-        _Internal::a2dp_aac_encoder_param(this).GetCachedSize(), target, stream);
-  }
-
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
   }
   // @@protoc_insertion_point(serialize_to_array_end:mmc.ConfigParam)
   return target;
 }
 
-size_t ConfigParam::ByteSizeLong() const {
+::size_t ConfigParam::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:mmc.ConfigParam)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -1951,22 +2088,25 @@ size_t ConfigParam::ByteSizeLong() const {
       break;
     }
   }
-  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData ConfigParam::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
-    ConfigParam::MergeImpl
-};
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*ConfigParam::GetClassData() const { return &_class_data_; }
+void ConfigParam::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const ConfigParam*>(
+      &from));
+}
 
-
-void ConfigParam::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
-  auto* const _this = static_cast<ConfigParam*>(&to_msg);
-  auto& from = static_cast<const ConfigParam&>(from_msg);
+void ConfigParam::MergeFrom(const ConfigParam& from) {
+  ConfigParam* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:mmc.ConfigParam)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   switch (from.codec_param_case()) {
@@ -1999,7 +2139,7 @@ void ConfigParam::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PR
       break;
     }
   }
-  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void ConfigParam::CopyFrom(const ConfigParam& from) {
@@ -2020,10 +2160,8 @@ void ConfigParam::InternalSwap(ConfigParam* other) {
   swap(_impl_._oneof_case_[0], other->_impl_._oneof_case_[0]);
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata ConfigParam::GetMetadata() const {
-  return ::_pbi::AssignDescriptors(
-      &descriptor_table_mmc_5fconfig_2eproto_getter, &descriptor_table_mmc_5fconfig_2eproto_once,
-      file_level_metadata_mmc_5fconfig_2eproto[4]);
+std::string ConfigParam::GetTypeName() const {
+  return "mmc.ConfigParam";
 }
 
 // @@protoc_insertion_point(namespace_scope)
@@ -2050,6 +2188,5 @@ Arena::CreateMaybeMessage< ::mmc::ConfigParam >(Arena* arena) {
   return Arena::CreateMessageInternal< ::mmc::ConfigParam >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
-
 // @@protoc_insertion_point(global_scope)
-#include <google/protobuf/port_undef.inc>
+#include "google/protobuf/port_undef.inc"

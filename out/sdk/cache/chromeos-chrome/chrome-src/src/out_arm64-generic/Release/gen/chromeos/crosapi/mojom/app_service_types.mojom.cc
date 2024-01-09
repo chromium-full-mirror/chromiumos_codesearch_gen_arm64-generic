@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -43,7 +44,6 @@
 
 
 namespace crosapi::mojom {
-constexpr uint64_t IconKey::kDoesNotChangeOverTime;
 App::App()
     : app_type(),
       app_id(),
@@ -74,21 +74,24 @@ App::App()
       handles_intents(),
       deprecated_shortcuts(),
       is_platform_app(),
-      policy_ids() {}
+      policy_ids(),
+      app_size_in_bytes(),
+      data_size_in_bytes(),
+      allow_close() {}
 
 App::App(
     ::apps::AppType app_type_in,
     const std::string& app_id_in,
     Readiness readiness_in,
-    const absl::optional<std::string>& name_in,
-    const absl::optional<std::string>& short_name_in,
-    const absl::optional<std::string>& publisher_id_in,
-    const absl::optional<std::string>& description_in,
-    const absl::optional<std::string>& version_in,
+    const std::optional<std::string>& name_in,
+    const std::optional<std::string>& short_name_in,
+    const std::optional<std::string>& publisher_id_in,
+    const std::optional<std::string>& description_in,
+    const std::optional<std::string>& version_in,
     std::vector<std::string> additional_search_terms_in,
-    absl::optional<::apps::IconKeyPtr> icon_key_in,
-    absl::optional<::base::Time> last_launch_time_in,
-    absl::optional<::base::Time> install_time_in,
+    std::optional<::apps::IconKeyPtr> icon_key_in,
+    std::optional<::base::Time> last_launch_time_in,
+    std::optional<::base::Time> install_time_in,
     InstallReason install_reason_in,
     OptionalBool recommendable_in,
     OptionalBool searchable_in,
@@ -128,21 +131,24 @@ App::App(
       handles_intents(),
       deprecated_shortcuts(),
       is_platform_app(),
-      policy_ids() {}
+      policy_ids(),
+      app_size_in_bytes(),
+      data_size_in_bytes(),
+      allow_close() {}
 
 App::App(
     ::apps::AppType app_type_in,
     const std::string& app_id_in,
     Readiness readiness_in,
-    const absl::optional<std::string>& name_in,
-    const absl::optional<std::string>& short_name_in,
-    const absl::optional<std::string>& publisher_id_in,
-    const absl::optional<std::string>& description_in,
-    const absl::optional<std::string>& version_in,
+    const std::optional<std::string>& name_in,
+    const std::optional<std::string>& short_name_in,
+    const std::optional<std::string>& publisher_id_in,
+    const std::optional<std::string>& description_in,
+    const std::optional<std::string>& version_in,
     std::vector<std::string> additional_search_terms_in,
-    absl::optional<::apps::IconKeyPtr> icon_key_in,
-    absl::optional<::base::Time> last_launch_time_in,
-    absl::optional<::base::Time> install_time_in,
+    std::optional<::apps::IconKeyPtr> icon_key_in,
+    std::optional<::base::Time> last_launch_time_in,
+    std::optional<::base::Time> install_time_in,
     InstallReason install_reason_in,
     OptionalBool recommendable_in,
     OptionalBool searchable_in,
@@ -183,21 +189,24 @@ App::App(
       handles_intents(),
       deprecated_shortcuts(),
       is_platform_app(),
-      policy_ids() {}
+      policy_ids(),
+      app_size_in_bytes(),
+      data_size_in_bytes(),
+      allow_close() {}
 
 App::App(
     ::apps::AppType app_type_in,
     const std::string& app_id_in,
     Readiness readiness_in,
-    const absl::optional<std::string>& name_in,
-    const absl::optional<std::string>& short_name_in,
-    const absl::optional<std::string>& publisher_id_in,
-    const absl::optional<std::string>& description_in,
-    const absl::optional<std::string>& version_in,
+    const std::optional<std::string>& name_in,
+    const std::optional<std::string>& short_name_in,
+    const std::optional<std::string>& publisher_id_in,
+    const std::optional<std::string>& description_in,
+    const std::optional<std::string>& version_in,
     std::vector<std::string> additional_search_terms_in,
-    absl::optional<::apps::IconKeyPtr> icon_key_in,
-    absl::optional<::base::Time> last_launch_time_in,
-    absl::optional<::base::Time> install_time_in,
+    std::optional<::apps::IconKeyPtr> icon_key_in,
+    std::optional<::base::Time> last_launch_time_in,
+    std::optional<::base::Time> install_time_in,
     InstallReason install_reason_in,
     OptionalBool recommendable_in,
     OptionalBool searchable_in,
@@ -209,7 +218,7 @@ App::App(
     OptionalBool paused_in,
     std::vector<IntentFilterPtr> intent_filters_in,
     ::apps::WindowMode window_mode_in,
-    const absl::optional<std::string>& deprecated_policy_id_in)
+    const std::optional<std::string>& deprecated_policy_id_in)
     : app_type(std::move(app_type_in)),
       app_id(std::move(app_id_in)),
       readiness(std::move(readiness_in)),
@@ -239,21 +248,24 @@ App::App(
       handles_intents(),
       deprecated_shortcuts(),
       is_platform_app(),
-      policy_ids() {}
+      policy_ids(),
+      app_size_in_bytes(),
+      data_size_in_bytes(),
+      allow_close() {}
 
 App::App(
     ::apps::AppType app_type_in,
     const std::string& app_id_in,
     Readiness readiness_in,
-    const absl::optional<std::string>& name_in,
-    const absl::optional<std::string>& short_name_in,
-    const absl::optional<std::string>& publisher_id_in,
-    const absl::optional<std::string>& description_in,
-    const absl::optional<std::string>& version_in,
+    const std::optional<std::string>& name_in,
+    const std::optional<std::string>& short_name_in,
+    const std::optional<std::string>& publisher_id_in,
+    const std::optional<std::string>& description_in,
+    const std::optional<std::string>& version_in,
     std::vector<std::string> additional_search_terms_in,
-    absl::optional<::apps::IconKeyPtr> icon_key_in,
-    absl::optional<::base::Time> last_launch_time_in,
-    absl::optional<::base::Time> install_time_in,
+    std::optional<::apps::IconKeyPtr> icon_key_in,
+    std::optional<::base::Time> last_launch_time_in,
+    std::optional<::base::Time> install_time_in,
     InstallReason install_reason_in,
     OptionalBool recommendable_in,
     OptionalBool searchable_in,
@@ -265,8 +277,8 @@ App::App(
     OptionalBool paused_in,
     std::vector<IntentFilterPtr> intent_filters_in,
     ::apps::WindowMode window_mode_in,
-    const absl::optional<std::string>& deprecated_policy_id_in,
-    absl::optional<std::vector<::apps::PermissionPtr>> permissions_in)
+    const std::optional<std::string>& deprecated_policy_id_in,
+    std::optional<std::vector<::apps::PermissionPtr>> permissions_in)
     : app_type(std::move(app_type_in)),
       app_id(std::move(app_id_in)),
       readiness(std::move(readiness_in)),
@@ -296,21 +308,24 @@ App::App(
       handles_intents(),
       deprecated_shortcuts(),
       is_platform_app(),
-      policy_ids() {}
+      policy_ids(),
+      app_size_in_bytes(),
+      data_size_in_bytes(),
+      allow_close() {}
 
 App::App(
     ::apps::AppType app_type_in,
     const std::string& app_id_in,
     Readiness readiness_in,
-    const absl::optional<std::string>& name_in,
-    const absl::optional<std::string>& short_name_in,
-    const absl::optional<std::string>& publisher_id_in,
-    const absl::optional<std::string>& description_in,
-    const absl::optional<std::string>& version_in,
+    const std::optional<std::string>& name_in,
+    const std::optional<std::string>& short_name_in,
+    const std::optional<std::string>& publisher_id_in,
+    const std::optional<std::string>& description_in,
+    const std::optional<std::string>& version_in,
     std::vector<std::string> additional_search_terms_in,
-    absl::optional<::apps::IconKeyPtr> icon_key_in,
-    absl::optional<::base::Time> last_launch_time_in,
-    absl::optional<::base::Time> install_time_in,
+    std::optional<::apps::IconKeyPtr> icon_key_in,
+    std::optional<::base::Time> last_launch_time_in,
+    std::optional<::base::Time> install_time_in,
     InstallReason install_reason_in,
     OptionalBool recommendable_in,
     OptionalBool searchable_in,
@@ -322,8 +337,8 @@ App::App(
     OptionalBool paused_in,
     std::vector<IntentFilterPtr> intent_filters_in,
     ::apps::WindowMode window_mode_in,
-    const absl::optional<std::string>& deprecated_policy_id_in,
-    absl::optional<std::vector<::apps::PermissionPtr>> permissions_in,
+    const std::optional<std::string>& deprecated_policy_id_in,
+    std::optional<std::vector<::apps::PermissionPtr>> permissions_in,
     OptionalBool allow_uninstall_in)
     : app_type(std::move(app_type_in)),
       app_id(std::move(app_id_in)),
@@ -354,21 +369,24 @@ App::App(
       handles_intents(),
       deprecated_shortcuts(),
       is_platform_app(),
-      policy_ids() {}
+      policy_ids(),
+      app_size_in_bytes(),
+      data_size_in_bytes(),
+      allow_close() {}
 
 App::App(
     ::apps::AppType app_type_in,
     const std::string& app_id_in,
     Readiness readiness_in,
-    const absl::optional<std::string>& name_in,
-    const absl::optional<std::string>& short_name_in,
-    const absl::optional<std::string>& publisher_id_in,
-    const absl::optional<std::string>& description_in,
-    const absl::optional<std::string>& version_in,
+    const std::optional<std::string>& name_in,
+    const std::optional<std::string>& short_name_in,
+    const std::optional<std::string>& publisher_id_in,
+    const std::optional<std::string>& description_in,
+    const std::optional<std::string>& version_in,
     std::vector<std::string> additional_search_terms_in,
-    absl::optional<::apps::IconKeyPtr> icon_key_in,
-    absl::optional<::base::Time> last_launch_time_in,
-    absl::optional<::base::Time> install_time_in,
+    std::optional<::apps::IconKeyPtr> icon_key_in,
+    std::optional<::base::Time> last_launch_time_in,
+    std::optional<::base::Time> install_time_in,
     InstallReason install_reason_in,
     OptionalBool recommendable_in,
     OptionalBool searchable_in,
@@ -380,8 +398,8 @@ App::App(
     OptionalBool paused_in,
     std::vector<IntentFilterPtr> intent_filters_in,
     ::apps::WindowMode window_mode_in,
-    const absl::optional<std::string>& deprecated_policy_id_in,
-    absl::optional<std::vector<::apps::PermissionPtr>> permissions_in,
+    const std::optional<std::string>& deprecated_policy_id_in,
+    std::optional<std::vector<::apps::PermissionPtr>> permissions_in,
     OptionalBool allow_uninstall_in,
     OptionalBool handles_intents_in)
     : app_type(std::move(app_type_in)),
@@ -413,21 +431,24 @@ App::App(
       handles_intents(std::move(handles_intents_in)),
       deprecated_shortcuts(),
       is_platform_app(),
-      policy_ids() {}
+      policy_ids(),
+      app_size_in_bytes(),
+      data_size_in_bytes(),
+      allow_close() {}
 
 App::App(
     ::apps::AppType app_type_in,
     const std::string& app_id_in,
     Readiness readiness_in,
-    const absl::optional<std::string>& name_in,
-    const absl::optional<std::string>& short_name_in,
-    const absl::optional<std::string>& publisher_id_in,
-    const absl::optional<std::string>& description_in,
-    const absl::optional<std::string>& version_in,
+    const std::optional<std::string>& name_in,
+    const std::optional<std::string>& short_name_in,
+    const std::optional<std::string>& publisher_id_in,
+    const std::optional<std::string>& description_in,
+    const std::optional<std::string>& version_in,
     std::vector<std::string> additional_search_terms_in,
-    absl::optional<::apps::IconKeyPtr> icon_key_in,
-    absl::optional<::base::Time> last_launch_time_in,
-    absl::optional<::base::Time> install_time_in,
+    std::optional<::apps::IconKeyPtr> icon_key_in,
+    std::optional<::base::Time> last_launch_time_in,
+    std::optional<::base::Time> install_time_in,
     InstallReason install_reason_in,
     OptionalBool recommendable_in,
     OptionalBool searchable_in,
@@ -439,11 +460,11 @@ App::App(
     OptionalBool paused_in,
     std::vector<IntentFilterPtr> intent_filters_in,
     ::apps::WindowMode window_mode_in,
-    const absl::optional<std::string>& deprecated_policy_id_in,
-    absl::optional<std::vector<::apps::PermissionPtr>> permissions_in,
+    const std::optional<std::string>& deprecated_policy_id_in,
+    std::optional<std::vector<::apps::PermissionPtr>> permissions_in,
     OptionalBool allow_uninstall_in,
     OptionalBool handles_intents_in,
-    absl::optional<std::vector<ShortcutPtr>> deprecated_shortcuts_in)
+    std::optional<std::vector<REMOVED_01Ptr>> deprecated_shortcuts_in)
     : app_type(std::move(app_type_in)),
       app_id(std::move(app_id_in)),
       readiness(std::move(readiness_in)),
@@ -473,21 +494,24 @@ App::App(
       handles_intents(std::move(handles_intents_in)),
       deprecated_shortcuts(std::move(deprecated_shortcuts_in)),
       is_platform_app(),
-      policy_ids() {}
+      policy_ids(),
+      app_size_in_bytes(),
+      data_size_in_bytes(),
+      allow_close() {}
 
 App::App(
     ::apps::AppType app_type_in,
     const std::string& app_id_in,
     Readiness readiness_in,
-    const absl::optional<std::string>& name_in,
-    const absl::optional<std::string>& short_name_in,
-    const absl::optional<std::string>& publisher_id_in,
-    const absl::optional<std::string>& description_in,
-    const absl::optional<std::string>& version_in,
+    const std::optional<std::string>& name_in,
+    const std::optional<std::string>& short_name_in,
+    const std::optional<std::string>& publisher_id_in,
+    const std::optional<std::string>& description_in,
+    const std::optional<std::string>& version_in,
     std::vector<std::string> additional_search_terms_in,
-    absl::optional<::apps::IconKeyPtr> icon_key_in,
-    absl::optional<::base::Time> last_launch_time_in,
-    absl::optional<::base::Time> install_time_in,
+    std::optional<::apps::IconKeyPtr> icon_key_in,
+    std::optional<::base::Time> last_launch_time_in,
+    std::optional<::base::Time> install_time_in,
     InstallReason install_reason_in,
     OptionalBool recommendable_in,
     OptionalBool searchable_in,
@@ -499,11 +523,11 @@ App::App(
     OptionalBool paused_in,
     std::vector<IntentFilterPtr> intent_filters_in,
     ::apps::WindowMode window_mode_in,
-    const absl::optional<std::string>& deprecated_policy_id_in,
-    absl::optional<std::vector<::apps::PermissionPtr>> permissions_in,
+    const std::optional<std::string>& deprecated_policy_id_in,
+    std::optional<std::vector<::apps::PermissionPtr>> permissions_in,
     OptionalBool allow_uninstall_in,
     OptionalBool handles_intents_in,
-    absl::optional<std::vector<ShortcutPtr>> deprecated_shortcuts_in,
+    std::optional<std::vector<REMOVED_01Ptr>> deprecated_shortcuts_in,
     OptionalBool is_platform_app_in)
     : app_type(std::move(app_type_in)),
       app_id(std::move(app_id_in)),
@@ -534,21 +558,24 @@ App::App(
       handles_intents(std::move(handles_intents_in)),
       deprecated_shortcuts(std::move(deprecated_shortcuts_in)),
       is_platform_app(std::move(is_platform_app_in)),
-      policy_ids() {}
+      policy_ids(),
+      app_size_in_bytes(),
+      data_size_in_bytes(),
+      allow_close() {}
 
 App::App(
     ::apps::AppType app_type_in,
     const std::string& app_id_in,
     Readiness readiness_in,
-    const absl::optional<std::string>& name_in,
-    const absl::optional<std::string>& short_name_in,
-    const absl::optional<std::string>& publisher_id_in,
-    const absl::optional<std::string>& description_in,
-    const absl::optional<std::string>& version_in,
+    const std::optional<std::string>& name_in,
+    const std::optional<std::string>& short_name_in,
+    const std::optional<std::string>& publisher_id_in,
+    const std::optional<std::string>& description_in,
+    const std::optional<std::string>& version_in,
     std::vector<std::string> additional_search_terms_in,
-    absl::optional<::apps::IconKeyPtr> icon_key_in,
-    absl::optional<::base::Time> last_launch_time_in,
-    absl::optional<::base::Time> install_time_in,
+    std::optional<::apps::IconKeyPtr> icon_key_in,
+    std::optional<::base::Time> last_launch_time_in,
+    std::optional<::base::Time> install_time_in,
     InstallReason install_reason_in,
     OptionalBool recommendable_in,
     OptionalBool searchable_in,
@@ -560,13 +587,13 @@ App::App(
     OptionalBool paused_in,
     std::vector<IntentFilterPtr> intent_filters_in,
     ::apps::WindowMode window_mode_in,
-    const absl::optional<std::string>& deprecated_policy_id_in,
-    absl::optional<std::vector<::apps::PermissionPtr>> permissions_in,
+    const std::optional<std::string>& deprecated_policy_id_in,
+    std::optional<std::vector<::apps::PermissionPtr>> permissions_in,
     OptionalBool allow_uninstall_in,
     OptionalBool handles_intents_in,
-    absl::optional<std::vector<ShortcutPtr>> deprecated_shortcuts_in,
+    std::optional<std::vector<REMOVED_01Ptr>> deprecated_shortcuts_in,
     OptionalBool is_platform_app_in,
-    absl::optional<std::vector<std::string>> policy_ids_in)
+    std::optional<std::vector<std::string>> policy_ids_in)
     : app_type(std::move(app_type_in)),
       app_id(std::move(app_id_in)),
       readiness(std::move(readiness_in)),
@@ -596,7 +623,145 @@ App::App(
       handles_intents(std::move(handles_intents_in)),
       deprecated_shortcuts(std::move(deprecated_shortcuts_in)),
       is_platform_app(std::move(is_platform_app_in)),
-      policy_ids(std::move(policy_ids_in)) {}
+      policy_ids(std::move(policy_ids_in)),
+      app_size_in_bytes(),
+      data_size_in_bytes(),
+      allow_close() {}
+
+App::App(
+    ::apps::AppType app_type_in,
+    const std::string& app_id_in,
+    Readiness readiness_in,
+    const std::optional<std::string>& name_in,
+    const std::optional<std::string>& short_name_in,
+    const std::optional<std::string>& publisher_id_in,
+    const std::optional<std::string>& description_in,
+    const std::optional<std::string>& version_in,
+    std::vector<std::string> additional_search_terms_in,
+    std::optional<::apps::IconKeyPtr> icon_key_in,
+    std::optional<::base::Time> last_launch_time_in,
+    std::optional<::base::Time> install_time_in,
+    InstallReason install_reason_in,
+    OptionalBool recommendable_in,
+    OptionalBool searchable_in,
+    OptionalBool show_in_launcher_in,
+    OptionalBool show_in_shelf_in,
+    OptionalBool show_in_search_in,
+    OptionalBool show_in_management_in,
+    OptionalBool has_badge_in,
+    OptionalBool paused_in,
+    std::vector<IntentFilterPtr> intent_filters_in,
+    ::apps::WindowMode window_mode_in,
+    const std::optional<std::string>& deprecated_policy_id_in,
+    std::optional<std::vector<::apps::PermissionPtr>> permissions_in,
+    OptionalBool allow_uninstall_in,
+    OptionalBool handles_intents_in,
+    std::optional<std::vector<REMOVED_01Ptr>> deprecated_shortcuts_in,
+    OptionalBool is_platform_app_in,
+    std::optional<std::vector<std::string>> policy_ids_in,
+    std::optional<uint64_t> app_size_in_bytes_in,
+    std::optional<uint64_t> data_size_in_bytes_in)
+    : app_type(std::move(app_type_in)),
+      app_id(std::move(app_id_in)),
+      readiness(std::move(readiness_in)),
+      name(std::move(name_in)),
+      short_name(std::move(short_name_in)),
+      publisher_id(std::move(publisher_id_in)),
+      description(std::move(description_in)),
+      version(std::move(version_in)),
+      additional_search_terms(std::move(additional_search_terms_in)),
+      icon_key(std::move(icon_key_in)),
+      last_launch_time(std::move(last_launch_time_in)),
+      install_time(std::move(install_time_in)),
+      install_reason(std::move(install_reason_in)),
+      recommendable(std::move(recommendable_in)),
+      searchable(std::move(searchable_in)),
+      show_in_launcher(std::move(show_in_launcher_in)),
+      show_in_shelf(std::move(show_in_shelf_in)),
+      show_in_search(std::move(show_in_search_in)),
+      show_in_management(std::move(show_in_management_in)),
+      has_badge(std::move(has_badge_in)),
+      paused(std::move(paused_in)),
+      intent_filters(std::move(intent_filters_in)),
+      window_mode(std::move(window_mode_in)),
+      deprecated_policy_id(std::move(deprecated_policy_id_in)),
+      permissions(std::move(permissions_in)),
+      allow_uninstall(std::move(allow_uninstall_in)),
+      handles_intents(std::move(handles_intents_in)),
+      deprecated_shortcuts(std::move(deprecated_shortcuts_in)),
+      is_platform_app(std::move(is_platform_app_in)),
+      policy_ids(std::move(policy_ids_in)),
+      app_size_in_bytes(std::move(app_size_in_bytes_in)),
+      data_size_in_bytes(std::move(data_size_in_bytes_in)),
+      allow_close() {}
+
+App::App(
+    ::apps::AppType app_type_in,
+    const std::string& app_id_in,
+    Readiness readiness_in,
+    const std::optional<std::string>& name_in,
+    const std::optional<std::string>& short_name_in,
+    const std::optional<std::string>& publisher_id_in,
+    const std::optional<std::string>& description_in,
+    const std::optional<std::string>& version_in,
+    std::vector<std::string> additional_search_terms_in,
+    std::optional<::apps::IconKeyPtr> icon_key_in,
+    std::optional<::base::Time> last_launch_time_in,
+    std::optional<::base::Time> install_time_in,
+    InstallReason install_reason_in,
+    OptionalBool recommendable_in,
+    OptionalBool searchable_in,
+    OptionalBool show_in_launcher_in,
+    OptionalBool show_in_shelf_in,
+    OptionalBool show_in_search_in,
+    OptionalBool show_in_management_in,
+    OptionalBool has_badge_in,
+    OptionalBool paused_in,
+    std::vector<IntentFilterPtr> intent_filters_in,
+    ::apps::WindowMode window_mode_in,
+    const std::optional<std::string>& deprecated_policy_id_in,
+    std::optional<std::vector<::apps::PermissionPtr>> permissions_in,
+    OptionalBool allow_uninstall_in,
+    OptionalBool handles_intents_in,
+    std::optional<std::vector<REMOVED_01Ptr>> deprecated_shortcuts_in,
+    OptionalBool is_platform_app_in,
+    std::optional<std::vector<std::string>> policy_ids_in,
+    std::optional<uint64_t> app_size_in_bytes_in,
+    std::optional<uint64_t> data_size_in_bytes_in,
+    OptionalBool allow_close_in)
+    : app_type(std::move(app_type_in)),
+      app_id(std::move(app_id_in)),
+      readiness(std::move(readiness_in)),
+      name(std::move(name_in)),
+      short_name(std::move(short_name_in)),
+      publisher_id(std::move(publisher_id_in)),
+      description(std::move(description_in)),
+      version(std::move(version_in)),
+      additional_search_terms(std::move(additional_search_terms_in)),
+      icon_key(std::move(icon_key_in)),
+      last_launch_time(std::move(last_launch_time_in)),
+      install_time(std::move(install_time_in)),
+      install_reason(std::move(install_reason_in)),
+      recommendable(std::move(recommendable_in)),
+      searchable(std::move(searchable_in)),
+      show_in_launcher(std::move(show_in_launcher_in)),
+      show_in_shelf(std::move(show_in_shelf_in)),
+      show_in_search(std::move(show_in_search_in)),
+      show_in_management(std::move(show_in_management_in)),
+      has_badge(std::move(has_badge_in)),
+      paused(std::move(paused_in)),
+      intent_filters(std::move(intent_filters_in)),
+      window_mode(std::move(window_mode_in)),
+      deprecated_policy_id(std::move(deprecated_policy_id_in)),
+      permissions(std::move(permissions_in)),
+      allow_uninstall(std::move(allow_uninstall_in)),
+      handles_intents(std::move(handles_intents_in)),
+      deprecated_shortcuts(std::move(deprecated_shortcuts_in)),
+      is_platform_app(std::move(is_platform_app_in)),
+      policy_ids(std::move(policy_ids_in)),
+      app_size_in_bytes(std::move(app_size_in_bytes_in)),
+      data_size_in_bytes(std::move(data_size_in_bytes_in)),
+      allow_close(std::move(allow_close_in)) {}
 
 App::~App() = default;
 
@@ -634,7 +799,7 @@ void App::WriteIntoTrace(
     dict.AddItem(
       "name"), this->name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -643,7 +808,7 @@ void App::WriteIntoTrace(
     dict.AddItem(
       "short_name"), this->short_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -652,7 +817,7 @@ void App::WriteIntoTrace(
     dict.AddItem(
       "publisher_id"), this->publisher_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -661,7 +826,7 @@ void App::WriteIntoTrace(
     dict.AddItem(
       "description"), this->description,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -670,7 +835,7 @@ void App::WriteIntoTrace(
     dict.AddItem(
       "version"), this->version,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -688,7 +853,7 @@ void App::WriteIntoTrace(
     dict.AddItem(
       "icon_key"), this->icon_key,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::apps::IconKeyPtr>>"
+      "<value of type std::optional<::apps::IconKeyPtr>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -697,7 +862,7 @@ void App::WriteIntoTrace(
     dict.AddItem(
       "last_launch_time"), this->last_launch_time,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::Time>>"
+      "<value of type std::optional<::base::Time>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -706,7 +871,7 @@ void App::WriteIntoTrace(
     dict.AddItem(
       "install_time"), this->install_time,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::Time>>"
+      "<value of type std::optional<::base::Time>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -814,7 +979,7 @@ void App::WriteIntoTrace(
     dict.AddItem(
       "deprecated_policy_id"), this->deprecated_policy_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -823,7 +988,7 @@ void App::WriteIntoTrace(
     dict.AddItem(
       "permissions"), this->permissions,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<std::vector<::apps::PermissionPtr>>>"
+      "<value of type std::optional<std::vector<::apps::PermissionPtr>>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -850,7 +1015,7 @@ void App::WriteIntoTrace(
     dict.AddItem(
       "deprecated_shortcuts"), this->deprecated_shortcuts,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<std::vector<ShortcutPtr>>>"
+      "<value of type std::optional<std::vector<REMOVED_01Ptr>>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -868,7 +1033,34 @@ void App::WriteIntoTrace(
     dict.AddItem(
       "policy_ids"), this->policy_ids,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<std::string>>&>"
+      "<value of type const std::optional<std::vector<std::string>>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "app_size_in_bytes"), this->app_size_in_bytes,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::optional<uint64_t>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "data_size_in_bytes"), this->data_size_in_bytes,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::optional<uint64_t>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "allow_close"), this->allow_close,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type OptionalBool>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -881,24 +1073,37 @@ bool App::Validate(
   return Data_::Validate(data, validation_context);
 }
 IconKey::IconKey()
-    : timeline(),
+    : deprecated_timeline(),
       icon_effects(),
-      raw_icon_updated() {}
+      deprecated_raw_icon_updated(),
+      update_version() {}
 
 IconKey::IconKey(
-    uint64_t timeline_in,
+    uint64_t deprecated_timeline_in,
     uint32_t icon_effects_in)
-    : timeline(std::move(timeline_in)),
+    : deprecated_timeline(std::move(deprecated_timeline_in)),
       icon_effects(std::move(icon_effects_in)),
-      raw_icon_updated() {}
+      deprecated_raw_icon_updated(),
+      update_version() {}
 
 IconKey::IconKey(
-    uint64_t timeline_in,
+    uint64_t deprecated_timeline_in,
     uint32_t icon_effects_in,
-    bool raw_icon_updated_in)
-    : timeline(std::move(timeline_in)),
+    bool deprecated_raw_icon_updated_in)
+    : deprecated_timeline(std::move(deprecated_timeline_in)),
       icon_effects(std::move(icon_effects_in)),
-      raw_icon_updated(std::move(raw_icon_updated_in)) {}
+      deprecated_raw_icon_updated(std::move(deprecated_raw_icon_updated_in)),
+      update_version() {}
+
+IconKey::IconKey(
+    uint64_t deprecated_timeline_in,
+    uint32_t icon_effects_in,
+    bool deprecated_raw_icon_updated_in,
+    IconUpdateVersionPtr update_version_in)
+    : deprecated_timeline(std::move(deprecated_timeline_in)),
+      icon_effects(std::move(icon_effects_in)),
+      deprecated_raw_icon_updated(std::move(deprecated_raw_icon_updated_in)),
+      update_version(std::move(update_version_in)) {}
 
 IconKey::~IconKey() = default;
 
@@ -907,7 +1112,7 @@ void IconKey::WriteIntoTrace(
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "timeline"), this->timeline,
+      "deprecated_timeline"), this->deprecated_timeline,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type uint64_t>"
 #else
@@ -925,9 +1130,18 @@ void IconKey::WriteIntoTrace(
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "raw_icon_updated"), this->raw_icon_updated,
+      "deprecated_raw_icon_updated"), this->deprecated_raw_icon_updated,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "update_version"), this->update_version,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type IconUpdateVersionPtr>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1031,8 +1245,8 @@ IntentFilter::IntentFilter()
 
 IntentFilter::IntentFilter(
     std::vector<ConditionPtr> conditions_in,
-    const absl::optional<std::string>& activity_name_in,
-    const absl::optional<std::string>& activity_label_in)
+    const std::optional<std::string>& activity_name_in,
+    const std::optional<std::string>& activity_label_in)
     : conditions(std::move(conditions_in)),
       activity_name(std::move(activity_name_in)),
       activity_label(std::move(activity_label_in)) {}
@@ -1055,7 +1269,7 @@ void IntentFilter::WriteIntoTrace(
     dict.AddItem(
       "activity_name"), this->activity_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1064,7 +1278,7 @@ void IntentFilter::WriteIntoTrace(
     dict.AddItem(
       "activity_label"), this->activity_label,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1138,7 +1352,7 @@ IconValue::IconValue()
 IconValue::IconValue(
     ::apps::IconType icon_type_in,
     const ::gfx::ImageSkia& uncompressed_in,
-    absl::optional<std::vector<uint8_t>> compressed_in,
+    std::optional<std::vector<uint8_t>> compressed_in,
     bool is_placeholder_icon_in)
     : icon_type(std::move(icon_type_in)),
       uncompressed(std::move(uncompressed_in)),
@@ -1149,7 +1363,7 @@ IconValue::IconValue(
 IconValue::IconValue(
     ::apps::IconType icon_type_in,
     const ::gfx::ImageSkia& uncompressed_in,
-    absl::optional<std::vector<uint8_t>> compressed_in,
+    std::optional<std::vector<uint8_t>> compressed_in,
     bool is_placeholder_icon_in,
     bool is_maskable_icon_in)
     : icon_type(std::move(icon_type_in)),
@@ -1185,7 +1399,7 @@ void IconValue::WriteIntoTrace(
     dict.AddItem(
       "compressed"), this->compressed,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<uint8_t>>&>"
+      "<value of type const std::optional<std::vector<uint8_t>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1258,7 +1472,7 @@ MenuItem::MenuItem(
 MenuItem::MenuItem(
     const std::string& label_in,
     const ::gfx::ImageSkia& image_in,
-    const absl::optional<std::string>& id_in)
+    const std::optional<std::string>& id_in)
     : label(std::move(label_in)),
       image(std::move(image_in)),
       id(std::move(id_in)) {}
@@ -1290,7 +1504,7 @@ void MenuItem::WriteIntoTrace(
     dict.AddItem(
       "id"), this->id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1313,7 +1527,7 @@ IntentFile::IntentFile(
 
 IntentFile::IntentFile(
     const ::base::FilePath& file_path_in,
-    const absl::optional<std::string>& mime_type_in)
+    const std::optional<std::string>& mime_type_in)
     : file_path(std::move(file_path_in)),
       mime_type(std::move(mime_type_in)) {}
 
@@ -1335,7 +1549,7 @@ void IntentFile::WriteIntoTrace(
     dict.AddItem(
       "mime_type"), this->mime_type,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1361,10 +1575,10 @@ Intent::Intent()
 
 Intent::Intent(
     const std::string& action_in,
-    const absl::optional<::GURL>& url_in,
-    const absl::optional<std::string>& mime_type_in,
-    const absl::optional<std::string>& share_text_in,
-    const absl::optional<std::string>& share_title_in)
+    const std::optional<::GURL>& url_in,
+    const std::optional<std::string>& mime_type_in,
+    const std::optional<std::string>& share_text_in,
+    const std::optional<std::string>& share_title_in)
     : action(std::move(action_in)),
       url(std::move(url_in)),
       mime_type(std::move(mime_type_in)),
@@ -1378,11 +1592,11 @@ Intent::Intent(
 
 Intent::Intent(
     const std::string& action_in,
-    const absl::optional<::GURL>& url_in,
-    const absl::optional<std::string>& mime_type_in,
-    const absl::optional<std::string>& share_text_in,
-    const absl::optional<std::string>& share_title_in,
-    absl::optional<std::vector<IntentFilePtr>> files_in)
+    const std::optional<::GURL>& url_in,
+    const std::optional<std::string>& mime_type_in,
+    const std::optional<std::string>& share_text_in,
+    const std::optional<std::string>& share_title_in,
+    std::optional<std::vector<IntentFilePtr>> files_in)
     : action(std::move(action_in)),
       url(std::move(url_in)),
       mime_type(std::move(mime_type_in)),
@@ -1396,12 +1610,12 @@ Intent::Intent(
 
 Intent::Intent(
     const std::string& action_in,
-    const absl::optional<::GURL>& url_in,
-    const absl::optional<std::string>& mime_type_in,
-    const absl::optional<std::string>& share_text_in,
-    const absl::optional<std::string>& share_title_in,
-    absl::optional<std::vector<IntentFilePtr>> files_in,
-    const absl::optional<std::string>& activity_name_in)
+    const std::optional<::GURL>& url_in,
+    const std::optional<std::string>& mime_type_in,
+    const std::optional<std::string>& share_text_in,
+    const std::optional<std::string>& share_title_in,
+    std::optional<std::vector<IntentFilePtr>> files_in,
+    const std::optional<std::string>& activity_name_in)
     : action(std::move(action_in)),
       url(std::move(url_in)),
       mime_type(std::move(mime_type_in)),
@@ -1415,13 +1629,13 @@ Intent::Intent(
 
 Intent::Intent(
     const std::string& action_in,
-    const absl::optional<::GURL>& url_in,
-    const absl::optional<std::string>& mime_type_in,
-    const absl::optional<std::string>& share_text_in,
-    const absl::optional<std::string>& share_title_in,
-    absl::optional<std::vector<IntentFilePtr>> files_in,
-    const absl::optional<std::string>& activity_name_in,
-    const absl::optional<std::string>& data_in)
+    const std::optional<::GURL>& url_in,
+    const std::optional<std::string>& mime_type_in,
+    const std::optional<std::string>& share_text_in,
+    const std::optional<std::string>& share_title_in,
+    std::optional<std::vector<IntentFilePtr>> files_in,
+    const std::optional<std::string>& activity_name_in,
+    const std::optional<std::string>& data_in)
     : action(std::move(action_in)),
       url(std::move(url_in)),
       mime_type(std::move(mime_type_in)),
@@ -1435,15 +1649,15 @@ Intent::Intent(
 
 Intent::Intent(
     const std::string& action_in,
-    const absl::optional<::GURL>& url_in,
-    const absl::optional<std::string>& mime_type_in,
-    const absl::optional<std::string>& share_text_in,
-    const absl::optional<std::string>& share_title_in,
-    absl::optional<std::vector<IntentFilePtr>> files_in,
-    const absl::optional<std::string>& activity_name_in,
-    const absl::optional<std::string>& data_in,
-    absl::optional<bool> ui_bypassed_in,
-    const absl::optional<base::flat_map<std::string, std::string>>& extras_in)
+    const std::optional<::GURL>& url_in,
+    const std::optional<std::string>& mime_type_in,
+    const std::optional<std::string>& share_text_in,
+    const std::optional<std::string>& share_title_in,
+    std::optional<std::vector<IntentFilePtr>> files_in,
+    const std::optional<std::string>& activity_name_in,
+    const std::optional<std::string>& data_in,
+    std::optional<bool> ui_bypassed_in,
+    const std::optional<base::flat_map<std::string, std::string>>& extras_in)
     : action(std::move(action_in)),
       url(std::move(url_in)),
       mime_type(std::move(mime_type_in)),
@@ -1473,7 +1687,7 @@ void Intent::WriteIntoTrace(
     dict.AddItem(
       "url"), this->url,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::GURL>&>"
+      "<value of type const std::optional<::GURL>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1482,7 +1696,7 @@ void Intent::WriteIntoTrace(
     dict.AddItem(
       "mime_type"), this->mime_type,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1491,7 +1705,7 @@ void Intent::WriteIntoTrace(
     dict.AddItem(
       "share_text"), this->share_text,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1500,7 +1714,7 @@ void Intent::WriteIntoTrace(
     dict.AddItem(
       "share_title"), this->share_title,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1509,7 +1723,7 @@ void Intent::WriteIntoTrace(
     dict.AddItem(
       "files"), this->files,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<std::vector<IntentFilePtr>>>"
+      "<value of type std::optional<std::vector<IntentFilePtr>>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1518,7 +1732,7 @@ void Intent::WriteIntoTrace(
     dict.AddItem(
       "activity_name"), this->activity_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1527,7 +1741,7 @@ void Intent::WriteIntoTrace(
     dict.AddItem(
       "data"), this->data,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1536,7 +1750,7 @@ void Intent::WriteIntoTrace(
     dict.AddItem(
       "ui_bypassed"), this->ui_bypassed,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<bool>>"
+      "<value of type std::optional<bool>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1545,7 +1759,7 @@ void Intent::WriteIntoTrace(
     dict.AddItem(
       "extras"), this->extras,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<base::flat_map<std::string, std::string>>&>"
+      "<value of type const std::optional<base::flat_map<std::string, std::string>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1570,14 +1784,14 @@ LaunchResult::LaunchResult(
 
 LaunchResult::LaunchResult(
     const ::base::UnguessableToken& instance_id_in,
-    absl::optional<std::vector<::base::UnguessableToken>> instance_ids_in)
+    std::optional<std::vector<::base::UnguessableToken>> instance_ids_in)
     : instance_id(std::move(instance_id_in)),
       instance_ids(std::move(instance_ids_in)),
       state() {}
 
 LaunchResult::LaunchResult(
     const ::base::UnguessableToken& instance_id_in,
-    absl::optional<std::vector<::base::UnguessableToken>> instance_ids_in,
+    std::optional<std::vector<::base::UnguessableToken>> instance_ids_in,
     LaunchResultState state_in)
     : instance_id(std::move(instance_id_in)),
       instance_ids(std::move(instance_ids_in)),
@@ -1601,7 +1815,7 @@ void LaunchResult::WriteIntoTrace(
     dict.AddItem(
       "instance_ids"), this->instance_ids,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<::base::UnguessableToken>>&>"
+      "<value of type const std::optional<std::vector<::base::UnguessableToken>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1866,12 +2080,99 @@ bool PreferredApp::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
-Shortcut::Shortcut()
+AppShortcut::AppShortcut()
+    : host_app_id(),
+      local_id(),
+      name(),
+      icon_key(),
+      allow_removal() {}
+
+AppShortcut::AppShortcut(
+    const std::string& host_app_id_in,
+    const std::string& local_id_in,
+    const std::optional<std::string>& name_in,
+    std::optional<::apps::IconKeyPtr> icon_key_in)
+    : host_app_id(std::move(host_app_id_in)),
+      local_id(std::move(local_id_in)),
+      name(std::move(name_in)),
+      icon_key(std::move(icon_key_in)),
+      allow_removal() {}
+
+AppShortcut::AppShortcut(
+    const std::string& host_app_id_in,
+    const std::string& local_id_in,
+    const std::optional<std::string>& name_in,
+    std::optional<::apps::IconKeyPtr> icon_key_in,
+    std::optional<bool> allow_removal_in)
+    : host_app_id(std::move(host_app_id_in)),
+      local_id(std::move(local_id_in)),
+      name(std::move(name_in)),
+      icon_key(std::move(icon_key_in)),
+      allow_removal(std::move(allow_removal_in)) {}
+
+AppShortcut::~AppShortcut() = default;
+
+void AppShortcut::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "host_app_id"), this->host_app_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "local_id"), this->local_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "name"), this->name,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::optional<std::string>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "icon_key"), this->icon_key,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::optional<::apps::IconKeyPtr>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "allow_removal"), this->allow_removal,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::optional<bool>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool AppShortcut::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+REMOVED_01::REMOVED_01()
     : shortcut_id(),
       name(),
       position() {}
 
-Shortcut::Shortcut(
+REMOVED_01::REMOVED_01(
     const std::string& shortcut_id_in,
     const std::string& name_in,
     uint8_t position_in)
@@ -1879,15 +2180,15 @@ Shortcut::Shortcut(
       name(std::move(name_in)),
       position(std::move(position_in)) {}
 
-Shortcut::~Shortcut() = default;
-size_t Shortcut::Hash(size_t seed) const {
+REMOVED_01::~REMOVED_01() = default;
+size_t REMOVED_01::Hash(size_t seed) const {
   seed = mojo::internal::Hash(seed, this->shortcut_id);
   seed = mojo::internal::Hash(seed, this->name);
   seed = mojo::internal::Hash(seed, this->position);
   return seed;
 }
 
-void Shortcut::WriteIntoTrace(
+void REMOVED_01::WriteIntoTrace(
     perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
   perfetto::WriteIntoTracedValueWithFallback(
@@ -1919,10 +2220,123 @@ void Shortcut::WriteIntoTrace(
     );
 }
 
-bool Shortcut::Validate(
+bool REMOVED_01::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
+}
+InstallAppParams::InstallAppParams()
+    : surface(),
+      package_id() {}
+
+InstallAppParams::InstallAppParams(
+    InstallAppParams::Surface surface_in,
+    const std::optional<std::string>& package_id_in)
+    : surface(std::move(surface_in)),
+      package_id(std::move(package_id_in)) {}
+
+InstallAppParams::~InstallAppParams() = default;
+
+void InstallAppParams::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "surface"), this->surface,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type InstallAppParams::Surface>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "package_id"), this->package_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::optional<std::string>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool InstallAppParams::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+AppInstallResult::AppInstallResult() {}
+
+AppInstallResult::~AppInstallResult() = default;
+size_t AppInstallResult::Hash(size_t seed) const {
+  return seed;
+}
+
+void AppInstallResult::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+}
+
+bool AppInstallResult::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+IconUpdateVersion::IconUpdateVersion() : tag_(Tag::kRawIconUpdated) {
+  data_.raw_icon_updated = bool();
+}
+
+IconUpdateVersion::~IconUpdateVersion() {
+  DestroyActive();
+}
+
+
+void IconUpdateVersion::set_raw_icon_updated(
+    bool raw_icon_updated) {
+  if (tag_ != Tag::kRawIconUpdated) {
+    DestroyActive();
+    tag_ = Tag::kRawIconUpdated;
+  }
+  data_.raw_icon_updated = raw_icon_updated;
+}
+void IconUpdateVersion::set_timeline(
+    int32_t timeline) {
+  if (tag_ != Tag::kTimeline) {
+    DestroyActive();
+    tag_ = Tag::kTimeline;
+  }
+  data_.timeline = timeline;
+}
+
+void IconUpdateVersion::DestroyActive() {
+  switch (tag_) {
+
+    case Tag::kRawIconUpdated:
+
+      break;
+    case Tag::kTimeline:
+
+      break;
+  }
+}
+size_t IconUpdateVersion::Hash(size_t seed) const {
+  seed = mojo::internal::HashCombine(seed, static_cast<uint32_t>(tag_));
+  switch (tag_) {
+
+    case Tag::kRawIconUpdated:
+      return mojo::internal::Hash(seed, data_.raw_icon_updated);
+    case Tag::kTimeline:
+      return mojo::internal::Hash(seed, data_.timeline);
+    default:
+      NOTREACHED();
+      return seed;
+  }
+}
+
+bool IconUpdateVersion::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context, false);
 }
 PermissionValue::PermissionValue() : tag_(Tag::kBoolValue) {
   data_.bool_value = bool();
@@ -2055,6 +2469,14 @@ bool StructTraits<::crosapi::mojom::App::DataView, ::crosapi::mojom::AppPtr>::Re
         success = false;
       if (success && !input.ReadPolicyIds(&result->policy_ids))
         success = false;
+      if (success) {
+        result->app_size_in_bytes = input.app_size_in_bytes();
+      }
+      if (success) {
+        result->data_size_in_bytes = input.data_size_in_bytes();
+      }
+      if (success && !input.ReadAllowClose(&result->allow_close))
+        success = false;
   *output = std::move(result);
   return success;
 }
@@ -2068,11 +2490,13 @@ bool StructTraits<::crosapi::mojom::IconKey::DataView, ::crosapi::mojom::IconKey
   ::crosapi::mojom::IconKeyPtr result(::crosapi::mojom::IconKey::New());
   
       if (success)
-        result->timeline = input.timeline();
+        result->deprecated_timeline = input.deprecated_timeline();
       if (success)
         result->icon_effects = input.icon_effects();
       if (success)
-        result->raw_icon_updated = input.raw_icon_updated();
+        result->deprecated_raw_icon_updated = input.deprecated_raw_icon_updated();
+      if (success && !input.ReadUpdateVersion(&result->update_version))
+        success = false;
   *output = std::move(result);
   return success;
 }
@@ -2342,11 +2766,34 @@ bool StructTraits<::crosapi::mojom::PreferredApp::DataView, ::crosapi::mojom::Pr
 
 
 // static
-bool StructTraits<::crosapi::mojom::Shortcut::DataView, ::crosapi::mojom::ShortcutPtr>::Read(
-    ::crosapi::mojom::Shortcut::DataView input,
-    ::crosapi::mojom::ShortcutPtr* output) {
+bool StructTraits<::crosapi::mojom::AppShortcut::DataView, ::crosapi::mojom::AppShortcutPtr>::Read(
+    ::crosapi::mojom::AppShortcut::DataView input,
+    ::crosapi::mojom::AppShortcutPtr* output) {
   bool success = true;
-  ::crosapi::mojom::ShortcutPtr result(::crosapi::mojom::Shortcut::New());
+  ::crosapi::mojom::AppShortcutPtr result(::crosapi::mojom::AppShortcut::New());
+  
+      if (success && !input.ReadHostAppId(&result->host_app_id))
+        success = false;
+      if (success && !input.ReadLocalId(&result->local_id))
+        success = false;
+      if (success && !input.ReadName(&result->name))
+        success = false;
+      if (success && !input.ReadIconKey(&result->icon_key))
+        success = false;
+      if (success) {
+        result->allow_removal = input.allow_removal();
+      }
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::crosapi::mojom::REMOVED_01::DataView, ::crosapi::mojom::REMOVED_01Ptr>::Read(
+    ::crosapi::mojom::REMOVED_01::DataView input,
+    ::crosapi::mojom::REMOVED_01Ptr* output) {
+  bool success = true;
+  ::crosapi::mojom::REMOVED_01Ptr result(::crosapi::mojom::REMOVED_01::New());
   
       if (success && !input.ReadShortcutId(&result->shortcut_id))
         success = false;
@@ -2356,6 +2803,57 @@ bool StructTraits<::crosapi::mojom::Shortcut::DataView, ::crosapi::mojom::Shortc
         result->position = input.position();
   *output = std::move(result);
   return success;
+}
+
+
+// static
+bool StructTraits<::crosapi::mojom::InstallAppParams::DataView, ::crosapi::mojom::InstallAppParamsPtr>::Read(
+    ::crosapi::mojom::InstallAppParams::DataView input,
+    ::crosapi::mojom::InstallAppParamsPtr* output) {
+  bool success = true;
+  ::crosapi::mojom::InstallAppParamsPtr result(::crosapi::mojom::InstallAppParams::New());
+  
+      if (success && !input.ReadSurface(&result->surface))
+        success = false;
+      if (success && !input.ReadPackageId(&result->package_id))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::crosapi::mojom::AppInstallResult::DataView, ::crosapi::mojom::AppInstallResultPtr>::Read(
+    ::crosapi::mojom::AppInstallResult::DataView input,
+    ::crosapi::mojom::AppInstallResultPtr* output) {
+  bool success = true;
+  ::crosapi::mojom::AppInstallResultPtr result(::crosapi::mojom::AppInstallResult::New());
+  
+  *output = std::move(result);
+  return success;
+}
+
+// static
+bool UnionTraits<::crosapi::mojom::IconUpdateVersion::DataView, ::crosapi::mojom::IconUpdateVersionPtr>::Read(
+    ::crosapi::mojom::IconUpdateVersion::DataView input,
+    ::crosapi::mojom::IconUpdateVersionPtr* output) {
+  using UnionType = ::crosapi::mojom::IconUpdateVersion;
+  using Tag = UnionType::Tag;
+
+  switch (input.tag()) {
+    case Tag::kRawIconUpdated: {
+      *output = UnionType::NewRawIconUpdated(input.raw_icon_updated());
+      break;
+    }
+    case Tag::kTimeline: {
+      *output = UnionType::NewTimeline(input.timeline());
+      break;
+    }
+    default:
+
+      return false;
+  }
+  return true;
 }
 
 // static

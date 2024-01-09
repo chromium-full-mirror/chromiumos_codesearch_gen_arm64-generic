@@ -61,13 +61,13 @@ blink.mojom.RequestUserInfoStatus = {
  * @const { {$: !mojo.internal.MojomType} }
  * @export
  */
-blink.mojom.LogoutRpsStatusSpec = { $: mojo.internal.Enum() };
+blink.mojom.DisconnectStatusSpec = { $: mojo.internal.Enum() };
 
 /**
  * @enum {number}
  * @export
  */
-blink.mojom.LogoutRpsStatus = {
+blink.mojom.DisconnectStatus = {
   
   kSuccess: 0,
   kErrorTooManyRequests: 1,
@@ -267,25 +267,6 @@ blink.mojom.FederatedAuthRequestRemote = class {
 
   
   /**
-   * @param { !Array<!blink.mojom.LogoutRpsRequest> } rpLogoutRequests
-   * @return {!Promise<{
-        status: !blink.mojom.LogoutRpsStatus,
-   *  }>}
-   */
-
-  logoutRps(
-      rpLogoutRequests) {
-    return this.proxy.sendMessage(
-        4,
-        blink.mojom.FederatedAuthRequest_LogoutRps_ParamsSpec.$,
-        blink.mojom.FederatedAuthRequest_LogoutRps_ResponseParamsSpec.$,
-        [
-          rpLogoutRequests
-        ]);
-  }
-
-  
-  /**
    * @param { !url.mojom.Origin } origin
    * @param { !blink.mojom.IdpSigninStatus } status
    */
@@ -294,7 +275,7 @@ blink.mojom.FederatedAuthRequestRemote = class {
       origin,
       status) {
     this.proxy.sendMessage(
-        5,
+        4,
         blink.mojom.FederatedAuthRequest_SetIdpSigninStatus_ParamsSpec.$,
         null,
         [
@@ -314,7 +295,7 @@ blink.mojom.FederatedAuthRequestRemote = class {
   registerIdP(
       url) {
     return this.proxy.sendMessage(
-        6,
+        5,
         blink.mojom.FederatedAuthRequest_RegisterIdP_ParamsSpec.$,
         blink.mojom.FederatedAuthRequest_RegisterIdP_ResponseParamsSpec.$,
         [
@@ -333,7 +314,7 @@ blink.mojom.FederatedAuthRequestRemote = class {
   unregisterIdP(
       url) {
     return this.proxy.sendMessage(
-        7,
+        6,
         blink.mojom.FederatedAuthRequest_UnregisterIdP_ParamsSpec.$,
         blink.mojom.FederatedAuthRequest_UnregisterIdP_ResponseParamsSpec.$,
         [
@@ -347,7 +328,7 @@ blink.mojom.FederatedAuthRequestRemote = class {
 
   closeModalDialogView() {
     this.proxy.sendMessage(
-        8,
+        7,
         blink.mojom.FederatedAuthRequest_CloseModalDialogView_ParamsSpec.$,
         null,
         [
@@ -361,10 +342,29 @@ blink.mojom.FederatedAuthRequestRemote = class {
 
   preventSilentAccess() {
     return this.proxy.sendMessage(
-        9,
+        8,
         blink.mojom.FederatedAuthRequest_PreventSilentAccess_ParamsSpec.$,
         blink.mojom.FederatedAuthRequest_PreventSilentAccess_ResponseParamsSpec.$,
         [
+        ]);
+  }
+
+  
+  /**
+   * @param { !blink.mojom.IdentityCredentialDisconnectOptions } options
+   * @return {!Promise<{
+        status: !blink.mojom.DisconnectStatus,
+   *  }>}
+   */
+
+  disconnect(
+      options) {
+    return this.proxy.sendMessage(
+        9,
+        blink.mojom.FederatedAuthRequest_Disconnect_ParamsSpec.$,
+        blink.mojom.FederatedAuthRequest_Disconnect_ResponseParamsSpec.$,
+        [
+          options
         ]);
   }
 };
@@ -413,34 +413,34 @@ blink.mojom.FederatedAuthRequestReceiver = class {
         impl.resolveTokenRequest.bind(impl));
     this.helper_internal_.registerHandler(
         4,
-        blink.mojom.FederatedAuthRequest_LogoutRps_ParamsSpec.$,
-        blink.mojom.FederatedAuthRequest_LogoutRps_ResponseParamsSpec.$,
-        impl.logoutRps.bind(impl));
-    this.helper_internal_.registerHandler(
-        5,
         blink.mojom.FederatedAuthRequest_SetIdpSigninStatus_ParamsSpec.$,
         null,
         impl.setIdpSigninStatus.bind(impl));
     this.helper_internal_.registerHandler(
-        6,
+        5,
         blink.mojom.FederatedAuthRequest_RegisterIdP_ParamsSpec.$,
         blink.mojom.FederatedAuthRequest_RegisterIdP_ResponseParamsSpec.$,
         impl.registerIdP.bind(impl));
     this.helper_internal_.registerHandler(
-        7,
+        6,
         blink.mojom.FederatedAuthRequest_UnregisterIdP_ParamsSpec.$,
         blink.mojom.FederatedAuthRequest_UnregisterIdP_ResponseParamsSpec.$,
         impl.unregisterIdP.bind(impl));
     this.helper_internal_.registerHandler(
-        8,
+        7,
         blink.mojom.FederatedAuthRequest_CloseModalDialogView_ParamsSpec.$,
         null,
         impl.closeModalDialogView.bind(impl));
     this.helper_internal_.registerHandler(
-        9,
+        8,
         blink.mojom.FederatedAuthRequest_PreventSilentAccess_ParamsSpec.$,
         blink.mojom.FederatedAuthRequest_PreventSilentAccess_ResponseParamsSpec.$,
         impl.preventSilentAccess.bind(impl));
+    this.helper_internal_.registerHandler(
+        9,
+        blink.mojom.FederatedAuthRequest_Disconnect_ParamsSpec.$,
+        blink.mojom.FederatedAuthRequest_Disconnect_ResponseParamsSpec.$,
+        impl.disconnect.bind(impl));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -544,24 +544,12 @@ blink.mojom.FederatedAuthRequestCallbackRouter = class {
     /**
      * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
      */
-    this.logoutRps =
-        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
-            this.router_);
-
-    this.helper_internal_.registerHandler(
-        4,
-        blink.mojom.FederatedAuthRequest_LogoutRps_ParamsSpec.$,
-        blink.mojom.FederatedAuthRequest_LogoutRps_ResponseParamsSpec.$,
-        this.logoutRps.createReceiverHandler(true /* expectsResponse */));
-    /**
-     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
-     */
     this.setIdpSigninStatus =
         new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
             this.router_);
 
     this.helper_internal_.registerHandler(
-        5,
+        4,
         blink.mojom.FederatedAuthRequest_SetIdpSigninStatus_ParamsSpec.$,
         null,
         this.setIdpSigninStatus.createReceiverHandler(false /* expectsResponse */));
@@ -573,7 +561,7 @@ blink.mojom.FederatedAuthRequestCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        6,
+        5,
         blink.mojom.FederatedAuthRequest_RegisterIdP_ParamsSpec.$,
         blink.mojom.FederatedAuthRequest_RegisterIdP_ResponseParamsSpec.$,
         this.registerIdP.createReceiverHandler(true /* expectsResponse */));
@@ -585,7 +573,7 @@ blink.mojom.FederatedAuthRequestCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        7,
+        6,
         blink.mojom.FederatedAuthRequest_UnregisterIdP_ParamsSpec.$,
         blink.mojom.FederatedAuthRequest_UnregisterIdP_ResponseParamsSpec.$,
         this.unregisterIdP.createReceiverHandler(true /* expectsResponse */));
@@ -597,7 +585,7 @@ blink.mojom.FederatedAuthRequestCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        8,
+        7,
         blink.mojom.FederatedAuthRequest_CloseModalDialogView_ParamsSpec.$,
         null,
         this.closeModalDialogView.createReceiverHandler(false /* expectsResponse */));
@@ -609,10 +597,22 @@ blink.mojom.FederatedAuthRequestCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        9,
+        8,
         blink.mojom.FederatedAuthRequest_PreventSilentAccess_ParamsSpec.$,
         blink.mojom.FederatedAuthRequest_PreventSilentAccess_ResponseParamsSpec.$,
         this.preventSilentAccess.createReceiverHandler(true /* expectsResponse */));
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.disconnect =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        9,
+        blink.mojom.FederatedAuthRequest_Disconnect_ParamsSpec.$,
+        blink.mojom.FederatedAuthRequest_Disconnect_ResponseParamsSpec.$,
+        this.disconnect.createReceiverHandler(true /* expectsResponse */));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -627,14 +627,6 @@ blink.mojom.FederatedAuthRequestCallbackRouter = class {
   }
 };
 
-
-
-/**
- * @const { {$:!mojo.internal.MojomType}}
- * @export
- */
-blink.mojom.LogoutRpsRequestSpec =
-    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 
 /**
@@ -666,6 +658,22 @@ blink.mojom.DigitalCredentialFieldRequirementSpec =
  * @export
  */
 blink.mojom.IdentityProviderConfigSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+blink.mojom.IdentityProviderRequestOptionsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+blink.mojom.IdentityCredentialDisconnectOptionsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 
@@ -753,22 +761,6 @@ blink.mojom.FederatedAuthRequest_ResolveTokenRequest_ResponseParamsSpec =
  * @const { {$:!mojo.internal.MojomType}}
  * @export
  */
-blink.mojom.FederatedAuthRequest_LogoutRps_ParamsSpec =
-    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
-
-
-/**
- * @const { {$:!mojo.internal.MojomType}}
- * @export
- */
-blink.mojom.FederatedAuthRequest_LogoutRps_ResponseParamsSpec =
-    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
-
-
-/**
- * @const { {$:!mojo.internal.MojomType}}
- * @export
- */
 blink.mojom.FederatedAuthRequest_SetIdpSigninStatus_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
@@ -830,51 +822,28 @@ blink.mojom.FederatedAuthRequest_PreventSilentAccess_ResponseParamsSpec =
 
 
 /**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+blink.mojom.FederatedAuthRequest_Disconnect_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+blink.mojom.FederatedAuthRequest_Disconnect_ResponseParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+
+/**
  * @const { {$:!mojo.internal.MojomType} }
  * @export
  */
 blink.mojom.IdentityProviderSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
-
-
-
-mojo.internal.Struct(
-    blink.mojom.LogoutRpsRequestSpec.$,
-    'LogoutRpsRequest',
-    [
-      mojo.internal.StructField(
-        'url', 0,
-        0,
-        url.mojom.UrlSpec.$,
-        null,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'accountId', 8,
-        0,
-        mojo.internal.String,
-        null,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-    ],
-    [[0, 24],]);
-
-
-
-
-
-/** @record */
-blink.mojom.LogoutRpsRequest = class {
-  constructor() {
-    /** @export { !url.mojom.Url } */
-    this.url;
-    /** @export { !string } */
-    this.accountId;
-  }
-};
 
 
 
@@ -887,7 +856,7 @@ mojo.internal.Struct(
         0,
         mojo.internal.Map(mojo.internal.String, mojo.internal.String, false),
         null,
-        false, /* nullable */
+        true, /* nullable */
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
@@ -895,11 +864,35 @@ mojo.internal.Struct(
         0,
         blink.mojom.DigitalCredentialSelectorSpec.$,
         null,
-        false, /* nullable */
+        true, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'protocol', 16,
+        0,
+        mojo.internal.String,
+        null,
+        true, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'request', 24,
+        0,
+        mojo.internal.String,
+        null,
+        true, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'publicKey', 32,
+        0,
+        mojo.internal.String,
+        null,
+        true, /* nullable */
         0 /* minVersion */,
       ),
     ],
-    [[0, 24],]);
+    [[0, 48],]);
 
 
 
@@ -908,10 +901,16 @@ mojo.internal.Struct(
 /** @record */
 blink.mojom.DigitalCredentialProvider = class {
   constructor() {
-    /** @export { !Object<!string, !string> } */
+    /** @export { (Object<!string, !string>|undefined) } */
     this.params;
-    /** @export { !blink.mojom.DigitalCredentialSelector } */
+    /** @export { (blink.mojom.DigitalCredentialSelector|undefined) } */
     this.selector;
+    /** @export { (string|undefined) } */
+    this.protocol;
+    /** @export { (string|undefined) } */
+    this.request;
+    /** @export { (string|undefined) } */
+    this.publicKey;
   }
 };
 
@@ -1018,63 +1017,23 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'clientId', 8,
+        'useRegisteredConfigUrls', 8,
+        0,
+        mojo.internal.Bool,
+        false,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'clientId', 16,
         0,
         mojo.internal.String,
-        null,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'nonce', 16,
-        0,
-        mojo.internal.String,
-        null,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'loginHint', 24,
-        0,
-        mojo.internal.String,
-        null,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'hostedDomain', 32,
-        0,
-        mojo.internal.String,
-        null,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'scope', 40,
-        0,
-        mojo.internal.Array(mojo.internal.String, false),
-        null,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'responseType', 48,
-        0,
-        mojo.internal.Array(mojo.internal.String, false),
-        null,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-      mojo.internal.StructField(
-        'params', 56,
-        0,
-        mojo.internal.Map(mojo.internal.String, mojo.internal.String, false),
         null,
         false, /* nullable */
         0 /* minVersion */,
       ),
     ],
-    [[0, 72],]);
+    [[0, 32],]);
 
 
 
@@ -1085,20 +1044,138 @@ blink.mojom.IdentityProviderConfig = class {
   constructor() {
     /** @export { !url.mojom.Url } */
     this.configUrl;
+    /** @export { !boolean } */
+    this.useRegisteredConfigUrls;
     /** @export { !string } */
     this.clientId;
+  }
+};
+
+
+
+mojo.internal.Struct(
+    blink.mojom.IdentityProviderRequestOptionsSpec.$,
+    'IdentityProviderRequestOptions',
+    [
+      mojo.internal.StructField(
+        'config', 0,
+        0,
+        blink.mojom.IdentityProviderConfigSpec.$,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'nonce', 8,
+        0,
+        mojo.internal.String,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'loginHint', 16,
+        0,
+        mojo.internal.String,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'domainHint', 24,
+        0,
+        mojo.internal.String,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'scope', 32,
+        0,
+        mojo.internal.Array(mojo.internal.String, false),
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'responseType', 40,
+        0,
+        mojo.internal.Array(mojo.internal.String, false),
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'params', 48,
+        0,
+        mojo.internal.Map(mojo.internal.String, mojo.internal.String, false),
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 64],]);
+
+
+
+
+
+/** @record */
+blink.mojom.IdentityProviderRequestOptions = class {
+  constructor() {
+    /** @export { !blink.mojom.IdentityProviderConfig } */
+    this.config;
     /** @export { !string } */
     this.nonce;
     /** @export { !string } */
     this.loginHint;
     /** @export { !string } */
-    this.hostedDomain;
+    this.domainHint;
     /** @export { !Array<!string> } */
     this.scope;
     /** @export { !Array<!string> } */
     this.responseType;
     /** @export { !Object<!string, !string> } */
     this.params;
+  }
+};
+
+
+
+mojo.internal.Struct(
+    blink.mojom.IdentityCredentialDisconnectOptionsSpec.$,
+    'IdentityCredentialDisconnectOptions',
+    [
+      mojo.internal.StructField(
+        'config', 0,
+        0,
+        blink.mojom.IdentityProviderConfigSpec.$,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'accountHint', 8,
+        0,
+        mojo.internal.String,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 24],]);
+
+
+
+
+
+/** @record */
+blink.mojom.IdentityCredentialDisconnectOptions = class {
+  constructor() {
+    /** @export { !blink.mojom.IdentityProviderConfig } */
+    this.config;
+    /** @export { !string } */
+    this.accountHint;
   }
 };
 
@@ -1505,64 +1582,6 @@ blink.mojom.FederatedAuthRequest_ResolveTokenRequest_ResponseParams = class {
 
 
 mojo.internal.Struct(
-    blink.mojom.FederatedAuthRequest_LogoutRps_ParamsSpec.$,
-    'FederatedAuthRequest_LogoutRps_Params',
-    [
-      mojo.internal.StructField(
-        'rpLogoutRequests', 0,
-        0,
-        mojo.internal.Array(blink.mojom.LogoutRpsRequestSpec.$, false),
-        null,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-    ],
-    [[0, 16],]);
-
-
-
-
-
-/** @record */
-blink.mojom.FederatedAuthRequest_LogoutRps_Params = class {
-  constructor() {
-    /** @export { !Array<!blink.mojom.LogoutRpsRequest> } */
-    this.rpLogoutRequests;
-  }
-};
-
-
-
-mojo.internal.Struct(
-    blink.mojom.FederatedAuthRequest_LogoutRps_ResponseParamsSpec.$,
-    'FederatedAuthRequest_LogoutRps_ResponseParams',
-    [
-      mojo.internal.StructField(
-        'status', 0,
-        0,
-        blink.mojom.LogoutRpsStatusSpec.$,
-        0,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-    ],
-    [[0, 16],]);
-
-
-
-
-
-/** @record */
-blink.mojom.FederatedAuthRequest_LogoutRps_ResponseParams = class {
-  constructor() {
-    /** @export { !blink.mojom.LogoutRpsStatus } */
-    this.status;
-  }
-};
-
-
-
-mojo.internal.Struct(
     blink.mojom.FederatedAuthRequest_SetIdpSigninStatus_ParamsSpec.$,
     'FederatedAuthRequest_SetIdpSigninStatus_Params',
     [
@@ -1774,12 +1793,70 @@ blink.mojom.FederatedAuthRequest_PreventSilentAccess_ResponseParams = class {
 
 
 
+mojo.internal.Struct(
+    blink.mojom.FederatedAuthRequest_Disconnect_ParamsSpec.$,
+    'FederatedAuthRequest_Disconnect_Params',
+    [
+      mojo.internal.StructField(
+        'options', 0,
+        0,
+        blink.mojom.IdentityCredentialDisconnectOptionsSpec.$,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+
+
+/** @record */
+blink.mojom.FederatedAuthRequest_Disconnect_Params = class {
+  constructor() {
+    /** @export { !blink.mojom.IdentityCredentialDisconnectOptions } */
+    this.options;
+  }
+};
+
+
+
+mojo.internal.Struct(
+    blink.mojom.FederatedAuthRequest_Disconnect_ResponseParamsSpec.$,
+    'FederatedAuthRequest_Disconnect_ResponseParams',
+    [
+      mojo.internal.StructField(
+        'status', 0,
+        0,
+        blink.mojom.DisconnectStatusSpec.$,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+
+
+/** @record */
+blink.mojom.FederatedAuthRequest_Disconnect_ResponseParams = class {
+  constructor() {
+    /** @export { !blink.mojom.DisconnectStatus } */
+    this.status;
+  }
+};
+
+
+
 mojo.internal.Union(
     blink.mojom.IdentityProviderSpec.$, 'IdentityProvider',
     {
       'federated': {
         'ordinal': 0,
-        'type': blink.mojom.IdentityProviderConfigSpec.$,
+        'type': blink.mojom.IdentityProviderRequestOptionsSpec.$,
       },
       'holder': {
         'ordinal': 1,
@@ -1789,7 +1866,7 @@ mojo.internal.Union(
 
 /**
  * @typedef { {
- *   federated: (!blink.mojom.IdentityProviderConfig|undefined),
+ *   federated: (!blink.mojom.IdentityProviderRequestOptions|undefined),
  *   holder: (!blink.mojom.DigitalCredentialProvider|undefined),
  * } }
  */

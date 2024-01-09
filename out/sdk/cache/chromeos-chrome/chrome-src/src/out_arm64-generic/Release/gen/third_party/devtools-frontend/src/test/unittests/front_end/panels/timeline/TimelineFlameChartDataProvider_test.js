@@ -4,9 +4,10 @@
 import * as Root from '../../../../../front_end/core/root/root.js';
 import * as SDK from '../../../../../front_end/core/sdk/sdk.js';
 import * as Bindings from '../../../../../front_end/models/bindings/bindings.js';
-import * as Workspace from '../../../../../front_end/models/workspace/workspace.js';
 import * as TraceEngine from '../../../../../front_end/models/trace/trace.js';
+import * as Workspace from '../../../../../front_end/models/workspace/workspace.js';
 import * as Timeline from '../../../../../front_end/panels/timeline/timeline.js';
+import * as PerfUi from '../../../../../front_end/ui/legacy/components/perf_ui/perf_ui.js';
 import { describeWithEnvironment } from '../../helpers/EnvironmentHelpers.js';
 import { TraceLoader } from '../../helpers/TraceLoader.js';
 describeWithEnvironment('TimelineFlameChartDataProvider', function () {
@@ -42,21 +43,6 @@ describeWithEnvironment('TimelineFlameChartDataProvider', function () {
             const allEventsAreSync = groupTreeEvents?.every(event => !TraceEngine.Types.TraceEvents.isAsyncPhase(TraceEngine.Legacy.phaseForEvent(event)));
             assert.isTrue(allEventsAreSync);
         });
-        it('returns data from the old engine if necessary', async function () {
-            const dataProvider = new Timeline.TimelineFlameChartDataProvider.TimelineFlameChartDataProvider();
-            const { traceParsedData, performanceModel } = await TraceLoader.allModels(this, 'timings-track.json.gz');
-            dataProvider.setModel(performanceModel, traceParsedData);
-            const tracksAppender = dataProvider.compatibilityTracksAppenderInstance();
-            // Set the interactions track to be the only appender used so that
-            // the main thread track defaults to the old engine.
-            tracksAppender.setVisibleTracks(new Set(['Interactions']));
-            const mainTrack = dataProvider.timelineData().groups.find(g => g.name.startsWith('Main —'));
-            if (!mainTrack) {
-                assert.fail('Could not find Main track flame chart group');
-            }
-            const groupTreeEvents = dataProvider.groupTreeEvents(mainTrack);
-            assert.strictEqual(groupTreeEvents?.length, 28844);
-        });
     });
     it('adds candy stripe and triangle decorations to long tasks in the main thread', async function () {
         const dataProvider = new Timeline.TimelineFlameChartDataProvider.TimelineFlameChartDataProvider();
@@ -68,25 +54,22 @@ describeWithEnvironment('TimelineFlameChartDataProvider', function () {
         Object.entries(entryDecorations).forEach(([index, decorationsForEvent]) => {
             const entryTitle = dataProvider.entryTitle(parseInt(index, 10)) ?? '';
             for (const decoration of decorationsForEvent) {
-                if (decoration.type === 'CANDY') {
+                if (decoration.type === "CANDY" /* PerfUi.FlameChart.FlameChartDecorationType.CANDY */) {
                     stripingTitles.push(entryTitle);
                 }
-                if (decoration.type === 'WARNING_TRIANGLE') {
+                if (decoration.type === "WARNING_TRIANGLE" /* PerfUi.FlameChart.FlameChartDecorationType.WARNING_TRIANGLE */) {
                     triangleTitles.push(entryTitle);
                 }
             }
         });
         assert.deepEqual(stripingTitles, [
             'Pointer',
-            'Task',
             'Task', // The same long task as above, but rendered by the new engine.
         ]);
         assert.deepEqual(triangleTitles, [
-            'Task',
-            'Task',
-            'Event: click', // The click EventDispatch that's also marked with a triangle
+            'Pointer',
+            'Task', // The same long task as above, but rendered by the new engine.
         ]);
-        assert.lengthOf(Object.keys(entryDecorations), 4);
     });
     it('populates the frames track with frames and screenshots', async function () {
         const dataProvider = new Timeline.TimelineFlameChartDataProvider.TimelineFlameChartDataProvider();

@@ -8,6 +8,7 @@
 #define COMPONENTS_CHROMEOS_CAMERA_COMMON_DMABUF_MOJOM_FEATURES_H_
 
 #include "base/feature_list.h"
+#include "mojo/public/cpp/bindings/runtime_features.h"
 
 
 

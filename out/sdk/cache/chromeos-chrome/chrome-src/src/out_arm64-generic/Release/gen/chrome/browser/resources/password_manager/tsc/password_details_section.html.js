@@ -15,7 +15,7 @@ export function getTemplate() {
       <passkey-details-card passkey="[[item]]"></passkey-details-card>
     </template>
     <template is="dom-if" if="[[!item.isPasskey]]">
-      <password-details-card password="[[item]]" group-name="[[selectedGroup_.name]]" icon-url="[[selectedGroup_.iconUrl]]">
+      <password-details-card password="[[item]]" prefs="{{prefs}}" group-name="[[selectedGroup_.name]]" icon-url="[[selectedGroup_.iconUrl]]">
       </password-details-card>
     </template>
   </template>

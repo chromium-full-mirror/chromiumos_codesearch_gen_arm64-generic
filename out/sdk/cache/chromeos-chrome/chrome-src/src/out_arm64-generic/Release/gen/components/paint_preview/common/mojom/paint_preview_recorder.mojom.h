@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "components/paint_preview/common/mojom/paint_preview_recorder.mojom-features.h"
 #include "components/paint_preview/common/mojom/paint_preview_recorder.mojom-shared.h"
 #include "components/paint_preview/common/mojom/paint_preview_recorder.mojom-forward.h"
 #include "components/paint_preview/common/mojom/paint_preview_types.mojom.h"
@@ -500,14 +501,14 @@ class  PaintPreviewCaptureResponse {
   PaintPreviewCaptureResponse();
 
   PaintPreviewCaptureResponse(
-      const absl::optional<::base::UnguessableToken>& embedding_token,
+      const std::optional<::base::UnguessableToken>& embedding_token,
       const base::flat_map<uint32_t, ::base::UnguessableToken>& content_id_to_embedding_token,
       std::vector<LinkDataPtr> links,
       ::base::TimeDelta blink_recording_time,
       uint64_t serialized_size,
       const ::gfx::Point& scroll_offsets,
       const ::gfx::Point& frame_offsets,
-      absl::optional<::mojo_base::BigBuffer> skp);
+      std::optional<::mojo_base::BigBuffer> skp);
 
 PaintPreviewCaptureResponse(const PaintPreviewCaptureResponse&) = delete;
 PaintPreviewCaptureResponse& operator=(const PaintPreviewCaptureResponse&) = delete;
@@ -582,7 +583,7 @@ PaintPreviewCaptureResponse& operator=(const PaintPreviewCaptureResponse&) = del
   }
 
   
-  absl::optional<::base::UnguessableToken> embedding_token;
+  std::optional<::base::UnguessableToken> embedding_token;
   
   base::flat_map<uint32_t, ::base::UnguessableToken> content_id_to_embedding_token;
   
@@ -596,7 +597,7 @@ PaintPreviewCaptureResponse& operator=(const PaintPreviewCaptureResponse&) = del
   
   ::gfx::Point frame_offsets;
   
-  absl::optional<::mojo_base::BigBuffer> skp;
+  std::optional<::mojo_base::BigBuffer> skp;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

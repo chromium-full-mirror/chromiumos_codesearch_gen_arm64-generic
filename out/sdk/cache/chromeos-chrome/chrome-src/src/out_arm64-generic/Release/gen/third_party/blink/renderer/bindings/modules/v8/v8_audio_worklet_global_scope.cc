@@ -90,11 +90,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, AudioWorkletGlobalScope>::value,
     "AudioWorkletGlobalScope does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&AudioWorkletGlobalScope::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "AudioWorkletGlobalScope is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -107,8 +102,9 @@ BLINK_BINDINGS_TRACE_EVENT("AudioWorkletGlobalScope.currentFrame.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-AudioWorkletGlobalScope* blink_receiver = V8AudioWorkletGlobalScope::ToWrappableUnsafe(v8_receiver);
+AudioWorkletGlobalScope* blink_receiver = V8AudioWorkletGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->currentFrame();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint64_t>());
 }
@@ -121,8 +117,9 @@ BLINK_BINDINGS_TRACE_EVENT("AudioWorkletGlobalScope.currentTime.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-AudioWorkletGlobalScope* blink_receiver = V8AudioWorkletGlobalScope::ToWrappableUnsafe(v8_receiver);
+AudioWorkletGlobalScope* blink_receiver = V8AudioWorkletGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->currentTime();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -135,8 +132,9 @@ BLINK_BINDINGS_TRACE_EVENT("AudioWorkletGlobalScope.sampleRate.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-AudioWorkletGlobalScope* blink_receiver = V8AudioWorkletGlobalScope::ToWrappableUnsafe(v8_receiver);
+AudioWorkletGlobalScope* blink_receiver = V8AudioWorkletGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->sampleRate();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<float>());
 }
@@ -314,7 +312,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-AudioWorkletGlobalScope* blink_receiver = V8AudioWorkletGlobalScope::ToWrappableUnsafe(v8_receiver);
+AudioWorkletGlobalScope* blink_receiver = V8AudioWorkletGlobalScope::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_name = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

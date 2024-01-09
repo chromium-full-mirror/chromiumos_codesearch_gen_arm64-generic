@@ -49,8 +49,7 @@ struct FeatureOverrideDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 FeatureOverrideDefaultTypeInternal _FeatureOverride_default_instance_;
 PROTOBUF_CONSTEXPR SeedDetails::SeedDetails(
     ::_pbi::ConstantInitialized)
-  : compressed_data_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , locale_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  : locale_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , permanent_consistency_country_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , session_consistency_country_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , signature_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
@@ -712,14 +711,6 @@ SeedDetails::SeedDetails(::PROTOBUF_NAMESPACE_ID::Arena* arena,
 SeedDetails::SeedDetails(const SeedDetails& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  compressed_data_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    compressed_data_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (!from._internal_compressed_data().empty()) {
-    compressed_data_.Set(from._internal_compressed_data(), 
-      GetArenaForAllocation());
-  }
   locale_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
     locale_.Set("", GetArenaForAllocation());
@@ -767,10 +758,6 @@ SeedDetails::SeedDetails(const SeedDetails& from)
 }
 
 inline void SeedDetails::SharedCtor() {
-compressed_data_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  compressed_data_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 locale_.InitDefault();
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   locale_.Set("", GetArenaForAllocation());
@@ -808,7 +795,6 @@ SeedDetails::~SeedDetails() {
 
 inline void SeedDetails::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  compressed_data_.Destroy();
   locale_.Destroy();
   permanent_consistency_country_.Destroy();
   session_consistency_country_.Destroy();
@@ -826,7 +812,6 @@ void SeedDetails::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  compressed_data_.ClearToEmpty();
   locale_.ClearToEmpty();
   permanent_consistency_country_.ClearToEmpty();
   session_consistency_country_.ClearToEmpty();
@@ -844,15 +829,6 @@ const char* SeedDetails::_InternalParse(const char* ptr, ::_pbi::ParseContext* c
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // bytes compressed_data = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
-          auto str = _internal_mutable_compressed_data();
-          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
       // string locale = 4;
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
@@ -955,12 +931,6 @@ uint8_t* SeedDetails::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // bytes compressed_data = 1;
-  if (!this->_internal_compressed_data().empty()) {
-    target = stream->WriteBytesMaybeAliased(
-        1, this->_internal_compressed_data(), target);
-  }
-
   // string locale = 4;
   if (!this->_internal_locale().empty()) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
@@ -1041,13 +1011,6 @@ size_t SeedDetails::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // bytes compressed_data = 1;
-  if (!this->_internal_compressed_data().empty()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-        this->_internal_compressed_data());
-  }
-
   // string locale = 4;
   if (!this->_internal_locale().empty()) {
     total_size += 1 +
@@ -1118,9 +1081,6 @@ void SeedDetails::MergeFrom(const SeedDetails& from) {
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (!from._internal_compressed_data().empty()) {
-    _internal_set_compressed_data(from._internal_compressed_data());
-  }
   if (!from._internal_locale().empty()) {
     _internal_set_locale(from._internal_locale());
   }
@@ -1164,10 +1124,6 @@ void SeedDetails::InternalSwap(SeedDetails* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &compressed_data_, lhs_arena,
-      &other->compressed_data_, rhs_arena
-  );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &locale_, lhs_arena,
       &other->locale_, rhs_arena

@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/extensions/api/processes.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -36,29 +37,29 @@ namespace processes {
 
 const char* ToString(ProcessType enum_param) {
   switch (enum_param) {
-    case PROCESS_TYPE_BROWSER:
+    case ProcessType::kBrowser:
       return "browser";
-    case PROCESS_TYPE_RENDERER:
+    case ProcessType::kRenderer:
       return "renderer";
-    case PROCESS_TYPE_EXTENSION:
+    case ProcessType::kExtension:
       return "extension";
-    case PROCESS_TYPE_NOTIFICATION:
+    case ProcessType::kNotification:
       return "notification";
-    case PROCESS_TYPE_PLUGIN:
+    case ProcessType::kPlugin:
       return "plugin";
-    case PROCESS_TYPE_WORKER:
+    case ProcessType::kWorker:
       return "worker";
-    case PROCESS_TYPE_NACL:
+    case ProcessType::kNacl:
       return "nacl";
-    case PROCESS_TYPE_SERVICE_WORKER:
+    case ProcessType::kServiceWorker:
       return "service_worker";
-    case PROCESS_TYPE_UTILITY:
+    case ProcessType::kUtility:
       return "utility";
-    case PROCESS_TYPE_GPU:
+    case ProcessType::kGpu:
       return "gpu";
-    case PROCESS_TYPE_OTHER:
+    case ProcessType::kOther:
       return "other";
-    case PROCESS_TYPE_NONE:
+    case ProcessType::kNone:
       return "";
   }
   NOTREACHED();
@@ -67,28 +68,28 @@ const char* ToString(ProcessType enum_param) {
 
 ProcessType ParseProcessType(base::StringPiece enum_string) {
   if (enum_string == "browser")
-    return PROCESS_TYPE_BROWSER;
+    return ProcessType::kBrowser;
   if (enum_string == "renderer")
-    return PROCESS_TYPE_RENDERER;
+    return ProcessType::kRenderer;
   if (enum_string == "extension")
-    return PROCESS_TYPE_EXTENSION;
+    return ProcessType::kExtension;
   if (enum_string == "notification")
-    return PROCESS_TYPE_NOTIFICATION;
+    return ProcessType::kNotification;
   if (enum_string == "plugin")
-    return PROCESS_TYPE_PLUGIN;
+    return ProcessType::kPlugin;
   if (enum_string == "worker")
-    return PROCESS_TYPE_WORKER;
+    return ProcessType::kWorker;
   if (enum_string == "nacl")
-    return PROCESS_TYPE_NACL;
+    return ProcessType::kNacl;
   if (enum_string == "service_worker")
-    return PROCESS_TYPE_SERVICE_WORKER;
+    return ProcessType::kServiceWorker;
   if (enum_string == "utility")
-    return PROCESS_TYPE_UTILITY;
+    return ProcessType::kUtility;
   if (enum_string == "gpu")
-    return PROCESS_TYPE_GPU;
+    return ProcessType::kGpu;
   if (enum_string == "other")
-    return PROCESS_TYPE_OTHER;
-  return PROCESS_TYPE_NONE;
+    return ProcessType::kOther;
+  return ProcessType::kNone;
 }
 
 std::u16string GetProcessTypeParseError(base::StringPiece enum_string) {
@@ -100,8 +101,8 @@ TaskInfo::TaskInfo()
  {}
 
 TaskInfo::~TaskInfo() = default;
-TaskInfo::TaskInfo(TaskInfo&& rhs) = default;
-TaskInfo& TaskInfo::operator=(TaskInfo&& rhs) = default;
+TaskInfo::TaskInfo(TaskInfo&& rhs) noexcept = default;
+TaskInfo& TaskInfo::operator=(TaskInfo&& rhs) noexcept = default;
 TaskInfo TaskInfo::Clone() const {
   TaskInfo out;
   out.title = title;
@@ -129,7 +130,7 @@ bool TaskInfo::Populate(
     {
       auto temp = (*tab_id_value).GetIfInt();
       if (!temp.has_value()) {
-        out.tab_id = absl::nullopt;
+        out.tab_id = std::nullopt;
         return false;
       }
       out.tab_id = *temp;
@@ -149,34 +150,21 @@ bool TaskInfo::Populate(
 }
 
 // static
-std::unique_ptr<TaskInfo> TaskInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<TaskInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<TaskInfo> TaskInfo::FromValue(const base::Value::Dict& value) {
+  TaskInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<TaskInfo> TaskInfo::FromValue(const base::Value::Dict& value) {
+std::optional<TaskInfo> TaskInfo::FromValue(const base::Value& value) {
   TaskInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<TaskInfo> TaskInfo::FromValue(const base::Value& value) {
-  TaskInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -200,8 +188,8 @@ Cache::Cache()
 live_size(0.0) {}
 
 Cache::~Cache() = default;
-Cache::Cache(Cache&& rhs) = default;
-Cache& Cache::operator=(Cache&& rhs) = default;
+Cache::Cache(Cache&& rhs) noexcept = default;
+Cache& Cache::operator=(Cache&& rhs) noexcept = default;
 Cache Cache::Clone() const {
   Cache out;
   out.size = size;
@@ -249,34 +237,21 @@ bool Cache::Populate(
 }
 
 // static
-std::unique_ptr<Cache> Cache::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<Cache>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<Cache> Cache::FromValue(const base::Value::Dict& value) {
+  Cache out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Cache> Cache::FromValue(const base::Value::Dict& value) {
+std::optional<Cache> Cache::FromValue(const base::Value& value) {
   Cache out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<Cache> Cache::FromValue(const base::Value& value) {
-  Cache out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -300,8 +275,8 @@ type(),
 nacl_debug_port(0) {}
 
 Process::~Process() = default;
-Process::Process(Process&& rhs) = default;
-Process& Process::operator=(Process&& rhs) = default;
+Process::Process(Process&& rhs) noexcept = default;
+Process& Process::operator=(Process&& rhs) noexcept = default;
 Process Process::Clone() const {
   Process out;
   out.id = id;
@@ -417,7 +392,7 @@ bool Process::Populate(
     {
       auto temp = (*cpu_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.cpu = absl::nullopt;
+        out.cpu = std::nullopt;
         return false;
       }
       out.cpu = *temp;
@@ -429,7 +404,7 @@ bool Process::Populate(
     {
       auto temp = (*network_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.network = absl::nullopt;
+        out.network = std::nullopt;
         return false;
       }
       out.network = *temp;
@@ -441,7 +416,7 @@ bool Process::Populate(
     {
       auto temp = (*private_memory_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.private_memory = absl::nullopt;
+        out.private_memory = std::nullopt;
         return false;
       }
       out.private_memory = *temp;
@@ -453,7 +428,7 @@ bool Process::Populate(
     {
       auto temp = (*js_memory_allocated_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.js_memory_allocated = absl::nullopt;
+        out.js_memory_allocated = std::nullopt;
         return false;
       }
       out.js_memory_allocated = *temp;
@@ -465,7 +440,7 @@ bool Process::Populate(
     {
       auto temp = (*js_memory_used_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.js_memory_used = absl::nullopt;
+        out.js_memory_used = std::nullopt;
         return false;
       }
       out.js_memory_used = *temp;
@@ -477,7 +452,7 @@ bool Process::Populate(
     {
       auto temp = (*sqlite_memory_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.sqlite_memory = absl::nullopt;
+        out.sqlite_memory = std::nullopt;
         return false;
       }
       out.sqlite_memory = *temp;
@@ -542,34 +517,21 @@ bool Process::Populate(
 }
 
 // static
-std::unique_ptr<Process> Process::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<Process>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<Process> Process::FromValue(const base::Value::Dict& value) {
+  Process out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Process> Process::FromValue(const base::Value::Dict& value) {
+std::optional<Process> Process::FromValue(const base::Value& value) {
   Process out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<Process> Process::FromValue(const base::Value& value) {
-  Process out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -639,13 +601,13 @@ namespace GetProcessIdForTab {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -655,13 +617,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = tab_id_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.tab_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -681,13 +643,13 @@ namespace Terminate {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -697,13 +659,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = process_id_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.process_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -725,8 +687,8 @@ Params::ProcessIds::ProcessIds()
  {}
 
 Params::ProcessIds::~ProcessIds() = default;
-Params::ProcessIds::ProcessIds(ProcessIds&& rhs) = default;
-Params::ProcessIds& Params::ProcessIds::operator=(ProcessIds&& rhs) = default;
+Params::ProcessIds::ProcessIds(ProcessIds&& rhs) noexcept = default;
+Params::ProcessIds& Params::ProcessIds::operator=(ProcessIds&& rhs) noexcept = default;
 Params::ProcessIds Params::ProcessIds::Clone() const {
   ProcessIds out;
   out.as_integer = as_integer;
@@ -741,7 +703,7 @@ bool Params::ProcessIds::Populate(
     {
       auto temp = value.GetIfInt();
       if (!temp.has_value()) {
-        out.as_integer = absl::nullopt;
+        out.as_integer = std::nullopt;
         return false;
       }
       out.as_integer = *temp;
@@ -765,11 +727,11 @@ bool Params::ProcessIds::Populate(
 }
 
 // static
-absl::optional<Params::ProcessIds> Params::ProcessIds::FromValue(const base::Value& value) {
+std::optional<Params::ProcessIds> Params::ProcessIds::FromValue(const base::Value& value) {
   ProcessIds out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -777,13 +739,13 @@ absl::optional<Params::ProcessIds> Params::ProcessIds::FromValue(const base::Val
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -792,11 +754,11 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& process_ids_value = args[0];
     {
       if (!ProcessIds::Populate(process_ids_value, params.process_ids))
-        return absl::nullopt;
+        return std::nullopt;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -805,13 +767,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = include_memory_value.GetIfBool();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.include_memory = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -822,8 +784,8 @@ Results::Processes::Processes()
  {}
 
 Results::Processes::~Processes() = default;
-Results::Processes::Processes(Processes&& rhs) = default;
-Results::Processes& Results::Processes::operator=(Processes&& rhs) = default;
+Results::Processes::Processes(Processes&& rhs) noexcept = default;
+Results::Processes& Results::Processes::operator=(Processes&& rhs) noexcept = default;
 base::Value::Dict Results::Processes::ToValue() const {
   base::Value::Dict to_value_result;
 
@@ -854,8 +816,8 @@ Processes::Processes()
  {}
 
 Processes::~Processes() = default;
-Processes::Processes(Processes&& rhs) = default;
-Processes& Processes::operator=(Processes&& rhs) = default;
+Processes::Processes(Processes&& rhs) noexcept = default;
+Processes& Processes::operator=(Processes&& rhs) noexcept = default;
 base::Value::Dict Processes::ToValue() const {
   base::Value::Dict to_value_result;
 
@@ -883,8 +845,8 @@ Processes::Processes()
  {}
 
 Processes::~Processes() = default;
-Processes::Processes(Processes&& rhs) = default;
-Processes& Processes::operator=(Processes&& rhs) = default;
+Processes::Processes(Processes&& rhs) noexcept = default;
+Processes& Processes::operator=(Processes&& rhs) noexcept = default;
 base::Value::Dict Processes::ToValue() const {
   base::Value::Dict to_value_result;
 

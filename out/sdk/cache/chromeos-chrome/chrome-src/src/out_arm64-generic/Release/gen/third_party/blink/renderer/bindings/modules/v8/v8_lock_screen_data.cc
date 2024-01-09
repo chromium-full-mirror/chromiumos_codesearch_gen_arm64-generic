@@ -65,11 +65,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, LockScreenData>::value,
     "LockScreenData inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&LockScreenData::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "LockScreenData is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -102,7 +97,7 @@ return;
 
 
 
-LockScreenData* blink_receiver = V8LockScreenData::ToWrappableUnsafe(v8_receiver);
+LockScreenData* blink_receiver = V8LockScreenData::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -141,7 +136,7 @@ return;
 
 
 
-LockScreenData* blink_receiver = V8LockScreenData::ToWrappableUnsafe(v8_receiver);
+LockScreenData* blink_receiver = V8LockScreenData::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -176,7 +171,7 @@ return;
 
 
 
-LockScreenData* blink_receiver = V8LockScreenData::ToWrappableUnsafe(v8_receiver);
+LockScreenData* blink_receiver = V8LockScreenData::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -211,7 +206,7 @@ return;
 
 
 
-LockScreenData* blink_receiver = V8LockScreenData::ToWrappableUnsafe(v8_receiver);
+LockScreenData* blink_receiver = V8LockScreenData::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

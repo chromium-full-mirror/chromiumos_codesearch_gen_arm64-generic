@@ -83,7 +83,7 @@ class BLINK_COMMON_EXPORT SharedStorageWorkletServiceClientAsyncWaiter {
 
 class BLINK_COMMON_EXPORT SharedStorageWorkletServiceInterceptorForTesting : public SharedStorageWorkletService {
   virtual SharedStorageWorkletService* GetForwardingInterface() = 0;
-  void Initialize(::mojo::PendingAssociatedRemote<SharedStorageWorkletServiceClient> client, bool private_aggregation_permissions_policy_allowed, const absl::optional<::std::u16string>& embedder_context) override;
+  void Initialize(::mojo::PendingAssociatedRemote<SharedStorageWorkletServiceClient> client, bool private_aggregation_permissions_policy_allowed, const std::optional<::std::u16string>& embedder_context) override;
   void AddModule(::mojo::PendingRemote<::network::mojom::URLLoaderFactory> url_loader_factory, const ::GURL& script_source_url, AddModuleCallback callback) override;
   void RunURLSelectionOperation(const std::string& name, const std::vector<::GURL>& urls, ::blink::CloneableMessage serialized_data, ::mojo::PendingRemote<::blink::mojom::PrivateAggregationHost> pa_host, RunURLSelectionOperationCallback callback) override;
   void RunOperation(const std::string& name, ::blink::CloneableMessage serialized_data, ::mojo::PendingRemote<::blink::mojom::PrivateAggregationHost> pa_host, RunOperationCallback callback) override;

@@ -55,6 +55,41 @@ class  UserInterface_OpenSettingsSubpage_Params_Data {
 };
 static_assert(sizeof(UserInterface_OpenSettingsSubpage_Params_Data) == 16,
               "Bad sizeof(UserInterface_OpenSettingsSubpage_Params_Data)");
+class  UserInterface_ShowConfirmationDialog_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> title;
+  mojo::internal::Pointer<mojo::internal::String_Data> description;
+  mojo::internal::Pointer<mojo::internal::String_Data> cancelName;
+
+ private:
+  friend class mojo::internal::MessageFragment<UserInterface_ShowConfirmationDialog_Params_Data>;
+
+  UserInterface_ShowConfirmationDialog_Params_Data();
+  ~UserInterface_ShowConfirmationDialog_Params_Data() = delete;
+};
+static_assert(sizeof(UserInterface_ShowConfirmationDialog_Params_Data) == 32,
+              "Bad sizeof(UserInterface_ShowConfirmationDialog_Params_Data)");
+class  UserInterface_ShowConfirmationDialog_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t confirmed : 1;
+  uint8_t padfinal_[7];
+
+ private:
+  friend class mojo::internal::MessageFragment<UserInterface_ShowConfirmationDialog_ResponseParams_Data>;
+
+  UserInterface_ShowConfirmationDialog_ResponseParams_Data();
+  ~UserInterface_ShowConfirmationDialog_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(UserInterface_ShowConfirmationDialog_ResponseParams_Data) == 16,
+              "Bad sizeof(UserInterface_ShowConfirmationDialog_ResponseParams_Data)");
 class  UserInterface_SetFocusRings_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -155,6 +190,80 @@ class UserInterface_OpenSettingsSubpage_ParamsDataView {
 };
 
 
+class UserInterface_ShowConfirmationDialog_ParamsDataView {
+ public:
+  UserInterface_ShowConfirmationDialog_ParamsDataView() = default;
+
+  UserInterface_ShowConfirmationDialog_ParamsDataView(
+      internal::UserInterface_ShowConfirmationDialog_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetTitleDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadTitle(UserType* output) {
+    
+    auto* pointer = data_->title.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetDescriptionDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadDescription(UserType* output) {
+    
+    auto* pointer = data_->description.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetCancelNameDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadCancelName(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::StringDataView, UserType>(),
+    "Attempting to read the optional `cancelName` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadCancelName` instead "
+    "of `ReadCancelName if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->cancelName.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::UserInterface_ShowConfirmationDialog_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class UserInterface_ShowConfirmationDialog_ResponseParamsDataView {
+ public:
+  UserInterface_ShowConfirmationDialog_ResponseParamsDataView() = default;
+
+  UserInterface_ShowConfirmationDialog_ResponseParamsDataView(
+      internal::UserInterface_ShowConfirmationDialog_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  bool confirmed() const {
+    return data_->confirmed;
+  }
+ private:
+  internal::UserInterface_ShowConfirmationDialog_ResponseParams_Data* data_ = nullptr;
+};
+
+
 class UserInterface_SetFocusRings_ParamsDataView {
  public:
   UserInterface_SetFocusRings_ParamsDataView() = default;
@@ -251,6 +360,25 @@ inline void UserInterface_OpenSettingsSubpage_ParamsDataView::GetSubpageDataView
   auto pointer = data_->subpage.Get();
   *output = mojo::StringDataView(pointer, message_);
 }
+
+
+inline void UserInterface_ShowConfirmationDialog_ParamsDataView::GetTitleDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->title.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void UserInterface_ShowConfirmationDialog_ParamsDataView::GetDescriptionDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->description.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void UserInterface_ShowConfirmationDialog_ParamsDataView::GetCancelNameDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->cancelName.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
 
 
 inline void UserInterface_SetFocusRings_ParamsDataView::GetFocusRingsDataView(

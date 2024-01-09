@@ -12,10 +12,14 @@ import 'chrome://resources/cr_elements/cr_button/cr_button.js';
 import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { castExists } from '../assert_extras.js';
+import { DeepLinkingMixin } from '../common/deep_linking_mixin.js';
 import { isChild } from '../common/load_time_booleans.js';
+import { RouteObserverMixin } from '../common/route_observer_mixin.js';
+import { Setting } from '../mojom-webui/setting.mojom-webui.js';
+import { routes } from '../router.js';
 import { ParentalControlsBrowserProxyImpl } from './parental_controls_browser_proxy.js';
 import { getTemplate } from './parental_controls_settings_card.html.js';
-const ParentalControlsSettingsCardElementBase = I18nMixin(PolymerElement);
+const ParentalControlsSettingsCardElementBase = DeepLinkingMixin(RouteObserverMixin(I18nMixin(PolymerElement)));
 export class ParentalControlsSettingsCardElement extends ParentalControlsSettingsCardElementBase {
     static get is() {
         return 'parental-controls-settings-card';
@@ -25,6 +29,13 @@ export class ParentalControlsSettingsCardElement extends ParentalControlsSetting
     }
     static get properties() {
         return {
+            /**
+             * Used by DeepLinkingMixin to focus this page's deep links.
+             */
+            supportedSettingIds: {
+                type: Object,
+                value: () => new Set([Setting.kSetUpParentalControls]),
+            },
             isChild_: {
                 type: Boolean,
                 value() {
@@ -49,6 +60,13 @@ export class ParentalControlsSettingsCardElement extends ParentalControlsSetting
         // Set up online/offline listeners.
         window.addEventListener('offline', this.onOffline_.bind(this));
         window.addEventListener('online', this.onOnline_.bind(this));
+    }
+    currentRouteChanged(newRoute, _oldRoute) {
+        // Does not apply to this page.
+        if (newRoute !== routes.OS_PEOPLE) {
+            return;
+        }
+        this.attemptDeepLink();
     }
     /**
      * Returns the setup parental controls CrButtonElement.

@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "net-fs", "name": "samba", "version": "4.19.3", "revision": 0, "fullname": "net-fs/samba", "fullnamerev": "net-fs/samba-4.19.3", "license_names": ["GPL-3"], "license_text_scanned": [], "homepages": ["https://samba.org/"], "skip": false, "tainted": false, "ebuild_path": null}

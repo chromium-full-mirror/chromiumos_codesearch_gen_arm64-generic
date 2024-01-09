@@ -15,10 +15,8 @@
 #include "third_party/blink/renderer/bindings/core/v8/v8_dedicated_worker_global_scope.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_document.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_html_anchor_element.h"
-#include "third_party/blink/renderer/bindings/core/v8/v8_html_body_element.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_html_element.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_html_fenced_frame_element.h"
-#include "third_party/blink/renderer/bindings/core/v8/v8_html_frame_set_element.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_html_iframe_element.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_html_image_element.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_html_script_element.h"
@@ -26,18 +24,20 @@
 #include "third_party/blink/renderer/bindings/core/v8/v8_navigator.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_performance_entry.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_performance_navigation_timing.h"
+#include "third_party/blink/renderer/bindings/core/v8/v8_request.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_shared_worker_global_scope.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_svg_element.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_window.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_worker_navigator.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_xml_http_request.h"
+#include "third_party/blink/renderer/bindings/modules/v8/v8_browser_capture_media_stream_track.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_can_make_payment_event.h"
-#include "third_party/blink/renderer/bindings/modules/v8/v8_identity_provider.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_install_event.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_launch_params.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_media_devices.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_media_stream_track.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_notification.h"
+#include "third_party/blink/renderer/bindings/modules/v8/v8_restriction_target.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_rtc_encoded_audio_frame.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_rtc_encoded_video_frame.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_scheduler.h"
@@ -127,17 +127,6 @@ V8Window::GetWrapperTypeInfo(),
 selected_wti_list = wti_list;
     break;
   }
-  case mojom::blink::OriginTrialFeature::kBeforeMatchEvent: {
-    static const WrapperTypeInfo* const wti_list[] = {
-V8Document::GetWrapperTypeInfo(), 
-V8HTMLElement::GetWrapperTypeInfo(), 
-V8MathMLElement::GetWrapperTypeInfo(), 
-V8SVGElement::GetWrapperTypeInfo(), 
-V8Window::GetWrapperTypeInfo(), 
-};
-selected_wti_list = wti_list;
-    break;
-  }
   case mojom::blink::OriginTrialFeature::kComputePressure: {
     static const WrapperTypeInfo* const wti_list[] = {
 V8DedicatedWorkerGlobalScope::GetWrapperTypeInfo(), 
@@ -176,10 +165,13 @@ V8Window::GetWrapperTypeInfo(),
 selected_wti_list = wti_list;
     break;
   }
-  case mojom::blink::OriginTrialFeature::kFedCmIdpSigninStatus: {
+  case mojom::blink::OriginTrialFeature::kElementCapture: {
     static const WrapperTypeInfo* const wti_list[] = {
-V8IdentityProvider::GetWrapperTypeInfo(), 
-V8Navigator::GetWrapperTypeInfo(), 
+V8BrowserCaptureMediaStreamTrack::GetWrapperTypeInfo(), 
+V8DedicatedWorkerGlobalScope::GetWrapperTypeInfo(), 
+V8RestrictionTarget::GetWrapperTypeInfo(), 
+V8ServiceWorkerGlobalScope::GetWrapperTypeInfo(), 
+V8SharedWorkerGlobalScope::GetWrapperTypeInfo(), 
 V8Window::GetWrapperTypeInfo(), 
 };
 selected_wti_list = wti_list;
@@ -196,6 +188,13 @@ selected_wti_list = wti_list;
   case mojom::blink::OriginTrialFeature::kFencedFramesAPIChanges: {
     static const WrapperTypeInfo* const wti_list[] = {
 V8HTMLFencedFrameElement::GetWrapperTypeInfo(), 
+};
+selected_wti_list = wti_list;
+    break;
+  }
+  case mojom::blink::OriginTrialFeature::kFetchLaterAPI: {
+    static const WrapperTypeInfo* const wti_list[] = {
+V8Window::GetWrapperTypeInfo(), 
 };
 selected_wti_list = wti_list;
     break;
@@ -299,11 +298,9 @@ V8Window::GetWrapperTypeInfo(),
 selected_wti_list = wti_list;
     break;
   }
-  case mojom::blink::OriginTrialFeature::kPortals: {
+  case mojom::blink::OriginTrialFeature::kPrivateNetworkAccessPermissionPrompt: {
     static const WrapperTypeInfo* const wti_list[] = {
-V8HTMLBodyElement::GetWrapperTypeInfo(), 
-V8HTMLFrameSetElement::GetWrapperTypeInfo(), 
-V8Window::GetWrapperTypeInfo(), 
+V8Request::GetWrapperTypeInfo(), 
 };
 selected_wti_list = wti_list;
     break;
@@ -389,13 +386,6 @@ V8Document::GetWrapperTypeInfo(),
 selected_wti_list = wti_list;
     break;
   }
-  case mojom::blink::OriginTrialFeature::kTopicsXHR: {
-    static const WrapperTypeInfo* const wti_list[] = {
-V8XMLHttpRequest::GetWrapperTypeInfo(), 
-};
-selected_wti_list = wti_list;
-    break;
-  }
   case mojom::blink::OriginTrialFeature::kTouchEventFeatureDetection: {
     static const WrapperTypeInfo* const wti_list[] = {
 V8Document::GetWrapperTypeInfo(), 
@@ -425,13 +415,6 @@ selected_wti_list = wti_list;
     static const WrapperTypeInfo* const wti_list[] = {
 V8Navigator::GetWrapperTypeInfo(), 
 V8Window::GetWrapperTypeInfo(), 
-};
-selected_wti_list = wti_list;
-    break;
-  }
-  case mojom::blink::OriginTrialFeature::kWebEnvironmentIntegrity: {
-    static const WrapperTypeInfo* const wti_list[] = {
-V8Navigator::GetWrapperTypeInfo(), 
 };
 selected_wti_list = wti_list;
     break;

@@ -8,12 +8,13 @@ import './shared_style.css.js';
 import './site_favicon.js';
 import './credential_details/password_details_card.js';
 import './credential_details/passkey_details_card.js';
+import { PrefsMixin } from 'chrome://resources/cr_components/settings_prefs/prefs_mixin.js';
 import { assert } from 'chrome://resources/js/assert.js';
 import { afterNextRender, PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { getTemplate } from './password_details_section.html.js';
 import { PasswordManagerImpl, PasswordViewPageInteractions } from './password_manager_proxy.js';
 import { Page, RouteObserverMixin, Router } from './router.js';
-const PasswordDetailsSectionElementBase = RouteObserverMixin(PolymerElement);
+const PasswordDetailsSectionElementBase = PrefsMixin(RouteObserverMixin(PolymerElement));
 export class PasswordDetailsSectionElement extends PasswordDetailsSectionElementBase {
     constructor() {
         super(...arguments);

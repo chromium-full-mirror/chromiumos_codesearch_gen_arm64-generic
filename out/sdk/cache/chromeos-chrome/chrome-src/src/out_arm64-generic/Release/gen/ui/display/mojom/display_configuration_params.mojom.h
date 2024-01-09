@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "ui/display/mojom/display_configuration_params.mojom-features.h"
 #include "ui/display/mojom/display_configuration_params.mojom-shared.h"
 #include "ui/display/mojom/display_configuration_params.mojom-forward.h"
 #include "ui/display/mojom/display_mode.mojom.h"
@@ -76,7 +77,7 @@ class  DisplayConfigurationParams {
   DisplayConfigurationParams(
       int64_t id,
       const ::gfx::Point& origin,
-      absl::optional<::std::unique_ptr<::display::DisplayMode>> mode,
+      std::optional<::std::unique_ptr<::display::DisplayMode>> mode,
       bool enable_vrr);
 
 DisplayConfigurationParams(const DisplayConfigurationParams&) = delete;
@@ -161,7 +162,7 @@ DisplayConfigurationParams& operator=(const DisplayConfigurationParams&) = delet
   
   ::gfx::Point origin;
   
-  absl::optional<::std::unique_ptr<::display::DisplayMode>> mode;
+  std::optional<::std::unique_ptr<::display::DisplayMode>> mode;
   
   bool enable_vrr;
 

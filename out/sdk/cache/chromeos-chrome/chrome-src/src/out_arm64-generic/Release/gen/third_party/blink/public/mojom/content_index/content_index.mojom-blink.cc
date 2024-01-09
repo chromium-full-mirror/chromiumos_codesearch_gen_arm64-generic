@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -416,14 +417,17 @@ void ContentIndexServiceProxy::GetIconSizes(
                         "<value of type ContentCategory>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kContentIndexService_GetIconSizes_Name, kFlags, 0, 0, nullptr);
@@ -459,14 +463,17 @@ void ContentIndexServiceProxy::CheckOfflineCapability(
                         "<value of type const ::blink::KURL&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kContentIndexService_CheckOfflineCapability_Name, kFlags, 0, 0, nullptr);
@@ -518,14 +525,17 @@ void ContentIndexServiceProxy::Add(
                         "<value of type const ::blink::KURL&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kContentIndexService_Add_Name, kFlags, 0, 0, nullptr);
@@ -595,14 +605,17 @@ void ContentIndexServiceProxy::Delete(
                         "<value of type const WTF::String&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kContentIndexService_Delete_Name, kFlags, 0, 0, nullptr);
@@ -645,14 +658,17 @@ void ContentIndexServiceProxy::GetDescriptions(
                         "<value of type int64_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kContentIndexService_GetDescriptions_Name, kFlags, 0, 0, nullptr);
@@ -763,7 +779,8 @@ void ContentIndexService_GetIconSizes_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kContentIndexService_GetIconSizes_Name, kFlags, 0, 0, nullptr);
@@ -893,7 +910,8 @@ void ContentIndexService_CheckOfflineCapability_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kContentIndexService_CheckOfflineCapability_Name, kFlags, 0, 0, nullptr);
@@ -1011,7 +1029,8 @@ void ContentIndexService_Add_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kContentIndexService_Add_Name, kFlags, 0, 0, nullptr);
@@ -1130,7 +1149,8 @@ void ContentIndexService_Delete_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kContentIndexService_Delete_Name, kFlags, 0, 0, nullptr);
@@ -1256,7 +1276,8 @@ void ContentIndexService_GetDescriptions_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kContentIndexService_GetDescriptions_Name, kFlags, 0, 0, nullptr);
@@ -1498,18 +1519,18 @@ std::move(p_service_worker_registration_id), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kContentIndexServiceValidationInfo[] = {
-    {&internal::ContentIndexService_GetIconSizes_Params_Data::Validate,
+    { &internal::ContentIndexService_GetIconSizes_Params_Data::Validate,
      &internal::ContentIndexService_GetIconSizes_ResponseParams_Data::Validate},
-    {&internal::ContentIndexService_CheckOfflineCapability_Params_Data::Validate,
+    { &internal::ContentIndexService_CheckOfflineCapability_Params_Data::Validate,
      &internal::ContentIndexService_CheckOfflineCapability_ResponseParams_Data::Validate},
-    {&internal::ContentIndexService_Add_Params_Data::Validate,
+    { &internal::ContentIndexService_Add_Params_Data::Validate,
      &internal::ContentIndexService_Add_ResponseParams_Data::Validate},
-    {&internal::ContentIndexService_Delete_Params_Data::Validate,
+    { &internal::ContentIndexService_Delete_Params_Data::Validate,
      &internal::ContentIndexService_Delete_ResponseParams_Data::Validate},
-    {&internal::ContentIndexService_GetDescriptions_Params_Data::Validate,
+    { &internal::ContentIndexService_GetDescriptions_Params_Data::Validate,
      &internal::ContentIndexService_GetDescriptions_ResponseParams_Data::Validate},
 };
 

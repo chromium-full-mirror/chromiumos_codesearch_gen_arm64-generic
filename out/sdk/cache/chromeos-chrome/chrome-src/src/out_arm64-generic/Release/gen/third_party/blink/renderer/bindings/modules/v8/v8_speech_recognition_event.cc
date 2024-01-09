@@ -70,11 +70,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, SpeechRecognitionEvent>::value,
     "SpeechRecognitionEvent inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&SpeechRecognitionEvent::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "SpeechRecognitionEvent is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -87,8 +82,9 @@ BLINK_BINDINGS_TRACE_EVENT("SpeechRecognitionEvent.resultIndex.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SpeechRecognitionEvent* blink_receiver = V8SpeechRecognitionEvent::ToWrappableUnsafe(v8_receiver);
+SpeechRecognitionEvent* blink_receiver = V8SpeechRecognitionEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->resultIndex();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -101,8 +97,9 @@ BLINK_BINDINGS_TRACE_EVENT("SpeechRecognitionEvent.results.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SpeechRecognitionEvent* blink_receiver = V8SpeechRecognitionEvent::ToWrappableUnsafe(v8_receiver);
+SpeechRecognitionEvent* blink_receiver = V8SpeechRecognitionEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->results();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -115,8 +112,9 @@ BLINK_BINDINGS_TRACE_EVENT("SpeechRecognitionEvent.isTrusted.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SpeechRecognitionEvent* blink_receiver = V8SpeechRecognitionEvent::ToWrappableUnsafe(v8_receiver);
+SpeechRecognitionEvent* blink_receiver = V8SpeechRecognitionEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isTrusted();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }

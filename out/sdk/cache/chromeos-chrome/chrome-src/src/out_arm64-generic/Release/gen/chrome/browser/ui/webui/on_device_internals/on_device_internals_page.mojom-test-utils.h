@@ -15,7 +15,7 @@ namespace mojom {
 
 class  OnDeviceInternalsPageInterceptorForTesting : public OnDeviceInternalsPage {
   virtual OnDeviceInternalsPage* GetForwardingInterface() = 0;
-  void LoadModel(const ::base::FilePath& model_path, LoadModelCallback callback) override;
+  void LoadModel(const ::base::FilePath& model_path, ::mojo::PendingReceiver<::on_device_model::mojom::OnDeviceModel> model, LoadModelCallback callback) override;
   void GetEstimatedPerformanceClass(GetEstimatedPerformanceClassCallback callback) override;
 };
 class  OnDeviceInternalsPageAsyncWaiter {
@@ -27,8 +27,8 @@ class  OnDeviceInternalsPageAsyncWaiter {
 
   ~OnDeviceInternalsPageAsyncWaiter();
   void LoadModel(
-      const ::base::FilePath& model_path, ::on_device_model::mojom::LoadModelResultPtr* out_result);
-  ::on_device_model::mojom::LoadModelResultPtr LoadModel(const ::base::FilePath& model_path);
+      const ::base::FilePath& model_path, ::mojo::PendingReceiver<::on_device_model::mojom::OnDeviceModel> model, ::on_device_model::mojom::LoadModelResult* out_result);
+  ::on_device_model::mojom::LoadModelResult LoadModel(const ::base::FilePath& model_path, ::mojo::PendingReceiver<::on_device_model::mojom::OnDeviceModel> model);
   void GetEstimatedPerformanceClass(
       ::on_device_model::mojom::PerformanceClass* out_performance_class);
   ::on_device_model::mojom::PerformanceClass GetEstimatedPerformanceClass();

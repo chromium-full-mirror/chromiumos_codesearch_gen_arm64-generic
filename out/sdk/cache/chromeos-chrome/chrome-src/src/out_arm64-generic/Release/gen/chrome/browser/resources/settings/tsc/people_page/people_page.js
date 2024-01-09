@@ -224,8 +224,7 @@ export class SettingsPeoplePageElement extends SettingsPeoplePageElementBase {
         // 
         if (loadTimeData.getBoolean('isAccountManagerEnabled')) {
             // Post-SplitSettings. The browser C++ code loads OS settings in a window.
-            // Don't use window.open() because that creates an extra empty tab.
-            window.location.href = 'chrome://os-settings/accountManager';
+            OpenWindowProxyImpl.getInstance().openUrl(loadTimeData.getString('osSettingsAccountsPageUrl'));
         }
         // 
         // 

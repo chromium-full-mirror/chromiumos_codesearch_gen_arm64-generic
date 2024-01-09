@@ -54,8 +54,15 @@ class PreferredAppChangesDataView;
 
 class PreferredAppDataView;
 
-class ShortcutDataView;
+class AppShortcutDataView;
 
+class REMOVED_01DataView;
+
+class InstallAppParamsDataView;
+
+class AppInstallResultDataView;
+
+class IconUpdateVersionDataView;
 class PermissionValueDataView;
 
 enum class AppType : int32_t;
@@ -87,11 +94,15 @@ enum class WindowOpenDisposition : int32_t;
 enum class PermissionType : int32_t;
 
 enum class TriState : int32_t;
+
+enum class ControllerRegistrationResult : int32_t;
+
+enum class InstallAppParams_Surface : int32_t;
 class App;
 using AppPtr = mojo::StructPtr<App>;
 
 class IconKey;
-using IconKeyPtr = mojo::InlinedStructPtr<IconKey>;
+using IconKeyPtr = mojo::StructPtr<IconKey>;
 
 class ConditionValue;
 using ConditionValuePtr = mojo::InlinedStructPtr<ConditionValue>;
@@ -135,8 +146,21 @@ using PreferredAppChangesPtr = mojo::StructPtr<PreferredAppChanges>;
 class PreferredApp;
 using PreferredAppPtr = mojo::StructPtr<PreferredApp>;
 
-class Shortcut;
-using ShortcutPtr = mojo::InlinedStructPtr<Shortcut>;
+class AppShortcut;
+using AppShortcutPtr = mojo::StructPtr<AppShortcut>;
+
+class REMOVED_01;
+using REMOVED_01Ptr = mojo::InlinedStructPtr<REMOVED_01>;
+
+class InstallAppParams;
+using InstallAppParamsPtr = mojo::InlinedStructPtr<InstallAppParams>;
+
+class AppInstallResult;
+using AppInstallResultPtr = mojo::InlinedStructPtr<AppInstallResult>;
+
+class IconUpdateVersion;
+
+using IconUpdateVersionPtr = mojo::InlinedStructPtr<IconUpdateVersion>;
 
 class PermissionValue;
 

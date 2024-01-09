@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -89,7 +90,7 @@ ItemDetails::ItemDetails(
     const WTF::String& introductory_price_period_in,
     uint32_t introductory_price_cycles_in,
     ItemType type_in,
-    absl::optional<WTF::Vector<::blink::KURL>> icon_urls_in)
+    std::optional<WTF::Vector<::blink::KURL>> icon_urls_in)
     : item_id(std::move(item_id_in)),
       title(std::move(title_in)),
       description(std::move(description_in)),
@@ -201,7 +202,7 @@ void ItemDetails::WriteIntoTrace(
     dict.AddItem(
       "icon_urls"), this->icon_urls,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<WTF::Vector<::blink::KURL>>&>"
+      "<value of type const std::optional<WTF::Vector<::blink::KURL>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

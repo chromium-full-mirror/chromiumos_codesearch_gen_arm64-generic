@@ -19,12 +19,12 @@ export function setSetupFn(newSetupFn) {
     setupFn = newSetupFn;
 }
 export class UsbInternalsAppElement extends HTMLElement {
+    usbManagerTest_ = null;
     static get template() {
         return getTemplate();
     }
     constructor() {
         super();
-        this.usbManagerTest_ = null;
         this.attachShadow({ mode: 'open' });
         const template = document.createElement('template');
         template.innerHTML =

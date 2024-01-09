@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -32,8 +33,8 @@ struct Alarm {
   ~Alarm();
   Alarm(const Alarm&) = delete;
   Alarm& operator=(const Alarm&) = delete;
-  Alarm(Alarm&& rhs);
-  Alarm& operator=(Alarm&& rhs);
+  Alarm(Alarm&& rhs) noexcept;
+  Alarm& operator=(Alarm&& rhs) noexcept;
 
   // Populates a Alarm object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -46,14 +47,11 @@ struct Alarm {
   // Creates a deep copy of Alarm.
   Alarm Clone() const;
 
-  // Creates a Alarm object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Alarm> FromValueDeprecated(const base::Value& value);
-
   // Creates a Alarm object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<Alarm> FromValue(const base::Value::Dict& value);
+  static std::optional<Alarm> FromValue(const base::Value::Dict& value);
 
   // Creates a Alarm object from a base::Value, or nullopt on failure.
-  static absl::optional<Alarm> FromValue(const base::Value& value);
+  static std::optional<Alarm> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisAlarm object.
@@ -69,7 +67,7 @@ struct Alarm {
 
   // If not null, the alarm is a repeating alarm and will fire again in
   // <var>periodInMinutes</var> minutes.
-  absl::optional<double> period_in_minutes;
+  std::optional<double> period_in_minutes;
 
 };
 
@@ -78,8 +76,8 @@ struct AlarmCreateInfo {
   ~AlarmCreateInfo();
   AlarmCreateInfo(const AlarmCreateInfo&) = delete;
   AlarmCreateInfo& operator=(const AlarmCreateInfo&) = delete;
-  AlarmCreateInfo(AlarmCreateInfo&& rhs);
-  AlarmCreateInfo& operator=(AlarmCreateInfo&& rhs);
+  AlarmCreateInfo(AlarmCreateInfo&& rhs) noexcept;
+  AlarmCreateInfo& operator=(AlarmCreateInfo&& rhs) noexcept;
 
   // Populates a AlarmCreateInfo object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -92,15 +90,12 @@ struct AlarmCreateInfo {
   // Creates a deep copy of AlarmCreateInfo.
   AlarmCreateInfo Clone() const;
 
-  // Creates a AlarmCreateInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<AlarmCreateInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a AlarmCreateInfo object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<AlarmCreateInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<AlarmCreateInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a AlarmCreateInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<AlarmCreateInfo> FromValue(const base::Value& value);
+  static std::optional<AlarmCreateInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisAlarmCreateInfo object.
@@ -108,17 +103,17 @@ struct AlarmCreateInfo {
 
   // Time at which the alarm should fire, in milliseconds past the epoch (e.g.
   // <code>Date.now() + n</code>).
-  absl::optional<double> when;
+  std::optional<double> when;
 
   // <p>Length of time in minutes after which the <code>onAlarm</code> event
   // should fire.</p><p><!-- TODO: need minimum=0 --></p>
-  absl::optional<double> delay_in_minutes;
+  std::optional<double> delay_in_minutes;
 
   // <p>If set, the onAlarm event should fire every <var>periodInMinutes</var>
   // minutes after the initial event specified by <var>when</var> or
   // <var>delayInMinutes</var>.  If not set, the alarm will only fire
   // once.</p><p><!-- TODO: need minimum=0 --></p>
-  absl::optional<double> period_in_minutes;
+  std::optional<double> period_in_minutes;
 
 };
 
@@ -130,15 +125,15 @@ struct AlarmCreateInfo {
 namespace Create {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Optional name to identify this alarm. Defaults to the empty string.
-  absl::optional<std::string> name;
+  std::optional<std::string> name;
 
   // Describes when the alarm should fire.  The initial time must be specified by
   // either <var>when</var> or <var>delayInMinutes</var> (but not both).  If
@@ -164,15 +159,15 @@ base::Value::List Create();
 namespace Get {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The name of the alarm to get. Defaults to the empty string.
-  absl::optional<std::string> name;
+  std::optional<std::string> name;
 
 
  private:
@@ -198,15 +193,15 @@ base::Value::List Create(const std::vector<Alarm>& alarms);
 namespace Clear {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The name of the alarm to clear. Defaults to the empty string.
-  absl::optional<std::string> name;
+  std::optional<std::string> name;
 
 
  private:

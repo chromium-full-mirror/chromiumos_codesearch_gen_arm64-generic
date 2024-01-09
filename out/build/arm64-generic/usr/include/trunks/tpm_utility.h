@@ -32,7 +32,6 @@ const TPMI_DH_PERSISTENT kStorageRootKey = PERSISTENT_FIRST;
 // Deprecated: kECCStorageRootKey = PERSISTENT_FIRST + 1;
 const TPMI_DH_PERSISTENT kSaltingKey = PERSISTENT_FIRST + 2;
 const TPMI_DH_PERSISTENT kRSAEndorsementKey = PERSISTENT_FIRST + 3;
-const TPMI_DH_PERSISTENT kCsmeSaltingKey = PERSISTENT_FIRST + 4;
 
 // VENDOR_RC_ERR | VENDOR_RC_NO_SUCH_COMMAND
 const int TPM_RC_NO_SUCH_COMMAND = 0x57f;
@@ -60,6 +59,20 @@ constexpr int PinWeaverEccPointSize = 32;
 struct PinWeaverEccPoint {
   uint8_t x[PinWeaverEccPointSize];
   uint8_t y[PinWeaverEccPointSize];
+};
+
+struct Ti50Stats {
+  uint32_t fs_init_time;
+  uint32_t fs_size;
+  uint32_t aprov_time;
+  uint32_t aprov_status;
+  uint32_t misc_status;
+  uint32_t version;
+  uint32_t filesystem_busy_count;
+  uint32_t crypto_busy_count;
+  uint32_t dispatcher_busy_count;
+  uint32_t timeslices_expired;
+  uint32_t crypto_init_time;
 };
 
 // An interface which provides convenient methods for common TPM operations.
@@ -103,9 +116,6 @@ class TRUNKS_EXPORT TpmUtility {
   // NOTE: This command needs platform authorization and PP assertion.
   virtual TPM_RC AllocatePCR(const std::string& platform_password) = 0;
 
-  // Prepares the TPM resources necessary for pinweaver-csme.
-  virtual TPM_RC PrepareForPinWeaver() = 0;
-
   // Performs steps needed for taking ownership, which can be done before
   // a signal that an ownership can be attempted is received.
   // This operation is an optional optimization: if PrepareForOwnership
@@ -142,14 +152,9 @@ class TRUNKS_EXPORT TpmUtility {
                            const std::string& extend_data,
                            AuthorizationDelegate* delegate) = 0;
 
-  virtual TPM_RC ExtendPCRForCSME(int pcr_index,
-                                  const std::string& extend_data) = 0;
-
   // This method reads the pcr specified by |pcr_index| and returns its value
   // in |pcr_value|. NOTE: it assumes we are using SHA256 as our hash alg.
   virtual TPM_RC ReadPCR(int pcr_index, std::string* pcr_value) = 0;
-
-  virtual TPM_RC ReadPCRFromCSME(int pcr_index, std::string* pcr_value) = 0;
 
   // This method performs an encryption operation using a LOADED RSA key
   // referrenced by its handle |key_handle|. The |plaintext| is then encrypted
@@ -1040,6 +1045,17 @@ class TRUNKS_EXPORT TpmUtility {
                            brillo::Blob* sig_r,
                            brillo::Blob* sig_s) = 0;
 
+  // Gets the U2F FIPS status of the GSC, i.e., whether the FIPS mode is active
+  // for the U2F state. FIPS mode affects the code path taken by U2F, and only
+  // when FIPS mode is active, the code path taken is using FIPS certified
+  // crypto algorithms.
+  virtual TPM_RC U2fGetFipsStatus(bool* active) = 0;
+
+  // Forces GSC to take the FIPS mode path for U2F. Is the FIPS mode is already
+  // active, this is a no-op. Note that this breaks all existing U2F key handles
+  // if FIPS mode is switched from non-active to active.
+  virtual TPM_RC ActivateFips() = 0;
+
   // Retrieves cached RSU device id.
   virtual TPM_RC GetRsuDeviceId(std::string* device_id) = 0;
 
@@ -1058,15 +1074,15 @@ class TRUNKS_EXPORT TpmUtility {
 
   // Get Ti50 metrics: filesystem init time, filesystem size, AP RO verification
   // time, and AP RO verifiction status.
-  virtual TPM_RC GetTi50Stats(uint32_t* fs_init_time,
-                              uint32_t* fs_size,
-                              uint32_t* aprov_time,
-                              uint32_t* aprov_status) = 0;
+  virtual TPM_RC GetTi50Stats(Ti50Stats* stats) = 0;
 
   // Get the RW firmware version number.
   virtual TPM_RC GetRwVersion(uint32_t* epoch,
                               uint32_t* major,
                               uint32_t* minor) = 0;
+
+  // Get TPM console logs.
+  virtual TPM_RC GetConsoleLogs(std::string* logs) = 0;
 };
 
 }  // namespace trunks

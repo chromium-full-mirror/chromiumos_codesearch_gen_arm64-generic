@@ -12,6 +12,7 @@
 goog.require('mojo.internal');
 goog.require('mojo.internal.interfaceSupport');
 
+goog.require('gfx.mojom.RectF');
 
 
 
@@ -52,11 +53,11 @@ ash.mediaAppUi.mojom.UntrustedPageHandlerFactoryPendingReceiver = class {
 ash.mediaAppUi.mojom.UntrustedPageHandlerFactoryInterface = class {
   
   /**
-   * @param { !ash.mediaAppUi.mojom.UntrustedPageHandlerPendingReceiver } receiver
-   * @param { !ash.mediaAppUi.mojom.UntrustedPageRemote } page
+   * @param { !ash.mediaAppUi.mojom.OcrUntrustedPageHandlerPendingReceiver } receiver
+   * @param { !ash.mediaAppUi.mojom.OcrUntrustedPageRemote } page
    */
 
-  createUntrustedPageHandler(receiver, page) {}
+  createOcrUntrustedPageHandler(receiver, page) {}
 };
 
 /**
@@ -85,16 +86,16 @@ ash.mediaAppUi.mojom.UntrustedPageHandlerFactoryRemote = class {
 
   
   /**
-   * @param { !ash.mediaAppUi.mojom.UntrustedPageHandlerPendingReceiver } receiver
-   * @param { !ash.mediaAppUi.mojom.UntrustedPageRemote } page
+   * @param { !ash.mediaAppUi.mojom.OcrUntrustedPageHandlerPendingReceiver } receiver
+   * @param { !ash.mediaAppUi.mojom.OcrUntrustedPageRemote } page
    */
 
-  createUntrustedPageHandler(
+  createOcrUntrustedPageHandler(
       receiver,
       page) {
     this.proxy.sendMessage(
         0,
-        ash.mediaAppUi.mojom.UntrustedPageHandlerFactory_CreateUntrustedPageHandler_ParamsSpec.$,
+        ash.mediaAppUi.mojom.UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_ParamsSpec.$,
         null,
         [
           receiver,
@@ -127,9 +128,9 @@ ash.mediaAppUi.mojom.UntrustedPageHandlerFactoryReceiver = class {
 
     this.helper_internal_.registerHandler(
         0,
-        ash.mediaAppUi.mojom.UntrustedPageHandlerFactory_CreateUntrustedPageHandler_ParamsSpec.$,
+        ash.mediaAppUi.mojom.UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_ParamsSpec.$,
         null,
-        impl.createUntrustedPageHandler.bind(impl));
+        impl.createOcrUntrustedPageHandler.bind(impl));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -185,15 +186,15 @@ ash.mediaAppUi.mojom.UntrustedPageHandlerFactoryCallbackRouter = class {
     /**
      * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
      */
-    this.createUntrustedPageHandler =
+    this.createOcrUntrustedPageHandler =
         new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
             this.router_);
 
     this.helper_internal_.registerHandler(
         0,
-        ash.mediaAppUi.mojom.UntrustedPageHandlerFactory_CreateUntrustedPageHandler_ParamsSpec.$,
+        ash.mediaAppUi.mojom.UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_ParamsSpec.$,
         null,
-        this.createUntrustedPageHandler.createReceiverHandler(false /* expectsResponse */));
+        this.createOcrUntrustedPageHandler.createReceiverHandler(false /* expectsResponse */));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -209,19 +210,19 @@ ash.mediaAppUi.mojom.UntrustedPageHandlerFactoryCallbackRouter = class {
 };
 
 
-goog.provide('ash.mediaAppUi.mojom.UntrustedPageHandler');
-goog.provide('ash.mediaAppUi.mojom.UntrustedPageHandlerReceiver');
-goog.provide('ash.mediaAppUi.mojom.UntrustedPageHandlerCallbackRouter');
-goog.provide('ash.mediaAppUi.mojom.UntrustedPageHandlerInterface');
-goog.provide('ash.mediaAppUi.mojom.UntrustedPageHandlerRemote');
-goog.provide('ash.mediaAppUi.mojom.UntrustedPageHandlerPendingReceiver');
+goog.provide('ash.mediaAppUi.mojom.OcrUntrustedPageHandler');
+goog.provide('ash.mediaAppUi.mojom.OcrUntrustedPageHandlerReceiver');
+goog.provide('ash.mediaAppUi.mojom.OcrUntrustedPageHandlerCallbackRouter');
+goog.provide('ash.mediaAppUi.mojom.OcrUntrustedPageHandlerInterface');
+goog.provide('ash.mediaAppUi.mojom.OcrUntrustedPageHandlerRemote');
+goog.provide('ash.mediaAppUi.mojom.OcrUntrustedPageHandlerPendingReceiver');
 
 
 /**
  * @implements {mojo.internal.interfaceSupport.PendingReceiver}
  * @export
  */
-ash.mediaAppUi.mojom.UntrustedPageHandlerPendingReceiver = class {
+ash.mediaAppUi.mojom.OcrUntrustedPageHandlerPendingReceiver = class {
   /**
    * @param {!MojoHandle|!mojo.internal.interfaceSupport.Endpoint} handle
    */
@@ -234,62 +235,93 @@ ash.mediaAppUi.mojom.UntrustedPageHandlerPendingReceiver = class {
   bindInBrowser(scope = 'context') {
     mojo.internal.interfaceSupport.bind(
         this.handle,
-        ash.mediaAppUi.mojom.UntrustedPageHandler.$interfaceName,
+        ash.mediaAppUi.mojom.OcrUntrustedPageHandler.$interfaceName,
         scope);
   }
 };
 
 /** @interface */
-ash.mediaAppUi.mojom.UntrustedPageHandlerInterface = class {
+ash.mediaAppUi.mojom.OcrUntrustedPageHandlerInterface = class {
+  
+  /**
+   * @param { !gfx.mojom.RectF } viewportBox
+   * @param { !number } scaleFactor
+   */
+
+  viewportUpdated(viewportBox, scaleFactor) {}
 };
 
 /**
  * @export
- * @implements { ash.mediaAppUi.mojom.UntrustedPageHandlerInterface }
+ * @implements { ash.mediaAppUi.mojom.OcrUntrustedPageHandlerInterface }
  */
-ash.mediaAppUi.mojom.UntrustedPageHandlerRemote = class {
+ash.mediaAppUi.mojom.OcrUntrustedPageHandlerRemote = class {
   /** @param {MojoHandle|mojo.internal.interfaceSupport.Endpoint=} handle */
   constructor(handle = undefined) {
     /**
-     * @private {!mojo.internal.interfaceSupport.InterfaceRemoteBase<!ash.mediaAppUi.mojom.UntrustedPageHandlerPendingReceiver>}
+     * @private {!mojo.internal.interfaceSupport.InterfaceRemoteBase<!ash.mediaAppUi.mojom.OcrUntrustedPageHandlerPendingReceiver>}
      */
     this.proxy =
         new mojo.internal.interfaceSupport.InterfaceRemoteBase(
-          ash.mediaAppUi.mojom.UntrustedPageHandlerPendingReceiver,
+          ash.mediaAppUi.mojom.OcrUntrustedPageHandlerPendingReceiver,
           handle);
 
     /**
-     * @public {!mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper<!ash.mediaAppUi.mojom.UntrustedPageHandlerPendingReceiver>}
+     * @public {!mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper<!ash.mediaAppUi.mojom.OcrUntrustedPageHandlerPendingReceiver>}
      */
     this.$ = new mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper(this.proxy);
 
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.proxy.getConnectionErrorEventRouter();
   }
+
+  
+  /**
+   * @param { !gfx.mojom.RectF } viewportBox
+   * @param { !number } scaleFactor
+   */
+
+  viewportUpdated(
+      viewportBox,
+      scaleFactor) {
+    this.proxy.sendMessage(
+        0,
+        ash.mediaAppUi.mojom.OcrUntrustedPageHandler_ViewportUpdated_ParamsSpec.$,
+        null,
+        [
+          viewportBox,
+          scaleFactor
+        ]);
+  }
 };
 
 /**
- * An object which receives request messages for the UntrustedPageHandler
+ * An object which receives request messages for the OcrUntrustedPageHandler
  * mojom interface. Must be constructed over an object which implements that
  * interface.
  *
  * @export
  */
-ash.mediaAppUi.mojom.UntrustedPageHandlerReceiver = class {
+ash.mediaAppUi.mojom.OcrUntrustedPageHandlerReceiver = class {
   /**
-   * @param {!ash.mediaAppUi.mojom.UntrustedPageHandlerInterface } impl
+   * @param {!ash.mediaAppUi.mojom.OcrUntrustedPageHandlerInterface } impl
    */
   constructor(impl) {
-    /** @private {!mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal<!ash.mediaAppUi.mojom.UntrustedPageHandlerRemote>} */
+    /** @private {!mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal<!ash.mediaAppUi.mojom.OcrUntrustedPageHandlerRemote>} */
     this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(
-        ash.mediaAppUi.mojom.UntrustedPageHandlerRemote);
+        ash.mediaAppUi.mojom.OcrUntrustedPageHandlerRemote);
 
     /**
-     * @public {!mojo.internal.interfaceSupport.InterfaceReceiverHelper<!ash.mediaAppUi.mojom.UntrustedPageHandlerRemote>}
+     * @public {!mojo.internal.interfaceSupport.InterfaceReceiverHelper<!ash.mediaAppUi.mojom.OcrUntrustedPageHandlerRemote>}
      */
     this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
 
 
+    this.helper_internal_.registerHandler(
+        0,
+        ash.mediaAppUi.mojom.OcrUntrustedPageHandler_ViewportUpdated_ParamsSpec.$,
+        null,
+        impl.viewportUpdated.bind(impl));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -298,12 +330,12 @@ ash.mediaAppUi.mojom.UntrustedPageHandlerReceiver = class {
 /**
  *  @export
  */
-ash.mediaAppUi.mojom.UntrustedPageHandler = class {
+ash.mediaAppUi.mojom.OcrUntrustedPageHandler = class {
   /**
    * @return {!string}
    */
   static get $interfaceName() {
-    return "ash.media_app_ui.mojom.UntrustedPageHandler";
+    return "ash.media_app_ui.mojom.OcrUntrustedPageHandler";
   }
 
   /**
@@ -311,11 +343,11 @@ ash.mediaAppUi.mojom.UntrustedPageHandler = class {
    * The browser must have an interface request binder registered for this
    * interface and accessible to the calling document's frame.
    *
-   * @return {!ash.mediaAppUi.mojom.UntrustedPageHandlerRemote}
+   * @return {!ash.mediaAppUi.mojom.OcrUntrustedPageHandlerRemote}
    * @export
    */
   static getRemote() {
-    let remote = new ash.mediaAppUi.mojom.UntrustedPageHandlerRemote;
+    let remote = new ash.mediaAppUi.mojom.OcrUntrustedPageHandlerRemote;
     remote.$.bindNewPipeAndPassReceiver().bindInBrowser();
     return remote;
   }
@@ -323,25 +355,37 @@ ash.mediaAppUi.mojom.UntrustedPageHandler = class {
 
 
 /**
- * An object which receives request messages for the UntrustedPageHandler
+ * An object which receives request messages for the OcrUntrustedPageHandler
  * mojom interface and dispatches them as callbacks. One callback receiver exists
  * on this object for each message defined in the mojom interface, and each
  * receiver can have any number of listeners added to it.
  *
  * @export
  */
-ash.mediaAppUi.mojom.UntrustedPageHandlerCallbackRouter = class {
+ash.mediaAppUi.mojom.OcrUntrustedPageHandlerCallbackRouter = class {
   constructor() {
     this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(
-      ash.mediaAppUi.mojom.UntrustedPageHandlerRemote);
+      ash.mediaAppUi.mojom.OcrUntrustedPageHandlerRemote);
 
     /**
-     * @public {!mojo.internal.interfaceSupport.InterfaceReceiverHelper<!ash.mediaAppUi.mojom.UntrustedPageHandlerRemote>}
+     * @public {!mojo.internal.interfaceSupport.InterfaceReceiverHelper<!ash.mediaAppUi.mojom.OcrUntrustedPageHandlerRemote>}
      */
     this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
 
     this.router_ = new mojo.internal.interfaceSupport.CallbackRouter;
 
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.viewportUpdated =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        0,
+        ash.mediaAppUi.mojom.OcrUntrustedPageHandler_ViewportUpdated_ParamsSpec.$,
+        null,
+        this.viewportUpdated.createReceiverHandler(false /* expectsResponse */));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -357,19 +401,19 @@ ash.mediaAppUi.mojom.UntrustedPageHandlerCallbackRouter = class {
 };
 
 
-goog.provide('ash.mediaAppUi.mojom.UntrustedPage');
-goog.provide('ash.mediaAppUi.mojom.UntrustedPageReceiver');
-goog.provide('ash.mediaAppUi.mojom.UntrustedPageCallbackRouter');
-goog.provide('ash.mediaAppUi.mojom.UntrustedPageInterface');
-goog.provide('ash.mediaAppUi.mojom.UntrustedPageRemote');
-goog.provide('ash.mediaAppUi.mojom.UntrustedPagePendingReceiver');
+goog.provide('ash.mediaAppUi.mojom.OcrUntrustedPage');
+goog.provide('ash.mediaAppUi.mojom.OcrUntrustedPageReceiver');
+goog.provide('ash.mediaAppUi.mojom.OcrUntrustedPageCallbackRouter');
+goog.provide('ash.mediaAppUi.mojom.OcrUntrustedPageInterface');
+goog.provide('ash.mediaAppUi.mojom.OcrUntrustedPageRemote');
+goog.provide('ash.mediaAppUi.mojom.OcrUntrustedPagePendingReceiver');
 
 
 /**
  * @implements {mojo.internal.interfaceSupport.PendingReceiver}
  * @export
  */
-ash.mediaAppUi.mojom.UntrustedPagePendingReceiver = class {
+ash.mediaAppUi.mojom.OcrUntrustedPagePendingReceiver = class {
   /**
    * @param {!MojoHandle|!mojo.internal.interfaceSupport.Endpoint} handle
    */
@@ -382,62 +426,89 @@ ash.mediaAppUi.mojom.UntrustedPagePendingReceiver = class {
   bindInBrowser(scope = 'context') {
     mojo.internal.interfaceSupport.bind(
         this.handle,
-        ash.mediaAppUi.mojom.UntrustedPage.$interfaceName,
+        ash.mediaAppUi.mojom.OcrUntrustedPage.$interfaceName,
         scope);
   }
 };
 
 /** @interface */
-ash.mediaAppUi.mojom.UntrustedPageInterface = class {
+ash.mediaAppUi.mojom.OcrUntrustedPageInterface = class {
+  
+  /**
+   * @param { !gfx.mojom.RectF } viewportBox
+   */
+
+  setViewport(viewportBox) {}
 };
 
 /**
  * @export
- * @implements { ash.mediaAppUi.mojom.UntrustedPageInterface }
+ * @implements { ash.mediaAppUi.mojom.OcrUntrustedPageInterface }
  */
-ash.mediaAppUi.mojom.UntrustedPageRemote = class {
+ash.mediaAppUi.mojom.OcrUntrustedPageRemote = class {
   /** @param {MojoHandle|mojo.internal.interfaceSupport.Endpoint=} handle */
   constructor(handle = undefined) {
     /**
-     * @private {!mojo.internal.interfaceSupport.InterfaceRemoteBase<!ash.mediaAppUi.mojom.UntrustedPagePendingReceiver>}
+     * @private {!mojo.internal.interfaceSupport.InterfaceRemoteBase<!ash.mediaAppUi.mojom.OcrUntrustedPagePendingReceiver>}
      */
     this.proxy =
         new mojo.internal.interfaceSupport.InterfaceRemoteBase(
-          ash.mediaAppUi.mojom.UntrustedPagePendingReceiver,
+          ash.mediaAppUi.mojom.OcrUntrustedPagePendingReceiver,
           handle);
 
     /**
-     * @public {!mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper<!ash.mediaAppUi.mojom.UntrustedPagePendingReceiver>}
+     * @public {!mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper<!ash.mediaAppUi.mojom.OcrUntrustedPagePendingReceiver>}
      */
     this.$ = new mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper(this.proxy);
 
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.proxy.getConnectionErrorEventRouter();
   }
+
+  
+  /**
+   * @param { !gfx.mojom.RectF } viewportBox
+   */
+
+  setViewport(
+      viewportBox) {
+    this.proxy.sendMessage(
+        0,
+        ash.mediaAppUi.mojom.OcrUntrustedPage_SetViewport_ParamsSpec.$,
+        null,
+        [
+          viewportBox
+        ]);
+  }
 };
 
 /**
- * An object which receives request messages for the UntrustedPage
+ * An object which receives request messages for the OcrUntrustedPage
  * mojom interface. Must be constructed over an object which implements that
  * interface.
  *
  * @export
  */
-ash.mediaAppUi.mojom.UntrustedPageReceiver = class {
+ash.mediaAppUi.mojom.OcrUntrustedPageReceiver = class {
   /**
-   * @param {!ash.mediaAppUi.mojom.UntrustedPageInterface } impl
+   * @param {!ash.mediaAppUi.mojom.OcrUntrustedPageInterface } impl
    */
   constructor(impl) {
-    /** @private {!mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal<!ash.mediaAppUi.mojom.UntrustedPageRemote>} */
+    /** @private {!mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal<!ash.mediaAppUi.mojom.OcrUntrustedPageRemote>} */
     this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(
-        ash.mediaAppUi.mojom.UntrustedPageRemote);
+        ash.mediaAppUi.mojom.OcrUntrustedPageRemote);
 
     /**
-     * @public {!mojo.internal.interfaceSupport.InterfaceReceiverHelper<!ash.mediaAppUi.mojom.UntrustedPageRemote>}
+     * @public {!mojo.internal.interfaceSupport.InterfaceReceiverHelper<!ash.mediaAppUi.mojom.OcrUntrustedPageRemote>}
      */
     this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
 
 
+    this.helper_internal_.registerHandler(
+        0,
+        ash.mediaAppUi.mojom.OcrUntrustedPage_SetViewport_ParamsSpec.$,
+        null,
+        impl.setViewport.bind(impl));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -446,12 +517,12 @@ ash.mediaAppUi.mojom.UntrustedPageReceiver = class {
 /**
  *  @export
  */
-ash.mediaAppUi.mojom.UntrustedPage = class {
+ash.mediaAppUi.mojom.OcrUntrustedPage = class {
   /**
    * @return {!string}
    */
   static get $interfaceName() {
-    return "ash.media_app_ui.mojom.UntrustedPage";
+    return "ash.media_app_ui.mojom.OcrUntrustedPage";
   }
 
   /**
@@ -459,11 +530,11 @@ ash.mediaAppUi.mojom.UntrustedPage = class {
    * The browser must have an interface request binder registered for this
    * interface and accessible to the calling document's frame.
    *
-   * @return {!ash.mediaAppUi.mojom.UntrustedPageRemote}
+   * @return {!ash.mediaAppUi.mojom.OcrUntrustedPageRemote}
    * @export
    */
   static getRemote() {
-    let remote = new ash.mediaAppUi.mojom.UntrustedPageRemote;
+    let remote = new ash.mediaAppUi.mojom.OcrUntrustedPageRemote;
     remote.$.bindNewPipeAndPassReceiver().bindInBrowser();
     return remote;
   }
@@ -471,25 +542,37 @@ ash.mediaAppUi.mojom.UntrustedPage = class {
 
 
 /**
- * An object which receives request messages for the UntrustedPage
+ * An object which receives request messages for the OcrUntrustedPage
  * mojom interface and dispatches them as callbacks. One callback receiver exists
  * on this object for each message defined in the mojom interface, and each
  * receiver can have any number of listeners added to it.
  *
  * @export
  */
-ash.mediaAppUi.mojom.UntrustedPageCallbackRouter = class {
+ash.mediaAppUi.mojom.OcrUntrustedPageCallbackRouter = class {
   constructor() {
     this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(
-      ash.mediaAppUi.mojom.UntrustedPageRemote);
+      ash.mediaAppUi.mojom.OcrUntrustedPageRemote);
 
     /**
-     * @public {!mojo.internal.interfaceSupport.InterfaceReceiverHelper<!ash.mediaAppUi.mojom.UntrustedPageRemote>}
+     * @public {!mojo.internal.interfaceSupport.InterfaceReceiverHelper<!ash.mediaAppUi.mojom.OcrUntrustedPageRemote>}
      */
     this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
 
     this.router_ = new mojo.internal.interfaceSupport.CallbackRouter;
 
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.setViewport =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        0,
+        ash.mediaAppUi.mojom.OcrUntrustedPage_SetViewport_ParamsSpec.$,
+        null,
+        this.setViewport.createReceiverHandler(false /* expectsResponse */));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -505,25 +588,41 @@ ash.mediaAppUi.mojom.UntrustedPageCallbackRouter = class {
 };
 
 
-goog.provide('ash.mediaAppUi.mojom.UntrustedPageHandlerFactory_CreateUntrustedPageHandler_ParamsSpec');
+goog.provide('ash.mediaAppUi.mojom.UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_ParamsSpec');
 /**
  * @const { {$:!mojo.internal.MojomType}}
  * @export
  */
-ash.mediaAppUi.mojom.UntrustedPageHandlerFactory_CreateUntrustedPageHandler_ParamsSpec =
+ash.mediaAppUi.mojom.UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+goog.provide('ash.mediaAppUi.mojom.OcrUntrustedPageHandler_ViewportUpdated_ParamsSpec');
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+ash.mediaAppUi.mojom.OcrUntrustedPageHandler_ViewportUpdated_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+goog.provide('ash.mediaAppUi.mojom.OcrUntrustedPage_SetViewport_ParamsSpec');
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+ash.mediaAppUi.mojom.OcrUntrustedPage_SetViewport_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 
 
 
 mojo.internal.Struct(
-    ash.mediaAppUi.mojom.UntrustedPageHandlerFactory_CreateUntrustedPageHandler_ParamsSpec.$,
-    'UntrustedPageHandlerFactory_CreateUntrustedPageHandler_Params',
+    ash.mediaAppUi.mojom.UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_ParamsSpec.$,
+    'UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_Params',
     [
       mojo.internal.StructField(
         'receiver', 0,
         0,
-        mojo.internal.InterfaceRequest(ash.mediaAppUi.mojom.UntrustedPageHandlerPendingReceiver),
+        mojo.internal.InterfaceRequest(ash.mediaAppUi.mojom.OcrUntrustedPageHandlerPendingReceiver),
         null,
         false, /* nullable */
         0 /* minVersion */,
@@ -531,7 +630,7 @@ mojo.internal.Struct(
       mojo.internal.StructField(
         'page', 4,
         0,
-        mojo.internal.InterfaceProxy(ash.mediaAppUi.mojom.UntrustedPageRemote),
+        mojo.internal.InterfaceProxy(ash.mediaAppUi.mojom.OcrUntrustedPageRemote),
         null,
         false, /* nullable */
         0 /* minVersion */,
@@ -541,15 +640,83 @@ mojo.internal.Struct(
 
 
 
-goog.provide('ash.mediaAppUi.mojom.UntrustedPageHandlerFactory_CreateUntrustedPageHandler_Params');
+goog.provide('ash.mediaAppUi.mojom.UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_Params');
 
 /** @record */
-ash.mediaAppUi.mojom.UntrustedPageHandlerFactory_CreateUntrustedPageHandler_Params = class {
+ash.mediaAppUi.mojom.UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_Params = class {
   constructor() {
-    /** @export { !ash.mediaAppUi.mojom.UntrustedPageHandlerPendingReceiver } */
+    /** @export { !ash.mediaAppUi.mojom.OcrUntrustedPageHandlerPendingReceiver } */
     this.receiver;
-    /** @export { !ash.mediaAppUi.mojom.UntrustedPageRemote } */
+    /** @export { !ash.mediaAppUi.mojom.OcrUntrustedPageRemote } */
     this.page;
+  }
+};
+
+
+
+mojo.internal.Struct(
+    ash.mediaAppUi.mojom.OcrUntrustedPageHandler_ViewportUpdated_ParamsSpec.$,
+    'OcrUntrustedPageHandler_ViewportUpdated_Params',
+    [
+      mojo.internal.StructField(
+        'viewportBox', 0,
+        0,
+        gfx.mojom.RectFSpec.$,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'scaleFactor', 8,
+        0,
+        mojo.internal.Float,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 24],]);
+
+
+
+goog.provide('ash.mediaAppUi.mojom.OcrUntrustedPageHandler_ViewportUpdated_Params');
+
+/** @record */
+ash.mediaAppUi.mojom.OcrUntrustedPageHandler_ViewportUpdated_Params = class {
+  constructor() {
+    /** @export { !gfx.mojom.RectF } */
+    this.viewportBox;
+    /** @export { !number } */
+    this.scaleFactor;
+  }
+};
+
+
+
+mojo.internal.Struct(
+    ash.mediaAppUi.mojom.OcrUntrustedPage_SetViewport_ParamsSpec.$,
+    'OcrUntrustedPage_SetViewport_Params',
+    [
+      mojo.internal.StructField(
+        'viewportBox', 0,
+        0,
+        gfx.mojom.RectFSpec.$,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+goog.provide('ash.mediaAppUi.mojom.OcrUntrustedPage_SetViewport_Params');
+
+/** @record */
+ash.mediaAppUi.mojom.OcrUntrustedPage_SetViewport_Params = class {
+  constructor() {
+    /** @export { !gfx.mojom.RectF } */
+    this.viewportBox;
   }
 };
 

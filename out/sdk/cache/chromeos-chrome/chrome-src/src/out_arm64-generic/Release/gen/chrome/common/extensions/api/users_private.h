@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -32,8 +33,8 @@ struct User {
   ~User();
   User(const User&) = delete;
   User& operator=(const User&) = delete;
-  User(User&& rhs);
-  User& operator=(User&& rhs);
+  User(User&& rhs) noexcept;
+  User& operator=(User&& rhs) noexcept;
 
   // Populates a User object from a base::Value& instance. Returns whether |out|
   // was successfully populated.
@@ -46,14 +47,11 @@ struct User {
   // Creates a deep copy of User.
   User Clone() const;
 
-  // Creates a User object from a base::Value, or NULL on failure.
-  static std::unique_ptr<User> FromValueDeprecated(const base::Value& value);
-
   // Creates a User object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<User> FromValue(const base::Value::Dict& value);
+  static std::optional<User> FromValue(const base::Value::Dict& value);
 
   // Creates a User object from a base::Value, or nullopt on failure.
-  static absl::optional<User> FromValue(const base::Value& value);
+  static std::optional<User> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisUser object.
@@ -81,8 +79,8 @@ struct LoginStatusDict {
   ~LoginStatusDict();
   LoginStatusDict(const LoginStatusDict&) = delete;
   LoginStatusDict& operator=(const LoginStatusDict&) = delete;
-  LoginStatusDict(LoginStatusDict&& rhs);
-  LoginStatusDict& operator=(LoginStatusDict&& rhs);
+  LoginStatusDict(LoginStatusDict&& rhs) noexcept;
+  LoginStatusDict& operator=(LoginStatusDict&& rhs) noexcept;
 
   // Populates a LoginStatusDict object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -95,15 +93,12 @@ struct LoginStatusDict {
   // Creates a deep copy of LoginStatusDict.
   LoginStatusDict Clone() const;
 
-  // Creates a LoginStatusDict object from a base::Value, or NULL on failure.
-  static std::unique_ptr<LoginStatusDict> FromValueDeprecated(const base::Value& value);
-
   // Creates a LoginStatusDict object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<LoginStatusDict> FromValue(const base::Value::Dict& value);
+  static std::optional<LoginStatusDict> FromValue(const base::Value::Dict& value);
 
   // Creates a LoginStatusDict object from a base::Value, or nullopt on failure.
-  static absl::optional<LoginStatusDict> FromValue(const base::Value& value);
+  static std::optional<LoginStatusDict> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisLoginStatusDict object.
@@ -134,11 +129,11 @@ base::Value::List Create(const std::vector<User>& users);
 namespace IsUserInList {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string email;
@@ -158,11 +153,11 @@ base::Value::List Create(bool found);
 namespace AddUser {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string email;
@@ -182,11 +177,11 @@ base::Value::List Create(bool success);
 namespace RemoveUser {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string email;

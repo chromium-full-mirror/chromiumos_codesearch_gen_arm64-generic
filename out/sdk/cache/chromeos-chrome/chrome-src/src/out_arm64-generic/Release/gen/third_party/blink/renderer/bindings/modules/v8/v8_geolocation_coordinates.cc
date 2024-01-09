@@ -67,11 +67,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, GeolocationCoordinates>::value,
     "GeolocationCoordinates inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&GeolocationCoordinates::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "GeolocationCoordinates is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -84,8 +79,9 @@ BLINK_BINDINGS_TRACE_EVENT("GeolocationCoordinates.latitude.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GeolocationCoordinates* blink_receiver = V8GeolocationCoordinates::ToWrappableUnsafe(v8_receiver);
+GeolocationCoordinates* blink_receiver = V8GeolocationCoordinates::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->latitude();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -98,8 +94,9 @@ BLINK_BINDINGS_TRACE_EVENT("GeolocationCoordinates.longitude.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GeolocationCoordinates* blink_receiver = V8GeolocationCoordinates::ToWrappableUnsafe(v8_receiver);
+GeolocationCoordinates* blink_receiver = V8GeolocationCoordinates::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->longitude();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -112,8 +109,9 @@ BLINK_BINDINGS_TRACE_EVENT("GeolocationCoordinates.altitude.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GeolocationCoordinates* blink_receiver = V8GeolocationCoordinates::ToWrappableUnsafe(v8_receiver);
+GeolocationCoordinates* blink_receiver = V8GeolocationCoordinates::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->altitude();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -126,8 +124,9 @@ BLINK_BINDINGS_TRACE_EVENT("GeolocationCoordinates.accuracy.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GeolocationCoordinates* blink_receiver = V8GeolocationCoordinates::ToWrappableUnsafe(v8_receiver);
+GeolocationCoordinates* blink_receiver = V8GeolocationCoordinates::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->accuracy();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -140,8 +139,9 @@ BLINK_BINDINGS_TRACE_EVENT("GeolocationCoordinates.altitudeAccuracy.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GeolocationCoordinates* blink_receiver = V8GeolocationCoordinates::ToWrappableUnsafe(v8_receiver);
+GeolocationCoordinates* blink_receiver = V8GeolocationCoordinates::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->altitudeAccuracy();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -154,8 +154,9 @@ BLINK_BINDINGS_TRACE_EVENT("GeolocationCoordinates.heading.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GeolocationCoordinates* blink_receiver = V8GeolocationCoordinates::ToWrappableUnsafe(v8_receiver);
+GeolocationCoordinates* blink_receiver = V8GeolocationCoordinates::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->heading();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -168,8 +169,9 @@ BLINK_BINDINGS_TRACE_EVENT("GeolocationCoordinates.speed.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-GeolocationCoordinates* blink_receiver = V8GeolocationCoordinates::ToWrappableUnsafe(v8_receiver);
+GeolocationCoordinates* blink_receiver = V8GeolocationCoordinates::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->speed();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }

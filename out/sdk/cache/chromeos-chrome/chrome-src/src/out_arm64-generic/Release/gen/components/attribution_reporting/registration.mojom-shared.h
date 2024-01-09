@@ -39,8 +39,6 @@
 
 
 namespace attribution_reporting::mojom {
-class DebugKeyDataView;
-
 class SuitableOriginDataView;
 
 class FilterDataDataView;
@@ -57,11 +55,11 @@ class DestinationSetDataView;
 
 class EventReportWindowsDataView;
 
-class TriggerConfigDataView;
+class TriggerSpecDataView;
+
+class TriggerSpecsDataView;
 
 class SourceRegistrationDataView;
-
-class TriggerDedupKeyDataView;
 
 class EventTriggerDataDataView;
 
@@ -79,13 +77,6 @@ class OsRegistrationDataView;
 
 namespace mojo {
 namespace internal {
-
-template <>
-struct MojomTypeTraits<::attribution_reporting::mojom::DebugKeyDataView> {
-  using Data = ::attribution_reporting::mojom::internal::DebugKey_Data;
-  using DataAsArrayElement = Pointer<Data>;
-  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
-};
 
 template <>
 struct MojomTypeTraits<::attribution_reporting::mojom::SuitableOriginDataView> {
@@ -144,8 +135,15 @@ struct MojomTypeTraits<::attribution_reporting::mojom::EventReportWindowsDataVie
 };
 
 template <>
-struct MojomTypeTraits<::attribution_reporting::mojom::TriggerConfigDataView> {
-  using Data = ::attribution_reporting::mojom::internal::TriggerConfig_Data;
+struct MojomTypeTraits<::attribution_reporting::mojom::TriggerSpecDataView> {
+  using Data = ::attribution_reporting::mojom::internal::TriggerSpec_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::attribution_reporting::mojom::TriggerSpecsDataView> {
+  using Data = ::attribution_reporting::mojom::internal::TriggerSpecs_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -153,13 +151,6 @@ struct MojomTypeTraits<::attribution_reporting::mojom::TriggerConfigDataView> {
 template <>
 struct MojomTypeTraits<::attribution_reporting::mojom::SourceRegistrationDataView> {
   using Data = ::attribution_reporting::mojom::internal::SourceRegistration_Data;
-  using DataAsArrayElement = Pointer<Data>;
-  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
-};
-
-template <>
-struct MojomTypeTraits<::attribution_reporting::mojom::TriggerDedupKeyDataView> {
-  using Data = ::attribution_reporting::mojom::internal::TriggerDedupKey_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -204,24 +195,6 @@ struct MojomTypeTraits<::attribution_reporting::mojom::OsRegistrationDataView> {
 
 
 namespace attribution_reporting::mojom {
-
-
-class DebugKeyDataView {
- public:
-  DebugKeyDataView() = default;
-
-  DebugKeyDataView(
-      internal::DebugKey_Data* data,
-      mojo::Message* message)
-      : data_(data) {}
-
-  bool is_null() const { return !data_; }
-  uint64_t value() const {
-    return data_->value;
-  }
- private:
-  internal::DebugKey_Data* data_ = nullptr;
-};
 
 
 class SuitableOriginDataView {
@@ -492,28 +465,65 @@ class EventReportWindowsDataView {
 };
 
 
-class TriggerConfigDataView {
+class TriggerSpecDataView {
  public:
-  TriggerConfigDataView() = default;
+  TriggerSpecDataView() = default;
 
-  TriggerConfigDataView(
-      internal::TriggerConfig_Data* data,
+  TriggerSpecDataView(
+      internal::TriggerSpec_Data* data,
       mojo::Message* message)
-      : data_(data) {}
+      : data_(data), message_(message) {}
 
   bool is_null() const { return !data_; }
+  inline void GetEventReportWindowsDataView(
+      EventReportWindowsDataView* output);
+
   template <typename UserType>
-  [[nodiscard]] bool ReadTriggerDataMatching(UserType* output) const {
-    auto data_value = data_->trigger_data_matching;
-    return mojo::internal::Deserialize<::attribution_reporting::mojom::TriggerDataMatching>(
-        data_value, output);
-  }
-  ::attribution_reporting::mojom::TriggerDataMatching trigger_data_matching() const {
-    return ::mojo::internal::ToKnownEnumValueHelper(
-          static_cast<::attribution_reporting::mojom::TriggerDataMatching>(data_->trigger_data_matching));
+  [[nodiscard]] bool ReadEventReportWindows(UserType* output) {
+    
+    auto* pointer = data_->event_report_windows.Get();
+    return mojo::internal::Deserialize<::attribution_reporting::mojom::EventReportWindowsDataView>(
+        pointer, output, message_);
   }
  private:
-  internal::TriggerConfig_Data* data_ = nullptr;
+  internal::TriggerSpec_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class TriggerSpecsDataView {
+ public:
+  TriggerSpecsDataView() = default;
+
+  TriggerSpecsDataView(
+      internal::TriggerSpecs_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetSpecsDataView(
+      mojo::ArrayDataView<TriggerSpecDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadSpecs(UserType* output) {
+    
+    auto* pointer = data_->specs.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::attribution_reporting::mojom::TriggerSpecDataView>>(
+        pointer, output, message_);
+  }
+  inline void GetTriggerDataIndicesDataView(
+      mojo::MapDataView<uint32_t, uint8_t>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadTriggerDataIndices(UserType* output) {
+    
+    auto* pointer = data_->trigger_data_indices.Get();
+    return mojo::internal::Deserialize<mojo::MapDataView<uint32_t, uint8_t>>(
+        pointer, output, message_);
+  }
+ private:
+  internal::TriggerSpecs_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
 };
 
 
@@ -576,25 +586,11 @@ class SourceRegistrationDataView {
   int64_t priority() const {
     return data_->priority;
   }
-  inline void GetDebugKeyDataView(
-      DebugKeyDataView* output);
+  std::optional<uint64_t> debug_key() const {
 
-  template <typename UserType>
-  [[nodiscard]] bool ReadDebugKey(UserType* output) {
-    
-static_assert(
-    mojo::internal::IsValidUserTypeForOptionalValue<
-        ::attribution_reporting::mojom::DebugKeyDataView, UserType>(),
-    "Attempting to read the optional `debug_key` field into a type which "
-    "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
-    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
-    "SetToNull methods, or use `MaybeReadDebugKey` instead "
-    "of `ReadDebugKey if you're fine with null values being "
-    "silently ignored in this case.");
-    auto* pointer = data_->debug_key.Get();
-    return mojo::internal::Deserialize<::attribution_reporting::mojom::DebugKeyDataView>(
-        pointer, output, message_);
+    return data_->debug_key_$flag
+        ? absl::make_optional(data_->debug_key_$value)
+        : absl::nullopt;
   }
   inline void GetFilterDataDataView(
       FilterDataDataView* output);
@@ -619,37 +615,22 @@ static_assert(
   bool debug_reporting() const {
     return data_->debug_reporting;
   }
-  inline void GetTriggerConfigDataView(
-      TriggerConfigDataView* output);
-
   template <typename UserType>
-  [[nodiscard]] bool ReadTriggerConfig(UserType* output) {
-    
-    auto* pointer = data_->trigger_config.Get();
-    return mojo::internal::Deserialize<::attribution_reporting::mojom::TriggerConfigDataView>(
-        pointer, output, message_);
+  [[nodiscard]] bool ReadTriggerDataMatching(UserType* output) const {
+    auto data_value = data_->trigger_data_matching;
+    return mojo::internal::Deserialize<::attribution_reporting::mojom::TriggerDataMatching>(
+        data_value, output);
+  }
+  ::attribution_reporting::mojom::TriggerDataMatching trigger_data_matching() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::attribution_reporting::mojom::TriggerDataMatching>(data_->trigger_data_matching));
+  }
+  double event_level_epsilon() const {
+    return data_->event_level_epsilon;
   }
  private:
   internal::SourceRegistration_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
-};
-
-
-class TriggerDedupKeyDataView {
- public:
-  TriggerDedupKeyDataView() = default;
-
-  TriggerDedupKeyDataView(
-      internal::TriggerDedupKey_Data* data,
-      mojo::Message* message)
-      : data_(data) {}
-
-  bool is_null() const { return !data_; }
-  uint64_t value() const {
-    return data_->value;
-  }
- private:
-  internal::TriggerDedupKey_Data* data_ = nullptr;
 };
 
 
@@ -669,25 +650,11 @@ class EventTriggerDataDataView {
   int64_t priority() const {
     return data_->priority;
   }
-  inline void GetDedupKeyDataView(
-      TriggerDedupKeyDataView* output);
+  std::optional<uint64_t> dedup_key() const {
 
-  template <typename UserType>
-  [[nodiscard]] bool ReadDedupKey(UserType* output) {
-    
-static_assert(
-    mojo::internal::IsValidUserTypeForOptionalValue<
-        ::attribution_reporting::mojom::TriggerDedupKeyDataView, UserType>(),
-    "Attempting to read the optional `dedup_key` field into a type which "
-    "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
-    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
-    "SetToNull methods, or use `MaybeReadDedupKey` instead "
-    "of `ReadDedupKey if you're fine with null values being "
-    "silently ignored in this case.");
-    auto* pointer = data_->dedup_key.Get();
-    return mojo::internal::Deserialize<::attribution_reporting::mojom::TriggerDedupKeyDataView>(
-        pointer, output, message_);
+    return data_->dedup_key_$flag
+        ? absl::make_optional(data_->dedup_key_$value)
+        : absl::nullopt;
   }
   inline void GetFiltersDataView(
       FilterPairDataView* output);
@@ -715,25 +682,11 @@ class AggregatableDedupKeyDataView {
       : data_(data), message_(message) {}
 
   bool is_null() const { return !data_; }
-  inline void GetDedupKeyDataView(
-      TriggerDedupKeyDataView* output);
+  std::optional<uint64_t> dedup_key() const {
 
-  template <typename UserType>
-  [[nodiscard]] bool ReadDedupKey(UserType* output) {
-    
-static_assert(
-    mojo::internal::IsValidUserTypeForOptionalValue<
-        ::attribution_reporting::mojom::TriggerDedupKeyDataView, UserType>(),
-    "Attempting to read the optional `dedup_key` field into a type which "
-    "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
-    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
-    "SetToNull methods, or use `MaybeReadDedupKey` instead "
-    "of `ReadDedupKey if you're fine with null values being "
-    "silently ignored in this case.");
-    auto* pointer = data_->dedup_key.Get();
-    return mojo::internal::Deserialize<::attribution_reporting::mojom::TriggerDedupKeyDataView>(
-        pointer, output, message_);
+    return data_->dedup_key_$flag
+        ? absl::make_optional(data_->dedup_key_$value)
+        : absl::nullopt;
   }
   inline void GetFiltersDataView(
       FilterPairDataView* output);
@@ -801,25 +754,11 @@ class TriggerRegistrationDataView {
     return mojo::internal::Deserialize<mojo::MapDataView<mojo::StringDataView, uint32_t>>(
         pointer, output, message_);
   }
-  inline void GetDebugKeyDataView(
-      DebugKeyDataView* output);
+  std::optional<uint64_t> debug_key() const {
 
-  template <typename UserType>
-  [[nodiscard]] bool ReadDebugKey(UserType* output) {
-    
-static_assert(
-    mojo::internal::IsValidUserTypeForOptionalValue<
-        ::attribution_reporting::mojom::DebugKeyDataView, UserType>(),
-    "Attempting to read the optional `debug_key` field into a type which "
-    "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
-    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
-    "SetToNull methods, or use `MaybeReadDebugKey` instead "
-    "of `ReadDebugKey if you're fine with null values being "
-    "silently ignored in this case.");
-    auto* pointer = data_->debug_key.Get();
-    return mojo::internal::Deserialize<::attribution_reporting::mojom::DebugKeyDataView>(
-        pointer, output, message_);
+    return data_->debug_key_$flag
+        ? absl::make_optional(data_->debug_key_$value)
+        : absl::nullopt;
   }
   inline void GetAggregatableDedupKeysDataView(
       mojo::ArrayDataView<AggregatableDedupKeyDataView>* output);
@@ -863,6 +802,26 @@ static_assert(
   ::attribution_reporting::mojom::SourceRegistrationTimeConfig source_registration_time_config() const {
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::attribution_reporting::mojom::SourceRegistrationTimeConfig>(data_->source_registration_time_config));
+  }
+  inline void GetTriggerContextIdDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadTriggerContextId(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::StringDataView, UserType>(),
+    "Attempting to read the optional `trigger_context_id` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadTriggerContextId` instead "
+    "of `ReadTriggerContextId if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->trigger_context_id.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
   }
  private:
   internal::TriggerRegistration_Data* data_ = nullptr;
@@ -932,36 +891,6 @@ namespace std {
 }  // namespace std
 
 namespace mojo {
-
-
-namespace internal {
-
-template <typename MaybeConstUserType>
-struct Serializer<::attribution_reporting::mojom::DebugKeyDataView, MaybeConstUserType> {
-  using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::attribution_reporting::mojom::DebugKeyDataView, UserType>;
-
-  static void Serialize(
-      MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::attribution_reporting::mojom::internal::DebugKey_Data>& fragment) {
-    if (CallIsNullIfExists<Traits>(input))
-      return;
-    fragment.Allocate();
-    fragment->value = Traits::value(input);
-  }
-
-  static bool Deserialize(::attribution_reporting::mojom::internal::DebugKey_Data* input,
-                          UserType* output,
-                          Message* message) {
-    if (!input)
-      return CallSetToNullIfExists<Traits>(output);
-
-    ::attribution_reporting::mojom::DebugKeyDataView data_view(input, message);
-    return Traits::Read(data_view, output);
-  }
-};
-
-}  // namespace internal
 
 
 namespace internal {
@@ -1367,27 +1296,94 @@ struct Serializer<::attribution_reporting::mojom::EventReportWindowsDataView, Ma
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::attribution_reporting::mojom::TriggerConfigDataView, MaybeConstUserType> {
+struct Serializer<::attribution_reporting::mojom::TriggerSpecDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::attribution_reporting::mojom::TriggerConfigDataView, UserType>;
+  using Traits = StructTraits<::attribution_reporting::mojom::TriggerSpecDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::attribution_reporting::mojom::internal::TriggerConfig_Data>& fragment) {
+      mojo::internal::MessageFragment<::attribution_reporting::mojom::internal::TriggerSpec_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
-    mojo::internal::Serialize<::attribution_reporting::mojom::TriggerDataMatching>(
-        Traits::trigger_data_matching(input), &fragment->trigger_data_matching);
+    decltype(Traits::event_report_windows(input)) in_event_report_windows = Traits::event_report_windows(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->event_report_windows)::BaseType> event_report_windows_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::attribution_reporting::mojom::EventReportWindowsDataView>(
+        in_event_report_windows, event_report_windows_fragment);
+    fragment->event_report_windows.Set(
+        event_report_windows_fragment.is_null() ? nullptr : event_report_windows_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->event_report_windows.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null event_report_windows in TriggerSpec struct");
   }
 
-  static bool Deserialize(::attribution_reporting::mojom::internal::TriggerConfig_Data* input,
+  static bool Deserialize(::attribution_reporting::mojom::internal::TriggerSpec_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::attribution_reporting::mojom::TriggerConfigDataView data_view(input, message);
+    ::attribution_reporting::mojom::TriggerSpecDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::attribution_reporting::mojom::TriggerSpecsDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::attribution_reporting::mojom::TriggerSpecsDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::attribution_reporting::mojom::internal::TriggerSpecs_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::specs(input)) in_specs = Traits::specs(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->specs)::BaseType>
+        specs_fragment(fragment.message());
+    constexpr const mojo::internal::ContainerValidateParams& specs_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
+    mojo::internal::Serialize<mojo::ArrayDataView<::attribution_reporting::mojom::TriggerSpecDataView>>(
+        in_specs, specs_fragment, &specs_validate_params);
+    fragment->specs.Set(
+        specs_fragment.is_null() ? nullptr : specs_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->specs.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null specs in TriggerSpecs struct");
+    decltype(Traits::trigger_data_indices(input)) in_trigger_data_indices = Traits::trigger_data_indices(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->trigger_data_indices)::BaseType>
+        trigger_data_indices_fragment(fragment.message());
+    constexpr const mojo::internal::ContainerValidateParams& trigger_data_indices_validate_params =
+        mojo::internal::GetMapValidator<*&mojo::internal::GetArrayValidator<0, false, nullptr>(), *&mojo::internal::GetArrayValidator<0, false, nullptr>()>();
+    mojo::internal::Serialize<mojo::MapDataView<uint32_t, uint8_t>>(
+        in_trigger_data_indices, trigger_data_indices_fragment, &trigger_data_indices_validate_params);
+    fragment->trigger_data_indices.Set(
+        trigger_data_indices_fragment.is_null() ? nullptr : trigger_data_indices_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->trigger_data_indices.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null trigger_data_indices in TriggerSpecs struct");
+  }
+
+  static bool Deserialize(::attribution_reporting::mojom::internal::TriggerSpecs_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::attribution_reporting::mojom::TriggerSpecsDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -1459,14 +1455,10 @@ struct Serializer<::attribution_reporting::mojom::SourceRegistrationDataView, Ma
         "null aggregatable_report_window in SourceRegistration struct");
     fragment->max_event_level_reports = Traits::max_event_level_reports(input);
     fragment->priority = Traits::priority(input);
-    decltype(Traits::debug_key(input)) in_debug_key = Traits::debug_key(input);
-    mojo::internal::MessageFragment<
-        typename decltype(fragment->debug_key)::BaseType> debug_key_fragment(
-            fragment.message());
-    mojo::internal::Serialize<::attribution_reporting::mojom::DebugKeyDataView>(
-        in_debug_key, debug_key_fragment);
-    fragment->debug_key.Set(
-        debug_key_fragment.is_null() ? nullptr : debug_key_fragment.data());
+    fragment->debug_key_$flag = Traits::debug_key(input).has_value();
+    if (Traits::debug_key(input).has_value()) {
+      fragment->debug_key_$value = Traits::debug_key(input).value();
+    }
     decltype(Traits::filter_data(input)) in_filter_data = Traits::filter_data(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->filter_data)::BaseType> filter_data_fragment(
@@ -1492,18 +1484,9 @@ struct Serializer<::attribution_reporting::mojom::SourceRegistrationDataView, Ma
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null aggregation_keys in SourceRegistration struct");
     fragment->debug_reporting = Traits::debug_reporting(input);
-    decltype(Traits::trigger_config(input)) in_trigger_config = Traits::trigger_config(input);
-    mojo::internal::MessageFragment<
-        typename decltype(fragment->trigger_config)::BaseType> trigger_config_fragment(
-            fragment.message());
-    mojo::internal::Serialize<::attribution_reporting::mojom::TriggerConfigDataView>(
-        in_trigger_config, trigger_config_fragment);
-    fragment->trigger_config.Set(
-        trigger_config_fragment.is_null() ? nullptr : trigger_config_fragment.data());
-    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-        fragment->trigger_config.is_null(),
-        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-        "null trigger_config in SourceRegistration struct");
+    mojo::internal::Serialize<::attribution_reporting::mojom::TriggerDataMatching>(
+        Traits::trigger_data_matching(input), &fragment->trigger_data_matching);
+    fragment->event_level_epsilon = Traits::event_level_epsilon(input);
   }
 
   static bool Deserialize(::attribution_reporting::mojom::internal::SourceRegistration_Data* input,
@@ -1513,36 +1496,6 @@ struct Serializer<::attribution_reporting::mojom::SourceRegistrationDataView, Ma
       return CallSetToNullIfExists<Traits>(output);
 
     ::attribution_reporting::mojom::SourceRegistrationDataView data_view(input, message);
-    return Traits::Read(data_view, output);
-  }
-};
-
-}  // namespace internal
-
-
-namespace internal {
-
-template <typename MaybeConstUserType>
-struct Serializer<::attribution_reporting::mojom::TriggerDedupKeyDataView, MaybeConstUserType> {
-  using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::attribution_reporting::mojom::TriggerDedupKeyDataView, UserType>;
-
-  static void Serialize(
-      MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::attribution_reporting::mojom::internal::TriggerDedupKey_Data>& fragment) {
-    if (CallIsNullIfExists<Traits>(input))
-      return;
-    fragment.Allocate();
-    fragment->value = Traits::value(input);
-  }
-
-  static bool Deserialize(::attribution_reporting::mojom::internal::TriggerDedupKey_Data* input,
-                          UserType* output,
-                          Message* message) {
-    if (!input)
-      return CallSetToNullIfExists<Traits>(output);
-
-    ::attribution_reporting::mojom::TriggerDedupKeyDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -1565,14 +1518,10 @@ struct Serializer<::attribution_reporting::mojom::EventTriggerDataDataView, Mayb
     fragment.Allocate();
     fragment->data = Traits::data(input);
     fragment->priority = Traits::priority(input);
-    decltype(Traits::dedup_key(input)) in_dedup_key = Traits::dedup_key(input);
-    mojo::internal::MessageFragment<
-        typename decltype(fragment->dedup_key)::BaseType> dedup_key_fragment(
-            fragment.message());
-    mojo::internal::Serialize<::attribution_reporting::mojom::TriggerDedupKeyDataView>(
-        in_dedup_key, dedup_key_fragment);
-    fragment->dedup_key.Set(
-        dedup_key_fragment.is_null() ? nullptr : dedup_key_fragment.data());
+    fragment->dedup_key_$flag = Traits::dedup_key(input).has_value();
+    if (Traits::dedup_key(input).has_value()) {
+      fragment->dedup_key_$value = Traits::dedup_key(input).value();
+    }
     decltype(Traits::filters(input)) in_filters = Traits::filters(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->filters)::BaseType> filters_fragment(
@@ -1614,14 +1563,10 @@ struct Serializer<::attribution_reporting::mojom::AggregatableDedupKeyDataView, 
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
-    decltype(Traits::dedup_key(input)) in_dedup_key = Traits::dedup_key(input);
-    mojo::internal::MessageFragment<
-        typename decltype(fragment->dedup_key)::BaseType> dedup_key_fragment(
-            fragment.message());
-    mojo::internal::Serialize<::attribution_reporting::mojom::TriggerDedupKeyDataView>(
-        in_dedup_key, dedup_key_fragment);
-    fragment->dedup_key.Set(
-        dedup_key_fragment.is_null() ? nullptr : dedup_key_fragment.data());
+    fragment->dedup_key_$flag = Traits::dedup_key(input).has_value();
+    if (Traits::dedup_key(input).has_value()) {
+      fragment->dedup_key_$value = Traits::dedup_key(input).value();
+    }
     decltype(Traits::filters(input)) in_filters = Traits::filters(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->filters)::BaseType> filters_fragment(
@@ -1717,14 +1662,10 @@ struct Serializer<::attribution_reporting::mojom::TriggerRegistrationDataView, M
         fragment->aggregatable_values.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null aggregatable_values in TriggerRegistration struct");
-    decltype(Traits::debug_key(input)) in_debug_key = Traits::debug_key(input);
-    mojo::internal::MessageFragment<
-        typename decltype(fragment->debug_key)::BaseType> debug_key_fragment(
-            fragment.message());
-    mojo::internal::Serialize<::attribution_reporting::mojom::DebugKeyDataView>(
-        in_debug_key, debug_key_fragment);
-    fragment->debug_key.Set(
-        debug_key_fragment.is_null() ? nullptr : debug_key_fragment.data());
+    fragment->debug_key_$flag = Traits::debug_key(input).has_value();
+    if (Traits::debug_key(input).has_value()) {
+      fragment->debug_key_$value = Traits::debug_key(input).value();
+    }
     decltype(Traits::aggregatable_dedup_keys(input)) in_aggregatable_dedup_keys = Traits::aggregatable_dedup_keys(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->aggregatable_dedup_keys)::BaseType>
@@ -1750,6 +1691,14 @@ struct Serializer<::attribution_reporting::mojom::TriggerRegistrationDataView, M
         aggregation_coordinator_origin_fragment.is_null() ? nullptr : aggregation_coordinator_origin_fragment.data());
     mojo::internal::Serialize<::attribution_reporting::mojom::SourceRegistrationTimeConfig>(
         Traits::source_registration_time_config(input), &fragment->source_registration_time_config);
+    decltype(Traits::trigger_context_id(input)) in_trigger_context_id = Traits::trigger_context_id(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->trigger_context_id)::BaseType> trigger_context_id_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_trigger_context_id, trigger_context_id_fragment);
+    fragment->trigger_context_id.Set(
+        trigger_context_id_fragment.is_null() ? nullptr : trigger_context_id_fragment.data());
   }
 
   static bool Deserialize(::attribution_reporting::mojom::internal::TriggerRegistration_Data* input,
@@ -1855,8 +1804,6 @@ struct Serializer<::attribution_reporting::mojom::OsRegistrationDataView, MaybeC
 
 namespace attribution_reporting::mojom {
 
-
-
 inline void SuitableOriginDataView::GetOriginDataView(
     ::url::mojom::OriginDataView* output) {
   auto pointer = data_->origin.Get();
@@ -1938,6 +1885,23 @@ inline void EventReportWindowsDataView::GetEndTimesDataView(
 }
 
 
+inline void TriggerSpecDataView::GetEventReportWindowsDataView(
+    EventReportWindowsDataView* output) {
+  auto pointer = data_->event_report_windows.Get();
+  *output = EventReportWindowsDataView(pointer, message_);
+}
+
+
+inline void TriggerSpecsDataView::GetSpecsDataView(
+    mojo::ArrayDataView<TriggerSpecDataView>* output) {
+  auto pointer = data_->specs.Get();
+  *output = mojo::ArrayDataView<TriggerSpecDataView>(pointer, message_);
+}
+inline void TriggerSpecsDataView::GetTriggerDataIndicesDataView(
+    mojo::MapDataView<uint32_t, uint8_t>* output) {
+  auto pointer = data_->trigger_data_indices.Get();
+  *output = mojo::MapDataView<uint32_t, uint8_t>(pointer, message_);
+}
 
 
 inline void SourceRegistrationDataView::GetDestinationsDataView(
@@ -1960,11 +1924,6 @@ inline void SourceRegistrationDataView::GetAggregatableReportWindowDataView(
   auto pointer = data_->aggregatable_report_window.Get();
   *output = ::mojo_base::mojom::TimeDeltaDataView(pointer, message_);
 }
-inline void SourceRegistrationDataView::GetDebugKeyDataView(
-    DebugKeyDataView* output) {
-  auto pointer = data_->debug_key.Get();
-  *output = DebugKeyDataView(pointer, message_);
-}
 inline void SourceRegistrationDataView::GetFilterDataDataView(
     FilterDataDataView* output) {
   auto pointer = data_->filter_data.Get();
@@ -1975,20 +1934,8 @@ inline void SourceRegistrationDataView::GetAggregationKeysDataView(
   auto pointer = data_->aggregation_keys.Get();
   *output = AggregationKeysDataView(pointer, message_);
 }
-inline void SourceRegistrationDataView::GetTriggerConfigDataView(
-    TriggerConfigDataView* output) {
-  auto pointer = data_->trigger_config.Get();
-  *output = TriggerConfigDataView(pointer, message_);
-}
 
 
-
-
-inline void EventTriggerDataDataView::GetDedupKeyDataView(
-    TriggerDedupKeyDataView* output) {
-  auto pointer = data_->dedup_key.Get();
-  *output = TriggerDedupKeyDataView(pointer, message_);
-}
 inline void EventTriggerDataDataView::GetFiltersDataView(
     FilterPairDataView* output) {
   auto pointer = data_->filters.Get();
@@ -1996,11 +1943,6 @@ inline void EventTriggerDataDataView::GetFiltersDataView(
 }
 
 
-inline void AggregatableDedupKeyDataView::GetDedupKeyDataView(
-    TriggerDedupKeyDataView* output) {
-  auto pointer = data_->dedup_key.Get();
-  *output = TriggerDedupKeyDataView(pointer, message_);
-}
 inline void AggregatableDedupKeyDataView::GetFiltersDataView(
     FilterPairDataView* output) {
   auto pointer = data_->filters.Get();
@@ -2028,11 +1970,6 @@ inline void TriggerRegistrationDataView::GetAggregatableValuesDataView(
   auto pointer = data_->aggregatable_values.Get();
   *output = mojo::MapDataView<mojo::StringDataView, uint32_t>(pointer, message_);
 }
-inline void TriggerRegistrationDataView::GetDebugKeyDataView(
-    DebugKeyDataView* output) {
-  auto pointer = data_->debug_key.Get();
-  *output = DebugKeyDataView(pointer, message_);
-}
 inline void TriggerRegistrationDataView::GetAggregatableDedupKeysDataView(
     mojo::ArrayDataView<AggregatableDedupKeyDataView>* output) {
   auto pointer = data_->aggregatable_dedup_keys.Get();
@@ -2042,6 +1979,11 @@ inline void TriggerRegistrationDataView::GetAggregationCoordinatorOriginDataView
     SuitableOriginDataView* output) {
   auto pointer = data_->aggregation_coordinator_origin.Get();
   *output = SuitableOriginDataView(pointer, message_);
+}
+inline void TriggerRegistrationDataView::GetTriggerContextIdDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->trigger_context_id.Get();
+  *output = mojo::StringDataView(pointer, message_);
 }
 
 

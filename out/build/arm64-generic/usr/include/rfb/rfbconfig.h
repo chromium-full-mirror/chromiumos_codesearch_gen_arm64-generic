@@ -152,13 +152,13 @@
 #define LIBVNCSERVER_VERSION_PATCHLEVEL "13"
 
 /* Define to 1 if libgcrypt is present */
-/* #undef LIBVNCSERVER_HAVE_LIBGCRYPT */
+#define LIBVNCSERVER_HAVE_LIBGCRYPT 1
 
 /* Define to 1 if GnuTLS is present */
 /* #undef LIBVNCSERVER_HAVE_GNUTLS */
 
 /* Define to 1 if OpenSSL is present */
-#define LIBVNCSERVER_HAVE_LIBSSL 1
+/* #undef LIBVNCSERVER_HAVE_LIBSSL */
 
 /* Define to 1 if Cyrus SASL is present */
 /* #undef LIBVNCSERVER_HAVE_SASL */

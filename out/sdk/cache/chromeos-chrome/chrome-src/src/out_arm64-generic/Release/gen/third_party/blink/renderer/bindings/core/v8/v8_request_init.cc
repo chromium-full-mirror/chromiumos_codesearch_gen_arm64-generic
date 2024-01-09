@@ -448,7 +448,7 @@ if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[18].
   return false;
 }
 }
-if (RuntimeEnabledFeatures::PrivateNetworkAccessPermissionPromptEnabled()) {
+if (RuntimeEnabledFeatures::PrivateNetworkAccessPermissionPromptEnabled(execution_context)) {
   if (hasTargetAddressSpace()) {
   if (!ToV8Traits<V8IPAddressSpace>::ToV8(script_state, member_target_address_space_).ToLocal(&v8_value)) {
   return false;
@@ -558,7 +558,7 @@ exception_context_scope.ChangePropertyNameAsOptimizationHack("signal");
 if (!bindings::GetDictionaryMemberFromV8Object<IDLNullable<AbortSignal>, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[18].Get(isolate), has_signal_, member_signal_, try_block, exception_state)) {
   return;
 }
-if (RuntimeEnabledFeatures::PrivateNetworkAccessPermissionPromptEnabled()) {
+if (RuntimeEnabledFeatures::PrivateNetworkAccessPermissionPromptEnabled(execution_context)) {
   exception_context_scope.ChangePropertyNameAsOptimizationHack("targetAddressSpace");
 if (!bindings::GetDictionaryMemberFromV8Object<V8IPAddressSpace, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[19].Get(isolate), has_target_address_space_, member_target_address_space_, try_block, exception_state)) {
   return;

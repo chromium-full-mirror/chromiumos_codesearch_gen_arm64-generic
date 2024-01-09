@@ -3,6 +3,7 @@
 // found in the LICENSE file.
 import { PageHandlerFactory, PageHandlerRemote } from './office_fallback.mojom-webui.js';
 export class OfficeFallbackBrowserProxy {
+    handler;
     constructor() {
         this.handler = new PageHandlerRemote();
     }

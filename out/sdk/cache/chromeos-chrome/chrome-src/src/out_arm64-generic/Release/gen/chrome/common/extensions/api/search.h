@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -29,12 +30,12 @@ namespace search {
 // Types
 //
 
-enum  Disposition {
-  DISPOSITION_NONE = 0,
-  DISPOSITION_CURRENT_TAB,
-  DISPOSITION_NEW_TAB,
-  DISPOSITION_NEW_WINDOW,
-  DISPOSITION_LAST = DISPOSITION_NEW_WINDOW,
+enum class Disposition {
+  kNone = 0,
+  kCurrentTab,
+  kNewTab,
+  kNewWindow,
+  kMaxValue = kNewWindow,
 };
 
 
@@ -47,8 +48,8 @@ struct QueryInfo {
   ~QueryInfo();
   QueryInfo(const QueryInfo&) = delete;
   QueryInfo& operator=(const QueryInfo&) = delete;
-  QueryInfo(QueryInfo&& rhs);
-  QueryInfo& operator=(QueryInfo&& rhs);
+  QueryInfo(QueryInfo&& rhs) noexcept;
+  QueryInfo& operator=(QueryInfo&& rhs) noexcept;
 
   // Populates a QueryInfo object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -61,14 +62,11 @@ struct QueryInfo {
   // Creates a deep copy of QueryInfo.
   QueryInfo Clone() const;
 
-  // Creates a QueryInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<QueryInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a QueryInfo object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<QueryInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<QueryInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a QueryInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<QueryInfo> FromValue(const base::Value& value);
+  static std::optional<QueryInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisQueryInfo object.
@@ -83,7 +81,7 @@ struct QueryInfo {
 
   // Location where search results should be displayed. <code>tabId<code> cannot
   // be used with <code>disposition</code>.
-  absl::optional<int> tab_id;
+  std::optional<int> tab_id;
 
 };
 
@@ -95,11 +93,11 @@ struct QueryInfo {
 namespace Query {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   QueryInfo query_info;

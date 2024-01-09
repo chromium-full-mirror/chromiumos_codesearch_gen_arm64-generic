@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -123,7 +124,7 @@ TrackedPreferenceValidationDelegateProxy::TrackedPreferenceValidationDelegatePro
 }
 
 void TrackedPreferenceValidationDelegateProxy::OnAtomicPreferenceValidation(
-    const std::string& in_pref_path, absl::optional<::base::Value> in_value, TrackedPreferenceValidationDelegate::ValueState in_value_state, TrackedPreferenceValidationDelegate::ValueState in_external_validation_value_state, bool in_is_personal) {
+    const std::string& in_pref_path, std::optional<::base::Value> in_value, TrackedPreferenceValidationDelegate::ValueState in_value_state, TrackedPreferenceValidationDelegate::ValueState in_external_validation_value_state, bool in_is_personal) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send prefs::mojom::TrackedPreferenceValidationDelegate::OnAtomicPreferenceValidation", "input_parameters",
@@ -134,7 +135,7 @@ void TrackedPreferenceValidationDelegateProxy::OnAtomicPreferenceValidation(
                         "<value of type const std::string&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("value"), in_value,
-                        "<value of type absl::optional<::base::Value>>");
+                        "<value of type std::optional<::base::Value>>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("value_state"), in_value_state,
                         "<value of type TrackedPreferenceValidationDelegate::ValueState>");
@@ -146,14 +147,17 @@ void TrackedPreferenceValidationDelegateProxy::OnAtomicPreferenceValidation(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTrackedPreferenceValidationDelegate_OnAtomicPreferenceValidation_Name, kFlags, 0, 0, nullptr);
@@ -219,14 +223,17 @@ void TrackedPreferenceValidationDelegateProxy::OnSplitPreferenceValidation(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTrackedPreferenceValidationDelegate_OnSplitPreferenceValidation_Name, kFlags, 0, 0, nullptr);
@@ -300,7 +307,7 @@ bool TrackedPreferenceValidationDelegateStubDispatch::Accept(
       
       bool success = true;
       std::string p_pref_path{};
-      absl::optional<::base::Value> p_value{};
+      std::optional<::base::Value> p_value{};
       TrackedPreferenceValidationDelegate::ValueState p_value_state{};
       TrackedPreferenceValidationDelegate::ValueState p_external_validation_value_state{};
       bool p_is_personal{};
@@ -401,12 +408,12 @@ bool TrackedPreferenceValidationDelegateStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kTrackedPreferenceValidationDelegateValidationInfo[] = {
-    {&internal::TrackedPreferenceValidationDelegate_OnAtomicPreferenceValidation_Params_Data::Validate,
+    { &internal::TrackedPreferenceValidationDelegate_OnAtomicPreferenceValidation_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::TrackedPreferenceValidationDelegate_OnSplitPreferenceValidation_Params_Data::Validate,
+    { &internal::TrackedPreferenceValidationDelegate_OnSplitPreferenceValidation_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -432,7 +439,7 @@ namespace mojo {
 namespace prefs::mojom {
 
 
-void TrackedPreferenceValidationDelegateInterceptorForTesting::OnAtomicPreferenceValidation(const std::string& pref_path, absl::optional<::base::Value> value, TrackedPreferenceValidationDelegate::ValueState value_state, TrackedPreferenceValidationDelegate::ValueState external_validation_value_state, bool is_personal) {
+void TrackedPreferenceValidationDelegateInterceptorForTesting::OnAtomicPreferenceValidation(const std::string& pref_path, std::optional<::base::Value> value, TrackedPreferenceValidationDelegate::ValueState value_state, TrackedPreferenceValidationDelegate::ValueState external_validation_value_state, bool is_personal) {
   GetForwardingInterface()->OnAtomicPreferenceValidation(std::move(pref_path), std::move(value), std::move(value_state), std::move(external_validation_value_state), std::move(is_personal));
 }
 void TrackedPreferenceValidationDelegateInterceptorForTesting::OnSplitPreferenceValidation(const std::string& pref_path, const std::vector<std::string>& invalid_keys, const std::vector<std::string>& external_validation_invalid_keys, TrackedPreferenceValidationDelegate::ValueState value_state, TrackedPreferenceValidationDelegate::ValueState external_validation_value_state, bool is_personal) {

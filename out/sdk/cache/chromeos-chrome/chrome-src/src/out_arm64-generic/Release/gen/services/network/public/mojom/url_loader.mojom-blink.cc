@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -205,7 +206,7 @@ URLLoaderProxy::URLLoaderProxy(mojo::MessageReceiverWithResponder* receiver)
 }
 
 void URLLoaderProxy::FollowRedirect(
-    const WTF::Vector<WTF::String>& in_removed_headers, const ::net::HttpRequestHeaders& in_modified_headers, const ::net::HttpRequestHeaders& in_modified_cors_exempt_headers, const absl::optional<::blink::KURL>& in_new_url) {
+    const WTF::Vector<WTF::String>& in_removed_headers, const ::net::HttpRequestHeaders& in_modified_headers, const ::net::HttpRequestHeaders& in_modified_cors_exempt_headers, const std::optional<::blink::KURL>& in_new_url) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send network::mojom::URLLoader::FollowRedirect", "input_parameters",
@@ -222,17 +223,20 @@ void URLLoaderProxy::FollowRedirect(
                         "<value of type const ::net::HttpRequestHeaders&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("new_url"), in_new_url,
-                        "<value of type const absl::optional<::blink::KURL>&>");
+                        "<value of type const std::optional<::blink::KURL>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kURLLoader_FollowRedirect_Name, kFlags, 0, 0, nullptr);
@@ -307,14 +311,17 @@ void URLLoaderProxy::SetPriority(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kURLLoader_SetPriority_Name, kFlags, 0, 0, nullptr);
@@ -340,14 +347,17 @@ void URLLoaderProxy::PauseReadingBodyFromNet(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send network::mojom::URLLoader::PauseReadingBodyFromNet");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kURLLoader_PauseReadingBodyFromNet_Name, kFlags, 0, 0, nullptr);
@@ -370,14 +380,17 @@ void URLLoaderProxy::ResumeReadingBodyFromNet(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send network::mojom::URLLoader::ResumeReadingBodyFromNet");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kURLLoader_ResumeReadingBodyFromNet_Name, kFlags, 0, 0, nullptr);
@@ -411,7 +424,7 @@ bool URLLoaderStubDispatch::Accept(
       WTF::Vector<WTF::String> p_removed_headers{};
       ::net::HttpRequestHeaders p_modified_headers{};
       ::net::HttpRequestHeaders p_modified_cors_exempt_headers{};
-      absl::optional<::blink::KURL> p_new_url{};
+      std::optional<::blink::KURL> p_new_url{};
       URLLoader_FollowRedirect_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadRemovedHeaders(&p_removed_headers))
@@ -540,16 +553,16 @@ bool URLLoaderStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kURLLoaderValidationInfo[] = {
-    {&internal::URLLoader_FollowRedirect_Params_Data::Validate,
+    { &internal::URLLoader_FollowRedirect_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::URLLoader_SetPriority_Params_Data::Validate,
+    { &internal::URLLoader_SetPriority_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::URLLoader_PauseReadingBodyFromNet_Params_Data::Validate,
+    { &internal::URLLoader_PauseReadingBodyFromNet_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::URLLoader_ResumeReadingBodyFromNet_Params_Data::Validate,
+    { &internal::URLLoader_ResumeReadingBodyFromNet_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -745,14 +758,17 @@ void URLLoaderClientProxy::OnReceiveEarlyHints(
                         "<value of type ::network::mojom::blink::EarlyHintsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kURLLoaderClient_OnReceiveEarlyHints_Name, kFlags, 0, 0, nullptr);
@@ -782,7 +798,7 @@ void URLLoaderClientProxy::OnReceiveEarlyHints(
 }
 
 void URLLoaderClientProxy::OnReceiveResponse(
-    ::network::mojom::blink::URLResponseHeadPtr in_head, ::mojo::ScopedDataPipeConsumerHandle in_body, absl::optional<::mojo_base::BigBuffer> in_cached_metadata) {
+    ::network::mojom::blink::URLResponseHeadPtr in_head, ::mojo::ScopedDataPipeConsumerHandle in_body, std::optional<::mojo_base::BigBuffer> in_cached_metadata) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send network::mojom::URLLoaderClient::OnReceiveResponse", "input_parameters",
@@ -796,17 +812,20 @@ void URLLoaderClientProxy::OnReceiveResponse(
                         "<value of type ::mojo::ScopedDataPipeConsumerHandle>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("cached_metadata"), in_cached_metadata,
-                        "<value of type absl::optional<::mojo_base::BigBuffer>>");
+                        "<value of type std::optional<::mojo_base::BigBuffer>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kURLLoaderClient_OnReceiveResponse_Name, kFlags, 0, 0, nullptr);
@@ -857,14 +876,17 @@ void URLLoaderClientProxy::OnReceiveRedirect(
                         "<value of type ::network::mojom::blink::URLResponseHeadPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kURLLoaderClient_OnReceiveRedirect_Name, kFlags, 0, 0, nullptr);
@@ -919,14 +941,17 @@ void URLLoaderClientProxy::OnUploadProgress(
                         "<value of type int64_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kURLLoaderClient_OnUploadProgress_Name, kFlags, 0, 0, nullptr);
@@ -959,14 +984,17 @@ void URLLoaderClientProxy::OnTransferSizeUpdated(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kURLLoaderClient_OnTransferSizeUpdated_Name, kFlags, 0, 0, nullptr);
@@ -997,14 +1025,17 @@ void URLLoaderClientProxy::OnComplete(
                         "<value of type const ::network::URLLoaderCompletionStatus&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kURLLoaderClient_OnComplete_Name, kFlags, 0, 0, nullptr);
@@ -1113,7 +1144,8 @@ void URLLoaderClient_OnUploadProgress_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kURLLoaderClient_OnUploadProgress_Name, kFlags, 0, 0, nullptr);
@@ -1180,7 +1212,7 @@ std::move(p_early_hints));
       bool success = true;
       ::network::mojom::blink::URLResponseHeadPtr p_head{};
       ::mojo::ScopedDataPipeConsumerHandle p_body{};
-      absl::optional<::mojo_base::BigBuffer> p_cached_metadata{};
+      std::optional<::mojo_base::BigBuffer> p_cached_metadata{};
       URLLoaderClient_OnReceiveResponse_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadHead(&p_head))
@@ -1353,20 +1385,20 @@ std::move(p_total_size), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kURLLoaderClientValidationInfo[] = {
-    {&internal::URLLoaderClient_OnReceiveEarlyHints_Params_Data::Validate,
+    { &internal::URLLoaderClient_OnReceiveEarlyHints_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::URLLoaderClient_OnReceiveResponse_Params_Data::Validate,
+    { &internal::URLLoaderClient_OnReceiveResponse_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::URLLoaderClient_OnReceiveRedirect_Params_Data::Validate,
+    { &internal::URLLoaderClient_OnReceiveRedirect_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::URLLoaderClient_OnUploadProgress_Params_Data::Validate,
+    { &internal::URLLoaderClient_OnUploadProgress_Params_Data::Validate,
      &internal::URLLoaderClient_OnUploadProgress_ResponseParams_Data::Validate},
-    {&internal::URLLoaderClient_OnTransferSizeUpdated_Params_Data::Validate,
+    { &internal::URLLoaderClient_OnTransferSizeUpdated_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::URLLoaderClient_OnComplete_Params_Data::Validate,
+    { &internal::URLLoaderClient_OnComplete_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1416,7 +1448,7 @@ bool StructTraits<::network::mojom::blink::URLLoaderClientEndpoints::DataView, :
 namespace network::mojom::blink {
 
 
-void URLLoaderInterceptorForTesting::FollowRedirect(const WTF::Vector<WTF::String>& removed_headers, const ::net::HttpRequestHeaders& modified_headers, const ::net::HttpRequestHeaders& modified_cors_exempt_headers, const absl::optional<::blink::KURL>& new_url) {
+void URLLoaderInterceptorForTesting::FollowRedirect(const WTF::Vector<WTF::String>& removed_headers, const ::net::HttpRequestHeaders& modified_headers, const ::net::HttpRequestHeaders& modified_cors_exempt_headers, const std::optional<::blink::KURL>& new_url) {
   GetForwardingInterface()->FollowRedirect(std::move(removed_headers), std::move(modified_headers), std::move(modified_cors_exempt_headers), std::move(new_url));
 }
 void URLLoaderInterceptorForTesting::SetPriority(::net::RequestPriority priority, int32_t intra_priority_value) {
@@ -1439,7 +1471,7 @@ URLLoaderAsyncWaiter::~URLLoaderAsyncWaiter() = default;
 void URLLoaderClientInterceptorForTesting::OnReceiveEarlyHints(::network::mojom::blink::EarlyHintsPtr early_hints) {
   GetForwardingInterface()->OnReceiveEarlyHints(std::move(early_hints));
 }
-void URLLoaderClientInterceptorForTesting::OnReceiveResponse(::network::mojom::blink::URLResponseHeadPtr head, ::mojo::ScopedDataPipeConsumerHandle body, absl::optional<::mojo_base::BigBuffer> cached_metadata) {
+void URLLoaderClientInterceptorForTesting::OnReceiveResponse(::network::mojom::blink::URLResponseHeadPtr head, ::mojo::ScopedDataPipeConsumerHandle body, std::optional<::mojo_base::BigBuffer> cached_metadata) {
   GetForwardingInterface()->OnReceiveResponse(std::move(head), std::move(body), std::move(cached_metadata));
 }
 void URLLoaderClientInterceptorForTesting::OnReceiveRedirect(URLRequestRedirectInfoPtr redirect_info, ::network::mojom::blink::URLResponseHeadPtr head) {

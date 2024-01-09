@@ -74,11 +74,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, TextEncoderStream>::value,
     "TextEncoderStream inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&TextEncoderStream::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "TextEncoderStream is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -91,10 +86,10 @@ BLINK_BINDINGS_TRACE_EVENT("TextEncoderStream.encoding.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-TextEncoderStream* blink_receiver = V8TextEncoderStream::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->encoding();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+TextEncoderStream* blink_receiver = V8TextEncoderStream::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->encoding();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -106,8 +101,9 @@ BLINK_BINDINGS_TRACE_EVENT("TextEncoderStream.readable.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-TextEncoderStream* blink_receiver = V8TextEncoderStream::ToWrappableUnsafe(v8_receiver);
+TextEncoderStream* blink_receiver = V8TextEncoderStream::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->readable();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -120,8 +116,9 @@ BLINK_BINDINGS_TRACE_EVENT("TextEncoderStream.writable.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-TextEncoderStream* blink_receiver = V8TextEncoderStream::ToWrappableUnsafe(v8_receiver);
+TextEncoderStream* blink_receiver = V8TextEncoderStream::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->writable();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }

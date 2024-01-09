@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/device/public/mojom/nfc.mojom-features.h"
 #include "services/device/public/mojom/nfc.mojom-shared.h"
 #include "services/device/public/mojom/nfc.mojom-forward.h"
 #include <string>
@@ -178,7 +179,7 @@ class NFCClient
   virtual ~NFCClient() = default;
 
   
-  virtual void OnWatch(const std::vector<uint32_t>& watch_ids, const absl::optional<std::string>& serial_number, NDEFMessagePtr message) = 0;
+  virtual void OnWatch(const std::vector<uint32_t>& watch_ids, const std::optional<std::string>& serial_number, NDEFMessagePtr message) = 0;
 
   
   virtual void OnError(NDEFErrorPtr error) = 0;
@@ -220,7 +221,7 @@ class  NFCClientProxy
 
   explicit NFCClientProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void OnWatch(const std::vector<uint32_t>& watch_ids, const absl::optional<std::string>& serial_number, NDEFMessagePtr message) final;
+  void OnWatch(const std::vector<uint32_t>& watch_ids, const std::optional<std::string>& serial_number, NDEFMessagePtr message) final;
   
   void OnError(NDEFErrorPtr error) final;
 
@@ -645,10 +646,10 @@ class  NDEFRecord {
   NDEFRecord(
       NDEFRecordTypeCategory category,
       const std::string& record_type,
-      const absl::optional<std::string>& media_type,
-      const absl::optional<std::string>& id,
-      const absl::optional<std::string>& encoding,
-      const absl::optional<std::string>& lang,
+      const std::optional<std::string>& media_type,
+      const std::optional<std::string>& id,
+      const std::optional<std::string>& encoding,
+      const std::optional<std::string>& lang,
       std::vector<uint8_t> data,
       NDEFMessagePtr payload_message);
 
@@ -734,13 +735,13 @@ NDEFRecord& operator=(const NDEFRecord&) = delete;
   
   std::string record_type;
   
-  absl::optional<std::string> media_type;
+  std::optional<std::string> media_type;
   
-  absl::optional<std::string> id;
+  std::optional<std::string> id;
   
-  absl::optional<std::string> encoding;
+  std::optional<std::string> encoding;
   
-  absl::optional<std::string> lang;
+  std::optional<std::string> lang;
   
   std::vector<uint8_t> data;
   

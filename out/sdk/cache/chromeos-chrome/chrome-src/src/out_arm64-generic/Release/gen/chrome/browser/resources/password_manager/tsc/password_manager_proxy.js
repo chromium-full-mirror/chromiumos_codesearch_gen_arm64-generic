@@ -200,6 +200,9 @@ export class PasswordManagerImpl {
     movePasswordsToAccount(ids) {
         chrome.passwordsPrivate.movePasswordsToAccount(ids);
     }
+    dismissSafetyHubPasswordMenuNotification() {
+        chrome.send('dismissSafetyHubPasswordMenuNotification');
+    }
     static getInstance() {
         return instance || (instance = new PasswordManagerImpl());
     }

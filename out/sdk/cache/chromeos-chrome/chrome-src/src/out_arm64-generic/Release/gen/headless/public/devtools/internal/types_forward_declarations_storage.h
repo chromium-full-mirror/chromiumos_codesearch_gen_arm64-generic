@@ -24,9 +24,17 @@ class SharedStorageAccessParams;
 class StorageBucket;
 class StorageBucketInfo;
 class AttributionReportingFilterDataEntry;
+class AttributionReportingFilterConfig;
+class AttributionReportingFilterPair;
 class AttributionReportingAggregationKeysEntry;
 class AttributionReportingEventReportWindows;
+class AttributionReportingTriggerSpec;
 class AttributionReportingSourceRegistration;
+class AttributionReportingAggregatableValueEntry;
+class AttributionReportingEventTriggerData;
+class AttributionReportingAggregatableTriggerData;
+class AttributionReportingAggregatableDedupKey;
+class AttributionReportingTriggerRegistration;
 class GetStorageKeyForFrameParams;
 class GetStorageKeyForFrameResult;
 class ClearDataForOriginParams;
@@ -100,6 +108,7 @@ class SharedStorageAccessedParams;
 class StorageBucketCreatedOrUpdatedParams;
 class StorageBucketDeletedParams;
 class AttributionReportingSourceRegisteredParams;
+class AttributionReportingTriggerRegisteredParams;
 
 enum class StorageType {
   APPCACHE,
@@ -177,6 +186,50 @@ enum class AttributionReportingSourceRegistrationResult {
   DESTINATION_BOTH_LIMITS_REACHED,
   REPORTING_ORIGINS_PER_SITE_LIMIT_REACHED,
   EXCEEDS_MAX_CHANNEL_CAPACITY
+};
+
+enum class AttributionReportingSourceRegistrationTimeConfig {
+  INCLUDE,
+  EXCLUDE
+};
+
+enum class AttributionReportingEventLevelResult {
+  SUCCESS,
+  SUCCESS_DROPPED_LOWER_PRIORITY,
+  INTERNAL_ERROR,
+  NO_CAPACITY_FOR_ATTRIBUTION_DESTINATION,
+  NO_MATCHING_SOURCES,
+  DEDUPLICATED,
+  EXCESSIVE_ATTRIBUTIONS,
+  PRIORITY_TOO_LOW,
+  NEVER_ATTRIBUTED_SOURCE,
+  EXCESSIVE_REPORTING_ORIGINS,
+  NO_MATCHING_SOURCE_FILTER_DATA,
+  PROHIBITED_BY_BROWSER_POLICY,
+  NO_MATCHING_CONFIGURATIONS,
+  EXCESSIVE_REPORTS,
+  FALSELY_ATTRIBUTED_SOURCE,
+  REPORT_WINDOW_PASSED,
+  NOT_REGISTERED,
+  REPORT_WINDOW_NOT_STARTED,
+  NO_MATCHING_TRIGGER_DATA
+};
+
+enum class AttributionReportingAggregatableResult {
+  SUCCESS,
+  INTERNAL_ERROR,
+  NO_CAPACITY_FOR_ATTRIBUTION_DESTINATION,
+  NO_MATCHING_SOURCES,
+  EXCESSIVE_ATTRIBUTIONS,
+  EXCESSIVE_REPORTING_ORIGINS,
+  NO_HISTOGRAMS,
+  INSUFFICIENT_BUDGET,
+  NO_MATCHING_SOURCE_FILTER_DATA,
+  NOT_REGISTERED,
+  PROHIBITED_BY_BROWSER_POLICY,
+  DEDUPLICATED,
+  REPORT_WINDOW_PASSED,
+  EXCESSIVE_REPORTS
 };
 
 }  // namespace storage

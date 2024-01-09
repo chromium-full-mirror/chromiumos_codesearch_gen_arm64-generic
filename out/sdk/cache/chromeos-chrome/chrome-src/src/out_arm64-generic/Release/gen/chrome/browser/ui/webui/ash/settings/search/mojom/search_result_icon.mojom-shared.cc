@@ -47,58 +47,72 @@ NOINLINE static const char* SearchResultIconToStringHelper(SearchResultIcon valu
       return "kCamera";
     case SearchResultIcon::kCellular:
       return "kCellular";
+    case SearchResultIcon::kCheckForUpdate:
+      return "kCheckForUpdate";
     case SearchResultIcon::kChrome:
       return "kChrome";
-    case SearchResultIcon::kChromeVox:
-      return "kChromeVox";
     case SearchResultIcon::kClock:
       return "kClock";
     case SearchResultIcon::kContrast:
       return "kContrast";
+    case SearchResultIcon::kCursorClick:
+      return "kCursorClick";
+    case SearchResultIcon::kDetailedBuild:
+      return "kDetailedBuild";
     case SearchResultIcon::kDeveloperTags:
       return "kDeveloperTags";
+    case SearchResultIcon::kDiagnostics:
+      return "kDiagnostics";
     case SearchResultIcon::kDictation:
       return "kDictation";
     case SearchResultIcon::kDisplay:
       return "kDisplay";
     case SearchResultIcon::kDockedMagnifier:
       return "kDockedMagnifier";
-    case SearchResultIcon::kDrive:
-      return "kDrive";
     case SearchResultIcon::kEthernet:
       return "kEthernet";
     case SearchResultIcon::kFingerprint:
       return "kFingerprint";
+    case SearchResultIcon::kFirmwareUpdates:
+      return "kFirmwareUpdates";
     case SearchResultIcon::kFolder:
       return "kFolder";
+    case SearchResultIcon::kFolderShared:
+      return "kFolderShared";
     case SearchResultIcon::kFullscreenMagnifier:
       return "kFullscreenMagnifier";
     case SearchResultIcon::kGeolocation:
       return "kGeolocation";
-    case SearchResultIcon::kGlobe:
-      return "kGlobe";
+    case SearchResultIcon::kGoogleDrive:
+      return "kGoogleDrive";
     case SearchResultIcon::kGooglePlay:
       return "kGooglePlay";
-    case SearchResultIcon::kHardDrive:
-      return "kHardDrive";
+    case SearchResultIcon::kHearing:
+      return "kHearing";
+    case SearchResultIcon::kHelp:
+      return "kHelp";
     case SearchResultIcon::kHotspot:
       return "kHotspot";
     case SearchResultIcon::kInstantTethering:
       return "kInstantTethering";
     case SearchResultIcon::kKeyboard:
       return "kKeyboard";
+    case SearchResultIcon::kLanguage:
+      return "kLanguage";
     case SearchResultIcon::kLaptop:
       return "kLaptop";
     case SearchResultIcon::kLock:
       return "kLock";
-    case SearchResultIcon::kMagnifyingGlass:
-      return "kMagnifyingGlass";
     case SearchResultIcon::kMicrophone:
       return "kMicrophone";
     case SearchResultIcon::kMouse:
       return "kMouse";
     case SearchResultIcon::kNearbyShare:
       return "kNearbyShare";
+    case SearchResultIcon::kNotifications:
+      return "kNotifications";
+    case SearchResultIcon::kOneDrive:
+      return "kOneDrive";
     case SearchResultIcon::kOnScreenKeyboard:
       return "kOnScreenKeyboard";
     case SearchResultIcon::kPaintbrush:
@@ -109,18 +123,30 @@ NOINLINE static const char* SearchResultIconToStringHelper(SearchResultIcon valu
       return "kPhone";
     case SearchResultIcon::kPluginVm:
       return "kPluginVm";
+    case SearchResultIcon::kPointingStick:
+      return "kPointingStick";
     case SearchResultIcon::kPower:
       return "kPower";
     case SearchResultIcon::kPrinter:
       return "kPrinter";
+    case SearchResultIcon::kPrivacyControls:
+      return "kPrivacyControls";
+    case SearchResultIcon::kReleaseNotes:
+      return "kReleaseNotes";
     case SearchResultIcon::kReset:
       return "kReset";
+    case SearchResultIcon::kRestore:
+      return "kRestore";
+    case SearchResultIcon::kScanner:
+      return "kScanner";
+    case SearchResultIcon::kSearch:
+      return "kSearch";
     case SearchResultIcon::kSelectToSpeak:
       return "kSelectToSpeak";
     case SearchResultIcon::kShield:
       return "kShield";
-    case SearchResultIcon::kStartup:
-      return "kStartup";
+    case SearchResultIcon::kStorage:
+      return "kStorage";
     case SearchResultIcon::kStylus:
       return "kStylus";
     case SearchResultIcon::kSwitchAccess:
@@ -129,10 +155,16 @@ NOINLINE static const char* SearchResultIconToStringHelper(SearchResultIcon valu
       return "kSync";
     case SearchResultIcon::kSystemPreferences:
       return "kSystemPreferences";
+    case SearchResultIcon::kTextToSpeech:
+      return "kTextToSpeech";
+    case SearchResultIcon::kTouchpad:
+      return "kTouchpad";
     case SearchResultIcon::kWallpaper:
       return "kWallpaper";
     case SearchResultIcon::kWifi:
       return "kWifi";
+    case SearchResultIcon::kZoomIn:
+      return "kZoomIn";
     default:
       return nullptr;
   }

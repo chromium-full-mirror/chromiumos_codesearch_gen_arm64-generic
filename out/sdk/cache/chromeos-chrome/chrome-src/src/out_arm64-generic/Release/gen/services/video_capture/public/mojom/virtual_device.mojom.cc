@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -156,14 +157,17 @@ void SharedMemoryVirtualDeviceProxy::RequestFrameBuffer(
                         "<value of type ::media::mojom::PlaneStridesPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSharedMemoryVirtualDevice_RequestFrameBuffer_Name, kFlags, 0, 0, nullptr);
@@ -217,14 +221,17 @@ void SharedMemoryVirtualDeviceProxy::OnFrameReadyInBuffer(
                         "<value of type ::media::mojom::VideoFrameInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSharedMemoryVirtualDevice_OnFrameReadyInBuffer_Name, kFlags, 0, 0, nullptr);
@@ -345,7 +352,8 @@ void SharedMemoryVirtualDevice_RequestFrameBuffer_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSharedMemoryVirtualDevice_RequestFrameBuffer_Name, kFlags, 0, 0, nullptr);
@@ -466,12 +474,12 @@ std::move(p_strides), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSharedMemoryVirtualDeviceValidationInfo[] = {
-    {&internal::SharedMemoryVirtualDevice_RequestFrameBuffer_Params_Data::Validate,
+    { &internal::SharedMemoryVirtualDevice_RequestFrameBuffer_Params_Data::Validate,
      &internal::SharedMemoryVirtualDevice_RequestFrameBuffer_ResponseParams_Data::Validate},
-    {&internal::SharedMemoryVirtualDevice_OnFrameReadyInBuffer_Params_Data::Validate,
+    { &internal::SharedMemoryVirtualDevice_OnFrameReadyInBuffer_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -618,14 +626,17 @@ void TextureVirtualDeviceProxy::OnNewMailboxHolderBufferHandle(
                         "<value of type ::media::mojom::MailboxBufferHandleSetPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTextureVirtualDevice_OnNewMailboxHolderBufferHandle_Name, kFlags, 0, 0, nullptr);
@@ -667,14 +678,17 @@ void TextureVirtualDeviceProxy::OnFrameAccessHandlerReady(
                         "<value of type ::mojo::PendingRemote<::video_capture::mojom::VideoFrameAccessHandler>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTextureVirtualDevice_OnFrameAccessHandlerReady_Name, kFlags, 0, 0, nullptr);
@@ -713,14 +727,17 @@ void TextureVirtualDeviceProxy::OnFrameReadyInBuffer(
                         "<value of type ::media::mojom::VideoFrameInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTextureVirtualDevice_OnFrameReadyInBuffer_Name, kFlags, 0, 0, nullptr);
@@ -762,14 +779,17 @@ void TextureVirtualDeviceProxy::OnBufferRetired(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTextureVirtualDevice_OnBufferRetired_Name, kFlags, 0, 0, nullptr);
@@ -935,16 +955,16 @@ bool TextureVirtualDeviceStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kTextureVirtualDeviceValidationInfo[] = {
-    {&internal::TextureVirtualDevice_OnNewMailboxHolderBufferHandle_Params_Data::Validate,
+    { &internal::TextureVirtualDevice_OnNewMailboxHolderBufferHandle_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::TextureVirtualDevice_OnFrameAccessHandlerReady_Params_Data::Validate,
+    { &internal::TextureVirtualDevice_OnFrameAccessHandlerReady_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::TextureVirtualDevice_OnFrameReadyInBuffer_Params_Data::Validate,
+    { &internal::TextureVirtualDevice_OnFrameReadyInBuffer_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::TextureVirtualDevice_OnBufferRetired_Params_Data::Validate,
+    { &internal::TextureVirtualDevice_OnBufferRetired_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1087,14 +1107,17 @@ void GpuMemoryBufferVirtualDeviceProxy::OnNewGpuMemoryBufferHandle(
                         "<value of type ::gfx::GpuMemoryBufferHandle>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGpuMemoryBufferVirtualDevice_OnNewGpuMemoryBufferHandle_Name, kFlags, 0, 0, nullptr);
@@ -1136,14 +1159,17 @@ void GpuMemoryBufferVirtualDeviceProxy::OnFrameAccessHandlerReady(
                         "<value of type ::mojo::PendingRemote<::video_capture::mojom::VideoFrameAccessHandler>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGpuMemoryBufferVirtualDevice_OnFrameAccessHandlerReady_Name, kFlags, 0, 0, nullptr);
@@ -1182,14 +1208,17 @@ void GpuMemoryBufferVirtualDeviceProxy::OnFrameReadyInBuffer(
                         "<value of type ::media::mojom::VideoFrameInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGpuMemoryBufferVirtualDevice_OnFrameReadyInBuffer_Name, kFlags, 0, 0, nullptr);
@@ -1231,14 +1260,17 @@ void GpuMemoryBufferVirtualDeviceProxy::OnBufferRetired(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kGpuMemoryBufferVirtualDevice_OnBufferRetired_Name, kFlags, 0, 0, nullptr);
@@ -1404,16 +1436,16 @@ bool GpuMemoryBufferVirtualDeviceStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kGpuMemoryBufferVirtualDeviceValidationInfo[] = {
-    {&internal::GpuMemoryBufferVirtualDevice_OnNewGpuMemoryBufferHandle_Params_Data::Validate,
+    { &internal::GpuMemoryBufferVirtualDevice_OnNewGpuMemoryBufferHandle_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::GpuMemoryBufferVirtualDevice_OnFrameAccessHandlerReady_Params_Data::Validate,
+    { &internal::GpuMemoryBufferVirtualDevice_OnFrameAccessHandlerReady_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::GpuMemoryBufferVirtualDevice_OnFrameReadyInBuffer_Params_Data::Validate,
+    { &internal::GpuMemoryBufferVirtualDevice_OnFrameReadyInBuffer_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::GpuMemoryBufferVirtualDevice_OnBufferRetired_Params_Data::Validate,
+    { &internal::GpuMemoryBufferVirtualDevice_OnBufferRetired_Params_Data::Validate,
      nullptr /* no response */},
 };
 

@@ -28,7 +28,7 @@ UI.ActionRegistration.registerActionExtension({
     title: i18nLazyString(UIStrings.runCommand),
     async loadActionDelegate() {
         const QuickOpen = await loadQuickOpenModule();
-        return QuickOpen.CommandMenu.ShowActionDelegate.instance();
+        return new QuickOpen.CommandMenu.ShowActionDelegate();
     },
     bindings: [
         {
@@ -61,7 +61,7 @@ UI.ActionRegistration.registerActionExtension({
     title: i18nLazyString(UIStrings.openFile),
     async loadActionDelegate() {
         const QuickOpen = await loadQuickOpenModule();
-        return QuickOpen.QuickOpen.ShowActionDelegate.instance();
+        return new QuickOpen.QuickOpen.ShowActionDelegate();
     },
     order: 100,
     bindings: [

@@ -173,22 +173,6 @@ class  WatchTimeRecorder_UpdateUnderflowDuration_Params_Data {
 };
 static_assert(sizeof(WatchTimeRecorder_UpdateUnderflowDuration_Params_Data) == 24,
               "Bad sizeof(WatchTimeRecorder_UpdateUnderflowDuration_Params_Data)");
-class  WatchTimeRecorder_OnCurrentTimestampChanged_Params_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::mojo_base::mojom::internal::TimeDelta_Data> last_timestamp;
-
- private:
-  friend class mojo::internal::MessageFragment<WatchTimeRecorder_OnCurrentTimestampChanged_Params_Data>;
-
-  WatchTimeRecorder_OnCurrentTimestampChanged_Params_Data();
-  ~WatchTimeRecorder_OnCurrentTimestampChanged_Params_Data() = delete;
-};
-static_assert(sizeof(WatchTimeRecorder_OnCurrentTimestampChanged_Params_Data) == 16,
-              "Bad sizeof(WatchTimeRecorder_OnCurrentTimestampChanged_Params_Data)");
 
 }  // namespace internal
 
@@ -418,32 +402,6 @@ class WatchTimeRecorder_UpdateUnderflowDuration_ParamsDataView {
   mojo::Message* message_ = nullptr;
 };
 
-
-class WatchTimeRecorder_OnCurrentTimestampChanged_ParamsDataView {
- public:
-  WatchTimeRecorder_OnCurrentTimestampChanged_ParamsDataView() = default;
-
-  WatchTimeRecorder_OnCurrentTimestampChanged_ParamsDataView(
-      internal::WatchTimeRecorder_OnCurrentTimestampChanged_Params_Data* data,
-      mojo::Message* message)
-      : data_(data), message_(message) {}
-
-  bool is_null() const { return !data_; }
-  inline void GetLastTimestampDataView(
-      ::mojo_base::mojom::TimeDeltaDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadLastTimestamp(UserType* output) {
-    
-    auto* pointer = data_->last_timestamp.Get();
-    return mojo::internal::Deserialize<::mojo_base::mojom::TimeDeltaDataView>(
-        pointer, output, message_);
-  }
- private:
-  internal::WatchTimeRecorder_OnCurrentTimestampChanged_Params_Data* data_ = nullptr;
-  mojo::Message* message_ = nullptr;
-};
-
 inline void WatchTimeRecorder_RecordWatchTime_ParamsDataView::GetWatchTimeDataView(
     ::mojo_base::mojom::TimeDeltaDataView* output) {
   auto pointer = data_->watch_time.Get();
@@ -488,13 +446,6 @@ inline void WatchTimeRecorder_OnDurationChanged_ParamsDataView::GetDurationDataV
 inline void WatchTimeRecorder_UpdateUnderflowDuration_ParamsDataView::GetTotalDurationDataView(
     ::mojo_base::mojom::TimeDeltaDataView* output) {
   auto pointer = data_->total_duration.Get();
-  *output = ::mojo_base::mojom::TimeDeltaDataView(pointer, message_);
-}
-
-
-inline void WatchTimeRecorder_OnCurrentTimestampChanged_ParamsDataView::GetLastTimestampDataView(
-    ::mojo_base::mojom::TimeDeltaDataView* output) {
-  auto pointer = data_->last_timestamp.Get();
   *output = ::mojo_base::mojom::TimeDeltaDataView(pointer, message_);
 }
 

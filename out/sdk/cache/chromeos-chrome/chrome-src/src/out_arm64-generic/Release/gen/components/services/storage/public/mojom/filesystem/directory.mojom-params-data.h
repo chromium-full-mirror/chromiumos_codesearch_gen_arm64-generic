@@ -178,40 +178,6 @@ class COMPONENT_EXPORT(STORAGE_SERVICE_FILESYSTEM_MOJOM_SHARED) Directory_OpenFi
 };
 static_assert(sizeof(Directory_OpenFile_ResponseParams_Data) == 24,
               "Bad sizeof(Directory_OpenFile_ResponseParams_Data)");
-class COMPONENT_EXPORT(STORAGE_SERVICE_FILESYSTEM_MOJOM_SHARED) Directory_WriteFileAtomically_Params_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<internal::StrictRelativePath_Data> path;
-  mojo::internal::Pointer<::mojo_base::mojom::internal::BigString_Data> contents;
-
- private:
-  friend class mojo::internal::MessageFragment<Directory_WriteFileAtomically_Params_Data>;
-
-  Directory_WriteFileAtomically_Params_Data();
-  ~Directory_WriteFileAtomically_Params_Data() = delete;
-};
-static_assert(sizeof(Directory_WriteFileAtomically_Params_Data) == 24,
-              "Bad sizeof(Directory_WriteFileAtomically_Params_Data)");
-class COMPONENT_EXPORT(STORAGE_SERVICE_FILESYSTEM_MOJOM_SHARED) Directory_WriteFileAtomically_ResponseParams_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  uint8_t success : 1;
-  uint8_t padfinal_[7];
-
- private:
-  friend class mojo::internal::MessageFragment<Directory_WriteFileAtomically_ResponseParams_Data>;
-
-  Directory_WriteFileAtomically_ResponseParams_Data();
-  ~Directory_WriteFileAtomically_ResponseParams_Data() = delete;
-};
-static_assert(sizeof(Directory_WriteFileAtomically_ResponseParams_Data) == 16,
-              "Bad sizeof(Directory_WriteFileAtomically_ResponseParams_Data)");
 class COMPONENT_EXPORT(STORAGE_SERVICE_FILESYSTEM_MOJOM_SHARED) Directory_CreateDirectory_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -278,39 +244,6 @@ class COMPONENT_EXPORT(STORAGE_SERVICE_FILESYSTEM_MOJOM_SHARED) Directory_Delete
 };
 static_assert(sizeof(Directory_DeleteFile_ResponseParams_Data) == 16,
               "Bad sizeof(Directory_DeleteFile_ResponseParams_Data)");
-class COMPONENT_EXPORT(STORAGE_SERVICE_FILESYSTEM_MOJOM_SHARED) Directory_DeletePathRecursively_Params_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<internal::StrictRelativePath_Data> path;
-
- private:
-  friend class mojo::internal::MessageFragment<Directory_DeletePathRecursively_Params_Data>;
-
-  Directory_DeletePathRecursively_Params_Data();
-  ~Directory_DeletePathRecursively_Params_Data() = delete;
-};
-static_assert(sizeof(Directory_DeletePathRecursively_Params_Data) == 16,
-              "Bad sizeof(Directory_DeletePathRecursively_Params_Data)");
-class COMPONENT_EXPORT(STORAGE_SERVICE_FILESYSTEM_MOJOM_SHARED) Directory_DeletePathRecursively_ResponseParams_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  uint8_t success : 1;
-  uint8_t padfinal_[7];
-
- private:
-  friend class mojo::internal::MessageFragment<Directory_DeletePathRecursively_ResponseParams_Data>;
-
-  Directory_DeletePathRecursively_ResponseParams_Data();
-  ~Directory_DeletePathRecursively_ResponseParams_Data() = delete;
-};
-static_assert(sizeof(Directory_DeletePathRecursively_ResponseParams_Data) == 16,
-              "Bad sizeof(Directory_DeletePathRecursively_ResponseParams_Data)");
 class COMPONENT_EXPORT(STORAGE_SERVICE_FILESYSTEM_MOJOM_SHARED) Directory_GetFileInfo_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -375,40 +308,6 @@ class COMPONENT_EXPORT(STORAGE_SERVICE_FILESYSTEM_MOJOM_SHARED) Directory_GetPat
 };
 static_assert(sizeof(Directory_GetPathAccess_ResponseParams_Data) == 16,
               "Bad sizeof(Directory_GetPathAccess_ResponseParams_Data)");
-class COMPONENT_EXPORT(STORAGE_SERVICE_FILESYSTEM_MOJOM_SHARED) Directory_GetMaximumPathComponentLength_Params_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<internal::StrictRelativePath_Data> path;
-
- private:
-  friend class mojo::internal::MessageFragment<Directory_GetMaximumPathComponentLength_Params_Data>;
-
-  Directory_GetMaximumPathComponentLength_Params_Data();
-  ~Directory_GetMaximumPathComponentLength_Params_Data() = delete;
-};
-static_assert(sizeof(Directory_GetMaximumPathComponentLength_Params_Data) == 16,
-              "Bad sizeof(Directory_GetMaximumPathComponentLength_Params_Data)");
-class COMPONENT_EXPORT(STORAGE_SERVICE_FILESYSTEM_MOJOM_SHARED) Directory_GetMaximumPathComponentLength_ResponseParams_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  uint8_t success : 1;
-  uint8_t pad0_[3];
-  int32_t length;
-
- private:
-  friend class mojo::internal::MessageFragment<Directory_GetMaximumPathComponentLength_ResponseParams_Data>;
-
-  Directory_GetMaximumPathComponentLength_ResponseParams_Data();
-  ~Directory_GetMaximumPathComponentLength_ResponseParams_Data() = delete;
-};
-static_assert(sizeof(Directory_GetMaximumPathComponentLength_ResponseParams_Data) == 16,
-              "Bad sizeof(Directory_GetMaximumPathComponentLength_ResponseParams_Data)");
 class COMPONENT_EXPORT(STORAGE_SERVICE_FILESYSTEM_MOJOM_SHARED) Directory_RenameFile_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -799,60 +698,6 @@ static_assert(
 };
 
 
-class Directory_WriteFileAtomically_ParamsDataView {
- public:
-  Directory_WriteFileAtomically_ParamsDataView() = default;
-
-  Directory_WriteFileAtomically_ParamsDataView(
-      internal::Directory_WriteFileAtomically_Params_Data* data,
-      mojo::Message* message)
-      : data_(data), message_(message) {}
-
-  bool is_null() const { return !data_; }
-  inline void GetPathDataView(
-      StrictRelativePathDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadPath(UserType* output) {
-    
-    auto* pointer = data_->path.Get();
-    return mojo::internal::Deserialize<::storage::mojom::StrictRelativePathDataView>(
-        pointer, output, message_);
-  }
-  inline void GetContentsDataView(
-      ::mojo_base::mojom::BigStringDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadContents(UserType* output) {
-    
-    auto* pointer = data_->contents.Get();
-    return mojo::internal::Deserialize<::mojo_base::mojom::BigStringDataView>(
-        pointer, output, message_);
-  }
- private:
-  internal::Directory_WriteFileAtomically_Params_Data* data_ = nullptr;
-  mojo::Message* message_ = nullptr;
-};
-
-
-class Directory_WriteFileAtomically_ResponseParamsDataView {
- public:
-  Directory_WriteFileAtomically_ResponseParamsDataView() = default;
-
-  Directory_WriteFileAtomically_ResponseParamsDataView(
-      internal::Directory_WriteFileAtomically_ResponseParams_Data* data,
-      mojo::Message* message)
-      : data_(data) {}
-
-  bool is_null() const { return !data_; }
-  bool success() const {
-    return data_->success;
-  }
- private:
-  internal::Directory_WriteFileAtomically_ResponseParams_Data* data_ = nullptr;
-};
-
-
 class Directory_CreateDirectory_ParamsDataView {
  public:
   Directory_CreateDirectory_ParamsDataView() = default;
@@ -945,50 +790,6 @@ class Directory_DeleteFile_ResponseParamsDataView {
   }
  private:
   internal::Directory_DeleteFile_ResponseParams_Data* data_ = nullptr;
-};
-
-
-class Directory_DeletePathRecursively_ParamsDataView {
- public:
-  Directory_DeletePathRecursively_ParamsDataView() = default;
-
-  Directory_DeletePathRecursively_ParamsDataView(
-      internal::Directory_DeletePathRecursively_Params_Data* data,
-      mojo::Message* message)
-      : data_(data), message_(message) {}
-
-  bool is_null() const { return !data_; }
-  inline void GetPathDataView(
-      StrictRelativePathDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadPath(UserType* output) {
-    
-    auto* pointer = data_->path.Get();
-    return mojo::internal::Deserialize<::storage::mojom::StrictRelativePathDataView>(
-        pointer, output, message_);
-  }
- private:
-  internal::Directory_DeletePathRecursively_Params_Data* data_ = nullptr;
-  mojo::Message* message_ = nullptr;
-};
-
-
-class Directory_DeletePathRecursively_ResponseParamsDataView {
- public:
-  Directory_DeletePathRecursively_ResponseParamsDataView() = default;
-
-  Directory_DeletePathRecursively_ResponseParamsDataView(
-      internal::Directory_DeletePathRecursively_ResponseParams_Data* data,
-      mojo::Message* message)
-      : data_(data) {}
-
-  bool is_null() const { return !data_; }
-  bool success() const {
-    return data_->success;
-  }
- private:
-  internal::Directory_DeletePathRecursively_ResponseParams_Data* data_ = nullptr;
 };
 
 
@@ -1113,53 +914,6 @@ static_assert(
  private:
   internal::Directory_GetPathAccess_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
-};
-
-
-class Directory_GetMaximumPathComponentLength_ParamsDataView {
- public:
-  Directory_GetMaximumPathComponentLength_ParamsDataView() = default;
-
-  Directory_GetMaximumPathComponentLength_ParamsDataView(
-      internal::Directory_GetMaximumPathComponentLength_Params_Data* data,
-      mojo::Message* message)
-      : data_(data), message_(message) {}
-
-  bool is_null() const { return !data_; }
-  inline void GetPathDataView(
-      StrictRelativePathDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadPath(UserType* output) {
-    
-    auto* pointer = data_->path.Get();
-    return mojo::internal::Deserialize<::storage::mojom::StrictRelativePathDataView>(
-        pointer, output, message_);
-  }
- private:
-  internal::Directory_GetMaximumPathComponentLength_Params_Data* data_ = nullptr;
-  mojo::Message* message_ = nullptr;
-};
-
-
-class Directory_GetMaximumPathComponentLength_ResponseParamsDataView {
- public:
-  Directory_GetMaximumPathComponentLength_ResponseParamsDataView() = default;
-
-  Directory_GetMaximumPathComponentLength_ResponseParamsDataView(
-      internal::Directory_GetMaximumPathComponentLength_ResponseParams_Data* data,
-      mojo::Message* message)
-      : data_(data) {}
-
-  bool is_null() const { return !data_; }
-  bool success() const {
-    return data_->success;
-  }
-  int32_t length() const {
-    return data_->length;
-  }
- private:
-  internal::Directory_GetMaximumPathComponentLength_ResponseParams_Data* data_ = nullptr;
 };
 
 
@@ -1385,20 +1139,6 @@ inline void Directory_OpenFile_ResponseParamsDataView::GetFileDataView(
 }
 
 
-inline void Directory_WriteFileAtomically_ParamsDataView::GetPathDataView(
-    StrictRelativePathDataView* output) {
-  auto pointer = data_->path.Get();
-  *output = StrictRelativePathDataView(pointer, message_);
-}
-inline void Directory_WriteFileAtomically_ParamsDataView::GetContentsDataView(
-    ::mojo_base::mojom::BigStringDataView* output) {
-  auto pointer = data_->contents.Get();
-  *output = ::mojo_base::mojom::BigStringDataView(pointer, message_);
-}
-
-
-
-
 inline void Directory_CreateDirectory_ParamsDataView::GetPathDataView(
     StrictRelativePathDataView* output) {
   auto pointer = data_->path.Get();
@@ -1409,15 +1149,6 @@ inline void Directory_CreateDirectory_ParamsDataView::GetPathDataView(
 
 
 inline void Directory_DeleteFile_ParamsDataView::GetPathDataView(
-    StrictRelativePathDataView* output) {
-  auto pointer = data_->path.Get();
-  *output = StrictRelativePathDataView(pointer, message_);
-}
-
-
-
-
-inline void Directory_DeletePathRecursively_ParamsDataView::GetPathDataView(
     StrictRelativePathDataView* output) {
   auto pointer = data_->path.Get();
   *output = StrictRelativePathDataView(pointer, message_);
@@ -1452,15 +1183,6 @@ inline void Directory_GetPathAccess_ResponseParamsDataView::GetInfoDataView(
   auto pointer = data_->info.Get();
   *output = PathAccessInfoDataView(pointer, message_);
 }
-
-
-inline void Directory_GetMaximumPathComponentLength_ParamsDataView::GetPathDataView(
-    StrictRelativePathDataView* output) {
-  auto pointer = data_->path.Get();
-  *output = StrictRelativePathDataView(pointer, message_);
-}
-
-
 
 
 inline void Directory_RenameFile_ParamsDataView::GetOldPathDataView(

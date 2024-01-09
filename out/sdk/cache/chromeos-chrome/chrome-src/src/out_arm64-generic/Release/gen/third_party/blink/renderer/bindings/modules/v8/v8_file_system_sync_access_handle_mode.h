@@ -23,9 +23,9 @@ class MODULES_EXPORT V8FileSystemSyncAccessHandleMode final : public bindings::E
   
   public:
 enum class Enum : enum_int_t {
-kReadwrite, kReadOnly, kReadwriteUnsafe
+kReadwrite, kReadOnly, kReadwriteUnsafe, kInPlace
 };
-static constexpr size_t kEnumSize = 3;
+static constexpr size_t kEnumSize = 4;
 
 static V8FileSystemSyncAccessHandleMode Create(v8::Isolate* isolate, v8::Local<v8::Value> value, ExceptionState& exception_state);
 static absl::optional<V8FileSystemSyncAccessHandleMode> Create(const String& value);

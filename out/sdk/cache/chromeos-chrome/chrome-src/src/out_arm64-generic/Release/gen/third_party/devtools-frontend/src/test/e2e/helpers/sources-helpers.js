@@ -4,12 +4,13 @@
 // found in the LICENSE file.
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.executionLineHighlighted = exports.getNonBreakableLines = exports.getBreakpointDecorators = exports.checkBreakpointDidNotActivate = exports.disableInlineBreakpointForLine = exports.enableInlineBreakpointForLine = exports.isBreakpointSet = exports.addLogpointForLine = exports.removeBreakpointForLine = exports.addBreakpointForLine = exports.getToolbarText = exports.waitForHighlightedLine = exports.getOpenSources = exports.getBreakpointHitLocation = exports.getSelectedSource = exports.openSourceCodeEditorForFile = exports.openFileInEditor = exports.openOverridesSubPane = exports.createNewSnippet = exports.openSnippetsSubPane = exports.createNewRecording = exports.openRecorderSubPane = exports.openFileInSourcesPanel = exports.openSourcesPanel = exports.waitForSourcesPanel = exports.doubleClickSourceTreeItem = exports.getLineNumberElement = exports.toggleDebuggerSidebar = exports.toggleNavigatorSidebar = exports.BREAKPOINT_ITEM_SELECTOR = exports.PAUSE_ON_UNCAUGHT_EXCEPTION_SELECTOR = exports.ENABLE_OVERRIDES_SELECTOR = exports.OVERRIDES_TAB_SELECTOR = exports.MORE_TABS_SELECTOR = exports.DEBUGGER_PAUSED_EVENT = exports.TURNED_ON_PAUSE_BUTTON_SELECTOR = exports.TURNED_OFF_PAUSE_BUTTON_SELECTOR = exports.STEP_OUT_BUTTON = exports.STEP_OVER_BUTTON = exports.STEP_INTO_BUTTON = exports.SELECTED_THREAD_SELECTOR = exports.THREADS_SELECTOR = exports.SCOPE_LOCAL_VALUES_SELECTOR = exports.CODE_LINE_SELECTOR = exports.CODE_LINE_COLUMN_SELECTOR = exports.PAUSE_INDICATOR_SELECTOR = exports.SOURCES_LINES_SELECTOR = exports.RESUME_BUTTON = exports.PAUSE_BUTTON = exports.ACTIVE_LINE = void 0;
-exports.isPrettyPrinted = exports.waitForLines = exports.retrieveCodeMirrorEditorContent = exports.WasmLocationLabels = exports.enableLocalOverrides = exports.refreshDevToolsAndRemoveBackendState = exports.addSelectedTextToWatches = exports.evaluateSelectedTextInConsole = exports.runSnippet = exports.getWatchExpressionsValues = exports.getPausedMessages = exports.getValuesForScope = exports.getScopeNames = exports.typeIntoSourcesAndSave = exports.inspectMemory = exports.clickOnContextMenu = exports.openNestedWorkerFile = exports.stepOut = exports.stepOver = exports.stepIn = exports.stepThroughTheCode = exports.readIgnoreListedSources = exports.readSourcesTreeView = exports.expandFileTree = exports.expandSourceTreeItem = exports.createSelectorsForWorkerFile = exports.isEqualOrAbbreviation = exports.reloadPageAndWaitForSourceFile = exports.captureAddedSourceFiles = exports.waitForSourceFiles = exports.waitForStackTopMatch = exports.retrieveTopCallFrameWithoutResuming = exports.retrieveTopCallFrameScriptLocation = exports.switchToCallFrame = exports.getCallFrameLocations = exports.getCallFrameNames = void 0;
+exports.isPrettyPrinted = exports.waitForLines = exports.retrieveCodeMirrorEditorContent = exports.WasmLocationLabels = exports.enableLocalOverrides = exports.refreshDevToolsAndRemoveBackendState = exports.addSelectedTextToWatches = exports.evaluateSelectedTextInConsole = exports.runSnippet = exports.getWatchExpressionsValues = exports.getPausedMessages = exports.getValuesForScope = exports.getScopeNames = exports.typeIntoSourcesAndSave = exports.inspectMemory = exports.openNestedWorkerFile = exports.stepOut = exports.stepOver = exports.stepIn = exports.stepThroughTheCode = exports.readIgnoreListedSources = exports.readSourcesTreeView = exports.expandFileTree = exports.expandSourceTreeItem = exports.createSelectorsForWorkerFile = exports.isEqualOrAbbreviation = exports.reloadPageAndWaitForSourceFile = exports.captureAddedSourceFiles = exports.waitForSourceFiles = exports.setEventListenerBreakpoint = exports.waitForStackTopMatch = exports.retrieveTopCallFrameWithoutResuming = exports.retrieveTopCallFrameScriptLocation = exports.switchToCallFrame = exports.getCallFrameLocations = exports.getCallFrameNames = void 0;
 const chai_1 = require("chai");
 const fs = require("fs");
 const path = require("path");
 const test_runner_config_js_1 = require("../../conductor/test_runner_config.js");
 const helper_js_1 = require("../../shared/helper.js");
+const context_menu_helpers_js_1 = require("./context-menu-helpers.js");
 exports.ACTIVE_LINE = '.CodeMirror-activeline > pre > span';
 exports.PAUSE_BUTTON = '[aria-label="Pause script execution"]';
 exports.RESUME_BUTTON = '[aria-label="Resume script execution"]';
@@ -84,9 +85,7 @@ async function openFileInSourcesPanel(testInput) {
 exports.openFileInSourcesPanel = openFileInSourcesPanel;
 async function openRecorderSubPane() {
     const root = await (0, helper_js_1.waitFor)('.navigator-tabbed-pane');
-    await (0, helper_js_1.waitFor)('[aria-label="More tabs"]', root);
     await (0, helper_js_1.click)('[aria-label="More tabs"]', { root });
-    await (0, helper_js_1.waitFor)('[aria-label="Recordings"]');
     await (0, helper_js_1.click)('[aria-label="Recordings"]');
     await (0, helper_js_1.waitFor)('[aria-label="Add recording"]');
 }
@@ -101,9 +100,7 @@ async function createNewRecording(recordingName) {
 exports.createNewRecording = createNewRecording;
 async function openSnippetsSubPane() {
     const root = await (0, helper_js_1.waitFor)('.navigator-tabbed-pane');
-    await (0, helper_js_1.waitFor)('[aria-label="More tabs"]', root);
     await (0, helper_js_1.click)('[aria-label="More tabs"]', { root });
-    await (0, helper_js_1.waitFor)('[aria-label="Snippets"]');
     await (0, helper_js_1.click)('[aria-label="Snippets"]');
     await (0, helper_js_1.waitFor)('[aria-label="New snippet"]');
 }
@@ -131,9 +128,7 @@ async function createNewSnippet(snippetName, content) {
 exports.createNewSnippet = createNewSnippet;
 async function openOverridesSubPane() {
     const root = await (0, helper_js_1.waitFor)('.navigator-tabbed-pane');
-    await (0, helper_js_1.waitFor)('[aria-label="More tabs"]', root);
     await (0, helper_js_1.click)('[aria-label="More tabs"]', { root });
-    await (0, helper_js_1.waitFor)('[aria-label="Overrides"]');
     await (0, helper_js_1.click)('[aria-label="Overrides"]');
     await (0, helper_js_1.waitFor)('[aria-label="Overrides panel"]');
 }
@@ -354,6 +349,33 @@ async function waitForStackTopMatch(matcher) {
     return stepLocation;
 }
 exports.waitForStackTopMatch = waitForStackTopMatch;
+async function setEventListenerBreakpoint(groupName, eventName) {
+    const { frontend } = (0, helper_js_1.getBrowserAndPages)();
+    const eventListenerBreakpointsSection = await (0, helper_js_1.waitForAria)('Event Listener Breakpoints');
+    const expanded = await eventListenerBreakpointsSection.evaluate(el => el.getAttribute('aria-expanded'));
+    if (expanded !== 'true') {
+        await (0, helper_js_1.click)('[aria-label="Event Listener Breakpoints"]');
+        await (0, helper_js_1.waitFor)('[aria-label="Event Listener Breakpoints"][aria-expanded="true"]');
+    }
+    const eventSelector = `input[type="checkbox"][title="${eventName}"]`;
+    const groupSelector = `input[type="checkbox"][title="${groupName}"]`;
+    const groupCheckbox = await (0, helper_js_1.waitFor)(groupSelector);
+    await (0, helper_js_1.waitForVisible)(groupSelector);
+    const eventCheckbox = await (0, helper_js_1.waitFor)(eventSelector);
+    if (!(await eventCheckbox.evaluate(x => x.checkVisibility()))) {
+        // Unfortunately the shadow DOM makes it hard to find the expander element
+        // we are attempting to click on, so we click to the left of the checkbox
+        // bounding box.
+        const rectData = await groupCheckbox.evaluate(element => {
+            const { left, top, width, height } = element.getBoundingClientRect();
+            return { left, top, width, height };
+        });
+        await frontend.mouse.click(rectData.left - 10, rectData.top + rectData.height * .5);
+        await (0, helper_js_1.waitForVisible)(eventSelector);
+    }
+    await (0, helper_js_1.setCheckBox)(eventSelector, true);
+}
+exports.setEventListenerBreakpoint = setEventListenerBreakpoint;
 let nextEventHandlerId = 0;
 async function waitForSourceFiles(eventName, waitCondition, action) {
     const { frontend } = (0, helper_js_1.getBrowserAndPages)();
@@ -510,17 +532,8 @@ async function openNestedWorkerFile(selectors) {
     await (0, helper_js_1.click)(selectors.fileSelector);
 }
 exports.openNestedWorkerFile = openNestedWorkerFile;
-async function clickOnContextMenu(selector, label) {
-    // Find the selected node, right click.
-    await (0, helper_js_1.click)(selector, { clickOptions: { button: 'right' } });
-    // Wait for the context menu option, and click it.
-    const labelSelector = `.soft-context-menu > [aria-label="${label}"]`;
-    await (0, helper_js_1.waitFor)(labelSelector);
-    await (0, helper_js_1.click)(labelSelector);
-}
-exports.clickOnContextMenu = clickOnContextMenu;
 async function inspectMemory(variableName) {
-    await clickOnContextMenu(`[data-object-property-name-for-test="${variableName}"]`, 'Reveal in Memory Inspector panel');
+    await (0, context_menu_helpers_js_1.openSoftContextMenuAndClickOnItem)(`[data-object-property-name-for-test="${variableName}"]`, 'Reveal in Memory inspector panel');
 }
 exports.inspectMemory = inspectMemory;
 async function typeIntoSourcesAndSave(text) {
@@ -539,9 +552,7 @@ async function getValuesForScope(scope, expandCount, waitForNoOfValues) {
     const scopeSelector = `[aria-label="${scope}"]`;
     await (0, helper_js_1.waitFor)(scopeSelector);
     for (let i = 0; i < expandCount; i++) {
-        const unexpandedSelector = `${scopeSelector} + ol li[aria-expanded=false]`;
-        await (0, helper_js_1.waitFor)(unexpandedSelector);
-        await (0, helper_js_1.click)(unexpandedSelector);
+        await (0, helper_js_1.click)(`${scopeSelector} + ol li[aria-expanded=false]`);
     }
     const valueSelector = `${scopeSelector} + ol .name-and-value`;
     const valueSelectorElements = await (0, helper_js_1.waitForFunction)(async () => {

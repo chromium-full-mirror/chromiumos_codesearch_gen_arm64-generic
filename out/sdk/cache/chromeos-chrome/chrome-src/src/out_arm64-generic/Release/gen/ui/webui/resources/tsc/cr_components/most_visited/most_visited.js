@@ -16,7 +16,7 @@ import { EventTracker } from 'chrome://resources/js/event_tracker.js';
 import { FocusOutlineManager } from 'chrome://resources/js/focus_outline_manager.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { isMac } from 'chrome://resources/js/platform.js';
-import { hasKeyModifiers } from 'chrome://resources/js/util_ts.js';
+import { hasKeyModifiers } from 'chrome://resources/js/util.js';
 import { TextDirection } from 'chrome://resources/mojo/mojo/public/mojom/base/text_direction.mojom-webui.js';
 import { afterNextRender, PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { MostVisitedBrowserProxy } from './browser_proxy.js';
@@ -219,6 +219,10 @@ export class MostVisitedElement extends MostVisitedElementBase {
     rgbaOrInherit_(skColor) {
         return skColor ? skColorToRgba(skColor) : 'inherit';
     }
+    // Adds "force-hover" class to the tile element positioned at `index`.
+    enableForceHover_(index) {
+        this.tileElements_[index].classList.add('force-hover');
+    }
     clearForceHover_() {
         const forceHover = this.shadowRoot.querySelector('.force-hover');
         if (forceHover) {
@@ -289,32 +293,59 @@ export class MostVisitedElement extends MostVisitedElementBase {
         return this.theme ? this.theme.useWhiteTileIcon : false;
     }
     /**
-     * If a pointer is over a tile rect that is different from the one being
-     * dragged, the dragging tile is moved to the new position. The reordering
-     * is done in the DOM and the by the |reorderMostVisitedTile()| call. This is
-     * done to prevent flicking between the time when the tiles are moved back to
-     * their original positions (by removing position absolute) and when the
-     * tiles are updated via a |setMostVisitedTiles()| call.
+     * This method is always called when the drag and drop was finished.
+     * If the tiles were reordered successfully, there should be a tile with the
+     * "dropped" class.
      *
      * |reordering_| is not set to false when the tiles are reordered. The callers
      * will need to set it to false. This is necessary to handle a mouse drag
      * issue.
      */
-    dragEnd_(x, y) {
+    dragEnd_() {
         if (!this.customLinksEnabled_) {
             this.reordering_ = false;
             return;
         }
         this.dragOffset_ = null;
         const dragElement = this.shadowRoot.querySelector('.tile.dragging');
-        if (!dragElement) {
+        const droppedElement = this.shadowRoot.querySelector('.tile.dropped');
+        if (!dragElement && !droppedElement) {
             this.reordering_ = false;
             return;
         }
+        if (dragElement) {
+            dragElement.classList.remove('dragging');
+            this.tileElements_.forEach(el => resetTilePosition(el));
+            resetTilePosition(this.$.addShortcut);
+        }
+        else if (droppedElement) {
+            droppedElement.classList.remove('dropped');
+            // Note that resetTilePosition has already been called on drop_.
+        }
+    }
+    /**
+     * This method is called on "drop" events (i.e. when the user drops the tile
+     * on a valid region.)
+     *
+     * If a pointer is over a tile rect that is different from the one being
+     * dragged, the dragging tile is moved to the new position. The reordering is
+     * done in the DOM and by the |reorderMostVisitedTile()| call. This is done to
+     * prevent flicking between the time when the tiles are moved back to their
+     * original positions (by removing position absolute) and when the tiles are
+     * updated via the |setMostVisitedInfo| handler.
+     *
+     * We remove the "dragging" class in this method, and add "dropped" to
+     * indicate that the dragged tile was successfully dropped.
+     */
+    drop_(x, y) {
+        if (!this.customLinksEnabled_) {
+            return;
+        }
+        const dragElement = this.shadowRoot.querySelector('.tile.dragging');
+        if (!dragElement) {
+            return;
+        }
         const dragIndex = this.$.tiles.modelForElement(dragElement).index;
-        dragElement.classList.remove('dragging');
-        this.tileElements_.forEach(el => resetTilePosition(el));
-        resetTilePosition(this.$.addShortcut);
         const dropIndex = getHitIndex(this.tileRects_, x, y);
         if (dragIndex !== dropIndex && dropIndex > -1) {
             const [draggingTile] = this.tiles_.splice(dragIndex, 1);
@@ -336,6 +367,13 @@ export class MostVisitedElement extends MostVisitedElementBase {
                 },
             ]);
             this.pageHandler_.reorderMostVisitedTile(draggingTile.url, dropIndex);
+            // Remove the "dragging" class here to prevent flickering.
+            dragElement.classList.remove('dragging');
+            // Add "dropped" class so that we can skip disabling `reordering_` in
+            // `dragEnd_`.
+            dragElement.classList.add('dropped');
+            this.tileElements_.forEach(el => resetTilePosition(el));
+            resetTilePosition(this.$.addShortcut);
         }
     }
     /**
@@ -515,13 +553,11 @@ export class MostVisitedElement extends MostVisitedElementBase {
             e.dataTransfer.dropEffect = 'move';
             this.dragOver_(e.x, e.y);
         };
-        this.ownerDocument.addEventListener('dragover', dragOver);
-        this.ownerDocument.addEventListener('dragend', e => {
-            this.ownerDocument.removeEventListener('dragover', dragOver);
-            this.dragEnd_(e.x, e.y);
+        const drop = (e) => {
+            this.drop_(e.x, e.y);
             const dropIndex = getHitIndex(this.tileRects_, e.x, e.y);
             if (dropIndex !== -1) {
-                this.tileElements_[dropIndex].classList.add('force-hover');
+                this.enableForceHover_(dropIndex);
             }
             this.addEventListener('pointermove', () => {
                 this.clearForceHover_();
@@ -530,6 +566,13 @@ export class MostVisitedElement extends MostVisitedElementBase {
                 // after the mouse moves.
                 this.reordering_ = false;
             }, { once: true });
+        };
+        this.ownerDocument.addEventListener('dragover', dragOver);
+        this.ownerDocument.addEventListener('drop', drop);
+        this.ownerDocument.addEventListener('dragend', _ => {
+            this.ownerDocument.removeEventListener('dragover', dragOver);
+            this.ownerDocument.removeEventListener('drop', drop);
+            this.dragEnd_();
         }, { once: true });
     }
     onEdit_() {
@@ -667,7 +710,8 @@ export class MostVisitedElement extends MostVisitedElementBase {
             tileElement.removeEventListener('touchend', touchEnd);
             tileElement.removeEventListener('touchcancel', touchEnd);
             const { clientX, clientY } = e.changedTouches[0];
-            this.dragEnd_(clientX, clientY);
+            this.drop_(clientX, clientY);
+            this.dragEnd_();
             this.reordering_ = false;
         };
         this.ownerDocument.addEventListener('touchmove', touchMove);

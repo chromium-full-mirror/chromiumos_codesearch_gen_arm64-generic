@@ -812,62 +812,6 @@
     encoder.writeUint32(0);
     encoder.encodeStructPointer(unguessable_token$.UnguessableToken, val.value);
   };
-  function PortalToken(values) {
-    this.initDefaults_();
-    this.initFields_(values);
-  }
-
-
-  PortalToken.prototype.initDefaults_ = function() {
-    this.value = null;
-  };
-  PortalToken.prototype.initFields_ = function(fields) {
-    for(var field in fields) {
-        if (this.hasOwnProperty(field))
-          this[field] = fields[field];
-    }
-  };
-
-  PortalToken.validate = function(messageValidator, offset) {
-    var err;
-    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-    var kVersionSizes = [
-      {version: 0, numBytes: 16}
-    ];
-    err = messageValidator.validateStructVersion(offset, kVersionSizes);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-
-    // validate PortalToken.value
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 0, unguessable_token$.UnguessableToken, false);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-    return validator.validationError.NONE;
-  };
-
-  PortalToken.encodedSize = codec.kStructHeaderSize + 8;
-
-  PortalToken.decode = function(decoder) {
-    var packed;
-    var val = new PortalToken();
-    var numberOfBytes = decoder.readUint32();
-    var version = decoder.readUint32();
-    val.value =
-        decoder.decodeStructPointer(unguessable_token$.UnguessableToken);
-    return val;
-  };
-
-  PortalToken.encode = function(encoder, val) {
-    var packed;
-    encoder.writeUint32(PortalToken.encodedSize);
-    encoder.writeUint32(0);
-    encoder.encodeStructPointer(unguessable_token$.UnguessableToken, val.value);
-  };
   function V8ContextToken(values) {
     this.initDefaults_();
     this.initFields_(values);
@@ -2063,7 +2007,6 @@
   exports.ShadowRealmToken = ShadowRealmToken;
   exports.AttributionSrcToken = AttributionSrcToken;
   exports.ClipboardSequenceNumberToken = ClipboardSequenceNumberToken;
-  exports.PortalToken = PortalToken;
   exports.V8ContextToken = V8ContextToken;
   exports.FrameToken = FrameToken;
   exports.WorkerToken = WorkerToken;

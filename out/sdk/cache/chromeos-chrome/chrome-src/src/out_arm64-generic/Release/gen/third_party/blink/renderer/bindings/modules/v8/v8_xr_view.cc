@@ -73,11 +73,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, XRView>::value,
     "XRView inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&XRView::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "XRView is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -90,10 +85,10 @@ BLINK_BINDINGS_TRACE_EVENT("XRView.eye.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-XRView* blink_receiver = V8XRView::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->eye();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+XRView* blink_receiver = V8XRView::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->eye();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -110,7 +105,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-XRView* blink_receiver = V8XRView::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+XRView* blink_receiver = V8XRView::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->projectionMatrix();
 if (!ToV8Traits<NotShared<DOMFloat32Array>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -126,8 +122,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRView.transform.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRView* blink_receiver = V8XRView::ToWrappableUnsafe(v8_receiver);
+XRView* blink_receiver = V8XRView::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->refSpaceFromView();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -140,8 +137,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRView.recommendedViewportScale.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRView* blink_receiver = V8XRView::ToWrappableUnsafe(v8_receiver);
+XRView* blink_receiver = V8XRView::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->recommendedViewportScale();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -154,8 +152,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRView.isFirstPersonObserver.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRView* blink_receiver = V8XRView::ToWrappableUnsafe(v8_receiver);
+XRView* blink_receiver = V8XRView::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isFirstPersonObserver();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -168,8 +167,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRView.camera.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRView* blink_receiver = V8XRView::ToWrappableUnsafe(v8_receiver);
+XRView* blink_receiver = V8XRView::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->camera();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -196,7 +196,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-XRView* blink_receiver = V8XRView::ToWrappableUnsafe(v8_receiver);
+XRView* blink_receiver = V8XRView::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_scale = NativeValueTraits<IDLNullable<IDLDouble>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,13 +23,16 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "extensions/common/mojom/frame.mojom-features.h"
 #include "extensions/common/mojom/frame.mojom-shared.h"
 #include "extensions/common/mojom/frame.mojom-forward.h"
 #include "mojo/public/mojom/base/uuid.mojom.h"
 #include "extensions/common/mojom/code_injection.mojom.h"
+#include "extensions/common/mojom/context_type.mojom-forward.h"
 #include "extensions/common/mojom/extra_response_data.mojom-forward.h"
 #include "extensions/common/mojom/host_id.mojom.h"
 #include "extensions/common/mojom/injection_type.mojom-forward.h"
+#include "extensions/common/mojom/message_port.mojom.h"
 #include "extensions/common/mojom/run_location.mojom-forward.h"
 #include "extensions/common/mojom/stack_frame.mojom.h"
 #include "extensions/common/mojom/view_type.mojom-forward.h"
@@ -69,7 +72,7 @@ class LocalFrame
   static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 0;
-  static constexpr bool PassesAssociatedKinds_ = false;
+  static constexpr bool PassesAssociatedKinds_ = true;
   static constexpr bool HasUninterruptableMethods_ = false;
 
   using Base_ = LocalFrameInterfaceBase;
@@ -90,6 +93,7 @@ class LocalFrame
     kExecuteCodeMinVersion = 0,
     kExecuteDeclarativeScriptMinVersion = 0,
     kUpdateBrowserWindowIdMinVersion = 0,
+    kDispatchOnConnectMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -122,6 +126,9 @@ class LocalFrame
   struct UpdateBrowserWindowId_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
+  struct DispatchOnConnect_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~LocalFrame() = default;
 
@@ -144,7 +151,7 @@ class LocalFrame
   virtual void MessageInvoke(const std::string& extension_id, const std::string& module_name, const std::string& function_name, ::base::Value::List args) = 0;
 
 
-  using ExecuteCodeCallback = base::OnceCallback<void(const std::string&, const ::GURL&, absl::optional<::base::Value>)>;
+  using ExecuteCodeCallback = base::OnceCallback<void(const std::string&, const ::GURL&, std::optional<::base::Value>)>;
   
   virtual void ExecuteCode(ExecuteCodeParamsPtr param, ExecuteCodeCallback callback) = 0;
 
@@ -153,6 +160,11 @@ class LocalFrame
 
   
   virtual void UpdateBrowserWindowId(int32_t window_id) = 0;
+
+
+  using DispatchOnConnectCallback = base::OnceCallback<void(bool)>;
+  
+  virtual void DispatchOnConnect(const ::extensions::PortId& port_id, ::extensions::mojom::ChannelType channel_type, const std::string& channel_name, ::extensions::mojom::TabConnectionInfoPtr tab_info, ::extensions::mojom::ExternalConnectionInfoPtr external_connection_info, ::mojo::PendingAssociatedReceiver<::extensions::mojom::MessagePort> port, ::mojo::PendingAssociatedRemote<::extensions::mojom::MessagePortHost> port_host, DispatchOnConnectCallback callback) = 0;
 };
 
 class LocalFrameHostProxy;
@@ -173,7 +185,7 @@ class LocalFrameHost
   static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 0;
-  static constexpr bool PassesAssociatedKinds_ = false;
+  static constexpr bool PassesAssociatedKinds_ = true;
   static constexpr bool HasUninterruptableMethods_ = false;
 
   using Base_ = LocalFrameHostInterfaceBase;
@@ -196,6 +208,9 @@ class LocalFrameHost
     kDecrementLazyKeepaliveCountMinVersion = 0,
     kUpdateDraggableRegionsMinVersion = 0,
     kAppWindowReadyMinVersion = 0,
+    kOpenChannelToExtensionMinVersion = 0,
+    kOpenChannelToNativeAppMinVersion = 0,
+    kOpenChannelToTabMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -232,6 +247,15 @@ class LocalFrameHost
     NOINLINE static uint32_t IPCStableHash();
   };
   struct AppWindowReady_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct OpenChannelToExtension_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct OpenChannelToNativeApp_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct OpenChannelToTab_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -275,6 +299,15 @@ class LocalFrameHost
 
   
   virtual void AppWindowReady() = 0;
+
+  
+  virtual void OpenChannelToExtension(::extensions::mojom::ExternalConnectionInfoPtr info, ::extensions::mojom::ChannelType channel_type, const std::string& channel_name, const ::extensions::PortId& port_id, ::mojo::PendingAssociatedRemote<::extensions::mojom::MessagePort> port, ::mojo::PendingAssociatedReceiver<::extensions::mojom::MessagePortHost> port_host) = 0;
+
+  
+  virtual void OpenChannelToNativeApp(const std::string& native_app_name, const ::extensions::PortId& port_id, ::mojo::PendingAssociatedRemote<::extensions::mojom::MessagePort> port, ::mojo::PendingAssociatedReceiver<::extensions::mojom::MessagePortHost> port_host) = 0;
+
+  
+  virtual void OpenChannelToTab(int32_t tab_id, int32_t frame_id, const std::optional<std::string>& document_id, ::extensions::mojom::ChannelType channel_type, const std::string& channel_name, const ::extensions::PortId& port_id, ::mojo::PendingAssociatedRemote<::extensions::mojom::MessagePort> port, ::mojo::PendingAssociatedReceiver<::extensions::mojom::MessagePortHost> port_host) = 0;
 };
 
 
@@ -303,6 +336,8 @@ class  LocalFrameProxy
   void ExecuteDeclarativeScript(int32_t tab_id, const std::string& extension_id, const std::string& script_id, const ::GURL& url) final;
   
   void UpdateBrowserWindowId(int32_t window_id) final;
+  
+  void DispatchOnConnect(const ::extensions::PortId& port_id, ::extensions::mojom::ChannelType channel_type, const std::string& channel_name, ::extensions::mojom::TabConnectionInfoPtr tab_info, ::extensions::mojom::ExternalConnectionInfoPtr external_connection_info, ::mojo::PendingAssociatedReceiver<::extensions::mojom::MessagePort> port, ::mojo::PendingAssociatedRemote<::extensions::mojom::MessagePortHost> port_host, DispatchOnConnectCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -338,6 +373,12 @@ class  LocalFrameHostProxy
   void UpdateDraggableRegions(std::vector<DraggableRegionPtr> regions) final;
   
   void AppWindowReady() final;
+  
+  void OpenChannelToExtension(::extensions::mojom::ExternalConnectionInfoPtr info, ::extensions::mojom::ChannelType channel_type, const std::string& channel_name, const ::extensions::PortId& port_id, ::mojo::PendingAssociatedRemote<::extensions::mojom::MessagePort> port, ::mojo::PendingAssociatedReceiver<::extensions::mojom::MessagePortHost> port_host) final;
+  
+  void OpenChannelToNativeApp(const std::string& native_app_name, const ::extensions::PortId& port_id, ::mojo::PendingAssociatedRemote<::extensions::mojom::MessagePort> port, ::mojo::PendingAssociatedReceiver<::extensions::mojom::MessagePortHost> port_host) final;
+  
+  void OpenChannelToTab(int32_t tab_id, int32_t frame_id, const std::optional<std::string>& document_id, ::extensions::mojom::ChannelType channel_type, const std::string& channel_name, const ::extensions::PortId& port_id, ::mojo::PendingAssociatedRemote<::extensions::mojom::MessagePort> port, ::mojo::PendingAssociatedReceiver<::extensions::mojom::MessagePortHost> port_host) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -638,7 +679,7 @@ class  RequestParams {
       ::base::Value::List arguments,
       const std::string& extension_id,
       const ::GURL& source_url,
-      ContextType context_type,
+      ::extensions::mojom::ContextType context_type,
       int32_t request_id,
       bool has_callback,
       bool user_gesture,
@@ -731,7 +772,7 @@ RequestParams& operator=(const RequestParams&) = delete;
   
   ::GURL source_url;
   
-  ContextType context_type;
+  ::extensions::mojom::ContextType context_type;
   
   int32_t request_id;
   

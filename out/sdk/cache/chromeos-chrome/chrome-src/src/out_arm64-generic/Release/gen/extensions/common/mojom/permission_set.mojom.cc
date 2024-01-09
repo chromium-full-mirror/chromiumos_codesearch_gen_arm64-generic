@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -49,7 +50,7 @@ APIPermission::APIPermission()
 
 APIPermission::APIPermission(
     ::extensions::mojom::APIPermissionID id_in,
-    absl::optional<::base::Value> value_in)
+    std::optional<::base::Value> value_in)
     : id(std::move(id_in)),
       value(std::move(value_in)) {}
 
@@ -71,7 +72,7 @@ void APIPermission::WriteIntoTrace(
     dict.AddItem(
       "value"), this->value,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::Value>>"
+      "<value of type std::optional<::base::Value>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -117,7 +118,7 @@ ManifestPermission::ManifestPermission()
 
 ManifestPermission::ManifestPermission(
     const std::string& id_in,
-    absl::optional<::base::Value> value_in)
+    std::optional<::base::Value> value_in)
     : id(std::move(id_in)),
       value(std::move(value_in)) {}
 
@@ -139,7 +140,7 @@ void ManifestPermission::WriteIntoTrace(
     dict.AddItem(
       "value"), this->value,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::Value>>"
+      "<value of type std::optional<::base::Value>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

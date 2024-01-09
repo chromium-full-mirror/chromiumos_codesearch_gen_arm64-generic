@@ -244,9 +244,6 @@ export class ExtensionServer extends Common.ObjectWrapper.ObjectWrapper {
             return this.status.E_BADARG('command', `expected ${"registerLanguageExtensionPlugin" /* PrivateAPI.Commands.RegisterLanguageExtensionPlugin */}`);
         }
         const { pluginManager } = Bindings.DebuggerWorkspaceBinding.DebuggerWorkspaceBinding.instance();
-        if (!pluginManager) {
-            return this.status.E_FAILED('WebAssembly DWARF support needs to be enabled to use this extension');
-        }
         const { pluginName, port, supportedScriptTypes: { language, symbol_types } } = message;
         const symbol_types_array = (Array.isArray(symbol_types) && symbol_types.every(e => typeof e === 'string') ? symbol_types : []);
         const endpoint = new LanguageExtensionEndpoint(pluginName, { language, symbol_types: symbol_types_array }, port);
@@ -255,9 +252,6 @@ export class ExtensionServer extends Common.ObjectWrapper.ObjectWrapper {
     }
     async loadWasmValue(expression, stopId) {
         const { pluginManager } = Bindings.DebuggerWorkspaceBinding.DebuggerWorkspaceBinding.instance();
-        if (!pluginManager) {
-            return this.status.E_FAILED('WebAssembly DWARF support needs to be enabled to use this extension');
-        }
         const callFrame = pluginManager.callFrameForStopId(stopId);
         if (!callFrame) {
             return this.status.E_BADARG('stopId', 'Unknown stop id');
@@ -1119,14 +1113,15 @@ export class ExtensionServer extends Common.ObjectWrapper.ObjectWrapper {
             return true;
         }
         if (parsedURL.protocol === 'chrome:' || parsedURL.protocol === 'devtools:' ||
-            parsedURL.protocol === 'chrome-untrusted:' || parsedURL.protocol === 'chrome-error:') {
+            parsedURL.protocol === 'chrome-untrusted:' || parsedURL.protocol === 'chrome-error:' ||
+            parsedURL.protocol === 'chrome-search:') {
             return false;
         }
-        if (parsedURL.protocol.startsWith('http') && parsedURL.hostname === 'chrome.google.com' &&
+        if (parsedURL.protocol.startsWith('http') && parsedURL.hostname.match(/^chrome\.google\.com\.?$/) &&
             parsedURL.pathname.startsWith('/webstore')) {
             return false;
         }
-        if (parsedURL.protocol.startsWith('http') && parsedURL.hostname === 'chromewebstore.google.com') {
+        if (parsedURL.protocol.startsWith('http') && parsedURL.hostname.match(/^chromewebstore\.google\.com\.?$/)) {
             return false;
         }
         if ((window.DevToolsAPI && window.DevToolsAPI.getOriginsForbiddenForExtensions &&
@@ -1145,7 +1140,6 @@ export class ExtensionServer extends Common.ObjectWrapper.ObjectWrapper {
 export var Events;
 (function (Events) {
     Events["SidebarPaneAdded"] = "SidebarPaneAdded";
-    Events["TraceProviderAdded"] = "TraceProviderAdded";
 })(Events || (Events = {}));
 class ExtensionServerPanelView extends UI.View.SimpleView {
     name;

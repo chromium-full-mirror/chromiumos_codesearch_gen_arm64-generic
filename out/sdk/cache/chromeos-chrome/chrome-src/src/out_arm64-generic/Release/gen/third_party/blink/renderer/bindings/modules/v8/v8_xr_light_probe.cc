@@ -72,11 +72,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, XRLightProbe>::value,
     "XRLightProbe inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&XRLightProbe::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "XRLightProbe is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -89,8 +84,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRLightProbe.probeSpace.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRLightProbe* blink_receiver = V8XRLightProbe::ToWrappableUnsafe(v8_receiver);
+XRLightProbe* blink_receiver = V8XRLightProbe::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->probeSpace();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -103,10 +99,10 @@ BLINK_BINDINGS_TRACE_EVENT("XRLightProbe.onreflectionchange.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-XRLightProbe* blink_receiver = V8XRLightProbe::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onreflectionchange();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+XRLightProbe* blink_receiver = V8XRLightProbe::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onreflectionchange();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -119,8 +115,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRLightProbe* blink_receiver = V8XRLightProbe::ToWrappableUnsafe(v8_receiver);
+XRLightProbe* blink_receiver = V8XRLightProbe::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnreflectionchange(event_handler);
 }
 

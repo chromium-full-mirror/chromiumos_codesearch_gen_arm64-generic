@@ -53,6 +53,7 @@ bool Capability_IsValid(int value) {
     case 78:
     case 81:
     case 89:
+    case 93:
     case 98:
     case 99:
     case 102:
@@ -64,7 +65,7 @@ bool Capability_IsValid(int value) {
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> Capability_strings[37] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> Capability_strings[38] = {};
 
 static const char Capability_names[] =
   "AMP_GROUP_DATASTORE"
@@ -74,6 +75,7 @@ static const char Capability_names[] =
   "CONTENT_LIFETIME"
   "DISMISS_COMMAND"
   "DOWNLOAD_LINK"
+  "DYNAMIC_COLORS"
   "HEART"
   "INFINITE_FEED"
   "INFO_CARD_ACKNOWLEDGEMENT_TRACKING"
@@ -113,75 +115,77 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry Capability_entries[] =
   { {Capability_names + 60, 16}, 64 },
   { {Capability_names + 76, 15}, 9 },
   { {Capability_names + 91, 13}, 28 },
-  { {Capability_names + 104, 5}, 23 },
-  { {Capability_names + 109, 13}, 5 },
-  { {Capability_names + 122, 34}, 77 },
-  { {Capability_names + 156, 21}, 18 },
-  { {Capability_names + 177, 24}, 73 },
-  { {Capability_names + 201, 20}, 38 },
-  { {Capability_names + 221, 17}, 37 },
-  { {Capability_names + 238, 22}, 60 },
-  { {Capability_names + 260, 25}, 61 },
-  { {Capability_names + 285, 22}, 70 },
-  { {Capability_names + 307, 22}, 78 },
-  { {Capability_names + 329, 17}, 67 },
-  { {Capability_names + 346, 24}, 81 },
-  { {Capability_names + 370, 11}, 27 },
-  { {Capability_names + 381, 18}, 16 },
-  { {Capability_names + 399, 21}, 98 },
-  { {Capability_names + 420, 20}, 46 },
-  { {Capability_names + 440, 17}, 43 },
-  { {Capability_names + 457, 10}, 30 },
-  { {Capability_names + 467, 20}, 102 },
-  { {Capability_names + 487, 24}, 99 },
-  { {Capability_names + 511, 16}, 20 },
-  { {Capability_names + 527, 5}, 24 },
-  { {Capability_names + 532, 21}, 44 },
-  { {Capability_names + 553, 21}, 35 },
-  { {Capability_names + 574, 19}, 104 },
-  { {Capability_names + 593, 22}, 89 },
-  { {Capability_names + 615, 11}, 17 },
-  { {Capability_names + 626, 24}, 10 },
-  { {Capability_names + 650, 18}, 0 },
+  { {Capability_names + 104, 14}, 93 },
+  { {Capability_names + 118, 5}, 23 },
+  { {Capability_names + 123, 13}, 5 },
+  { {Capability_names + 136, 34}, 77 },
+  { {Capability_names + 170, 21}, 18 },
+  { {Capability_names + 191, 24}, 73 },
+  { {Capability_names + 215, 20}, 38 },
+  { {Capability_names + 235, 17}, 37 },
+  { {Capability_names + 252, 22}, 60 },
+  { {Capability_names + 274, 25}, 61 },
+  { {Capability_names + 299, 22}, 70 },
+  { {Capability_names + 321, 22}, 78 },
+  { {Capability_names + 343, 17}, 67 },
+  { {Capability_names + 360, 24}, 81 },
+  { {Capability_names + 384, 11}, 27 },
+  { {Capability_names + 395, 18}, 16 },
+  { {Capability_names + 413, 21}, 98 },
+  { {Capability_names + 434, 20}, 46 },
+  { {Capability_names + 454, 17}, 43 },
+  { {Capability_names + 471, 10}, 30 },
+  { {Capability_names + 481, 20}, 102 },
+  { {Capability_names + 501, 24}, 99 },
+  { {Capability_names + 525, 16}, 20 },
+  { {Capability_names + 541, 5}, 24 },
+  { {Capability_names + 546, 21}, 44 },
+  { {Capability_names + 567, 21}, 35 },
+  { {Capability_names + 588, 19}, 104 },
+  { {Capability_names + 607, 22}, 89 },
+  { {Capability_names + 629, 11}, 17 },
+  { {Capability_names + 640, 24}, 10 },
+  { {Capability_names + 664, 18}, 0 },
 };
 
 static const int Capability_entries_by_number[] = {
-  36, // 0 -> UNKNOWN_CAPABILITY
-  8, // 5 -> INFINITE_FEED
+  37, // 0 -> UNKNOWN_CAPABILITY
+  9, // 5 -> INFINITE_FEED
   5, // 9 -> DISMISS_COMMAND
-  35, // 10 -> UNDO_FOR_DISMISS_COMMAND
-  21, // 16 -> OPEN_VIDEO_COMMAND
-  34, // 17 -> UI_THEME_V2
-  10, // 18 -> INLINE_VIDEO_AUTOPLAY
+  36, // 10 -> UNDO_FOR_DISMISS_COMMAND
+  22, // 16 -> OPEN_VIDEO_COMMAND
+  35, // 17 -> UI_THEME_V2
+  11, // 18 -> INLINE_VIDEO_AUTOPLAY
   3, // 19 -> CARD_MENU
-  28, // 20 -> REQUEST_SCHEDULE
-  7, // 23 -> HEART
-  29, // 24 -> SHARE
-  20, // 27 -> OPEN_IN_TAB
+  29, // 20 -> REQUEST_SCHEDULE
+  8, // 23 -> HEART
+  30, // 24 -> SHARE
+  21, // 27 -> OPEN_IN_TAB
   6, // 28 -> DOWNLOAD_LINK
-  25, // 30 -> READ_LATER
-  31, // 35 -> SPORTS_IN_GAME_UPDATE
-  13, // 37 -> LOTTIE_ANIMATIONS
-  12, // 38 -> LONG_PRESS_CARD_MENU
-  24, // 43 -> PREFETCH_METADATA
-  30, // 44 -> SILK_AMP_OPEN_COMMAND
-  23, // 46 -> PERSIST_GAME_CONTENT
+  26, // 30 -> READ_LATER
+  32, // 35 -> SPORTS_IN_GAME_UPDATE
+  14, // 37 -> LOTTIE_ANIMATIONS
+  13, // 38 -> LONG_PRESS_CARD_MENU
+  25, // 43 -> PREFETCH_METADATA
+  31, // 44 -> SILK_AMP_OPEN_COMMAND
+  24, // 46 -> PERSIST_GAME_CONTENT
   1, // 47 -> AMP_STORY_PLAYER
   0, // 48 -> AMP_GROUP_DATASTORE
-  14, // 60 -> MATERIAL_NEXT_BASELINE
-  15, // 61 -> MATERIAL_NEXT_GOOGLE_SANS
+  15, // 60 -> MATERIAL_NEXT_BASELINE
+  16, // 61 -> MATERIAL_NEXT_GOOGLE_SANS
   4, // 64 -> CONTENT_LIFETIME
-  18, // 67 -> OPEN_IN_INCOGNITO
-  16, // 70 -> ON_DEVICE_USER_PROFILE
-  11, // 73 -> INVALIDATE_CACHE_COMMAND
-  9, // 77 -> INFO_CARD_ACKNOWLEDGEMENT_TRACKING
-  17, // 78 -> ON_DEVICE_VIEW_HISTORY
-  19, // 81 -> OPEN_IN_NEW_TAB_IN_GROUP
-  33, // 89 -> SYNTHETIC_CAPABILITIES
-  22, // 98 -> OPEN_WEB_FEED_COMMAND
-  27, // 99 -> REPORTS_MULTICOLUMN_FEED
-  26, // 102 -> REFRESH_FEED_COMMAND
-  32, // 104 -> SYNC_STRING_REMOVAL
+  19, // 67 -> OPEN_IN_INCOGNITO
+  17, // 70 -> ON_DEVICE_USER_PROFILE
+  12, // 73 -> INVALIDATE_CACHE_COMMAND
+  10, // 77 -> INFO_CARD_ACKNOWLEDGEMENT_TRACKING
+  18, // 78 -> ON_DEVICE_VIEW_HISTORY
+  20, // 81 -> OPEN_IN_NEW_TAB_IN_GROUP
+  34, // 89 -> SYNTHETIC_CAPABILITIES
+  7, // 93 -> DYNAMIC_COLORS
+  23, // 98 -> OPEN_WEB_FEED_COMMAND
+  28, // 99 -> REPORTS_MULTICOLUMN_FEED
+  27, // 102 -> REFRESH_FEED_COMMAND
+  33, // 104 -> SYNC_STRING_REMOVAL
   2, // 106 -> BOC_SIGNIN_PROMO
 };
 
@@ -191,12 +195,12 @@ const std::string& Capability_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           Capability_entries,
           Capability_entries_by_number,
-          37, Capability_strings);
+          38, Capability_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       Capability_entries,
       Capability_entries_by_number,
-      37, value);
+      38, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      Capability_strings[idx].get();
 }
@@ -204,7 +208,7 @@ bool Capability_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, Capability* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      Capability_entries, 37, name, &int_value);
+      Capability_entries, 38, name, &int_value);
   if (success) {
     *value = static_cast<Capability>(int_value);
   }

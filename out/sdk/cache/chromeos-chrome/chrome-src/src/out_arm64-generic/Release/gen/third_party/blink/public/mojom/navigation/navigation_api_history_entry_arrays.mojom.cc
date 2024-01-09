@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -57,7 +58,7 @@ NavigationApiHistoryEntry::NavigationApiHistoryEntry(
     const ::std::u16string& url_in,
     int64_t item_sequence_number_in,
     int64_t document_sequence_number_in,
-    const absl::optional<::std::u16string>& state_in)
+    const std::optional<::std::u16string>& state_in)
     : key(std::move(key_in)),
       id(std::move(id_in)),
       url(std::move(url_in)),
@@ -119,7 +120,7 @@ void NavigationApiHistoryEntry::WriteIntoTrace(
     dict.AddItem(
       "state"), this->state,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::std::u16string>&>"
+      "<value of type const std::optional<::std::u16string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -133,13 +134,16 @@ bool NavigationApiHistoryEntry::Validate(
 }
 NavigationApiHistoryEntryArrays::NavigationApiHistoryEntryArrays()
     : back_entries(),
-      forward_entries() {}
+      forward_entries(),
+      previous_entry() {}
 
 NavigationApiHistoryEntryArrays::NavigationApiHistoryEntryArrays(
     std::vector<NavigationApiHistoryEntryPtr> back_entries_in,
-    std::vector<NavigationApiHistoryEntryPtr> forward_entries_in)
+    std::vector<NavigationApiHistoryEntryPtr> forward_entries_in,
+    NavigationApiHistoryEntryPtr previous_entry_in)
     : back_entries(std::move(back_entries_in)),
-      forward_entries(std::move(forward_entries_in)) {}
+      forward_entries(std::move(forward_entries_in)),
+      previous_entry(std::move(previous_entry_in)) {}
 
 NavigationApiHistoryEntryArrays::~NavigationApiHistoryEntryArrays() = default;
 
@@ -160,6 +164,15 @@ void NavigationApiHistoryEntryArrays::WriteIntoTrace(
       "forward_entries"), this->forward_entries,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type std::vector<NavigationApiHistoryEntryPtr>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "previous_entry"), this->previous_entry,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type NavigationApiHistoryEntryPtr>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -213,6 +226,8 @@ bool StructTraits<::blink::mojom::NavigationApiHistoryEntryArrays::DataView, ::b
       if (success && !input.ReadBackEntries(&result->back_entries))
         success = false;
       if (success && !input.ReadForwardEntries(&result->forward_entries))
+        success = false;
+      if (success && !input.ReadPreviousEntry(&result->previous_entry))
         success = false;
   *output = std::move(result);
   return success;

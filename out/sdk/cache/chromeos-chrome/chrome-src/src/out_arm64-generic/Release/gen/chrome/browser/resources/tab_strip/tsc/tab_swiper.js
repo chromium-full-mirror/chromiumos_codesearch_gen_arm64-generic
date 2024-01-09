@@ -1,7 +1,7 @@
 // Copyright 2019 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import { isRTL } from 'chrome://resources/js/util_ts.js';
+import { isRTL } from 'chrome://resources/js/util.js';
 /**
  * The minimum amount of pixels needed for the user to swipe for the position
  * (controlled by transform property) to start animating to 0.
@@ -27,8 +27,15 @@ export const SWIPE_FINISH_THRESHOLD_PX = 200;
  */
 const SWIPE_VELOCITY_THRESHOLD = 0.2;
 export class TabSwiper {
+    element_;
+    animation_;
+    animationInitiated_;
+    currentPointerDownEvent_ = null;
+    pointerDownListener_;
+    pointerMoveListener_;
+    pointerLeaveListener_;
+    pointerUpListener_;
     constructor(element) {
-        this.currentPointerDownEvent_ = null;
         this.element_ = element;
         this.animation_ = this.createAnimation_();
         /**

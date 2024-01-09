@@ -1,27 +1,37 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_--><style include="settings-shared">:host{--about-page-image-space:10px}.info-section{margin-bottom:12px}.padded{padding-bottom:10px;padding-top:10px}.product-title{font-size:153.85%;font-weight:400;margin-bottom:auto;margin-top:auto}img{margin-inline-end:var(--about-page-image-space)}.icon-container{margin-inline-end:var(--about-page-image-space);min-width:32px;text-align:center}iron-icon[icon='settings:check-circle']{fill:var(--cros-icon-color-prominent)}iron-icon[icon='cr:error-outline'],iron-icon[icon='cr:warning'],iron-icon[icon='os-settings:end-of-life']{fill:var(--cros-icon-color-alert)}#firmwareUpdateBadge{--iron-icon-fill-color:var(--cros-icon-color-secondary)}.settings-box .start{overflow-x:auto}cr-button{white-space:nowrap}#regulatoryInfo img{width:330px}@media(prefers-color-scheme:dark){#regulatoryInfo img{filter:invert(1)}}.separator-firmware-updates-badge{margin-inline-end:-4px;margin-inline-start:12px}#deferredUpdateButtons{min-height:unset;padding-bottom:10px}eol-offer-section{margin:6px 3px 16px 3px}</style>
+    return html `<!--_html_template_start_--><style include="settings-shared">:host{--chromeos-logo-width:40px}.info-section{margin-bottom:12px}.padded{padding-bottom:10px;padding-top:10px}#productRow{min-height:auto;padding-bottom:18px;padding-top:18px}#productRow>#productTitle{font:var(--cros-display-7-font);margin:0}#productRow>#productLogo{margin-inline-end:16px;width:var(--chromeos-logo-width)}.icon-container{margin-inline-end:10px;min-width:var(--chromeos-logo-width);text-align:center}:host-context(body.revamp-wayfinding-enabled) #updateRowIcon{margin-inline-end:16px}iron-icon[icon='settings:check-circle']{fill:var(--cros-icon-color-prominent)}iron-icon[icon='cr:error-outline'],iron-icon[icon='cr:warning'],iron-icon[icon='os-settings:end-of-life']{fill:var(--cros-icon-color-alert)}iron-icon[icon='os-settings:about-update-complete']{fill:var(--cros-sys-positive)}iron-icon[icon='os-settings:about-update-warning']{fill:var(--cros-sys-warning)}iron-icon[icon='os-settings:about-update-error']{fill:var(--cros-sys-error)}:host-context(body.revamp-wayfinding-enabled) iron-icon[icon='cr20:domain']{fill:var(--cros-sys-primary)}#firmwareUpdateBadge{--iron-icon-fill-color:var(--cros-icon-color-secondary)}.settings-box .start{overflow-x:auto}cr-button{white-space:nowrap}#regulatoryInfo img{width:330px}@media(prefers-color-scheme:dark){#regulatoryInfo img{filter:invert(1)}}.separator-firmware-updates-badge{margin-inline-end:-4px;margin-inline-start:12px}#deferredUpdateButtons{min-height:unset;padding-bottom:10px}eol-offer-section{margin:6px 3px 16px 3px}</style>
 <iron-media-query query="(prefers-color-scheme: dark)" query-matches="{{isDarkModeActive_}}">
 </iron-media-query>
 
   <os-settings-animated-pages id="pages" section="[[section_]]">
     <div route-path="default">
       <settings-card header-text="$i18n{aboutOsPageTitle}">
-        <div class="settings-box two-line first">
-          <img id="product-logo" on-click="onProductLogoClick_" srcset="chrome://theme/current-channel-logo@1x, chrome://theme/current-channel-logo@2x 2x" alt="$i18n{aboutProductLogoAlt}" role="presentation">
-          <h1 class="product-title">$i18n{aboutOsProductTitle}</h1>
+        <div id="productRow" class="settings-box first">
+          <img id="productLogo" on-click="onProductLogoClick_" srcset="chrome://theme/current-channel-logo@1x, chrome://theme/current-channel-logo@2x 2x" alt="$i18n{aboutProductLogoAlt}" role="presentation">
+          <h1 id="productTitle">$i18n{aboutOsProductTitle}</h1>
         </div>
         <div class="settings-box two-line">
           
-          <div class="icon-container" hidden="[[!shouldShowIcons_(showUpdateStatus_)]]">
-            
-            <iron-icon icon$="[[getUpdateStatusIcon_(
+          <template is="dom-if" if="[[!isRevampWayfindingEnabled_]]">
+            <div class="icon-container" hidden="[[!shouldShowIcons_(showUpdateStatus_)]]">
+              
+              <iron-icon icon$="[[getUpdateStatusIcon_(
+                      hasEndOfLife_, currentUpdateStatusEvent_)]]" src="[[getThrobberSrcIfUpdating_(
+                      isDarkModeActive_,
+                      hasEndOfLife_,
+                      currentUpdateStatusEvent_)]]">
+              </iron-icon>
+            </div>
+          </template>
+          <template is="dom-if" if="[[isRevampWayfindingEnabled_]]">
+            <iron-icon id="updateRowIcon" icon$="[[getUpdateStatusIcon_(
                     hasEndOfLife_, currentUpdateStatusEvent_)]]" src="[[getThrobberSrcIfUpdating_(
                     isDarkModeActive_,
                     hasEndOfLife_,
                     currentUpdateStatusEvent_)]]">
             </iron-icon>
-          </div>
+          </template>
           <div class="start padded">
             <div id="updateStatusMessage" hidden="[[!showUpdateStatus_]]">
               <div id="updateStatusMessageInner" tabindex="-1" inner-h-t-m-l="[[getUpdateStatusMessage_(
@@ -62,7 +72,7 @@ export function getTemplate() {
             $i18n{aboutRelaunchAndAutoUpdate}
           </cr-button>
         </div>
-        <cr-link-row id="aboutTPMFirmwareUpdate" class="hr" hidden$="[[!showTPMFirmwareUpdateLineItem_]]" label="$i18n{aboutTPMFirmwareUpdateTitle}" on-click="onTpmFirmwareUpdateClick_">
+        <cr-link-row id="aboutTPMFirmwareUpdate" class="hr" start-icon="[[rowIcons_.powerWash]]" hidden$="[[!showTPMFirmwareUpdateLineItem_]]" label="$i18n{aboutTPMFirmwareUpdateTitle}" on-click="onTpmFirmwareUpdateClick_">
           <div slot="sub-label">
             $i18n{aboutTPMFirmwareUpdateDescription}
             <a href="$i18n{aboutTPMFirmwareUpdateLearnMoreURL}" target="_blank" on-click="onLearnMoreClick_">
@@ -71,19 +81,19 @@ export function getTemplate() {
           </div>
         </cr-link-row>
         <template is="dom-if" if="[[hasInternetConnection_]]">
-          <cr-link-row class="hr" id="releaseNotesOnline" on-click="onReleaseNotesClick_" label="$i18n{aboutShowReleaseNotes}" sub-label="[[getShowReleaseNotesSublabel_()]]" external deep-link-focus-id$="[[Setting.kSeeWhatsNew]]">
+          <cr-link-row class="hr" id="releaseNotesOnline" start-icon="[[rowIcons_.releaseNotes]]" on-click="onReleaseNotesClick_" label="$i18n{aboutShowReleaseNotes}" sub-label="[[getShowReleaseNotesSublabel_()]]" external deep-link-focus-id$="[[Setting.kSeeWhatsNew]]">
           </cr-link-row>
         </template>
         <template is="dom-if" if="[[!hasInternetConnection_]]">
-          <cr-link-row class="hr" id="releaseNotesOffline" on-click="onReleaseNotesClick_" label="$i18n{aboutShowReleaseNotes}" title="$i18n{aboutReleaseNotesOffline}" external deep-link-focus-id$="[[Setting.kSeeWhatsNew]]">
+          <cr-link-row class="hr" id="releaseNotesOffline" start-icon="[[rowIcons_.releaseNotes]]" on-click="onReleaseNotesClick_" label="$i18n{aboutShowReleaseNotes}" title="$i18n{aboutReleaseNotesOffline}" external deep-link-focus-id$="[[Setting.kSeeWhatsNew]]">
           </cr-link-row>
         </template>
-        <cr-link-row class="hr" id="help" on-click="onHelpClick_" label="$i18n{aboutGetHelpUsingChromeOs}" sub-label="[[getHelpUsingChromeOsSublabel_()]]" external deep-link-focus-id$="[[Setting.kGetHelpWithChromeOs]]">
+        <cr-link-row class="hr" id="help" start-icon="[[rowIcons_.help]]" on-click="onHelpClick_" label="$i18n{aboutGetHelpUsingChromeOs}" sub-label="[[getHelpUsingChromeOsSublabel_()]]" external deep-link-focus-id$="[[Setting.kGetHelpWithChromeOs]]">
         </cr-link-row>
   
-        <cr-link-row class="hr" id="diagnostics" on-click="onDiagnosticsClick_" label="$i18n{aboutDiagnostics}" sub-label="[[getDiagnosticsSublabel_()]]" external deep-link-focus-id$="[[Setting.kDiagnostics]]">
+        <cr-link-row class="hr" id="diagnostics" start-icon="[[rowIcons_.diagnostics]]" on-click="onDiagnosticsClick_" label="$i18n{aboutDiagnostics}" sub-label="[[getDiagnosticsSublabel_()]]" external deep-link-focus-id$="[[Setting.kDiagnostics]]">
         </cr-link-row>
-        <cr-link-row class="hr" id="firmwareUpdates" on-click="onFirmwareUpdatesClick_" label="$i18n{aboutFirmwareUpdates}" sub-label="[[getFirmwareSublabel_(firmwareUpdateCount_)]]" external using-slotted-label deep-link-focus-id$="[[Setting.kFirmwareUpdates]]">
+        <cr-link-row class="hr" id="firmwareUpdates" start-icon="[[rowIcons_.firmwareUpdates]]" on-click="onFirmwareUpdatesClick_" label="$i18n{aboutFirmwareUpdates}" sub-label="[[getFirmwareSublabel_(firmwareUpdateCount_)]]" external using-slotted-label deep-link-focus-id$="[[Setting.kFirmwareUpdates]]">
           <iron-icon id="firmwareUpdateBadge" icon$="[[getFirmwareUpdatesIcon_(firmwareUpdateCount_)]]" hidden$="[[!shouldShowFirmwareUpdatesBadge_(
                 firmwareUpdateCount_)]]">
           </iron-icon>
@@ -91,7 +101,7 @@ export function getTemplate() {
                 firmwareUpdateCount_)]]">
           </div>
         </cr-link-row>
-        <cr-link-row class="hr" id="detailedBuildInfoTrigger" on-click="onDetailedBuildInfoClick_" label="$i18n{aboutDetailedBuildInfo}" role-description="$i18n{subpageArrowRoleDescription}">
+        <cr-link-row class="hr" id="detailedBuildInfoTrigger" start-icon="[[rowIcons_.additionalDetails]]" on-click="onDetailedBuildInfoClick_" label="$i18n{aboutDetailedBuildInfo}" role-description="$i18n{subpageArrowRoleDescription}">
         </cr-link-row>
         <cr-link-row class="hr" on-click="onManagementPageClick_" start-icon="cr:domain" label="$i18n{managementPage}" hidden$="[[!isManaged_]]" external>
         </cr-link-row>

@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -87,8 +88,8 @@ struct ExtensionActivity {
   ~ExtensionActivity();
   ExtensionActivity(const ExtensionActivity&) = delete;
   ExtensionActivity& operator=(const ExtensionActivity&) = delete;
-  ExtensionActivity(ExtensionActivity&& rhs);
-  ExtensionActivity& operator=(ExtensionActivity&& rhs);
+  ExtensionActivity(ExtensionActivity&& rhs) noexcept;
+  ExtensionActivity& operator=(ExtensionActivity&& rhs) noexcept;
 
   // Populates a ExtensionActivity object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -101,16 +102,13 @@ struct ExtensionActivity {
   // Creates a deep copy of ExtensionActivity.
   ExtensionActivity Clone() const;
 
-  // Creates a ExtensionActivity object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ExtensionActivity> FromValueDeprecated(const base::Value& value);
-
   // Creates a ExtensionActivity object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<ExtensionActivity> FromValue(const base::Value::Dict& value);
+  static std::optional<ExtensionActivity> FromValue(const base::Value::Dict& value);
 
   // Creates a ExtensionActivity object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<ExtensionActivity> FromValue(const base::Value& value);
+  static std::optional<ExtensionActivity> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisExtensionActivity object.
@@ -121,8 +119,8 @@ struct ExtensionActivity {
     ~Other();
     Other(const Other&) = delete;
     Other& operator=(const Other&) = delete;
-    Other(Other&& rhs);
-    Other& operator=(Other&& rhs);
+    Other(Other&& rhs) noexcept;
+    Other& operator=(Other&& rhs) noexcept;
 
     // Populates a Other object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -136,49 +134,49 @@ struct ExtensionActivity {
     Other Clone() const;
 
     // Creates a Other object from a base::Value::Dict, or nullopt on failure.
-    static absl::optional<Other> FromValue(const base::Value::Dict& value);
+    static std::optional<Other> FromValue(const base::Value::Dict& value);
 
     // Creates a Other object from a base::Value, or nullopt on failure.
-    static absl::optional<Other> FromValue(const base::Value& value);
+    static std::optional<Other> FromValue(const base::Value& value);
 
     // Returns a new base::Value::Dict representing the serialized form of
     // thisOther object.
     base::Value::Dict ToValue() const;
 
-    absl::optional<bool> prerender;
+    std::optional<bool> prerender;
 
     ExtensionActivityDomVerb dom_verb;
 
-    absl::optional<std::string> web_request;
+    std::optional<std::string> web_request;
 
-    absl::optional<std::string> extra;
+    std::optional<std::string> extra;
 
   };
 
 
   // An ID of a row in the ActivityLog database that corresponds to the activity.
   // ID is set only on activities retrieved from the database.
-  absl::optional<std::string> activity_id;
+  std::optional<std::string> activity_id;
 
-  absl::optional<std::string> extension_id;
+  std::optional<std::string> extension_id;
 
   ExtensionActivityType activity_type;
 
-  absl::optional<double> time;
+  std::optional<double> time;
 
-  absl::optional<std::string> api_call;
+  std::optional<std::string> api_call;
 
-  absl::optional<std::string> args;
+  std::optional<std::string> args;
 
-  absl::optional<double> count;
+  std::optional<double> count;
 
-  absl::optional<std::string> page_url;
+  std::optional<std::string> page_url;
 
-  absl::optional<std::string> page_title;
+  std::optional<std::string> page_title;
 
-  absl::optional<std::string> arg_url;
+  std::optional<std::string> arg_url;
 
-  absl::optional<Other> other;
+  std::optional<Other> other;
 
 };
 
@@ -188,8 +186,8 @@ struct Filter {
   ~Filter();
   Filter(const Filter&) = delete;
   Filter& operator=(const Filter&) = delete;
-  Filter(Filter&& rhs);
-  Filter& operator=(Filter&& rhs);
+  Filter(Filter&& rhs) noexcept;
+  Filter& operator=(Filter&& rhs) noexcept;
 
   // Populates a Filter object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -202,35 +200,32 @@ struct Filter {
   // Creates a deep copy of Filter.
   Filter Clone() const;
 
-  // Creates a Filter object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Filter> FromValueDeprecated(const base::Value& value);
-
   // Creates a Filter object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<Filter> FromValue(const base::Value::Dict& value);
+  static std::optional<Filter> FromValue(const base::Value::Dict& value);
 
   // Creates a Filter object from a base::Value, or nullopt on failure.
-  static absl::optional<Filter> FromValue(const base::Value& value);
+  static std::optional<Filter> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisFilter object.
   base::Value::Dict ToValue() const;
 
   // Exact match
-  absl::optional<std::string> extension_id;
+  std::optional<std::string> extension_id;
 
   ExtensionActivityFilter activity_type;
 
   // Exact match
-  absl::optional<std::string> api_call;
+  std::optional<std::string> api_call;
 
   // Treated as a prefix
-  absl::optional<std::string> page_url;
+  std::optional<std::string> page_url;
 
   // Treated as a prefix
-  absl::optional<std::string> arg_url;
+  std::optional<std::string> arg_url;
 
   // Used to lookup a precise day; today is 0
-  absl::optional<int> days_ago;
+  std::optional<int> days_ago;
 
 };
 
@@ -241,8 +236,8 @@ struct ActivityResultSet {
   ~ActivityResultSet();
   ActivityResultSet(const ActivityResultSet&) = delete;
   ActivityResultSet& operator=(const ActivityResultSet&) = delete;
-  ActivityResultSet(ActivityResultSet&& rhs);
-  ActivityResultSet& operator=(ActivityResultSet&& rhs);
+  ActivityResultSet(ActivityResultSet&& rhs) noexcept;
+  ActivityResultSet& operator=(ActivityResultSet&& rhs) noexcept;
 
   // Populates a ActivityResultSet object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -255,16 +250,13 @@ struct ActivityResultSet {
   // Creates a deep copy of ActivityResultSet.
   ActivityResultSet Clone() const;
 
-  // Creates a ActivityResultSet object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ActivityResultSet> FromValueDeprecated(const base::Value& value);
-
   // Creates a ActivityResultSet object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<ActivityResultSet> FromValue(const base::Value::Dict& value);
+  static std::optional<ActivityResultSet> FromValue(const base::Value::Dict& value);
 
   // Creates a ActivityResultSet object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<ActivityResultSet> FromValue(const base::Value& value);
+  static std::optional<ActivityResultSet> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisActivityResultSet object.
@@ -282,11 +274,11 @@ struct ActivityResultSet {
 namespace GetExtensionActivities {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Fill out the fields that you want to search for in the database.
@@ -307,11 +299,11 @@ base::Value::List Create(const ActivityResultSet& result);
 namespace DeleteActivities {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Erases only the activities which IDs are listed in the array.
@@ -332,11 +324,11 @@ base::Value::List Create();
 namespace DeleteActivitiesByExtension {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The ID of the extension to delete activities for.
@@ -361,11 +353,11 @@ namespace DeleteDatabase {
 namespace DeleteUrls {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Erases only the URLs listed; if empty, erases all URLs.

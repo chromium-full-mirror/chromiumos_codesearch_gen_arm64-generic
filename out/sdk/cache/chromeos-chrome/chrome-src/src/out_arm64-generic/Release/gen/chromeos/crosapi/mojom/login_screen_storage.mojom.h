@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/crosapi/mojom/login_screen_storage.mojom-features.h"
 #include "chromeos/crosapi/mojom/login_screen_storage.mojom-shared.h"
 #include "chromeos/crosapi/mojom/login_screen_storage.mojom-forward.h"
 #include <string>
@@ -88,7 +89,7 @@ class LoginScreenStorage
   virtual ~LoginScreenStorage() = default;
 
 
-  using StoreCallback = base::OnceCallback<void(const absl::optional<std::string>&)>;
+  using StoreCallback = base::OnceCallback<void(const std::optional<std::string>&)>;
   
   virtual void Store(const std::vector<std::string>& keys, LoginScreenStorageMetadataPtr metadata, const std::string& data, StoreCallback callback) = 0;
 
@@ -328,17 +329,17 @@ class  LoginScreenStorageRetrieveResult {
   // Construct an instance holding |error_message|.
   static LoginScreenStorageRetrieveResultPtr
   NewErrorMessage(
-      const std::string& error_message) {
+      const std::string& value) {
     auto result = LoginScreenStorageRetrieveResultPtr(absl::in_place);
-    result->set_error_message(std::move(error_message));
+    result->set_error_message(std::move(value));
     return result;
   }
   // Construct an instance holding |data|.
   static LoginScreenStorageRetrieveResultPtr
   NewData(
-      const std::string& data) {
+      const std::string& value) {
     auto result = LoginScreenStorageRetrieveResultPtr(absl::in_place);
-    result->set_data(std::move(data));
+    result->set_data(std::move(value));
     return result;
   }
 

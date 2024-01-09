@@ -15,6 +15,7 @@
 #include "third_party/blink/renderer/bindings/core/v8/native_value_traits_impl.h"
 #include "third_party/blink/renderer/bindings/core/v8/to_v8_traits.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_set_return_value_for_core.h"
+#include "third_party/blink/renderer/bindings/modules/v8/v8_ml_operand_data_type.h"
 #include "third_party/blink/renderer/core/execution_context/execution_context.h"
 #include "third_party/blink/renderer/modules/ml/webnn/ml_operand.h"
 #include "third_party/blink/renderer/platform/bindings/exception_messages.h"
@@ -67,16 +68,53 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, MLOperand>::value,
     "MLOperand inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&MLOperand::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "MLOperand is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
 namespace v8_ml_operand {
 
+void DataTypeOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_MLOperand_dataType");
+BLINK_BINDINGS_TRACE_EVENT("MLOperand.dataType");
+
+
+
+
+
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MLOperand* blink_receiver = V8MLOperand::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->dataType();
+bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
+}
+
+void ShapeOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_MLOperand_shape");
+BLINK_BINDINGS_TRACE_EVENT("MLOperand.shape");
+
+
+
+
+
+
+
+
+v8::Local<v8::Value> v8_return_value;
+v8::Local<v8::Object> v8_receiver = info.This();
+v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
+ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* script_state = receiver_script_state;
+v8::Isolate* isolate = info.GetIsolate();
+MLOperand* blink_receiver = V8MLOperand::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->shape();
+if (!ToV8Traits<IDLSequence<IDLUnsignedLong>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
+  return;
+}
+bindings::V8SetReturnValue(info, v8_return_value);
+}
 
 
 }  // namespace v8_ml_operand
@@ -98,8 +136,31 @@ bindings::SetupIDLInterfaceTemplate(isolate, wrapper_type_info, instance_object_
 
 
 
+v8::Local<v8::Template> instance_template = instance_object_template;
+v8::Local<v8::Template> prototype_template = prototype_object_template;
+InstallUnconditionalProperties(isolate, world, instance_template, prototype_template, interface_template);
 }
 
+void V8MLOperand::InstallUnconditionalProperties(v8::Isolate* isolate, const DOMWrapperWorld& world, v8::Local<v8::Template> instance_template, v8::Local<v8::Template> prototype_template, v8::Local<v8::Template> interface_template) {
+  using bindings::IDLMemberInstaller;
+
+
+
+
+
+{
+  static const IDLMemberInstaller::OperationConfig kOperationTable[] = {
+{"dataType", DataTypeOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"shape", ShapeOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+};
+v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
+v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
+IDLMemberInstaller::InstallOperations(isolate, world, instance_template, prototype_template, interface_template, signature, kOperationTable);
+}
+
+
+
+}
 
 
 

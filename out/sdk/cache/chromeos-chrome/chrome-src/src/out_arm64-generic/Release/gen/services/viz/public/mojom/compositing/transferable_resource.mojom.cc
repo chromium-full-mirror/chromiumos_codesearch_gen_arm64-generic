@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -54,7 +55,6 @@ TransferableResource::TransferableResource()
       is_backed_by_surface_texture(),
       wants_promotion_hint(),
       color_space(),
-      color_space_when_sampled(),
       hdr_metadata(),
       ycbcr_info() {}
 
@@ -69,9 +69,8 @@ TransferableResource::TransferableResource(
     bool is_backed_by_surface_texture_in,
     bool wants_promotion_hint_in,
     const ::gfx::ColorSpace& color_space_in,
-    const absl::optional<::gfx::ColorSpace>& color_space_when_sampled_in,
     const ::gfx::HDRMetadata& hdr_metadata_in,
-    absl::optional<::gpu::VulkanYCbCrInfo> ycbcr_info_in)
+    std::optional<::gpu::VulkanYCbCrInfo> ycbcr_info_in)
     : id(std::move(id_in)),
       format(std::move(format_in)),
       size(std::move(size_in)),
@@ -82,7 +81,6 @@ TransferableResource::TransferableResource(
       is_backed_by_surface_texture(std::move(is_backed_by_surface_texture_in)),
       wants_promotion_hint(std::move(wants_promotion_hint_in)),
       color_space(std::move(color_space_in)),
-      color_space_when_sampled(std::move(color_space_when_sampled_in)),
       hdr_metadata(std::move(hdr_metadata_in)),
       ycbcr_info(std::move(ycbcr_info_in)) {}
 
@@ -183,15 +181,6 @@ void TransferableResource::WriteIntoTrace(
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "color_space_when_sampled"), this->color_space_when_sampled,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::gfx::ColorSpace>&>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
       "hdr_metadata"), this->hdr_metadata,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type const ::gfx::HDRMetadata&>"
@@ -203,7 +192,7 @@ void TransferableResource::WriteIntoTrace(
     dict.AddItem(
       "ycbcr_info"), this->ycbcr_info,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::gpu::VulkanYCbCrInfo>>"
+      "<value of type std::optional<::gpu::VulkanYCbCrInfo>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -249,8 +238,6 @@ bool StructTraits<::viz::mojom::TransferableResource::DataView, ::viz::mojom::Tr
       if (success)
         result->wants_promotion_hint = input.wants_promotion_hint();
       if (success && !input.ReadColorSpace(&result->color_space))
-        success = false;
-      if (success && !input.ReadColorSpaceWhenSampled(&result->color_space_when_sampled))
         success = false;
       if (success && !input.ReadHdrMetadata(&result->hdr_metadata))
         success = false;

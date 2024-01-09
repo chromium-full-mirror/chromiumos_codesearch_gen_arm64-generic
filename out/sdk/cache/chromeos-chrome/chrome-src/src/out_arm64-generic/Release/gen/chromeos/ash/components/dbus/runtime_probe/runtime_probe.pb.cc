@@ -121,6 +121,12 @@ PROTOBUF_CONSTEXPR Storage_Fields::Storage_Fields(
   , ata_model_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , ufs_vendor_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , ufs_model_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , mmc_host_bus_type_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , mmc_host_pci_vendor_id_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , mmc_host_pci_device_id_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , mmc_host_pci_revision_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , mmc_host_pci_subsystem_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , mmc_host_pci_class_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , sectors_(int64_t{0})
   , size_(int64_t{0})
   , mmc_manfid_(0u)
@@ -3538,6 +3544,54 @@ Storage_Fields::Storage_Fields(const Storage_Fields& from)
     ufs_model_.Set(from._internal_ufs_model(), 
       GetArenaForAllocation());
   }
+  mmc_host_bus_type_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    mmc_host_bus_type_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_mmc_host_bus_type().empty()) {
+    mmc_host_bus_type_.Set(from._internal_mmc_host_bus_type(), 
+      GetArenaForAllocation());
+  }
+  mmc_host_pci_vendor_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    mmc_host_pci_vendor_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_mmc_host_pci_vendor_id().empty()) {
+    mmc_host_pci_vendor_id_.Set(from._internal_mmc_host_pci_vendor_id(), 
+      GetArenaForAllocation());
+  }
+  mmc_host_pci_device_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    mmc_host_pci_device_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_mmc_host_pci_device_id().empty()) {
+    mmc_host_pci_device_id_.Set(from._internal_mmc_host_pci_device_id(), 
+      GetArenaForAllocation());
+  }
+  mmc_host_pci_revision_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    mmc_host_pci_revision_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_mmc_host_pci_revision().empty()) {
+    mmc_host_pci_revision_.Set(from._internal_mmc_host_pci_revision(), 
+      GetArenaForAllocation());
+  }
+  mmc_host_pci_subsystem_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    mmc_host_pci_subsystem_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_mmc_host_pci_subsystem().empty()) {
+    mmc_host_pci_subsystem_.Set(from._internal_mmc_host_pci_subsystem(), 
+      GetArenaForAllocation());
+  }
+  mmc_host_pci_class_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    mmc_host_pci_class_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_mmc_host_pci_class().empty()) {
+    mmc_host_pci_class_.Set(from._internal_mmc_host_pci_class(), 
+      GetArenaForAllocation());
+  }
   ::memcpy(&sectors_, &from.sectors_,
     static_cast<size_t>(reinterpret_cast<char*>(&mmc_hwrev_) -
     reinterpret_cast<char*>(&sectors_)) + sizeof(mmc_hwrev_));
@@ -3573,6 +3627,30 @@ ufs_model_.InitDefault();
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   ufs_model_.Set("", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+mmc_host_bus_type_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  mmc_host_bus_type_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+mmc_host_pci_vendor_id_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  mmc_host_pci_vendor_id_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+mmc_host_pci_device_id_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  mmc_host_pci_device_id_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+mmc_host_pci_revision_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  mmc_host_pci_revision_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+mmc_host_pci_subsystem_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  mmc_host_pci_subsystem_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+mmc_host_pci_class_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  mmc_host_pci_class_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&sectors_) - reinterpret_cast<char*>(this)),
     0, static_cast<size_t>(reinterpret_cast<char*>(&mmc_hwrev_) -
@@ -3597,6 +3675,12 @@ inline void Storage_Fields::SharedDtor() {
   ata_model_.Destroy();
   ufs_vendor_.Destroy();
   ufs_model_.Destroy();
+  mmc_host_bus_type_.Destroy();
+  mmc_host_pci_vendor_id_.Destroy();
+  mmc_host_pci_device_id_.Destroy();
+  mmc_host_pci_revision_.Destroy();
+  mmc_host_pci_subsystem_.Destroy();
+  mmc_host_pci_class_.Destroy();
 }
 
 void Storage_Fields::SetCachedSize(int size) const {
@@ -3616,6 +3700,12 @@ void Storage_Fields::Clear() {
   ata_model_.ClearToEmpty();
   ufs_vendor_.ClearToEmpty();
   ufs_model_.ClearToEmpty();
+  mmc_host_bus_type_.ClearToEmpty();
+  mmc_host_pci_vendor_id_.ClearToEmpty();
+  mmc_host_pci_device_id_.ClearToEmpty();
+  mmc_host_pci_revision_.ClearToEmpty();
+  mmc_host_pci_subsystem_.ClearToEmpty();
+  mmc_host_pci_class_.ClearToEmpty();
   ::memset(&sectors_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&mmc_hwrev_) -
       reinterpret_cast<char*>(&sectors_)) + sizeof(mmc_hwrev_));
@@ -3772,6 +3862,66 @@ const char* Storage_Fields::_InternalParse(const char* ptr, ::_pbi::ParseContext
       case 17:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 138)) {
           auto str = _internal_mutable_ufs_model();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // string mmc_host_bus_type = 18;
+      case 18:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 146)) {
+          auto str = _internal_mutable_mmc_host_bus_type();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // string mmc_host_pci_vendor_id = 19;
+      case 19:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 154)) {
+          auto str = _internal_mutable_mmc_host_pci_vendor_id();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // string mmc_host_pci_device_id = 20;
+      case 20:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 162)) {
+          auto str = _internal_mutable_mmc_host_pci_device_id();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // string mmc_host_pci_revision = 21;
+      case 21:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 170)) {
+          auto str = _internal_mutable_mmc_host_pci_revision();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // string mmc_host_pci_subsystem = 22;
+      case 22:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 178)) {
+          auto str = _internal_mutable_mmc_host_pci_subsystem();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // string mmc_host_pci_class = 23;
+      case 23:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 186)) {
+          auto str = _internal_mutable_mmc_host_pci_class();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
           CHK_(::_pbi::VerifyUTF8(str, nullptr));
@@ -3937,6 +4087,66 @@ uint8_t* Storage_Fields::_InternalSerialize(
         17, this->_internal_ufs_model(), target);
   }
 
+  // string mmc_host_bus_type = 18;
+  if (!this->_internal_mmc_host_bus_type().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_mmc_host_bus_type().data(), static_cast<int>(this->_internal_mmc_host_bus_type().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "runtime_probe.Storage.Fields.mmc_host_bus_type");
+    target = stream->WriteStringMaybeAliased(
+        18, this->_internal_mmc_host_bus_type(), target);
+  }
+
+  // string mmc_host_pci_vendor_id = 19;
+  if (!this->_internal_mmc_host_pci_vendor_id().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_mmc_host_pci_vendor_id().data(), static_cast<int>(this->_internal_mmc_host_pci_vendor_id().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "runtime_probe.Storage.Fields.mmc_host_pci_vendor_id");
+    target = stream->WriteStringMaybeAliased(
+        19, this->_internal_mmc_host_pci_vendor_id(), target);
+  }
+
+  // string mmc_host_pci_device_id = 20;
+  if (!this->_internal_mmc_host_pci_device_id().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_mmc_host_pci_device_id().data(), static_cast<int>(this->_internal_mmc_host_pci_device_id().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "runtime_probe.Storage.Fields.mmc_host_pci_device_id");
+    target = stream->WriteStringMaybeAliased(
+        20, this->_internal_mmc_host_pci_device_id(), target);
+  }
+
+  // string mmc_host_pci_revision = 21;
+  if (!this->_internal_mmc_host_pci_revision().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_mmc_host_pci_revision().data(), static_cast<int>(this->_internal_mmc_host_pci_revision().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "runtime_probe.Storage.Fields.mmc_host_pci_revision");
+    target = stream->WriteStringMaybeAliased(
+        21, this->_internal_mmc_host_pci_revision(), target);
+  }
+
+  // string mmc_host_pci_subsystem = 22;
+  if (!this->_internal_mmc_host_pci_subsystem().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_mmc_host_pci_subsystem().data(), static_cast<int>(this->_internal_mmc_host_pci_subsystem().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "runtime_probe.Storage.Fields.mmc_host_pci_subsystem");
+    target = stream->WriteStringMaybeAliased(
+        22, this->_internal_mmc_host_pci_subsystem(), target);
+  }
+
+  // string mmc_host_pci_class = 23;
+  if (!this->_internal_mmc_host_pci_class().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_mmc_host_pci_class().data(), static_cast<int>(this->_internal_mmc_host_pci_class().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "runtime_probe.Storage.Fields.mmc_host_pci_class");
+    target = stream->WriteStringMaybeAliased(
+        23, this->_internal_mmc_host_pci_class(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -4000,6 +4210,48 @@ size_t Storage_Fields::ByteSizeLong() const {
     total_size += 2 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_ufs_model());
+  }
+
+  // string mmc_host_bus_type = 18;
+  if (!this->_internal_mmc_host_bus_type().empty()) {
+    total_size += 2 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_mmc_host_bus_type());
+  }
+
+  // string mmc_host_pci_vendor_id = 19;
+  if (!this->_internal_mmc_host_pci_vendor_id().empty()) {
+    total_size += 2 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_mmc_host_pci_vendor_id());
+  }
+
+  // string mmc_host_pci_device_id = 20;
+  if (!this->_internal_mmc_host_pci_device_id().empty()) {
+    total_size += 2 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_mmc_host_pci_device_id());
+  }
+
+  // string mmc_host_pci_revision = 21;
+  if (!this->_internal_mmc_host_pci_revision().empty()) {
+    total_size += 2 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_mmc_host_pci_revision());
+  }
+
+  // string mmc_host_pci_subsystem = 22;
+  if (!this->_internal_mmc_host_pci_subsystem().empty()) {
+    total_size += 2 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_mmc_host_pci_subsystem());
+  }
+
+  // string mmc_host_pci_class = 23;
+  if (!this->_internal_mmc_host_pci_class().empty()) {
+    total_size += 2 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_mmc_host_pci_class());
   }
 
   // int64 sectors = 2;
@@ -4093,6 +4345,24 @@ void Storage_Fields::MergeFrom(const Storage_Fields& from) {
   if (!from._internal_ufs_model().empty()) {
     _internal_set_ufs_model(from._internal_ufs_model());
   }
+  if (!from._internal_mmc_host_bus_type().empty()) {
+    _internal_set_mmc_host_bus_type(from._internal_mmc_host_bus_type());
+  }
+  if (!from._internal_mmc_host_pci_vendor_id().empty()) {
+    _internal_set_mmc_host_pci_vendor_id(from._internal_mmc_host_pci_vendor_id());
+  }
+  if (!from._internal_mmc_host_pci_device_id().empty()) {
+    _internal_set_mmc_host_pci_device_id(from._internal_mmc_host_pci_device_id());
+  }
+  if (!from._internal_mmc_host_pci_revision().empty()) {
+    _internal_set_mmc_host_pci_revision(from._internal_mmc_host_pci_revision());
+  }
+  if (!from._internal_mmc_host_pci_subsystem().empty()) {
+    _internal_set_mmc_host_pci_subsystem(from._internal_mmc_host_pci_subsystem());
+  }
+  if (!from._internal_mmc_host_pci_class().empty()) {
+    _internal_set_mmc_host_pci_class(from._internal_mmc_host_pci_class());
+  }
   if (from._internal_sectors() != 0) {
     _internal_set_sectors(from._internal_sectors());
   }
@@ -4169,6 +4439,30 @@ void Storage_Fields::InternalSwap(Storage_Fields* other) {
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &ufs_model_, lhs_arena,
       &other->ufs_model_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &mmc_host_bus_type_, lhs_arena,
+      &other->mmc_host_bus_type_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &mmc_host_pci_vendor_id_, lhs_arena,
+      &other->mmc_host_pci_vendor_id_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &mmc_host_pci_device_id_, lhs_arena,
+      &other->mmc_host_pci_device_id_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &mmc_host_pci_revision_, lhs_arena,
+      &other->mmc_host_pci_revision_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &mmc_host_pci_subsystem_, lhs_arena,
+      &other->mmc_host_pci_subsystem_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &mmc_host_pci_class_, lhs_arena,
+      &other->mmc_host_pci_class_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(Storage_Fields, mmc_hwrev_)

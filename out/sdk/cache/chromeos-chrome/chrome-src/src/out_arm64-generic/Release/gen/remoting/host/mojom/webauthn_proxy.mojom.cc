@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -296,14 +297,17 @@ void WebAuthnRequestCancellerProxy::Cancel(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send remoting::mojom::WebAuthnRequestCanceller::Cancel");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebAuthnRequestCanceller_Cancel_Name, kFlags, 0, 0, nullptr);
@@ -413,7 +417,8 @@ void WebAuthnRequestCanceller_Cancel_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebAuthnRequestCanceller_Cancel_Name, kFlags, 0, 0, nullptr);
@@ -489,10 +494,10 @@ bool WebAuthnRequestCancellerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kWebAuthnRequestCancellerValidationInfo[] = {
-    {&internal::WebAuthnRequestCanceller_Cancel_Params_Data::Validate,
+    { &internal::WebAuthnRequestCanceller_Cancel_Params_Data::Validate,
      &internal::WebAuthnRequestCanceller_Cancel_ResponseParams_Data::Validate},
 };
 
@@ -657,14 +662,17 @@ void WebAuthnProxyProxy::IsUserVerifyingPlatformAuthenticatorAvailable(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send remoting::mojom::WebAuthnProxy::IsUserVerifyingPlatformAuthenticatorAvailable");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebAuthnProxy_IsUserVerifyingPlatformAuthenticatorAvailable_Name, kFlags, 0, 0, nullptr);
@@ -698,14 +706,17 @@ void WebAuthnProxyProxy::Create(
                         "<value of type ::mojo::PendingReceiver<WebAuthnRequestCanceller>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebAuthnProxy_Create_Name, kFlags, 0, 0, nullptr);
@@ -756,14 +767,17 @@ void WebAuthnProxyProxy::Get(
                         "<value of type ::mojo::PendingReceiver<WebAuthnRequestCanceller>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebAuthnProxy_Get_Name, kFlags, 0, 0, nullptr);
@@ -890,7 +904,8 @@ void WebAuthnProxy_IsUserVerifyingPlatformAuthenticatorAvailable_ProxyToResponde
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebAuthnProxy_IsUserVerifyingPlatformAuthenticatorAvailable_Name, kFlags, 0, 0, nullptr);
@@ -1008,7 +1023,8 @@ void WebAuthnProxy_Create_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebAuthnProxy_Create_Name, kFlags, 0, 0, nullptr);
@@ -1130,7 +1146,8 @@ void WebAuthnProxy_Get_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebAuthnProxy_Get_Name, kFlags, 0, 0, nullptr);
@@ -1286,14 +1303,14 @@ std::move(p_request_canceller), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kWebAuthnProxyValidationInfo[] = {
-    {&internal::WebAuthnProxy_IsUserVerifyingPlatformAuthenticatorAvailable_Params_Data::Validate,
+    { &internal::WebAuthnProxy_IsUserVerifyingPlatformAuthenticatorAvailable_Params_Data::Validate,
      &internal::WebAuthnProxy_IsUserVerifyingPlatformAuthenticatorAvailable_ResponseParams_Data::Validate},
-    {&internal::WebAuthnProxy_Create_Params_Data::Validate,
+    { &internal::WebAuthnProxy_Create_Params_Data::Validate,
      &internal::WebAuthnProxy_Create_ResponseParams_Data::Validate},
-    {&internal::WebAuthnProxy_Get_Params_Data::Validate,
+    { &internal::WebAuthnProxy_Get_Params_Data::Validate,
      &internal::WebAuthnProxy_Get_ResponseParams_Data::Validate},
 };
 

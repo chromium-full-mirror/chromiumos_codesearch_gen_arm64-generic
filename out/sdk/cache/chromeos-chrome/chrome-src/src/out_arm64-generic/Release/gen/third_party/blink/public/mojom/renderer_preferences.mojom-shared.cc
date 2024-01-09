@@ -76,14 +76,14 @@ bool RendererPreferences_Data::Validate(
   }
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->user_agent_override, 25, validation_context)) {
+          object->user_agent_override, 24, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->user_agent_override, validation_context))
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->accept_languages, 26, validation_context)) {
+          object->accept_languages, 25, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& accept_languages_validate_params =
@@ -94,7 +94,7 @@ bool RendererPreferences_Data::Validate(
   }
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->system_font_family_name, 30, validation_context)) {
+          object->system_font_family_name, 29, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& system_font_family_name_validate_params =
@@ -105,7 +105,7 @@ bool RendererPreferences_Data::Validate(
   }
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->explicitly_allowed_network_ports, 32, validation_context)) {
+          object->explicitly_allowed_network_ports, 31, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& explicitly_allowed_network_ports_validate_params =

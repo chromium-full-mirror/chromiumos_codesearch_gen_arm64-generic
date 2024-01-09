@@ -76,11 +76,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, CSSColorValue>::value,
     "CSSColorValue inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&CSSColorValue::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "CSSColorValue is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -97,8 +92,9 @@ BLINK_BINDINGS_TRACE_EVENT("CSSColorValue.toHSL");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CSSColorValue* blink_receiver = V8CSSColorValue::ToWrappableUnsafe(v8_receiver);
+CSSColorValue* blink_receiver = V8CSSColorValue::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->toHSL();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -114,8 +110,9 @@ BLINK_BINDINGS_TRACE_EVENT("CSSColorValue.toHWB");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CSSColorValue* blink_receiver = V8CSSColorValue::ToWrappableUnsafe(v8_receiver);
+CSSColorValue* blink_receiver = V8CSSColorValue::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->toHWB();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -131,8 +128,9 @@ BLINK_BINDINGS_TRACE_EVENT("CSSColorValue.toRGB");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CSSColorValue* blink_receiver = V8CSSColorValue::ToWrappableUnsafe(v8_receiver);
+CSSColorValue* blink_receiver = V8CSSColorValue::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->toRGB();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }

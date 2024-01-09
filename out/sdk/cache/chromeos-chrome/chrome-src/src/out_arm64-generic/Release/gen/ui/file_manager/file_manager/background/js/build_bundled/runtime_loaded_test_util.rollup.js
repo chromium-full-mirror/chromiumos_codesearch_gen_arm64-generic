@@ -1,136 +1,124 @@
 import { loadTimeData } from 'chrome://resources/ash/common/load_time_data.m.js';
-import 'chrome://resources/mwc/lit/index.js';
 
 // Copyright 2013 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
+/** State of progress items. */
+var ProgressItemState;
+(function (ProgressItemState) {
+    ProgressItemState["SCANNING"] = "scanning";
+    ProgressItemState["PROGRESSING"] = "progressing";
+    ProgressItemState["COMPLETED"] = "completed";
+    ProgressItemState["ERROR"] = "error";
+    ProgressItemState["CANCELED"] = "canceled";
+    ProgressItemState["PAUSED"] = "paused";
+})(ProgressItemState || (ProgressItemState = {}));
 /**
- * State of progress items.
- * @const @enum {string}
+ * Policy error type. Only applicable if DLP or Enterprise Connectors policies
+ * apply.
  */
-const ProgressItemState = {
-    SCANNING: 'scanning',
-    PROGRESSING: 'progressing',
-    COMPLETED: 'completed',
-    ERROR: 'error',
-    CANCELED: 'canceled',
-    PAUSED: 'paused',
-};
-Object.freeze(ProgressItemState);
-/**
- * Item of the progress center.
- */
+var PolicyErrorType;
+(function (PolicyErrorType) {
+    PolicyErrorType["DLP"] = "dlp";
+    PolicyErrorType["ENTERPRISE_CONNECTORS"] = "enterprise_connectors";
+    PolicyErrorType["DLP_WARNING_TIMEOUT"] = "dlp_warning_timeout";
+})(PolicyErrorType || (PolicyErrorType = {}));
+/** Type of progress items. */
+var ProgressItemType;
+(function (ProgressItemType) {
+    // The item is file copy operation.
+    ProgressItemType["COPY"] = "copy";
+    // The item is file delete operation.
+    ProgressItemType["DELETE"] = "delete";
+    // The item is emptying the trash operation.
+    ProgressItemType["EMPTY_TRASH"] = "empty-trash";
+    // The item is file extract operation.
+    ProgressItemType["EXTRACT"] = "extract";
+    // The item is file move operation.
+    ProgressItemType["MOVE"] = "move";
+    // The item is file zip operation.
+    ProgressItemType["ZIP"] = "zip";
+    // The item is drive sync operation.
+    ProgressItemType["SYNC"] = "sync";
+    // The item is restoring the trash.
+    ProgressItemType["RESTORE"] = "restore";
+    ProgressItemType["RESTORE_TO_DESTINATION"] = "restore_to_destination";
+    // The item is general file transfer operation.
+    // This is used for the mixed operation of summarized item.
+    ProgressItemType["TRANSFER"] = "transfer";
+    // The item is being trashed.
+    ProgressItemType["TRASH"] = "trash";
+    // The item is external drive format operation.
+    ProgressItemType["FORMAT"] = "format";
+    // The item is archive operation.
+    ProgressItemType["MOUNT_ARCHIVE"] = "mount_archive";
+    // The item is external drive partitioning operation.
+    ProgressItemType["PARTITION"] = "partition";
+})(ProgressItemType || (ProgressItemType = {}));
+/** Item of the progress center. */
 class ProgressCenterItem {
     constructor() {
-        /**
-         * Item ID.
-         * @private @type {string}
-         */
+        /** Item ID. */
         this.id_ = '';
-        /**
-         * State of the progress item.
-         * @type {ProgressItemState}
-         */
+        /** State of the progress item. */
         this.state = ProgressItemState.PROGRESSING;
-        /**
-         * Message of the progress item.
-         * @type {string}
-         */
+        /** Message of the progress item. */
         this.message = '';
-        /**
-         * Source message for the progress item.
-         * @type {string}
-         */
+        /** Source message for the progress item. */
         this.sourceMessage = '';
-        /**
-         * Destination message for the progress item.
-         * @type {string}
-         */
+        /** Destination message for the progress item. */
         this.destinationMessage = '';
-        /**
-         * Number of items being processed.
-         * @type {number}
-         */
+        /** Number of items being processed. */
         this.itemCount = 0;
-        /**
-         * Max value of the progress.
-         * @type {number}
-         */
+        /** Max value of the progress. */
         this.progressMax = 0;
-        /**
-         * Current value of the progress.
-         * @type {number}
-         */
+        /** Current value of the progress. */
         this.progressValue = 0;
-        /**
-         * Type of progress item.
-         * @type {?ProgressItemType}
-         */
+        /*** Type of progress item. */
         this.type = null;
-        /**
-         * Whether the item represents a single item or not.
-         * @type {boolean}
-         */
+        /** Whether the item represents a single item or not. */
         this.single = true;
         /**
          * If the property is true, only the message of item shown in the progress
          * center and the notification of the item is created as priority = -1.
-         * @type {boolean}
          */
         this.quiet = false;
-        /**
-         * Callback function to cancel the item.
-         * @type {?function():void}
-         */
+        /** Callback function to cancel the item. */
         this.cancelCallback = null;
-        /**
-         * Optional callback to be invoked after dismissing the item.
-         */
-        // @ts-ignore: error TS7008: Member 'dismissCallback' implicitly has an
-        // 'any' type.
+        /** Optional callback to be invoked after dismissing the item. */
         this.dismissCallback = null;
-        /**
-         * The predicted remaining time to complete the progress item in seconds.
-         * @type {number}
-         */
-        this.remainingTime;
+        /** The predicted remaining time to complete the progress item in seconds. */
+        this.remainingTime = 0;
         /**
          * Contains the text and callback on an extra button when the progress
          * center item is either in COMPLETED, ERROR, or PAUSED state.
-         * @type {!Map<!ProgressItemState, !ProgressItemExtraButton>}
          */
         this.extraButton = new Map();
         /**
          * In the case of a copy/move operation, whether the destination folder is
          * a child of My Drive.
-         * @type {boolean}
          */
         this.isDestinationDrive = false;
-        /**
-         * The type of policy error that occurred, if any.
-         * @type {?PolicyErrorType}
-         */
+        /** The type of policy error that occurred, if any. */
         this.policyError = null;
-        /**
-         * The number of files with a policy restriction, if any.
-         * @type {?number}
-         */
+        /** The number of files with a policy restriction, if any. */
         this.policyFileCount = null;
-        /**
-         * The name of the first file with a policy restriction, if any.
-         * @type {?string}
-         */
+        /** The name of the first file with a policy restriction, if any. */
         this.policyFileName = null;
+        /**
+         * List of files skipped during the operation because we couldn't decrypt
+         * them.
+         */
+        this.skippedEncryptedFiles = [];
     }
     /**
      * Sets the extra button text and callback. Use this to add an additional
      * button with configurable functionality.
-     * @param {string} text Text to use for the button.
-     * @param {!ProgressItemState} state Which state to show the button for.
-     *     Currently only `ProgressItemState.COMPLETED`,
-     * `ProgressItemState.ERROR`, and `ProgressItemState.PAUSED` are supported.
-     * @param {!function():void} callback The callback to invoke when the button
-     *     is pressed.
+     * @param text Text to use for the button.
+     * @param state Which state to show the button for. Currently only
+     *     `ProgressItemState.COMPLETED`, `ProgressItemState.ERROR`, and
+     *     `ProgressItemState.PAUSED` are supported.
+     * @param callback The callback to invoke when the button is pressed.
      */
     setExtraButton(state, text, callback) {
         if (!text || !callback) {
@@ -144,10 +132,7 @@ class ProgressCenterItem {
         const extraButton = { text, callback };
         this.extraButton.set(state, extraButton);
     }
-    /**
-     * Setter of Item ID.
-     * @param {string} value New value of ID.
-     */
+    /** Sets the Item ID. */
     set id(value) {
         if (!this.id_) {
             this.id_ = value;
@@ -156,10 +141,7 @@ class ProgressCenterItem {
             console.error('The ID is already set. (current ID: ' + this.id_ + ')');
         }
     }
-    /**
-     * Getter of Item ID.
-     * @return {string} Item ID.
-     */
+    /** Gets the Item ID. */
     get id() {
         return this.id_;
     }
@@ -168,8 +150,6 @@ class ProgressCenterItem {
      *
      * If the current state is canceled or completed, it always returns 0 or 100
      * respectively.
-     *
-     * @return {number} Progress rate in percent.
      */
     get progressRateInPercent() {
         switch (this.state) {
@@ -181,19 +161,13 @@ class ProgressCenterItem {
                 return ~~(100 * this.progressValue / this.progressMax);
         }
     }
-    /**
-     * Whether the item can be canceled or not.
-     * @return {boolean} True if the item can be canceled.
-     */
+    /** Whether the item can be canceled or not. */
     get cancelable() {
         return !!(this.state == ProgressItemState.PROGRESSING &&
             this.cancelCallback && this.single) ||
             !!(this.state == ProgressItemState.PAUSED && this.cancelCallback);
     }
-    /**
-     * Clones the item.
-     * @return {!ProgressCenterItem} New item having the same properties as this.
-     */
+    /** Clones the item. */
     clone() {
         const clonedItem = Object.assign(new ProgressCenterItem(), this);
         return /** @type {!ProgressCenterItem} */ (clonedItem);
@@ -209,7 +183,7 @@ class ProgressCenterItem {
  *     may be used to test whether |value| is defined or not, and we don't want
  *     to force a cast to boolean.
  */
-function assert$1(value, message) {
+function assert(value, message) {
     if (value) {
         return;
     }
@@ -233,8 +207,8 @@ function assert$1(value, message) {
  * This code should only be hit in the case of serious programmer error or
  * unexpected input.
  */
-function assertNotReached$1(message = 'Unreachable code hit') {
-    assert$1(false, message);
+function assertNotReached(message = 'Unreachable code hit') {
+    assert(false, message);
 }
 
 // Copyright 2023 The Chromium Authors
@@ -248,7 +222,7 @@ const ALLOWED_SCRIPT_URLS = new Set([
     'foreground/js/metadata/metadata_dispatcher.js',
 ]);
 if (!window.hasOwnProperty('trustedScriptUrlPolicy_')) {
-    assert$1(window.trustedTypes);
+    assert(window.trustedTypes);
     window.trustedScriptUrlPolicy_ =
         window.trustedTypes.createPolicy('file-manager-trusted-script', {
             createScriptURL: (url) => {
@@ -257,8 +231,8 @@ if (!window.hasOwnProperty('trustedScriptUrlPolicy_')) {
                 }
                 return url;
             },
-            createHTML: () => assertNotReached$1(),
-            createScript: () => assertNotReached$1(),
+            createHTML: () => assertNotReached(),
+            createScript: () => assertNotReached(),
         });
 }
 /**
@@ -268,7 +242,7 @@ if (!window.hasOwnProperty('trustedScriptUrlPolicy_')) {
  * @param url Script URL to be sanitized.
  */
 function getSanitizedScriptUrl(url) {
-    assert$1(window.trustedScriptUrlPolicy_);
+    assert(window.trustedScriptUrlPolicy_);
     return window.trustedScriptUrlPolicy_.createScriptURL(url);
 }
 
@@ -311,472 +285,1138 @@ class ScriptLoader {
     }
 }
 
+// Copyright 2012 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * Calls the `fn` function which should expect the callback as last argument.
+ *
+ * Resolves with the result of the `fn`.
+ *
+ * Rejects if there is `chrome.runtime.lastError`.
+ */
+function iconSetToCSSBackgroundImageValue(iconSet) {
+    let lowDpiPart = null;
+    let highDpiPart = null;
+    if (iconSet.icon16x16Url) {
+        lowDpiPart = 'url(' + iconSet.icon16x16Url + ') 1x';
+    }
+    if (iconSet.icon32x32Url) {
+        highDpiPart = 'url(' + iconSet.icon32x32Url + ') 2x';
+    }
+    if (lowDpiPart && highDpiPart) {
+        return 'image-set(' + lowDpiPart + ', ' + highDpiPart + ')';
+    }
+    else if (lowDpiPart) {
+        return 'image-set(' + lowDpiPart + ')';
+    }
+    else if (highDpiPart) {
+        return 'image-set(' + highDpiPart + ')';
+    }
+    return 'none';
+}
+/**
+ * Mapping table for FileError.code style enum to DOMError.name string.
+ */
+var FileErrorToDomError;
+(function (FileErrorToDomError) {
+    FileErrorToDomError["ABORT_ERR"] = "AbortError";
+    FileErrorToDomError["INVALID_MODIFICATION_ERR"] = "InvalidModificationError";
+    FileErrorToDomError["INVALID_STATE_ERR"] = "InvalidStateError";
+    FileErrorToDomError["NO_MODIFICATION_ALLOWED_ERR"] = "NoModificationAllowedError";
+    FileErrorToDomError["NOT_FOUND_ERR"] = "NotFoundError";
+    FileErrorToDomError["NOT_READABLE_ERR"] = "NotReadable";
+    FileErrorToDomError["PATH_EXISTS_ERR"] = "PathExistsError";
+    FileErrorToDomError["QUOTA_EXCEEDED_ERR"] = "QuotaExceededError";
+    FileErrorToDomError["TYPE_MISMATCH_ERR"] = "TypeMismatchError";
+    FileErrorToDomError["ENCODING_ERR"] = "EncodingError";
+})(FileErrorToDomError || (FileErrorToDomError = {}));
+function descriptorEqual(left, right) {
+    return left.appId === right.appId && left.taskType === right.taskType &&
+        left.actionId === right.actionId;
+}
+/**
+ * Check if the DEBUG_STORE is set or not. When it's set, action data will be
+ * logged in the console for debugging purpose.
+ *
+ * Run `localStorage.setItem('DEBUG_STORE', '1')` in the console to enable it.
+ */
+function isDebugStoreEnabled() {
+    return localStorage.getItem('DEBUG_STORE') === '1';
+}
+
+// Copyright 2015 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * Namespace for test related things.
+ */
+window.test = window.test || {};
+const test = window.test;
+/**
+ * Namespace for test utility functions.
+ *
+ * Public functions in the test.util.sync and the test.util.async namespaces are
+ * published to test cases and can be called by using callRemoteTestUtil. The
+ * arguments are serialized as JSON internally. If application ID is passed to
+ * callRemoteTestUtil, the content window of the application is added as the
+ * first argument. The functions in the test.util.async namespace are passed the
+ * callback function as the last argument.
+ */
+test.util = {};
+/**
+ * Namespace for synchronous utility functions.
+ */
+test.util.sync = {};
+/**
+ * Namespace for asynchronous utility functions.
+ */
+test.util.async = {};
+
 // Copyright 2013 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-
 /**
- * @fileoverview Assertion support.
+ * Sanitizes the formatted date. Replaces unusual space with normal space.
+ * @param strDate the date already in the string format.
  */
-
-/**
- * Note: This method is deprecated. Use the equvalent method in assert_ts.ts
- * instead.
- * Verify |condition| is truthy and return |condition| if so.
- * @template T
- * @param {T} condition A condition to check for truthiness.  Note that this
- *     may be used to test whether a value is defined or not, and we don't want
- *     to force a cast to Boolean.
- * @param {string=} opt_message A message to show on failure.
- * @return {T} A non-null |condition|.
- * @closurePrimitive {asserts.truthy}
- * @suppress {reportUnknownTypes} because T is not sufficiently constrained.
- */
-function assert(condition, opt_message) {
-  if (!condition) {
-    let message = 'Assertion failed';
-    if (opt_message) {
-      message = message + ': ' + opt_message;
-    }
-    const error = new Error(message);
-    const global = function() {
-      const thisOrSelf = this || self;
-      /** @type {boolean} */
-      thisOrSelf.traceAssertionsForTesting;
-      return thisOrSelf;
-    }();
-    if (global.traceAssertionsForTesting) {
-      console.warn(error.stack);
-    }
-    throw error;
-  }
-  return condition;
+function sanitizeDate(strDate) {
+    return strDate.replace('\u202f', ' ');
 }
-
 /**
- * Note: This method is deprecated. Use the equvalent method in assert_ts.ts
- * instead.
- * Call this from places in the code that should never be reached.
+ * Returns details about each file shown in the file list: name, size, type and
+ * modification time.
  *
- * For example, handling all the values of enum with a switch() like this:
+ * Since FilesApp normally has a fixed display size in test, and also since the
+ * #detail-table recycles its file row elements, this call only returns details
+ * about the visible file rows (11 rows normally, see crbug.com/850834).
  *
- *   function getValueFromEnum(enum) {
- *     switch (enum) {
- *       case ENUM_FIRST_OF_TWO:
- *         return first
- *       case ENUM_LAST_OF_TWO:
- *         return last;
- *     }
- *     assertNotReached();
- *     return document;
+ * @param contentWindow Window to be tested.
+ * @return Details for each visible file row.
+ */
+test.util.sync.getFileList = (contentWindow) => {
+    const table = contentWindow.document.querySelector('#detail-table');
+    const rows = table.querySelectorAll('li');
+    const fileList = [];
+    for (const row of rows) {
+        fileList.push([
+            row.querySelector('.filename-label')?.textContent ?? '',
+            row.querySelector('.size')?.textContent ?? '',
+            row.querySelector('.type')?.textContent ?? '',
+            sanitizeDate(row.querySelector('.date')?.textContent || ''),
+        ]);
+    }
+    return fileList;
+};
+/**
+ * Returns the name of the files currently selected in the file list. Note the
+ * routine has the same 'visible files' limitation as getFileList() above.
+ *
+ * @param contentWindow Window to be tested.
+ * @return Selected file names.
+ */
+test.util.sync.getSelectedFiles = (contentWindow) => {
+    const table = contentWindow.document.querySelector('#detail-table');
+    const rows = table.querySelectorAll('li');
+    const selected = [];
+    for (const row of rows) {
+        if (row.hasAttribute('selected')) {
+            selected.push(row.querySelector('.filename-label')?.textContent ?? '');
+        }
+    }
+    return selected;
+};
+/**
+ * Fakes pressing the down arrow until the given |filename| is selected.
+ *
+ * @param contentWindow Window to be tested.
+ * @param filename Name of the file to be selected.
+ * @return True if file got selected, false otherwise.
+ */
+test.util.sync.selectFile =
+    (contentWindow, filename) => {
+        const rows = contentWindow.document.querySelectorAll('#detail-table li');
+        test.util.sync.focus(contentWindow, '#file-list');
+        test.util.sync.fakeKeyDown(contentWindow, '#file-list', 'Home', false, false, false);
+        for (let index = 0; index < rows.length; ++index) {
+            const selection = test.util.sync.getSelectedFiles(contentWindow);
+            if (selection.length === 1 && selection[0] === filename) {
+                return true;
+            }
+            test.util.sync.fakeKeyDown(contentWindow, '#file-list', 'ArrowDown', false, false, false);
+        }
+        console.warn('Failed to select file "' + filename + '"');
+        return false;
+    };
+/**
+ * Open the file by selectFile and fakeMouseDoubleClick.
+ *
+ * @param contentWindow Window to be tested.
+ * @param filename Name of the file to be opened.
+ * @return True if file got selected and a double click message is
+ *     sent, false otherwise.
+ */
+test.util.sync.openFile =
+    (contentWindow, filename) => {
+        const query = '#file-list li.table-row[selected] .filename-label span';
+        return test.util.sync.selectFile(contentWindow, filename) &&
+            test.util.sync.fakeMouseDoubleClick(contentWindow, query);
+    };
+/**
+ * Returns the last URL visited with visitURL() (e.g. for "Manage in Drive").
+ *
+ * @param contentWindow The window where visitURL() was called.
+ * @return The URL of the last URL visited.
+ */
+test.util.sync.getLastVisitedURL = (contentWindow) => {
+    return contentWindow.fileManager.getLastVisitedUrl();
+};
+/**
+ * Returns a string translation from its translation ID.
+ * @param id The id of the translated string.
+ */
+test.util.sync.getTranslatedString =
+    (contentWindow, id) => {
+        return contentWindow.fileManager.getTranslatedString(id);
+    };
+/**
+ * Executes Javascript code on a webview and returns the result.
+ *
+ * @param contentWindow Window to be tested.
+ * @param webViewQuery Selector for the web view.
+ * @param code Javascript code to be executed within the web view.
+ * @param callback Callback function with results returned by the script.
+ */
+test.util.async.executeScriptInWebView =
+    (contentWindow, webViewQuery, code, callback) => {
+        const webView = contentWindow.document.querySelector(webViewQuery);
+        webView.executeScript({ code: code }, callback);
+    };
+/**
+ * Selects |filename| and fakes pressing Ctrl+C, Ctrl+V (copy, paste).
+ *
+ * @param contentWindow Window to be tested.
+ * @param filename Name of the file to be copied.
+ * @return True if copying got simulated successfully. It does not
+ *     say if the file got copied, or not.
+ */
+test.util.sync.copyFile =
+    (contentWindow, filename) => {
+        if (!test.util.sync.selectFile(contentWindow, filename)) {
+            return false;
+        }
+        // Ctrl+C and Ctrl+V
+        test.util.sync.fakeKeyDown(contentWindow, '#file-list', 'c', true, false, false);
+        test.util.sync.fakeKeyDown(contentWindow, '#file-list', 'v', true, false, false);
+        return true;
+    };
+/**
+ * Selects |filename| and fakes pressing the Delete key.
+ *
+ * @param contentWindow Window to be tested.
+ * @param filename Name of the file to be deleted.
+ * @return True if deleting got simulated successfully. It does not
+ *     say if the file got deleted, or not.
+ */
+test.util.sync.deleteFile =
+    (contentWindow, filename) => {
+        if (!test.util.sync.selectFile(contentWindow, filename)) {
+            return false;
+        }
+        // Delete
+        test.util.sync.fakeKeyDown(contentWindow, '#file-list', 'Delete', false, false, false);
+        return true;
+    };
+/**
+ * Execute a command on the document in the specified window.
+ *
+ * @param contentWindow Window to be tested.
+ * @param command Command name.
+ * @return True if the command is executed successfully.
+ */
+test.util.sync.execCommand =
+    (contentWindow, command) => {
+        const ret = contentWindow.document.execCommand(command);
+        if (!ret) {
+            // TODO(b/191831968): Fix execCommand for SWA.
+            console.warn(`execCommand(${command}) returned false for SWA, forcing ` +
+                `return value to true. b/191831968`);
+            return true;
+        }
+        return ret;
+    };
+/**
+ * Override the task-related methods in private api for test.
+ *
+ * @param contentWindow Window to be tested.
+ * @param taskList List of tasks to be returned in
+ *     fileManagerPrivate.getFileTasks().
+ * @param isPolicyDefault Whether the default is set by policy.
+ * @return Always return true.
+ */
+test.util.sync.overrideTasks =
+    (contentWindow, taskList, isPolicyDefault = false) => {
+        const getFileTasks = (_entries, _sourceUrls, onTasks) => {
+            // Call onTask asynchronously (same with original getFileTasks).
+            setTimeout(() => {
+                const policyDefaultHandlerStatus = isPolicyDefault ?
+                    chrome.fileManagerPrivate.PolicyDefaultHandlerStatus
+                        .DEFAULT_HANDLER_ASSIGNED_BY_POLICY :
+                    undefined;
+                onTasks({ tasks: taskList, policyDefaultHandlerStatus });
+            }, 0);
+        };
+        const executeTask = (descriptor, entries, callback) => {
+            executedTasks.push({ descriptor, entries, callback });
+        };
+        const setDefaultTask = (descriptor) => {
+            for (const task of taskList) {
+                task.isDefault = descriptorEqual(task.descriptor, descriptor);
+            }
+        };
+        executedTasks = [];
+        contentWindow.chrome.fileManagerPrivate.getFileTasks =
+            getFileTasks;
+        contentWindow.chrome.fileManagerPrivate.executeTask =
+            executeTask;
+        contentWindow.chrome.fileManagerPrivate.setDefaultTask =
+            setDefaultTask;
+        return true;
+    };
+/**
+ * Obtains the list of executed tasks.
+ */
+test.util.sync.getExecutedTasks = (_contentWindow) => {
+    if (!executedTasks) {
+        console.error('Please call overrideTasks() first.');
+        return null;
+    }
+    return executedTasks.map((task) => {
+        return {
+            descriptor: task.descriptor,
+            fileNames: task.entries.map(e => e.name),
+        };
+    });
+};
+/**
+ * Obtains the list of executed tasks.
+ * @param _contentWindow Window to be tested.
+ * @param descriptor the task to *     check.
+ * @param fileNames Name of files that should have been passed to the
+ *     executeTasks().
+ * @return True if the task was executed.
+ */
+test.util.sync.taskWasExecuted =
+    (_contentWindow, descriptor, fileNames) => {
+        if (!executedTasks) {
+            console.error('Please call overrideTasks() first.');
+            return null;
+        }
+        const fileNamesStr = JSON.stringify(fileNames);
+        const task = executedTasks.find((task) => descriptorEqual(task.descriptor, descriptor) &&
+            fileNamesStr === JSON.stringify(task.entries.map(e => e.name)));
+        return task !== undefined;
+    };
+let executedTasks = null;
+/**
+ * Invokes an executed task with |responseArgs|.
+ * @param _contentWindow Window to be tested.
+ * @param descriptor the task to be replied to.
+ * @param responseArgs the arguments to invoke the callback with.
+ */
+test.util.sync.replyExecutedTask =
+    (_contentWindow, descriptor, responseArgs) => {
+        if (!executedTasks) {
+            console.error('Please call overrideTasks() first.');
+            return false;
+        }
+        const found = executedTasks.find((task) => descriptorEqual(task.descriptor, descriptor));
+        if (!found) {
+            const { appId, taskType, actionId } = descriptor;
+            console.error(`No task with id ${appId}|${taskType}|${actionId}`);
+            return false;
+        }
+        found.callback(...responseArgs);
+        return true;
+    };
+/**
+ * Calls the unload handler for the window.
+ * @param contentWindow Window to be tested.
+ */
+test.util.sync.unload = (contentWindow) => {
+    contentWindow.fileManager.onUnloadForTest();
+};
+/**
+ * Returns the path shown in the breadcrumb.
+ *
+ * @param contentWindow Window to be tested.
+ * @return The breadcrumb path.
+ */
+test.util.sync.getBreadcrumbPath = (contentWindow) => {
+    const doc = contentWindow.document;
+    const breadcrumb = doc.querySelector('#location-breadcrumbs xf-breadcrumb');
+    if (!breadcrumb) {
+        return '';
+    }
+    return '/' + breadcrumb.path;
+};
+/**
+ * Obtains the preferences.
+ * @param callback Callback function with results returned by the script.
+ */
+test.util.async.getPreferences = (callback) => {
+    chrome.fileManagerPrivate.getPreferences(callback);
+};
+/**
+ * Stubs out the formatVolume() function in fileManagerPrivate.
+ *
+ * @param contentWindow Window to be affected.
+ */
+test.util.sync.overrideFormat = (contentWindow) => {
+    contentWindow.chrome.fileManagerPrivate.formatVolume =
+        (_volumeId, _filesystem, _volumeLabel) => { };
+    return true;
+};
+/**
+ * Run a contentWindow.requestAnimationFrame() cycle and resolve the
+ * callback when that requestAnimationFrame completes.
+ * @param contentWindow Window to be tested.
+ * @param callback Completion callback.
+ */
+test.util.async.requestAnimationFrame =
+    (contentWindow, callback) => {
+        contentWindow.requestAnimationFrame(() => {
+            callback(true);
+        });
+    };
+/**
+ * Set the window text direction to RTL and wait for the window to redraw.
+ * @param contentWindow Window to be tested.
+ * @param callback Completion callback.
+ */
+test.util.async.renderWindowTextDirectionRTL =
+    (contentWindow, callback) => {
+        contentWindow.document.documentElement.setAttribute('dir', 'rtl');
+        contentWindow.document.body.setAttribute('dir', 'rtl');
+        contentWindow.requestAnimationFrame(() => {
+            callback(true);
+        });
+    };
+/**
+ * Map the appId to a map of all fakes applied in the foreground window e.g.:
+ *  {'files#0': {'chrome.bla.api': FAKE}
+ */
+const foregroundReplacedObjects = {};
+/**
+ * A factory that returns a fake (aka function) that returns a static value.
+ * Used to force an API to return always the same value.
+ */
+const staticFakeFactory = (attrName, staticValue) => {
+    const fake = (...args) => {
+        setTimeout(() => {
+            // Find the first callback.
+            for (const arg of args) {
+                if (typeof arg === 'function') {
+                    console.warn(`staticFake for ${attrName} value: ${staticValue}`);
+                    return arg(staticValue);
+                }
+            }
+            throw new Error(`Couldn't find callback for ${attrName}`);
+        }, 0);
+    };
+    return fake;
+};
+/**
+ * Registry of available fakes, it maps the an string ID to a factory
+ * function which returns the actual fake used to replace an implementation.
+ *
+ */
+const fakes = {
+    'static_fake': staticFakeFactory,
+};
+/**
+ * Class holds the information for applying and restoring fakes.
+ */
+class PrepareFake {
+    /**
+     * @param attrName Name of the attribute to be replaced by the fake
+     *   e.g.: "chrome.app.window.create".
+     * @param fakeId The name of the fake to be used from `fakes_`.
+     * @param context The context where the attribute will be traversed from,
+     *   e.g.: Window object.
+     * @param args Additional args provided from the integration test to the fake,
+     *     e.g.: static return value.
+     */
+    constructor(attrName_, fakeId_, context_, ...args) {
+        this.attrName_ = attrName_;
+        this.fakeId_ = fakeId_;
+        this.context_ = context_;
+        /**
+         * The instance of the fake to be used, ready to be used.
+         */
+        this.fake_ = null;
+        /**
+         * After traversing |context_| the object that holds the attribute to be
+         * replaced by the fake.
+         */
+        this.parentObject_ = null;
+        /**
+         * After traversing |context_| the attribute name in |parentObject_| that
+         * will be replaced by the fake.
+         */
+        this.leafAttrName_ = '';
+        /**
+         * Original object that was replaced by the fake.
+         */
+        this.original_ = null;
+        /**
+         * If this fake object has been constructed and everything initialized.
+         */
+        this.prepared_ = false;
+        /**
+         * Counter to record the number of times the static fake is called.
+         */
+        this.callCounter = 0;
+        /**
+         * List to record the arguments provided to the static fake calls.
+         */
+        this.calledArgs = [];
+        this.args_ = args;
+    }
+    /**
+     * Initializes the fake and traverse |context_| to be ready to replace the
+     * original implementation with the fake.
+     */
+    prepare() {
+        this.buildFake_();
+        this.traverseContext_();
+        this.prepared_ = true;
+    }
+    /**
+     * Replaces the original implementation with the fake.
+     * NOTE: It requires prepare() to have been called.
+     * @param contentWindow Window to be tested.
+     */
+    replace(contentWindow) {
+        const suffix = `for ${this.attrName_} ${this.fakeId_}`;
+        if (!this.prepared_) {
+            throw new Error(`PrepareFake prepare() not called ${suffix}`);
+        }
+        if (!this.parentObject_) {
+            throw new Error(`Missing parentObject_ ${suffix}`);
+        }
+        if (!this.fake_) {
+            throw new Error(`Missing fake_ ${suffix}`);
+        }
+        if (!this.leafAttrName_) {
+            throw new Error(`Missing leafAttrName_ ${suffix}`);
+        }
+        this.saveOriginal_(contentWindow);
+        this.parentObject_[this.leafAttrName_] = (...args) => {
+            this.fake_(...args);
+            this.callCounter++;
+            this.calledArgs.push([...args]);
+        };
+    }
+    /**
+     * Restores the original implementation that had been previously replaced by
+     * the fake.
+     */
+    restore() {
+        if (!this.original_) {
+            return;
+        }
+        this.parentObject_[this.leafAttrName_] = this.original_;
+        this.original_ = null;
+    }
+    /**
+     * Saves the original implementation to be able restore it later.
+     * @param contentWindow Window to be tested.
+     */
+    saveOriginal_(contentWindow) {
+        const windowFakes = foregroundReplacedObjects[contentWindow.appID] || {};
+        foregroundReplacedObjects[contentWindow.appID] = windowFakes;
+        // Only save once, otherwise it can save an object that is already fake.
+        if (!windowFakes[this.attrName_]) {
+            if (!this.parentObject_) {
+                console.error(`Failed to find the fake context: ${this.attrName_}`);
+                return;
+            }
+            const original = this.parentObject_[this.leafAttrName_];
+            this.original_ = original;
+            windowFakes[this.attrName_] = this;
+        }
+        return;
+    }
+    /**
+     * Constructs the fake.
+     */
+    buildFake_() {
+        const factory = fakes[this.fakeId_];
+        if (!factory) {
+            throw new Error(`Failed to find the fake factory for ${this.fakeId_}`);
+        }
+        this.fake_ = factory(this.attrName_, ...this.args_);
+    }
+    /**
+     * Finds the parent and the object to be replaced by fake.
+     */
+    traverseContext_() {
+        let target = this.context_;
+        let parentObj = null;
+        let attr = '';
+        for (const a of this.attrName_.split('.')) {
+            attr = a;
+            parentObj = target;
+            target = target[a];
+            if (target === undefined) {
+                throw new Error(`Couldn't find "${0}" from "${this.attrName_}"`);
+            }
+        }
+        this.parentObject_ = parentObj;
+        this.leafAttrName_ = attr;
+    }
+}
+/**
+ * Replaces implementations in the foreground page with fakes.
+ *
+ * @param contentWindow Window to be tested.
+ * @param fakeData An object mapping the path to the
+ * object to be replaced and the value is the Array with fake id and
+ * additional arguments for the fake constructor, e.g.: fakeData = {
+ *     'chrome.app.window.create' : [
+ *       'static_fake',
+ *       ['some static value', 'other arg'],
+ *     ]
  *   }
  *
- * This code should only be hit in the case of serious programmer error or
- * unexpected input.
- *
- * @param {string=} message A message to show when this is hit.
- * @closurePrimitive {asserts.fail}
+ *  This will replace the API 'chrome.app.window.create' with a static fake,
+ *  providing the additional data to static fake: ['some static value',
+ * 'other value'].
  */
-function assertNotReached(message) {
-  assert(false, message || 'Unreachable code hit');
-}
+test.util.sync.foregroundFake =
+    (contentWindow, fakeData) => {
+        const entries = Object.entries(fakeData);
+        for (const [path, mockValue] of entries) {
+            const fakeId = mockValue[0];
+            const fakeArgs = mockValue[1] || [];
+            const fake = new PrepareFake(path, fakeId, contentWindow, ...fakeArgs);
+            fake.prepare();
+            fake.replace(contentWindow);
+        }
+        return entries.length;
+    };
+/**
+ * Removes all fakes that were applied to the foreground page.
+ * @param contentWindow Window to be tested.
+ */
+test.util.sync.removeAllForegroundFakes = (contentWindow) => {
+    const windowFakes = foregroundReplacedObjects[contentWindow.appID];
+    if (!windowFakes) {
+        console.error(`Failed to find the fakes for window ${contentWindow.appID}`);
+        return 0;
+    }
+    const savedFakes = Object.entries(windowFakes);
+    let removedCount = 0;
+    for (const [_path, fake] of savedFakes) {
+        fake.restore();
+        removedCount++;
+    }
+    return removedCount;
+};
+/**
+ * Obtains the number of times the static fake api is called.
+ * @param contentWindow Window to be tested.
+ * @param fakedApi Path of the method that is faked.
+ * @return Number of times the fake api called.
+ */
+test.util.sync.staticFakeCounter =
+    (contentWindow, fakedApi) => {
+        const windowFakes = foregroundReplacedObjects[contentWindow.appID];
+        if (!windowFakes) {
+            console.error(`Failed to find the fakes for window ${contentWindow.appID}`);
+            return -1;
+        }
+        const fake = windowFakes[fakedApi];
+        return fake?.callCounter ?? -1;
+    };
+/**
+ * Obtains the list of arguments with which the static fake api was called.
+ * @param contentWindow Window to be tested.
+ * @param fakedApi Path of the method that is faked.
+ * @return An array with all calls to this fake, each item
+ *     is an array with all args passed in when the fake was called.
+ */
+test.util.sync.staticFakeCalledArgs =
+    (contentWindow, fakedApi) => {
+        const fake = foregroundReplacedObjects[contentWindow.appID][fakedApi];
+        return fake.calledArgs;
+    };
+/**
+ * Send progress item to Foreground page to display.
+ * @param id Progress item id.
+ * @param type Type of progress item.
+ * @param state State of the progress item.
+ * @param message Message of the progress item.
+ * @param remainingTime The remaining time of the progress in second.
+ * @param progressMax Max value of the progress.
+ * @param progressValue Current value of the progress.
+ * @param count Number of items being processed.
+ */
+test.util.sync.sendProgressItem =
+    (id, type, state, message, remainingTime, progressMax = 1, progressValue = 0, count = 1) => {
+        const item = new ProgressCenterItem();
+        item.id = id;
+        item.type = type;
+        item.state = state;
+        item.message = message;
+        item.remainingTime = remainingTime;
+        item.progressMax = progressMax;
+        item.progressValue = progressValue;
+        item.itemCount = count;
+        window.background.progressCenter.updateItem(item);
+        return true;
+    };
+/**
+ * Remote call API handler. This function handles messages coming from the
+ * test harness to execute known functions and return results. This is a
+ * dummy implementation that is replaced by a real one once the test harness
+ * is fully loaded.
+ */
+test.util.executeTestMessage =
+    (_request, _callback) => {
+        throw new Error('executeTestMessage not implemented');
+    };
+/**
+ * Handles a direct call from the integration test harness. We execute
+ * swaTestMessageListener call directly from the FileManagerBrowserTest.
+ * This method avoids enabling external callers to Files SWA. We forward
+ * the response back to the caller, as a serialized JSON string.
+ */
+test.swaTestMessageListener = (request) => {
+    request.contentWindow = window;
+    return new Promise(resolve => {
+        test.util.executeTestMessage(request, (response) => {
+            response = response === undefined ? '@undefined@' : response;
+            resolve(JSON.stringify(response));
+        });
+    });
+};
+let testUtilsLoaded = null;
+test.swaLoadTestUtils = async () => {
+    const scriptUrl = 'background/js/runtime_loaded_test_util.js';
+    try {
+        if (!testUtilsLoaded) {
+            console.log('Loading ' + scriptUrl);
+            testUtilsLoaded = new ScriptLoader(scriptUrl, { type: 'module' }).load();
+        }
+        await testUtilsLoaded;
+        console.log('Loaded ' + scriptUrl);
+        return true;
+    }
+    catch (error) {
+        testUtilsLoaded = null;
+        return false;
+    }
+};
+test.getSwaAppId = async () => {
+    if (!testUtilsLoaded) {
+        await test.swaLoadTestUtils();
+    }
+    return String(window.appID);
+};
 
 // Copyright 2014 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-/**
- * Namespace for common types.
- */
-const VolumeManagerCommon = {};
-/**
- * Type of a file system.
- * @enum {string}
- * @const
- */
-VolumeManagerCommon.FileSystemType = {
-    UNKNOWN: '',
-    VFAT: 'vfat',
-    EXFAT: 'exfat',
-    NTFS: 'ntfs',
-    HFSPLUS: 'hfsplus',
-    EXT2: 'ext2',
-    EXT3: 'ext3',
-    EXT4: 'ext4',
-    ISO9660: 'iso9660',
-    UDF: 'udf',
-};
-/**
- * Volume name length limits by file system type
- * @enum {number}
- * @const
- */
-VolumeManagerCommon.FileSystemTypeVolumeNameLengthLimit = {
-    'vfat': 11,
-    'exfat': 15,
-    'ntfs': 32,
-};
+/** Paths that can be handled by the dialog opener in native code. */
+var AllowedPaths;
+(function (AllowedPaths) {
+    AllowedPaths["NATIVE_PATH"] = "nativePath";
+    AllowedPaths["ANY_PATH"] = "anyPath";
+    AllowedPaths["ANY_PATH_OR_URL"] = "anyPathOrUrl";
+})(AllowedPaths || (AllowedPaths = {}));
+/** Type of a file system. */
+var FileSystemType;
+(function (FileSystemType) {
+    FileSystemType["UNKNOWN"] = "";
+    FileSystemType["VFAT"] = "vfat";
+    FileSystemType["EXFAT"] = "exfat";
+    FileSystemType["NTFS"] = "ntfs";
+    FileSystemType["HFSPLUS"] = "hfsplus";
+    FileSystemType["EXT2"] = "ext2";
+    FileSystemType["EXT3"] = "ext3";
+    FileSystemType["EXT4"] = "ext4";
+    FileSystemType["ISO9660"] = "iso9660";
+    FileSystemType["UDF"] = "udf";
+    FileSystemType["FUSEBOX"] = "fusebox";
+})(FileSystemType || (FileSystemType = {}));
+/** Volume name length limits by file system type. */
+({
+    [FileSystemType.VFAT]: 11,
+    [FileSystemType.EXFAT]: 15,
+    [FileSystemType.NTFS]: 32,
+});
 /**
  * Type of a navigation root.
  *
- * Navigation root are the top-level entries in the navigation tree, in the left
- * hand side.
+ * Navigation root are the top-level entries in the navigation tree, in the
+ * left hand side.
  *
  * This must be kept synchronised with the VolumeManagerRootType variant in
  * tools/metrics/histograms/metadata/file/histograms.xml.
- *
- * @enum {string}
- * @const
  */
-VolumeManagerCommon.RootType = {
+var RootType;
+(function (RootType) {
     // Root for a downloads directory.
-    DOWNLOADS: 'downloads',
+    RootType["DOWNLOADS"] = "downloads";
     // Root for a mounted archive volume.
-    ARCHIVE: 'archive',
+    RootType["ARCHIVE"] = "archive";
     // Root for a removable volume.
-    REMOVABLE: 'removable',
+    RootType["REMOVABLE"] = "removable";
     // Root for a drive volume.
-    DRIVE: 'drive',
+    RootType["DRIVE"] = "drive";
     // The grand root entry of Shared Drives in Drive volume.
-    SHARED_DRIVES_GRAND_ROOT: 'shared_drives_grand_root',
+    RootType["SHARED_DRIVES_GRAND_ROOT"] = "shared_drives_grand_root";
     // Root directory of a Shared Drive.
-    SHARED_DRIVE: 'team_drive',
+    RootType["SHARED_DRIVE"] = "team_drive";
     // Root for a MTP volume.
-    MTP: 'mtp',
+    RootType["MTP"] = "mtp";
     // Root for a provided volume.
-    PROVIDED: 'provided',
+    RootType["PROVIDED"] = "provided";
     // Fake root for offline available files on the drive.
-    DRIVE_OFFLINE: 'drive_offline',
+    RootType["DRIVE_OFFLINE"] = "drive_offline";
     // Fake root for shared files on the drive.
-    DRIVE_SHARED_WITH_ME: 'drive_shared_with_me',
+    RootType["DRIVE_SHARED_WITH_ME"] = "drive_shared_with_me";
     // Fake root for recent files on the drive.
-    DRIVE_RECENT: 'drive_recent',
+    RootType["DRIVE_RECENT"] = "drive_recent";
     // Root for media views.
-    MEDIA_VIEW: 'media_view',
+    RootType["MEDIA_VIEW"] = "media_view";
     // Root for documents providers.
-    DOCUMENTS_PROVIDER: 'documents_provider',
+    RootType["DOCUMENTS_PROVIDER"] = "documents_provider";
     // Fake root for the mixed "Recent" view.
-    RECENT: 'recent',
+    RootType["RECENT"] = "recent";
     // 'Google Drive' fake parent entry of 'My Drive', 'Shared with me' and
     // 'Offline'.
-    DRIVE_FAKE_ROOT: 'drive_fake_root',
+    RootType["DRIVE_FAKE_ROOT"] = "drive_fake_root";
     // Root for crostini 'Linux files'.
-    CROSTINI: 'crostini',
+    RootType["CROSTINI"] = "crostini";
     // Root for mountable Guest OSs.
-    GUEST_OS: 'guest_os',
+    RootType["GUEST_OS"] = "guest_os";
     // Root for android files.
-    ANDROID_FILES: 'android_files',
+    RootType["ANDROID_FILES"] = "android_files";
     // My Files root, which aggregates DOWNLOADS, ANDROID_FILES and CROSTINI.
-    MY_FILES: 'my_files',
+    RootType["MY_FILES"] = "my_files";
     // The grand root entry of My Computers in Drive volume.
-    COMPUTERS_GRAND_ROOT: 'computers_grand_root',
+    RootType["COMPUTERS_GRAND_ROOT"] = "computers_grand_root";
     // Root directory of a Computer.
-    COMPUTER: 'computer',
+    RootType["COMPUTER"] = "computer";
     // Root directory of an external media folder under computers grand root.
-    EXTERNAL_MEDIA: 'external_media',
+    RootType["EXTERNAL_MEDIA"] = "external_media";
     // Root directory of an SMB file share.
-    SMB: 'smb',
+    RootType["SMB"] = "smb";
     // Trash.
-    TRASH: 'trash',
-};
-Object.freeze(VolumeManagerCommon.RootType);
+    RootType["TRASH"] = "trash";
+})(RootType || (RootType = {}));
 /**
  * Keep the order of this in sync with FileManagerRootType in
  * tools/metrics/histograms/enums.xml.
- * The array indices will be recorded in UMA as enum values. The index for each
- * root type should never be renumbered nor reused in this array.
- *
- * @type {!Array<VolumeManagerCommon.RootType>}
- * @const
+ * The array indices will be recorded in UMA as enum values. The index for
+ * each root type should never be renumbered nor reused in this array.
  */
-VolumeManagerCommon.RootTypesForUMA = [
-    VolumeManagerCommon.RootType.DOWNLOADS,
-    VolumeManagerCommon.RootType.ARCHIVE,
-    VolumeManagerCommon.RootType.REMOVABLE,
-    VolumeManagerCommon.RootType.DRIVE,
-    VolumeManagerCommon.RootType.SHARED_DRIVES_GRAND_ROOT,
-    VolumeManagerCommon.RootType.SHARED_DRIVE,
-    VolumeManagerCommon.RootType.MTP,
-    VolumeManagerCommon.RootType.PROVIDED,
-    'DEPRECATED_DRIVE_OTHER',
-    VolumeManagerCommon.RootType.DRIVE_OFFLINE,
-    VolumeManagerCommon.RootType.DRIVE_SHARED_WITH_ME,
-    VolumeManagerCommon.RootType.DRIVE_RECENT,
-    VolumeManagerCommon.RootType.MEDIA_VIEW,
-    VolumeManagerCommon.RootType.RECENT,
-    VolumeManagerCommon.RootType.DRIVE_FAKE_ROOT,
-    'DEPRECATED_ADD_NEW_SERVICES_MENU',
-    VolumeManagerCommon.RootType.CROSTINI,
-    VolumeManagerCommon.RootType.ANDROID_FILES,
-    VolumeManagerCommon.RootType.MY_FILES,
-    VolumeManagerCommon.RootType.COMPUTERS_GRAND_ROOT,
-    VolumeManagerCommon.RootType.COMPUTER,
-    VolumeManagerCommon.RootType.EXTERNAL_MEDIA,
-    VolumeManagerCommon.RootType.DOCUMENTS_PROVIDER,
-    VolumeManagerCommon.RootType.SMB,
-    'DEPRECATED_RECENT_AUDIO',
-    'DEPRECATED_RECENT_IMAGES',
-    'DEPRECATED_RECENT_VIDEOS',
-    VolumeManagerCommon.RootType.TRASH,
-    VolumeManagerCommon.RootType.GUEST_OS, // 28
+[
+    RootType.DOWNLOADS, // 0
+    RootType.ARCHIVE, // 1
+    RootType.REMOVABLE, // 2
+    RootType.DRIVE, // 3
+    RootType.SHARED_DRIVES_GRAND_ROOT, // 4
+    RootType.SHARED_DRIVE, // 5
+    RootType.MTP, // 6
+    RootType.PROVIDED, // 7
+    'DEPRECATED_DRIVE_OTHER', // 8
+    RootType.DRIVE_OFFLINE, // 9
+    RootType.DRIVE_SHARED_WITH_ME, // 10
+    RootType.DRIVE_RECENT, // 11
+    RootType.MEDIA_VIEW, // 12
+    RootType.RECENT, // 13
+    RootType.DRIVE_FAKE_ROOT, // 14
+    'DEPRECATED_ADD_NEW_SERVICES_MENU', // 15
+    RootType.CROSTINI, // 16
+    RootType.ANDROID_FILES, // 17
+    RootType.MY_FILES, // 18
+    RootType.COMPUTERS_GRAND_ROOT, // 19
+    RootType.COMPUTER, // 20
+    RootType.EXTERNAL_MEDIA, // 21
+    RootType.DOCUMENTS_PROVIDER, // 22
+    RootType.SMB, // 23
+    'DEPRECATED_RECENT_AUDIO', // 24
+    'DEPRECATED_RECENT_IMAGES', // 25
+    'DEPRECATED_RECENT_VIDEOS', // 26
+    RootType.TRASH, // 27
+    RootType.GUEST_OS, // 28
 ];
-/**
- * Error type of VolumeManager.
- * @enum {string}
- * @const
- */
-VolumeManagerCommon.VolumeError = {
+/** Error type of VolumeManager. */
+var VolumeError;
+(function (VolumeError) {
     /* Internal errors */
-    TIMEOUT: 'timeout',
+    VolumeError["TIMEOUT"] = "timeout";
     /* System events */
-    UNKNOWN_ERROR: chrome.fileManagerPrivate.MountError.UNKNOWN_ERROR,
-    INTERNAL_ERROR: chrome.fileManagerPrivate.MountError.INTERNAL_ERROR,
-    INVALID_ARGUMENT: chrome.fileManagerPrivate.MountError.INVALID_ARGUMENT,
-    INVALID_PATH: chrome.fileManagerPrivate.MountError.INVALID_PATH,
-    PATH_ALREADY_MOUNTED: chrome.fileManagerPrivate.MountError.PATH_ALREADY_MOUNTED,
-    PATH_NOT_MOUNTED: chrome.fileManagerPrivate.MountError.PATH_NOT_MOUNTED,
-    DIRECTORY_CREATION_FAILED: chrome.fileManagerPrivate.MountError.DIRECTORY_CREATION_FAILED,
-    INVALID_MOUNT_OPTIONS: chrome.fileManagerPrivate.MountError.INVALID_MOUNT_OPTIONS,
-    INSUFFICIENT_PERMISSIONS: chrome.fileManagerPrivate.MountError.INSUFFICIENT_PERMISSIONS,
-    MOUNT_PROGRAM_NOT_FOUND: chrome.fileManagerPrivate.MountError.MOUNT_PROGRAM_NOT_FOUND,
-    MOUNT_PROGRAM_FAILED: chrome.fileManagerPrivate.MountError.MOUNT_PROGRAM_FAILED,
-    INVALID_DEVICE_PATH: chrome.fileManagerPrivate.MountError.INVALID_DEVICE_PATH,
-    UNKNOWN_FILESYSTEM: chrome.fileManagerPrivate.MountError.UNKNOWN_FILESYSTEM,
-    UNSUPPORTED_FILESYSTEM: chrome.fileManagerPrivate.MountError.UNSUPPORTED_FILESYSTEM,
-    NEED_PASSWORD: chrome.fileManagerPrivate.MountError.NEED_PASSWORD,
-    CANCELLED: chrome.fileManagerPrivate.MountError.CANCELLED,
-    BUSY: chrome.fileManagerPrivate.MountError.BUSY,
-};
-Object.freeze(VolumeManagerCommon.VolumeError);
+    VolumeError["SUCCESS"] = "success";
+    VolumeError["IN_PROGRESS"] = "in_progress";
+    VolumeError["UNKNOWN_ERROR"] = "unknown_error";
+    VolumeError["INTERNAL_ERROR"] = "internal_error";
+    VolumeError["INVALID_ARGUMENT"] = "invalid_argument";
+    VolumeError["INVALID_PATH"] = "invalid_path";
+    VolumeError["PATH_ALREADY_MOUNTED"] = "path_already_mounted";
+    VolumeError["PATH_NOT_MOUNTED"] = "path_not_mounted";
+    VolumeError["DIRECTORY_CREATION_FAILED"] = "directory_creation_failed";
+    VolumeError["INVALID_MOUNT_OPTIONS"] = "invalid_mount_options";
+    VolumeError["INSUFFICIENT_PERMISSIONS"] = "insufficient_permissions";
+    VolumeError["MOUNT_PROGRAM_NOT_FOUND"] = "mount_program_not_found";
+    VolumeError["MOUNT_PROGRAM_FAILED"] = "mount_program_failed";
+    VolumeError["INVALID_DEVICE_PATH"] = "invalid_device_path";
+    VolumeError["UNKNOWN_FILESYSTEM"] = "unknown_filesystem";
+    VolumeError["UNSUPPORTED_FILESYSTEM"] = "unsupported_filesystem";
+    VolumeError["NEED_PASSWORD"] = "need_password";
+    VolumeError["CANCELLED"] = "cancelled";
+    VolumeError["BUSY"] = "busy";
+})(VolumeError || (VolumeError = {}));
+/** The type of each volume. */
+var VolumeType;
+(function (VolumeType) {
+    VolumeType["DRIVE"] = "drive";
+    VolumeType["DOWNLOADS"] = "downloads";
+    VolumeType["REMOVABLE"] = "removable";
+    VolumeType["ARCHIVE"] = "archive";
+    VolumeType["MTP"] = "mtp";
+    VolumeType["PROVIDED"] = "provided";
+    VolumeType["MEDIA_VIEW"] = "media_view";
+    VolumeType["DOCUMENTS_PROVIDER"] = "documents_provider";
+    VolumeType["CROSTINI"] = "crostini";
+    VolumeType["GUEST_OS"] = "guest_os";
+    VolumeType["ANDROID_FILES"] = "android_files";
+    VolumeType["MY_FILES"] = "my_files";
+    VolumeType["SMB"] = "smb";
+    VolumeType["SYSTEM_INTERNAL"] = "system_internal";
+    VolumeType["TRASH"] = "trash";
+})(VolumeType || (VolumeType = {}));
+/** Source of each volume's data. */
+var Source;
+(function (Source) {
+    Source["FILE"] = "file";
+    Source["DEVICE"] = "device";
+    Source["NETWORK"] = "network";
+    Source["SYSTEM"] = "system";
+})(Source || (Source = {}));
 /**
- * The type of each volume.
- * @enum {string}
- * @const
- */
-VolumeManagerCommon.VolumeType = {
-    DRIVE: 'drive',
-    DOWNLOADS: 'downloads',
-    REMOVABLE: 'removable',
-    ARCHIVE: 'archive',
-    MTP: 'mtp',
-    PROVIDED: 'provided',
-    MEDIA_VIEW: 'media_view',
-    DOCUMENTS_PROVIDER: 'documents_provider',
-    CROSTINI: 'crostini',
-    GUEST_OS: 'guest_os',
-    ANDROID_FILES: 'android_files',
-    MY_FILES: 'my_files',
-    SMB: 'smb',
-    SYSTEM_INTERNAL: 'system_internal',
-    TRASH: 'trash',
-};
-/**
- * Source of each volume's data.
- * @enum {string}
- * @const
- */
-VolumeManagerCommon.Source = {
-    FILE: 'file',
-    DEVICE: 'device',
-    NETWORK: 'network',
-    SYSTEM: 'system',
-};
-Object.freeze(VolumeManagerCommon.VolumeType);
-/**
- * Obtains volume type from root type.
- * @param {VolumeManagerCommon.RootType} rootType RootType
-// @ts-ignore: error TS2366: Function lacks ending return statement and return
-type does not include 'undefined'.
- * @return {VolumeManagerCommon.VolumeType}
- */
-VolumeManagerCommon.getVolumeTypeFromRootType = rootType => {
-    switch (rootType) {
-        case VolumeManagerCommon.RootType.DOWNLOADS:
-            return VolumeManagerCommon.VolumeType.DOWNLOADS;
-        case VolumeManagerCommon.RootType.ARCHIVE:
-            return VolumeManagerCommon.VolumeType.ARCHIVE;
-        case VolumeManagerCommon.RootType.REMOVABLE:
-            return VolumeManagerCommon.VolumeType.REMOVABLE;
-        case VolumeManagerCommon.RootType.DRIVE:
-        case VolumeManagerCommon.RootType.SHARED_DRIVES_GRAND_ROOT:
-        case VolumeManagerCommon.RootType.SHARED_DRIVE:
-        case VolumeManagerCommon.RootType.DRIVE_OFFLINE:
-        case VolumeManagerCommon.RootType.DRIVE_SHARED_WITH_ME:
-        case VolumeManagerCommon.RootType.DRIVE_RECENT:
-        case VolumeManagerCommon.RootType.COMPUTERS_GRAND_ROOT:
-        case VolumeManagerCommon.RootType.COMPUTER:
-        case VolumeManagerCommon.RootType.DRIVE_FAKE_ROOT:
-        case VolumeManagerCommon.RootType.EXTERNAL_MEDIA:
-            return VolumeManagerCommon.VolumeType.DRIVE;
-        case VolumeManagerCommon.RootType.MTP:
-            return VolumeManagerCommon.VolumeType.MTP;
-        case VolumeManagerCommon.RootType.PROVIDED:
-            return VolumeManagerCommon.VolumeType.PROVIDED;
-        case VolumeManagerCommon.RootType.MEDIA_VIEW:
-            return VolumeManagerCommon.VolumeType.MEDIA_VIEW;
-        case VolumeManagerCommon.RootType.DOCUMENTS_PROVIDER:
-            return VolumeManagerCommon.VolumeType.DOCUMENTS_PROVIDER;
-        case VolumeManagerCommon.RootType.CROSTINI:
-            return VolumeManagerCommon.VolumeType.CROSTINI;
-        case VolumeManagerCommon.RootType.GUEST_OS:
-            return VolumeManagerCommon.VolumeType.GUEST_OS;
-        case VolumeManagerCommon.RootType.ANDROID_FILES:
-            return VolumeManagerCommon.VolumeType.ANDROID_FILES;
-        case VolumeManagerCommon.RootType.MY_FILES:
-            return VolumeManagerCommon.VolumeType.MY_FILES;
-        case VolumeManagerCommon.RootType.SMB:
-            return VolumeManagerCommon.VolumeType.SMB;
-        case VolumeManagerCommon.RootType.TRASH:
-            return VolumeManagerCommon.VolumeType.TRASH;
-    }
-    assertNotReached('Unknown root type: ' + rootType);
-    return VolumeManagerCommon.VolumeType.DOWNLOADS;
-};
-/**
- * Obtains root type from volume type.
- * @param {VolumeManagerCommon.VolumeType} volumeType .
-// @ts-ignore: error TS2366: Function lacks ending return statement and return
-type does not include 'undefined'.
- * @return {VolumeManagerCommon.RootType}
- */
-VolumeManagerCommon.getRootTypeFromVolumeType = volumeType => {
-    switch (volumeType) {
-        case VolumeManagerCommon.VolumeType.ANDROID_FILES:
-            return VolumeManagerCommon.RootType.ANDROID_FILES;
-        case VolumeManagerCommon.VolumeType.ARCHIVE:
-            return VolumeManagerCommon.RootType.ARCHIVE;
-        case VolumeManagerCommon.VolumeType.CROSTINI:
-            return VolumeManagerCommon.RootType.CROSTINI;
-        case VolumeManagerCommon.VolumeType.GUEST_OS:
-            return VolumeManagerCommon.RootType.GUEST_OS;
-        case VolumeManagerCommon.VolumeType.DOWNLOADS:
-            return VolumeManagerCommon.RootType.DOWNLOADS;
-        case VolumeManagerCommon.VolumeType.DRIVE:
-            return VolumeManagerCommon.RootType.DRIVE;
-        case VolumeManagerCommon.VolumeType.MEDIA_VIEW:
-            return VolumeManagerCommon.RootType.MEDIA_VIEW;
-        case VolumeManagerCommon.VolumeType.DOCUMENTS_PROVIDER:
-            return VolumeManagerCommon.RootType.DOCUMENTS_PROVIDER;
-        case VolumeManagerCommon.VolumeType.MTP:
-            return VolumeManagerCommon.RootType.MTP;
-        case VolumeManagerCommon.VolumeType.MY_FILES:
-            return VolumeManagerCommon.RootType.MY_FILES;
-        case VolumeManagerCommon.VolumeType.PROVIDED:
-            return VolumeManagerCommon.RootType.PROVIDED;
-        case VolumeManagerCommon.VolumeType.REMOVABLE:
-            return VolumeManagerCommon.RootType.REMOVABLE;
-        case VolumeManagerCommon.VolumeType.SMB:
-            return VolumeManagerCommon.RootType.SMB;
-        case VolumeManagerCommon.VolumeType.TRASH:
-            return VolumeManagerCommon.RootType.TRASH;
-    }
-    assertNotReached('Unknown volume type: ' + volumeType);
-    return VolumeManagerCommon.VolumeType.DOWNLOADS;
-};
-/**
- * Returns true if the given |volumeType| is expected to provide third party
+ * @returns whether the given `volumeType` is expected to provide third party
  * icons in the iconSet property of the volume.
- * @param {VolumeManagerCommon.VolumeType} volumeType
- * @return {boolean}
  */
-VolumeManagerCommon.shouldProvideIcons = volumeType => {
+function shouldProvideIcons(volumeType) {
     switch (volumeType) {
-        case VolumeManagerCommon.VolumeType.ANDROID_FILES:
+        case VolumeType.ANDROID_FILES:
+        case VolumeType.DOCUMENTS_PROVIDER:
+        case VolumeType.PROVIDED:
             return true;
-        case VolumeManagerCommon.VolumeType.DOCUMENTS_PROVIDER:
-            return true;
-        case VolumeManagerCommon.VolumeType.PROVIDED:
-            return true;
-    }
-    if (!volumeType) {
-        assertNotReached('Invalid volume type: ' + volumeType);
     }
     return false;
-};
+}
 /**
  * List of media view root types.
- *
  * Keep this in sync with constants in arc_media_view_util.cc.
- *
- * @enum {string}
- * @const
  */
-VolumeManagerCommon.MediaViewRootType = {
-    IMAGES: 'images_root',
-    VIDEOS: 'videos_root',
-    AUDIO: 'audio_root',
-    DOCUMENTS: 'documents_root',
-};
-Object.freeze(VolumeManagerCommon.MediaViewRootType);
-/**
- * Obtains volume type from root type.
- * @param {string} volumeId Volume ID.
- * @return {VolumeManagerCommon.MediaViewRootType}
- */
-VolumeManagerCommon.getMediaViewRootTypeFromVolumeId = volumeId => {
-    return /** @type {VolumeManagerCommon.MediaViewRootType} */ (volumeId.split(':', 2)[1]);
-};
-/**
- * An event name trigerred when a user tries to mount the volume which is
- * already mounted. The event object must have a volumeId property.
- * @const @type {string}
- */
-VolumeManagerCommon.VOLUME_ALREADY_MOUNTED = 'volume_already_mounted';
-VolumeManagerCommon.SHARED_DRIVES_DIRECTORY_NAME = 'team_drives';
-VolumeManagerCommon.SHARED_DRIVES_DIRECTORY_PATH =
-    '/' + VolumeManagerCommon.SHARED_DRIVES_DIRECTORY_NAME;
+var MediaViewRootType;
+(function (MediaViewRootType) {
+    MediaViewRootType["IMAGES"] = "images_root";
+    MediaViewRootType["VIDEOS"] = "videos_root";
+    MediaViewRootType["AUDIO"] = "audio_root";
+    MediaViewRootType["DOCUMENTS"] = "documents_root";
+})(MediaViewRootType || (MediaViewRootType = {}));
+/** Gets volume type from root type. */
+function getMediaViewRootTypeFromVolumeId(volumeId) {
+    return volumeId.split(':', 2)[1];
+}
+const SHARED_DRIVES_DIRECTORY_NAME = 'team_drives';
+const SHARED_DRIVES_DIRECTORY_PATH = '/' + SHARED_DRIVES_DIRECTORY_NAME;
 /**
  * This is the top level directory name for Computers in drive that are using
  * the backup and sync feature.
- * @const @type {string}
  */
-VolumeManagerCommon.COMPUTERS_DIRECTORY_NAME = 'Computers';
-VolumeManagerCommon.COMPUTERS_DIRECTORY_PATH =
-    '/' + VolumeManagerCommon.COMPUTERS_DIRECTORY_NAME;
+const COMPUTERS_DIRECTORY_NAME = 'Computers';
+const COMPUTERS_DIRECTORY_PATH = '/' + COMPUTERS_DIRECTORY_NAME;
+
+// Copyright 2020 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
 /**
- * @const
+ * @fileoverview Interfaces for the Files app Entry Types.
  */
-VolumeManagerCommon.ARCHIVE_OPENED_EVENT_TYPE = 'archive_opened';
 /**
- * ID of the Google Photos DocumentsProvider volume.
- * @const @type {string}
+ * FilesAppEntry represents a single Entry (file, folder or root) in the Files
+ * app. Previously, we used the Entry type directly, but this limits the code to
+ * only work with native Entry type which can't be instantiated in JS.
+ * For now, Entry and FilesAppEntry should be used interchangeably.
+ * See also FilesAppDirEntry for a folder-like interface.
+ *
+ * TODO(lucmult): Replace uses of Entry with FilesAppEntry implementations.
  */
-VolumeManagerCommon.PHOTOS_DOCUMENTS_PROVIDER_VOLUME_ID =
-    'documents_provider:com.google.android.apps.photos.photoprovider/com.google.android.apps.photos';
-/**
- * ID of the MediaDocumentsProvider. All the files returned by ARC source in
- * Recents have this ID prefix in their filesystem.
- * @const @type {string}
- */
-VolumeManagerCommon.MEDIA_DOCUMENTS_PROVIDER_ID =
-    'com.android.providers.media.documents';
-/**
- * Creates an CustomEvent object for changing current directory when an archive
- * file is newly mounted, or when opened a one already mounted.
- * @param {!DirectoryEntry} mountPoint The root directory of the mounted
- *     volume.
- * @return {!CustomEvent<!DirectoryEntry>}
- */
-VolumeManagerCommon.createArchiveOpenedEvent = mountPoint => {
-    // @ts-ignore: error TS2322: Type 'CustomEvent<{ mountPoint:
-    // FileSystemDirectoryEntry; }>' is not assignable to type
-    // 'CustomEvent<FileSystemDirectoryEntry>'.
-    return new CustomEvent(VolumeManagerCommon.ARCHIVE_OPENED_EVENT_TYPE, { detail: { mountPoint: mountPoint } });
-};
-/**
- * Checks if a file entry is a Recent entry coming from ARC source.
- * @param {?Entry} entry
- * @return {boolean}
- */
-VolumeManagerCommon.isRecentArcEntry = entry => {
-    if (!entry) {
+class FilesAppEntry {
+    constructor(rootType = null) {
+        this.rootType = rootType;
+    }
+    /**
+     * @returns the class name of this object. It's a workaround for the fact that
+     * an instance created in the foreground page and sent to the background page
+     * can't be checked with `instanceof`.
+     */
+    get typeName() {
+        return 'FilesAppEntry';
+    }
+    /**
+     * This attribute is defined on Entry.
+     * @return true if this entry represents a Directory-like entry, as
+     * in have sub-entries and implements {createReader} method.
+     */
+    get isDirectory() {
         return false;
     }
-    return entry.filesystem.name.startsWith(VolumeManagerCommon.MEDIA_DOCUMENTS_PROVIDER_ID);
-};
+    /**
+     * This attribute is defined on Entry.
+     * @return true if this entry represents a File-like entry.
+     * Implementations of FilesAppEntry are expected to have this as true.
+     * Whereas implementations of FilesAppDirEntry are expected to have this as
+     * false.
+     */
+    get isFile() {
+        return true;
+    }
+    get filesystem() {
+        return null;
+    }
+    /**
+     * This attribute is defined on Entry.
+     * @return absolute path from the file system's root to the entry. It can also
+     * be thought of as a path which is relative to the root directory, prepended
+     * with a "/" character.
+     */
+    get fullPath() {
+        return '';
+    }
+    /**
+     * This attribute is defined on Entry.
+     * @return the name of the entry (the final part of the path, after the last.
+     */
+    get name() {
+        return '';
+    }
+    /** This method is defined on Entry. */
+    getParent(_success, error) {
+        if (error) {
+            setTimeout(error, 0, new Error('Not implemented'));
+        }
+    }
+    /** Gets metadata, such as "modificationTime" and "contentMimeType". */
+    getMetadata(_success, error) {
+        if (error) {
+            setTimeout(error, 0, new Error('Not implemented'));
+        }
+    }
+    /**
+     * Returns true if this entry object has a native representation such as Entry
+     * or DirectoryEntry, this means it can interact with VolumeManager.
+     */
+    get isNativeType() {
+        return false;
+    }
+    /**
+     * Returns a FileSystemEntry if this instance has one, returns null if it
+     * doesn't have or the entry hasn't been resolved yet. It's used to unwrap a
+     * FilesAppEntry to be able to send to FileSystem API or fileManagerPrivate.
+     */
+    getNativeEntry() {
+        return null;
+    }
+    copyTo(_newParent, _newName, _success, error) {
+        if (error) {
+            setTimeout(error, 0, new Error('Not implemented'));
+        }
+    }
+    moveTo(_newParent, _newName, _success, error) {
+        if (error) {
+            setTimeout(error, 0, new Error('Not implemented'));
+        }
+    }
+    remove(_success, error) {
+        if (error) {
+            setTimeout(error, 0, new Error('Not implemented'));
+        }
+    }
+}
+/**
+ * Interface with minimal API shared among different types of FilesAppDirEntry
+ * and native DirectoryEntry. UI components should be able to display any
+ * implementation of FilesAppEntry.
+ *
+ * FilesAppDirEntry represents a DirectoryEntry-like (folder or root) in the
+ * Files app. It's a specialization of FilesAppEntry extending the behavior for
+ * folder, which is basically the method createReader.
+ * As in FilesAppEntry, FilesAppDirEntry should be interchangeable with Entry
+ * and DirectoryEntry.
+ */
+class FilesAppDirEntry extends FilesAppEntry {
+    get typeName() {
+        return 'FilesAppDirEntry';
+    }
+    get isDirectory() {
+        return true;
+    }
+    get isFile() {
+        return false;
+    }
+    /**
+     * @return Returns a reader compatible with DirectoryEntry.createReader (from
+     * Web Standards) that reads the children of this instance.
+     *
+     * This method is defined on DirectoryEntry.
+     */
+    createReader() {
+        return {};
+    }
+    getFile(_path, _options, _success, error) {
+        if (error) {
+            setTimeout(error, 0, new Error('Not implemented'));
+        }
+    }
+    getDirectory(_path, _options, _success, error) {
+        if (error) {
+            setTimeout(error, 0, new Error('Not implemented'));
+        }
+    }
+    removeRecursively(_success, error) {
+        if (error) {
+            setTimeout(error, 0, new Error('Not implemented'));
+        }
+    }
+}
 
 // Copyright 2022 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
+/**
+ * List of dialog types.
+ *
+ * Keep this in sync with FileManagerDialog::GetDialogTypeAsString, except
+ * FULL_PAGE which is specific to this code.
+ * @enum {string}
+ */
+const DialogType = {
+    SELECT_FOLDER: 'folder',
+    SELECT_UPLOAD_FOLDER: 'upload-folder',
+    SELECT_SAVEAS_FILE: 'saveas-file',
+    SELECT_OPEN_FILE: 'open-file',
+    SELECT_OPEN_MULTI_FILE: 'open-multi-file',
+    FULL_PAGE: 'full-page',
+};
 /**
  * @enum {string}
  */
@@ -850,41 +1490,16 @@ const NavigationType = {
 // Copyright 2017 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-/**
- * Namespace for common constants used in Files app.
- * @namespace
- */
-const constants = {};
-/**
- * @const @type {!Array<string>}
- */
-constants.ACTIONS_MODEL_METADATA_PREFETCH_PROPERTY_NAMES = [
+const ACTIONS_MODEL_METADATA_PREFETCH_PROPERTY_NAMES = [
     'canPin',
     'hosted',
     'pinned',
 ];
 /**
- * The list of executable file extensions.
- *
- * @const
- * @type {Array<string>}
- */
-// @ts-ignore: error TS4104: The type 'readonly string[]' is 'readonly' and
-// cannot be assigned to the mutable type 'string[]'.
-constants.EXECUTABLE_EXTENSIONS = Object.freeze([
-    '.exe',
-    '.lnk',
-    '.deb',
-    '.dmg',
-    '.jar',
-    '.msi',
-]);
-/**
  * These metadata is expected to be cached to accelerate computeAdditional.
  * See: crbug.com/458915.
- * @const @type {!Array<string>}
  */
-constants.FILE_SELECTION_METADATA_PREFETCH_PROPERTY_NAMES = [
+const FILE_SELECTION_METADATA_PREFETCH_PROPERTY_NAMES = [
     'availableOffline',
     'contentMimeType',
     'hosted',
@@ -896,9 +1511,8 @@ constants.FILE_SELECTION_METADATA_PREFETCH_PROPERTY_NAMES = [
  * TODO(sashab): Store capabilities as a set of flags to save memory. See
  * https://crbug.com/849997
  *
- * @const @type {!Array<string>}
  */
-constants.LIST_CONTAINER_METADATA_PREFETCH_PROPERTY_NAMES = [
+const LIST_CONTAINER_METADATA_PREFETCH_PROPERTY_NAMES = [
     'availableOffline',
     'contentMimeType',
     'customIconUrl',
@@ -921,57 +1535,16 @@ constants.LIST_CONTAINER_METADATA_PREFETCH_PROPERTY_NAMES = [
 /**
  * Metadata properties used to inform the user about DLP (Data Leak Prevention)
  * Files restrictions. These metadata is expected to be cached.
- *
- * @const @type {!Array<string>}
  */
-constants.DLP_METADATA_PREFETCH_PROPERTY_NAMES = [
+const DLP_METADATA_PREFETCH_PROPERTY_NAMES = [
     'isDlpRestricted',
     'sourceUrl',
     'isRestrictedForDestination',
 ];
 /**
- * Name of the default crostini VM: crostini::kCrostiniDefaultVmName
- * @const
- */
-constants.DEFAULT_CROSTINI_VM = 'termina';
-/**
- * Name of the Plugin VM: plugin_vm::kPluginVmName.
- * @const
- */
-constants.PLUGIN_VM = 'PvmDefault';
-/**
- * Name of the default bruschetta VM: bruschetta::kBruschettaVmName
- * @const
- */
-constants.DEFAULT_BRUSCHETTA_VM = 'bru';
-/**
- * DOMError type for crostini connection failure.
- * @const @type {string}
- */
-constants.CROSTINI_CONNECT_ERR = 'CrostiniConnectErr';
-/**
- * ID of the fake fileSystemProvider custom action containing OneDrive document
- * URLs.
- * @const @type {string}
- */
-constants.FSP_ACTION_HIDDEN_ONEDRIVE_URL = 'HIDDEN_ONEDRIVE_URL';
-/**
- * ID of the fake fileSystemProvider custom action containing OneDrive document
- * User Emails.
- * @const @type {string}
- */
-constants.FSP_ACTION_HIDDEN_ONEDRIVE_USER_EMAIL = 'HIDDEN_ONEDRIVE_USER_EMAIL';
-/**
- * ID of the fake fileSystemProvider custom action containing OneDrive document
- * Reauthentication Required state.
- * @const @type {string}
- */
-constants.FSP_ACTION_HIDDEN_ONEDRIVE_REAUTHENTICATION_REQUIRED =
-    'HIDDEN_ONEDRIVE_REAUTHENTICATION_REQUIRED';
-/**
  * All icon types.
  */
-constants.ICON_TYPES = {
+const ICON_TYPES = {
     ANDROID_FILES: 'android_files',
     ARCHIVE: 'archive',
     AUDIO: 'audio',
@@ -1047,10 +1620,8 @@ constants.ICON_TYPES = {
 };
 /**
  * Extension ID for OneDrive FSP, also used as ProviderId.
- * @const
- * @type {string}
  */
-constants.ODFS_EXTENSION_ID = 'gnnndjlaomemikopnjhhnoombakkkkdg';
+const ODFS_EXTENSION_ID = 'gnnndjlaomemikopnjhhnoombakkkkdg';
 
 // Copyright 2022 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
@@ -1066,11 +1637,11 @@ function vmTypeToIconName(vmType) {
     }
     switch (vmType) {
         case chrome.fileManagerPrivate.VmType.BRUSCHETTA:
-            return constants.ICON_TYPES.BRUSCHETTA;
+            return ICON_TYPES.BRUSCHETTA;
         case chrome.fileManagerPrivate.VmType.ARCVM:
-            return constants.ICON_TYPES.ANDROID_FILES;
+            return ICON_TYPES.ANDROID_FILES;
         case chrome.fileManagerPrivate.VmType.TERMINA:
-            return constants.ICON_TYPES.CROSTINI;
+            return ICON_TYPES.CROSTINI;
         default:
             console.error('Unable to determine icon for vmType: ' + vmType);
             return '';
@@ -1089,6 +1660,7 @@ function vmTypeToIconName(vmType) {
  * (aka Entry) and FileSystemDirectoryEntry (aka DirectoryEntry), providing an
  * unified API for Files app UI components. UI components should be able to
  * display any implementation of FilesAppEntry.
+ *
  * The main intention of those types is to be able to provide alternative
  * implementations and from other sources for "entries", as well as be able to
  * extend the native "entry" types.
@@ -1104,24 +1676,23 @@ function vmTypeToIconName(vmType) {
  * https://developer.mozilla.org/en-US/docs/Web/API/FileSystemDirectoryReader
  * It can be used by DirectoryEntry-like such as EntryList to return its
  * entries.
- * @extends {DirectoryReader}
  */
 class StaticReader {
     /**
-     * @param {!Array<!Entry|!FilesAppEntry>} entries: Array of Entry-like
-     * instances that will be returned/read by this reader.
+     * @param entries_ Array of Entry-like instances that will be returned/read by
+     * this reader.
      */
-    constructor(entries) {
-        this.entries_ = entries;
+    constructor(entries_) {
+        this.entries_ = entries_;
     }
     /**
      * Reads array of entries via |success| callback.
      *
-     * @param {function(!Array<!Entry>):void} success: A callback that
-     *     will be called multiple times with the entries, last call will be
-     *     called with an empty array indicating that no more entries available.
-     * @param {function(!FileError)=} _error: A callback that's never
-     *     called, it's here to match the signature from the Web Standards.
+     * @param success A callback that will be called multiple times with the
+     * entries, last call will be called with an empty array indicating that no
+     * more entries available.
+     * @param _error A callback that's never called, it's here to match the
+     * signature from the Web Standards.
      */
     readEntries(success, _error) {
         const entries = this.entries_;
@@ -1129,38 +1700,29 @@ class StaticReader {
         // files to return, so we clear the entries_ attribute for next call.
         this.entries_ = [];
         // Triggers callback asynchronously.
-        setTimeout(success, 0, entries);
+        setTimeout(() => success(entries), 0);
     }
 }
 /**
  * A reader compatible with DirectoryEntry.createReader (from Web Standards),
  * It chains entries from one reader to another, creating a combined set of
  * entries from all readers.
- * @extends {DirectoryReader}
  */
 class CombinedReaders {
     /**
-     * @param {!Array<!DirectoryReader>} readers Array of all readers that will
-     * have their entries combined.
+     * @param readers_ Array of all readers that will have their entries combined.
      */
-    constructor(readers) {
-        /**
-         * @private @type {!Array<!DirectoryReader>} Reversed readers so the
-         *     readEntries can just use pop() to get the next
-         */
-        this.readers_ = readers.reverse();
-        /** @private @type {!DirectoryReader} */
-        // @ts-ignore: error TS2322: Type 'DirectoryReader | undefined' is not
-        // assignable to type 'DirectoryReader'.
-        this.currentReader_ = readers.pop();
+    constructor(readers_) {
+        this.readers_ = readers_;
+        // Reverse readers_ so the readEntries can just use pop() to get the next.
+        this.readers_.reverse();
+        this.currentReader_ = this.readers_.pop();
     }
     /**
-     * @param {function(!Array<!Entry>):void} success returning entries
-     *     of all readers, it's called with empty Array when there is no more
-     *     entries to return.
-     * @param {function(!FileError)=} error called when error happens when reading
-     *    from readers.
-     * for this implementation.
+     * @param success returning entries of all readers, it's called with empty
+     * Array when there is no more entries to return.
+     * @param error called when error happens when reading from readers for this
+     * implementation.
      */
     readEntries(success, error) {
         if (!this.currentReader_) {
@@ -1181,14 +1743,9 @@ class CombinedReaders {
                     return;
                 }
                 // Move to next reader and start consuming it.
-                // @ts-ignore: error TS2322: Type 'DirectoryReader | undefined' is not
-                // assignable to type 'DirectoryReader'.
                 this.currentReader_ = this.readers_.pop();
                 this.readEntries(success, error);
             }
-            // @ts-ignore: error TS2345: Argument of type '((arg0: FileError) => any)
-            // | undefined' is not assignable to parameter of type 'ErrorCallback |
-            // undefined'.
         }, error);
     }
 }
@@ -1196,102 +1753,73 @@ class CombinedReaders {
  * EntryList, a DirectoryEntry-like object that contains entries. Initially used
  * to implement "My Files" containing VolumeEntry for "Downloads", "Linux
  * Files" and "Play Files".
- *
- * @implements FilesAppDirEntry
  */
-class EntryList {
+class EntryList extends FilesAppDirEntry {
     /**
-     * @param {string} label: Label to be used when displaying to user, it should
+     * @param label: Label to be used when displaying to user, it should
      *    already translated.
-     * @param {VolumeManagerCommon.RootType} rootType root type.
-     * @param {string} devicePath Device path
+     * @param rootType root type.
+     * @param devicePath Path belonging to the external media device. Partitions
+     * on the same external drive have the same device path.
      */
     constructor(label, rootType, devicePath = '') {
-        /**
-         * @private @type {string} label: Label to be used when displaying to user,
-         *     it
-         *      should be already translated.
-         */
-        this.label_ = label;
-        /** @private @type {VolumeManagerCommon.RootType} rootType root type. */
-        this.rootType_ = rootType;
-        /**
-         * @private @type {string} devicePath Path belonging to the external media
-         * device. Partitions on the same external drive have the same device path.
-         */
-        this.devicePath_ = devicePath;
-        /**
-         * @private @type {!Array<!Entry|!FilesAppEntry>} children entries of
-         * this EntryList instance.
-         */
+        super(rootType);
+        this.label = label;
+        this.devicePath = devicePath;
+        /** Children entries of this EntryList instance. */
         this.children_ = [];
-        this.isDirectory = true;
-        this.isFile = false;
-        this.type_name = 'EntryList';
-        this.fullPath = '/';
         /**
-         * @type {?FileSystem}
-         */
-        this.filesystem = null;
-        /**
-         * @public @type {boolean} EntryList can be a placeholder of a real volume
-         * (e.g. MyFiles or DriveFakeRootEntryList), it can be disabled if the
-         * corresponding volume type is disabled.
+         * EntryList can be a placeholder of a real volume (e.g. MyFiles or
+         * DriveFakeRootEntryList). It can be disabled if the corresponding volume
+         * type is disabled.
          */
         this.disabled = false;
     }
+    get typeName() {
+        return 'EntryList';
+    }
+    get isDirectory() {
+        return true;
+    }
+    get isFile() {
+        return false;
+    }
+    get fullPath() {
+        return '/';
+    }
     /**
-     * @return {!Array<!Entry|!FilesAppEntry>} List of entries that are shown as
+     * @return List of entries that are shown as
      *     children of this Volume in the UI, but are not actually entries of the
      *     Volume.  E.g. 'Play files' is shown as a child of 'My files'.
      */
-    getUIChildren() {
+    getUiChildren() {
         return this.children_;
     }
-    get label() {
-        return this.label_;
-    }
-    get rootType() {
-        return this.rootType_;
-    }
     get name() {
-        return this.label_;
-    }
-    get devicePath() {
-        return this.devicePath_;
+        return this.label;
     }
     get isNativeType() {
         return false;
     }
-    /**
-     * @param {function({modificationTime: Date, size: number}): void} success
-     * @param {function(FileError)=} _error
-     */
     getMetadata(success, _error) {
         // Defaults modificationTime to current time just to have a valid value.
-        setTimeout(() => success({ modificationTime: new Date(), size: 0 }));
+        setTimeout(() => success({ modificationTime: new Date(), size: 0 }), 0);
     }
-    /**
-     * @return {string} used to compare entries.
-     */
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     toURL() {
-        // There may be multiple entry lists. Append the device path to return
-        // a unique identifiable URL for the entry list.
-        if (this.devicePath_) {
-            return 'entry-list://' + this.rootType + '/' + this.devicePath_;
+        let url = `entry-list://${this.rootType}`;
+        if (this.devicePath) {
+            url += `/${this.devicePath}`;
         }
-        return 'entry-list://' + this.rootType;
+        return url;
     }
-    /**
-     * @param {(function((DirectoryEntry|FilesAppDirEntry)):void)=} success
-     * @param {function(Error)=} _error callback.
-     */
     getParent(success, _error) {
-        const self = /** @type {!FilesAppDirEntry} */ (this);
-        setTimeout(() => success && success(self), 0, this);
+        if (success) {
+            setTimeout(() => success(this), 0);
+        }
     }
     /**
-     * @param {!Entry|!FilesAppEntry} entry that should be added as
+     * @param entry that should be added as
      * child of this EntryList.
      * This method is specific to EntryList instance.
      */
@@ -1299,13 +1827,13 @@ class EntryList {
         this.children_.push(entry);
         // Only VolumeEntry can have prefix set because it sets on VolumeInfo,
         // which is then used on LocationInfo/PathComponent.
-        if ( /** @type{FilesAppEntry} */(entry).type_name == 'VolumeEntry') {
-            const volumeEntry = /** @type {VolumeEntry} */ (entry);
+        const volumeEntry = entry;
+        if (volumeEntry.typeName == 'VolumeEntry') {
             volumeEntry.setPrefix(this);
         }
     }
     /**
-     * @return {!DirectoryReader} Returns a reader compatible with
+     * @return Returns a reader compatible with
      * DirectoryEntry.createReader (from Web Standards) that reads the children of
      * this EntryList instance.
      * This method is defined on DirectoryEntry.
@@ -1314,30 +1842,27 @@ class EntryList {
         return new StaticReader(this.children_);
     }
     /**
-     * @param {!import('../../externs/volume_info.js').VolumeInfo} volumeInfo
-     *     that's desired to be removed.
      * This method is specific to VolumeEntry/EntryList instance.
      * Note: we compare the volumeId instead of the whole volumeInfo reference
      * because the same volume could be mounted multiple times and every time a
      * new volumeInfo is created.
-     * @return {number} index of entry on this EntryList or -1 if not found.
+     * @return index of entry on this EntryList or -1 if not found.
      */
     findIndexByVolumeInfo(volumeInfo) {
-        return this.children_.findIndex(childEntry => 
-        /** @type {VolumeEntry} */ (childEntry).volumeInfo ?
-            /** @type {VolumeEntry} */ (childEntry).volumeInfo.volumeId ===
+        return this.children_.findIndex(childEntry => childEntry.volumeInfo ?
+            childEntry.volumeInfo.volumeId ===
                 volumeInfo.volumeId :
             false);
     }
     /**
      * Removes the first volume with the given type.
-     * @param {!VolumeManagerCommon.VolumeType} volumeType desired type.
+     * @param volumeType desired type.
      * This method is specific to VolumeEntry/EntryList instance.
-     * @return {boolean} if entry was removed.
+     * @return if entry was removed.
      */
     removeByVolumeType(volumeType) {
         const childIndex = this.children_.findIndex(childEntry => {
-            const volumeInfo = /** @type {VolumeEntry} */ (childEntry).volumeInfo;
+            const volumeInfo = childEntry.volumeInfo;
             return volumeInfo && volumeInfo.volumeType === volumeType;
         });
         if (childIndex !== -1) {
@@ -1348,28 +1873,28 @@ class EntryList {
     }
     /**
      * Removes all entries that match the rootType.
-     * @param {!VolumeManagerCommon.RootType} rootType to be removed.
+     * @param rootType to be removed.
      * This method is specific to VolumeEntry/EntryList instance.
      */
     removeAllByRootType(rootType) {
-        this.children_ = this.children_.filter(entry => /** @type{FilesAppEntry} */ (entry).rootType !== rootType);
+        this.children_ = this.children_.filter(entry => entry.rootType !== rootType);
     }
     /**
      * Removes all entries that match the volumeType.
-     * @param {!VolumeManagerCommon.VolumeType} volumeType to be removed.
+     * @param volumeType to be removed.
      * This method is specific to VolumeEntry/EntryList instance.
      */
     removeAllByVolumeType(volumeType) {
-        this.children_ = this.children_.filter(entry => /** @type {VolumeEntry} */ (entry).volumeType !== volumeType);
+        this.children_ = this.children_.filter(entry => entry.volumeType !== volumeType);
     }
     /**
      * Removes the entry.
-     * @param {!Entry|FilesAppEntry} entry to be removed.
+     * @param entry to be removed.
      * This method is specific to EntryList and VolumeEntry instance.
-     * @return {boolean} if entry was removed.
+     * @return true if entry was removed.
      */
     removeChildEntry(entry) {
-        const childIndex = this.children_.findIndex(childEntry => childEntry === entry);
+        const childIndex = this.children_.findIndex(childEntry => isSameEntry(childEntry, entry));
         if (childIndex !== -1) {
             this.children_.splice(childIndex, 1);
             return true;
@@ -1383,62 +1908,17 @@ class EntryList {
      * EntryList can be a placeholder for the real volume (e.g. MyFiles or
      * DriveFakeRootEntryList), if so this field will be the volume type of the
      * volume it represents.
-     * @return {VolumeManagerCommon.VolumeType|null}
      */
     get volumeType() {
         switch (this.rootType) {
-            case VolumeManagerCommon.RootType.MY_FILES:
-                return VolumeManagerCommon.VolumeType.DOWNLOADS;
-            case VolumeManagerCommon.RootType.DRIVE_FAKE_ROOT:
-                return VolumeManagerCommon.VolumeType.DRIVE;
+            case RootType.MY_FILES:
+                return VolumeType.DOWNLOADS;
+            case RootType.DRIVE_FAKE_ROOT:
+                return VolumeType.DRIVE;
             default:
                 return null;
         }
     }
-    /**
-     * @param {!DirectoryEntry|!FilesAppDirEntry} newParent
-     * @param {string=} newName
-     * @param {(function(Entry)|function(FilesAppEntry))=} success
-     * @param {function(FileError)=} error
-     */
-    // @ts-ignore: error TS6133: 'error' is declared but its value is never read.
-    copyTo(newParent, newName, success, error) { }
-    /**
-     * @param {!DirectoryEntry|!FilesAppDirEntry} newParent
-     * @param {string} newName
-     * @param {(function(Entry)|function(FilesAppEntry))=} success
-     * @param {function(FileError)=} error
-     */
-    // @ts-ignore: error TS6133: 'error' is declared but its value is never read.
-    moveTo(newParent, newName, success, error) { }
-    /**
-     * @param {function(Entry):void|function(FilesAppEntry):void} success
-     * @param {function(FileError)=} error
-     */
-    // @ts-ignore: error TS6133: 'error' is declared but its value is never read.
-    remove(success, error) { }
-    /**
-     * @param {string} path
-     * @param {!FileSystemFlags=} options
-     * @param {(function(!FileEntry)|function(!FilesAppEntry))=} success
-     * @param {function(!FileError)=} error
-     */
-    // @ts-ignore: error TS6133: 'error' is declared but its value is never read.
-    getFile(path, options, success, error) { }
-    /**
-     * @param {string} path
-     * @param {!FileSystemFlags=} options
-     * @param {(function(!DirectoryEntry)|function(!FilesAppDirEntry))=} success
-     * @param {function(!FileError)=} error
-     */
-    // @ts-ignore: error TS6133: 'error' is declared but its value is never read.
-    getDirectory(path, options, success, error) { }
-    /**
-     * @param {function():void} success
-     * @param {function(!Error)=} error
-     */
-    // @ts-ignore: error TS6133: 'error' is declared but its value is never read.
-    removeRecursively(success, error) { }
 }
 /**
  * A DirectoryEntry-like which represents a Volume, based on VolumeInfo.
@@ -1448,177 +1928,106 @@ class EntryList {
  *
  * It's used to be able to add a volume as child of |EntryList| and make volume
  * displayable on file list.
- *
- * @implements FilesAppDirEntry
  */
-class VolumeEntry {
-    /**
-     * @param {!import('../../externs/volume_info.js').VolumeInfo} volumeInfo:
-     *     VolumeInfo for this entry.
-     */
+class VolumeEntry extends FilesAppDirEntry {
+    /** @param volumeInfo VolumeInfo for this entry. */
     constructor(volumeInfo) {
+        super();
+        this.volumeInfo = volumeInfo;
         /**
-         * @private @type {!import('../../externs/volume_info.js').VolumeInfo} holds
-         *     a reference to VolumeInfo to delegate some
-         * method calls to it.
-         */
-        this.volumeInfo_ = volumeInfo;
-        /**
-         * @private @type{!Array<!Entry|!FilesAppEntry>} additional entries that
-         *     will be displayed together with this Volume's entries.
+         * Additional entries that will be displayed together with this Volume's
+         * entries.
          */
         this.children_ = [];
-        /** @type {DirectoryEntry} from Volume's root. */
-        this.rootEntry_ = volumeInfo.displayRoot;
-        if (!volumeInfo.displayRoot) {
-            volumeInfo.resolveDisplayRoot(displayRoot => {
+        this.disabled = false;
+        this.rootEntry_ = this.volumeInfo.displayRoot;
+        if (!this.rootEntry_) {
+            this.volumeInfo.resolveDisplayRoot((displayRoot) => {
                 this.rootEntry_ = displayRoot;
             });
         }
-        this.type_name = 'VolumeEntry';
-        // TODO(b/271485133): consider deriving this from volumeInfo. Setting
-        // rootType here breaks some integration tests, e.g.
-        // saveAsDlpRestrictedAndroid.
-        /** @type {?VolumeManagerCommon.RootType} */
-        this.rootType = null;
-        this.disabled_ = false;
     }
-    /**
-     * @return {!import('../../externs/volume_info.js').VolumeInfo} for this
-     *     entry. This method is only valid for
-     * VolumeEntry instances.
-     */
-    get volumeInfo() {
-        return this.volumeInfo_;
+    get typeName() {
+        return 'VolumeEntry';
     }
-    /** @return {!VolumeManagerCommon.VolumeType} */
     get volumeType() {
-        return this.volumeInfo_.volumeType;
+        return this.volumeInfo.volumeType;
     }
-    /**
-     * @return {?FileSystem} FileSystem for this volume.
-     * This method is defined on Entry.
-     */
     get filesystem() {
         return this.rootEntry_ ? this.rootEntry_.filesystem : null;
     }
     /**
-     * @return {!Array<!Entry|!FilesAppEntry>} List of entries that are shown as
-     *     children of this Volume in the UI, but are not actually entries of the
-     *     Volume.  E.g. 'Play files' is shown as a child of 'My files'.  Use
-     *     createReader to find real child entries of the Volume's filesystem.
+     * @return List of entries that are shown as
+     *     children of this Volume in the UI, but are not
+     * actually entries of the Volume.  E.g. 'Play files' is
+     * shown as a child of 'My files'.  Use createReader to find
+     * real child entries of the Volume's filesystem.
      */
-    getUIChildren() {
+    getUiChildren() {
         return this.children_;
     }
-    /**
-     * @return {string} Full path for this volume.
-     * This method is defined on Entry.
-     */
     get fullPath() {
         return this.rootEntry_ ? this.rootEntry_.fullPath : '';
     }
     get isDirectory() {
-        // Defaults to true if root entry isn't resolved yet, because a VolumeEntry
-        // is like a directory.
         return this.rootEntry_ ? this.rootEntry_.isDirectory : true;
     }
     get isFile() {
-        // Defaults to false if root entry isn't resolved yet.
         return this.rootEntry_ ? this.rootEntry_.isFile : false;
     }
     /**
-     * @return {boolean} if this entry is disabled. This method is only valid for
-     * VolumeEntry instances.
-     */
-    get disabled() {
-        return this.disabled_;
-    }
-    /**
-     * Sets the disabled property. This method is only valid for
-     * VolumeEntry instances.
-     * @param {boolean} disabled
-     */
-    set disabled(disabled) {
-        this.disabled_ = disabled;
-    }
-    /**
      * @see https://github.com/google/closure-compiler/blob/mastexterns/browser/fileapi.js
-     * @param {string} path Entry fullPath.
-     * @param {!FileSystemFlags=} options
-     * @param {function(!DirectoryEntry):void=} success
-     * @param {function(!FileError):void=} error
+     * @param path Entry fullPath.
      */
     getDirectory(path, options, success, error) {
         if (!this.rootEntry_) {
-            error && setTimeout(error, 0, new Error('root entry not resolved yet.'));
+            if (error) {
+                setTimeout(() => error(new Error('Root entry not resolved yet')), 0);
+            }
             return;
         }
-        // @ts-ignore: error TS2769: No overload matches this call.
         this.rootEntry_.getDirectory(path, options, success, error);
     }
     /**
      * @see https://github.com/google/closure-compiler/blob/mastexterns/browser/fileapi.js
-     * @param {string} path
-     * @param {!FileSystemFlags=} options
-     * @param {function(!FileEntry):void=} success
-     * @param {function(!FileError):void=} error
-     * @return {undefined}
      */
     getFile(path, options, success, error) {
         if (!this.rootEntry_) {
-            error && setTimeout(error, 0, new Error('root entry not resolved yet.'));
+            if (error) {
+                setTimeout(() => error(new Error('Root entry not resolved yet')), 0);
+            }
             return;
         }
-        // @ts-ignore: error TS2769: No overload matches this call.
         this.rootEntry_.getFile(path, options, success, error);
     }
-    /**
-     * @return {string} Name for this volume.
-     */
     get name() {
-        return this.volumeInfo_.label;
+        return this.volumeInfo.label;
     }
-    /**
-     * @return {string}
-     */
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     toURL() {
-        return this.rootEntry_ ? this.rootEntry_.toURL() : '';
+        return this.rootEntry_?.toURL() ?? '';
     }
-    /**
-     * String used to determine the icon.
-     * @return {string}
-     */
+    /** String used to determine the icon. */
     get iconName() {
-        if (this.volumeInfo_.volumeType ==
-            VolumeManagerCommon.VolumeType.GUEST_OS) {
-            return vmTypeToIconName(this.volumeInfo_.vmType);
+        if (this.volumeInfo.volumeType == VolumeType.GUEST_OS) {
+            return vmTypeToIconName(this.volumeInfo.vmType);
         }
-        if (this.volumeInfo_.volumeType ==
-            VolumeManagerCommon.VolumeType.DOWNLOADS) {
-            return /** @type {string} */ (VolumeManagerCommon.VolumeType.MY_FILES);
+        if (this.volumeInfo.volumeType == VolumeType.DOWNLOADS) {
+            return VolumeType.MY_FILES;
         }
-        return /** @type {string} */ (this.volumeInfo_.volumeType);
+        return this.volumeInfo.volumeType;
     }
     /**
-     * @param {function((DirectoryEntry|FilesAppDirEntry)):void=} success
-     *     callback, it returns itself since EntryList is intended to be used as
+     * callback, it returns itself since EntryList is intended to be used as
      * root node and the Web Standard says to do so.
-     * @param {function(Error)=} _error callback, not used for this
-     *     implementation.
+     * @param _error callback, not used for this implementation.
      */
     getParent(success, _error) {
-        const self = /** @type {!FilesAppDirEntry} */ (this);
-        setTimeout(() => success && success(self), 0, this);
+        if (success) {
+            setTimeout(() => success(this), 0);
+        }
     }
-    /**
-     * @param {function({modificationTime: Date, size: number}): void} success
-     * @param {function(FileError)=} error
-     */
     getMetadata(success, error) {
-        // @ts-ignore: error TS2345: Argument of type '((arg0: FileError) => any) |
-        // undefined' is not assignable to parameter of type 'ErrorCallback |
-        // undefined'.
         this.rootEntry_.getMetadata(success, error);
     }
     get isNativeType() {
@@ -1628,9 +2037,9 @@ class VolumeEntry {
         return this.rootEntry_;
     }
     /**
-     * @return {!DirectoryReader} Returns a reader from root entry, which is
-     * compatible with DirectoryEntry.createReader (from Web Standards).
-     * This method is defined on DirectoryEntry.
+     * @return Returns a reader from root entry, which is compatible with
+     * DirectoryEntry.createReader (from Web Standards). This method is defined on
+     * DirectoryEntry.
      */
     createReader() {
         const readers = [];
@@ -1643,53 +2052,49 @@ class VolumeEntry {
         return new CombinedReaders(readers);
     }
     /**
-     * @param {!FilesAppEntry} entry An entry to be used as prefix of this
-     *     instance on breadcrumbs path, e.g. "My Files > Downloads", "My Files"
-     *     is a prefixEntry on "Downloads" VolumeInfo.
+     * @param entry An entry to be used as prefix of this instance on breadcrumbs
+     *     path, e.g. "My Files > Downloads", "My Files" is a prefixEntry on
+     *     "Downloads" VolumeInfo.
      */
     setPrefix(entry) {
-        this.volumeInfo_.prefixEntry = entry;
+        this.volumeInfo.prefixEntry = entry;
     }
     /**
-     * @param {!Entry|!FilesAppEntry} entry that should be added as
-     * child of this VolumeEntry.
-     * This method is specific to VolumeEntry instance.
+     * @param entry that should be added as child of this VolumeEntry. This method
+     * is specific to VolumeEntry instance.
      */
     addEntry(entry) {
         this.children_.push(entry);
-        // Only VolumeEntry can have prefix set because it sets on VolumeInfo,
-        // which is then used on LocationInfo/PathComponent.
-        if ( /** @type {!FilesAppEntry} */(entry).type_name == 'VolumeEntry') {
-            const volumeEntry = /** @type {VolumeEntry} */ (entry);
+        // Only VolumeEntry can have prefix set because it sets on
+        // VolumeInfo, which is then used on
+        // LocationInfo/PathComponent.
+        const volumeEntry = entry;
+        if (volumeEntry.typeName == 'VolumeEntry') {
             volumeEntry.setPrefix(this);
         }
     }
     /**
-     * @param {!import('../../externs/volume_info.js').VolumeInfo} volumeInfo
      *     that's desired to be removed.
      * This method is specific to VolumeEntry/EntryList instance.
      * Note: we compare the volumeId instead of the whole volumeInfo reference
      * because the same volume could be mounted multiple times and every time a
      * new volumeInfo is created.
-     * @return {number} index of entry within VolumeEntry or -1 if not found.
+     * @return index of entry within VolumeEntry or -1 if not found.
      */
     findIndexByVolumeInfo(volumeInfo) {
-        return this.children_.findIndex(childEntry => 
-        /** @type {VolumeEntry} */ (childEntry).volumeInfo ?
-            /** @type {VolumeEntry} */ (childEntry).volumeInfo.volumeId ===
-                volumeInfo.volumeId :
-            false);
+        return this.children_.findIndex(childEntry => childEntry.volumeInfo?.volumeId ===
+            volumeInfo.volumeId);
     }
     /**
      * Removes the first volume with the given type.
-     * @param {!VolumeManagerCommon.VolumeType} volumeType desired type.
+     * @param volumeType desired type.
      * This method is specific to VolumeEntry/EntryList instance.
-     * @return {boolean} if entry was removed.
+     * @return if entry was removed.
      */
     removeByVolumeType(volumeType) {
         const childIndex = this.children_.findIndex(childEntry => {
-            const entry = /** @type {VolumeEntry} */ (childEntry);
-            return entry.volumeInfo && entry.volumeInfo.volumeType === volumeType;
+            return childEntry.volumeInfo?.volumeType ===
+                volumeType;
         });
         if (childIndex !== -1) {
             this.children_.splice(childIndex, 1);
@@ -1699,62 +2104,34 @@ class VolumeEntry {
     }
     /**
      * Removes all entries that match the rootType.
-     * @param {!VolumeManagerCommon.RootType} rootType to be removed.
+     * @param rootType to be removed.
      * This method is specific to VolumeEntry/EntryList instance.
      */
     removeAllByRootType(rootType) {
-        this.children_ = this.children_.filter(entry => /** @type {!FilesAppEntry} */ (entry).rootType !== rootType);
+        this.children_ = this.children_.filter(entry => entry.rootType !== rootType);
     }
     /**
      * Removes all entries that match the volumeType.
-     * @param {!VolumeManagerCommon.VolumeType} volumeType to be removed.
+     * @param volumeType to be removed.
      * This method is specific to VolumeEntry/EntryList instance.
      */
     removeAllByVolumeType(volumeType) {
-        this.children_ = this.children_.filter(entry => /** @type {VolumeEntry} */ (entry).volumeType !== volumeType);
+        this.children_ = this.children_.filter(entry => entry.volumeType !== volumeType);
     }
     /**
      * Removes the entry.
-     * @param {!Entry|FilesAppEntry} entry to be removed.
+     * @param entry to be removed.
      * This method is specific to EntryList and VolumeEntry instance.
-     * @return {boolean} if entry was removed.
+     * @return if entry was removed.
      */
     removeChildEntry(entry) {
-        const childIndex = this.children_.findIndex(childEntry => childEntry === entry);
+        const childIndex = this.children_.findIndex(childEntry => isSameEntry(childEntry, entry));
         if (childIndex !== -1) {
             this.children_.splice(childIndex, 1);
             return true;
         }
         return false;
     }
-    /**
-     * @param {!DirectoryEntry|!FilesAppDirEntry} newParent
-     * @param {string=} newName
-     * @param {(function(Entry)|function(FilesAppEntry))=} success
-     * @param {function(FileError)=} error
-     */
-    // @ts-ignore: error TS6133: 'error' is declared but its value is never read.
-    copyTo(newParent, newName, success, error) { }
-    /**
-     * @param {!DirectoryEntry|!FilesAppDirEntry} newParent
-     * @param {string} newName
-     * @param {(function(!Entry)|function(!FilesAppEntry))=} success
-     * @param {function(!FileError)=} error
-     */
-    // @ts-ignore: error TS6133: 'error' is declared but its value is never read.
-    moveTo(newParent, newName, success, error) { }
-    /**
-     * @param {function(!Entry):void|function(!FilesAppEntry):void} success
-     * @param {function(!FileError)=} error
-     */
-    // @ts-ignore: error TS6133: 'error' is declared but its value is never read.
-    remove(success, error) { }
-    /**
-     * @param {function():void} success
-     * @param {function(!Error)=} error
-     */
-    // @ts-ignore: error TS6133: 'error' is declared but its value is never read.
-    removeRecursively(success, error) { }
 }
 
 // Copyright 2023 The Chromium Authors
@@ -1776,11 +2153,124 @@ function isGuestOsEnabled() {
 function isSinglePartitionFormatEnabled() {
     return isFlagEnabled('FILES_SINGLE_PARTITION_FORMAT_ENABLED');
 }
+
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
 /**
- * Returns whether the DriveFsBulkPinning feature flag is enabled.
+ * Returns a translated string.
+ *
+ * Wrapper function to make dealing with translated strings more concise.
+ * Equivalent to loadTimeData.getString(id).
  */
-function isDriveFsBulkPinningEnabled() {
-    return isFlagEnabled('DRIVE_FS_BULK_PINNING');
+function str(id) {
+    try {
+        return loadTimeData.getString(id);
+    }
+    catch (e) {
+        console.warn('Failed to get string for', id);
+        return id;
+    }
+}
+/**
+ * Collator for sorting.
+ */
+const collator = new Intl.Collator([], { usage: 'sort', numeric: true, sensitivity: 'base' });
+/**
+ * Returns the localized name of the root type.
+ */
+function getRootTypeLabel(locationInfo) {
+    const volumeInfoLabel = locationInfo.volumeInfo?.label || '';
+    switch (locationInfo.rootType) {
+        case RootType.DOWNLOADS:
+            return volumeInfoLabel;
+        case RootType.DRIVE:
+            return str('DRIVE_MY_DRIVE_LABEL');
+        // |locationInfo| points to either the root directory of an individual Team
+        // Drive or sub-directory under it, but not the Shared Drives grand
+        // directory. Every Shared Drive and its sub-directories always have
+        // individual names (locationInfo.hasFixedLabel is false). So
+        // getRootTypeLabel() is used by PathComponent.computeComponentsFromEntry()
+        // to display the ancestor name in the breadcrumb like this:
+        //   Shared Drives > ABC Shared Drive > Folder1
+        //   ^^^^^^^^^^^
+        // By this reason, we return the label of the Shared Drives grand root here.
+        case RootType.SHARED_DRIVE:
+        case RootType.SHARED_DRIVES_GRAND_ROOT:
+            return str('DRIVE_SHARED_DRIVES_LABEL');
+        case RootType.COMPUTER:
+        case RootType.COMPUTERS_GRAND_ROOT:
+            return str('DRIVE_COMPUTERS_LABEL');
+        case RootType.DRIVE_OFFLINE:
+            return str('DRIVE_OFFLINE_COLLECTION_LABEL');
+        case RootType.DRIVE_SHARED_WITH_ME:
+            return str('DRIVE_SHARED_WITH_ME_COLLECTION_LABEL');
+        case RootType.DRIVE_RECENT:
+            return str('DRIVE_RECENT_COLLECTION_LABEL');
+        case RootType.DRIVE_FAKE_ROOT:
+            return str('DRIVE_DIRECTORY_LABEL');
+        case RootType.RECENT:
+            return str('RECENT_ROOT_LABEL');
+        case RootType.CROSTINI:
+            return str('LINUX_FILES_ROOT_LABEL');
+        case RootType.MY_FILES:
+            return str('MY_FILES_ROOT_LABEL');
+        case RootType.TRASH:
+            return str('TRASH_ROOT_LABEL');
+        case RootType.MEDIA_VIEW:
+            const mediaViewRootType = getMediaViewRootTypeFromVolumeId(locationInfo.volumeInfo?.volumeId || '');
+            switch (mediaViewRootType) {
+                case MediaViewRootType.IMAGES:
+                    return str('MEDIA_VIEW_IMAGES_ROOT_LABEL');
+                case MediaViewRootType.VIDEOS:
+                    return str('MEDIA_VIEW_VIDEOS_ROOT_LABEL');
+                case MediaViewRootType.AUDIO:
+                    return str('MEDIA_VIEW_AUDIO_ROOT_LABEL');
+                case MediaViewRootType.DOCUMENTS:
+                    return str('MEDIA_VIEW_DOCUMENTS_ROOT_LABEL');
+                default:
+                    console.error('Unsupported media view root type: ' + mediaViewRootType);
+                    return volumeInfoLabel;
+            }
+        case RootType.ARCHIVE:
+        case RootType.REMOVABLE:
+        case RootType.MTP:
+        case RootType.PROVIDED:
+        case RootType.ANDROID_FILES:
+        case RootType.DOCUMENTS_PROVIDER:
+        case RootType.SMB:
+        case RootType.GUEST_OS:
+            return volumeInfoLabel;
+        default:
+            console.error('Unsupported root type: ' + locationInfo.rootType);
+            return volumeInfoLabel;
+    }
+}
+/**
+ * Returns the localized/i18n name of the entry.
+ */
+function getEntryLabel(locationInfo, entry) {
+    if (locationInfo) {
+        if (locationInfo.hasFixedLabel) {
+            return getRootTypeLabel(locationInfo);
+        }
+        if (entry.filesystem && entry.filesystem.root === entry) {
+            return getRootTypeLabel(locationInfo);
+        }
+    }
+    // Special case for MyFiles/Downloads, MyFiles/PvmDefault and MyFiles/Camera.
+    if (locationInfo && locationInfo.rootType == RootType.DOWNLOADS) {
+        if (entry.fullPath == '/Downloads') {
+            return str('DOWNLOADS_DIRECTORY_LABEL');
+        }
+        if (entry.fullPath == '/PvmDefault') {
+            return str('PLUGIN_VM_DIRECTORY_LABEL');
+        }
+        if (entry.fullPath == '/Camera') {
+            return str('CAMERA_DIRECTORY_LABEL');
+        }
+    }
+    return entry.name;
 }
 
 // Copyright 2022 The Chromium Authors
@@ -1803,10 +2293,6 @@ function isActionsProducer(value) {
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-/**
- * @fileoverview A Selector implementation for redux, bundled with a
- * SelectorEmitter helper class that allows selectors to be efficiently updated.
- */
 /**
  * A class implementing ReactiveController in order to provide an ergonomic
  * way to update Lit elements based on selected data.
@@ -1849,10 +2335,10 @@ class SelectorNode {
      *     selector node is constructed. The arguments of select() must match the
      *     order and type of what is emitted by the parents. This typing match is
      *     not enforced here because SelectorNodes are only meant to be created by
-     *     the Store. Users of the Store should use `combineXSelectors()` to combine
-     *     selectors.
+     *     the Store. Users of the Store should use `combineXSelectors()` to
+     * combine selectors.
      * @param name An optional human-readable name used for debugging purposes.
-     *     Named selectors will log to the console when window.DEBUG_STORE is set,
+     *     Named selectors will log to the console when DEBUG_STORE is set,
      *     whenever they emit a new value.
      */
     constructor(parents, select, name) {
@@ -1886,11 +2372,11 @@ class SelectorNode {
      *
      * Slice's default selectors are then connected to the store's source node,
      * and additional selector nodes can then be created from store and slices'
-     * default selectors using `combineXSelectors()` (and resulting selectors can be
-     * further combined using `combineXSelectors()`).
+     * default selectors using `combineXSelectors()` (and resulting selectors can
+     * be further combined using `combineXSelectors()`).
      */
-    static createSourceNode(select) {
-        return new SelectorNode([], select);
+    static createSourceNode(select, name) {
+        return new SelectorNode([], select, name);
     }
     /**
      * Creates a selector node that doesn't have parents or select function. Used
@@ -1950,7 +2436,7 @@ class SelectorNode {
         if (newValue === this.value_) {
             return false;
         }
-        if (window.DEBUG_STORE && this.name) {
+        if (isDebugStoreEnabled() && this.name) {
             console.log(`Selector '${this.name}' emitted a new value:`);
             console.log(newValue);
         }
@@ -2088,10 +2574,9 @@ class Slice {
         }
         this.reducers.set(type, reducer);
         const actionFactory = (payload) => ({ type, payload });
-        // Include action type and payload typing so different slices can register
-        // reducers for the same action type.
+        // Include action type so different slices can register reducers for the
+        // same action type.
         actionFactory.type = type;
-        actionFactory.PAYLOAD = null;
         return actionFactory;
     }
 }
@@ -2136,7 +2621,7 @@ class BaseStore {
                 [...sliceNames].join(', '));
         }
         // Connect the default root selector to the Selector Emitter.
-        const rootSelector = SelectorNode.createSourceNode(() => this.state_);
+        const rootSelector = SelectorNode.createSourceNode(() => this.state_, 'root');
         this.selectorEmitter_.addSource(rootSelector);
         this.selector = rootSelector;
         for (const slice of slices) {
@@ -2165,7 +2650,12 @@ class BaseStore {
     init(initialState) {
         this.state_ = initialState;
         this.queuedActions_.forEach((action) => {
-            this.dispatchInternal_(action);
+            if (isActionsProducer(action)) {
+                this.consumeProducedActions_(action);
+            }
+            else {
+                this.dispatchInternal_(action);
+            }
         });
         this.initialized_ = true;
         this.selectorEmitter_.processChange();
@@ -2221,15 +2711,16 @@ class BaseStore {
      * reducers during the initialization.
      */
     dispatch(action) {
-        if (isActionsProducer(action)) {
-            this.consumeProducedActions_(action);
-            return;
-        }
         if (!this.initialized_) {
             this.queuedActions_.push(action);
             return;
         }
-        this.dispatchInternal_(action);
+        if (isActionsProducer(action)) {
+            this.consumeProducedActions_(action);
+        }
+        else {
+            this.dispatchInternal_(action);
+        }
     }
     /** Synchronously call apply the `action` by calling the reducer.  */
     dispatchInternal_(action) {
@@ -2265,7 +2756,8 @@ class BaseStore {
     }
     /** Apply the `action` to the Store by calling the reducer.  */
     reduce(action) {
-        if (window.DEBUG_STORE) {
+        const isDebugStore = isDebugStoreEnabled();
+        if (isDebugStore) {
             console.groupCollapsed(`Action: ${action.type}`);
             console.dir(action.payload);
         }
@@ -2283,7 +2775,7 @@ class BaseStore {
         if (this.selector.get() !== this.state_) {
             this.selectorEmitter_.processChange();
         }
-        if (window.DEBUG_STORE) {
+        if (isDebugStore) {
             console.groupEnd();
         }
     }
@@ -2316,25 +2808,6 @@ function isInvalidationError(error) {
     }
     return false;
 }
-
-// Copyright 2014 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * List of dialog types.
- *
- * Keep this in sync with FileManagerDialog::GetDialogTypeAsString, except
- * FULL_PAGE which is specific to this code.
- */
-var DialogType;
-(function (DialogType) {
-    DialogType["SELECT_FOLDER"] = "folder";
-    DialogType["SELECT_UPLOAD_FOLDER"] = "upload-folder";
-    DialogType["SELECT_SAVEAS_FILE"] = "saveas-file";
-    DialogType["SELECT_OPEN_FILE"] = "open-file";
-    DialogType["SELECT_OPEN_MULTI_FILE"] = "open-multi-file";
-    DialogType["FULL_PAGE"] = "full-page";
-})(DialogType || (DialogType = {}));
 
 // Copyright 2022 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
@@ -4225,225 +4698,105 @@ function getFileTypeForName(name) {
 // Copyright 2012 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-/**
- * Namespace object for file type utility functions.
- */
-function FileType() { }
 // All supported file types are now defined in
 // ui/file_manager/base/gn/file_types.json5.
-/**
- * A special type for directory.
- * @type{!FileExtensionType}
- * @const
- */
-// @ts-ignore: error TS2739: Type '{ translationKey: string; type: string; icon:
-// string; subtype: string; }' is missing the following properties from type
-// 'FileExtensionType': extensions, mime, encrypted, originalMimeType
-FileType.DIRECTORY = {
+/** A special type for directory. */
+const DIRECTORY = {
     translationKey: 'FOLDER',
     type: '.folder',
     icon: 'folder',
     subtype: '',
-};
-/**
- * Returns the file path extension for a given file.
- *
- * @param {Entry|FilesAppEntry} entry Reference to the file.
- * @return {string} The extension including a leading '.', or empty string if
- *     not found.
- */
-FileType.getExtension = entry => {
-    // No extension for a directory.
-    if (entry.isDirectory) {
-        return '';
-    }
-    return getFinalExtension(entry.name);
+    extensions: undefined,
+    mime: undefined,
+    encrypted: undefined,
+    originalMimeType: undefined,
 };
 /**
  * Gets the file type object for a given entry. If mime type is provided, then
  * uses it with higher priority than the extension.
  *
- * @param {(Entry|FilesAppEntry)} entry Reference to the entry.
- * @param {string=} opt_mimeType Optional mime type for the entry.
- * @return {!FileExtensionType} The matching descriptor or a placeholder.
+ * @param entry Reference to the entry.
+ * @param mimeType Optional mime type for the entry.
+ * @return The matching descriptor or a placeholder.
  */
-FileType.getType = (entry, opt_mimeType) => {
+function getType(entry, mimeType) {
     if (entry.isDirectory) {
+        const volumeInfo = entry.volumeInfo;
         // For removable partitions, use the file system type.
-        if ( /** @type {VolumeEntry}*/(entry).volumeInfo &&
-            /** @type {VolumeEntry}*/ (entry).volumeInfo.diskFileSystemType) {
-            // @ts-ignore: error TS2739: Type '{ translationKey: string; type: string;
-            // subtype: string; icon: string; }' is missing the following properties
-            // from type 'FileExtensionType': extensions, mime, encrypted,
-            // originalMimeType
+        if (volumeInfo && volumeInfo.diskFileSystemType) {
             return {
                 translationKey: '',
                 type: 'partition',
-                subtype: assert(
-                /** @type {VolumeEntry}*/ (entry).volumeInfo.diskFileSystemType),
+                subtype: volumeInfo.diskFileSystemType,
                 icon: '',
+                extensions: undefined,
+                mime: undefined,
+                encrypted: undefined,
+                originalMimeType: undefined,
             };
         }
-        return FileType.DIRECTORY;
+        return DIRECTORY;
     }
-    if (opt_mimeType) {
-        const cseMatch = opt_mimeType.match(/^application\/vnd.google-gsuite.encrypted; content="([a-z\/.-]+)"$/);
+    if (mimeType) {
+        const cseMatch = mimeType.match(/^application\/vnd.google-gsuite.encrypted; content="([a-z\/.-]+)"$/);
         if (cseMatch) {
-            const type = /** @type {FileExtensionType} */ ({ ...FileType.getType(entry, cseMatch[1]) });
+            const type = { ...getType(entry, cseMatch[1]) };
             type.encrypted = true;
             type.originalMimeType = cseMatch[1];
             return type;
         }
     }
-    if (opt_mimeType && MIME_TO_TYPE.has(opt_mimeType)) {
-        // @ts-ignore: error TS2322: Type '{ extensions: string[]; mime: string;
-        // subtype: string; translationKey: string; type: string; icon?: undefined;
-        // } | { extensions: string[]; icon: string; mime: string; subtype: string;
-        // translationKey: string; type: string; } | undefined' is not assignable to
-        // type 'FileExtensionType'.
-        return MIME_TO_TYPE.get(opt_mimeType);
+    if (mimeType && MIME_TO_TYPE.has(mimeType)) {
+        return MIME_TO_TYPE.get(mimeType);
     }
     return getFileTypeForName(entry.name);
-};
+}
 /**
- * Gets the media type for a given file.
- *
- * @param {Entry|FilesAppEntry} entry Reference to the file.
- * @param {string=} opt_mimeType Optional mime type for the file.
- * @return {string} The value of 'type' property from one of the elements in
- *     the knows file types (file_types.json5) or undefined.
+ * @param entry Reference to the file.
+ * @param mimeType Optional mime type for the file.
+ * @param rootType The root type of the entry.
+ * @return Returns string that represents the file icon. It refers to a file
+ *     'images/filetype_' + icon + '.png'.
  */
-FileType.getMediaType = (entry, opt_mimeType) => {
-    return FileType.getType(entry, opt_mimeType).type;
-};
-/**
- * @param {Entry} entry Reference to the file.
- * @param {string=} opt_mimeType Optional mime type for the file.
- * @return {boolean} True if audio file.
- */
-FileType.isAudio = (entry, opt_mimeType) => {
-    return FileType.getMediaType(entry, opt_mimeType) === 'audio';
-};
-/**
- * Returns whether the |entry| is image file that can be opened in browser.
- * Note that it returns false for RAW images.
- * @param {Entry} entry Reference to the file.
- * @param {string=} opt_mimeType Optional mime type for the file.
- * @return {boolean} True if image file.
- */
-FileType.isImage = (entry, opt_mimeType) => {
-    return FileType.getMediaType(entry, opt_mimeType) === 'image';
-};
-/**
- * @param {Entry} entry Reference to the file.
- * @param {string=} opt_mimeType Optional mime type for the file.
- * @return {boolean} True if video file.
- */
-FileType.isVideo = (entry, opt_mimeType) => {
-    return FileType.getMediaType(entry, opt_mimeType) === 'video';
-};
-/**
- * @param {Entry} entry Reference to the file.
- * @param {string=} opt_mimeType Optional mime type for the file.
- * @return {boolean} True if document file.
- */
-FileType.isDocument = (entry, opt_mimeType) => {
-    const type = FileType.getMediaType(entry, opt_mimeType);
-    return type === 'document' || type === 'hosted' || type === 'text';
-};
-/**
- * @param {Entry} entry Reference to the file.
- * @param {string=} opt_mimeType Optional mime type for the file.
- * @return {boolean} True if raw file.
- */
-FileType.isRaw = (entry, opt_mimeType) => {
-    return FileType.getMediaType(entry, opt_mimeType) === 'raw';
-};
-/**
- * @param {Entry} entry Reference to the file
- * @param {string=} opt_mimeType Optional mime type for this file.
- * @return {boolean} Whether or not this is a PDF file.
- */
-FileType.isPDF = (entry, opt_mimeType) => {
-    return FileType.getType(entry, opt_mimeType).subtype === 'PDF';
-};
-/**
- * Files with more pixels won't have preview.
- * @param {!Array<string>} types
- * @param {Entry|FilesAppEntry} entry Reference to the file.
- * @param {string=} opt_mimeType Optional mime type for the file.
- * @return {boolean} True if type is in specified set
- */
-FileType.isType = (types, entry, opt_mimeType) => {
-    const type = FileType.getMediaType(entry, opt_mimeType);
-    return !!type && types.indexOf(type) !== -1;
-};
-/**
- * @param {Entry} entry Reference to the file.
- * @param {string=} opt_mimeType Optional mime type for the file.
- * @return {boolean} Returns true if the file is hosted.
- */
-FileType.isHosted = (entry, opt_mimeType) => {
-    return FileType.getType(entry, opt_mimeType).type === 'hosted';
-};
-/**
- * @param {Entry|FilesAppEntry} entry Reference to the file.
- * @param {string=} opt_mimeType Optional mime type for the file.
- * @return {boolean} Returns true if the file is encrypted with CSE.
- */
-FileType.isEncrypted = (entry, opt_mimeType) => {
-    const type = FileType.getType(entry, opt_mimeType);
-    return type.encrypted !== undefined && type.encrypted;
-};
-/**
- * @param {Entry|VolumeEntry|FileData} entry Reference to the file.
- * @param {string=} opt_mimeType Optional mime type for the file.
- * @param {VolumeManagerCommon.RootType=} opt_rootType The root type of the
- *     entry.
- * @return {string} Returns string that represents the file icon.
- *     It refers to a file 'images/filetype_' + icon + '.png'.
- */
-FileType.getIcon = (entry, opt_mimeType, opt_rootType) => {
-    let icon;
+function getIcon(entry, mimeType, rootType) {
     // Handles the FileData and FilesAppEntry types.
-    // @ts-ignore: error TS2339: Property 'iconName' does not exist on type
-    // 'FileSystemEntry | FileData | VolumeEntry'.
-    if (entry && entry.iconName) {
-        // @ts-ignore: error TS2339: Property 'iconName' does not exist on type
-        // 'FileSystemEntry | FileData | VolumeEntry'.
+    if (entry && 'iconName' in entry) {
         return entry.iconName;
     }
+    let icon;
     // Handles other types of entries.
     if (entry) {
-        entry = /** @type {!Entry|!VolumeEntry} */ (entry);
-        const fileType = FileType.getType(entry, opt_mimeType);
-        const overridenIcon = FileType.getIconOverrides(entry, opt_rootType);
+        const ventry = entry;
+        const fileType = getType(ventry, mimeType);
+        const overridenIcon = getIconOverrides(ventry, rootType);
         icon = overridenIcon || fileType.icon || fileType.type;
     }
     return icon || 'unknown';
-};
+}
 /**
  * Returns a string to be used as an attribute value to customize the entry
  * icon.
  *
- * @param {Entry|FilesAppEntry} entry
- * @param {VolumeManagerCommon.RootType=} opt_rootType The root type of the
- *     entry.
- * @return {string}
+ * @param rootType The root type of the entry.
  */
-FileType.getIconOverrides = (entry, opt_rootType) => {
+function getIconOverrides(entry, rootType) {
+    if (!rootType) {
+        return '';
+    }
     // Overrides per RootType and defined by fullPath.
     const overrides = {
-        [VolumeManagerCommon.RootType.DOWNLOADS]: {
+        [RootType.DOWNLOADS]: {
             '/Camera': 'camera-folder',
-            '/Downloads': VolumeManagerCommon.VolumeType.DOWNLOADS,
+            '/Downloads': VolumeType.DOWNLOADS,
             '/PvmDefault': 'plugin_vm',
         },
     };
-    // @ts-ignore: error TS2538: Type 'undefined' cannot be used as an index type.
-    const root = overrides[opt_rootType];
-    return root ? root[entry.fullPath] : '';
-};
+    const root = overrides[rootType];
+    if (!root) {
+        return '';
+    }
+    return root[entry.fullPath] ?? '';
+}
 
 // Copyright 2014 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
@@ -4501,50 +4854,9 @@ function recordEnum(name, value, validValues) {
     callAPI('recordValue', [metricDescr, index]);
 }
 
-// Copyright 2022 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-
-
-/**
- * Dispatches a simple event on an event target.
- * @param {!EventTarget} target The event target to dispatch the event on.
- * @param {string} type The type of the event.
- * @param {boolean=} bubbles Whether the event bubbles or not.
- * @param {boolean=} cancelable Whether the default action of the event
- *     can be prevented. Default is true.
- * @return {boolean} If any of the listeners called {@code preventDefault}
- *     during the dispatch this will return false.
- */
-function dispatchSimpleEvent(target, type, bubbles, cancelable) {
-  const e = new Event(
-      type,
-      {bubbles: bubbles, cancelable: cancelable === undefined || cancelable});
-  return target.dispatchEvent(e);
-}
-
-// Copyright 2010 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-
-/**
-* @fileoverview Work-around for
-* https://github.com/google/closure-compiler/issues/3143, such that WebUI code
-* can use the native EventTarget class.
-* TODO(dpapad): Remove this entire file if/when that issue is fixed.
-*/
-
-/**
- * @constructor
- * @implements {EventTarget}
- */
-const NativeEventTarget = self['EventTarget'];
-
 // Copyright 2020 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-// namespace
-const storage = {};
 /**
  * Class used to emit window.localStorage change events to event listeners.
  * This class does 3 things:
@@ -4558,93 +4870,58 @@ const storage = {};
  * current clients of `onChanged` don't need it.
  */
 class StorageChangeTracker {
-    // @ts-ignore: error TS7006: Parameter 'storageNamespace' implicitly has an
-    // 'any' type.
-    constructor(storageNamespace) {
-        /**
-         * Storage onChanged event listeners for the current window.
-         * @private @type {!Array<OnChangedListener>}
-         * */
-        // @ts-ignore: error TS7008: Member 'listeners_' implicitly has an 'any[]'
-        // type.
+    /**
+     * @param storageNamespace_ Storage namespace argument added when calling
+     *     listeners.
+     */
+    constructor(storageNamespace_) {
+        this.storageNamespace_ = storageNamespace_;
+        /** Storage onChanged event listeners for the current window. */
         this.listeners_ = [];
-        /**
-         * Storage namespace argument added when calling listeners.
-         * @private @type {string}
-         */
-        this.storageNamespace_ = storageNamespace;
-        /**
-         * Event to send local storage changes to all window listeners.
-         */
+        /** Event to send local storage changes to all window listeners. */
         window.addEventListener('storage', this.onStorageEvent_.bind(this));
     }
-    /**
-     * Resets for testing: removes all listeners.
-     */
+    /** Resets for testing: removes all listeners. */
     resetForTesting() {
         this.listeners_ = [];
     }
-    /**
-     * Adds an onChanged event listener for the current window.
-     * @param {function(!Object<string, !ValueChanged>, string):void} callback
-     */
+    /** Adds an onChanged event listener for the current window. */
     addListener(callback) {
         this.listeners_.push(callback);
     }
-    /**
-     * Notifies listeners_ of key value changes.
-     * @param {!Object<string, *>} changedValues changed.
-     */
+    /** Notifies listeners of key value changes. */
     keysChanged(changedValues) {
-        /** @type {!Object<string, !ValueChanged>} */
         const changedKeys = {};
         for (const [k, v] of Object.entries(changedValues)) {
             // `oldValue` isn't necessary for the current use case.
-            const key = /** @type {string} */ (k);
-            changedKeys[key] = { newValue: v };
+            changedKeys[k] = { newValue: v };
         }
         this.notifyLocally_(changedKeys);
     }
-    /**
-     * Process localStorage `storage` event and notify listeners_.
-     * @private
-     */
-    // @ts-ignore: error TS7006: Parameter 'event' implicitly has an 'any' type.
+    /** Processes storage event and notifies listeners. */
     onStorageEvent_(event) {
-        if (!event.key) {
+        const { key, newValue } = event;
+        if (key == null || newValue == null) {
             return;
         }
-        const key = /** @type {string} */ (event.key);
-        const newValue = /** @type {string} */ (event.newValue);
         const changedKeys = {};
         try {
-            // @ts-ignore: error TS7053: Element implicitly has an 'any' type because
-            // expression of type 'string' can't be used to index type '{}'.
             changedKeys[key] = { newValue: JSON.parse(newValue) };
         }
         catch (error) {
-            console.warn(`Failed to JSON parse localStorage value from key: "${key}" ` +
-                `returning the raw value.`, error);
-            // @ts-ignore: error TS7053: Element implicitly has an 'any' type because
-            // expression of type 'string' can't be used to index type '{}'.
+            console.warn(`Cannot parse local storage value from key '${key}' as JSON`, error);
             changedKeys[key] = { newValue };
         }
-        // @ts-ignore: error TS2345: Argument of type '{}' is not assignable to
-        // parameter of type '{ [x: string]: ValueChanged; }'.
         this.notifyLocally_(changedKeys);
     }
-    /**
-     * Notifies local (current window) listeners_ of key value changes.
-     * @param {!Object<string, ValueChanged>} keys
-     * @private
-     */
+    /** Notifies local (current window) listeners of key value changes. */
     notifyLocally_(keys) {
         for (const listener of this.listeners_) {
             try {
                 listener(keys, this.storageNamespace_);
             }
             catch (error) {
-                console.error(`Error calling storage.onChanged listener: ${error}`);
+                console.error('Error calling storage.onChanged listener', error);
             }
         }
     }
@@ -4653,35 +4930,21 @@ class StorageChangeTracker {
  * StorageAreaImpl using window.localStorage as the storage area.
  */
 class StorageAreaImpl {
-    /**
-     * @param {string} type
-     */
     constructor(type) {
-        /** @private @type {!StorageChangeTracker} */
-        this.storageChangeTracker_ = new StorageChangeTracker(type);
+        this.storageChangeTracker = new StorageChangeTracker(type);
     }
-    /**
-     * Gets values of |keys| and return them in the callback.
-     * @param {string|!Array<string>} keys
-     * @param {!function(!Object):void} callback
-     */
+    /** Gets values of `keys` and returns them in the callback. */
     get(keys, callback) {
         const keyList = Array.isArray(keys) ? keys : [keys];
         const result = {};
         for (const key of keyList) {
-            // @ts-ignore: error TS7053: Element implicitly has an 'any' type because
-            // expression of type 'string' can't be used to index type '{}'.
             result[key] = this.getValue_(key);
         }
         callback(result);
     }
-    /**
-     * Gets the value of |key| from local storage.
-     * @param {string} key
-     * @private
-     */
+    /** Gets the value of `key` from local storage. */
     getValue_(key) {
-        const value = /** @type {string} */ (window.localStorage.getItem(key));
+        const value = window.localStorage.getItem(key);
         try {
             return JSON.parse(value);
         }
@@ -4691,54 +4954,31 @@ class StorageAreaImpl {
             return value;
         }
     }
-    /**
-     * Async version of this.get() storage method.
-     * @param {string|!Array<string>} keys
-     * @returns {!Promise<!Object<string, *>>}
-     */
+    /** Async version of `this.get()`. */
     async getAsync(keys) {
-        // @ts-ignore: error TS6133: 'reject' is declared but its value is never
-        // read.
-        return new Promise((resolve, reject) => {
-            this.get(keys, (values) => {
-                resolve(values);
-            });
-        });
+        return new Promise(resolve => this.get(keys, resolve));
     }
     /**
      * Stores items in local storage.
-     * @param {!Object<string, *>} items The items to store.
-     * @param {?function()=} opt_callback Optional callback to be called when
-     *   the items have been stored.
+     * @param items The items to store.
+     * @param callback Callback to be called when the items have been stored.
      */
-    set(items, opt_callback) {
+    set(items, callback) {
         for (const key in items) {
             const value = JSON.stringify(items[key]);
             window.localStorage.setItem(key, value);
         }
         this.notifyChange_(Object.keys(items));
-        if (opt_callback) {
-            opt_callback();
-        }
+        callback?.();
     }
     /**
-     * Async version of this.set() storage method.
-     * @param {!Object<string, *>} items The items to store.
-     * @returns {!Promise<void>}
+     * Async version of `this.set()`.
+     * @param items The items to store.
      */
     async setAsync(items) {
-        // @ts-ignore: error TS6133: 'reject' is declared but its value is never
-        // read.
-        return new Promise((resolve, reject) => {
-            this.set(items, () => {
-                resolve();
-            });
-        });
+        return new Promise(resolve => this.set(items, resolve));
     }
-    /**
-     * Removes the given |keys| from local storage.
-     * @param {string|!Array<string>} keys
-     */
+    /** Removes the given `keys` from local storage. */
     remove(keys) {
         const keyList = Array.isArray(keys) ? keys : [keys];
         for (const key of keyList) {
@@ -4746,196 +4986,42 @@ class StorageAreaImpl {
         }
         this.notifyChange_(keyList);
     }
-    /**
-     * Clears local storage.
-     */
+    /** Clears local storage. */
     clear() {
         window.localStorage.clear();
         this.notifyChange_([]);
     }
-    /**
-     * Notifies key changes to storage change tracker listeners.
-     * @param {!Array<string>} keys
-     * @private
-     */
+    /** Notifies key changes to storage change tracker listeners. */
     notifyChange_(keys) {
         const values = {};
         for (const k of keys) {
-            // @ts-ignore: error TS7053: Element implicitly has an 'any' type because
-            // expression of type 'string' can't be used to index type '{}'.
             values[k] = this.getValue_(k);
         }
-        this.getStorageChangeTracker_().keysChanged(values);
-    }
-    /**
-     * Gets storage change tracker.
-     * @returns {!StorageChangeTracker}
-     * @private
-     */
-    getStorageChangeTracker_() {
-        return this.storageChangeTracker_;
+        this.storageChangeTracker.keysChanged(values);
     }
 }
-/**
- * @type {!StorageAreaImpl}
- */
-storage.local = new StorageAreaImpl('local');
-/**
- * NOTE: Here we only expose StorageChangeTracker APIs addListener() and
- * resetForTesting().
- *
- * @type {{
- *   addListener: function(OnChangedListener):void,
- *   resetForTesting: function():void,
- * }}
- */
-// @ts-ignore: error TS2341: Property 'getStorageChangeTracker_' is private and
-// only accessible within class 'StorageAreaImpl'.
-storage.onChanged = storage.local.getStorageChangeTracker_();
+var storage;
+(function (storage) {
+    storage.local = new StorageAreaImpl('local');
+    storage.onChanged = storage.local.storageChangeTracker;
+})(storage || (storage = {}));
 
 // Copyright 2017 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-/**
- * TaskHistory object keeps track of the history of task executions. Recent
- * history is stored in local storage.
- */
-class TaskHistory extends NativeEventTarget {
-    constructor() {
-        super();
-        /**
-         * The recent history of task executions. Key is task ID and value is time
-         * stamp of the latest execution of the task.
-         * @type {!Object<string, number>}
-         */
-        this.lastExecutedTime_ = {};
-        storage.onChanged.addListener(this.onLocalStorageChanged_.bind(this));
-        this.load_();
-    }
-    /**
-     * Records the timing of task execution.
-     * @param {!chrome.fileManagerPrivate.FileTaskDescriptor} descriptor
-     */
-    recordTaskExecuted(descriptor) {
-        const taskId = util.makeTaskID(descriptor);
-        this.lastExecutedTime_[taskId] = Date.now();
-        this.truncate_();
-        this.save_();
-    }
-    /**
-     * Gets the time stamp of last execution of given task. If the record is not
-     * found, returns 0.
-     * @param {!chrome.fileManagerPrivate.FileTaskDescriptor} descriptor
-     * @return {number}
-     */
-    getLastExecutedTime(descriptor) {
-        const taskId = util.makeTaskID(descriptor);
-        // @ts-ignore: error TS2322: Type 'number | undefined' is not assignable to
-        // type 'number'.
-        return this.lastExecutedTime_[taskId] ? this.lastExecutedTime_[taskId] : 0;
-    }
-    /**
-     * Loads the current history from local storage.
-     * @private
-     */
-    load_() {
-        storage.local.get(TaskHistory.STORAGE_KEY_LAST_EXECUTED_TIME, value => {
-            this.lastExecutedTime_ =
-                // @ts-ignore: error TS7053: Element implicitly has an 'any' type
-                // because expression of type 'string' can't be used to index type
-                // 'Object'.
-                value[TaskHistory.STORAGE_KEY_LAST_EXECUTED_TIME] || {};
-        });
-    }
-    /**
-     * Saves the current history to local storage.
-     * @private
-     */
-    save_() {
-        const objectToSave = {};
-        // @ts-ignore: error TS7053: Element implicitly has an 'any' type because
-        // expression of type 'string' can't be used to index type '{}'.
-        objectToSave[TaskHistory.STORAGE_KEY_LAST_EXECUTED_TIME] =
-            this.lastExecutedTime_;
-        storage.local.set(objectToSave);
-    }
-    /**
-     * Handles local storage change event to update the current history.
-     * @param {!Object<string, !ValueChanged>} changes
-     * @param {string} areaName
-     * @private
-     */
-    onLocalStorageChanged_(changes, areaName) {
-        if (areaName !== 'local') {
-            return;
-        }
-        for (const key in changes) {
-            if (key == TaskHistory.STORAGE_KEY_LAST_EXECUTED_TIME) {
-                this.lastExecutedTime_ = changes[key]?.newValue;
-                dispatchSimpleEvent(this, TaskHistory.EventType.UPDATE);
-            }
-        }
-    }
-    /**
-     * Trancates current history so that the size of history does not exceed
-     * STORAGE_KEY_LAST_EXECUTED_TIME.
-     * @private
-     */
-    truncate_() {
-        const keys = Object.keys(this.lastExecutedTime_);
-        if (keys.length <= TaskHistory.LAST_EXECUTED_TIME_HISTORY_MAX) {
-            return;
-        }
-        let items = [];
-        for (let i = 0; i < keys.length; i++) {
-            // @ts-ignore: error TS2538: Type 'undefined' cannot be used as an index
-            // type.
-            items.push({ id: keys[i], timestamp: this.lastExecutedTime_[keys[i]] });
-        }
-        items.sort((a, b) => b.timestamp - a.timestamp);
-        items = items.slice(0, TaskHistory.LAST_EXECUTED_TIME_HISTORY_MAX);
-        const newObject = {};
-        for (let i = 0; i < items.length; i++) {
-            // @ts-ignore: error TS2532: Object is possibly 'undefined'.
-            newObject[items[i].id] = items[i].timestamp;
-        }
-        // @ts-ignore: error TS2322: Type '{}' is not assignable to type '{ [x:
-        // string]: number; }'.
-        this.lastExecutedTime_ = newObject;
-    }
-}
-/**
- * @enum {string}
- */
-TaskHistory.EventType = {
-    UPDATE: 'update',
-};
-/**
- * Key used to store the task history in local storage.
- * @const @type {string}
- */
-TaskHistory.STORAGE_KEY_LAST_EXECUTED_TIME = 'task-last-executed-time';
-/**
- * @const @type {number}
- */
-TaskHistory.LAST_EXECUTED_TIME_HISTORY_MAX = 100;
+var EventType;
+(function (EventType) {
+    EventType["UPDATE"] = "update";
+})(EventType || (EventType = {}));
 
 // Copyright 2021 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-/** @const @type {string} */
 const LEGACY_FILES_EXTENSION_ID = 'hhaomjibdihmijegdhdafkllkbggdgoj';
-/** @const @type {string} */
 const SWA_FILES_APP_HOST = 'file-manager';
-/**
- * The URL of the legacy version of File Manager.
- * @const @type {!URL}
- */
+/** The URL of the legacy version of File Manager. */
 new URL(`chrome-extension://${LEGACY_FILES_EXTENSION_ID}`);
-/**
- * The URL of the System Web App version of File Manager.
- * @const @type {!URL}
- */
+/** The URL of the System Web App version of File Manager. */
 new URL(`chrome://${SWA_FILES_APP_HOST}`);
 
 // Copyright 2020 The Chromium Authors
@@ -4952,24 +5038,23 @@ new URL(`chrome://${SWA_FILES_APP_HOST}`);
  */
 class PathComponent {
     /**
-     * @param {string} name Name.
-     * @param {string} url Url.
-     * @param {FilesAppEntry=} opt_fakeEntry Fake entry should be set when
-     *     this component represents fake entry.
+     * @param name Name.
+     * @param url Url.
+     * @param fakeEntry Fake entry should be set when this component represents
+     *     fake entry.
      */
-    constructor(name, url, opt_fakeEntry) {
+    constructor(name, url_, fakeEntry_) {
         this.name = name;
-        this.url_ = url;
-        this.fakeEntry_ = opt_fakeEntry || null;
+        this.url_ = url_;
+        this.fakeEntry_ = fakeEntry_;
     }
     /**
      * Resolve an entry of the component.
-     * @return {!Promise<!Entry|!FilesAppEntry>} A promise which is
-     *     resolved with an entry.
+     * @return A promise which is resolved with an entry.
      */
     resolveEntry() {
         if (this.fakeEntry_) {
-            return /** @type {!Promise<!Entry|!FilesAppEntry>} */ (Promise.resolve(this.fakeEntry_));
+            return Promise.resolve(this.fakeEntry_);
         }
         else {
             return new Promise(window.webkitResolveLocalFileSystemURL.bind(null, this.url_));
@@ -4983,11 +5068,9 @@ class PathComponent {
     }
     /**
      * Computes path components for the path of entry.
-     * @param {!Entry|!FilesAppEntry} entry An entry.
-     * @return {!Array<!PathComponent>} Components.
+     * @param entry An entry.
+     * @return Components.
      */
-    // @ts-ignore: error TS7006: Parameter 'volumeManager' implicitly has an 'any'
-    // type.
     static computeComponentsFromEntry(entry, volumeManager) {
         /**
          * Replace the root directory name at the end of a url.
@@ -4996,40 +5079,37 @@ class PathComponent {
          * The output is like:
          * filesystem:chrome-extension://....foo.com-hash/other
          *
-         * @param {string} url which points to a volume display root
-         * @param {string} newRoot new root directory name
-         * @return {string} new URL with the new root directory name
+         * @param url which points to a volume display root
+         * @param newRoot new root directory name
+         * @return new URL with the new root directory name
          */
         const replaceRootName = (url, newRoot) => {
             return url.slice(0, url.length - '/root'.length) + newRoot;
         };
-        // @ts-ignore: error TS7034: Variable 'components' implicitly has type
-        // 'any[]' in some locations where its type cannot be determined.
         const components = [];
         const locationInfo = volumeManager.getLocationInfo(entry);
         if (!locationInfo) {
-            // @ts-ignore: error TS7005: Variable 'components' implicitly has an
-            // 'any[]' type.
             return components;
         }
         if (isFakeEntry(entry)) {
-            components.push(new PathComponent(util.getEntryLabel(locationInfo, entry), entry.toURL(), 
-            /** @type {!FakeEntry} */ (entry)));
+            components.push(new PathComponent(getEntryLabel(locationInfo, entry), entry.toURL(), entry));
             return components;
         }
         // Add volume component.
-        let displayRootUrl = locationInfo.volumeInfo.displayRoot.toURL();
-        let displayRootFullPath = locationInfo.volumeInfo.displayRoot.fullPath;
-        const prefixEntry = locationInfo.volumeInfo.prefixEntry;
+        const volumeInfo = locationInfo.volumeInfo;
+        if (!volumeInfo) {
+            return components;
+        }
+        let displayRootUrl = volumeInfo.displayRoot.toURL();
+        let displayRootFullPath = volumeInfo.displayRoot.fullPath;
+        const prefixEntry = volumeInfo.prefixEntry;
         // Directories under Drive Fake Root can return the fake root entry list as
         // prefix entry, but we will never show "Google Drive" as the prefix in the
         // breadcrumb.
-        if (prefixEntry &&
-            prefixEntry.rootType !== VolumeManagerCommon.RootType.DRIVE_FAKE_ROOT) {
+        if (prefixEntry && prefixEntry.rootType !== RootType.DRIVE_FAKE_ROOT) {
             components.push(new PathComponent(prefixEntry.name, prefixEntry.toURL(), prefixEntry));
         }
-        if (locationInfo.rootType ===
-            VolumeManagerCommon.RootType.DRIVE_SHARED_WITH_ME) {
+        if (locationInfo.rootType === RootType.DRIVE_SHARED_WITH_ME) {
             // DriveFS shared items are in either of:
             // <drivefs>/.files-by-id/<id>/<item>
             // <drivefs>/.shortcut-targets-by-id/<id>/<item>
@@ -5041,28 +5121,31 @@ class PathComponent {
                 console.warn('Unexpected shared DriveFS path: ', entry.fullPath);
             }
             displayRootUrl = replaceRootName(displayRootUrl, displayRootFullPath);
-            const sharedWithMeFakeEntry = locationInfo.volumeInfo
-                .fakeEntries[VolumeManagerCommon.RootType.DRIVE_SHARED_WITH_ME];
-            components.push(new PathComponent(str('DRIVE_SHARED_WITH_ME_COLLECTION_LABEL'), sharedWithMeFakeEntry.toURL(), sharedWithMeFakeEntry));
+            const sharedWithMeFakeEntry = volumeInfo.fakeEntries[RootType.DRIVE_SHARED_WITH_ME];
+            if (sharedWithMeFakeEntry) {
+                components.push(new PathComponent(str('DRIVE_SHARED_WITH_ME_COLLECTION_LABEL'), sharedWithMeFakeEntry.toURL(), sharedWithMeFakeEntry));
+            }
         }
-        else if (locationInfo.rootType === VolumeManagerCommon.RootType.SHARED_DRIVE) {
-            displayRootUrl = replaceRootName(displayRootUrl, VolumeManagerCommon.SHARED_DRIVES_DIRECTORY_PATH);
-            components.push(new PathComponent(util.getRootTypeLabel(locationInfo), displayRootUrl));
+        else if (locationInfo.rootType === RootType.SHARED_DRIVE) {
+            displayRootUrl =
+                replaceRootName(displayRootUrl, SHARED_DRIVES_DIRECTORY_PATH);
+            components.push(new PathComponent(getRootTypeLabel(locationInfo), displayRootUrl));
         }
-        else if (locationInfo.rootType === VolumeManagerCommon.RootType.COMPUTER) {
-            displayRootUrl = replaceRootName(displayRootUrl, VolumeManagerCommon.COMPUTERS_DIRECTORY_PATH);
-            components.push(new PathComponent(util.getRootTypeLabel(locationInfo), displayRootUrl));
+        else if (locationInfo.rootType === RootType.COMPUTER) {
+            displayRootUrl =
+                replaceRootName(displayRootUrl, COMPUTERS_DIRECTORY_PATH);
+            components.push(new PathComponent(getRootTypeLabel(locationInfo), displayRootUrl));
         }
         else {
-            components.push(new PathComponent(util.getRootTypeLabel(locationInfo), displayRootUrl));
+            components.push(new PathComponent(getRootTypeLabel(locationInfo), displayRootUrl));
         }
         // Get relative path to display root (e.g. /root/foo/bar -> foo/bar).
         let relativePath = entry.fullPath.slice(displayRootFullPath.length);
-        if (entry.fullPath.startsWith(VolumeManagerCommon.SHARED_DRIVES_DIRECTORY_PATH)) {
-            relativePath = entry.fullPath.slice(VolumeManagerCommon.SHARED_DRIVES_DIRECTORY_PATH.length);
+        if (entry.fullPath.startsWith(SHARED_DRIVES_DIRECTORY_PATH)) {
+            relativePath = entry.fullPath.slice(SHARED_DRIVES_DIRECTORY_PATH.length);
         }
-        else if (entry.fullPath.startsWith(VolumeManagerCommon.COMPUTERS_DIRECTORY_PATH)) {
-            relativePath = entry.fullPath.slice(VolumeManagerCommon.COMPUTERS_DIRECTORY_PATH.length);
+        else if (entry.fullPath.startsWith(COMPUTERS_DIRECTORY_PATH)) {
+            relativePath = entry.fullPath.slice(COMPUTERS_DIRECTORY_PATH.length);
         }
         if (relativePath.indexOf('/') === 0) {
             relativePath = relativePath.slice(1);
@@ -5077,12 +5160,9 @@ class PathComponent {
         // Add directory components to the target path.
         const paths = relativePath.split('/');
         for (let i = 0; i < paths.length; i++) {
-            // @ts-ignore: error TS2345: Argument of type 'string | undefined' is not
-            // assignable to parameter of type 'string | number | boolean'.
             currentUrl += '/' + encodeURIComponent(paths[i]);
             let path = paths[i];
-            if (i === 0 &&
-                locationInfo.rootType === VolumeManagerCommon.RootType.DOWNLOADS) {
+            if (i === 0 && locationInfo.rootType === RootType.DOWNLOADS) {
                 if (path === 'Downloads') {
                     path = str('DOWNLOADS_DIRECTORY_LABEL');
                 }
@@ -5093,8 +5173,6 @@ class PathComponent {
                     path = str('CAMERA_DIRECTORY_LABEL');
                 }
             }
-            // @ts-ignore: error TS2345: Argument of type 'string | undefined' is not
-            // assignable to parameter of type 'string'.
             components.push(new PathComponent(path, currentUrl));
         }
         return components;
@@ -5105,24 +5183,695 @@ class PathComponent {
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 /**
+ * @fileoverview Current directory slice of the store.
+ */
+const slice$c = new Slice('currentDirectory');
+function getEmptySelection(keys = []) {
+    return {
+        keys,
+        dirCount: 0,
+        fileCount: 0,
+        // hostedCount might be updated to undefined in the for loop below.
+        hostedCount: 0,
+        // offlineCachedCount might be updated to undefined in the for loop below.
+        offlineCachedCount: 0,
+        fileTasks: {
+            tasks: [],
+            defaultTask: undefined,
+            policyDefaultHandlerStatus: undefined,
+            status: PropStatus.STARTED,
+        },
+    };
+}
+/**
+ * Returns true if any of the entries in `currentDirectory` are DLP disabled,
+ * and false otherwise.
+ */
+function hasDlpDisabledFiles(currentState) {
+    const content = currentState.currentDirectory?.content;
+    if (!content) {
+        return false;
+    }
+    for (const key of content.keys) {
+        const fileData = currentState.allEntries[key];
+        if (!fileData) {
+            console.warn(`Missing entry: ${key}`);
+            continue;
+        }
+        if (fileData.metadata.isRestrictedForDestination) {
+            return true;
+        }
+    }
+    return false;
+}
+/** Create action to change the Current Directory. */
+slice$c.addReducer('set', changeDirectoryReducer);
+function changeDirectoryReducer(currentState, payload) {
+    // Cache entries, so the reducers can use any entry from `allEntries`.
+    if (payload.to) {
+        cacheEntries(currentState, [payload.to]);
+    }
+    const { to, toKey } = payload;
+    const key = toKey || to.toURL();
+    const status = payload.status || PropStatus.STARTED;
+    const fileData = currentState.allEntries[key];
+    let selection = currentState.currentDirectory?.selection;
+    // Use an empty selection when a selection isn't defined or it's navigating to
+    // a new directory.
+    if (!selection || currentState.currentDirectory?.key !== key) {
+        selection = {
+            keys: [],
+            dirCount: 0,
+            fileCount: 0,
+            hostedCount: undefined,
+            offlineCachedCount: 0,
+            fileTasks: {
+                tasks: [],
+                policyDefaultHandlerStatus: undefined,
+                defaultTask: undefined,
+                status: PropStatus.SUCCESS,
+            },
+        };
+    }
+    let content = currentState.currentDirectory?.content;
+    let hasDlpDisabledFiles = currentState.currentDirectory?.hasDlpDisabledFiles || false;
+    // Use empty content when it isn't defined or it's navigating to a new
+    // directory. The content will be updated again after a successful scan.
+    if (!content || currentState.currentDirectory?.key !== key) {
+        content = {
+            keys: [],
+        };
+        hasDlpDisabledFiles = false;
+    }
+    let currentDirectory = {
+        key,
+        status,
+        pathComponents: [],
+        content: content,
+        rootType: undefined,
+        selection,
+        hasDlpDisabledFiles: hasDlpDisabledFiles,
+    };
+    // The new directory might not be in the allEntries yet, this might happen
+    // when starting to change the directory for a entry that isn't cached.
+    // At the end of the change directory, DirectoryContents will send an Action
+    // with the Entry to be cached.
+    if (fileData) {
+        const { volumeManager } = window.fileManager;
+        if (!volumeManager) {
+            console.debug(`VolumeManager not available yet.`);
+            currentDirectory = currentState.currentDirectory || currentDirectory;
+        }
+        else {
+            const components = PathComponent.computeComponentsFromEntry(fileData.entry, volumeManager);
+            currentDirectory.pathComponents = components.map(c => {
+                return {
+                    name: c.name,
+                    label: c.name,
+                    key: c.getKey(),
+                };
+            });
+            const locationInfo = volumeManager.getLocationInfo(fileData.entry);
+            currentDirectory.rootType = locationInfo?.rootType;
+        }
+    }
+    return {
+        ...currentState,
+        currentDirectory,
+    };
+}
+/** Create action to update currently selected files/folders. */
+slice$c.addReducer('set-selection', updateSelectionReducer);
+function updateSelectionReducer(currentState, payload) {
+    // Cache entries, so the reducers can use any entry from `allEntries`.
+    cacheEntries(currentState, payload.entries);
+    const updatingToEmpty = (payload.entries.length === 0 && payload.selectedKeys.length === 0);
+    if (!currentState.currentDirectory) {
+        if (!updatingToEmpty) {
+            console.warn('Missing `currentDirectory`');
+            console.debug('Dropping action:', payload);
+        }
+        return currentState;
+    }
+    if (!currentState.currentDirectory.content) {
+        if (!updatingToEmpty) {
+            console.warn('Missing `currentDirectory.content`');
+            console.debug('Dropping action:', payload);
+        }
+        return currentState;
+    }
+    const selectedKeys = payload.selectedKeys;
+    const contentKeys = new Set(currentState.currentDirectory.content.keys);
+    const missingKeys = selectedKeys.filter(k => !contentKeys.has(k));
+    if (missingKeys.length > 0) {
+        console.warn('Got selected keys that are not in current directory, ' +
+            'continuing anyway');
+        console.debug(`Missing keys: ${missingKeys.join('\n')} \nexisting keys:\n ${(currentState.currentDirectory?.content?.keys ?? []).join('\n')}`);
+    }
+    const selection = getEmptySelection(selectedKeys);
+    for (const key of selectedKeys) {
+        const fileData = currentState.allEntries[key];
+        if (!fileData) {
+            console.warn(`Missing entry: ${key}`);
+            continue;
+        }
+        if (fileData.isDirectory) {
+            selection.dirCount++;
+        }
+        else {
+            selection.fileCount++;
+        }
+        const metadata = fileData.metadata;
+        // Update hostedCount to undefined if any entry doesn't have the metadata
+        // yet.
+        const isHosted = metadata?.hosted;
+        if (isHosted === undefined) {
+            selection.hostedCount = undefined;
+        }
+        else {
+            if (selection.hostedCount !== undefined && isHosted) {
+                selection.hostedCount++;
+            }
+        }
+        // If no availableOffline property, then assume it's available.
+        const isOfflineCached = (metadata?.availableOffline === undefined ||
+            metadata?.availableOffline);
+        if (isOfflineCached) {
+            selection.offlineCachedCount++;
+        }
+    }
+    const currentDirectory = {
+        ...currentState.currentDirectory,
+        selection,
+    };
+    return {
+        ...currentState,
+        currentDirectory,
+    };
+}
+/** Create action to update FileTasks for the current selection. */
+slice$c.addReducer('set-file-tasks', updateFileTasksReducer);
+function updateFileTasksReducer(currentState, payload) {
+    const initialSelection = currentState.currentDirectory?.selection ?? getEmptySelection();
+    // Apply the changes over the current selection.
+    const fileTasks = {
+        ...initialSelection.fileTasks,
+        ...payload,
+    };
+    // Update the selection and current directory objects.
+    const selection = {
+        ...initialSelection,
+        fileTasks,
+    };
+    const currentDirectory = {
+        ...currentState.currentDirectory,
+        selection,
+    };
+    return {
+        ...currentState,
+        currentDirectory,
+    };
+}
+/** Create action to update the current directory's content. */
+slice$c.addReducer('update-content', updateDirectoryContentReducer);
+function updateDirectoryContentReducer(currentState, payload) {
+    // Cache entries, so the reducers can use any entry from `allEntries`.
+    cacheEntries(currentState, payload.entries);
+    if (!currentState.currentDirectory) {
+        console.warn('Missing `currentDirectory`');
+        return currentState;
+    }
+    const initialContent = currentState.currentDirectory?.content ?? { keys: [] };
+    const keys = payload.entries.map(e => e.toURL());
+    const content = {
+        ...initialContent,
+        keys,
+    };
+    let currentDirectory = {
+        ...currentState.currentDirectory,
+        content,
+    };
+    const newState = {
+        ...currentState,
+        currentDirectory,
+    };
+    currentDirectory = {
+        ...currentDirectory,
+        hasDlpDisabledFiles: hasDlpDisabledFiles(newState),
+    };
+    return {
+        ...newState,
+        currentDirectory,
+    };
+}
+
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview Entries slice of the store.
+ */
+const slice$b = new Slice('allEntries');
+/**
+ * Create action to scan `allEntries` and remove its stale entries.
+ */
+const clearCachedEntries = slice$b.addReducer('clear-stale-cache', clearCachedEntriesReducer);
+function clearCachedEntriesReducer(state) {
+    const entries = state.allEntries;
+    const currentDirectoryKey = state.currentDirectory?.key;
+    const entriesToKeep = new Set();
+    if (currentDirectoryKey) {
+        entriesToKeep.add(currentDirectoryKey);
+        for (const component of state.currentDirectory.pathComponents) {
+            entriesToKeep.add(component.key);
+        }
+        for (const key of state.currentDirectory.content.keys) {
+            entriesToKeep.add(key);
+        }
+    }
+    const selectionKeys = state.currentDirectory?.selection.keys ?? [];
+    if (selectionKeys) {
+        for (const key of selectionKeys) {
+            entriesToKeep.add(key);
+        }
+    }
+    for (const volume of Object.values(state.volumes)) {
+        if (!volume.rootKey) {
+            continue;
+        }
+        entriesToKeep.add(volume.rootKey);
+        if (volume.prefixKey) {
+            entriesToKeep.add(volume.prefixKey);
+        }
+    }
+    for (const key of state.uiEntries) {
+        entriesToKeep.add(key);
+    }
+    for (const key of state.folderShortcuts) {
+        entriesToKeep.add(key);
+    }
+    for (const root of state.navigation.roots) {
+        entriesToKeep.add(root.key);
+    }
+    // For all expanded entries, we need to keep them and all their direct
+    // children.
+    for (const [key, fileData] of Object.entries(entries)) {
+        if (fileData.expanded) {
+            entriesToKeep.add(key);
+            if (fileData.children) {
+                for (const child of fileData.children) {
+                    entriesToKeep.add(child);
+                }
+            }
+        }
+    }
+    // For all kept entries, we also need to keep their children so we can decide
+    // if we need to show the expand icon or not.
+    for (const key of entriesToKeep) {
+        const fileData = entries[key];
+        if (fileData?.children) {
+            for (const child of fileData.children) {
+                entriesToKeep.add(child);
+            }
+        }
+    }
+    const isDebugStore = isDebugStoreEnabled();
+    for (const key of Object.keys(entries)) {
+        if (entriesToKeep.has(key)) {
+            continue;
+        }
+        delete entries[key];
+        if (isDebugStore) {
+            console.log(`Clear entry: ${key}`);
+        }
+    }
+    return state;
+}
+/**
+ * Schedules the routine to remove stale entries from `allEntries`.
+ */
+function scheduleClearCachedEntries() {
+    if (clearCachedEntriesRequestId === 0) {
+        clearCachedEntriesRequestId = requestIdleCallback(startClearCache);
+    }
+}
+/** ID for the current scheduled `clearCachedEntries`. */
+let clearCachedEntriesRequestId = 0;
+/** Starts the action CLEAR_STALE_CACHED_ENTRIES.  */
+function startClearCache() {
+    const store = getStore();
+    store.dispatch(clearCachedEntries());
+    clearCachedEntriesRequestId = 0;
+}
+const prefetchPropertyNames = Array.from(new Set([
+    ...LIST_CONTAINER_METADATA_PREFETCH_PROPERTY_NAMES,
+    ...ACTIONS_MODEL_METADATA_PREFETCH_PROPERTY_NAMES,
+    ...FILE_SELECTION_METADATA_PREFETCH_PROPERTY_NAMES,
+    ...DLP_METADATA_PREFETCH_PROPERTY_NAMES,
+]));
+/** Get the icon for an entry. */
+function getEntryIcon(entry, locationInfo, volumeType) {
+    const url = entry.toURL();
+    // Pre-defined icons based on the URL.
+    const urlToIconPath = {
+        [recentRootKey]: ICON_TYPES.RECENT,
+        [myFilesEntryListKey]: ICON_TYPES.MY_FILES,
+        [driveRootEntryListKey]: ICON_TYPES.SERVICE_DRIVE,
+    };
+    if (urlToIconPath[url]) {
+        return urlToIconPath[url];
+    }
+    // Handle icons for grand roots ("Shared drives" and "Computers") in Drive.
+    // Here we can't just use `fullPath` to check if an entry is a grand root or
+    // not, because normal directory can also have the same full path. We also
+    // need to check if the entry is a direct child of the drive root entry list.
+    const grandRootPathToIconMap = {
+        [COMPUTERS_DIRECTORY_PATH]: ICON_TYPES.COMPUTERS_GRAND_ROOT,
+        [SHARED_DRIVES_DIRECTORY_PATH]: ICON_TYPES.SHARED_DRIVES_GRAND_ROOT,
+    };
+    if (volumeType === VolumeType.DRIVE &&
+        grandRootPathToIconMap[entry.fullPath]) {
+        return grandRootPathToIconMap[entry.fullPath];
+    }
+    // For grouped removable devices, its parent folder is an entry list, we
+    // should use USB icon for it.
+    if ('rootType' in entry && entry.rootType === RootType.REMOVABLE) {
+        return ICON_TYPES.USB;
+    }
+    if (isVolumeEntry(entry) && entry.volumeInfo) {
+        switch (entry.volumeInfo.volumeType) {
+            case VolumeType.DOWNLOADS:
+                return ICON_TYPES.MY_FILES;
+            case VolumeType.SMB:
+                return ICON_TYPES.SMB;
+            case VolumeType.PROVIDED:
+            // Fallthrough
+            case VolumeType.DOCUMENTS_PROVIDER: {
+                // Only return IconSet if there's valid background image generated.
+                const iconSet = entry.volumeInfo.iconSet;
+                if (iconSet) {
+                    const backgroundImage = iconSetToCSSBackgroundImageValue(entry.volumeInfo.iconSet);
+                    if (backgroundImage !== 'none') {
+                        return iconSet;
+                    }
+                }
+                // If no background is generated from IconSet, set the icon to the
+                // generic one for certain volume type.
+                if (volumeType && shouldProvideIcons(volumeType)) {
+                    return ICON_TYPES.GENERIC;
+                }
+                return '';
+            }
+            case VolumeType.MTP:
+                return ICON_TYPES.MTP;
+            case VolumeType.ARCHIVE:
+                return ICON_TYPES.ARCHIVE;
+            case VolumeType.REMOVABLE:
+                // For sub-partition from a removable volume, its children icon should
+                // be UNKNOWN_REMOVABLE.
+                return entry.volumeInfo.prefixEntry ? ICON_TYPES.UNKNOWN_REMOVABLE :
+                    ICON_TYPES.USB;
+            case VolumeType.DRIVE:
+                return ICON_TYPES.DRIVE;
+        }
+    }
+    return getIcon(entry, undefined, locationInfo?.rootType);
+}
+/**
+ * Given an entry, check if its loading children should be delayed.
+ * We are doing this for SMB to avoid potentially hanging whilst scanning a
+ * large SMB file share and causing performance issues.
+ */
+function shouldDelayLoadingChildren(entry) {
+    const { volumeManager } = window.fileManager;
+    // When this function is triggered when mounting new volumes, volumeInfo is
+    // not available in the VolumeManager yet, we need to get volumeInfo from the
+    // entry itself.
+    const volumeInfo = isVolumeEntry(entry) ? entry.volumeInfo :
+        volumeManager.getVolumeInfo(entry);
+    return volumeInfo?.source === Source.NETWORK &&
+        volumeInfo.volumeType === VolumeType.SMB;
+}
+/**
+ * Converts the entry to the Store representation of an Entry: FileData.
+ */
+function convertEntryToFileData(entry) {
+    const { volumeManager, metadataModel } = window.fileManager;
+    // When this function is triggered when mounting new volumes, volumeInfo is
+    // not available in the VolumeManager yet, we need to get volumeInfo from the
+    // entry itself.
+    const volumeInfo = isVolumeEntry(entry) ? entry.volumeInfo :
+        volumeManager.getVolumeInfo(entry);
+    const locationInfo = volumeManager.getLocationInfo(entry);
+    const label = getEntryLabel(locationInfo, entry);
+    // For FakeEntry, we need to read from entry.volumeType because it doesn't
+    // have volumeInfo in the volume manager.
+    const volumeType = 'volumeType' in entry && entry.volumeType ?
+        entry.volumeType :
+        (volumeInfo?.volumeType || null);
+    const volumeId = volumeInfo?.volumeId || null;
+    const icon = getEntryIcon(entry, locationInfo, volumeType);
+    /**
+     * Update disabled attribute if entry supports disabled attribute and has a
+     * non-null volumeType.
+     */
+    if ('disabled' in entry && volumeType) {
+        entry.disabled = volumeManager.isDisabled(volumeType);
+    }
+    const metadata = metadataModel ?
+        metadataModel.getCache([entry], prefetchPropertyNames)[0] :
+        {};
+    return {
+        entry,
+        icon,
+        type: getEntryType(entry),
+        isDirectory: entry.isDirectory,
+        label,
+        volumeId,
+        rootType: locationInfo?.rootType ?? null,
+        metadata,
+        expanded: false,
+        disabled: 'disabled' in entry ? entry.disabled : false,
+        isRootEntry: !!locationInfo?.isRootEntry,
+        // `isEjectable` is determined by its corresponding volume, will be updated
+        // when volume is added.
+        isEjectable: false,
+        canExpand: shouldDelayLoadingChildren(entry),
+        children: [],
+    };
+}
+/**
+ * Appends the entry to the Store.
+ */
+function appendEntry(state, entry) {
+    const allEntries = state.allEntries || {};
+    const key = entry.toURL();
+    const existingFileData = allEntries[key] || {};
+    // Some client code might dispatch actions based on
+    // `volume.resolveDisplayRoot()` which is a DirectoryEntry instead of a
+    // VolumeEntry. It's safe to ignore this entry because the data will be the
+    // same as `existingFileData` and we don't want to convert from VolumeEntry to
+    // DirectoryEntry.
+    if (existingFileData.type === EntryType.VOLUME_ROOT &&
+        getEntryType(entry) !== EntryType.VOLUME_ROOT) {
+        return;
+    }
+    const fileData = convertEntryToFileData(entry);
+    allEntries[key] = {
+        ...fileData,
+        // For existing entries already in the store, we want to keep the existing
+        // value for the following fields. For example, for "expanded" entries with
+        // expanded=true, we don't want to override it with expanded=false derived
+        // from `convertEntryToFileData` function above.
+        expanded: existingFileData.expanded ?? fileData.expanded,
+        isEjectable: existingFileData.isEjectable ?? fileData.isEjectable,
+        canExpand: existingFileData.canExpand ?? fileData.canExpand,
+        // Keep children to prevent sudden removal of the children items on the UI.
+        children: existingFileData.children ?? fileData.children,
+    };
+    state.allEntries = allEntries;
+}
+/**
+ * Updates `FileData` from a `FileKey`.
+ *
+ * Note: the state will be updated in place.
+ */
+function updateFileDataInPlace(state, key, changes) {
+    if (!state.allEntries[key]) {
+        console.warn(`Entry FileData not found in the store: ${key}`);
+        return;
+    }
+    const newFileData = {
+        ...state.allEntries[key],
+        ...changes,
+    };
+    state.allEntries[key] = newFileData;
+    return newFileData;
+}
+/** Caches the Action's entry in the `allEntries` attribute. */
+function cacheEntries(currentState, entries) {
+    scheduleClearCachedEntries();
+    for (const entry of entries) {
+        appendEntry(currentState, entry);
+    }
+}
+function getEntryType(entry) {
+    // Entries from FilesAppEntry have the `typeName` property.
+    if (!('typeName' in entry)) {
+        return EntryType.FS_API;
+    }
+    switch (entry.typeName) {
+        case 'EntryList':
+            return EntryType.ENTRY_LIST;
+        case 'VolumeEntry':
+            return EntryType.VOLUME_ROOT;
+        case 'FakeEntry':
+            switch (entry.rootType) {
+                case RootType.RECENT:
+                    return EntryType.RECENT;
+                case RootType.TRASH:
+                    return EntryType.TRASH;
+                case RootType.DRIVE_FAKE_ROOT:
+                    return EntryType.ENTRY_LIST;
+                case RootType.CROSTINI:
+                case RootType.ANDROID_FILES:
+                    return EntryType.PLACEHOLDER;
+                case RootType.DRIVE_OFFLINE:
+                case RootType.DRIVE_SHARED_WITH_ME:
+                    // TODO(lucmult): This isn't really Recent but it's the closest.
+                    return EntryType.RECENT;
+            }
+            console.warn(`Invalid fakeEntry.rootType='${entry.rootType} rootType`);
+            return EntryType.PLACEHOLDER;
+        case 'GuestOsPlaceholder':
+            return EntryType.PLACEHOLDER;
+        case 'TrashEntry':
+            return EntryType.TRASH;
+        default:
+            console.warn(`Invalid entry.typeName='${entry.typeName}`);
+            return EntryType.FS_API;
+    }
+}
+/** Create action to update entries metadata. */
+slice$b.addReducer('update-metadata', updateMetadataReducer);
+function updateMetadataReducer(currentState, payload) {
+    // Cache entries, so the reducers can use any entry from `allEntries`.
+    cacheEntries(currentState, payload.metadata.map(m => m.entry));
+    for (const entryMetadata of payload.metadata) {
+        const key = entryMetadata.entry.toURL();
+        const fileData = currentState.allEntries[key];
+        const metadata = { ...fileData.metadata, ...entryMetadata.metadata };
+        currentState.allEntries[key] = {
+            ...fileData,
+            metadata,
+        };
+    }
+    if (!currentState.currentDirectory) {
+        console.warn('Missing `currentDirectory`');
+        return currentState;
+    }
+    const currentDirectory = {
+        ...currentState.currentDirectory,
+        hasDlpDisabledFiles: hasDlpDisabledFiles(currentState),
+    };
+    return {
+        ...currentState,
+        currentDirectory,
+    };
+}
+function findVolumeByType(volumes, volumeType) {
+    return Object.values(volumes).find(v => {
+        // If the volume isn't resolved yet, we just ignore here.
+        return v.rootKey && v.volumeType === volumeType;
+    }) ??
+        null;
+}
+/**
+ * Returns the MyFiles entry and volume, the entry can either be a fake one
+ * (EntryList) or a real one (VolumeEntry) depends on if the MyFiles volume is
+ * mounted or not.
+ * Note: it will create a fake EntryList in the store if there's no
+ * MyFiles entry in the store (e.g. no EntryList and no VolumeEntry).
+ */
+function getMyFiles(state) {
+    const { volumes } = state;
+    const myFilesVolume = findVolumeByType(volumes, VolumeType.DOWNLOADS);
+    const myFilesVolumeEntry = myFilesVolume ?
+        getEntry(state, myFilesVolume.rootKey) :
+        null;
+    let myFilesEntryList = getEntry(state, myFilesEntryListKey);
+    if (!myFilesVolumeEntry && !myFilesEntryList) {
+        myFilesEntryList =
+            new EntryList(str('MY_FILES_ROOT_LABEL'), RootType.MY_FILES);
+        appendEntry(state, myFilesEntryList);
+        state.uiEntries = [...state.uiEntries, myFilesEntryList.toURL()];
+    }
+    return {
+        myFilesEntry: myFilesVolumeEntry || myFilesEntryList,
+        myFilesVolume,
+    };
+}
+/**  Create action to add child entries to a parent entry. */
+slice$b.addReducer('add-children', addChildEntriesReducer);
+function addChildEntriesReducer(currentState, payload) {
+    // Cache entries, so the reducers can use any entry from `allEntries`.
+    cacheEntries(currentState, payload.entries);
+    const { parentKey, entries } = payload;
+    const { allEntries } = currentState;
+    // The corresponding parent entry item has been removed somehow, do nothing.
+    if (!allEntries[parentKey]) {
+        return currentState;
+    }
+    const newEntryKeys = entries.map(entry => entry.toURL());
+    // Add children to the parent entry item.
+    const parentFileData = {
+        ...allEntries[parentKey],
+        children: newEntryKeys,
+    };
+    return {
+        ...currentState,
+        allEntries: {
+            ...allEntries,
+            [parentKey]: parentFileData,
+        },
+    };
+}
+/** Create action to update FileData for a given entry. */
+slice$b.addReducer('update-file-data', updateFileDataReducer);
+function updateFileDataReducer(currentState, payload) {
+    const { key, partialFileData } = payload;
+    const fileData = getFileData(currentState, key);
+    if (!fileData) {
+        return currentState;
+    }
+    currentState.allEntries[key] = {
+        ...fileData,
+        ...partialFileData,
+    };
+    return { ...currentState };
+}
+
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
  * @fileoverview Android apps slice of the store.
- * @suppress {checkTypes}
  *
  * Android App is something we get from private API
  * `chrome.fileManagerPrivate.getAndroidPickerApps`, it will be shown as a
  * directory item in FilePicker mode.
  */
-const slice$b = new Slice('androidApps');
+const slice$a = new Slice('androidApps');
 /** Action factory to add all android app config to the store. */
-slice$b.addReducer('add', addAndroidAppsReducer);
+slice$a.addReducer('add', addAndroidAppsReducer);
 function addAndroidAppsReducer(currentState, payload) {
     const androidApps = {};
     for (const app of payload.apps) {
         // For android app item, if no icon is derived from IconSet, set the icon to
         // the generic one.
-        let icon = constants.ICON_TYPES.GENERIC;
+        let icon = ICON_TYPES.GENERIC;
         if (app.iconSet) {
-            const backgroundImage = util.iconSetToCSSBackgroundImageValue(app.iconSet);
+            const backgroundImage = iconSetToCSSBackgroundImageValue(app.iconSet);
             if (backgroundImage !== 'none') {
                 icon = app.iconSet;
             }
@@ -5143,7 +5892,6 @@ function addAndroidAppsReducer(currentState, payload) {
 // found in the LICENSE file.
 /**
  * @fileoverview Bulk pinning slice of the store.
- * @suppress {checkTypes}
  *
  * BulkPinProgress is the current state of files that are being pinned when the
  * BulkPinning feature is enabled. During bulk pinning, all the users items in
@@ -5151,9 +5899,9 @@ function addAndroidAppsReducer(currentState, payload) {
  * both the initial operation and any subsequent updates along with any error
  * states that may occur.
  */
-const slice$a = new Slice('bulkPinning');
+const slice$9 = new Slice('bulkPinning');
 /** Create action to update the bulk pin progress. */
-slice$a.addReducer('set-progress', (state, bulkPinning) => ({
+slice$9.addReducer('set-progress', (state, bulkPinning) => ({
     ...state,
     bulkPinning,
 }));
@@ -5163,10 +5911,9 @@ slice$a.addReducer('set-progress', (state, bulkPinning) => ({
 // found in the LICENSE file.
 /**
  * @fileoverview Device slice of the store.
- * @suppress {checkTypes}
  */
-const slice$9 = new Slice('device');
-const updateDeviceConnectionState = slice$9.addReducer('set-connection-state', updateDeviceConnectionStateReducer$1);
+const slice$8 = new Slice('device');
+const updateDeviceConnectionState = slice$8.addReducer('set-connection-state', updateDeviceConnectionStateReducer$1);
 function updateDeviceConnectionStateReducer$1(currentState, payload) {
     let device;
     // Device connection.
@@ -5184,10 +5931,9 @@ function updateDeviceConnectionStateReducer$1(currentState, payload) {
 // found in the LICENSE file.
 /**
  * @fileoverview Drive slice of the store.
- * @suppress {checkTypes}
  */
-const slice$8 = new Slice('drive');
-slice$8.addReducer('set-drive-connection-status', updateDriveConnectionStatusReducer);
+const slice$7 = new Slice('drive');
+slice$7.addReducer('set-drive-connection-status', updateDriveConnectionStatusReducer);
 function updateDriveConnectionStatusReducer(currentState, payload) {
     const drive = { ...currentState.drive };
     if (payload.type !== currentState.drive.connectionType) {
@@ -5207,13 +5953,9 @@ function updateDriveConnectionStatusReducer(currentState, payload) {
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-/**
- * @fileoverview Folder shortcuts slice of the store.
- * @suppress {checkTypes}
- */
-const slice$7 = new Slice('folderShortcuts');
+const slice$6 = new Slice('folderShortcuts');
 /** Create action to refresh all folder shortcuts with provided ones. */
-slice$7.addReducer('refresh', refreshFolderShortcutReducer);
+slice$6.addReducer('refresh', refreshFolderShortcutReducer);
 function refreshFolderShortcutReducer(currentState, payload) {
     // Cache entries, so the reducers can use any entry from `allEntries`.
     cacheEntries(currentState, payload.entries);
@@ -5223,7 +5965,7 @@ function refreshFolderShortcutReducer(currentState, payload) {
     };
 }
 /** Create action to add a folder shortcut. */
-slice$7.addReducer('add', addFolderShortcutReducer);
+slice$6.addReducer('add', addFolderShortcutReducer);
 function addFolderShortcutReducer(currentState, payload) {
     // Cache entries, so the reducers can use any entry from `allEntries`.
     cacheEntries(currentState, [payload.entry]);
@@ -5256,7 +5998,7 @@ function addFolderShortcutReducer(currentState, payload) {
     };
 }
 /** Create action to remove a folder shortcut. */
-slice$7.addReducer('remove', removeFolderShortcutReducer);
+slice$6.addReducer('remove', removeFolderShortcutReducer);
 function removeFolderShortcutReducer(currentState, payload) {
     const { key } = payload;
     const { folderShortcuts } = currentState;
@@ -5274,31 +6016,45 @@ function removeFolderShortcutReducer(currentState, payload) {
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
+const slice$5 = new Slice('launchParams');
+function launchParamsReducer(state, launchParams) {
+    const storedLaunchParams = state.launchParams || {};
+    if (launchParams.dialogType !== storedLaunchParams.dialogType) {
+        return { ...state, launchParams };
+    }
+    return state;
+}
+/**
+ * Updates the stored launch parameters in the store based on the supplied data.
+ */
+slice$5.addReducer('set', launchParamsReducer);
+
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
 /**
  * @fileoverview Navigation slice of the store.
- * @suppress {checkTypes}
  */
-const slice$6 = new Slice('navigation');
-const VolumeType$1 = VolumeManagerCommon.VolumeType;
+const slice$4 = new Slice('navigation');
 const sections = new Map();
 // My Files.
-sections.set(VolumeType$1.DOWNLOADS, NavigationSection.MY_FILES);
+sections.set(VolumeType.DOWNLOADS, NavigationSection.MY_FILES);
 // Cloud.
-sections.set(VolumeType$1.DRIVE, NavigationSection.CLOUD);
-sections.set(VolumeType$1.SMB, NavigationSection.CLOUD);
-sections.set(VolumeType$1.PROVIDED, NavigationSection.CLOUD);
-sections.set(VolumeType$1.DOCUMENTS_PROVIDER, NavigationSection.CLOUD);
+sections.set(VolumeType.DRIVE, NavigationSection.CLOUD);
+sections.set(VolumeType.SMB, NavigationSection.CLOUD);
+sections.set(VolumeType.PROVIDED, NavigationSection.CLOUD);
+sections.set(VolumeType.DOCUMENTS_PROVIDER, NavigationSection.CLOUD);
 // Removable.
-sections.set(VolumeType$1.REMOVABLE, NavigationSection.REMOVABLE);
-sections.set(VolumeType$1.MTP, NavigationSection.REMOVABLE);
-sections.set(VolumeType$1.ARCHIVE, NavigationSection.REMOVABLE);
+sections.set(VolumeType.REMOVABLE, NavigationSection.REMOVABLE);
+sections.set(VolumeType.MTP, NavigationSection.REMOVABLE);
+sections.set(VolumeType.ARCHIVE, NavigationSection.REMOVABLE);
 /** Returns the entry for the volume's top-most prefix or the volume itself. */
 function getPrefixEntryOrEntry(state, volume) {
     if (volume.prefixKey) {
         const entry = getEntry(state, volume.prefixKey);
         return entry;
     }
-    if (volume.volumeType === VolumeType$1.DOWNLOADS) {
+    if (volume.volumeType === VolumeType.DOWNLOADS) {
         return getMyFiles(state).myFilesEntry;
     }
     const entry = getEntry(state, volume.rootKey);
@@ -5321,7 +6077,7 @@ function getPrefixEntryOrEntry(state, volume) {
  *  9. Android apps.
  *  10. Trash.
  */
-slice$6.addReducer('refresh-roots', refreshNavigationRootsReducer);
+slice$4.addReducer('refresh-roots', refreshNavigationRootsReducer);
 function refreshNavigationRootsReducer(currentState) {
     const { navigation: { roots: previousRoots }, folderShortcuts, androidApps, } = currentState;
     /** Roots in the desired order. */
@@ -5372,8 +6128,14 @@ function refreshNavigationRootsReducer(currentState) {
     });
     processedEntryKeys.add(myFilesEntry.toURL());
     // 4. Add Google Drive - the only Drive.
+    // When drive pref changes from enabled to disabled, we remove the drive root
+    // key from the `state.uiEntries` immediately, but the drive root entry itself
+    // is removed asynchronously, so here we need to check both, if the key
+    // doesn't exist any more, we shouldn't render Drive item even if the drive
+    // root entry is still available.
+    const driveEntryKeyExist = currentState.uiEntries.includes(driveRootEntryListKey);
     const driveEntry = getEntry(currentState, driveRootEntryListKey);
-    if (driveEntry) {
+    if (driveEntryKeyExist && driveEntry) {
         roots.push({
             key: driveEntry.toURL(),
             section: NavigationSection.GOOGLE_DRIVE,
@@ -5384,15 +6146,15 @@ function refreshNavigationRootsReducer(currentState) {
     }
     // 5/6/7/8 Other volumes.
     const volumesOrder = {
-        // ODFS is a PROVIDED volume type but is a special case to be directly below
-        // Drive.
+        // ODFS is a PROVIDED volume type but is a special case to be directly
+        // below Drive.
         // ODFS : 0
-        [VolumeType$1.SMB]: 1,
-        [VolumeType$1.PROVIDED]: 2,
-        [VolumeType$1.DOCUMENTS_PROVIDER]: 3,
-        [VolumeType$1.REMOVABLE]: 4,
-        [VolumeType$1.ARCHIVE]: 5,
-        [VolumeType$1.MTP]: 6,
+        [VolumeType.SMB]: 1,
+        [VolumeType.PROVIDED]: 2, // FSP.
+        [VolumeType.DOCUMENTS_PROVIDER]: 3,
+        [VolumeType.REMOVABLE]: 4,
+        [VolumeType.ARCHIVE]: 5,
+        [VolumeType.MTP]: 6,
     };
     // Filter volumes based on the volumeInfoList in volumeManager.
     const { volumeManager } = window.fileManager;
@@ -5413,9 +6175,9 @@ function refreshNavigationRootsReducer(currentState) {
         v.rootKey &&
             // MyFiles and Drive is already displayed above.
             // MediaView volumeType isn't displayed.
-            !(v.volumeType === VolumeType$1.DOWNLOADS ||
-                v.volumeType === VolumeType$1.DRIVE ||
-                v.volumeType === VolumeType$1.MEDIA_VIEW));
+            !(v.volumeType === VolumeType.DOWNLOADS ||
+                v.volumeType === VolumeType.DRIVE ||
+                v.volumeType === VolumeType.MEDIA_VIEW));
     })
         .sort((v1, v2) => {
         const v1Order = getVolumeOrder(v1);
@@ -5457,8 +6219,22 @@ function refreshNavigationRootsReducer(currentState) {
         processedEntryKeys.add(app.packageName);
     });
     // 10. Trash
+    // Trash should only show when Files app is open as a standalone app. The ARC
+    // file selector, however, opens Files app as a standalone app but passes a
+    // query parameter to indicate the mode. As Trash is a fake volume, it is
+    // not filtered out in the filtered volume manager so perform it here
+    // instead.
+    const { dialogType } = window.fileManager;
+    const shouldShowTrash = dialogType === DialogType.FULL_PAGE &&
+        !volumeManager.getMediaStoreFilesOnlyFilterEnabled();
+    // When trash pref changes from enabled to disabled, we remove the trash root
+    // key from the `state.uiEntries` immediately, but the trash entry itself is
+    // removed asynchronously, so here we need to check both, if the key doesn't
+    // exist any more, we shouldn't render Trash item even if the trash entry is
+    // still available.
+    const trashEntryKeyExist = currentState.uiEntries.includes(trashRootKey);
     const trashEntry = getEntry(currentState, trashRootKey);
-    if (trashEntry) {
+    if (shouldShowTrash && trashEntryKeyExist && trashEntry) {
         roots.push({
             key: trashRootKey,
             section: NavigationSection.TRASH,
@@ -5474,33 +6250,18 @@ function refreshNavigationRootsReducer(currentState) {
         },
     };
 }
-/** Create action to update navigation data in FileData for a given entry. */
-slice$6.addReducer('update-entry', updateNavigationEntryReducer);
-function updateNavigationEntryReducer(currentState, payload) {
-    const { key, expanded } = payload;
-    const fileData = getFileData(currentState, key);
-    if (!fileData) {
-        return currentState;
-    }
-    currentState.allEntries[key] = {
-        ...fileData,
-        expanded,
-    };
-    return { ...currentState };
-}
 
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 /**
  * @fileoverview Chrome preferences slice of the store.
- * @suppress {checkTypes}
  *
  * Chrome preferences store user data that is persisted to disk OR across
  * profiles, this takes care of initially populating these values then keeping
  * them updated on dynamic changes.
  */
-const slice$5 = new Slice('preferences');
+const slice$3 = new Slice('preferences');
 /**
  * A type guard to see if the payload supplied is a change of preferences or the
  * entire preferences object. Useful in ensuring subsequent type checks are done
@@ -5536,7 +6297,7 @@ function updateIfDefined(updatedPreferences, newPreferences, key) {
     return true;
 }
 /** Create action to update user preferences. */
-slice$5.addReducer('set', updatePreferencesReducer);
+slice$3.addReducer('set', updatePreferencesReducer);
 function updatePreferencesReducer(currentState, payload) {
     const preferences = payload;
     // This action takes two potential payloads:
@@ -5581,9 +6342,8 @@ function updatePreferencesReducer(currentState, payload) {
 // found in the LICENSE file.
 /**
  * @fileoverview Search slice of the store.
- * @suppress {checkTypes}
  */
-const slice$4 = new Slice('search');
+const slice$2 = new Slice('search');
 /**
  * Returns if the given search data represents empty (cleared) search.
  */
@@ -5606,7 +6366,7 @@ function optionsChanged(stored, fresh) {
         fresh.recency !== stored.recency ||
         fresh.fileCategory !== stored.fileCategory;
 }
-slice$4.addReducer('set', searchReducer);
+slice$2.addReducer('set', searchReducer);
 function searchReducer(state, payload) {
     const blankSearch = {
         query: undefined,
@@ -5651,91 +6411,38 @@ function searchReducer(state, payload) {
 // found in the LICENSE file.
 /**
  * @fileoverview UI entries slice of the store.
- * @suppress {checkTypes}
  *
  * UI entries represents entries shown on UI only (aka FakeEntry, e.g.
  * Recents/Trash/Google Drive wrapper), they don't have a real entry backup in
  * the file system.
  */
-const slice$3 = new Slice('uiEntries');
-const uiEntryRootTypesInMyFiles = new Set([
-    VolumeManagerCommon.RootType.ANDROID_FILES,
-    VolumeManagerCommon.RootType.CROSTINI,
-    VolumeManagerCommon.RootType.GUEST_OS,
+const slice$1 = new Slice('uiEntries');
+new Set([
+    RootType.ANDROID_FILES,
+    RootType.CROSTINI,
+    RootType.GUEST_OS,
 ]);
 /** Create action to add an UI entry to the store. */
-slice$3.addReducer('add', addUiEntryReducer);
+slice$1.addReducer('add', addUiEntryReducer);
 function addUiEntryReducer(currentState, payload) {
     // Cache entries, so the reducers can use any entry from `allEntries`.
     cacheEntries(currentState, [payload.entry]);
     const { entry } = payload;
     const key = entry.toURL();
-    let isVolumeEntryExistedInMyFiles = false;
-    if (uiEntryRootTypesInMyFiles.has(entry.rootType)) {
-        const { myFilesEntry } = getMyFiles(currentState);
-        const children = myFilesEntry.getUIChildren();
-        // Check if the the ui entry already has a corresponding volume entry.
-        isVolumeEntryExistedInMyFiles = !!children.find(childEntry => isVolumeEntry(childEntry) && childEntry.name === entry.name);
-        const isUiEntryExistedInMyFiles = !!children.find(childEntry => isSameEntry(childEntry, entry));
-        // We only add the UI entry here if:
-        // 1. it is not existed in MyFiles entry
-        // 2. its corresponding volume (which ui entry is a placeholder for) is not
-        // existed in MyFiles entry
-        const shouldAddUiEntry = !isUiEntryExistedInMyFiles && !isVolumeEntryExistedInMyFiles;
-        if (shouldAddUiEntry) {
-            myFilesEntry.addEntry(entry);
-            // Push the new entry to the children of FileData and sort them.
-            const fileData = getFileData(currentState, myFilesEntry.toURL());
-            if (fileData) {
-                const newChildren = fileData.children.concat(entry.toURL());
-                const childEntries = newChildren.map(childKey => getEntry(currentState, childKey));
-                const sortedChildren = sortEntries(myFilesEntry, childEntries).map(entry => entry.toURL());
-                currentState.allEntries[myFilesEntry.toURL()] = {
-                    ...fileData,
-                    children: sortedChildren,
-                };
-            }
-        }
-    }
-    // If the corresponding volume entry exists, we don't add the ui entry here.
-    if (!currentState.uiEntries.find(k => k === key) &&
-        !isVolumeEntryExistedInMyFiles) {
-        // Shallow copy.
-        currentState.uiEntries = currentState.uiEntries.slice();
-        currentState.uiEntries.push(key);
-    }
+    const uiEntries = [...currentState.uiEntries, key];
     return {
         ...currentState,
+        uiEntries,
     };
 }
 /** Create action to remove an UI entry from the store. */
-slice$3.addReducer('remove', removeUiEntryReducer);
+slice$1.addReducer('remove', removeUiEntryReducer);
 function removeUiEntryReducer(currentState, payload) {
     const { key } = payload;
-    const entry = getEntry(currentState, key);
-    if (currentState.uiEntries.find(k => k === key)) {
-        // Shallow copy.
-        currentState.uiEntries = currentState.uiEntries.filter(k => k !== key);
-    }
-    // We also need to remove it from the children of MyFiles if it's existed
-    // there.
-    if (entry && uiEntryRootTypesInMyFiles.has(entry.rootType)) {
-        const { myFilesEntry } = getMyFiles(currentState);
-        const children = myFilesEntry.getUIChildren();
-        const isUiEntryExistedInMyFiles = !!children.find(childEntry => isSameEntry(childEntry, entry));
-        if (isUiEntryExistedInMyFiles) {
-            myFilesEntry.removeChildEntry(entry);
-            const fileData = getFileData(currentState, myFilesEntry.toURL());
-            if (fileData) {
-                currentState.allEntries[myFilesEntry.toURL()] = {
-                    ...fileData,
-                    children: fileData.children.filter(child => child !== key),
-                };
-            }
-        }
-    }
+    const uiEntries = currentState.uiEntries.filter(k => k !== key);
     return {
         ...currentState,
+        uiEntries,
     };
 }
 
@@ -5760,18 +6467,19 @@ function getStore() {
     // twice.
     if (!window.store) {
         window.store = new BaseStore(getEmptyState(), [
-            slice$4,
-            slice,
-            slice$a,
-            slice$3,
-            slice$b,
-            slice$7,
-            slice$6,
-            slice$5,
-            slice$9,
-            slice$8,
             slice$2,
+            slice,
+            slice$9,
             slice$1,
+            slice$a,
+            slice$6,
+            slice$4,
+            slice$3,
+            slice$8,
+            slice$7,
+            slice$c,
+            slice$b,
+            slice$5,
         ]);
     }
     return window.store;
@@ -5799,9 +6507,12 @@ function getEmptyState() {
         volumes: {},
         uiEntries: [],
         folderShortcuts: [],
-        androidApps: [],
+        androidApps: {},
         bulkPinning: undefined,
         preferences: undefined,
+        launchParams: {
+            dialogType: undefined,
+        },
     };
 }
 /**
@@ -5823,869 +6534,21 @@ function getEntry(state, key) {
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 /**
- * @fileoverview Current directory slice of the store.
- * @suppress {checkTypes}
- */
-const slice$2 = new Slice('currentDirectory');
-function getEmptySelection(keys = []) {
-    return {
-        keys,
-        dirCount: 0,
-        fileCount: 0,
-        // hostedCount might be updated to undefined in the for loop below.
-        hostedCount: 0,
-        // offlineCachedCount might be updated to undefined in the for loop below.
-        offlineCachedCount: 0,
-        fileTasks: {
-            tasks: [],
-            defaultTask: undefined,
-            policyDefaultHandlerStatus: undefined,
-            status: PropStatus.STARTED,
-        },
-    };
-}
-/**
- * Returns true if any of the entries in `currentDirectory` are DLP disabled,
- * and false otherwise.
- */
-function hasDlpDisabledFiles(currentState) {
-    const content = currentState.currentDirectory?.content;
-    if (!content) {
-        return false;
-    }
-    for (const key of content.keys) {
-        const fileData = currentState.allEntries[key];
-        if (!fileData) {
-            console.warn(`Missing entry: ${key}`);
-            continue;
-        }
-        if (fileData.metadata.isRestrictedForDestination) {
-            return true;
-        }
-    }
-    return false;
-}
-/** Create action to change the Current Directory. */
-slice$2.addReducer('set', changeDirectoryReducer);
-function changeDirectoryReducer(currentState, payload) {
-    // Cache entries, so the reducers can use any entry from `allEntries`.
-    if (payload.to) {
-        cacheEntries(currentState, [payload.to]);
-    }
-    const { to, toKey } = payload;
-    const key = toKey || to.toURL();
-    const status = payload.status || PropStatus.STARTED;
-    const fileData = currentState.allEntries[key];
-    let selection = currentState.currentDirectory?.selection;
-    // Use an empty selection when a selection isn't defined or it's navigating to
-    // a new directory.
-    if (!selection || currentState.currentDirectory?.key !== key) {
-        selection = {
-            keys: [],
-            dirCount: 0,
-            fileCount: 0,
-            hostedCount: undefined,
-            offlineCachedCount: undefined,
-            fileTasks: {
-                tasks: [],
-                policyDefaultHandlerStatus: undefined,
-                defaultTask: undefined,
-                status: PropStatus.SUCCESS,
-            },
-        };
-    }
-    let content = currentState.currentDirectory?.content;
-    let hasDlpDisabledFiles = currentState.currentDirectory?.hasDlpDisabledFiles || false;
-    // Use empty content when it isn't defined or it's navigating to a new
-    // directory. The content will be updated again after a successful scan.
-    if (!content || currentState.currentDirectory?.key !== key) {
-        content = {
-            keys: [],
-        };
-        hasDlpDisabledFiles = false;
-    }
-    let currentDirectory = {
-        key,
-        status,
-        pathComponents: [],
-        content: content,
-        rootType: undefined,
-        selection,
-        hasDlpDisabledFiles: hasDlpDisabledFiles,
-    };
-    // The new directory might not be in the allEntries yet, this might happen
-    // when starting to change the directory for a entry that isn't cached.
-    // At the end of the change directory, DirectoryContents will send an Action
-    // with the Entry to be cached.
-    if (fileData) {
-        const { volumeManager } = window.fileManager;
-        if (!volumeManager) {
-            console.debug(`VolumeManager not available yet.`);
-            currentDirectory = currentState.currentDirectory || currentDirectory;
-        }
-        else {
-            const components = PathComponent.computeComponentsFromEntry(fileData.entry, volumeManager);
-            currentDirectory.pathComponents = components.map(c => {
-                return {
-                    name: c.name,
-                    label: c.name,
-                    key: c.url_,
-                };
-            });
-            const locationInfo = volumeManager.getLocationInfo(fileData.entry);
-            currentDirectory.rootType = locationInfo?.rootType;
-        }
-    }
-    return {
-        ...currentState,
-        currentDirectory,
-    };
-}
-/** Create action to update currently selected files/folders. */
-slice$2.addReducer('set-selection', updateSelectionReducer);
-function updateSelectionReducer(currentState, payload) {
-    // Cache entries, so the reducers can use any entry from `allEntries`.
-    cacheEntries(currentState, payload.entries);
-    const updatingToEmpty = (payload.entries.length === 0 && payload.selectedKeys.length === 0);
-    if (!currentState.currentDirectory) {
-        if (!updatingToEmpty) {
-            console.warn('Missing `currentDirectory`');
-            console.debug('Dropping action:', payload);
-        }
-        return currentState;
-    }
-    if (!currentState.currentDirectory.content) {
-        if (!updatingToEmpty) {
-            console.warn('Missing `currentDirectory.content`');
-            console.debug('Dropping action:', payload);
-        }
-        return currentState;
-    }
-    const selectedKeys = payload.selectedKeys;
-    const contentKeys = new Set(currentState.currentDirectory.content.keys);
-    const missingKeys = selectedKeys.filter(k => !contentKeys.has(k));
-    if (missingKeys.length > 0) {
-        console.warn('Got selected keys that are not in current directory, ' +
-            'continuing anyway');
-        console.debug(`Missing keys: ${missingKeys.join('\n')} \nexisting keys:\n ${(currentState.currentDirectory?.content?.keys ?? []).join('\n')}`);
-    }
-    const selection = getEmptySelection(selectedKeys);
-    for (const key of selectedKeys) {
-        const fileData = currentState.allEntries[key];
-        if (!fileData) {
-            console.warn(`Missing entry: ${key}`);
-            continue;
-        }
-        if (fileData.isDirectory) {
-            selection.dirCount++;
-        }
-        else {
-            selection.fileCount++;
-        }
-        // Update hostedCount to undefined if any entry doesn't have the metadata
-        // yet.
-        const isHosted = fileData.metadata?.hosted;
-        if (isHosted === undefined) {
-            selection.hostedCount = undefined;
-        }
-        else {
-            if (selection.hostedCount !== undefined && isHosted) {
-                selection.hostedCount++;
-            }
-        }
-        // Update offlineCachedCount to undefined if any entry doesn't have the
-        // metadata yet.
-        const isOfflineCached = fileData.metadata?.offlineCached;
-        if (isOfflineCached === undefined) {
-            selection.offlineCachedCount = undefined;
-        }
-        else {
-            if (selection.offlineCachedCount !== undefined && isOfflineCached) {
-                selection.offlineCachedCount++;
-            }
-        }
-    }
-    const currentDirectory = {
-        ...currentState.currentDirectory,
-        selection,
-    };
-    return {
-        ...currentState,
-        currentDirectory,
-    };
-}
-/** Create action to update FileTasks for the current selection. */
-slice$2.addReducer('set-file-tasks', updateFileTasksReducer);
-function updateFileTasksReducer(currentState, payload) {
-    const initialSelection = currentState.currentDirectory?.selection ?? getEmptySelection();
-    // Apply the changes over the current selection.
-    const fileTasks = {
-        ...initialSelection.fileTasks,
-        ...payload,
-    };
-    // Update the selection and current directory objects.
-    const selection = {
-        ...initialSelection,
-        fileTasks,
-    };
-    const currentDirectory = {
-        ...currentState.currentDirectory,
-        selection,
-    };
-    return {
-        ...currentState,
-        currentDirectory,
-    };
-}
-/** Create action to update the current directory's content. */
-slice$2.addReducer('update-content', updateDirectoryContentReducer);
-function updateDirectoryContentReducer(currentState, payload) {
-    // Cache entries, so the reducers can use any entry from `allEntries`.
-    cacheEntries(currentState, payload.entries);
-    if (!currentState.currentDirectory) {
-        console.warn('Missing `currentDirectory`');
-        return currentState;
-    }
-    const initialContent = currentState.currentDirectory?.content ?? { keys: [] };
-    const keys = payload.entries.map(e => e.toURL());
-    const content = {
-        ...initialContent,
-        keys,
-    };
-    let currentDirectory = {
-        ...currentState.currentDirectory,
-        content,
-    };
-    const newState = {
-        ...currentState,
-        currentDirectory,
-    };
-    currentDirectory = {
-        ...currentDirectory,
-        hasDlpDisabledFiles: hasDlpDisabledFiles(newState),
-    };
-    return {
-        ...newState,
-        currentDirectory,
-    };
-}
-
-// Copyright 2023 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @fileoverview Entries slice of the store.
- * @suppress {checkTypes} TS already checks this file.
- */
-const slice$1 = new Slice('allEntries');
-/**
- * Create action to scan `allEntries` and remove its stale entries.
- */
-const clearCachedEntries = slice$1.addReducer('clear-stale-cache', clearCachedEntriesReducer);
-function clearCachedEntriesReducer(state) {
-    const entries = state.allEntries;
-    const currentDirectoryKey = state.currentDirectory?.key;
-    const entriesToKeep = new Set();
-    if (currentDirectoryKey) {
-        entriesToKeep.add(currentDirectoryKey);
-        for (const component of state.currentDirectory.pathComponents) {
-            entriesToKeep.add(component.key);
-        }
-        for (const key of state.currentDirectory.content.keys) {
-            entriesToKeep.add(key);
-        }
-    }
-    const selectionKeys = state.currentDirectory?.selection.keys ?? [];
-    if (selectionKeys) {
-        for (const key of selectionKeys) {
-            entriesToKeep.add(key);
-        }
-    }
-    for (const volume of Object.values(state.volumes)) {
-        if (!volume.rootKey) {
-            continue;
-        }
-        entriesToKeep.add(volume.rootKey);
-        if (volume.prefixKey) {
-            entriesToKeep.add(volume.prefixKey);
-        }
-    }
-    for (const key of state.uiEntries) {
-        entriesToKeep.add(key);
-    }
-    for (const key of state.folderShortcuts) {
-        entriesToKeep.add(key);
-    }
-    for (const root of state.navigation.roots) {
-        entriesToKeep.add(root.key);
-    }
-    // For all expanded entries, we need to keep them and all their direct
-    // children.
-    for (const key of Object.keys(entries)) {
-        const fileData = entries[key];
-        if (fileData.expanded) {
-            entriesToKeep.add(key);
-            if (fileData.children) {
-                for (const child of fileData.children) {
-                    entriesToKeep.add(child);
-                }
-            }
-        }
-    }
-    // For all kept entries, we also need to keep their children so we can decide
-    // if we need to show the expand icon or not.
-    for (const key of entriesToKeep) {
-        const fileData = entries[key];
-        if (fileData?.children) {
-            for (const child of fileData.children) {
-                entriesToKeep.add(child);
-            }
-        }
-    }
-    for (const key of Object.keys(entries)) {
-        if (entriesToKeep.has(key)) {
-            continue;
-        }
-        delete entries[key];
-    }
-    return state;
-}
-/**
- * Schedules the routine to remove stale entries from `allEntries`.
- */
-function scheduleClearCachedEntries() {
-    if (clearCachedEntriesRequestId === 0) {
-        clearCachedEntriesRequestId = requestIdleCallback(startClearCache);
-    }
-}
-/** ID for the current scheduled `clearCachedEntries`. */
-let clearCachedEntriesRequestId = 0;
-/** Starts the action CLEAR_STALE_CACHED_ENTRIES.  */
-function startClearCache() {
-    const store = getStore();
-    store.dispatch(clearCachedEntries());
-    clearCachedEntriesRequestId = 0;
-}
-const prefetchPropertyNames = Array.from(new Set([
-    ...constants.LIST_CONTAINER_METADATA_PREFETCH_PROPERTY_NAMES,
-    ...constants.ACTIONS_MODEL_METADATA_PREFETCH_PROPERTY_NAMES,
-    ...constants.FILE_SELECTION_METADATA_PREFETCH_PROPERTY_NAMES,
-    ...constants.DLP_METADATA_PREFETCH_PROPERTY_NAMES,
-]));
-/** Get the icon for an entry. */
-function getEntryIcon(entry, locationInfo, volumeType) {
-    const url = entry.toURL();
-    // Pre-defined icons based on the URL.
-    const urlToIconPath = {
-        [recentRootKey]: constants.ICON_TYPES.RECENT,
-        [myFilesEntryListKey]: constants.ICON_TYPES.MY_FILES,
-        [driveRootEntryListKey]: constants.ICON_TYPES.SERVICE_DRIVE,
-    };
-    if (urlToIconPath[url]) {
-        return urlToIconPath[url];
-    }
-    // Handle icons for grand roots ("Shared drives" and "Computers") in Drive.
-    // Here we can't just use `fullPath` to check if an entry is a grand root or
-    // not, because normal directory can also have the same full path. We also
-    // need to check if the entry is a direct child of the drive root entry list.
-    const grandRootPathToIconMap = {
-        [VolumeManagerCommon.COMPUTERS_DIRECTORY_PATH]: constants.ICON_TYPES.COMPUTERS_GRAND_ROOT,
-        [VolumeManagerCommon.SHARED_DRIVES_DIRECTORY_PATH]: constants.ICON_TYPES.SHARED_DRIVES_GRAND_ROOT,
-    };
-    if (volumeType === VolumeManagerCommon.VolumeType.DRIVE &&
-        grandRootPathToIconMap[entry.fullPath]) {
-        return grandRootPathToIconMap[entry.fullPath];
-    }
-    // For grouped removable devices, its parent folder is an entry list, we
-    // should use USB icon for it.
-    if ('rootType' in entry &&
-        entry.rootType === VolumeManagerCommon.VolumeType.REMOVABLE) {
-        return constants.ICON_TYPES.USB;
-    }
-    if (isVolumeEntry(entry) && entry.volumeInfo) {
-        switch (entry.volumeInfo.volumeType) {
-            case VolumeManagerCommon.VolumeType.DOWNLOADS:
-                return constants.ICON_TYPES.MY_FILES;
-            case VolumeManagerCommon.VolumeType.SMB:
-                return constants.ICON_TYPES.SMB;
-            case VolumeManagerCommon.VolumeType.PROVIDED:
-            // Fallthrough
-            case VolumeManagerCommon.VolumeType.DOCUMENTS_PROVIDER: {
-                // Only return IconSet if there's valid background image generated.
-                const iconSet = entry.volumeInfo.iconSet;
-                if (iconSet) {
-                    const backgroundImage = util.iconSetToCSSBackgroundImageValue(entry.volumeInfo.iconSet);
-                    if (backgroundImage !== 'none') {
-                        return iconSet;
-                    }
-                }
-                // If no background is generated from IconSet, set the icon to the
-                // generic one for certain volume type.
-                if (volumeType && VolumeManagerCommon.shouldProvideIcons(volumeType)) {
-                    return constants.ICON_TYPES.GENERIC;
-                }
-                return '';
-            }
-            case VolumeManagerCommon.VolumeType.MTP:
-                return constants.ICON_TYPES.MTP;
-            case VolumeManagerCommon.VolumeType.ARCHIVE:
-                return constants.ICON_TYPES.ARCHIVE;
-            case VolumeManagerCommon.VolumeType.REMOVABLE:
-                // For sub-partition from a removable volume, its children icon should
-                // be UNKNOWN_REMOVABLE.
-                return entry.volumeInfo.prefixEntry ?
-                    constants.ICON_TYPES.UNKNOWN_REMOVABLE :
-                    constants.ICON_TYPES.USB;
-            case VolumeManagerCommon.VolumeType.DRIVE:
-                return constants.ICON_TYPES.DRIVE;
-        }
-    }
-    return FileType.getIcon(entry, undefined, locationInfo?.rootType);
-}
-function appendChildIfNotExisted(parentEntry, childEntry) {
-    if (!parentEntry.getUIChildren().find((entry) => isSameEntry(entry, childEntry))) {
-        parentEntry.addEntry(childEntry);
-        return true;
-    }
-    return false;
-}
-/**
- * Converts the entry to the Store representation of an Entry: FileData.
- */
-function convertEntryToFileData(entry) {
-    const { volumeManager, metadataModel } = window.fileManager;
-    // When this function is triggered when mounting new volumes, volumeInfo is
-    // not available in the VolumeManager yet, we need to get volumeInfo from the
-    // entry itself.
-    const volumeInfo = 'volumeInfo' in entry ? entry.volumeInfo :
-        volumeManager.getVolumeInfo(entry);
-    const locationInfo = volumeManager.getLocationInfo(entry);
-    // getEntryLabel() can accept locationInfo=null, but TS doesn't recognize the
-    // type definition in closure, hence the ! here.
-    const label = util.getEntryLabel(locationInfo, entry);
-    // For FakeEntry, we need to read from entry.volumeType because it doesn't
-    // have volumeInfo in the volume manager.
-    const volumeType = 'volumeType' in entry && entry.volumeType ?
-        entry.volumeType :
-        (volumeInfo?.volumeType || null);
-    const volumeId = volumeInfo?.volumeId || null;
-    const icon = getEntryIcon(entry, locationInfo, volumeType);
-    /**
-     * Update disabled attribute if entry supports disabled attribute and has a
-     * non-null volumeType.
-     */
-    if ('disabled' in entry && volumeType) {
-        entry.disabled = volumeManager.isDisabled(volumeType);
-    }
-    const metadata = metadataModel ?
-        metadataModel.getCache([entry], prefetchPropertyNames)[0] :
-        {};
-    return {
-        entry,
-        icon,
-        type: getEntryType(entry),
-        isDirectory: entry.isDirectory,
-        label,
-        volumeId,
-        rootType: locationInfo?.rootType ?? null,
-        metadata,
-        expanded: false,
-        disabled: 'disabled' in entry ? entry.disabled : false,
-        isRootEntry: !!locationInfo?.isRootEntry,
-        // `isEjectable/shouldDelayLoadingChildren` is determined by its
-        // corresponding volume, will be updated when volume is added.
-        isEjectable: false,
-        shouldDelayLoadingChildren: false,
-        children: [],
-    };
-}
-/**
- * Appends the entry to the Store.
- */
-function appendEntry(state, entry) {
-    const allEntries = state.allEntries || {};
-    const key = entry.toURL();
-    const existingFileData = allEntries[key] || {};
-    // Some client code might dispatch actions based on
-    // `volume.resolveDisplayRoot()` which is a DirectoryEntry instead of a
-    // VolumeEntry. It's safe to ignore this entry because the data will be the
-    // same as `existingFileData` and we don't want to convert from VolumeEntry to
-    // DirectoryEntry.
-    if (existingFileData.type === EntryType.VOLUME_ROOT &&
-        getEntryType(entry) !== EntryType.VOLUME_ROOT) {
-        return;
-    }
-    const fileData = convertEntryToFileData(entry);
-    allEntries[key] = {
-        ...fileData,
-        // For existing entries already in the store, we want to keep the existing
-        // value for the following fields. For example, for "expanded" entries with
-        // expanded=true, we don't want to override it with expanded=false derived
-        // from `convertEntryToFileData` function above.
-        expanded: existingFileData.expanded || fileData.expanded,
-        isEjectable: existingFileData.isEjectable || fileData.isEjectable,
-        shouldDelayLoadingChildren: existingFileData.shouldDelayLoadingChildren ||
-            fileData.shouldDelayLoadingChildren,
-        // Keep children to prevent sudden removal of the children items on the UI.
-        children: existingFileData.children || fileData.children,
-    };
-    state.allEntries = allEntries;
-}
-/**
- * Updates `FileData` from a `FileKey`.
- */
-function updateFileData(state, key, changes) {
-    if (!state.allEntries[key]) {
-        console.warn(`Entry FileData not found in the store: ${key}`);
-        return;
-    }
-    const newFileData = {
-        ...state.allEntries[key],
-        ...changes,
-    };
-    state.allEntries[key] = newFileData;
-    return newFileData;
-}
-/** Caches the Action's entry in the `allEntries` attribute. */
-function cacheEntries(currentState, entries) {
-    scheduleClearCachedEntries();
-    for (const entry of entries) {
-        appendEntry(currentState, entry);
-    }
-}
-function getEntryType(entry) {
-    // Entries from FilesAppEntry have the `type_name` property.
-    if (!('type_name' in entry)) {
-        return EntryType.FS_API;
-    }
-    switch (entry.type_name) {
-        case 'EntryList':
-            return EntryType.ENTRY_LIST;
-        case 'VolumeEntry':
-            return EntryType.VOLUME_ROOT;
-        case 'FakeEntry':
-            switch (entry.rootType) {
-                case VolumeManagerCommon.RootType.RECENT:
-                    return EntryType.RECENT;
-                case VolumeManagerCommon.RootType.TRASH:
-                    return EntryType.TRASH;
-                case VolumeManagerCommon.RootType.DRIVE_FAKE_ROOT:
-                    return EntryType.ENTRY_LIST;
-                case VolumeManagerCommon.RootType.CROSTINI:
-                case VolumeManagerCommon.RootType.ANDROID_FILES:
-                    return EntryType.PLACEHOLDER;
-                case VolumeManagerCommon.RootType.DRIVE_OFFLINE:
-                case VolumeManagerCommon.RootType.DRIVE_SHARED_WITH_ME:
-                    // TODO(lucmult): This isn't really Recent but it's the closest.
-                    return EntryType.RECENT;
-            }
-            console.warn(`Invalid fakeEntry.rootType='${entry.rootType} rootType`);
-            return EntryType.PLACEHOLDER;
-        case 'GuestOsPlaceholder':
-            return EntryType.PLACEHOLDER;
-        case 'TrashEntry':
-            return EntryType.TRASH;
-        default:
-            console.warn(`Invalid entry.type_name='${entry.type_name}`);
-            return EntryType.FS_API;
-    }
-}
-/** Create action to update entries metadata. */
-slice$1.addReducer('update-metadata', updateMetadataReducer);
-function updateMetadataReducer(currentState, payload) {
-    // Cache entries, so the reducers can use any entry from `allEntries`.
-    cacheEntries(currentState, payload.metadata.map(m => m.entry));
-    for (const entryMetadata of payload.metadata) {
-        const key = entryMetadata.entry.toURL();
-        const fileData = currentState.allEntries[key];
-        const metadata = { ...fileData.metadata, ...entryMetadata.metadata };
-        currentState.allEntries[key] = {
-            ...fileData,
-            metadata,
-        };
-    }
-    if (!currentState.currentDirectory) {
-        console.warn('Missing `currentDirectory`');
-        return currentState;
-    }
-    const currentDirectory = {
-        ...currentState.currentDirectory,
-        hasDlpDisabledFiles: hasDlpDisabledFiles(currentState),
-    };
-    return {
-        ...currentState,
-        currentDirectory,
-    };
-}
-function findVolumeByType(volumes, volumeType) {
-    return Object.values(volumes).find(v => {
-        // If the volume isn't resolved yet, we just ignore here.
-        return v.rootKey && v.volumeType === volumeType;
-    }) ??
-        null;
-}
-/**
- * Returns the MyFiles entry and volume, the entry can either be a fake one
- * (EntryList) or a real one (VolumeEntry) depends on if the MyFiles volume is
- * mounted or not.
- * Note: it will create a fake EntryList in the store if there's no
- * MyFiles entry in the store (e.g. no EntryList and no VolumeEntry).
- */
-function getMyFiles(state) {
-    const { volumes } = state;
-    const myFilesVolume = findVolumeByType(volumes, VolumeManagerCommon.VolumeType.DOWNLOADS);
-    const myFilesVolumeEntry = myFilesVolume ?
-        getEntry(state, myFilesVolume.rootKey) :
-        null;
-    let myFilesEntryList = getEntry(state, myFilesEntryListKey);
-    if (!myFilesVolumeEntry && !myFilesEntryList) {
-        myFilesEntryList = new EntryList(str('MY_FILES_ROOT_LABEL'), VolumeManagerCommon.RootType.MY_FILES);
-        appendEntry(state, myFilesEntryList);
-        state.uiEntries = [...state.uiEntries, myFilesEntryList.toURL()];
-    }
-    return {
-        myFilesEntry: myFilesVolumeEntry || myFilesEntryList,
-        myFilesVolume,
-    };
-}
-/**
- * It nests the Android, Crostini & GuestOSes inside MyFiles.
- * It creates a placeholder for MyFiles if MyFiles volume isn't mounted yet.
- *
- * It nests the Drive root (aka MyDrive) inside a EntryList for "Google Drive".
- * It nests the fake entries for "Offline" and "Shared with me" in "Google
- * Drive".
- *
- * For removables, it may nest in a EntryList if one device has multiple
- * partitions.
- */
-function volumeNestingEntries(state, volumeInfo, volumeMetadata) {
-    const VolumeType = VolumeManagerCommon.VolumeType;
-    const myFilesNestedVolumeTypes = getVolumeTypesNestedInMyFiles();
-    const volumeRootKey = volumeInfo.displayRoot?.toURL();
-    const newVolumeEntry = getEntry(state, volumeRootKey);
-    // Do nothing if the volume is not resolved.
-    if (!volumeInfo || !newVolumeEntry) {
-        return;
-    }
-    // For volumes which are supposed to be nested inside MyFiles (e.g. Android,
-    // Crostini, GuestOS), we need to nest them into MyFiles and remove the
-    // placeholder fake entry if existed.
-    const { myFilesEntry } = getMyFiles(state);
-    if (myFilesNestedVolumeTypes.has(volumeInfo.volumeType)) {
-        const myFilesEntryKey = myFilesEntry.toURL();
-        // Shallow copy here because we will update this object directly below, and
-        // the same object might be referenced in the UI.
-        const myFilesFileData = { ...getFileData(state, myFilesEntryKey) };
-        // Nest the entry for the new volume info in MyFiles.
-        const uiEntryPlaceholder = myFilesEntry.getUIChildren().find(childEntry => childEntry.name === newVolumeEntry.name);
-        // Remove a placeholder for the currently mounting volume.
-        if (uiEntryPlaceholder) {
-            myFilesEntry.removeChildEntry(uiEntryPlaceholder);
-            // Also remove it from the children field.
-            myFilesFileData.children = myFilesFileData.children.filter(childKey => childKey !== uiEntryPlaceholder.toURL());
-            // Do not remove the placeholder ui entry from the store. Removing it from
-            // the MyFiles is sufficient to prevent it from showing in the directory
-            // tree. We keep it in the store (`state["uiEntries"]`) because when
-            // the corresponding volume unmounts, we need to use its existence to
-            // decide if we need to re-add the placeholder back to MyFiles.
-        }
-        appendChildIfNotExisted(myFilesEntry, newVolumeEntry);
-        // Push the new entry to the children of FileData and sort them.
-        if (!myFilesFileData.children.find(childKey => childKey === volumeRootKey)) {
-            const newChildren = [...myFilesFileData.children, volumeRootKey];
-            const childEntries = newChildren.map(childKey => getEntry(state, childKey));
-            myFilesFileData.children =
-                sortEntries(myFilesEntry, childEntries).map(entry => entry.toURL());
-        }
-        state.allEntries[myFilesEntryKey] = myFilesFileData;
-    }
-    // When mounting MyFiles replace the temporary placeholder entry.
-    if (volumeInfo.volumeType === VolumeType.DOWNLOADS) {
-        // Do not use myFilesEntry above, because at this moment both fake MyFiles
-        // and real MyFiles are in the store.
-        const myFilesEntryList = getEntry(state, myFilesEntryListKey);
-        const myFilesVolumeEntry = newVolumeEntry;
-        if (myFilesEntryList) {
-            // We need to copy the children of the entry list to the real volume
-            // entry.
-            const uiChildren = [...myFilesEntryList.getUIChildren()];
-            for (const childEntry of uiChildren) {
-                appendChildIfNotExisted(myFilesVolumeEntry, childEntry);
-                myFilesEntryList.removeChildEntry(childEntry);
-            }
-            // Remove MyFiles entry list from the uiEntries.
-            state.uiEntries = state.uiEntries.filter(uiEntryKey => uiEntryKey !== myFilesEntryListKey);
-        }
-    }
-    // Drive fake entries for root for: Shared Drives, Computers and the parent
-    // Google Drive.
-    if (volumeInfo.volumeType === VolumeType.DRIVE) {
-        const myDrive = newVolumeEntry;
-        let googleDrive = getEntry(state, driveRootEntryListKey);
-        if (!googleDrive) {
-            googleDrive = new EntryList(str('DRIVE_DIRECTORY_LABEL'), VolumeManagerCommon.RootType.DRIVE_FAKE_ROOT);
-            appendEntry(state, googleDrive);
-            state.uiEntries = [...state.uiEntries, googleDrive.toURL()];
-        }
-        appendChildIfNotExisted(googleDrive, myDrive);
-        // We want the order to be
-        // - My Drive
-        // - Shared Drives (if the user has any)
-        // - Computers (if the user has any)
-        // - Shared with me
-        // - Offline
-        const { sharedDriveDisplayRoot, computersDisplayRoot, fakeEntries } = volumeInfo;
-        // Add "Shared drives" (team drives) grand root into Drive. It's guaranteed
-        // to be resolved at this moment because ADD_VOLUME action will only be
-        // triggered after resolving all roots.
-        if (sharedDriveDisplayRoot) {
-            appendEntry(state, sharedDriveDisplayRoot);
-            appendChildIfNotExisted(googleDrive, sharedDriveDisplayRoot);
-        }
-        // Add "Computer" grand root into Drive. It's guaranteed to be resolved at
-        // this moment because ADD_VOLUME action will only be triggered after
-        // resolving all roots.
-        if (computersDisplayRoot) {
-            appendEntry(state, computersDisplayRoot);
-            appendChildIfNotExisted(googleDrive, computersDisplayRoot);
-        }
-        // Add "Shared with me" into Drive.
-        const fakeSharedWithMe = fakeEntries[VolumeManagerCommon.RootType.DRIVE_SHARED_WITH_ME];
-        if (fakeSharedWithMe) {
-            appendEntry(state, fakeSharedWithMe);
-            state.uiEntries = [...state.uiEntries, fakeSharedWithMe.toURL()];
-            appendChildIfNotExisted(googleDrive, fakeSharedWithMe);
-        }
-        // Add "Offline" into Drive.
-        const fakeOffline = fakeEntries[VolumeManagerCommon.RootType.DRIVE_OFFLINE];
-        if (fakeOffline) {
-            appendEntry(state, fakeOffline);
-            state.uiEntries = [...state.uiEntries, fakeOffline.toURL()];
-            appendChildIfNotExisted(googleDrive, fakeOffline);
-        }
-    }
-    state.allEntries[volumeRootKey].isEjectable =
-        (volumeInfo.source === VolumeManagerCommon.Source.DEVICE &&
-            volumeInfo.volumeType !== VolumeManagerCommon.VolumeType.MTP) ||
-            volumeInfo.source === VolumeManagerCommon.Source.FILE;
-    if (volumeInfo.volumeType === VolumeType.REMOVABLE) {
-        const groupingKey = removableGroupKey(volumeMetadata);
-        // When the flag is on, we always group removable volume even there's only 1
-        // partition, otherwise the group only happens when there are more than 1
-        // partition in the same device.
-        const shouldGroup = isSinglePartitionFormatEnabled() ?
-            true :
-            Object.values(state.volumes).some(v => {
-                return (v.volumeType === VolumeType.REMOVABLE &&
-                    removableGroupKey(v) === groupingKey &&
-                    v.volumeId != volumeInfo.volumeId);
-            });
-        if (shouldGroup) {
-            const parentKey = makeRemovableParentKey(volumeMetadata);
-            let parentEntry = getEntry(state, parentKey);
-            if (!parentEntry) {
-                parentEntry = new EntryList(volumeMetadata.driveLabel || '', VolumeManagerCommon.RootType.REMOVABLE, volumeMetadata.devicePath);
-                appendEntry(state, parentEntry);
-                state.uiEntries = [...state.uiEntries, parentEntry.toURL()];
-                // Removable devices with group, its parent should always be ejectable.
-                state.allEntries[parentKey].isEjectable = true;
-            }
-            // Update the siblings too.
-            for (const v of Object.values(state.volumes)) {
-                // Ignore the partitions that are already nested via `prefixKey`. Note:
-                // `prefixKey` field is handled by `addVolumeReducer`.
-                if (v.volumeType === VolumeType.REMOVABLE &&
-                    removableGroupKey(v) === groupingKey && !v.prefixKey) {
-                    const fileData = getFileData(state, v.rootKey);
-                    if (fileData?.entry) {
-                        appendChildIfNotExisted(parentEntry, fileData.entry);
-                        // For sub-partition from a removable volume, its children icon
-                        // should be UNKNOWN_REMOVABLE, and it shouldn't be ejectable.
-                        state.allEntries[v.rootKey] = {
-                            ...fileData,
-                            icon: constants.ICON_TYPES.UNKNOWN_REMOVABLE,
-                            isEjectable: false,
-                        };
-                    }
-                }
-            }
-            // At this point the current `newVolumeEntry` is not in state.volumes,
-            // we need to add that to that group.
-            appendChildIfNotExisted(parentEntry, newVolumeEntry);
-            // For sub-partition from a removable volume, its children icon should be
-            // UNKNOWN_REMOVABLE, and it shouldn't be ejectable.
-            const fileData = getFileData(state, volumeRootKey);
-            state.allEntries[volumeRootKey] = {
-                ...fileData,
-                icon: constants.ICON_TYPES.UNKNOWN_REMOVABLE,
-                isEjectable: false,
-            };
-        }
-    }
-    // Update the shouldDelayLoadingChildren field in the FileData.
-    state.allEntries[volumeRootKey].shouldDelayLoadingChildren =
-        volumeInfo.source === VolumeManagerCommon.Source.NETWORK &&
-            (volumeInfo.volumeType === VolumeManagerCommon.VolumeType.PROVIDED ||
-                volumeInfo.volumeType === VolumeManagerCommon.VolumeType.SMB);
-}
-/**  Create action to add child entries to a parent entry. */
-slice$1.addReducer('add-children', addChildEntriesReducer);
-function addChildEntriesReducer(currentState, payload) {
-    // Cache entries, so the reducers can use any entry from `allEntries`.
-    cacheEntries(currentState, payload.entries);
-    const { parentKey, entries } = payload;
-    const { allEntries } = currentState;
-    // The corresponding parent entry item has been removed somehow, do nothing.
-    if (!allEntries[parentKey]) {
-        return currentState;
-    }
-    const newEntryKeys = entries.map(entry => entry.toURL());
-    // Add children to the parent entry item.
-    const parentFileData = {
-        ...allEntries[parentKey],
-        children: newEntryKeys,
-    };
-    // We mark all the children's shouldDelayLoadingChildren if the parent entry
-    // has been delayed.
-    if (parentFileData.shouldDelayLoadingChildren) {
-        for (const entryKey of newEntryKeys) {
-            allEntries[entryKey] = {
-                ...allEntries[entryKey],
-                shouldDelayLoadingChildren: true,
-            };
-        }
-    }
-    return {
-        ...currentState,
-        allEntries: {
-            ...allEntries,
-            [parentKey]: parentFileData,
-        },
-    };
-}
-
-// Copyright 2023 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
  * @fileoverview Volumes slice of the store.
- * @suppress {checkTypes}
  */
 const slice = new Slice('volumes');
-const VolumeType = VolumeManagerCommon.VolumeType;
-const myFilesEntryListKey = `entry-list://${VolumeManagerCommon.RootType.MY_FILES}`;
-`fake-entry://${VolumeManagerCommon.RootType.CROSTINI}`;
-`fake-entry://${VolumeManagerCommon.RootType.DRIVE_FAKE_ROOT}`;
-const recentRootKey = `fake-entry://${VolumeManagerCommon.RootType.RECENT}/all`;
-const trashRootKey = `fake-entry://${VolumeManagerCommon.RootType.TRASH}`;
-const driveRootEntryListKey = `entry-list://${VolumeManagerCommon.RootType.DRIVE_FAKE_ROOT}`;
+const myFilesEntryListKey = `entry-list://${RootType.MY_FILES}`;
+`fake-entry://${RootType.CROSTINI}`;
+`fake-entry://${RootType.DRIVE_FAKE_ROOT}`;
+const recentRootKey = `fake-entry://${RootType.RECENT}/all`;
+const trashRootKey = `fake-entry://${RootType.TRASH}`;
+const driveRootEntryListKey = `entry-list://${RootType.DRIVE_FAKE_ROOT}`;
 const makeRemovableParentKey = (volume) => {
     // Should be consistent with EntryList's toURL() method.
     if (volume.devicePath) {
-        return `entry-list://${VolumeManagerCommon.RootType.REMOVABLE}/${volume.devicePath}`;
+        return `entry-list://${RootType.REMOVABLE}/${volume.devicePath}`;
     }
-    return `entry-list://${VolumeManagerCommon.RootType.REMOVABLE}`;
+    return `entry-list://${RootType.REMOVABLE}`;
 };
 const removableGroupKey = (volume) => `${volume.devicePath}/${volume.driveLabel}`;
 function getVolumeTypesNestedInMyFiles() {
@@ -6738,156 +6601,319 @@ function convertVolumeInfoAndMetadataToVolume(volumeInfo, volumeMetadata) {
  * Updates a volume from the store.
  */
 function updateVolume(state, volumeId, changes) {
-    if (!state.volumes[volumeId]) {
+    const volume = state.volumes[volumeId];
+    if (!volume) {
         console.warn(`Volume not found in the store: ${volumeId}`);
         return;
     }
     return {
-        ...state.volumes[volumeId],
+        ...volume,
         ...changes,
     };
 }
 /** Create action to add a volume. */
 slice.addReducer('add', addVolumeReducer);
 function addVolumeReducer(currentState, payload) {
-    // Cache entries, so the reducers can use any entry from `allEntries`.
-    cacheEntries(currentState, [new VolumeEntry(payload.volumeInfo)]);
-    volumeNestingEntries(currentState, payload.volumeInfo, payload.volumeMetadata);
-    const volumeMetadata = payload.volumeMetadata;
-    const volumeInfo = payload.volumeInfo;
+    const { volumeMetadata, volumeInfo } = payload;
     if (!volumeInfo.fileSystem) {
         console.error('Only add to the store volumes that have successfully resolved.');
         return currentState;
     }
-    const volumes = {
-        ...currentState.volumes,
+    // Cache entries, so the reducers can use any entry from `allEntries`.
+    const newVolumeEntry = new VolumeEntry(payload.volumeInfo);
+    cacheEntries(currentState, [newVolumeEntry]);
+    const volumeRootKey = newVolumeEntry.toURL();
+    // Update isEjectable fields in the FileData.
+    currentState.allEntries[volumeRootKey] = {
+        ...currentState.allEntries[volumeRootKey],
+        isEjectable: (volumeInfo.source === Source.DEVICE &&
+            volumeInfo.volumeType !== VolumeType.MTP) ||
+            volumeInfo.source === Source.FILE,
     };
     const volume = convertVolumeInfoAndMetadataToVolume(volumeInfo, volumeMetadata);
-    const volumeEntry = getEntry(currentState, volume.rootKey);
     // Use volume entry's disabled property because that one is derived from
     // volume manager.
-    if (volumeEntry) {
-        volume.isDisabled = !!volumeEntry.disabled;
-    }
-    // Nested in MyFiles.
+    volume.isDisabled = !!newVolumeEntry.disabled;
+    // Handles volumes nested inside MyFiles.
+    // It creates a placeholder for MyFiles if MyFiles volume isn't mounted yet.
     const myFilesNestedVolumeTypes = getVolumeTypesNestedInMyFiles();
-    // When mounting MyFiles replace the temporary placeholder in nested volumes.
+    const { myFilesEntry } = getMyFiles(currentState);
+    // For volumes which are supposed to be nested inside MyFiles (e.g. Android,
+    // Crostini, GuestOS), we need to nest them into MyFiles and remove the
+    // placeholder fake entry if existed.
+    if (myFilesNestedVolumeTypes.has(volume.volumeType)) {
+        volume.prefixKey = myFilesEntry.toURL();
+        const myFilesEntryKey = myFilesEntry.toURL();
+        // Shallow copy here because we will update this object directly below, and
+        // the same object might be referenced in the UI.
+        const myFilesFileData = { ...getFileData(currentState, myFilesEntryKey) };
+        // Nest the entry for the new volume info in MyFiles.
+        const uiEntryPlaceholder = myFilesEntry.getUiChildren().find(childEntry => childEntry.name === newVolumeEntry.name);
+        // Remove a placeholder for the currently mounting volume.
+        if (uiEntryPlaceholder) {
+            myFilesEntry.removeChildEntry(uiEntryPlaceholder);
+            // Also remove it from the children field.
+            myFilesFileData.children = myFilesFileData.children.filter(childKey => childKey !== uiEntryPlaceholder.toURL());
+            // Do not remove the placeholder ui entry from the store. Removing it from
+            // the MyFiles is sufficient to prevent it from showing in the directory
+            // tree. We keep it in the store (`currentState["uiEntries"]`) because
+            // when the corresponding volume unmounts, we need to use its existence to
+            // decide if we need to re-add the placeholder back to MyFiles.
+        }
+        appendChildIfNotExisted(myFilesEntry, newVolumeEntry);
+        // Push the new entry to the children of FileData and sort them.
+        if (!myFilesFileData.children.find(childKey => childKey === volumeRootKey)) {
+            const newChildren = [...myFilesFileData.children, volumeRootKey];
+            const childEntries = newChildren.map(childKey => getEntry(currentState, childKey));
+            myFilesFileData.children =
+                sortEntries(myFilesEntry, childEntries).map(entry => entry.toURL());
+        }
+        currentState.allEntries[myFilesEntryKey] = myFilesFileData;
+    }
+    // When we manipulate the children below, we need to update both
+    // `entry.children_` (usually via `appendChildIfNotExisted/removeChildEntry`)
+    // and also `FileData.children`. This is specific for the purpose of Directory
+    // tree rendering, the tree item only fetch its sub directories on the first
+    // render or when it's being expanded, if a volume mount introduces new
+    // children (e.g. Drive volume and its children), the Tree UI doesn't know it
+    // needs to be re-fetch sub directories because no file watcher event is
+    // triggered for certain cases, hence updating the `FileData.children` here.
+    // Handles MyFiles volume.
+    // It nests the Android, Crostini & GuestOSes inside MyFiles.
     if (volume.volumeType === VolumeType.DOWNLOADS) {
-        for (const v of Object.values(volumes)) {
+        for (const v of Object.values(currentState.volumes)) {
             if (myFilesNestedVolumeTypes.has(v.volumeType)) {
-                v.prefixKey = volume.rootKey;
+                v.prefixKey = volumeRootKey;
             }
         }
-    }
-    // When mounting a nested volume, set the prefixKey.
-    if (myFilesNestedVolumeTypes.has(volume.volumeType)) {
-        const { myFilesEntry } = getMyFiles(currentState);
-        volume.prefixKey = myFilesEntry.toURL();
-    }
-    // When mounting Drive.
-    if (volume.volumeType === VolumeType.DRIVE) {
-        const drive = getEntry(currentState, driveRootEntryListKey);
-        assert(drive);
-        volume.prefixKey = drive.toURL();
-    }
-    // When mounting Removable.
-    if (volume.volumeType === VolumeType.REMOVABLE) {
-        // Should it it be nested or not?
-        const groupingKey = removableGroupKey(volume);
-        const parentKey = makeRemovableParentKey(volume);
-        const groupParentEntry = getEntry(currentState, parentKey);
-        if (groupParentEntry) {
-            const volumesInSameGroup = Object.values(volumes).filter(v => {
-                if (v.volumeType === VolumeType.REMOVABLE &&
-                    removableGroupKey(v) === groupingKey) {
-                    v.prefixKey = parentKey;
-                    return true;
-                }
-                return false;
-            });
-            // At this point the current `volume` is not in the above `volumes`, we
-            // need to update the prefixKey separately.
-            volume.prefixKey =
-                volumesInSameGroup.length > 0 ? groupParentEntry.toURL() : undefined;
+        // Do not use myFilesEntry above, because at this moment both fake MyFiles
+        // and real MyFiles are in the store.
+        const myFilesEntryList = getEntry(currentState, myFilesEntryListKey);
+        if (myFilesEntryList) {
+            // We need to copy the children of the entry list to the real volume
+            // entry.
+            const uiChildren = [...myFilesEntryList.getUiChildren()];
+            for (const childEntry of uiChildren) {
+                appendChildIfNotExisted(newVolumeEntry, childEntry);
+                myFilesEntryList.removeChildEntry(childEntry);
+            }
+            // Also copy the FileData children of the entry list to the real volume
+            // entry.
+            const myFilesEntryListFileData = getFileData(currentState, myFilesEntryListKey);
+            const myFilesVolumeEntryFileData = getFileData(currentState, volumeRootKey);
+            currentState.allEntries[volumeRootKey] = {
+                ...myFilesVolumeEntryFileData,
+                children: [...myFilesEntryListFileData.children],
+            };
+            // Remove MyFiles entry list from the uiEntries.
+            currentState.uiEntries = currentState.uiEntries.filter(uiEntryKey => uiEntryKey !== myFilesEntryListKey);
         }
-        if (isSinglePartitionFormatEnabled()) {
-            // If the flag is on, we always group removable volume even if there is
-            // only one, hence always adding the prefixKey here.
-            volume.prefixKey = parentKey;
+    }
+    // Handles Drive volume.
+    // It nests the Drive root (aka MyDrive) inside a EntryList for "Google
+    // Drive", and also the fake entries for "Offline" and "Shared with me".
+    if (volume.volumeType === VolumeType.DRIVE) {
+        let driveFakeRoot = getEntry(currentState, driveRootEntryListKey);
+        if (!driveFakeRoot) {
+            driveFakeRoot =
+                new EntryList(str('DRIVE_DIRECTORY_LABEL'), RootType.DRIVE_FAKE_ROOT);
+            cacheEntries(currentState, [driveFakeRoot]);
+            currentState.uiEntries =
+                [...currentState.uiEntries, driveFakeRoot.toURL()];
+        }
+        const driveRootFileDataChildren = [];
+        appendChildIfNotExisted(driveFakeRoot, newVolumeEntry);
+        driveRootFileDataChildren.push(volumeRootKey);
+        // We want the order to be
+        // - My Drive
+        // - Shared Drives (if the user has any)
+        // - Computers (if the user has any)
+        // - Shared with me
+        // - Offline
+        const { sharedDriveDisplayRoot, computersDisplayRoot, fakeEntries } = volumeInfo;
+        // Add "Shared drives" (team drives) grand root into Drive. It's guaranteed
+        // to be resolved at this moment because ADD_VOLUME action will only be
+        // triggered after resolving all roots.
+        if (sharedDriveDisplayRoot) {
+            cacheEntries(currentState, [sharedDriveDisplayRoot]);
+            appendChildIfNotExisted(driveFakeRoot, sharedDriveDisplayRoot);
+            // Do not add Shared drives to the FileData children, as we should only
+            // show it in the navigation when it has children inside.
+        }
+        // Add "Computer" grand root into Drive. It's guaranteed to be resolved at
+        // this moment because ADD_VOLUME action will only be triggered after
+        // resolving all roots.
+        if (computersDisplayRoot) {
+            cacheEntries(currentState, [computersDisplayRoot]);
+            appendChildIfNotExisted(driveFakeRoot, computersDisplayRoot);
+            // Do not add Computers to the FileData children, as we should only show
+            // it in the navigation when it has children inside.
+        }
+        // Add "Shared with me" into Drive.
+        const fakeSharedWithMe = fakeEntries[RootType.DRIVE_SHARED_WITH_ME];
+        if (fakeSharedWithMe) {
+            cacheEntries(currentState, [fakeSharedWithMe]);
+            currentState.uiEntries =
+                [...currentState.uiEntries, fakeSharedWithMe.toURL()];
+            appendChildIfNotExisted(driveFakeRoot, fakeSharedWithMe);
+            driveRootFileDataChildren.push(fakeSharedWithMe.toURL());
+        }
+        // Add "Offline" into Drive.
+        const fakeOffline = fakeEntries[RootType.DRIVE_OFFLINE];
+        if (fakeOffline) {
+            cacheEntries(currentState, [fakeOffline]);
+            currentState.uiEntries = [...currentState.uiEntries, fakeOffline.toURL()];
+            appendChildIfNotExisted(driveFakeRoot, fakeOffline);
+            driveRootFileDataChildren.push(fakeOffline.toURL());
+        }
+        currentState.allEntries[driveRootEntryListKey] = {
+            ...getFileData(currentState, driveRootEntryListKey),
+            children: driveRootFileDataChildren,
+        };
+        volume.prefixKey = driveFakeRoot.toURL();
+    }
+    // Handles Removable volume.
+    // It may nest in a EntryList if one device has multiple partitions.
+    if (volume.volumeType === VolumeType.REMOVABLE) {
+        const groupingKey = removableGroupKey(volumeMetadata);
+        // When the flag is on, we always group removable volume even there's only 1
+        // partition, otherwise the group only happens when there are more than 1
+        // partition in the same device.
+        const shouldGroup = isSinglePartitionFormatEnabled() ?
+            true :
+            Object.values(currentState.volumes).some(v => {
+                return (v.volumeType === VolumeType.REMOVABLE &&
+                    removableGroupKey(v) === groupingKey &&
+                    v.volumeId != volumeInfo.volumeId);
+            });
+        if (shouldGroup) {
+            const parentKey = makeRemovableParentKey(volumeMetadata);
+            let parentEntry = getEntry(currentState, parentKey);
+            if (!parentEntry) {
+                parentEntry = new EntryList(volumeMetadata.driveLabel || '', RootType.REMOVABLE, volumeMetadata.devicePath);
+                cacheEntries(currentState, [parentEntry]);
+                currentState.uiEntries =
+                    [...currentState.uiEntries, parentEntry.toURL()];
+            }
+            const partitionChildEntries = [];
+            // Update the siblings too.
+            Object.values(currentState.volumes)
+                .filter(v => v.volumeType === VolumeType.REMOVABLE &&
+                removableGroupKey(v) === groupingKey)
+                .forEach(v => {
+                const fileData = getFileData(currentState, v.rootKey);
+                if (!fileData) {
+                    return;
+                }
+                // Volume with `prefixKey` has already been processed, however,
+                // regardless of processed or not we always need to put it in
+                // `partitionChildEntries` because we are trying to construct the
+                // full children array here, at the end we will use
+                // `partitionChildEntries` to replace the current
+                // `FileData.children`.
+                partitionChildEntries.push(fileData.entry);
+                if (!v.prefixKey) {
+                    v.prefixKey = parentEntry.toURL();
+                    appendChildIfNotExisted(parentEntry, fileData.entry);
+                    // For sub-partition from a removable volume, its children icon
+                    // should be UNKNOWN_REMOVABLE, and it shouldn't be ejectable.
+                    currentState.allEntries[v.rootKey] = {
+                        ...fileData,
+                        icon: ICON_TYPES.UNKNOWN_REMOVABLE,
+                        isEjectable: false,
+                    };
+                }
+            });
+            // At this point the current `newVolumeEntry` is not in `parentEntry`, we
+            // need to add that to that group.
+            appendChildIfNotExisted(parentEntry, newVolumeEntry);
+            partitionChildEntries.push(newVolumeEntry);
+            volume.prefixKey = parentEntry.toURL();
+            // For sub-partition from a removable volume, its children icon should be
+            // UNKNOWN_REMOVABLE, and it shouldn't be ejectable.
+            const fileData = getFileData(currentState, volumeRootKey);
+            currentState.allEntries[volumeRootKey] = {
+                ...fileData,
+                icon: ICON_TYPES.UNKNOWN_REMOVABLE,
+                isEjectable: false,
+            };
+            currentState.allEntries[parentKey] = {
+                ...getFileData(currentState, parentKey),
+                // Removable devices with group, its parent should always be ejectable.
+                isEjectable: true,
+                children: sortEntries(parentEntry, partitionChildEntries)
+                    .map(entry => entry.toURL()),
+            };
         }
     }
     return {
         ...currentState,
         volumes: {
-            ...volumes,
+            ...currentState.volumes,
             [volume.volumeId]: volume,
         },
     };
+}
+function appendChildIfNotExisted(parentEntry, childEntry) {
+    if (!parentEntry.getUiChildren().find((entry) => isSameEntry(entry, childEntry))) {
+        parentEntry.addEntry(childEntry);
+        return true;
+    }
+    return false;
 }
 /** Create action to remove a volume. */
 slice.addReducer('remove', removeVolumeReducer);
 function removeVolumeReducer(currentState, payload) {
     const volumeToRemove = currentState.volumes[payload.volumeId];
+    if (!volumeToRemove) {
+        // Somehow the volume is already removed from the store, do nothing.
+        return currentState;
+    }
     const volumeEntry = getEntry(currentState, volumeToRemove.rootKey);
     delete currentState.volumes[payload.volumeId];
     currentState.volumes = {
         ...currentState.volumes,
     };
-    // We also need to check if the removed volume is a child of My files and if
-    // the volume is a grouped removable device.
-    const volumeTypesNestedInMyFiles = getVolumeTypesNestedInMyFiles();
-    const isGroupedRemovable = volumeToRemove.volumeType === VolumeManagerCommon.VolumeType.REMOVABLE &&
-        volumeToRemove.prefixKey;
-    if (volumeTypesNestedInMyFiles.has(volumeToRemove.volumeType)) {
-        const { myFilesEntry } = getMyFiles(currentState);
-        const children = myFilesEntry.getUIChildren();
-        const volumeEntryExistsInMyFiles = !!children.find(childEntry => isVolumeEntry(childEntry) && isSameEntry(childEntry, volumeEntry));
-        if (volumeEntryExistsInMyFiles) {
-            // Remove it from the MyFiles UI children.
-            myFilesEntry.removeChildEntry(volumeEntry);
-            // Re-add the corresponding placeholder ui entry to the UI children.
-            const uiEntryKey = currentState.uiEntries.find(entryKey => {
-                const uiEntry = getEntry(currentState, entryKey);
-                return uiEntry.name === volumeEntry.name;
-            });
-            if (uiEntryKey) {
-                const uiEntry = getEntry(currentState, uiEntryKey);
-                myFilesEntry.addEntry(uiEntry);
-            }
-            // Remove it from the MyFiles file data.
-            const fileData = getFileData(currentState, myFilesEntry.toURL());
-            if (fileData) {
-                let newChildren = fileData.children.filter(child => child !== volumeEntry.toURL());
-                // Re-add the corresponding placeholder ui entry to the file data.
-                if (uiEntryKey) {
-                    newChildren = newChildren.concat(uiEntryKey);
-                    const childEntries = newChildren.map(childKey => getEntry(currentState, childKey));
-                    newChildren = sortEntries(myFilesEntry, childEntries)
-                        .map(entry => entry.toURL());
-                }
-                currentState.allEntries[myFilesEntry.toURL()] = {
-                    ...fileData,
-                    children: newChildren,
-                };
-            }
-        }
+    if (!volumeToRemove.prefixKey) {
+        return { ...currentState };
     }
-    else if (isGroupedRemovable) {
-        const fileData = getFileData(currentState, volumeToRemove.prefixKey);
-        if (fileData) {
-            // Remove it from the parent UI entry's UI children.
-            fileData.entry.removeChildEntry(volumeEntry);
-            // Remove it from the parent UI entry's file data.
-            const newChildren = fileData.children.filter(child => child !== volumeEntry.toURL());
-            currentState.allEntries[volumeToRemove.prefixKey] = {
-                ...fileData,
-                children: newChildren,
-            };
-            // If this is the last child, remove the parent UI entry.
-            if (newChildren.length === 0) {
-                currentState.uiEntries = currentState.uiEntries.filter(uiEntryKey => uiEntryKey !== volumeToRemove.prefixKey);
-            }
+    // We also need to remove it from its prefix entry if there is one.
+    const prefixEntryFileData = getFileData(currentState, volumeToRemove.prefixKey);
+    if (prefixEntryFileData) {
+        const prefixEntry = prefixEntryFileData.entry;
+        // Remove it from the prefix entry's UI children.
+        prefixEntry.removeChildEntry(volumeEntry);
+        // Remove it from the prefix entry's file data.
+        let newChildren = prefixEntryFileData.children.filter(child => child !== volumeEntry.toURL());
+        // If the prefix entry is an entry list for removable partitions, and this
+        // is the last child, remove the prefix entry.
+        if (prefixEntry.rootType === RootType.REMOVABLE &&
+            newChildren.length === 0) {
+            currentState.uiEntries = currentState.uiEntries.filter(uiEntryKey => uiEntryKey !== volumeToRemove.prefixKey);
         }
+        // If the volume entry is under MyFiles, we need to add the placeholder
+        // entry back after the corresponding volume is removed (e.g. Crostini/Play
+        // files).
+        const volumeTypesNestedInMyFiles = getVolumeTypesNestedInMyFiles();
+        const uiEntryKey = currentState.uiEntries.find(entryKey => {
+            const uiEntry = getEntry(currentState, entryKey);
+            return uiEntry.name === volumeEntry.name;
+        });
+        if (volumeTypesNestedInMyFiles.has(volumeToRemove.volumeType) &&
+            uiEntryKey) {
+            // Re-add the corresponding placeholder ui entry to the UI children.
+            const uiEntry = getEntry(currentState, uiEntryKey);
+            prefixEntry.addEntry(uiEntry);
+            // Re-add the corresponding placeholder ui entry to the file data.
+            newChildren = newChildren.concat(uiEntryKey);
+            const childEntries = newChildren.map(childKey => getEntry(currentState, childKey));
+            newChildren =
+                sortEntries(prefixEntry, childEntries).map(entry => entry.toURL());
+        }
+        currentState.allEntries[volumeToRemove.prefixKey] = {
+            ...prefixEntryFileData,
+            children: newChildren,
+        };
     }
     return {
         ...currentState,
@@ -6935,7 +6961,7 @@ function updateDeviceConnectionStateReducer(currentState, payload) {
         }
         // Make the ODFS FileData/VolumeEntry consistent with its volume in the
         // store.
-        updateFileData(currentState, volume.rootKey, { disabled: disableODFS });
+        updateFileDataInPlace(currentState, volume.rootKey, { disabled: disableODFS });
         const odfsVolumeEntry = getEntry(currentState, volume.rootKey);
         if (odfsVolumeEntry) {
             odfsVolumeEntry.disabled = disableODFS;
@@ -6966,8 +6992,7 @@ function isMyFilesEntry(entry) {
     if (entry instanceof EntryList && entry.toURL() === myFilesEntryListKey) {
         return true;
     }
-    if (isVolumeEntry(entry) &&
-        entry.volumeType === VolumeManagerCommon.VolumeType.DOWNLOADS) {
+    if (isVolumeEntry(entry) && entry.volumeType === VolumeType.DOWNLOADS) {
         return true;
     }
     return false;
@@ -6990,7 +7015,7 @@ function sortEntries(parentEntry, entries) {
         if (locationInfo) {
             const compareFunction = compareLabelAndGroupBottomEntries(locationInfo, 
             // Only Linux/Play/GuestOS files are in the UI children.
-            parentEntry.getUIChildren());
+            parentEntry.getUiChildren());
             return entries.filter(entry => fileFilter.filter(entry))
                 .sort(compareFunction);
         }
@@ -7008,7 +7033,7 @@ function isFakeEntry(entry) {
 }
 /**
  * Compares two entries.
- * @return {boolean} True if the both entry represents a same file or
+ * @return True if the both entry represents a same file or
  *     directory. Returns true if both entries are null.
  */
 function isSameEntry(entry1, entry2) {
@@ -7024,19 +7049,19 @@ function isSameEntry(entry1, entry2) {
  * Compare by name. The 2 entries must be in same directory.
  */
 function compareName(entry1, entry2) {
-    return util.collator.compare(entry1.name, entry2.name);
+    return collator.compare(entry1.name, entry2.name);
 }
 /**
  * Compare by label (i18n name). The 2 entries must be in same directory.
  */
 function compareLabel(locationInfo, entry1, entry2) {
-    return util.collator.compare(util.getEntryLabel(locationInfo, entry1), util.getEntryLabel(locationInfo, entry2));
+    return collator.compare(getEntryLabel(locationInfo, entry1), getEntryLabel(locationInfo, entry2));
 }
 /**
  * Compare by path.
  */
 function comparePath(entry1, entry2) {
-    return util.collator.compare(entry1.fullPath, entry2.fullPath);
+    return collator.compare(entry1.fullPath, entry2.fullPath);
 }
 /**
  * @param bottomEntries entries that should be grouped in the bottom, used for
@@ -7056,13 +7081,13 @@ function compareLabelAndGroupBottomEntries(locationInfo, bottomEntries) {
     function compare(entry1, entry2) {
         // Bottom entry here means Linux or Play files, which should appear after
         // all native entries.
-        const isBottomlEntry1 = childrenMap.has(entry1.toURL()) ? 1 : 0;
-        const isBottomlEntry2 = childrenMap.has(entry2.toURL()) ? 1 : 0;
+        const isBottomEntry1 = childrenMap.has(entry1.toURL()) ? 1 : 0;
+        const isBottomEntry2 = childrenMap.has(entry2.toURL()) ? 1 : 0;
         // When there are the same type, just compare by label.
-        if (isBottomlEntry1 === isBottomlEntry2) {
+        if (isBottomEntry1 === isBottomEntry2) {
             return compareLabel(locationInfo, entry1, entry2);
         }
-        return isBottomlEntry1 - isBottomlEntry2;
+        return isBottomEntry1 - isBottomEntry2;
     }
     return compare;
 }
@@ -7080,1632 +7105,7 @@ function entriesToURLs(entries) {
         return entry.toURL();
     });
 }
-const isOneDriveId = (providerId) => providerId === constants.ODFS_EXTENSION_ID;
-
-// Copyright 2021 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @fileoverview Helpers for APIs used within Files app.
- */
-/**
- * Calls the `fn` function which should expect the callback as last argument.
- *
- * Resolves with the result of the `fn`.
- *
- * Rejects if there is `chrome.runtime.lastError`.
- */
-async function promisify(fn, ...args) {
-    return new Promise((resolve, reject) => {
-        const callback = (result) => {
-            if (chrome.runtime.lastError) {
-                reject(chrome.runtime.lastError.message);
-            }
-            else {
-                resolve(result);
-            }
-        };
-        fn(...args, callback);
-    });
-}
-
-// Copyright 2012 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @fileoverview This file should contain utility functions used only by the
- * files app. Other shared utility functions can be found in base/*_util.js,
- * which allows finer-grained control over introducing dependencies.
- */
-/**
- * Namespace for utility functions.
- */
-const util = {};
-/**
- * @param {!chrome.fileManagerPrivate.IconSet} iconSet Set of icons.
- * @return {string} CSS value.
- */
-util.iconSetToCSSBackgroundImageValue = iconSet => {
-    let lowDpiPart = null;
-    let highDpiPart = null;
-    if (iconSet.icon16x16Url) {
-        lowDpiPart = 'url(' + iconSet.icon16x16Url + ') 1x';
-    }
-    if (iconSet.icon32x32Url) {
-        highDpiPart = 'url(' + iconSet.icon32x32Url + ') 2x';
-    }
-    if (lowDpiPart && highDpiPart) {
-        return '-webkit-image-set(' + lowDpiPart + ', ' + highDpiPart + ')';
-    }
-    else if (lowDpiPart) {
-        return '-webkit-image-set(' + lowDpiPart + ')';
-    }
-    else if (highDpiPart) {
-        return '-webkit-image-set(' + highDpiPart + ')';
-    }
-    return 'none';
-};
-/**
- * Mapping table of file error name to i18n localized error name.
- *
- * @const @enum {string}
- */
-util.FileErrorLocalizedName = {
-    'InvalidModificationError': 'FILE_ERROR_INVALID_MODIFICATION',
-    'InvalidStateError': 'FILE_ERROR_INVALID_STATE',
-    'NoModificationAllowedError': 'FILE_ERROR_NO_MODIFICATION_ALLOWED',
-    'NotFoundError': 'FILE_ERROR_NOT_FOUND',
-    'NotReadableError': 'FILE_ERROR_NOT_READABLE',
-    'PathExistsError': 'FILE_ERROR_PATH_EXISTS',
-    'QuotaExceededError': 'FILE_ERROR_QUOTA_EXCEEDED',
-    'SecurityError': 'FILE_ERROR_SECURITY',
-};
-Object.freeze(util.FileErrorLocalizedName);
-/**
- * Returns i18n localized error name for file error |name|.
- *
- * @param {?string|undefined} name File error name.
- * @return {string} Translated file error string.
- */
-util.getFileErrorString = name => {
-    // @ts-ignore: error TS2538: Type 'undefined' cannot be used as an index type.
-    const error = util.FileErrorLocalizedName[name] || 'FILE_ERROR_GENERIC';
-    return loadTimeData.getString(error);
-};
-/**
- * Mapping table for FileError.code style enum to DOMError.name string.
- *
- * @const @enum {string}
- */
-util.FileError = {
-    ABORT_ERR: 'AbortError',
-    INVALID_MODIFICATION_ERR: 'InvalidModificationError',
-    INVALID_STATE_ERR: 'InvalidStateError',
-    NO_MODIFICATION_ALLOWED_ERR: 'NoModificationAllowedError',
-    NOT_FOUND_ERR: 'NotFoundError',
-    NOT_READABLE_ERR: 'NotReadable',
-    PATH_EXISTS_ERR: 'PathExistsError',
-    QUOTA_EXCEEDED_ERR: 'QuotaExceededError',
-    TYPE_MISMATCH_ERR: 'TypeMismatchError',
-    ENCODING_ERR: 'EncodingError',
-};
-Object.freeze(util.FileError);
-/**
- * Convert a number of bytes into a human friendly format, using the correct
- * number separators.
- *
- * @param {number} bytes The number of bytes.
- * @param {number=} addedPrecision The number of precision digits to add.
- * @return {string} Localized string.
- */
-util.bytesToString = (bytes, addedPrecision = 0) => {
-    // Translation identifiers for size units.
-    const UNITS = [
-        'SIZE_BYTES',
-        'SIZE_KB',
-        'SIZE_MB',
-        'SIZE_GB',
-        'SIZE_TB',
-        'SIZE_PB',
-    ];
-    // Minimum values for the units above.
-    const STEPS = [
-        0,
-        Math.pow(2, 10),
-        Math.pow(2, 20),
-        Math.pow(2, 30),
-        Math.pow(2, 40),
-        Math.pow(2, 50),
-    ];
-    // Rounding with precision.
-    // @ts-ignore: error TS7006: Parameter 'decimals' implicitly has an 'any'
-    // type.
-    const round = (value, decimals) => {
-        const scale = Math.pow(10, decimals);
-        return Math.round(value * scale) / scale;
-    };
-    // @ts-ignore: error TS7006: Parameter 'u' implicitly has an 'any' type.
-    const str = (n, u) => {
-        return strf(u, n.toLocaleString());
-    };
-    // @ts-ignore: error TS7006: Parameter 'u' implicitly has an 'any' type.
-    const fmt = (s, u) => {
-        const rounded = round(bytes / s, 1 + addedPrecision);
-        return str(rounded, u);
-    };
-    // Less than 1KB is displayed like '80 bytes'.
-    // @ts-ignore: error TS2532: Object is possibly 'undefined'.
-    if (bytes < STEPS[1]) {
-        return str(bytes, UNITS[0]);
-    }
-    // Up to 1MB is displayed as rounded up number of KBs, or with the desired
-    // number of precision digits.
-    // @ts-ignore: error TS2532: Object is possibly 'undefined'.
-    if (bytes < STEPS[2]) {
-        const rounded = addedPrecision ?
-            // @ts-ignore: error TS2532: Object is possibly 'undefined'.
-            round(bytes / STEPS[1], addedPrecision) :
-            // @ts-ignore: error TS2532: Object is possibly 'undefined'.
-            Math.ceil(bytes / STEPS[1]);
-        return str(rounded, UNITS[1]);
-    }
-    // This loop index is used outside the loop if it turns out |bytes|
-    // requires the largest unit.
-    let i;
-    for (i = 2 /* MB */; i < UNITS.length - 1; i++) {
-        // @ts-ignore: error TS2532: Object is possibly 'undefined'.
-        if (bytes < STEPS[i + 1]) {
-            return fmt(STEPS[i], UNITS[i]);
-        }
-    }
-    return fmt(STEPS[i], UNITS[i]);
-};
-/**
- * Extracts path from filesystem: URL.
- * @param {?string=} url Filesystem URL.
- * @return {?string} The path if it can be parsed, null if it cannot.
- */
-util.extractFilePath = url => {
-    const match = /^filesystem:[\w-]*:\/\/[\w-]*\/(external|persistent|temporary)(\/.*)$/
-        .exec(url || '');
-    const path = match && match[2];
-    if (!path) {
-        return null;
-    }
-    return decodeURIComponent(path);
-};
-/**
- * Returns a translated string.
- *
- * Wrapper function to make dealing with translated strings more concise.
- * Equivalent to loadTimeData.getString(id).
- *
- * @param {string} id The id of the string to return.
- * @return {string} The translated string.
- */
-function str(id) {
-    try {
-        return loadTimeData.getString(id);
-    }
-    catch (e) {
-        console.warn('Failed to get string for', id);
-        return id;
-    }
-}
-/**
- * Returns a translated string with arguments replaced.
- *
- * Wrapper function to make dealing with translated strings more concise.
- * Equivalent to loadTimeData.getStringF(id, ...).
- *
- * @param {string} id The id of the string to return.
- * @param {...*} var_args The values to replace into the string.
- * @return {string} The translated string with replaced values.
- */
-// @ts-ignore: error TS6133: 'var_args' is declared but its value is never read.
-function strf(id, var_args) {
-    // @ts-ignore: error TS2345: Argument of type 'IArguments' is not assignable
-    // to parameter of type '[id: string, ...args: (string | number)[]]'.
-    return loadTimeData.getStringF.apply(loadTimeData, arguments);
-}
-// Export strf() into the util namespace.
-util.strf = strf;
-/**
- * @return {boolean} True if the Files app is running as an open files or a
- *     select folder dialog. False otherwise.
- */
-util.runningInBrowser = () => {
-    // @ts-ignore: error TS2339: Property 'appID' does not exist on type 'Window &
-    // typeof globalThis'.
-    return !window.appID;
-};
-/**
- * The type of a file operation.
- * @enum {string}
- * @const
- */
-util.FileOperationType = {
-    COPY: 'COPY',
-    DELETE: 'DELETE',
-    MOVE: 'MOVE',
-    RESTORE: 'RESTORE',
-    RESTORE_TO_DESTINATION: 'RESTORE_TO_DESTINATION',
-    ZIP: 'ZIP',
-};
-Object.freeze(util.FileOperationType);
-/**
- * The type of a file operation error.
- * @enum {number}
- * @const
- */
-util.FileOperationErrorType = {
-    UNEXPECTED_SOURCE_FILE: 0,
-    TARGET_EXISTS: 1,
-    FILESYSTEM_ERROR: 2,
-};
-Object.freeze(util.FileOperationErrorType);
-/**
- * Collator for sorting.
- * @type {Intl.Collator}
- */
-util.collator =
-    new Intl.Collator([], { usage: 'sort', numeric: true, sensitivity: 'base' });
-/**
- * The last URL with visitURL().
- * @private @type {string}
- */
-// @ts-ignore: error TS7034: Variable 'lastVisitedURL' implicitly has type 'any'
-// in some locations where its type cannot be determined.
-let lastVisitedURL;
-/**
- * Visit the URL.
- *
- * If the browser is opening, the url is opened in a new tab, otherwise the url
- * is opened in a new window.
- *
- * @param {!string} url URL to visit.
- */
-util.visitURL = url => {
-    lastVisitedURL = url;
-    // openURL opens URLs in the primary browser (ash vs lacros) as opposed to
-    // window.open which always opens URLs in ash-chrome.
-    chrome.fileManagerPrivate.openURL(url);
-};
-/**
- * Return the last URL visited with visitURL().
- *
- * @return {string} The last URL visited.
- */
-util.getLastVisitedURL = () => {
-    // @ts-ignore: error TS7005: Variable 'lastVisitedURL' implicitly has an 'any'
-    // type.
-    return lastVisitedURL;
-};
-/**
- * Returns normalized current locale, or default locale - 'en'.
- * @return {string} Current locale
- */
-util.getCurrentLocaleOrDefault = () => {
-    const locale = str('UI_LOCALE') || 'en';
-    return locale.replace(/_/g, '-');
-};
-/**
- * Returns whether the window is teleported or not.
- * @param {Window} window Window.
- * @return {Promise<boolean>} Whether the window is teleported or not.
- */
-util.isTeleported = window => {
-    return new Promise(onFulfilled => {
-        // @ts-ignore: error TS2339: Property 'chrome' does not exist on type
-        // 'Window'.
-        window.chrome.fileManagerPrivate.getProfiles(
-        // @ts-ignore: error TS7006: Parameter 'displayedId' implicitly has an
-        // 'any' type.
-        (profiles, currentId, displayedId) => {
-            onFulfilled(currentId !== displayedId);
-        });
-    });
-};
-/**
- * Runs chrome.test.sendMessage in test environment. Does nothing if running
- * in production environment.
- *
- * @param {string} message Test message to send.
- */
-util.testSendMessage = message => {
-    // @ts-ignore: error TS2339: Property 'chrome' does not exist on type
-    // 'Window'.
-    const test = chrome.test || window.top.chrome.test;
-    if (test) {
-        test.sendMessage(message);
-    }
-};
-/**
- * Extracts the extension of the path.
- *
- * Examples:
- * util.splitExtension('abc.ext') -> ['abc', '.ext']
- * util.splitExtension('a/b/abc.ext') -> ['a/b/abc', '.ext']
- * util.splitExtension('a/b') -> ['a/b', '']
- * util.splitExtension('.cshrc') -> ['', '.cshrc']
- * util.splitExtension('a/b.backup/hoge') -> ['a/b.backup/hoge', '']
- *
- * @param {string} path Path to be extracted.
- * @return {Array<string>} Filename and extension of the given path.
- */
-util.splitExtension = path => {
-    let dotPosition = path.lastIndexOf('.');
-    if (dotPosition <= path.lastIndexOf('/')) {
-        dotPosition = -1;
-    }
-    const filename = dotPosition != -1 ? path.substr(0, dotPosition) : path;
-    const extension = dotPosition != -1 ? path.substr(dotPosition) : '';
-    return [filename, extension];
-};
-/**
- * Returns the localized name of the root type.
- * @param {!EntryLocation} locationInfo Location info.
- * @return {string} The localized name.
- */
-util.getRootTypeLabel = locationInfo => {
-    switch (locationInfo.rootType) {
-        case VolumeManagerCommon.RootType.DOWNLOADS:
-            return locationInfo.volumeInfo.label;
-        case VolumeManagerCommon.RootType.DRIVE:
-            return str('DRIVE_MY_DRIVE_LABEL');
-        case VolumeManagerCommon.RootType.SHARED_DRIVE:
-        // |locationInfo| points to either the root directory of an individual Team
-        // Drive or sub-directory under it, but not the Shared Drives grand
-        // directory. Every Shared Drive and its sub-directories always have
-        // individual names (locationInfo.hasFixedLabel is false). So
-        // getRootTypeLabel() is used by PathComponent.computeComponentsFromEntry()
-        // to display the ancestor name in the breadcrumb like this:
-        //   Shared Drives > ABC Shared Drive > Folder1
-        //   ^^^^^^^^^^^
-        // By this reason, we return the label of the Shared Drives grand root here.
-        case VolumeManagerCommon.RootType.SHARED_DRIVES_GRAND_ROOT:
-            return str('DRIVE_SHARED_DRIVES_LABEL');
-        case VolumeManagerCommon.RootType.COMPUTER:
-        case VolumeManagerCommon.RootType.COMPUTERS_GRAND_ROOT:
-            return str('DRIVE_COMPUTERS_LABEL');
-        case VolumeManagerCommon.RootType.DRIVE_OFFLINE:
-            return str('DRIVE_OFFLINE_COLLECTION_LABEL');
-        case VolumeManagerCommon.RootType.DRIVE_SHARED_WITH_ME:
-            return str('DRIVE_SHARED_WITH_ME_COLLECTION_LABEL');
-        case VolumeManagerCommon.RootType.DRIVE_RECENT:
-            return str('DRIVE_RECENT_COLLECTION_LABEL');
-        case VolumeManagerCommon.RootType.DRIVE_FAKE_ROOT:
-            return str('DRIVE_DIRECTORY_LABEL');
-        case VolumeManagerCommon.RootType.RECENT:
-            return str('RECENT_ROOT_LABEL');
-        case VolumeManagerCommon.RootType.CROSTINI:
-            return str('LINUX_FILES_ROOT_LABEL');
-        case VolumeManagerCommon.RootType.MY_FILES:
-            return str('MY_FILES_ROOT_LABEL');
-        case VolumeManagerCommon.RootType.TRASH:
-            return str('TRASH_ROOT_LABEL');
-        case VolumeManagerCommon.RootType.MEDIA_VIEW:
-            const mediaViewRootType = VolumeManagerCommon.getMediaViewRootTypeFromVolumeId(locationInfo.volumeInfo.volumeId);
-            switch (mediaViewRootType) {
-                case VolumeManagerCommon.MediaViewRootType.IMAGES:
-                    return str('MEDIA_VIEW_IMAGES_ROOT_LABEL');
-                case VolumeManagerCommon.MediaViewRootType.VIDEOS:
-                    return str('MEDIA_VIEW_VIDEOS_ROOT_LABEL');
-                case VolumeManagerCommon.MediaViewRootType.AUDIO:
-                    return str('MEDIA_VIEW_AUDIO_ROOT_LABEL');
-                case VolumeManagerCommon.MediaViewRootType.DOCUMENTS:
-                    return str('MEDIA_VIEW_DOCUMENTS_ROOT_LABEL');
-            }
-            console.error('Unsupported media view root type: ' + mediaViewRootType);
-            return locationInfo.volumeInfo.label;
-        case VolumeManagerCommon.RootType.ARCHIVE:
-        case VolumeManagerCommon.RootType.REMOVABLE:
-        case VolumeManagerCommon.RootType.MTP:
-        case VolumeManagerCommon.RootType.PROVIDED:
-        case VolumeManagerCommon.RootType.ANDROID_FILES:
-        case VolumeManagerCommon.RootType.DOCUMENTS_PROVIDER:
-        case VolumeManagerCommon.RootType.SMB:
-        case VolumeManagerCommon.RootType.GUEST_OS:
-            return locationInfo.volumeInfo.label;
-        default:
-            console.error('Unsupported root type: ' + locationInfo.rootType);
-            return locationInfo.volumeInfo.label;
-    }
-};
-/**
- * Returns the localized/i18n name of the entry.
- *
- * @param {?EntryLocation} locationInfo
- * @param {!Entry|!FilesAppEntry} entry The entry to be retrieve the name of.
- * @return {string} The localized name.
- */
-util.getEntryLabel = (locationInfo, entry) => {
-    if (locationInfo) {
-        if (locationInfo.hasFixedLabel) {
-            return util.getRootTypeLabel(locationInfo);
-        }
-        if (entry.filesystem && entry.filesystem.root === entry) {
-            return util.getRootTypeLabel(locationInfo);
-        }
-    }
-    // Special case for MyFiles/Downloads, MyFiles/PvmDefault and MyFiles/Camera.
-    if (locationInfo &&
-        locationInfo.rootType == VolumeManagerCommon.RootType.DOWNLOADS) {
-        if (entry.fullPath == '/Downloads') {
-            return str('DOWNLOADS_DIRECTORY_LABEL');
-        }
-        if (entry.fullPath == '/PvmDefault') {
-            return str('PLUGIN_VM_DIRECTORY_LABEL');
-        }
-        if (entry.fullPath == '/Camera') {
-            return str('CAMERA_DIRECTORY_LABEL');
-        }
-    }
-    return entry.name;
-};
-/**
- * Checks if an API call returned an error, and if yes then prints it.
- */
-util.checkAPIError = () => {
-    if (chrome.runtime.lastError) {
-        console.warn(chrome.runtime.lastError.message);
-    }
-};
-/**
- * Makes a promise which will be fulfilled |ms| milliseconds later.
- * @param {number} ms The delay in milliseconds.
- * @return {!Promise<void>}
- */
-// @ts-ignore: error TS2314: Generic type 'Promise<T>' requires 1 type
-// argument(s).
-util.delay = ms => {
-    return new Promise(resolve => {
-        setTimeout(resolve, ms);
-    });
-};
-/**
- * Makes a promise which will be rejected if the given |promise| is not resolved
- * or rejected for |ms| milliseconds.
- * @param {!Promise<*>} promise A promise which needs to be timed out.
- * @param {number} ms Delay for the timeout in milliseconds.
- * @param {string=} opt_message Error message for the timeout.
-// @ts-ignore: error TS2314: Generic type 'Promise<T>' requires 1 type
-argument(s).
- * @return {!Promise<*>} A promise which can be rejected by timeout.
- */
-util.timeoutPromise = (promise, ms, opt_message) => {
-    return Promise.race([
-        // @ts-ignore: error TS2314: Generic type 'Promise<T>' requires 1 type
-        // argument(s).
-        promise,
-        util.delay(ms).then(() => {
-            throw new Error(opt_message || 'Operation timed out.');
-        }),
-    ]);
-};
-/**
- * Executes a functions only when the context is not the incognito one in a
- * regular session. Returns a promise that when fulfilled informs us whether or
- * not the callback was invoked.
- * @param {function():void} callback
- * @return {!Promise<boolean>}
- */
-util.doIfPrimaryContext = async (callback) => {
-    const guestMode = await util.isInGuestMode();
-    if (guestMode) {
-        callback();
-        return true;
-    }
-    return false;
-};
-/**
- * Returns the Files app modal dialog used to embed any files app dialog
- * that derives from cr.ui.dialogs.
- *
- * @return {!HTMLDialogElement}
- */
-util.getFilesAppModalDialogInstance = () => {
-    let dialogElement = document.querySelector('#files-app-modal-dialog');
-    if (!dialogElement) { // Lazily create the files app dialog instance.
-        dialogElement = document.createElement('dialog');
-        dialogElement.id = 'files-app-modal-dialog';
-        document.body.appendChild(dialogElement);
-    }
-    return /** @type {!HTMLDialogElement} */ (dialogElement);
-};
-/**
- *
- * @param {!chrome.fileManagerPrivate.FileTaskDescriptor} left
- * @param {!chrome.fileManagerPrivate.FileTaskDescriptor} right
- * @returns {boolean}
- */
-util.descriptorEqual = function (left, right) {
-    return left.appId === right.appId && left.taskType === right.taskType &&
-        left.actionId === right.actionId;
-};
-/**
- * Create a taskID which is a string unique-ID for a task. This is temporary
- * and will be removed once we use task.descriptor everywhere instead.
- * @param {!chrome.fileManagerPrivate.FileTaskDescriptor} descriptor
- * @returns {string}
- */
-util.makeTaskID = function ({ appId, taskType, actionId }) {
-    return `${appId}|${taskType}|${actionId}`;
-};
-/**
- * Returns a new promise which, when fulfilled carries a boolean indicating
- * whether the app is in the guest mode. Typical use:
- *
- * util.isInGuestMode().then(
- *     (guest) => { if (guest) { ... in guest mode } }
- * );
- * @return {Promise<boolean>}
- */
-util.isInGuestMode = async () => {
-    const profiles = await promisify(chrome.fileManagerPrivate.getProfiles);
-    return profiles.length > 0 && profiles[0].profileId === '$guest';
-};
-/**
- * Get the locale based week start from the load time data.
- * @returns {number}
- */
-util.getLocaleBasedWeekStart = () => {
-    return loadTimeData.valueExists('WEEK_START_FROM') ?
-        loadTimeData.getInteger('WEEK_START_FROM') :
-        0;
-};
-/**
- * Returns whether the given value is null or undefined.
- * @param {*} value
- * @returns {boolean}
- */
-util.isNullOrUndefined = (value) => value === null || value === undefined;
-/**
- * Bulk pinning should only show visible UI elements when in progress or
- * continuing to sync.
- * @param {chrome.fileManagerPrivate.BulkPinStage|undefined} stage
- * @param {boolean|undefined} pref
- * @returns {boolean}
- */
-util.canBulkPinningCloudPanelShow = (stage, pref) => {
-    if (!isDriveFsBulkPinningEnabled()) {
-        return false;
-    }
-    const BulkPinStage = chrome.fileManagerPrivate.BulkPinStage;
-    // If the stage is in progress and the bulk pinning preference is enabled,
-    // then the cloud panel should not be visible.
-    if (pref &&
-        (stage === BulkPinStage.GETTING_FREE_SPACE ||
-            stage === BulkPinStage.LISTING_FILES ||
-            stage === BulkPinStage.SYNCING)) {
-        return true;
-    }
-    // For the PAUSED... states the preference should still be enabled, however,
-    // for the latter the preference will have been disabled.
-    if ((stage === BulkPinStage.PAUSED_OFFLINE && pref) ||
-        (stage === BulkPinStage.PAUSED_BATTERY_SAVER && pref) ||
-        stage === BulkPinStage.NOT_ENOUGH_SPACE) {
-        return true;
-    }
-    return false;
-};
-/**
- * Converts seconds into a time remaining string.
- * @param {number} seconds
- * @returns {string}
- */
-util.secondsToRemainingTimeString = (seconds) => {
-    const locale = util.getCurrentLocaleOrDefault();
-    let minutes = Math.ceil(seconds / 60);
-    if (minutes <= 1) {
-        // Less than one minute. Display remaining time in seconds.
-        const formatter = new Intl.NumberFormat(locale, { style: 'unit', unit: 'second', unitDisplay: 'long' });
-        return strf('TIME_REMAINING_ESTIMATE', formatter.format(Math.ceil(seconds)));
-    }
-    const minuteFormatter = new Intl.NumberFormat(locale, { style: 'unit', unit: 'minute', unitDisplay: 'long' });
-    const hours = Math.floor(minutes / 60);
-    if (hours == 0) {
-        // Less than one hour. Display remaining time in minutes.
-        return strf('TIME_REMAINING_ESTIMATE', minuteFormatter.format(minutes));
-    }
-    minutes -= hours * 60;
-    const hourFormatter = new Intl.NumberFormat(locale, { style: 'unit', unit: 'hour', unitDisplay: 'long' });
-    if (minutes == 0) {
-        // Hours but no minutes.
-        return strf('TIME_REMAINING_ESTIMATE', hourFormatter.format(hours));
-    }
-    // Hours and minutes.
-    return strf('TIME_REMAINING_ESTIMATE_2', hourFormatter.format(hours), minuteFormatter.format(minutes));
-};
-
-// Copyright 2015 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * Namespace for test related things.
- */
-window.test = window.test || {};
-const test = window.test;
-/**
- * Namespace for test utility functions.
- *
- * Public functions in the test.util.sync and the test.util.async namespaces are
- * published to test cases and can be called by using callRemoteTestUtil. The
- * arguments are serialized as JSON internally. If application ID is passed to
- * callRemoteTestUtil, the content window of the application is added as the
- * first argument. The functions in the test.util.async namespace are passed the
- * callback function as the last argument.
- */
-test.util = {};
-/**
- * Namespace for synchronous utility functions.
- */
-test.util.sync = {};
-/**
- * Namespace for asynchronous utility functions.
- */
-test.util.async = {};
-
-// Copyright 2013 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * Sanitizes the formatted date. Replaces unusual space with normal space.
- * @param {string} strDate the date already in the string format.
- * @return {string}
- */
-function sanitizeDate(strDate) {
-    return strDate.replace('\u202f', ' ');
-}
-/**
- * Returns details about each file shown in the file list: name, size, type and
- * modification time.
- *
- * Since FilesApp normally has a fixed display size in test, and also since the
- * #detail-table recycles its file row elements, this call only returns details
- * about the visible file rows (11 rows normally, see crbug.com/850834).
- *
- * @param {Window} contentWindow Window to be tested.
- * @return {Array<Array<string>>} Details for each visible file row.
- */
-// @ts-ignore: error TS2339: Property 'sync' does not exist on type 'typeof
-// util'.
-test.util.sync.getFileList = contentWindow => {
-    const table = contentWindow.document.querySelector('#detail-table');
-    // @ts-ignore: error TS18047: 'table' is possibly 'null'.
-    const rows = table.querySelectorAll('li');
-    const fileList = [];
-    for (let j = 0; j < rows.length; ++j) {
-        const row = rows[j];
-        fileList.push([
-            // @ts-ignore: error TS2531: Object is possibly 'null'.
-            row.querySelector('.filename-label').textContent,
-            // @ts-ignore: error TS2531: Object is possibly 'null'.
-            row.querySelector('.size').textContent,
-            // @ts-ignore: error TS2531: Object is possibly 'null'.
-            row.querySelector('.type').textContent,
-            // @ts-ignore: error TS2531: Object is possibly 'null'.
-            sanitizeDate(row.querySelector('.date').textContent || ''),
-        ]);
-    }
-    // @ts-ignore: error TS2322: Type '(string | null)[][]' is not assignable to
-    // type 'string[][]'.
-    return fileList;
-};
-/**
- * Returns the name of the files currently selected in the file list. Note the
- * routine has the same 'visible files' limitation as getFileList() above.
- *
- * @param {Window} contentWindow Window to be tested.
- * @return {Array<string>} Selected file names.
- */
-// @ts-ignore: error TS2339: Property 'sync' does not exist on type 'typeof
-// util'.
-test.util.sync.getSelectedFiles = contentWindow => {
-    const table = contentWindow.document.querySelector('#detail-table');
-    // @ts-ignore: error TS18047: 'table' is possibly 'null'.
-    const rows = table.querySelectorAll('li');
-    const selected = [];
-    for (let i = 0; i < rows.length; ++i) {
-        // @ts-ignore: error TS2532: Object is possibly 'undefined'.
-        if (rows[i].hasAttribute('selected')) {
-            // @ts-ignore: error TS2531: Object is possibly 'null'.
-            selected.push(rows[i].querySelector('.filename-label').textContent);
-        }
-    }
-    // @ts-ignore: error TS2322: Type '(string | null)[]' is not assignable to
-    // type 'string[]'.
-    return selected;
-};
-/**
- * Fakes pressing the down arrow until the given |filename| is selected.
- *
- * @param {Window} contentWindow Window to be tested.
- * @param {string} filename Name of the file to be selected.
- * @return {boolean} True if file got selected, false otherwise.
- */
-// @ts-ignore: error TS2339: Property 'sync' does not exist on type 'typeof
-// util'.
-test.util.sync.selectFile = (contentWindow, filename) => {
-    const rows = contentWindow.document.querySelectorAll('#detail-table li');
-    // @ts-ignore: error TS2339: Property 'sync' does not exist on type 'typeof
-    // util'.
-    test.util.sync.focus(contentWindow, '#file-list');
-    // @ts-ignore: error TS2339: Property 'sync' does not exist on type 'typeof
-    // util'.
-    test.util.sync.fakeKeyDown(contentWindow, '#file-list', 'Home', false, false, false);
-    for (let index = 0; index < rows.length; ++index) {
-        // @ts-ignore: error TS2339: Property 'sync' does not exist on type 'typeof
-        // util'.
-        const selection = test.util.sync.getSelectedFiles(contentWindow);
-        if (selection.length === 1 && selection[0] === filename) {
-            return true;
-        }
-        // @ts-ignore: error TS2339: Property 'sync' does not exist on type 'typeof
-        // util'.
-        test.util.sync.fakeKeyDown(contentWindow, '#file-list', 'ArrowDown', false, false, false);
-    }
-    console.warn('Failed to select file "' + filename + '"');
-    return false;
-};
-/**
- * Open the file by selectFile and fakeMouseDoubleClick.
- *
- * @param {Window} contentWindow Window to be tested.
- * @param {string} filename Name of the file to be opened.
- * @return {boolean} True if file got selected and a double click message is
- *     sent, false otherwise.
- */
-// @ts-ignore: error TS2339: Property 'sync' does not exist on type 'typeof
-// util'.
-test.util.sync.openFile = (contentWindow, filename) => {
-    const query = '#file-list li.table-row[selected] .filename-label span';
-    // @ts-ignore: error TS2339: Property 'sync' does not exist on type 'typeof
-    // util'.
-    return test.util.sync.selectFile(contentWindow, filename) &&
-        // @ts-ignore: error TS2339: Property 'sync' does not exist on type
-        // 'typeof util'.
-        test.util.sync.fakeMouseDoubleClick(contentWindow, query);
-};
-/**
- * Returns the last URL visited with visitURL() (e.g. for "Manage in Drive").
- *
- * @param {Window} contentWindow The window where visitURL() was called.
- * @return {!string} The URL of the last URL visited.
- */
-// @ts-ignore: error TS2339: Property 'sync' does not exist on type 'typeof
-// util'.
-test.util.sync.getLastVisitedURL = contentWindow => {
-    // @ts-ignore: error TS2339: Property 'getLastVisitedURL' does not exist on
-    // type 'FileManager'.
-    return contentWindow.fileManager.getLastVisitedURL();
-};
-/**
- * Returns a string translation from its translation ID.
- * @param {string} id The id of the translated string.
- * @return {string}
- */
-// @ts-ignore: error TS7006: Parameter 'contentWindow' implicitly has an 'any'
-// type.
-test.util.sync.getTranslatedString = (contentWindow, id) => {
-    return contentWindow.fileManager.getTranslatedString(id);
-};
-/**
- * Executes Javascript code on a webview and returns the result.
- *
- * @param {Window} contentWindow Window to be tested.
- * @param {string} webViewQuery Selector for the web view.
- * @param {string} code Javascript code to be executed within the web view.
- * @param {function(*):void} callback Callback function with results returned by
-the
- *     script.
-// @ts-ignore: error TS7014: Function type, which lacks return-type annotation,
-implicitly has an 'any' return type.
- */
-// @ts-ignore: error TS2339: Property 'async' does not exist on type 'typeof
-// util'.
-test.util.async.executeScriptInWebView =
-    (contentWindow, webViewQuery, code, callback) => {
-        const webView = contentWindow.document.querySelector(webViewQuery);
-        // @ts-ignore: error TS2339: Property 'executeScript' does not exist on
-        // type 'Element'.
-        webView.executeScript({ code: code }, callback);
-    };
-/**
- * Selects |filename| and fakes pressing Ctrl+C, Ctrl+V (copy, paste).
- *
- * @param {Window} contentWindow Window to be tested.
- * @param {string} filename Name of the file to be copied.
- * @return {boolean} True if copying got simulated successfully. It does not
- *     say if the file got copied, or not.
- */
-// @ts-ignore: error TS2339: Property 'sync' does not exist on type 'typeof
-// util'.
-test.util.sync.copyFile = (contentWindow, filename) => {
-    // @ts-ignore: error TS2339: Property 'sync' does not exist on type 'typeof
-    // util'.
-    if (!test.util.sync.selectFile(contentWindow, filename)) {
-        return false;
-    }
-    // Ctrl+C and Ctrl+V
-    // @ts-ignore: error TS2339: Property 'sync' does not exist on type 'typeof
-    // util'.
-    test.util.sync.fakeKeyDown(contentWindow, '#file-list', 'c', true, false, false);
-    // @ts-ignore: error TS2339: Property 'sync' does not exist on type 'typeof
-    // util'.
-    test.util.sync.fakeKeyDown(contentWindow, '#file-list', 'v', true, false, false);
-    return true;
-};
-/**
- * Selects |filename| and fakes pressing the Delete key.
- *
- * @param {Window} contentWindow Window to be tested.
- * @param {string} filename Name of the file to be deleted.
- * @return {boolean} True if deleting got simulated successfully. It does not
- *     say if the file got deleted, or not.
- */
-// @ts-ignore: error TS2339: Property 'sync' does not exist on type 'typeof
-// util'.
-test.util.sync.deleteFile = (contentWindow, filename) => {
-    // @ts-ignore: error TS2339: Property 'sync' does not exist on type 'typeof
-    // util'.
-    if (!test.util.sync.selectFile(contentWindow, filename)) {
-        return false;
-    }
-    // Delete
-    // @ts-ignore: error TS2339: Property 'sync' does not exist on type 'typeof
-    // util'.
-    test.util.sync.fakeKeyDown(contentWindow, '#file-list', 'Delete', false, false, false);
-    return true;
-};
-/**
- * Execute a command on the document in the specified window.
- *
- * @param {Window} contentWindow Window to be tested.
- * @param {string} command Command name.
- * @return {boolean} True if the command is executed successfully.
- */
-// @ts-ignore: error TS2339: Property 'sync' does not exist on type 'typeof
-// util'.
-test.util.sync.execCommand = (contentWindow, command) => {
-    const ret = contentWindow.document.execCommand(command);
-    if (!ret) {
-        // TODO(b/191831968): Fix execCommand for SWA.
-        console.warn(`execCommand(${command}) returned false for SWA, forcing ` +
-            `return value to true. b/191831968`);
-        return true;
-    }
-    return ret;
-};
-/**
- * Override the task-related methods in private api for test.
- *
- * @param {Window} contentWindow Window to be tested.
- * @param {Array<Object>} taskList List of tasks to be returned in
- *     fileManagerPrivate.getFileTasks().
- * @param {boolean}
- *     isPolicyDefault Whether the default is set by policy.
- * @return {boolean} Always return true.
- */
-// @ts-ignore: error TS2339: Property 'sync' does not exist on type 'typeof
-// util'.
-test.util.sync
-    .overrideTasks = (contentWindow, taskList, isPolicyDefault = false) => {
-    // @ts-ignore: error TS7006: Parameter 'onTasks' implicitly has an 'any' type.
-    const getFileTasks = (entries, sourceUrls, onTasks) => {
-        // Call onTask asynchronously (same with original getFileTasks).
-        setTimeout(() => {
-            const policyDefaultHandlerStatus = isPolicyDefault ?
-                chrome.fileManagerPrivate.PolicyDefaultHandlerStatus
-                    .DEFAULT_HANDLER_ASSIGNED_BY_POLICY :
-                undefined;
-            onTasks({ tasks: taskList, policyDefaultHandlerStatus });
-        }, 0);
-    };
-    // @ts-ignore: error TS7006: Parameter 'callback' implicitly has an 'any'
-    // type.
-    const executeTask = (descriptor, entries, callback) => {
-        // @ts-ignore: error TS2339: Property 'executedTasks_' does not exist on
-        // type 'typeof util'.
-        test.util.executedTasks_.push({ descriptor, entries, callback });
-    };
-    // @ts-ignore: error TS7006: Parameter 'descriptor' implicitly has an 'any'
-    // type.
-    const setDefaultTask = descriptor => {
-        for (let i = 0; i < taskList.length; i++) {
-            // @ts-ignore: error TS2339: Property 'isDefault' does not exist on type
-            // 'Object'.
-            taskList[i].isDefault =
-                // @ts-ignore: error TS2339: Property 'descriptor' does not exist on
-                // type 'Object'.
-                util.descriptorEqual(taskList[i].descriptor, descriptor);
-        }
-    };
-    // @ts-ignore: error TS2339: Property 'executedTasks_' does not exist on type
-    // 'typeof util'.
-    test.util.executedTasks_ = [];
-    // @ts-ignore: error TS2339: Property 'chrome' does not exist on type
-    // 'Window'.
-    contentWindow.chrome.fileManagerPrivate.getFileTasks = getFileTasks;
-    // @ts-ignore: error TS2339: Property 'chrome' does not exist on type
-    // 'Window'.
-    contentWindow.chrome.fileManagerPrivate.executeTask = executeTask;
-    // @ts-ignore: error TS2339: Property 'chrome' does not exist on type
-    // 'Window'.
-    contentWindow.chrome.fileManagerPrivate.setDefaultTask = setDefaultTask;
-    return true;
-};
-/**
- * Obtains the list of executed tasks.
- * @param {Window} contentWindow Window to be tested.
-// @ts-ignore: error TS1131: Property or signature expected.
- * @return {Array<!{descriptor: chrome.fileManagerPrivate.FileTaskDescriptor,
- *     fileNames: !Array<string>}>} List of executed tasks.
-// @ts-ignore: error TS1131: Property or signature expected.
- */
-// @ts-ignore: error TS6133: 'contentWindow' is declared but its value is never
-// read.
-test.util.sync.getExecutedTasks = contentWindow => {
-    // @ts-ignore: error TS2339: Property 'executedTasks_' does not exist on type
-    // 'typeof util'.
-    if (!test.util.executedTasks_) {
-        console.error('Please call overrideTasks() first.');
-        // @ts-ignore: error TS2322: Type 'null' is not assignable to type '{}[]'.
-        return null;
-    }
-    // @ts-ignore: error TS7006: Parameter 'task' implicitly has an 'any' type.
-    return test.util.executedTasks_.map(task => {
-        return {
-            descriptor: task.descriptor,
-            // @ts-ignore: error TS7006: Parameter 'e' implicitly has an 'any' type.
-            fileNames: task.entries.map(e => e.name),
-        };
-    });
-};
-/**
- * Obtains the list of executed tasks.
- * @param {Window} contentWindow Window to be tested.
- * @param {!chrome.fileManagerPrivate.FileTaskDescriptor} descriptor the task to
- *     check.
- * @param {!Array<string>} fileNames Name of files that should have been passed
- *     to the executeTasks().
- * @return {boolean} True if the task was executed.
- */
-// @ts-ignore: error TS6133: 'contentWindow' is declared but its value is never
-// read.
-test.util.sync.taskWasExecuted = (contentWindow, descriptor, fileNames) => {
-    // @ts-ignore: error TS2339: Property 'executedTasks_' does not exist on type
-    // 'typeof util'.
-    if (!test.util.executedTasks_) {
-        console.error('Please call overrideTasks() first.');
-        // @ts-ignore: error TS2322: Type 'null' is not assignable to type
-        // 'boolean'.
-        return null;
-    }
-    const fileNamesStr = JSON.stringify(fileNames);
-    // @ts-ignore: error TS2339: Property 'executedTasks_' does not exist on type
-    // 'typeof util'.
-    const task = test.util.executedTasks_.find(
-    // @ts-ignore: error TS7006: Parameter 'task' implicitly has an 'any'
-    // type.
-    task => util.descriptorEqual(task.descriptor, descriptor) &&
-        // @ts-ignore: error TS7006: Parameter 'e' implicitly has an 'any'
-        // type.
-        fileNamesStr === JSON.stringify(task.entries.map(e => e.name)));
-    return task !== undefined;
-};
-/**
- * Invokes an executed task with |responseArgs|.
- * @param {Window} contentWindow Window to be tested.
- * @param {!chrome.fileManagerPrivate.FileTaskDescriptor} descriptor the task to
- *     be replied to.
- * @param {Array<Object>} responseArgs the arguments to inoke the callback with.
- */
-// @ts-ignore: error TS2339: Property 'sync' does not exist on type 'typeof
-// util'.
-test.util.sync.replyExecutedTask =
-    // @ts-ignore: error TS6133: 'contentWindow' is declared but its value is
-    // never read.
-    (contentWindow, descriptor, responseArgs) => {
-        // @ts-ignore: error TS2339: Property 'executedTasks_' does not exist on
-        // type 'typeof util'.
-        if (!test.util.executedTasks_) {
-            console.error('Please call overrideTasks() first.');
-            return false;
-        }
-        // @ts-ignore: error TS2339: Property 'executedTasks_' does not exist on
-        // type 'typeof util'.
-        const found = test.util.executedTasks_.find(
-        // @ts-ignore: error TS7006: Parameter 'task' implicitly has an 'any'
-        // type.
-        task => util.descriptorEqual(task.descriptor, descriptor));
-        if (!found) {
-            const { appId, taskType, actionId } = descriptor;
-            console.error(`No task with id ${appId}|${taskType}|${actionId}`);
-            return false;
-        }
-        found.callback(...responseArgs);
-        return true;
-    };
-/**
- * Calls the unload handler for the window.
- * @param {Window} contentWindow Window to be tested.
- */
-// @ts-ignore: error TS2339: Property 'sync' does not exist on type 'typeof
-// util'.
-test.util.sync.unload = contentWindow => {
-    // @ts-ignore: error TS2339: Property 'onUnload_' does not exist on type
-    // 'FileManager'.
-    contentWindow.fileManager.onUnload_();
-};
-/**
- * Returns the path shown in the breadcrumb.
- *
- * @param {Window} contentWindow Window to be tested.
- * @return {string} The breadcrumb path.
- */
-// @ts-ignore: error TS2339: Property 'sync' does not exist on type 'typeof
-// util'.
-test.util.sync.getBreadcrumbPath = contentWindow => {
-    const doc = contentWindow.document;
-    const breadcrumb = doc.querySelector('#location-breadcrumbs xf-breadcrumb');
-    if (!breadcrumb) {
-        return '';
-    }
-    // @ts-ignore: error TS2339: Property 'path' does not exist on type 'Element'.
-    return '/' + breadcrumb.path;
-};
-/**
- * Obtains the preferences.
- * @param {function(Object):void} callback Callback function with results
- *     returned by the script.
- */
-// @ts-ignore: error TS2339: Property 'async' does not exist on type 'typeof
-// util'.
-test.util.async.getPreferences = callback => {
-    chrome.fileManagerPrivate.getPreferences(callback);
-};
-/**
- * Stubs out the formatVolume() function in fileManagerPrivate.
- *
- * @param {Window} contentWindow Window to be affected.
- */
-// @ts-ignore: error TS2339: Property 'sync' does not exist on type 'typeof
-// util'.
-test.util.sync.overrideFormat = contentWindow => {
-    // @ts-ignore: error TS2339: Property 'chrome' does not exist on type
-    // 'Window'.
-    contentWindow.chrome.fileManagerPrivate.formatVolume =
-        // @ts-ignore: error TS7006: Parameter 'volumeLabel' implicitly has an
-        // 'any' type.
-        (volumeId, filesystem, volumeLabel) => { };
-    return true;
-};
-/**
- * Run a contentWindow.requestAnimationFrame() cycle and resolve the callback
- * when that requestAnimationFrame completes.
- * @param {Window} contentWindow Window to be tested.
- * @param {function(boolean):void} callback Completion callback.
- */
-// @ts-ignore: error TS2339: Property 'async' does not exist on type 'typeof
-// util'.
-test.util.async.requestAnimationFrame = (contentWindow, callback) => {
-    // @ts-ignore: error TS7014: Function type, which lacks return-type
-    // annotation, implicitly has an 'any' return type.
-    contentWindow.requestAnimationFrame(() => {
-        callback(true);
-    });
-};
-/**
- * Set the window text direction to RTL and wait for the window to redraw.
- * @param {Window} contentWindow Window to be tested.
- * @param {function(boolean):void} callback Completion callback.
- */
-// @ts-ignore: error TS2339: Property 'async' does not exist on type 'typeof
-// util'.
-test.util.async.renderWindowTextDirectionRTL = (contentWindow, callback) => {
-    contentWindow.document.documentElement.setAttribute('dir', 'rtl');
-    // @ts-ignore: error TS7014: Function type, which lacks return-type
-    // annotation, implicitly has an 'any' return type.
-    contentWindow.document.body.setAttribute('dir', 'rtl');
-    contentWindow.requestAnimationFrame(() => {
-        callback(true);
-    });
-};
-/**
- * Maps the path to the replaced attribute to the PrepareFake instance that
- * replaced it, to be able to restore the original value.
- *
- * @private @type {Record<string, PrepareFake>}
- */
-// @ts-ignore: error TS2339: Property 'backgroundReplacedObjects_' does not
-// exist on type 'typeof util'.
-test.util.backgroundReplacedObjects_ = {};
-/**
- * Map the appId to a map of all fakes applied in the foreground window e.g.:
- *  {'files#0': {'chrome.bla.api': FAKE}
- *
- * @private @type {Record<string, Object<string, PrepareFake>>}
- */
-// @ts-ignore: error TS2339: Property 'foregroundReplacedObjects_' does not
-// exist on type 'typeof util'.
-test.util.foregroundReplacedObjects_ = {};
-/**
- * @param {string} attrName
- * @param {*} staticValue
- * @return {function(...*)}
- */
-// @ts-ignore: error TS2339: Property 'staticFakeFactory' does not exist on type
-// 'typeof util'.
-test.util.staticFakeFactory = (attrName, staticValue) => {
-    // @ts-ignore: error TS7019: Rest parameter 'args' implicitly has an 'any[]'
-    // type.
-    const fake = (...args) => {
-        // @ts-ignore: error TS1110: Type expected.
-        setTimeout(() => {
-            // Find the first callback.
-            for (const arg of args) {
-                if (typeof arg === 'function') {
-                    console.warn(`staticFake for ${attrName} value: ${staticValue}`);
-                    return arg(staticValue);
-                }
-            }
-            throw new Error(`Couldn't find callback for ${attrName}`);
-        }, 0);
-    };
-    return fake;
-};
-/**
- * Registry of available fakes, it maps the an string ID to a factory function
- * which returns the actual fake used to replace an implementation.
- *
- * @private @type {Record<string, function(string, *):void>}
- */
-// @ts-ignore: error TS2339: Property 'fakes_' does not exist on type 'typeof
-// util'.
-test.util.fakes_ = {
-    // @ts-ignore: error TS2339: Property 'staticFakeFactory' does not exist on
-    // type 'typeof util'.
-    'static_fake': test.util.staticFakeFactory,
-};
-/**
- * @enum {string}
- */
-test.util.FakeType = {
-    FOREGROUND_FAKE: 'FOREGROUND_FAKE',
-    BACKGROUND_FAKE: 'BACKGROUND_FAKE',
-};
-/**
- * Class holds the information for applying and restoring fakes.
- */
-class PrepareFake {
-    /**
-     * @param {string} attrName Name of the attribute to be replaced by the fake
-     *   e.g.: "chrome.app.window.create".
-     * @param {string} fakeId The name of the fake to be used from
-     *   test.util.fakes_.
-     * @param {*} context The context where the attribute will be traversed from,
-     *   e.g.: Window object.
-     * @param {...*} args Additional args provided from the integration test to
-     *     the
-     *   fake, e.g.: static return value.
-     */
-    constructor(attrName, fakeId, context, ...args) {
-        /**
-         * The instance of the fake to be used, ready to be used.
-         * @private @type {*}
-         */
-        this.fake_ = null;
-        /**
-         * The attribute name to be traversed in the |context_|.
-         * @private @type {string}
-         */
-        this.attrName_ = attrName;
-        /**
-         * The fake id the key to retrieve from test.util.fakes_.
-         * @private @type {string}
-         */
-        this.fakeId_ = fakeId;
-        /**
-         * The context where |attrName_| will be traversed from, e.g. Window.
-         * @private @type {*}
-         */
-        this.context_ = context;
-        /**
-         * After traversing |context_| the object that holds the attribute to be
-         * replaced by the fake.
-         * @private @type {*}
-         */
-        this.parentObject_ = null;
-        /**
-         * After traversing |context_| the attribute name in |parentObject_| that
-         * will be replaced by the fake.
-         * @private @type {string}
-         */
-        this.leafAttrName_ = '';
-        /**
-         * Additional data provided from integration tests to the fake constructor.
-         * @private @type {!Array<*>}
-         */
-        this.args_ = args;
-        /**
-         * Original object that was replaced by the fake.
-         * @private @type {*}
-         */
-        this.original_ = null;
-        /**
-         * If this fake object has been constructed and everything initialized.
-         * @private @type {boolean}
-         */
-        this.prepared_ = false;
-        /**
-         * Counter to record the number of times the static fake is called.
-         * @private @type {number}
-         */
-        this.callCounter_ = 0;
-        /**
-         * List to record the arguments provided to the static fake calls.
-         * @private @type {!Array<*>}
-         */
-        this.calledArgs_ = [];
-    }
-    /**
-     * Initializes the fake and traverse |context_| to be ready to replace the
-     * original implementation with the fake.
-     */
-    prepare() {
-        this.buildFake_();
-        this.traverseContext_();
-        this.prepared_ = true;
-    }
-    /**
-     * Replaces the original implementation with the fake.
-     * NOTE: It requires prepare() to have been called.
-     * @param {test.util.FakeType} fakeType Foreground or background fake.
-     * @param {Window} contentWindow Window to be tested.
-     */
-    replace(fakeType, contentWindow) {
-        const suffix = `for ${this.attrName_} ${this.fakeId_}`;
-        if (!this.prepared_) {
-            throw new Error(`PrepareFake prepare() not called ${suffix}`);
-        }
-        if (!this.parentObject_) {
-            throw new Error(`Missing parentObject_ ${suffix}`);
-        }
-        if (!this.fake_) {
-            throw new Error(`Missing fake_ ${suffix}`);
-        }
-        if (!this.leafAttrName_) {
-            throw new Error(`Missing leafAttrName_ ${suffix}`);
-        }
-        this.saveOriginal_(fakeType, contentWindow);
-        // @ts-ignore: error TS7019: Rest parameter 'args' implicitly has an 'any[]'
-        // type.
-        this.parentObject_[this.leafAttrName_] = (...args) => {
-            this.fake_(...args);
-            this.callCounter_++;
-            this.calledArgs_.push([...args]);
-        };
-    }
-    /**
-     * Restores the original implementation that had been rpeviously replaced by
-     * the fake.
-     */
-    restore() {
-        if (!this.original_) {
-            return;
-        }
-        this.parentObject_[this.leafAttrName_] = this.original_;
-        this.original_ = null;
-    }
-    /**
-     * Saves the original implementation to be able restore it later.
-     * @param {test.util.FakeType} fakeType Foreground or background fake.
-     * @param {Window} contentWindow Window to be tested.
-     */
-    saveOriginal_(fakeType, contentWindow) {
-        // @ts-ignore: error TS2339: Property 'FOREGROUND_FAKE' does not exist on
-        // type 'typeof FakeType'.
-        if (fakeType === test.util.FakeType.FOREGROUND_FAKE) {
-            const windowFakes = 
-            // @ts-ignore: error TS2339: Property 'appID' does not exist on type
-            // 'Window'.
-            test.util.foregroundReplacedObjects_[contentWindow.appID] || {};
-            // @ts-ignore: error TS2339: Property 'appID' does not exist on type
-            // 'Window'.
-            test.util.foregroundReplacedObjects_[contentWindow.appID] = windowFakes;
-            // Only save once, otherwise it can save an object that is already fake.
-            if (!windowFakes[this.attrName_]) {
-                const original = this.parentObject_[this.leafAttrName_];
-                this.original_ = original;
-                windowFakes[this.attrName_] = this;
-            }
-            return;
-        }
-        // @ts-ignore: error TS2339: Property 'BACKGROUND_FAKE' does not exist on
-        // type 'typeof FakeType'.
-        if (fakeType === test.util.FakeType.BACKGROUND_FAKE) {
-            // Only save once, otherwise it can save an object that is already fake.
-            // @ts-ignore: error TS2339: Property 'backgroundReplacedObjects_' does
-            // not exist on type 'typeof util'.
-            if (!test.util.backgroundReplacedObjects_[this.attrName_]) {
-                const original = this.parentObject_[this.leafAttrName_];
-                this.original_ = original;
-                // @ts-ignore: error TS2339: Property 'backgroundReplacedObjects_' does
-                // not exist on type 'typeof util'.
-                test.util.backgroundReplacedObjects_[this.attrName_] = this;
-            }
-        }
-    }
-    /**
-     * Constructs the fake.
-     */
-    buildFake_() {
-        // @ts-ignore: error TS2339: Property 'fakes_' does not exist on type
-        // 'typeof util'.
-        const factory = test.util.fakes_[this.fakeId_];
-        if (!factory) {
-            throw new Error(`Failed to find the fake factory for ${this.fakeId_}`);
-        }
-        this.fake_ = factory(this.attrName_, ...this.args_);
-    }
-    /**
-     * Finds the parent and the object to be replaced by fake.
-     */
-    traverseContext_() {
-        let target = this.context_;
-        let parentObj;
-        let attr = '';
-        for (const a of this.attrName_.split('.')) {
-            attr = a;
-            parentObj = target;
-            target = target[a];
-            if (target === undefined) {
-                throw new Error(`Couldn't find "${0}" from "${this.attrName_}"`);
-            }
-        }
-        this.parentObject_ = parentObj;
-        this.leafAttrName_ = attr;
-    }
-}
-// @ts-ignore: error TS2339: Property 'PrepareFake' does not exist on type
-// 'typeof util'.
-test.util.PrepareFake = PrepareFake;
-/**
- * Replaces implementations in the background page with fakes.
- *
- * @param {Record<string, Array<*>>} fakeData An object mapping the path to the
- * object to be replaced and the value is the Array with fake id and additional
- * arguments for the fake constructor, e.g.:
- *   fakeData = {
- *     'chrome.app.window.create' : [
- *       'static_fake',
- *       ['some static value', 'other arg'],
-// @ts-ignore: error TS1005: '}' expected.
- *     ]
- *   }
- *
- *  This will replace the API 'chrome.app.window.create' with a static fake,
- *  providing the additional data to static fake: ['some static value', 'other
- *  value'].
- */
-// @ts-ignore: error TS7006: Parameter 'fakeData' implicitly has an 'any' type.
-test.util.sync.backgroundFake = (fakeData) => {
-    for (const [path, mockValue] of Object.entries(fakeData)) {
-        const fakeId = mockValue[0];
-        const fakeArgs = mockValue[1] || [];
-        const fake = new PrepareFake(path, fakeId, window, ...fakeArgs);
-        fake.prepare();
-        // @ts-ignore: error TS2339: Property 'BACKGROUND_FAKE' does not exist on
-        // type 'typeof FakeType'.
-        fake.replace(test.util.FakeType.BACKGROUND_FAKE, window);
-    }
-};
-/**
- * Removes all fakes that were applied to the background page.
- */
-// @ts-ignore: error TS2339: Property 'sync' does not exist on type 'typeof
-// util'.
-test.util.sync.removeAllBackgroundFakes = () => {
-    // @ts-ignore: error TS2339: Property 'backgroundReplacedObjects_' does not
-    // exist on type 'typeof util'.
-    const savedFakes = Object.entries(test.util.backgroundReplacedObjects_);
-    let removedCount = 0;
-    // @ts-ignore: error TS6133: 'path' is declared but its value is never read.
-    for (const [path, fake] of savedFakes) {
-        fake.restore();
-        removedCount++;
-    }
-    return removedCount;
-};
-/**
- * Replaces implementations in the foreground page with fakes.
- *
- * @param {Window} contentWindow Window to be tested.
- * @param {Record<string, Array<*>>} fakeData An object mapping the path to the
- * object to be replaced and the value is the Array with fake id and additional
- * arguments for the fake constructor, e.g.:
- *   fakeData = {
- *     'chrome.app.window.create' : [
- *       'static_fake',
- *       ['some static value', 'other arg'],
- *     ]
-// @ts-ignore: error TS1005: '}' expected.
- *   }
- *
- *  This will replace the API 'chrome.app.window.create' with a static fake,
- *  providing the additional data to static fake: ['some static value', 'other
- *  value'].
- */
-// @ts-ignore: error TS7006: Parameter 'fakeData' implicitly has an 'any' type.
-test.util.sync.foregroundFake = (contentWindow, fakeData) => {
-    const entries = Object.entries(fakeData);
-    for (const [path, mockValue] of entries) {
-        const fakeId = mockValue[0];
-        const fakeArgs = mockValue[1] || [];
-        const fake = new PrepareFake(path, fakeId, contentWindow, ...fakeArgs);
-        fake.prepare();
-        // @ts-ignore: error TS2339: Property 'FOREGROUND_FAKE' does not exist on
-        // type 'typeof FakeType'.
-        fake.replace(test.util.FakeType.FOREGROUND_FAKE, contentWindow);
-    }
-    return entries.length;
-};
-/**
- * Removes all fakes that were applied to the foreground page.
- * @param {Window} contentWindow Window to be tested.
- */
-// @ts-ignore: error TS2339: Property 'sync' does not exist on type 'typeof
-// util'.
-test.util.sync.removeAllForegroundFakes = (contentWindow) => {
-    const savedFakes = 
-    // @ts-ignore: error TS2339: Property 'appID' does not exist on type
-    // 'Window'.
-    Object.entries(test.util.foregroundReplacedObjects_[contentWindow.appID]);
-    let removedCount = 0;
-    // @ts-ignore: error TS6133: 'path' is declared but its value is never read.
-    for (const [path, fake] of savedFakes) {
-        fake.restore();
-        removedCount++;
-    }
-    return removedCount;
-};
-/**
- * Obtains the number of times the static fake api is called.
- * @param {Window} contentWindow Window to be tested.
- * @param {string} fakedApi Path of the method that is faked.
- * @return {number} Number of times the fake api called.
- */
-// @ts-ignore: error TS2339: Property 'sync' does not exist on type 'typeof
-// util'.
-test.util.sync.staticFakeCounter = (contentWindow, fakedApi) => {
-    const fake = 
-    // @ts-ignore: error TS2339: Property 'appID' does not exist on type
-    // 'Window'.
-    test.util.foregroundReplacedObjects_[contentWindow.appID][fakedApi];
-    return fake.callCounter_;
-};
-/**
- * Obtains the list of arguments with which the static fake api was called.
- * @param {Window} contentWindow Window to be tested.
- * @param {string} fakedApi Path of the method that is faked.
- * @return {!Array<!Array<*>>} An array with all calls to this fake, each item
- *     is an array with all args passed in when the fake was called.
- */
-// @ts-ignore: error TS2339: Property 'sync' does not exist on type 'typeof
-// util'.
-test.util.sync.staticFakeCalledArgs = (contentWindow, fakedApi) => {
-    const fake = 
-    // @ts-ignore: error TS2339: Property 'appID' does not exist on type
-    // 'Window'.
-    test.util.foregroundReplacedObjects_[contentWindow.appID][fakedApi];
-    return fake.calledArgs_;
-    // @ts-ignore: error TS8024: JSDoc '@param' tag has name 'An', but there is no
-    // parameter with that name.
-};
-/**
- * Send progress item to Foreground page to display.
- * @param {string} id Progress item id.
- * @param {ProgressItemType} type Type of progress item.
- * @param {ProgressItemState} state State of the progress item.
- * @param {string} message Message of the progress item.
- * @param {number} remainingTime The remaining time of the progress in second.
- * @param {number} progressMax Max value of the progress.
- * @param {number} progressValue Current value of the progress.
- * @param {number} count Number of items being processed.
- */
-// @ts-ignore: error TS2339: Property 'sync' does not exist on type 'typeof
-// util'.
-test.util.sync.sendProgressItem =
-    // @ts-ignore: error TS2304: Cannot find name 'ProgressItemType'.
-    (id, type, state, message, remainingTime, progressMax = 1, progressValue = 0, count = 1) => {
-        // @ts-ignore: error TS2304: Cannot find name 'ProgressItemState'.
-        const item = new ProgressCenterItem();
-        item.id = id;
-        item.type = type;
-        item.state = state;
-        item.message = message;
-        item.remainingTime = remainingTime;
-        item.progressMax = progressMax;
-        item.progressValue = progressValue;
-        item.itemCount = count;
-        // @ts-ignore: error TS2339: Property 'background' does not exist on type
-        // 'Window & typeof globalThis'.
-        window.background.progressCenter.updateItem(item);
-        return true;
-    };
-/**
- * Remote call API handler. This function handles messages coming from the test
- * harness to execute known functions and return results. This is a dummy
- * implementation that is replaced by a real one once the test harness is fully
- * loaded.
- * @type {function(*, function(*): void): void}
- */
-// @ts-ignore: error TS6133: 'callback' is declared but its value is never read.
-test.util.executeTestMessage = (request, callback) => {
-    throw new Error('executeTestMessage not implemented');
-};
-/**
- * Handles a direct call from the integration test harness. We execute
- * swaTestMessageListener call directly from the FileManagerBrowserTest.
- * This method avoids enabling external callers to Files SWA. We forward
- * the response back to the caller, as a serialized JSON string.
-// @ts-ignore: error TS7014: Function type, which lacks return-type annotation,
-implicitly has an 'any' return type.
- * @param {!Object} request
- */
-// @ts-ignore: error TS2339: Property 'swaTestMessageListener' does not exist on
-// type 'typeof test'.
-test.swaTestMessageListener = (request) => {
-    // @ts-ignore: error TS2339: Property 'contentWindow' does not exist on type
-    // 'Window & typeof globalThis'.
-    request.contentWindow = window.contentWindow || window;
-    return new Promise(resolve => {
-        // @ts-ignore: error TS7006: Parameter 'response' implicitly has an 'any'
-        // type.
-        test.util.executeTestMessage(request, (response) => {
-            response = response === undefined ? '@undefined@' : response;
-            resolve(JSON.stringify(response));
-        });
-    });
-};
-// @ts-ignore: error TS7034: Variable 'testUtilsLoaded' implicitly has type
-// 'any' in some locations where its type cannot be determined.
-let testUtilsLoaded = null;
-// @ts-ignore: error TS2339: Property 'swaLoadTestUtils' does not exist on type
-// 'typeof test'.
-test.swaLoadTestUtils = async () => {
-    const scriptUrl = 'background/js/runtime_loaded_test_util.js';
-    try {
-        // @ts-ignore: error TS7005: Variable 'testUtilsLoaded' implicitly has an
-        // 'any' type.
-        if (!testUtilsLoaded) {
-            console.log('Loading ' + scriptUrl);
-            testUtilsLoaded = new ScriptLoader(scriptUrl, { type: 'module' }).load();
-        }
-        await testUtilsLoaded;
-        console.log('Loaded ' + scriptUrl);
-        return true;
-    }
-    catch (error) {
-        testUtilsLoaded = null;
-        return false;
-    }
-};
-// @ts-ignore: error TS2339: Property 'getSwaAppId' does not exist on type
-// 'typeof test'.
-test.getSwaAppId = async () => {
-    // @ts-ignore: error TS7005: Variable 'testUtilsLoaded' implicitly has an
-    // 'any' type.
-    if (!testUtilsLoaded) {
-        // @ts-ignore: error TS2339: Property 'swaLoadTestUtils' does not exist on
-        // type 'typeof test'.
-        await test.swaLoadTestUtils();
-    }
-    // @ts-ignore: error TS2339: Property 'appID' does not exist on type 'Window &
-    // typeof globalThis'.
-    return String(window.appID);
-};
+const isOneDriveId = (providerId) => providerId === ODFS_EXTENSION_ID;
 
 // Copyright 2018 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
@@ -8715,154 +7115,69 @@ test.getSwaAppId = async () => {
  * extension under test at runtime to populate testing functionality.
  */
 /**
- * @typedef {{
- *   attributes:Record<string, string>,
- *   text:string,
- *   styles:(Record<string, string>|undefined),
- *   hidden:boolean,
- *   hasShadowRoot: boolean,
- *   imageWidth: (number|undefined),
- *   imageHeight: (number|undefined),
- *   renderedWidth: (number|undefined),
- *   renderedHeight: (number|undefined),
- *   renderedTop: (number|undefined),
- *   renderedLeft: (number|undefined),
- *   scrollLeft: (number|undefined),
- *   scrollTop: (number|undefined),
- *   scrollWidth: (number|undefined),
- *   scrollHeight: (number|undefined),
- *  }}
- */
-// @ts-ignore: error TS7005: Variable 'ElementObject' implicitly has an 'any'
-// type.
-let ElementObject;
-/**
- * Object containing common key modifiers: shift, alt, and ctrl.
- *
- * @typedef {{
- *   shift: (boolean|undefined),
- *   alt: (boolean|undefined),
- *   ctrl: (boolean|undefined),
- * }}
- */
-// @ts-ignore: error TS7005: Variable 'KeyModifiers' implicitly has an 'any'
-// type.
-let KeyModifiers;
-/**
  * Extract the information of the given element.
- * @param {Element} element Element to be extracted.
- * @param {Window} contentWindow Window to be tested.
- * @param {Array<string>=} opt_styleNames List of CSS property name to be
- *     obtained. NOTE: Causes element style re-calculation.
- * @return {!ElementObject} Element information that contains contentText,
- *     attribute names and values, hidden attribute, and style names and values.
+ * @param element Element to be extracted.
+ * @param contentWindow Window to be tested.
+ * @param styleNames List of CSS property name to be obtained. NOTE: Causes
+ *     element style re-calculation.
+ * @return Element information that contains contentText, attribute names and
+ *     values, hidden attribute, and style names and values.
  */
-function extractElementInfo(element, contentWindow, opt_styleNames) {
+function extractElementInfo(element, contentWindow, styleNames) {
     const attributes = {};
-    for (let i = 0; i < element.attributes.length; i++) {
-        // @ts-ignore: error TS2532: Object is possibly 'undefined'.
-        attributes[element.attributes[i].nodeName] =
-            // @ts-ignore: error TS2532: Object is possibly 'undefined'.
-            element.attributes[i].nodeValue;
+    for (const attr of element.attributes) {
+        attributes[attr.nodeName] = attr.nodeValue;
     }
     const result = {
         attributes: attributes,
+        styles: {},
         text: element.textContent,
-        // @ts-ignore: error TS2339: Property 'innerText' does not exist on type
-        // 'Element'.
         innerText: element.innerText,
-        // @ts-ignore: error TS2339: Property 'value' does not exist on type
-        // 'Element'.
         value: element.value,
         // The hidden attribute is not in the element.attributes even if
         // element.hasAttribute('hidden') is true.
-        // @ts-ignore: error TS2339: Property 'hidden' does not exist on type
-        // 'Element'.
         hidden: !!element.hidden,
         hasShadowRoot: !!element.shadowRoot,
     };
-    const styleNames = opt_styleNames || [];
+    styleNames = styleNames || [];
     assert(Array.isArray(styleNames));
     if (!styleNames.length) {
-        // @ts-ignore: error TS2740: Type '{ attributes: {}; text: string | null;
-        // innerText: any; value: any; hidden: boolean; hasShadowRoot: boolean; }'
-        // is missing the following properties from type 'ElementObject': styles,
-        // imageWidth, imageHeight, renderedWidth, and 7 more.
         return result;
     }
     // Force a style resolve and record the requested style values.
-    // @ts-ignore: error TS2339: Property 'styles' does not exist on type '{
-    // attributes: {}; text: string | null; innerText: any; value: any; hidden:
-    // boolean; hasShadowRoot: boolean; }'.
-    result.styles = {};
     const size = element.getBoundingClientRect();
     const computedStyle = contentWindow.getComputedStyle(element);
-    for (let i = 0; i < styleNames.length; i++) {
-        // @ts-ignore: error TS2538: Type 'undefined' cannot be used as an index
-        // type.
-        result.styles[styleNames[i]] = computedStyle[styleNames[i]];
+    for (const style of styleNames) {
+        result.styles[style] = computedStyle.getPropertyValue(style);
     }
     // These attributes are set when element is <img> or <canvas>.
-    // @ts-ignore: error TS2339: Property 'width' does not exist on type
-    // 'Element'.
     result.imageWidth = Number(element.width);
-    // @ts-ignore: error TS2339: Property 'height' does not exist on type
-    // 'Element'.
     result.imageHeight = Number(element.height);
     // Get the element client rectangle properties.
-    // @ts-ignore: error TS2339: Property 'renderedWidth' does not exist on type
-    // '{ attributes: {}; text: string | null; innerText: any; value: any; hidden:
-    // boolean; hasShadowRoot: boolean; }'.
     result.renderedWidth = size.width;
-    // @ts-ignore: error TS2339: Property 'renderedHeight' does not exist on type
-    // '{ attributes: {}; text: string | null; innerText: any; value: any; hidden:
-    // boolean; hasShadowRoot: boolean; }'.
     result.renderedHeight = size.height;
-    // @ts-ignore: error TS2339: Property 'renderedTop' does not exist on type '{
-    // attributes: {}; text: string | null; innerText: any; value: any; hidden:
-    // boolean; hasShadowRoot: boolean; }'.
     result.renderedTop = size.top;
-    // @ts-ignore: error TS2339: Property 'renderedLeft' does not exist on type '{
-    // attributes: {}; text: string | null; innerText: any; value: any; hidden:
-    // boolean; hasShadowRoot: boolean; }'.
     result.renderedLeft = size.left;
     // Get the element scroll properties.
-    // @ts-ignore: error TS2339: Property 'scrollLeft' does not exist on type '{
-    // attributes: {}; text: string | null; innerText: any; value: any; hidden:
-    // boolean; hasShadowRoot: boolean; }'.
     result.scrollLeft = element.scrollLeft;
-    // @ts-ignore: error TS2339: Property 'scrollTop' does not exist on type '{
-    // attributes: {}; text: string | null; innerText: any; value: any; hidden:
-    // boolean; hasShadowRoot: boolean; }'.
     result.scrollTop = element.scrollTop;
-    // @ts-ignore: error TS2339: Property 'scrollWidth' does not exist on type '{
-    // attributes: {}; text: string | null; innerText: any; value: any; hidden:
-    // boolean; hasShadowRoot: boolean; }'.
     result.scrollWidth = element.scrollWidth;
-    // @ts-ignore: error TS2339: Property 'scrollHeight' does not exist on type '{
-    // attributes: {}; text: string | null; innerText: any; value: any; hidden:
-    // boolean; hasShadowRoot: boolean; }'.
     result.scrollHeight = element.scrollHeight;
-    // @ts-ignore: error TS2322: Type '{ attributes: {}; text: string | null;
-    // innerText: any; value: any; hidden: boolean; hasShadowRoot: boolean; }' is
-    // not assignable to type 'ElementObject'.
     return result;
 }
 /**
  * Gets total Javascript error count from background page and each app window.
- * @return {number} Error count.
+ * @return Error count.
  */
 test.util.sync.getErrorCount = () => {
-    // @ts-ignore: error TS2339: Property 'JSErrorCount' does not exist on type
-    // 'Window & typeof globalThis'.
     return window.JSErrorCount;
 };
 /**
  * Resizes the window to the specified dimensions.
  *
- * @param {number} width Window width.
- * @param {number} height Window height.
- * @return {boolean} True for success.
+ * @param width Window width.
+ * @param height Window height.
+ * @return True for success.
  */
 test.util.sync.resizeWindow = (width, height) => {
     window.resizeTo(width, height);
@@ -8871,44 +7186,38 @@ test.util.sync.resizeWindow = (width, height) => {
 /**
  * Queries all elements.
  *
- * @param {!Window} contentWindow Window to be tested.
- * @param {string} targetQuery Query to specify the element.
- * @param {Array<string>=} opt_styleNames List of CSS property name to be
- *     obtained.
- * @return {!Array<!ElementObject>} Element information that contains
- *     contentText, attribute names and values, hidden attribute, and style
- *     names and values.
+ * @param contentWindow Window to be tested.
+ * @param targetQuery Query to specify the element.
+ * @param styleNames List of CSS property name to be obtained.
+ * @return Element information that contains contentText, attribute names and
+ *     values, hidden attribute, and style names and values.
  */
 test.util.sync.queryAllElements =
-    (contentWindow, targetQuery, opt_styleNames) => {
-        return test.util.sync.deepQueryAllElements(contentWindow, targetQuery, opt_styleNames);
+    (contentWindow, targetQuery, styleNames) => {
+        return test.util.sync.deepQueryAllElements(contentWindow, targetQuery, styleNames);
     };
 /**
  * Queries elements inside shadow DOM.
  *
- * @param {!Window} contentWindow Window to be tested.
- * @param {string|!Array<string>} targetQuery Query to specify the element.
+ * @param contentWindow Window to be tested.
+ * @param targetQuery Query to specify the element.
  *   |targetQuery[0]| specifies the first element(s). |targetQuery[1]| specifies
  *   elements inside the shadow DOM of the first element, and so on.
- * @param {Array<string>=} opt_styleNames List of CSS property name to be
- *     obtained.
- * @return {!Array<!ElementObject>} Element information that contains
- *     contentText, attribute names and values, hidden attribute, and style
- *     names and values.
+ * @param styleNames List of CSS property name to be obtained.
+ * @return Element information that contains contentText, attribute names and
+ *     values, hidden attribute, and style names and values.
  */
 test.util.sync.deepQueryAllElements =
-    (contentWindow, targetQuery, opt_styleNames) => {
+    (contentWindow, targetQuery, styleNames) => {
         if (!contentWindow.document) {
             return [];
         }
         if (typeof targetQuery === 'string') {
             targetQuery = [targetQuery];
         }
-        const elems = test.util.sync.deepQuerySelectorAll_(contentWindow.document, targetQuery);
-        // @ts-ignore: error TS7006: Parameter 'element' implicitly has an 'any'
-        // type.
-        return elems.map(element => {
-            return extractElementInfo(element, contentWindow, opt_styleNames);
+        const elems = deepQuerySelectorAll(contentWindow.document, targetQuery);
+        return elems.map((element) => {
+            return extractElementInfo(element, contentWindow, styleNames);
         });
     };
 /**
@@ -8917,253 +7226,242 @@ test.util.sync.deepQueryAllElements =
  * This avoid serializing and transmitting the elements to the test extension,
  * which can be time consuming for large elements.
  *
- * @param {Window} contentWindow Window to be tested.
- * @param {!Array<string>} query Query to specify the element.
+ * @param contentWindow Window to be tested.
+ * @param query Query to specify the element.
  *   |query[0]| specifies the first element(s). |query[1]| specifies elements
  *   inside the shadow DOM of the first element, and so on.
- * @param {function(boolean):void} callback Callback function with results if
- *     the
- *    number of elements match |count|.
+ * @param callback Callback function with results if the number of elements
+ *     match |count|.
  */
-// @ts-ignore: error TS7006: Parameter 'count' implicitly has an 'any' type.
-test.util.async.countElements = (contentWindow, query, count, callback) => {
-    // Uses requestIdleCallback so it doesn't interfere with normal operation of
-    // Files app UI.
-    contentWindow.requestIdleCallback(() => {
-        const elements = test.util.sync.deepQuerySelectorAll_(contentWindow.document, query);
-        callback(elements.length === count);
-    });
-};
+test.util.async.countElements =
+    (contentWindow, query, count, callback) => {
+        // Uses requestIdleCallback so it doesn't interfere with normal operation
+        // of Files app UI.
+        contentWindow.requestIdleCallback(() => {
+            const elements = deepQuerySelectorAll(contentWindow.document, query);
+            callback(elements.length === count);
+        });
+    };
 /**
  * Selects elements below |root|, possibly following shadow DOM subtree.
  *
- * @param {(!HTMLElement|!Document)} root Element to search from.
- * @param {!Array<string>} targetQuery Query to specify the element.
+ * @param root Element to search from.
+ * @param targetQuery Query to specify the element.
  *   |targetQuery[0]| specifies the first element(s). |targetQuery[1]| specifies
  *   elements inside the shadow DOM of the first element, and so on.
- * @return {!Array<!HTMLElement>} Matched elements.
- *
- * @private
+ * @return Matched elements.
  */
-test.util.sync.deepQuerySelectorAll_ = (root, targetQuery) => {
-    const elems = 
-    // @ts-ignore: error TS2769: No overload matches this call.
-    Array.prototype.slice.call(root.querySelectorAll(targetQuery[0]));
+function deepQuerySelectorAll(root, targetQuery) {
+    const elems = Array.prototype.slice.call(root.querySelectorAll(targetQuery[0]));
     const remaining = targetQuery.slice(1);
     if (remaining.length === 0) {
         return elems;
     }
-    // @ts-ignore: error TS7034: Variable 'res' implicitly has type 'any[]' in
-    // some locations where its type cannot be determined.
     let res = [];
-    for (let i = 0; i < elems.length; i++) {
-        if (elems[i].shadowRoot) {
-            // @ts-ignore: error TS7005: Variable 'res' implicitly has an 'any[]'
-            // type.
-            res = res.concat(test.util.sync.deepQuerySelectorAll_(elems[i].shadowRoot, remaining));
+    for (const elem of elems) {
+        if ('shadowRoot' in elem) {
+            res = res.concat(deepQuerySelectorAll(elem.shadowRoot, remaining));
         }
     }
     return res;
-};
+}
 /**
  * Gets the information of the active element.
  *
- * @param {Window} contentWindow Window to be tested.
- * @param {Array<string>=} opt_styleNames List of CSS property name to be
- *     obtained.
- * @return {?ElementObject} Element information that contains contentText,
- *     attribute names and values, hidden attribute, and style names and values.
- *     If there is no active element, returns null.
+ * @param contentWindow Window to be tested.
+ * @param styleNames List of CSS property name to be obtained.
+ * @return Element information that contains contentText, attribute names and
+ *     values, hidden attribute, and style names and values. If there is no
+ *     active element, returns null.
  */
-test.util.sync.getActiveElement = (contentWindow, opt_styleNames) => {
-    if (!contentWindow.document || !contentWindow.document.activeElement) {
-        return null;
-    }
-    return extractElementInfo(contentWindow.document.activeElement, contentWindow, opt_styleNames);
-};
+test.util.sync.getActiveElement =
+    (contentWindow, styleNames) => {
+        if (!contentWindow.document || !contentWindow.document.activeElement) {
+            return null;
+        }
+        return extractElementInfo(contentWindow.document.activeElement, contentWindow, styleNames);
+    };
 /**
  * Gets the information of the active element. However, unlike the previous
  * helper, the shadow roots are searched as well.
  *
- * @param {Window} contentWindow Window to be tested.
- * @param {Array<string>=} opt_styleNames List of CSS property name to be
- *     obtained.
- * @return {?ElementObject} Element information that contains contentText,
- *     attribute names and values, hidden attribute, and style names and values.
- *     If there is no active element, returns null.
+ * @param contentWindow Window to be tested.
+ * @param styleNames List of CSS property name to be obtained.
+ * @return Element information that contains contentText, attribute names and
+ *     values, hidden attribute, and style names and values. If there is no
+ *     active element, returns null.
  */
-test.util.sync.deepGetActiveElement = (contentWindow, opt_styleNames) => {
-    if (!contentWindow.document || !contentWindow.document.activeElement) {
-        return null;
-    }
-    let activeElement = contentWindow.document.activeElement;
-    while (true) {
-        const shadow = activeElement.shadowRoot;
-        if (shadow && shadow.activeElement) {
-            activeElement = shadow.activeElement;
+test.util.sync.deepGetActiveElement =
+    (contentWindow, styleNames) => {
+        if (!contentWindow.document || !contentWindow.document.activeElement) {
+            return null;
         }
-        else {
-            break;
+        let activeElement = contentWindow.document.activeElement;
+        while (true) {
+            const shadow = activeElement.shadowRoot;
+            if (shadow && shadow.activeElement) {
+                activeElement = shadow.activeElement;
+            }
+            else {
+                break;
+            }
         }
-    }
-    return extractElementInfo(activeElement, contentWindow, opt_styleNames);
-};
+        return extractElementInfo(activeElement, contentWindow, styleNames);
+    };
 /**
  * Gets an array of every activeElement, walking down the shadowRoot of every
  * active element it finds.
  *
- * @param {Window} contentWindow Window to be tested.
- * @param {Array<string>=} opt_styleNames List of CSS property name to be
- *     obtained.
- * @return {Array<ElementObject>} Element information that contains contentText,
- *     attribute names and values, hidden attribute, and style names and values.
- *     If there is no active element, returns an empty array.
+ * @param contentWindow Window to be tested.
+ * @param styleNames List of CSS property name to be obtained.
+ * @return Element information that contains contentText, attribute names and
+ *     values, hidden attribute, and style names and values. If there is no
+ * active element, returns an empty array.
  */
-test.util.sync.deepGetActivePath = (contentWindow, opt_styleNames) => {
-    if (!contentWindow.document || !contentWindow.document.activeElement) {
-        return [];
-    }
-    const path = [contentWindow.document.activeElement];
-    while (true) {
-        // @ts-ignore: error TS2532: Object is possibly 'undefined'.
-        const shadow = path[path.length - 1].shadowRoot;
-        if (shadow && shadow.activeElement) {
-            path.push(shadow.activeElement);
+test.util.sync.deepGetActivePath =
+    (contentWindow, styleNames) => {
+        if (!contentWindow.document || !contentWindow.document.activeElement) {
+            return [];
         }
-        else {
-            break;
+        const path = [contentWindow.document.activeElement];
+        while (true) {
+            const shadow = path[path.length - 1]?.shadowRoot;
+            if (shadow && shadow.activeElement) {
+                path.push(shadow.activeElement);
+            }
+            else {
+                break;
+            }
         }
-    }
-    return path.map(el => extractElementInfo(el, contentWindow, opt_styleNames));
-};
+        return path.map(el => extractElementInfo(el, contentWindow, styleNames));
+    };
 /**
  * Assigns the text to the input element.
- * @param {Window} contentWindow Window to be tested.
- * @param {string|!Array<string>} query Query for the input element.
+ * @param contentWindow Window to be tested.
+ * @param query Query for the input element.
  *     If |query| is an array, |query[0]| specifies the first element(s),
  *     |query[1]| specifies elements inside the shadow DOM of the first element,
  *     and so on.
- * @param {string} text Text to be assigned.
- * @return {boolean} Whether or not the text was assigned.
+ * @param text Text to be assigned.
+ * @return Whether or not the text was assigned.
  */
-test.util.sync.inputText = (contentWindow, query, text) => {
-    if (typeof query === 'string') {
-        query = [query];
-    }
-    const elems = test.util.sync.deepQuerySelectorAll_(contentWindow.document, query);
-    if (elems.length === 0) {
-        console.error(`Input element not found: [${query.join(',')}]`);
-        return false;
-    }
-    const input = elems[0];
-    input.value = text;
-    input.dispatchEvent(new Event('change'));
-    return true;
-};
+test.util.sync.inputText =
+    (contentWindow, query, text) => {
+        if (typeof query === 'string') {
+            query = [query];
+        }
+        const elems = deepQuerySelectorAll(contentWindow.document, query);
+        if (elems.length === 0) {
+            console.error(`Input element not found: [${query.join(',')}]`);
+            return false;
+        }
+        const input = elems[0];
+        input.value = text;
+        input.dispatchEvent(new Event('change'));
+        return true;
+    };
 /**
  * Sets the left scroll position of an element.
- * @param {Window} contentWindow Window to be tested.
- * @param {string} query Query for the test element.
- * @param {number} position scrollLeft position to set.
- * @return {boolean} True if operation was successful.
+ * @param contentWindow Window to be tested.
+ * @param query Query for the test element.
+ * @param position scrollLeft position to set.
+ * @return True if operation was successful.
  */
-test.util.sync.setScrollLeft = (contentWindow, query, position) => {
-    // @ts-ignore: error TS2531: Object is possibly 'null'.
-    contentWindow.document.querySelector(query).scrollLeft = position;
-    return true;
-};
+test.util.sync.setScrollLeft =
+    (contentWindow, query, position) => {
+        contentWindow.document.querySelector(query).scrollLeft = position;
+        return true;
+    };
 /**
  * Sets the top scroll position of an element.
- * @param {Window} contentWindow Window to be tested.
- * @param {string} query Query for the test element.
- * @param {number} position scrollTop position to set.
- * @return {boolean} True if operation was successful.
+ * @param contentWindow Window to be tested.
+ * @param query Query for the test element.
+ * @param position scrollTop position to set.
+ * @return True if operation was successful.
  */
-test.util.sync.setScrollTop = (contentWindow, query, position) => {
-    // @ts-ignore: error TS2531: Object is possibly 'null'.
-    contentWindow.document.querySelector(query).scrollTop = position;
-    return true;
-};
+test.util.sync.setScrollTop =
+    (contentWindow, query, position) => {
+        contentWindow.document.querySelector(query).scrollTop = position;
+        return true;
+    };
 /**
  * Sets style properties for an element using the CSS OM.
- * @param {Window} contentWindow Window to be tested.
- * @param {string} query Query for the test element.
- * @param {!Object<?, string>} properties CSS Property name/values to set.
- * @return {boolean} Whether styles were set or not.
+ * @param contentWindow Window to be tested.
+ * @param query Query for the test element.
+ * @param properties CSS Property name/values to set.
+ * @return Whether styles were set or not.
  */
-test.util.sync.setElementStyles = (contentWindow, query, properties) => {
-    const element = contentWindow.document.querySelector(query);
-    if (element === null) {
-        console.error(`Failed to locate element using query "${query}"`);
-        return false;
-    }
-    for (const [key, value] of Object.entries(properties)) {
-        // @ts-ignore: error TS2339: Property 'style' does not exist on type
-        // 'Element'.
-        element.style[key] = value;
-    }
-    return true;
-};
+test.util.sync.setElementStyles =
+    (contentWindow, query, properties) => {
+        const element = contentWindow.document.querySelector(query);
+        if (element === null) {
+            console.error(`Failed to locate element using query "${query}"`);
+            return false;
+        }
+        for (const [key, value] of Object.entries(properties)) {
+            element.style.setProperty(key, value);
+        }
+        return true;
+    };
 /**
  * Sends an event to the element specified by |targetQuery| or active element.
  *
- * @param {Window} contentWindow Window to be tested.
- * @param {?string|Array<string>} targetQuery Query to specify the element.
+ * @param contentWindow Window to be tested.
+ * @param targetQuery Query to specify the element.
  *     If this value is null, an event is dispatched to active element of the
  *     document.
  *     If targetQuery is an array, |targetQuery[0]| specifies the first
  *     element(s), |targetQuery[1]| specifies elements inside the shadow DOM of
  *     the first element, and so on.
- * @param {!Event} event Event to be sent.
- * @return {boolean} True if the event is sent to the target, false otherwise.
+ * @param event Event to be sent.
+ * @return True if the event is sent to the target, false otherwise.
  */
-test.util.sync.sendEvent = (contentWindow, targetQuery, event) => {
-    if (!contentWindow.document) {
-        return false;
-    }
-    let target;
-    if (targetQuery === null) {
-        target = contentWindow.document.activeElement;
-    }
-    else if (typeof targetQuery === 'string') {
-        target = contentWindow.document.querySelector(targetQuery);
-    }
-    else if (Array.isArray(targetQuery)) {
-        const elements = test.util.sync.deepQuerySelectorAll_(contentWindow.document, targetQuery);
-        if (elements.length > 0) {
-            target = elements[0];
+test.util.sync.sendEvent =
+    (contentWindow, targetQuery, event) => {
+        if (!contentWindow.document) {
+            return false;
         }
-    }
-    if (!target) {
-        return false;
-    }
-    target.dispatchEvent(event);
-    return true;
-};
+        let target;
+        if (targetQuery === null) {
+            target = contentWindow.document.activeElement;
+        }
+        else if (typeof targetQuery === 'string') {
+            target = contentWindow.document.querySelector(targetQuery);
+        }
+        else if (Array.isArray(targetQuery)) {
+            const elements = deepQuerySelectorAll(contentWindow.document, targetQuery);
+            if (elements.length > 0) {
+                target = elements[0];
+            }
+        }
+        if (!target) {
+            return false;
+        }
+        target.dispatchEvent(event);
+        return true;
+    };
 /**
  * Sends an fake event having the specified type to the target query.
  *
- * @param {Window} contentWindow Window to be tested.
- * @param {string} targetQuery Query to specify the element.
- * @param {string} eventType Type of event.
- * @param {Object=} opt_additionalProperties Object containing additional
- *     properties.
- * @return {boolean} True if the event is sent to the target, false otherwise.
+ * @param contentWindow Window to be tested.
+ * @param targetQuery Query to specify the element.
+ * @param eventType Type of event.
+ * @param additionalProperties Object containing additional properties.
+ * @return True if the event is sent to the target, false otherwise.
  */
 test.util.sync.fakeEvent =
-    (contentWindow, targetQuery, eventType, opt_additionalProperties) => {
-        const event = new Event(eventType, 
-        /** @type {!EventInit} */ (opt_additionalProperties || {}));
-        if (opt_additionalProperties) {
-            for (const name in opt_additionalProperties) {
+    (contentWindow, targetQuery, eventType, additionalProperties) => {
+        const isCustomEvent = 'detail' in (additionalProperties || {});
+        const event = isCustomEvent ?
+            new CustomEvent(eventType, additionalProperties || {}) :
+            new Event(eventType, additionalProperties || {});
+        if (!isCustomEvent && additionalProperties) {
+            for (const name in additionalProperties) {
                 if (name === 'bubbles') {
                     // bubbles is a read-only which, causes an error when assigning.
                     continue;
                 }
-                // @ts-ignore: error TS7053: Element implicitly has an 'any' type
-                // because expression of type 'string' can't be used to index type
-                // 'Object'.
-                event[name] = opt_additionalProperties[name];
+                event[name] = additionalProperties[name];
             }
         }
         return test.util.sync.sendEvent(contentWindow, targetQuery, event);
@@ -9172,20 +7470,20 @@ test.util.sync.fakeEvent =
  * Sends a fake key event to the element specified by |targetQuery| or active
  * element with the given |key| and optional |ctrl,shift,alt| modifier.
  *
- * @param {Window} contentWindow Window to be tested.
- * @param {?string} targetQuery Query to specify the element. If this value is
+ * @param contentWindow Window to be tested.
+ * @param targetQuery Query to specify the element. If this value is
  *     null, key event is dispatched to active element of the document.
- * @param {string} key DOM UI Events key value.
- * @param {boolean} ctrl Whether CTRL should be pressed, or not.
- * @param {boolean} shift whether SHIFT should be pressed, or not.
- * @param {boolean} alt whether ALT should be pressed, or not.
- * @return {boolean} True if the event is sent to the target, false otherwise.
+ * @param key DOM UI Events key value.
+ * @param ctrl Whether CTRL should be pressed, or not.
+ * @param shift whether SHIFT should be pressed, or not.
+ * @param alt whether ALT should be pressed, or not.
+ * @return True if the event is sent to the target, false otherwise.
  */
 test.util.sync.fakeKeyDown =
     (contentWindow, targetQuery, key, ctrl, shift, alt) => {
         const event = new KeyboardEvent('keydown', {
             bubbles: true,
-            composed: true,
+            composed: true, // Allow the event to bubble past shadow DOM root.
             key: key,
             ctrlKey: ctrl,
             shiftKey: shift,
@@ -9199,43 +7497,32 @@ test.util.sync.fakeKeyDown =
  * it. Otherwise, this sends 'mouseover', 'mousedown', 'mouseup' and 'click'
  * events in turns.
  *
- * @param {Window} contentWindow Window to be tested.
- * @param {string|Array<string>} targetQuery Query to specify the element.
+ * @param contentWindow Window to be tested.
+ * @param targetQuery Query to specify the element.
  *     If targetQuery is an array, |targetQuery[0]| specifies the first
  *     element(s), |targetQuery[1]| specifies elements inside the shadow DOM of
  *     the first element, and so on.
- * @param {KeyModifiers=} opt_keyModifiers Object containing common key
- *     modifiers : shift, alt, and ctrl.
- * @param {number=} opt_button Mouse button number as per spec, e.g.: 2 for
- *     right-click.
- * @param {Object=} opt_eventProperties Additional properties to pass to each
- *     event, e.g.: clientX and clientY. right-click.
- * @return {boolean} True if the all events are sent to the target, false
- *     otherwise.
+ * @param keyModifiers Object containing common key modifiers : shift, alt, and
+ *     ctrl.
+ * @param button Mouse button number as per spec, e.g.: 2 for right-click.
+ * @param eventProperties Additional properties to pass to each event, e.g.:
+ *     clientX and clientY. right-click.
+ * @return True if the all events are sent to the target, false otherwise.
  */
 test.util.sync.fakeMouseClick =
-    (contentWindow, targetQuery, opt_keyModifiers, opt_button, opt_eventProperties) => {
-        const modifiers = opt_keyModifiers || {};
-        const eventProperties = opt_eventProperties || {};
+    (contentWindow, targetQuery, keyModifiers, button, eventProperties) => {
+        const modifiers = keyModifiers || {};
+        eventProperties = eventProperties || {};
         const props = Object.assign({
             bubbles: true,
             detail: 1,
-            composed: true,
-            // @ts-ignore: error TS2339: Property 'ctrl' does not exist on type
-            // '{}'.
+            composed: true, // Allow the event to bubble past shadow DOM root.
             ctrlKey: modifiers.ctrl,
-            // @ts-ignore: error TS2339: Property 'shift' does not exist on type
-            // '{}'.
             shiftKey: modifiers.shift,
-            // @ts-ignore: error TS2339: Property 'alt' does not exist on type
-            // '{}'.
             altKey: modifiers.alt,
         }, eventProperties);
-        if (opt_button !== undefined) {
-            // @ts-ignore: error TS2339: Property 'button' does not exist on type '{
-            // bubbles: boolean; detail: number; composed: boolean; ctrlKey: any;
-            // shiftKey: any; altKey: any; } & Object'.
-            props.button = opt_button;
+        if (button !== undefined) {
+            props.button = button;
         }
         if (!targetQuery) {
             return false;
@@ -9243,9 +7530,7 @@ test.util.sync.fakeMouseClick =
         if (typeof targetQuery === 'string') {
             targetQuery = [targetQuery];
         }
-        const elems = test.util.sync.deepQuerySelectorAll_(
-        // @ts-ignore: error TS1110: Type expected.
-        contentWindow.document, /** @type !Array<string> */ (targetQuery));
+        const elems = deepQuerySelectorAll(contentWindow.document, targetQuery);
         if (elems.length === 0) {
             return false;
         }
@@ -9264,29 +7549,24 @@ test.util.sync.fakeMouseClick =
 /**
  * Simulates a mouse hover on an element specified by |targetQuery|.
  *
- * @param {Window} contentWindow Window to be tested.
- * @param {string|Array<string>} targetQuery Query to specify the element.
+ * @param contentWindow Window to be tested.
+ * @param targetQuery Query to specify the element.
  *     If targetQuery is an array, |targetQuery[0]| specifies the first
  *     element(s), |targetQuery[1]| specifies elements inside the shadow DOM of
  *     the first element, and so on.
- * @param {KeyModifiers=} opt_keyModifiers Object containing common key
- *     modifiers : shift, alt, and ctrl.
- * @return {boolean} True if the event was sent to the target, false otherwise.
+ * @param keyModifiers Object containing common key modifiers : shift, alt, and
+ *     ctrl.
+ * @return True if the event was sent to the target, false otherwise.
  */
 test.util.sync.fakeMouseOver =
-    (contentWindow, targetQuery, opt_keyModifiers) => {
-        const modifiers = opt_keyModifiers || {};
+    (contentWindow, targetQuery, keyModifiers) => {
+        const modifiers = keyModifiers || {};
         const props = {
             bubbles: true,
             detail: 1,
-            composed: true,
-            // @ts-ignore: error TS2339: Property 'ctrl' does not exist on type
-            // '{}'.
+            composed: true, // Allow the event to bubble past shadow DOM root.
             ctrlKey: modifiers.ctrl,
-            // @ts-ignore: error TS2339: Property 'shift' does not exist on type
-            // '{}'.
             shiftKey: modifiers.shift,
-            // @ts-ignore: error TS2339: Property 'alt' does not exist on type '{}'.
             altKey: modifiers.alt,
         };
         const mouseOverEvent = new MouseEvent('mouseover', props);
@@ -9295,29 +7575,24 @@ test.util.sync.fakeMouseOver =
 /**
  * Simulates a mouseout event on an element specified by |targetQuery|.
  *
- * @param {Window} contentWindow Window to be tested.
- * @param {string|Array<string>} targetQuery Query to specify the element.
+ * @param contentWindow Window to be tested.
+ * @param targetQuery Query to specify the element.
  *     If targetQuery is an array, |targetQuery[0]| specifies the first
  *     element(s), |targetQuery[1]| specifies elements inside the shadow DOM of
  *     the first element, and so on.
- * @param {KeyModifiers=} opt_keyModifiers Object containing common key
- *     modifiers : shift, alt, and ctrl.
- * @return {boolean} True if the event is sent to the target, false otherwise.
+ * @param keyModifiers Object containing common key modifiers : shift, alt, and
+ *     ctrl.
+ * @return True if the event is sent to the target, false otherwise.
  */
 test.util.sync.fakeMouseOut =
-    (contentWindow, targetQuery, opt_keyModifiers) => {
-        const modifiers = opt_keyModifiers || {};
+    (contentWindow, targetQuery, keyModifiers) => {
+        const modifiers = keyModifiers || {};
         const props = {
             bubbles: true,
             detail: 1,
-            composed: true,
-            // @ts-ignore: error TS2339: Property 'ctrl' does not exist on type
-            // '{}'.
+            composed: true, // Allow the event to bubble past shadow DOM root.
             ctrlKey: modifiers.ctrl,
-            // @ts-ignore: error TS2339: Property 'shift' does not exist on type
-            // '{}'.
             shiftKey: modifiers.shift,
-            // @ts-ignore: error TS2339: Property 'alt' does not exist on type '{}'.
             altKey: modifiers.alt,
         };
         const mouseOutEvent = new MouseEvent('mouseout', props);
@@ -9334,16 +7609,15 @@ test.util.sync.fakeMouseOut =
  * 4. click
  * 5. contextmenu
  *
- * @param {Window} contentWindow Window to be tested.
- * @param {string} targetQuery Query to specify the element.
- * @param {KeyModifiers=} opt_keyModifiers Object containing common key
- *     modifiers : shift, alt, and ctrl.
- * @return {boolean} True if the event is sent to the target, false
- *     otherwise.
+ * @param contentWindow Window to be tested.
+ * @param targetQuery Query to specify the element.
+ * @param keyModifiers Object containing common key modifiers: shift, alt, and
+ *     ctrl.
+ * @return True if the event is sent to the target, false otherwise.
  */
 test.util.sync.fakeMouseRightClick =
-    (contentWindow, targetQuery, opt_keyModifiers) => {
-        const clickResult = test.util.sync.fakeMouseClick(contentWindow, targetQuery, opt_keyModifiers, 2 /* right button */);
+    (contentWindow, targetQuery, keyModifiers) => {
+        const clickResult = test.util.sync.fakeMouseClick(contentWindow, targetQuery, keyModifiers, 2 /* right button */);
         if (!clickResult) {
             return false;
         }
@@ -9354,12 +7628,12 @@ test.util.sync.fakeMouseRightClick =
  * Simulates a fake touch event (touch start and touch end) on the element
  * specified by |targetQuery|.
  *
- * @param {Window} contentWindow Window to be tested.
- * @param {string} targetQuery Query to specify the element.
- * @return {boolean} True if the event is sent to the target, false
- *     otherwise.
+ * @param contentWindow Window to be tested.
+ * @param targetQuery Query to specify the element.
+ * @return True if the event is sent to the target, false otherwise.
  */
-test.util.sync.fakeTouchClick = (contentWindow, targetQuery) => {
+test.util.sync
+    .fakeTouchClick = (contentWindow, targetQuery) => {
     const touchStartEvent = new TouchEvent('touchstart');
     if (!test.util.sync.sendEvent(contentWindow, targetQuery, touchStartEvent)) {
         return false;
@@ -9374,66 +7648,68 @@ test.util.sync.fakeTouchClick = (contentWindow, targetQuery) => {
  * Simulates a fake double click event (left button) to the element specified by
  * |targetQuery|.
  *
- * @param {Window} contentWindow Window to be tested.
- * @param {string} targetQuery Query to specify the element.
- * @return {boolean} True if the event is sent to the target, false otherwise.
+ * @param contentWindow Window to be tested.
+ * @param targetQuery Query to specify the element.
+ * @return True if the event is sent to the target, false otherwise.
  */
-test.util.sync.fakeMouseDoubleClick = (contentWindow, targetQuery) => {
-    // Double click is always preceded with a single click.
-    if (!test.util.sync.fakeMouseClick(contentWindow, targetQuery)) {
-        return false;
-    }
-    // Send the second click event, but with detail equal to 2 (number of clicks)
-    // in a row.
-    let event = new MouseEvent('click', { bubbles: true, detail: 2, composed: true });
-    if (!test.util.sync.sendEvent(contentWindow, targetQuery, event)) {
-        return false;
-    }
-    // Send the double click event.
-    event = new MouseEvent('dblclick', { bubbles: true, composed: true });
-    if (!test.util.sync.sendEvent(contentWindow, targetQuery, event)) {
-        return false;
-    }
-    return true;
-};
+test.util.sync.fakeMouseDoubleClick =
+    (contentWindow, targetQuery) => {
+        // Double click is always preceded with a single click.
+        if (!test.util.sync.fakeMouseClick(contentWindow, targetQuery)) {
+            return false;
+        }
+        // Send the second click event, but with detail equal to 2 (number of
+        // clicks) in a row.
+        let event = new MouseEvent('click', { bubbles: true, detail: 2, composed: true });
+        if (!test.util.sync.sendEvent(contentWindow, targetQuery, event)) {
+            return false;
+        }
+        // Send the double click event.
+        event = new MouseEvent('dblclick', { bubbles: true, composed: true });
+        if (!test.util.sync.sendEvent(contentWindow, targetQuery, event)) {
+            return false;
+        }
+        return true;
+    };
 /**
  * Sends a fake mouse down event to the element specified by |targetQuery|.
  *
- * @param {Window} contentWindow Window to be tested.
- * @param {string} targetQuery Query to specify the element.
- * @return {boolean} True if the event is sent to the target, false otherwise.
+ * @param contentWindow Window to be tested.
+ * @param targetQuery Query to specify the element.
+ * @return True if the event is sent to the target, false otherwise.
  */
-test.util.sync.fakeMouseDown = (contentWindow, targetQuery) => {
-    const event = new MouseEvent('mousedown', { bubbles: true, composed: true });
-    return test.util.sync.sendEvent(contentWindow, targetQuery, event);
-};
+test.util.sync.fakeMouseDown =
+    (contentWindow, targetQuery) => {
+        const event = new MouseEvent('mousedown', { bubbles: true, composed: true });
+        return test.util.sync.sendEvent(contentWindow, targetQuery, event);
+    };
 /**
  * Sends a fake mouse up event to the element specified by |targetQuery|.
  *
- * @param {Window} contentWindow Window to be tested.
- * @param {string} targetQuery Query to specify the element.
- * @return {boolean} True if the event is sent to the target, false otherwise.
+ * @param contentWindow Window to be tested.
+ * @param targetQuery Query to specify the element.
+ * @return True if the event is sent to the target, false otherwise.
  */
-test.util.sync.fakeMouseUp = (contentWindow, targetQuery) => {
-    const event = new MouseEvent('mouseup', { bubbles: true, composed: true });
-    return test.util.sync.sendEvent(contentWindow, targetQuery, event);
-};
+test.util.sync.fakeMouseUp =
+    (contentWindow, targetQuery) => {
+        const event = new MouseEvent('mouseup', { bubbles: true, composed: true });
+        return test.util.sync.sendEvent(contentWindow, targetQuery, event);
+    };
 /**
  * Simulates a mouse right-click on the element specified by |targetQuery|.
  * Optionally pass X,Y coordinates to be able to choose where the right-click
  * should occur.
  *
- * @param {Window} contentWindow Window to be tested.
- * @param {string} targetQuery Query to specify the element.
- * @param {number=} opt_offsetBottom offset pixels applied to target element
- *     bottom, can be negative to move above the bottom.
- * @param {number=} opt_offsetRight offset pixels applied to target element
- *     right can be negative to move inside the element.
- * @return {boolean} True if the all events are sent to the target, false
- *     otherwise.
+ * @param contentWindow Window to be tested.
+ * @param targetQuery Query to specify the element.
+ * @param offsetBottom offset pixels applied to target element bottom, can be
+ *     negative to move above the bottom.
+ * @param offsetRight offset pixels applied to target element right can be
+ *     negative to move inside the element.
+ * @return True if the all events are sent to the target, false otherwise.
  */
 test.util.sync.rightClickOffset =
-    (contentWindow, targetQuery, opt_offsetBottom, opt_offsetRight) => {
+    (contentWindow, targetQuery, offsetBottom, offsetRight) => {
         const target = contentWindow.document &&
             contentWindow.document.querySelector(targetQuery);
         if (!target) {
@@ -9442,8 +7718,8 @@ test.util.sync.rightClickOffset =
         // Calculate the offsets.
         const targetRect = target.getBoundingClientRect();
         const props = {
-            clientX: targetRect.right + (opt_offsetRight ? opt_offsetRight : 0),
-            clientY: targetRect.bottom + (opt_offsetBottom ? opt_offsetBottom : 0),
+            clientX: targetRect.right + (offsetRight ? offsetRight : 0),
+            clientY: targetRect.bottom + (offsetBottom ? offsetBottom : 0),
         };
         const keyModifiers = undefined;
         const rightButton = 2;
@@ -9455,13 +7731,13 @@ test.util.sync.rightClickOffset =
 /**
  * Sends drag and drop events to simulate dragging a source over a target.
  *
- * @param {Window} contentWindow Window to be tested.
- * @param {string} sourceQuery Query to specify the source element.
- * @param {string} targetQuery Query to specify the target element.
- * @param {boolean} skipDrop Set true to drag over (hover) the target
- *    only, and not send target drop or source dragend events.
- * @param {function(boolean):void} callback Function called with result
- *    true on success, or false on failure.
+ * @param contentWindow Window to be tested.
+ * @param sourceQuery Query to specify the source element.
+ * @param targetQuery Query to specify the target element.
+ * @param skipDrop Set true to drag over (hover) the target only, and not send
+ *     target drop or source dragend events.
+ * @param callback Function called with result true on success, or false on
+ *     failure.
  */
 test.util.async.fakeDragAndDrop =
     (contentWindow, sourceQuery, targetQuery, skipDrop, callback) => {
@@ -9478,59 +7754,43 @@ test.util.async.fakeDragAndDrop =
             composed: true,
             dataTransfer: new DataTransfer(),
         };
-        // Get the middle of the source element since some of Files app
-        // logic requires clientX and clientY.
+        // Get the middle of the source element since some of Files app logic
+        // requires clientX and clientY.
         const sourceRect = source.getBoundingClientRect();
         const sourceOptions = Object.assign({}, targetOptions);
-        // @ts-ignore: error TS2339: Property 'clientX' does not exist on type '{
-        // bubbles: boolean; composed: boolean; dataTransfer: DataTransfer; }'.
         sourceOptions.clientX = sourceRect.left + (sourceRect.width / 2);
-        // @ts-ignore: error TS2339: Property 'clientY' does not exist on type '{
-        // bubbles: boolean; composed: boolean; dataTransfer: DataTransfer; }'.
         sourceOptions.clientY = sourceRect.top + (sourceRect.height / 2);
         let dragEventPhase = 0;
         let event = null;
         function sendPhasedDragDropEvents() {
+            assert(source);
+            assert(target);
             let result = true;
             switch (dragEventPhase) {
                 case 0:
                     event = new DragEvent('dragstart', sourceOptions);
-                    // @ts-ignore: error TS18047: 'source' is possibly 'null'.
                     result = source.dispatchEvent(event);
                     break;
                 case 1:
-                    // @ts-ignore: error TS2339: Property 'relatedTarget' does not exist
-                    // on type '{ bubbles: boolean; composed: boolean; dataTransfer:
-                    // DataTransfer; }'.
                     targetOptions.relatedTarget = source;
                     event = new DragEvent('dragenter', targetOptions);
-                    // @ts-ignore: error TS18047: 'target' is possibly 'null'.
                     result = target.dispatchEvent(event);
                     break;
                 case 2:
-                    // @ts-ignore: error TS2339: Property 'relatedTarget' does not exist
-                    // on type '{ bubbles: boolean; composed: boolean; dataTransfer:
-                    // DataTransfer; }'.
                     targetOptions.relatedTarget = null;
                     event = new DragEvent('dragover', targetOptions);
-                    // @ts-ignore: error TS18047: 'target' is possibly 'null'.
                     result = target.dispatchEvent(event);
                     break;
                 case 3:
                     if (!skipDrop) {
-                        // @ts-ignore: error TS2339: Property 'relatedTarget' does not
-                        // exist on type '{ bubbles: boolean; composed: boolean;
-                        // dataTransfer: DataTransfer; }'.
                         targetOptions.relatedTarget = null;
                         event = new DragEvent('drop', targetOptions);
-                        // @ts-ignore: error TS18047: 'target' is possibly 'null'.
                         result = target.dispatchEvent(event);
                     }
                     break;
                 case 4:
                     if (!skipDrop) {
                         event = new DragEvent('dragend', sourceOptions);
-                        // @ts-ignore: error TS18047: 'source' is possibly 'null'.
                         result = source.dispatchEvent(event);
                     }
                     break;
@@ -9555,13 +7815,13 @@ test.util.async.fakeDragAndDrop =
  * the drag a source over target simulation started by fakeDragAndDrop for the
  * case where the target was hovered.
  *
- * @param {Window} contentWindow Window to be tested.
- * @param {string} sourceQuery Query to specify the source element.
- * @param {string} targetQuery Query to specify the target element.
- * @param {boolean} dragLeave Set true to send a dragleave event to
- *    the target instead of a drop event.
- * @param {function(boolean):void} callback Function called with result
- *    true on success, or false on failure.
+ * @param contentWindow Window to be tested.
+ * @param sourceQuery Query to specify the source element.
+ * @param targetQuery Query to specify the target element.
+ * @param dragLeave Set true to send a dragleave event to the target instead of
+ *     a drop event.
+ * @param callback Function called with result true on success, or false on
+ *     failure.
  */
 test.util.async.fakeDragLeaveOrDrop =
     (contentWindow, sourceQuery, targetQuery, dragLeave, callback) => {
@@ -9578,15 +7838,11 @@ test.util.async.fakeDragLeaveOrDrop =
             composed: true,
             dataTransfer: new DataTransfer(),
         };
-        // Get the middle of the source element since some of Files app
-        // logic requires clientX and clientY.
+        // Get the middle of the source element since some of Files app logic
+        // requires clientX and clientY.
         const sourceRect = source.getBoundingClientRect();
         const sourceOptions = Object.assign({}, targetOptions);
-        // @ts-ignore: error TS2339: Property 'clientX' does not exist on type '{
-        // bubbles: boolean; composed: boolean; dataTransfer: DataTransfer; }'.
         sourceOptions.clientX = sourceRect.left + (sourceRect.width / 2);
-        // @ts-ignore: error TS2339: Property 'clientY' does not exist on type '{
-        // bubbles: boolean; composed: boolean; dataTransfer: DataTransfer; }'.
         sourceOptions.clientY = sourceRect.top + (sourceRect.height / 2);
         // Define the target event type.
         const targetType = dragLeave ? 'dragleave' : 'drop';
@@ -9594,15 +7850,15 @@ test.util.async.fakeDragLeaveOrDrop =
         let event = null;
         function sendPhasedDragEndEvents() {
             let result = false;
+            assert(source);
+            assert(target);
             switch (dragEventPhase) {
                 case 0:
                     event = new DragEvent(targetType, targetOptions);
-                    // @ts-ignore: error TS18047: 'target' is possibly 'null'.
                     result = target.dispatchEvent(event);
                     break;
                 case 1:
                     event = new DragEvent('dragend', sourceOptions);
-                    // @ts-ignore: error TS18047: 'source' is possibly 'null'.
                     result = source.dispatchEvent(event);
                     break;
             }
@@ -9622,13 +7878,13 @@ test.util.async.fakeDragLeaveOrDrop =
  * Sends a drop event to simulate dropping a file originating in the browser to
  * a target.
  *
- * @param {Window} contentWindow Window to be tested.
- * @param {string} fileName File name.
- * @param {string} fileContent File content.
- * @param {string} fileMimeType File mime type.
- * @param {string} targetQuery Query to specify the target element.
- * @param {function(boolean):void} callback Function called with result
- *    true on success, or false on failure.
+ * @param contentWindow Window to be tested.
+ * @param fileName File name.
+ * @param fileContent File content.
+ * @param fileMimeType File mime type.
+ * @param targetQuery Query to specify the target element.
+ * @param callback Function called with result true on success, or false on
+ *     failure.
  */
 test.util.async.fakeDropBrowserFile =
     (contentWindow, fileName, fileContent, fileMimeType, targetQuery, callback) => {
@@ -9640,8 +7896,8 @@ test.util.async.fakeDropBrowserFile =
         const file = new File([fileContent], fileName, { type: fileMimeType });
         const dataTransfer = new DataTransfer();
         dataTransfer.items.add(file);
-        // The value for the callback is true if the event has been handled, i.e.
-        // event has been received and preventDefault() called.
+        // The value for the callback is true if the event has been handled,
+        // i.e. event has been received and preventDefault() called.
         callback(target.dispatchEvent(new DragEvent('drop', {
             bubbles: true,
             composed: true,
@@ -9651,8 +7907,8 @@ test.util.async.fakeDropBrowserFile =
 /**
  * Sends a resize event to the content window.
  *
- * @param {Window} contentWindow Window to be tested.
- * @return {boolean} True if the event was sent to the contentWindow.
+ * @param contentWindow Window to be tested.
+ * @return True if the event was sent to the contentWindow.
  */
 test.util.sync.fakeResizeEvent = (contentWindow) => {
     const resize = contentWindow.document.createEvent('Event');
@@ -9663,47 +7919,43 @@ test.util.sync.fakeResizeEvent = (contentWindow) => {
  * Focuses to the element specified by |targetQuery|. This method does not
  * provide any guarantee whether the element is actually focused or not.
  *
- * @param {Window} contentWindow Window to be tested.
- * @param {string} targetQuery Query to specify the element.
- * @return {boolean} True if focus method of the element has been called, false
- *     otherwise.
+ * @param contentWindow Window to be tested.
+ * @param targetQuery Query to specify the element.
+ * @return True if focus method of the element has been called, false otherwise.
  */
-test.util.sync.focus = (contentWindow, targetQuery) => {
-    const target = contentWindow.document &&
-        contentWindow.document.querySelector(targetQuery);
-    if (!target) {
-        return false;
-    }
-    // @ts-ignore: error TS2339: Property 'focus' does not exist on type
-    // 'Element'.
-    target.focus();
-    return true;
-};
+test.util.sync.focus =
+    (contentWindow, targetQuery) => {
+        const target = contentWindow.document &&
+            contentWindow.document.querySelector(targetQuery);
+        if (!target) {
+            return false;
+        }
+        target.focus();
+        return true;
+    };
 /**
  * Obtains the list of notification ID.
- * @param {function(Record<string, boolean>):void} callback Callback function
- *     with results returned by the script.
+ * @param _callback Callback function with results returned by the script.
  */
-test.util.async.getNotificationIDs = callback => {
-    // @ts-ignore: error TS2339: Property 'notifications' does not exist on type
-    // 'typeof chrome'.
-    chrome.notifications.getAll(callback);
+test.util
+    .async.getNotificationIDs = (_callback) => {
+    // TODO(TS): Add type for chrome notifications.
+    // TODO(b/189173190): Enable
+    // TODO(b/296960734): Enable
+    // chrome.notifications.getAll(callback);
+    throw new Error('See b/189173190 and b/296960734 to renable the tests using this function');
 };
 /**
  * Gets file entries just under the volume.
  *
- * @param {VolumeManagerCommon.VolumeType} volumeType Volume type.
- * @param {Array<string>} names File name list.
- * @param {function(*):void} callback Callback function with results returned by
+ * @param volumeType Volume type.
+ * @param names File name list.
+ * @param callback Callback function with results returned by
  *     the script.
  */
 test.util.async.getFilesUnderVolume = async (volumeType, names, callback) => {
-    // @ts-ignore: error TS2339: Property 'background' does not exist on type
-    // 'Window & typeof globalThis'.
     const volumeManager = await window.background.getVolumeManager();
     let volumeInfo = null;
-    // @ts-ignore: error TS7034: Variable 'displayRoot' implicitly has type 'any'
-    // in some locations where its type cannot be determined.
     let displayRoot = null;
     // Wait for the volume to initialize.
     while (!(volumeInfo && displayRoot)) {
@@ -9717,11 +7969,9 @@ test.util.async.getFilesUnderVolume = async (volumeType, names, callback) => {
     }
     const filesPromise = names.map(name => {
         // TODO(crbug.com/880130): Remove this conditional.
-        if (volumeType === VolumeManagerCommon.VolumeType.DOWNLOADS) {
+        if (volumeType === VolumeType.DOWNLOADS) {
             name = 'Downloads/' + name;
         }
-        // @ts-ignore: error TS7005: Variable 'displayRoot' implicitly has an 'any'
-        // type.
         return new Promise(displayRoot.getFile.bind(displayRoot, name, {}));
     });
     try {
@@ -9737,126 +7987,106 @@ test.util.async.getFilesUnderVolume = async (volumeType, names, callback) => {
 /**
  * Unmounts the specified volume.
  *
- * @param {VolumeManagerCommon.VolumeType} volumeType Volume type.
- * @param {function(boolean):void} callback Function receives true on success.
+ * @param volumeType Volume type.
+ * @param callback Function receives true on success.
  */
-test.util.async.unmount = async (volumeType, callback) => {
-    // @ts-ignore: error TS2339: Property 'background' does not exist on type
-    // 'Window & typeof globalThis'.
-    const volumeManager = await window.background.getVolumeManager();
-    const volumeInfo = volumeManager.getCurrentProfileVolumeInfo(volumeType);
-    try {
-        if (volumeInfo) {
-            await volumeManager.unmount(volumeInfo);
-            callback(true);
-            return;
+test.util.async.unmount =
+    async (volumeType, callback) => {
+        const volumeManager = await window.background.getVolumeManager();
+        const volumeInfo = volumeManager.getCurrentProfileVolumeInfo(volumeType);
+        try {
+            if (volumeInfo) {
+                await volumeManager.unmount(volumeInfo);
+                callback(true);
+                return;
+            }
         }
-    }
-    catch (error) {
-        console.error(error);
-    }
-    callback(false);
-};
+        catch (error) {
+            console.error(error);
+        }
+        callback(false);
+    };
 /**
  * Remote call API handler. When loaded, this replaces the declaration in
  * test_util_base.js.
- * @param {*} request
- * @param {function(*): void} sendResponse
- * @return {boolean|undefined}
  */
-test.util.executeTestMessage = (request, sendResponse) => {
-    window.IN_TEST = true;
-    // Check the function name.
-    if (!request.func || request.func[request.func.length - 1] == '_') {
-        request.func = '';
-    }
-    // Prepare arguments.
-    if (!('args' in request)) {
-        throw new Error('Invalid request: no args provided.');
-    }
-    const args = request.args.slice(); // shallow copy
-    if (request.appId) {
-        if (request.contentWindow) {
-            // request.contentWindow is present if this function was called via
-            // test.swaTestMessageListener.
-            args.unshift(request.contentWindow);
+test.util.executeTestMessage =
+    (request, sendResponse) => {
+        window.IN_TEST = true;
+        // Check the function name.
+        if (!request.func || request.func[request.func.length - 1] == '_') {
+            request.func = '';
         }
-        else {
-            console.error('Specified window not found: ' + request.appId);
+        // Prepare arguments.
+        if (!('args' in request)) {
+            throw new Error('Invalid request: no args provided.');
+        }
+        const args = request.args.slice(); // shallow copy
+        if (request.appId) {
+            if (request.contentWindow) {
+                // request.contentWindow is present if this function was called via
+                // test.swaTestMessageListener.
+                args.unshift(request.contentWindow);
+            }
+            else {
+                console.error('Specified window not found: ' + request.appId);
+                return false;
+            }
+        }
+        // Call the test utility function and respond the result.
+        if (test.util.async[request.func]) {
+            args[test.util.async[request.func].length - 1] = function (...innerArgs) {
+                console.debug('Received the result of ' + request.func);
+                sendResponse.apply(null, innerArgs);
+            };
+            console.debug('Waiting for the result of ' + request.func);
+            test.util.async[request.func].apply(null, args);
+            return true;
+        }
+        else if (test.util.sync[request.func]) {
+            try {
+                sendResponse(test.util.sync[request.func].apply(null, args));
+            }
+            catch (e) {
+                console.error(`Failure executing ${request.func}: ${e}`);
+                sendResponse(null);
+            }
             return false;
         }
-    }
-    // Call the test utility function and respond the result.
-    if (test.util.async[request.func]) {
-        // @ts-ignore: error TS7019: Rest parameter 'innerArgs' implicitly has an
-        // 'any[]' type.
-        args[test.util.async[request.func].length - 1] = function (...innerArgs) {
-            console.debug('Received the result of ' + request.func);
-            // @ts-ignore: error TS2345: Argument of type 'any[]' is not assignable to
-            // parameter of type '[any]'.
-            sendResponse.apply(null, innerArgs);
-        };
-        console.debug('Waiting for the result of ' + request.func);
-        test.util.async[request.func].apply(null, args);
-        return true;
-    }
-    else if (test.util.sync[request.func]) {
-        try {
-            sendResponse(test.util.sync[request.func].apply(null, args));
+        else {
+            console.error('Invalid function name: ' + request.func);
+            return false;
         }
-        catch (e) {
-            console.error(`Failure executing ${request.func}: ${e}`);
-            sendResponse(null);
-        }
-        return false;
-    }
-    else {
-        console.error('Invalid function name: ' + request.func);
-        return false;
-    }
-};
+    };
 /**
  * Returns the MetadataStats collected in MetadataModel, it will be serialized
  * as a plain object when sending to test extension.
- *
- * @suppress {missingProperties} metadataStats is only defined for foreground
- *   Window so it isn't visible in the background. Here it will return as JSON
- *   object to test extension.
  */
-// @ts-ignore: error TS7006: Parameter 'contentWindow' implicitly has an 'any'
-// type.
-test.util.sync.getMetadataStats = contentWindow => {
+test.util.sync.getMetadataStats = (contentWindow) => {
     return contentWindow.fileManager.metadataModel.getStats();
 };
 /**
- * Calls the metadata model to get the selected file entries in the file
- * list and try to get their metadata properties.
+ * Calls the metadata model to get the selected file entries in the file list
+ * and try to get their metadata properties.
  *
- * @param {Array<String>} properties Content metadata properties to get.
- * @param {function(*):void} callback Callback with metadata results returned.
- * @suppress {missingProperties} getContentMetadata isn't visible in the
- * background window.
+ * @param properties Content metadata properties to get.
+ * @param callback Callback with metadata results returned.
  */
-// @ts-ignore: error TS7006: Parameter 'contentWindow' implicitly has an 'any'
-// type.
-test.util.async.getContentMetadata = (contentWindow, properties, callback) => {
-    const entries = contentWindow.fileManager.directoryModel.getSelectedEntries_();
-    assert(entries.length > 0);
-    const metaPromise = contentWindow.fileManager.metadataModel.get(entries, properties);
-    // Wait for the promise to resolve
-    // @ts-ignore: error TS7006: Parameter 'resultsList' implicitly has an 'any'
-    // type.
-    metaPromise.then(resultsList => {
-        callback(resultsList);
-    });
-};
+test.util.async.getContentMetadata =
+    (contentWindow, properties, callback) => {
+        const entries = contentWindow.fileManager.directoryModel.getSelectedEntries_();
+        assert(entries.length > 0);
+        const metaPromise = contentWindow.fileManager.metadataModel.get(entries, properties);
+        // Wait for the promise to resolve
+        metaPromise.then(resultsList => {
+            callback(resultsList);
+        });
+    };
 /**
  * Returns true when FileManager has finished loading, by checking the attribute
  * "loaded" on its root element.
  */
-// @ts-ignore: error TS7006: Parameter 'contentWindow' implicitly has an 'any'
-// type.
-test.util.sync.isFileManagerLoaded = contentWindow => {
+test.util.sync.isFileManagerLoaded = (contentWindow) => {
     if (contentWindow && contentWindow.fileManager &&
         contentWindow.fileManager.ui) {
         return contentWindow.fileManager.ui.element.hasAttribute('loaded');
@@ -9865,145 +8095,110 @@ test.util.sync.isFileManagerLoaded = contentWindow => {
 };
 /**
  * Returns all a11y messages announced by |FileManagerUI.speakA11yMessage|.
- *
- * @return {Array<string>}
  */
-// @ts-ignore: error TS7006: Parameter 'contentWindow' implicitly has an 'any'
-// type.
-test.util.sync.getA11yAnnounces = contentWindow => {
+test.util.sync.getA11yAnnounces = (contentWindow) => {
     if (contentWindow && contentWindow.fileManager &&
         contentWindow.fileManager.ui) {
         return contentWindow.fileManager.ui.a11yAnnounces;
     }
-    // @ts-ignore: error TS2322: Type 'null' is not assignable to type 'string[]'.
     return null;
 };
 /**
  * Reports to the given |callback| the number of volumes available in
  * VolumeManager in the background page.
  *
- * @param {function(number):void} callback Callback function to be called with
- *     the
- *   number of volumes.
+ * @param callback Callback function to be called with the number of volumes.
  */
-test.util.async.getVolumesCount = callback => {
-    // @ts-ignore: error TS7006: Parameter 'volumeManager' implicitly has an 'any'
-    // type.
+test.util.async.getVolumesCount = (callback) => {
     return window.background.getVolumeManager().then((volumeManager) => {
         callback(volumeManager.volumeInfoList.length);
     });
 };
 /**
  * Updates the preferences.
- * @param {chrome.fileManagerPrivate.PreferencesChange} preferences Preferences
- *     to set.
  */
-test.util.sync.setPreferences = preferences => {
-    chrome.fileManagerPrivate.setPreferences(preferences);
-    return true;
-};
+test.util.sync.setPreferences =
+    (preferences) => {
+        chrome.fileManagerPrivate.setPreferences(preferences);
+        return true;
+    };
 /**
  * Reports an enum metric.
- * @param {string} name The metric name.
- * @param {string} value The metric enumerator to record.
- * @param {Array<string>} validValues An array containing the valid enumerators
- *     in order.
- *
+ * @param name The metric name.
+ * @param value The metric enumerator to record.
+ * @param validValues An array containing the valid enumerators in order.
  */
-test.util.sync.recordEnumMetric = (name, value, validValues) => {
-    recordEnum(name, value, validValues);
-    return true;
-};
+test.util.sync.recordEnumMetric =
+    (name, value, validValues) => {
+        recordEnum(name, value, validValues);
+        return true;
+    };
 /**
  * Tells background page progress center to never notify a completed operation.
- * @suppress {checkTypes} Remove suppress when migrating Files app. This is only
- *     used for Files app.
  */
 test.util.sync.progressCenterNeverNotifyCompleted = () => {
-    // @ts-ignore: error TS2339: Property 'background' does not exist on type
-    // 'Window & typeof globalThis'.
     window.background.progressCenter.neverNotifyCompleted();
     return true;
 };
 /**
  * Waits for the background page to initialize.
- * @param {function():void} callback Callback function called when background
- *     page
- *      has finished initializing.
- * @suppress {missingProperties}: ready() isn't available for Audio and Video
- * Player.
+ * @param callback Callback function called when background page has finished
+ *     initializing.
  */
-test.util.async.waitForBackgroundReady = callback => {
-    // @ts-ignore: error TS2339: Property 'background' does not exist on type
-    // 'Window & typeof globalThis'.
-    window.background.ready(callback);
+test.util.async.waitForBackgroundReady = async (callback) => {
+    await window.background.ready();
+    callback();
 };
 /**
- * Isolates a specific banner to be shown. Useful when testing functionality of
- * a banner in isolation.
+ * Isolates a specific banner to be shown. Useful when testing functionality
+ * of a banner in isolation.
  *
- * @param {Window} contentWindow Window to be tested.
- * @param {string} bannerTagName Tag name of the banner to isolate.
- * @param {function(boolean):void} callback Callback function to be called with
- *     a
- *    boolean indicating success or failure.
- * @suppress {missingProperties} banners is only defined for foreground
- *    Window so it isn't visible in the background.
+ * @param contentWindow Window to be tested.
+ * @param bannerTagName Tag name of the banner to isolate.
+ * @param callback Callback function to be called with a boolean indicating
+ *     success or failure.
  */
-test.util.async.isolateBannerForTesting =
-    async (contentWindow, bannerTagName, callback) => {
-        try {
-            // @ts-ignore: error TS2339: Property 'ui_' does not exist on type
-            // 'FileManager'.
-            await contentWindow.fileManager.ui_.banners.isolateBannerForTesting(bannerTagName);
-            callback(true);
-            return;
-        }
-        catch (e) {
-            console.error(`Error isolating banner with tagName ${bannerTagName} for testing: ${e}`);
-        }
-        callback(false);
-    };
-/**
- * Disable banners from attaching themselves to the DOM.
- *
- * @param {Window} contentWindow Window the banner controller exists.
- * @param {function(boolean):void} callback Callback function to be called with
- *     a
- *    boolean indicating success or failure.
- * @suppress {missingProperties} banners is only defined for foreground
- *    Window so it isn't visible in the background.
- */
-test.util.async.disableBannersForTesting = async (contentWindow, callback) => {
+test.util.async.isolateBannerForTesting = async (contentWindow, bannerTagName, callback) => {
     try {
-        // @ts-ignore: error TS2339: Property 'ui_' does not exist on type
-        // 'FileManager'.
-        await contentWindow.fileManager.ui_.banners.disableBannersForTesting();
+        await contentWindow.fileManager.ui.banners.isolateBannerForTesting(bannerTagName);
         callback(true);
         return;
     }
     catch (e) {
-        console.error(`Error disabling banners for testing: ${e}`);
+        console.error(`Error isolating banner with tagName ${bannerTagName} for testing: ${e}`);
     }
     callback(false);
 };
 /**
+ * Disable banners from attaching themselves to the DOM.
+ *
+ * @param contentWindow Window the banner controller exists.
+ * @param callback Callback function to be called with a boolean indicating
+ *     success or failure.
+ */
+test.util.async.disableBannersForTesting =
+    async (contentWindow, callback) => {
+        try {
+            await contentWindow.fileManager.ui.banners.disableBannersForTesting();
+            callback(true);
+            return;
+        }
+        catch (e) {
+            console.error(`Error disabling banners for testing: ${e}`);
+        }
+        callback(false);
+    };
+/**
  * Disables the nudge expiry period for testing.
  *
- * @param {Window} contentWindow Window the banner controller exists.
- * @param {function(boolean):void} callback Callback function to be called with
- *     a
- *    boolean indicating success or failure.
- * @suppress {missingProperties} nudgeContainer is only defined for foreground
- *    Window so it isn't visible in the background.
+ * @param contentWindow Window the banner controller exists.
+ * @param callback Callback function to be called with a boolean indicating
+ *     success or failure.
  */
-test.util.async.disableNudgeExpiry = async (contentWindow, callback) => {
-    // @ts-ignore: error TS2339: Property 'ui_' does not exist on type
-    // 'FileManager'.
-    contentWindow.fileManager.ui_.nudgeContainer
-        .setExpiryPeriodEnabledForTesting = false;
-    callback(true);
-};
-
-export { ElementObject, KeyModifiers };
+test.util.async.disableNudgeExpiry =
+    async (contentWindow, callback) => {
+        contentWindow.fileManager.ui.nudgeContainer.setExpiryPeriodEnabledForTesting =
+            false;
+        callback(true);
+    };
 //# sourceMappingURL=runtime_loaded_test_util.rollup.js.map

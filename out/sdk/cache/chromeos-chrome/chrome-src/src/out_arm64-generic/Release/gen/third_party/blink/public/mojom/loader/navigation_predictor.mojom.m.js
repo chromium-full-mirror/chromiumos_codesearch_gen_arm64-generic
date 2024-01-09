@@ -123,6 +123,14 @@ export class AnchorElementMetricsHostInterface {
    */
 
   processPointerEventUsingMLModel(pointerEvent) {}
+  
+  /**
+   * @return {!Promise<{
+        shouldSkipForTesting: !boolean,
+   *  }>}
+   */
+
+  shouldSkipUpdateDelays() {}
 }
 
 /**
@@ -291,6 +299,22 @@ export class AnchorElementMetricsHostRemote {
           pointerEvent
         ]);
   }
+
+  
+  /**
+   * @return {!Promise<{
+        shouldSkipForTesting: !boolean,
+   *  }>}
+   */
+
+  shouldSkipUpdateDelays() {
+    return this.proxy.sendMessage(
+        9,
+        AnchorElementMetricsHost_ShouldSkipUpdateDelays_ParamsSpec.$,
+        AnchorElementMetricsHost_ShouldSkipUpdateDelays_ResponseParamsSpec.$,
+        [
+        ]);
+  }
 }
 
 /**
@@ -358,6 +382,11 @@ export class AnchorElementMetricsHostReceiver {
         AnchorElementMetricsHost_ProcessPointerEventUsingMLModel_ParamsSpec.$,
         null,
         impl.processPointerEventUsingMLModel.bind(impl));
+    this.helper_internal_.registerHandler(
+        9,
+        AnchorElementMetricsHost_ShouldSkipUpdateDelays_ParamsSpec.$,
+        AnchorElementMetricsHost_ShouldSkipUpdateDelays_ResponseParamsSpec.$,
+        impl.shouldSkipUpdateDelays.bind(impl));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -512,6 +541,18 @@ export class AnchorElementMetricsHostCallbackRouter {
         AnchorElementMetricsHost_ProcessPointerEventUsingMLModel_ParamsSpec.$,
         null,
         this.processPointerEventUsingMLModel.createReceiverHandler(false /* expectsResponse */));
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.shouldSkipUpdateDelays =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        9,
+        AnchorElementMetricsHost_ShouldSkipUpdateDelays_ParamsSpec.$,
+        AnchorElementMetricsHost_ShouldSkipUpdateDelays_ResponseParamsSpec.$,
+        this.shouldSkipUpdateDelays.createReceiverHandler(true /* expectsResponse */));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -631,6 +672,18 @@ export const AnchorElementMetricsHost_ReportAnchorElementPointerDataOnHoverTimer
  * @const { {$:!mojo.internal.MojomType}}
  */
 export const AnchorElementMetricsHost_ProcessPointerEventUsingMLModel_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ */
+export const AnchorElementMetricsHost_ShouldSkipUpdateDelays_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ */
+export const AnchorElementMetricsHost_ShouldSkipUpdateDelays_ResponseParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 
@@ -1413,6 +1466,54 @@ export class AnchorElementMetricsHost_ProcessPointerEventUsingMLModel_Params {
   constructor() {
     /** @type { !AnchorElementPointerEventForMLModel } */
     this.pointerEvent;
+  }
+}
+
+
+
+mojo.internal.Struct(
+    AnchorElementMetricsHost_ShouldSkipUpdateDelays_ParamsSpec.$,
+    'AnchorElementMetricsHost_ShouldSkipUpdateDelays_Params',
+    [
+    ],
+    [[0, 8],]);
+
+
+
+/**
+ * @record
+ */
+export class AnchorElementMetricsHost_ShouldSkipUpdateDelays_Params {
+  constructor() {
+  }
+}
+
+
+
+mojo.internal.Struct(
+    AnchorElementMetricsHost_ShouldSkipUpdateDelays_ResponseParamsSpec.$,
+    'AnchorElementMetricsHost_ShouldSkipUpdateDelays_ResponseParams',
+    [
+      mojo.internal.StructField(
+        'shouldSkipForTesting', 0,
+        0,
+        mojo.internal.Bool,
+        false,
+        false /* nullable */,
+        0,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+/**
+ * @record
+ */
+export class AnchorElementMetricsHost_ShouldSkipUpdateDelays_ResponseParams {
+  constructor() {
+    /** @type { !boolean } */
+    this.shouldSkipForTesting;
   }
 }
 

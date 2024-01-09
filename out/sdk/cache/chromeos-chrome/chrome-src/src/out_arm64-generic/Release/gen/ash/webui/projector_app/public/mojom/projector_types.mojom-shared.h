@@ -364,7 +364,7 @@ class XhrResponseDataView {
     return mojo::internal::Deserialize<::ash::projector::mojom::JsNetErrorCode>(
         data_->net_error_code_$value, &output->emplace());
   }
-  absl::optional<JsNetErrorCode> net_error_code() const {
+  std::optional<JsNetErrorCode> net_error_code() const {
     if (!data_->net_error_code_$flag) {
       return absl::nullopt;
     }

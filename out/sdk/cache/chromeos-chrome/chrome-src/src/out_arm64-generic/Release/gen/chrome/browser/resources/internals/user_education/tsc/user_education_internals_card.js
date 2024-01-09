@@ -23,18 +23,37 @@ class UserEducationInternalsCardElement extends PolymerElement {
     launchPromo_() {
         this.dispatchEvent(new CustomEvent(PROMO_LAUNCH_EVENT, { bubbles: true, composed: true, detail: this.promo.internalName }));
     }
+    showMilestone_() {
+        return this.promo.addedMilestone > 0;
+    }
     showDescription_() {
         return this.promo.displayDescription !== '';
-    }
-    formatDate_() {
-        const date = new Date(Number(this.promo.addedTimestampMs));
-        return date.toDateString();
     }
     formatPlatforms_() {
         return this.promo.supportedPlatforms.join(', ');
     }
     showInstructions_() {
         return this.promo.instructions.length;
+    }
+    showFollowedBy_() {
+        return this.promo.followedByInternalName;
+    }
+    scrollToFollowedBy_() {
+        const parent = this.parentElement;
+        if (parent) {
+            const allCards = parent.querySelectorAll('user-education-internals-card');
+            for (const card of allCards) {
+                card.classList.remove('highlighted');
+            }
+            const anchor = parent.querySelector(`[id="${this.promo.followedByInternalName}"]`);
+            if (anchor) {
+                anchor.classList.add('highlighted');
+                anchor.scrollIntoView();
+            }
+        }
+    }
+    getFollowedByAnchor_() {
+        return encodeURIComponent(this.promo.followedByInternalName);
     }
 }
 customElements.define(UserEducationInternalsCardElement.is, UserEducationInternalsCardElement);

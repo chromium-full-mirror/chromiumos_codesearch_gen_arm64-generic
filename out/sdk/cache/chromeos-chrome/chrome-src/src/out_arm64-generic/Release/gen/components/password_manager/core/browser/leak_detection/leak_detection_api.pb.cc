@@ -73,6 +73,7 @@ bool LookupSingleLeakRequest_ClientUseCase_IsValid(int value) {
     case 5:
     case 6:
     case 7:
+    case 11:
     case 15:
       return true;
     default:
@@ -80,14 +81,15 @@ bool LookupSingleLeakRequest_ClientUseCase_IsValid(int value) {
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> LookupSingleLeakRequest_ClientUseCase_strings[5] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> LookupSingleLeakRequest_ClientUseCase_strings[6] = {};
 
 static const char LookupSingleLeakRequest_ClientUseCase_names[] =
   "CHROME_BULK_SYNCED_PASSWORDS_CHECK"
   "CHROME_EDIT_CHECK"
   "CHROME_SIGN_IN_CHECK"
   "CHROME_SYNCED_ON_DEVICE_PROACTIVE_PASSWORD_CHECKUP"
-  "CLIENT_USE_CASE_UNSPECIFIED";
+  "CLIENT_USE_CASE_UNSPECIFIED"
+  "IGA_BULK_SYNCED_PASSWORDS_CHECK";
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry LookupSingleLeakRequest_ClientUseCase_entries[] = {
   { {LookupSingleLeakRequest_ClientUseCase_names + 0, 34}, 6 },
@@ -95,6 +97,7 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry LookupSingleLeakReques
   { {LookupSingleLeakRequest_ClientUseCase_names + 51, 20}, 5 },
   { {LookupSingleLeakRequest_ClientUseCase_names + 71, 50}, 7 },
   { {LookupSingleLeakRequest_ClientUseCase_names + 121, 27}, 0 },
+  { {LookupSingleLeakRequest_ClientUseCase_names + 148, 31}, 11 },
 };
 
 static const int LookupSingleLeakRequest_ClientUseCase_entries_by_number[] = {
@@ -102,6 +105,7 @@ static const int LookupSingleLeakRequest_ClientUseCase_entries_by_number[] = {
   2, // 5 -> CHROME_SIGN_IN_CHECK
   0, // 6 -> CHROME_BULK_SYNCED_PASSWORDS_CHECK
   3, // 7 -> CHROME_SYNCED_ON_DEVICE_PROACTIVE_PASSWORD_CHECKUP
+  5, // 11 -> IGA_BULK_SYNCED_PASSWORDS_CHECK
   1, // 15 -> CHROME_EDIT_CHECK
 };
 
@@ -111,12 +115,12 @@ const std::string& LookupSingleLeakRequest_ClientUseCase_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           LookupSingleLeakRequest_ClientUseCase_entries,
           LookupSingleLeakRequest_ClientUseCase_entries_by_number,
-          5, LookupSingleLeakRequest_ClientUseCase_strings);
+          6, LookupSingleLeakRequest_ClientUseCase_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       LookupSingleLeakRequest_ClientUseCase_entries,
       LookupSingleLeakRequest_ClientUseCase_entries_by_number,
-      5, value);
+      6, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      LookupSingleLeakRequest_ClientUseCase_strings[idx].get();
 }
@@ -124,7 +128,7 @@ bool LookupSingleLeakRequest_ClientUseCase_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, LookupSingleLeakRequest_ClientUseCase* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      LookupSingleLeakRequest_ClientUseCase_entries, 5, name, &int_value);
+      LookupSingleLeakRequest_ClientUseCase_entries, 6, name, &int_value);
   if (success) {
     *value = static_cast<LookupSingleLeakRequest_ClientUseCase>(int_value);
   }
@@ -135,6 +139,7 @@ constexpr LookupSingleLeakRequest_ClientUseCase LookupSingleLeakRequest::CLIENT_
 constexpr LookupSingleLeakRequest_ClientUseCase LookupSingleLeakRequest::CHROME_SIGN_IN_CHECK;
 constexpr LookupSingleLeakRequest_ClientUseCase LookupSingleLeakRequest::CHROME_BULK_SYNCED_PASSWORDS_CHECK;
 constexpr LookupSingleLeakRequest_ClientUseCase LookupSingleLeakRequest::CHROME_SYNCED_ON_DEVICE_PROACTIVE_PASSWORD_CHECKUP;
+constexpr LookupSingleLeakRequest_ClientUseCase LookupSingleLeakRequest::IGA_BULK_SYNCED_PASSWORDS_CHECK;
 constexpr LookupSingleLeakRequest_ClientUseCase LookupSingleLeakRequest::CHROME_EDIT_CHECK;
 constexpr LookupSingleLeakRequest_ClientUseCase LookupSingleLeakRequest::ClientUseCase_MIN;
 constexpr LookupSingleLeakRequest_ClientUseCase LookupSingleLeakRequest::ClientUseCase_MAX;

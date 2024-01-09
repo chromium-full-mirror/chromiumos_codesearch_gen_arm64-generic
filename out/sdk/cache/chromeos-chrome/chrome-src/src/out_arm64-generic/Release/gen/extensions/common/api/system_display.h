@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -34,8 +35,8 @@ struct Bounds {
   ~Bounds();
   Bounds(const Bounds&) = delete;
   Bounds& operator=(const Bounds&) = delete;
-  Bounds(Bounds&& rhs);
-  Bounds& operator=(Bounds&& rhs);
+  Bounds(Bounds&& rhs) noexcept;
+  Bounds& operator=(Bounds&& rhs) noexcept;
 
   // Populates a Bounds object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -48,14 +49,11 @@ struct Bounds {
   // Creates a deep copy of Bounds.
   Bounds Clone() const;
 
-  // Creates a Bounds object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Bounds> FromValueDeprecated(const base::Value& value);
-
   // Creates a Bounds object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<Bounds> FromValue(const base::Value::Dict& value);
+  static std::optional<Bounds> FromValue(const base::Value::Dict& value);
 
   // Creates a Bounds object from a base::Value, or nullopt on failure.
-  static absl::optional<Bounds> FromValue(const base::Value& value);
+  static std::optional<Bounds> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisBounds object.
@@ -80,8 +78,8 @@ struct Insets {
   ~Insets();
   Insets(const Insets&) = delete;
   Insets& operator=(const Insets&) = delete;
-  Insets(Insets&& rhs);
-  Insets& operator=(Insets&& rhs);
+  Insets(Insets&& rhs) noexcept;
+  Insets& operator=(Insets&& rhs) noexcept;
 
   // Populates a Insets object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -94,14 +92,11 @@ struct Insets {
   // Creates a deep copy of Insets.
   Insets Clone() const;
 
-  // Creates a Insets object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Insets> FromValueDeprecated(const base::Value& value);
-
   // Creates a Insets object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<Insets> FromValue(const base::Value::Dict& value);
+  static std::optional<Insets> FromValue(const base::Value::Dict& value);
 
   // Creates a Insets object from a base::Value, or nullopt on failure.
-  static absl::optional<Insets> FromValue(const base::Value& value);
+  static std::optional<Insets> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisInsets object.
@@ -126,8 +121,8 @@ struct Point {
   ~Point();
   Point(const Point&) = delete;
   Point& operator=(const Point&) = delete;
-  Point(Point&& rhs);
-  Point& operator=(Point&& rhs);
+  Point(Point&& rhs) noexcept;
+  Point& operator=(Point&& rhs) noexcept;
 
   // Populates a Point object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -140,14 +135,11 @@ struct Point {
   // Creates a deep copy of Point.
   Point Clone() const;
 
-  // Creates a Point object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Point> FromValueDeprecated(const base::Value& value);
-
   // Creates a Point object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<Point> FromValue(const base::Value::Dict& value);
+  static std::optional<Point> FromValue(const base::Value::Dict& value);
 
   // Creates a Point object from a base::Value, or nullopt on failure.
-  static absl::optional<Point> FromValue(const base::Value& value);
+  static std::optional<Point> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisPoint object.
@@ -166,8 +158,8 @@ struct TouchCalibrationPair {
   ~TouchCalibrationPair();
   TouchCalibrationPair(const TouchCalibrationPair&) = delete;
   TouchCalibrationPair& operator=(const TouchCalibrationPair&) = delete;
-  TouchCalibrationPair(TouchCalibrationPair&& rhs);
-  TouchCalibrationPair& operator=(TouchCalibrationPair&& rhs);
+  TouchCalibrationPair(TouchCalibrationPair&& rhs) noexcept;
+  TouchCalibrationPair& operator=(TouchCalibrationPair&& rhs) noexcept;
 
   // Populates a TouchCalibrationPair object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -180,17 +172,13 @@ struct TouchCalibrationPair {
   // Creates a deep copy of TouchCalibrationPair.
   TouchCalibrationPair Clone() const;
 
-  // Creates a TouchCalibrationPair object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<TouchCalibrationPair> FromValueDeprecated(const base::Value& value);
-
   // Creates a TouchCalibrationPair object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<TouchCalibrationPair> FromValue(const base::Value::Dict& value);
+  static std::optional<TouchCalibrationPair> FromValue(const base::Value::Dict& value);
 
   // Creates a TouchCalibrationPair object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<TouchCalibrationPair> FromValue(const base::Value& value);
+  static std::optional<TouchCalibrationPair> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisTouchCalibrationPair object.
@@ -209,8 +197,8 @@ struct TouchCalibrationPairQuad {
   ~TouchCalibrationPairQuad();
   TouchCalibrationPairQuad(const TouchCalibrationPairQuad&) = delete;
   TouchCalibrationPairQuad& operator=(const TouchCalibrationPairQuad&) = delete;
-  TouchCalibrationPairQuad(TouchCalibrationPairQuad&& rhs);
-  TouchCalibrationPairQuad& operator=(TouchCalibrationPairQuad&& rhs);
+  TouchCalibrationPairQuad(TouchCalibrationPairQuad&& rhs) noexcept;
+  TouchCalibrationPairQuad& operator=(TouchCalibrationPairQuad&& rhs) noexcept;
 
   // Populates a TouchCalibrationPairQuad object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -223,17 +211,13 @@ struct TouchCalibrationPairQuad {
   // Creates a deep copy of TouchCalibrationPairQuad.
   TouchCalibrationPairQuad Clone() const;
 
-  // Creates a TouchCalibrationPairQuad object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<TouchCalibrationPairQuad> FromValueDeprecated(const base::Value& value);
-
   // Creates a TouchCalibrationPairQuad object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<TouchCalibrationPairQuad> FromValue(const base::Value::Dict& value);
+  static std::optional<TouchCalibrationPairQuad> FromValue(const base::Value::Dict& value);
 
   // Creates a TouchCalibrationPairQuad object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<TouchCalibrationPairQuad> FromValue(const base::Value& value);
+  static std::optional<TouchCalibrationPairQuad> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisTouchCalibrationPairQuad object.
@@ -258,8 +242,8 @@ struct DisplayMode {
   ~DisplayMode();
   DisplayMode(const DisplayMode&) = delete;
   DisplayMode& operator=(const DisplayMode&) = delete;
-  DisplayMode(DisplayMode&& rhs);
-  DisplayMode& operator=(DisplayMode&& rhs);
+  DisplayMode(DisplayMode&& rhs) noexcept;
+  DisplayMode& operator=(DisplayMode&& rhs) noexcept;
 
   // Populates a DisplayMode object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -272,15 +256,12 @@ struct DisplayMode {
   // Creates a deep copy of DisplayMode.
   DisplayMode Clone() const;
 
-  // Creates a DisplayMode object from a base::Value, or NULL on failure.
-  static std::unique_ptr<DisplayMode> FromValueDeprecated(const base::Value& value);
-
   // Creates a DisplayMode object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<DisplayMode> FromValue(const base::Value::Dict& value);
+  static std::optional<DisplayMode> FromValue(const base::Value::Dict& value);
 
   // Creates a DisplayMode object from a base::Value, or nullopt on failure.
-  static absl::optional<DisplayMode> FromValue(const base::Value& value);
+  static std::optional<DisplayMode> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDisplayMode object.
@@ -299,7 +280,7 @@ struct DisplayMode {
   int height_in_native_pixels;
 
   // The display mode UI scale factor.
-  absl::optional<double> ui_scale;
+  std::optional<double> ui_scale;
 
   // The display mode device scale factor.
   double device_scale_factor;
@@ -314,7 +295,7 @@ struct DisplayMode {
   bool is_selected;
 
   // True if this mode is interlaced, false if not provided.
-  absl::optional<bool> is_interlaced;
+  std::optional<bool> is_interlaced;
 
 };
 
@@ -338,8 +319,8 @@ struct DisplayLayout {
   ~DisplayLayout();
   DisplayLayout(const DisplayLayout&) = delete;
   DisplayLayout& operator=(const DisplayLayout&) = delete;
-  DisplayLayout(DisplayLayout&& rhs);
-  DisplayLayout& operator=(DisplayLayout&& rhs);
+  DisplayLayout(DisplayLayout&& rhs) noexcept;
+  DisplayLayout& operator=(DisplayLayout&& rhs) noexcept;
 
   // Populates a DisplayLayout object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -352,15 +333,12 @@ struct DisplayLayout {
   // Creates a deep copy of DisplayLayout.
   DisplayLayout Clone() const;
 
-  // Creates a DisplayLayout object from a base::Value, or NULL on failure.
-  static std::unique_ptr<DisplayLayout> FromValueDeprecated(const base::Value& value);
-
   // Creates a DisplayLayout object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<DisplayLayout> FromValue(const base::Value::Dict& value);
+  static std::optional<DisplayLayout> FromValue(const base::Value::Dict& value);
 
   // Creates a DisplayLayout object from a base::Value, or nullopt on failure.
-  static absl::optional<DisplayLayout> FromValue(const base::Value& value);
+  static std::optional<DisplayLayout> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDisplayLayout object.
@@ -387,8 +365,8 @@ struct Edid {
   ~Edid();
   Edid(const Edid&) = delete;
   Edid& operator=(const Edid&) = delete;
-  Edid(Edid&& rhs);
-  Edid& operator=(Edid&& rhs);
+  Edid(Edid&& rhs) noexcept;
+  Edid& operator=(Edid&& rhs) noexcept;
 
   // Populates a Edid object from a base::Value& instance. Returns whether |out|
   // was successfully populated.
@@ -401,14 +379,11 @@ struct Edid {
   // Creates a deep copy of Edid.
   Edid Clone() const;
 
-  // Creates a Edid object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Edid> FromValueDeprecated(const base::Value& value);
-
   // Creates a Edid object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<Edid> FromValue(const base::Value::Dict& value);
+  static std::optional<Edid> FromValue(const base::Value::Dict& value);
 
   // Creates a Edid object from a base::Value, or nullopt on failure.
-  static absl::optional<Edid> FromValue(const base::Value& value);
+  static std::optional<Edid> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisEdid object.
@@ -447,8 +422,8 @@ struct DisplayUnitInfo {
   ~DisplayUnitInfo();
   DisplayUnitInfo(const DisplayUnitInfo&) = delete;
   DisplayUnitInfo& operator=(const DisplayUnitInfo&) = delete;
-  DisplayUnitInfo(DisplayUnitInfo&& rhs);
-  DisplayUnitInfo& operator=(DisplayUnitInfo&& rhs);
+  DisplayUnitInfo(DisplayUnitInfo&& rhs) noexcept;
+  DisplayUnitInfo& operator=(DisplayUnitInfo&& rhs) noexcept;
 
   // Populates a DisplayUnitInfo object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -461,15 +436,12 @@ struct DisplayUnitInfo {
   // Creates a deep copy of DisplayUnitInfo.
   DisplayUnitInfo Clone() const;
 
-  // Creates a DisplayUnitInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<DisplayUnitInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a DisplayUnitInfo object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<DisplayUnitInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<DisplayUnitInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a DisplayUnitInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<DisplayUnitInfo> FromValue(const base::Value& value);
+  static std::optional<DisplayUnitInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDisplayUnitInfo object.
@@ -482,7 +454,7 @@ struct DisplayUnitInfo {
   std::string name;
 
   // NOTE: This is only available to Chrome OS Kiosk apps and Web UI.
-  absl::optional<Edid> edid;
+  std::optional<Edid> edid;
 
   // Chrome OS only. Identifier of the display that is being mirrored if mirroring
   // is enabled, otherwise empty. This will be set for all displays (including the
@@ -514,7 +486,7 @@ struct DisplayUnitInfo {
   // tablet physical state or kSupportsClamshellAutoRotation is set. Provided for
   // ChromeOS Settings UI only. TODO(stevenjb): Remove when Settings switches to a
   // mojo API.
-  absl::optional<bool> is_auto_rotation_allowed;
+  std::optional<bool> is_auto_rotation_allowed;
 
   // The number of pixels per inch along the x-axis.
   double dpi_x;
@@ -567,8 +539,8 @@ struct DisplayProperties {
   ~DisplayProperties();
   DisplayProperties(const DisplayProperties&) = delete;
   DisplayProperties& operator=(const DisplayProperties&) = delete;
-  DisplayProperties(DisplayProperties&& rhs);
-  DisplayProperties& operator=(DisplayProperties&& rhs);
+  DisplayProperties(DisplayProperties&& rhs) noexcept;
+  DisplayProperties& operator=(DisplayProperties&& rhs) noexcept;
 
   // Populates a DisplayProperties object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -581,16 +553,13 @@ struct DisplayProperties {
   // Creates a deep copy of DisplayProperties.
   DisplayProperties Clone() const;
 
-  // Creates a DisplayProperties object from a base::Value, or NULL on failure.
-  static std::unique_ptr<DisplayProperties> FromValueDeprecated(const base::Value& value);
-
   // Creates a DisplayProperties object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<DisplayProperties> FromValue(const base::Value::Dict& value);
+  static std::optional<DisplayProperties> FromValue(const base::Value::Dict& value);
 
   // Creates a DisplayProperties object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<DisplayProperties> FromValue(const base::Value& value);
+  static std::optional<DisplayProperties> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDisplayProperties object.
@@ -601,28 +570,28 @@ struct DisplayProperties {
   // desktop mode will be disabled. This is only valid for the primary display. If
   // provided, mirroringSourceId must not be provided and other properties will be
   // ignored. This is has no effect if not provided.
-  absl::optional<bool> is_unified;
+  std::optional<bool> is_unified;
 
   // Chrome OS only. If set and not empty, enables mirroring for this display
   // only. Otherwise disables mirroring for all displays. This value should
   // indicate the id of the source display to mirror, which must not be the same
   // as the id passed to setDisplayProperties. If set, no other property may be
   // set.
-  absl::optional<std::string> mirroring_source_id;
+  std::optional<std::string> mirroring_source_id;
 
   // If set to true, makes the display primary. No-op if set to false. Note: If
   // set, the display is considered primary for all other properties (i.e.
   // $(ref:isUnified) may be set and bounds origin may not).
-  absl::optional<bool> is_primary;
+  std::optional<bool> is_primary;
 
   // If set, sets the display's overscan insets to the provided values. Note that
   // overscan values may not be negative or larger than a half of the screen's
   // size. Overscan cannot be changed on the internal monitor.
-  absl::optional<Insets> overscan;
+  std::optional<Insets> overscan;
 
   // If set, updates the display's rotation. Legal values are [0, 90, 180, 270].
   // The rotation is set clockwise, relative to the display's vertical position.
-  absl::optional<int> rotation;
+  std::optional<int> rotation;
 
   // If set, updates the display's logical bounds origin along the x-axis. Applied
   // together with $(ref:boundsOriginY). Defaults to the current value if not set
@@ -630,22 +599,22 @@ struct DisplayProperties {
   // some constraints will be applied, so the final bounds origin may be different
   // than the one set. The final bounds can be retrieved using $(ref:getInfo). The
   // bounds origin cannot be changed on the primary display.
-  absl::optional<int> bounds_origin_x;
+  std::optional<int> bounds_origin_x;
 
   // If set, updates the display's logical bounds origin along the y-axis. See
   // documentation for $(ref:boundsOriginX) parameter.
-  absl::optional<int> bounds_origin_y;
+  std::optional<int> bounds_origin_y;
 
   // If set, updates the display mode to the mode matching this value. If other
   // parameters are invalid, this will not be applied. If the display mode is
   // invalid, it will not be applied and an error will be set, but other
   // properties will still be applied.
-  absl::optional<DisplayMode> display_mode;
+  std::optional<DisplayMode> display_mode;
 
   // If set, updates the zoom associated with the display. This zoom performs
   // re-layout and repaint thus resulting in a better quality zoom than just
   // performing a pixel by pixel stretch enlargement.
-  absl::optional<double> display_zoom_factor;
+  std::optional<double> display_zoom_factor;
 
 };
 
@@ -654,8 +623,8 @@ struct GetInfoFlags {
   ~GetInfoFlags();
   GetInfoFlags(const GetInfoFlags&) = delete;
   GetInfoFlags& operator=(const GetInfoFlags&) = delete;
-  GetInfoFlags(GetInfoFlags&& rhs);
-  GetInfoFlags& operator=(GetInfoFlags&& rhs);
+  GetInfoFlags(GetInfoFlags&& rhs) noexcept;
+  GetInfoFlags& operator=(GetInfoFlags&& rhs) noexcept;
 
   // Populates a GetInfoFlags object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -668,15 +637,12 @@ struct GetInfoFlags {
   // Creates a deep copy of GetInfoFlags.
   GetInfoFlags Clone() const;
 
-  // Creates a GetInfoFlags object from a base::Value, or NULL on failure.
-  static std::unique_ptr<GetInfoFlags> FromValueDeprecated(const base::Value& value);
-
   // Creates a GetInfoFlags object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<GetInfoFlags> FromValue(const base::Value::Dict& value);
+  static std::optional<GetInfoFlags> FromValue(const base::Value::Dict& value);
 
   // Creates a GetInfoFlags object from a base::Value, or nullopt on failure.
-  static absl::optional<GetInfoFlags> FromValue(const base::Value& value);
+  static std::optional<GetInfoFlags> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisGetInfoFlags object.
@@ -685,7 +651,7 @@ struct GetInfoFlags {
   // If set to true, only a single $(ref:DisplayUnitInfo) will be returned by
   // $(ref:getInfo) when in unified desktop mode (see
   // $(ref:enableUnifiedDesktop)). Defaults to false.
-  absl::optional<bool> single_unified;
+  std::optional<bool> single_unified;
 
 };
 
@@ -709,8 +675,8 @@ struct MirrorModeInfo {
   ~MirrorModeInfo();
   MirrorModeInfo(const MirrorModeInfo&) = delete;
   MirrorModeInfo& operator=(const MirrorModeInfo&) = delete;
-  MirrorModeInfo(MirrorModeInfo&& rhs);
-  MirrorModeInfo& operator=(MirrorModeInfo&& rhs);
+  MirrorModeInfo(MirrorModeInfo&& rhs) noexcept;
+  MirrorModeInfo& operator=(MirrorModeInfo&& rhs) noexcept;
 
   // Populates a MirrorModeInfo object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -723,15 +689,12 @@ struct MirrorModeInfo {
   // Creates a deep copy of MirrorModeInfo.
   MirrorModeInfo Clone() const;
 
-  // Creates a MirrorModeInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<MirrorModeInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a MirrorModeInfo object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<MirrorModeInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<MirrorModeInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a MirrorModeInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<MirrorModeInfo> FromValue(const base::Value& value);
+  static std::optional<MirrorModeInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisMirrorModeInfo object.
@@ -741,11 +704,11 @@ struct MirrorModeInfo {
   MirrorMode mode;
 
   // The id of the mirroring source display. This is only valid for 'mixed'.
-  absl::optional<std::string> mirroring_source_id;
+  std::optional<std::string> mirroring_source_id;
 
   // The ids of the mirroring destination displays. This is only valid for
   // 'mixed'.
-  absl::optional<std::vector<std::string>> mirroring_destination_ids;
+  std::optional<std::vector<std::string>> mirroring_destination_ids;
 
 };
 
@@ -757,15 +720,15 @@ struct MirrorModeInfo {
 namespace GetInfo {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Options affecting how the information is returned.
-  absl::optional<GetInfoFlags> flags;
+  std::optional<GetInfoFlags> flags;
 
 
  private:
@@ -791,11 +754,11 @@ base::Value::List Create(const std::vector<DisplayLayout>& layouts);
 namespace SetDisplayProperties {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The display's unique identifier.
@@ -821,11 +784,11 @@ base::Value::List Create();
 namespace SetDisplayLayout {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The layout information, required for all displays except     the primary
@@ -847,11 +810,11 @@ base::Value::List Create();
 namespace EnableUnifiedDesktop {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // True if unified desktop should be enabled.
@@ -867,11 +830,11 @@ struct Params {
 namespace OverscanCalibrationStart {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The display's unique identifier.
@@ -887,11 +850,11 @@ struct Params {
 namespace OverscanCalibrationAdjust {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The display's unique identifier.
@@ -910,11 +873,11 @@ struct Params {
 namespace OverscanCalibrationReset {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The display's unique identifier.
@@ -930,11 +893,11 @@ struct Params {
 namespace OverscanCalibrationComplete {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The display's unique identifier.
@@ -950,11 +913,11 @@ struct Params {
 namespace ShowNativeTouchCalibration {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The display's unique identifier.
@@ -975,11 +938,11 @@ base::Value::List Create(bool success);
 namespace StartCustomTouchCalibration {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The display's unique identifier.
@@ -995,11 +958,11 @@ struct Params {
 namespace CompleteCustomTouchCalibration {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The pairs of point used to calibrate the display.
@@ -1019,11 +982,11 @@ struct Params {
 namespace ClearTouchCalibration {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The display's unique identifier.
@@ -1039,11 +1002,11 @@ struct Params {
 namespace SetMirrorMode {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The information of the mirror mode that should be applied to the     display

@@ -8,7 +8,8 @@ export function getTemplate() {
   <color-selector selected-color="[[backlightColor_]]" on-wallpaper-color-selected="onWallpaperColorSelected_" on-preset-color-selected="onPresetColorSelected_" on-rainbow-color-selected="onRainbowColorSelected_">
     <div slot="button-container" class="customization-button-container">
       <cr-button id="zoneCustomizationButton" on-click="showZoneCustomizationDialog_" class="secondary" aria-pressed$="[[getZoneCustomizationButtonAriaPressed_(currentBacklightState_)]]">
-        <iron-icon class="customized-checkmark" icon="personalization:circle_checkmark"></iron-icon>
+        <iron-icon class="customized-checkmark" icon="personalization-shared:circle-checkmark">
+        </iron-icon>
         <div class="text">$i18n{zoneCustomize}</div>
       </cr-button>
     </div>

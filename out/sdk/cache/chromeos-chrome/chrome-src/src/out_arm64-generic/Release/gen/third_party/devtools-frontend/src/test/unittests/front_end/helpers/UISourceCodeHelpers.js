@@ -2,10 +2,11 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import * as Common from '../../../../front_end/core/common/common.js';
-import * as TextUtils from '../../../../front_end/models/text_utils/text_utils.js';
+import * as SDK from '../../../../front_end/core/sdk/sdk.js';
 import * as Bindings from '../../../../front_end/models/bindings/bindings.js';
-import * as Workspace from '../../../../front_end/models/workspace/workspace.js';
 import * as Persistence from '../../../../front_end/models/persistence/persistence.js';
+import * as TextUtils from '../../../../front_end/models/text_utils/text_utils.js';
+import * as Workspace from '../../../../front_end/models/workspace/workspace.js';
 export function createContentProviderUISourceCodes(options) {
     const workspace = Workspace.Workspace.WorkspaceImpl.instance();
     const projectType = options.projectType || Workspace.Workspace.projectTypes.Formatter;
@@ -80,5 +81,17 @@ export function setupMockedUISourceCode(url = 'https://example.com/') {
     const contentTypeStub = sinon.createStubInstance(Common.ResourceType.ResourceType);
     const uiSourceCode = new Workspace.UISourceCode.UISourceCode(projectStub, urlStringTagExample, contentTypeStub);
     return { sut: uiSourceCode, projectStub: projectStub, contentTypeStub: contentTypeStub };
+}
+export function createFakeScriptMapping(debuggerModel, uiSourceCode, uiLineNumber, scriptId) {
+    const sdkLocation = new SDK.DebuggerModel.Location(debuggerModel, scriptId, 13);
+    const uiLocation = new Workspace.UISourceCode.UILocation(uiSourceCode, uiLineNumber);
+    const mapping = {
+        rawLocationToUILocation: (_) => uiLocation,
+        uiLocationToRawLocations: (_uiSourceCode, _lineNumber, _columnNumber) => [sdkLocation],
+        uiLocationRangeToRawLocationRanges: (_uiSourceCode, _textRange) => {
+            throw new Error('Not implemented');
+        },
+    };
+    return mapping;
 }
 //# sourceMappingURL=UISourceCodeHelpers.js.map

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "media/capture/video/chromeos/mojom/camera_features.mojom-features.h"
 #include "media/capture/video/chromeos/mojom/camera_features.mojom-shared.h"
 #include "media/capture/video/chromeos/mojom/camera_features.mojom-forward.h"
 #include <string>
@@ -201,17 +202,17 @@ class  Camera3StreamEffect {
   // Construct an instance holding |unknown_config|.
   static Camera3StreamEffectPtr
   NewUnknownConfig(
-      uint8_t unknown_config) {
+      uint8_t value) {
     auto result = Camera3StreamEffectPtr(absl::in_place);
-    result->set_unknown_config(std::move(unknown_config));
+    result->set_unknown_config(std::move(value));
     return result;
   }
   // Construct an instance holding |portrait_mode_config|.
   static Camera3StreamEffectPtr
   NewPortraitModeConfig(
-      PortraitModeConfigPtr portrait_mode_config) {
+      PortraitModeConfigPtr value) {
     auto result = Camera3StreamEffectPtr(absl::in_place);
-    result->set_portrait_mode_config(std::move(portrait_mode_config));
+    result->set_portrait_mode_config(std::move(value));
     return result;
   }
 

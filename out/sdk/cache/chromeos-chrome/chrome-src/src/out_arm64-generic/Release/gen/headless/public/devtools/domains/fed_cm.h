@@ -24,12 +24,18 @@ class HEADLESS_EXPORT ExperimentalObserver {
  public:
   virtual ~ExperimentalObserver() {}
   virtual void OnDialogShown(const DialogShownParams& params) {}
+  // Triggered when a dialog is closed, either by user action, JS abort,
+  // or a command below.
+  virtual void OnDialogClosed(const DialogClosedParams& params) {}
 };
 
 class HEADLESS_EXPORT Observer : public ExperimentalObserver {
  public:
   virtual ~Observer() {}
   virtual void OnDialogShown(const DialogShownParams& params) final {}
+  // Experimental: Triggered when a dialog is closed, either by user action, JS abort,
+  // or a command below.
+  virtual void OnDialogClosed(const DialogClosedParams& params) final {}
 };
 
 // This domain allows interacting with the FedCM dialog.
@@ -54,11 +60,12 @@ class HEADLESS_EXPORT Domain {
   static void HandleEnableResponse(base::OnceCallback<void(std::unique_ptr<EnableResult>)> callback, const base::Value& response);
   static void HandleDisableResponse(base::OnceCallback<void(std::unique_ptr<DisableResult>)> callback, const base::Value& response);
   static void HandleSelectAccountResponse(base::OnceCallback<void(std::unique_ptr<SelectAccountResult>)> callback, const base::Value& response);
-  static void HandleConfirmIdpLoginResponse(base::OnceCallback<void(std::unique_ptr<ConfirmIdpLoginResult>)> callback, const base::Value& response);
+  static void HandleClickDialogButtonResponse(base::OnceCallback<void(std::unique_ptr<ClickDialogButtonResult>)> callback, const base::Value& response);
   static void HandleDismissDialogResponse(base::OnceCallback<void(std::unique_ptr<DismissDialogResult>)> callback, const base::Value& response);
   static void HandleResetCooldownResponse(base::OnceCallback<void(std::unique_ptr<ResetCooldownResult>)> callback, const base::Value& response);
 
   void DispatchDialogShownEvent(const base::Value& params);
+  void DispatchDialogClosedEvent(const base::Value& params);
 
   internal::MessageDispatcher* dispatcher_;  // Not owned.
   base::ObserverList<ExperimentalObserver>::Unchecked observers_;
@@ -91,9 +98,7 @@ class ExperimentalDomain : public Domain {
 
   void SelectAccount(std::unique_ptr<SelectAccountParams> params, base::OnceCallback<void(std::unique_ptr<SelectAccountResult>)> callback = base::OnceCallback<void(std::unique_ptr<SelectAccountResult>)>());
 
-  // Only valid if the dialog type is ConfirmIdpLogin. Acts as if the user had
-  // clicked the continue button.
-  void ConfirmIdpLogin(std::unique_ptr<ConfirmIdpLoginParams> params, base::OnceCallback<void(std::unique_ptr<ConfirmIdpLoginResult>)> callback = base::OnceCallback<void(std::unique_ptr<ConfirmIdpLoginResult>)>());
+  void ClickDialogButton(std::unique_ptr<ClickDialogButtonParams> params, base::OnceCallback<void(std::unique_ptr<ClickDialogButtonResult>)> callback = base::OnceCallback<void(std::unique_ptr<ClickDialogButtonResult>)>());
 
   void DismissDialog(std::unique_ptr<DismissDialogParams> params, base::OnceCallback<void(std::unique_ptr<DismissDialogResult>)> callback = base::OnceCallback<void(std::unique_ptr<DismissDialogResult>)>());
 

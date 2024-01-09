@@ -3,6 +3,7 @@
 
 from __future__ import division, print_function, unicode_literals
 
+import copy
 import errno
 import logging
 import operator
@@ -105,7 +106,8 @@ tracer = telemetry.get_tracer(__name__)
 @tracer.start_as_current_span("action_build")
 def action_build(emerge_config, trees=DeprecationWarning,
 	mtimedb=DeprecationWarning, myopts=DeprecationWarning,
-	myaction=DeprecationWarning, myfiles=DeprecationWarning, spinner=None):
+	myaction=DeprecationWarning, myfiles=DeprecationWarning, spinner=None,
+	rage_emerge_config=None):
 
 	if not isinstance(emerge_config, _emerge_config):
 		warnings.warn("_emerge.actions.action_build() now expects "
@@ -449,6 +451,10 @@ def action_build(emerge_config, trees=DeprecationWarning,
 		# Don't ask again (e.g. when auto-cleaning packages after merge)
 		if mergecount != 0:
 			myopts.pop("--ask", None)
+
+	if emerge_config.action == "rage-install":
+		rage_emerge_config.args = [f"={x.cpv}" for x in mydepgraph.altlist()]
+		return run_action(rage_emerge_config)
 
 	if ("--pretend" in myopts) and not ("--fetchonly" in myopts or "--fetch-all-uri" in myopts):
 		if ("--resume" in myopts):
@@ -2865,6 +2871,14 @@ def repo_name_duplicate_check(trees):
 
 def run_action(emerge_config):
 
+	rage_config = None
+	if emerge_config.action == "rage-install":
+		rage_config = copy.deepcopy(emerge_config)
+		rage_config.opts.pop("--pretend", None)
+		rage_config.opts["--nodeps"] = True
+		rage_config.opts["--usepkgoonly"] = True
+		rage_config.action = None
+
 	# skip global updates prior to sync, since it's called after sync
 	if emerge_config.action not in ('help', 'info', 'sync', 'version') and \
 		emerge_config.opts.get('--package-moves') != 'n' and \
@@ -2903,6 +2917,10 @@ def run_action(emerge_config):
 	if "--getbinpkg" in emerge_config.opts:
 		emerge_config.opts["--usepkg"] = True
 
+	if emerge_config.action == "rage-install":
+		emerge_config.opts["--usepkgoonly"] = True
+		emerge_config.opts["--pretend"] = True
+
 	if "--usepkgonly" in emerge_config.opts:
 		emerge_config.opts["--usepkg"] = True
 
@@ -2911,7 +2929,7 @@ def run_action(emerge_config):
 	# * expand_set_arguments, in case any sets use the bintree
 	# * adjust_configs and profile_check, in order to propagate settings
 	#   implicit IUSE and USE_EXPAND settings from the binhost(s)
-	if (emerge_config.action in ('search', None) and
+	if (emerge_config.action in ('search', 'rage-install', None) and
 		'--usepkg' in emerge_config.opts):
 		for mytrees in emerge_config.trees.values():
 			try:
@@ -3016,7 +3034,7 @@ def run_action(emerge_config):
 	# only expand sets for actions taking package arguments
 	oldargs = emerge_config.args[:]
 	if emerge_config.action in ("clean", "config", "depclean",
-		"info", "prune", "unmerge", "rage-clean", None):
+		"info", "prune", "unmerge", "rage-clean", "rage-install", None):
 		newargs, retval = expand_set_arguments(
 			emerge_config.args, emerge_config.action,
 			emerge_config.target_config)
@@ -3343,7 +3361,7 @@ def run_action(emerge_config):
 				except OSError:
 					writemsg("Please install eselect to use this feature.\n",
 							noiselevel=-1)
-		retval = action_build(emerge_config, spinner=spinner)
+		retval = action_build(emerge_config, spinner=spinner, rage_emerge_config=rage_config)
 		post_emerge(emerge_config.action, emerge_config.opts,
 			emerge_config.args, emerge_config.target_config.root,
 			emerge_config.trees, emerge_config.target_config.mtimedb, retval)

@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -30,23 +31,23 @@ namespace file_manager_private {
 //
 
 // Type of the mounted volume.
-enum  VolumeType {
-  VOLUME_TYPE_NONE = 0,
-  VOLUME_TYPE_DRIVE,
-  VOLUME_TYPE_DOWNLOADS,
-  VOLUME_TYPE_REMOVABLE,
-  VOLUME_TYPE_ARCHIVE,
-  VOLUME_TYPE_PROVIDED,
-  VOLUME_TYPE_MTP,
-  VOLUME_TYPE_MEDIA_VIEW,
-  VOLUME_TYPE_CROSTINI,
-  VOLUME_TYPE_ANDROID_FILES,
-  VOLUME_TYPE_DOCUMENTS_PROVIDER,
-  VOLUME_TYPE_TESTING,
-  VOLUME_TYPE_SMB,
-  VOLUME_TYPE_SYSTEM_INTERNAL,
-  VOLUME_TYPE_GUEST_OS,
-  VOLUME_TYPE_LAST = VOLUME_TYPE_GUEST_OS,
+enum class VolumeType {
+  kNone = 0,
+  kDrive,
+  kDownloads,
+  kRemovable,
+  kArchive,
+  kProvided,
+  kMtp,
+  kMediaView,
+  kCrostini,
+  kAndroidFiles,
+  kDocumentsProvider,
+  kTesting,
+  kSmb,
+  kSystemInternal,
+  kGuestOs,
+  kMaxValue = kGuestOs,
 };
 
 
@@ -55,14 +56,14 @@ VolumeType ParseVolumeType(base::StringPiece as_string);
 std::u16string GetVolumeTypeParseError(base::StringPiece as_string);
 
 // Device type. Available if this is removable volume.
-enum  DeviceType {
-  DEVICE_TYPE_NONE = 0,
-  DEVICE_TYPE_USB,
-  DEVICE_TYPE_SD,
-  DEVICE_TYPE_OPTICAL,
-  DEVICE_TYPE_MOBILE,
-  DEVICE_TYPE_UNKNOWN,
-  DEVICE_TYPE_LAST = DEVICE_TYPE_UNKNOWN,
+enum class DeviceType {
+  kNone = 0,
+  kUsb,
+  kSd,
+  kOptical,
+  kMobile,
+  kUnknown,
+  kMaxValue = kUnknown,
 };
 
 
@@ -71,11 +72,11 @@ DeviceType ParseDeviceType(base::StringPiece as_string);
 std::u16string GetDeviceTypeParseError(base::StringPiece as_string);
 
 // List of device connection statuses.
-enum  DeviceConnectionState {
-  DEVICE_CONNECTION_STATE_NONE = 0,
-  DEVICE_CONNECTION_STATE_OFFLINE,
-  DEVICE_CONNECTION_STATE_ONLINE,
-  DEVICE_CONNECTION_STATE_LAST = DEVICE_CONNECTION_STATE_ONLINE,
+enum class DeviceConnectionState {
+  kNone = 0,
+  kOffline,
+  kOnline,
+  kMaxValue = kOnline,
 };
 
 
@@ -84,12 +85,12 @@ DeviceConnectionState ParseDeviceConnectionState(base::StringPiece as_string);
 std::u16string GetDeviceConnectionStateParseError(base::StringPiece as_string);
 
 // List of connection types of drive.
-enum  DriveConnectionStateType {
-  DRIVE_CONNECTION_STATE_TYPE_NONE = 0,
-  DRIVE_CONNECTION_STATE_TYPE_OFFLINE,
-  DRIVE_CONNECTION_STATE_TYPE_METERED,
-  DRIVE_CONNECTION_STATE_TYPE_ONLINE,
-  DRIVE_CONNECTION_STATE_TYPE_LAST = DRIVE_CONNECTION_STATE_TYPE_ONLINE,
+enum class DriveConnectionStateType {
+  kNone = 0,
+  kOffline,
+  kMetered,
+  kOnline,
+  kMaxValue = kOnline,
 };
 
 
@@ -98,12 +99,12 @@ DriveConnectionStateType ParseDriveConnectionStateType(base::StringPiece as_stri
 std::u16string GetDriveConnectionStateTypeParseError(base::StringPiece as_string);
 
 // List of reasons of DriveConnectionStateType.
-enum  DriveOfflineReason {
-  DRIVE_OFFLINE_REASON_NONE = 0,
-  DRIVE_OFFLINE_REASON_NOT_READY,
-  DRIVE_OFFLINE_REASON_NO_NETWORK,
-  DRIVE_OFFLINE_REASON_NO_SERVICE,
-  DRIVE_OFFLINE_REASON_LAST = DRIVE_OFFLINE_REASON_NO_SERVICE,
+enum class DriveOfflineReason {
+  kNone = 0,
+  kNotReady,
+  kNoNetwork,
+  kNoService,
+  kMaxValue = kNoService,
 };
 
 
@@ -112,11 +113,11 @@ DriveOfflineReason ParseDriveOfflineReason(base::StringPiece as_string);
 std::u16string GetDriveOfflineReasonParseError(base::StringPiece as_string);
 
 // Additional information of the context the volume was mounted.
-enum  MountContext {
-  MOUNT_CONTEXT_NONE = 0,
-  MOUNT_CONTEXT_USER,
-  MOUNT_CONTEXT_AUTO,
-  MOUNT_CONTEXT_LAST = MOUNT_CONTEXT_AUTO,
+enum class MountContext {
+  kNone = 0,
+  kUser,
+  kAuto,
+  kMaxValue = kAuto,
 };
 
 
@@ -125,11 +126,11 @@ MountContext ParseMountContext(base::StringPiece as_string);
 std::u16string GetMountContextParseError(base::StringPiece as_string);
 
 // Is the event raised for mounting or unmounting.
-enum  MountCompletedEventType {
-  MOUNT_COMPLETED_EVENT_TYPE_NONE = 0,
-  MOUNT_COMPLETED_EVENT_TYPE_MOUNT,
-  MOUNT_COMPLETED_EVENT_TYPE_UNMOUNT,
-  MOUNT_COMPLETED_EVENT_TYPE_LAST = MOUNT_COMPLETED_EVENT_TYPE_UNMOUNT,
+enum class MountCompletedEventType {
+  kNone = 0,
+  kMount,
+  kUnmount,
+  kMaxValue = kUnmount,
 };
 
 
@@ -139,28 +140,28 @@ std::u16string GetMountCompletedEventTypeParseError(base::StringPiece as_string)
 
 // Event type that tells listeners if mount was successful or an error occurred.
 // It also specifies the error.
-enum  MountError {
-  MOUNT_ERROR_NONE = 0,
-  MOUNT_ERROR_SUCCESS,
-  MOUNT_ERROR_IN_PROGRESS,
-  MOUNT_ERROR_UNKNOWN_ERROR,
-  MOUNT_ERROR_INTERNAL_ERROR,
-  MOUNT_ERROR_INVALID_ARGUMENT,
-  MOUNT_ERROR_INVALID_PATH,
-  MOUNT_ERROR_PATH_ALREADY_MOUNTED,
-  MOUNT_ERROR_PATH_NOT_MOUNTED,
-  MOUNT_ERROR_DIRECTORY_CREATION_FAILED,
-  MOUNT_ERROR_INVALID_MOUNT_OPTIONS,
-  MOUNT_ERROR_INSUFFICIENT_PERMISSIONS,
-  MOUNT_ERROR_MOUNT_PROGRAM_NOT_FOUND,
-  MOUNT_ERROR_MOUNT_PROGRAM_FAILED,
-  MOUNT_ERROR_INVALID_DEVICE_PATH,
-  MOUNT_ERROR_UNKNOWN_FILESYSTEM,
-  MOUNT_ERROR_UNSUPPORTED_FILESYSTEM,
-  MOUNT_ERROR_NEED_PASSWORD,
-  MOUNT_ERROR_CANCELLED,
-  MOUNT_ERROR_BUSY,
-  MOUNT_ERROR_LAST = MOUNT_ERROR_BUSY,
+enum class MountError {
+  kNone = 0,
+  kSuccess,
+  kInProgress,
+  kUnknownError,
+  kInternalError,
+  kInvalidArgument,
+  kInvalidPath,
+  kPathAlreadyMounted,
+  kPathNotMounted,
+  kDirectoryCreationFailed,
+  kInvalidMountOptions,
+  kInsufficientPermissions,
+  kMountProgramNotFound,
+  kMountProgramFailed,
+  kInvalidDevicePath,
+  kUnknownFilesystem,
+  kUnsupportedFilesystem,
+  kNeedPassword,
+  kCancelled,
+  kBusy,
+  kMaxValue = kBusy,
 };
 
 
@@ -169,12 +170,12 @@ MountError ParseMountError(base::StringPiece as_string);
 std::u16string GetMountErrorParseError(base::StringPiece as_string);
 
 // Filesystem to format to.
-enum  FormatFileSystemType {
-  FORMAT_FILE_SYSTEM_TYPE_NONE = 0,
-  FORMAT_FILE_SYSTEM_TYPE_VFAT,
-  FORMAT_FILE_SYSTEM_TYPE_EXFAT,
-  FORMAT_FILE_SYSTEM_TYPE_NTFS,
-  FORMAT_FILE_SYSTEM_TYPE_LAST = FORMAT_FILE_SYSTEM_TYPE_NTFS,
+enum class FormatFileSystemType {
+  kNone = 0,
+  kVfat,
+  kExfat,
+  kNtfs,
+  kMaxValue = kNtfs,
 };
 
 
@@ -183,13 +184,13 @@ FormatFileSystemType ParseFormatFileSystemType(base::StringPiece as_string);
 std::u16string GetFormatFileSystemTypeParseError(base::StringPiece as_string);
 
 // File transfer progress state.
-enum  TransferState {
-  TRANSFER_STATE_NONE = 0,
-  TRANSFER_STATE_IN_PROGRESS,
-  TRANSFER_STATE_QUEUED,
-  TRANSFER_STATE_COMPLETED,
-  TRANSFER_STATE_FAILED,
-  TRANSFER_STATE_LAST = TRANSFER_STATE_FAILED,
+enum class TransferState {
+  kNone = 0,
+  kInProgress,
+  kQueued,
+  kCompleted,
+  kFailed,
+  kMaxValue = kFailed,
 };
 
 
@@ -198,25 +199,25 @@ TransferState ParseTransferState(base::StringPiece as_string);
 std::u16string GetTransferStateParseError(base::StringPiece as_string);
 
 // The response when starting installing a Linux package.
-enum  InstallLinuxPackageResponse {
-  INSTALL_LINUX_PACKAGE_RESPONSE_NONE = 0,
-  INSTALL_LINUX_PACKAGE_RESPONSE_STARTED,
-  INSTALL_LINUX_PACKAGE_RESPONSE_FAILED,
-  INSTALL_LINUX_PACKAGE_RESPONSE_INSTALL_ALREADY_ACTIVE,
-  INSTALL_LINUX_PACKAGE_RESPONSE_LAST = INSTALL_LINUX_PACKAGE_RESPONSE_INSTALL_ALREADY_ACTIVE,
+enum class InstallLinuxPackageStatus {
+  kNone = 0,
+  kStarted,
+  kFailed,
+  kInstallAlreadyActive,
+  kMaxValue = kInstallAlreadyActive,
 };
 
 
-const char* ToString(InstallLinuxPackageResponse as_enum);
-InstallLinuxPackageResponse ParseInstallLinuxPackageResponse(base::StringPiece as_string);
-std::u16string GetInstallLinuxPackageResponseParseError(base::StringPiece as_string);
+const char* ToString(InstallLinuxPackageStatus as_enum);
+InstallLinuxPackageStatus ParseInstallLinuxPackageStatus(base::StringPiece as_string);
+std::u16string GetInstallLinuxPackageStatusParseError(base::StringPiece as_string);
 
 // Specifies type of event that is raised.
-enum  FileWatchEventType {
-  FILE_WATCH_EVENT_TYPE_NONE = 0,
-  FILE_WATCH_EVENT_TYPE_CHANGED,
-  FILE_WATCH_EVENT_TYPE_ERROR,
-  FILE_WATCH_EVENT_TYPE_LAST = FILE_WATCH_EVENT_TYPE_ERROR,
+enum class FileWatchEventType {
+  kNone = 0,
+  kChanged,
+  kError,
+  kMaxValue = kError,
 };
 
 
@@ -225,11 +226,11 @@ FileWatchEventType ParseFileWatchEventType(base::StringPiece as_string);
 std::u16string GetFileWatchEventTypeParseError(base::StringPiece as_string);
 
 // Specifies type of change in file watch event.
-enum  ChangeType {
-  CHANGE_TYPE_NONE = 0,
-  CHANGE_TYPE_ADD_OR_UPDATE,
-  CHANGE_TYPE_DELETE,
-  CHANGE_TYPE_LAST = CHANGE_TYPE_DELETE,
+enum class ChangeType {
+  kNone = 0,
+  kAddOrUpdate,
+  kDelete,
+  kMaxValue = kDelete,
 };
 
 
@@ -238,13 +239,13 @@ ChangeType ParseChangeType(base::StringPiece as_string);
 std::u16string GetChangeTypeParseError(base::StringPiece as_string);
 
 // The type of entry that is needed. Default to ALL.
-enum  SearchType {
-  SEARCH_TYPE_NONE = 0,
-  SEARCH_TYPE_EXCLUDE_DIRECTORIES,
-  SEARCH_TYPE_SHARED_WITH_ME,
-  SEARCH_TYPE_OFFLINE,
-  SEARCH_TYPE_ALL,
-  SEARCH_TYPE_LAST = SEARCH_TYPE_ALL,
+enum class SearchType {
+  kNone = 0,
+  kExcludeDirectories,
+  kSharedWithMe,
+  kOffline,
+  kAll,
+  kMaxValue = kAll,
 };
 
 
@@ -253,12 +254,12 @@ SearchType ParseSearchType(base::StringPiece as_string);
 std::u16string GetSearchTypeParseError(base::StringPiece as_string);
 
 // Zooming mode.
-enum  ZoomOperationType {
-  ZOOM_OPERATION_TYPE_NONE = 0,
-  ZOOM_OPERATION_TYPE_IN,
-  ZOOM_OPERATION_TYPE_OUT,
-  ZOOM_OPERATION_TYPE_RESET,
-  ZOOM_OPERATION_TYPE_LAST = ZOOM_OPERATION_TYPE_RESET,
+enum class ZoomOperationType {
+  kNone = 0,
+  kIn,
+  kOut,
+  kReset,
+  kMaxValue = kReset,
 };
 
 
@@ -267,13 +268,13 @@ ZoomOperationType ParseZoomOperationType(base::StringPiece as_string);
 std::u16string GetZoomOperationTypeParseError(base::StringPiece as_string);
 
 // Specifies how to open inspector.
-enum  InspectionType {
-  INSPECTION_TYPE_NONE = 0,
-  INSPECTION_TYPE_NORMAL,
-  INSPECTION_TYPE_CONSOLE,
-  INSPECTION_TYPE_ELEMENT,
-  INSPECTION_TYPE_BACKGROUND,
-  INSPECTION_TYPE_LAST = INSPECTION_TYPE_BACKGROUND,
+enum class InspectionType {
+  kNone = 0,
+  kNormal,
+  kConsole,
+  kElement,
+  kBackground,
+  kMaxValue = kBackground,
 };
 
 
@@ -282,21 +283,21 @@ InspectionType ParseInspectionType(base::StringPiece as_string);
 std::u16string GetInspectionTypeParseError(base::StringPiece as_string);
 
 // Device event type.
-enum  DeviceEventType {
-  DEVICE_EVENT_TYPE_NONE = 0,
-  DEVICE_EVENT_TYPE_DISABLED,
-  DEVICE_EVENT_TYPE_REMOVED,
-  DEVICE_EVENT_TYPE_HARD_UNPLUGGED,
-  DEVICE_EVENT_TYPE_FORMAT_START,
-  DEVICE_EVENT_TYPE_FORMAT_SUCCESS,
-  DEVICE_EVENT_TYPE_FORMAT_FAIL,
-  DEVICE_EVENT_TYPE_RENAME_START,
-  DEVICE_EVENT_TYPE_RENAME_SUCCESS,
-  DEVICE_EVENT_TYPE_RENAME_FAIL,
-  DEVICE_EVENT_TYPE_PARTITION_START,
-  DEVICE_EVENT_TYPE_PARTITION_SUCCESS,
-  DEVICE_EVENT_TYPE_PARTITION_FAIL,
-  DEVICE_EVENT_TYPE_LAST = DEVICE_EVENT_TYPE_PARTITION_FAIL,
+enum class DeviceEventType {
+  kNone = 0,
+  kDisabled,
+  kRemoved,
+  kHardUnplugged,
+  kFormatStart,
+  kFormatSuccess,
+  kFormatFail,
+  kRenameStart,
+  kRenameSuccess,
+  kRenameFail,
+  kPartitionStart,
+  kPartitionSuccess,
+  kPartitionFail,
+  kMaxValue = kPartitionFail,
 };
 
 
@@ -305,16 +306,16 @@ DeviceEventType ParseDeviceEventType(base::StringPiece as_string);
 std::u16string GetDeviceEventTypeParseError(base::StringPiece as_string);
 
 // Drive sync error type. Keep it synced with DriveError::Type in drivefs.mojom.
-enum  DriveSyncErrorType {
-  DRIVE_SYNC_ERROR_TYPE_NONE = 0,
-  DRIVE_SYNC_ERROR_TYPE_DELETE_WITHOUT_PERMISSION,
-  DRIVE_SYNC_ERROR_TYPE_SERVICE_UNAVAILABLE,
-  DRIVE_SYNC_ERROR_TYPE_NO_SERVER_SPACE,
-  DRIVE_SYNC_ERROR_TYPE_NO_SERVER_SPACE_ORGANIZATION,
-  DRIVE_SYNC_ERROR_TYPE_NO_LOCAL_SPACE,
-  DRIVE_SYNC_ERROR_TYPE_NO_SHARED_DRIVE_SPACE,
-  DRIVE_SYNC_ERROR_TYPE_MISC,
-  DRIVE_SYNC_ERROR_TYPE_LAST = DRIVE_SYNC_ERROR_TYPE_MISC,
+enum class DriveSyncErrorType {
+  kNone = 0,
+  kDeleteWithoutPermission,
+  kServiceUnavailable,
+  kNoServerSpace,
+  kNoServerSpaceOrganization,
+  kNoLocalSpace,
+  kNoSharedDriveSpace,
+  kMisc,
+  kMaxValue = kMisc,
 };
 
 
@@ -324,10 +325,10 @@ std::u16string GetDriveSyncErrorTypeParseError(base::StringPiece as_string);
 
 // Drive confirm dialog type. Keep it synced with DialogReason::Type in
 // drivefs.mojom.
-enum  DriveConfirmDialogType {
-  DRIVE_CONFIRM_DIALOG_TYPE_NONE = 0,
-  DRIVE_CONFIRM_DIALOG_TYPE_ENABLE_DOCS_OFFLINE,
-  DRIVE_CONFIRM_DIALOG_TYPE_LAST = DRIVE_CONFIRM_DIALOG_TYPE_ENABLE_DOCS_OFFLINE,
+enum class DriveConfirmDialogType {
+  kNone = 0,
+  kEnableDocsOffline,
+  kMaxValue = kEnableDocsOffline,
 };
 
 
@@ -337,13 +338,13 @@ std::u16string GetDriveConfirmDialogTypeParseError(base::StringPiece as_string);
 
 // Possible result of dialog displayed as a result of the onDriveConfirmDialog
 // event. Sent back to the browser via notifyDriveDialogResult().
-enum  DriveDialogResult {
-  DRIVE_DIALOG_RESULT_NONE = 0,
-  DRIVE_DIALOG_RESULT_NOT_DISPLAYED,
-  DRIVE_DIALOG_RESULT_ACCEPT,
-  DRIVE_DIALOG_RESULT_REJECT,
-  DRIVE_DIALOG_RESULT_DISMISS,
-  DRIVE_DIALOG_RESULT_LAST = DRIVE_DIALOG_RESULT_DISMISS,
+enum class DriveDialogResult {
+  kNone = 0,
+  kNotDisplayed,
+  kAccept,
+  kReject,
+  kDismiss,
+  kMaxValue = kDismiss,
 };
 
 
@@ -353,14 +354,14 @@ std::u16string GetDriveDialogResultParseError(base::StringPiece as_string);
 
 // Result of task execution. If changing, update the strings used in
 // ui/file_manager/file_manager/foreground/js/file_tasks.js
-enum  TaskResult {
-  TASK_RESULT_NONE = 0,
-  TASK_RESULT_OPENED,
-  TASK_RESULT_MESSAGE_SENT,
-  TASK_RESULT_FAILED,
-  TASK_RESULT_EMPTY,
-  TASK_RESULT_FAILED_PLUGIN_VM_DIRECTORY_NOT_SHARED,
-  TASK_RESULT_LAST = TASK_RESULT_FAILED_PLUGIN_VM_DIRECTORY_NOT_SHARED,
+enum class TaskResult {
+  kNone = 0,
+  kOpened,
+  kMessageSent,
+  kFailed,
+  kEmpty,
+  kFailedPluginVmDirectoryNotShared,
+  kMaxValue = kFailedPluginVmDirectoryNotShared,
 };
 
 
@@ -369,12 +370,12 @@ TaskResult ParseTaskResult(base::StringPiece as_string);
 std::u16string GetTaskResultParseError(base::StringPiece as_string);
 
 // Drive share type.
-enum  DriveShareType {
-  DRIVE_SHARE_TYPE_NONE = 0,
-  DRIVE_SHARE_TYPE_CAN_EDIT,
-  DRIVE_SHARE_TYPE_CAN_COMMENT,
-  DRIVE_SHARE_TYPE_CAN_VIEW,
-  DRIVE_SHARE_TYPE_LAST = DRIVE_SHARE_TYPE_CAN_VIEW,
+enum class DriveShareType {
+  kNone = 0,
+  kCanEdit,
+  kCanComment,
+  kCanView,
+  kMaxValue = kCanView,
 };
 
 
@@ -383,44 +384,44 @@ DriveShareType ParseDriveShareType(base::StringPiece as_string);
 std::u16string GetDriveShareTypeParseError(base::StringPiece as_string);
 
 // Names of properties for getEntryProperties().
-enum  EntryPropertyName {
-  ENTRY_PROPERTY_NAME_NONE = 0,
-  ENTRY_PROPERTY_NAME_SIZE,
-  ENTRY_PROPERTY_NAME_MODIFICATIONTIME,
-  ENTRY_PROPERTY_NAME_MODIFICATIONBYMETIME,
-  ENTRY_PROPERTY_NAME_THUMBNAILURL,
-  ENTRY_PROPERTY_NAME_CROPPEDTHUMBNAILURL,
-  ENTRY_PROPERTY_NAME_IMAGEWIDTH,
-  ENTRY_PROPERTY_NAME_IMAGEHEIGHT,
-  ENTRY_PROPERTY_NAME_IMAGEROTATION,
-  ENTRY_PROPERTY_NAME_PINNED,
-  ENTRY_PROPERTY_NAME_PRESENT,
-  ENTRY_PROPERTY_NAME_HOSTED,
-  ENTRY_PROPERTY_NAME_AVAILABLEOFFLINE,
-  ENTRY_PROPERTY_NAME_AVAILABLEWHENMETERED,
-  ENTRY_PROPERTY_NAME_DIRTY,
-  ENTRY_PROPERTY_NAME_CUSTOMICONURL,
-  ENTRY_PROPERTY_NAME_CONTENTMIMETYPE,
-  ENTRY_PROPERTY_NAME_SHAREDWITHME,
-  ENTRY_PROPERTY_NAME_SHARED,
-  ENTRY_PROPERTY_NAME_STARRED,
-  ENTRY_PROPERTY_NAME_EXTERNALFILEURL,
-  ENTRY_PROPERTY_NAME_ALTERNATEURL,
-  ENTRY_PROPERTY_NAME_SHAREURL,
-  ENTRY_PROPERTY_NAME_CANCOPY,
-  ENTRY_PROPERTY_NAME_CANDELETE,
-  ENTRY_PROPERTY_NAME_CANRENAME,
-  ENTRY_PROPERTY_NAME_CANADDCHILDREN,
-  ENTRY_PROPERTY_NAME_CANSHARE,
-  ENTRY_PROPERTY_NAME_CANPIN,
-  ENTRY_PROPERTY_NAME_ISMACHINEROOT,
-  ENTRY_PROPERTY_NAME_ISEXTERNALMEDIA,
-  ENTRY_PROPERTY_NAME_ISARBITRARYSYNCFOLDER,
-  ENTRY_PROPERTY_NAME_SYNCSTATUS,
-  ENTRY_PROPERTY_NAME_PROGRESS,
-  ENTRY_PROPERTY_NAME_SHORTCUT,
-  ENTRY_PROPERTY_NAME_SYNCCOMPLETEDTIME,
-  ENTRY_PROPERTY_NAME_LAST = ENTRY_PROPERTY_NAME_SYNCCOMPLETEDTIME,
+enum class EntryPropertyName {
+  kNone = 0,
+  kSize,
+  kModificationTime,
+  kModificationByMeTime,
+  kThumbnailUrl,
+  kCroppedThumbnailUrl,
+  kImageWidth,
+  kImageHeight,
+  kImageRotation,
+  kPinned,
+  kPresent,
+  kHosted,
+  kAvailableOffline,
+  kAvailableWhenMetered,
+  kDirty,
+  kCustomIconUrl,
+  kContentMimeType,
+  kSharedWithMe,
+  kShared,
+  kStarred,
+  kExternalFileUrl,
+  kAlternateUrl,
+  kShareUrl,
+  kCanCopy,
+  kCanDelete,
+  kCanRename,
+  kCanAddChildren,
+  kCanShare,
+  kCanPin,
+  kIsMachineRoot,
+  kIsExternalMedia,
+  kIsArbitrarySyncFolder,
+  kSyncStatus,
+  kProgress,
+  kShortcut,
+  kSyncCompletedTime,
+  kMaxValue = kSyncCompletedTime,
 };
 
 
@@ -429,13 +430,13 @@ EntryPropertyName ParseEntryPropertyName(base::StringPiece as_string);
 std::u16string GetEntryPropertyNameParseError(base::StringPiece as_string);
 
 // Source of the volume data.
-enum  Source {
-  SOURCE_NONE = 0,
-  SOURCE_FILE,
-  SOURCE_DEVICE,
-  SOURCE_NETWORK,
-  SOURCE_SYSTEM,
-  SOURCE_LAST = SOURCE_SYSTEM,
+enum class Source {
+  kNone = 0,
+  kFile,
+  kDevice,
+  kNetwork,
+  kSystem,
+  kMaxValue = kSystem,
 };
 
 
@@ -444,11 +445,11 @@ Source ParseSource(base::StringPiece as_string);
 std::u16string GetSourceParseError(base::StringPiece as_string);
 
 // Recent file sources allowed in getRecentFiles().
-enum  SourceRestriction {
-  SOURCE_RESTRICTION_NONE = 0,
-  SOURCE_RESTRICTION_ANY_SOURCE,
-  SOURCE_RESTRICTION_NATIVE_SOURCE,
-  SOURCE_RESTRICTION_LAST = SOURCE_RESTRICTION_NATIVE_SOURCE,
+enum class SourceRestriction {
+  kNone = 0,
+  kAnySource,
+  kNativeSource,
+  kMaxValue = kNativeSource,
 };
 
 
@@ -457,14 +458,14 @@ SourceRestriction ParseSourceRestriction(base::StringPiece as_string);
 std::u16string GetSourceRestrictionParseError(base::StringPiece as_string);
 
 // File categories to filter results from getRecentFiles().
-enum  FileCategory {
-  FILE_CATEGORY_NONE = 0,
-  FILE_CATEGORY_ALL,
-  FILE_CATEGORY_AUDIO,
-  FILE_CATEGORY_IMAGE,
-  FILE_CATEGORY_VIDEO,
-  FILE_CATEGORY_DOCUMENT,
-  FILE_CATEGORY_LAST = FILE_CATEGORY_DOCUMENT,
+enum class FileCategory {
+  kNone = 0,
+  kAll,
+  kAudio,
+  kImage,
+  kVideo,
+  kDocument,
+  kMaxValue = kDocument,
 };
 
 
@@ -472,14 +473,14 @@ const char* ToString(FileCategory as_enum);
 FileCategory ParseFileCategory(base::StringPiece as_string);
 std::u16string GetFileCategoryParseError(base::StringPiece as_string);
 
-enum  CrostiniEventType {
-  CROSTINI_EVENT_TYPE_NONE = 0,
-  CROSTINI_EVENT_TYPE_ENABLE,
-  CROSTINI_EVENT_TYPE_DISABLE,
-  CROSTINI_EVENT_TYPE_SHARE,
-  CROSTINI_EVENT_TYPE_UNSHARE,
-  CROSTINI_EVENT_TYPE_DROP_FAILED_PLUGIN_VM_DIRECTORY_NOT_SHARED,
-  CROSTINI_EVENT_TYPE_LAST = CROSTINI_EVENT_TYPE_DROP_FAILED_PLUGIN_VM_DIRECTORY_NOT_SHARED,
+enum class CrostiniEventType {
+  kNone = 0,
+  kEnable,
+  kDisable,
+  kShare,
+  kUnshare,
+  kDropFailedPluginVmDirectoryNotShared,
+  kMaxValue = kDropFailedPluginVmDirectoryNotShared,
 };
 
 
@@ -487,12 +488,12 @@ const char* ToString(CrostiniEventType as_enum);
 CrostiniEventType ParseCrostiniEventType(base::StringPiece as_string);
 std::u16string GetCrostiniEventTypeParseError(base::StringPiece as_string);
 
-enum  ProviderSource {
-  PROVIDER_SOURCE_NONE = 0,
-  PROVIDER_SOURCE_FILE,
-  PROVIDER_SOURCE_DEVICE,
-  PROVIDER_SOURCE_NETWORK,
-  PROVIDER_SOURCE_LAST = PROVIDER_SOURCE_NETWORK,
+enum class ProviderSource {
+  kNone = 0,
+  kFile,
+  kDevice,
+  kNetwork,
+  kMaxValue = kNetwork,
 };
 
 
@@ -500,12 +501,12 @@ const char* ToString(ProviderSource as_enum);
 ProviderSource ParseProviderSource(base::StringPiece as_string);
 std::u16string GetProviderSourceParseError(base::StringPiece as_string);
 
-enum  SharesheetLaunchSource {
-  SHARESHEET_LAUNCH_SOURCE_NONE = 0,
-  SHARESHEET_LAUNCH_SOURCE_CONTEXT_MENU,
-  SHARESHEET_LAUNCH_SOURCE_SHARESHEET_BUTTON,
-  SHARESHEET_LAUNCH_SOURCE_UNKNOWN,
-  SHARESHEET_LAUNCH_SOURCE_LAST = SHARESHEET_LAUNCH_SOURCE_UNKNOWN,
+enum class SharesheetLaunchSource {
+  kNone = 0,
+  kContextMenu,
+  kSharesheetButton,
+  kUnknown,
+  kMaxValue = kUnknown,
 };
 
 
@@ -513,17 +514,17 @@ const char* ToString(SharesheetLaunchSource as_enum);
 SharesheetLaunchSource ParseSharesheetLaunchSource(base::StringPiece as_string);
 std::u16string GetSharesheetLaunchSourceParseError(base::StringPiece as_string);
 
-enum  IOTaskState {
-  IO_TASK_STATE_NONE = 0,
-  IO_TASK_STATE_QUEUED,
-  IO_TASK_STATE_SCANNING,
-  IO_TASK_STATE_IN_PROGRESS,
-  IO_TASK_STATE_PAUSED,
-  IO_TASK_STATE_SUCCESS,
-  IO_TASK_STATE_ERROR,
-  IO_TASK_STATE_NEED_PASSWORD,
-  IO_TASK_STATE_CANCELLED,
-  IO_TASK_STATE_LAST = IO_TASK_STATE_CANCELLED,
+enum class IOTaskState {
+  kNone = 0,
+  kQueued,
+  kScanning,
+  kInProgress,
+  kPaused,
+  kSuccess,
+  kError,
+  kNeedPassword,
+  kCancelled,
+  kMaxValue = kCancelled,
 };
 
 
@@ -531,18 +532,18 @@ const char* ToString(IOTaskState as_enum);
 IOTaskState ParseIOTaskState(base::StringPiece as_string);
 std::u16string GetIOTaskStateParseError(base::StringPiece as_string);
 
-enum  IOTaskType {
-  IO_TASK_TYPE_NONE = 0,
-  IO_TASK_TYPE_COPY,
-  IO_TASK_TYPE_DELETE,
-  IO_TASK_TYPE_EMPTY_TRASH,
-  IO_TASK_TYPE_EXTRACT,
-  IO_TASK_TYPE_MOVE,
-  IO_TASK_TYPE_RESTORE,
-  IO_TASK_TYPE_RESTORE_TO_DESTINATION,
-  IO_TASK_TYPE_TRASH,
-  IO_TASK_TYPE_ZIP,
-  IO_TASK_TYPE_LAST = IO_TASK_TYPE_ZIP,
+enum class IOTaskType {
+  kNone = 0,
+  kCopy,
+  kDelete,
+  kEmptyTrash,
+  kExtract,
+  kMove,
+  kRestore,
+  kRestoreToDestination,
+  kTrash,
+  kZip,
+  kMaxValue = kZip,
 };
 
 
@@ -550,12 +551,12 @@ const char* ToString(IOTaskType as_enum);
 IOTaskType ParseIOTaskType(base::StringPiece as_string);
 std::u16string GetIOTaskTypeParseError(base::StringPiece as_string);
 
-enum  PolicyErrorType {
-  POLICY_ERROR_TYPE_NONE = 0,
-  POLICY_ERROR_TYPE_DLP,
-  POLICY_ERROR_TYPE_ENTERPRISE_CONNECTORS,
-  POLICY_ERROR_TYPE_DLP_WARNING_TIMEOUT,
-  POLICY_ERROR_TYPE_LAST = POLICY_ERROR_TYPE_DLP_WARNING_TIMEOUT,
+enum class PolicyErrorType {
+  kNone = 0,
+  kDlp,
+  kEnterpriseConnectors,
+  kDlpWarningTimeout,
+  kMaxValue = kDlpWarningTimeout,
 };
 
 
@@ -563,11 +564,11 @@ const char* ToString(PolicyErrorType as_enum);
 PolicyErrorType ParsePolicyErrorType(base::StringPiece as_string);
 std::u16string GetPolicyErrorTypeParseError(base::StringPiece as_string);
 
-enum  PolicyDialogType {
-  POLICY_DIALOG_TYPE_NONE = 0,
-  POLICY_DIALOG_TYPE_WARNING,
-  POLICY_DIALOG_TYPE_ERROR,
-  POLICY_DIALOG_TYPE_LAST = POLICY_DIALOG_TYPE_ERROR,
+enum class PolicyDialogType {
+  kNone = 0,
+  kWarning,
+  kError,
+  kMaxValue = kError,
 };
 
 
@@ -575,15 +576,15 @@ const char* ToString(PolicyDialogType as_enum);
 PolicyDialogType ParsePolicyDialogType(base::StringPiece as_string);
 std::u16string GetPolicyDialogTypeParseError(base::StringPiece as_string);
 
-enum  RecentDateBucket {
-  RECENT_DATE_BUCKET_NONE = 0,
-  RECENT_DATE_BUCKET_TODAY,
-  RECENT_DATE_BUCKET_YESTERDAY,
-  RECENT_DATE_BUCKET_EARLIER_THIS_WEEK,
-  RECENT_DATE_BUCKET_EARLIER_THIS_MONTH,
-  RECENT_DATE_BUCKET_EARLIER_THIS_YEAR,
-  RECENT_DATE_BUCKET_OLDER,
-  RECENT_DATE_BUCKET_LAST = RECENT_DATE_BUCKET_OLDER,
+enum class RecentDateBucket {
+  kNone = 0,
+  kToday,
+  kYesterday,
+  kEarlierThisWeek,
+  kEarlierThisMonth,
+  kEarlierThisYear,
+  kOlder,
+  kMaxValue = kOlder,
 };
 
 
@@ -591,14 +592,14 @@ const char* ToString(RecentDateBucket as_enum);
 RecentDateBucket ParseRecentDateBucket(base::StringPiece as_string);
 std::u16string GetRecentDateBucketParseError(base::StringPiece as_string);
 
-enum  VmType {
-  VM_TYPE_NONE = 0,
-  VM_TYPE_TERMINA,
-  VM_TYPE_PLUGIN_VM,
-  VM_TYPE_BOREALIS,
-  VM_TYPE_BRUSCHETTA,
-  VM_TYPE_ARCVM,
-  VM_TYPE_LAST = VM_TYPE_ARCVM,
+enum class VmType {
+  kNone = 0,
+  kTermina,
+  kPluginVm,
+  kBorealis,
+  kBruschetta,
+  kArcvm,
+  kMaxValue = kArcvm,
 };
 
 
@@ -606,11 +607,11 @@ const char* ToString(VmType as_enum);
 VmType ParseVmType(base::StringPiece as_string);
 std::u16string GetVmTypeParseError(base::StringPiece as_string);
 
-enum  UserType {
-  USER_TYPE_NONE = 0,
-  USER_TYPE_UNMANAGED,
-  USER_TYPE_ORGANIZATION,
-  USER_TYPE_LAST = USER_TYPE_ORGANIZATION,
+enum class UserType {
+  kNone = 0,
+  kUnmanaged,
+  kOrganization,
+  kMaxValue = kOrganization,
 };
 
 
@@ -618,13 +619,13 @@ const char* ToString(UserType as_enum);
 UserType ParseUserType(base::StringPiece as_string);
 std::u16string GetUserTypeParseError(base::StringPiece as_string);
 
-enum  DlpLevel {
-  DLP_LEVEL_NONE = 0,
-  DLP_LEVEL_REPORT,
-  DLP_LEVEL_WARN,
-  DLP_LEVEL_BLOCK,
-  DLP_LEVEL_ALLOW,
-  DLP_LEVEL_LAST = DLP_LEVEL_ALLOW,
+enum class DlpLevel {
+  kNone = 0,
+  kReport,
+  kWarn,
+  kBlock,
+  kAllow,
+  kMaxValue = kAllow,
 };
 
 
@@ -632,14 +633,14 @@ const char* ToString(DlpLevel as_enum);
 DlpLevel ParseDlpLevel(base::StringPiece as_string);
 std::u16string GetDlpLevelParseError(base::StringPiece as_string);
 
-enum  SyncStatus {
-  SYNC_STATUS_NONE = 0,
-  SYNC_STATUS_NOT_FOUND,
-  SYNC_STATUS_QUEUED,
-  SYNC_STATUS_IN_PROGRESS,
-  SYNC_STATUS_COMPLETED,
-  SYNC_STATUS_ERROR,
-  SYNC_STATUS_LAST = SYNC_STATUS_ERROR,
+enum class SyncStatus {
+  kNone = 0,
+  kNotFound,
+  kQueued,
+  kInProgress,
+  kCompleted,
+  kError,
+  kMaxValue = kError,
 };
 
 
@@ -649,11 +650,11 @@ std::u16string GetSyncStatusParseError(base::StringPiece as_string);
 
 // Describes how admin policy affects the default task in a ResultingTasks. See
 // chrome/browser/ash/file_manager/file_tasks.h for details.
-enum  PolicyDefaultHandlerStatus {
-  POLICY_DEFAULT_HANDLER_STATUS_NONE = 0,
-  POLICY_DEFAULT_HANDLER_STATUS_DEFAULT_HANDLER_ASSIGNED_BY_POLICY,
-  POLICY_DEFAULT_HANDLER_STATUS_INCORRECT_ASSIGNMENT,
-  POLICY_DEFAULT_HANDLER_STATUS_LAST = POLICY_DEFAULT_HANDLER_STATUS_INCORRECT_ASSIGNMENT,
+enum class PolicyDefaultHandlerStatus {
+  kNone = 0,
+  kDefaultHandlerAssignedByPolicy,
+  kIncorrectAssignment,
+  kMaxValue = kIncorrectAssignment,
 };
 
 
@@ -663,20 +664,20 @@ std::u16string GetPolicyDefaultHandlerStatusParseError(base::StringPiece as_stri
 
 // Describes the stage the bulk pinning manager is in. This enum should be kept
 // in sync with chromeos/ash/components/drivefs/mojom/pin_manager_types.mojom.
-enum  BulkPinStage {
-  BULK_PIN_STAGE_NONE = 0,
-  BULK_PIN_STAGE_STOPPED,
-  BULK_PIN_STAGE_PAUSED_OFFLINE,
-  BULK_PIN_STAGE_PAUSED_BATTERY_SAVER,
-  BULK_PIN_STAGE_GETTING_FREE_SPACE,
-  BULK_PIN_STAGE_LISTING_FILES,
-  BULK_PIN_STAGE_SYNCING,
-  BULK_PIN_STAGE_SUCCESS,
-  BULK_PIN_STAGE_NOT_ENOUGH_SPACE,
-  BULK_PIN_STAGE_CANNOT_GET_FREE_SPACE,
-  BULK_PIN_STAGE_CANNOT_LIST_FILES,
-  BULK_PIN_STAGE_CANNOT_ENABLE_DOCS_OFFLINE,
-  BULK_PIN_STAGE_LAST = BULK_PIN_STAGE_CANNOT_ENABLE_DOCS_OFFLINE,
+enum class BulkPinStage {
+  kNone = 0,
+  kStopped,
+  kPausedOffline,
+  kPausedBatterySaver,
+  kGettingFreeSpace,
+  kListingFiles,
+  kSyncing,
+  kSuccess,
+  kNotEnoughSpace,
+  kCannotGetFreeSpace,
+  kCannotListFiles,
+  kCannotEnableDocsOffline,
+  kMaxValue = kCannotEnableDocsOffline,
 };
 
 
@@ -689,8 +690,8 @@ struct FileTaskDescriptor {
   ~FileTaskDescriptor();
   FileTaskDescriptor(const FileTaskDescriptor&) = delete;
   FileTaskDescriptor& operator=(const FileTaskDescriptor&) = delete;
-  FileTaskDescriptor(FileTaskDescriptor&& rhs);
-  FileTaskDescriptor& operator=(FileTaskDescriptor&& rhs);
+  FileTaskDescriptor(FileTaskDescriptor&& rhs) noexcept;
+  FileTaskDescriptor& operator=(FileTaskDescriptor&& rhs) noexcept;
 
   // Populates a FileTaskDescriptor object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -703,16 +704,13 @@ struct FileTaskDescriptor {
   // Creates a deep copy of FileTaskDescriptor.
   FileTaskDescriptor Clone() const;
 
-  // Creates a FileTaskDescriptor object from a base::Value, or NULL on failure.
-  static std::unique_ptr<FileTaskDescriptor> FromValueDeprecated(const base::Value& value);
-
   // Creates a FileTaskDescriptor object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<FileTaskDescriptor> FromValue(const base::Value::Dict& value);
+  static std::optional<FileTaskDescriptor> FromValue(const base::Value::Dict& value);
 
   // Creates a FileTaskDescriptor object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<FileTaskDescriptor> FromValue(const base::Value& value);
+  static std::optional<FileTaskDescriptor> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisFileTaskDescriptor object.
@@ -731,8 +729,8 @@ struct FileTask {
   ~FileTask();
   FileTask(const FileTask&) = delete;
   FileTask& operator=(const FileTask&) = delete;
-  FileTask(FileTask&& rhs);
-  FileTask& operator=(FileTask&& rhs);
+  FileTask(FileTask&& rhs) noexcept;
+  FileTask& operator=(FileTask&& rhs) noexcept;
 
   // Populates a FileTask object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -745,14 +743,11 @@ struct FileTask {
   // Creates a deep copy of FileTask.
   FileTask Clone() const;
 
-  // Creates a FileTask object from a base::Value, or NULL on failure.
-  static std::unique_ptr<FileTask> FromValueDeprecated(const base::Value& value);
-
   // Creates a FileTask object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<FileTask> FromValue(const base::Value::Dict& value);
+  static std::optional<FileTask> FromValue(const base::Value::Dict& value);
 
   // Creates a FileTask object from a base::Value, or nullopt on failure.
-  static absl::optional<FileTask> FromValue(const base::Value& value);
+  static std::optional<FileTask> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisFileTask object.
@@ -765,19 +760,19 @@ struct FileTask {
   std::string title;
 
   // Task icon url (from chrome://extension-icon/...)
-  absl::optional<std::string> icon_url;
+  std::optional<std::string> icon_url;
 
   // True if this task is a default task for the selected files.
-  absl::optional<bool> is_default;
+  std::optional<bool> is_default;
 
   // True if this task is from generic file handler. Generic file handler is a
   // file handler which handles any type of files (e.g. extensions: ["*"], types:
   // ["*/*"]). Partial wild card (e.g. types: ["image/*"]) is not generic file
   // handler.
-  absl::optional<bool> is_generic_file_handler;
+  std::optional<bool> is_generic_file_handler;
 
   // True if this is task is blocked by Data Leak Prevention (DLP).
-  absl::optional<bool> is_dlp_blocked;
+  std::optional<bool> is_dlp_blocked;
 
 };
 
@@ -786,8 +781,8 @@ struct ResultingTasks {
   ~ResultingTasks();
   ResultingTasks(const ResultingTasks&) = delete;
   ResultingTasks& operator=(const ResultingTasks&) = delete;
-  ResultingTasks(ResultingTasks&& rhs);
-  ResultingTasks& operator=(ResultingTasks&& rhs);
+  ResultingTasks(ResultingTasks&& rhs) noexcept;
+  ResultingTasks& operator=(ResultingTasks&& rhs) noexcept;
 
   // Populates a ResultingTasks object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -800,15 +795,12 @@ struct ResultingTasks {
   // Creates a deep copy of ResultingTasks.
   ResultingTasks Clone() const;
 
-  // Creates a ResultingTasks object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ResultingTasks> FromValueDeprecated(const base::Value& value);
-
   // Creates a ResultingTasks object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<ResultingTasks> FromValue(const base::Value::Dict& value);
+  static std::optional<ResultingTasks> FromValue(const base::Value::Dict& value);
 
   // Creates a ResultingTasks object from a base::Value, or nullopt on failure.
-  static absl::optional<ResultingTasks> FromValue(const base::Value& value);
+  static std::optional<ResultingTasks> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisResultingTasks object.
@@ -827,8 +819,8 @@ struct EntryProperties {
   ~EntryProperties();
   EntryProperties(const EntryProperties&) = delete;
   EntryProperties& operator=(const EntryProperties&) = delete;
-  EntryProperties(EntryProperties&& rhs);
-  EntryProperties& operator=(EntryProperties&& rhs);
+  EntryProperties(EntryProperties&& rhs) noexcept;
+  EntryProperties& operator=(EntryProperties&& rhs) noexcept;
 
   // Populates a EntryProperties object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -841,133 +833,130 @@ struct EntryProperties {
   // Creates a deep copy of EntryProperties.
   EntryProperties Clone() const;
 
-  // Creates a EntryProperties object from a base::Value, or NULL on failure.
-  static std::unique_ptr<EntryProperties> FromValueDeprecated(const base::Value& value);
-
   // Creates a EntryProperties object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<EntryProperties> FromValue(const base::Value::Dict& value);
+  static std::optional<EntryProperties> FromValue(const base::Value::Dict& value);
 
   // Creates a EntryProperties object from a base::Value, or nullopt on failure.
-  static absl::optional<EntryProperties> FromValue(const base::Value& value);
+  static std::optional<EntryProperties> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisEntryProperties object.
   base::Value::Dict ToValue() const;
 
   // Size of this file.
-  absl::optional<double> size;
+  std::optional<double> size;
 
   // Timestamp of entry update time, in milliseconds past the epoch.
-  absl::optional<double> modification_time;
+  std::optional<double> modification_time;
 
   // Timestamp of entry update time by me, in milliseconds past the epoch.
-  absl::optional<double> modification_by_me_time;
+  std::optional<double> modification_by_me_time;
 
   // Date bucket calculated by |modificationTime| or |modificationByMeTime|.
   RecentDateBucket recent_date_bucket;
 
   // URL to the Drive thumbnail image for this file.
-  absl::optional<std::string> thumbnail_url;
+  std::optional<std::string> thumbnail_url;
 
   // URL to the Drive cropped thumbnail image for this file.
-  absl::optional<std::string> cropped_thumbnail_url;
+  std::optional<std::string> cropped_thumbnail_url;
 
   // Width, if the entry is an image.
-  absl::optional<int> image_width;
+  std::optional<int> image_width;
 
   // Height, if the entry is an image.
-  absl::optional<int> image_height;
+  std::optional<int> image_height;
 
   // Rotation in clockwise degrees, if the entry is an image.
-  absl::optional<int> image_rotation;
+  std::optional<int> image_rotation;
 
   // True if the file is pinned in cache.
-  absl::optional<bool> pinned;
+  std::optional<bool> pinned;
 
   // True if the file is present in cache.
-  absl::optional<bool> present;
+  std::optional<bool> present;
 
   // True if the file is hosted on a server instead of local.
-  absl::optional<bool> hosted;
+  std::optional<bool> hosted;
 
   // True if the file is available offline.
-  absl::optional<bool> available_offline;
+  std::optional<bool> available_offline;
 
   // True if the file is available on metered connection.
-  absl::optional<bool> available_when_metered;
+  std::optional<bool> available_when_metered;
 
   // True if the file has local change (has not been fully synced to the cloud).
-  absl::optional<bool> dirty;
+  std::optional<bool> dirty;
 
   // URL to the custom icon for this file.
-  absl::optional<std::string> custom_icon_url;
+  std::optional<std::string> custom_icon_url;
 
   // Drive MIME type for this file.
-  absl::optional<std::string> content_mime_type;
+  std::optional<std::string> content_mime_type;
 
   // True if the entry is labeled as shared-with-me.
-  absl::optional<bool> shared_with_me;
+  std::optional<bool> shared_with_me;
 
   // True if the entry is labeled as shared (either from me to others or to me by
   // others.)
-  absl::optional<bool> shared;
+  std::optional<bool> shared;
 
   // True if the entry is starred by the user.
-  absl::optional<bool> starred;
+  std::optional<bool> starred;
 
   // externalfile:// URL to open the file in browser.
-  absl::optional<std::string> external_file_url;
+  std::optional<std::string> external_file_url;
 
   // https:// URL to open the file or folder in the Drive website.
-  absl::optional<std::string> alternate_url;
+  std::optional<std::string> alternate_url;
 
   // https:// URL to open the file or folder in the Drive website with the sharing
   // dialog open.
-  absl::optional<std::string> share_url;
+  std::optional<std::string> share_url;
 
   // True if the entry can be copied by the user.
-  absl::optional<bool> can_copy;
+  std::optional<bool> can_copy;
 
   // True if the entry can be deleted by the user.
-  absl::optional<bool> can_delete;
+  std::optional<bool> can_delete;
 
   // True if the entry can be renamed by the user.
-  absl::optional<bool> can_rename;
+  std::optional<bool> can_rename;
 
   // True if the entry can have children added to it by the user (directories
   // only).
-  absl::optional<bool> can_add_children;
+  std::optional<bool> can_add_children;
 
   // True if the entry can be shared by the user.
-  absl::optional<bool> can_share;
+  std::optional<bool> can_share;
 
   // True if the entry can be pinned by the user.
-  absl::optional<bool> can_pin;
+  std::optional<bool> can_pin;
 
   // True if the entry is a machine root for backup and sync.
-  absl::optional<bool> is_machine_root;
+  std::optional<bool> is_machine_root;
 
   // True if the entry is a external media folder, that contains one time only
   // uploads for USB devices, SD cards etc.
-  absl::optional<bool> is_external_media;
+  std::optional<bool> is_external_media;
 
   // True if the entry is an arbitrary sync folder.
-  absl::optional<bool> is_arbitrary_sync_folder;
+  std::optional<bool> is_arbitrary_sync_folder;
 
   // Sync status for files tracked by different cloud filesystem providers.
   SyncStatus sync_status;
 
   // Progress representing some ongoing operation with the file. E.g., pasting,
   // syncing. Note: currently, this is exclusively being used for Drive syncing.
-  absl::optional<double> progress;
+  std::optional<double> progress;
 
   // Time in milliseconds since the epoch when the file last received a
   // "completed" sync status.
-  absl::optional<double> sync_completed_time;
+  std::optional<double> sync_completed_time;
 
   // True if the entry is a shortcut.
-  absl::optional<bool> shortcut;
+  std::optional<bool> shortcut;
 
 };
 
@@ -976,8 +965,8 @@ struct MountPointSizeStats {
   ~MountPointSizeStats();
   MountPointSizeStats(const MountPointSizeStats&) = delete;
   MountPointSizeStats& operator=(const MountPointSizeStats&) = delete;
-  MountPointSizeStats(MountPointSizeStats&& rhs);
-  MountPointSizeStats& operator=(MountPointSizeStats&& rhs);
+  MountPointSizeStats(MountPointSizeStats&& rhs) noexcept;
+  MountPointSizeStats& operator=(MountPointSizeStats&& rhs) noexcept;
 
   // Populates a MountPointSizeStats object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -990,17 +979,13 @@ struct MountPointSizeStats {
   // Creates a deep copy of MountPointSizeStats.
   MountPointSizeStats Clone() const;
 
-  // Creates a MountPointSizeStats object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<MountPointSizeStats> FromValueDeprecated(const base::Value& value);
-
   // Creates a MountPointSizeStats object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<MountPointSizeStats> FromValue(const base::Value::Dict& value);
+  static std::optional<MountPointSizeStats> FromValue(const base::Value::Dict& value);
 
   // Creates a MountPointSizeStats object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<MountPointSizeStats> FromValue(const base::Value& value);
+  static std::optional<MountPointSizeStats> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisMountPointSizeStats object.
@@ -1014,13 +999,88 @@ struct MountPointSizeStats {
 
 };
 
+struct SearchDriveResponse {
+  SearchDriveResponse();
+  ~SearchDriveResponse();
+  SearchDriveResponse(const SearchDriveResponse&) = delete;
+  SearchDriveResponse& operator=(const SearchDriveResponse&) = delete;
+  SearchDriveResponse(SearchDriveResponse&& rhs) noexcept;
+  SearchDriveResponse& operator=(SearchDriveResponse&& rhs) noexcept;
+
+  // Populates a SearchDriveResponse object from a base::Value& instance.
+  // Returns whether |out| was successfully populated.
+  static bool Populate(const base::Value& value, SearchDriveResponse& out);
+
+  // Populates a SearchDriveResponse object from a Dict& instance. Returns
+  // whether |out| was successfully populated.
+  static bool Populate(const base::Value::Dict& value, SearchDriveResponse& out);
+
+  // Creates a deep copy of SearchDriveResponse.
+  SearchDriveResponse Clone() const;
+
+  // Creates a SearchDriveResponse object from a base::Value::Dict, or nullopt
+  // on failure.
+  static std::optional<SearchDriveResponse> FromValue(const base::Value::Dict& value);
+
+  // Creates a SearchDriveResponse object from a base::Value, or nullopt on
+  // failure.
+  static std::optional<SearchDriveResponse> FromValue(const base::Value& value);
+
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisSearchDriveResponse object.
+  base::Value::Dict ToValue() const;
+
+  struct EntriesType {
+    EntriesType();
+    ~EntriesType();
+    EntriesType(const EntriesType&) = delete;
+    EntriesType& operator=(const EntriesType&) = delete;
+    EntriesType(EntriesType&& rhs) noexcept;
+    EntriesType& operator=(EntriesType&& rhs) noexcept;
+
+    // Populates a EntriesType object from a base::Value& instance. Returns
+    // whether |out| was successfully populated.
+    static bool Populate(const base::Value& value, EntriesType& out);
+
+    // Populates a EntriesType object from a Dict& instance. Returns whether |out|
+    // was successfully populated.
+    static bool Populate(const base::Value::Dict& value, EntriesType& out);
+
+    // Creates a deep copy of EntriesType.
+    EntriesType Clone() const;
+
+    // Creates a EntriesType object from a base::Value::Dict, or nullopt on
+    // failure.
+    static std::optional<EntriesType> FromValue(const base::Value::Dict& value);
+
+    // Creates a EntriesType object from a base::Value, or nullopt on failure.
+    static std::optional<EntriesType> FromValue(const base::Value& value);
+
+    // Returns a new base::Value::Dict representing the serialized form of
+    // thisEntriesType object.
+    base::Value::Dict ToValue() const;
+
+    base::Value::Dict additional_properties;
+  };
+
+
+
+  // Search results.
+  std::vector<EntriesType> entries;
+
+  // ID of the feed that contains next chunk of the search result. Should be sent
+  // to the next searchDrive request to perform incremental search.
+  std::string next_feed;
+
+};
+
 struct DriveQuotaMetadata {
   DriveQuotaMetadata();
   ~DriveQuotaMetadata();
   DriveQuotaMetadata(const DriveQuotaMetadata&) = delete;
   DriveQuotaMetadata& operator=(const DriveQuotaMetadata&) = delete;
-  DriveQuotaMetadata(DriveQuotaMetadata&& rhs);
-  DriveQuotaMetadata& operator=(DriveQuotaMetadata&& rhs);
+  DriveQuotaMetadata(DriveQuotaMetadata&& rhs) noexcept;
+  DriveQuotaMetadata& operator=(DriveQuotaMetadata&& rhs) noexcept;
 
   // Populates a DriveQuotaMetadata object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -1033,16 +1093,13 @@ struct DriveQuotaMetadata {
   // Creates a deep copy of DriveQuotaMetadata.
   DriveQuotaMetadata Clone() const;
 
-  // Creates a DriveQuotaMetadata object from a base::Value, or NULL on failure.
-  static std::unique_ptr<DriveQuotaMetadata> FromValueDeprecated(const base::Value& value);
-
   // Creates a DriveQuotaMetadata object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<DriveQuotaMetadata> FromValue(const base::Value::Dict& value);
+  static std::optional<DriveQuotaMetadata> FromValue(const base::Value::Dict& value);
 
   // Creates a DriveQuotaMetadata object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<DriveQuotaMetadata> FromValue(const base::Value& value);
+  static std::optional<DriveQuotaMetadata> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDriveQuotaMetadata object.
@@ -1070,8 +1127,8 @@ struct ProfileInfo {
   ~ProfileInfo();
   ProfileInfo(const ProfileInfo&) = delete;
   ProfileInfo& operator=(const ProfileInfo&) = delete;
-  ProfileInfo(ProfileInfo&& rhs);
-  ProfileInfo& operator=(ProfileInfo&& rhs);
+  ProfileInfo(ProfileInfo&& rhs) noexcept;
+  ProfileInfo& operator=(ProfileInfo&& rhs) noexcept;
 
   // Populates a ProfileInfo object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -1084,15 +1141,12 @@ struct ProfileInfo {
   // Creates a deep copy of ProfileInfo.
   ProfileInfo Clone() const;
 
-  // Creates a ProfileInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ProfileInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a ProfileInfo object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<ProfileInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<ProfileInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a ProfileInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<ProfileInfo> FromValue(const base::Value& value);
+  static std::optional<ProfileInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisProfileInfo object.
@@ -1111,13 +1165,55 @@ struct ProfileInfo {
 
 };
 
+struct ProfilesResponse {
+  ProfilesResponse();
+  ~ProfilesResponse();
+  ProfilesResponse(const ProfilesResponse&) = delete;
+  ProfilesResponse& operator=(const ProfilesResponse&) = delete;
+  ProfilesResponse(ProfilesResponse&& rhs) noexcept;
+  ProfilesResponse& operator=(ProfilesResponse&& rhs) noexcept;
+
+  // Populates a ProfilesResponse object from a base::Value& instance. Returns
+  // whether |out| was successfully populated.
+  static bool Populate(const base::Value& value, ProfilesResponse& out);
+
+  // Populates a ProfilesResponse object from a Dict& instance. Returns whether
+  // |out| was successfully populated.
+  static bool Populate(const base::Value::Dict& value, ProfilesResponse& out);
+
+  // Creates a deep copy of ProfilesResponse.
+  ProfilesResponse Clone() const;
+
+  // Creates a ProfilesResponse object from a base::Value::Dict, or nullopt on
+  // failure.
+  static std::optional<ProfilesResponse> FromValue(const base::Value::Dict& value);
+
+  // Creates a ProfilesResponse object from a base::Value, or nullopt on
+  // failure.
+  static std::optional<ProfilesResponse> FromValue(const base::Value& value);
+
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisProfilesResponse object.
+  base::Value::Dict ToValue() const;
+
+  // List of profile information.
+  std::vector<ProfileInfo> profiles;
+
+  // ID of the profile that runs the application instance.
+  std::string current_profile_id;
+
+  // ID of the profile that shows the application window.
+  std::string displayed_profile_id;
+
+};
+
 struct IconSet {
   IconSet();
   ~IconSet();
   IconSet(const IconSet&) = delete;
   IconSet& operator=(const IconSet&) = delete;
-  IconSet(IconSet&& rhs);
-  IconSet& operator=(IconSet&& rhs);
+  IconSet(IconSet&& rhs) noexcept;
+  IconSet& operator=(IconSet&& rhs) noexcept;
 
   // Populates a IconSet object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -1130,22 +1226,19 @@ struct IconSet {
   // Creates a deep copy of IconSet.
   IconSet Clone() const;
 
-  // Creates a IconSet object from a base::Value, or NULL on failure.
-  static std::unique_ptr<IconSet> FromValueDeprecated(const base::Value& value);
-
   // Creates a IconSet object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<IconSet> FromValue(const base::Value::Dict& value);
+  static std::optional<IconSet> FromValue(const base::Value::Dict& value);
 
   // Creates a IconSet object from a base::Value, or nullopt on failure.
-  static absl::optional<IconSet> FromValue(const base::Value& value);
+  static std::optional<IconSet> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisIconSet object.
   base::Value::Dict ToValue() const;
 
-  absl::optional<std::string> icon16x16_url;
+  std::optional<std::string> icon16x16_url;
 
-  absl::optional<std::string> icon32x32_url;
+  std::optional<std::string> icon32x32_url;
 
 };
 
@@ -1154,8 +1247,8 @@ struct VolumeMetadata {
   ~VolumeMetadata();
   VolumeMetadata(const VolumeMetadata&) = delete;
   VolumeMetadata& operator=(const VolumeMetadata&) = delete;
-  VolumeMetadata(VolumeMetadata&& rhs);
-  VolumeMetadata& operator=(VolumeMetadata&& rhs);
+  VolumeMetadata(VolumeMetadata&& rhs) noexcept;
+  VolumeMetadata& operator=(VolumeMetadata&& rhs) noexcept;
 
   // Populates a VolumeMetadata object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -1168,15 +1261,12 @@ struct VolumeMetadata {
   // Creates a deep copy of VolumeMetadata.
   VolumeMetadata Clone() const;
 
-  // Creates a VolumeMetadata object from a base::Value, or NULL on failure.
-  static std::unique_ptr<VolumeMetadata> FromValueDeprecated(const base::Value& value);
-
   // Creates a VolumeMetadata object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<VolumeMetadata> FromValue(const base::Value::Dict& value);
+  static std::optional<VolumeMetadata> FromValue(const base::Value::Dict& value);
 
   // Creates a VolumeMetadata object from a base::Value, or nullopt on failure.
-  static absl::optional<VolumeMetadata> FromValue(const base::Value& value);
+  static std::optional<VolumeMetadata> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisVolumeMetadata object.
@@ -1186,23 +1276,23 @@ struct VolumeMetadata {
   std::string volume_id;
 
   // Id the provided file system (for provided file systems).
-  absl::optional<std::string> file_system_id;
+  std::optional<std::string> file_system_id;
 
   // ID of the provider, if the volume is backed by FSP.
-  absl::optional<std::string> provider_id;
+  std::optional<std::string> provider_id;
 
   // Source of the volume's data.
   Source source;
 
   // Label of the volume (if available).
-  absl::optional<std::string> volume_label;
+  std::optional<std::string> volume_label;
 
   // Description of the profile where the volume belongs. TODO(hirono): Remove the
   // property because of the design change of multi-profile support.
   ProfileInfo profile;
 
   // The path to the mounted device, archive file or network resource.
-  absl::optional<std::string> source_path;
+  std::optional<std::string> source_path;
 
   // Type of the mounted volume.
   VolumeType volume_type;
@@ -1212,10 +1302,10 @@ struct VolumeMetadata {
 
   // Path to identify the device. This is consistent with DeviceEvent's
   // devicePath.
-  absl::optional<std::string> device_path;
+  std::optional<std::string> device_path;
 
   // Whether the device is parent or not (i.e. sdb rather than sdb1).
-  absl::optional<bool> is_parent_device;
+  std::optional<bool> is_parent_device;
 
   // Flag that specifies if volume is mounted in read-only mode.
   bool is_read_only;
@@ -1241,18 +1331,18 @@ struct VolumeMetadata {
   MountContext mount_context;
 
   // File system type indentifier.
-  absl::optional<std::string> disk_file_system_type;
+  std::optional<std::string> disk_file_system_type;
 
   // Icons for the volume.
   IconSet icon_set;
 
   // Drive label of the volume. Removable partitions that belong to the same
   // physical removable device share the same drive label.
-  absl::optional<std::string> drive_label;
+  std::optional<std::string> drive_label;
 
   // The path on the remote host where this volume is mounted, for crostini this
   // is the user's homedir (/home/<username>).
-  absl::optional<std::string> remote_mount_path;
+  std::optional<std::string> remote_mount_path;
 
   // Flag that specifies whether the volume is hidden from the user.
   bool hidden;
@@ -1267,8 +1357,8 @@ struct MountCompletedEvent {
   ~MountCompletedEvent();
   MountCompletedEvent(const MountCompletedEvent&) = delete;
   MountCompletedEvent& operator=(const MountCompletedEvent&) = delete;
-  MountCompletedEvent(MountCompletedEvent&& rhs);
-  MountCompletedEvent& operator=(MountCompletedEvent&& rhs);
+  MountCompletedEvent(MountCompletedEvent&& rhs) noexcept;
+  MountCompletedEvent& operator=(MountCompletedEvent&& rhs) noexcept;
 
   // Populates a MountCompletedEvent object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -1281,17 +1371,13 @@ struct MountCompletedEvent {
   // Creates a deep copy of MountCompletedEvent.
   MountCompletedEvent Clone() const;
 
-  // Creates a MountCompletedEvent object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<MountCompletedEvent> FromValueDeprecated(const base::Value& value);
-
   // Creates a MountCompletedEvent object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<MountCompletedEvent> FromValue(const base::Value::Dict& value);
+  static std::optional<MountCompletedEvent> FromValue(const base::Value::Dict& value);
 
   // Creates a MountCompletedEvent object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<MountCompletedEvent> FromValue(const base::Value& value);
+  static std::optional<MountCompletedEvent> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisMountCompletedEvent object.
@@ -1317,8 +1403,8 @@ struct FileTransferStatus {
   ~FileTransferStatus();
   FileTransferStatus(const FileTransferStatus&) = delete;
   FileTransferStatus& operator=(const FileTransferStatus&) = delete;
-  FileTransferStatus(FileTransferStatus&& rhs);
-  FileTransferStatus& operator=(FileTransferStatus&& rhs);
+  FileTransferStatus(FileTransferStatus&& rhs) noexcept;
+  FileTransferStatus& operator=(FileTransferStatus&& rhs) noexcept;
 
   // Populates a FileTransferStatus object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -1331,16 +1417,13 @@ struct FileTransferStatus {
   // Creates a deep copy of FileTransferStatus.
   FileTransferStatus Clone() const;
 
-  // Creates a FileTransferStatus object from a base::Value, or NULL on failure.
-  static std::unique_ptr<FileTransferStatus> FromValueDeprecated(const base::Value& value);
-
   // Creates a FileTransferStatus object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<FileTransferStatus> FromValue(const base::Value::Dict& value);
+  static std::optional<FileTransferStatus> FromValue(const base::Value::Dict& value);
 
   // Creates a FileTransferStatus object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<FileTransferStatus> FromValue(const base::Value& value);
+  static std::optional<FileTransferStatus> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisFileTransferStatus object.
@@ -1375,8 +1458,8 @@ struct SyncState {
   ~SyncState();
   SyncState(const SyncState&) = delete;
   SyncState& operator=(const SyncState&) = delete;
-  SyncState(SyncState&& rhs);
-  SyncState& operator=(SyncState&& rhs);
+  SyncState(SyncState&& rhs) noexcept;
+  SyncState& operator=(SyncState&& rhs) noexcept;
 
   // Populates a SyncState object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -1389,14 +1472,11 @@ struct SyncState {
   // Creates a deep copy of SyncState.
   SyncState Clone() const;
 
-  // Creates a SyncState object from a base::Value, or NULL on failure.
-  static std::unique_ptr<SyncState> FromValueDeprecated(const base::Value& value);
-
   // Creates a SyncState object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<SyncState> FromValue(const base::Value::Dict& value);
+  static std::optional<SyncState> FromValue(const base::Value::Dict& value);
 
   // Creates a SyncState object from a base::Value, or nullopt on failure.
-  static absl::optional<SyncState> FromValue(const base::Value& value);
+  static std::optional<SyncState> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisSyncState object.
@@ -1418,8 +1498,8 @@ struct DriveSyncErrorEvent {
   ~DriveSyncErrorEvent();
   DriveSyncErrorEvent(const DriveSyncErrorEvent&) = delete;
   DriveSyncErrorEvent& operator=(const DriveSyncErrorEvent&) = delete;
-  DriveSyncErrorEvent(DriveSyncErrorEvent&& rhs);
-  DriveSyncErrorEvent& operator=(DriveSyncErrorEvent&& rhs);
+  DriveSyncErrorEvent(DriveSyncErrorEvent&& rhs) noexcept;
+  DriveSyncErrorEvent& operator=(DriveSyncErrorEvent&& rhs) noexcept;
 
   // Populates a DriveSyncErrorEvent object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -1432,17 +1512,13 @@ struct DriveSyncErrorEvent {
   // Creates a deep copy of DriveSyncErrorEvent.
   DriveSyncErrorEvent Clone() const;
 
-  // Creates a DriveSyncErrorEvent object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<DriveSyncErrorEvent> FromValueDeprecated(const base::Value& value);
-
   // Creates a DriveSyncErrorEvent object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<DriveSyncErrorEvent> FromValue(const base::Value::Dict& value);
+  static std::optional<DriveSyncErrorEvent> FromValue(const base::Value::Dict& value);
 
   // Creates a DriveSyncErrorEvent object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<DriveSyncErrorEvent> FromValue(const base::Value& value);
+  static std::optional<DriveSyncErrorEvent> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDriveSyncErrorEvent object.
@@ -1455,7 +1531,7 @@ struct DriveSyncErrorEvent {
   std::string file_url;
 
   // Shared drive name if the error relates to a shared drive.
-  absl::optional<std::string> shared_drive;
+  std::optional<std::string> shared_drive;
 
 };
 
@@ -1464,8 +1540,8 @@ struct DriveConfirmDialogEvent {
   ~DriveConfirmDialogEvent();
   DriveConfirmDialogEvent(const DriveConfirmDialogEvent&) = delete;
   DriveConfirmDialogEvent& operator=(const DriveConfirmDialogEvent&) = delete;
-  DriveConfirmDialogEvent(DriveConfirmDialogEvent&& rhs);
-  DriveConfirmDialogEvent& operator=(DriveConfirmDialogEvent&& rhs);
+  DriveConfirmDialogEvent(DriveConfirmDialogEvent&& rhs) noexcept;
+  DriveConfirmDialogEvent& operator=(DriveConfirmDialogEvent&& rhs) noexcept;
 
   // Populates a DriveConfirmDialogEvent object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -1478,17 +1554,13 @@ struct DriveConfirmDialogEvent {
   // Creates a deep copy of DriveConfirmDialogEvent.
   DriveConfirmDialogEvent Clone() const;
 
-  // Creates a DriveConfirmDialogEvent object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<DriveConfirmDialogEvent> FromValueDeprecated(const base::Value& value);
-
   // Creates a DriveConfirmDialogEvent object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<DriveConfirmDialogEvent> FromValue(const base::Value::Dict& value);
+  static std::optional<DriveConfirmDialogEvent> FromValue(const base::Value::Dict& value);
 
   // Creates a DriveConfirmDialogEvent object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<DriveConfirmDialogEvent> FromValue(const base::Value& value);
+  static std::optional<DriveConfirmDialogEvent> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDriveConfirmDialogEvent object.
@@ -1507,8 +1579,8 @@ struct FileChange {
   ~FileChange();
   FileChange(const FileChange&) = delete;
   FileChange& operator=(const FileChange&) = delete;
-  FileChange(FileChange&& rhs);
-  FileChange& operator=(FileChange&& rhs);
+  FileChange(FileChange&& rhs) noexcept;
+  FileChange& operator=(FileChange&& rhs) noexcept;
 
   // Populates a FileChange object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -1521,15 +1593,12 @@ struct FileChange {
   // Creates a deep copy of FileChange.
   FileChange Clone() const;
 
-  // Creates a FileChange object from a base::Value, or NULL on failure.
-  static std::unique_ptr<FileChange> FromValueDeprecated(const base::Value& value);
-
   // Creates a FileChange object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<FileChange> FromValue(const base::Value::Dict& value);
+  static std::optional<FileChange> FromValue(const base::Value::Dict& value);
 
   // Creates a FileChange object from a base::Value, or nullopt on failure.
-  static absl::optional<FileChange> FromValue(const base::Value& value);
+  static std::optional<FileChange> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisFileChange object.
@@ -1548,8 +1617,8 @@ struct FileWatchEvent {
   ~FileWatchEvent();
   FileWatchEvent(const FileWatchEvent&) = delete;
   FileWatchEvent& operator=(const FileWatchEvent&) = delete;
-  FileWatchEvent(FileWatchEvent&& rhs);
-  FileWatchEvent& operator=(FileWatchEvent&& rhs);
+  FileWatchEvent(FileWatchEvent&& rhs) noexcept;
+  FileWatchEvent& operator=(FileWatchEvent&& rhs) noexcept;
 
   // Populates a FileWatchEvent object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -1562,15 +1631,12 @@ struct FileWatchEvent {
   // Creates a deep copy of FileWatchEvent.
   FileWatchEvent Clone() const;
 
-  // Creates a FileWatchEvent object from a base::Value, or NULL on failure.
-  static std::unique_ptr<FileWatchEvent> FromValueDeprecated(const base::Value& value);
-
   // Creates a FileWatchEvent object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<FileWatchEvent> FromValue(const base::Value::Dict& value);
+  static std::optional<FileWatchEvent> FromValue(const base::Value::Dict& value);
 
   // Creates a FileWatchEvent object from a base::Value, or nullopt on failure.
-  static absl::optional<FileWatchEvent> FromValue(const base::Value& value);
+  static std::optional<FileWatchEvent> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisFileWatchEvent object.
@@ -1586,8 +1652,8 @@ struct FileWatchEvent {
     ~Entry();
     Entry(const Entry&) = delete;
     Entry& operator=(const Entry&) = delete;
-    Entry(Entry&& rhs);
-    Entry& operator=(Entry&& rhs);
+    Entry(Entry&& rhs) noexcept;
+    Entry& operator=(Entry&& rhs) noexcept;
 
     // Populates a Entry object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -1601,10 +1667,10 @@ struct FileWatchEvent {
     Entry Clone() const;
 
     // Creates a Entry object from a base::Value::Dict, or nullopt on failure.
-    static absl::optional<Entry> FromValue(const base::Value::Dict& value);
+    static std::optional<Entry> FromValue(const base::Value::Dict& value);
 
     // Creates a Entry object from a base::Value, or nullopt on failure.
-    static absl::optional<Entry> FromValue(const base::Value& value);
+    static std::optional<Entry> FromValue(const base::Value& value);
 
     // Returns a new base::Value::Dict representing the serialized form of
     // thisEntry object.
@@ -1626,7 +1692,7 @@ struct FileWatchEvent {
 
   // Detailed change information of change. It would be null if the detailed
   // information is not available.
-  absl::optional<std::vector<FileChange>> changed_files;
+  std::optional<std::vector<FileChange>> changed_files;
 
 };
 
@@ -1635,8 +1701,8 @@ struct GetVolumeRootOptions {
   ~GetVolumeRootOptions();
   GetVolumeRootOptions(const GetVolumeRootOptions&) = delete;
   GetVolumeRootOptions& operator=(const GetVolumeRootOptions&) = delete;
-  GetVolumeRootOptions(GetVolumeRootOptions&& rhs);
-  GetVolumeRootOptions& operator=(GetVolumeRootOptions&& rhs);
+  GetVolumeRootOptions(GetVolumeRootOptions&& rhs) noexcept;
+  GetVolumeRootOptions& operator=(GetVolumeRootOptions&& rhs) noexcept;
 
   // Populates a GetVolumeRootOptions object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -1649,17 +1715,13 @@ struct GetVolumeRootOptions {
   // Creates a deep copy of GetVolumeRootOptions.
   GetVolumeRootOptions Clone() const;
 
-  // Creates a GetVolumeRootOptions object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<GetVolumeRootOptions> FromValueDeprecated(const base::Value& value);
-
   // Creates a GetVolumeRootOptions object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<GetVolumeRootOptions> FromValue(const base::Value::Dict& value);
+  static std::optional<GetVolumeRootOptions> FromValue(const base::Value::Dict& value);
 
   // Creates a GetVolumeRootOptions object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<GetVolumeRootOptions> FromValue(const base::Value& value);
+  static std::optional<GetVolumeRootOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisGetVolumeRootOptions object.
@@ -1670,7 +1732,7 @@ struct GetVolumeRootOptions {
 
   // Whether the requested file system should be writable. The default is
   // read-only.
-  absl::optional<bool> writable;
+  std::optional<bool> writable;
 
 };
 
@@ -1679,8 +1741,8 @@ struct Preferences {
   ~Preferences();
   Preferences(const Preferences&) = delete;
   Preferences& operator=(const Preferences&) = delete;
-  Preferences(Preferences&& rhs);
-  Preferences& operator=(Preferences&& rhs);
+  Preferences(Preferences&& rhs) noexcept;
+  Preferences& operator=(Preferences&& rhs) noexcept;
 
   // Populates a Preferences object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -1693,15 +1755,12 @@ struct Preferences {
   // Creates a deep copy of Preferences.
   Preferences Clone() const;
 
-  // Creates a Preferences object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Preferences> FromValueDeprecated(const base::Value& value);
-
   // Creates a Preferences object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<Preferences> FromValue(const base::Value::Dict& value);
+  static std::optional<Preferences> FromValue(const base::Value::Dict& value);
 
   // Creates a Preferences object from a base::Value, or nullopt on failure.
-  static absl::optional<Preferences> FromValue(const base::Value& value);
+  static std::optional<Preferences> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisPreferences object.
@@ -1729,6 +1788,8 @@ struct Preferences {
 
   double office_file_moved_google_drive;
 
+  bool drive_fs_bulk_pinning_available;
+
   bool drive_fs_bulk_pinning_enabled;
 
 };
@@ -1738,8 +1799,8 @@ struct PreferencesChange {
   ~PreferencesChange();
   PreferencesChange(const PreferencesChange&) = delete;
   PreferencesChange& operator=(const PreferencesChange&) = delete;
-  PreferencesChange(PreferencesChange&& rhs);
-  PreferencesChange& operator=(PreferencesChange&& rhs);
+  PreferencesChange(PreferencesChange&& rhs) noexcept;
+  PreferencesChange& operator=(PreferencesChange&& rhs) noexcept;
 
   // Populates a PreferencesChange object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -1752,30 +1813,27 @@ struct PreferencesChange {
   // Creates a deep copy of PreferencesChange.
   PreferencesChange Clone() const;
 
-  // Creates a PreferencesChange object from a base::Value, or NULL on failure.
-  static std::unique_ptr<PreferencesChange> FromValueDeprecated(const base::Value& value);
-
   // Creates a PreferencesChange object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<PreferencesChange> FromValue(const base::Value::Dict& value);
+  static std::optional<PreferencesChange> FromValue(const base::Value::Dict& value);
 
   // Creates a PreferencesChange object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<PreferencesChange> FromValue(const base::Value& value);
+  static std::optional<PreferencesChange> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisPreferencesChange object.
   base::Value::Dict ToValue() const;
 
-  absl::optional<bool> drive_sync_enabled_on_metered_network;
+  std::optional<bool> drive_sync_enabled_on_metered_network;
 
-  absl::optional<bool> arc_enabled;
+  std::optional<bool> arc_enabled;
 
-  absl::optional<bool> arc_removable_media_access_enabled;
+  std::optional<bool> arc_removable_media_access_enabled;
 
-  absl::optional<std::vector<std::string>> folder_shortcuts;
+  std::optional<std::vector<std::string>> folder_shortcuts;
 
-  absl::optional<bool> drive_fs_bulk_pinning_enabled;
+  std::optional<bool> drive_fs_bulk_pinning_enabled;
 
 };
 
@@ -1784,8 +1842,8 @@ struct SearchParams {
   ~SearchParams();
   SearchParams(const SearchParams&) = delete;
   SearchParams& operator=(const SearchParams&) = delete;
-  SearchParams(SearchParams&& rhs);
-  SearchParams& operator=(SearchParams&& rhs);
+  SearchParams(SearchParams&& rhs) noexcept;
+  SearchParams& operator=(SearchParams&& rhs) noexcept;
 
   // Populates a SearchParams object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -1798,15 +1856,12 @@ struct SearchParams {
   // Creates a deep copy of SearchParams.
   SearchParams Clone() const;
 
-  // Creates a SearchParams object from a base::Value, or NULL on failure.
-  static std::unique_ptr<SearchParams> FromValueDeprecated(const base::Value& value);
-
   // Creates a SearchParams object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<SearchParams> FromValue(const base::Value::Dict& value);
+  static std::optional<SearchParams> FromValue(const base::Value::Dict& value);
 
   // Creates a SearchParams object from a base::Value, or nullopt on failure.
-  static absl::optional<SearchParams> FromValue(const base::Value& value);
+  static std::optional<SearchParams> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisSearchParams object.
@@ -1819,7 +1874,7 @@ struct SearchParams {
   FileCategory category;
 
   // The minimum modified time of the files to be returned
-  absl::optional<double> modified_timestamp;
+  std::optional<double> modified_timestamp;
 
   // ID of the search feed that should be fetched next. Value passed here should
   // be gotten from previous searchDrive call. It can be empty for the initial
@@ -1833,8 +1888,8 @@ struct SearchMetadataParams {
   ~SearchMetadataParams();
   SearchMetadataParams(const SearchMetadataParams&) = delete;
   SearchMetadataParams& operator=(const SearchMetadataParams&) = delete;
-  SearchMetadataParams(SearchMetadataParams&& rhs);
-  SearchMetadataParams& operator=(SearchMetadataParams&& rhs);
+  SearchMetadataParams(SearchMetadataParams&& rhs) noexcept;
+  SearchMetadataParams& operator=(SearchMetadataParams&& rhs) noexcept;
 
   // Populates a SearchMetadataParams object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -1847,17 +1902,13 @@ struct SearchMetadataParams {
   // Creates a deep copy of SearchMetadataParams.
   SearchMetadataParams Clone() const;
 
-  // Creates a SearchMetadataParams object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<SearchMetadataParams> FromValueDeprecated(const base::Value& value);
-
   // Creates a SearchMetadataParams object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<SearchMetadataParams> FromValue(const base::Value::Dict& value);
+  static std::optional<SearchMetadataParams> FromValue(const base::Value::Dict& value);
 
   // Creates a SearchMetadataParams object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<SearchMetadataParams> FromValue(const base::Value& value);
+  static std::optional<SearchMetadataParams> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisSearchMetadataParams object.
@@ -1870,8 +1921,8 @@ struct SearchMetadataParams {
     ~RootDir();
     RootDir(const RootDir&) = delete;
     RootDir& operator=(const RootDir&) = delete;
-    RootDir(RootDir&& rhs);
-    RootDir& operator=(RootDir&& rhs);
+    RootDir(RootDir&& rhs) noexcept;
+    RootDir& operator=(RootDir&& rhs) noexcept;
 
     // Populates a RootDir object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -1885,10 +1936,10 @@ struct SearchMetadataParams {
     RootDir Clone() const;
 
     // Creates a RootDir object from a base::Value::Dict, or nullopt on failure.
-    static absl::optional<RootDir> FromValue(const base::Value::Dict& value);
+    static std::optional<RootDir> FromValue(const base::Value::Dict& value);
 
     // Creates a RootDir object from a base::Value, or nullopt on failure.
-    static absl::optional<RootDir> FromValue(const base::Value& value);
+    static std::optional<RootDir> FromValue(const base::Value& value);
 
     // Returns a new base::Value::Dict representing the serialized form of
     // thisRootDir object.
@@ -1900,7 +1951,7 @@ struct SearchMetadataParams {
 
   // Optional root directory from which to start the search. If not present, the
   // search begins at the local root.
-  absl::optional<RootDir> root_dir;
+  std::optional<RootDir> root_dir;
 
   // Search query. It can be empty. Any filename matches to an empty query.
   std::string query;
@@ -1913,7 +1964,7 @@ struct SearchMetadataParams {
 
   // Modified timestamp. The file must have modified timestamp more recent than
   // this to be included in results.
-  absl::optional<double> modified_timestamp;
+  std::optional<double> modified_timestamp;
 
   // The category of files to which the search is limited.
   FileCategory category;
@@ -1925,8 +1976,8 @@ struct DriveMetadataSearchResult {
   ~DriveMetadataSearchResult();
   DriveMetadataSearchResult(const DriveMetadataSearchResult&) = delete;
   DriveMetadataSearchResult& operator=(const DriveMetadataSearchResult&) = delete;
-  DriveMetadataSearchResult(DriveMetadataSearchResult&& rhs);
-  DriveMetadataSearchResult& operator=(DriveMetadataSearchResult&& rhs);
+  DriveMetadataSearchResult(DriveMetadataSearchResult&& rhs) noexcept;
+  DriveMetadataSearchResult& operator=(DriveMetadataSearchResult&& rhs) noexcept;
 
   // Populates a DriveMetadataSearchResult object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -1939,17 +1990,13 @@ struct DriveMetadataSearchResult {
   // Creates a deep copy of DriveMetadataSearchResult.
   DriveMetadataSearchResult Clone() const;
 
-  // Creates a DriveMetadataSearchResult object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<DriveMetadataSearchResult> FromValueDeprecated(const base::Value& value);
-
   // Creates a DriveMetadataSearchResult object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<DriveMetadataSearchResult> FromValue(const base::Value::Dict& value);
+  static std::optional<DriveMetadataSearchResult> FromValue(const base::Value::Dict& value);
 
   // Creates a DriveMetadataSearchResult object from a base::Value, or nullopt
   // on failure.
-  static absl::optional<DriveMetadataSearchResult> FromValue(const base::Value& value);
+  static std::optional<DriveMetadataSearchResult> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDriveMetadataSearchResult object.
@@ -1965,8 +2012,8 @@ struct DriveMetadataSearchResult {
     ~Entry();
     Entry(const Entry&) = delete;
     Entry& operator=(const Entry&) = delete;
-    Entry(Entry&& rhs);
-    Entry& operator=(Entry&& rhs);
+    Entry(Entry&& rhs) noexcept;
+    Entry& operator=(Entry&& rhs) noexcept;
 
     // Populates a Entry object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -1980,10 +2027,10 @@ struct DriveMetadataSearchResult {
     Entry Clone() const;
 
     // Creates a Entry object from a base::Value::Dict, or nullopt on failure.
-    static absl::optional<Entry> FromValue(const base::Value::Dict& value);
+    static std::optional<Entry> FromValue(const base::Value::Dict& value);
 
     // Creates a Entry object from a base::Value, or nullopt on failure.
-    static absl::optional<Entry> FromValue(const base::Value& value);
+    static std::optional<Entry> FromValue(const base::Value& value);
 
     // Returns a new base::Value::Dict representing the serialized form of
     // thisEntry object.
@@ -2006,7 +2053,7 @@ struct DriveMetadataSearchResult {
   std::string highlighted_base_name;
 
   // Whether the file is available while offline. May be unset if not applicable.
-  absl::optional<bool> available_offline;
+  std::optional<bool> available_offline;
 
 };
 
@@ -2015,8 +2062,8 @@ struct DriveConnectionState {
   ~DriveConnectionState();
   DriveConnectionState(const DriveConnectionState&) = delete;
   DriveConnectionState& operator=(const DriveConnectionState&) = delete;
-  DriveConnectionState(DriveConnectionState&& rhs);
-  DriveConnectionState& operator=(DriveConnectionState&& rhs);
+  DriveConnectionState(DriveConnectionState&& rhs) noexcept;
+  DriveConnectionState& operator=(DriveConnectionState&& rhs) noexcept;
 
   // Populates a DriveConnectionState object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -2029,17 +2076,13 @@ struct DriveConnectionState {
   // Creates a deep copy of DriveConnectionState.
   DriveConnectionState Clone() const;
 
-  // Creates a DriveConnectionState object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<DriveConnectionState> FromValueDeprecated(const base::Value& value);
-
   // Creates a DriveConnectionState object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<DriveConnectionState> FromValue(const base::Value::Dict& value);
+  static std::optional<DriveConnectionState> FromValue(const base::Value::Dict& value);
 
   // Creates a DriveConnectionState object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<DriveConnectionState> FromValue(const base::Value& value);
+  static std::optional<DriveConnectionState> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDriveConnectionState object.
@@ -2057,8 +2100,8 @@ struct DeviceEvent {
   ~DeviceEvent();
   DeviceEvent(const DeviceEvent&) = delete;
   DeviceEvent& operator=(const DeviceEvent&) = delete;
-  DeviceEvent(DeviceEvent&& rhs);
-  DeviceEvent& operator=(DeviceEvent&& rhs);
+  DeviceEvent(DeviceEvent&& rhs) noexcept;
+  DeviceEvent& operator=(DeviceEvent&& rhs) noexcept;
 
   // Populates a DeviceEvent object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -2071,15 +2114,12 @@ struct DeviceEvent {
   // Creates a deep copy of DeviceEvent.
   DeviceEvent Clone() const;
 
-  // Creates a DeviceEvent object from a base::Value, or NULL on failure.
-  static std::unique_ptr<DeviceEvent> FromValueDeprecated(const base::Value& value);
-
   // Creates a DeviceEvent object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<DeviceEvent> FromValue(const base::Value::Dict& value);
+  static std::optional<DeviceEvent> FromValue(const base::Value::Dict& value);
 
   // Creates a DeviceEvent object from a base::Value, or nullopt on failure.
-  static absl::optional<DeviceEvent> FromValue(const base::Value& value);
+  static std::optional<DeviceEvent> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDeviceEvent object.
@@ -2101,8 +2141,8 @@ struct Provider {
   ~Provider();
   Provider(const Provider&) = delete;
   Provider& operator=(const Provider&) = delete;
-  Provider(Provider&& rhs);
-  Provider& operator=(Provider&& rhs);
+  Provider(Provider&& rhs) noexcept;
+  Provider& operator=(Provider&& rhs) noexcept;
 
   // Populates a Provider object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -2115,14 +2155,11 @@ struct Provider {
   // Creates a deep copy of Provider.
   Provider Clone() const;
 
-  // Creates a Provider object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Provider> FromValueDeprecated(const base::Value& value);
-
   // Creates a Provider object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<Provider> FromValue(const base::Value::Dict& value);
+  static std::optional<Provider> FromValue(const base::Value::Dict& value);
 
   // Creates a Provider object from a base::Value, or nullopt on failure.
-  static absl::optional<Provider> FromValue(const base::Value& value);
+  static std::optional<Provider> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisProvider object.
@@ -2156,8 +2193,8 @@ struct FileSystemProviderAction {
   ~FileSystemProviderAction();
   FileSystemProviderAction(const FileSystemProviderAction&) = delete;
   FileSystemProviderAction& operator=(const FileSystemProviderAction&) = delete;
-  FileSystemProviderAction(FileSystemProviderAction&& rhs);
-  FileSystemProviderAction& operator=(FileSystemProviderAction&& rhs);
+  FileSystemProviderAction(FileSystemProviderAction&& rhs) noexcept;
+  FileSystemProviderAction& operator=(FileSystemProviderAction&& rhs) noexcept;
 
   // Populates a FileSystemProviderAction object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -2170,17 +2207,13 @@ struct FileSystemProviderAction {
   // Creates a deep copy of FileSystemProviderAction.
   FileSystemProviderAction Clone() const;
 
-  // Creates a FileSystemProviderAction object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<FileSystemProviderAction> FromValueDeprecated(const base::Value& value);
-
   // Creates a FileSystemProviderAction object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<FileSystemProviderAction> FromValue(const base::Value::Dict& value);
+  static std::optional<FileSystemProviderAction> FromValue(const base::Value::Dict& value);
 
   // Creates a FileSystemProviderAction object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<FileSystemProviderAction> FromValue(const base::Value& value);
+  static std::optional<FileSystemProviderAction> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisFileSystemProviderAction object.
@@ -2191,7 +2224,7 @@ struct FileSystemProviderAction {
   std::string id;
 
   // The title of the action. It may be ignored for common actions.
-  absl::optional<std::string> title;
+  std::optional<std::string> title;
 
 };
 
@@ -2200,8 +2233,8 @@ struct LinuxPackageInfo {
   ~LinuxPackageInfo();
   LinuxPackageInfo(const LinuxPackageInfo&) = delete;
   LinuxPackageInfo& operator=(const LinuxPackageInfo&) = delete;
-  LinuxPackageInfo(LinuxPackageInfo&& rhs);
-  LinuxPackageInfo& operator=(LinuxPackageInfo&& rhs);
+  LinuxPackageInfo(LinuxPackageInfo&& rhs) noexcept;
+  LinuxPackageInfo& operator=(LinuxPackageInfo&& rhs) noexcept;
 
   // Populates a LinuxPackageInfo object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -2214,16 +2247,13 @@ struct LinuxPackageInfo {
   // Creates a deep copy of LinuxPackageInfo.
   LinuxPackageInfo Clone() const;
 
-  // Creates a LinuxPackageInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<LinuxPackageInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a LinuxPackageInfo object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<LinuxPackageInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<LinuxPackageInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a LinuxPackageInfo object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<LinuxPackageInfo> FromValue(const base::Value& value);
+  static std::optional<LinuxPackageInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisLinuxPackageInfo object.
@@ -2234,10 +2264,10 @@ struct LinuxPackageInfo {
   std::string version;
 
   // A one-line summary of the project. Almost always present.
-  absl::optional<std::string> summary;
+  std::optional<std::string> summary;
 
   // A longer description of the project. Almost always present.
-  absl::optional<std::string> description;
+  std::optional<std::string> description;
 
 };
 
@@ -2246,8 +2276,8 @@ struct CrostiniEvent {
   ~CrostiniEvent();
   CrostiniEvent(const CrostiniEvent&) = delete;
   CrostiniEvent& operator=(const CrostiniEvent&) = delete;
-  CrostiniEvent(CrostiniEvent&& rhs);
-  CrostiniEvent& operator=(CrostiniEvent&& rhs);
+  CrostiniEvent(CrostiniEvent&& rhs) noexcept;
+  CrostiniEvent& operator=(CrostiniEvent&& rhs) noexcept;
 
   // Populates a CrostiniEvent object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -2260,15 +2290,12 @@ struct CrostiniEvent {
   // Creates a deep copy of CrostiniEvent.
   CrostiniEvent Clone() const;
 
-  // Creates a CrostiniEvent object from a base::Value, or NULL on failure.
-  static std::unique_ptr<CrostiniEvent> FromValueDeprecated(const base::Value& value);
-
   // Creates a CrostiniEvent object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<CrostiniEvent> FromValue(const base::Value::Dict& value);
+  static std::optional<CrostiniEvent> FromValue(const base::Value::Dict& value);
 
   // Creates a CrostiniEvent object from a base::Value, or nullopt on failure.
-  static absl::optional<CrostiniEvent> FromValue(const base::Value& value);
+  static std::optional<CrostiniEvent> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisCrostiniEvent object.
@@ -2279,8 +2306,8 @@ struct CrostiniEvent {
     ~EntriesType();
     EntriesType(const EntriesType&) = delete;
     EntriesType& operator=(const EntriesType&) = delete;
-    EntriesType(EntriesType&& rhs);
-    EntriesType& operator=(EntriesType&& rhs);
+    EntriesType(EntriesType&& rhs) noexcept;
+    EntriesType& operator=(EntriesType&& rhs) noexcept;
 
     // Populates a EntriesType object from a base::Value& instance. Returns
     // whether |out| was successfully populated.
@@ -2295,10 +2322,10 @@ struct CrostiniEvent {
 
     // Creates a EntriesType object from a base::Value::Dict, or nullopt on
     // failure.
-    static absl::optional<EntriesType> FromValue(const base::Value::Dict& value);
+    static std::optional<EntriesType> FromValue(const base::Value::Dict& value);
 
     // Creates a EntriesType object from a base::Value, or nullopt on failure.
-    static absl::optional<EntriesType> FromValue(const base::Value& value);
+    static std::optional<EntriesType> FromValue(const base::Value& value);
 
     // Returns a new base::Value::Dict representing the serialized form of
     // thisEntriesType object.
@@ -2323,13 +2350,87 @@ struct CrostiniEvent {
 
 };
 
+struct CrostiniSharedPathResponse {
+  CrostiniSharedPathResponse();
+  ~CrostiniSharedPathResponse();
+  CrostiniSharedPathResponse(const CrostiniSharedPathResponse&) = delete;
+  CrostiniSharedPathResponse& operator=(const CrostiniSharedPathResponse&) = delete;
+  CrostiniSharedPathResponse(CrostiniSharedPathResponse&& rhs) noexcept;
+  CrostiniSharedPathResponse& operator=(CrostiniSharedPathResponse&& rhs) noexcept;
+
+  // Populates a CrostiniSharedPathResponse object from a base::Value& instance.
+  // Returns whether |out| was successfully populated.
+  static bool Populate(const base::Value& value, CrostiniSharedPathResponse& out);
+
+  // Populates a CrostiniSharedPathResponse object from a Dict& instance.
+  // Returns whether |out| was successfully populated.
+  static bool Populate(const base::Value::Dict& value, CrostiniSharedPathResponse& out);
+
+  // Creates a deep copy of CrostiniSharedPathResponse.
+  CrostiniSharedPathResponse Clone() const;
+
+  // Creates a CrostiniSharedPathResponse object from a base::Value::Dict, or
+  // nullopt on failure.
+  static std::optional<CrostiniSharedPathResponse> FromValue(const base::Value::Dict& value);
+
+  // Creates a CrostiniSharedPathResponse object from a base::Value, or nullopt
+  // on failure.
+  static std::optional<CrostiniSharedPathResponse> FromValue(const base::Value& value);
+
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisCrostiniSharedPathResponse object.
+  base::Value::Dict ToValue() const;
+
+  struct EntriesType {
+    EntriesType();
+    ~EntriesType();
+    EntriesType(const EntriesType&) = delete;
+    EntriesType& operator=(const EntriesType&) = delete;
+    EntriesType(EntriesType&& rhs) noexcept;
+    EntriesType& operator=(EntriesType&& rhs) noexcept;
+
+    // Populates a EntriesType object from a base::Value& instance. Returns
+    // whether |out| was successfully populated.
+    static bool Populate(const base::Value& value, EntriesType& out);
+
+    // Populates a EntriesType object from a Dict& instance. Returns whether |out|
+    // was successfully populated.
+    static bool Populate(const base::Value::Dict& value, EntriesType& out);
+
+    // Creates a deep copy of EntriesType.
+    EntriesType Clone() const;
+
+    // Creates a EntriesType object from a base::Value::Dict, or nullopt on
+    // failure.
+    static std::optional<EntriesType> FromValue(const base::Value::Dict& value);
+
+    // Creates a EntriesType object from a base::Value, or nullopt on failure.
+    static std::optional<EntriesType> FromValue(const base::Value& value);
+
+    // Returns a new base::Value::Dict representing the serialized form of
+    // thisEntriesType object.
+    base::Value::Dict ToValue() const;
+
+    base::Value::Dict additional_properties;
+  };
+
+
+
+  // Entries shared with crostini container.
+  std::vector<EntriesType> entries;
+
+  // true the first time this is called for the session.
+  bool first_for_session;
+
+};
+
 struct AndroidApp {
   AndroidApp();
   ~AndroidApp();
   AndroidApp(const AndroidApp&) = delete;
   AndroidApp& operator=(const AndroidApp&) = delete;
-  AndroidApp(AndroidApp&& rhs);
-  AndroidApp& operator=(AndroidApp&& rhs);
+  AndroidApp(AndroidApp&& rhs) noexcept;
+  AndroidApp& operator=(AndroidApp&& rhs) noexcept;
 
   // Populates a AndroidApp object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -2342,15 +2443,12 @@ struct AndroidApp {
   // Creates a deep copy of AndroidApp.
   AndroidApp Clone() const;
 
-  // Creates a AndroidApp object from a base::Value, or NULL on failure.
-  static std::unique_ptr<AndroidApp> FromValueDeprecated(const base::Value& value);
-
   // Creates a AndroidApp object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<AndroidApp> FromValue(const base::Value::Dict& value);
+  static std::optional<AndroidApp> FromValue(const base::Value::Dict& value);
 
   // Creates a AndroidApp object from a base::Value, or nullopt on failure.
-  static absl::optional<AndroidApp> FromValue(const base::Value& value);
+  static std::optional<AndroidApp> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisAndroidApp object.
@@ -2366,7 +2464,7 @@ struct AndroidApp {
   std::string activity_name;
 
   // App icon.
-  absl::optional<IconSet> icon_set;
+  std::optional<IconSet> icon_set;
 
 };
 
@@ -2375,8 +2473,8 @@ struct StreamInfo {
   ~StreamInfo();
   StreamInfo(const StreamInfo&) = delete;
   StreamInfo& operator=(const StreamInfo&) = delete;
-  StreamInfo(StreamInfo&& rhs);
-  StreamInfo& operator=(StreamInfo&& rhs);
+  StreamInfo(StreamInfo&& rhs) noexcept;
+  StreamInfo& operator=(StreamInfo&& rhs) noexcept;
 
   // Populates a StreamInfo object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -2389,15 +2487,12 @@ struct StreamInfo {
   // Creates a deep copy of StreamInfo.
   StreamInfo Clone() const;
 
-  // Creates a StreamInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<StreamInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a StreamInfo object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<StreamInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<StreamInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a StreamInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<StreamInfo> FromValue(const base::Value& value);
+  static std::optional<StreamInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisStreamInfo object.
@@ -2409,8 +2504,8 @@ struct StreamInfo {
     ~Tags();
     Tags(const Tags&) = delete;
     Tags& operator=(const Tags&) = delete;
-    Tags(Tags&& rhs);
-    Tags& operator=(Tags&& rhs);
+    Tags(Tags&& rhs) noexcept;
+    Tags& operator=(Tags&& rhs) noexcept;
 
     // Populates a Tags object from a base::Value& instance. Returns whether |out|
     // was successfully populated.
@@ -2424,10 +2519,10 @@ struct StreamInfo {
     Tags Clone() const;
 
     // Creates a Tags object from a base::Value::Dict, or nullopt on failure.
-    static absl::optional<Tags> FromValue(const base::Value::Dict& value);
+    static std::optional<Tags> FromValue(const base::Value::Dict& value);
 
     // Creates a Tags object from a base::Value, or nullopt on failure.
-    static absl::optional<Tags> FromValue(const base::Value& value);
+    static std::optional<Tags> FromValue(const base::Value& value);
 
     // Returns a new base::Value::Dict representing the serialized form of
     // thisTags object.
@@ -2450,8 +2545,8 @@ struct AttachedImages {
   ~AttachedImages();
   AttachedImages(const AttachedImages&) = delete;
   AttachedImages& operator=(const AttachedImages&) = delete;
-  AttachedImages(AttachedImages&& rhs);
-  AttachedImages& operator=(AttachedImages&& rhs);
+  AttachedImages(AttachedImages&& rhs) noexcept;
+  AttachedImages& operator=(AttachedImages&& rhs) noexcept;
 
   // Populates a AttachedImages object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -2464,15 +2559,12 @@ struct AttachedImages {
   // Creates a deep copy of AttachedImages.
   AttachedImages Clone() const;
 
-  // Creates a AttachedImages object from a base::Value, or NULL on failure.
-  static std::unique_ptr<AttachedImages> FromValueDeprecated(const base::Value& value);
-
   // Creates a AttachedImages object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<AttachedImages> FromValue(const base::Value::Dict& value);
+  static std::optional<AttachedImages> FromValue(const base::Value::Dict& value);
 
   // Creates a AttachedImages object from a base::Value, or nullopt on failure.
-  static absl::optional<AttachedImages> FromValue(const base::Value& value);
+  static std::optional<AttachedImages> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisAttachedImages object.
@@ -2491,8 +2583,8 @@ struct MediaMetadata {
   ~MediaMetadata();
   MediaMetadata(const MediaMetadata&) = delete;
   MediaMetadata& operator=(const MediaMetadata&) = delete;
-  MediaMetadata(MediaMetadata&& rhs);
-  MediaMetadata& operator=(MediaMetadata&& rhs);
+  MediaMetadata(MediaMetadata&& rhs) noexcept;
+  MediaMetadata& operator=(MediaMetadata&& rhs) noexcept;
 
   // Populates a MediaMetadata object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -2505,15 +2597,12 @@ struct MediaMetadata {
   // Creates a deep copy of MediaMetadata.
   MediaMetadata Clone() const;
 
-  // Creates a MediaMetadata object from a base::Value, or NULL on failure.
-  static std::unique_ptr<MediaMetadata> FromValueDeprecated(const base::Value& value);
-
   // Creates a MediaMetadata object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<MediaMetadata> FromValue(const base::Value::Dict& value);
+  static std::optional<MediaMetadata> FromValue(const base::Value::Dict& value);
 
   // Creates a MediaMetadata object from a base::Value, or nullopt on failure.
-  static absl::optional<MediaMetadata> FromValue(const base::Value& value);
+  static std::optional<MediaMetadata> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisMediaMetadata object.
@@ -2523,34 +2612,34 @@ struct MediaMetadata {
   std::string mime_type;
 
   // Defined for video. In pixels.
-  absl::optional<int> height;
+  std::optional<int> height;
 
-  absl::optional<int> width;
+  std::optional<int> width;
 
   // Defined for audio and video. In seconds.
-  absl::optional<double> duration;
+  std::optional<double> duration;
 
   // Defined for video. In degrees.
-  absl::optional<int> rotation;
+  std::optional<int> rotation;
 
   // Defined for audio and video.
-  absl::optional<std::string> album;
+  std::optional<std::string> album;
 
-  absl::optional<std::string> artist;
+  std::optional<std::string> artist;
 
-  absl::optional<std::string> comment;
+  std::optional<std::string> comment;
 
-  absl::optional<std::string> copyright;
+  std::optional<std::string> copyright;
 
-  absl::optional<int> disc;
+  std::optional<int> disc;
 
-  absl::optional<std::string> genre;
+  std::optional<std::string> genre;
 
-  absl::optional<std::string> language;
+  std::optional<std::string> language;
 
-  absl::optional<std::string> title;
+  std::optional<std::string> title;
 
-  absl::optional<int> track;
+  std::optional<int> track;
 
   // All the metadata in the media file. For formats with multiple streams, stream
   // order is preserved. Container metadata is the first stream.
@@ -2567,8 +2656,8 @@ struct HoldingSpaceState {
   ~HoldingSpaceState();
   HoldingSpaceState(const HoldingSpaceState&) = delete;
   HoldingSpaceState& operator=(const HoldingSpaceState&) = delete;
-  HoldingSpaceState(HoldingSpaceState&& rhs);
-  HoldingSpaceState& operator=(HoldingSpaceState&& rhs);
+  HoldingSpaceState(HoldingSpaceState&& rhs) noexcept;
+  HoldingSpaceState& operator=(HoldingSpaceState&& rhs) noexcept;
 
   // Populates a HoldingSpaceState object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -2581,16 +2670,13 @@ struct HoldingSpaceState {
   // Creates a deep copy of HoldingSpaceState.
   HoldingSpaceState Clone() const;
 
-  // Creates a HoldingSpaceState object from a base::Value, or NULL on failure.
-  static std::unique_ptr<HoldingSpaceState> FromValueDeprecated(const base::Value& value);
-
   // Creates a HoldingSpaceState object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<HoldingSpaceState> FromValue(const base::Value::Dict& value);
+  static std::optional<HoldingSpaceState> FromValue(const base::Value::Dict& value);
 
   // Creates a HoldingSpaceState object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<HoldingSpaceState> FromValue(const base::Value& value);
+  static std::optional<HoldingSpaceState> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisHoldingSpaceState object.
@@ -2606,8 +2692,8 @@ struct OpenWindowParams {
   ~OpenWindowParams();
   OpenWindowParams(const OpenWindowParams&) = delete;
   OpenWindowParams& operator=(const OpenWindowParams&) = delete;
-  OpenWindowParams(OpenWindowParams&& rhs);
-  OpenWindowParams& operator=(OpenWindowParams&& rhs);
+  OpenWindowParams(OpenWindowParams&& rhs) noexcept;
+  OpenWindowParams& operator=(OpenWindowParams&& rhs) noexcept;
 
   // Populates a OpenWindowParams object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -2620,16 +2706,13 @@ struct OpenWindowParams {
   // Creates a deep copy of OpenWindowParams.
   OpenWindowParams Clone() const;
 
-  // Creates a OpenWindowParams object from a base::Value, or NULL on failure.
-  static std::unique_ptr<OpenWindowParams> FromValueDeprecated(const base::Value& value);
-
   // Creates a OpenWindowParams object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<OpenWindowParams> FromValue(const base::Value::Dict& value);
+  static std::optional<OpenWindowParams> FromValue(const base::Value::Dict& value);
 
   // Creates a OpenWindowParams object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<OpenWindowParams> FromValue(const base::Value& value);
+  static std::optional<OpenWindowParams> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisOpenWindowParams object.
@@ -2637,10 +2720,10 @@ struct OpenWindowParams {
 
   // The desired target directory when opening a new window. If omitted Files app
   // displays the default directory: MyFiles.
-  absl::optional<std::string> current_directory_url;
+  std::optional<std::string> current_directory_url;
 
   // The URL for a file or directory to be selected once a new window is spawned.
-  absl::optional<std::string> selection_url;
+  std::optional<std::string> selection_url;
 
 };
 
@@ -2649,8 +2732,8 @@ struct IOTaskParams {
   ~IOTaskParams();
   IOTaskParams(const IOTaskParams&) = delete;
   IOTaskParams& operator=(const IOTaskParams&) = delete;
-  IOTaskParams(IOTaskParams&& rhs);
-  IOTaskParams& operator=(IOTaskParams&& rhs);
+  IOTaskParams(IOTaskParams&& rhs) noexcept;
+  IOTaskParams& operator=(IOTaskParams&& rhs) noexcept;
 
   // Populates a IOTaskParams object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -2663,15 +2746,12 @@ struct IOTaskParams {
   // Creates a deep copy of IOTaskParams.
   IOTaskParams Clone() const;
 
-  // Creates a IOTaskParams object from a base::Value, or NULL on failure.
-  static std::unique_ptr<IOTaskParams> FromValueDeprecated(const base::Value& value);
-
   // Creates a IOTaskParams object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<IOTaskParams> FromValue(const base::Value::Dict& value);
+  static std::optional<IOTaskParams> FromValue(const base::Value::Dict& value);
 
   // Creates a IOTaskParams object from a base::Value, or nullopt on failure.
-  static absl::optional<IOTaskParams> FromValue(const base::Value& value);
+  static std::optional<IOTaskParams> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisIOTaskParams object.
@@ -2683,8 +2763,8 @@ struct IOTaskParams {
     ~DestinationFolder();
     DestinationFolder(const DestinationFolder&) = delete;
     DestinationFolder& operator=(const DestinationFolder&) = delete;
-    DestinationFolder(DestinationFolder&& rhs);
-    DestinationFolder& operator=(DestinationFolder&& rhs);
+    DestinationFolder(DestinationFolder&& rhs) noexcept;
+    DestinationFolder& operator=(DestinationFolder&& rhs) noexcept;
 
     // Populates a DestinationFolder object from a base::Value& instance. Returns
     // whether |out| was successfully populated.
@@ -2699,11 +2779,11 @@ struct IOTaskParams {
 
     // Creates a DestinationFolder object from a base::Value::Dict, or nullopt on
     // failure.
-    static absl::optional<DestinationFolder> FromValue(const base::Value::Dict& value);
+    static std::optional<DestinationFolder> FromValue(const base::Value::Dict& value);
 
     // Creates a DestinationFolder object from a base::Value, or nullopt on
     // failure.
-    static absl::optional<DestinationFolder> FromValue(const base::Value& value);
+    static std::optional<DestinationFolder> FromValue(const base::Value& value);
 
     // Returns a new base::Value::Dict representing the serialized form of
     // thisDestinationFolder object.
@@ -2714,15 +2794,15 @@ struct IOTaskParams {
 
 
   // Destination folder for tasks that require one. Not required by |delete| task.
-  absl::optional<DestinationFolder> destination_folder;
+  std::optional<DestinationFolder> destination_folder;
 
   // Password used for unpacking encrypted archives.
-  absl::optional<std::string> password;
+  std::optional<std::string> password;
 
   // Whether to display a notification in the UI. This does not stop the
   // IOProgressStatus event propagating instead it provides a true boolean on the
   // event that the UI can choose to show / hide the notification.
-  absl::optional<bool> show_notification;
+  std::optional<bool> show_notification;
 
 };
 
@@ -2731,8 +2811,8 @@ struct PolicyError {
   ~PolicyError();
   PolicyError(const PolicyError&) = delete;
   PolicyError& operator=(const PolicyError&) = delete;
-  PolicyError(PolicyError&& rhs);
-  PolicyError& operator=(PolicyError&& rhs);
+  PolicyError(PolicyError&& rhs) noexcept;
+  PolicyError& operator=(PolicyError&& rhs) noexcept;
 
   // Populates a PolicyError object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -2745,15 +2825,12 @@ struct PolicyError {
   // Creates a deep copy of PolicyError.
   PolicyError Clone() const;
 
-  // Creates a PolicyError object from a base::Value, or NULL on failure.
-  static std::unique_ptr<PolicyError> FromValueDeprecated(const base::Value& value);
-
   // Creates a PolicyError object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<PolicyError> FromValue(const base::Value::Dict& value);
+  static std::optional<PolicyError> FromValue(const base::Value::Dict& value);
 
   // Creates a PolicyError object from a base::Value, or nullopt on failure.
-  static absl::optional<PolicyError> FromValue(const base::Value& value);
+  static std::optional<PolicyError> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisPolicyError object.
@@ -2780,8 +2857,8 @@ struct ConflictPauseParams {
   ~ConflictPauseParams();
   ConflictPauseParams(const ConflictPauseParams&) = delete;
   ConflictPauseParams& operator=(const ConflictPauseParams&) = delete;
-  ConflictPauseParams(ConflictPauseParams&& rhs);
-  ConflictPauseParams& operator=(ConflictPauseParams&& rhs);
+  ConflictPauseParams(ConflictPauseParams&& rhs) noexcept;
+  ConflictPauseParams& operator=(ConflictPauseParams&& rhs) noexcept;
 
   // Populates a ConflictPauseParams object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -2794,33 +2871,29 @@ struct ConflictPauseParams {
   // Creates a deep copy of ConflictPauseParams.
   ConflictPauseParams Clone() const;
 
-  // Creates a ConflictPauseParams object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<ConflictPauseParams> FromValueDeprecated(const base::Value& value);
-
   // Creates a ConflictPauseParams object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<ConflictPauseParams> FromValue(const base::Value::Dict& value);
+  static std::optional<ConflictPauseParams> FromValue(const base::Value::Dict& value);
 
   // Creates a ConflictPauseParams object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<ConflictPauseParams> FromValue(const base::Value& value);
+  static std::optional<ConflictPauseParams> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisConflictPauseParams object.
   base::Value::Dict ToValue() const;
 
   // The conflict file name.
-  absl::optional<std::string> conflict_name;
+  std::optional<std::string> conflict_name;
 
   // True if the conflict file name is a directory.
-  absl::optional<bool> conflict_is_directory;
+  std::optional<bool> conflict_is_directory;
 
   // Set true if there are potentially multiple conflicted file names.
-  absl::optional<bool> conflict_multiple;
+  std::optional<bool> conflict_multiple;
 
   // The conflict copy or move target URL.
-  absl::optional<std::string> conflict_target_url;
+  std::optional<std::string> conflict_target_url;
 
 };
 
@@ -2829,8 +2902,8 @@ struct PolicyPauseParams {
   ~PolicyPauseParams();
   PolicyPauseParams(const PolicyPauseParams&) = delete;
   PolicyPauseParams& operator=(const PolicyPauseParams&) = delete;
-  PolicyPauseParams(PolicyPauseParams&& rhs);
-  PolicyPauseParams& operator=(PolicyPauseParams&& rhs);
+  PolicyPauseParams(PolicyPauseParams&& rhs) noexcept;
+  PolicyPauseParams& operator=(PolicyPauseParams&& rhs) noexcept;
 
   // Populates a PolicyPauseParams object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -2843,16 +2916,13 @@ struct PolicyPauseParams {
   // Creates a deep copy of PolicyPauseParams.
   PolicyPauseParams Clone() const;
 
-  // Creates a PolicyPauseParams object from a base::Value, or NULL on failure.
-  static std::unique_ptr<PolicyPauseParams> FromValueDeprecated(const base::Value& value);
-
   // Creates a PolicyPauseParams object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<PolicyPauseParams> FromValue(const base::Value::Dict& value);
+  static std::optional<PolicyPauseParams> FromValue(const base::Value::Dict& value);
 
   // Creates a PolicyPauseParams object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<PolicyPauseParams> FromValue(const base::Value& value);
+  static std::optional<PolicyPauseParams> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisPolicyPauseParams object.
@@ -2879,8 +2949,8 @@ struct PauseParams {
   ~PauseParams();
   PauseParams(const PauseParams&) = delete;
   PauseParams& operator=(const PauseParams&) = delete;
-  PauseParams(PauseParams&& rhs);
-  PauseParams& operator=(PauseParams&& rhs);
+  PauseParams(PauseParams&& rhs) noexcept;
+  PauseParams& operator=(PauseParams&& rhs) noexcept;
 
   // Populates a PauseParams object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -2893,25 +2963,22 @@ struct PauseParams {
   // Creates a deep copy of PauseParams.
   PauseParams Clone() const;
 
-  // Creates a PauseParams object from a base::Value, or NULL on failure.
-  static std::unique_ptr<PauseParams> FromValueDeprecated(const base::Value& value);
-
   // Creates a PauseParams object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<PauseParams> FromValue(const base::Value::Dict& value);
+  static std::optional<PauseParams> FromValue(const base::Value::Dict& value);
 
   // Creates a PauseParams object from a base::Value, or nullopt on failure.
-  static absl::optional<PauseParams> FromValue(const base::Value& value);
+  static std::optional<PauseParams> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisPauseParams object.
   base::Value::Dict ToValue() const;
 
   // Set iff pausing due to name conflict.
-  absl::optional<ConflictPauseParams> conflict_params;
+  std::optional<ConflictPauseParams> conflict_params;
 
   // Set iff pausing due to policy.
-  absl::optional<PolicyPauseParams> policy_params;
+  std::optional<PolicyPauseParams> policy_params;
 
 };
 
@@ -2920,8 +2987,8 @@ struct ConflictResumeParams {
   ~ConflictResumeParams();
   ConflictResumeParams(const ConflictResumeParams&) = delete;
   ConflictResumeParams& operator=(const ConflictResumeParams&) = delete;
-  ConflictResumeParams(ConflictResumeParams&& rhs);
-  ConflictResumeParams& operator=(ConflictResumeParams&& rhs);
+  ConflictResumeParams(ConflictResumeParams&& rhs) noexcept;
+  ConflictResumeParams& operator=(ConflictResumeParams&& rhs) noexcept;
 
   // Populates a ConflictResumeParams object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -2934,17 +3001,13 @@ struct ConflictResumeParams {
   // Creates a deep copy of ConflictResumeParams.
   ConflictResumeParams Clone() const;
 
-  // Creates a ConflictResumeParams object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<ConflictResumeParams> FromValueDeprecated(const base::Value& value);
-
   // Creates a ConflictResumeParams object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<ConflictResumeParams> FromValue(const base::Value::Dict& value);
+  static std::optional<ConflictResumeParams> FromValue(const base::Value::Dict& value);
 
   // Creates a ConflictResumeParams object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<ConflictResumeParams> FromValue(const base::Value& value);
+  static std::optional<ConflictResumeParams> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisConflictResumeParams object.
@@ -2952,10 +3015,10 @@ struct ConflictResumeParams {
 
   // How to resolve a CopyOrMoveIOTask file name conflict: either 'keepboth' or
   // 'replace'.
-  absl::optional<std::string> conflict_resolve;
+  std::optional<std::string> conflict_resolve;
 
   // Set true if conflictResolve should apply to future file name conflicts.
-  absl::optional<bool> conflict_apply_to_all;
+  std::optional<bool> conflict_apply_to_all;
 
 };
 
@@ -2964,8 +3027,8 @@ struct PolicyResumeParams {
   ~PolicyResumeParams();
   PolicyResumeParams(const PolicyResumeParams&) = delete;
   PolicyResumeParams& operator=(const PolicyResumeParams&) = delete;
-  PolicyResumeParams(PolicyResumeParams&& rhs);
-  PolicyResumeParams& operator=(PolicyResumeParams&& rhs);
+  PolicyResumeParams(PolicyResumeParams&& rhs) noexcept;
+  PolicyResumeParams& operator=(PolicyResumeParams&& rhs) noexcept;
 
   // Populates a PolicyResumeParams object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -2978,16 +3041,13 @@ struct PolicyResumeParams {
   // Creates a deep copy of PolicyResumeParams.
   PolicyResumeParams Clone() const;
 
-  // Creates a PolicyResumeParams object from a base::Value, or NULL on failure.
-  static std::unique_ptr<PolicyResumeParams> FromValueDeprecated(const base::Value& value);
-
   // Creates a PolicyResumeParams object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<PolicyResumeParams> FromValue(const base::Value::Dict& value);
+  static std::optional<PolicyResumeParams> FromValue(const base::Value::Dict& value);
 
   // Creates a PolicyResumeParams object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<PolicyResumeParams> FromValue(const base::Value& value);
+  static std::optional<PolicyResumeParams> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisPolicyResumeParams object.
@@ -3002,8 +3062,8 @@ struct ResumeParams {
   ~ResumeParams();
   ResumeParams(const ResumeParams&) = delete;
   ResumeParams& operator=(const ResumeParams&) = delete;
-  ResumeParams(ResumeParams&& rhs);
-  ResumeParams& operator=(ResumeParams&& rhs);
+  ResumeParams(ResumeParams&& rhs) noexcept;
+  ResumeParams& operator=(ResumeParams&& rhs) noexcept;
 
   // Populates a ResumeParams object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -3016,25 +3076,22 @@ struct ResumeParams {
   // Creates a deep copy of ResumeParams.
   ResumeParams Clone() const;
 
-  // Creates a ResumeParams object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ResumeParams> FromValueDeprecated(const base::Value& value);
-
   // Creates a ResumeParams object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<ResumeParams> FromValue(const base::Value::Dict& value);
+  static std::optional<ResumeParams> FromValue(const base::Value::Dict& value);
 
   // Creates a ResumeParams object from a base::Value, or nullopt on failure.
-  static absl::optional<ResumeParams> FromValue(const base::Value& value);
+  static std::optional<ResumeParams> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisResumeParams object.
   base::Value::Dict ToValue() const;
 
   // Set iff paused due to name conflict.
-  absl::optional<ConflictResumeParams> conflict_params;
+  std::optional<ConflictResumeParams> conflict_params;
 
   // Set iff paused due to policy.
-  absl::optional<PolicyResumeParams> policy_params;
+  std::optional<PolicyResumeParams> policy_params;
 
 };
 
@@ -3043,8 +3100,8 @@ struct ProgressStatus {
   ~ProgressStatus();
   ProgressStatus(const ProgressStatus&) = delete;
   ProgressStatus& operator=(const ProgressStatus&) = delete;
-  ProgressStatus(ProgressStatus&& rhs);
-  ProgressStatus& operator=(ProgressStatus&& rhs);
+  ProgressStatus(ProgressStatus&& rhs) noexcept;
+  ProgressStatus& operator=(ProgressStatus&& rhs) noexcept;
 
   // Populates a ProgressStatus object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -3057,15 +3114,12 @@ struct ProgressStatus {
   // Creates a deep copy of ProgressStatus.
   ProgressStatus Clone() const;
 
-  // Creates a ProgressStatus object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ProgressStatus> FromValueDeprecated(const base::Value& value);
-
   // Creates a ProgressStatus object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<ProgressStatus> FromValue(const base::Value::Dict& value);
+  static std::optional<ProgressStatus> FromValue(const base::Value::Dict& value);
 
   // Creates a ProgressStatus object from a base::Value, or nullopt on failure.
-  static absl::optional<ProgressStatus> FromValue(const base::Value& value);
+  static std::optional<ProgressStatus> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisProgressStatus object.
@@ -3076,8 +3130,8 @@ struct ProgressStatus {
     ~OutputsType();
     OutputsType(const OutputsType&) = delete;
     OutputsType& operator=(const OutputsType&) = delete;
-    OutputsType(OutputsType&& rhs);
-    OutputsType& operator=(OutputsType&& rhs);
+    OutputsType(OutputsType&& rhs) noexcept;
+    OutputsType& operator=(OutputsType&& rhs) noexcept;
 
     // Populates a OutputsType object from a base::Value& instance. Returns
     // whether |out| was successfully populated.
@@ -3092,10 +3146,10 @@ struct ProgressStatus {
 
     // Creates a OutputsType object from a base::Value::Dict, or nullopt on
     // failure.
-    static absl::optional<OutputsType> FromValue(const base::Value::Dict& value);
+    static std::optional<OutputsType> FromValue(const base::Value::Dict& value);
 
     // Creates a OutputsType object from a base::Value, or nullopt on failure.
-    static absl::optional<OutputsType> FromValue(const base::Value& value);
+    static std::optional<OutputsType> FromValue(const base::Value& value);
 
     // Returns a new base::Value::Dict representing the serialized form of
     // thisOutputsType object.
@@ -3114,7 +3168,7 @@ struct ProgressStatus {
 
   // Type of policy error that occurred, if any. Used only if Data Leak Prevention
   // or Enterprise Connectors policies apply.
-  absl::optional<PolicyError> policy_error;
+  std::optional<PolicyError> policy_error;
 
   // Name of the first source entry.
   std::string source_name;
@@ -3155,10 +3209,13 @@ struct ProgressStatus {
   std::string error_name;
 
   // I/O task state::PAUSED parameters.
-  absl::optional<PauseParams> pause_params;
+  std::optional<PauseParams> pause_params;
 
   // The files affected by the IOTask. Currently only returned for TrashIOTask.
-  absl::optional<std::vector<OutputsType>> outputs;
+  std::optional<std::vector<OutputsType>> outputs;
+
+  // List of files skipped during the operation because we couldn't decrypt them.
+  std::vector<std::string> skipped_encrypted_files;
 
   // Volume id of the destination for operations that transfer files to a
   // directory (e.g. copy or move).
@@ -3171,8 +3228,8 @@ struct DlpMetadata {
   ~DlpMetadata();
   DlpMetadata(const DlpMetadata&) = delete;
   DlpMetadata& operator=(const DlpMetadata&) = delete;
-  DlpMetadata(DlpMetadata&& rhs);
-  DlpMetadata& operator=(DlpMetadata&& rhs);
+  DlpMetadata(DlpMetadata&& rhs) noexcept;
+  DlpMetadata& operator=(DlpMetadata&& rhs) noexcept;
 
   // Populates a DlpMetadata object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -3185,15 +3242,12 @@ struct DlpMetadata {
   // Creates a deep copy of DlpMetadata.
   DlpMetadata Clone() const;
 
-  // Creates a DlpMetadata object from a base::Value, or NULL on failure.
-  static std::unique_ptr<DlpMetadata> FromValueDeprecated(const base::Value& value);
-
   // Creates a DlpMetadata object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<DlpMetadata> FromValue(const base::Value::Dict& value);
+  static std::optional<DlpMetadata> FromValue(const base::Value::Dict& value);
 
   // Creates a DlpMetadata object from a base::Value, or nullopt on failure.
-  static absl::optional<DlpMetadata> FromValue(const base::Value& value);
+  static std::optional<DlpMetadata> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDlpMetadata object.
@@ -3216,8 +3270,8 @@ struct DlpRestrictionDetails {
   ~DlpRestrictionDetails();
   DlpRestrictionDetails(const DlpRestrictionDetails&) = delete;
   DlpRestrictionDetails& operator=(const DlpRestrictionDetails&) = delete;
-  DlpRestrictionDetails(DlpRestrictionDetails&& rhs);
-  DlpRestrictionDetails& operator=(DlpRestrictionDetails&& rhs);
+  DlpRestrictionDetails(DlpRestrictionDetails&& rhs) noexcept;
+  DlpRestrictionDetails& operator=(DlpRestrictionDetails&& rhs) noexcept;
 
   // Populates a DlpRestrictionDetails object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -3230,17 +3284,13 @@ struct DlpRestrictionDetails {
   // Creates a deep copy of DlpRestrictionDetails.
   DlpRestrictionDetails Clone() const;
 
-  // Creates a DlpRestrictionDetails object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<DlpRestrictionDetails> FromValueDeprecated(const base::Value& value);
-
   // Creates a DlpRestrictionDetails object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<DlpRestrictionDetails> FromValue(const base::Value::Dict& value);
+  static std::optional<DlpRestrictionDetails> FromValue(const base::Value::Dict& value);
 
   // Creates a DlpRestrictionDetails object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<DlpRestrictionDetails> FromValue(const base::Value& value);
+  static std::optional<DlpRestrictionDetails> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDlpRestrictionDetails object.
@@ -3262,8 +3312,8 @@ struct DialogCallerInformation {
   ~DialogCallerInformation();
   DialogCallerInformation(const DialogCallerInformation&) = delete;
   DialogCallerInformation& operator=(const DialogCallerInformation&) = delete;
-  DialogCallerInformation(DialogCallerInformation&& rhs);
-  DialogCallerInformation& operator=(DialogCallerInformation&& rhs);
+  DialogCallerInformation(DialogCallerInformation&& rhs) noexcept;
+  DialogCallerInformation& operator=(DialogCallerInformation&& rhs) noexcept;
 
   // Populates a DialogCallerInformation object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -3276,24 +3326,20 @@ struct DialogCallerInformation {
   // Creates a deep copy of DialogCallerInformation.
   DialogCallerInformation Clone() const;
 
-  // Creates a DialogCallerInformation object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<DialogCallerInformation> FromValueDeprecated(const base::Value& value);
-
   // Creates a DialogCallerInformation object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<DialogCallerInformation> FromValue(const base::Value::Dict& value);
+  static std::optional<DialogCallerInformation> FromValue(const base::Value::Dict& value);
 
   // Creates a DialogCallerInformation object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<DialogCallerInformation> FromValue(const base::Value& value);
+  static std::optional<DialogCallerInformation> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDialogCallerInformation object.
   base::Value::Dict ToValue() const;
 
   // The URL of the caller.
-  absl::optional<std::string> url;
+  std::optional<std::string> url;
 
   // The component type of the caller.
   VolumeType component;
@@ -3305,8 +3351,8 @@ struct MountableGuest {
   ~MountableGuest();
   MountableGuest(const MountableGuest&) = delete;
   MountableGuest& operator=(const MountableGuest&) = delete;
-  MountableGuest(MountableGuest&& rhs);
-  MountableGuest& operator=(MountableGuest&& rhs);
+  MountableGuest(MountableGuest&& rhs) noexcept;
+  MountableGuest& operator=(MountableGuest&& rhs) noexcept;
 
   // Populates a MountableGuest object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -3319,15 +3365,12 @@ struct MountableGuest {
   // Creates a deep copy of MountableGuest.
   MountableGuest Clone() const;
 
-  // Creates a MountableGuest object from a base::Value, or NULL on failure.
-  static std::unique_ptr<MountableGuest> FromValueDeprecated(const base::Value& value);
-
   // Creates a MountableGuest object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<MountableGuest> FromValue(const base::Value::Dict& value);
+  static std::optional<MountableGuest> FromValue(const base::Value::Dict& value);
 
   // Creates a MountableGuest object from a base::Value, or nullopt on failure.
-  static absl::optional<MountableGuest> FromValue(const base::Value& value);
+  static std::optional<MountableGuest> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisMountableGuest object.
@@ -3349,8 +3392,8 @@ struct ParsedTrashInfoFile {
   ~ParsedTrashInfoFile();
   ParsedTrashInfoFile(const ParsedTrashInfoFile&) = delete;
   ParsedTrashInfoFile& operator=(const ParsedTrashInfoFile&) = delete;
-  ParsedTrashInfoFile(ParsedTrashInfoFile&& rhs);
-  ParsedTrashInfoFile& operator=(ParsedTrashInfoFile&& rhs);
+  ParsedTrashInfoFile(ParsedTrashInfoFile&& rhs) noexcept;
+  ParsedTrashInfoFile& operator=(ParsedTrashInfoFile&& rhs) noexcept;
 
   // Populates a ParsedTrashInfoFile object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -3363,17 +3406,13 @@ struct ParsedTrashInfoFile {
   // Creates a deep copy of ParsedTrashInfoFile.
   ParsedTrashInfoFile Clone() const;
 
-  // Creates a ParsedTrashInfoFile object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<ParsedTrashInfoFile> FromValueDeprecated(const base::Value& value);
-
   // Creates a ParsedTrashInfoFile object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<ParsedTrashInfoFile> FromValue(const base::Value::Dict& value);
+  static std::optional<ParsedTrashInfoFile> FromValue(const base::Value::Dict& value);
 
   // Creates a ParsedTrashInfoFile object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<ParsedTrashInfoFile> FromValue(const base::Value& value);
+  static std::optional<ParsedTrashInfoFile> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisParsedTrashInfoFile object.
@@ -3387,8 +3426,8 @@ struct ParsedTrashInfoFile {
     ~RestoreEntry();
     RestoreEntry(const RestoreEntry&) = delete;
     RestoreEntry& operator=(const RestoreEntry&) = delete;
-    RestoreEntry(RestoreEntry&& rhs);
-    RestoreEntry& operator=(RestoreEntry&& rhs);
+    RestoreEntry(RestoreEntry&& rhs) noexcept;
+    RestoreEntry& operator=(RestoreEntry&& rhs) noexcept;
 
     // Populates a RestoreEntry object from a base::Value& instance. Returns
     // whether |out| was successfully populated.
@@ -3403,10 +3442,10 @@ struct ParsedTrashInfoFile {
 
     // Creates a RestoreEntry object from a base::Value::Dict, or nullopt on
     // failure.
-    static absl::optional<RestoreEntry> FromValue(const base::Value::Dict& value);
+    static std::optional<RestoreEntry> FromValue(const base::Value::Dict& value);
 
     // Creates a RestoreEntry object from a base::Value, or nullopt on failure.
-    static absl::optional<RestoreEntry> FromValue(const base::Value& value);
+    static std::optional<RestoreEntry> FromValue(const base::Value& value);
 
     // Returns a new base::Value::Dict representing the serialized form of
     // thisRestoreEntry object.
@@ -3434,8 +3473,8 @@ struct BulkPinProgress {
   ~BulkPinProgress();
   BulkPinProgress(const BulkPinProgress&) = delete;
   BulkPinProgress& operator=(const BulkPinProgress&) = delete;
-  BulkPinProgress(BulkPinProgress&& rhs);
-  BulkPinProgress& operator=(BulkPinProgress&& rhs);
+  BulkPinProgress(BulkPinProgress&& rhs) noexcept;
+  BulkPinProgress& operator=(BulkPinProgress&& rhs) noexcept;
 
   // Populates a BulkPinProgress object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -3448,15 +3487,12 @@ struct BulkPinProgress {
   // Creates a deep copy of BulkPinProgress.
   BulkPinProgress Clone() const;
 
-  // Creates a BulkPinProgress object from a base::Value, or NULL on failure.
-  static std::unique_ptr<BulkPinProgress> FromValueDeprecated(const base::Value& value);
-
   // Creates a BulkPinProgress object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<BulkPinProgress> FromValue(const base::Value::Dict& value);
+  static std::optional<BulkPinProgress> FromValue(const base::Value::Dict& value);
 
   // Creates a BulkPinProgress object from a base::Value, or nullopt on failure.
-  static absl::optional<BulkPinProgress> FromValue(const base::Value& value);
+  static std::optional<BulkPinProgress> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisBulkPinProgress object.
@@ -3515,8 +3551,8 @@ struct Result {
   ~Result();
   Result(const Result&) = delete;
   Result& operator=(const Result&) = delete;
-  Result(Result&& rhs);
-  Result& operator=(Result&& rhs);
+  Result(Result&& rhs) noexcept;
+  Result& operator=(Result&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisResult object.
@@ -3538,11 +3574,11 @@ namespace EnableExternalFileScheme {
 namespace GrantAccess {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::vector<std::string> entry_urls;
@@ -3562,11 +3598,11 @@ base::Value::List Create();
 namespace SelectFiles {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::vector<std::string> selected_paths;
@@ -3588,11 +3624,11 @@ base::Value::List Create();
 namespace SelectFile {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string selected_path;
@@ -3618,16 +3654,16 @@ base::Value::List Create();
 namespace AddMount {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string file_url;
 
-  absl::optional<std::string> password;
+  std::optional<std::string> password;
 
 
  private:
@@ -3644,11 +3680,11 @@ base::Value::List Create(const std::string& source_path);
 namespace CancelMounting {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string file_url;
@@ -3668,11 +3704,11 @@ base::Value::List Create();
 namespace RemoveMount {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string volume_id;
@@ -3701,11 +3737,11 @@ base::Value::List Create(const std::vector<VolumeMetadata>& volume_metadata_list
 namespace GetDlpRestrictionDetails {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string source_url;
@@ -3725,11 +3761,11 @@ base::Value::List Create(const std::vector<DlpRestrictionDetails>& restriction_d
 namespace GetDlpBlockedComponents {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string source_url;
@@ -3758,11 +3794,11 @@ base::Value::List Create(const DialogCallerInformation& caller);
 namespace GetSizeStats {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string volume_id;
@@ -3782,11 +3818,11 @@ base::Value::List Create(const MountPointSizeStats& size_stats);
 namespace FormatVolume {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string volume_id;
@@ -3805,11 +3841,11 @@ struct Params {
 namespace SinglePartitionFormat {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string device_storage_path;
@@ -3828,11 +3864,11 @@ struct Params {
 namespace RenameVolume {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string volume_id;
@@ -3858,11 +3894,11 @@ base::Value::List Create(const Preferences& result);
 namespace SetPreferences {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   PreferencesChange change_info;
@@ -3877,11 +3913,11 @@ struct Params {
 namespace SearchDrive {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   SearchParams search_params;
@@ -3893,24 +3929,7 @@ struct Params {
 
 namespace Results {
 
-struct EntriesType {
-  EntriesType();
-  ~EntriesType();
-  EntriesType(const EntriesType&) = delete;
-  EntriesType& operator=(const EntriesType&) = delete;
-  EntriesType(EntriesType&& rhs);
-  EntriesType& operator=(EntriesType&& rhs);
-
-  // Returns a new base::Value::Dict representing the serialized form of
-  // thisEntriesType object.
-  base::Value::Dict ToValue() const;
-
-  base::Value::Dict additional_properties;
-};
-
-
-
-base::Value::List Create(const std::vector<EntriesType>& entries, const std::string& next_feed);
+base::Value::List Create(const SearchDriveResponse& response);
 }  // namespace Results
 
 }  // namespace SearchDrive
@@ -3918,11 +3937,11 @@ base::Value::List Create(const std::vector<EntriesType>& entries, const std::str
 namespace SearchDriveMetadata {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   SearchMetadataParams search_params;
@@ -3942,11 +3961,11 @@ base::Value::List Create(const std::vector<DriveMetadataSearchResult>& results);
 namespace SearchFilesByHashes {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string volume_id;
@@ -3965,8 +3984,8 @@ struct Paths {
   ~Paths();
   Paths(const Paths&) = delete;
   Paths& operator=(const Paths&) = delete;
-  Paths(Paths&& rhs);
-  Paths& operator=(Paths&& rhs);
+  Paths(Paths&& rhs) noexcept;
+  Paths& operator=(Paths&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisPaths object.
@@ -4002,11 +4021,11 @@ base::Value::List Create(const DriveConnectionState& result);
 namespace Zoom {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   ZoomOperationType operation;
@@ -4022,7 +4041,7 @@ namespace GetProfiles {
 
 namespace Results {
 
-base::Value::List Create(const std::vector<ProfileInfo>& profiles, const std::string& running_profile, const std::string& display_profile);
+base::Value::List Create(const ProfilesResponse& response);
 }  // namespace Results
 
 }  // namespace GetProfiles
@@ -4030,11 +4049,11 @@ base::Value::List Create(const std::vector<ProfileInfo>& profiles, const std::st
 namespace OpenInspector {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   InspectionType type;
@@ -4049,11 +4068,11 @@ struct Params {
 namespace OpenSettingsSubpage {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string sub_page;
@@ -4077,11 +4096,11 @@ base::Value::List Create(const std::vector<Provider>& extensions);
 namespace AddProvidedFileSystem {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string provider_id;
@@ -4101,11 +4120,11 @@ base::Value::List Create();
 namespace ConfigureVolume {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string volume_id;
@@ -4134,11 +4153,11 @@ base::Value::List Create();
 namespace GetAndroidPickerApps {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::vector<std::string> extensions;
@@ -4158,11 +4177,11 @@ base::Value::List Create(const std::vector<AndroidApp>& apps);
 namespace SelectAndroidPickerApp {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   AndroidApp android_app;
@@ -4200,11 +4219,11 @@ base::Value::List Create(bool result);
 namespace NotifyDriveDialogResult {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   DriveDialogResult result;
@@ -4219,11 +4238,11 @@ struct Params {
 namespace OpenURL {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   std::string url;
@@ -4238,11 +4257,11 @@ struct Params {
 namespace OpenWindow {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   OpenWindowParams params;
@@ -4266,11 +4285,11 @@ namespace SendFeedback {
 namespace CancelIOTask {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   int task_id;
@@ -4285,11 +4304,11 @@ struct Params {
 namespace ResumeIOTask {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   int task_id;
@@ -4306,11 +4325,11 @@ struct Params {
 namespace DismissIOTask {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   int task_id;
@@ -4330,11 +4349,11 @@ base::Value::List Create();
 namespace ShowPolicyDialog {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   int task_id;
@@ -4374,11 +4393,11 @@ base::Value::List Create(const std::vector<MountableGuest>& guest);
 namespace MountGuest {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   int id;

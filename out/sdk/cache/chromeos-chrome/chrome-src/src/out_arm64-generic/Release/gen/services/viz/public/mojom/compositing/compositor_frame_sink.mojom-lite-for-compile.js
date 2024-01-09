@@ -714,6 +714,12 @@ viz.mojom.CompositorFrameSinkClientInterface = class {
    */
 
   onCompositorFrameTransitionDirectiveProcessed(sequenceId) {}
+  
+  /**
+   * @param { !viz.mojom.LocalSurfaceId } localSurfaceId
+   */
+
+  onSurfaceEvicted(localSurfaceId) {}
 };
 
 /**
@@ -828,6 +834,22 @@ viz.mojom.CompositorFrameSinkClientRemote = class {
           sequenceId
         ]);
   }
+
+  
+  /**
+   * @param { !viz.mojom.LocalSurfaceId } localSurfaceId
+   */
+
+  onSurfaceEvicted(
+      localSurfaceId) {
+    this.proxy.sendMessage(
+        5,
+        viz.mojom.CompositorFrameSinkClient_OnSurfaceEvicted_ParamsSpec.$,
+        null,
+        [
+          localSurfaceId
+        ]);
+  }
 };
 
 /**
@@ -877,6 +899,11 @@ viz.mojom.CompositorFrameSinkClientReceiver = class {
         viz.mojom.CompositorFrameSinkClient_OnCompositorFrameTransitionDirectiveProcessed_ParamsSpec.$,
         null,
         impl.onCompositorFrameTransitionDirectiveProcessed.bind(impl));
+    this.helper_internal_.registerHandler(
+        5,
+        viz.mojom.CompositorFrameSinkClient_OnSurfaceEvicted_ParamsSpec.$,
+        null,
+        impl.onSurfaceEvicted.bind(impl));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -989,6 +1016,18 @@ viz.mojom.CompositorFrameSinkClientCallbackRouter = class {
         viz.mojom.CompositorFrameSinkClient_OnCompositorFrameTransitionDirectiveProcessed_ParamsSpec.$,
         null,
         this.onCompositorFrameTransitionDirectiveProcessed.createReceiverHandler(false /* expectsResponse */));
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.onSurfaceEvicted =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        5,
+        viz.mojom.CompositorFrameSinkClient_OnSurfaceEvicted_ParamsSpec.$,
+        null,
+        this.onSurfaceEvicted.createReceiverHandler(false /* expectsResponse */));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -1138,6 +1177,14 @@ goog.provide('viz.mojom.CompositorFrameSinkClient_OnCompositorFrameTransitionDir
  * @export
  */
 viz.mojom.CompositorFrameSinkClient_OnCompositorFrameTransitionDirectiveProcessed_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+goog.provide('viz.mojom.CompositorFrameSinkClient_OnSurfaceEvicted_ParamsSpec');
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+viz.mojom.CompositorFrameSinkClient_OnSurfaceEvicted_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 
@@ -1701,6 +1748,35 @@ viz.mojom.CompositorFrameSinkClient_OnCompositorFrameTransitionDirectiveProcesse
   constructor() {
     /** @export { !number } */
     this.sequenceId;
+  }
+};
+
+
+
+mojo.internal.Struct(
+    viz.mojom.CompositorFrameSinkClient_OnSurfaceEvicted_ParamsSpec.$,
+    'CompositorFrameSinkClient_OnSurfaceEvicted_Params',
+    [
+      mojo.internal.StructField(
+        'localSurfaceId', 0,
+        0,
+        viz.mojom.LocalSurfaceIdSpec.$,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+goog.provide('viz.mojom.CompositorFrameSinkClient_OnSurfaceEvicted_Params');
+
+/** @record */
+viz.mojom.CompositorFrameSinkClient_OnSurfaceEvicted_Params = class {
+  constructor() {
+    /** @export { !viz.mojom.LocalSurfaceId } */
+    this.localSurfaceId;
   }
 };
 

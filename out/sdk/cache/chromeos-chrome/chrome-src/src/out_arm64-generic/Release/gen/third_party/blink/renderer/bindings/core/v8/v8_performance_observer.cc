@@ -72,11 +72,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, PerformanceObserver>::value,
     "PerformanceObserver does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&PerformanceObserver::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "PerformanceObserver is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -167,8 +162,9 @@ BLINK_BINDINGS_TRACE_EVENT("PerformanceObserver.disconnect");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-PerformanceObserver* blink_receiver = V8PerformanceObserver::ToWrappableUnsafe(v8_receiver);
+PerformanceObserver* blink_receiver = V8PerformanceObserver::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->disconnect();
 
 }
@@ -184,13 +180,13 @@ BLINK_BINDINGS_TRACE_EVENT("PerformanceObserver.observe");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-PerformanceObserver* blink_receiver = V8PerformanceObserver::ToWrappableUnsafe(v8_receiver);
+PerformanceObserver* blink_receiver = V8PerformanceObserver::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
 decltype(NativeValueTraits<PerformanceObserverInit>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_options;
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "PerformanceObserver";
 const char* const property_name = "observe";
@@ -226,7 +222,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-PerformanceObserver* blink_receiver = V8PerformanceObserver::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+PerformanceObserver* blink_receiver = V8PerformanceObserver::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->takeRecords();
 if (!ToV8Traits<IDLSequence<PerformanceEntry>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;

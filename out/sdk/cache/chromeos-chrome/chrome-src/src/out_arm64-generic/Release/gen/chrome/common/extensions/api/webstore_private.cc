@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/extensions/api/webstore_private.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -36,45 +37,45 @@ namespace webstore_private {
 
 const char* ToString(Result enum_param) {
   switch (enum_param) {
-    case RESULT_EMPTY_STRING:
+    case Result::kEmptyString:
       return "";
-    case RESULT_SUCCESS:
+    case Result::kSuccess:
       return "success";
-    case RESULT_USER_GESTURE_REQUIRED:
+    case Result::kUserGestureRequired:
       return "user_gesture_required";
-    case RESULT_UNKNOWN_ERROR:
+    case Result::kUnknownError:
       return "unknown_error";
-    case RESULT_FEATURE_DISABLED:
+    case Result::kFeatureDisabled:
       return "feature_disabled";
-    case RESULT_UNSUPPORTED_EXTENSION_TYPE:
+    case Result::kUnsupportedExtensionType:
       return "unsupported_extension_type";
-    case RESULT_MISSING_DEPENDENCIES:
+    case Result::kMissingDependencies:
       return "missing_dependencies";
-    case RESULT_INSTALL_ERROR:
+    case Result::kInstallError:
       return "install_error";
-    case RESULT_USER_CANCELLED:
+    case Result::kUserCancelled:
       return "user_cancelled";
-    case RESULT_INVALID_ID:
+    case Result::kInvalidId:
       return "invalid_id";
-    case RESULT_BLACKLISTED:
+    case Result::kBlacklisted:
       return "blacklisted";
-    case RESULT_BLOCKED_BY_POLICY:
+    case Result::kBlockedByPolicy:
       return "blocked_by_policy";
-    case RESULT_INSTALL_IN_PROGRESS:
+    case Result::kInstallInProgress:
       return "install_in_progress";
-    case RESULT_LAUNCH_IN_PROGRESS:
+    case Result::kLaunchInProgress:
       return "launch_in_progress";
-    case RESULT_MANIFEST_ERROR:
+    case Result::kManifestError:
       return "manifest_error";
-    case RESULT_ICON_ERROR:
+    case Result::kIconError:
       return "icon_error";
-    case RESULT_INVALID_ICON_URL:
+    case Result::kInvalidIconUrl:
       return "invalid_icon_url";
-    case RESULT_ALREADY_INSTALLED:
+    case Result::kAlreadyInstalled:
       return "already_installed";
-    case RESULT_BLOCKED_FOR_CHILD_ACCOUNT:
+    case Result::kBlockedForChildAccount:
       return "blocked_for_child_account";
-    case RESULT_NONE:
+    case Result::kNone:
       return "";
   }
   NOTREACHED();
@@ -83,44 +84,44 @@ const char* ToString(Result enum_param) {
 
 Result ParseResult(base::StringPiece enum_string) {
   if (enum_string == "")
-    return RESULT_EMPTY_STRING;
+    return Result::kEmptyString;
   if (enum_string == "success")
-    return RESULT_SUCCESS;
+    return Result::kSuccess;
   if (enum_string == "user_gesture_required")
-    return RESULT_USER_GESTURE_REQUIRED;
+    return Result::kUserGestureRequired;
   if (enum_string == "unknown_error")
-    return RESULT_UNKNOWN_ERROR;
+    return Result::kUnknownError;
   if (enum_string == "feature_disabled")
-    return RESULT_FEATURE_DISABLED;
+    return Result::kFeatureDisabled;
   if (enum_string == "unsupported_extension_type")
-    return RESULT_UNSUPPORTED_EXTENSION_TYPE;
+    return Result::kUnsupportedExtensionType;
   if (enum_string == "missing_dependencies")
-    return RESULT_MISSING_DEPENDENCIES;
+    return Result::kMissingDependencies;
   if (enum_string == "install_error")
-    return RESULT_INSTALL_ERROR;
+    return Result::kInstallError;
   if (enum_string == "user_cancelled")
-    return RESULT_USER_CANCELLED;
+    return Result::kUserCancelled;
   if (enum_string == "invalid_id")
-    return RESULT_INVALID_ID;
+    return Result::kInvalidId;
   if (enum_string == "blacklisted")
-    return RESULT_BLACKLISTED;
+    return Result::kBlacklisted;
   if (enum_string == "blocked_by_policy")
-    return RESULT_BLOCKED_BY_POLICY;
+    return Result::kBlockedByPolicy;
   if (enum_string == "install_in_progress")
-    return RESULT_INSTALL_IN_PROGRESS;
+    return Result::kInstallInProgress;
   if (enum_string == "launch_in_progress")
-    return RESULT_LAUNCH_IN_PROGRESS;
+    return Result::kLaunchInProgress;
   if (enum_string == "manifest_error")
-    return RESULT_MANIFEST_ERROR;
+    return Result::kManifestError;
   if (enum_string == "icon_error")
-    return RESULT_ICON_ERROR;
+    return Result::kIconError;
   if (enum_string == "invalid_icon_url")
-    return RESULT_INVALID_ICON_URL;
+    return Result::kInvalidIconUrl;
   if (enum_string == "already_installed")
-    return RESULT_ALREADY_INSTALLED;
+    return Result::kAlreadyInstalled;
   if (enum_string == "blocked_for_child_account")
-    return RESULT_BLOCKED_FOR_CHILD_ACCOUNT;
-  return RESULT_NONE;
+    return Result::kBlockedForChildAccount;
+  return Result::kNone;
 }
 
 std::u16string GetResultParseError(base::StringPiece enum_string) {
@@ -130,11 +131,11 @@ std::u16string GetResultParseError(base::StringPiece enum_string) {
 
 const char* ToString(WebGlStatus enum_param) {
   switch (enum_param) {
-    case WEB_GL_STATUS_WEBGL_ALLOWED:
+    case WebGlStatus::kWebglAllowed:
       return "webgl_allowed";
-    case WEB_GL_STATUS_WEBGL_BLOCKED:
+    case WebGlStatus::kWebglBlocked:
       return "webgl_blocked";
-    case WEB_GL_STATUS_NONE:
+    case WebGlStatus::kNone:
       return "";
   }
   NOTREACHED();
@@ -143,10 +144,10 @@ const char* ToString(WebGlStatus enum_param) {
 
 WebGlStatus ParseWebGlStatus(base::StringPiece enum_string) {
   if (enum_string == "webgl_allowed")
-    return WEB_GL_STATUS_WEBGL_ALLOWED;
+    return WebGlStatus::kWebglAllowed;
   if (enum_string == "webgl_blocked")
-    return WEB_GL_STATUS_WEBGL_BLOCKED;
-  return WEB_GL_STATUS_NONE;
+    return WebGlStatus::kWebglBlocked;
+  return WebGlStatus::kNone;
 }
 
 std::u16string GetWebGlStatusParseError(base::StringPiece enum_string) {
@@ -156,27 +157,27 @@ std::u16string GetWebGlStatusParseError(base::StringPiece enum_string) {
 
 const char* ToString(ExtensionInstallStatus enum_param) {
   switch (enum_param) {
-    case EXTENSION_INSTALL_STATUS_CAN_REQUEST:
+    case ExtensionInstallStatus::kCanRequest:
       return "can_request";
-    case EXTENSION_INSTALL_STATUS_REQUEST_PENDING:
+    case ExtensionInstallStatus::kRequestPending:
       return "request_pending";
-    case EXTENSION_INSTALL_STATUS_BLOCKED_BY_POLICY:
+    case ExtensionInstallStatus::kBlockedByPolicy:
       return "blocked_by_policy";
-    case EXTENSION_INSTALL_STATUS_INSTALLABLE:
+    case ExtensionInstallStatus::kInstallable:
       return "installable";
-    case EXTENSION_INSTALL_STATUS_ENABLED:
+    case ExtensionInstallStatus::kEnabled:
       return "enabled";
-    case EXTENSION_INSTALL_STATUS_DISABLED:
+    case ExtensionInstallStatus::kDisabled:
       return "disabled";
-    case EXTENSION_INSTALL_STATUS_TERMINATED:
+    case ExtensionInstallStatus::kTerminated:
       return "terminated";
-    case EXTENSION_INSTALL_STATUS_BLACKLISTED:
+    case ExtensionInstallStatus::kBlacklisted:
       return "blacklisted";
-    case EXTENSION_INSTALL_STATUS_CUSTODIAN_APPROVAL_REQUIRED:
+    case ExtensionInstallStatus::kCustodianApprovalRequired:
       return "custodian_approval_required";
-    case EXTENSION_INSTALL_STATUS_FORCE_INSTALLED:
+    case ExtensionInstallStatus::kForceInstalled:
       return "force_installed";
-    case EXTENSION_INSTALL_STATUS_NONE:
+    case ExtensionInstallStatus::kNone:
       return "";
   }
   NOTREACHED();
@@ -185,26 +186,26 @@ const char* ToString(ExtensionInstallStatus enum_param) {
 
 ExtensionInstallStatus ParseExtensionInstallStatus(base::StringPiece enum_string) {
   if (enum_string == "can_request")
-    return EXTENSION_INSTALL_STATUS_CAN_REQUEST;
+    return ExtensionInstallStatus::kCanRequest;
   if (enum_string == "request_pending")
-    return EXTENSION_INSTALL_STATUS_REQUEST_PENDING;
+    return ExtensionInstallStatus::kRequestPending;
   if (enum_string == "blocked_by_policy")
-    return EXTENSION_INSTALL_STATUS_BLOCKED_BY_POLICY;
+    return ExtensionInstallStatus::kBlockedByPolicy;
   if (enum_string == "installable")
-    return EXTENSION_INSTALL_STATUS_INSTALLABLE;
+    return ExtensionInstallStatus::kInstallable;
   if (enum_string == "enabled")
-    return EXTENSION_INSTALL_STATUS_ENABLED;
+    return ExtensionInstallStatus::kEnabled;
   if (enum_string == "disabled")
-    return EXTENSION_INSTALL_STATUS_DISABLED;
+    return ExtensionInstallStatus::kDisabled;
   if (enum_string == "terminated")
-    return EXTENSION_INSTALL_STATUS_TERMINATED;
+    return ExtensionInstallStatus::kTerminated;
   if (enum_string == "blacklisted")
-    return EXTENSION_INSTALL_STATUS_BLACKLISTED;
+    return ExtensionInstallStatus::kBlacklisted;
   if (enum_string == "custodian_approval_required")
-    return EXTENSION_INSTALL_STATUS_CUSTODIAN_APPROVAL_REQUIRED;
+    return ExtensionInstallStatus::kCustodianApprovalRequired;
   if (enum_string == "force_installed")
-    return EXTENSION_INSTALL_STATUS_FORCE_INSTALLED;
-  return EXTENSION_INSTALL_STATUS_NONE;
+    return ExtensionInstallStatus::kForceInstalled;
+  return ExtensionInstallStatus::kNone;
 }
 
 std::u16string GetExtensionInstallStatusParseError(base::StringPiece enum_string) {
@@ -223,8 +224,8 @@ Params::Details::Details()
  {}
 
 Params::Details::~Details() = default;
-Params::Details::Details(Details&& rhs) = default;
-Params::Details& Params::Details::operator=(Details&& rhs) = default;
+Params::Details::Details(Details&& rhs) noexcept = default;
+Params::Details& Params::Details::operator=(Details&& rhs) noexcept = default;
 Params::Details Params::Details::Clone() const {
   Details out;
   out.id = id;
@@ -271,7 +272,7 @@ bool Params::Details::Populate(
     {
       auto* temp = (*icon_url_value).GetIfString();
       if (!temp) {
-        out.icon_url = absl::nullopt;
+        out.icon_url = std::nullopt;
         return false;
       }
       out.icon_url = *temp;
@@ -283,7 +284,7 @@ bool Params::Details::Populate(
     {
       auto* temp = (*localized_name_value).GetIfString();
       if (!temp) {
-        out.localized_name = absl::nullopt;
+        out.localized_name = std::nullopt;
         return false;
       }
       out.localized_name = *temp;
@@ -295,7 +296,7 @@ bool Params::Details::Populate(
     {
       auto* temp = (*locale_value).GetIfString();
       if (!temp) {
-        out.locale = absl::nullopt;
+        out.locale = std::nullopt;
         return false;
       }
       out.locale = *temp;
@@ -307,7 +308,7 @@ bool Params::Details::Populate(
     {
       auto temp = (*app_install_bubble_value).GetIfBool();
       if (!temp.has_value()) {
-        out.app_install_bubble = absl::nullopt;
+        out.app_install_bubble = std::nullopt;
         return false;
       }
       out.app_install_bubble = *temp;
@@ -319,7 +320,7 @@ bool Params::Details::Populate(
     {
       auto temp = (*enable_launcher_value).GetIfBool();
       if (!temp.has_value()) {
-        out.enable_launcher = absl::nullopt;
+        out.enable_launcher = std::nullopt;
         return false;
       }
       out.enable_launcher = *temp;
@@ -331,7 +332,7 @@ bool Params::Details::Populate(
     {
       auto* temp = (*authuser_value).GetIfString();
       if (!temp) {
-        out.authuser = absl::nullopt;
+        out.authuser = std::nullopt;
         return false;
       }
       out.authuser = *temp;
@@ -343,7 +344,7 @@ bool Params::Details::Populate(
     {
       auto temp = (*esb_allowlist_value).GetIfBool();
       if (!temp.has_value()) {
-        out.esb_allowlist = absl::nullopt;
+        out.esb_allowlist = std::nullopt;
         return false;
       }
       out.esb_allowlist = *temp;
@@ -364,21 +365,21 @@ bool Params::Details::Populate(
 }
 
 // static
-absl::optional<Params::Details> Params::Details::FromValue(const base::Value::Dict& value) {
+std::optional<Params::Details> Params::Details::FromValue(const base::Value::Dict& value) {
   Details out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Params::Details> Params::Details::FromValue(const base::Value& value) {
+std::optional<Params::Details> Params::Details::FromValue(const base::Value& value) {
   Details out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -386,13 +387,13 @@ absl::optional<Params::Details> Params::Details::FromValue(const base::Value& va
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -401,15 +402,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& details_value = args[0];
     {
       if (!details_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!Details::Populate(details_value.GetDict(), params.details)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -429,13 +430,13 @@ namespace CompleteInstall {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -445,13 +446,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = expected_id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.expected_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -480,8 +481,8 @@ Results::Info::Info()
  {}
 
 Results::Info::~Info() = default;
-Results::Info::Info(Info&& rhs) = default;
-Results::Info& Results::Info::operator=(Info&& rhs) = default;
+Results::Info::Info(Info&& rhs) noexcept = default;
+Results::Info& Results::Info::operator=(Info&& rhs) noexcept = default;
 base::Value::Dict Results::Info::ToValue() const {
   base::Value::Dict to_value_result;
 
@@ -516,13 +517,13 @@ namespace SetStoreLogin {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -532,13 +533,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = login_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.login = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -589,13 +590,13 @@ namespace IsPendingCustodianApproval {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -605,13 +606,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -642,13 +643,13 @@ namespace GetExtensionStatus {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() < 1 || args.size() > 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -658,13 +659,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -673,8 +674,8 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = manifest_value.GetIfString();
       if (!temp) {
-        params.manifest = absl::nullopt;
-        return absl::nullopt;
+        params.manifest = std::nullopt;
+        return std::nullopt;
       }
       params.manifest = *temp;
     }

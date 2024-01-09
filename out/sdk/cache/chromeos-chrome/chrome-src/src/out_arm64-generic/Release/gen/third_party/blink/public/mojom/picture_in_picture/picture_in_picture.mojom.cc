@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -134,14 +135,17 @@ void PictureInPictureSessionObserverProxy::OnWindowSizeChanged(
                         "<value of type const ::gfx::Size&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPictureInPictureSessionObserver_OnWindowSizeChanged_Name, kFlags, 0, 0, nullptr);
@@ -175,14 +179,17 @@ void PictureInPictureSessionObserverProxy::OnStopped(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::PictureInPictureSessionObserver::OnStopped");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPictureInPictureSessionObserver_OnStopped_Name, kFlags, 0, 0, nullptr);
@@ -275,12 +282,12 @@ bool PictureInPictureSessionObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPictureInPictureSessionObserverValidationInfo[] = {
-    {&internal::PictureInPictureSessionObserver_OnWindowSizeChanged_Params_Data::Validate,
+    { &internal::PictureInPictureSessionObserver_OnWindowSizeChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PictureInPictureSessionObserver_OnStopped_Params_Data::Validate,
+    { &internal::PictureInPictureSessionObserver_OnStopped_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -408,14 +415,17 @@ void PictureInPictureSessionProxy::Update(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPictureInPictureSession_Update_Name, kFlags, 0, 0, nullptr);
@@ -468,14 +478,17 @@ void PictureInPictureSessionProxy::Stop(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::PictureInPictureSession::Stop");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPictureInPictureSession_Stop_Name, kFlags, 0, 0, nullptr);
@@ -574,7 +587,8 @@ void PictureInPictureSession_Stop_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPictureInPictureSession_Stop_Name, kFlags, 0, 0, nullptr);
@@ -696,12 +710,12 @@ bool PictureInPictureSessionStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPictureInPictureSessionValidationInfo[] = {
-    {&internal::PictureInPictureSession_Update_Params_Data::Validate,
+    { &internal::PictureInPictureSession_Update_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PictureInPictureSession_Stop_Params_Data::Validate,
+    { &internal::PictureInPictureSession_Stop_Params_Data::Validate,
      &internal::PictureInPictureSession_Stop_ResponseParams_Data::Validate},
 };
 
@@ -819,14 +833,17 @@ void PictureInPictureServiceProxy::StartSession(
                         "<value of type const ::gfx::Rect&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPictureInPictureService_StartSession_Name, kFlags, 0, 0, nullptr);
@@ -992,7 +1009,8 @@ void PictureInPictureService_StartSession_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPictureInPictureService_StartSession_Name, kFlags, 0, 0, nullptr);
@@ -1112,10 +1130,10 @@ std::move(p_source_bounds), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPictureInPictureServiceValidationInfo[] = {
-    {&internal::PictureInPictureService_StartSession_Params_Data::Validate,
+    { &internal::PictureInPictureService_StartSession_Params_Data::Validate,
      &internal::PictureInPictureService_StartSession_ResponseParams_Data::Validate},
 };
 

@@ -2,10 +2,11 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import './policy_test_table.js';
-import { getRequiredElement } from 'chrome://resources/js/util_ts.js';
+import { getRequiredElement } from 'chrome://resources/js/util.js';
 import { LevelNamesToValues, PolicyLevel, PolicyScope, PolicySource, PolicyTestBrowserProxy, ScopeNamesToValues, SourceNamesToValues } from './policy_test_browser_proxy.js';
 const policyTestBrowserProxy = PolicyTestBrowserProxy.getInstance();
-function initialize() {
+async function initialize() {
+    await initializeTable();
     getRequiredElement('import-policies-file-input')
         .addEventListener('change', uploadPoliciesFile);
     getRequiredElement('apply-policies').addEventListener('click', applyPolicies);
@@ -16,6 +17,13 @@ function initialize() {
         .addEventListener('click', exportAndDownloadPolicies);
     getRequiredElement('restart-browser')
         .addEventListener('click', restartBrowser);
+    getRequiredElement('profile-separation-response')
+        .placeholder = `Fake profile separation external response:
+  {
+    "policyValue": "ManagedAccountsSigninRestrictions value",
+    "profileSeparationSettings": 1,
+    "profileSeparationDataMigrationSettings": 2
+  }`;
 }
 function uploadPoliciesFile() {
     const fileInput = getRequiredElement('import-policies-file-input');
@@ -24,6 +32,20 @@ function uploadPoliciesFile() {
     if (jsonFile) {
         applyPoliciesFromFile(jsonFile);
     }
+}
+async function initializeTable() {
+    const policies = await policyTestBrowserProxy.getAppliedTestPolicies();
+    if (policies.length === 0) {
+        return;
+    }
+    const policyTable = getRequiredElement('policy-test-table');
+    // Empty policy table
+    policyTable.clearRows();
+    policies.forEach((policy) => {
+        policyTable.addRow(policy);
+    });
+    getRequiredElement('revert-applied-policies').disabled =
+        false;
 }
 function applyPoliciesFromFile(jsonFile) {
     // Read file as string
@@ -72,28 +94,33 @@ function convertToPolicyInfo(policyName, value) {
             PolicyScope.SCOPE_USER_VAL,
         level: Number(LevelNamesToValues[value['level']]) ??
             PolicyLevel.LEVEL_MANDATORY_VAL,
-        value: JSON.stringify(value['value']),
+        value: value['value'],
     };
     return policy;
 }
 async function applyPolicies() {
-    const jsonString = getRequiredElement('policy-test-table')
+    const policies = getRequiredElement('policy-test-table')
         .getTestPoliciesJsonString();
-    if (jsonString) {
-        // Set user affiliation
-        const userAffiliation = getRequiredElement('user-affiliated').checked;
-        await policyTestBrowserProxy.setUserAffiliation(userAffiliation);
-        // Disable the Apply policies button and re-enable after sending, to ensure
-        // that the JSON string is not accidentally sent twice.
-        getRequiredElement('apply-policies').disabled = true;
-        await policyTestBrowserProxy.applyTestPolicies(jsonString);
-        getRequiredElement('revert-applied-policies').disabled =
-            false;
-        getRequiredElement('apply-policies').disabled = false;
+    const profileSeparationResponse = getRequiredElement('profile-separation-response')
+        .value;
+    // If no policy is set, there is nothing to do.
+    if (!policies && !profileSeparationResponse) {
+        return;
     }
+    // Disable the Apply policies button and re-enable after sending, to ensure
+    // that the JSON string is not accidentally sent twice.
+    getRequiredElement('apply-policies').disabled = true;
+    const userAffiliation = getRequiredElement('user-affiliated').checked;
+    await policyTestBrowserProxy.setUserAffiliation(userAffiliation);
+    await policyTestBrowserProxy.applyTestPolicies(policies || '[]', profileSeparationResponse);
+    getRequiredElement('revert-applied-policies').disabled =
+        false;
+    getRequiredElement('apply-policies').disabled = false;
 }
 function clearPolicies() {
     getRequiredElement('policy-test-table').clearRows();
+    getRequiredElement('profile-separation-response').value =
+        '';
     getRequiredElement('policy-test-table').addEmptyRow();
 }
 function resetPolicies(event) {

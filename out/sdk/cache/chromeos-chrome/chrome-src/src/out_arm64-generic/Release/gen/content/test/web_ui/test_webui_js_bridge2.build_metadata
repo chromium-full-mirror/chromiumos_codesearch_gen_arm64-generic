@@ -1,8 +1,0 @@
-{
-  "deps": [
-    "test_secondary_interface.build_metadata"
-  ],
-  "sources": [
-    "../../../../../../../../../../../home/chrome-bot/chrome_root/src/content/test/web_ui/webui_js_bridge_unittest2.test-mojom"
-  ]
-}

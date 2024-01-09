@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "components/browsing_topics/mojom/browsing_topics_internals.mojom-features.h"
 #include "components/browsing_topics/mojom/browsing_topics_internals.mojom-shared.h"
 #include "components/browsing_topics/mojom/browsing_topics_internals.mojom-forward.h"
 #include "mojo/public/mojom/base/string16.mojom.h"
@@ -356,17 +357,17 @@ class  WebUIGetBrowsingTopicsStateResult {
   // Construct an instance holding |override_status_message|.
   static WebUIGetBrowsingTopicsStateResultPtr
   NewOverrideStatusMessage(
-      const std::string& override_status_message) {
+      const std::string& value) {
     auto result = WebUIGetBrowsingTopicsStateResultPtr(absl::in_place);
-    result->set_override_status_message(std::move(override_status_message));
+    result->set_override_status_message(std::move(value));
     return result;
   }
   // Construct an instance holding |browsing_topics_state|.
   static WebUIGetBrowsingTopicsStateResultPtr
   NewBrowsingTopicsState(
-      WebUIBrowsingTopicsStatePtr browsing_topics_state) {
+      WebUIBrowsingTopicsStatePtr value) {
     auto result = WebUIGetBrowsingTopicsStateResultPtr(absl::in_place);
-    result->set_browsing_topics_state(std::move(browsing_topics_state));
+    result->set_browsing_topics_state(std::move(value));
     return result;
   }
 
@@ -486,17 +487,17 @@ class  WebUIGetModelInfoResult {
   // Construct an instance holding |override_status_message|.
   static WebUIGetModelInfoResultPtr
   NewOverrideStatusMessage(
-      const std::string& override_status_message) {
+      const std::string& value) {
     auto result = WebUIGetModelInfoResultPtr(absl::in_place);
-    result->set_override_status_message(std::move(override_status_message));
+    result->set_override_status_message(std::move(value));
     return result;
   }
   // Construct an instance holding |model_info|.
   static WebUIGetModelInfoResultPtr
   NewModelInfo(
-      WebUIModelInfoPtr model_info) {
+      WebUIModelInfoPtr value) {
     auto result = WebUIGetModelInfoResultPtr(absl::in_place);
-    result->set_model_info(std::move(model_info));
+    result->set_model_info(std::move(value));
     return result;
   }
 
@@ -629,10 +630,8 @@ class  WebUIBrowsingTopicsConfiguration {
   WebUIBrowsingTopicsConfiguration(
       bool browsing_topics_enabled,
       bool privacy_sandbox_ads_apis_override_enabled,
-      bool privacy_sandbox_settings3_enabled,
       bool override_privacy_sandbox_settings_local_testing_enabled,
       bool browsing_topics_bypass_ip_is_publicly_routable_check_enabled,
-      bool browsing_topics_xhr_enabled,
       bool browsing_topics_document_api_enabled,
       int32_t config_version,
       bool browsing_topics_parameters_enabled,
@@ -728,13 +727,9 @@ class  WebUIBrowsingTopicsConfiguration {
   
   bool privacy_sandbox_ads_apis_override_enabled;
   
-  bool privacy_sandbox_settings3_enabled;
-  
   bool override_privacy_sandbox_settings_local_testing_enabled;
   
   bool browsing_topics_bypass_ip_is_publicly_routable_check_enabled;
-  
-  bool browsing_topics_xhr_enabled;
   
   bool browsing_topics_document_api_enabled;
   
@@ -1302,10 +1297,8 @@ WebUIBrowsingTopicsConfigurationPtr WebUIBrowsingTopicsConfiguration::Clone() co
   return New(
       mojo::Clone(browsing_topics_enabled),
       mojo::Clone(privacy_sandbox_ads_apis_override_enabled),
-      mojo::Clone(privacy_sandbox_settings3_enabled),
       mojo::Clone(override_privacy_sandbox_settings_local_testing_enabled),
       mojo::Clone(browsing_topics_bypass_ip_is_publicly_routable_check_enabled),
-      mojo::Clone(browsing_topics_xhr_enabled),
       mojo::Clone(browsing_topics_document_api_enabled),
       mojo::Clone(config_version),
       mojo::Clone(browsing_topics_parameters_enabled),
@@ -1329,13 +1322,9 @@ bool WebUIBrowsingTopicsConfiguration::Equals(const T& other_struct) const {
     return false;
   if (!mojo::Equals(this->privacy_sandbox_ads_apis_override_enabled, other_struct.privacy_sandbox_ads_apis_override_enabled))
     return false;
-  if (!mojo::Equals(this->privacy_sandbox_settings3_enabled, other_struct.privacy_sandbox_settings3_enabled))
-    return false;
   if (!mojo::Equals(this->override_privacy_sandbox_settings_local_testing_enabled, other_struct.override_privacy_sandbox_settings_local_testing_enabled))
     return false;
   if (!mojo::Equals(this->browsing_topics_bypass_ip_is_publicly_routable_check_enabled, other_struct.browsing_topics_bypass_ip_is_publicly_routable_check_enabled))
-    return false;
-  if (!mojo::Equals(this->browsing_topics_xhr_enabled, other_struct.browsing_topics_xhr_enabled))
     return false;
   if (!mojo::Equals(this->browsing_topics_document_api_enabled, other_struct.browsing_topics_document_api_enabled))
     return false;
@@ -1378,10 +1367,6 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.privacy_sandbox_ads_apis_override_enabled < lhs.privacy_sandbox_ads_apis_override_enabled)
     return false;
-  if (lhs.privacy_sandbox_settings3_enabled < rhs.privacy_sandbox_settings3_enabled)
-    return true;
-  if (rhs.privacy_sandbox_settings3_enabled < lhs.privacy_sandbox_settings3_enabled)
-    return false;
   if (lhs.override_privacy_sandbox_settings_local_testing_enabled < rhs.override_privacy_sandbox_settings_local_testing_enabled)
     return true;
   if (rhs.override_privacy_sandbox_settings_local_testing_enabled < lhs.override_privacy_sandbox_settings_local_testing_enabled)
@@ -1389,10 +1374,6 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.browsing_topics_bypass_ip_is_publicly_routable_check_enabled < rhs.browsing_topics_bypass_ip_is_publicly_routable_check_enabled)
     return true;
   if (rhs.browsing_topics_bypass_ip_is_publicly_routable_check_enabled < lhs.browsing_topics_bypass_ip_is_publicly_routable_check_enabled)
-    return false;
-  if (lhs.browsing_topics_xhr_enabled < rhs.browsing_topics_xhr_enabled)
-    return true;
-  if (rhs.browsing_topics_xhr_enabled < lhs.browsing_topics_xhr_enabled)
     return false;
   if (lhs.browsing_topics_document_api_enabled < rhs.browsing_topics_document_api_enabled)
     return true;
@@ -1619,11 +1600,6 @@ struct  StructTraits<::browsing_topics::mojom::WebUIBrowsingTopicsConfiguration:
     return input->privacy_sandbox_ads_apis_override_enabled;
   }
 
-  static decltype(::browsing_topics::mojom::WebUIBrowsingTopicsConfiguration::privacy_sandbox_settings3_enabled) privacy_sandbox_settings3_enabled(
-      const ::browsing_topics::mojom::WebUIBrowsingTopicsConfigurationPtr& input) {
-    return input->privacy_sandbox_settings3_enabled;
-  }
-
   static decltype(::browsing_topics::mojom::WebUIBrowsingTopicsConfiguration::override_privacy_sandbox_settings_local_testing_enabled) override_privacy_sandbox_settings_local_testing_enabled(
       const ::browsing_topics::mojom::WebUIBrowsingTopicsConfigurationPtr& input) {
     return input->override_privacy_sandbox_settings_local_testing_enabled;
@@ -1632,11 +1608,6 @@ struct  StructTraits<::browsing_topics::mojom::WebUIBrowsingTopicsConfiguration:
   static decltype(::browsing_topics::mojom::WebUIBrowsingTopicsConfiguration::browsing_topics_bypass_ip_is_publicly_routable_check_enabled) browsing_topics_bypass_ip_is_publicly_routable_check_enabled(
       const ::browsing_topics::mojom::WebUIBrowsingTopicsConfigurationPtr& input) {
     return input->browsing_topics_bypass_ip_is_publicly_routable_check_enabled;
-  }
-
-  static decltype(::browsing_topics::mojom::WebUIBrowsingTopicsConfiguration::browsing_topics_xhr_enabled) browsing_topics_xhr_enabled(
-      const ::browsing_topics::mojom::WebUIBrowsingTopicsConfigurationPtr& input) {
-    return input->browsing_topics_xhr_enabled;
   }
 
   static decltype(::browsing_topics::mojom::WebUIBrowsingTopicsConfiguration::browsing_topics_document_api_enabled) browsing_topics_document_api_enabled(

@@ -27,7 +27,7 @@ import { focusWithoutInk } from 'chrome://resources/js/focus_without_ink.js';
 import { OpenWindowProxyImpl } from 'chrome://resources/js/open_window_proxy.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { loadTimeData } from '../i18n_setup.js';
-import { MetricsBrowserProxyImpl, PrivacyElementInteractions } from '../metrics_browser_proxy.js';
+import { CvcDeletionUserAction, MetricsBrowserProxyImpl, PrivacyElementInteractions } from '../metrics_browser_proxy.js';
 import { PaymentsManagerImpl } from './payments_manager_proxy.js';
 import { getTemplate } from './payments_section.html.js';
 const SettingsPaymentsSectionElementBase = I18nMixin(PolymerElement);
@@ -284,6 +284,7 @@ export class SettingsPaymentsSectionElement extends SettingsPaymentsSectionEleme
         OpenWindowProxyImpl.getInstance().openUrl(url.toString());
     }
     onRemoteEditIbanMenuClick_() {
+        this.paymentsManager_.logServerIbanLinkClicked();
         OpenWindowProxyImpl.getInstance().openUrl(loadTimeData.getString('managePaymentMethodsUrl'));
     }
     onLocalCreditCardRemoveConfirmationDialogClose_() {
@@ -473,14 +474,26 @@ export class SettingsPaymentsSectionElement extends SettingsPaymentsSectionEleme
      */
     onBulkRemoveCvcClick_() {
         assert(this.cvcStorageAvailable_);
+        // Log the metric for user clicking on the bulk delete hyperlink which
+        // triggers the dialog window.
+        MetricsBrowserProxyImpl.getInstance().recordAction(CvcDeletionUserAction.HYPERLINK_CLICKED);
         this.showBulkRemoveCvcConfirmationDialog_ = true;
     }
     /**
      * Method to bulk delete all the CVCs present on the local DB.
-     * TODO(crbug/1464441): Add the code to delete all the CVCs from the local DB.
      */
     onShowBulkRemoveCvcConfirmationDialogClose_() {
         assert(this.cvcStorageAvailable_);
+        const confirmationDialog = this.shadowRoot.querySelector('#bulkDeleteCvcConfirmDialog');
+        assert(confirmationDialog);
+        // Log the metric for user either clicking on "Delete" or "Cancel" on the
+        // bulk delete dialog window.
+        MetricsBrowserProxyImpl.getInstance().recordAction(confirmationDialog.wasConfirmed() ?
+            CvcDeletionUserAction.DIALOG_ACCEPTED :
+            CvcDeletionUserAction.DIALOG_CANCELLED);
+        if (confirmationDialog.wasConfirmed()) {
+            this.paymentsManager_.bulkDeleteAllCvcs();
+        }
         this.showBulkRemoveCvcConfirmationDialog_ = false;
     }
     /**

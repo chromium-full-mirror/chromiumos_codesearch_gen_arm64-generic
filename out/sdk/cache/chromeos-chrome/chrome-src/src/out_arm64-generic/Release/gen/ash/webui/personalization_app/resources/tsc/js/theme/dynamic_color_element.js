@@ -4,12 +4,13 @@
 /**
  * @fileoverview This component displays the dynamic color options.
  */
+import 'chrome://resources/ash/common/personalization_shared_icons.html.js';
 import 'chrome://resources/cr_elements/cr_button/cr_button.js';
-import '../../css/common.css.js';
-import '../../css/cros_button_style.css.js';
 import 'chrome://resources/cr_elements/cr_toggle/cr_toggle.js';
 import 'chrome://resources/polymer/v3_0/iron-a11y-keys/iron-a11y-keys.js';
 import 'chrome://resources/polymer/v3_0/iron-selector/iron-selector.js';
+import '../../css/common.css.js';
+import '../../css/cros_button_style.css.js';
 import { hexColorToSkColor } from 'chrome://resources/js/color_utils.js';
 import { ColorScheme } from '../../color_scheme.mojom-webui.js';
 import { STATIC_COLOR_DARK_GREEN, STATIC_COLOR_GOOGLE_BLUE, STATIC_COLOR_LIGHT_PINK, STATIC_COLOR_LIGHT_PURPLE, StaticColor } from '../../personalization_app.mojom-webui.js';

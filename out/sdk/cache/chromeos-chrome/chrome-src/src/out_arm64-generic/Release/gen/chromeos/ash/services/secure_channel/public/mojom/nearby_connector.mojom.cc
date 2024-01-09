@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -131,14 +132,17 @@ void NearbyMessageSenderProxy::SendMessage(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyMessageSender_SendMessage_Name, kFlags, 0, 0, nullptr);
@@ -259,7 +263,8 @@ void NearbyMessageSender_SendMessage_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyMessageSender_SendMessage_Name, kFlags, 0, 0, nullptr);
@@ -339,10 +344,10 @@ std::move(p_message), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kNearbyMessageSenderValidationInfo[] = {
-    {&internal::NearbyMessageSender_SendMessage_Params_Data::Validate,
+    { &internal::NearbyMessageSender_SendMessage_Params_Data::Validate,
      &internal::NearbyMessageSender_SendMessage_ResponseParams_Data::Validate},
 };
 
@@ -426,14 +431,17 @@ void NearbyMessageReceiverProxy::OnMessageReceived(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyMessageReceiver_OnMessageReceived_Name, kFlags, 0, 0, nullptr);
@@ -512,10 +520,10 @@ bool NearbyMessageReceiverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kNearbyMessageReceiverValidationInfo[] = {
-    {&internal::NearbyMessageReceiver_OnMessageReceived_Params_Data::Validate,
+    { &internal::NearbyMessageReceiver_OnMessageReceived_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -617,14 +625,17 @@ void NearbyFilePayloadHandlerProxy::RegisterPayloadFile(
                         "<value of type ::mojo::PendingRemote<::ash::secure_channel::mojom::FilePayloadListener>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyFilePayloadHandler_RegisterPayloadFile_Name, kFlags, 0, 0, nullptr);
@@ -752,7 +763,8 @@ void NearbyFilePayloadHandler_RegisterPayloadFile_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyFilePayloadHandler_RegisterPayloadFile_Name, kFlags, 0, 0, nullptr);
@@ -842,10 +854,10 @@ std::move(p_listener), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kNearbyFilePayloadHandlerValidationInfo[] = {
-    {&internal::NearbyFilePayloadHandler_RegisterPayloadFile_Params_Data::Validate,
+    { &internal::NearbyFilePayloadHandler_RegisterPayloadFile_Params_Data::Validate,
      &internal::NearbyFilePayloadHandler_RegisterPayloadFile_ResponseParams_Data::Validate},
 };
 
@@ -951,14 +963,17 @@ void NearbyConnectorProxy::Connect(
                         "<value of type ::mojo::PendingRemote<NearbyMessageReceiver>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyConnector_Connect_Name, kFlags, 0, 0, nullptr);
@@ -1111,7 +1126,8 @@ void NearbyConnector_Connect_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNearbyConnector_Connect_Name, kFlags, 0, 0, nullptr);
@@ -1204,10 +1220,10 @@ std::move(p_message_receiver), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kNearbyConnectorValidationInfo[] = {
-    {&internal::NearbyConnector_Connect_Params_Data::Validate,
+    { &internal::NearbyConnector_Connect_Params_Data::Validate,
      &internal::NearbyConnector_Connect_ResponseParams_Data::Validate},
 };
 

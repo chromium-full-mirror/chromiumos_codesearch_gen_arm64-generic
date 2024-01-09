@@ -343,7 +343,7 @@ enum PayloadTransferFrame_ControlMessage_EventType : int {
   PayloadTransferFrame_ControlMessage_EventType_UNKNOWN_EVENT_TYPE = 0,
   PayloadTransferFrame_ControlMessage_EventType_PAYLOAD_ERROR = 1,
   PayloadTransferFrame_ControlMessage_EventType_PAYLOAD_CANCELED = 2,
-  PayloadTransferFrame_ControlMessage_EventType_PAYLOAD_RECEIVED_ACK = 3
+  PayloadTransferFrame_ControlMessage_EventType_PAYLOAD_RECEIVED_ACK PROTOBUF_DEPRECATED_ENUM = 3
 };
 bool PayloadTransferFrame_ControlMessage_EventType_IsValid(int value);
 constexpr PayloadTransferFrame_ControlMessage_EventType PayloadTransferFrame_ControlMessage_EventType_EventType_MIN = PayloadTransferFrame_ControlMessage_EventType_UNKNOWN_EVENT_TYPE;
@@ -363,11 +363,12 @@ bool PayloadTransferFrame_ControlMessage_EventType_Parse(
 enum PayloadTransferFrame_PacketType : int {
   PayloadTransferFrame_PacketType_UNKNOWN_PACKET_TYPE = 0,
   PayloadTransferFrame_PacketType_DATA = 1,
-  PayloadTransferFrame_PacketType_CONTROL = 2
+  PayloadTransferFrame_PacketType_CONTROL = 2,
+  PayloadTransferFrame_PacketType_PAYLOAD_ACK = 3
 };
 bool PayloadTransferFrame_PacketType_IsValid(int value);
 constexpr PayloadTransferFrame_PacketType PayloadTransferFrame_PacketType_PacketType_MIN = PayloadTransferFrame_PacketType_UNKNOWN_PACKET_TYPE;
-constexpr PayloadTransferFrame_PacketType PayloadTransferFrame_PacketType_PacketType_MAX = PayloadTransferFrame_PacketType_CONTROL;
+constexpr PayloadTransferFrame_PacketType PayloadTransferFrame_PacketType_PacketType_MAX = PayloadTransferFrame_PacketType_PAYLOAD_ACK;
 constexpr int PayloadTransferFrame_PacketType_PacketType_ARRAYSIZE = PayloadTransferFrame_PacketType_PacketType_MAX + 1;
 
 const std::string& PayloadTransferFrame_PacketType_Name(PayloadTransferFrame_PacketType value);
@@ -2477,7 +2478,7 @@ class PayloadTransferFrame_ControlMessage final :
     PayloadTransferFrame_ControlMessage_EventType_PAYLOAD_ERROR;
   static constexpr EventType PAYLOAD_CANCELED =
     PayloadTransferFrame_ControlMessage_EventType_PAYLOAD_CANCELED;
-  static constexpr EventType PAYLOAD_RECEIVED_ACK =
+  PROTOBUF_DEPRECATED_ENUM static constexpr EventType PAYLOAD_RECEIVED_ACK =
     PayloadTransferFrame_ControlMessage_EventType_PAYLOAD_RECEIVED_ACK;
   static inline bool EventType_IsValid(int value) {
     return PayloadTransferFrame_ControlMessage_EventType_IsValid(value);
@@ -2665,6 +2666,8 @@ class PayloadTransferFrame final :
     PayloadTransferFrame_PacketType_DATA;
   static constexpr PacketType CONTROL =
     PayloadTransferFrame_PacketType_CONTROL;
+  static constexpr PacketType PAYLOAD_ACK =
+    PayloadTransferFrame_PacketType_PAYLOAD_ACK;
   static inline bool PacketType_IsValid(int value) {
     return PayloadTransferFrame_PacketType_IsValid(value);
   }

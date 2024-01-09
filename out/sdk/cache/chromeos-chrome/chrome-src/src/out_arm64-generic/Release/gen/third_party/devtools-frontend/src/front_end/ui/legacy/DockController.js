@@ -177,15 +177,7 @@ export class DockController extends Common.ObjectWrapper.ObjectWrapper {
     }
 }
 const states = ["right" /* DockState.RIGHT */, "bottom" /* DockState.BOTTOM */, "left" /* DockState.LEFT */, "undocked" /* DockState.UNDOCKED */];
-let toggleDockActionDelegateInstance;
 export class ToggleDockActionDelegate {
-    static instance(opts = { forceNew: null }) {
-        const { forceNew } = opts;
-        if (!toggleDockActionDelegateInstance || forceNew) {
-            toggleDockActionDelegateInstance = new ToggleDockActionDelegate();
-        }
-        return toggleDockActionDelegateInstance;
-    }
     handleAction(_context, _actionId) {
         DockController.instance().toggleDockSide();
         return true;

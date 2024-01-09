@@ -641,6 +641,67 @@ class  CameraAppDevice_RegisterCameraInfoObserver_ResponseParams_Data {
 };
 static_assert(sizeof(CameraAppDevice_RegisterCameraInfoObserver_ResponseParams_Data) == 8,
               "Bad sizeof(CameraAppDevice_RegisterCameraInfoObserver_ResponseParams_Data)");
+class  CameraAppDevice_SetCropRegion_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::gfx::mojom::internal::Rect_Data> crop_region;
+
+ private:
+  friend class mojo::internal::MessageFragment<CameraAppDevice_SetCropRegion_Params_Data>;
+
+  CameraAppDevice_SetCropRegion_Params_Data();
+  ~CameraAppDevice_SetCropRegion_Params_Data() = delete;
+};
+static_assert(sizeof(CameraAppDevice_SetCropRegion_Params_Data) == 16,
+              "Bad sizeof(CameraAppDevice_SetCropRegion_Params_Data)");
+class  CameraAppDevice_SetCropRegion_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<CameraAppDevice_SetCropRegion_ResponseParams_Data>;
+
+  CameraAppDevice_SetCropRegion_ResponseParams_Data();
+  ~CameraAppDevice_SetCropRegion_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(CameraAppDevice_SetCropRegion_ResponseParams_Data) == 8,
+              "Bad sizeof(CameraAppDevice_SetCropRegion_ResponseParams_Data)");
+class  CameraAppDevice_ResetCropRegion_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<CameraAppDevice_ResetCropRegion_Params_Data>;
+
+  CameraAppDevice_ResetCropRegion_Params_Data();
+  ~CameraAppDevice_ResetCropRegion_Params_Data() = delete;
+};
+static_assert(sizeof(CameraAppDevice_ResetCropRegion_Params_Data) == 8,
+              "Bad sizeof(CameraAppDevice_ResetCropRegion_Params_Data)");
+class  CameraAppDevice_ResetCropRegion_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<CameraAppDevice_ResetCropRegion_ResponseParams_Data>;
+
+  CameraAppDevice_ResetCropRegion_ResponseParams_Data();
+  ~CameraAppDevice_ResetCropRegion_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(CameraAppDevice_ResetCropRegion_ResponseParams_Data) == 8,
+              "Bad sizeof(CameraAppDevice_ResetCropRegion_ResponseParams_Data)");
 class  ResultMetadataObserver_OnMetadataAvailable_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -1533,6 +1594,77 @@ class CameraAppDevice_RegisterCameraInfoObserver_ResponseParamsDataView {
 };
 
 
+class CameraAppDevice_SetCropRegion_ParamsDataView {
+ public:
+  CameraAppDevice_SetCropRegion_ParamsDataView() = default;
+
+  CameraAppDevice_SetCropRegion_ParamsDataView(
+      internal::CameraAppDevice_SetCropRegion_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetCropRegionDataView(
+      ::gfx::mojom::RectDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadCropRegion(UserType* output) {
+    
+    auto* pointer = data_->crop_region.Get();
+    return mojo::internal::Deserialize<::gfx::mojom::RectDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::CameraAppDevice_SetCropRegion_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class CameraAppDevice_SetCropRegion_ResponseParamsDataView {
+ public:
+  CameraAppDevice_SetCropRegion_ResponseParamsDataView() = default;
+
+  CameraAppDevice_SetCropRegion_ResponseParamsDataView(
+      internal::CameraAppDevice_SetCropRegion_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::CameraAppDevice_SetCropRegion_ResponseParams_Data* data_ = nullptr;
+};
+
+
+class CameraAppDevice_ResetCropRegion_ParamsDataView {
+ public:
+  CameraAppDevice_ResetCropRegion_ParamsDataView() = default;
+
+  CameraAppDevice_ResetCropRegion_ParamsDataView(
+      internal::CameraAppDevice_ResetCropRegion_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::CameraAppDevice_ResetCropRegion_Params_Data* data_ = nullptr;
+};
+
+
+class CameraAppDevice_ResetCropRegion_ResponseParamsDataView {
+ public:
+  CameraAppDevice_ResetCropRegion_ResponseParamsDataView() = default;
+
+  CameraAppDevice_ResetCropRegion_ResponseParamsDataView(
+      internal::CameraAppDevice_ResetCropRegion_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::CameraAppDevice_ResetCropRegion_ResponseParams_Data* data_ = nullptr;
+};
+
+
 class ResultMetadataObserver_OnMetadataAvailable_ParamsDataView {
  public:
   ResultMetadataObserver_OnMetadataAvailable_ParamsDataView() = default;
@@ -1782,6 +1914,19 @@ inline void CameraAppDevice_SetStillCaptureResolution_ParamsDataView::GetResolut
 
 
 
+
+
+
+
+
+
+
+
+inline void CameraAppDevice_SetCropRegion_ParamsDataView::GetCropRegionDataView(
+    ::gfx::mojom::RectDataView* output) {
+  auto pointer = data_->crop_region.Get();
+  *output = ::gfx::mojom::RectDataView(pointer, message_);
+}
 
 
 

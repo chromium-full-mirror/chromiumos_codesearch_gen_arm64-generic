@@ -415,15 +415,13 @@ enum class SubmissionIndicatorEvent : int32_t {
   
   FRAME_DETACHED = 4,
   
-  DOM_MUTATION_AFTER_XHR = 6,
-  
-  PROVISIONALLY_SAVED_FORM_ON_START_PROVISIONAL_LOAD = 7,
-  
   PROBABLE_FORM_SUBMISSION = 10,
   
   CHANGE_PASSWORD_FORM_CLEARED = 11,
+  
+  DOM_MUTATION_AFTER_AUTOFILL = 12,
   kMinValue = 0,
-  kMaxValue = 11,
+  kMaxValue = 12,
 };
 
  std::ostream& operator<<(std::ostream& os, SubmissionIndicatorEvent value);
@@ -443,11 +441,11 @@ enum class SubmissionSource : int32_t {
   
   FRAME_DETACHED = 3,
   
-  DOM_MUTATION_AFTER_XHR = 4,
+  PROBABLY_FORM_SUBMITTED = 4,
   
-  PROBABLY_FORM_SUBMITTED = 5,
+  FORM_SUBMISSION = 5,
   
-  FORM_SUBMISSION = 6,
+  DOM_MUTATION_AFTER_AUTOFILL = 6,
   kMinValue = 0,
   kMaxValue = 6,
 };
@@ -545,7 +543,7 @@ inline bool IsKnownEnumValue(SubmissionReadinessState value) {
 }
 
 
-enum class AutofillState : int32_t {
+enum class AutofillSuggestionAvailability : int32_t {
   
   kNoSuggestions = 0,
   
@@ -556,9 +554,9 @@ enum class AutofillState : int32_t {
   kMaxValue = 2,
 };
 
- std::ostream& operator<<(std::ostream& os, AutofillState value);
-inline bool IsKnownEnumValue(AutofillState value) {
-  return internal::AutofillState_Data::IsKnownValue(
+ std::ostream& operator<<(std::ostream& os, AutofillSuggestionAvailability value);
+inline bool IsKnownEnumValue(AutofillSuggestionAvailability value) {
+  return internal::AutofillSuggestionAvailability_Data::IsKnownValue(
       static_cast<int32_t>(value));
 }
 
@@ -595,6 +593,22 @@ inline bool IsKnownEnumValue(ActionType value) {
 }
 
 
+enum class TextReplacement : int32_t {
+  
+  kReplaceAll = 0,
+  
+  kReplaceSelection = 1,
+  kMinValue = 0,
+  kMaxValue = 1,
+};
+
+ std::ostream& operator<<(std::ostream& os, TextReplacement value);
+inline bool IsKnownEnumValue(TextReplacement value) {
+  return internal::TextReplacement_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+
+
 enum class AutofillSuggestionTriggerSource : int32_t {
   
   kUnspecified = 0,
@@ -613,11 +627,11 @@ enum class AutofillSuggestionTriggerSource : int32_t {
   
   kPasswordManager = 7,
   
-  kAndroidWebView = 8,
+  kiOS = 8,
   
-  kiOS = 9,
+  kManualFallbackAddress = 9,
   
-  kManualFallbackForAutocompleteUnrecognized = 10,
+  kManualFallbackPayments = 10,
   
   kShowPromptAfterDialogClosed = 11,
   kMinValue = 0,
@@ -1046,11 +1060,15 @@ class FormFieldDataDataView {
     return mojo::internal::Deserialize<::mojo_base::mojom::String16DataView>(
         pointer, output, message_);
   }
-  uint32_t selection_start() const {
-    return data_->selection_start;
-  }
-  uint32_t selection_end() const {
-    return data_->selection_end;
+  inline void GetSelectedTextDataView(
+      ::mojo_base::mojom::String16DataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadSelectedText(UserType* output) {
+    
+    auto* pointer = data_->selected_text.Get();
+    return mojo::internal::Deserialize<::mojo_base::mojom::String16DataView>(
+        pointer, output, message_);
   }
   template <typename UserType>
   [[nodiscard]] bool ReadFormControlType(UserType* output) const {
@@ -1160,6 +1178,9 @@ static_assert(
   }
   uint64_t max_length() const {
     return data_->max_length;
+  }
+  bool is_user_edited() const {
+    return data_->is_user_edited;
   }
   bool is_autofilled() const {
     return data_->is_autofilled;
@@ -1486,6 +1507,16 @@ class FormFieldDataPredictionsDataView {
   [[nodiscard]] bool ReadServerType(UserType* output) {
     
     auto* pointer = data_->server_type.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetHtmlTypeDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadHtmlType(UserType* output) {
+    
+    auto* pointer = data_->html_type.Get();
     return mojo::internal::Deserialize<mojo::StringDataView>(
         pointer, output, message_);
   }
@@ -1826,6 +1857,9 @@ class PasswordGenerationUIDataDataView {
     return mojo::internal::Deserialize<::autofill::mojom::FormDataDataView>(
         pointer, output, message_);
   }
+  bool input_field_empty() const {
+    return data_->input_field_empty;
+  }
  private:
   internal::PasswordGenerationUIData_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -1978,8 +2012,8 @@ struct hash<::autofill::mojom::SubmissionReadinessState>
     : public mojo::internal::EnumHashImpl<::autofill::mojom::SubmissionReadinessState> {};
 
 template <>
-struct hash<::autofill::mojom::AutofillState>
-    : public mojo::internal::EnumHashImpl<::autofill::mojom::AutofillState> {};
+struct hash<::autofill::mojom::AutofillSuggestionAvailability>
+    : public mojo::internal::EnumHashImpl<::autofill::mojom::AutofillSuggestionAvailability> {};
 
 template <>
 struct hash<::autofill::mojom::ActionPersistence>
@@ -1988,6 +2022,10 @@ struct hash<::autofill::mojom::ActionPersistence>
 template <>
 struct hash<::autofill::mojom::ActionType>
     : public mojo::internal::EnumHashImpl<::autofill::mojom::ActionType> {};
+
+template <>
+struct hash<::autofill::mojom::TextReplacement>
+    : public mojo::internal::EnumHashImpl<::autofill::mojom::TextReplacement> {};
 
 template <>
 struct hash<::autofill::mojom::AutofillSuggestionTriggerSource>
@@ -2173,9 +2211,9 @@ struct Serializer<::autofill::mojom::SubmissionReadinessState, MaybeConstUserTyp
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::autofill::mojom::AutofillState, MaybeConstUserType> {
+struct Serializer<::autofill::mojom::AutofillSuggestionAvailability, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = EnumTraits<::autofill::mojom::AutofillState, UserType>;
+  using Traits = EnumTraits<::autofill::mojom::AutofillSuggestionAvailability, UserType>;
 
   static void Serialize(UserType input, int32_t* output) {
     *output = static_cast<int32_t>(Traits::ToMojom(input));
@@ -2183,7 +2221,7 @@ struct Serializer<::autofill::mojom::AutofillState, MaybeConstUserType> {
 
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
-        static_cast<::autofill::mojom::AutofillState>(input)), output);
+        static_cast<::autofill::mojom::AutofillSuggestionAvailability>(input)), output);
   }
 };
 
@@ -2224,6 +2262,26 @@ struct Serializer<::autofill::mojom::ActionType, MaybeConstUserType> {
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
         static_cast<::autofill::mojom::ActionType>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::autofill::mojom::TextReplacement, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::autofill::mojom::TextReplacement, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::autofill::mojom::TextReplacement>(input)), output);
   }
 };
 
@@ -2761,8 +2819,18 @@ struct Serializer<::autofill::mojom::FormFieldDataDataView, MaybeConstUserType> 
         fragment->value.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null value in FormFieldData struct");
-    fragment->selection_start = Traits::selection_start(input);
-    fragment->selection_end = Traits::selection_end(input);
+    decltype(Traits::selected_text(input)) in_selected_text = Traits::selected_text(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->selected_text)::BaseType> selected_text_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::mojo_base::mojom::String16DataView>(
+        in_selected_text, selected_text_fragment);
+    fragment->selected_text.Set(
+        selected_text_fragment.is_null() ? nullptr : selected_text_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->selected_text.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null selected_text in FormFieldData struct");
     mojo::internal::Serialize<::autofill::mojom::FormControlType>(
         Traits::form_control_type(input), &fragment->form_control_type);
     decltype(Traits::autocomplete_attribute(input)) in_autocomplete_attribute = Traits::autocomplete_attribute(input);
@@ -2860,6 +2928,7 @@ struct Serializer<::autofill::mojom::FormFieldDataDataView, MaybeConstUserType> 
     fragment->properties_mask = Traits::properties_mask(input);
     fragment->form_control_ax_id = Traits::form_control_ax_id(input);
     fragment->max_length = Traits::max_length(input);
+    fragment->is_user_edited = Traits::is_user_edited(input);
     fragment->is_autofilled = Traits::is_autofilled(input);
     decltype(Traits::section(input)) in_section = Traits::section(input);
     mojo::internal::MessageFragment<
@@ -3209,6 +3278,18 @@ struct Serializer<::autofill::mojom::FormFieldDataPredictionsDataView, MaybeCons
         fragment->server_type.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null server_type in FormFieldDataPredictions struct");
+    decltype(Traits::html_type(input)) in_html_type = Traits::html_type(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->html_type)::BaseType> html_type_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_html_type, html_type_fragment);
+    fragment->html_type.Set(
+        html_type_fragment.is_null() ? nullptr : html_type_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->html_type.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null html_type in FormFieldDataPredictions struct");
     decltype(Traits::overall_type(input)) in_overall_type = Traits::overall_type(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->overall_type)::BaseType> overall_type_fragment(
@@ -3633,6 +3714,7 @@ struct Serializer<::autofill::mojom::PasswordGenerationUIDataDataView, MaybeCons
         fragment->form_data.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null form_data in PasswordGenerationUIData struct");
+    fragment->input_field_empty = Traits::input_field_empty(input);
   }
 
   static bool Deserialize(::autofill::mojom::internal::PasswordGenerationUIData_Data* input,
@@ -3897,6 +3979,11 @@ inline void FormFieldDataDataView::GetValueDataView(
   auto pointer = data_->value.Get();
   *output = ::mojo_base::mojom::String16DataView(pointer, message_);
 }
+inline void FormFieldDataDataView::GetSelectedTextDataView(
+    ::mojo_base::mojom::String16DataView* output) {
+  auto pointer = data_->selected_text.Get();
+  *output = ::mojo_base::mojom::String16DataView(pointer, message_);
+}
 inline void FormFieldDataDataView::GetAutocompleteAttributeDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->autocomplete_attribute.Get();
@@ -4036,6 +4123,11 @@ inline void FormFieldDataPredictionsDataView::GetHeuristicTypeDataView(
 inline void FormFieldDataPredictionsDataView::GetServerTypeDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->server_type.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void FormFieldDataPredictionsDataView::GetHtmlTypeDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->html_type.Get();
   *output = mojo::StringDataView(pointer, message_);
 }
 inline void FormFieldDataPredictionsDataView::GetOverallTypeDataView(
@@ -4274,8 +4366,8 @@ struct  TraceFormatTraits<::autofill::mojom::SubmissionReadinessState> {
 namespace perfetto {
 
 template <>
-struct  TraceFormatTraits<::autofill::mojom::AutofillState> {
- static void WriteIntoTrace(perfetto::TracedValue context, ::autofill::mojom::AutofillState value);
+struct  TraceFormatTraits<::autofill::mojom::AutofillSuggestionAvailability> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::autofill::mojom::AutofillSuggestionAvailability value);
 };
 
 } // namespace perfetto
@@ -4294,6 +4386,15 @@ namespace perfetto {
 template <>
 struct  TraceFormatTraits<::autofill::mojom::ActionType> {
  static void WriteIntoTrace(perfetto::TracedValue context, ::autofill::mojom::ActionType value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::autofill::mojom::TextReplacement> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::autofill::mojom::TextReplacement value);
 };
 
 } // namespace perfetto

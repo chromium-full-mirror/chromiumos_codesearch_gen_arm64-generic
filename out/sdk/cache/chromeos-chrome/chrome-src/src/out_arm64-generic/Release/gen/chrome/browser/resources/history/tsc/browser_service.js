@@ -17,6 +17,9 @@ export class BrowserServiceImpl {
     removeVisits(removalList) {
         return sendWithPromise('removeVisits', removalList);
     }
+    setLastSelectedTab(lastSelectedTab) {
+        chrome.send('setLastSelectedTab', [lastSelectedTab]);
+    }
     openForeignSessionAllTabs(sessionTag) {
         chrome.send('openForeignSessionAllTabs', [sessionTag]);
     }

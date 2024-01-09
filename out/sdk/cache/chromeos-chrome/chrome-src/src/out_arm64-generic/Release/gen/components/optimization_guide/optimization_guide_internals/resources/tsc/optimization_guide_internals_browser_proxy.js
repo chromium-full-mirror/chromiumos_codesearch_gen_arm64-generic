@@ -3,6 +3,7 @@
 // found in the LICENSE file.
 import { PageCallbackRouter, PageHandlerFactory } from './optimization_guide_internals.mojom-webui.js';
 export class OptimizationGuideInternalsBrowserProxy {
+    callbackRouter;
     constructor() {
         this.callbackRouter = new PageCallbackRouter();
         const factory = PageHandlerFactory.getRemote();

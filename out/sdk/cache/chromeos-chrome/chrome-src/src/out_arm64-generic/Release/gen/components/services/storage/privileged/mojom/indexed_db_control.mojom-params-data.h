@@ -75,37 +75,6 @@ class  IndexedDBControl_BindIndexedDB_Params_Data {
 };
 static_assert(sizeof(IndexedDBControl_BindIndexedDB_Params_Data) == 32,
               "Bad sizeof(IndexedDBControl_BindIndexedDB_Params_Data)");
-class  IndexedDBControl_GetUsage_Params_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-
- private:
-  friend class mojo::internal::MessageFragment<IndexedDBControl_GetUsage_Params_Data>;
-
-  IndexedDBControl_GetUsage_Params_Data();
-  ~IndexedDBControl_GetUsage_Params_Data() = delete;
-};
-static_assert(sizeof(IndexedDBControl_GetUsage_Params_Data) == 8,
-              "Bad sizeof(IndexedDBControl_GetUsage_Params_Data)");
-class  IndexedDBControl_GetUsage_ResponseParams_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<::storage::mojom::internal::StorageUsageInfo_Data>>> info;
-
- private:
-  friend class mojo::internal::MessageFragment<IndexedDBControl_GetUsage_ResponseParams_Data>;
-
-  IndexedDBControl_GetUsage_ResponseParams_Data();
-  ~IndexedDBControl_GetUsage_ResponseParams_Data() = delete;
-};
-static_assert(sizeof(IndexedDBControl_GetUsage_ResponseParams_Data) == 16,
-              "Bad sizeof(IndexedDBControl_GetUsage_ResponseParams_Data)");
 class  IndexedDBControl_DeleteForStorageKey_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -172,38 +141,6 @@ class  IndexedDBControl_ForceClose_ResponseParams_Data {
 };
 static_assert(sizeof(IndexedDBControl_ForceClose_ResponseParams_Data) == 8,
               "Bad sizeof(IndexedDBControl_ForceClose_ResponseParams_Data)");
-class  IndexedDBControl_GetConnectionCount_Params_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::storage::mojom::internal::BucketId_Data> bucket_id;
-
- private:
-  friend class mojo::internal::MessageFragment<IndexedDBControl_GetConnectionCount_Params_Data>;
-
-  IndexedDBControl_GetConnectionCount_Params_Data();
-  ~IndexedDBControl_GetConnectionCount_Params_Data() = delete;
-};
-static_assert(sizeof(IndexedDBControl_GetConnectionCount_Params_Data) == 16,
-              "Bad sizeof(IndexedDBControl_GetConnectionCount_Params_Data)");
-class  IndexedDBControl_GetConnectionCount_ResponseParams_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  uint64_t connection_count;
-
- private:
-  friend class mojo::internal::MessageFragment<IndexedDBControl_GetConnectionCount_ResponseParams_Data>;
-
-  IndexedDBControl_GetConnectionCount_ResponseParams_Data();
-  ~IndexedDBControl_GetConnectionCount_ResponseParams_Data() = delete;
-};
-static_assert(sizeof(IndexedDBControl_GetConnectionCount_ResponseParams_Data) == 16,
-              "Bad sizeof(IndexedDBControl_GetConnectionCount_ResponseParams_Data)");
 class  IndexedDBControl_DownloadBucketData_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -456,47 +393,6 @@ class IndexedDBControl_BindIndexedDB_ParamsDataView {
 };
 
 
-class IndexedDBControl_GetUsage_ParamsDataView {
- public:
-  IndexedDBControl_GetUsage_ParamsDataView() = default;
-
-  IndexedDBControl_GetUsage_ParamsDataView(
-      internal::IndexedDBControl_GetUsage_Params_Data* data,
-      mojo::Message* message)
-      : data_(data) {}
-
-  bool is_null() const { return !data_; }
- private:
-  internal::IndexedDBControl_GetUsage_Params_Data* data_ = nullptr;
-};
-
-
-class IndexedDBControl_GetUsage_ResponseParamsDataView {
- public:
-  IndexedDBControl_GetUsage_ResponseParamsDataView() = default;
-
-  IndexedDBControl_GetUsage_ResponseParamsDataView(
-      internal::IndexedDBControl_GetUsage_ResponseParams_Data* data,
-      mojo::Message* message)
-      : data_(data), message_(message) {}
-
-  bool is_null() const { return !data_; }
-  inline void GetInfoDataView(
-      mojo::ArrayDataView<::storage::mojom::StorageUsageInfoDataView>* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadInfo(UserType* output) {
-    
-    auto* pointer = data_->info.Get();
-    return mojo::internal::Deserialize<mojo::ArrayDataView<::storage::mojom::StorageUsageInfoDataView>>(
-        pointer, output, message_);
-  }
- private:
-  internal::IndexedDBControl_GetUsage_ResponseParams_Data* data_ = nullptr;
-  mojo::Message* message_ = nullptr;
-};
-
-
 class IndexedDBControl_DeleteForStorageKey_ParamsDataView {
  public:
   IndexedDBControl_DeleteForStorageKey_ParamsDataView() = default;
@@ -589,50 +485,6 @@ class IndexedDBControl_ForceClose_ResponseParamsDataView {
   bool is_null() const { return !data_; }
  private:
   internal::IndexedDBControl_ForceClose_ResponseParams_Data* data_ = nullptr;
-};
-
-
-class IndexedDBControl_GetConnectionCount_ParamsDataView {
- public:
-  IndexedDBControl_GetConnectionCount_ParamsDataView() = default;
-
-  IndexedDBControl_GetConnectionCount_ParamsDataView(
-      internal::IndexedDBControl_GetConnectionCount_Params_Data* data,
-      mojo::Message* message)
-      : data_(data), message_(message) {}
-
-  bool is_null() const { return !data_; }
-  inline void GetBucketIdDataView(
-      ::storage::mojom::BucketIdDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadBucketId(UserType* output) {
-    
-    auto* pointer = data_->bucket_id.Get();
-    return mojo::internal::Deserialize<::storage::mojom::BucketIdDataView>(
-        pointer, output, message_);
-  }
- private:
-  internal::IndexedDBControl_GetConnectionCount_Params_Data* data_ = nullptr;
-  mojo::Message* message_ = nullptr;
-};
-
-
-class IndexedDBControl_GetConnectionCount_ResponseParamsDataView {
- public:
-  IndexedDBControl_GetConnectionCount_ResponseParamsDataView() = default;
-
-  IndexedDBControl_GetConnectionCount_ResponseParamsDataView(
-      internal::IndexedDBControl_GetConnectionCount_ResponseParams_Data* data,
-      mojo::Message* message)
-      : data_(data) {}
-
-  bool is_null() const { return !data_; }
-  uint64_t connection_count() const {
-    return data_->connection_count;
-  }
- private:
-  internal::IndexedDBControl_GetConnectionCount_ResponseParams_Data* data_ = nullptr;
 };
 
 
@@ -866,15 +718,6 @@ inline void IndexedDBControl_BindIndexedDB_ParamsDataView::GetBucketLocatorDataV
 }
 
 
-
-
-inline void IndexedDBControl_GetUsage_ResponseParamsDataView::GetInfoDataView(
-    mojo::ArrayDataView<::storage::mojom::StorageUsageInfoDataView>* output) {
-  auto pointer = data_->info.Get();
-  *output = mojo::ArrayDataView<::storage::mojom::StorageUsageInfoDataView>(pointer, message_);
-}
-
-
 inline void IndexedDBControl_DeleteForStorageKey_ParamsDataView::GetStorageKeyDataView(
     ::blink::mojom::StorageKeyDataView* output) {
   auto pointer = data_->storage_key.Get();
@@ -885,15 +728,6 @@ inline void IndexedDBControl_DeleteForStorageKey_ParamsDataView::GetStorageKeyDa
 
 
 inline void IndexedDBControl_ForceClose_ParamsDataView::GetBucketIdDataView(
-    ::storage::mojom::BucketIdDataView* output) {
-  auto pointer = data_->bucket_id.Get();
-  *output = ::storage::mojom::BucketIdDataView(pointer, message_);
-}
-
-
-
-
-inline void IndexedDBControl_GetConnectionCount_ParamsDataView::GetBucketIdDataView(
     ::storage::mojom::BucketIdDataView* output) {
   auto pointer = data_->bucket_id.Get();
   *output = ::storage::mojom::BucketIdDataView(pointer, message_);

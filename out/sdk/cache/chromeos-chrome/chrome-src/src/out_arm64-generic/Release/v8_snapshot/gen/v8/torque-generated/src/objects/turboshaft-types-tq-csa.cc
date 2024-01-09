@@ -66,6 +66,7 @@
 #include "src/objects/turboshaft-types.h"
 #include "src/torque/runtime-support.h"
 #include "src/wasm/wasm-linkage.h"
+#include "src/codegen/code-stub-assembler-inl.h"
 // Required Builtins:
 #include "torque-generated/src/objects/turboshaft-types-tq-csa.h"
 #include "torque-generated/src/builtins/base-tq-csa.h"
@@ -79,7 +80,7 @@
 namespace v8 {
 namespace internal {
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=13&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=17&c=1
 TNode<TurboshaftType> Cast_TurboshaftType_0(compiler::CodeAssemblerState* state_, TNode<HeapObject> p_obj, compiler::CodeAssemblerLabel* label_CastError) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -115,7 +116,7 @@ TNode<TurboshaftType> Cast_TurboshaftType_0(compiler::CodeAssemblerState* state_
   return TNode<TurboshaftType>{tmp0};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=16&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=20&c=1
 TNode<TurboshaftWord32Type> Cast_TurboshaftWord32Type_0(compiler::CodeAssemblerState* state_, TNode<HeapObject> p_obj, compiler::CodeAssemblerLabel* label_CastError) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -151,7 +152,7 @@ TNode<TurboshaftWord32Type> Cast_TurboshaftWord32Type_0(compiler::CodeAssemblerS
   return TNode<TurboshaftWord32Type>{tmp0};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=21&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=25&c=1
 TNode<TurboshaftWord32RangeType> Cast_TurboshaftWord32RangeType_0(compiler::CodeAssemblerState* state_, TNode<HeapObject> p_obj, compiler::CodeAssemblerLabel* label_CastError) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -187,7 +188,7 @@ TNode<TurboshaftWord32RangeType> Cast_TurboshaftWord32RangeType_0(compiler::Code
   return TNode<TurboshaftWord32RangeType>{tmp0};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=29&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=33&c=1
 TNode<TurboshaftWord32SetType> Cast_TurboshaftWord32SetType_0(compiler::CodeAssemblerState* state_, TNode<HeapObject> p_obj, compiler::CodeAssemblerLabel* label_CastError) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -223,7 +224,7 @@ TNode<TurboshaftWord32SetType> Cast_TurboshaftWord32SetType_0(compiler::CodeAsse
   return TNode<TurboshaftWord32SetType>{tmp0};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=37&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=41&c=1
 TNode<TurboshaftWord64Type> Cast_TurboshaftWord64Type_0(compiler::CodeAssemblerState* state_, TNode<HeapObject> p_obj, compiler::CodeAssemblerLabel* label_CastError) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -259,7 +260,7 @@ TNode<TurboshaftWord64Type> Cast_TurboshaftWord64Type_0(compiler::CodeAssemblerS
   return TNode<TurboshaftWord64Type>{tmp0};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=42&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=46&c=1
 TNode<TurboshaftWord64RangeType> Cast_TurboshaftWord64RangeType_0(compiler::CodeAssemblerState* state_, TNode<HeapObject> p_obj, compiler::CodeAssemblerLabel* label_CastError) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -295,7 +296,7 @@ TNode<TurboshaftWord64RangeType> Cast_TurboshaftWord64RangeType_0(compiler::Code
   return TNode<TurboshaftWord64RangeType>{tmp0};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=52&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=56&c=1
 TNode<TurboshaftWord64SetType> Cast_TurboshaftWord64SetType_0(compiler::CodeAssemblerState* state_, TNode<HeapObject> p_obj, compiler::CodeAssemblerLabel* label_CastError) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -331,7 +332,7 @@ TNode<TurboshaftWord64SetType> Cast_TurboshaftWord64SetType_0(compiler::CodeAsse
   return TNode<TurboshaftWord64SetType>{tmp0};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=61&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=65&c=1
 TNode<TurboshaftFloat64Type> Cast_TurboshaftFloat64Type_0(compiler::CodeAssemblerState* state_, TNode<HeapObject> p_obj, compiler::CodeAssemblerLabel* label_CastError) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -367,7 +368,7 @@ TNode<TurboshaftFloat64Type> Cast_TurboshaftFloat64Type_0(compiler::CodeAssemble
   return TNode<TurboshaftFloat64Type>{tmp0};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=68&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=72&c=1
 TNode<TurboshaftFloat64RangeType> Cast_TurboshaftFloat64RangeType_0(compiler::CodeAssemblerState* state_, TNode<HeapObject> p_obj, compiler::CodeAssemblerLabel* label_CastError) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -403,7 +404,7 @@ TNode<TurboshaftFloat64RangeType> Cast_TurboshaftFloat64RangeType_0(compiler::Co
   return TNode<TurboshaftFloat64RangeType>{tmp0};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=77&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=81&c=1
 TNode<TurboshaftFloat64SetType> Cast_TurboshaftFloat64SetType_0(compiler::CodeAssemblerState* state_, TNode<HeapObject> p_obj, compiler::CodeAssemblerLabel* label_CastError) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -439,7 +440,7 @@ TNode<TurboshaftFloat64SetType> Cast_TurboshaftFloat64SetType_0(compiler::CodeAs
   return TNode<TurboshaftFloat64SetType>{tmp0};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=85&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=89&c=1
 TNode<BoolT> TestTurboshaftWord32Type_0(compiler::CodeAssemblerState* state_, TNode<Uint32T> p_value, TNode<TurboshaftWord32Type> p_expected) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -681,7 +682,7 @@ TNode<BoolT> TestTurboshaftWord32Type_0(compiler::CodeAssemblerState* state_, TN
   return TNode<BoolT>{phi_bb1_2};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=106&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=110&c=1
 TNode<Int32T> CompareUint64HighLow_0(compiler::CodeAssemblerState* state_, TNode<Uint32T> p_lhsHigh, TNode<Uint32T> p_lhsLow, TNode<Uint32T> p_rhsHigh, TNode<Uint32T> p_rhsLow) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -786,7 +787,7 @@ TNode<Int32T> CompareUint64HighLow_0(compiler::CodeAssemblerState* state_, TNode
   return TNode<Int32T>{phi_bb15_4};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=116&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=120&c=1
 TNode<BoolT> TestTurboshaftWord64Type_0(compiler::CodeAssemblerState* state_, TNode<Uint32T> p_valueHigh, TNode<Uint32T> p_valueLow, TNode<TurboshaftWord64Type> p_expected) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -895,7 +896,7 @@ TNode<BoolT> TestTurboshaftWord64Type_0(compiler::CodeAssemblerState* state_, TN
     tmp25 = CodeStubAssembler(state_).LoadReference<Uint32T>(CodeStubAssembler::Reference{tmp0, tmp24});
     tmp26 = CompareUint64HighLow_0(state_, TNode<Uint32T>{tmp19}, TNode<Uint32T>{tmp21}, TNode<Uint32T>{tmp23}, TNode<Uint32T>{tmp25});
     tmp27 = FromConstexpr_int32_constexpr_IntegerLiteral_0(state_, IntegerLiteral(false, 0x0ull));
-    tmp28 = CodeStubAssembler(state_).Int32LessThan(TNode<Int32T>{tmp26}, TNode<Int32T>{tmp27});
+    tmp28 = CodeStubAssembler(state_).Int32GreaterThan(TNode<Int32T>{tmp26}, TNode<Int32T>{tmp27});
     ca_.Branch(tmp28, &block6, std::vector<compiler::Node*>{}, &block7, std::vector<compiler::Node*>{});
   }
 
@@ -1124,7 +1125,7 @@ TNode<BoolT> TestTurboshaftWord64Type_0(compiler::CodeAssemblerState* state_, TN
   return TNode<BoolT>{phi_bb44_3};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=149&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=153&c=1
 TNode<BoolT> TestTurboshaftFloat64Type_0(compiler::CodeAssemblerState* state_, TNode<Float64T> p_value, TNode<TurboshaftFloat64Type> p_expected) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -1443,7 +1444,7 @@ TF_BUILTIN(CheckTurboshaftWord32Type, CodeStubAssembler) {
     tmp2 = Convert_Number_uint32_0(state_, TNode<Uint32T>{parameter1});
     CodeStubAssembler(state_).Print("Actual value", TNode<Object>{tmp2});
     CodeStubAssembler(state_).Print("Expected type", TNode<Object>{parameter2});
-    CodeStubAssembler(state_).Unreachable();
+    CodeStubAssembler(state_).Abort(AbortReason::kTurboshaftTypeAssertionFailed);
   }
 }
 
@@ -1489,7 +1490,7 @@ TF_BUILTIN(CheckTurboshaftWord64Type, CodeStubAssembler) {
     tmp3 = Convert_Number_uint32_0(state_, TNode<Uint32T>{parameter2});
     CodeStubAssembler(state_).Print("Actual vlaue (low)", TNode<Object>{tmp3});
     CodeStubAssembler(state_).Print("Expected type", TNode<Object>{parameter3});
-    CodeStubAssembler(state_).Unreachable();
+    CodeStubAssembler(state_).Abort(AbortReason::kTurboshaftTypeAssertionFailed);
   }
 }
 
@@ -1530,7 +1531,7 @@ TF_BUILTIN(CheckTurboshaftFloat32Type, CodeStubAssembler) {
     CodeStubAssembler(state_).Print("Node id", TNode<Object>{parameter3});
     CodeStubAssembler(state_).Print("Actual value", TNode<Float64T>{tmp0});
     CodeStubAssembler(state_).Print("Expected type", TNode<Object>{parameter2});
-    CodeStubAssembler(state_).Unreachable();
+    CodeStubAssembler(state_).Abort(AbortReason::kTurboshaftTypeAssertionFailed);
   }
 }
 
@@ -1569,7 +1570,7 @@ TF_BUILTIN(CheckTurboshaftFloat64Type, CodeStubAssembler) {
     CodeStubAssembler(state_).Print("Node id", TNode<Object>{parameter3});
     CodeStubAssembler(state_).Print("Actual value", TNode<Float64T>{parameter1});
     CodeStubAssembler(state_).Print("Expected type", TNode<Object>{parameter2});
-    CodeStubAssembler(state_).Unreachable();
+    CodeStubAssembler(state_).Abort(AbortReason::kTurboshaftTypeAssertionFailed);
   }
 }
 
@@ -1609,7 +1610,7 @@ TF_BUILTIN(DebugPrintFloat64, CodeStubAssembler) {
   }
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=25&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=29&c=3
 TNode<Uint32T> LoadTurboshaftWord32RangeTypeFrom_0(compiler::CodeAssemblerState* state_, TNode<TurboshaftWord32RangeType> p_o) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -1630,7 +1631,7 @@ TNode<Uint32T> LoadTurboshaftWord32RangeTypeFrom_0(compiler::CodeAssemblerState*
   return TNode<Uint32T>{tmp1};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=25&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=29&c=3
 void StoreTurboshaftWord32RangeTypeFrom_0(compiler::CodeAssemblerState* state_, TNode<TurboshaftWord32RangeType> p_o, TNode<Uint32T> p_v) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -1649,7 +1650,7 @@ void StoreTurboshaftWord32RangeTypeFrom_0(compiler::CodeAssemblerState* state_, 
     ca_.Bind(&block2);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=26&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=30&c=3
 TNode<Uint32T> LoadTurboshaftWord32RangeTypeTo_0(compiler::CodeAssemblerState* state_, TNode<TurboshaftWord32RangeType> p_o) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -1670,7 +1671,7 @@ TNode<Uint32T> LoadTurboshaftWord32RangeTypeTo_0(compiler::CodeAssemblerState* s
   return TNode<Uint32T>{tmp1};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=26&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=30&c=3
 void StoreTurboshaftWord32RangeTypeTo_0(compiler::CodeAssemblerState* state_, TNode<TurboshaftWord32RangeType> p_o, TNode<Uint32T> p_v) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -1689,7 +1690,7 @@ void StoreTurboshaftWord32RangeTypeTo_0(compiler::CodeAssemblerState* state_, TN
     ca_.Bind(&block2);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=33&c=9
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=37&c=9
 TNode<Uint32T> LoadTurboshaftWord32SetTypeSetSize_0(compiler::CodeAssemblerState* state_, TNode<TurboshaftWord32SetType> p_o) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -1710,7 +1711,7 @@ TNode<Uint32T> LoadTurboshaftWord32SetTypeSetSize_0(compiler::CodeAssemblerState
   return TNode<Uint32T>{tmp1};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=34&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=38&c=3
 TorqueStructSlice_uint32_MutableReference_uint32_0 FieldSliceTurboshaftWord32SetTypeElements_0(compiler::CodeAssemblerState* state_, TNode<TurboshaftWord32SetType> p_o) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -1739,7 +1740,7 @@ TorqueStructSlice_uint32_MutableReference_uint32_0 FieldSliceTurboshaftWord32Set
   return TorqueStructSlice_uint32_MutableReference_uint32_0{TNode<Object>{tmp4}, TNode<IntPtrT>{tmp5}, TNode<IntPtrT>{tmp6}, TorqueStructUnsafe_0{}};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=34&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=38&c=3
 TNode<Uint32T> LoadTurboshaftWord32SetTypeElements_0(compiler::CodeAssemblerState* state_, TNode<TurboshaftWord32SetType> p_o, TNode<IntPtrT> p_i) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -1787,7 +1788,7 @@ TNode<Uint32T> LoadTurboshaftWord32SetTypeElements_0(compiler::CodeAssemblerStat
   return TNode<Uint32T>{tmp10};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=34&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=38&c=3
 void StoreTurboshaftWord32SetTypeElements_0(compiler::CodeAssemblerState* state_, TNode<TurboshaftWord32SetType> p_o, TNode<IntPtrT> p_i, TNode<Uint32T> p_v) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -1833,7 +1834,7 @@ void StoreTurboshaftWord32SetTypeElements_0(compiler::CodeAssemblerState* state_
     ca_.Bind(&block10);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=46&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=50&c=3
 TNode<Uint32T> LoadTurboshaftWord64RangeTypeFromHigh_0(compiler::CodeAssemblerState* state_, TNode<TurboshaftWord64RangeType> p_o) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -1854,7 +1855,7 @@ TNode<Uint32T> LoadTurboshaftWord64RangeTypeFromHigh_0(compiler::CodeAssemblerSt
   return TNode<Uint32T>{tmp1};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=46&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=50&c=3
 void StoreTurboshaftWord64RangeTypeFromHigh_0(compiler::CodeAssemblerState* state_, TNode<TurboshaftWord64RangeType> p_o, TNode<Uint32T> p_v) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -1873,7 +1874,7 @@ void StoreTurboshaftWord64RangeTypeFromHigh_0(compiler::CodeAssemblerState* stat
     ca_.Bind(&block2);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=47&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=51&c=3
 TNode<Uint32T> LoadTurboshaftWord64RangeTypeFromLow_0(compiler::CodeAssemblerState* state_, TNode<TurboshaftWord64RangeType> p_o) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -1894,7 +1895,7 @@ TNode<Uint32T> LoadTurboshaftWord64RangeTypeFromLow_0(compiler::CodeAssemblerSta
   return TNode<Uint32T>{tmp1};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=47&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=51&c=3
 void StoreTurboshaftWord64RangeTypeFromLow_0(compiler::CodeAssemblerState* state_, TNode<TurboshaftWord64RangeType> p_o, TNode<Uint32T> p_v) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -1913,7 +1914,7 @@ void StoreTurboshaftWord64RangeTypeFromLow_0(compiler::CodeAssemblerState* state
     ca_.Bind(&block2);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=48&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=52&c=3
 TNode<Uint32T> LoadTurboshaftWord64RangeTypeToHigh_0(compiler::CodeAssemblerState* state_, TNode<TurboshaftWord64RangeType> p_o) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -1934,7 +1935,7 @@ TNode<Uint32T> LoadTurboshaftWord64RangeTypeToHigh_0(compiler::CodeAssemblerStat
   return TNode<Uint32T>{tmp1};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=48&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=52&c=3
 void StoreTurboshaftWord64RangeTypeToHigh_0(compiler::CodeAssemblerState* state_, TNode<TurboshaftWord64RangeType> p_o, TNode<Uint32T> p_v) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -1953,7 +1954,7 @@ void StoreTurboshaftWord64RangeTypeToHigh_0(compiler::CodeAssemblerState* state_
     ca_.Bind(&block2);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=49&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=53&c=3
 TNode<Uint32T> LoadTurboshaftWord64RangeTypeToLow_0(compiler::CodeAssemblerState* state_, TNode<TurboshaftWord64RangeType> p_o) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -1974,7 +1975,7 @@ TNode<Uint32T> LoadTurboshaftWord64RangeTypeToLow_0(compiler::CodeAssemblerState
   return TNode<Uint32T>{tmp1};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=49&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=53&c=3
 void StoreTurboshaftWord64RangeTypeToLow_0(compiler::CodeAssemblerState* state_, TNode<TurboshaftWord64RangeType> p_o, TNode<Uint32T> p_v) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -1993,7 +1994,7 @@ void StoreTurboshaftWord64RangeTypeToLow_0(compiler::CodeAssemblerState* state_,
     ca_.Bind(&block2);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=56&c=9
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=60&c=9
 TNode<Uint32T> LoadTurboshaftWord64SetTypeSetSize_0(compiler::CodeAssemblerState* state_, TNode<TurboshaftWord64SetType> p_o) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -2014,7 +2015,7 @@ TNode<Uint32T> LoadTurboshaftWord64SetTypeSetSize_0(compiler::CodeAssemblerState
   return TNode<Uint32T>{tmp1};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=57&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=61&c=3
 TorqueStructSlice_uint32_MutableReference_uint32_0 FieldSliceTurboshaftWord64SetTypeElementsHigh_0(compiler::CodeAssemblerState* state_, TNode<TurboshaftWord64SetType> p_o) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -2043,7 +2044,7 @@ TorqueStructSlice_uint32_MutableReference_uint32_0 FieldSliceTurboshaftWord64Set
   return TorqueStructSlice_uint32_MutableReference_uint32_0{TNode<Object>{tmp4}, TNode<IntPtrT>{tmp5}, TNode<IntPtrT>{tmp6}, TorqueStructUnsafe_0{}};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=57&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=61&c=3
 TNode<Uint32T> LoadTurboshaftWord64SetTypeElementsHigh_0(compiler::CodeAssemblerState* state_, TNode<TurboshaftWord64SetType> p_o, TNode<IntPtrT> p_i) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -2091,7 +2092,7 @@ TNode<Uint32T> LoadTurboshaftWord64SetTypeElementsHigh_0(compiler::CodeAssembler
   return TNode<Uint32T>{tmp10};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=57&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=61&c=3
 void StoreTurboshaftWord64SetTypeElementsHigh_0(compiler::CodeAssemblerState* state_, TNode<TurboshaftWord64SetType> p_o, TNode<IntPtrT> p_i, TNode<Uint32T> p_v) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -2137,7 +2138,7 @@ void StoreTurboshaftWord64SetTypeElementsHigh_0(compiler::CodeAssemblerState* st
     ca_.Bind(&block10);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=58&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=62&c=3
 TorqueStructSlice_uint32_MutableReference_uint32_0 FieldSliceTurboshaftWord64SetTypeElementsLow_0(compiler::CodeAssemblerState* state_, TNode<TurboshaftWord64SetType> p_o) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -2174,7 +2175,7 @@ TorqueStructSlice_uint32_MutableReference_uint32_0 FieldSliceTurboshaftWord64Set
   return TorqueStructSlice_uint32_MutableReference_uint32_0{TNode<Object>{tmp9}, TNode<IntPtrT>{tmp10}, TNode<IntPtrT>{tmp11}, TorqueStructUnsafe_0{}};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=58&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=62&c=3
 TNode<Uint32T> LoadTurboshaftWord64SetTypeElementsLow_0(compiler::CodeAssemblerState* state_, TNode<TurboshaftWord64SetType> p_o, TNode<IntPtrT> p_i) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -2222,7 +2223,7 @@ TNode<Uint32T> LoadTurboshaftWord64SetTypeElementsLow_0(compiler::CodeAssemblerS
   return TNode<Uint32T>{tmp10};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=58&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=62&c=3
 void StoreTurboshaftWord64SetTypeElementsLow_0(compiler::CodeAssemblerState* state_, TNode<TurboshaftWord64SetType> p_o, TNode<IntPtrT> p_i, TNode<Uint32T> p_v) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -2268,7 +2269,7 @@ void StoreTurboshaftWord64SetTypeElementsLow_0(compiler::CodeAssemblerState* sta
     ca_.Bind(&block10);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=65&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=69&c=3
 TNode<Uint32T> LoadTurboshaftFloat64TypeSpecialValues_0(compiler::CodeAssemblerState* state_, TNode<TurboshaftFloat64Type> p_o) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -2289,7 +2290,7 @@ TNode<Uint32T> LoadTurboshaftFloat64TypeSpecialValues_0(compiler::CodeAssemblerS
   return TNode<Uint32T>{tmp1};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=65&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=69&c=3
 void StoreTurboshaftFloat64TypeSpecialValues_0(compiler::CodeAssemblerState* state_, TNode<TurboshaftFloat64Type> p_o, TNode<Uint32T> p_v) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -2308,7 +2309,7 @@ void StoreTurboshaftFloat64TypeSpecialValues_0(compiler::CodeAssemblerState* sta
     ca_.Bind(&block2);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=72&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=76&c=3
 TNode<Uint32T> LoadTurboshaftFloat64RangeTypePadding_0(compiler::CodeAssemblerState* state_, TNode<TurboshaftFloat64RangeType> p_o) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -2329,7 +2330,7 @@ TNode<Uint32T> LoadTurboshaftFloat64RangeTypePadding_0(compiler::CodeAssemblerSt
   return TNode<Uint32T>{tmp1};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=72&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=76&c=3
 void StoreTurboshaftFloat64RangeTypePadding_0(compiler::CodeAssemblerState* state_, TNode<TurboshaftFloat64RangeType> p_o, TNode<Uint32T> p_v) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -2348,7 +2349,7 @@ void StoreTurboshaftFloat64RangeTypePadding_0(compiler::CodeAssemblerState* stat
     ca_.Bind(&block2);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=73&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=77&c=3
 TNode<Float64T> LoadTurboshaftFloat64RangeTypeMin_0(compiler::CodeAssemblerState* state_, TNode<TurboshaftFloat64RangeType> p_o) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -2369,7 +2370,7 @@ TNode<Float64T> LoadTurboshaftFloat64RangeTypeMin_0(compiler::CodeAssemblerState
   return TNode<Float64T>{tmp1};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=73&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=77&c=3
 void StoreTurboshaftFloat64RangeTypeMin_0(compiler::CodeAssemblerState* state_, TNode<TurboshaftFloat64RangeType> p_o, TNode<Float64T> p_v) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -2390,7 +2391,7 @@ void StoreTurboshaftFloat64RangeTypeMin_0(compiler::CodeAssemblerState* state_, 
     ca_.Bind(&block2);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=74&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=78&c=3
 TNode<Float64T> LoadTurboshaftFloat64RangeTypeMax_0(compiler::CodeAssemblerState* state_, TNode<TurboshaftFloat64RangeType> p_o) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -2411,7 +2412,7 @@ TNode<Float64T> LoadTurboshaftFloat64RangeTypeMax_0(compiler::CodeAssemblerState
   return TNode<Float64T>{tmp1};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=74&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=78&c=3
 void StoreTurboshaftFloat64RangeTypeMax_0(compiler::CodeAssemblerState* state_, TNode<TurboshaftFloat64RangeType> p_o, TNode<Float64T> p_v) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -2432,7 +2433,7 @@ void StoreTurboshaftFloat64RangeTypeMax_0(compiler::CodeAssemblerState* state_, 
     ca_.Bind(&block2);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=81&c=9
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=85&c=9
 TNode<Uint32T> LoadTurboshaftFloat64SetTypeSetSize_0(compiler::CodeAssemblerState* state_, TNode<TurboshaftFloat64SetType> p_o) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -2453,7 +2454,7 @@ TNode<Uint32T> LoadTurboshaftFloat64SetTypeSetSize_0(compiler::CodeAssemblerStat
   return TNode<Uint32T>{tmp1};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=82&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=86&c=3
 TorqueStructSlice_float64_MutableReference_float64_0 FieldSliceTurboshaftFloat64SetTypeElements_0(compiler::CodeAssemblerState* state_, TNode<TurboshaftFloat64SetType> p_o) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -2482,7 +2483,7 @@ TorqueStructSlice_float64_MutableReference_float64_0 FieldSliceTurboshaftFloat64
   return TorqueStructSlice_float64_MutableReference_float64_0{TNode<Object>{tmp4}, TNode<IntPtrT>{tmp5}, TNode<IntPtrT>{tmp6}, TorqueStructUnsafe_0{}};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=82&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=86&c=3
 TNode<Float64T> LoadTurboshaftFloat64SetTypeElements_0(compiler::CodeAssemblerState* state_, TNode<TurboshaftFloat64SetType> p_o, TNode<IntPtrT> p_i) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -2530,7 +2531,7 @@ TNode<Float64T> LoadTurboshaftFloat64SetTypeElements_0(compiler::CodeAssemblerSt
   return TNode<Float64T>{tmp10};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=82&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=86&c=3
 void StoreTurboshaftFloat64SetTypeElements_0(compiler::CodeAssemblerState* state_, TNode<TurboshaftFloat64SetType> p_o, TNode<IntPtrT> p_i, TNode<Float64T> p_v) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -2578,7 +2579,7 @@ void StoreTurboshaftFloat64SetTypeElements_0(compiler::CodeAssemblerState* state
     ca_.Bind(&block10);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=13&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=17&c=1
 TNode<TurboshaftType> DownCastForTorqueClass_TurboshaftType_0(compiler::CodeAssemblerState* state_, TNode<HeapObject> p_o, compiler::CodeAssemblerLabel* label_CastError) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -2723,7 +2724,7 @@ TNode<TurboshaftType> DownCastForTorqueClass_TurboshaftType_0(compiler::CodeAsse
   return TNode<TurboshaftType>{tmp20};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=16&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=20&c=1
 TNode<TurboshaftWord32Type> DownCastForTorqueClass_TurboshaftWord32Type_0(compiler::CodeAssemblerState* state_, TNode<HeapObject> p_o, compiler::CodeAssemblerLabel* label_CastError) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -2868,7 +2869,7 @@ TNode<TurboshaftWord32Type> DownCastForTorqueClass_TurboshaftWord32Type_0(compil
   return TNode<TurboshaftWord32Type>{tmp20};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=21&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=25&c=1
 TNode<TurboshaftWord32RangeType> DownCastForTorqueClass_TurboshaftWord32RangeType_0(compiler::CodeAssemblerState* state_, TNode<HeapObject> p_o, compiler::CodeAssemblerLabel* label_CastError) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -3013,7 +3014,7 @@ TNode<TurboshaftWord32RangeType> DownCastForTorqueClass_TurboshaftWord32RangeTyp
   return TNode<TurboshaftWord32RangeType>{tmp20};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=29&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=33&c=1
 TNode<TurboshaftWord32SetType> DownCastForTorqueClass_TurboshaftWord32SetType_0(compiler::CodeAssemblerState* state_, TNode<HeapObject> p_o, compiler::CodeAssemblerLabel* label_CastError) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -3158,7 +3159,7 @@ TNode<TurboshaftWord32SetType> DownCastForTorqueClass_TurboshaftWord32SetType_0(
   return TNode<TurboshaftWord32SetType>{tmp20};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=37&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=41&c=1
 TNode<TurboshaftWord64Type> DownCastForTorqueClass_TurboshaftWord64Type_0(compiler::CodeAssemblerState* state_, TNode<HeapObject> p_o, compiler::CodeAssemblerLabel* label_CastError) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -3303,7 +3304,7 @@ TNode<TurboshaftWord64Type> DownCastForTorqueClass_TurboshaftWord64Type_0(compil
   return TNode<TurboshaftWord64Type>{tmp20};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=42&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=46&c=1
 TNode<TurboshaftWord64RangeType> DownCastForTorqueClass_TurboshaftWord64RangeType_0(compiler::CodeAssemblerState* state_, TNode<HeapObject> p_o, compiler::CodeAssemblerLabel* label_CastError) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -3448,7 +3449,7 @@ TNode<TurboshaftWord64RangeType> DownCastForTorqueClass_TurboshaftWord64RangeTyp
   return TNode<TurboshaftWord64RangeType>{tmp20};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=52&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=56&c=1
 TNode<TurboshaftWord64SetType> DownCastForTorqueClass_TurboshaftWord64SetType_0(compiler::CodeAssemblerState* state_, TNode<HeapObject> p_o, compiler::CodeAssemblerLabel* label_CastError) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -3593,7 +3594,7 @@ TNode<TurboshaftWord64SetType> DownCastForTorqueClass_TurboshaftWord64SetType_0(
   return TNode<TurboshaftWord64SetType>{tmp20};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=61&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=65&c=1
 TNode<TurboshaftFloat64Type> DownCastForTorqueClass_TurboshaftFloat64Type_0(compiler::CodeAssemblerState* state_, TNode<HeapObject> p_o, compiler::CodeAssemblerLabel* label_CastError) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -3738,7 +3739,7 @@ TNode<TurboshaftFloat64Type> DownCastForTorqueClass_TurboshaftFloat64Type_0(comp
   return TNode<TurboshaftFloat64Type>{tmp20};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=68&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=72&c=1
 TNode<TurboshaftFloat64RangeType> DownCastForTorqueClass_TurboshaftFloat64RangeType_0(compiler::CodeAssemblerState* state_, TNode<HeapObject> p_o, compiler::CodeAssemblerLabel* label_CastError) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -3883,7 +3884,7 @@ TNode<TurboshaftFloat64RangeType> DownCastForTorqueClass_TurboshaftFloat64RangeT
   return TNode<TurboshaftFloat64RangeType>{tmp20};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=77&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=81&c=1
 TNode<TurboshaftFloat64SetType> DownCastForTorqueClass_TurboshaftFloat64SetType_0(compiler::CodeAssemblerState* state_, TNode<HeapObject> p_o, compiler::CodeAssemblerLabel* label_CastError) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -4028,7 +4029,7 @@ TNode<TurboshaftFloat64SetType> DownCastForTorqueClass_TurboshaftFloat64SetType_
   return TNode<TurboshaftFloat64SetType>{tmp20};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=34&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=38&c=3
 TorqueStructSlice_uint32_MutableReference_uint32_0 NewMutableSlice_uint32_0(compiler::CodeAssemblerState* state_, TNode<Object> p_object, TNode<IntPtrT> p_offset, TNode<IntPtrT> p_length) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
@@ -4049,7 +4050,7 @@ TorqueStructSlice_uint32_MutableReference_uint32_0 NewMutableSlice_uint32_0(comp
   return TorqueStructSlice_uint32_MutableReference_uint32_0{TNode<Object>{tmp0}, TNode<IntPtrT>{tmp1}, TNode<IntPtrT>{tmp2}, TorqueStructUnsafe_0{}};
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=82&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=86&c=3
 TorqueStructSlice_float64_MutableReference_float64_0 NewMutableSlice_float64_0(compiler::CodeAssemblerState* state_, TNode<Object> p_object, TNode<IntPtrT> p_offset, TNode<IntPtrT> p_length) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "media/capture/mojom/video_capture_types.mojom-features.h"
 #include "media/capture/mojom/video_capture_types.mojom-shared.h"
 #include "media/capture/mojom/video_capture_types.mojom-forward.h"
 #include "ui/gfx/geometry/mojom/geometry.mojom.h"
@@ -543,14 +544,14 @@ class  VideoCaptureFeedback {
       float max_framerate_fps,
       int32_t max_pixels,
       bool require_mapped_frame,
-      absl::optional<std::vector<::gfx::Size>> DEPRECATED_mapped_sizes);
+      std::optional<std::vector<::gfx::Size>> DEPRECATED_mapped_sizes);
 
   VideoCaptureFeedback(
       double resource_utilization,
       float max_framerate_fps,
       int32_t max_pixels,
       bool require_mapped_frame,
-      absl::optional<std::vector<::gfx::Size>> DEPRECATED_mapped_sizes,
+      std::optional<std::vector<::gfx::Size>> DEPRECATED_mapped_sizes,
       int32_t frame_id,
       bool has_frame_id);
 
@@ -638,7 +639,7 @@ class  VideoCaptureFeedback {
   
   bool require_mapped_frame;
   
-  absl::optional<std::vector<::gfx::Size>> DEPRECATED_mapped_sizes;
+  std::optional<std::vector<::gfx::Size>> DEPRECATED_mapped_sizes;
   
   int32_t frame_id;
   
@@ -852,6 +853,16 @@ class  VideoCaptureDeviceDescriptor {
       const ::media::VideoCaptureControlSupport& control_support,
       VideoCaptureTransportType transport_type);
 
+  VideoCaptureDeviceDescriptor(
+      const std::string& display_name,
+      const std::string& device_id,
+      const std::string& model_id,
+      ::media::VideoFacingMode facing_mode,
+      VideoCaptureApi capture_api,
+      const ::media::VideoCaptureControlSupport& control_support,
+      VideoCaptureTransportType transport_type,
+      std::optional<CameraAvailability> availability);
+
 
   ~VideoCaptureDeviceDescriptor();
 
@@ -941,6 +952,8 @@ class  VideoCaptureDeviceDescriptor {
   ::media::VideoCaptureControlSupport control_support;
   
   VideoCaptureTransportType transport_type;
+  
+  std::optional<CameraAvailability> availability;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1338,7 +1351,8 @@ VideoCaptureDeviceDescriptorPtr VideoCaptureDeviceDescriptor::Clone() const {
       mojo::Clone(facing_mode),
       mojo::Clone(capture_api),
       mojo::Clone(control_support),
-      mojo::Clone(transport_type)
+      mojo::Clone(transport_type),
+      mojo::Clone(availability)
   );
 }
 
@@ -1357,6 +1371,8 @@ bool VideoCaptureDeviceDescriptor::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->control_support, other_struct.control_support))
     return false;
   if (!mojo::Equals(this->transport_type, other_struct.transport_type))
+    return false;
+  if (!mojo::Equals(this->availability, other_struct.availability))
     return false;
   return true;
 }
@@ -1390,6 +1406,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.transport_type < rhs.transport_type)
     return true;
   if (rhs.transport_type < lhs.transport_type)
+    return false;
+  if (lhs.availability < rhs.availability)
+    return true;
+  if (rhs.availability < lhs.availability)
     return false;
   return false;
 }
@@ -1618,6 +1638,11 @@ struct  StructTraits<::media::mojom::VideoCaptureDeviceDescriptor::DataView,
   static decltype(::media::mojom::VideoCaptureDeviceDescriptor::transport_type) transport_type(
       const ::media::mojom::VideoCaptureDeviceDescriptorPtr& input) {
     return input->transport_type;
+  }
+
+  static decltype(::media::mojom::VideoCaptureDeviceDescriptor::availability) availability(
+      const ::media::mojom::VideoCaptureDeviceDescriptorPtr& input) {
+    return input->availability;
   }
 
   static bool Read(::media::mojom::VideoCaptureDeviceDescriptor::DataView input, ::media::mojom::VideoCaptureDeviceDescriptorPtr* output);

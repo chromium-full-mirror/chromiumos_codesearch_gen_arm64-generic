@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -386,14 +387,17 @@ void ChromiumDataCollectorProxy::GetTouchscreenDevices(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cros_healthd::internal::mojom::ChromiumDataCollector::GetTouchscreenDevices");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kChromiumDataCollector_GetTouchscreenDevices_Name, kFlags, 0, 0, nullptr);
@@ -417,14 +421,17 @@ void ChromiumDataCollectorProxy::GetTouchpadLibraryName(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cros_healthd::internal::mojom::ChromiumDataCollector::GetTouchpadLibraryName");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kChromiumDataCollector_GetTouchpadLibraryName_Name, kFlags, 0, 0, nullptr);
@@ -455,14 +462,17 @@ void ChromiumDataCollectorProxy::SetPrivacyScreenState(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kChromiumDataCollector_SetPrivacyScreenState_Name, kFlags, 0, 0, nullptr);
@@ -494,14 +504,17 @@ void ChromiumDataCollectorProxy::SetAudioOutputMute(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kChromiumDataCollector_SetAudioOutputMute_Name, kFlags, 0, 0, nullptr);
@@ -612,7 +625,8 @@ void ChromiumDataCollector_GetTouchscreenDevices_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kChromiumDataCollector_GetTouchscreenDevices_Name, kFlags, 0, 0, nullptr);
@@ -742,7 +756,8 @@ void ChromiumDataCollector_GetTouchpadLibraryName_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kChromiumDataCollector_GetTouchpadLibraryName_Name, kFlags, 0, 0, nullptr);
@@ -870,7 +885,8 @@ void ChromiumDataCollector_SetPrivacyScreenState_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kChromiumDataCollector_SetPrivacyScreenState_Name, kFlags, 0, 0, nullptr);
@@ -988,7 +1004,8 @@ void ChromiumDataCollector_SetAudioOutputMute_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kChromiumDataCollector_SetAudioOutputMute_Name, kFlags, 0, 0, nullptr);
@@ -1156,16 +1173,16 @@ std::move(p_mute_on), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kChromiumDataCollectorValidationInfo[] = {
-    {&internal::ChromiumDataCollector_GetTouchscreenDevices_Params_Data::Validate,
+    { &internal::ChromiumDataCollector_GetTouchscreenDevices_Params_Data::Validate,
      &internal::ChromiumDataCollector_GetTouchscreenDevices_ResponseParams_Data::Validate},
-    {&internal::ChromiumDataCollector_GetTouchpadLibraryName_Params_Data::Validate,
+    { &internal::ChromiumDataCollector_GetTouchpadLibraryName_Params_Data::Validate,
      &internal::ChromiumDataCollector_GetTouchpadLibraryName_ResponseParams_Data::Validate},
-    {&internal::ChromiumDataCollector_SetPrivacyScreenState_Params_Data::Validate,
+    { &internal::ChromiumDataCollector_SetPrivacyScreenState_Params_Data::Validate,
      &internal::ChromiumDataCollector_SetPrivacyScreenState_ResponseParams_Data::Validate},
-    {&internal::ChromiumDataCollector_SetAudioOutputMute_Params_Data::Validate,
+    { &internal::ChromiumDataCollector_SetAudioOutputMute_Params_Data::Validate,
      &internal::ChromiumDataCollector_SetAudioOutputMute_ResponseParams_Data::Validate},
 };
 

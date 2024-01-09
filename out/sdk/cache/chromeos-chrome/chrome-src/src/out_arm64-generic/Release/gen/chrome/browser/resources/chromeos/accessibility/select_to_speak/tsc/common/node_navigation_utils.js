@@ -6,14 +6,7 @@ import { constants } from './constants.js';
 import { NodeUtils } from './node_utils.js';
 import { ParagraphUtils } from './paragraph_utils.js';
 import { SentenceUtils } from './sentence_utils.js';
-const AutomationNode = chrome.automation.AutomationNode;
 const RoleType = chrome.automation.RoleType;
-/**
- * A predicate for paragraph selection. The predicate examines an array of nodes
- * and returns false if the paragraph should not be used.
- * @typedef {function(Array<!AutomationNode>): boolean}
- */
-let ParagraphPred;
 /**
  * Utility functions to handle sentence navigation and paragraph navigation.
  * These functions are based on NodeUtils, ParagraphUtils, and SentenceUtils,
@@ -25,15 +18,12 @@ export class NodeNavigationUtils {
      * function is based on |NodeUtils.getNextParagraph| but provides additional
      * checks on the anchor node used for searchiong. This function also applies a
      * |pred| to filter out unqualified paragraph.
-     * @param {!ParagraphUtils.NodeGroup|undefined} currentNodeGroup
-     * @param {constants.Dir} direction
-     * @param {ParagraphPred} pred A predicate to apply when selecting the
+     * @param pred A predicate to apply when selecting the
      *     paragraph. After querying nodes, the function uses |pred| to determine
      *     if the queried nodes are a part of a valid paragraph. If |pred| returns
      *     false, the function returns an empty array. For example, we may want to
      *     discard nodes from UI components.
-     * @return {Array<!AutomationNode>} A list of nodes for the next block in the
-     *     given direction.
+     * @return A list of nodes for the next block in the given direction.
      */
     static getNodesForNextParagraph(currentNodeGroup, direction, pred) {
         if (!currentNodeGroup) {
@@ -42,11 +32,11 @@ export class NodeNavigationUtils {
         // Use current block parent as starting point to navigate from. If it is not
         // a valid block, then use one of the nodes that are currently activated.
         let node = currentNodeGroup.blockParent;
-        if ((node === null || node.isRootNode || node.role === undefined) &&
+        if ((!node || node.isRootNode || node.role === undefined) &&
             currentNodeGroup.nodes.length > 0) {
             node = currentNodeGroup.nodes[0].node;
         }
-        if (node === null || node.role === undefined) {
+        if (!node || node.role === undefined) {
             // Could not find any nodes to navigate from.
             return [];
         }
@@ -59,18 +49,18 @@ export class NodeNavigationUtils {
         return nextParagraphNodes;
     }
     /**
-     * @param {!AutomationNode} node Node to traverse from.
-     * @param {constants.Dir} direction Direction to traverse.
-     * @return {!Array<!AutomationNode>} Returns all selectable leaf text nodes
-     *     within the paragraph adjacent to the given node. If there is an
-     *     adjacent valid leaf node not contained within a paragraph, it will
-     *     return that node. Only traverses within containing root.
-     * @private
+     * @param node Node to traverse from.
+     * @param direction Direction to traverse.
+     * @return Returns all selectable leaf text nodes within the paragraph
+     *     adjacent to the given node. If there is an adjacent valid leaf
+     *     node not contained within a paragraph, it will return that node.
+     *     Only traverses within containing root.
      */
     static getNextParagraphWithNode_(node, direction) {
         const blockParent = ParagraphUtils.isBlock(node) ?
             node :
             ParagraphUtils.getFirstBlockAncestor(node);
+        // TODO(b/314203187): Determine if not null assertion is appropriate here.
         let containingRoot = node.root;
         // If role is a rootWebArea, search for the first ancestor with that role,
         // to enable users to traverse across iframes within the same webpage.
@@ -107,22 +97,20 @@ export class NodeNavigationUtils {
      * |direction| is set to forward, we will look for trailing content after the
      * position. Otherwise, we will get the leading content before the position.
      * The remaining content is returned as a list of nodes with offset.
-     * @param {!ParagraphUtils.NodeGroup} nodeGroup The nodeGroup of
-     *     the assigned position. The nodeGroup may contain the content of the
-     *     entire paragraph or only a part of the paragraph.
-     * @param {number} charIndex The char index of the position. The index is
+     * @param nodeGroup The nodeGroup of the assigned position. The nodeGroup may
+     *     contain the content of the entire paragraph or only a part of the
+     *     paragraph.
+     * @param charIndex The char index of the position. The index is
      *     relative to the text content of the |nodeGroup|. This index is
      *     inclusive for forward searching: if we set |direction| to forward with
      *     a 0 |charIndex|, we will get the remaining content of the paragraph
      *     including all the content in the input |nodeGroup|. However, it is
      *     exclusive for backward searching: when searching backward with a 0
      *     |charIndex|, we will exclude all the content in the input |nodeGroup|.
-     * @param {constants.Dir} direction
-     * @return {!{nodes: !Array<!AutomationNode>,
-     *          offset: number}}
+     * @return
      *    nodes: the nodes that have the remaining content.
      *    offset: the offset for the nodes. See more details in
-     * |NodeNavigationUtils.getNextNodesInParagraphFromPosition|.
+     *    |NodeNavigationUtils.getNextNodesInParagraphFromPosition|.
      */
     static getNextNodesInParagraphFromNodeGroup(nodeGroup, charIndex, direction) {
         if (nodeGroup.nodes.length === 0) {
@@ -144,10 +132,7 @@ export class NodeNavigationUtils {
      * |direction| is set to forward, we will look for trailing content after the
      * position. Otherwise, we will get the leading content before the position.
      * The remaining content is returned as a list of nodes with offset.
-     * @param {!NodeUtils.Position} position
-     * @param {constants.Dir} direction
-     * @return {!{nodes: !Array<!AutomationNode>,
-     *          offset: number}}
+     * @return
      *    nodes: the nodes that have the remaining content.
      *    offset: the offset for the nodes. When searching forward, the offset is
      * into the name of the first node, and marks the start index of the remaining
@@ -203,11 +188,9 @@ export class NodeNavigationUtils {
         return { nodes: [], offset: -1 };
     }
     /**
-     * @param {!AutomationNode} node Leaf node.
-     * @param {constants.Dir} direction
-     * @return {!Array<!AutomationNode>} The selectable leaf nodes in the given
+     * @param node Leaf node.
+     * @return The selectable leaf nodes in the given
      *     direction from the given node, until a paragraph break is reached.
-     * @private
      */
     static getNextNodesInParagraph_(node, direction) {
         const blockParent = ParagraphUtils.getFirstBlockAncestor(node);
@@ -234,17 +217,14 @@ export class NodeNavigationUtils {
      * sentence.
      * TODO(leileilei@google.com): Handle the edge case where the user navigates
      * to next sentence from the end of a document, see http://crbug.com/1160962.
-     * @param {!ParagraphUtils.NodeGroup|undefined} currentNodeGroup
-     * @param {number} currentCharIndex
-     * @param {constants.Dir} direction Direction to search for the next sentence.
+     * @param direction Direction to search for the next sentence.
      *     If set to forward, we look for the sentence start after the current
      *     position. Otherwise, we look for the sentence start before the current
      *     position.
-     * @param {ParagraphPred} pred A predicate to apply when selecting the
+     * @param pred A predicate to apply when selecting the
      *     paragraph. See |NodeNavigationUtils.getNodesForNextParagraph| for
      * details.
-     * @return {!{nodes: Array<!AutomationNode>,
-     *          offset: (number|undefined)}}
+     * @return
      *     nodes: A list of nodes for the next block in the given direction.
      *     offset: The start offset for the found sentence.
      */
@@ -315,24 +295,20 @@ export class NodeNavigationUtils {
      * |direction| is set to forward, it will navigate to the sentence start after
      * the |startCharIndex|. Otherwise, it will look for the sentence start before
      * the |startCharIndex|.
-     * @param {ParagraphUtils.NodeGroup} nodeGroup
-     * @param {number} startCharIndex The char index that we start from. This
+     * @param startCharIndex The char index that we start from. This
      *     index is relative to the text content of this node group and is
      *     exclusive: if a sentence start at 0 and we search with a 0
      *     |startCharIndex|, this function will return the next sentence start
      *     after 0 if we search forward.
-     * @param {constants.Dir} direction
-     * @param {ParagraphPred} pred A predicate to apply when selecting the
+     * @param pred A predicate to apply when selecting the
      *     paragraph. See |NodeNavigationUtils.getNodesForNextParagraph| for
      * details.
-     * @param {boolean} skipCurrentSentence Whether to skip the current sentence
+     * @param skipCurrentSentence Whether to skip the current sentence
      *     when navigating backward. Please refer to more details in the
      *     |NodeNavigationUtils.getNodesForNextSentence|.
-     * @return {!{nodes: Array<!AutomationNode>,
-     *          offset: (number|undefined)}}
+     * @return
      *     nodes: A list of nodes for the next block in the given direction.
      *     offset: The start offset for the found sentence.
-     * @private
      */
     static getNodesForNextSentenceWithinNodeGroup_(nodeGroup, startCharIndex, direction, pred, skipCurrentSentence) {
         if (!nodeGroup) {
@@ -372,16 +348,11 @@ export class NodeNavigationUtils {
      * direction. If the |direction| is set to forward, it will navigate to the
      * start of the following text block. Otherwise, it will look for the last
      * sentence in the previous text block.
-     * @param {!ParagraphUtils.NodeGroup|undefined} currentNodeGroup
-     * @param {constants.Dir} direction
-     * @param {ParagraphPred} pred A predicate to apply when selecting the
-     *     paragraph. See |NodeNavigationUtils.getNodesForNextParagraph| for
-     * details.
-     * @return {!{nodes: Array<!AutomationNode>,
-     *          offset: (number|undefined)}}
+     * @param pred A predicate to apply when selecting the paragraph. See
+     *   |NodeNavigationUtils.getNodesForNextParagraph| for details.
+     * @return
      *     nodes: A list of nodes for the next block in the given direction.
      *     offset: The start offset for the found sentence.
-     * @private
      */
     static getNodesForNextSentenceInNextParagraph_(currentNodeGroup, direction, pred) {
         const paragraphNodes = NodeNavigationUtils.getNodesForNextParagraph(currentNodeGroup, direction, pred);
@@ -398,7 +369,7 @@ export class NodeNavigationUtils {
         // sentence in the previous text block. Get the node group for the previous
         // text block. The returned startIndexInGroup and endIndexInGroup are
         // unused.
-        const { nodeGroup, startIndexInGroup, endIndexInGroup } = ParagraphUtils.buildSingleNodeGroupWithOffset(paragraphNodes);
+        const { nodeGroup } = ParagraphUtils.buildSingleNodeGroupWithOffset(paragraphNodes);
         // We search backward for the sentence start before the end of the text
         // block.
         const searchOffset = nodeGroup.text.length;

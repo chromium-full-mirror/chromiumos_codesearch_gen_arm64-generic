@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/network/public/mojom/cookie_manager.mojom-features.h"
 #include "services/network/public/mojom/cookie_manager.mojom-shared.h"
 #include "services/network/public/mojom/cookie_manager.mojom-forward.h"
 #include "components/content_settings/core/common/content_settings.mojom.h"
@@ -141,6 +142,7 @@ class CookieManager
     kBlockThirdPartyCookiesMinVersion = 0,
     kBlockTruncatedCookiesMinVersion = 0,
     kSetMitigationsEnabledFor3pcdMinVersion = 0,
+    kSetTrackingProtectionEnabledFor3pcdMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -197,6 +199,9 @@ class CookieManager
   struct SetMitigationsEnabledFor3pcd_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
+  struct SetTrackingProtectionEnabledFor3pcd_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~CookieManager() = default;
 
@@ -236,7 +241,7 @@ class CookieManager
   virtual void DeleteSessionOnlyCookies(DeleteSessionOnlyCookiesCallback callback) = 0;
 
   
-  virtual void AddCookieChangeListener(const ::GURL& url, const absl::optional<std::string>& name, ::mojo::PendingRemote<CookieChangeListener> listener) = 0;
+  virtual void AddCookieChangeListener(const ::GURL& url, const std::optional<std::string>& name, ::mojo::PendingRemote<CookieChangeListener> listener) = 0;
 
   
   virtual void AddGlobalChangeListener(::mojo::PendingRemote<CookieChangeListener> notification_pointer) = 0;
@@ -270,6 +275,9 @@ class CookieManager
 
   
   virtual void SetMitigationsEnabledFor3pcd(bool enable) = 0;
+
+  
+  virtual void SetTrackingProtectionEnabledFor3pcd(bool enable) = 0;
 };
 
 
@@ -310,7 +318,7 @@ class  CookieManagerProxy
   
   void DeleteSessionOnlyCookies(DeleteSessionOnlyCookiesCallback callback) final;
   
-  void AddCookieChangeListener(const ::GURL& url, const absl::optional<std::string>& name, ::mojo::PendingRemote<CookieChangeListener> listener) final;
+  void AddCookieChangeListener(const ::GURL& url, const std::optional<std::string>& name, ::mojo::PendingRemote<CookieChangeListener> listener) final;
   
   void AddGlobalChangeListener(::mojo::PendingRemote<CookieChangeListener> notification_pointer) final;
   
@@ -329,6 +337,8 @@ class  CookieManagerProxy
   void BlockTruncatedCookies(bool block) final;
   
   void SetMitigationsEnabledFor3pcd(bool enable) final;
+  
+  void SetTrackingProtectionEnabledFor3pcd(bool enable) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -750,17 +760,17 @@ class  CookieOrLine {
   // Construct an instance holding |cookie|.
   static CookieOrLinePtr
   NewCookie(
-      const ::net::CanonicalCookie& cookie) {
+      const ::net::CanonicalCookie& value) {
     auto result = CookieOrLinePtr(absl::in_place);
-    result->set_cookie(std::move(cookie));
+    result->set_cookie(std::move(value));
     return result;
   }
   // Construct an instance holding |cookie_string|.
   static CookieOrLinePtr
   NewCookieString(
-      const std::string& cookie_string) {
+      const std::string& value) {
     auto result = CookieOrLinePtr(absl::in_place);
-    result->set_cookie_string(std::move(cookie_string));
+    result->set_cookie_string(std::move(value));
     return result;
   }
 
@@ -892,6 +902,7 @@ class  CookieManagerParams {
   CookieManagerParams(
       bool block_third_party_cookies,
       bool block_truncated_cookies,
+      bool tracking_protection_enabled_for_3pcd,
       bool mitigations_enabled_for_3pcd,
       const base::flat_map<::ContentSettingsType, std::vector<::ContentSettingPatternSource>>& content_settings,
       std::vector<std::string> secure_origin_cookies_allowed_schemes,
@@ -979,6 +990,8 @@ class  CookieManagerParams {
   bool block_third_party_cookies;
   
   bool block_truncated_cookies;
+  
+  bool tracking_protection_enabled_for_3pcd;
   
   bool mitigations_enabled_for_3pcd;
   
@@ -1366,8 +1379,7 @@ class  CanonicalCookie {
       ::net::CookieSameSite site_restrictions,
       ::net::CookiePriority priority,
       ::net::CookieSourceScheme source_scheme,
-      bool same_party,
-      const absl::optional<::net::CookiePartitionKey>& partition_key,
+      const std::optional<::net::CookiePartitionKey>& partition_key,
       int32_t source_port);
 
 
@@ -1472,9 +1484,7 @@ class  CanonicalCookie {
   
   ::net::CookieSourceScheme source_scheme;
   
-  bool same_party;
-  
-  absl::optional<::net::CookiePartitionKey> partition_key;
+  std::optional<::net::CookiePartitionKey> partition_key;
   
   int32_t source_port;
 
@@ -1539,7 +1549,7 @@ class  CookieAndLineWithAccessResult {
   CookieAndLineWithAccessResult();
 
   CookieAndLineWithAccessResult(
-      const absl::optional<::net::CanonicalCookie>& cookie,
+      const std::optional<::net::CanonicalCookie>& cookie,
       const std::string& cookie_string,
       ::net::CookieAccessResult access_result);
 
@@ -1621,7 +1631,7 @@ CookieAndLineWithAccessResult& operator=(const CookieAndLineWithAccessResult&) =
   }
 
   
-  absl::optional<::net::CanonicalCookie> cookie;
+  std::optional<::net::CanonicalCookie> cookie;
   
   std::string cookie_string;
   
@@ -2276,15 +2286,15 @@ class  CookieDeletionFilter {
   CookieDeletionFilter();
 
   CookieDeletionFilter(
-      absl::optional<::base::Time> created_after_time,
-      absl::optional<::base::Time> created_before_time,
-      absl::optional<std::vector<std::string>> excluding_domains,
-      absl::optional<std::vector<std::string>> including_domains,
-      const absl::optional<std::string>& cookie_name,
-      const absl::optional<std::string>& host_name,
-      const absl::optional<::GURL>& url,
+      std::optional<::base::Time> created_after_time,
+      std::optional<::base::Time> created_before_time,
+      std::optional<std::vector<std::string>> excluding_domains,
+      std::optional<std::vector<std::string>> including_domains,
+      const std::optional<std::string>& cookie_name,
+      const std::optional<std::string>& host_name,
+      const std::optional<::GURL>& url,
       CookieDeletionSessionControl session_control,
-      const absl::optional<::net::CookiePartitionKeyCollection>& cookie_partition_key_collection,
+      const std::optional<::net::CookiePartitionKeyCollection>& cookie_partition_key_collection,
       bool partitioned_state_only);
 
 
@@ -2363,23 +2373,23 @@ class  CookieDeletionFilter {
   }
 
   
-  absl::optional<::base::Time> created_after_time;
+  std::optional<::base::Time> created_after_time;
   
-  absl::optional<::base::Time> created_before_time;
+  std::optional<::base::Time> created_before_time;
   
-  absl::optional<std::vector<std::string>> excluding_domains;
+  std::optional<std::vector<std::string>> excluding_domains;
   
-  absl::optional<std::vector<std::string>> including_domains;
+  std::optional<std::vector<std::string>> including_domains;
   
-  absl::optional<std::string> cookie_name;
+  std::optional<std::string> cookie_name;
   
-  absl::optional<std::string> host_name;
+  std::optional<std::string> host_name;
   
-  absl::optional<::GURL> url;
+  std::optional<::GURL> url;
   
   CookieDeletionSessionControl session_control;
   
-  absl::optional<::net::CookiePartitionKeyCollection> cookie_partition_key_collection;
+  std::optional<::net::CookiePartitionKeyCollection> cookie_partition_key_collection;
   
   bool partitioned_state_only;
 
@@ -2446,6 +2456,7 @@ CookieManagerParamsPtr CookieManagerParams::Clone() const {
   return New(
       mojo::Clone(block_third_party_cookies),
       mojo::Clone(block_truncated_cookies),
+      mojo::Clone(tracking_protection_enabled_for_3pcd),
       mojo::Clone(mitigations_enabled_for_3pcd),
       mojo::Clone(content_settings),
       mojo::Clone(secure_origin_cookies_allowed_schemes),
@@ -2461,6 +2472,8 @@ bool CookieManagerParams::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->block_third_party_cookies, other_struct.block_third_party_cookies))
     return false;
   if (!mojo::Equals(this->block_truncated_cookies, other_struct.block_truncated_cookies))
+    return false;
+  if (!mojo::Equals(this->tracking_protection_enabled_for_3pcd, other_struct.tracking_protection_enabled_for_3pcd))
     return false;
   if (!mojo::Equals(this->mitigations_enabled_for_3pcd, other_struct.mitigations_enabled_for_3pcd))
     return false;
@@ -2488,6 +2501,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.block_truncated_cookies < rhs.block_truncated_cookies)
     return true;
   if (rhs.block_truncated_cookies < lhs.block_truncated_cookies)
+    return false;
+  if (lhs.tracking_protection_enabled_for_3pcd < rhs.tracking_protection_enabled_for_3pcd)
+    return true;
+  if (rhs.tracking_protection_enabled_for_3pcd < lhs.tracking_protection_enabled_for_3pcd)
     return false;
   if (lhs.mitigations_enabled_for_3pcd < rhs.mitigations_enabled_for_3pcd)
     return true;
@@ -2657,7 +2674,6 @@ CanonicalCookiePtr CanonicalCookie::Clone() const {
       mojo::Clone(site_restrictions),
       mojo::Clone(priority),
       mojo::Clone(source_scheme),
-      mojo::Clone(same_party),
       mojo::Clone(partition_key),
       mojo::Clone(source_port)
   );
@@ -2690,8 +2706,6 @@ bool CanonicalCookie::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->priority, other_struct.priority))
     return false;
   if (!mojo::Equals(this->source_scheme, other_struct.source_scheme))
-    return false;
-  if (!mojo::Equals(this->same_party, other_struct.same_party))
     return false;
   if (!mojo::Equals(this->partition_key, other_struct.partition_key))
     return false;
@@ -2753,10 +2767,6 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.source_scheme < rhs.source_scheme)
     return true;
   if (rhs.source_scheme < lhs.source_scheme)
-    return false;
-  if (lhs.same_party < rhs.same_party)
-    return true;
-  if (rhs.same_party < lhs.same_party)
     return false;
   if (lhs.partition_key < rhs.partition_key)
     return true;
@@ -3078,6 +3088,11 @@ struct  StructTraits<::network::mojom::CookieManagerParams::DataView,
     return input->block_truncated_cookies;
   }
 
+  static decltype(::network::mojom::CookieManagerParams::tracking_protection_enabled_for_3pcd) tracking_protection_enabled_for_3pcd(
+      const ::network::mojom::CookieManagerParamsPtr& input) {
+    return input->tracking_protection_enabled_for_3pcd;
+  }
+
   static decltype(::network::mojom::CookieManagerParams::mitigations_enabled_for_3pcd) mitigations_enabled_for_3pcd(
       const ::network::mojom::CookieManagerParamsPtr& input) {
     return input->mitigations_enabled_for_3pcd;
@@ -3271,11 +3286,6 @@ struct  StructTraits<::network::mojom::CanonicalCookie::DataView,
   static decltype(::network::mojom::CanonicalCookie::source_scheme) source_scheme(
       const ::network::mojom::CanonicalCookiePtr& input) {
     return input->source_scheme;
-  }
-
-  static decltype(::network::mojom::CanonicalCookie::same_party) same_party(
-      const ::network::mojom::CanonicalCookiePtr& input) {
-    return input->same_party;
   }
 
   static const decltype(::network::mojom::CanonicalCookie::partition_key)& partition_key(

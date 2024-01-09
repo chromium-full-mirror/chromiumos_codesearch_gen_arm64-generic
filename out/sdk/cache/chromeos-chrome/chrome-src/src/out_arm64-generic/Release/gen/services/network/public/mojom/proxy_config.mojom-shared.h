@@ -102,6 +102,22 @@ inline bool IsKnownEnumValue(ProxyRulesType value) {
 }
 
 
+enum class IpProtectionProxyBypassPolicy : int32_t {
+  
+  kNone = 0,
+  
+  kFirstPartyToTopLevelFrame = 1,
+  kMinValue = 0,
+  kMaxValue = 1,
+};
+
+ std::ostream& operator<<(std::ostream& os, IpProtectionProxyBypassPolicy value);
+inline bool IsKnownEnumValue(IpProtectionProxyBypassPolicy value) {
+  return internal::IpProtectionProxyBypassPolicy_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+
+
 class ProxyBypassRulesDataView {
  public:
   ProxyBypassRulesDataView() = default;
@@ -139,13 +155,13 @@ class ProxyListDataView {
 
   bool is_null() const { return !data_; }
   inline void GetProxiesDataView(
-      mojo::ArrayDataView<mojo::StringDataView>* output);
+      mojo::ArrayDataView<mojo::ArrayDataView<mojo::StringDataView>>* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadProxies(UserType* output) {
     
     auto* pointer = data_->proxies.Get();
-    return mojo::internal::Deserialize<mojo::ArrayDataView<mojo::StringDataView>>(
+    return mojo::internal::Deserialize<mojo::ArrayDataView<mojo::ArrayDataView<mojo::StringDataView>>>(
         pointer, output, message_);
   }
  private:
@@ -299,6 +315,10 @@ template <>
 struct hash<::network::mojom::ProxyRulesType>
     : public mojo::internal::EnumHashImpl<::network::mojom::ProxyRulesType> {};
 
+template <>
+struct hash<::network::mojom::IpProtectionProxyBypassPolicy>
+    : public mojo::internal::EnumHashImpl<::network::mojom::IpProtectionProxyBypassPolicy> {};
+
 }  // namespace std
 
 namespace mojo {
@@ -318,6 +338,26 @@ struct Serializer<::network::mojom::ProxyRulesType, MaybeConstUserType> {
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
         static_cast<::network::mojom::ProxyRulesType>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::network::mojom::IpProtectionProxyBypassPolicy, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::network::mojom::IpProtectionProxyBypassPolicy, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::network::mojom::IpProtectionProxyBypassPolicy>(input)), output);
   }
 };
 
@@ -385,8 +425,8 @@ struct Serializer<::network::mojom::ProxyListDataView, MaybeConstUserType> {
         typename decltype(fragment->proxies)::BaseType>
         proxies_fragment(fragment.message());
     constexpr const mojo::internal::ContainerValidateParams& proxies_validate_params =
-        mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
-    mojo::internal::Serialize<mojo::ArrayDataView<mojo::StringDataView>>(
+        mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>()>();
+    mojo::internal::Serialize<mojo::ArrayDataView<mojo::ArrayDataView<mojo::StringDataView>>>(
         in_proxies, proxies_fragment, &proxies_validate_params);
     fragment->proxies.Set(
         proxies_fragment.is_null() ? nullptr : proxies_fragment.data());
@@ -583,9 +623,9 @@ inline void ProxyBypassRulesDataView::GetRulesDataView(
 
 
 inline void ProxyListDataView::GetProxiesDataView(
-    mojo::ArrayDataView<mojo::StringDataView>* output) {
+    mojo::ArrayDataView<mojo::ArrayDataView<mojo::StringDataView>>* output) {
   auto pointer = data_->proxies.Get();
-  *output = mojo::ArrayDataView<mojo::StringDataView>(pointer, message_);
+  *output = mojo::ArrayDataView<mojo::ArrayDataView<mojo::StringDataView>>(pointer, message_);
 }
 
 
@@ -644,6 +684,15 @@ namespace perfetto {
 template <>
 struct  TraceFormatTraits<::network::mojom::ProxyRulesType> {
  static void WriteIntoTrace(perfetto::TracedValue context, ::network::mojom::ProxyRulesType value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::network::mojom::IpProtectionProxyBypassPolicy> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::network::mojom::IpProtectionProxyBypassPolicy value);
 };
 
 } // namespace perfetto

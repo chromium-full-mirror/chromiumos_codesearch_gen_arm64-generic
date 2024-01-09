@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "ui/ozone/public/mojom/gesture_properties_service.mojom-features.h"
 #include "ui/ozone/public/mojom/gesture_properties_service.mojom-shared.h"
 #include "ui/ozone/public/mojom/gesture_properties_service.mojom-forward.h"
 #include <string>
@@ -206,41 +207,41 @@ class  GesturePropValue {
   // Construct an instance holding |ints|.
   static GesturePropValuePtr
   NewInts(
-      std::vector<int32_t> ints) {
+      std::vector<int32_t> value) {
     auto result = GesturePropValuePtr(absl::in_place);
-    result->set_ints(std::move(ints));
+    result->set_ints(std::move(value));
     return result;
   }
   // Construct an instance holding |shorts|.
   static GesturePropValuePtr
   NewShorts(
-      std::vector<int16_t> shorts) {
+      std::vector<int16_t> value) {
     auto result = GesturePropValuePtr(absl::in_place);
-    result->set_shorts(std::move(shorts));
+    result->set_shorts(std::move(value));
     return result;
   }
   // Construct an instance holding |bools|.
   static GesturePropValuePtr
   NewBools(
-      std::vector<bool> bools) {
+      std::vector<bool> value) {
     auto result = GesturePropValuePtr(absl::in_place);
-    result->set_bools(std::move(bools));
+    result->set_bools(std::move(value));
     return result;
   }
   // Construct an instance holding |str|.
   static GesturePropValuePtr
   NewStr(
-      const std::string& str) {
+      const std::string& value) {
     auto result = GesturePropValuePtr(absl::in_place);
-    result->set_str(std::move(str));
+    result->set_str(std::move(value));
     return result;
   }
   // Construct an instance holding |reals|.
   static GesturePropValuePtr
   NewReals(
-      std::vector<double> reals) {
+      std::vector<double> value) {
     auto result = GesturePropValuePtr(absl::in_place);
-    result->set_reals(std::move(reals));
+    result->set_reals(std::move(value));
     return result;
   }
 

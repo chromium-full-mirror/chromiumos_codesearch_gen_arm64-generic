@@ -24,7 +24,6 @@
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
 #include "media/capture/video/chromeos/mojom/cros_camera_service.mojom-shared-internal.h"
-#include "chromeos/components/sensors/mojom/cros_sensor_service.mojom-shared.h"
 #include "components/chromeos_camera/common/jpeg_encode_accelerator.mojom-shared.h"
 #include "components/chromeos_camera/common/mjpeg_decode_accelerator.mojom-shared.h"
 #include "media/capture/video/chromeos/mojom/camera_common.mojom-shared.h"
@@ -132,26 +131,26 @@ using CameraHalDispatcherAssociatedPtrInfoDataView =
     mojo::AssociatedInterfacePtrInfoDataView<CameraHalDispatcherInterfaceBase>;
 using CameraHalDispatcherAssociatedRequestDataView =
     mojo::AssociatedInterfaceRequestDataView<CameraHalDispatcherInterfaceBase>;
-class CameraHalServerInterfaceBase {};
+class CrosCameraServiceObserverInterfaceBase {};
 
-using CameraHalServerPtrDataView =
-    mojo::InterfacePtrDataView<CameraHalServerInterfaceBase>;
-using CameraHalServerRequestDataView =
-    mojo::InterfaceRequestDataView<CameraHalServerInterfaceBase>;
-using CameraHalServerAssociatedPtrInfoDataView =
-    mojo::AssociatedInterfacePtrInfoDataView<CameraHalServerInterfaceBase>;
-using CameraHalServerAssociatedRequestDataView =
-    mojo::AssociatedInterfaceRequestDataView<CameraHalServerInterfaceBase>;
-class CameraHalServerCallbacksInterfaceBase {};
+using CrosCameraServiceObserverPtrDataView =
+    mojo::InterfacePtrDataView<CrosCameraServiceObserverInterfaceBase>;
+using CrosCameraServiceObserverRequestDataView =
+    mojo::InterfaceRequestDataView<CrosCameraServiceObserverInterfaceBase>;
+using CrosCameraServiceObserverAssociatedPtrInfoDataView =
+    mojo::AssociatedInterfacePtrInfoDataView<CrosCameraServiceObserverInterfaceBase>;
+using CrosCameraServiceObserverAssociatedRequestDataView =
+    mojo::AssociatedInterfaceRequestDataView<CrosCameraServiceObserverInterfaceBase>;
+class CrosCameraServiceInterfaceBase {};
 
-using CameraHalServerCallbacksPtrDataView =
-    mojo::InterfacePtrDataView<CameraHalServerCallbacksInterfaceBase>;
-using CameraHalServerCallbacksRequestDataView =
-    mojo::InterfaceRequestDataView<CameraHalServerCallbacksInterfaceBase>;
-using CameraHalServerCallbacksAssociatedPtrInfoDataView =
-    mojo::AssociatedInterfacePtrInfoDataView<CameraHalServerCallbacksInterfaceBase>;
-using CameraHalServerCallbacksAssociatedRequestDataView =
-    mojo::AssociatedInterfaceRequestDataView<CameraHalServerCallbacksInterfaceBase>;
+using CrosCameraServicePtrDataView =
+    mojo::InterfacePtrDataView<CrosCameraServiceInterfaceBase>;
+using CrosCameraServiceRequestDataView =
+    mojo::InterfaceRequestDataView<CrosCameraServiceInterfaceBase>;
+using CrosCameraServiceAssociatedPtrInfoDataView =
+    mojo::AssociatedInterfacePtrInfoDataView<CrosCameraServiceInterfaceBase>;
+using CrosCameraServiceAssociatedRequestDataView =
+    mojo::AssociatedInterfaceRequestDataView<CrosCameraServiceInterfaceBase>;
 
 
 }  // cros::mojom

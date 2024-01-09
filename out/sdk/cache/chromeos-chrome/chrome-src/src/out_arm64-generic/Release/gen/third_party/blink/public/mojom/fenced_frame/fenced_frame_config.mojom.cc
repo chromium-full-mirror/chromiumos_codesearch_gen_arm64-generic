@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -188,13 +189,13 @@ FencedFrameConfig::FencedFrameConfig()
       effective_enabled_permissions() {}
 
 FencedFrameConfig::FencedFrameConfig(
-    const absl::optional<::blink::FencedFrame::RedactedFencedFrameProperty<GURL>>& mapped_url_in,
-    const absl::optional<::blink::FencedFrame::RedactedFencedFrameProperty<::gfx::Size>>& container_size_in,
-    const absl::optional<::blink::FencedFrame::RedactedFencedFrameProperty<::gfx::Size>>& content_size_in,
-    const absl::optional<::blink::FencedFrame::RedactedFencedFrameProperty<bool>>& deprecated_should_freeze_initial_size_in,
-    const absl::optional<::blink::FencedFrame::RedactedFencedFrameProperty<::blink::FencedFrame::AdAuctionData>>& ad_auction_data_in,
-    const absl::optional<::blink::FencedFrame::RedactedFencedFrameProperty<std::vector<::blink::FencedFrame::RedactedFencedFrameConfig>>>& nested_configs_in,
-    const absl::optional<::blink::FencedFrame::RedactedFencedFrameProperty<::blink::FencedFrame::SharedStorageBudgetMetadata>>& shared_storage_budget_metadata_in,
+    const std::optional<::blink::FencedFrame::RedactedFencedFrameProperty<GURL>>& mapped_url_in,
+    const std::optional<::blink::FencedFrame::RedactedFencedFrameProperty<::gfx::Size>>& container_size_in,
+    const std::optional<::blink::FencedFrame::RedactedFencedFrameProperty<::gfx::Size>>& content_size_in,
+    const std::optional<::blink::FencedFrame::RedactedFencedFrameProperty<bool>>& deprecated_should_freeze_initial_size_in,
+    const std::optional<::blink::FencedFrame::RedactedFencedFrameProperty<::blink::FencedFrame::AdAuctionData>>& ad_auction_data_in,
+    const std::optional<::blink::FencedFrame::RedactedFencedFrameProperty<std::vector<::blink::FencedFrame::RedactedFencedFrameConfig>>>& nested_configs_in,
+    const std::optional<::blink::FencedFrame::RedactedFencedFrameProperty<::blink::FencedFrame::SharedStorageBudgetMetadata>>& shared_storage_budget_metadata_in,
     const ::GURL& urn_uuid_in,
     ::blink::FencedFrame::DeprecatedFencedFrameMode mode_in,
     std::vector<::blink::mojom::PermissionsPolicyFeature> effective_enabled_permissions_in)
@@ -218,7 +219,7 @@ void FencedFrameConfig::WriteIntoTrace(
     dict.AddItem(
       "mapped_url"), this->mapped_url,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::blink::FencedFrame::RedactedFencedFrameProperty<GURL>>&>"
+      "<value of type const std::optional<::blink::FencedFrame::RedactedFencedFrameProperty<GURL>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -227,7 +228,7 @@ void FencedFrameConfig::WriteIntoTrace(
     dict.AddItem(
       "container_size"), this->container_size,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::blink::FencedFrame::RedactedFencedFrameProperty<::gfx::Size>>&>"
+      "<value of type const std::optional<::blink::FencedFrame::RedactedFencedFrameProperty<::gfx::Size>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -236,7 +237,7 @@ void FencedFrameConfig::WriteIntoTrace(
     dict.AddItem(
       "content_size"), this->content_size,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::blink::FencedFrame::RedactedFencedFrameProperty<::gfx::Size>>&>"
+      "<value of type const std::optional<::blink::FencedFrame::RedactedFencedFrameProperty<::gfx::Size>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -245,7 +246,7 @@ void FencedFrameConfig::WriteIntoTrace(
     dict.AddItem(
       "deprecated_should_freeze_initial_size"), this->deprecated_should_freeze_initial_size,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::blink::FencedFrame::RedactedFencedFrameProperty<bool>>&>"
+      "<value of type const std::optional<::blink::FencedFrame::RedactedFencedFrameProperty<bool>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -254,7 +255,7 @@ void FencedFrameConfig::WriteIntoTrace(
     dict.AddItem(
       "ad_auction_data"), this->ad_auction_data,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::blink::FencedFrame::RedactedFencedFrameProperty<::blink::FencedFrame::AdAuctionData>>&>"
+      "<value of type const std::optional<::blink::FencedFrame::RedactedFencedFrameProperty<::blink::FencedFrame::AdAuctionData>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -263,7 +264,7 @@ void FencedFrameConfig::WriteIntoTrace(
     dict.AddItem(
       "nested_configs"), this->nested_configs,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::blink::FencedFrame::RedactedFencedFrameProperty<std::vector<::blink::FencedFrame::RedactedFencedFrameConfig>>>&>"
+      "<value of type const std::optional<::blink::FencedFrame::RedactedFencedFrameProperty<std::vector<::blink::FencedFrame::RedactedFencedFrameConfig>>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -272,7 +273,7 @@ void FencedFrameConfig::WriteIntoTrace(
     dict.AddItem(
       "shared_storage_budget_metadata"), this->shared_storage_budget_metadata,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::blink::FencedFrame::RedactedFencedFrameProperty<::blink::FencedFrame::SharedStorageBudgetMetadata>>&>"
+      "<value of type const std::optional<::blink::FencedFrame::RedactedFencedFrameProperty<::blink::FencedFrame::SharedStorageBudgetMetadata>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -324,13 +325,13 @@ FencedFrameProperties::FencedFrameProperties()
       effective_enabled_permissions() {}
 
 FencedFrameProperties::FencedFrameProperties(
-    const absl::optional<::blink::FencedFrame::RedactedFencedFrameProperty<GURL>>& mapped_url_in,
-    const absl::optional<::blink::FencedFrame::RedactedFencedFrameProperty<::gfx::Size>>& container_size_in,
-    const absl::optional<::blink::FencedFrame::RedactedFencedFrameProperty<::gfx::Size>>& content_size_in,
-    const absl::optional<::blink::FencedFrame::RedactedFencedFrameProperty<bool>>& deprecated_should_freeze_initial_size_in,
-    const absl::optional<::blink::FencedFrame::RedactedFencedFrameProperty<::blink::FencedFrame::AdAuctionData>>& ad_auction_data_in,
+    const std::optional<::blink::FencedFrame::RedactedFencedFrameProperty<GURL>>& mapped_url_in,
+    const std::optional<::blink::FencedFrame::RedactedFencedFrameProperty<::gfx::Size>>& container_size_in,
+    const std::optional<::blink::FencedFrame::RedactedFencedFrameProperty<::gfx::Size>>& content_size_in,
+    const std::optional<::blink::FencedFrame::RedactedFencedFrameProperty<bool>>& deprecated_should_freeze_initial_size_in,
+    const std::optional<::blink::FencedFrame::RedactedFencedFrameProperty<::blink::FencedFrame::AdAuctionData>>& ad_auction_data_in,
     PotentiallyOpaqueURNConfigVectorPtr nested_urn_config_pairs_in,
-    const absl::optional<::blink::FencedFrame::RedactedFencedFrameProperty<::blink::FencedFrame::SharedStorageBudgetMetadata>>& shared_storage_budget_metadata_in,
+    const std::optional<::blink::FencedFrame::RedactedFencedFrameProperty<::blink::FencedFrame::SharedStorageBudgetMetadata>>& shared_storage_budget_metadata_in,
     bool has_fenced_frame_reporting_in,
     ::blink::FencedFrame::DeprecatedFencedFrameMode mode_in,
     std::vector<::blink::mojom::PermissionsPolicyFeature> effective_enabled_permissions_in)
@@ -354,7 +355,7 @@ void FencedFrameProperties::WriteIntoTrace(
     dict.AddItem(
       "mapped_url"), this->mapped_url,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::blink::FencedFrame::RedactedFencedFrameProperty<GURL>>&>"
+      "<value of type const std::optional<::blink::FencedFrame::RedactedFencedFrameProperty<GURL>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -363,7 +364,7 @@ void FencedFrameProperties::WriteIntoTrace(
     dict.AddItem(
       "container_size"), this->container_size,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::blink::FencedFrame::RedactedFencedFrameProperty<::gfx::Size>>&>"
+      "<value of type const std::optional<::blink::FencedFrame::RedactedFencedFrameProperty<::gfx::Size>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -372,7 +373,7 @@ void FencedFrameProperties::WriteIntoTrace(
     dict.AddItem(
       "content_size"), this->content_size,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::blink::FencedFrame::RedactedFencedFrameProperty<::gfx::Size>>&>"
+      "<value of type const std::optional<::blink::FencedFrame::RedactedFencedFrameProperty<::gfx::Size>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -381,7 +382,7 @@ void FencedFrameProperties::WriteIntoTrace(
     dict.AddItem(
       "deprecated_should_freeze_initial_size"), this->deprecated_should_freeze_initial_size,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::blink::FencedFrame::RedactedFencedFrameProperty<bool>>&>"
+      "<value of type const std::optional<::blink::FencedFrame::RedactedFencedFrameProperty<bool>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -390,7 +391,7 @@ void FencedFrameProperties::WriteIntoTrace(
     dict.AddItem(
       "ad_auction_data"), this->ad_auction_data,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::blink::FencedFrame::RedactedFencedFrameProperty<::blink::FencedFrame::AdAuctionData>>&>"
+      "<value of type const std::optional<::blink::FencedFrame::RedactedFencedFrameProperty<::blink::FencedFrame::AdAuctionData>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -408,7 +409,7 @@ void FencedFrameProperties::WriteIntoTrace(
     dict.AddItem(
       "shared_storage_budget_metadata"), this->shared_storage_budget_metadata,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::blink::FencedFrame::RedactedFencedFrameProperty<::blink::FencedFrame::SharedStorageBudgetMetadata>>&>"
+      "<value of type const std::optional<::blink::FencedFrame::RedactedFencedFrameProperty<::blink::FencedFrame::SharedStorageBudgetMetadata>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -54,8 +55,8 @@ struct CookiePartitionKey {
   ~CookiePartitionKey();
   CookiePartitionKey(const CookiePartitionKey&) = delete;
   CookiePartitionKey& operator=(const CookiePartitionKey&) = delete;
-  CookiePartitionKey(CookiePartitionKey&& rhs);
-  CookiePartitionKey& operator=(CookiePartitionKey&& rhs);
+  CookiePartitionKey(CookiePartitionKey&& rhs) noexcept;
+  CookiePartitionKey& operator=(CookiePartitionKey&& rhs) noexcept;
 
   // Populates a CookiePartitionKey object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -68,23 +69,20 @@ struct CookiePartitionKey {
   // Creates a deep copy of CookiePartitionKey.
   CookiePartitionKey Clone() const;
 
-  // Creates a CookiePartitionKey object from a base::Value, or NULL on failure.
-  static std::unique_ptr<CookiePartitionKey> FromValueDeprecated(const base::Value& value);
-
   // Creates a CookiePartitionKey object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<CookiePartitionKey> FromValue(const base::Value::Dict& value);
+  static std::optional<CookiePartitionKey> FromValue(const base::Value::Dict& value);
 
   // Creates a CookiePartitionKey object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<CookiePartitionKey> FromValue(const base::Value& value);
+  static std::optional<CookiePartitionKey> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisCookiePartitionKey object.
   base::Value::Dict ToValue() const;
 
   // The top-level site the partitioned cookie is available in.
-  absl::optional<std::string> top_level_site;
+  std::optional<std::string> top_level_site;
 
 };
 
@@ -94,8 +92,8 @@ struct Cookie {
   ~Cookie();
   Cookie(const Cookie&) = delete;
   Cookie& operator=(const Cookie&) = delete;
-  Cookie(Cookie&& rhs);
-  Cookie& operator=(Cookie&& rhs);
+  Cookie(Cookie&& rhs) noexcept;
+  Cookie& operator=(Cookie&& rhs) noexcept;
 
   // Populates a Cookie object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -108,14 +106,11 @@ struct Cookie {
   // Creates a deep copy of Cookie.
   Cookie Clone() const;
 
-  // Creates a Cookie object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Cookie> FromValueDeprecated(const base::Value& value);
-
   // Creates a Cookie object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<Cookie> FromValue(const base::Value::Dict& value);
+  static std::optional<Cookie> FromValue(const base::Value::Dict& value);
 
   // Creates a Cookie object from a base::Value, or nullopt on failure.
-  static absl::optional<Cookie> FromValue(const base::Value& value);
+  static std::optional<Cookie> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisCookie object.
@@ -155,7 +150,7 @@ struct Cookie {
 
   // The expiration date of the cookie as the number of seconds since the UNIX
   // epoch. Not provided for session cookies.
-  absl::optional<double> expiration_date;
+  std::optional<double> expiration_date;
 
   // The ID of the cookie store containing this cookie, as provided in
   // getAllCookieStores().
@@ -163,7 +158,7 @@ struct Cookie {
 
   // The partition key for reading or modifying cookies with the Partitioned
   // attribute.
-  absl::optional<CookiePartitionKey> partition_key;
+  std::optional<CookiePartitionKey> partition_key;
 
 };
 
@@ -174,8 +169,8 @@ struct CookieStore {
   ~CookieStore();
   CookieStore(const CookieStore&) = delete;
   CookieStore& operator=(const CookieStore&) = delete;
-  CookieStore(CookieStore&& rhs);
-  CookieStore& operator=(CookieStore&& rhs);
+  CookieStore(CookieStore&& rhs) noexcept;
+  CookieStore& operator=(CookieStore&& rhs) noexcept;
 
   // Populates a CookieStore object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -188,15 +183,12 @@ struct CookieStore {
   // Creates a deep copy of CookieStore.
   CookieStore Clone() const;
 
-  // Creates a CookieStore object from a base::Value, or NULL on failure.
-  static std::unique_ptr<CookieStore> FromValueDeprecated(const base::Value& value);
-
   // Creates a CookieStore object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<CookieStore> FromValue(const base::Value::Dict& value);
+  static std::optional<CookieStore> FromValue(const base::Value::Dict& value);
 
   // Creates a CookieStore object from a base::Value, or nullopt on failure.
-  static absl::optional<CookieStore> FromValue(const base::Value& value);
+  static std::optional<CookieStore> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisCookieStore object.
@@ -239,8 +231,8 @@ struct CookieDetails {
   ~CookieDetails();
   CookieDetails(const CookieDetails&) = delete;
   CookieDetails& operator=(const CookieDetails&) = delete;
-  CookieDetails(CookieDetails&& rhs);
-  CookieDetails& operator=(CookieDetails&& rhs);
+  CookieDetails(CookieDetails&& rhs) noexcept;
+  CookieDetails& operator=(CookieDetails&& rhs) noexcept;
 
   // Populates a CookieDetails object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -253,15 +245,12 @@ struct CookieDetails {
   // Creates a deep copy of CookieDetails.
   CookieDetails Clone() const;
 
-  // Creates a CookieDetails object from a base::Value, or NULL on failure.
-  static std::unique_ptr<CookieDetails> FromValueDeprecated(const base::Value& value);
-
   // Creates a CookieDetails object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<CookieDetails> FromValue(const base::Value::Dict& value);
+  static std::optional<CookieDetails> FromValue(const base::Value::Dict& value);
 
   // Creates a CookieDetails object from a base::Value, or nullopt on failure.
-  static absl::optional<CookieDetails> FromValue(const base::Value& value);
+  static std::optional<CookieDetails> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisCookieDetails object.
@@ -278,11 +267,11 @@ struct CookieDetails {
 
   // The ID of the cookie store in which to look for the cookie. By default, the
   // current execution context's cookie store will be used.
-  absl::optional<std::string> store_id;
+  std::optional<std::string> store_id;
 
   // The partition key for reading or modifying cookies with the Partitioned
   // attribute.
-  absl::optional<CookiePartitionKey> partition_key;
+  std::optional<CookiePartitionKey> partition_key;
 
 };
 
@@ -294,11 +283,11 @@ struct CookieDetails {
 namespace Get {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   CookieDetails details;
@@ -320,11 +309,11 @@ base::Value::List Create(const Cookie& cookie);
 namespace GetAll {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Information to filter the cookies being retrieved.
@@ -333,8 +322,8 @@ struct Params {
     ~Details();
     Details(const Details&) = delete;
     Details& operator=(const Details&) = delete;
-    Details(Details&& rhs);
-    Details& operator=(Details&& rhs);
+    Details(Details&& rhs) noexcept;
+    Details& operator=(Details&& rhs) noexcept;
 
     // Populates a Details object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -348,38 +337,38 @@ struct Params {
     Details Clone() const;
 
     // Creates a Details object from a base::Value::Dict, or nullopt on failure.
-    static absl::optional<Details> FromValue(const base::Value::Dict& value);
+    static std::optional<Details> FromValue(const base::Value::Dict& value);
 
     // Creates a Details object from a base::Value, or nullopt on failure.
-    static absl::optional<Details> FromValue(const base::Value& value);
+    static std::optional<Details> FromValue(const base::Value& value);
 
     // Restricts the retrieved cookies to those that would match the given URL.
-    absl::optional<std::string> url;
+    std::optional<std::string> url;
 
     // Filters the cookies by name.
-    absl::optional<std::string> name;
+    std::optional<std::string> name;
 
     // Restricts the retrieved cookies to those whose domains match or are
     // subdomains of this one.
-    absl::optional<std::string> domain;
+    std::optional<std::string> domain;
 
     // Restricts the retrieved cookies to those whose path exactly matches this
     // string.
-    absl::optional<std::string> path;
+    std::optional<std::string> path;
 
     // Filters the cookies by their Secure property.
-    absl::optional<bool> secure;
+    std::optional<bool> secure;
 
     // Filters out session vs. persistent cookies.
-    absl::optional<bool> session;
+    std::optional<bool> session;
 
     // The cookie store to retrieve cookies from. If omitted, the current execution
     // context's cookie store will be used.
-    absl::optional<std::string> store_id;
+    std::optional<std::string> store_id;
 
     // The partition key for reading or modifying cookies with the Partitioned
     // attribute.
-    absl::optional<CookiePartitionKey> partition_key;
+    std::optional<CookiePartitionKey> partition_key;
 
   };
 
@@ -403,11 +392,11 @@ base::Value::List Create(const std::vector<Cookie>& cookies);
 namespace Set {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Details about the cookie being set.
@@ -416,8 +405,8 @@ struct Params {
     ~Details();
     Details(const Details&) = delete;
     Details& operator=(const Details&) = delete;
-    Details(Details&& rhs);
-    Details& operator=(Details&& rhs);
+    Details(Details&& rhs) noexcept;
+    Details& operator=(Details&& rhs) noexcept;
 
     // Populates a Details object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -431,10 +420,10 @@ struct Params {
     Details Clone() const;
 
     // Creates a Details object from a base::Value::Dict, or nullopt on failure.
-    static absl::optional<Details> FromValue(const base::Value::Dict& value);
+    static std::optional<Details> FromValue(const base::Value::Dict& value);
 
     // Creates a Details object from a base::Value, or nullopt on failure.
-    static absl::optional<Details> FromValue(const base::Value& value);
+    static std::optional<Details> FromValue(const base::Value& value);
 
     // The request-URI to associate with the setting of the cookie. This value can
     // affect the default domain and path values of the created cookie. If host
@@ -443,22 +432,22 @@ struct Params {
     std::string url;
 
     // The name of the cookie. Empty by default if omitted.
-    absl::optional<std::string> name;
+    std::optional<std::string> name;
 
     // The value of the cookie. Empty by default if omitted.
-    absl::optional<std::string> value;
+    std::optional<std::string> value;
 
     // The domain of the cookie. If omitted, the cookie becomes a host-only cookie.
-    absl::optional<std::string> domain;
+    std::optional<std::string> domain;
 
     // The path of the cookie. Defaults to the path portion of the url parameter.
-    absl::optional<std::string> path;
+    std::optional<std::string> path;
 
     // Whether the cookie should be marked as Secure. Defaults to false.
-    absl::optional<bool> secure;
+    std::optional<bool> secure;
 
     // Whether the cookie should be marked as HttpOnly. Defaults to false.
-    absl::optional<bool> http_only;
+    std::optional<bool> http_only;
 
     // The cookie's same-site status. Defaults to "unspecified", i.e., if omitted,
     // the cookie is set without specifying a SameSite attribute.
@@ -466,15 +455,15 @@ struct Params {
 
     // The expiration date of the cookie as the number of seconds since the UNIX
     // epoch. If omitted, the cookie becomes a session cookie.
-    absl::optional<double> expiration_date;
+    std::optional<double> expiration_date;
 
     // The ID of the cookie store in which to set the cookie. By default, the cookie
     // is set in the current execution context's cookie store.
-    absl::optional<std::string> store_id;
+    std::optional<std::string> store_id;
 
     // The partition key for reading or modifying cookies with the Partitioned
     // attribute.
-    absl::optional<CookiePartitionKey> partition_key;
+    std::optional<CookiePartitionKey> partition_key;
 
   };
 
@@ -499,11 +488,11 @@ base::Value::List Create(const Cookie& cookie);
 namespace Remove {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   CookieDetails details;
@@ -522,8 +511,8 @@ struct Details {
   ~Details();
   Details(const Details&) = delete;
   Details& operator=(const Details&) = delete;
-  Details(Details&& rhs);
-  Details& operator=(Details&& rhs);
+  Details(Details&& rhs) noexcept;
+  Details& operator=(Details&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDetails object.
@@ -540,7 +529,7 @@ struct Details {
 
   // The partition key for reading or modifying cookies with the Partitioned
   // attribute.
-  absl::optional<CookiePartitionKey> partition_key;
+  std::optional<CookiePartitionKey> partition_key;
 
 };
 
@@ -575,8 +564,8 @@ struct ChangeInfo {
   ~ChangeInfo();
   ChangeInfo(const ChangeInfo&) = delete;
   ChangeInfo& operator=(const ChangeInfo&) = delete;
-  ChangeInfo(ChangeInfo&& rhs);
-  ChangeInfo& operator=(ChangeInfo&& rhs);
+  ChangeInfo(ChangeInfo&& rhs) noexcept;
+  ChangeInfo& operator=(ChangeInfo&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisChangeInfo object.

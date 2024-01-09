@@ -84,11 +84,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, MojoHandle>::value,
     "MojoHandle inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&MojoHandle::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "MojoHandle is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -105,8 +100,9 @@ BLINK_BINDINGS_TRACE_EVENT("MojoHandle.close");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MojoHandle* blink_receiver = V8MojoHandle::ToWrappableUnsafe(v8_receiver);
+MojoHandle* blink_receiver = V8MojoHandle::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->close();
 
 }
@@ -136,7 +132,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-MojoHandle* blink_receiver = V8MojoHandle::ToWrappableUnsafe(v8_receiver);
+MojoHandle* blink_receiver = V8MojoHandle::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_num_bytes = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -173,13 +169,13 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-MojoHandle* blink_receiver = V8MojoHandle::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+MojoHandle* blink_receiver = V8MojoHandle::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<MojoDuplicateBufferHandleOptions>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_options;
 if (info[0]->IsUndefined()) {
   arg1_options = MojoDuplicateBufferHandleOptions::Create();
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "MojoHandle";
 const char* const property_name = "duplicateBufferHandle";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -220,7 +216,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-MojoHandle* blink_receiver = V8MojoHandle::ToWrappableUnsafe(v8_receiver);
+MojoHandle* blink_receiver = V8MojoHandle::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_offset = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -252,7 +248,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-MojoHandle* blink_receiver = V8MojoHandle::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+MojoHandle* blink_receiver = V8MojoHandle::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->queryData();
 if (!ToV8Traits<MojoReadDataResult>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -285,7 +282,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-MojoHandle* blink_receiver = V8MojoHandle::ToWrappableUnsafe(v8_receiver);
+MojoHandle* blink_receiver = V8MojoHandle::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_buffer = NativeValueTraits<V8UnionArrayBufferOrArrayBufferView>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -322,13 +319,13 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-MojoHandle* blink_receiver = V8MojoHandle::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+MojoHandle* blink_receiver = V8MojoHandle::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<MojoReadMessageFlags>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_flags;
 if (info[0]->IsUndefined()) {
   arg1_flags = MojoReadMessageFlags::Create();
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "MojoHandle";
 const char* const property_name = "readMessage";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -365,7 +362,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MojoHandle* blink_receiver = V8MojoHandle::ToWrappableUnsafe(v8_receiver);
+MojoHandle* blink_receiver = V8MojoHandle::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -406,7 +403,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-MojoHandle* blink_receiver = V8MojoHandle::ToWrappableUnsafe(v8_receiver);
+MojoHandle* blink_receiver = V8MojoHandle::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_buffer = NativeValueTraits<V8UnionArrayBufferOrArrayBufferView>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -448,7 +445,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MojoHandle* blink_receiver = V8MojoHandle::ToWrappableUnsafe(v8_receiver);
+MojoHandle* blink_receiver = V8MojoHandle::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_buffer = NativeValueTraits<V8UnionArrayBufferOrArrayBufferView>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

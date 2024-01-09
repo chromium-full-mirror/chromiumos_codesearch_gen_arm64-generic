@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "components/dom_distiller/content/common/mojom/distiller_javascript_service.mojom-features.h"
 #include "components/dom_distiller/content/common/mojom/distiller_javascript_service.mojom-shared.h"
 #include "components/dom_distiller/content/common/mojom/distiller_javascript_service.mojom-forward.h"
 #include "components/dom_distiller/core/mojom/distilled_page_prefs.mojom-forward.h"

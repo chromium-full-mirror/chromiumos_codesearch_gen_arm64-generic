@@ -44,7 +44,7 @@ build_time_vars = {'ABIFLAGS': '',
                 "'--libdir=/usr/lib64' 'ac_cv_header_stropts_h=no' "
                 "'--enable-shared' '--enable-ipv6' '--infodir=/usr/share/info' "
                 "'--mandir=/usr/share/man' '--with-computed-gotos' "
-                "'--with-dbmliborder=gdbm' '--with-libc=' "
+                "'--with-dbmliborder=' '--with-libc=' "
                 "'--enable-loadable-sqlite-extensions' '--without-ensurepip' "
                 "'--with-system-expat' '--with-system-ffi' "
                 "'build_alias=x86_64-pc-linux-gnu' "
@@ -529,16 +529,14 @@ build_time_vars = {'ABIFLAGS': '',
                    '/usr/include/python3.8',
  'INCLUDEDIR': '/usr/include',
  'INCLUDEPY': '/usr/include/python3.8',
- 'INSTALL': '/var/tmp/portage/._portage_reinstall_.223c47wq/bin/ebuild-helpers/xattr/install '
-            '-c',
- 'INSTALL_DATA': '/var/tmp/portage/._portage_reinstall_.223c47wq/bin/ebuild-helpers/xattr/install '
-                 '-c -m 644',
- 'INSTALL_PROGRAM': '/var/tmp/portage/._portage_reinstall_.223c47wq/bin/ebuild-helpers/xattr/install '
+ 'INSTALL': '/usr/lib/portage/python3.8/ebuild-helpers/xattr/install -c',
+ 'INSTALL_DATA': '/usr/lib/portage/python3.8/ebuild-helpers/xattr/install -c '
+                 '-m 644',
+ 'INSTALL_PROGRAM': '/usr/lib/portage/python3.8/ebuild-helpers/xattr/install '
                     '-c',
- 'INSTALL_SCRIPT': '/var/tmp/portage/._portage_reinstall_.223c47wq/bin/ebuild-helpers/xattr/install '
-                   '-c',
- 'INSTALL_SHARED': '/var/tmp/portage/._portage_reinstall_.223c47wq/bin/ebuild-helpers/xattr/install '
-                   '-c -m 755',
+ 'INSTALL_SCRIPT': '/usr/lib/portage/python3.8/ebuild-helpers/xattr/install -c',
+ 'INSTALL_SHARED': '/usr/lib/portage/python3.8/ebuild-helpers/xattr/install -c '
+                   '-m 755',
  'INSTSONAME': 'libpython3.8.so.1.0',
  'IO_H': 'Modules/_io/_iomodule.h',
  'IO_OBJS': '\\',

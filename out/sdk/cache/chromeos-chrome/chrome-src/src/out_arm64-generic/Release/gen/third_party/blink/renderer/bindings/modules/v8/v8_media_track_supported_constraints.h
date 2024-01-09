@@ -163,6 +163,16 @@ void setExposureTime(bool value) {
   member_exposure_time_ = value;
 }
 
+bool hasEyeGazeCorrection() const {
+  return true;
+}
+bool eyeGazeCorrection() const {
+  return member_eye_gaze_correction_;
+}
+void setEyeGazeCorrection(bool value) {
+  member_eye_gaze_correction_ = value;
+}
+
 bool hasFaceFraming() const {
   return true;
 }
@@ -423,6 +433,7 @@ bool member_echo_cancellation_{true};
 bool member_exposure_compensation_{true};
 bool member_exposure_mode_{true};
 bool member_exposure_time_{true};
+bool member_eye_gaze_correction_{true};
 bool member_face_framing_{true};
 bool member_facing_mode_{true};
 bool member_focus_distance_{true};

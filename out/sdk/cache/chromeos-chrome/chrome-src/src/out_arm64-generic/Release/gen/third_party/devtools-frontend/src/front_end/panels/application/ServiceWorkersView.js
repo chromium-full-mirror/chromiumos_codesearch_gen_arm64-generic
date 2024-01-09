@@ -6,12 +6,14 @@ import * as Host from '../../core/host/host.js';
 import * as i18n from '../../core/i18n/i18n.js';
 import * as SDK from '../../core/sdk/sdk.js';
 import * as Logs from '../../models/logs/logs.js';
+import * as NetworkForward from '../../panels/network/forward/forward.js';
 import * as Components from '../../ui/legacy/components/utils/utils.js';
 import * as UI from '../../ui/legacy/legacy.js';
+import * as VisualLogging from '../../ui/visual_logging/visual_logging.js';
+import * as MobileThrottling from '../mobile_throttling/mobile_throttling.js';
+import * as ApplicationComponents from './components/components.js';
 import serviceWorkersViewStyles from './serviceWorkersView.css.js';
 import serviceWorkerUpdateCycleViewStyles from './serviceWorkerUpdateCycleView.css.js';
-import * as MobileThrottling from '../mobile_throttling/mobile_throttling.js';
-import * as NetworkForward from '../../panels/network/forward/forward.js';
 import { ServiceWorkerUpdateCycleView } from './ServiceWorkerUpdateCycleView.js';
 const UIStrings = {
     /**
@@ -111,6 +113,10 @@ const UIStrings = {
      */
     receivedS: 'Received {PH1}',
     /**
+     **@description Text in Service Workers View of the Application panel.
+     */
+    routers: 'Routers',
+    /**
      *@description Text in Service Workers View of the Application panel
      *@example {example.com} PH1
      */
@@ -189,15 +195,17 @@ export class ServiceWorkersView extends UI.Widget.VBox {
         this.currentWorkersView = new UI.ReportView.ReportView(i18n.i18n.lockedString('Service workers'));
         this.currentWorkersView.setBodyScrollable(false);
         this.contentElement.classList.add('service-worker-list');
+        this.contentElement.setAttribute('jslog', `${VisualLogging.pane().context('service-workers')}`);
         this.currentWorkersView.show(this.contentElement);
         this.currentWorkersView.element.classList.add('service-workers-this-origin');
+        this.currentWorkersView.element.setAttribute('jslog', `${VisualLogging.section().context('this-origin')}`);
         this.toolbar = this.currentWorkersView.createToolbar();
-        this.toolbar.makeWrappable(true /* growVertically */);
         this.sections = new Map();
         this.manager = null;
         this.securityOriginManager = null;
         this.sectionToRegistration = new WeakMap();
         const othersDiv = this.contentElement.createChild('div', 'service-workers-other-origin');
+        othersDiv.setAttribute('jslog', `${VisualLogging.section().context('other-origin')}`);
         // TODO(crbug.com/1156978): Replace UI.ReportView.ReportView with ReportView.ts web component.
         const othersView = new UI.ReportView.ReportView();
         othersView.setHeaderVisible(false);
@@ -206,6 +214,7 @@ export class ServiceWorkersView extends UI.Widget.VBox {
         const othersSectionRow = othersSection.appendRow();
         const seeOthers = UI.Fragment
             .html `<a class="devtools-link" role="link" tabindex="0" href="chrome://serviceworker-internals" target="_blank" style="display: inline; cursor: pointer;">${i18nString(UIStrings.seeAllRegistrations)}</a>`;
+        seeOthers.setAttribute('jslog', `${VisualLogging.link().track({ click: true }).context('see-all-registrations')}`);
         self.onInvokeElement(seeOthers, event => {
             const rootTarget = SDK.TargetManager.TargetManager.instance().rootTarget();
             rootTarget &&
@@ -424,6 +433,7 @@ export class Section {
     periodicSyncTagNameSetting;
     toolbar;
     updateCycleView;
+    routerView;
     networkRequests;
     updateButton;
     deleteButton;
@@ -434,6 +444,7 @@ export class Section {
     clientInfoCache;
     throttler;
     updateCycleField;
+    routerField;
     constructor(manager, section, registration) {
         this.manager = manager;
         this.section = section;
@@ -447,34 +458,41 @@ export class Section {
         this.toolbar = section.createToolbar();
         this.toolbar.renderAsLinks();
         this.updateCycleView = new ServiceWorkerUpdateCycleView(registration);
+        this.routerView = new ApplicationComponents.ServiceWorkerRouterView.ServiceWorkerRouterView();
         this.networkRequests = new UI.Toolbar.ToolbarButton(i18nString(UIStrings.networkRequests), undefined, i18nString(UIStrings.networkRequests));
         this.networkRequests.addEventListener(UI.Toolbar.ToolbarButton.Events.Click, this.networkRequestsClicked, this);
+        this.networkRequests.element.setAttribute('jslog', `${VisualLogging.action().track({ click: true }).context('show-network-requests')}`);
         this.toolbar.appendToolbarItem(this.networkRequests);
         this.updateButton =
             new UI.Toolbar.ToolbarButton(i18nString(UIStrings.update), undefined, i18nString(UIStrings.update));
         this.updateButton.addEventListener(UI.Toolbar.ToolbarButton.Events.Click, this.updateButtonClicked, this);
+        this.updateButton.element.setAttribute('jslog', `${VisualLogging.action().track({ click: true }).context('update')}`);
         this.toolbar.appendToolbarItem(this.updateButton);
         this.deleteButton = new UI.Toolbar.ToolbarButton(i18nString(UIStrings.unregisterServiceWorker), undefined, i18nString(UIStrings.unregister));
         this.deleteButton.addEventListener(UI.Toolbar.ToolbarButton.Events.Click, this.unregisterButtonClicked, this);
+        this.deleteButton.element.setAttribute('jslog', `${VisualLogging.action().track({ click: true }).context('unregister')}`);
         this.toolbar.appendToolbarItem(this.deleteButton);
         // Preserve the order.
         this.sourceField = this.wrapWidget(this.section.appendField(i18nString(UIStrings.source)));
         this.statusField = this.wrapWidget(this.section.appendField(i18nString(UIStrings.status)));
         this.clientsField = this.wrapWidget(this.section.appendField(i18nString(UIStrings.clients)));
-        this.createSyncNotificationField(i18nString(UIStrings.pushString), this.pushNotificationDataSetting.get(), i18nString(UIStrings.pushData), this.push.bind(this));
-        this.createSyncNotificationField(i18nString(UIStrings.syncString), this.syncTagNameSetting.get(), i18nString(UIStrings.syncTag), this.sync.bind(this));
-        this.createSyncNotificationField(i18nString(UIStrings.periodicSync), this.periodicSyncTagNameSetting.get(), i18nString(UIStrings.periodicSyncTag), tag => this.periodicSync(tag));
+        this.createSyncNotificationField(i18nString(UIStrings.pushString), this.pushNotificationDataSetting.get(), i18nString(UIStrings.pushData), this.push.bind(this), 'push-message');
+        this.createSyncNotificationField(i18nString(UIStrings.syncString), this.syncTagNameSetting.get(), i18nString(UIStrings.syncTag), this.sync.bind(this), 'sync-tag');
+        this.createSyncNotificationField(i18nString(UIStrings.periodicSync), this.periodicSyncTagNameSetting.get(), i18nString(UIStrings.periodicSyncTag), tag => this.periodicSync(tag), 'periodic-sync-tag');
         this.createUpdateCycleField();
+        this.maybeCreateRouterField();
         this.linkifier = new Components.Linkifier.Linkifier();
         this.clientInfoCache = new Map();
         this.throttler = new Common.Throttler.Throttler(500);
     }
-    createSyncNotificationField(label, initialValue, placeholder, callback) {
+    createSyncNotificationField(label, initialValue, placeholder, callback, jsLogContext) {
         const form = this.wrapWidget(this.section.appendField(label)).createChild('form', 'service-worker-editor-with-button');
         const editor = UI.UIUtils.createInput('source-code service-worker-notification-editor');
+        editor.setAttribute('jslog', `${VisualLogging.textField().track({ keydown: true }).context(jsLogContext)}`);
         form.appendChild(editor);
         const button = UI.UIUtils.createTextButton(label);
         button.type = 'submit';
+        button.setAttribute('jslog', `${VisualLogging.action().track({ click: true }).context(jsLogContext)}`);
         form.appendChild(button);
         editor.value = initialValue;
         editor.placeholder = placeholder;
@@ -527,6 +545,7 @@ export class Section {
         const name = this.sourceField.createChild('div', 'report-field-value-filename');
         const link = Components.Linkifier.Linkifier.linkifyURL(version.scriptURL, { text: fileName });
         link.tabIndex = 0;
+        link.setAttribute('jslog', `${VisualLogging.link().track({ click: true }).context('source-location')}`);
         name.appendChild(link);
         if (this.registration.errors.length) {
             const errorsLabel = UI.UIUtils.createIconLabel({
@@ -569,15 +588,18 @@ export class Section {
             // TODO(l10n): Don't concatenate strings here.
             const activeEntry = this.addVersion(versionsStack, 'service-worker-active-circle', i18nString(UIStrings.sActivatedAndIsS, { PH1: active.id, PH2: localizedRunningStatus }));
             if (active.isRunning() || active.isStarting()) {
-                this.createLink(activeEntry, i18nString(UIStrings.stopString), this.stopButtonClicked.bind(this, active.id));
+                const stopLink = this.createLink(activeEntry, i18nString(UIStrings.stopString), this.stopButtonClicked.bind(this, active.id));
+                stopLink.setAttribute('jslog', `${VisualLogging.action().track({ click: true }).context('stop')}`);
                 if (!this.targetForVersionId(active.id)) {
                     this.createLink(activeEntry, i18nString(UIStrings.inspect), this.inspectButtonClicked.bind(this, active.id));
                 }
             }
             else if (active.isStartable()) {
-                this.createLink(activeEntry, i18nString(UIStrings.startString), this.startButtonClicked.bind(this));
+                const startLink = this.createLink(activeEntry, i18nString(UIStrings.startString), this.startButtonClicked.bind(this));
+                startLink.setAttribute('jslog', `${VisualLogging.action().track({ click: true }).context('start')}`);
             }
             this.updateClientsField(active);
+            this.maybeCreateRouterField();
         }
         else if (redundant) {
             this.updateSourceField(redundant);
@@ -627,6 +649,26 @@ export class Section {
     createUpdateCycleField() {
         this.updateCycleField = this.wrapWidget(this.section.appendField(i18nString(UIStrings.updateCycle)));
         this.updateCycleField.appendChild(this.updateCycleView.tableElement);
+    }
+    maybeCreateRouterField() {
+        const versions = this.registration.versionsByMode();
+        const active = versions.get(SDK.ServiceWorkerManager.ServiceWorkerVersion.Modes.Active);
+        const title = i18nString(UIStrings.routers);
+        if (active && active.routerRules && active.routerRules.length > 0) {
+            // If there is at least one registered rule in the active version, append the router filed.
+            if (!this.routerField) {
+                this.routerField = this.wrapWidget(this.section.appendField(title));
+            }
+            if (!this.routerField.lastElementChild) {
+                this.routerField.appendChild(this.routerView);
+            }
+            this.routerView.update(active.routerRules);
+        }
+        else {
+            // If no active worker or no registered rules, remove the field.
+            this.section.removeField(title);
+            this.routerField = undefined;
+        }
     }
     updateButtonClicked() {
         void this.manager.updateRegistration(this.registration.id);
@@ -693,7 +735,8 @@ export class Section {
         element.removeChildren();
         const clientString = element.createChild('span', 'service-worker-client-string');
         UI.UIUtils.createTextChild(clientString, targetInfo.url);
-        this.createLink(element, i18nString(UIStrings.focus), this.activateTarget.bind(this, targetInfo.targetId), 'service-worker-client-focus-link');
+        const focusLink = this.createLink(element, i18nString(UIStrings.focus), this.activateTarget.bind(this, targetInfo.targetId), 'service-worker-client-focus-link');
+        focusLink.setAttribute('jslog', `${VisualLogging.action().track({ click: true }).context('client-focus')}`);
     }
     activateTarget(targetId) {
         void this.manager.target().targetAgent().invoke_activateTarget({ targetId });

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "ash/components/arc/mojom/video_encode_accelerator.mojom-features.h"
 #include "ash/components/arc/mojom/video_encode_accelerator.mojom-shared.h"
 #include "ash/components/arc/mojom/video_encode_accelerator.mojom-forward.h"
 #include "ash/components/arc/mojom/gfx.mojom.h"
@@ -645,17 +646,17 @@ class  Bitrate {
   // Construct an instance holding |constant|.
   static BitratePtr
   NewConstant(
-      ConstantBitratePtr constant) {
+      ConstantBitratePtr value) {
     auto result = BitratePtr(absl::in_place);
-    result->set_constant(std::move(constant));
+    result->set_constant(std::move(value));
     return result;
   }
   // Construct an instance holding |variable|.
   static BitratePtr
   NewVariable(
-      VariableBitratePtr variable) {
+      VariableBitratePtr value) {
     auto result = BitratePtr(absl::in_place);
-    result->set_variable(std::move(variable));
+    result->set_variable(std::move(value));
     return result;
   }
 
@@ -967,7 +968,7 @@ class  VideoEncodeAcceleratorConfig {
       uint8_t h264_output_level,
       bool has_h264_output_level,
       ::media::VideoEncodeAccelerator::Config::StorageType storage_type,
-      const absl::optional<::media::Bitrate>& bitrate);
+      const std::optional<::media::Bitrate>& bitrate);
 
 
   ~VideoEncodeAcceleratorConfig();
@@ -1063,7 +1064,7 @@ class  VideoEncodeAcceleratorConfig {
   
   ::media::VideoEncodeAccelerator::Config::StorageType storage_type;
   
-  absl::optional<::media::Bitrate> bitrate;
+  std::optional<::media::Bitrate> bitrate;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

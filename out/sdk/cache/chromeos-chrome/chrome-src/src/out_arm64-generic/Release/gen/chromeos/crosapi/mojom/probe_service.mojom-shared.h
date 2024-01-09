@@ -3433,43 +3433,43 @@ class ProbeEmbeddedDisplayInfoDataView {
       : data_(data), message_(message) {}
 
   bool is_null() const { return !data_; }
-  absl::optional<bool> privacy_screen_supported() const {
+  std::optional<bool> privacy_screen_supported() const {
 
     return data_->privacy_screen_supported_$flag
         ? absl::make_optional(!!data_->privacy_screen_supported_$value)
         : absl::nullopt;
   }
-  absl::optional<bool> privacy_screen_enabled() const {
+  std::optional<bool> privacy_screen_enabled() const {
 
     return data_->privacy_screen_enabled_$flag
         ? absl::make_optional(!!data_->privacy_screen_enabled_$value)
         : absl::nullopt;
   }
-  absl::optional<uint32_t> display_width() const {
+  std::optional<uint32_t> display_width() const {
 
     return data_->display_width_$flag
         ? absl::make_optional(data_->display_width_$value)
         : absl::nullopt;
   }
-  absl::optional<uint32_t> display_height() const {
+  std::optional<uint32_t> display_height() const {
 
     return data_->display_height_$flag
         ? absl::make_optional(data_->display_height_$value)
         : absl::nullopt;
   }
-  absl::optional<uint32_t> resolution_horizontal() const {
+  std::optional<uint32_t> resolution_horizontal() const {
 
     return data_->resolution_horizontal_$flag
         ? absl::make_optional(data_->resolution_horizontal_$value)
         : absl::nullopt;
   }
-  absl::optional<uint32_t> resolution_vertical() const {
+  std::optional<uint32_t> resolution_vertical() const {
 
     return data_->resolution_vertical_$flag
         ? absl::make_optional(data_->resolution_vertical_$value)
         : absl::nullopt;
   }
-  absl::optional<double> refresh_rate() const {
+  std::optional<double> refresh_rate() const {
 
     return data_->refresh_rate_$flag
         ? absl::make_optional(data_->refresh_rate_$value)
@@ -3495,25 +3495,25 @@ static_assert(
     return mojo::internal::Deserialize<mojo::StringDataView>(
         pointer, output, message_);
   }
-  absl::optional<uint16_t> model_id() const {
+  std::optional<uint16_t> model_id() const {
 
     return data_->model_id_$flag
         ? absl::make_optional(data_->model_id_$value)
         : absl::nullopt;
   }
-  absl::optional<uint32_t> serial_number() const {
+  std::optional<uint32_t> serial_number() const {
 
     return data_->serial_number_$flag
         ? absl::make_optional(data_->serial_number_$value)
         : absl::nullopt;
   }
-  absl::optional<uint8_t> manufacture_week() const {
+  std::optional<uint8_t> manufacture_week() const {
 
     return data_->manufacture_week_$flag
         ? absl::make_optional(data_->manufacture_week_$value)
         : absl::nullopt;
   }
-  absl::optional<uint16_t> manufacture_year() const {
+  std::optional<uint16_t> manufacture_year() const {
 
     return data_->manufacture_year_$flag
         ? absl::make_optional(data_->manufacture_year_$value)
@@ -3585,31 +3585,31 @@ class ProbeExternalDisplayInfoDataView {
       : data_(data), message_(message) {}
 
   bool is_null() const { return !data_; }
-  absl::optional<uint32_t> display_width() const {
+  std::optional<uint32_t> display_width() const {
 
     return data_->display_width_$flag
         ? absl::make_optional(data_->display_width_$value)
         : absl::nullopt;
   }
-  absl::optional<uint32_t> display_height() const {
+  std::optional<uint32_t> display_height() const {
 
     return data_->display_height_$flag
         ? absl::make_optional(data_->display_height_$value)
         : absl::nullopt;
   }
-  absl::optional<uint32_t> resolution_horizontal() const {
+  std::optional<uint32_t> resolution_horizontal() const {
 
     return data_->resolution_horizontal_$flag
         ? absl::make_optional(data_->resolution_horizontal_$value)
         : absl::nullopt;
   }
-  absl::optional<uint32_t> resolution_vertical() const {
+  std::optional<uint32_t> resolution_vertical() const {
 
     return data_->resolution_vertical_$flag
         ? absl::make_optional(data_->resolution_vertical_$value)
         : absl::nullopt;
   }
-  absl::optional<double> refresh_rate() const {
+  std::optional<double> refresh_rate() const {
 
     return data_->refresh_rate_$flag
         ? absl::make_optional(data_->refresh_rate_$value)
@@ -3635,25 +3635,25 @@ static_assert(
     return mojo::internal::Deserialize<mojo::StringDataView>(
         pointer, output, message_);
   }
-  absl::optional<uint16_t> model_id() const {
+  std::optional<uint16_t> model_id() const {
 
     return data_->model_id_$flag
         ? absl::make_optional(data_->model_id_$value)
         : absl::nullopt;
   }
-  absl::optional<uint32_t> serial_number() const {
+  std::optional<uint32_t> serial_number() const {
 
     return data_->serial_number_$flag
         ? absl::make_optional(data_->serial_number_$value)
         : absl::nullopt;
   }
-  absl::optional<uint8_t> manufacture_week() const {
+  std::optional<uint8_t> manufacture_week() const {
 
     return data_->manufacture_week_$flag
         ? absl::make_optional(data_->manufacture_week_$value)
         : absl::nullopt;
   }
-  absl::optional<uint16_t> manufacture_year() const {
+  std::optional<uint16_t> manufacture_year() const {
 
     return data_->manufacture_year_$flag
         ? absl::make_optional(data_->manufacture_year_$value)

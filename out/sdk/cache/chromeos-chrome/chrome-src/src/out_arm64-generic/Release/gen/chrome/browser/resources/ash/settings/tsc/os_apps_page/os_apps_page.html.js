@@ -1,20 +1,24 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_--><style include="settings-shared"></style>
+    return html `<!--_html_template_start_--><style include="settings-shared">:host-context(body.revamp-wayfinding-enabled) #androidAppsRowIcon{margin-inline-end:16px;--iron-icon-fill-color:var(--cros-sys-primary)}#androidApps[actionable]:hover{background-color:var(--cr-hover-background-color);cursor:pointer}</style>
 
 <os-settings-animated-pages id="pages" section="[[section_]]">
   <div route-path="default">
     <settings-card header-text="$i18n{appsPageTitle}">
-      <cr-link-row id="appManagementRow" class="settings-box first" label="$i18n{appManagementTitle}" on-click="onClickAppManagement_" role-description="$i18n{subpageArrowRoleDescription}">
+      <cr-link-row id="appManagementRow" class="settings-box first" start-icon="[[rowIcons_.manageApps]]" label="$i18n{appManagementTitle}" on-click="onClickAppManagement_" role-description="$i18n{subpageArrowRoleDescription}">
       </cr-link-row>
       <template is="dom-if" if="[[showAppNotificationsRow_]]">
-        <cr-link-row id="appNotificationsRow" class="settings-box" label="$i18n{appNotificationsTitle}" on-click="onClickAppNotifications_" role-description="$i18n{subpageArrowRoleDescription}" sub-label="[[getAppListCountDescription_(
+        <cr-link-row id="appNotificationsRow" class="settings-box" start-icon="[[rowIcons_.notifications]]" label="$i18n{appNotificationsTitle}" on-click="onClickAppNotifications_" role-description="$i18n{subpageArrowRoleDescription}" sub-label="[[getAppListCountDescription_(
                 appsWithNotifications_.*, isDndEnabled_)]]">
         </cr-link-row>
       </template>
       <template is="dom-if" if="[[showAndroidApps_]]">
         <template is="dom-if" if="[[isPlayStoreAvailable_]]" restamp>
           <div id="androidApps" class="settings-box" actionable$="[[androidAppsInfo.playStoreEnabled]]" on-click="onAndroidAppsSubpageClick_">
+            <template is="dom-if" if="[[isRevampWayfindingEnabled_]]">
+              <iron-icon id="androidAppsRowIcon" icon="[[rowIcons_.googlePlayPreferences]]">
+              </iron-icon>
+            </template>
             <div class="start settings-box-text">
               $i18n{androidAppsPageLabel}
               <div class="secondary" id="secondaryText">
@@ -37,7 +41,7 @@ export function getTemplate() {
           </div>
         </template>
         <template is="dom-if" if="[[!isPlayStoreAvailable_]]" restamp>
-          <cr-link-row id="manageApps" class="settings-box" label="$i18n{androidAppsManageApps}" on-click="onManageAndroidAppsClick_" external deep-link-focus-id$="[[Setting.kManageAndroidPreferences]]">
+          <cr-link-row id="manageApps" class="settings-box" start-icon="[[rowIcons_.androidSettings]]" label="$i18n{androidAppsManageApps}" on-click="onManageAndroidAppsClick_" external deep-link-focus-id$="[[Setting.kManageAndroidPreferences]]">
           </cr-link-row>
         </template>
       </template>
@@ -53,7 +57,7 @@ export function getTemplate() {
         </template>
       </template>
       <template is="dom-if" if="[[showManageIsolatedWebAppsRow_]]">
-        <cr-link-row id="manageIsoalatedWebAppsRow" class="settings-box" label="$i18n{manageIsolatedWebAppsLinkText}" on-click="onClickManageIsolatedWebApps_" role-description="$i18n{subpageArrowRoleDescription}">
+        <cr-link-row id="manageIsoalatedWebAppsRow" class="settings-box" start-icon="[[rowIcons_.manageIsolatedWebApps]]" label="$i18n{manageIsolatedWebAppsLinkText}" on-click="onClickManageIsolatedWebApps_" role-description="$i18n{subpageArrowRoleDescription}">
         </cr-link-row>
       </template>
     </settings-card>
@@ -69,8 +73,8 @@ export function getTemplate() {
 
   
   <template is="dom-if" route-path="/app-notifications-manager">
-    <os-settings-subpage page-title="$i18n{appNotificationsManagerLabel}">
-      <settings-app-notifications-manager-subpage prefs="{{prefs}}">
+    <os-settings-subpage page-title="$i18n{appNotificationsManagerLabel}" search-label="$i18n{appManagementSearchPrompt}" search-term="{{searchTerm}}">
+      <settings-app-notifications-manager-subpage prefs="{{prefs}}" search-term="[[searchTerm]]">
       </settings-app-notifications-manager-subpage>
     </os-settings-subpage>
   </template>
@@ -87,7 +91,7 @@ export function getTemplate() {
     <os-settings-subpage page-title="[[app_.title]]" title-icon="[[iconUrlFromId_(app_)]]">
       <app-management-uninstall-button slot="subpage-title-extra" app="[[app_]]" uninstall-label="$i18n{appManagementUninstallLabel}" policy-label="$i18n{appManagementAppInstalledByPolicyLabel}">
       </app-management-uninstall-button>
-      <app-management-app-detail-view>
+      <app-management-app-detail-view prefs="{{prefs}}">
       </app-management-app-detail-view>
     </os-settings-subpage>
   </template>

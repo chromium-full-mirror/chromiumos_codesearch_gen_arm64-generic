@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/badging/badging.mojom-features.h"
 #include "third_party/blink/public/mojom/badging/badging.mojom-shared.h"
 #include "third_party/blink/public/mojom/badging/badging.mojom-forward.h"
 #include <string>
@@ -176,17 +177,17 @@ class BLINK_COMMON_EXPORT BadgeValue {
   // Construct an instance holding |flag|.
   static BadgeValuePtr
   NewFlag(
-      uint8_t flag) {
+      uint8_t value) {
     auto result = BadgeValuePtr(absl::in_place);
-    result->set_flag(std::move(flag));
+    result->set_flag(std::move(value));
     return result;
   }
   // Construct an instance holding |number|.
   static BadgeValuePtr
   NewNumber(
-      uint64_t number) {
+      uint64_t value) {
     auto result = BadgeValuePtr(absl::in_place);
-    result->set_number(std::move(number));
+    result->set_number(std::move(value));
     return result;
   }
 

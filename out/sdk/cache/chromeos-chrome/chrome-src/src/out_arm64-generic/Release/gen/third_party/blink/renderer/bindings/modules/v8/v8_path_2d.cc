@@ -76,11 +76,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, Path2D>::value,
     "Path2D inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&Path2D::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "Path2D is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -150,7 +145,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Path2D* blink_receiver = V8Path2D::ToWrappableUnsafe(v8_receiver);
+Path2D* blink_receiver = V8Path2D::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_path = NativeValueTraits<Path2D>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -219,7 +214,7 @@ if (UNLIKELY(exception_state.HadException())) {
 void ArcOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Path2D* blink_receiver = V8Path2D::ToWrappableUnsafe(v8_receiver);
+Path2D* blink_receiver = V8Path2D::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Path2D";
 const char* const property_name = "arc";
@@ -273,14 +268,14 @@ const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("Path2D.arc", info);
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Path2D* blink_receiver = V8Path2D::ToWrappableUnsafe(v8_receiver);
+Path2D* blink_receiver = V8Path2D::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Path2D";
 const char* const property_name = "arc";
@@ -365,7 +360,7 @@ if (UNLIKELY(exception_state.HadException())) {
 void ArcToOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Path2D* blink_receiver = V8Path2D::ToWrappableUnsafe(v8_receiver);
+Path2D* blink_receiver = V8Path2D::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Path2D";
 const char* const property_name = "arcTo";
@@ -410,14 +405,14 @@ BLINK_BINDINGS_TRACE_EVENT("Path2D.arcTo");
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Path2D* blink_receiver = V8Path2D::ToWrappableUnsafe(v8_receiver);
+Path2D* blink_receiver = V8Path2D::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Path2D";
 const char* const property_name = "arcTo";
@@ -488,7 +483,7 @@ blink_receiver->bezierCurveTo(arg1_cp_1_x, arg2_cp_1_y, arg3_cp_2_x, arg4_cp_2_y
 void BezierCurveToOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Path2D* blink_receiver = V8Path2D::ToWrappableUnsafe(v8_receiver);
+Path2D* blink_receiver = V8Path2D::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Path2D";
 const char* const property_name = "bezierCurveTo";
@@ -534,14 +529,14 @@ BLINK_BINDINGS_TRACE_EVENT("Path2D.bezierCurveTo");
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Path2D* blink_receiver = V8Path2D::ToWrappableUnsafe(v8_receiver);
+Path2D* blink_receiver = V8Path2D::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Path2D";
 const char* const property_name = "bezierCurveTo";
@@ -607,7 +602,7 @@ blink_receiver->closePath();
 void ClosePathOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Path2D* blink_receiver = V8Path2D::ToWrappableUnsafe(v8_receiver);
+Path2D* blink_receiver = V8Path2D::ToWrappableUnsafe(isolate, v8_receiver);
 ({
 v8::Isolate::DisallowJavascriptExecutionScope nadc_disallow_js_exec_scope(isolate, v8::Isolate::DisallowJavascriptExecutionScope::CRASH_ON_FAILURE);
 blink::NoAllocDirectCallScope nadc_nadc_scope(blink_receiver, &v8_fast_api_callback_options);
@@ -627,8 +622,9 @@ const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("Path2D.closePath", 
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Path2D* blink_receiver = V8Path2D::ToWrappableUnsafe(v8_receiver);
+Path2D* blink_receiver = V8Path2D::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
@@ -639,8 +635,7 @@ return;
 #if DCHECK_IS_ON()
 // [NoAllocDirectCall]
 if (RuntimeEnabledFeatures::FakeNoAllocDirectCallForTestingEnabled()) {
-  v8::Isolate* isolate = info.GetIsolate();
-v8::FastApiCallbackOptions v8_fast_api_callback_options = v8::FastApiCallbackOptions::CreateForTesting(isolate);
+  v8::FastApiCallbackOptions v8_fast_api_callback_options = v8::FastApiCallbackOptions::CreateForTesting(isolate);
 ClosePathOperationNoAllocDirectCallForTesting(info, v8_fast_api_callback_options);
 if (blink_receiver->HasDeferredActions()) {
   blink_receiver->FlushDeferredActions();
@@ -708,7 +703,7 @@ if (UNLIKELY(exception_state.HadException())) {
 void EllipseOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Path2D* blink_receiver = V8Path2D::ToWrappableUnsafe(v8_receiver);
+Path2D* blink_receiver = V8Path2D::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Path2D";
 const char* const property_name = "ellipse";
@@ -770,14 +765,14 @@ const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("Path2D.ellipse", in
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Path2D* blink_receiver = V8Path2D::ToWrappableUnsafe(v8_receiver);
+Path2D* blink_receiver = V8Path2D::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Path2D";
 const char* const property_name = "ellipse";
@@ -859,7 +854,7 @@ blink_receiver->lineTo(arg1_x, arg2_y);
 void LineToOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Path2D* blink_receiver = V8Path2D::ToWrappableUnsafe(v8_receiver);
+Path2D* blink_receiver = V8Path2D::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Path2D";
 const char* const property_name = "lineTo";
@@ -891,14 +886,14 @@ const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("Path2D.lineTo", inf
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Path2D* blink_receiver = V8Path2D::ToWrappableUnsafe(v8_receiver);
+Path2D* blink_receiver = V8Path2D::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Path2D";
 const char* const property_name = "lineTo";
@@ -950,7 +945,7 @@ blink_receiver->moveTo(arg1_x, arg2_y);
 void MoveToOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Path2D* blink_receiver = V8Path2D::ToWrappableUnsafe(v8_receiver);
+Path2D* blink_receiver = V8Path2D::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Path2D";
 const char* const property_name = "moveTo";
@@ -982,14 +977,14 @@ const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("Path2D.moveTo", inf
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Path2D* blink_receiver = V8Path2D::ToWrappableUnsafe(v8_receiver);
+Path2D* blink_receiver = V8Path2D::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Path2D";
 const char* const property_name = "moveTo";
@@ -1043,7 +1038,7 @@ blink_receiver->quadraticCurveTo(arg1_cpx, arg2_cpy, arg3_x, arg4_y);
 void QuadraticCurveToOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Path2D* blink_receiver = V8Path2D::ToWrappableUnsafe(v8_receiver);
+Path2D* blink_receiver = V8Path2D::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Path2D";
 const char* const property_name = "quadraticCurveTo";
@@ -1081,14 +1076,14 @@ BLINK_BINDINGS_TRACE_EVENT("Path2D.quadraticCurveTo");
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Path2D* blink_receiver = V8Path2D::ToWrappableUnsafe(v8_receiver);
+Path2D* blink_receiver = V8Path2D::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Path2D";
 const char* const property_name = "quadraticCurveTo";
@@ -1150,7 +1145,7 @@ blink_receiver->rect(arg1_x, arg2_y, arg3_width, arg4_height);
 void RectOperationNoAllocDirectCallForTesting(const v8::FunctionCallbackInfo<v8::Value>& info, v8::FastApiCallbackOptions& v8_fast_api_callback_options) {
   v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Path2D* blink_receiver = V8Path2D::ToWrappableUnsafe(v8_receiver);
+Path2D* blink_receiver = V8Path2D::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Path2D";
 const char* const property_name = "rect";
@@ -1190,14 +1185,14 @@ const Dactyloscoper::HighEntropyTracer  high_entropy_tracer("Path2D.rect", info)
 
 
 // [NoAllocDirectCall]
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-Path2D* blink_receiver = V8Path2D::ToWrappableUnsafe(v8_receiver);
+Path2D* blink_receiver = V8Path2D::ToWrappableUnsafe(isolate, v8_receiver);
 if (UNLIKELY(blink_receiver->HasDeferredActions())) {
   blink_receiver->FlushDeferredActions();
 return;
 }
 
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Path2D";
 const char* const property_name = "rect";
@@ -1263,7 +1258,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Path2D* blink_receiver = V8Path2D::ToWrappableUnsafe(v8_receiver);
+Path2D* blink_receiver = V8Path2D::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_x = NativeValueTraits<IDLUnrestrictedDouble>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -1311,7 +1306,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-Path2D* blink_receiver = V8Path2D::ToWrappableUnsafe(v8_receiver);
+Path2D* blink_receiver = V8Path2D::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_x = NativeValueTraits<IDLUnrestrictedDouble>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

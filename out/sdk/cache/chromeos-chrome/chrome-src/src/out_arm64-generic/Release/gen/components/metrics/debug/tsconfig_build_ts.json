@@ -29,6 +29,7 @@
     "preprocessed/browser_proxy.ts",
     "preprocessed/log_utils.ts",
     "preprocessed/metrics_internals.ts",
+    "preprocessed/structured/structured_utils.ts",
     "preprocessed/app.html.ts",
     "../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/chrome_send.d.ts"
   ],

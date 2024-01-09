@@ -70,13 +70,6 @@ return dictionary;
 
 
 
-
-
-
-
-
-
-
 String AuthenticationExtensionsClientOutputsJSON::getGetCredBlobOr(const String& fallback_value) const {
   if (!hasGetCredBlob()) {
   return fallback_value;
@@ -125,15 +118,22 @@ has_get_cred_blob_ = true;
 
 
 
+
+
+
+
+
+
+
 void AuthenticationExtensionsClientOutputsJSON::Trace(Visitor* visitor) const {
   TraceIfNeeded<bool>::Trace(visitor, member_appid_);
 TraceIfNeeded<bool>::Trace(visitor, member_cred_blob_);
 TraceIfNeeded<Member<CredentialPropertiesOutput>>::Trace(visitor, member_cred_props_);
-TraceIfNeeded<ScriptValue>::Trace(visitor, member_device_pub_key_);
 TraceIfNeeded<String>::Trace(visitor, member_get_cred_blob_);
 TraceIfNeeded<bool>::Trace(visitor, member_hmac_create_secret_);
 TraceIfNeeded<ScriptValue>::Trace(visitor, member_large_blob_);
 TraceIfNeeded<ScriptValue>::Trace(visitor, member_prf_);
+TraceIfNeeded<ScriptValue>::Trace(visitor, member_supplemental_pub_keys_);
 bindings::DictionaryBase::Trace(visitor);
 }
 
@@ -167,21 +167,11 @@ if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].G
   return false;
 }
 }
-if (RuntimeEnabledFeatures::WebAuthenticationDevicePublicKeyEnabled()) {
-  if (hasDevicePubKey()) {
-  if (!ToV8Traits<IDLObject>::ToV8(script_state, member_device_pub_key_).ToLocal(&v8_value)) {
-  return false;
-}
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).To(&was_property_created)) {
-  return false;
-}
-}
-}
 if (hasGetCredBlob()) {
   if (!ToV8Traits<IDLString>::ToV8(script_state, member_get_cred_blob_).ToLocal(&v8_value)) {
   return false;
 }
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).To(&was_property_created)) {
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).To(&was_property_created)) {
   return false;
 }
 }
@@ -189,7 +179,7 @@ if (hasHmacCreateSecret()) {
   if (!ToV8Traits<IDLBoolean>::ToV8(script_state, member_hmac_create_secret_).ToLocal(&v8_value)) {
   return false;
 }
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).To(&was_property_created)) {
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).To(&was_property_created)) {
   return false;
 }
 }
@@ -198,7 +188,7 @@ if (RuntimeEnabledFeatures::WebAuthenticationLargeBlobExtensionEnabled()) {
   if (!ToV8Traits<IDLObject>::ToV8(script_state, member_large_blob_).ToLocal(&v8_value)) {
   return false;
 }
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[6].Get(isolate), v8_value).To(&was_property_created)) {
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).To(&was_property_created)) {
   return false;
 }
 }
@@ -206,6 +196,16 @@ if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[6].G
 if (RuntimeEnabledFeatures::WebAuthenticationPRFEnabled()) {
   if (hasPrf()) {
   if (!ToV8Traits<IDLObject>::ToV8(script_state, member_prf_).ToLocal(&v8_value)) {
+  return false;
+}
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[6].Get(isolate), v8_value).To(&was_property_created)) {
+  return false;
+}
+}
+}
+if (RuntimeEnabledFeatures::WebAuthenticationSupplementalPubKeysEnabled()) {
+  if (hasSupplementalPubKeys()) {
+  if (!ToV8Traits<IDLObject>::ToV8(script_state, member_supplemental_pub_keys_).ToLocal(&v8_value)) {
   return false;
 }
 if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[7].Get(isolate), v8_value).To(&was_property_created)) {
@@ -235,30 +235,30 @@ exception_context_scope.ChangePropertyNameAsOptimizationHack("credProps");
 if (!bindings::GetDictionaryMemberFromV8Object<CredentialPropertiesOutput, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[2].Get(isolate), has_cred_props_, member_cred_props_, try_block, exception_state)) {
   return;
 }
-bool fallback_presence_var;
-if (RuntimeEnabledFeatures::WebAuthenticationDevicePublicKeyEnabled()) {
-  exception_context_scope.ChangePropertyNameAsOptimizationHack("devicePubKey");
-if (!bindings::GetDictionaryMemberFromV8Object<IDLObject, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[3].Get(isolate), fallback_presence_var, member_device_pub_key_, try_block, exception_state)) {
-  return;
-}
-}
 exception_context_scope.ChangePropertyNameAsOptimizationHack("getCredBlob");
-if (!bindings::GetDictionaryMemberFromV8Object<IDLString, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[4].Get(isolate), has_get_cred_blob_, member_get_cred_blob_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<IDLString, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[3].Get(isolate), has_get_cred_blob_, member_get_cred_blob_, try_block, exception_state)) {
   return;
 }
 exception_context_scope.ChangePropertyNameAsOptimizationHack("hmacCreateSecret");
-if (!bindings::GetDictionaryMemberFromV8Object<IDLBoolean, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[5].Get(isolate), has_hmac_create_secret_, member_hmac_create_secret_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<IDLBoolean, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[4].Get(isolate), has_hmac_create_secret_, member_hmac_create_secret_, try_block, exception_state)) {
   return;
 }
+bool fallback_presence_var;
 if (RuntimeEnabledFeatures::WebAuthenticationLargeBlobExtensionEnabled()) {
   exception_context_scope.ChangePropertyNameAsOptimizationHack("largeBlob");
-if (!bindings::GetDictionaryMemberFromV8Object<IDLObject, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[6].Get(isolate), fallback_presence_var, member_large_blob_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<IDLObject, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[5].Get(isolate), fallback_presence_var, member_large_blob_, try_block, exception_state)) {
   return;
 }
 }
 if (RuntimeEnabledFeatures::WebAuthenticationPRFEnabled()) {
   exception_context_scope.ChangePropertyNameAsOptimizationHack("prf");
-if (!bindings::GetDictionaryMemberFromV8Object<IDLObject, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[7].Get(isolate), fallback_presence_var, member_prf_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<IDLObject, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[6].Get(isolate), fallback_presence_var, member_prf_, try_block, exception_state)) {
+  return;
+}
+}
+if (RuntimeEnabledFeatures::WebAuthenticationSupplementalPubKeysEnabled()) {
+  exception_context_scope.ChangePropertyNameAsOptimizationHack("supplementalPubKeys");
+if (!bindings::GetDictionaryMemberFromV8Object<IDLObject, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[7].Get(isolate), fallback_presence_var, member_supplemental_pub_keys_, try_block, exception_state)) {
   return;
 }
 }
@@ -269,11 +269,11 @@ const base::span<const v8::Eternal<v8::Name>> AuthenticationExtensionsClientOutp
 "appid",
 "credBlob",
 "credProps",
-"devicePubKey",
 "getCredBlob",
 "hmacCreateSecret",
 "largeBlob",
 "prf",
+"supplementalPubKeys",
 };
 return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);
 }

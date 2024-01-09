@@ -58,9 +58,27 @@ return dictionary;
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 void CheckVisibilityOptions::Trace(Visitor* visitor) const {
   TraceIfNeeded<bool>::Trace(visitor, member_check_opacity_);
 TraceIfNeeded<bool>::Trace(visitor, member_check_visibility_css_);
+TraceIfNeeded<bool>::Trace(visitor, member_content_visibility_auto_);
+TraceIfNeeded<bool>::Trace(visitor, member_opacity_property_);
+TraceIfNeeded<bool>::Trace(visitor, member_visibility_property_);
 bindings::DictionaryBase::Trace(visitor);
 }
 
@@ -86,6 +104,36 @@ if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].G
   return false;
 }
 }
+if (RuntimeEnabledFeatures::CheckVisibilityExtraPropertiesEnabled()) {
+  if (hasContentVisibilityAuto()) {
+  if (!ToV8Traits<IDLBoolean>::ToV8(script_state, member_content_visibility_auto_).ToLocal(&v8_value)) {
+  return false;
+}
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).To(&was_property_created)) {
+  return false;
+}
+}
+}
+if (RuntimeEnabledFeatures::CheckVisibilityExtraPropertiesEnabled()) {
+  if (hasOpacityProperty()) {
+  if (!ToV8Traits<IDLBoolean>::ToV8(script_state, member_opacity_property_).ToLocal(&v8_value)) {
+  return false;
+}
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).To(&was_property_created)) {
+  return false;
+}
+}
+}
+if (RuntimeEnabledFeatures::CheckVisibilityExtraPropertiesEnabled()) {
+  if (hasVisibilityProperty()) {
+  if (!ToV8Traits<IDLBoolean>::ToV8(script_state, member_visibility_property_).ToLocal(&v8_value)) {
+  return false;
+}
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).To(&was_property_created)) {
+  return false;
+}
+}
+}
 return true;
 }
 
@@ -105,12 +153,33 @@ exception_context_scope.ChangePropertyNameAsOptimizationHack("checkVisibilityCSS
 if (!bindings::GetDictionaryMemberFromV8Object<IDLBoolean, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[1].Get(isolate), fallback_presence_var, member_check_visibility_css_, try_block, exception_state)) {
   return;
 }
+if (RuntimeEnabledFeatures::CheckVisibilityExtraPropertiesEnabled()) {
+  exception_context_scope.ChangePropertyNameAsOptimizationHack("contentVisibilityAuto");
+if (!bindings::GetDictionaryMemberFromV8Object<IDLBoolean, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[2].Get(isolate), fallback_presence_var, member_content_visibility_auto_, try_block, exception_state)) {
+  return;
+}
+}
+if (RuntimeEnabledFeatures::CheckVisibilityExtraPropertiesEnabled()) {
+  exception_context_scope.ChangePropertyNameAsOptimizationHack("opacityProperty");
+if (!bindings::GetDictionaryMemberFromV8Object<IDLBoolean, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[3].Get(isolate), fallback_presence_var, member_opacity_property_, try_block, exception_state)) {
+  return;
+}
+}
+if (RuntimeEnabledFeatures::CheckVisibilityExtraPropertiesEnabled()) {
+  exception_context_scope.ChangePropertyNameAsOptimizationHack("visibilityProperty");
+if (!bindings::GetDictionaryMemberFromV8Object<IDLBoolean, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[4].Get(isolate), fallback_presence_var, member_visibility_property_, try_block, exception_state)) {
+  return;
+}
+}
 }
 
 const base::span<const v8::Eternal<v8::Name>> CheckVisibilityOptions::GetV8OwnMemberNames(v8::Isolate* isolate) {
   static const char* const kOwnMemberNames[] = {
 "checkOpacity",
 "checkVisibilityCSS",
+"contentVisibilityAuto",
+"opacityProperty",
+"visibilityProperty",
 };
 return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);
 }

@@ -17,11 +17,12 @@
 #include "third_party/blink/renderer/platform/bindings/dictionary_base.h"
 #include "third_party/blink/renderer/platform/heap/collection_support/heap_vector.h"
 #include "third_party/blink/renderer/platform/heap/member.h"
+#include "third_party/blink/renderer/platform/wtf/text/wtf_string.h"
 
 namespace blink {
 
 class ExceptionState;
-class V8UnionObjectOrObjectArray;
+class V8UnionObjectOrObjectArrayOrString;
 
 class MODULES_EXPORT BeginLayerOptions : public bindings::DictionaryBase {
   
@@ -40,10 +41,10 @@ explicit  BeginLayerOptions(v8::Isolate* isolate);
 bool hasFilter() const {
   return true;
 }
-V8UnionObjectOrObjectArray* filter() const {
+V8UnionObjectOrObjectArrayOrString* filter() const {
   return member_filter_.Get();
 }
-void setFilter(V8UnionObjectOrObjectArray* value) {
+void setFilter(V8UnionObjectOrObjectArrayOrString* value) {
   member_filter_ = value;
 }
 
@@ -64,7 +65,7 @@ static const base::span<const v8::Eternal<v8::Name>> GetV8OwnMemberNames(v8::Iso
 
 
 
-Member<V8UnionObjectOrObjectArray> member_filter_;
+Member<V8UnionObjectOrObjectArrayOrString> member_filter_;
 
 
   

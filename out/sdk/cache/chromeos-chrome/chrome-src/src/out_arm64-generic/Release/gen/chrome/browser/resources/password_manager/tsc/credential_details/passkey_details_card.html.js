@@ -2,7 +2,7 @@ import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
     return html `<!--_html_template_start_--><style include="shared-style cr-input-style cr-shared-style
                 credential-details-card cr-icons"></style>
-<div class="card">
+<div class="card" aria-label="[[getAriaLabelForPasswordCard_(passkey)]]" role="region">
   <div class="credential-container">
     <div class="row-container">
       <div class="column-container">
@@ -37,10 +37,10 @@ export function getTemplate() {
     </div>
   </div>
   <div class="button-container">
-    <cr-button id="editButton" class="edit-button" on-click="onEditClicked_">
+    <cr-button id="editButton" class="edit-button" on-click="onEditClicked_" aria-label="[[getAriaLabelForEditButton_(passkey)]]">
       $i18n{edit}
     </cr-button>
-    <cr-button id="deleteButton" on-click="onDeleteClick_">
+    <cr-button id="deleteButton" on-click="onDeleteClick_" aria-label="[[getAriaLabelForDeleteButton_(passkey)]]">
       $i18n{delete}
     </cr-button>
   </div>

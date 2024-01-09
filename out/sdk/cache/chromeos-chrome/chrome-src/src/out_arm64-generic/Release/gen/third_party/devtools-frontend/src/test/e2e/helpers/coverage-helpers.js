@@ -20,18 +20,17 @@ async function navigateToCoverageTestSite() {
 }
 exports.navigateToCoverageTestSite = navigateToCoverageTestSite;
 async function startInstrumentingCoverage() {
-    await (0, helper_js_1.waitFor)(START_INSTRUMENTING_BUTTON);
     await (0, helper_js_1.click)(START_INSTRUMENTING_BUTTON);
     await (0, helper_js_1.waitForNone)('.coverage-results .landing-page');
 }
 exports.startInstrumentingCoverage = startInstrumentingCoverage;
 async function stopInstrumentingCoverage() {
     await (0, helper_js_1.click)(STOP_INSTRUMENTING_BUTTON);
-    await (0, helper_js_1.waitForNone)('button[aria-label="Clear all"][disabled]');
+    await (0, helper_js_1.waitForNone)('button[aria-label="Clear coverage"][disabled]');
 }
 exports.stopInstrumentingCoverage = stopInstrumentingCoverage;
 async function clearCoverageContent() {
-    await (0, helper_js_1.click)('button[aria-label="Clear all"]');
+    await (0, helper_js_1.click)('button[aria-label="Clear coverage"]');
     await (0, helper_js_1.waitFor)('.coverage-results .landing-page');
 }
 exports.clearCoverageContent = clearCoverageContent;

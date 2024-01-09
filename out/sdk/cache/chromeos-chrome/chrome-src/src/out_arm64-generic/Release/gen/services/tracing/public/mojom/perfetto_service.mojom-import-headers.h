@@ -6,6 +6,8 @@
 
 #ifndef SERVICES_TRACING_PUBLIC_MOJOM_PERFETTO_SERVICE_MOJOM_IMPORT_HEADERS_H_
 #define SERVICES_TRACING_PUBLIC_MOJOM_PERFETTO_SERVICE_MOJOM_IMPORT_HEADERS_H_
+#include "mojo/public/mojom/base/token.mojom.h"
+#include "mojo/public/mojom/base/token.mojom-import-headers.h"
 #include "mojo/public/mojom/base/file.mojom.h"
 #include "mojo/public/mojom/base/file.mojom-import-headers.h"
 #include "mojo/public/mojom/base/shared_memory.mojom.h"

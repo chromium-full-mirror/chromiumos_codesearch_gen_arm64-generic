@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -117,14 +118,17 @@ void PageHandlerFactoryProxy::CreatePageHandler(
                         "<value of type ::mojo::PendingReceiver<PageHandler>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandlerFactory_CreatePageHandler_Name, kFlags, 0, 0, nullptr);
@@ -212,10 +216,10 @@ bool PageHandlerFactoryStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPageHandlerFactoryValidationInfo[] = {
-    {&internal::PageHandlerFactory_CreatePageHandler_Params_Data::Validate,
+    { &internal::PageHandlerFactory_CreatePageHandler_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -229,8 +233,11 @@ const char PageHandler::Name_[] = "hats.mojom.PageHandler";
 PageHandler::IPCStableHashFunction PageHandler::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
   switch (message.name()) {
-    case internal::kPageHandler_GetApiKey_Name: {
-      return &PageHandler::GetApiKey_Sym::IPCStableHash;
+    case internal::kPageHandler_OnSurveyLoaded_Name: {
+      return &PageHandler::OnSurveyLoaded_Sym::IPCStableHash;
+    }
+    case internal::kPageHandler_OnSurveyClosed_Name: {
+      return &PageHandler::OnSurveyClosed_Sym::IPCStableHash;
     }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
@@ -243,13 +250,17 @@ const char* PageHandler::MessageToMethodName_(mojo::Message& message) {
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
     switch (message.name()) {
-      case internal::kPageHandler_GetApiKey_Name:
-            return "Receive hats::mojom::PageHandler::GetApiKey";
+      case internal::kPageHandler_OnSurveyLoaded_Name:
+            return "Receive hats::mojom::PageHandler::OnSurveyLoaded";
+      case internal::kPageHandler_OnSurveyClosed_Name:
+            return "Receive hats::mojom::PageHandler::OnSurveyClosed";
     }
   } else {
     switch (message.name()) {
-      case internal::kPageHandler_GetApiKey_Name:
-            return "Receive reply hats::mojom::PageHandler::GetApiKey";
+      case internal::kPageHandler_OnSurveyLoaded_Name:
+            return "Receive reply hats::mojom::PageHandler::OnSurveyLoaded";
+      case internal::kPageHandler_OnSurveyClosed_Name:
+            return "Receive reply hats::mojom::PageHandler::OnSurveyClosed";
     }
   }
   return "Receive unknown mojo message";
@@ -264,7 +275,7 @@ const char* PageHandler::MessageToMethodName_(mojo::Message& message) {
 }
 
 #if !BUILDFLAG(IS_FUCHSIA)
-uint32_t PageHandler::GetApiKey_Sym::IPCStableHash() {
+uint32_t PageHandler::OnSurveyLoaded_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
   // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
@@ -272,190 +283,94 @@ uint32_t PageHandler::GetApiKey_Sym::IPCStableHash() {
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)hats::mojom::PageHandler::GetApiKey");
+          "(Impl)hats::mojom::PageHandler::OnSurveyLoaded");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t PageHandler::OnSurveyClosed_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)hats::mojom::PageHandler::OnSurveyClosed");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
 }
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
-class PageHandler_GetApiKey_ForwardToCallback
-    : public mojo::MessageReceiver {
- public:
-  PageHandler_GetApiKey_ForwardToCallback(
-      PageHandler::GetApiKeyCallback callback
-      ) : callback_(std::move(callback)) {
-  }
-
-  PageHandler_GetApiKey_ForwardToCallback(const PageHandler_GetApiKey_ForwardToCallback&) = delete;
-  PageHandler_GetApiKey_ForwardToCallback& operator=(const PageHandler_GetApiKey_ForwardToCallback&) = delete;
-
-  bool Accept(mojo::Message* message) override;
- private:
-  PageHandler::GetApiKeyCallback callback_;
-};
-
 PageHandlerProxy::PageHandlerProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
 }
 
-void PageHandlerProxy::GetApiKey(
-    GetApiKeyCallback callback) {
+void PageHandlerProxy::OnSurveyLoaded(
+    ) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send hats::mojom::PageHandler::GetApiKey");
+  TRACE_EVENT0("mojom", "Send hats::mojom::PageHandler::OnSurveyLoaded");
 #endif
-  const bool kExpectsResponse = true;
+
+  const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
-      internal::kPageHandler_GetApiKey_Name, kFlags, 0, 0, nullptr);
+      internal::kPageHandler_OnSurveyLoaded_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::hats::mojom::internal::PageHandler_GetApiKey_Params_Data> params(
+      ::hats::mojom::internal::PageHandler_OnSurveyLoaded_Params_Data> params(
           message);
   params.Allocate();
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(PageHandler::Name_);
-  message.set_method_name("GetApiKey");
+  message.set_method_name("OnSurveyLoaded");
 #endif
-  std::unique_ptr<mojo::MessageReceiver> responder(
-      new PageHandler_GetApiKey_ForwardToCallback(
-          std::move(callback)));
-  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
-}
-class PageHandler_GetApiKey_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
- public:
-  static PageHandler::GetApiKeyCallback CreateCallback(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
-    std::unique_ptr<PageHandler_GetApiKey_ProxyToResponder> proxy(
-        new PageHandler_GetApiKey_ProxyToResponder(
-            message, std::move(responder)));
-    return base::BindOnce(&PageHandler_GetApiKey_ProxyToResponder::Run,
-                          std::move(proxy));
-  }
-
-  ~PageHandler_GetApiKey_ProxyToResponder() {
-#if DCHECK_IS_ON()
-    if (responder_) {
-      // If we're being destroyed without being run, we want to ensure the
-      // binding endpoint has been closed. This checks for that asynchronously.
-      // We pass a bound generated callback to handle the response so that any
-      // resulting DCHECK stack will have useful interface type information.
-      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
-      // fizzle if this happens after shutdown and the endpoint is bound to a
-      // BLOCK_SHUTDOWN sequence.
-      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
-      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
-    }
-#endif
-  }
-
- private:
-  PageHandler_GetApiKey_ProxyToResponder(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
-      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
-  }
-
-#if DCHECK_IS_ON()
-  static void OnIsConnectedComplete(bool connected) {
-    DCHECK(!connected)
-        << "PageHandler::GetApiKeyCallback was destroyed without "
-        << "first either being run or its corresponding binding being closed. "
-        << "It is an error to drop response callbacks which still correspond "
-        << "to an open interface pipe.";
-  }
-#endif
-
-  void Run(
-      const std::string& in_api_key);
-};
-
-bool PageHandler_GetApiKey_ForwardToCallback::Accept(
-    mojo::Message* message) {
-
-  DCHECK(message->is_serialized());
-  internal::PageHandler_GetApiKey_ResponseParams_Data* params =
-      reinterpret_cast<
-          internal::PageHandler_GetApiKey_ResponseParams_Data*>(
-              message->mutable_payload());
-  
-  bool success = true;
-  std::string p_api_key{};
-  PageHandler_GetApiKey_ResponseParamsDataView input_data_view(params, message);
-  
-  if (success && !input_data_view.ReadApiKey(&p_api_key))
-    success = false;
-  if (!success) {
-    ReportValidationErrorForMessage(
-        message,
-        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        PageHandler::Name_, 0, true);
-    return false;
-  }
-  if (!callback_.is_null())
-    std::move(callback_).Run(
-std::move(p_api_key));
-  return true;
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
-void PageHandler_GetApiKey_ProxyToResponder::Run(
-    const std::string& in_api_key) {
+void PageHandlerProxy::OnSurveyClosed(
+    ) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send reply hats::mojom::PageHandler::GetApiKey", "async_response_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("api_key"), in_api_key,
-                        "<value of type const std::string&>");
-   });
+  TRACE_EVENT0("mojom", "Send hats::mojom::PageHandler::OnSurveyClosed");
 #endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
-  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
-      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
-      internal::kPageHandler_GetApiKey_Name, kFlags, 0, 0, nullptr);
+      internal::kPageHandler_OnSurveyClosed_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::hats::mojom::internal::PageHandler_GetApiKey_ResponseParams_Data> params(
+      ::hats::mojom::internal::PageHandler_OnSurveyClosed_Params_Data> params(
           message);
   params.Allocate();
-  mojo::internal::MessageFragment<
-      typename decltype(params->api_key)::BaseType> api_key_fragment(
-          params.message());
-  mojo::internal::Serialize<mojo::StringDataView>(
-      in_api_key, api_key_fragment);
-  params->api_key.Set(
-      api_key_fragment.is_null() ? nullptr : api_key_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->api_key.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null api_key in ");
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(PageHandler::Name_);
-  message.set_method_name("GetApiKey");
+  message.set_method_name("OnSurveyClosed");
 #endif
-
-  message.set_request_id(request_id_);
-  message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMojoMessage(*responder_, message);
-  // SendMojoMessage() fails silently if the responder connection is closed,
-  // or if the message is malformed.
-  //
-  // TODO(darin): If Accept() returns false due to a malformed message, that
-  // may be good reason to close the connection. However, we don't have a
-  // way to do that from here. We should add a way.
-  responder_ = nullptr;
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 // static
@@ -463,8 +378,49 @@ bool PageHandlerStubDispatch::Accept(
     PageHandler* impl,
     mojo::Message* message) {
   switch (message->header()->name) {
-    case internal::kPageHandler_GetApiKey_Name: {
-      break;
+    case internal::kPageHandler_OnSurveyLoaded_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::PageHandler_OnSurveyLoaded_Params_Data* params =
+          reinterpret_cast<internal::PageHandler_OnSurveyLoaded_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      PageHandler_OnSurveyLoaded_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            PageHandler::Name_, 0, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->OnSurveyLoaded();
+      return true;
+    }
+    case internal::kPageHandler_OnSurveyClosed_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::PageHandler_OnSurveyClosed_Params_Data* params =
+          reinterpret_cast<internal::PageHandler_OnSurveyClosed_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      PageHandler_OnSurveyClosed_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            PageHandler::Name_, 1, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->OnSurveyClosed();
+      return true;
     }
   }
   return false;
@@ -479,39 +435,22 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
   switch (message->header()->name) {
-    case internal::kPageHandler_GetApiKey_Name: {
-
-      internal::PageHandler_GetApiKey_Params_Data* params =
-          reinterpret_cast<
-              internal::PageHandler_GetApiKey_Params_Data*>(
-                  message->mutable_payload());
-      
-      bool success = true;
-      PageHandler_GetApiKey_ParamsDataView input_data_view(params, message);
-      
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            PageHandler::Name_, 0, false);
-        return false;
-      }
-      PageHandler::GetApiKeyCallback callback =
-          PageHandler_GetApiKey_ProxyToResponder::CreateCallback(
-              *message, std::move(responder));
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->GetApiKey(std::move(callback));
-      return true;
+    case internal::kPageHandler_OnSurveyLoaded_Name: {
+      break;
+    }
+    case internal::kPageHandler_OnSurveyClosed_Name: {
+      break;
     }
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPageHandlerValidationInfo[] = {
-    {&internal::PageHandler_GetApiKey_Params_Data::Validate,
-     &internal::PageHandler_GetApiKey_ResponseParams_Data::Validate},
+    { &internal::PageHandler_OnSurveyLoaded_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::PageHandler_OnSurveyClosed_Params_Data::Validate,
+     nullptr /* no response */},
 };
 
 bool PageHandlerRequestValidator::Accept(mojo::Message* message) {
@@ -519,14 +458,15 @@ bool PageHandlerRequestValidator::Accept(mojo::Message* message) {
   return mojo::internal::ValidateRequestGenericPacked(message, name, kPageHandlerValidationInfo);
 }
 
-bool PageHandlerResponseValidator::Accept(mojo::Message* message) {
-  const char* name = ::hats::mojom::PageHandler::Name_;
-  return mojo::internal::ValidateResponseGenericPacked(message, name, kPageHandlerValidationInfo);
-}
 const char Page::Name_[] = "hats.mojom.Page";
 
 Page::IPCStableHashFunction Page::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
+  switch (message.name()) {
+    case internal::kPage_RequestSurvey_Name: {
+      return &Page::RequestSurvey_Sym::IPCStableHash;
+    }
+  }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
 }
@@ -534,6 +474,18 @@ Page::IPCStableHashFunction Page::MessageToMethodInfo_(mojo::Message& message) {
 
 const char* Page::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (!is_response) {
+    switch (message.name()) {
+      case internal::kPage_RequestSurvey_Name:
+            return "Receive hats::mojom::Page::RequestSurvey";
+    }
+  } else {
+    switch (message.name()) {
+      case internal::kPage_RequestSurvey_Name:
+            return "Receive reply hats::mojom::Page::RequestSurvey";
+    }
+  }
   return "Receive unknown mojo message";
 #else
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
@@ -546,16 +498,172 @@ const char* Page::MessageToMethodName_(mojo::Message& message) {
 }
 
 #if !BUILDFLAG(IS_FUCHSIA)
+uint32_t Page::RequestSurvey_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)hats::mojom::Page::RequestSurvey");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 PageProxy::PageProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
 }
 
+void PageProxy::RequestSurvey(
+    const std::string& in_api_key, const std::string& in_trigger_id, bool in_enable_testing, const std::vector<std::string>& in_language_list, const std::string& in_product_specific_data_json) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send hats::mojom::Page::RequestSurvey", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("api_key"), in_api_key,
+                        "<value of type const std::string&>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("trigger_id"), in_trigger_id,
+                        "<value of type const std::string&>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("enable_testing"), in_enable_testing,
+                        "<value of type bool>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("language_list"), in_language_list,
+                        "<value of type const std::vector<std::string>&>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("product_specific_data_json"), in_product_specific_data_json,
+                        "<value of type const std::string&>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kPage_RequestSurvey_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::hats::mojom::internal::Page_RequestSurvey_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->api_key)::BaseType> api_key_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_api_key, api_key_fragment);
+  params->api_key.Set(
+      api_key_fragment.is_null() ? nullptr : api_key_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->api_key.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null api_key in Page.RequestSurvey request");
+  mojo::internal::MessageFragment<
+      typename decltype(params->trigger_id)::BaseType> trigger_id_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_trigger_id, trigger_id_fragment);
+  params->trigger_id.Set(
+      trigger_id_fragment.is_null() ? nullptr : trigger_id_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->trigger_id.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null trigger_id in Page.RequestSurvey request");
+  params->enable_testing = in_enable_testing;
+  mojo::internal::MessageFragment<
+      typename decltype(params->language_list)::BaseType>
+      language_list_fragment(params.message());
+  constexpr const mojo::internal::ContainerValidateParams& language_list_validate_params =
+      mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
+  mojo::internal::Serialize<mojo::ArrayDataView<mojo::StringDataView>>(
+      in_language_list, language_list_fragment, &language_list_validate_params);
+  params->language_list.Set(
+      language_list_fragment.is_null() ? nullptr : language_list_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->language_list.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null language_list in Page.RequestSurvey request");
+  mojo::internal::MessageFragment<
+      typename decltype(params->product_specific_data_json)::BaseType> product_specific_data_json_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_product_specific_data_json, product_specific_data_json_fragment);
+  params->product_specific_data_json.Set(
+      product_specific_data_json_fragment.is_null() ? nullptr : product_specific_data_json_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->product_specific_data_json.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null product_specific_data_json in Page.RequestSurvey request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Page::Name_);
+  message.set_method_name("RequestSurvey");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
 // static
 bool PageStubDispatch::Accept(
     Page* impl,
     mojo::Message* message) {
+  switch (message->header()->name) {
+    case internal::kPage_RequestSurvey_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::Page_RequestSurvey_Params_Data* params =
+          reinterpret_cast<internal::Page_RequestSurvey_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      std::string p_api_key{};
+      std::string p_trigger_id{};
+      bool p_enable_testing{};
+      std::vector<std::string> p_language_list{};
+      std::string p_product_specific_data_json{};
+      Page_RequestSurvey_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadApiKey(&p_api_key))
+        success = false;
+      if (success && !input_data_view.ReadTriggerId(&p_trigger_id))
+        success = false;
+      if (success)
+        p_enable_testing = input_data_view.enable_testing();
+      if (success && !input_data_view.ReadLanguageList(&p_language_list))
+        success = false;
+      if (success && !input_data_view.ReadProductSpecificDataJson(&p_product_specific_data_json))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            Page::Name_, 0, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->RequestSurvey(
+std::move(p_api_key), 
+std::move(p_trigger_id), 
+std::move(p_enable_testing), 
+std::move(p_language_list), 
+std::move(p_product_specific_data_json));
+      return true;
+    }
+  }
   return false;
 }
 
@@ -564,14 +672,26 @@ bool PageStubDispatch::AcceptWithResponder(
     Page* impl,
     mojo::Message* message,
     std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+  [[maybe_unused]] const bool message_is_sync =
+      message->has_flag(mojo::Message::kFlagIsSync);
+  [[maybe_unused]] const uint64_t request_id = message->request_id();
+  switch (message->header()->name) {
+    case internal::kPage_RequestSurvey_Name: {
+      break;
+    }
+  }
   return false;
 }
-
-
+namespace {
+}  // namespace
+static const mojo::internal::GenericValidationInfo kPageValidationInfo[] = {
+    { &internal::Page_RequestSurvey_Params_Data::Validate,
+     nullptr /* no response */},
+};
 
 bool PageRequestValidator::Accept(mojo::Message* message) {
   const char* name = ::hats::mojom::Page::Name_;
-  return mojo::internal::ValidateRequestGeneric(message, name, {});
+  return mojo::internal::ValidateRequestGenericPacked(message, name, kPageValidationInfo);
 }
 
 
@@ -602,40 +722,23 @@ PageHandlerFactoryAsyncWaiter::~PageHandlerFactoryAsyncWaiter() = default;
 
 
 
-void PageHandlerInterceptorForTesting::GetApiKey(GetApiKeyCallback callback) {
-  GetForwardingInterface()->GetApiKey(std::move(callback));
+void PageHandlerInterceptorForTesting::OnSurveyLoaded() {
+  GetForwardingInterface()->OnSurveyLoaded();
+}
+void PageHandlerInterceptorForTesting::OnSurveyClosed() {
+  GetForwardingInterface()->OnSurveyClosed();
 }
 PageHandlerAsyncWaiter::PageHandlerAsyncWaiter(
     PageHandler* proxy) : proxy_(proxy) {}
 
 PageHandlerAsyncWaiter::~PageHandlerAsyncWaiter() = default;
 
-void PageHandlerAsyncWaiter::GetApiKey(
-    std::string* out_api_key) {
-  base::RunLoop loop;
-  proxy_->GetApiKey(
-      base::BindOnce(
-          [](base::RunLoop* loop,
-             std::string* out_api_key
-,
-             const std::string& api_key) {*out_api_key = std::move(api_key);
-            loop->Quit();
-          },
-          &loop,
-          out_api_key));
-  loop.Run();
+
+
+
+void PageInterceptorForTesting::RequestSurvey(const std::string& api_key, const std::string& trigger_id, bool enable_testing, const std::vector<std::string>& language_list, const std::string& product_specific_data_json) {
+  GetForwardingInterface()->RequestSurvey(std::move(api_key), std::move(trigger_id), std::move(enable_testing), std::move(language_list), std::move(product_specific_data_json));
 }
-
-std::string PageHandlerAsyncWaiter::GetApiKey(
-    ) {
-  std::string async_wait_result;
-  GetApiKey(&async_wait_result);
-  return async_wait_result;
-}
-
-
-
-
 PageAsyncWaiter::PageAsyncWaiter(
     Page* proxy) : proxy_(proxy) {}
 

@@ -37,7 +37,6 @@ import * as Common from '../../core/common/common.js';
 import * as Host from '../../core/host/host.js';
 import * as i18n from '../../core/i18n/i18n.js';
 import * as Platform from '../../core/platform/platform.js';
-import * as Root from '../../core/root/root.js';
 import * as SDK from '../../core/sdk/sdk.js';
 import * as Bindings from '../../models/bindings/bindings.js';
 import * as Logs from '../../models/logs/logs.js';
@@ -171,12 +170,12 @@ const UIStrings = {
     /**
      *@description Text of a DOM element in Network Data Grid Node of the Network panel
      */
-    serviceworker: '(`ServiceWorker`)',
+    serviceWorker: '(`ServiceWorker`)',
     /**
      *@description Cell title in Network Data Grid Node of the Network panel
      *@example {4 B} PH1
      */
-    servedFromServiceworkerResource: 'Served from `ServiceWorker`, resource size: {PH1}',
+    servedFromServiceWorkerResource: 'Served from `ServiceWorker`, resource size: {PH1}',
     /**
      *@description Cell title in Network Data Grid Node of the Network panel
      *@example {4 B} PH1
@@ -205,6 +204,16 @@ const UIStrings = {
      *@example {10 B} PH1
      */
     servedFromDiskCacheResourceSizeS: 'Served from disk cache, resource size: {PH1}',
+    /**
+     *@description Text of a DOM element in Network Data Grid Node of the Network panel
+     */
+    serviceWorkerRouter: '(`ServiceWorker router`)',
+    /**
+     *@description Cell title in Network Data Grid Node of the Network panel
+     *@example {1} PH1
+     *@example {4 B} PH2
+     */
+    matchedToServiceWorkerRouter: 'Matched to `ServiceWorker router`#{PH1}, resource size: {PH2}',
     /**
      *@description Text in Network Data Grid Node of the Network panel
      */
@@ -271,6 +280,16 @@ const UIStrings = {
      *@description Tooltip to explain the resource's overridden status
      */
     requestHeadersOverridden: 'Request headers are overridden',
+    /**
+     *@description Tooltip to explain the resource's initial priority
+     *@example {High} PH1
+     *@example {Low} PH2
+     */
+    initialPriorityToolTip: '{PH1}, Initial priority: {PH2}',
+    /**
+     *@description Tooltip to explain why the request has warning icon
+     */
+    thirdPartyPhaseout: 'Cookies for this request are blocked due to third-party cookie phaseout. Learn more in the Issues tab.',
 };
 const str_ = i18n.i18n.registerUIStrings('panels/network/NetworkDataGridNode.ts', UIStrings);
 const i18nString = i18n.i18n.getLocalizedString.bind(undefined, str_);
@@ -827,8 +846,16 @@ export class NetworkRequestNode extends NetworkNode {
             }
             case 'priority': {
                 const priority = this.requestInternal.priority();
-                this.setTextAndTitle(cell, priority ? PerfUI.NetworkPriorities.uiLabelForNetworkPriority(priority) : '');
                 const initialPriority = this.requestInternal.initialPriority();
+                if (priority && initialPriority) {
+                    this.setTextAndTitle(cell, PerfUI.NetworkPriorities.uiLabelForNetworkPriority(priority), i18nString(UIStrings.initialPriorityToolTip, {
+                        PH1: PerfUI.NetworkPriorities.uiLabelForNetworkPriority(priority),
+                        PH2: PerfUI.NetworkPriorities.uiLabelForNetworkPriority(initialPriority),
+                    }));
+                }
+                else {
+                    this.setTextAndTitle(cell, priority ? PerfUI.NetworkPriorities.uiLabelForNetworkPriority(priority) : '');
+                }
                 this.appendSubtitle(cell, initialPriority ? PerfUI.NetworkPriorities.uiLabelForNetworkPriority(initialPriority) : '');
                 break;
             }
@@ -984,14 +1011,23 @@ export class NetworkRequestNode extends NetworkNode {
             iconElement.classList.add('icon');
             return iconElement;
         }
-        if (request.wasIntercepted()) {
+        if (request.hasThirdPartyCookiePhaseoutIssue()) {
+            const iconData = {
+                iconName: 'warning-filled',
+                color: 'var(--icon-warning)',
+            };
+            iconElement = this.createIconElement(iconData, i18nString(UIStrings.thirdPartyPhaseout));
+            iconElement.classList.add('icon');
+            return iconElement;
+        }
+        const isHeaderOverriden = request.hasOverriddenHeaders();
+        const isContentOverriden = request.hasOverriddenContent;
+        if (isHeaderOverriden || isContentOverriden) {
             const iconData = {
                 iconName: 'document',
                 color: 'var(--icon-default)',
             };
             let title;
-            const isHeaderOverriden = request.hasOverriddenHeaders();
-            const isContentOverriden = request.hasOverriddenContent;
             if (isHeaderOverriden && isContentOverriden) {
                 title = i18nString(UIStrings.requestContentHeadersOverridden);
             }
@@ -1132,12 +1168,9 @@ export class NetworkRequestNode extends NetworkNode {
             }
             if (displayShowHeadersLink) {
                 this.setTextAndTitleAsLink(cell, i18nString(UIStrings.blockeds, { PH1: reason }), i18nString(UIStrings.blockedTooltip), () => {
-                    const tab = Root.Runtime.experiments.isEnabled(Root.Runtime.ExperimentName.HEADER_OVERRIDES) ?
-                        NetworkForward.UIRequestLocation.UIRequestTabs.HeadersComponent :
-                        NetworkForward.UIRequestLocation.UIRequestTabs.Headers;
                     this.parentView().dispatchEventToListeners(Events.RequestActivated, {
                         showPanel: true,
-                        tab,
+                        tab: NetworkForward.UIRequestLocation.UIRequestTabs.HeadersComponent,
                     });
                 });
             }
@@ -1299,9 +1332,15 @@ export class NetworkRequestNode extends NetworkNode {
             UI.Tooltip.Tooltip.install(cell, i18nString(UIStrings.servedFromMemoryCacheResource, { PH1: resourceSize }));
             cell.classList.add('network-dim-cell');
         }
+        else if (this.requestInternal.serviceWorkerRouterInfo) {
+            const ruleIdMatched = this.requestInternal.serviceWorkerRouterInfo.ruleIdMatched;
+            UI.UIUtils.createTextChild(cell, i18nString(UIStrings.serviceWorkerRouter));
+            UI.Tooltip.Tooltip.install(cell, i18nString(UIStrings.matchedToServiceWorkerRouter, { PH1: ruleIdMatched, PH2: resourceSize }));
+            cell.classList.add('network-dim-cell');
+        }
         else if (this.requestInternal.fetchedViaServiceWorker) {
-            UI.UIUtils.createTextChild(cell, i18nString(UIStrings.serviceworker));
-            UI.Tooltip.Tooltip.install(cell, i18nString(UIStrings.servedFromServiceworkerResource, { PH1: resourceSize }));
+            UI.UIUtils.createTextChild(cell, i18nString(UIStrings.serviceWorker));
+            UI.Tooltip.Tooltip.install(cell, i18nString(UIStrings.servedFromServiceWorkerResource, { PH1: resourceSize }));
             cell.classList.add('network-dim-cell');
         }
         else if (this.requestInternal.redirectSourceSignedExchangeInfoHasNoErrors()) {
@@ -1344,11 +1383,11 @@ export class NetworkRequestNode extends NetworkNode {
             this.setTextAndTitle(cell, i18nString(UIStrings.pending));
         }
     }
-    appendSubtitle(cellElement, subtitleText, showInlineWhenSelected = false, tooltipText = '') {
+    appendSubtitle(cellElement, subtitleText, alwaysVisible = false, tooltipText = '') {
         const subtitleElement = document.createElement('div');
         subtitleElement.classList.add('network-cell-subtitle');
-        if (showInlineWhenSelected) {
-            subtitleElement.classList.add('network-cell-subtitle-show-inline-when-selected');
+        if (alwaysVisible) {
+            subtitleElement.classList.add('always-visible');
         }
         subtitleElement.textContent = subtitleText;
         if (tooltipText) {

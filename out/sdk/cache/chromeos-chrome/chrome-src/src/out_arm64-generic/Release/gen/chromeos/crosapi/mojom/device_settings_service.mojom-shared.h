@@ -360,7 +360,7 @@ static_assert(
     return mojo::internal::Deserialize<::crosapi::mojom::DeviceSettings_OptionalBool>(
         data_->device_guest_mode_enabled_$value, &output->emplace());
   }
-  absl::optional<DeviceSettings_OptionalBool> device_guest_mode_enabled() const {
+  std::optional<DeviceSettings_OptionalBool> device_guest_mode_enabled() const {
     if (data_->header_.version < 5) {
       return absl::nullopt;
     }

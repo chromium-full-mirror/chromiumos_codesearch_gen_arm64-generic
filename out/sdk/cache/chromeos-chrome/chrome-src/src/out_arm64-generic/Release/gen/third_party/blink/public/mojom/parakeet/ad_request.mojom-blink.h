@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/parakeet/ad_request.mojom-features.h"
 #include "third_party/blink/public/mojom/parakeet/ad_request.mojom-shared.h"
 #include "third_party/blink/public/mojom/parakeet/ad_request.mojom-blink-forward.h"
 #include "url/mojom/url.mojom-blink.h"
@@ -38,18 +39,6 @@
 #include "third_party/blink/renderer/platform/platform_export.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::AdSignals>
-    : EnumHashTraits<::blink::mojom::AdSignals, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace blink::mojom::blink {
@@ -391,7 +380,7 @@ class PLATFORM_EXPORT AdTargeting {
   AdTargeting();
 
   AdTargeting(
-      absl::optional<WTF::Vector<WTF::String>> interests,
+      std::optional<WTF::Vector<WTF::String>> interests,
       AdGeolocationPtr geolocation);
 
 AdTargeting(const AdTargeting&) = delete;
@@ -472,7 +461,7 @@ AdTargeting& operator=(const AdTargeting&) = delete;
   }
 
   
-  absl::optional<WTF::Vector<WTF::String>> interests;
+  std::optional<WTF::Vector<WTF::String>> interests;
   
   AdGeolocationPtr geolocation;
 
@@ -540,8 +529,8 @@ class PLATFORM_EXPORT AdRequestConfig {
       WTF::Vector<AdPropertiesPtr> ad_properties,
       const WTF::String& publisher_code,
       AdTargetingPtr targeting,
-      absl::optional<WTF::Vector<AdSignals>> anonymized_proxied_signals,
-      const absl::optional<::blink::KURL>& fallback_source);
+      std::optional<WTF::Vector<AdSignals>> anonymized_proxied_signals,
+      const std::optional<::blink::KURL>& fallback_source);
 
 AdRequestConfig(const AdRequestConfig&) = delete;
 AdRequestConfig& operator=(const AdRequestConfig&) = delete;
@@ -629,9 +618,9 @@ AdRequestConfig& operator=(const AdRequestConfig&) = delete;
   
   AdTargetingPtr targeting;
   
-  absl::optional<WTF::Vector<AdSignals>> anonymized_proxied_signals;
+  std::optional<WTF::Vector<AdSignals>> anonymized_proxied_signals;
   
-  absl::optional<::blink::KURL> fallback_source;
+  std::optional<::blink::KURL> fallback_source;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

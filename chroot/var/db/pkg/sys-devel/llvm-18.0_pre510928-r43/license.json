@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "sys-devel", "name": "llvm", "version": "18.0_pre510928", "revision": 43, "fullname": "sys-devel/llvm", "fullnamerev": "sys-devel/llvm-18.0_pre510928-r43", "license_names": ["LLVM-exception"], "license_text_scanned": [], "homepages": ["http://llvm.org/"], "skip": false, "tainted": false, "ebuild_path": null}

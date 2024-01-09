@@ -60,11 +60,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, HTMLInputElement>::value,
     "HTMLInputElement does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&HTMLInputElement::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "HTMLInputElement is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 // Cross-component trampolines
 V8HTMLInputElement::InstallInterfaceTemplateFuncType V8HTMLInputElement::install_interface_template_func_ = nullptr;

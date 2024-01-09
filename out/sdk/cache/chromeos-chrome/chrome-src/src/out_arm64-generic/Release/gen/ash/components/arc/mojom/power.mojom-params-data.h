@@ -217,7 +217,7 @@ class  PowerInstance_Init_ResponseParams_Data {
 };
 static_assert(sizeof(PowerInstance_Init_ResponseParams_Data) == 8,
               "Bad sizeof(PowerInstance_Init_ResponseParams_Data)");
-class  PowerInstance_SetInteractive_Params_Data {
+class  PowerInstance_SetInteractiveDeprecated_Params_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
@@ -227,13 +227,13 @@ class  PowerInstance_SetInteractive_Params_Data {
   uint8_t padfinal_[7];
 
  private:
-  friend class mojo::internal::MessageFragment<PowerInstance_SetInteractive_Params_Data>;
+  friend class mojo::internal::MessageFragment<PowerInstance_SetInteractiveDeprecated_Params_Data>;
 
-  PowerInstance_SetInteractive_Params_Data();
-  ~PowerInstance_SetInteractive_Params_Data() = delete;
+  PowerInstance_SetInteractiveDeprecated_Params_Data();
+  ~PowerInstance_SetInteractiveDeprecated_Params_Data() = delete;
 };
-static_assert(sizeof(PowerInstance_SetInteractive_Params_Data) == 16,
-              "Bad sizeof(PowerInstance_SetInteractive_Params_Data)");
+static_assert(sizeof(PowerInstance_SetInteractiveDeprecated_Params_Data) == 16,
+              "Bad sizeof(PowerInstance_SetInteractiveDeprecated_Params_Data)");
 class  PowerInstance_Suspend_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -375,6 +375,23 @@ class  PowerInstance_OnBatterySaverModeStateChanged_Params_Data {
 };
 static_assert(sizeof(PowerInstance_OnBatterySaverModeStateChanged_Params_Data) == 16,
               "Bad sizeof(PowerInstance_OnBatterySaverModeStateChanged_Params_Data)");
+class  PowerInstance_SetIdleState_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t state;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<PowerInstance_SetIdleState_Params_Data>;
+
+  PowerInstance_SetIdleState_Params_Data();
+  ~PowerInstance_SetIdleState_Params_Data() = delete;
+};
+static_assert(sizeof(PowerInstance_SetIdleState_Params_Data) == 16,
+              "Bad sizeof(PowerInstance_SetIdleState_Params_Data)");
 
 }  // namespace internal
 
@@ -636,12 +653,12 @@ class PowerInstance_Init_ResponseParamsDataView {
 };
 
 
-class PowerInstance_SetInteractive_ParamsDataView {
+class PowerInstance_SetInteractiveDeprecated_ParamsDataView {
  public:
-  PowerInstance_SetInteractive_ParamsDataView() = default;
+  PowerInstance_SetInteractiveDeprecated_ParamsDataView() = default;
 
-  PowerInstance_SetInteractive_ParamsDataView(
-      internal::PowerInstance_SetInteractive_Params_Data* data,
+  PowerInstance_SetInteractiveDeprecated_ParamsDataView(
+      internal::PowerInstance_SetInteractiveDeprecated_Params_Data* data,
       mojo::Message* message)
       : data_(data) {}
 
@@ -650,7 +667,7 @@ class PowerInstance_SetInteractive_ParamsDataView {
     return data_->enabled;
   }
  private:
-  internal::PowerInstance_SetInteractive_Params_Data* data_ = nullptr;
+  internal::PowerInstance_SetInteractiveDeprecated_Params_Data* data_ = nullptr;
 };
 
 
@@ -823,6 +840,31 @@ class PowerInstance_OnBatterySaverModeStateChanged_ParamsDataView {
 };
 
 
+class PowerInstance_SetIdleState_ParamsDataView {
+ public:
+  PowerInstance_SetIdleState_ParamsDataView() = default;
+
+  PowerInstance_SetIdleState_ParamsDataView(
+      internal::PowerInstance_SetIdleState_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadState(UserType* output) const {
+    auto data_value = data_->state;
+    return mojo::internal::Deserialize<::arc::mojom::IdleState>(
+        data_value, output);
+  }
+  IdleState state() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::arc::mojom::IdleState>(data_->state));
+  }
+ private:
+  internal::PowerInstance_SetIdleState_Params_Data* data_ = nullptr;
+};
+
+
 
 
 
@@ -874,6 +916,8 @@ inline void PowerInstance_OnBatterySaverModeStateChanged_ParamsDataView::GetStat
   auto pointer = data_->state.Get();
   *output = BatterySaverModeStateDataView(pointer, message_);
 }
+
+
 
 
 

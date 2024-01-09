@@ -72,11 +72,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, SVGStopElement>::value,
     "SVGStopElement inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&SVGStopElement::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "SVGStopElement is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -95,7 +90,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVG1DOMPaintServer);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGStopElement* blink_receiver = V8SVGStopElement::ToWrappableUnsafe(v8_receiver);
+SVGStopElement* blink_receiver = V8SVGStopElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->offset();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -45,18 +46,29 @@
 namespace arc::mojom {
 InstallationResult::InstallationResult()
     : package_name(),
-      success() {}
+      success(),
+      is_launchable_app() {}
 
 InstallationResult::InstallationResult(
     const std::string& package_name_in,
     bool success_in)
     : package_name(std::move(package_name_in)),
-      success(std::move(success_in)) {}
+      success(std::move(success_in)),
+      is_launchable_app() {}
+
+InstallationResult::InstallationResult(
+    const std::string& package_name_in,
+    bool success_in,
+    bool is_launchable_app_in)
+    : package_name(std::move(package_name_in)),
+      success(std::move(success_in)),
+      is_launchable_app(std::move(is_launchable_app_in)) {}
 
 InstallationResult::~InstallationResult() = default;
 size_t InstallationResult::Hash(size_t seed) const {
   seed = mojo::internal::Hash(seed, this->package_name);
   seed = mojo::internal::Hash(seed, this->success);
+  seed = mojo::internal::Hash(seed, this->is_launchable_app);
   return seed;
 }
 
@@ -75,6 +87,15 @@ void InstallationResult::WriteIntoTrace(
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "success"), this->success,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "is_launchable_app"), this->is_launchable_app,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type bool>"
 #else
@@ -273,7 +294,7 @@ AppInfo::AppInfo(
     bool suspended_in,
     ::arc::mojom::ArcResizeLockState resize_lock_state_in,
     WindowLayoutPtr initial_layout_in,
-    const absl::optional<std::string>& version_name_in)
+    const std::optional<std::string>& version_name_in)
     : name(std::move(name_in)),
       package_name(std::move(package_name_in)),
       activity(std::move(activity_in)),
@@ -296,7 +317,7 @@ AppInfo::AppInfo(
     bool suspended_in,
     ::arc::mojom::ArcResizeLockState resize_lock_state_in,
     WindowLayoutPtr initial_layout_in,
-    const absl::optional<std::string>& version_name_in,
+    const std::optional<std::string>& version_name_in,
     AppStoragePtr app_storage_in)
     : name(std::move(name_in)),
       package_name(std::move(package_name_in)),
@@ -320,7 +341,7 @@ AppInfo::AppInfo(
     bool suspended_in,
     ::arc::mojom::ArcResizeLockState resize_lock_state_in,
     WindowLayoutPtr initial_layout_in,
-    const absl::optional<std::string>& version_name_in,
+    const std::optional<std::string>& version_name_in,
     AppStoragePtr app_storage_in,
     bool need_fixup_in)
     : name(std::move(name_in)),
@@ -345,7 +366,7 @@ AppInfo::AppInfo(
     bool suspended_in,
     ::arc::mojom::ArcResizeLockState resize_lock_state_in,
     WindowLayoutPtr initial_layout_in,
-    const absl::optional<std::string>& version_name_in,
+    const std::optional<std::string>& version_name_in,
     AppStoragePtr app_storage_in,
     bool need_fixup_in,
     AppCategory app_category_in)
@@ -443,7 +464,7 @@ void AppInfo::WriteIntoTrace(
     dict.AddItem(
       "version_name"), this->version_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -521,7 +542,7 @@ WebAppInfo::WebAppInfo(
     const std::string& scope_url_in,
     int64_t theme_color_in,
     bool is_web_only_twa_in,
-    const absl::optional<std::string>& certificate_sha256_fingerprint_in)
+    const std::optional<std::string>& certificate_sha256_fingerprint_in)
     : title(std::move(title_in)),
       start_url(std::move(start_url_in)),
       scope_url(std::move(scope_url_in)),
@@ -583,7 +604,7 @@ void WebAppInfo::WriteIntoTrace(
     dict.AddItem(
       "certificate_sha256_fingerprint"), this->certificate_sha256_fingerprint,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -603,7 +624,7 @@ WindowLayout::WindowLayout()
 WindowLayout::WindowLayout(
     WindowSizeType type_in,
     bool resizable_in,
-    const absl::optional<::gfx::Rect>& bounds_in)
+    const std::optional<::gfx::Rect>& bounds_in)
     : type(std::move(type_in)),
       resizable(std::move(resizable_in)),
       bounds(std::move(bounds_in)) {}
@@ -635,7 +656,7 @@ void WindowLayout::WriteIntoTrace(
     dict.AddItem(
       "bounds"), this->bounds,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::gfx::Rect>&>"
+      "<value of type const std::optional<::gfx::Rect>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -701,7 +722,8 @@ ArcPackageInfo::ArcPackageInfo()
       version_name(),
       preinstalled(),
       priority(),
-      locale_info() {}
+      locale_info(),
+      game_controls_opt_out() {}
 
 ArcPackageInfo::ArcPackageInfo(
     const std::string& package_name_in,
@@ -722,7 +744,8 @@ ArcPackageInfo::ArcPackageInfo(
       version_name(),
       preinstalled(),
       priority(),
-      locale_info() {}
+      locale_info(),
+      game_controls_opt_out() {}
 
 ArcPackageInfo::ArcPackageInfo(
     const std::string& package_name_in,
@@ -744,7 +767,8 @@ ArcPackageInfo::ArcPackageInfo(
       version_name(),
       preinstalled(),
       priority(),
-      locale_info() {}
+      locale_info(),
+      game_controls_opt_out() {}
 
 ArcPackageInfo::ArcPackageInfo(
     const std::string& package_name_in,
@@ -767,7 +791,8 @@ ArcPackageInfo::ArcPackageInfo(
       version_name(),
       preinstalled(),
       priority(),
-      locale_info() {}
+      locale_info(),
+      game_controls_opt_out() {}
 
 ArcPackageInfo::ArcPackageInfo(
     const std::string& package_name_in,
@@ -791,7 +816,8 @@ ArcPackageInfo::ArcPackageInfo(
       version_name(),
       preinstalled(),
       priority(),
-      locale_info() {}
+      locale_info(),
+      game_controls_opt_out() {}
 
 ArcPackageInfo::ArcPackageInfo(
     const std::string& package_name_in,
@@ -802,7 +828,7 @@ ArcPackageInfo::ArcPackageInfo(
     bool deprecated_system_in,
     bool vpn_provider_in,
     WebAppInfoPtr web_app_info_in,
-    const absl::optional<base::flat_map<::arc::mojom::AppPermission, bool>>& deprecated_permissions_in)
+    const std::optional<base::flat_map<::arc::mojom::AppPermission, bool>>& deprecated_permissions_in)
     : package_name(std::move(package_name_in)),
       package_version(std::move(package_version_in)),
       last_backup_android_id(std::move(last_backup_android_id_in)),
@@ -816,7 +842,8 @@ ArcPackageInfo::ArcPackageInfo(
       version_name(),
       preinstalled(),
       priority(),
-      locale_info() {}
+      locale_info(),
+      game_controls_opt_out() {}
 
 ArcPackageInfo::ArcPackageInfo(
     const std::string& package_name_in,
@@ -827,8 +854,8 @@ ArcPackageInfo::ArcPackageInfo(
     bool deprecated_system_in,
     bool vpn_provider_in,
     WebAppInfoPtr web_app_info_in,
-    const absl::optional<base::flat_map<::arc::mojom::AppPermission, bool>>& deprecated_permissions_in,
-    absl::optional<base::flat_map<::arc::mojom::AppPermission, ::arc::mojom::PermissionStatePtr>> permission_states_in)
+    const std::optional<base::flat_map<::arc::mojom::AppPermission, bool>>& deprecated_permissions_in,
+    std::optional<base::flat_map<::arc::mojom::AppPermission, ::arc::mojom::PermissionStatePtr>> permission_states_in)
     : package_name(std::move(package_name_in)),
       package_version(std::move(package_version_in)),
       last_backup_android_id(std::move(last_backup_android_id_in)),
@@ -842,7 +869,8 @@ ArcPackageInfo::ArcPackageInfo(
       version_name(),
       preinstalled(),
       priority(),
-      locale_info() {}
+      locale_info(),
+      game_controls_opt_out() {}
 
 ArcPackageInfo::ArcPackageInfo(
     const std::string& package_name_in,
@@ -853,9 +881,9 @@ ArcPackageInfo::ArcPackageInfo(
     bool deprecated_system_in,
     bool vpn_provider_in,
     WebAppInfoPtr web_app_info_in,
-    const absl::optional<base::flat_map<::arc::mojom::AppPermission, bool>>& deprecated_permissions_in,
-    absl::optional<base::flat_map<::arc::mojom::AppPermission, ::arc::mojom::PermissionStatePtr>> permission_states_in,
-    const absl::optional<std::string>& version_name_in)
+    const std::optional<base::flat_map<::arc::mojom::AppPermission, bool>>& deprecated_permissions_in,
+    std::optional<base::flat_map<::arc::mojom::AppPermission, ::arc::mojom::PermissionStatePtr>> permission_states_in,
+    const std::optional<std::string>& version_name_in)
     : package_name(std::move(package_name_in)),
       package_version(std::move(package_version_in)),
       last_backup_android_id(std::move(last_backup_android_id_in)),
@@ -869,7 +897,8 @@ ArcPackageInfo::ArcPackageInfo(
       version_name(std::move(version_name_in)),
       preinstalled(),
       priority(),
-      locale_info() {}
+      locale_info(),
+      game_controls_opt_out() {}
 
 ArcPackageInfo::ArcPackageInfo(
     const std::string& package_name_in,
@@ -880,9 +909,9 @@ ArcPackageInfo::ArcPackageInfo(
     bool deprecated_system_in,
     bool vpn_provider_in,
     WebAppInfoPtr web_app_info_in,
-    const absl::optional<base::flat_map<::arc::mojom::AppPermission, bool>>& deprecated_permissions_in,
-    absl::optional<base::flat_map<::arc::mojom::AppPermission, ::arc::mojom::PermissionStatePtr>> permission_states_in,
-    const absl::optional<std::string>& version_name_in,
+    const std::optional<base::flat_map<::arc::mojom::AppPermission, bool>>& deprecated_permissions_in,
+    std::optional<base::flat_map<::arc::mojom::AppPermission, ::arc::mojom::PermissionStatePtr>> permission_states_in,
+    const std::optional<std::string>& version_name_in,
     bool preinstalled_in)
     : package_name(std::move(package_name_in)),
       package_version(std::move(package_version_in)),
@@ -897,7 +926,8 @@ ArcPackageInfo::ArcPackageInfo(
       version_name(std::move(version_name_in)),
       preinstalled(std::move(preinstalled_in)),
       priority(),
-      locale_info() {}
+      locale_info(),
+      game_controls_opt_out() {}
 
 ArcPackageInfo::ArcPackageInfo(
     const std::string& package_name_in,
@@ -908,9 +938,9 @@ ArcPackageInfo::ArcPackageInfo(
     bool deprecated_system_in,
     bool vpn_provider_in,
     WebAppInfoPtr web_app_info_in,
-    const absl::optional<base::flat_map<::arc::mojom::AppPermission, bool>>& deprecated_permissions_in,
-    absl::optional<base::flat_map<::arc::mojom::AppPermission, ::arc::mojom::PermissionStatePtr>> permission_states_in,
-    const absl::optional<std::string>& version_name_in,
+    const std::optional<base::flat_map<::arc::mojom::AppPermission, bool>>& deprecated_permissions_in,
+    std::optional<base::flat_map<::arc::mojom::AppPermission, ::arc::mojom::PermissionStatePtr>> permission_states_in,
+    const std::optional<std::string>& version_name_in,
     bool preinstalled_in,
     InstallPriority priority_in)
     : package_name(std::move(package_name_in)),
@@ -926,7 +956,8 @@ ArcPackageInfo::ArcPackageInfo(
       version_name(std::move(version_name_in)),
       preinstalled(std::move(preinstalled_in)),
       priority(std::move(priority_in)),
-      locale_info() {}
+      locale_info(),
+      game_controls_opt_out() {}
 
 ArcPackageInfo::ArcPackageInfo(
     const std::string& package_name_in,
@@ -937,9 +968,9 @@ ArcPackageInfo::ArcPackageInfo(
     bool deprecated_system_in,
     bool vpn_provider_in,
     WebAppInfoPtr web_app_info_in,
-    const absl::optional<base::flat_map<::arc::mojom::AppPermission, bool>>& deprecated_permissions_in,
-    absl::optional<base::flat_map<::arc::mojom::AppPermission, ::arc::mojom::PermissionStatePtr>> permission_states_in,
-    const absl::optional<std::string>& version_name_in,
+    const std::optional<base::flat_map<::arc::mojom::AppPermission, bool>>& deprecated_permissions_in,
+    std::optional<base::flat_map<::arc::mojom::AppPermission, ::arc::mojom::PermissionStatePtr>> permission_states_in,
+    const std::optional<std::string>& version_name_in,
     bool preinstalled_in,
     InstallPriority priority_in,
     PackageLocaleInfoPtr locale_info_in)
@@ -956,7 +987,40 @@ ArcPackageInfo::ArcPackageInfo(
       version_name(std::move(version_name_in)),
       preinstalled(std::move(preinstalled_in)),
       priority(std::move(priority_in)),
-      locale_info(std::move(locale_info_in)) {}
+      locale_info(std::move(locale_info_in)),
+      game_controls_opt_out() {}
+
+ArcPackageInfo::ArcPackageInfo(
+    const std::string& package_name_in,
+    int32_t package_version_in,
+    int64_t last_backup_android_id_in,
+    int64_t last_backup_time_in,
+    bool sync_in,
+    bool deprecated_system_in,
+    bool vpn_provider_in,
+    WebAppInfoPtr web_app_info_in,
+    const std::optional<base::flat_map<::arc::mojom::AppPermission, bool>>& deprecated_permissions_in,
+    std::optional<base::flat_map<::arc::mojom::AppPermission, ::arc::mojom::PermissionStatePtr>> permission_states_in,
+    const std::optional<std::string>& version_name_in,
+    bool preinstalled_in,
+    InstallPriority priority_in,
+    PackageLocaleInfoPtr locale_info_in,
+    bool game_controls_opt_out_in)
+    : package_name(std::move(package_name_in)),
+      package_version(std::move(package_version_in)),
+      last_backup_android_id(std::move(last_backup_android_id_in)),
+      last_backup_time(std::move(last_backup_time_in)),
+      sync(std::move(sync_in)),
+      deprecated_system(std::move(deprecated_system_in)),
+      vpn_provider(std::move(vpn_provider_in)),
+      web_app_info(std::move(web_app_info_in)),
+      deprecated_permissions(std::move(deprecated_permissions_in)),
+      permission_states(std::move(permission_states_in)),
+      version_name(std::move(version_name_in)),
+      preinstalled(std::move(preinstalled_in)),
+      priority(std::move(priority_in)),
+      locale_info(std::move(locale_info_in)),
+      game_controls_opt_out(std::move(game_controls_opt_out_in)) {}
 
 ArcPackageInfo::~ArcPackageInfo() = default;
 
@@ -1039,7 +1103,7 @@ void ArcPackageInfo::WriteIntoTrace(
     dict.AddItem(
       "deprecated_permissions"), this->deprecated_permissions,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<base::flat_map<::arc::mojom::AppPermission, bool>>&>"
+      "<value of type const std::optional<base::flat_map<::arc::mojom::AppPermission, bool>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1048,7 +1112,7 @@ void ArcPackageInfo::WriteIntoTrace(
     dict.AddItem(
       "permission_states"), this->permission_states,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<base::flat_map<::arc::mojom::AppPermission, ::arc::mojom::PermissionStatePtr>>>"
+      "<value of type std::optional<base::flat_map<::arc::mojom::AppPermission, ::arc::mojom::PermissionStatePtr>>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1057,7 +1121,7 @@ void ArcPackageInfo::WriteIntoTrace(
     dict.AddItem(
       "version_name"), this->version_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1085,6 +1149,15 @@ void ArcPackageInfo::WriteIntoTrace(
       "locale_info"), this->locale_info,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type PackageLocaleInfoPtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "game_controls_opt_out"), this->game_controls_opt_out,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1175,9 +1248,9 @@ RawIconPngData::RawIconPngData()
 
 RawIconPngData::RawIconPngData(
     bool is_adaptive_icon_in,
-    absl::optional<std::vector<uint8_t>> icon_png_data_in,
-    absl::optional<std::vector<uint8_t>> foreground_icon_png_data_in,
-    absl::optional<std::vector<uint8_t>> background_icon_png_data_in)
+    std::optional<std::vector<uint8_t>> icon_png_data_in,
+    std::optional<std::vector<uint8_t>> foreground_icon_png_data_in,
+    std::optional<std::vector<uint8_t>> background_icon_png_data_in)
     : is_adaptive_icon(std::move(is_adaptive_icon_in)),
       icon_png_data(std::move(icon_png_data_in)),
       foreground_icon_png_data(std::move(foreground_icon_png_data_in)),
@@ -1201,7 +1274,7 @@ void RawIconPngData::WriteIntoTrace(
     dict.AddItem(
       "icon_png_data"), this->icon_png_data,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<uint8_t>>&>"
+      "<value of type const std::optional<std::vector<uint8_t>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1210,7 +1283,7 @@ void RawIconPngData::WriteIntoTrace(
     dict.AddItem(
       "foreground_icon_png_data"), this->foreground_icon_png_data,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<uint8_t>>&>"
+      "<value of type const std::optional<std::vector<uint8_t>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1219,7 +1292,7 @@ void RawIconPngData::WriteIntoTrace(
     dict.AddItem(
       "background_icon_png_data"), this->background_icon_png_data,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<uint8_t>>&>"
+      "<value of type const std::optional<std::vector<uint8_t>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1241,7 +1314,7 @@ WindowInfo::WindowInfo(
     int32_t window_id_in,
     int32_t state_in,
     int64_t display_id_in,
-    const absl::optional<::gfx::Rect>& bounds_in)
+    const std::optional<::gfx::Rect>& bounds_in)
     : window_id(std::move(window_id_in)),
       state(std::move(state_in)),
       display_id(std::move(display_id_in)),
@@ -1283,7 +1356,7 @@ void WindowInfo::WriteIntoTrace(
     dict.AddItem(
       "bounds"), this->bounds,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::gfx::Rect>&>"
+      "<value of type const std::optional<::gfx::Rect>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1309,13 +1382,13 @@ AppDiscoveryResult::AppDiscoveryResult()
       icon() {}
 
 AppDiscoveryResult::AppDiscoveryResult(
-    const absl::optional<std::string>& launch_intent_uri_in,
-    const absl::optional<std::string>& install_intent_uri_in,
-    const absl::optional<std::string>& label_in,
+    const std::optional<std::string>& launch_intent_uri_in,
+    const std::optional<std::string>& install_intent_uri_in,
+    const std::optional<std::string>& label_in,
     bool is_instant_app_in,
     bool is_recent_in,
-    const absl::optional<std::string>& publisher_name_in,
-    const absl::optional<std::string>& formatted_price_in,
+    const std::optional<std::string>& publisher_name_in,
+    const std::optional<std::string>& formatted_price_in,
     float review_score_in,
     std::vector<uint8_t> icon_png_data_in)
     : launch_intent_uri(std::move(launch_intent_uri_in)),
@@ -1331,16 +1404,16 @@ AppDiscoveryResult::AppDiscoveryResult(
       icon() {}
 
 AppDiscoveryResult::AppDiscoveryResult(
-    const absl::optional<std::string>& launch_intent_uri_in,
-    const absl::optional<std::string>& install_intent_uri_in,
-    const absl::optional<std::string>& label_in,
+    const std::optional<std::string>& launch_intent_uri_in,
+    const std::optional<std::string>& install_intent_uri_in,
+    const std::optional<std::string>& label_in,
     bool is_instant_app_in,
     bool is_recent_in,
-    const absl::optional<std::string>& publisher_name_in,
-    const absl::optional<std::string>& formatted_price_in,
+    const std::optional<std::string>& publisher_name_in,
+    const std::optional<std::string>& formatted_price_in,
     float review_score_in,
     std::vector<uint8_t> icon_png_data_in,
-    const absl::optional<std::string>& package_name_in)
+    const std::optional<std::string>& package_name_in)
     : launch_intent_uri(std::move(launch_intent_uri_in)),
       install_intent_uri(std::move(install_intent_uri_in)),
       label(std::move(label_in)),
@@ -1354,16 +1427,16 @@ AppDiscoveryResult::AppDiscoveryResult(
       icon() {}
 
 AppDiscoveryResult::AppDiscoveryResult(
-    const absl::optional<std::string>& launch_intent_uri_in,
-    const absl::optional<std::string>& install_intent_uri_in,
-    const absl::optional<std::string>& label_in,
+    const std::optional<std::string>& launch_intent_uri_in,
+    const std::optional<std::string>& install_intent_uri_in,
+    const std::optional<std::string>& label_in,
     bool is_instant_app_in,
     bool is_recent_in,
-    const absl::optional<std::string>& publisher_name_in,
-    const absl::optional<std::string>& formatted_price_in,
+    const std::optional<std::string>& publisher_name_in,
+    const std::optional<std::string>& formatted_price_in,
     float review_score_in,
     std::vector<uint8_t> icon_png_data_in,
-    const absl::optional<std::string>& package_name_in,
+    const std::optional<std::string>& package_name_in,
     RawIconPngDataPtr icon_in)
     : launch_intent_uri(std::move(launch_intent_uri_in)),
       install_intent_uri(std::move(install_intent_uri_in)),
@@ -1386,7 +1459,7 @@ void AppDiscoveryResult::WriteIntoTrace(
     dict.AddItem(
       "launch_intent_uri"), this->launch_intent_uri,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1395,7 +1468,7 @@ void AppDiscoveryResult::WriteIntoTrace(
     dict.AddItem(
       "install_intent_uri"), this->install_intent_uri,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1404,7 +1477,7 @@ void AppDiscoveryResult::WriteIntoTrace(
     dict.AddItem(
       "label"), this->label,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1431,7 +1504,7 @@ void AppDiscoveryResult::WriteIntoTrace(
     dict.AddItem(
       "publisher_name"), this->publisher_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1440,7 +1513,7 @@ void AppDiscoveryResult::WriteIntoTrace(
     dict.AddItem(
       "formatted_price"), this->formatted_price,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1467,7 +1540,7 @@ void AppDiscoveryResult::WriteIntoTrace(
     dict.AddItem(
       "package_name"), this->package_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1513,7 +1586,7 @@ AppShortcutItem::AppShortcutItem(
     const std::string& shortcut_id_in,
     const std::string& short_label_in,
     std::vector<uint8_t> icon_png_in,
-    const absl::optional<std::string>& package_name_in)
+    const std::optional<std::string>& package_name_in)
     : shortcut_id(std::move(shortcut_id_in)),
       short_label(std::move(short_label_in)),
       icon_png(std::move(icon_png_in)),
@@ -1526,7 +1599,7 @@ AppShortcutItem::AppShortcutItem(
     const std::string& shortcut_id_in,
     const std::string& short_label_in,
     std::vector<uint8_t> icon_png_in,
-    const absl::optional<std::string>& package_name_in,
+    const std::optional<std::string>& package_name_in,
     AppShortcutItemType type_in,
     int32_t rank_in)
     : shortcut_id(std::move(shortcut_id_in)),
@@ -1541,7 +1614,7 @@ AppShortcutItem::AppShortcutItem(
     const std::string& shortcut_id_in,
     const std::string& short_label_in,
     std::vector<uint8_t> icon_png_in,
-    const absl::optional<std::string>& package_name_in,
+    const std::optional<std::string>& package_name_in,
     AppShortcutItemType type_in,
     int32_t rank_in,
     RawIconPngDataPtr icon_in)
@@ -1589,7 +1662,7 @@ void AppShortcutItem::WriteIntoTrace(
     dict.AddItem(
       "package_name"), this->package_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2059,14 +2132,17 @@ void AppHostProxy::OnAppAddedDeprecated(
                         "<value of type AppInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppHost_OnAppAddedDeprecated_Name, kFlags, 0, 0, nullptr);
@@ -2107,14 +2183,17 @@ void AppHostProxy::OnAppListRefreshed(
                         "<value of type std::vector<AppInfoPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppHost_OnAppListRefreshed_Name, kFlags, 0, 0, nullptr);
@@ -2157,14 +2236,17 @@ void AppHostProxy::OnPackageAdded(
                         "<value of type ArcPackageInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppHost_OnPackageAdded_Name, kFlags, 0, 0, nullptr);
@@ -2208,14 +2290,17 @@ void AppHostProxy::OnPackageAppListRefreshed(
                         "<value of type std::vector<AppInfoPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppHost_OnPackageAppListRefreshed_Name, kFlags, 0, 0, nullptr);
@@ -2269,14 +2354,17 @@ void AppHostProxy::OnPackageListRefreshed(
                         "<value of type std::vector<ArcPackageInfoPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppHost_OnPackageListRefreshed_Name, kFlags, 0, 0, nullptr);
@@ -2319,14 +2407,17 @@ void AppHostProxy::OnPackageModified(
                         "<value of type ArcPackageInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppHost_OnPackageModified_Name, kFlags, 0, 0, nullptr);
@@ -2367,14 +2458,17 @@ void AppHostProxy::OnPackageRemoved(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppHost_OnPackageRemoved_Name, kFlags, 0, 0, nullptr);
@@ -2404,7 +2498,7 @@ void AppHostProxy::OnPackageRemoved(
 }
 
 void AppHostProxy::OnTaskCreated(
-    int32_t in_task_id, const std::string& in_package_name, const std::string& in_activity, const absl::optional<std::string>& in_name, const absl::optional<std::string>& in_intent, int32_t in_session_id) {
+    int32_t in_task_id, const std::string& in_package_name, const std::string& in_activity, const std::optional<std::string>& in_name, const std::optional<std::string>& in_intent, int32_t in_session_id) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send arc::mojom::AppHost::OnTaskCreated", "input_parameters",
@@ -2421,23 +2515,26 @@ void AppHostProxy::OnTaskCreated(
                         "<value of type const std::string&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("name"), in_name,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("intent"), in_intent,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("session_id"), in_session_id,
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppHost_OnTaskCreated_Name, kFlags, 0, 0, nullptr);
@@ -2511,14 +2608,17 @@ void AppHostProxy::OnTaskDescriptionUpdated(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppHost_OnTaskDescriptionUpdated_Name, kFlags, 0, 0, nullptr);
@@ -2585,14 +2685,17 @@ void AppHostProxy::OnTaskDescriptionChanged(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppHost_OnTaskDescriptionChanged_Name, kFlags, 0, 0, nullptr);
@@ -2647,14 +2750,17 @@ void AppHostProxy::OnTaskDestroyed(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppHost_OnTaskDestroyed_Name, kFlags, 0, 0, nullptr);
@@ -2685,14 +2791,17 @@ void AppHostProxy::OnTaskSetActive(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppHost_OnTaskSetActive_Name, kFlags, 0, 0, nullptr);
@@ -2726,14 +2835,17 @@ void AppHostProxy::OnNotificationsEnabledChanged(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppHost_OnNotificationsEnabledChanged_Name, kFlags, 0, 0, nullptr);
@@ -2775,14 +2887,17 @@ void AppHostProxy::OnInstallShortcut(
                         "<value of type ShortcutInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppHost_OnInstallShortcut_Name, kFlags, 0, 0, nullptr);
@@ -2812,7 +2927,7 @@ void AppHostProxy::OnInstallShortcut(
 }
 
 void AppHostProxy::OnInstallationStarted(
-    const absl::optional<std::string>& in_package_name) {
+    const std::optional<std::string>& in_package_name) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send arc::mojom::AppHost::OnInstallationStarted", "input_parameters",
@@ -2820,17 +2935,20 @@ void AppHostProxy::OnInstallationStarted(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("package_name"), in_package_name,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppHost_OnInstallationStarted_Name, kFlags, 0, 0, nullptr);
@@ -2867,14 +2985,17 @@ void AppHostProxy::OnInstallationFinished(
                         "<value of type InstallationResultPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppHost_OnInstallationFinished_Name, kFlags, 0, 0, nullptr);
@@ -2914,14 +3035,17 @@ void AppHostProxy::OnUninstallShortcut(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppHost_OnUninstallShortcut_Name, kFlags, 0, 0, nullptr);
@@ -2976,14 +3100,17 @@ void AppHostProxy::OnInstallationProgressChanged(
                         "<value of type float>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppHost_OnInstallationProgressChanged_Name, kFlags, 0, 0, nullptr);
@@ -3028,14 +3155,17 @@ void AppHostProxy::OnInstallationActiveChanged(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppHost_OnInstallationActiveChanged_Name, kFlags, 0, 0, nullptr);
@@ -3267,8 +3397,8 @@ std::move(p_package_name));
       int32_t p_task_id{};
       std::string p_package_name{};
       std::string p_activity{};
-      absl::optional<std::string> p_name{};
-      absl::optional<std::string> p_intent{};
+      std::optional<std::string> p_name{};
+      std::optional<std::string> p_intent{};
       int32_t p_session_id{};
       AppHost_OnTaskCreated_ParamsDataView input_data_view(params, message);
       
@@ -3494,7 +3624,7 @@ std::move(p_shortcut));
               message->mutable_payload());
       
       bool success = true;
-      absl::optional<std::string> p_package_name{};
+      std::optional<std::string> p_package_name{};
       AppHost_OnInstallationStarted_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadPackageName(&p_package_name))
@@ -3701,48 +3831,48 @@ bool AppHostStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kAppHostValidationInfo[] = {
-    {&internal::AppHost_OnAppListRefreshed_Params_Data::Validate,
+    { &internal::AppHost_OnAppListRefreshed_Params_Data::Validate,
      nullptr /* no response */},
     {nullptr, nullptr},  // nonexistent
-    {&internal::AppHost_OnAppAddedDeprecated_Params_Data::Validate,
+    { &internal::AppHost_OnAppAddedDeprecated_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AppHost_OnPackageRemoved_Params_Data::Validate,
+    { &internal::AppHost_OnPackageRemoved_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AppHost_OnTaskCreated_Params_Data::Validate,
+    { &internal::AppHost_OnTaskCreated_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AppHost_OnTaskDestroyed_Params_Data::Validate,
+    { &internal::AppHost_OnTaskDestroyed_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AppHost_OnTaskSetActive_Params_Data::Validate,
+    { &internal::AppHost_OnTaskSetActive_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AppHost_OnNotificationsEnabledChanged_Params_Data::Validate,
+    { &internal::AppHost_OnNotificationsEnabledChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AppHost_OnPackageAdded_Params_Data::Validate,
+    { &internal::AppHost_OnPackageAdded_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AppHost_OnPackageListRefreshed_Params_Data::Validate,
+    { &internal::AppHost_OnPackageListRefreshed_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AppHost_OnPackageModified_Params_Data::Validate,
+    { &internal::AppHost_OnPackageModified_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AppHost_OnInstallShortcut_Params_Data::Validate,
+    { &internal::AppHost_OnInstallShortcut_Params_Data::Validate,
      nullptr /* no response */},
     {nullptr, nullptr},  // nonexistent
-    {&internal::AppHost_OnPackageAppListRefreshed_Params_Data::Validate,
+    { &internal::AppHost_OnPackageAppListRefreshed_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AppHost_OnInstallationStarted_Params_Data::Validate,
+    { &internal::AppHost_OnInstallationStarted_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AppHost_OnInstallationFinished_Params_Data::Validate,
+    { &internal::AppHost_OnInstallationFinished_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AppHost_OnUninstallShortcut_Params_Data::Validate,
+    { &internal::AppHost_OnUninstallShortcut_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AppHost_OnTaskDescriptionUpdated_Params_Data::Validate,
+    { &internal::AppHost_OnTaskDescriptionUpdated_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AppHost_OnTaskDescriptionChanged_Params_Data::Validate,
+    { &internal::AppHost_OnTaskDescriptionChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AppHost_OnInstallationProgressChanged_Params_Data::Validate,
+    { &internal::AppHost_OnInstallationProgressChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AppHost_OnInstallationActiveChanged_Params_Data::Validate,
+    { &internal::AppHost_OnInstallationActiveChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -3846,6 +3976,9 @@ AppInstance::IPCStableHashFunction AppInstance::MessageToMethodInfo_(mojo::Messa
     case internal::kAppInstance_GetAppCategory_Name: {
       return &AppInstance::GetAppCategory_Sym::IPCStableHash;
     }
+    case internal::kAppInstance_SetAppLocale_Name: {
+      return &AppInstance::SetAppLocale_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -3917,6 +4050,8 @@ const char* AppInstance::MessageToMethodName_(mojo::Message& message) {
             return "Receive arc::mojom::AppInstance::IsInstallable";
       case internal::kAppInstance_GetAppCategory_Name:
             return "Receive arc::mojom::AppInstance::GetAppCategory";
+      case internal::kAppInstance_SetAppLocale_Name:
+            return "Receive arc::mojom::AppInstance::SetAppLocale";
     }
   } else {
     switch (message.name()) {
@@ -3980,6 +4115,8 @@ const char* AppInstance::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply arc::mojom::AppInstance::IsInstallable";
       case internal::kAppInstance_GetAppCategory_Name:
             return "Receive reply arc::mojom::AppInstance::GetAppCategory";
+      case internal::kAppInstance_SetAppLocale_Name:
+            return "Receive reply arc::mojom::AppInstance::SetAppLocale";
     }
   }
   return "Receive unknown mojo message";
@@ -4384,6 +4521,19 @@ uint32_t AppInstance::GetAppCategory_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t AppInstance::SetAppLocale_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)arc::mojom::AppInstance::SetAppLocale");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 class AppInstance_Init_ForwardToCallback
@@ -4642,14 +4792,17 @@ void AppInstanceProxy::Init(
                         "<value of type ::mojo::PendingRemote<AppHost>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppInstance_Init_Name, kFlags, 0, 0, nullptr);
@@ -4686,14 +4839,17 @@ void AppInstanceProxy::CloseTask(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppInstance_CloseTask_Name, kFlags, 0, 0, nullptr);
@@ -4724,14 +4880,17 @@ void AppInstanceProxy::InstallPackage(
                         "<value of type ArcPackageInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppInstance_InstallPackage_Name, kFlags, 0, 0, nullptr);
@@ -4778,14 +4937,17 @@ void AppInstanceProxy::LaunchAppWithWindowInfo(
                         "<value of type WindowInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppInstance_LaunchAppWithWindowInfo_Name, kFlags, 0, 0, nullptr);
@@ -4854,14 +5016,17 @@ void AppInstanceProxy::LaunchAppShortcutItem(
                         "<value of type int64_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppInstance_LaunchAppShortcutItem_Name, kFlags, 0, 0, nullptr);
@@ -4917,14 +5082,17 @@ void AppInstanceProxy::LaunchIntentWithWindowInfo(
                         "<value of type WindowInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppInstance_LaunchIntentWithWindowInfo_Name, kFlags, 0, 0, nullptr);
@@ -4976,14 +5144,17 @@ void AppInstanceProxy::UpdateWindowInfo(
                         "<value of type WindowInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppInstance_UpdateWindowInfo_Name, kFlags, 0, 0, nullptr);
@@ -5030,14 +5201,17 @@ void AppInstanceProxy::RequestAppIcon(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppInstance_RequestAppIcon_Name, kFlags, 0, 0, nullptr);
@@ -5097,14 +5271,17 @@ void AppInstanceProxy::GetAppIcon(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppInstance_GetAppIcon_Name, kFlags, 0, 0, nullptr);
@@ -5161,14 +5338,17 @@ void AppInstanceProxy::RequestShortcutIcon(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppInstance_RequestShortcutIcon_Name, kFlags, 0, 0, nullptr);
@@ -5214,14 +5394,17 @@ void AppInstanceProxy::GetAppShortcutIcon(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppInstance_GetAppShortcutIcon_Name, kFlags, 0, 0, nullptr);
@@ -5270,14 +5453,17 @@ void AppInstanceProxy::RequestPackageIcon(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppInstance_RequestPackageIcon_Name, kFlags, 0, 0, nullptr);
@@ -5327,14 +5513,17 @@ void AppInstanceProxy::GetPackageIcon(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppInstance_GetPackageIcon_Name, kFlags, 0, 0, nullptr);
@@ -5378,14 +5567,17 @@ void AppInstanceProxy::RemoveCachedIcon(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppInstance_RemoveCachedIcon_Name, kFlags, 0, 0, nullptr);
@@ -5426,14 +5618,17 @@ void AppInstanceProxy::SetTaskActive(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppInstance_SetTaskActive_Name, kFlags, 0, 0, nullptr);
@@ -5467,14 +5662,17 @@ void AppInstanceProxy::ShowPackageInfoDeprecated(
                         "<value of type const ::gfx::Rect&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppInstance_ShowPackageInfoDeprecated_Name, kFlags, 0, 0, nullptr);
@@ -5532,14 +5730,17 @@ void AppInstanceProxy::ShowPackageInfoOnPageDeprecated(
                         "<value of type const ::gfx::Rect&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppInstance_ShowPackageInfoOnPageDeprecated_Name, kFlags, 0, 0, nullptr);
@@ -5599,14 +5800,17 @@ void AppInstanceProxy::ShowPackageInfoOnPage(
                         "<value of type int64_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppInstance_ShowPackageInfoOnPage_Name, kFlags, 0, 0, nullptr);
@@ -5653,14 +5857,17 @@ void AppInstanceProxy::SetNotificationsEnabled(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppInstance_SetNotificationsEnabled_Name, kFlags, 0, 0, nullptr);
@@ -5695,14 +5902,17 @@ void AppInstanceProxy::StartPaiFlow(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::AppInstance::StartPaiFlow");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppInstance_StartPaiFlow_Name, kFlags, 0, 0, nullptr);
@@ -5733,14 +5943,17 @@ void AppInstanceProxy::StartFastAppReinstallFlow(
                         "<value of type const std::vector<std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppInstance_StartFastAppReinstallFlow_Name, kFlags, 0, 0, nullptr);
@@ -5783,14 +5996,17 @@ void AppInstanceProxy::UninstallPackage(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppInstance_UninstallPackage_Name, kFlags, 0, 0, nullptr);
@@ -5831,14 +6047,17 @@ void AppInstanceProxy::UpdateAppDetails(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppInstance_UpdateAppDetails_Name, kFlags, 0, 0, nullptr);
@@ -5872,14 +6091,17 @@ void AppInstanceProxy::GetAndroidId(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::AppInstance::GetAndroidId");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppInstance_GetAndroidId_Name, kFlags, 0, 0, nullptr);
@@ -5913,14 +6135,17 @@ void AppInstanceProxy::GetAppShortcutGlobalQueryItems(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppInstance_GetAppShortcutGlobalQueryItems_Name, kFlags, 0, 0, nullptr);
@@ -5963,14 +6188,17 @@ void AppInstanceProxy::GetAppShortcutItems(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppInstance_GetAppShortcutItems_Name, kFlags, 0, 0, nullptr);
@@ -6015,14 +6243,17 @@ void AppInstanceProxy::GetRecentAndSuggestedAppsFromPlayStore(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppInstance_GetRecentAndSuggestedAppsFromPlayStore_Name, kFlags, 0, 0, nullptr);
@@ -6058,14 +6289,17 @@ void AppInstanceProxy::RequestAssistStructure(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::AppInstance::RequestAssistStructure");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppInstance_RequestAssistStructure_Name, kFlags, 0, 0, nullptr);
@@ -6096,14 +6330,17 @@ void AppInstanceProxy::IsInstallable(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppInstance_IsInstallable_Name, kFlags, 0, 0, nullptr);
@@ -6145,14 +6382,17 @@ void AppInstanceProxy::GetAppCategory(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppInstance_GetAppCategory_Name, kFlags, 0, 0, nullptr);
@@ -6180,6 +6420,71 @@ void AppInstanceProxy::GetAppCategory(
       new AppInstance_GetAppCategory_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void AppInstanceProxy::SetAppLocale(
+    const std::string& in_package_name, const std::string& in_locale_tag) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send arc::mojom::AppInstance::SetAppLocale", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("package_name"), in_package_name,
+                        "<value of type const std::string&>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("locale_tag"), in_locale_tag,
+                        "<value of type const std::string&>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kAppInstance_SetAppLocale_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::arc::mojom::internal::AppInstance_SetAppLocale_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->package_name)::BaseType> package_name_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_package_name, package_name_fragment);
+  params->package_name.Set(
+      package_name_fragment.is_null() ? nullptr : package_name_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->package_name.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null package_name in AppInstance.SetAppLocale request");
+  mojo::internal::MessageFragment<
+      typename decltype(params->locale_tag)::BaseType> locale_tag_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_locale_tag, locale_tag_fragment);
+  params->locale_tag.Set(
+      locale_tag_fragment.is_null() ? nullptr : locale_tag_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->locale_tag.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null locale_tag in AppInstance.SetAppLocale request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(AppInstance::Name_);
+  message.set_method_name("SetAppLocale");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 class AppInstance_Init_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
@@ -6262,7 +6567,8 @@ void AppInstance_Init_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppInstance_Init_Name, kFlags, 0, 0, nullptr);
@@ -6379,7 +6685,8 @@ void AppInstance_RequestAppIcon_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppInstance_RequestAppIcon_Name, kFlags, 0, 0, nullptr);
@@ -6509,7 +6816,8 @@ void AppInstance_GetAppIcon_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppInstance_GetAppIcon_Name, kFlags, 0, 0, nullptr);
@@ -6637,7 +6945,8 @@ void AppInstance_RequestShortcutIcon_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppInstance_RequestShortcutIcon_Name, kFlags, 0, 0, nullptr);
@@ -6767,7 +7076,8 @@ void AppInstance_GetAppShortcutIcon_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppInstance_GetAppShortcutIcon_Name, kFlags, 0, 0, nullptr);
@@ -6895,7 +7205,8 @@ void AppInstance_RequestPackageIcon_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppInstance_RequestPackageIcon_Name, kFlags, 0, 0, nullptr);
@@ -7025,7 +7336,8 @@ void AppInstance_GetPackageIcon_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppInstance_GetPackageIcon_Name, kFlags, 0, 0, nullptr);
@@ -7153,7 +7465,8 @@ void AppInstance_StartPaiFlow_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppInstance_StartPaiFlow_Name, kFlags, 0, 0, nullptr);
@@ -7272,7 +7585,8 @@ void AppInstance_GetAndroidId_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppInstance_GetAndroidId_Name, kFlags, 0, 0, nullptr);
@@ -7390,7 +7704,8 @@ void AppInstance_GetAppShortcutGlobalQueryItems_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppInstance_GetAppShortcutGlobalQueryItems_Name, kFlags, 0, 0, nullptr);
@@ -7520,7 +7835,8 @@ void AppInstance_GetAppShortcutItems_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppInstance_GetAppShortcutItems_Name, kFlags, 0, 0, nullptr);
@@ -7657,7 +7973,8 @@ void AppInstance_GetRecentAndSuggestedAppsFromPlayStore_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppInstance_GetRecentAndSuggestedAppsFromPlayStore_Name, kFlags, 0, 0, nullptr);
@@ -7796,7 +8113,8 @@ void AppInstance_RequestAssistStructure_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppInstance_RequestAssistStructure_Name, kFlags, 0, 0, nullptr);
@@ -7927,7 +8245,8 @@ void AppInstance_IsInstallable_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppInstance_IsInstallable_Name, kFlags, 0, 0, nullptr);
@@ -8045,7 +8364,8 @@ void AppInstance_GetAppCategory_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAppInstance_GetAppCategory_Name, kFlags, 0, 0, nullptr);
@@ -8556,6 +8876,36 @@ std::move(p_package_name));
     }
     case internal::kAppInstance_GetAppCategory_Name: {
       break;
+    }
+    case internal::kAppInstance_SetAppLocale_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::AppInstance_SetAppLocale_Params_Data* params =
+          reinterpret_cast<internal::AppInstance_SetAppLocale_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      std::string p_package_name{};
+      std::string p_locale_tag{};
+      AppInstance_SetAppLocale_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadPackageName(&p_package_name))
+        success = false;
+      if (success && !input_data_view.ReadLocaleTag(&p_locale_tag))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            AppInstance::Name_, 43, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->SetAppLocale(
+std::move(p_package_name), 
+std::move(p_locale_tag));
+      return true;
     }
   }
   return false;
@@ -9088,84 +9438,89 @@ std::move(p_package_name), std::move(callback));
 std::move(p_package_name), std::move(callback));
       return true;
     }
+    case internal::kAppInstance_SetAppLocale_Name: {
+      break;
+    }
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kAppInstanceValidationInfo[] = {
     {nullptr, nullptr},  // nonexistent
     {nullptr, nullptr},  // nonexistent
     {nullptr, nullptr},  // nonexistent
     {nullptr, nullptr},  // nonexistent
     {nullptr, nullptr},  // nonexistent
-    {&internal::AppInstance_UninstallPackage_Params_Data::Validate,
+    { &internal::AppInstance_UninstallPackage_Params_Data::Validate,
      nullptr /* no response */},
     {nullptr, nullptr},  // nonexistent
-    {&internal::AppInstance_SetTaskActive_Params_Data::Validate,
+    { &internal::AppInstance_SetTaskActive_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AppInstance_CloseTask_Params_Data::Validate,
+    { &internal::AppInstance_CloseTask_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AppInstance_ShowPackageInfoDeprecated_Params_Data::Validate,
+    { &internal::AppInstance_ShowPackageInfoDeprecated_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AppInstance_SetNotificationsEnabled_Params_Data::Validate,
+    { &internal::AppInstance_SetNotificationsEnabled_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AppInstance_InstallPackage_Params_Data::Validate,
+    { &internal::AppInstance_InstallPackage_Params_Data::Validate,
      nullptr /* no response */},
     {nullptr, nullptr},  // nonexistent
     {nullptr, nullptr},  // nonexistent
-    {&internal::AppInstance_RemoveCachedIcon_Params_Data::Validate,
+    { &internal::AppInstance_RemoveCachedIcon_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AppInstance_ShowPackageInfoOnPageDeprecated_Params_Data::Validate,
+    { &internal::AppInstance_ShowPackageInfoOnPageDeprecated_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AppInstance_GetRecentAndSuggestedAppsFromPlayStore_Params_Data::Validate,
+    { &internal::AppInstance_GetRecentAndSuggestedAppsFromPlayStore_Params_Data::Validate,
      &internal::AppInstance_GetRecentAndSuggestedAppsFromPlayStore_ResponseParams_Data::Validate},
     {nullptr, nullptr},  // nonexistent
     {nullptr, nullptr},  // nonexistent
     {nullptr, nullptr},  // nonexistent
-    {&internal::AppInstance_ShowPackageInfoOnPage_Params_Data::Validate,
+    { &internal::AppInstance_ShowPackageInfoOnPage_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AppInstance_Init_Params_Data::Validate,
+    { &internal::AppInstance_Init_Params_Data::Validate,
      &internal::AppInstance_Init_ResponseParams_Data::Validate},
     {nullptr, nullptr},  // nonexistent
-    {&internal::AppInstance_GetAppShortcutItems_Params_Data::Validate,
+    { &internal::AppInstance_GetAppShortcutItems_Params_Data::Validate,
      &internal::AppInstance_GetAppShortcutItems_ResponseParams_Data::Validate},
-    {&internal::AppInstance_LaunchAppShortcutItem_Params_Data::Validate,
+    { &internal::AppInstance_LaunchAppShortcutItem_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AppInstance_StartFastAppReinstallFlow_Params_Data::Validate,
+    { &internal::AppInstance_StartFastAppReinstallFlow_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AppInstance_GetAppShortcutGlobalQueryItems_Params_Data::Validate,
+    { &internal::AppInstance_GetAppShortcutGlobalQueryItems_Params_Data::Validate,
      &internal::AppInstance_GetAppShortcutGlobalQueryItems_ResponseParams_Data::Validate},
-    {&internal::AppInstance_RequestAppIcon_Params_Data::Validate,
+    { &internal::AppInstance_RequestAppIcon_Params_Data::Validate,
      &internal::AppInstance_RequestAppIcon_ResponseParams_Data::Validate},
-    {&internal::AppInstance_RequestShortcutIcon_Params_Data::Validate,
+    { &internal::AppInstance_RequestShortcutIcon_Params_Data::Validate,
      &internal::AppInstance_RequestShortcutIcon_ResponseParams_Data::Validate},
-    {&internal::AppInstance_RequestAssistStructure_Params_Data::Validate,
+    { &internal::AppInstance_RequestAssistStructure_Params_Data::Validate,
      &internal::AppInstance_RequestAssistStructure_ResponseParams_Data::Validate},
-    {&internal::AppInstance_RequestPackageIcon_Params_Data::Validate,
+    { &internal::AppInstance_RequestPackageIcon_Params_Data::Validate,
      &internal::AppInstance_RequestPackageIcon_ResponseParams_Data::Validate},
     {nullptr, nullptr},  // nonexistent
-    {&internal::AppInstance_StartPaiFlow_Params_Data::Validate,
+    { &internal::AppInstance_StartPaiFlow_Params_Data::Validate,
      &internal::AppInstance_StartPaiFlow_ResponseParams_Data::Validate},
-    {&internal::AppInstance_GetAndroidId_Params_Data::Validate,
+    { &internal::AppInstance_GetAndroidId_Params_Data::Validate,
      &internal::AppInstance_GetAndroidId_ResponseParams_Data::Validate},
-    {&internal::AppInstance_IsInstallable_Params_Data::Validate,
+    { &internal::AppInstance_IsInstallable_Params_Data::Validate,
      &internal::AppInstance_IsInstallable_ResponseParams_Data::Validate},
-    {&internal::AppInstance_GetAppIcon_Params_Data::Validate,
+    { &internal::AppInstance_GetAppIcon_Params_Data::Validate,
      &internal::AppInstance_GetAppIcon_ResponseParams_Data::Validate},
-    {&internal::AppInstance_GetAppShortcutIcon_Params_Data::Validate,
+    { &internal::AppInstance_GetAppShortcutIcon_Params_Data::Validate,
      &internal::AppInstance_GetAppShortcutIcon_ResponseParams_Data::Validate},
-    {&internal::AppInstance_GetPackageIcon_Params_Data::Validate,
+    { &internal::AppInstance_GetPackageIcon_Params_Data::Validate,
      &internal::AppInstance_GetPackageIcon_ResponseParams_Data::Validate},
-    {&internal::AppInstance_LaunchAppWithWindowInfo_Params_Data::Validate,
+    { &internal::AppInstance_LaunchAppWithWindowInfo_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AppInstance_LaunchIntentWithWindowInfo_Params_Data::Validate,
+    { &internal::AppInstance_LaunchIntentWithWindowInfo_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AppInstance_UpdateWindowInfo_Params_Data::Validate,
+    { &internal::AppInstance_UpdateWindowInfo_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AppInstance_GetAppCategory_Params_Data::Validate,
+    { &internal::AppInstance_GetAppCategory_Params_Data::Validate,
      &internal::AppInstance_GetAppCategory_ResponseParams_Data::Validate},
-    {&internal::AppInstance_UpdateAppDetails_Params_Data::Validate,
+    { &internal::AppInstance_UpdateAppDetails_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::AppInstance_SetAppLocale_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -9197,6 +9552,8 @@ bool StructTraits<::arc::mojom::InstallationResult::DataView, ::arc::mojom::Inst
         success = false;
       if (success)
         result->success = input.success();
+      if (success)
+        result->is_launchable_app = input.is_launchable_app();
   *output = std::move(result);
   return success;
 }
@@ -9347,6 +9704,8 @@ bool StructTraits<::arc::mojom::ArcPackageInfo::DataView, ::arc::mojom::ArcPacka
         success = false;
       if (success && !input.ReadLocaleInfo(&result->locale_info))
         success = false;
+      if (success)
+        result->game_controls_opt_out = input.game_controls_opt_out();
   *output = std::move(result);
   return success;
 }
@@ -9502,7 +9861,7 @@ void AppHostInterceptorForTesting::OnPackageModified(ArcPackageInfoPtr arcPackag
 void AppHostInterceptorForTesting::OnPackageRemoved(const std::string& package_name) {
   GetForwardingInterface()->OnPackageRemoved(std::move(package_name));
 }
-void AppHostInterceptorForTesting::OnTaskCreated(int32_t task_id, const std::string& package_name, const std::string& activity, const absl::optional<std::string>& name, const absl::optional<std::string>& intent, int32_t session_id) {
+void AppHostInterceptorForTesting::OnTaskCreated(int32_t task_id, const std::string& package_name, const std::string& activity, const std::optional<std::string>& name, const std::optional<std::string>& intent, int32_t session_id) {
   GetForwardingInterface()->OnTaskCreated(std::move(task_id), std::move(package_name), std::move(activity), std::move(name), std::move(intent), std::move(session_id));
 }
 void AppHostInterceptorForTesting::OnTaskDescriptionUpdated(int32_t task_id, const std::string& label, const std::vector<uint8_t>& icon_png_data) {
@@ -9523,7 +9882,7 @@ void AppHostInterceptorForTesting::OnNotificationsEnabledChanged(const std::stri
 void AppHostInterceptorForTesting::OnInstallShortcut(ShortcutInfoPtr shortcut) {
   GetForwardingInterface()->OnInstallShortcut(std::move(shortcut));
 }
-void AppHostInterceptorForTesting::OnInstallationStarted(const absl::optional<std::string>& package_name) {
+void AppHostInterceptorForTesting::OnInstallationStarted(const std::optional<std::string>& package_name) {
   GetForwardingInterface()->OnInstallationStarted(std::move(package_name));
 }
 void AppHostInterceptorForTesting::OnInstallationFinished(InstallationResultPtr result) {
@@ -9635,6 +9994,9 @@ void AppInstanceInterceptorForTesting::IsInstallable(const std::string& package_
 }
 void AppInstanceInterceptorForTesting::GetAppCategory(const std::string& package_name, GetAppCategoryCallback callback) {
   GetForwardingInterface()->GetAppCategory(std::move(package_name), std::move(callback));
+}
+void AppInstanceInterceptorForTesting::SetAppLocale(const std::string& package_name, const std::string& locale_tag) {
+  GetForwardingInterface()->SetAppLocale(std::move(package_name), std::move(locale_tag));
 }
 AppInstanceAsyncWaiter::AppInstanceAsyncWaiter(
     AppInstance* proxy) : proxy_(proxy) {}

@@ -59,6 +59,24 @@ has_clear_value_ = true;
 DCHECK(member_clear_value_);
 }
 
+bool hasDepthSlice() const {
+  return has_depth_slice_;
+}
+uint32_t depthSlice() const {
+  DCHECK(hasDepthSlice());
+return member_depth_slice_;
+}
+uint32_t getDepthSliceOr(uint32_t fallback_value) const {
+  if (!hasDepthSlice()) {
+  return fallback_value;
+}
+return member_depth_slice_;
+}
+void setDepthSlice(uint32_t value) {
+  member_depth_slice_ = value;
+has_depth_slice_ = true;
+}
+
 bool hasLoadOp() const {
   return true;
 }
@@ -137,9 +155,11 @@ void FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dict
 static const base::span<const v8::Eternal<v8::Name>> GetV8OwnMemberNames(v8::Isolate* isolate);
 
 bool has_clear_value_ = false;
+bool has_depth_slice_ = false;
 bool has_resolve_target_ = false;
 
 Member<V8UnionDoubleSequenceOrGPUColorDict> member_clear_value_;
+uint32_t member_depth_slice_;
 V8GPULoadOp member_load_op_{static_cast<V8GPULoadOp::Enum>(0)};
 Member<GPUTextureView> member_resolve_target_;
 V8GPUStoreOp member_store_op_{static_cast<V8GPUStoreOp::Enum>(0)};

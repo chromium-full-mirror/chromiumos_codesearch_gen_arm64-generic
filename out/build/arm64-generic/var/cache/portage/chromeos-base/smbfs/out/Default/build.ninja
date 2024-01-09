@@ -1,7 +1,7 @@
 ninja_required_version = 1.7.2
 
 rule gn
-  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/smbfs-9999/work/smbfs-9999/platform2 -q --regeneration gen .
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/smbfs-0.0.1-r547/work/smbfs-0.0.1/platform2 -q --regeneration gen .
   pool = console
   description = Regenerating ninja files
 
@@ -38,7 +38,6 @@ build smbfs$:mojo_bindings_gen_mojo_templates_dir: phony obj/smbfs/mojo_bindings
 build smbfs$:mojo_bindings_gen_parse: phony obj/smbfs/mojo_bindings_gen_parse.stamp
 build smbfs$:mojo_bindings_lib: phony obj/smbfs/mojo_bindings_lib.stamp
 build smbfs$:smbfs: phony ./smbfs
-build smbfs$:smbfs_test: phony ./smbfs_test
 
 build all: phony $
     obj/common-mk/gn_root/root.stamp $
@@ -51,7 +50,6 @@ build all: phony $
     obj/smbfs/mojo_bindings_gen_mojo_templates_dir.stamp $
     obj/smbfs/mojo_bindings_gen_parse.stamp $
     obj/smbfs/mojo_bindings_lib.stamp $
-    ./smbfs $
-    ./smbfs_test
+    ./smbfs
 
 default all

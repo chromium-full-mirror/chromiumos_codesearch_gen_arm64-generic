@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -134,8 +135,8 @@ struct ManagedBoolean {
   ~ManagedBoolean();
   ManagedBoolean(const ManagedBoolean&) = delete;
   ManagedBoolean& operator=(const ManagedBoolean&) = delete;
-  ManagedBoolean(ManagedBoolean&& rhs);
-  ManagedBoolean& operator=(ManagedBoolean&& rhs);
+  ManagedBoolean(ManagedBoolean&& rhs) noexcept;
+  ManagedBoolean& operator=(ManagedBoolean&& rhs) noexcept;
 
   // Populates a ManagedBoolean object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -148,35 +149,32 @@ struct ManagedBoolean {
   // Creates a deep copy of ManagedBoolean.
   ManagedBoolean Clone() const;
 
-  // Creates a ManagedBoolean object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ManagedBoolean> FromValueDeprecated(const base::Value& value);
-
   // Creates a ManagedBoolean object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<ManagedBoolean> FromValue(const base::Value::Dict& value);
+  static std::optional<ManagedBoolean> FromValue(const base::Value::Dict& value);
 
   // Creates a ManagedBoolean object from a base::Value, or nullopt on failure.
-  static absl::optional<ManagedBoolean> FromValue(const base::Value& value);
+  static std::optional<ManagedBoolean> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisManagedBoolean object.
   base::Value::Dict ToValue() const;
 
-  absl::optional<bool> active;
+  std::optional<bool> active;
 
-  absl::optional<std::string> effective;
+  std::optional<std::string> effective;
 
-  absl::optional<bool> user_policy;
+  std::optional<bool> user_policy;
 
-  absl::optional<bool> device_policy;
+  std::optional<bool> device_policy;
 
-  absl::optional<bool> user_setting;
+  std::optional<bool> user_setting;
 
-  absl::optional<bool> shared_setting;
+  std::optional<bool> shared_setting;
 
-  absl::optional<bool> user_editable;
+  std::optional<bool> user_editable;
 
-  absl::optional<bool> device_editable;
+  std::optional<bool> device_editable;
 
 };
 
@@ -185,8 +183,8 @@ struct ManagedLong {
   ~ManagedLong();
   ManagedLong(const ManagedLong&) = delete;
   ManagedLong& operator=(const ManagedLong&) = delete;
-  ManagedLong(ManagedLong&& rhs);
-  ManagedLong& operator=(ManagedLong&& rhs);
+  ManagedLong(ManagedLong&& rhs) noexcept;
+  ManagedLong& operator=(ManagedLong&& rhs) noexcept;
 
   // Populates a ManagedLong object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -199,35 +197,32 @@ struct ManagedLong {
   // Creates a deep copy of ManagedLong.
   ManagedLong Clone() const;
 
-  // Creates a ManagedLong object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ManagedLong> FromValueDeprecated(const base::Value& value);
-
   // Creates a ManagedLong object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<ManagedLong> FromValue(const base::Value::Dict& value);
+  static std::optional<ManagedLong> FromValue(const base::Value::Dict& value);
 
   // Creates a ManagedLong object from a base::Value, or nullopt on failure.
-  static absl::optional<ManagedLong> FromValue(const base::Value& value);
+  static std::optional<ManagedLong> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisManagedLong object.
   base::Value::Dict ToValue() const;
 
-  absl::optional<int> active;
+  std::optional<int> active;
 
-  absl::optional<std::string> effective;
+  std::optional<std::string> effective;
 
-  absl::optional<int> user_policy;
+  std::optional<int> user_policy;
 
-  absl::optional<int> device_policy;
+  std::optional<int> device_policy;
 
-  absl::optional<int> user_setting;
+  std::optional<int> user_setting;
 
-  absl::optional<int> shared_setting;
+  std::optional<int> shared_setting;
 
-  absl::optional<bool> user_editable;
+  std::optional<bool> user_editable;
 
-  absl::optional<bool> device_editable;
+  std::optional<bool> device_editable;
 
 };
 
@@ -236,8 +231,8 @@ struct ManagedDOMString {
   ~ManagedDOMString();
   ManagedDOMString(const ManagedDOMString&) = delete;
   ManagedDOMString& operator=(const ManagedDOMString&) = delete;
-  ManagedDOMString(ManagedDOMString&& rhs);
-  ManagedDOMString& operator=(ManagedDOMString&& rhs);
+  ManagedDOMString(ManagedDOMString&& rhs) noexcept;
+  ManagedDOMString& operator=(ManagedDOMString&& rhs) noexcept;
 
   // Populates a ManagedDOMString object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -250,36 +245,33 @@ struct ManagedDOMString {
   // Creates a deep copy of ManagedDOMString.
   ManagedDOMString Clone() const;
 
-  // Creates a ManagedDOMString object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ManagedDOMString> FromValueDeprecated(const base::Value& value);
-
   // Creates a ManagedDOMString object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<ManagedDOMString> FromValue(const base::Value::Dict& value);
+  static std::optional<ManagedDOMString> FromValue(const base::Value::Dict& value);
 
   // Creates a ManagedDOMString object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<ManagedDOMString> FromValue(const base::Value& value);
+  static std::optional<ManagedDOMString> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisManagedDOMString object.
   base::Value::Dict ToValue() const;
 
-  absl::optional<std::string> active;
+  std::optional<std::string> active;
 
-  absl::optional<std::string> effective;
+  std::optional<std::string> effective;
 
-  absl::optional<std::string> user_policy;
+  std::optional<std::string> user_policy;
 
-  absl::optional<std::string> device_policy;
+  std::optional<std::string> device_policy;
 
-  absl::optional<std::string> user_setting;
+  std::optional<std::string> user_setting;
 
-  absl::optional<std::string> shared_setting;
+  std::optional<std::string> shared_setting;
 
-  absl::optional<bool> user_editable;
+  std::optional<bool> user_editable;
 
-  absl::optional<bool> device_editable;
+  std::optional<bool> device_editable;
 
 };
 
@@ -288,8 +280,8 @@ struct ManagedDOMStringList {
   ~ManagedDOMStringList();
   ManagedDOMStringList(const ManagedDOMStringList&) = delete;
   ManagedDOMStringList& operator=(const ManagedDOMStringList&) = delete;
-  ManagedDOMStringList(ManagedDOMStringList&& rhs);
-  ManagedDOMStringList& operator=(ManagedDOMStringList&& rhs);
+  ManagedDOMStringList(ManagedDOMStringList&& rhs) noexcept;
+  ManagedDOMStringList& operator=(ManagedDOMStringList&& rhs) noexcept;
 
   // Populates a ManagedDOMStringList object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -302,37 +294,33 @@ struct ManagedDOMStringList {
   // Creates a deep copy of ManagedDOMStringList.
   ManagedDOMStringList Clone() const;
 
-  // Creates a ManagedDOMStringList object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<ManagedDOMStringList> FromValueDeprecated(const base::Value& value);
-
   // Creates a ManagedDOMStringList object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<ManagedDOMStringList> FromValue(const base::Value::Dict& value);
+  static std::optional<ManagedDOMStringList> FromValue(const base::Value::Dict& value);
 
   // Creates a ManagedDOMStringList object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<ManagedDOMStringList> FromValue(const base::Value& value);
+  static std::optional<ManagedDOMStringList> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisManagedDOMStringList object.
   base::Value::Dict ToValue() const;
 
-  absl::optional<std::vector<std::string>> active;
+  std::optional<std::vector<std::string>> active;
 
-  absl::optional<std::string> effective;
+  std::optional<std::string> effective;
 
-  absl::optional<std::vector<std::string>> user_policy;
+  std::optional<std::vector<std::string>> user_policy;
 
-  absl::optional<std::vector<std::string>> device_policy;
+  std::optional<std::vector<std::string>> device_policy;
 
-  absl::optional<std::vector<std::string>> user_setting;
+  std::optional<std::vector<std::string>> user_setting;
 
-  absl::optional<std::vector<std::string>> shared_setting;
+  std::optional<std::vector<std::string>> shared_setting;
 
-  absl::optional<bool> user_editable;
+  std::optional<bool> user_editable;
 
-  absl::optional<bool> device_editable;
+  std::optional<bool> device_editable;
 
 };
 
@@ -341,8 +329,8 @@ struct ManagedIPConfigType {
   ~ManagedIPConfigType();
   ManagedIPConfigType(const ManagedIPConfigType&) = delete;
   ManagedIPConfigType& operator=(const ManagedIPConfigType&) = delete;
-  ManagedIPConfigType(ManagedIPConfigType&& rhs);
-  ManagedIPConfigType& operator=(ManagedIPConfigType&& rhs);
+  ManagedIPConfigType(ManagedIPConfigType&& rhs) noexcept;
+  ManagedIPConfigType& operator=(ManagedIPConfigType&& rhs) noexcept;
 
   // Populates a ManagedIPConfigType object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -355,17 +343,13 @@ struct ManagedIPConfigType {
   // Creates a deep copy of ManagedIPConfigType.
   ManagedIPConfigType Clone() const;
 
-  // Creates a ManagedIPConfigType object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<ManagedIPConfigType> FromValueDeprecated(const base::Value& value);
-
   // Creates a ManagedIPConfigType object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<ManagedIPConfigType> FromValue(const base::Value::Dict& value);
+  static std::optional<ManagedIPConfigType> FromValue(const base::Value::Dict& value);
 
   // Creates a ManagedIPConfigType object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<ManagedIPConfigType> FromValue(const base::Value& value);
+  static std::optional<ManagedIPConfigType> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisManagedIPConfigType object.
@@ -373,7 +357,7 @@ struct ManagedIPConfigType {
 
   IPConfigType active;
 
-  absl::optional<std::string> effective;
+  std::optional<std::string> effective;
 
   IPConfigType user_policy;
 
@@ -383,9 +367,9 @@ struct ManagedIPConfigType {
 
   IPConfigType shared_setting;
 
-  absl::optional<bool> user_editable;
+  std::optional<bool> user_editable;
 
-  absl::optional<bool> device_editable;
+  std::optional<bool> device_editable;
 
 };
 
@@ -394,8 +378,8 @@ struct ManagedProxySettingsType {
   ~ManagedProxySettingsType();
   ManagedProxySettingsType(const ManagedProxySettingsType&) = delete;
   ManagedProxySettingsType& operator=(const ManagedProxySettingsType&) = delete;
-  ManagedProxySettingsType(ManagedProxySettingsType&& rhs);
-  ManagedProxySettingsType& operator=(ManagedProxySettingsType&& rhs);
+  ManagedProxySettingsType(ManagedProxySettingsType&& rhs) noexcept;
+  ManagedProxySettingsType& operator=(ManagedProxySettingsType&& rhs) noexcept;
 
   // Populates a ManagedProxySettingsType object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -408,17 +392,13 @@ struct ManagedProxySettingsType {
   // Creates a deep copy of ManagedProxySettingsType.
   ManagedProxySettingsType Clone() const;
 
-  // Creates a ManagedProxySettingsType object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<ManagedProxySettingsType> FromValueDeprecated(const base::Value& value);
-
   // Creates a ManagedProxySettingsType object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<ManagedProxySettingsType> FromValue(const base::Value::Dict& value);
+  static std::optional<ManagedProxySettingsType> FromValue(const base::Value::Dict& value);
 
   // Creates a ManagedProxySettingsType object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<ManagedProxySettingsType> FromValue(const base::Value& value);
+  static std::optional<ManagedProxySettingsType> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisManagedProxySettingsType object.
@@ -426,7 +406,7 @@ struct ManagedProxySettingsType {
 
   ProxySettingsType active;
 
-  absl::optional<std::string> effective;
+  std::optional<std::string> effective;
 
   ProxySettingsType user_policy;
 
@@ -436,9 +416,9 @@ struct ManagedProxySettingsType {
 
   ProxySettingsType shared_setting;
 
-  absl::optional<bool> user_editable;
+  std::optional<bool> user_editable;
 
-  absl::optional<bool> device_editable;
+  std::optional<bool> device_editable;
 
 };
 
@@ -447,8 +427,8 @@ struct APNProperties {
   ~APNProperties();
   APNProperties(const APNProperties&) = delete;
   APNProperties& operator=(const APNProperties&) = delete;
-  APNProperties(APNProperties&& rhs);
-  APNProperties& operator=(APNProperties&& rhs);
+  APNProperties(APNProperties&& rhs) noexcept;
+  APNProperties& operator=(APNProperties&& rhs) noexcept;
 
   // Populates a APNProperties object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -461,15 +441,12 @@ struct APNProperties {
   // Creates a deep copy of APNProperties.
   APNProperties Clone() const;
 
-  // Creates a APNProperties object from a base::Value, or NULL on failure.
-  static std::unique_ptr<APNProperties> FromValueDeprecated(const base::Value& value);
-
   // Creates a APNProperties object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<APNProperties> FromValue(const base::Value::Dict& value);
+  static std::optional<APNProperties> FromValue(const base::Value::Dict& value);
 
   // Creates a APNProperties object from a base::Value, or nullopt on failure.
-  static absl::optional<APNProperties> FromValue(const base::Value& value);
+  static std::optional<APNProperties> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisAPNProperties object.
@@ -477,17 +454,17 @@ struct APNProperties {
 
   std::string access_point_name;
 
-  absl::optional<std::string> authentication;
+  std::optional<std::string> authentication;
 
-  absl::optional<std::string> language;
+  std::optional<std::string> language;
 
-  absl::optional<std::string> localized_name;
+  std::optional<std::string> localized_name;
 
-  absl::optional<std::string> name;
+  std::optional<std::string> name;
 
-  absl::optional<std::string> password;
+  std::optional<std::string> password;
 
-  absl::optional<std::string> username;
+  std::optional<std::string> username;
 
 };
 
@@ -496,8 +473,8 @@ struct ManagedAPNProperties {
   ~ManagedAPNProperties();
   ManagedAPNProperties(const ManagedAPNProperties&) = delete;
   ManagedAPNProperties& operator=(const ManagedAPNProperties&) = delete;
-  ManagedAPNProperties(ManagedAPNProperties&& rhs);
-  ManagedAPNProperties& operator=(ManagedAPNProperties&& rhs);
+  ManagedAPNProperties(ManagedAPNProperties&& rhs) noexcept;
+  ManagedAPNProperties& operator=(ManagedAPNProperties&& rhs) noexcept;
 
   // Populates a ManagedAPNProperties object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -510,17 +487,13 @@ struct ManagedAPNProperties {
   // Creates a deep copy of ManagedAPNProperties.
   ManagedAPNProperties Clone() const;
 
-  // Creates a ManagedAPNProperties object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<ManagedAPNProperties> FromValueDeprecated(const base::Value& value);
-
   // Creates a ManagedAPNProperties object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<ManagedAPNProperties> FromValue(const base::Value::Dict& value);
+  static std::optional<ManagedAPNProperties> FromValue(const base::Value::Dict& value);
 
   // Creates a ManagedAPNProperties object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<ManagedAPNProperties> FromValue(const base::Value& value);
+  static std::optional<ManagedAPNProperties> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisManagedAPNProperties object.
@@ -528,17 +501,17 @@ struct ManagedAPNProperties {
 
   ManagedDOMString access_point_name;
 
-  absl::optional<ManagedDOMString> authentication;
+  std::optional<ManagedDOMString> authentication;
 
-  absl::optional<ManagedDOMString> language;
+  std::optional<ManagedDOMString> language;
 
-  absl::optional<ManagedDOMString> localized_name;
+  std::optional<ManagedDOMString> localized_name;
 
-  absl::optional<ManagedDOMString> name;
+  std::optional<ManagedDOMString> name;
 
-  absl::optional<ManagedDOMString> password;
+  std::optional<ManagedDOMString> password;
 
-  absl::optional<ManagedDOMString> username;
+  std::optional<ManagedDOMString> username;
 
 };
 
@@ -547,8 +520,8 @@ struct ManagedAPNList {
   ~ManagedAPNList();
   ManagedAPNList(const ManagedAPNList&) = delete;
   ManagedAPNList& operator=(const ManagedAPNList&) = delete;
-  ManagedAPNList(ManagedAPNList&& rhs);
-  ManagedAPNList& operator=(ManagedAPNList&& rhs);
+  ManagedAPNList(ManagedAPNList&& rhs) noexcept;
+  ManagedAPNList& operator=(ManagedAPNList&& rhs) noexcept;
 
   // Populates a ManagedAPNList object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -561,35 +534,32 @@ struct ManagedAPNList {
   // Creates a deep copy of ManagedAPNList.
   ManagedAPNList Clone() const;
 
-  // Creates a ManagedAPNList object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ManagedAPNList> FromValueDeprecated(const base::Value& value);
-
   // Creates a ManagedAPNList object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<ManagedAPNList> FromValue(const base::Value::Dict& value);
+  static std::optional<ManagedAPNList> FromValue(const base::Value::Dict& value);
 
   // Creates a ManagedAPNList object from a base::Value, or nullopt on failure.
-  static absl::optional<ManagedAPNList> FromValue(const base::Value& value);
+  static std::optional<ManagedAPNList> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisManagedAPNList object.
   base::Value::Dict ToValue() const;
 
-  absl::optional<std::vector<APNProperties>> active;
+  std::optional<std::vector<APNProperties>> active;
 
-  absl::optional<std::string> effective;
+  std::optional<std::string> effective;
 
-  absl::optional<std::vector<APNProperties>> user_policy;
+  std::optional<std::vector<APNProperties>> user_policy;
 
-  absl::optional<std::vector<APNProperties>> device_policy;
+  std::optional<std::vector<APNProperties>> device_policy;
 
-  absl::optional<std::vector<APNProperties>> user_setting;
+  std::optional<std::vector<APNProperties>> user_setting;
 
-  absl::optional<std::vector<APNProperties>> shared_setting;
+  std::optional<std::vector<APNProperties>> shared_setting;
 
-  absl::optional<bool> user_editable;
+  std::optional<bool> user_editable;
 
-  absl::optional<bool> device_editable;
+  std::optional<bool> device_editable;
 
 };
 
@@ -598,8 +568,8 @@ struct CellularProviderProperties {
   ~CellularProviderProperties();
   CellularProviderProperties(const CellularProviderProperties&) = delete;
   CellularProviderProperties& operator=(const CellularProviderProperties&) = delete;
-  CellularProviderProperties(CellularProviderProperties&& rhs);
-  CellularProviderProperties& operator=(CellularProviderProperties&& rhs);
+  CellularProviderProperties(CellularProviderProperties&& rhs) noexcept;
+  CellularProviderProperties& operator=(CellularProviderProperties&& rhs) noexcept;
 
   // Populates a CellularProviderProperties object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -612,17 +582,13 @@ struct CellularProviderProperties {
   // Creates a deep copy of CellularProviderProperties.
   CellularProviderProperties Clone() const;
 
-  // Creates a CellularProviderProperties object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<CellularProviderProperties> FromValueDeprecated(const base::Value& value);
-
   // Creates a CellularProviderProperties object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<CellularProviderProperties> FromValue(const base::Value::Dict& value);
+  static std::optional<CellularProviderProperties> FromValue(const base::Value::Dict& value);
 
   // Creates a CellularProviderProperties object from a base::Value, or nullopt
   // on failure.
-  static absl::optional<CellularProviderProperties> FromValue(const base::Value& value);
+  static std::optional<CellularProviderProperties> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisCellularProviderProperties object.
@@ -632,7 +598,7 @@ struct CellularProviderProperties {
 
   std::string code;
 
-  absl::optional<std::string> country;
+  std::optional<std::string> country;
 
 };
 
@@ -641,8 +607,8 @@ struct CellularSimState {
   ~CellularSimState();
   CellularSimState(const CellularSimState&) = delete;
   CellularSimState& operator=(const CellularSimState&) = delete;
-  CellularSimState(CellularSimState&& rhs);
-  CellularSimState& operator=(CellularSimState&& rhs);
+  CellularSimState(CellularSimState&& rhs) noexcept;
+  CellularSimState& operator=(CellularSimState&& rhs) noexcept;
 
   // Populates a CellularSimState object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -655,16 +621,13 @@ struct CellularSimState {
   // Creates a deep copy of CellularSimState.
   CellularSimState Clone() const;
 
-  // Creates a CellularSimState object from a base::Value, or NULL on failure.
-  static std::unique_ptr<CellularSimState> FromValueDeprecated(const base::Value& value);
-
   // Creates a CellularSimState object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<CellularSimState> FromValue(const base::Value::Dict& value);
+  static std::optional<CellularSimState> FromValue(const base::Value::Dict& value);
 
   // Creates a CellularSimState object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<CellularSimState> FromValue(const base::Value& value);
+  static std::optional<CellularSimState> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisCellularSimState object.
@@ -677,7 +640,7 @@ struct CellularSimState {
   std::string current_pin;
 
   // If provided, change the PIN to |newPin|. |requirePin| must be true.
-  absl::optional<std::string> new_pin;
+  std::optional<std::string> new_pin;
 
 };
 
@@ -686,8 +649,8 @@ struct IssuerSubjectPattern {
   ~IssuerSubjectPattern();
   IssuerSubjectPattern(const IssuerSubjectPattern&) = delete;
   IssuerSubjectPattern& operator=(const IssuerSubjectPattern&) = delete;
-  IssuerSubjectPattern(IssuerSubjectPattern&& rhs);
-  IssuerSubjectPattern& operator=(IssuerSubjectPattern&& rhs);
+  IssuerSubjectPattern(IssuerSubjectPattern&& rhs) noexcept;
+  IssuerSubjectPattern& operator=(IssuerSubjectPattern&& rhs) noexcept;
 
   // Populates a IssuerSubjectPattern object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -700,29 +663,25 @@ struct IssuerSubjectPattern {
   // Creates a deep copy of IssuerSubjectPattern.
   IssuerSubjectPattern Clone() const;
 
-  // Creates a IssuerSubjectPattern object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<IssuerSubjectPattern> FromValueDeprecated(const base::Value& value);
-
   // Creates a IssuerSubjectPattern object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<IssuerSubjectPattern> FromValue(const base::Value::Dict& value);
+  static std::optional<IssuerSubjectPattern> FromValue(const base::Value::Dict& value);
 
   // Creates a IssuerSubjectPattern object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<IssuerSubjectPattern> FromValue(const base::Value& value);
+  static std::optional<IssuerSubjectPattern> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisIssuerSubjectPattern object.
   base::Value::Dict ToValue() const;
 
-  absl::optional<std::string> common_name;
+  std::optional<std::string> common_name;
 
-  absl::optional<std::string> locality;
+  std::optional<std::string> locality;
 
-  absl::optional<std::string> organization;
+  std::optional<std::string> organization;
 
-  absl::optional<std::string> organizational_unit;
+  std::optional<std::string> organizational_unit;
 
 };
 
@@ -731,8 +690,8 @@ struct ManagedIssuerSubjectPattern {
   ~ManagedIssuerSubjectPattern();
   ManagedIssuerSubjectPattern(const ManagedIssuerSubjectPattern&) = delete;
   ManagedIssuerSubjectPattern& operator=(const ManagedIssuerSubjectPattern&) = delete;
-  ManagedIssuerSubjectPattern(ManagedIssuerSubjectPattern&& rhs);
-  ManagedIssuerSubjectPattern& operator=(ManagedIssuerSubjectPattern&& rhs);
+  ManagedIssuerSubjectPattern(ManagedIssuerSubjectPattern&& rhs) noexcept;
+  ManagedIssuerSubjectPattern& operator=(ManagedIssuerSubjectPattern&& rhs) noexcept;
 
   // Populates a ManagedIssuerSubjectPattern object from a base::Value&
   // instance. Returns whether |out| was successfully populated.
@@ -745,29 +704,25 @@ struct ManagedIssuerSubjectPattern {
   // Creates a deep copy of ManagedIssuerSubjectPattern.
   ManagedIssuerSubjectPattern Clone() const;
 
-  // Creates a ManagedIssuerSubjectPattern object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<ManagedIssuerSubjectPattern> FromValueDeprecated(const base::Value& value);
-
   // Creates a ManagedIssuerSubjectPattern object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<ManagedIssuerSubjectPattern> FromValue(const base::Value::Dict& value);
+  static std::optional<ManagedIssuerSubjectPattern> FromValue(const base::Value::Dict& value);
 
   // Creates a ManagedIssuerSubjectPattern object from a base::Value, or nullopt
   // on failure.
-  static absl::optional<ManagedIssuerSubjectPattern> FromValue(const base::Value& value);
+  static std::optional<ManagedIssuerSubjectPattern> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisManagedIssuerSubjectPattern object.
   base::Value::Dict ToValue() const;
 
-  absl::optional<ManagedDOMString> common_name;
+  std::optional<ManagedDOMString> common_name;
 
-  absl::optional<ManagedDOMString> locality;
+  std::optional<ManagedDOMString> locality;
 
-  absl::optional<ManagedDOMString> organization;
+  std::optional<ManagedDOMString> organization;
 
-  absl::optional<ManagedDOMString> organizational_unit;
+  std::optional<ManagedDOMString> organizational_unit;
 
 };
 
@@ -776,8 +731,8 @@ struct CertificatePattern {
   ~CertificatePattern();
   CertificatePattern(const CertificatePattern&) = delete;
   CertificatePattern& operator=(const CertificatePattern&) = delete;
-  CertificatePattern(CertificatePattern&& rhs);
-  CertificatePattern& operator=(CertificatePattern&& rhs);
+  CertificatePattern(CertificatePattern&& rhs) noexcept;
+  CertificatePattern& operator=(CertificatePattern&& rhs) noexcept;
 
   // Populates a CertificatePattern object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -790,30 +745,27 @@ struct CertificatePattern {
   // Creates a deep copy of CertificatePattern.
   CertificatePattern Clone() const;
 
-  // Creates a CertificatePattern object from a base::Value, or NULL on failure.
-  static std::unique_ptr<CertificatePattern> FromValueDeprecated(const base::Value& value);
-
   // Creates a CertificatePattern object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<CertificatePattern> FromValue(const base::Value::Dict& value);
+  static std::optional<CertificatePattern> FromValue(const base::Value::Dict& value);
 
   // Creates a CertificatePattern object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<CertificatePattern> FromValue(const base::Value& value);
+  static std::optional<CertificatePattern> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisCertificatePattern object.
   base::Value::Dict ToValue() const;
 
-  absl::optional<std::vector<std::string>> enrollment_uri;
+  std::optional<std::vector<std::string>> enrollment_uri;
 
-  absl::optional<IssuerSubjectPattern> issuer;
+  std::optional<IssuerSubjectPattern> issuer;
 
-  absl::optional<std::vector<std::string>> issuer_cape_ms;
+  std::optional<std::vector<std::string>> issuer_cape_ms;
 
-  absl::optional<std::vector<std::string>> issuer_ca_ref;
+  std::optional<std::vector<std::string>> issuer_ca_ref;
 
-  absl::optional<IssuerSubjectPattern> subject;
+  std::optional<IssuerSubjectPattern> subject;
 
 };
 
@@ -822,8 +774,8 @@ struct ManagedCertificatePattern {
   ~ManagedCertificatePattern();
   ManagedCertificatePattern(const ManagedCertificatePattern&) = delete;
   ManagedCertificatePattern& operator=(const ManagedCertificatePattern&) = delete;
-  ManagedCertificatePattern(ManagedCertificatePattern&& rhs);
-  ManagedCertificatePattern& operator=(ManagedCertificatePattern&& rhs);
+  ManagedCertificatePattern(ManagedCertificatePattern&& rhs) noexcept;
+  ManagedCertificatePattern& operator=(ManagedCertificatePattern&& rhs) noexcept;
 
   // Populates a ManagedCertificatePattern object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -836,29 +788,25 @@ struct ManagedCertificatePattern {
   // Creates a deep copy of ManagedCertificatePattern.
   ManagedCertificatePattern Clone() const;
 
-  // Creates a ManagedCertificatePattern object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<ManagedCertificatePattern> FromValueDeprecated(const base::Value& value);
-
   // Creates a ManagedCertificatePattern object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<ManagedCertificatePattern> FromValue(const base::Value::Dict& value);
+  static std::optional<ManagedCertificatePattern> FromValue(const base::Value::Dict& value);
 
   // Creates a ManagedCertificatePattern object from a base::Value, or nullopt
   // on failure.
-  static absl::optional<ManagedCertificatePattern> FromValue(const base::Value& value);
+  static std::optional<ManagedCertificatePattern> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisManagedCertificatePattern object.
   base::Value::Dict ToValue() const;
 
-  absl::optional<ManagedDOMStringList> enrollment_uri;
+  std::optional<ManagedDOMStringList> enrollment_uri;
 
-  absl::optional<ManagedIssuerSubjectPattern> issuer;
+  std::optional<ManagedIssuerSubjectPattern> issuer;
 
-  absl::optional<ManagedDOMStringList> issuer_ca_ref;
+  std::optional<ManagedDOMStringList> issuer_ca_ref;
 
-  absl::optional<ManagedIssuerSubjectPattern> subject;
+  std::optional<ManagedIssuerSubjectPattern> subject;
 
 };
 
@@ -867,8 +815,8 @@ struct EAPProperties {
   ~EAPProperties();
   EAPProperties(const EAPProperties&) = delete;
   EAPProperties& operator=(const EAPProperties&) = delete;
-  EAPProperties(EAPProperties&& rhs);
-  EAPProperties& operator=(EAPProperties&& rhs);
+  EAPProperties(EAPProperties&& rhs) noexcept;
+  EAPProperties& operator=(EAPProperties&& rhs) noexcept;
 
   // Populates a EAPProperties object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -881,55 +829,52 @@ struct EAPProperties {
   // Creates a deep copy of EAPProperties.
   EAPProperties Clone() const;
 
-  // Creates a EAPProperties object from a base::Value, or NULL on failure.
-  static std::unique_ptr<EAPProperties> FromValueDeprecated(const base::Value& value);
-
   // Creates a EAPProperties object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<EAPProperties> FromValue(const base::Value::Dict& value);
+  static std::optional<EAPProperties> FromValue(const base::Value::Dict& value);
 
   // Creates a EAPProperties object from a base::Value, or nullopt on failure.
-  static absl::optional<EAPProperties> FromValue(const base::Value& value);
+  static std::optional<EAPProperties> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisEAPProperties object.
   base::Value::Dict ToValue() const;
 
-  absl::optional<std::string> anonymous_identity;
+  std::optional<std::string> anonymous_identity;
 
-  absl::optional<CertificatePattern> client_cert_pattern;
+  std::optional<CertificatePattern> client_cert_pattern;
 
-  absl::optional<std::string> client_cert_pkcs11_id;
+  std::optional<std::string> client_cert_pkcs11_id;
 
-  absl::optional<std::string> client_cert_provisioning_profile_id;
+  std::optional<std::string> client_cert_provisioning_profile_id;
 
-  absl::optional<std::string> client_cert_ref;
+  std::optional<std::string> client_cert_ref;
 
-  absl::optional<std::string> client_cert_type;
+  std::optional<std::string> client_cert_type;
 
-  absl::optional<std::string> identity;
+  std::optional<std::string> identity;
 
-  absl::optional<std::string> inner;
+  std::optional<std::string> inner;
 
   // The outer EAP type. Required by ONC, but may not be provided when translating
   // from Shill.
-  absl::optional<std::string> outer;
+  std::optional<std::string> outer;
 
-  absl::optional<std::string> password;
+  std::optional<std::string> password;
 
-  absl::optional<bool> save_credentials;
+  std::optional<bool> save_credentials;
 
-  absl::optional<std::vector<std::string>> server_cape_ms;
+  std::optional<std::vector<std::string>> server_cape_ms;
 
-  absl::optional<std::vector<std::string>> server_ca_refs;
+  std::optional<std::vector<std::string>> server_ca_refs;
 
-  absl::optional<std::string> subject_match;
+  std::optional<std::string> subject_match;
 
-  absl::optional<std::string> tls_version_max;
+  std::optional<std::string> tls_version_max;
 
-  absl::optional<bool> use_proactive_key_caching;
+  std::optional<bool> use_proactive_key_caching;
 
-  absl::optional<bool> use_system_c_as;
+  std::optional<bool> use_system_c_as;
 
 };
 
@@ -938,8 +883,8 @@ struct ManagedEAPProperties {
   ~ManagedEAPProperties();
   ManagedEAPProperties(const ManagedEAPProperties&) = delete;
   ManagedEAPProperties& operator=(const ManagedEAPProperties&) = delete;
-  ManagedEAPProperties(ManagedEAPProperties&& rhs);
-  ManagedEAPProperties& operator=(ManagedEAPProperties&& rhs);
+  ManagedEAPProperties(ManagedEAPProperties&& rhs) noexcept;
+  ManagedEAPProperties& operator=(ManagedEAPProperties&& rhs) noexcept;
 
   // Populates a ManagedEAPProperties object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -952,57 +897,53 @@ struct ManagedEAPProperties {
   // Creates a deep copy of ManagedEAPProperties.
   ManagedEAPProperties Clone() const;
 
-  // Creates a ManagedEAPProperties object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<ManagedEAPProperties> FromValueDeprecated(const base::Value& value);
-
   // Creates a ManagedEAPProperties object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<ManagedEAPProperties> FromValue(const base::Value::Dict& value);
+  static std::optional<ManagedEAPProperties> FromValue(const base::Value::Dict& value);
 
   // Creates a ManagedEAPProperties object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<ManagedEAPProperties> FromValue(const base::Value& value);
+  static std::optional<ManagedEAPProperties> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisManagedEAPProperties object.
   base::Value::Dict ToValue() const;
 
-  absl::optional<ManagedDOMString> anonymous_identity;
+  std::optional<ManagedDOMString> anonymous_identity;
 
-  absl::optional<ManagedCertificatePattern> client_cert_pattern;
+  std::optional<ManagedCertificatePattern> client_cert_pattern;
 
-  absl::optional<ManagedDOMString> client_cert_pkcs11_id;
+  std::optional<ManagedDOMString> client_cert_pkcs11_id;
 
-  absl::optional<ManagedDOMString> client_cert_provisioning_profile_id;
+  std::optional<ManagedDOMString> client_cert_provisioning_profile_id;
 
-  absl::optional<ManagedDOMString> client_cert_ref;
+  std::optional<ManagedDOMString> client_cert_ref;
 
-  absl::optional<ManagedDOMString> client_cert_type;
+  std::optional<ManagedDOMString> client_cert_type;
 
-  absl::optional<ManagedDOMString> identity;
+  std::optional<ManagedDOMString> identity;
 
-  absl::optional<ManagedDOMString> inner;
+  std::optional<ManagedDOMString> inner;
 
   // The outer EAP type. Required by ONC, but may not be provided when translating
   // from Shill.
-  absl::optional<ManagedDOMString> outer;
+  std::optional<ManagedDOMString> outer;
 
-  absl::optional<ManagedDOMString> password;
+  std::optional<ManagedDOMString> password;
 
-  absl::optional<ManagedBoolean> save_credentials;
+  std::optional<ManagedBoolean> save_credentials;
 
-  absl::optional<ManagedDOMStringList> server_cape_ms;
+  std::optional<ManagedDOMStringList> server_cape_ms;
 
-  absl::optional<ManagedDOMStringList> server_ca_refs;
+  std::optional<ManagedDOMStringList> server_ca_refs;
 
-  absl::optional<ManagedDOMString> subject_match;
+  std::optional<ManagedDOMString> subject_match;
 
-  absl::optional<ManagedDOMString> tls_version_max;
+  std::optional<ManagedDOMString> tls_version_max;
 
-  absl::optional<ManagedBoolean> use_proactive_key_caching;
+  std::optional<ManagedBoolean> use_proactive_key_caching;
 
-  absl::optional<ManagedBoolean> use_system_c_as;
+  std::optional<ManagedBoolean> use_system_c_as;
 
 };
 
@@ -1011,8 +952,8 @@ struct FoundNetworkProperties {
   ~FoundNetworkProperties();
   FoundNetworkProperties(const FoundNetworkProperties&) = delete;
   FoundNetworkProperties& operator=(const FoundNetworkProperties&) = delete;
-  FoundNetworkProperties(FoundNetworkProperties&& rhs);
-  FoundNetworkProperties& operator=(FoundNetworkProperties&& rhs);
+  FoundNetworkProperties(FoundNetworkProperties&& rhs) noexcept;
+  FoundNetworkProperties& operator=(FoundNetworkProperties&& rhs) noexcept;
 
   // Populates a FoundNetworkProperties object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -1025,17 +966,13 @@ struct FoundNetworkProperties {
   // Creates a deep copy of FoundNetworkProperties.
   FoundNetworkProperties Clone() const;
 
-  // Creates a FoundNetworkProperties object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<FoundNetworkProperties> FromValueDeprecated(const base::Value& value);
-
   // Creates a FoundNetworkProperties object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<FoundNetworkProperties> FromValue(const base::Value::Dict& value);
+  static std::optional<FoundNetworkProperties> FromValue(const base::Value::Dict& value);
 
   // Creates a FoundNetworkProperties object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<FoundNetworkProperties> FromValue(const base::Value& value);
+  static std::optional<FoundNetworkProperties> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisFoundNetworkProperties object.
@@ -1047,9 +984,9 @@ struct FoundNetworkProperties {
 
   std::string technology;
 
-  absl::optional<std::string> short_name;
+  std::optional<std::string> short_name;
 
-  absl::optional<std::string> long_name;
+  std::optional<std::string> long_name;
 
 };
 
@@ -1058,8 +995,8 @@ struct IPConfigProperties {
   ~IPConfigProperties();
   IPConfigProperties(const IPConfigProperties&) = delete;
   IPConfigProperties& operator=(const IPConfigProperties&) = delete;
-  IPConfigProperties(IPConfigProperties&& rhs);
-  IPConfigProperties& operator=(IPConfigProperties&& rhs);
+  IPConfigProperties(IPConfigProperties&& rhs) noexcept;
+  IPConfigProperties& operator=(IPConfigProperties&& rhs) noexcept;
 
   // Populates a IPConfigProperties object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -1072,38 +1009,35 @@ struct IPConfigProperties {
   // Creates a deep copy of IPConfigProperties.
   IPConfigProperties Clone() const;
 
-  // Creates a IPConfigProperties object from a base::Value, or NULL on failure.
-  static std::unique_ptr<IPConfigProperties> FromValueDeprecated(const base::Value& value);
-
   // Creates a IPConfigProperties object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<IPConfigProperties> FromValue(const base::Value::Dict& value);
+  static std::optional<IPConfigProperties> FromValue(const base::Value::Dict& value);
 
   // Creates a IPConfigProperties object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<IPConfigProperties> FromValue(const base::Value& value);
+  static std::optional<IPConfigProperties> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisIPConfigProperties object.
   base::Value::Dict ToValue() const;
 
-  absl::optional<std::string> gateway;
+  std::optional<std::string> gateway;
 
-  absl::optional<std::string> ip_address;
+  std::optional<std::string> ip_address;
 
-  absl::optional<std::vector<std::string>> excluded_routes;
+  std::optional<std::vector<std::string>> excluded_routes;
 
-  absl::optional<std::vector<std::string>> included_routes;
+  std::optional<std::vector<std::string>> included_routes;
 
-  absl::optional<std::vector<std::string>> name_servers;
+  std::optional<std::vector<std::string>> name_servers;
 
-  absl::optional<std::vector<std::string>> search_domains;
+  std::optional<std::vector<std::string>> search_domains;
 
-  absl::optional<int> routing_prefix;
+  std::optional<int> routing_prefix;
 
-  absl::optional<std::string> type;
+  std::optional<std::string> type;
 
-  absl::optional<std::string> web_proxy_auto_discovery_url;
+  std::optional<std::string> web_proxy_auto_discovery_url;
 
 };
 
@@ -1112,8 +1046,8 @@ struct ManagedIPConfigProperties {
   ~ManagedIPConfigProperties();
   ManagedIPConfigProperties(const ManagedIPConfigProperties&) = delete;
   ManagedIPConfigProperties& operator=(const ManagedIPConfigProperties&) = delete;
-  ManagedIPConfigProperties(ManagedIPConfigProperties&& rhs);
-  ManagedIPConfigProperties& operator=(ManagedIPConfigProperties&& rhs);
+  ManagedIPConfigProperties(ManagedIPConfigProperties&& rhs) noexcept;
+  ManagedIPConfigProperties& operator=(ManagedIPConfigProperties&& rhs) noexcept;
 
   // Populates a ManagedIPConfigProperties object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -1126,33 +1060,29 @@ struct ManagedIPConfigProperties {
   // Creates a deep copy of ManagedIPConfigProperties.
   ManagedIPConfigProperties Clone() const;
 
-  // Creates a ManagedIPConfigProperties object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<ManagedIPConfigProperties> FromValueDeprecated(const base::Value& value);
-
   // Creates a ManagedIPConfigProperties object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<ManagedIPConfigProperties> FromValue(const base::Value::Dict& value);
+  static std::optional<ManagedIPConfigProperties> FromValue(const base::Value::Dict& value);
 
   // Creates a ManagedIPConfigProperties object from a base::Value, or nullopt
   // on failure.
-  static absl::optional<ManagedIPConfigProperties> FromValue(const base::Value& value);
+  static std::optional<ManagedIPConfigProperties> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisManagedIPConfigProperties object.
   base::Value::Dict ToValue() const;
 
-  absl::optional<ManagedDOMString> gateway;
+  std::optional<ManagedDOMString> gateway;
 
-  absl::optional<ManagedDOMString> ip_address;
+  std::optional<ManagedDOMString> ip_address;
 
-  absl::optional<ManagedDOMStringList> name_servers;
+  std::optional<ManagedDOMStringList> name_servers;
 
-  absl::optional<ManagedLong> routing_prefix;
+  std::optional<ManagedLong> routing_prefix;
 
-  absl::optional<ManagedDOMString> type;
+  std::optional<ManagedDOMString> type;
 
-  absl::optional<ManagedDOMString> web_proxy_auto_discovery_url;
+  std::optional<ManagedDOMString> web_proxy_auto_discovery_url;
 
 };
 
@@ -1161,8 +1091,8 @@ struct XAUTHProperties {
   ~XAUTHProperties();
   XAUTHProperties(const XAUTHProperties&) = delete;
   XAUTHProperties& operator=(const XAUTHProperties&) = delete;
-  XAUTHProperties(XAUTHProperties&& rhs);
-  XAUTHProperties& operator=(XAUTHProperties&& rhs);
+  XAUTHProperties(XAUTHProperties&& rhs) noexcept;
+  XAUTHProperties& operator=(XAUTHProperties&& rhs) noexcept;
 
   // Populates a XAUTHProperties object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -1175,25 +1105,22 @@ struct XAUTHProperties {
   // Creates a deep copy of XAUTHProperties.
   XAUTHProperties Clone() const;
 
-  // Creates a XAUTHProperties object from a base::Value, or NULL on failure.
-  static std::unique_ptr<XAUTHProperties> FromValueDeprecated(const base::Value& value);
-
   // Creates a XAUTHProperties object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<XAUTHProperties> FromValue(const base::Value::Dict& value);
+  static std::optional<XAUTHProperties> FromValue(const base::Value::Dict& value);
 
   // Creates a XAUTHProperties object from a base::Value, or nullopt on failure.
-  static absl::optional<XAUTHProperties> FromValue(const base::Value& value);
+  static std::optional<XAUTHProperties> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisXAUTHProperties object.
   base::Value::Dict ToValue() const;
 
-  absl::optional<std::string> password;
+  std::optional<std::string> password;
 
-  absl::optional<bool> save_credentials;
+  std::optional<bool> save_credentials;
 
-  absl::optional<std::string> username;
+  std::optional<std::string> username;
 
 };
 
@@ -1202,8 +1129,8 @@ struct ManagedXAUTHProperties {
   ~ManagedXAUTHProperties();
   ManagedXAUTHProperties(const ManagedXAUTHProperties&) = delete;
   ManagedXAUTHProperties& operator=(const ManagedXAUTHProperties&) = delete;
-  ManagedXAUTHProperties(ManagedXAUTHProperties&& rhs);
-  ManagedXAUTHProperties& operator=(ManagedXAUTHProperties&& rhs);
+  ManagedXAUTHProperties(ManagedXAUTHProperties&& rhs) noexcept;
+  ManagedXAUTHProperties& operator=(ManagedXAUTHProperties&& rhs) noexcept;
 
   // Populates a ManagedXAUTHProperties object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -1216,27 +1143,23 @@ struct ManagedXAUTHProperties {
   // Creates a deep copy of ManagedXAUTHProperties.
   ManagedXAUTHProperties Clone() const;
 
-  // Creates a ManagedXAUTHProperties object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<ManagedXAUTHProperties> FromValueDeprecated(const base::Value& value);
-
   // Creates a ManagedXAUTHProperties object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<ManagedXAUTHProperties> FromValue(const base::Value::Dict& value);
+  static std::optional<ManagedXAUTHProperties> FromValue(const base::Value::Dict& value);
 
   // Creates a ManagedXAUTHProperties object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<ManagedXAUTHProperties> FromValue(const base::Value& value);
+  static std::optional<ManagedXAUTHProperties> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisManagedXAUTHProperties object.
   base::Value::Dict ToValue() const;
 
-  absl::optional<ManagedDOMString> password;
+  std::optional<ManagedDOMString> password;
 
-  absl::optional<ManagedBoolean> save_credentials;
+  std::optional<ManagedBoolean> save_credentials;
 
-  absl::optional<ManagedDOMString> username;
+  std::optional<ManagedDOMString> username;
 
 };
 
@@ -1245,8 +1168,8 @@ struct IPSecProperties {
   ~IPSecProperties();
   IPSecProperties(const IPSecProperties&) = delete;
   IPSecProperties& operator=(const IPSecProperties&) = delete;
-  IPSecProperties(IPSecProperties&& rhs);
-  IPSecProperties& operator=(IPSecProperties&& rhs);
+  IPSecProperties(IPSecProperties&& rhs) noexcept;
+  IPSecProperties& operator=(IPSecProperties&& rhs) noexcept;
 
   // Populates a IPSecProperties object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -1259,15 +1182,12 @@ struct IPSecProperties {
   // Creates a deep copy of IPSecProperties.
   IPSecProperties Clone() const;
 
-  // Creates a IPSecProperties object from a base::Value, or NULL on failure.
-  static std::unique_ptr<IPSecProperties> FromValueDeprecated(const base::Value& value);
-
   // Creates a IPSecProperties object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<IPSecProperties> FromValue(const base::Value::Dict& value);
+  static std::optional<IPSecProperties> FromValue(const base::Value::Dict& value);
 
   // Creates a IPSecProperties object from a base::Value, or nullopt on failure.
-  static absl::optional<IPSecProperties> FromValue(const base::Value& value);
+  static std::optional<IPSecProperties> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisIPSecProperties object.
@@ -1275,35 +1195,35 @@ struct IPSecProperties {
 
   std::string authentication_type;
 
-  absl::optional<CertificatePattern> client_cert_pattern;
+  std::optional<CertificatePattern> client_cert_pattern;
 
-  absl::optional<std::string> client_cert_pkcs11_id;
+  std::optional<std::string> client_cert_pkcs11_id;
 
-  absl::optional<std::string> client_cert_provisioning_profile_id;
+  std::optional<std::string> client_cert_provisioning_profile_id;
 
-  absl::optional<std::string> client_cert_ref;
+  std::optional<std::string> client_cert_ref;
 
-  absl::optional<std::string> client_cert_type;
+  std::optional<std::string> client_cert_type;
 
-  absl::optional<EAPProperties> eap;
+  std::optional<EAPProperties> eap;
 
-  absl::optional<std::string> group;
+  std::optional<std::string> group;
 
-  absl::optional<int> ike_version;
+  std::optional<int> ike_version;
 
-  absl::optional<std::string> local_identity;
+  std::optional<std::string> local_identity;
 
-  absl::optional<std::string> psk;
+  std::optional<std::string> psk;
 
-  absl::optional<std::string> remote_identity;
+  std::optional<std::string> remote_identity;
 
-  absl::optional<bool> save_credentials;
+  std::optional<bool> save_credentials;
 
-  absl::optional<std::vector<std::string>> server_cape_ms;
+  std::optional<std::vector<std::string>> server_cape_ms;
 
-  absl::optional<std::vector<std::string>> server_ca_refs;
+  std::optional<std::vector<std::string>> server_ca_refs;
 
-  absl::optional<XAUTHProperties> xauth;
+  std::optional<XAUTHProperties> xauth;
 
 };
 
@@ -1312,8 +1232,8 @@ struct ManagedIPSecProperties {
   ~ManagedIPSecProperties();
   ManagedIPSecProperties(const ManagedIPSecProperties&) = delete;
   ManagedIPSecProperties& operator=(const ManagedIPSecProperties&) = delete;
-  ManagedIPSecProperties(ManagedIPSecProperties&& rhs);
-  ManagedIPSecProperties& operator=(ManagedIPSecProperties&& rhs);
+  ManagedIPSecProperties(ManagedIPSecProperties&& rhs) noexcept;
+  ManagedIPSecProperties& operator=(ManagedIPSecProperties&& rhs) noexcept;
 
   // Populates a ManagedIPSecProperties object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -1326,17 +1246,13 @@ struct ManagedIPSecProperties {
   // Creates a deep copy of ManagedIPSecProperties.
   ManagedIPSecProperties Clone() const;
 
-  // Creates a ManagedIPSecProperties object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<ManagedIPSecProperties> FromValueDeprecated(const base::Value& value);
-
   // Creates a ManagedIPSecProperties object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<ManagedIPSecProperties> FromValue(const base::Value::Dict& value);
+  static std::optional<ManagedIPSecProperties> FromValue(const base::Value::Dict& value);
 
   // Creates a ManagedIPSecProperties object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<ManagedIPSecProperties> FromValue(const base::Value& value);
+  static std::optional<ManagedIPSecProperties> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisManagedIPSecProperties object.
@@ -1344,31 +1260,31 @@ struct ManagedIPSecProperties {
 
   ManagedDOMString authentication_type;
 
-  absl::optional<ManagedCertificatePattern> client_cert_pattern;
+  std::optional<ManagedCertificatePattern> client_cert_pattern;
 
-  absl::optional<ManagedDOMString> client_cert_pkcs11_id;
+  std::optional<ManagedDOMString> client_cert_pkcs11_id;
 
-  absl::optional<ManagedDOMString> client_cert_provisioning_profile_id;
+  std::optional<ManagedDOMString> client_cert_provisioning_profile_id;
 
-  absl::optional<ManagedDOMString> client_cert_ref;
+  std::optional<ManagedDOMString> client_cert_ref;
 
-  absl::optional<ManagedDOMString> client_cert_type;
+  std::optional<ManagedDOMString> client_cert_type;
 
-  absl::optional<ManagedEAPProperties> eap;
+  std::optional<ManagedEAPProperties> eap;
 
-  absl::optional<ManagedDOMString> group;
+  std::optional<ManagedDOMString> group;
 
-  absl::optional<ManagedLong> ike_version;
+  std::optional<ManagedLong> ike_version;
 
-  absl::optional<ManagedDOMString> psk;
+  std::optional<ManagedDOMString> psk;
 
-  absl::optional<ManagedBoolean> save_credentials;
+  std::optional<ManagedBoolean> save_credentials;
 
-  absl::optional<ManagedDOMStringList> server_cape_ms;
+  std::optional<ManagedDOMStringList> server_cape_ms;
 
-  absl::optional<ManagedDOMStringList> server_ca_refs;
+  std::optional<ManagedDOMStringList> server_ca_refs;
 
-  absl::optional<ManagedXAUTHProperties> xauth;
+  std::optional<ManagedXAUTHProperties> xauth;
 
 };
 
@@ -1377,8 +1293,8 @@ struct L2TPProperties {
   ~L2TPProperties();
   L2TPProperties(const L2TPProperties&) = delete;
   L2TPProperties& operator=(const L2TPProperties&) = delete;
-  L2TPProperties(L2TPProperties&& rhs);
-  L2TPProperties& operator=(L2TPProperties&& rhs);
+  L2TPProperties(L2TPProperties&& rhs) noexcept;
+  L2TPProperties& operator=(L2TPProperties&& rhs) noexcept;
 
   // Populates a L2TPProperties object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -1391,27 +1307,24 @@ struct L2TPProperties {
   // Creates a deep copy of L2TPProperties.
   L2TPProperties Clone() const;
 
-  // Creates a L2TPProperties object from a base::Value, or NULL on failure.
-  static std::unique_ptr<L2TPProperties> FromValueDeprecated(const base::Value& value);
-
   // Creates a L2TPProperties object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<L2TPProperties> FromValue(const base::Value::Dict& value);
+  static std::optional<L2TPProperties> FromValue(const base::Value::Dict& value);
 
   // Creates a L2TPProperties object from a base::Value, or nullopt on failure.
-  static absl::optional<L2TPProperties> FromValue(const base::Value& value);
+  static std::optional<L2TPProperties> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisL2TPProperties object.
   base::Value::Dict ToValue() const;
 
-  absl::optional<bool> lcp_echo_disabled;
+  std::optional<bool> lcp_echo_disabled;
 
-  absl::optional<std::string> password;
+  std::optional<std::string> password;
 
-  absl::optional<bool> save_credentials;
+  std::optional<bool> save_credentials;
 
-  absl::optional<std::string> username;
+  std::optional<std::string> username;
 
 };
 
@@ -1420,8 +1333,8 @@ struct ManagedL2TPProperties {
   ~ManagedL2TPProperties();
   ManagedL2TPProperties(const ManagedL2TPProperties&) = delete;
   ManagedL2TPProperties& operator=(const ManagedL2TPProperties&) = delete;
-  ManagedL2TPProperties(ManagedL2TPProperties&& rhs);
-  ManagedL2TPProperties& operator=(ManagedL2TPProperties&& rhs);
+  ManagedL2TPProperties(ManagedL2TPProperties&& rhs) noexcept;
+  ManagedL2TPProperties& operator=(ManagedL2TPProperties&& rhs) noexcept;
 
   // Populates a ManagedL2TPProperties object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -1434,29 +1347,25 @@ struct ManagedL2TPProperties {
   // Creates a deep copy of ManagedL2TPProperties.
   ManagedL2TPProperties Clone() const;
 
-  // Creates a ManagedL2TPProperties object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<ManagedL2TPProperties> FromValueDeprecated(const base::Value& value);
-
   // Creates a ManagedL2TPProperties object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<ManagedL2TPProperties> FromValue(const base::Value::Dict& value);
+  static std::optional<ManagedL2TPProperties> FromValue(const base::Value::Dict& value);
 
   // Creates a ManagedL2TPProperties object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<ManagedL2TPProperties> FromValue(const base::Value& value);
+  static std::optional<ManagedL2TPProperties> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisManagedL2TPProperties object.
   base::Value::Dict ToValue() const;
 
-  absl::optional<ManagedBoolean> lcp_echo_disabled;
+  std::optional<ManagedBoolean> lcp_echo_disabled;
 
-  absl::optional<ManagedDOMString> password;
+  std::optional<ManagedDOMString> password;
 
-  absl::optional<ManagedBoolean> save_credentials;
+  std::optional<ManagedBoolean> save_credentials;
 
-  absl::optional<ManagedDOMString> username;
+  std::optional<ManagedDOMString> username;
 
 };
 
@@ -1465,8 +1374,8 @@ struct PaymentPortal {
   ~PaymentPortal();
   PaymentPortal(const PaymentPortal&) = delete;
   PaymentPortal& operator=(const PaymentPortal&) = delete;
-  PaymentPortal(PaymentPortal&& rhs);
-  PaymentPortal& operator=(PaymentPortal&& rhs);
+  PaymentPortal(PaymentPortal&& rhs) noexcept;
+  PaymentPortal& operator=(PaymentPortal&& rhs) noexcept;
 
   // Populates a PaymentPortal object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -1479,15 +1388,12 @@ struct PaymentPortal {
   // Creates a deep copy of PaymentPortal.
   PaymentPortal Clone() const;
 
-  // Creates a PaymentPortal object from a base::Value, or NULL on failure.
-  static std::unique_ptr<PaymentPortal> FromValueDeprecated(const base::Value& value);
-
   // Creates a PaymentPortal object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<PaymentPortal> FromValue(const base::Value::Dict& value);
+  static std::optional<PaymentPortal> FromValue(const base::Value::Dict& value);
 
   // Creates a PaymentPortal object from a base::Value, or nullopt on failure.
-  static absl::optional<PaymentPortal> FromValue(const base::Value& value);
+  static std::optional<PaymentPortal> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisPaymentPortal object.
@@ -1495,9 +1401,9 @@ struct PaymentPortal {
 
   std::string method;
 
-  absl::optional<std::string> post_data;
+  std::optional<std::string> post_data;
 
-  absl::optional<std::string> url;
+  std::optional<std::string> url;
 
 };
 
@@ -1506,8 +1412,8 @@ struct ProxyLocation {
   ~ProxyLocation();
   ProxyLocation(const ProxyLocation&) = delete;
   ProxyLocation& operator=(const ProxyLocation&) = delete;
-  ProxyLocation(ProxyLocation&& rhs);
-  ProxyLocation& operator=(ProxyLocation&& rhs);
+  ProxyLocation(ProxyLocation&& rhs) noexcept;
+  ProxyLocation& operator=(ProxyLocation&& rhs) noexcept;
 
   // Populates a ProxyLocation object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -1520,15 +1426,12 @@ struct ProxyLocation {
   // Creates a deep copy of ProxyLocation.
   ProxyLocation Clone() const;
 
-  // Creates a ProxyLocation object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ProxyLocation> FromValueDeprecated(const base::Value& value);
-
   // Creates a ProxyLocation object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<ProxyLocation> FromValue(const base::Value::Dict& value);
+  static std::optional<ProxyLocation> FromValue(const base::Value::Dict& value);
 
   // Creates a ProxyLocation object from a base::Value, or nullopt on failure.
-  static absl::optional<ProxyLocation> FromValue(const base::Value& value);
+  static std::optional<ProxyLocation> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisProxyLocation object.
@@ -1545,8 +1448,8 @@ struct ManagedProxyLocation {
   ~ManagedProxyLocation();
   ManagedProxyLocation(const ManagedProxyLocation&) = delete;
   ManagedProxyLocation& operator=(const ManagedProxyLocation&) = delete;
-  ManagedProxyLocation(ManagedProxyLocation&& rhs);
-  ManagedProxyLocation& operator=(ManagedProxyLocation&& rhs);
+  ManagedProxyLocation(ManagedProxyLocation&& rhs) noexcept;
+  ManagedProxyLocation& operator=(ManagedProxyLocation&& rhs) noexcept;
 
   // Populates a ManagedProxyLocation object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -1559,17 +1462,13 @@ struct ManagedProxyLocation {
   // Creates a deep copy of ManagedProxyLocation.
   ManagedProxyLocation Clone() const;
 
-  // Creates a ManagedProxyLocation object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<ManagedProxyLocation> FromValueDeprecated(const base::Value& value);
-
   // Creates a ManagedProxyLocation object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<ManagedProxyLocation> FromValue(const base::Value::Dict& value);
+  static std::optional<ManagedProxyLocation> FromValue(const base::Value::Dict& value);
 
   // Creates a ManagedProxyLocation object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<ManagedProxyLocation> FromValue(const base::Value& value);
+  static std::optional<ManagedProxyLocation> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisManagedProxyLocation object.
@@ -1586,8 +1485,8 @@ struct ManualProxySettings {
   ~ManualProxySettings();
   ManualProxySettings(const ManualProxySettings&) = delete;
   ManualProxySettings& operator=(const ManualProxySettings&) = delete;
-  ManualProxySettings(ManualProxySettings&& rhs);
-  ManualProxySettings& operator=(ManualProxySettings&& rhs);
+  ManualProxySettings(ManualProxySettings&& rhs) noexcept;
+  ManualProxySettings& operator=(ManualProxySettings&& rhs) noexcept;
 
   // Populates a ManualProxySettings object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -1600,29 +1499,25 @@ struct ManualProxySettings {
   // Creates a deep copy of ManualProxySettings.
   ManualProxySettings Clone() const;
 
-  // Creates a ManualProxySettings object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<ManualProxySettings> FromValueDeprecated(const base::Value& value);
-
   // Creates a ManualProxySettings object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<ManualProxySettings> FromValue(const base::Value::Dict& value);
+  static std::optional<ManualProxySettings> FromValue(const base::Value::Dict& value);
 
   // Creates a ManualProxySettings object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<ManualProxySettings> FromValue(const base::Value& value);
+  static std::optional<ManualProxySettings> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisManualProxySettings object.
   base::Value::Dict ToValue() const;
 
-  absl::optional<ProxyLocation> http_proxy;
+  std::optional<ProxyLocation> http_proxy;
 
-  absl::optional<ProxyLocation> secure_http_proxy;
+  std::optional<ProxyLocation> secure_http_proxy;
 
-  absl::optional<ProxyLocation> ftp_proxy;
+  std::optional<ProxyLocation> ftp_proxy;
 
-  absl::optional<ProxyLocation> socks;
+  std::optional<ProxyLocation> socks;
 
 };
 
@@ -1631,8 +1526,8 @@ struct ManagedManualProxySettings {
   ~ManagedManualProxySettings();
   ManagedManualProxySettings(const ManagedManualProxySettings&) = delete;
   ManagedManualProxySettings& operator=(const ManagedManualProxySettings&) = delete;
-  ManagedManualProxySettings(ManagedManualProxySettings&& rhs);
-  ManagedManualProxySettings& operator=(ManagedManualProxySettings&& rhs);
+  ManagedManualProxySettings(ManagedManualProxySettings&& rhs) noexcept;
+  ManagedManualProxySettings& operator=(ManagedManualProxySettings&& rhs) noexcept;
 
   // Populates a ManagedManualProxySettings object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -1645,29 +1540,25 @@ struct ManagedManualProxySettings {
   // Creates a deep copy of ManagedManualProxySettings.
   ManagedManualProxySettings Clone() const;
 
-  // Creates a ManagedManualProxySettings object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<ManagedManualProxySettings> FromValueDeprecated(const base::Value& value);
-
   // Creates a ManagedManualProxySettings object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<ManagedManualProxySettings> FromValue(const base::Value::Dict& value);
+  static std::optional<ManagedManualProxySettings> FromValue(const base::Value::Dict& value);
 
   // Creates a ManagedManualProxySettings object from a base::Value, or nullopt
   // on failure.
-  static absl::optional<ManagedManualProxySettings> FromValue(const base::Value& value);
+  static std::optional<ManagedManualProxySettings> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisManagedManualProxySettings object.
   base::Value::Dict ToValue() const;
 
-  absl::optional<ManagedProxyLocation> http_proxy;
+  std::optional<ManagedProxyLocation> http_proxy;
 
-  absl::optional<ManagedProxyLocation> secure_http_proxy;
+  std::optional<ManagedProxyLocation> secure_http_proxy;
 
-  absl::optional<ManagedProxyLocation> ftp_proxy;
+  std::optional<ManagedProxyLocation> ftp_proxy;
 
-  absl::optional<ManagedProxyLocation> socks;
+  std::optional<ManagedProxyLocation> socks;
 
 };
 
@@ -1676,8 +1567,8 @@ struct ProxySettings {
   ~ProxySettings();
   ProxySettings(const ProxySettings&) = delete;
   ProxySettings& operator=(const ProxySettings&) = delete;
-  ProxySettings(ProxySettings&& rhs);
-  ProxySettings& operator=(ProxySettings&& rhs);
+  ProxySettings(ProxySettings&& rhs) noexcept;
+  ProxySettings& operator=(ProxySettings&& rhs) noexcept;
 
   // Populates a ProxySettings object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -1690,15 +1581,12 @@ struct ProxySettings {
   // Creates a deep copy of ProxySettings.
   ProxySettings Clone() const;
 
-  // Creates a ProxySettings object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ProxySettings> FromValueDeprecated(const base::Value& value);
-
   // Creates a ProxySettings object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<ProxySettings> FromValue(const base::Value::Dict& value);
+  static std::optional<ProxySettings> FromValue(const base::Value::Dict& value);
 
   // Creates a ProxySettings object from a base::Value, or nullopt on failure.
-  static absl::optional<ProxySettings> FromValue(const base::Value& value);
+  static std::optional<ProxySettings> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisProxySettings object.
@@ -1706,11 +1594,11 @@ struct ProxySettings {
 
   ProxySettingsType type;
 
-  absl::optional<ManualProxySettings> manual;
+  std::optional<ManualProxySettings> manual;
 
-  absl::optional<std::vector<std::string>> exclude_domains;
+  std::optional<std::vector<std::string>> exclude_domains;
 
-  absl::optional<std::string> pac;
+  std::optional<std::string> pac;
 
 };
 
@@ -1719,8 +1607,8 @@ struct ManagedProxySettings {
   ~ManagedProxySettings();
   ManagedProxySettings(const ManagedProxySettings&) = delete;
   ManagedProxySettings& operator=(const ManagedProxySettings&) = delete;
-  ManagedProxySettings(ManagedProxySettings&& rhs);
-  ManagedProxySettings& operator=(ManagedProxySettings&& rhs);
+  ManagedProxySettings(ManagedProxySettings&& rhs) noexcept;
+  ManagedProxySettings& operator=(ManagedProxySettings&& rhs) noexcept;
 
   // Populates a ManagedProxySettings object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -1733,17 +1621,13 @@ struct ManagedProxySettings {
   // Creates a deep copy of ManagedProxySettings.
   ManagedProxySettings Clone() const;
 
-  // Creates a ManagedProxySettings object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<ManagedProxySettings> FromValueDeprecated(const base::Value& value);
-
   // Creates a ManagedProxySettings object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<ManagedProxySettings> FromValue(const base::Value::Dict& value);
+  static std::optional<ManagedProxySettings> FromValue(const base::Value::Dict& value);
 
   // Creates a ManagedProxySettings object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<ManagedProxySettings> FromValue(const base::Value& value);
+  static std::optional<ManagedProxySettings> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisManagedProxySettings object.
@@ -1751,11 +1635,11 @@ struct ManagedProxySettings {
 
   ManagedProxySettingsType type;
 
-  absl::optional<ManagedManualProxySettings> manual;
+  std::optional<ManagedManualProxySettings> manual;
 
-  absl::optional<ManagedDOMStringList> exclude_domains;
+  std::optional<ManagedDOMStringList> exclude_domains;
 
-  absl::optional<ManagedDOMString> pac;
+  std::optional<ManagedDOMString> pac;
 
 };
 
@@ -1764,8 +1648,8 @@ struct VerifyX509 {
   ~VerifyX509();
   VerifyX509(const VerifyX509&) = delete;
   VerifyX509& operator=(const VerifyX509&) = delete;
-  VerifyX509(VerifyX509&& rhs);
-  VerifyX509& operator=(VerifyX509&& rhs);
+  VerifyX509(VerifyX509&& rhs) noexcept;
+  VerifyX509& operator=(VerifyX509&& rhs) noexcept;
 
   // Populates a VerifyX509 object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -1778,23 +1662,20 @@ struct VerifyX509 {
   // Creates a deep copy of VerifyX509.
   VerifyX509 Clone() const;
 
-  // Creates a VerifyX509 object from a base::Value, or NULL on failure.
-  static std::unique_ptr<VerifyX509> FromValueDeprecated(const base::Value& value);
-
   // Creates a VerifyX509 object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<VerifyX509> FromValue(const base::Value::Dict& value);
+  static std::optional<VerifyX509> FromValue(const base::Value::Dict& value);
 
   // Creates a VerifyX509 object from a base::Value, or nullopt on failure.
-  static absl::optional<VerifyX509> FromValue(const base::Value& value);
+  static std::optional<VerifyX509> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisVerifyX509 object.
   base::Value::Dict ToValue() const;
 
-  absl::optional<std::string> name;
+  std::optional<std::string> name;
 
-  absl::optional<std::string> type;
+  std::optional<std::string> type;
 
 };
 
@@ -1803,8 +1684,8 @@ struct ManagedVerifyX509 {
   ~ManagedVerifyX509();
   ManagedVerifyX509(const ManagedVerifyX509&) = delete;
   ManagedVerifyX509& operator=(const ManagedVerifyX509&) = delete;
-  ManagedVerifyX509(ManagedVerifyX509&& rhs);
-  ManagedVerifyX509& operator=(ManagedVerifyX509&& rhs);
+  ManagedVerifyX509(ManagedVerifyX509&& rhs) noexcept;
+  ManagedVerifyX509& operator=(ManagedVerifyX509&& rhs) noexcept;
 
   // Populates a ManagedVerifyX509 object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -1817,24 +1698,21 @@ struct ManagedVerifyX509 {
   // Creates a deep copy of ManagedVerifyX509.
   ManagedVerifyX509 Clone() const;
 
-  // Creates a ManagedVerifyX509 object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ManagedVerifyX509> FromValueDeprecated(const base::Value& value);
-
   // Creates a ManagedVerifyX509 object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<ManagedVerifyX509> FromValue(const base::Value::Dict& value);
+  static std::optional<ManagedVerifyX509> FromValue(const base::Value::Dict& value);
 
   // Creates a ManagedVerifyX509 object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<ManagedVerifyX509> FromValue(const base::Value& value);
+  static std::optional<ManagedVerifyX509> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisManagedVerifyX509 object.
   base::Value::Dict ToValue() const;
 
-  absl::optional<ManagedDOMString> name;
+  std::optional<ManagedDOMString> name;
 
-  absl::optional<ManagedDOMString> type;
+  std::optional<ManagedDOMString> type;
 
 };
 
@@ -1843,8 +1721,8 @@ struct OpenVPNProperties {
   ~OpenVPNProperties();
   OpenVPNProperties(const OpenVPNProperties&) = delete;
   OpenVPNProperties& operator=(const OpenVPNProperties&) = delete;
-  OpenVPNProperties(OpenVPNProperties&& rhs);
-  OpenVPNProperties& operator=(OpenVPNProperties&& rhs);
+  OpenVPNProperties(OpenVPNProperties&& rhs) noexcept;
+  OpenVPNProperties& operator=(OpenVPNProperties&& rhs) noexcept;
 
   // Populates a OpenVPNProperties object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -1857,98 +1735,95 @@ struct OpenVPNProperties {
   // Creates a deep copy of OpenVPNProperties.
   OpenVPNProperties Clone() const;
 
-  // Creates a OpenVPNProperties object from a base::Value, or NULL on failure.
-  static std::unique_ptr<OpenVPNProperties> FromValueDeprecated(const base::Value& value);
-
   // Creates a OpenVPNProperties object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<OpenVPNProperties> FromValue(const base::Value::Dict& value);
+  static std::optional<OpenVPNProperties> FromValue(const base::Value::Dict& value);
 
   // Creates a OpenVPNProperties object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<OpenVPNProperties> FromValue(const base::Value& value);
+  static std::optional<OpenVPNProperties> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisOpenVPNProperties object.
   base::Value::Dict ToValue() const;
 
-  absl::optional<std::string> auth;
+  std::optional<std::string> auth;
 
-  absl::optional<std::string> auth_retry;
+  std::optional<std::string> auth_retry;
 
-  absl::optional<bool> auth_no_cache;
+  std::optional<bool> auth_no_cache;
 
-  absl::optional<std::string> cipher;
+  std::optional<std::string> cipher;
 
-  absl::optional<std::string> client_cert_pkcs11_id;
+  std::optional<std::string> client_cert_pkcs11_id;
 
-  absl::optional<CertificatePattern> client_cert_pattern;
+  std::optional<CertificatePattern> client_cert_pattern;
 
-  absl::optional<std::string> client_cert_provisioning_profile_id;
+  std::optional<std::string> client_cert_provisioning_profile_id;
 
-  absl::optional<std::string> client_cert_ref;
+  std::optional<std::string> client_cert_ref;
 
-  absl::optional<std::string> client_cert_type;
+  std::optional<std::string> client_cert_type;
 
-  absl::optional<std::string> comp_lzo;
+  std::optional<std::string> comp_lzo;
 
-  absl::optional<bool> comp_no_adapt;
+  std::optional<bool> comp_no_adapt;
 
-  absl::optional<std::vector<std::string>> extra_hosts;
+  std::optional<std::vector<std::string>> extra_hosts;
 
-  absl::optional<bool> ignore_default_route;
+  std::optional<bool> ignore_default_route;
 
-  absl::optional<std::string> key_direction;
+  std::optional<std::string> key_direction;
 
-  absl::optional<std::string> ns_cert_type;
+  std::optional<std::string> ns_cert_type;
 
-  absl::optional<std::string> otp;
+  std::optional<std::string> otp;
 
-  absl::optional<std::string> password;
+  std::optional<std::string> password;
 
-  absl::optional<int> port;
+  std::optional<int> port;
 
-  absl::optional<std::string> proto;
+  std::optional<std::string> proto;
 
-  absl::optional<bool> push_peer_info;
+  std::optional<bool> push_peer_info;
 
-  absl::optional<std::string> remote_cert_eku;
+  std::optional<std::string> remote_cert_eku;
 
-  absl::optional<std::vector<std::string>> remote_cert_ku;
+  std::optional<std::vector<std::string>> remote_cert_ku;
 
-  absl::optional<std::string> remote_cert_tls;
+  std::optional<std::string> remote_cert_tls;
 
-  absl::optional<int> reneg_sec;
+  std::optional<int> reneg_sec;
 
-  absl::optional<bool> save_credentials;
+  std::optional<bool> save_credentials;
 
-  absl::optional<std::vector<std::string>> server_cape_ms;
+  std::optional<std::vector<std::string>> server_cape_ms;
 
-  absl::optional<std::vector<std::string>> server_ca_refs;
+  std::optional<std::vector<std::string>> server_ca_refs;
 
-  absl::optional<std::string> server_cert_ref;
+  std::optional<std::string> server_cert_ref;
 
-  absl::optional<int> server_poll_timeout;
+  std::optional<int> server_poll_timeout;
 
-  absl::optional<int> shaper;
+  std::optional<int> shaper;
 
-  absl::optional<std::string> static_challenge;
+  std::optional<std::string> static_challenge;
 
-  absl::optional<std::string> tls_auth_contents;
+  std::optional<std::string> tls_auth_contents;
 
-  absl::optional<std::string> tls_remote;
+  std::optional<std::string> tls_remote;
 
-  absl::optional<std::string> tls_version_min;
+  std::optional<std::string> tls_version_min;
 
-  absl::optional<std::string> user_authentication_type;
+  std::optional<std::string> user_authentication_type;
 
-  absl::optional<std::string> username;
+  std::optional<std::string> username;
 
-  absl::optional<std::string> verb;
+  std::optional<std::string> verb;
 
-  absl::optional<std::string> verify_hash;
+  std::optional<std::string> verify_hash;
 
-  absl::optional<VerifyX509> verify_x509;
+  std::optional<VerifyX509> verify_x509;
 
 };
 
@@ -1957,8 +1832,8 @@ struct ManagedOpenVPNProperties {
   ~ManagedOpenVPNProperties();
   ManagedOpenVPNProperties(const ManagedOpenVPNProperties&) = delete;
   ManagedOpenVPNProperties& operator=(const ManagedOpenVPNProperties&) = delete;
-  ManagedOpenVPNProperties(ManagedOpenVPNProperties&& rhs);
-  ManagedOpenVPNProperties& operator=(ManagedOpenVPNProperties&& rhs);
+  ManagedOpenVPNProperties(ManagedOpenVPNProperties&& rhs) noexcept;
+  ManagedOpenVPNProperties& operator=(ManagedOpenVPNProperties&& rhs) noexcept;
 
   // Populates a ManagedOpenVPNProperties object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -1971,99 +1846,95 @@ struct ManagedOpenVPNProperties {
   // Creates a deep copy of ManagedOpenVPNProperties.
   ManagedOpenVPNProperties Clone() const;
 
-  // Creates a ManagedOpenVPNProperties object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<ManagedOpenVPNProperties> FromValueDeprecated(const base::Value& value);
-
   // Creates a ManagedOpenVPNProperties object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<ManagedOpenVPNProperties> FromValue(const base::Value::Dict& value);
+  static std::optional<ManagedOpenVPNProperties> FromValue(const base::Value::Dict& value);
 
   // Creates a ManagedOpenVPNProperties object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<ManagedOpenVPNProperties> FromValue(const base::Value& value);
+  static std::optional<ManagedOpenVPNProperties> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisManagedOpenVPNProperties object.
   base::Value::Dict ToValue() const;
 
-  absl::optional<ManagedDOMString> auth;
+  std::optional<ManagedDOMString> auth;
 
-  absl::optional<ManagedDOMString> auth_retry;
+  std::optional<ManagedDOMString> auth_retry;
 
-  absl::optional<ManagedBoolean> auth_no_cache;
+  std::optional<ManagedBoolean> auth_no_cache;
 
-  absl::optional<ManagedDOMString> cipher;
+  std::optional<ManagedDOMString> cipher;
 
-  absl::optional<ManagedDOMString> client_cert_pkcs11_id;
+  std::optional<ManagedDOMString> client_cert_pkcs11_id;
 
-  absl::optional<ManagedCertificatePattern> client_cert_pattern;
+  std::optional<ManagedCertificatePattern> client_cert_pattern;
 
-  absl::optional<ManagedDOMString> client_cert_provisioning_profile_id;
+  std::optional<ManagedDOMString> client_cert_provisioning_profile_id;
 
-  absl::optional<ManagedDOMString> client_cert_ref;
+  std::optional<ManagedDOMString> client_cert_ref;
 
-  absl::optional<ManagedDOMString> client_cert_type;
+  std::optional<ManagedDOMString> client_cert_type;
 
-  absl::optional<ManagedDOMString> comp_lzo;
+  std::optional<ManagedDOMString> comp_lzo;
 
-  absl::optional<ManagedBoolean> comp_no_adapt;
+  std::optional<ManagedBoolean> comp_no_adapt;
 
-  absl::optional<ManagedDOMStringList> extra_hosts;
+  std::optional<ManagedDOMStringList> extra_hosts;
 
-  absl::optional<ManagedBoolean> ignore_default_route;
+  std::optional<ManagedBoolean> ignore_default_route;
 
-  absl::optional<ManagedDOMString> key_direction;
+  std::optional<ManagedDOMString> key_direction;
 
-  absl::optional<ManagedDOMString> ns_cert_type;
+  std::optional<ManagedDOMString> ns_cert_type;
 
-  absl::optional<ManagedDOMString> otp;
+  std::optional<ManagedDOMString> otp;
 
-  absl::optional<ManagedDOMString> password;
+  std::optional<ManagedDOMString> password;
 
-  absl::optional<ManagedLong> port;
+  std::optional<ManagedLong> port;
 
-  absl::optional<ManagedDOMString> proto;
+  std::optional<ManagedDOMString> proto;
 
-  absl::optional<ManagedBoolean> push_peer_info;
+  std::optional<ManagedBoolean> push_peer_info;
 
-  absl::optional<ManagedDOMString> remote_cert_eku;
+  std::optional<ManagedDOMString> remote_cert_eku;
 
-  absl::optional<ManagedDOMStringList> remote_cert_ku;
+  std::optional<ManagedDOMStringList> remote_cert_ku;
 
-  absl::optional<ManagedDOMString> remote_cert_tls;
+  std::optional<ManagedDOMString> remote_cert_tls;
 
-  absl::optional<ManagedLong> reneg_sec;
+  std::optional<ManagedLong> reneg_sec;
 
-  absl::optional<ManagedBoolean> save_credentials;
+  std::optional<ManagedBoolean> save_credentials;
 
-  absl::optional<ManagedDOMStringList> server_cape_ms;
+  std::optional<ManagedDOMStringList> server_cape_ms;
 
-  absl::optional<ManagedDOMStringList> server_ca_refs;
+  std::optional<ManagedDOMStringList> server_ca_refs;
 
-  absl::optional<ManagedDOMString> server_cert_ref;
+  std::optional<ManagedDOMString> server_cert_ref;
 
-  absl::optional<ManagedLong> server_poll_timeout;
+  std::optional<ManagedLong> server_poll_timeout;
 
-  absl::optional<ManagedLong> shaper;
+  std::optional<ManagedLong> shaper;
 
-  absl::optional<ManagedDOMString> static_challenge;
+  std::optional<ManagedDOMString> static_challenge;
 
-  absl::optional<ManagedDOMString> tls_auth_contents;
+  std::optional<ManagedDOMString> tls_auth_contents;
 
-  absl::optional<ManagedDOMString> tls_remote;
+  std::optional<ManagedDOMString> tls_remote;
 
-  absl::optional<ManagedDOMString> tls_version_min;
+  std::optional<ManagedDOMString> tls_version_min;
 
-  absl::optional<ManagedDOMString> user_authentication_type;
+  std::optional<ManagedDOMString> user_authentication_type;
 
-  absl::optional<ManagedDOMString> username;
+  std::optional<ManagedDOMString> username;
 
-  absl::optional<ManagedDOMString> verb;
+  std::optional<ManagedDOMString> verb;
 
-  absl::optional<ManagedDOMString> verify_hash;
+  std::optional<ManagedDOMString> verify_hash;
 
-  absl::optional<ManagedVerifyX509> verify_x509;
+  std::optional<ManagedVerifyX509> verify_x509;
 
 };
 
@@ -2072,8 +1943,8 @@ struct SIMLockStatus {
   ~SIMLockStatus();
   SIMLockStatus(const SIMLockStatus&) = delete;
   SIMLockStatus& operator=(const SIMLockStatus&) = delete;
-  SIMLockStatus(SIMLockStatus&& rhs);
-  SIMLockStatus& operator=(SIMLockStatus&& rhs);
+  SIMLockStatus(SIMLockStatus&& rhs) noexcept;
+  SIMLockStatus& operator=(SIMLockStatus&& rhs) noexcept;
 
   // Populates a SIMLockStatus object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -2086,15 +1957,12 @@ struct SIMLockStatus {
   // Creates a deep copy of SIMLockStatus.
   SIMLockStatus Clone() const;
 
-  // Creates a SIMLockStatus object from a base::Value, or NULL on failure.
-  static std::unique_ptr<SIMLockStatus> FromValueDeprecated(const base::Value& value);
-
   // Creates a SIMLockStatus object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<SIMLockStatus> FromValue(const base::Value::Dict& value);
+  static std::optional<SIMLockStatus> FromValue(const base::Value::Dict& value);
 
   // Creates a SIMLockStatus object from a base::Value, or nullopt on failure.
-  static absl::optional<SIMLockStatus> FromValue(const base::Value& value);
+  static std::optional<SIMLockStatus> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisSIMLockStatus object.
@@ -2105,7 +1973,7 @@ struct SIMLockStatus {
   // sim-pin, sim-puk, or ''
   bool lock_enabled;
 
-  absl::optional<int> retries_left;
+  std::optional<int> retries_left;
 
 };
 
@@ -2114,8 +1982,8 @@ struct ThirdPartyVPNProperties {
   ~ThirdPartyVPNProperties();
   ThirdPartyVPNProperties(const ThirdPartyVPNProperties&) = delete;
   ThirdPartyVPNProperties& operator=(const ThirdPartyVPNProperties&) = delete;
-  ThirdPartyVPNProperties(ThirdPartyVPNProperties&& rhs);
-  ThirdPartyVPNProperties& operator=(ThirdPartyVPNProperties&& rhs);
+  ThirdPartyVPNProperties(ThirdPartyVPNProperties&& rhs) noexcept;
+  ThirdPartyVPNProperties& operator=(ThirdPartyVPNProperties&& rhs) noexcept;
 
   // Populates a ThirdPartyVPNProperties object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -2128,17 +1996,13 @@ struct ThirdPartyVPNProperties {
   // Creates a deep copy of ThirdPartyVPNProperties.
   ThirdPartyVPNProperties Clone() const;
 
-  // Creates a ThirdPartyVPNProperties object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<ThirdPartyVPNProperties> FromValueDeprecated(const base::Value& value);
-
   // Creates a ThirdPartyVPNProperties object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<ThirdPartyVPNProperties> FromValue(const base::Value::Dict& value);
+  static std::optional<ThirdPartyVPNProperties> FromValue(const base::Value::Dict& value);
 
   // Creates a ThirdPartyVPNProperties object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<ThirdPartyVPNProperties> FromValue(const base::Value& value);
+  static std::optional<ThirdPartyVPNProperties> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisThirdPartyVPNProperties object.
@@ -2146,7 +2010,7 @@ struct ThirdPartyVPNProperties {
 
   std::string extension_id;
 
-  absl::optional<std::string> provider_name;
+  std::optional<std::string> provider_name;
 
 };
 
@@ -2155,8 +2019,8 @@ struct ManagedThirdPartyVPNProperties {
   ~ManagedThirdPartyVPNProperties();
   ManagedThirdPartyVPNProperties(const ManagedThirdPartyVPNProperties&) = delete;
   ManagedThirdPartyVPNProperties& operator=(const ManagedThirdPartyVPNProperties&) = delete;
-  ManagedThirdPartyVPNProperties(ManagedThirdPartyVPNProperties&& rhs);
-  ManagedThirdPartyVPNProperties& operator=(ManagedThirdPartyVPNProperties&& rhs);
+  ManagedThirdPartyVPNProperties(ManagedThirdPartyVPNProperties&& rhs) noexcept;
+  ManagedThirdPartyVPNProperties& operator=(ManagedThirdPartyVPNProperties&& rhs) noexcept;
 
   // Populates a ManagedThirdPartyVPNProperties object from a base::Value&
   // instance. Returns whether |out| was successfully populated.
@@ -2169,17 +2033,13 @@ struct ManagedThirdPartyVPNProperties {
   // Creates a deep copy of ManagedThirdPartyVPNProperties.
   ManagedThirdPartyVPNProperties Clone() const;
 
-  // Creates a ManagedThirdPartyVPNProperties object from a base::Value, or NULL
-  // on failure.
-  static std::unique_ptr<ManagedThirdPartyVPNProperties> FromValueDeprecated(const base::Value& value);
-
   // Creates a ManagedThirdPartyVPNProperties object from a base::Value::Dict,
   // or nullopt on failure.
-  static absl::optional<ManagedThirdPartyVPNProperties> FromValue(const base::Value::Dict& value);
+  static std::optional<ManagedThirdPartyVPNProperties> FromValue(const base::Value::Dict& value);
 
   // Creates a ManagedThirdPartyVPNProperties object from a base::Value, or
   // nullopt on failure.
-  static absl::optional<ManagedThirdPartyVPNProperties> FromValue(const base::Value& value);
+  static std::optional<ManagedThirdPartyVPNProperties> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisManagedThirdPartyVPNProperties object.
@@ -2187,7 +2047,7 @@ struct ManagedThirdPartyVPNProperties {
 
   ManagedDOMString extension_id;
 
-  absl::optional<std::string> provider_name;
+  std::optional<std::string> provider_name;
 
 };
 
@@ -2196,8 +2056,8 @@ struct CellularProperties {
   ~CellularProperties();
   CellularProperties(const CellularProperties&) = delete;
   CellularProperties& operator=(const CellularProperties&) = delete;
-  CellularProperties(CellularProperties&& rhs);
-  CellularProperties& operator=(CellularProperties&& rhs);
+  CellularProperties(CellularProperties&& rhs) noexcept;
+  CellularProperties& operator=(CellularProperties&& rhs) noexcept;
 
   // Populates a CellularProperties object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -2210,78 +2070,75 @@ struct CellularProperties {
   // Creates a deep copy of CellularProperties.
   CellularProperties Clone() const;
 
-  // Creates a CellularProperties object from a base::Value, or NULL on failure.
-  static std::unique_ptr<CellularProperties> FromValueDeprecated(const base::Value& value);
-
   // Creates a CellularProperties object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<CellularProperties> FromValue(const base::Value::Dict& value);
+  static std::optional<CellularProperties> FromValue(const base::Value::Dict& value);
 
   // Creates a CellularProperties object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<CellularProperties> FromValue(const base::Value& value);
+  static std::optional<CellularProperties> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisCellularProperties object.
   base::Value::Dict ToValue() const;
 
-  absl::optional<bool> auto_connect;
+  std::optional<bool> auto_connect;
 
-  absl::optional<APNProperties> apn;
+  std::optional<APNProperties> apn;
 
-  absl::optional<std::vector<APNProperties>> apn_list;
+  std::optional<std::vector<APNProperties>> apn_list;
 
-  absl::optional<std::string> activation_type;
+  std::optional<std::string> activation_type;
 
   ActivationStateType activation_state;
 
-  absl::optional<bool> allow_roaming;
+  std::optional<bool> allow_roaming;
 
-  absl::optional<std::string> esn;
+  std::optional<std::string> esn;
 
-  absl::optional<std::string> family;
+  std::optional<std::string> family;
 
-  absl::optional<std::string> firmware_revision;
+  std::optional<std::string> firmware_revision;
 
-  absl::optional<std::vector<FoundNetworkProperties>> found_networks;
+  std::optional<std::vector<FoundNetworkProperties>> found_networks;
 
-  absl::optional<std::string> hardware_revision;
+  std::optional<std::string> hardware_revision;
 
-  absl::optional<CellularProviderProperties> home_provider;
+  std::optional<CellularProviderProperties> home_provider;
 
-  absl::optional<std::string> iccid;
+  std::optional<std::string> iccid;
 
-  absl::optional<std::string> imei;
+  std::optional<std::string> imei;
 
-  absl::optional<APNProperties> last_good_apn;
+  std::optional<APNProperties> last_good_apn;
 
-  absl::optional<std::string> manufacturer;
+  std::optional<std::string> manufacturer;
 
-  absl::optional<std::string> mdn;
+  std::optional<std::string> mdn;
 
-  absl::optional<std::string> meid;
+  std::optional<std::string> meid;
 
-  absl::optional<std::string> min;
+  std::optional<std::string> min;
 
-  absl::optional<std::string> model_id;
+  std::optional<std::string> model_id;
 
-  absl::optional<std::string> network_technology;
+  std::optional<std::string> network_technology;
 
-  absl::optional<PaymentPortal> payment_portal;
+  std::optional<PaymentPortal> payment_portal;
 
-  absl::optional<std::string> roaming_state;
+  std::optional<std::string> roaming_state;
 
-  absl::optional<bool> scanning;
+  std::optional<bool> scanning;
 
-  absl::optional<CellularProviderProperties> serving_operator;
+  std::optional<CellularProviderProperties> serving_operator;
 
-  absl::optional<SIMLockStatus> sim_lock_status;
+  std::optional<SIMLockStatus> sim_lock_status;
 
-  absl::optional<bool> sim_present;
+  std::optional<bool> sim_present;
 
-  absl::optional<int> signal_strength;
+  std::optional<int> signal_strength;
 
-  absl::optional<bool> support_network_scan;
+  std::optional<bool> support_network_scan;
 
 };
 
@@ -2290,8 +2147,8 @@ struct ManagedCellularProperties {
   ~ManagedCellularProperties();
   ManagedCellularProperties(const ManagedCellularProperties&) = delete;
   ManagedCellularProperties& operator=(const ManagedCellularProperties&) = delete;
-  ManagedCellularProperties(ManagedCellularProperties&& rhs);
-  ManagedCellularProperties& operator=(ManagedCellularProperties&& rhs);
+  ManagedCellularProperties(ManagedCellularProperties&& rhs) noexcept;
+  ManagedCellularProperties& operator=(ManagedCellularProperties&& rhs) noexcept;
 
   // Populates a ManagedCellularProperties object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -2304,79 +2161,75 @@ struct ManagedCellularProperties {
   // Creates a deep copy of ManagedCellularProperties.
   ManagedCellularProperties Clone() const;
 
-  // Creates a ManagedCellularProperties object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<ManagedCellularProperties> FromValueDeprecated(const base::Value& value);
-
   // Creates a ManagedCellularProperties object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<ManagedCellularProperties> FromValue(const base::Value::Dict& value);
+  static std::optional<ManagedCellularProperties> FromValue(const base::Value::Dict& value);
 
   // Creates a ManagedCellularProperties object from a base::Value, or nullopt
   // on failure.
-  static absl::optional<ManagedCellularProperties> FromValue(const base::Value& value);
+  static std::optional<ManagedCellularProperties> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisManagedCellularProperties object.
   base::Value::Dict ToValue() const;
 
-  absl::optional<ManagedBoolean> auto_connect;
+  std::optional<ManagedBoolean> auto_connect;
 
-  absl::optional<ManagedAPNProperties> apn;
+  std::optional<ManagedAPNProperties> apn;
 
-  absl::optional<ManagedAPNList> apn_list;
+  std::optional<ManagedAPNList> apn_list;
 
-  absl::optional<std::string> activation_type;
+  std::optional<std::string> activation_type;
 
   ActivationStateType activation_state;
 
-  absl::optional<bool> allow_roaming;
+  std::optional<bool> allow_roaming;
 
-  absl::optional<std::string> esn;
+  std::optional<std::string> esn;
 
-  absl::optional<std::string> family;
+  std::optional<std::string> family;
 
-  absl::optional<std::string> firmware_revision;
+  std::optional<std::string> firmware_revision;
 
-  absl::optional<std::vector<FoundNetworkProperties>> found_networks;
+  std::optional<std::vector<FoundNetworkProperties>> found_networks;
 
-  absl::optional<std::string> hardware_revision;
+  std::optional<std::string> hardware_revision;
 
-  absl::optional<CellularProviderProperties> home_provider;
+  std::optional<CellularProviderProperties> home_provider;
 
-  absl::optional<std::string> iccid;
+  std::optional<std::string> iccid;
 
-  absl::optional<std::string> imei;
+  std::optional<std::string> imei;
 
-  absl::optional<APNProperties> last_good_apn;
+  std::optional<APNProperties> last_good_apn;
 
-  absl::optional<std::string> manufacturer;
+  std::optional<std::string> manufacturer;
 
-  absl::optional<std::string> mdn;
+  std::optional<std::string> mdn;
 
-  absl::optional<std::string> meid;
+  std::optional<std::string> meid;
 
-  absl::optional<std::string> min;
+  std::optional<std::string> min;
 
-  absl::optional<std::string> model_id;
+  std::optional<std::string> model_id;
 
-  absl::optional<std::string> network_technology;
+  std::optional<std::string> network_technology;
 
-  absl::optional<PaymentPortal> payment_portal;
+  std::optional<PaymentPortal> payment_portal;
 
-  absl::optional<std::string> roaming_state;
+  std::optional<std::string> roaming_state;
 
-  absl::optional<bool> scanning;
+  std::optional<bool> scanning;
 
-  absl::optional<CellularProviderProperties> serving_operator;
+  std::optional<CellularProviderProperties> serving_operator;
 
-  absl::optional<SIMLockStatus> sim_lock_status;
+  std::optional<SIMLockStatus> sim_lock_status;
 
-  absl::optional<bool> sim_present;
+  std::optional<bool> sim_present;
 
-  absl::optional<int> signal_strength;
+  std::optional<int> signal_strength;
 
-  absl::optional<bool> support_network_scan;
+  std::optional<bool> support_network_scan;
 
 };
 
@@ -2385,8 +2238,8 @@ struct CellularStateProperties {
   ~CellularStateProperties();
   CellularStateProperties(const CellularStateProperties&) = delete;
   CellularStateProperties& operator=(const CellularStateProperties&) = delete;
-  CellularStateProperties(CellularStateProperties&& rhs);
-  CellularStateProperties& operator=(CellularStateProperties&& rhs);
+  CellularStateProperties(CellularStateProperties&& rhs) noexcept;
+  CellularStateProperties& operator=(CellularStateProperties&& rhs) noexcept;
 
   // Populates a CellularStateProperties object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -2399,17 +2252,13 @@ struct CellularStateProperties {
   // Creates a deep copy of CellularStateProperties.
   CellularStateProperties Clone() const;
 
-  // Creates a CellularStateProperties object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<CellularStateProperties> FromValueDeprecated(const base::Value& value);
-
   // Creates a CellularStateProperties object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<CellularStateProperties> FromValue(const base::Value::Dict& value);
+  static std::optional<CellularStateProperties> FromValue(const base::Value::Dict& value);
 
   // Creates a CellularStateProperties object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<CellularStateProperties> FromValue(const base::Value& value);
+  static std::optional<CellularStateProperties> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisCellularStateProperties object.
@@ -2417,19 +2266,19 @@ struct CellularStateProperties {
 
   ActivationStateType activation_state;
 
-  absl::optional<std::string> eid;
+  std::optional<std::string> eid;
 
-  absl::optional<std::string> iccid;
+  std::optional<std::string> iccid;
 
-  absl::optional<std::string> network_technology;
+  std::optional<std::string> network_technology;
 
-  absl::optional<std::string> roaming_state;
+  std::optional<std::string> roaming_state;
 
-  absl::optional<bool> scanning;
+  std::optional<bool> scanning;
 
-  absl::optional<bool> sim_present;
+  std::optional<bool> sim_present;
 
-  absl::optional<int> signal_strength;
+  std::optional<int> signal_strength;
 
 };
 
@@ -2438,8 +2287,8 @@ struct EAPStateProperties {
   ~EAPStateProperties();
   EAPStateProperties(const EAPStateProperties&) = delete;
   EAPStateProperties& operator=(const EAPStateProperties&) = delete;
-  EAPStateProperties(EAPStateProperties&& rhs);
-  EAPStateProperties& operator=(EAPStateProperties&& rhs);
+  EAPStateProperties(EAPStateProperties&& rhs) noexcept;
+  EAPStateProperties& operator=(EAPStateProperties&& rhs) noexcept;
 
   // Populates a EAPStateProperties object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -2452,22 +2301,19 @@ struct EAPStateProperties {
   // Creates a deep copy of EAPStateProperties.
   EAPStateProperties Clone() const;
 
-  // Creates a EAPStateProperties object from a base::Value, or NULL on failure.
-  static std::unique_ptr<EAPStateProperties> FromValueDeprecated(const base::Value& value);
-
   // Creates a EAPStateProperties object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<EAPStateProperties> FromValue(const base::Value::Dict& value);
+  static std::optional<EAPStateProperties> FromValue(const base::Value::Dict& value);
 
   // Creates a EAPStateProperties object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<EAPStateProperties> FromValue(const base::Value& value);
+  static std::optional<EAPStateProperties> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisEAPStateProperties object.
   base::Value::Dict ToValue() const;
 
-  absl::optional<std::string> outer;
+  std::optional<std::string> outer;
 
 };
 
@@ -2476,8 +2322,8 @@ struct EthernetProperties {
   ~EthernetProperties();
   EthernetProperties(const EthernetProperties&) = delete;
   EthernetProperties& operator=(const EthernetProperties&) = delete;
-  EthernetProperties(EthernetProperties&& rhs);
-  EthernetProperties& operator=(EthernetProperties&& rhs);
+  EthernetProperties(EthernetProperties&& rhs) noexcept;
+  EthernetProperties& operator=(EthernetProperties&& rhs) noexcept;
 
   // Populates a EthernetProperties object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -2490,26 +2336,23 @@ struct EthernetProperties {
   // Creates a deep copy of EthernetProperties.
   EthernetProperties Clone() const;
 
-  // Creates a EthernetProperties object from a base::Value, or NULL on failure.
-  static std::unique_ptr<EthernetProperties> FromValueDeprecated(const base::Value& value);
-
   // Creates a EthernetProperties object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<EthernetProperties> FromValue(const base::Value::Dict& value);
+  static std::optional<EthernetProperties> FromValue(const base::Value::Dict& value);
 
   // Creates a EthernetProperties object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<EthernetProperties> FromValue(const base::Value& value);
+  static std::optional<EthernetProperties> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisEthernetProperties object.
   base::Value::Dict ToValue() const;
 
-  absl::optional<bool> auto_connect;
+  std::optional<bool> auto_connect;
 
-  absl::optional<std::string> authentication;
+  std::optional<std::string> authentication;
 
-  absl::optional<EAPProperties> eap;
+  std::optional<EAPProperties> eap;
 
 };
 
@@ -2518,8 +2361,8 @@ struct ManagedEthernetProperties {
   ~ManagedEthernetProperties();
   ManagedEthernetProperties(const ManagedEthernetProperties&) = delete;
   ManagedEthernetProperties& operator=(const ManagedEthernetProperties&) = delete;
-  ManagedEthernetProperties(ManagedEthernetProperties&& rhs);
-  ManagedEthernetProperties& operator=(ManagedEthernetProperties&& rhs);
+  ManagedEthernetProperties(ManagedEthernetProperties&& rhs) noexcept;
+  ManagedEthernetProperties& operator=(ManagedEthernetProperties&& rhs) noexcept;
 
   // Populates a ManagedEthernetProperties object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -2532,27 +2375,23 @@ struct ManagedEthernetProperties {
   // Creates a deep copy of ManagedEthernetProperties.
   ManagedEthernetProperties Clone() const;
 
-  // Creates a ManagedEthernetProperties object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<ManagedEthernetProperties> FromValueDeprecated(const base::Value& value);
-
   // Creates a ManagedEthernetProperties object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<ManagedEthernetProperties> FromValue(const base::Value::Dict& value);
+  static std::optional<ManagedEthernetProperties> FromValue(const base::Value::Dict& value);
 
   // Creates a ManagedEthernetProperties object from a base::Value, or nullopt
   // on failure.
-  static absl::optional<ManagedEthernetProperties> FromValue(const base::Value& value);
+  static std::optional<ManagedEthernetProperties> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisManagedEthernetProperties object.
   base::Value::Dict ToValue() const;
 
-  absl::optional<ManagedBoolean> auto_connect;
+  std::optional<ManagedBoolean> auto_connect;
 
-  absl::optional<ManagedDOMString> authentication;
+  std::optional<ManagedDOMString> authentication;
 
-  absl::optional<ManagedEAPProperties> eap;
+  std::optional<ManagedEAPProperties> eap;
 
 };
 
@@ -2561,8 +2400,8 @@ struct EthernetStateProperties {
   ~EthernetStateProperties();
   EthernetStateProperties(const EthernetStateProperties&) = delete;
   EthernetStateProperties& operator=(const EthernetStateProperties&) = delete;
-  EthernetStateProperties(EthernetStateProperties&& rhs);
-  EthernetStateProperties& operator=(EthernetStateProperties&& rhs);
+  EthernetStateProperties(EthernetStateProperties&& rhs) noexcept;
+  EthernetStateProperties& operator=(EthernetStateProperties&& rhs) noexcept;
 
   // Populates a EthernetStateProperties object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -2575,17 +2414,13 @@ struct EthernetStateProperties {
   // Creates a deep copy of EthernetStateProperties.
   EthernetStateProperties Clone() const;
 
-  // Creates a EthernetStateProperties object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<EthernetStateProperties> FromValueDeprecated(const base::Value& value);
-
   // Creates a EthernetStateProperties object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<EthernetStateProperties> FromValue(const base::Value::Dict& value);
+  static std::optional<EthernetStateProperties> FromValue(const base::Value::Dict& value);
 
   // Creates a EthernetStateProperties object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<EthernetStateProperties> FromValue(const base::Value& value);
+  static std::optional<EthernetStateProperties> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisEthernetStateProperties object.
@@ -2600,8 +2435,8 @@ struct TetherProperties {
   ~TetherProperties();
   TetherProperties(const TetherProperties&) = delete;
   TetherProperties& operator=(const TetherProperties&) = delete;
-  TetherProperties(TetherProperties&& rhs);
-  TetherProperties& operator=(TetherProperties&& rhs);
+  TetherProperties(TetherProperties&& rhs) noexcept;
+  TetherProperties& operator=(TetherProperties&& rhs) noexcept;
 
   // Populates a TetherProperties object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -2614,28 +2449,25 @@ struct TetherProperties {
   // Creates a deep copy of TetherProperties.
   TetherProperties Clone() const;
 
-  // Creates a TetherProperties object from a base::Value, or NULL on failure.
-  static std::unique_ptr<TetherProperties> FromValueDeprecated(const base::Value& value);
-
   // Creates a TetherProperties object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<TetherProperties> FromValue(const base::Value::Dict& value);
+  static std::optional<TetherProperties> FromValue(const base::Value::Dict& value);
 
   // Creates a TetherProperties object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<TetherProperties> FromValue(const base::Value& value);
+  static std::optional<TetherProperties> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisTetherProperties object.
   base::Value::Dict ToValue() const;
 
-  absl::optional<int> battery_percentage;
+  std::optional<int> battery_percentage;
 
-  absl::optional<std::string> carrier;
+  std::optional<std::string> carrier;
 
   bool has_connected_to_host;
 
-  absl::optional<int> signal_strength;
+  std::optional<int> signal_strength;
 
 };
 
@@ -2644,8 +2476,8 @@ struct VPNProperties {
   ~VPNProperties();
   VPNProperties(const VPNProperties&) = delete;
   VPNProperties& operator=(const VPNProperties&) = delete;
-  VPNProperties(VPNProperties&& rhs);
-  VPNProperties& operator=(VPNProperties&& rhs);
+  VPNProperties(VPNProperties&& rhs) noexcept;
+  VPNProperties& operator=(VPNProperties&& rhs) noexcept;
 
   // Populates a VPNProperties object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -2658,36 +2490,33 @@ struct VPNProperties {
   // Creates a deep copy of VPNProperties.
   VPNProperties Clone() const;
 
-  // Creates a VPNProperties object from a base::Value, or NULL on failure.
-  static std::unique_ptr<VPNProperties> FromValueDeprecated(const base::Value& value);
-
   // Creates a VPNProperties object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<VPNProperties> FromValue(const base::Value::Dict& value);
+  static std::optional<VPNProperties> FromValue(const base::Value::Dict& value);
 
   // Creates a VPNProperties object from a base::Value, or nullopt on failure.
-  static absl::optional<VPNProperties> FromValue(const base::Value& value);
+  static std::optional<VPNProperties> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisVPNProperties object.
   base::Value::Dict ToValue() const;
 
-  absl::optional<bool> auto_connect;
+  std::optional<bool> auto_connect;
 
-  absl::optional<std::string> host;
+  std::optional<std::string> host;
 
-  absl::optional<IPSecProperties> i_psec;
+  std::optional<IPSecProperties> i_psec;
 
-  absl::optional<L2TPProperties> l2tp;
+  std::optional<L2TPProperties> l2tp;
 
-  absl::optional<OpenVPNProperties> open_vpn;
+  std::optional<OpenVPNProperties> open_vpn;
 
-  absl::optional<ThirdPartyVPNProperties> third_party_vpn;
+  std::optional<ThirdPartyVPNProperties> third_party_vpn;
 
   // The VPN type. This cannot be an enum because of 'L2TP-IPSec'. This is
   // optional for NetworkConfigProperties which is passed to setProperties which
   // may be used to set only specific properties.
-  absl::optional<std::string> type;
+  std::optional<std::string> type;
 
 };
 
@@ -2696,8 +2525,8 @@ struct ManagedVPNProperties {
   ~ManagedVPNProperties();
   ManagedVPNProperties(const ManagedVPNProperties&) = delete;
   ManagedVPNProperties& operator=(const ManagedVPNProperties&) = delete;
-  ManagedVPNProperties(ManagedVPNProperties&& rhs);
-  ManagedVPNProperties& operator=(ManagedVPNProperties&& rhs);
+  ManagedVPNProperties(ManagedVPNProperties&& rhs) noexcept;
+  ManagedVPNProperties& operator=(ManagedVPNProperties&& rhs) noexcept;
 
   // Populates a ManagedVPNProperties object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -2710,35 +2539,31 @@ struct ManagedVPNProperties {
   // Creates a deep copy of ManagedVPNProperties.
   ManagedVPNProperties Clone() const;
 
-  // Creates a ManagedVPNProperties object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<ManagedVPNProperties> FromValueDeprecated(const base::Value& value);
-
   // Creates a ManagedVPNProperties object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<ManagedVPNProperties> FromValue(const base::Value::Dict& value);
+  static std::optional<ManagedVPNProperties> FromValue(const base::Value::Dict& value);
 
   // Creates a ManagedVPNProperties object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<ManagedVPNProperties> FromValue(const base::Value& value);
+  static std::optional<ManagedVPNProperties> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisManagedVPNProperties object.
   base::Value::Dict ToValue() const;
 
-  absl::optional<ManagedBoolean> auto_connect;
+  std::optional<ManagedBoolean> auto_connect;
 
-  absl::optional<ManagedDOMString> host;
+  std::optional<ManagedDOMString> host;
 
-  absl::optional<ManagedIPSecProperties> i_psec;
+  std::optional<ManagedIPSecProperties> i_psec;
 
-  absl::optional<ManagedL2TPProperties> l2tp;
+  std::optional<ManagedL2TPProperties> l2tp;
 
-  absl::optional<ManagedOpenVPNProperties> open_vpn;
+  std::optional<ManagedOpenVPNProperties> open_vpn;
 
-  absl::optional<ManagedThirdPartyVPNProperties> third_party_vpn;
+  std::optional<ManagedThirdPartyVPNProperties> third_party_vpn;
 
-  absl::optional<ManagedDOMString> type;
+  std::optional<ManagedDOMString> type;
 
 };
 
@@ -2747,8 +2572,8 @@ struct VPNStateProperties {
   ~VPNStateProperties();
   VPNStateProperties(const VPNStateProperties&) = delete;
   VPNStateProperties& operator=(const VPNStateProperties&) = delete;
-  VPNStateProperties(VPNStateProperties&& rhs);
-  VPNStateProperties& operator=(VPNStateProperties&& rhs);
+  VPNStateProperties(VPNStateProperties&& rhs) noexcept;
+  VPNStateProperties& operator=(VPNStateProperties&& rhs) noexcept;
 
   // Populates a VPNStateProperties object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -2761,16 +2586,13 @@ struct VPNStateProperties {
   // Creates a deep copy of VPNStateProperties.
   VPNStateProperties Clone() const;
 
-  // Creates a VPNStateProperties object from a base::Value, or NULL on failure.
-  static std::unique_ptr<VPNStateProperties> FromValueDeprecated(const base::Value& value);
-
   // Creates a VPNStateProperties object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<VPNStateProperties> FromValue(const base::Value::Dict& value);
+  static std::optional<VPNStateProperties> FromValue(const base::Value::Dict& value);
 
   // Creates a VPNStateProperties object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<VPNStateProperties> FromValue(const base::Value& value);
+  static std::optional<VPNStateProperties> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisVPNStateProperties object.
@@ -2778,9 +2600,9 @@ struct VPNStateProperties {
 
   std::string type;
 
-  absl::optional<IPSecProperties> i_psec;
+  std::optional<IPSecProperties> i_psec;
 
-  absl::optional<ThirdPartyVPNProperties> third_party_vpn;
+  std::optional<ThirdPartyVPNProperties> third_party_vpn;
 
 };
 
@@ -2789,8 +2611,8 @@ struct WiFiProperties {
   ~WiFiProperties();
   WiFiProperties(const WiFiProperties&) = delete;
   WiFiProperties& operator=(const WiFiProperties&) = delete;
-  WiFiProperties(WiFiProperties&& rhs);
-  WiFiProperties& operator=(WiFiProperties&& rhs);
+  WiFiProperties(WiFiProperties&& rhs) noexcept;
+  WiFiProperties& operator=(WiFiProperties&& rhs) noexcept;
 
   // Populates a WiFiProperties object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -2803,43 +2625,40 @@ struct WiFiProperties {
   // Creates a deep copy of WiFiProperties.
   WiFiProperties Clone() const;
 
-  // Creates a WiFiProperties object from a base::Value, or NULL on failure.
-  static std::unique_ptr<WiFiProperties> FromValueDeprecated(const base::Value& value);
-
   // Creates a WiFiProperties object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<WiFiProperties> FromValue(const base::Value::Dict& value);
+  static std::optional<WiFiProperties> FromValue(const base::Value::Dict& value);
 
   // Creates a WiFiProperties object from a base::Value, or nullopt on failure.
-  static absl::optional<WiFiProperties> FromValue(const base::Value& value);
+  static std::optional<WiFiProperties> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisWiFiProperties object.
   base::Value::Dict ToValue() const;
 
-  absl::optional<bool> allow_gateway_arp_polling;
+  std::optional<bool> allow_gateway_arp_polling;
 
-  absl::optional<bool> auto_connect;
+  std::optional<bool> auto_connect;
 
-  absl::optional<std::string> bssid;
+  std::optional<std::string> bssid;
 
-  absl::optional<EAPProperties> eap;
+  std::optional<EAPProperties> eap;
 
-  absl::optional<int> frequency;
+  std::optional<int> frequency;
 
-  absl::optional<std::vector<int>> frequency_list;
+  std::optional<std::vector<int>> frequency_list;
 
-  absl::optional<std::string> hex_ssid;
+  std::optional<std::string> hex_ssid;
 
-  absl::optional<bool> hidden_ssid;
+  std::optional<bool> hidden_ssid;
 
-  absl::optional<std::string> passphrase;
+  std::optional<std::string> passphrase;
 
-  absl::optional<std::string> ssid;
+  std::optional<std::string> ssid;
 
-  absl::optional<std::string> security;
+  std::optional<std::string> security;
 
-  absl::optional<int> signal_strength;
+  std::optional<int> signal_strength;
 
 };
 
@@ -2848,8 +2667,8 @@ struct ManagedWiFiProperties {
   ~ManagedWiFiProperties();
   ManagedWiFiProperties(const ManagedWiFiProperties&) = delete;
   ManagedWiFiProperties& operator=(const ManagedWiFiProperties&) = delete;
-  ManagedWiFiProperties(ManagedWiFiProperties&& rhs);
-  ManagedWiFiProperties& operator=(ManagedWiFiProperties&& rhs);
+  ManagedWiFiProperties(ManagedWiFiProperties&& rhs) noexcept;
+  ManagedWiFiProperties& operator=(ManagedWiFiProperties&& rhs) noexcept;
 
   // Populates a ManagedWiFiProperties object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -2862,45 +2681,41 @@ struct ManagedWiFiProperties {
   // Creates a deep copy of ManagedWiFiProperties.
   ManagedWiFiProperties Clone() const;
 
-  // Creates a ManagedWiFiProperties object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<ManagedWiFiProperties> FromValueDeprecated(const base::Value& value);
-
   // Creates a ManagedWiFiProperties object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<ManagedWiFiProperties> FromValue(const base::Value::Dict& value);
+  static std::optional<ManagedWiFiProperties> FromValue(const base::Value::Dict& value);
 
   // Creates a ManagedWiFiProperties object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<ManagedWiFiProperties> FromValue(const base::Value& value);
+  static std::optional<ManagedWiFiProperties> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisManagedWiFiProperties object.
   base::Value::Dict ToValue() const;
 
-  absl::optional<ManagedBoolean> allow_gateway_arp_polling;
+  std::optional<ManagedBoolean> allow_gateway_arp_polling;
 
-  absl::optional<ManagedBoolean> auto_connect;
+  std::optional<ManagedBoolean> auto_connect;
 
-  absl::optional<std::string> bssid;
+  std::optional<std::string> bssid;
 
-  absl::optional<ManagedEAPProperties> eap;
+  std::optional<ManagedEAPProperties> eap;
 
-  absl::optional<int> frequency;
+  std::optional<int> frequency;
 
-  absl::optional<std::vector<int>> frequency_list;
+  std::optional<std::vector<int>> frequency_list;
 
-  absl::optional<ManagedDOMString> hex_ssid;
+  std::optional<ManagedDOMString> hex_ssid;
 
-  absl::optional<ManagedBoolean> hidden_ssid;
+  std::optional<ManagedBoolean> hidden_ssid;
 
-  absl::optional<ManagedDOMString> passphrase;
+  std::optional<ManagedDOMString> passphrase;
 
-  absl::optional<ManagedDOMString> ssid;
+  std::optional<ManagedDOMString> ssid;
 
   ManagedDOMString security;
 
-  absl::optional<int> signal_strength;
+  std::optional<int> signal_strength;
 
 };
 
@@ -2909,8 +2724,8 @@ struct WiFiStateProperties {
   ~WiFiStateProperties();
   WiFiStateProperties(const WiFiStateProperties&) = delete;
   WiFiStateProperties& operator=(const WiFiStateProperties&) = delete;
-  WiFiStateProperties(WiFiStateProperties&& rhs);
-  WiFiStateProperties& operator=(WiFiStateProperties&& rhs);
+  WiFiStateProperties(WiFiStateProperties&& rhs) noexcept;
+  WiFiStateProperties& operator=(WiFiStateProperties&& rhs) noexcept;
 
   // Populates a WiFiStateProperties object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -2923,35 +2738,31 @@ struct WiFiStateProperties {
   // Creates a deep copy of WiFiStateProperties.
   WiFiStateProperties Clone() const;
 
-  // Creates a WiFiStateProperties object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<WiFiStateProperties> FromValueDeprecated(const base::Value& value);
-
   // Creates a WiFiStateProperties object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<WiFiStateProperties> FromValue(const base::Value::Dict& value);
+  static std::optional<WiFiStateProperties> FromValue(const base::Value::Dict& value);
 
   // Creates a WiFiStateProperties object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<WiFiStateProperties> FromValue(const base::Value& value);
+  static std::optional<WiFiStateProperties> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisWiFiStateProperties object.
   base::Value::Dict ToValue() const;
 
-  absl::optional<std::string> bssid;
+  std::optional<std::string> bssid;
 
-  absl::optional<EAPStateProperties> eap;
+  std::optional<EAPStateProperties> eap;
 
-  absl::optional<int> frequency;
+  std::optional<int> frequency;
 
-  absl::optional<std::string> hex_ssid;
+  std::optional<std::string> hex_ssid;
 
   std::string security;
 
-  absl::optional<int> signal_strength;
+  std::optional<int> signal_strength;
 
-  absl::optional<std::string> ssid;
+  std::optional<std::string> ssid;
 
 };
 
@@ -2960,8 +2771,8 @@ struct NetworkConfigProperties {
   ~NetworkConfigProperties();
   NetworkConfigProperties(const NetworkConfigProperties&) = delete;
   NetworkConfigProperties& operator=(const NetworkConfigProperties&) = delete;
-  NetworkConfigProperties(NetworkConfigProperties&& rhs);
-  NetworkConfigProperties& operator=(NetworkConfigProperties&& rhs);
+  NetworkConfigProperties(NetworkConfigProperties&& rhs) noexcept;
+  NetworkConfigProperties& operator=(NetworkConfigProperties&& rhs) noexcept;
 
   // Populates a NetworkConfigProperties object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -2974,45 +2785,41 @@ struct NetworkConfigProperties {
   // Creates a deep copy of NetworkConfigProperties.
   NetworkConfigProperties Clone() const;
 
-  // Creates a NetworkConfigProperties object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<NetworkConfigProperties> FromValueDeprecated(const base::Value& value);
-
   // Creates a NetworkConfigProperties object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<NetworkConfigProperties> FromValue(const base::Value::Dict& value);
+  static std::optional<NetworkConfigProperties> FromValue(const base::Value::Dict& value);
 
   // Creates a NetworkConfigProperties object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<NetworkConfigProperties> FromValue(const base::Value& value);
+  static std::optional<NetworkConfigProperties> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisNetworkConfigProperties object.
   base::Value::Dict ToValue() const;
 
-  absl::optional<CellularProperties> cellular;
+  std::optional<CellularProperties> cellular;
 
-  absl::optional<EthernetProperties> ethernet;
+  std::optional<EthernetProperties> ethernet;
 
-  absl::optional<std::string> guid;
+  std::optional<std::string> guid;
 
   IPConfigType ip_address_config_type;
 
-  absl::optional<std::string> name;
+  std::optional<std::string> name;
 
   IPConfigType name_servers_config_type;
 
-  absl::optional<int> priority;
+  std::optional<int> priority;
 
-  absl::optional<ProxySettings> proxy_settings;
+  std::optional<ProxySettings> proxy_settings;
 
-  absl::optional<IPConfigProperties> static_ip_config;
+  std::optional<IPConfigProperties> static_ip_config;
 
   NetworkType type;
 
-  absl::optional<VPNProperties> vpn;
+  std::optional<VPNProperties> vpn;
 
-  absl::optional<WiFiProperties> wi_fi;
+  std::optional<WiFiProperties> wi_fi;
 
 };
 
@@ -3021,8 +2828,8 @@ struct NetworkProperties {
   ~NetworkProperties();
   NetworkProperties(const NetworkProperties&) = delete;
   NetworkProperties& operator=(const NetworkProperties&) = delete;
-  NetworkProperties(NetworkProperties&& rhs);
-  NetworkProperties& operator=(NetworkProperties&& rhs);
+  NetworkProperties(NetworkProperties&& rhs) noexcept;
+  NetworkProperties& operator=(NetworkProperties&& rhs) noexcept;
 
   // Populates a NetworkProperties object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -3035,67 +2842,64 @@ struct NetworkProperties {
   // Creates a deep copy of NetworkProperties.
   NetworkProperties Clone() const;
 
-  // Creates a NetworkProperties object from a base::Value, or NULL on failure.
-  static std::unique_ptr<NetworkProperties> FromValueDeprecated(const base::Value& value);
-
   // Creates a NetworkProperties object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<NetworkProperties> FromValue(const base::Value::Dict& value);
+  static std::optional<NetworkProperties> FromValue(const base::Value::Dict& value);
 
   // Creates a NetworkProperties object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<NetworkProperties> FromValue(const base::Value& value);
+  static std::optional<NetworkProperties> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisNetworkProperties object.
   base::Value::Dict ToValue() const;
 
-  absl::optional<CellularProperties> cellular;
+  std::optional<CellularProperties> cellular;
 
-  absl::optional<bool> connectable;
+  std::optional<bool> connectable;
 
   ConnectionStateType connection_state;
 
-  absl::optional<std::string> error_state;
+  std::optional<std::string> error_state;
 
-  absl::optional<EthernetProperties> ethernet;
+  std::optional<EthernetProperties> ethernet;
 
   std::string guid;
 
   IPConfigType ip_address_config_type;
 
-  absl::optional<std::vector<IPConfigProperties>> ip_configs;
+  std::optional<std::vector<IPConfigProperties>> ip_configs;
 
-  absl::optional<std::string> mac_address;
+  std::optional<std::string> mac_address;
 
-  absl::optional<bool> metered;
+  std::optional<bool> metered;
 
-  absl::optional<std::string> name;
+  std::optional<std::string> name;
 
   IPConfigType name_servers_config_type;
 
-  absl::optional<int> priority;
+  std::optional<int> priority;
 
-  absl::optional<ProxySettings> proxy_settings;
+  std::optional<ProxySettings> proxy_settings;
 
-  absl::optional<bool> restricted_connectivity;
+  std::optional<bool> restricted_connectivity;
 
-  absl::optional<IPConfigProperties> static_ip_config;
+  std::optional<IPConfigProperties> static_ip_config;
 
-  absl::optional<IPConfigProperties> saved_ip_config;
+  std::optional<IPConfigProperties> saved_ip_config;
 
   // Indicates whether and how the network is configured. 'Source' can be Device,
   // DevicePolicy, User, UserPolicy or None. 'None' conflicts with extension code
   // generation so we must use a string for 'Source' instead of a SourceType enum.
-  absl::optional<std::string> source;
+  std::optional<std::string> source;
 
-  absl::optional<TetherProperties> tether;
+  std::optional<TetherProperties> tether;
 
   NetworkType type;
 
-  absl::optional<VPNProperties> vpn;
+  std::optional<VPNProperties> vpn;
 
-  absl::optional<WiFiProperties> wi_fi;
+  std::optional<WiFiProperties> wi_fi;
 
 };
 
@@ -3104,8 +2908,8 @@ struct ManagedProperties {
   ~ManagedProperties();
   ManagedProperties(const ManagedProperties&) = delete;
   ManagedProperties& operator=(const ManagedProperties&) = delete;
-  ManagedProperties(ManagedProperties&& rhs);
-  ManagedProperties& operator=(ManagedProperties&& rhs);
+  ManagedProperties(ManagedProperties&& rhs) noexcept;
+  ManagedProperties& operator=(ManagedProperties&& rhs) noexcept;
 
   // Populates a ManagedProperties object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -3118,65 +2922,62 @@ struct ManagedProperties {
   // Creates a deep copy of ManagedProperties.
   ManagedProperties Clone() const;
 
-  // Creates a ManagedProperties object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ManagedProperties> FromValueDeprecated(const base::Value& value);
-
   // Creates a ManagedProperties object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<ManagedProperties> FromValue(const base::Value::Dict& value);
+  static std::optional<ManagedProperties> FromValue(const base::Value::Dict& value);
 
   // Creates a ManagedProperties object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<ManagedProperties> FromValue(const base::Value& value);
+  static std::optional<ManagedProperties> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisManagedProperties object.
   base::Value::Dict ToValue() const;
 
-  absl::optional<ManagedCellularProperties> cellular;
+  std::optional<ManagedCellularProperties> cellular;
 
-  absl::optional<bool> connectable;
+  std::optional<bool> connectable;
 
   ConnectionStateType connection_state;
 
-  absl::optional<std::string> error_state;
+  std::optional<std::string> error_state;
 
-  absl::optional<ManagedEthernetProperties> ethernet;
+  std::optional<ManagedEthernetProperties> ethernet;
 
   std::string guid;
 
-  absl::optional<ManagedIPConfigType> ip_address_config_type;
+  std::optional<ManagedIPConfigType> ip_address_config_type;
 
-  absl::optional<std::vector<IPConfigProperties>> ip_configs;
+  std::optional<std::vector<IPConfigProperties>> ip_configs;
 
-  absl::optional<std::string> mac_address;
+  std::optional<std::string> mac_address;
 
-  absl::optional<ManagedBoolean> metered;
+  std::optional<ManagedBoolean> metered;
 
-  absl::optional<ManagedDOMString> name;
+  std::optional<ManagedDOMString> name;
 
-  absl::optional<ManagedIPConfigType> name_servers_config_type;
+  std::optional<ManagedIPConfigType> name_servers_config_type;
 
-  absl::optional<ManagedLong> priority;
+  std::optional<ManagedLong> priority;
 
-  absl::optional<ManagedProxySettings> proxy_settings;
+  std::optional<ManagedProxySettings> proxy_settings;
 
-  absl::optional<bool> restricted_connectivity;
+  std::optional<bool> restricted_connectivity;
 
-  absl::optional<ManagedIPConfigProperties> static_ip_config;
+  std::optional<ManagedIPConfigProperties> static_ip_config;
 
-  absl::optional<IPConfigProperties> saved_ip_config;
+  std::optional<IPConfigProperties> saved_ip_config;
 
   // See $(ref:NetworkProperties.Source).
-  absl::optional<std::string> source;
+  std::optional<std::string> source;
 
-  absl::optional<TetherProperties> tether;
+  std::optional<TetherProperties> tether;
 
   NetworkType type;
 
-  absl::optional<ManagedVPNProperties> vpn;
+  std::optional<ManagedVPNProperties> vpn;
 
-  absl::optional<ManagedWiFiProperties> wi_fi;
+  std::optional<ManagedWiFiProperties> wi_fi;
 
 };
 
@@ -3185,8 +2986,8 @@ struct NetworkStateProperties {
   ~NetworkStateProperties();
   NetworkStateProperties(const NetworkStateProperties&) = delete;
   NetworkStateProperties& operator=(const NetworkStateProperties&) = delete;
-  NetworkStateProperties(NetworkStateProperties&& rhs);
-  NetworkStateProperties& operator=(NetworkStateProperties&& rhs);
+  NetworkStateProperties(NetworkStateProperties&& rhs) noexcept;
+  NetworkStateProperties& operator=(NetworkStateProperties&& rhs) noexcept;
 
   // Populates a NetworkStateProperties object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -3199,48 +3000,44 @@ struct NetworkStateProperties {
   // Creates a deep copy of NetworkStateProperties.
   NetworkStateProperties Clone() const;
 
-  // Creates a NetworkStateProperties object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<NetworkStateProperties> FromValueDeprecated(const base::Value& value);
-
   // Creates a NetworkStateProperties object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<NetworkStateProperties> FromValue(const base::Value::Dict& value);
+  static std::optional<NetworkStateProperties> FromValue(const base::Value::Dict& value);
 
   // Creates a NetworkStateProperties object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<NetworkStateProperties> FromValue(const base::Value& value);
+  static std::optional<NetworkStateProperties> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisNetworkStateProperties object.
   base::Value::Dict ToValue() const;
 
-  absl::optional<CellularStateProperties> cellular;
+  std::optional<CellularStateProperties> cellular;
 
-  absl::optional<bool> connectable;
+  std::optional<bool> connectable;
 
   ConnectionStateType connection_state;
 
-  absl::optional<EthernetStateProperties> ethernet;
+  std::optional<EthernetStateProperties> ethernet;
 
-  absl::optional<std::string> error_state;
+  std::optional<std::string> error_state;
 
   std::string guid;
 
-  absl::optional<std::string> name;
+  std::optional<std::string> name;
 
-  absl::optional<int> priority;
+  std::optional<int> priority;
 
   // See $(ref:NetworkProperties.Source).
-  absl::optional<std::string> source;
+  std::optional<std::string> source;
 
-  absl::optional<TetherProperties> tether;
+  std::optional<TetherProperties> tether;
 
   NetworkType type;
 
-  absl::optional<VPNStateProperties> vpn;
+  std::optional<VPNStateProperties> vpn;
 
-  absl::optional<WiFiStateProperties> wi_fi;
+  std::optional<WiFiStateProperties> wi_fi;
 
 };
 
@@ -3249,8 +3046,8 @@ struct DeviceStateProperties {
   ~DeviceStateProperties();
   DeviceStateProperties(const DeviceStateProperties&) = delete;
   DeviceStateProperties& operator=(const DeviceStateProperties&) = delete;
-  DeviceStateProperties(DeviceStateProperties&& rhs);
-  DeviceStateProperties& operator=(DeviceStateProperties&& rhs);
+  DeviceStateProperties(DeviceStateProperties&& rhs) noexcept;
+  DeviceStateProperties& operator=(DeviceStateProperties&& rhs) noexcept;
 
   // Populates a DeviceStateProperties object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -3263,30 +3060,26 @@ struct DeviceStateProperties {
   // Creates a deep copy of DeviceStateProperties.
   DeviceStateProperties Clone() const;
 
-  // Creates a DeviceStateProperties object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<DeviceStateProperties> FromValueDeprecated(const base::Value& value);
-
   // Creates a DeviceStateProperties object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<DeviceStateProperties> FromValue(const base::Value::Dict& value);
+  static std::optional<DeviceStateProperties> FromValue(const base::Value::Dict& value);
 
   // Creates a DeviceStateProperties object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<DeviceStateProperties> FromValue(const base::Value& value);
+  static std::optional<DeviceStateProperties> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDeviceStateProperties object.
   base::Value::Dict ToValue() const;
 
   // Set if the device is enabled. True if the device is currently scanning.
-  absl::optional<bool> scanning;
+  std::optional<bool> scanning;
 
   // The SIM lock status if Type = Cellular and SIMPresent = True.
-  absl::optional<SIMLockStatus> sim_lock_status;
+  std::optional<SIMLockStatus> sim_lock_status;
 
   // Set to the SIM present state if the device type is Cellular.
-  absl::optional<bool> sim_present;
+  std::optional<bool> sim_present;
 
   // The current state of the device.
   DeviceStateType state;
@@ -3295,7 +3088,7 @@ struct DeviceStateProperties {
   NetworkType type;
 
   // Whether or not any managed networks are available/visible.
-  absl::optional<bool> managed_network_available;
+  std::optional<bool> managed_network_available;
 
 };
 
@@ -3304,8 +3097,8 @@ struct NetworkFilter {
   ~NetworkFilter();
   NetworkFilter(const NetworkFilter&) = delete;
   NetworkFilter& operator=(const NetworkFilter&) = delete;
-  NetworkFilter(NetworkFilter&& rhs);
-  NetworkFilter& operator=(NetworkFilter&& rhs);
+  NetworkFilter(NetworkFilter&& rhs) noexcept;
+  NetworkFilter& operator=(NetworkFilter&& rhs) noexcept;
 
   // Populates a NetworkFilter object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -3318,15 +3111,12 @@ struct NetworkFilter {
   // Creates a deep copy of NetworkFilter.
   NetworkFilter Clone() const;
 
-  // Creates a NetworkFilter object from a base::Value, or NULL on failure.
-  static std::unique_ptr<NetworkFilter> FromValueDeprecated(const base::Value& value);
-
   // Creates a NetworkFilter object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<NetworkFilter> FromValue(const base::Value::Dict& value);
+  static std::optional<NetworkFilter> FromValue(const base::Value::Dict& value);
 
   // Creates a NetworkFilter object from a base::Value, or nullopt on failure.
-  static absl::optional<NetworkFilter> FromValue(const base::Value& value);
+  static std::optional<NetworkFilter> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisNetworkFilter object.
@@ -3337,14 +3127,14 @@ struct NetworkFilter {
 
   // If true, only include visible (physically connected or in-range) networks.
   // Defaults to 'false'.
-  absl::optional<bool> visible;
+  std::optional<bool> visible;
 
   // If true, only include configured (saved) networks. Defaults to 'false'.
-  absl::optional<bool> configured;
+  std::optional<bool> configured;
 
   // Maximum number of networks to return. Defaults to 1000 if unspecified. Use 0
   // for no limit.
-  absl::optional<int> limit;
+  std::optional<int> limit;
 
 };
 
@@ -3353,8 +3143,8 @@ struct GlobalPolicy {
   ~GlobalPolicy();
   GlobalPolicy(const GlobalPolicy&) = delete;
   GlobalPolicy& operator=(const GlobalPolicy&) = delete;
-  GlobalPolicy(GlobalPolicy&& rhs);
-  GlobalPolicy& operator=(GlobalPolicy&& rhs);
+  GlobalPolicy(GlobalPolicy&& rhs) noexcept;
+  GlobalPolicy& operator=(GlobalPolicy&& rhs) noexcept;
 
   // Populates a GlobalPolicy object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -3367,36 +3157,33 @@ struct GlobalPolicy {
   // Creates a deep copy of GlobalPolicy.
   GlobalPolicy Clone() const;
 
-  // Creates a GlobalPolicy object from a base::Value, or NULL on failure.
-  static std::unique_ptr<GlobalPolicy> FromValueDeprecated(const base::Value& value);
-
   // Creates a GlobalPolicy object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<GlobalPolicy> FromValue(const base::Value::Dict& value);
+  static std::optional<GlobalPolicy> FromValue(const base::Value::Dict& value);
 
   // Creates a GlobalPolicy object from a base::Value, or nullopt on failure.
-  static absl::optional<GlobalPolicy> FromValue(const base::Value& value);
+  static std::optional<GlobalPolicy> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisGlobalPolicy object.
   base::Value::Dict ToValue() const;
 
   // If true, only policy networks may auto connect. Defaults to false.
-  absl::optional<bool> allow_only_policy_networks_to_autoconnect;
+  std::optional<bool> allow_only_policy_networks_to_autoconnect;
 
   // If true, only policy networks may be connected to and no new networks may be
   // added or configured. Defaults to false.
-  absl::optional<bool> allow_only_policy_networks_to_connect;
+  std::optional<bool> allow_only_policy_networks_to_connect;
 
   // If true and a managed network is available in the visible network list, only
   // policy networks may be connected to and no new networks may be added or
   // configured. Defaults to false.
-  absl::optional<bool> allow_only_policy_networks_to_connect_if_available;
+  std::optional<bool> allow_only_policy_networks_to_connect_if_available;
 
   // List of blocked networks. Connections to blocked networks are prohibited.
   // Networks can be allowed again by specifying an explicit network
   // configuration. Defaults to an empty list.
-  absl::optional<std::vector<std::string>> blocked_hex_ssi_ds;
+  std::optional<std::vector<std::string>> blocked_hex_ssi_ds;
 
 };
 
@@ -3405,8 +3192,8 @@ struct Certificate {
   ~Certificate();
   Certificate(const Certificate&) = delete;
   Certificate& operator=(const Certificate&) = delete;
-  Certificate(Certificate&& rhs);
-  Certificate& operator=(Certificate&& rhs);
+  Certificate(Certificate&& rhs) noexcept;
+  Certificate& operator=(Certificate&& rhs) noexcept;
 
   // Populates a Certificate object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -3419,15 +3206,12 @@ struct Certificate {
   // Creates a deep copy of Certificate.
   Certificate Clone() const;
 
-  // Creates a Certificate object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Certificate> FromValueDeprecated(const base::Value& value);
-
   // Creates a Certificate object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<Certificate> FromValue(const base::Value::Dict& value);
+  static std::optional<Certificate> FromValue(const base::Value::Dict& value);
 
   // Creates a Certificate object from a base::Value, or nullopt on failure.
-  static absl::optional<Certificate> FromValue(const base::Value& value);
+  static std::optional<Certificate> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisCertificate object.
@@ -3443,10 +3227,10 @@ struct Certificate {
   std::string issued_to;
 
   // PEM for server CA certificates.
-  absl::optional<std::string> pem;
+  std::optional<std::string> pem;
 
   // PKCS#11 id for user certificates.
-  absl::optional<std::string> pkcs11_id;
+  std::optional<std::string> pkcs11_id;
 
   // Whether or not the certificate is hardware backed.
   bool hardware_backed;
@@ -3461,8 +3245,8 @@ struct CertificateLists {
   ~CertificateLists();
   CertificateLists(const CertificateLists&) = delete;
   CertificateLists& operator=(const CertificateLists&) = delete;
-  CertificateLists(CertificateLists&& rhs);
-  CertificateLists& operator=(CertificateLists&& rhs);
+  CertificateLists(CertificateLists&& rhs) noexcept;
+  CertificateLists& operator=(CertificateLists&& rhs) noexcept;
 
   // Populates a CertificateLists object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -3475,16 +3259,13 @@ struct CertificateLists {
   // Creates a deep copy of CertificateLists.
   CertificateLists Clone() const;
 
-  // Creates a CertificateLists object from a base::Value, or NULL on failure.
-  static std::unique_ptr<CertificateLists> FromValueDeprecated(const base::Value& value);
-
   // Creates a CertificateLists object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<CertificateLists> FromValue(const base::Value::Dict& value);
+  static std::optional<CertificateLists> FromValue(const base::Value::Dict& value);
 
   // Creates a CertificateLists object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<CertificateLists> FromValue(const base::Value& value);
+  static std::optional<CertificateLists> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisCertificateLists object.
@@ -3506,11 +3287,11 @@ struct CertificateLists {
 namespace GetProperties {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The GUID of the network to get properties for.
@@ -3531,11 +3312,11 @@ base::Value::List Create(const NetworkProperties& result);
 namespace GetManagedProperties {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The GUID of the network to get properties for.
@@ -3556,11 +3337,11 @@ base::Value::List Create(const ManagedProperties& result);
 namespace GetState {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The GUID of the network to get properties for.
@@ -3581,11 +3362,11 @@ base::Value::List Create(const NetworkStateProperties& result);
 namespace SetProperties {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The GUID of the network to set properties for.
@@ -3609,11 +3390,11 @@ base::Value::List Create();
 namespace CreateNetwork {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // If true, share this network configuration with other users.
@@ -3637,11 +3418,11 @@ base::Value::List Create(const std::string& result);
 namespace ForgetNetwork {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The GUID of the network to forget.
@@ -3662,11 +3443,11 @@ base::Value::List Create();
 namespace GetNetworks {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Describes which networks to return.
@@ -3687,11 +3468,11 @@ base::Value::List Create(const std::vector<NetworkStateProperties>& result);
 namespace GetVisibleNetworks {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   NetworkType network_type;
@@ -3729,11 +3510,11 @@ base::Value::List Create(const std::vector<DeviceStateProperties>& result);
 namespace EnableNetworkType {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The type of network to enable.
@@ -3749,11 +3530,11 @@ struct Params {
 namespace DisableNetworkType {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The type of network to disable.
@@ -3769,11 +3550,11 @@ struct Params {
 namespace RequestNetworkScan {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // If provided, requests a scan specific to the type.     For Cellular a mobile
@@ -3790,11 +3571,11 @@ struct Params {
 namespace StartConnect {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The GUID of the network to connect to.
@@ -3815,11 +3596,11 @@ base::Value::List Create();
 namespace StartDisconnect {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The GUID of the network to disconnect from.
@@ -3840,18 +3621,18 @@ base::Value::List Create();
 namespace StartActivate {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The GUID of the Cellular network to activate.
   std::string network_guid;
 
   // Optional name of carrier to activate.
-  absl::optional<std::string> carrier;
+  std::optional<std::string> carrier;
 
 
  private:
@@ -3868,11 +3649,11 @@ base::Value::List Create();
 namespace GetCaptivePortalStatus {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The GUID of the network to get captive portal status for.
@@ -3893,11 +3674,11 @@ base::Value::List Create(const CaptivePortalStatus& result);
 namespace UnlockCellularSim {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The GUID of the cellular network to unlock.     If empty, the default
@@ -3908,7 +3689,7 @@ struct Params {
   std::string pin;
 
   // The operator provided PUK for unblocking a blocked SIM.
-  absl::optional<std::string> puk;
+  std::optional<std::string> puk;
 
 
  private:
@@ -3925,11 +3706,11 @@ base::Value::List Create();
 namespace SetCellularSimState {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The GUID of the cellular network to set the SIM state of.     If empty, the
@@ -3954,11 +3735,11 @@ base::Value::List Create();
 namespace SelectCellularMobileNetwork {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The GUID of the cellular network to select the network     for. If empty, the

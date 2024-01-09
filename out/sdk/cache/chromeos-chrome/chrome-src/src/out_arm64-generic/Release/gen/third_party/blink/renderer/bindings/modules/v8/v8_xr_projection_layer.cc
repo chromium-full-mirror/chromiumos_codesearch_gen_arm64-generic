@@ -71,11 +71,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, XRProjectionLayer>::value,
     "XRProjectionLayer inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&XRProjectionLayer::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "XRProjectionLayer is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -88,8 +83,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRProjectionLayer.textureWidth.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRProjectionLayer* blink_receiver = V8XRProjectionLayer::ToWrappableUnsafe(v8_receiver);
+XRProjectionLayer* blink_receiver = V8XRProjectionLayer::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->textureWidth();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -102,8 +98,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRProjectionLayer.textureHeight.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRProjectionLayer* blink_receiver = V8XRProjectionLayer::ToWrappableUnsafe(v8_receiver);
+XRProjectionLayer* blink_receiver = V8XRProjectionLayer::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->textureHeight();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -116,8 +113,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRProjectionLayer.textureArrayLength.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRProjectionLayer* blink_receiver = V8XRProjectionLayer::ToWrappableUnsafe(v8_receiver);
+XRProjectionLayer* blink_receiver = V8XRProjectionLayer::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->textureArrayLength();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -130,8 +128,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRProjectionLayer.ignoreDepthValues.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRProjectionLayer* blink_receiver = V8XRProjectionLayer::ToWrappableUnsafe(v8_receiver);
+XRProjectionLayer* blink_receiver = V8XRProjectionLayer::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->ignoreDepthValues();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -144,8 +143,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRProjectionLayer.fixedFoveation.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRProjectionLayer* blink_receiver = V8XRProjectionLayer::ToWrappableUnsafe(v8_receiver);
+XRProjectionLayer* blink_receiver = V8XRProjectionLayer::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->fixedFoveation();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<float>());
 }
@@ -167,7 +167,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-XRProjectionLayer* blink_receiver = V8XRProjectionLayer::ToWrappableUnsafe(v8_receiver);
+XRProjectionLayer* blink_receiver = V8XRProjectionLayer::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLNullable<IDLFloat>>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -184,8 +184,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRProjectionLayer.deltaPose.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-XRProjectionLayer* blink_receiver = V8XRProjectionLayer::ToWrappableUnsafe(v8_receiver);
+XRProjectionLayer* blink_receiver = V8XRProjectionLayer::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->deltaPose();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -207,7 +208,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-XRProjectionLayer* blink_receiver = V8XRProjectionLayer::ToWrappableUnsafe(v8_receiver);
+XRProjectionLayer* blink_receiver = V8XRProjectionLayer::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLNullable<XRRigidTransform>>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {

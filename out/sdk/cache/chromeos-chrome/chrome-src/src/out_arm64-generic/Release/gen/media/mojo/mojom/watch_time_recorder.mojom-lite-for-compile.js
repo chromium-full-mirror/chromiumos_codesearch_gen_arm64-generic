@@ -120,12 +120,6 @@ media.mojom.WatchTimeRecorderInterface = class {
    */
 
   updateUnderflowDuration(totalCompletedCount, totalDuration) {}
-  
-  /**
-   * @param { !mojoBase.mojom.TimeDelta } lastTimestamp
-   */
-
-  onCurrentTimestampChanged(lastTimestamp) {}
 };
 
 /**
@@ -304,22 +298,6 @@ media.mojom.WatchTimeRecorderRemote = class {
           totalDuration
         ]);
   }
-
-  
-  /**
-   * @param { !mojoBase.mojom.TimeDelta } lastTimestamp
-   */
-
-  onCurrentTimestampChanged(
-      lastTimestamp) {
-    this.proxy.sendMessage(
-        9,
-        media.mojom.WatchTimeRecorder_OnCurrentTimestampChanged_ParamsSpec.$,
-        null,
-        [
-          lastTimestamp
-        ]);
-  }
 };
 
 /**
@@ -389,11 +367,6 @@ media.mojom.WatchTimeRecorderReceiver = class {
         media.mojom.WatchTimeRecorder_UpdateUnderflowDuration_ParamsSpec.$,
         null,
         impl.updateUnderflowDuration.bind(impl));
-    this.helper_internal_.registerHandler(
-        9,
-        media.mojom.WatchTimeRecorder_OnCurrentTimestampChanged_ParamsSpec.$,
-        null,
-        impl.onCurrentTimestampChanged.bind(impl));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -554,18 +527,6 @@ media.mojom.WatchTimeRecorderCallbackRouter = class {
         media.mojom.WatchTimeRecorder_UpdateUnderflowDuration_ParamsSpec.$,
         null,
         this.updateUnderflowDuration.createReceiverHandler(false /* expectsResponse */));
-    /**
-     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
-     */
-    this.onCurrentTimestampChanged =
-        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
-            this.router_);
-
-    this.helper_internal_.registerHandler(
-        9,
-        media.mojom.WatchTimeRecorder_OnCurrentTimestampChanged_ParamsSpec.$,
-        null,
-        this.onCurrentTimestampChanged.createReceiverHandler(false /* expectsResponse */));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -667,14 +628,6 @@ goog.provide('media.mojom.WatchTimeRecorder_UpdateUnderflowDuration_ParamsSpec')
  * @export
  */
 media.mojom.WatchTimeRecorder_UpdateUnderflowDuration_ParamsSpec =
-    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
-
-goog.provide('media.mojom.WatchTimeRecorder_OnCurrentTimestampChanged_ParamsSpec');
-/**
- * @const { {$:!mojo.internal.MojomType}}
- * @export
- */
-media.mojom.WatchTimeRecorder_OnCurrentTimestampChanged_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 
@@ -1184,35 +1137,6 @@ media.mojom.WatchTimeRecorder_UpdateUnderflowDuration_Params = class {
     this.totalCompletedCount;
     /** @export { !mojoBase.mojom.TimeDelta } */
     this.totalDuration;
-  }
-};
-
-
-
-mojo.internal.Struct(
-    media.mojom.WatchTimeRecorder_OnCurrentTimestampChanged_ParamsSpec.$,
-    'WatchTimeRecorder_OnCurrentTimestampChanged_Params',
-    [
-      mojo.internal.StructField(
-        'lastTimestamp', 0,
-        0,
-        mojoBase.mojom.TimeDeltaSpec.$,
-        null,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-    ],
-    [[0, 16],]);
-
-
-
-goog.provide('media.mojom.WatchTimeRecorder_OnCurrentTimestampChanged_Params');
-
-/** @record */
-media.mojom.WatchTimeRecorder_OnCurrentTimestampChanged_Params = class {
-  constructor() {
-    /** @export { !mojoBase.mojom.TimeDelta } */
-    this.lastTimestamp;
   }
 };
 

@@ -444,6 +444,22 @@ class  PageHandler_OnModulesLoadedWithData_Params_Data {
 };
 static_assert(sizeof(PageHandler_OnModulesLoadedWithData_Params_Data) == 16,
               "Bad sizeof(PageHandler_OnModulesLoadedWithData_Params_Data)");
+class  PageHandler_OnModuleUsed_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> module_id;
+
+ private:
+  friend class mojo::internal::MessageFragment<PageHandler_OnModuleUsed_Params_Data>;
+
+  PageHandler_OnModuleUsed_Params_Data();
+  ~PageHandler_OnModuleUsed_Params_Data() = delete;
+};
+static_assert(sizeof(PageHandler_OnModuleUsed_Params_Data) == 16,
+              "Bad sizeof(PageHandler_OnModuleUsed_Params_Data)");
 class  PageHandler_GetModulesIdNames_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -619,21 +635,23 @@ class  PageHandler_IncrementCustomizeChromeButtonOpenCount_Params_Data {
 };
 static_assert(sizeof(PageHandler_IncrementCustomizeChromeButtonOpenCount_Params_Data) == 8,
               "Bad sizeof(PageHandler_IncrementCustomizeChromeButtonOpenCount_Params_Data)");
-class  PageHandler_MaybeShowCustomizeChromeFeaturePromo_Params_Data {
+class  PageHandler_MaybeShowFeaturePromo_Params_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
+  int32_t iph_feature;
+  uint8_t padfinal_[4];
 
  private:
-  friend class mojo::internal::MessageFragment<PageHandler_MaybeShowCustomizeChromeFeaturePromo_Params_Data>;
+  friend class mojo::internal::MessageFragment<PageHandler_MaybeShowFeaturePromo_Params_Data>;
 
-  PageHandler_MaybeShowCustomizeChromeFeaturePromo_Params_Data();
-  ~PageHandler_MaybeShowCustomizeChromeFeaturePromo_Params_Data() = delete;
+  PageHandler_MaybeShowFeaturePromo_Params_Data();
+  ~PageHandler_MaybeShowFeaturePromo_Params_Data() = delete;
 };
-static_assert(sizeof(PageHandler_MaybeShowCustomizeChromeFeaturePromo_Params_Data) == 8,
-              "Bad sizeof(PageHandler_MaybeShowCustomizeChromeFeaturePromo_Params_Data)");
+static_assert(sizeof(PageHandler_MaybeShowFeaturePromo_Params_Data) == 16,
+              "Bad sizeof(PageHandler_MaybeShowFeaturePromo_Params_Data)");
 class  PageHandler_OnOneGoogleBarRendered_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -1514,6 +1532,32 @@ class PageHandler_OnModulesLoadedWithData_ParamsDataView {
 };
 
 
+class PageHandler_OnModuleUsed_ParamsDataView {
+ public:
+  PageHandler_OnModuleUsed_ParamsDataView() = default;
+
+  PageHandler_OnModuleUsed_ParamsDataView(
+      internal::PageHandler_OnModuleUsed_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetModuleIdDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadModuleId(UserType* output) {
+    
+    auto* pointer = data_->module_id.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::PageHandler_OnModuleUsed_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 class PageHandler_GetModulesIdNames_ParamsDataView {
  public:
   PageHandler_GetModulesIdNames_ParamsDataView() = default;
@@ -1738,18 +1782,28 @@ class PageHandler_IncrementCustomizeChromeButtonOpenCount_ParamsDataView {
 };
 
 
-class PageHandler_MaybeShowCustomizeChromeFeaturePromo_ParamsDataView {
+class PageHandler_MaybeShowFeaturePromo_ParamsDataView {
  public:
-  PageHandler_MaybeShowCustomizeChromeFeaturePromo_ParamsDataView() = default;
+  PageHandler_MaybeShowFeaturePromo_ParamsDataView() = default;
 
-  PageHandler_MaybeShowCustomizeChromeFeaturePromo_ParamsDataView(
-      internal::PageHandler_MaybeShowCustomizeChromeFeaturePromo_Params_Data* data,
+  PageHandler_MaybeShowFeaturePromo_ParamsDataView(
+      internal::PageHandler_MaybeShowFeaturePromo_Params_Data* data,
       mojo::Message* message)
       : data_(data) {}
 
   bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadIphFeature(UserType* output) const {
+    auto data_value = data_->iph_feature;
+    return mojo::internal::Deserialize<::new_tab_page::mojom::IphFeature>(
+        data_value, output);
+  }
+  IphFeature iph_feature() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::new_tab_page::mojom::IphFeature>(data_->iph_feature));
+  }
  private:
-  internal::PageHandler_MaybeShowCustomizeChromeFeaturePromo_Params_Data* data_ = nullptr;
+  internal::PageHandler_MaybeShowFeaturePromo_Params_Data* data_ = nullptr;
 };
 
 
@@ -2360,6 +2414,13 @@ inline void PageHandler_OnModulesLoadedWithData_ParamsDataView::GetModuleIdsData
     mojo::ArrayDataView<mojo::StringDataView>* output) {
   auto pointer = data_->module_ids.Get();
   *output = mojo::ArrayDataView<mojo::StringDataView>(pointer, message_);
+}
+
+
+inline void PageHandler_OnModuleUsed_ParamsDataView::GetModuleIdDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->module_id.Get();
+  *output = mojo::StringDataView(pointer, message_);
 }
 
 

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -49,7 +50,7 @@ DataTransferEndpoint::DataTransferEndpoint()
 
 DataTransferEndpoint::DataTransferEndpoint(
     EndpointType type_in,
-    const absl::optional<::GURL>& url_in)
+    const std::optional<::GURL>& url_in)
     : type(std::move(type_in)),
       url(std::move(url_in)) {}
 
@@ -71,7 +72,7 @@ void DataTransferEndpoint::WriteIntoTrace(
     dict.AddItem(
       "url"), this->url,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::GURL>&>"
+      "<value of type const std::optional<::GURL>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -227,6 +228,406 @@ bool WebContentsInfo::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+EventDestination::EventDestination()
+    : url_pattern(),
+      component() {}
+
+EventDestination::EventDestination(
+    const std::optional<std::string>& url_pattern_in,
+    std::optional<EventDestination::Component> component_in)
+    : url_pattern(std::move(url_pattern_in)),
+      component(std::move(component_in)) {}
+
+EventDestination::~EventDestination() = default;
+
+void EventDestination::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "url_pattern"), this->url_pattern,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::optional<std::string>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "component"), this->component,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::optional<EventDestination::Component>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool EventDestination::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+DlpEvent::DlpEvent()
+    : source_pattern(),
+      destination(),
+      restriction(),
+      mode(),
+      timestamp_micro(),
+      user_type(),
+      content_name(),
+      triggered_rule_name(),
+      triggered_rule_id() {}
+
+DlpEvent::DlpEvent(
+    const std::optional<std::string>& source_pattern_in,
+    EventDestinationPtr destination_in,
+    std::optional<DlpEvent::Restriction> restriction_in,
+    std::optional<DlpEvent::Mode> mode_in,
+    std::optional<int64_t> timestamp_micro_in,
+    std::optional<DlpEvent::UserType> user_type_in,
+    const std::optional<std::string>& content_name_in,
+    const std::optional<std::string>& triggered_rule_name_in,
+    const std::optional<std::string>& triggered_rule_id_in)
+    : source_pattern(std::move(source_pattern_in)),
+      destination(std::move(destination_in)),
+      restriction(std::move(restriction_in)),
+      mode(std::move(mode_in)),
+      timestamp_micro(std::move(timestamp_micro_in)),
+      user_type(std::move(user_type_in)),
+      content_name(std::move(content_name_in)),
+      triggered_rule_name(std::move(triggered_rule_name_in)),
+      triggered_rule_id(std::move(triggered_rule_id_in)) {}
+
+DlpEvent::~DlpEvent() = default;
+
+void DlpEvent::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "source_pattern"), this->source_pattern,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::optional<std::string>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "destination"), this->destination,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type EventDestinationPtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "restriction"), this->restriction,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::optional<DlpEvent::Restriction>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "mode"), this->mode,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::optional<DlpEvent::Mode>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "timestamp_micro"), this->timestamp_micro,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::optional<int64_t>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "user_type"), this->user_type,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::optional<DlpEvent::UserType>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "content_name"), this->content_name,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::optional<std::string>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "triggered_rule_name"), this->triggered_rule_name,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::optional<std::string>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "triggered_rule_id"), this->triggered_rule_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::optional<std::string>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool DlpEvent::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+FileDatabaseEntry::FileDatabaseEntry()
+    : inode(),
+      crtime(),
+      source_url(),
+      referrer_url() {}
+
+FileDatabaseEntry::FileDatabaseEntry(
+    std::optional<uint64_t> inode_in,
+    std::optional<uint64_t> crtime_in,
+    const std::optional<std::string>& source_url_in,
+    const std::optional<std::string>& referrer_url_in)
+    : inode(std::move(inode_in)),
+      crtime(std::move(crtime_in)),
+      source_url(std::move(source_url_in)),
+      referrer_url(std::move(referrer_url_in)) {}
+
+FileDatabaseEntry::~FileDatabaseEntry() = default;
+
+void FileDatabaseEntry::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "inode"), this->inode,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::optional<uint64_t>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "crtime"), this->crtime,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::optional<uint64_t>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "source_url"), this->source_url,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::optional<std::string>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "referrer_url"), this->referrer_url,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::optional<std::string>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool FileDatabaseEntry::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+const char ReportingObserver::Name_[] = "dlp_internals.mojom.ReportingObserver";
+
+ReportingObserver::IPCStableHashFunction ReportingObserver::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
+  switch (message.name()) {
+    case internal::kReportingObserver_OnReportEvent_Name: {
+      return &ReportingObserver::OnReportEvent_Sym::IPCStableHash;
+    }
+  }
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
+}
+
+
+const char* ReportingObserver::MessageToMethodName_(mojo::Message& message) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (!is_response) {
+    switch (message.name()) {
+      case internal::kReportingObserver_OnReportEvent_Name:
+            return "Receive dlp_internals::mojom::ReportingObserver::OnReportEvent";
+    }
+  } else {
+    switch (message.name()) {
+      case internal::kReportingObserver_OnReportEvent_Name:
+            return "Receive reply dlp_internals::mojom::ReportingObserver::OnReportEvent";
+    }
+  }
+  return "Receive unknown mojo message";
+#else
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (is_response) {
+    return "Receive mojo reply";
+  } else {
+    return "Receive mojo message";
+  }
+#endif // BUILDFLAG(MOJO_TRACE_ENABLED)
+}
+
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t ReportingObserver::OnReportEvent_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)dlp_internals::mojom::ReportingObserver::OnReportEvent");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
+
+ReportingObserverProxy::ReportingObserverProxy(mojo::MessageReceiverWithResponder* receiver)
+    : receiver_(receiver) {
+}
+
+void ReportingObserverProxy::OnReportEvent(
+    DlpEventPtr in_event) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send dlp_internals::mojom::ReportingObserver::OnReportEvent", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("event"), in_event,
+                        "<value of type DlpEventPtr>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kReportingObserver_OnReportEvent_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::dlp_internals::mojom::internal::ReportingObserver_OnReportEvent_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->event)::BaseType> event_fragment(
+          params.message());
+  mojo::internal::Serialize<::dlp_internals::mojom::DlpEventDataView>(
+      in_event, event_fragment);
+  params->event.Set(
+      event_fragment.is_null() ? nullptr : event_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->event.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null event in ReportingObserver.OnReportEvent request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(ReportingObserver::Name_);
+  message.set_method_name("OnReportEvent");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+// static
+bool ReportingObserverStubDispatch::Accept(
+    ReportingObserver* impl,
+    mojo::Message* message) {
+  switch (message->header()->name) {
+    case internal::kReportingObserver_OnReportEvent_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::ReportingObserver_OnReportEvent_Params_Data* params =
+          reinterpret_cast<internal::ReportingObserver_OnReportEvent_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      DlpEventPtr p_event{};
+      ReportingObserver_OnReportEvent_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadEvent(&p_event))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            ReportingObserver::Name_, 0, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->OnReportEvent(
+std::move(p_event));
+      return true;
+    }
+  }
+  return false;
+}
+
+// static
+bool ReportingObserverStubDispatch::AcceptWithResponder(
+    ReportingObserver* impl,
+    mojo::Message* message,
+    std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+  [[maybe_unused]] const bool message_is_sync =
+      message->has_flag(mojo::Message::kFlagIsSync);
+  [[maybe_unused]] const uint64_t request_id = message->request_id();
+  switch (message->header()->name) {
+    case internal::kReportingObserver_OnReportEvent_Name: {
+      break;
+    }
+  }
+  return false;
+}
+namespace {
+}  // namespace
+static const mojo::internal::GenericValidationInfo kReportingObserverValidationInfo[] = {
+    { &internal::ReportingObserver_OnReportEvent_Params_Data::Validate,
+     nullptr /* no response */},
+};
+
+bool ReportingObserverRequestValidator::Accept(mojo::Message* message) {
+  const char* name = ::dlp_internals::mojom::ReportingObserver::Name_;
+  return mojo::internal::ValidateRequestGenericPacked(message, name, kReportingObserverValidationInfo);
+}
+
 const char PageHandler::Name_[] = "dlp_internals.mojom.PageHandler";
 
 PageHandler::IPCStableHashFunction PageHandler::MessageToMethodInfo_(mojo::Message& message) {
@@ -237,6 +638,15 @@ PageHandler::IPCStableHashFunction PageHandler::MessageToMethodInfo_(mojo::Messa
     }
     case internal::kPageHandler_GetContentRestrictionsInfo_Name: {
       return &PageHandler::GetContentRestrictionsInfo_Sym::IPCStableHash;
+    }
+    case internal::kPageHandler_ObserveReporting_Name: {
+      return &PageHandler::ObserveReporting_Sym::IPCStableHash;
+    }
+    case internal::kPageHandler_GetFilesDatabaseEntries_Name: {
+      return &PageHandler::GetFilesDatabaseEntries_Sym::IPCStableHash;
+    }
+    case internal::kPageHandler_GetFileInode_Name: {
+      return &PageHandler::GetFileInode_Sym::IPCStableHash;
     }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
@@ -253,6 +663,12 @@ const char* PageHandler::MessageToMethodName_(mojo::Message& message) {
             return "Receive dlp_internals::mojom::PageHandler::GetClipboardDataSource";
       case internal::kPageHandler_GetContentRestrictionsInfo_Name:
             return "Receive dlp_internals::mojom::PageHandler::GetContentRestrictionsInfo";
+      case internal::kPageHandler_ObserveReporting_Name:
+            return "Receive dlp_internals::mojom::PageHandler::ObserveReporting";
+      case internal::kPageHandler_GetFilesDatabaseEntries_Name:
+            return "Receive dlp_internals::mojom::PageHandler::GetFilesDatabaseEntries";
+      case internal::kPageHandler_GetFileInode_Name:
+            return "Receive dlp_internals::mojom::PageHandler::GetFileInode";
     }
   } else {
     switch (message.name()) {
@@ -260,6 +676,12 @@ const char* PageHandler::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply dlp_internals::mojom::PageHandler::GetClipboardDataSource";
       case internal::kPageHandler_GetContentRestrictionsInfo_Name:
             return "Receive reply dlp_internals::mojom::PageHandler::GetContentRestrictionsInfo";
+      case internal::kPageHandler_ObserveReporting_Name:
+            return "Receive reply dlp_internals::mojom::PageHandler::ObserveReporting";
+      case internal::kPageHandler_GetFilesDatabaseEntries_Name:
+            return "Receive reply dlp_internals::mojom::PageHandler::GetFilesDatabaseEntries";
+      case internal::kPageHandler_GetFileInode_Name:
+            return "Receive reply dlp_internals::mojom::PageHandler::GetFileInode";
     }
   }
   return "Receive unknown mojo message";
@@ -300,6 +722,45 @@ uint32_t PageHandler::GetContentRestrictionsInfo_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t PageHandler::ObserveReporting_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)dlp_internals::mojom::PageHandler::ObserveReporting");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t PageHandler::GetFilesDatabaseEntries_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)dlp_internals::mojom::PageHandler::GetFilesDatabaseEntries");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t PageHandler::GetFileInode_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)dlp_internals::mojom::PageHandler::GetFileInode");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 class PageHandler_GetClipboardDataSource_ForwardToCallback
@@ -334,6 +795,38 @@ class PageHandler_GetContentRestrictionsInfo_ForwardToCallback
   PageHandler::GetContentRestrictionsInfoCallback callback_;
 };
 
+class PageHandler_GetFilesDatabaseEntries_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  PageHandler_GetFilesDatabaseEntries_ForwardToCallback(
+      PageHandler::GetFilesDatabaseEntriesCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  PageHandler_GetFilesDatabaseEntries_ForwardToCallback(const PageHandler_GetFilesDatabaseEntries_ForwardToCallback&) = delete;
+  PageHandler_GetFilesDatabaseEntries_ForwardToCallback& operator=(const PageHandler_GetFilesDatabaseEntries_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  PageHandler::GetFilesDatabaseEntriesCallback callback_;
+};
+
+class PageHandler_GetFileInode_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  PageHandler_GetFileInode_ForwardToCallback(
+      PageHandler::GetFileInodeCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  PageHandler_GetFileInode_ForwardToCallback(const PageHandler_GetFileInode_ForwardToCallback&) = delete;
+  PageHandler_GetFileInode_ForwardToCallback& operator=(const PageHandler_GetFileInode_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  PageHandler::GetFileInodeCallback callback_;
+};
+
 PageHandlerProxy::PageHandlerProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
 }
@@ -343,14 +836,17 @@ void PageHandlerProxy::GetClipboardDataSource(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send dlp_internals::mojom::PageHandler::GetClipboardDataSource");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetClipboardDataSource_Name, kFlags, 0, 0, nullptr);
@@ -374,14 +870,17 @@ void PageHandlerProxy::GetContentRestrictionsInfo(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send dlp_internals::mojom::PageHandler::GetContentRestrictionsInfo");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetContentRestrictionsInfo_Name, kFlags, 0, 0, nullptr);
@@ -396,6 +895,138 @@ void PageHandlerProxy::GetContentRestrictionsInfo(
 #endif
   std::unique_ptr<mojo::MessageReceiver> responder(
       new PageHandler_GetContentRestrictionsInfo_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void PageHandlerProxy::ObserveReporting(
+    ::mojo::PendingRemote<ReportingObserver> in_observer) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send dlp_internals::mojom::PageHandler::ObserveReporting", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("observer"), in_observer,
+                        "<value of type ::mojo::PendingRemote<ReportingObserver>>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kPageHandler_ObserveReporting_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::dlp_internals::mojom::internal::PageHandler_ObserveReporting_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<mojo::InterfacePtrDataView<::dlp_internals::mojom::ReportingObserverInterfaceBase>>(
+      in_observer, &params->observer, &params.message());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      !mojo::internal::IsHandleOrInterfaceValid(params->observer),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
+      "invalid observer in PageHandler.ObserveReporting request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(PageHandler::Name_);
+  message.set_method_name("ObserveReporting");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void PageHandlerProxy::GetFilesDatabaseEntries(
+    GetFilesDatabaseEntriesCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send dlp_internals::mojom::PageHandler::GetFilesDatabaseEntries");
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kPageHandler_GetFilesDatabaseEntries_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::dlp_internals::mojom::internal::PageHandler_GetFilesDatabaseEntries_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(PageHandler::Name_);
+  message.set_method_name("GetFilesDatabaseEntries");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new PageHandler_GetFilesDatabaseEntries_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void PageHandlerProxy::GetFileInode(
+    const std::string& in_file_name, GetFileInodeCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send dlp_internals::mojom::PageHandler::GetFileInode", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("file_name"), in_file_name,
+                        "<value of type const std::string&>");
+   });
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kPageHandler_GetFileInode_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::dlp_internals::mojom::internal::PageHandler_GetFileInode_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->file_name)::BaseType> file_name_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_file_name, file_name_fragment);
+  params->file_name.Set(
+      file_name_fragment.is_null() ? nullptr : file_name_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->file_name.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null file_name in PageHandler.GetFileInode request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(PageHandler::Name_);
+  message.set_method_name("GetFileInode");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new PageHandler_GetFileInode_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
@@ -491,7 +1122,8 @@ void PageHandler_GetClipboardDataSource_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetClipboardDataSource_Name, kFlags, 0, 0, nullptr);
@@ -615,7 +1247,8 @@ void PageHandler_GetContentRestrictionsInfo_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetContentRestrictionsInfo_Name, kFlags, 0, 0, nullptr);
@@ -653,6 +1286,256 @@ void PageHandler_GetContentRestrictionsInfo_ProxyToResponder::Run(
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
+class PageHandler_GetFilesDatabaseEntries_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static PageHandler::GetFilesDatabaseEntriesCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<PageHandler_GetFilesDatabaseEntries_ProxyToResponder> proxy(
+        new PageHandler_GetFilesDatabaseEntries_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&PageHandler_GetFilesDatabaseEntries_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~PageHandler_GetFilesDatabaseEntries_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  PageHandler_GetFilesDatabaseEntries_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "PageHandler::GetFilesDatabaseEntriesCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      std::vector<FileDatabaseEntryPtr> in_db_entries);
+};
+
+bool PageHandler_GetFilesDatabaseEntries_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::PageHandler_GetFilesDatabaseEntries_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::PageHandler_GetFilesDatabaseEntries_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  std::vector<FileDatabaseEntryPtr> p_db_entries{};
+  PageHandler_GetFilesDatabaseEntries_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadDbEntries(&p_db_entries))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        PageHandler::Name_, 3, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_db_entries));
+  return true;
+}
+
+void PageHandler_GetFilesDatabaseEntries_ProxyToResponder::Run(
+    std::vector<FileDatabaseEntryPtr> in_db_entries) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply dlp_internals::mojom::PageHandler::GetFilesDatabaseEntries", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("db_entries"), in_db_entries,
+                        "<value of type std::vector<FileDatabaseEntryPtr>>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kPageHandler_GetFilesDatabaseEntries_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::dlp_internals::mojom::internal::PageHandler_GetFilesDatabaseEntries_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->db_entries)::BaseType>
+      db_entries_fragment(params.message());
+  constexpr const mojo::internal::ContainerValidateParams& db_entries_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  mojo::internal::Serialize<mojo::ArrayDataView<::dlp_internals::mojom::FileDatabaseEntryDataView>>(
+      in_db_entries, db_entries_fragment, &db_entries_validate_params);
+  params->db_entries.Set(
+      db_entries_fragment.is_null() ? nullptr : db_entries_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->db_entries.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null db_entries in ");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(PageHandler::Name_);
+  message.set_method_name("GetFilesDatabaseEntries");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class PageHandler_GetFileInode_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static PageHandler::GetFileInodeCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<PageHandler_GetFileInode_ProxyToResponder> proxy(
+        new PageHandler_GetFileInode_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&PageHandler_GetFileInode_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~PageHandler_GetFileInode_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  PageHandler_GetFileInode_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "PageHandler::GetFileInodeCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      uint64_t in_inode);
+};
+
+bool PageHandler_GetFileInode_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::PageHandler_GetFileInode_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::PageHandler_GetFileInode_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  uint64_t p_inode{};
+  PageHandler_GetFileInode_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success)
+    p_inode = input_data_view.inode();
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        PageHandler::Name_, 4, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_inode));
+  return true;
+}
+
+void PageHandler_GetFileInode_ProxyToResponder::Run(
+    uint64_t in_inode) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply dlp_internals::mojom::PageHandler::GetFileInode", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("inode"), in_inode,
+                        "<value of type uint64_t>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kPageHandler_GetFileInode_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::dlp_internals::mojom::internal::PageHandler_GetFileInode_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  params->inode = in_inode;
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(PageHandler::Name_);
+  message.set_method_name("GetFileInode");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
 
 // static
 bool PageHandlerStubDispatch::Accept(
@@ -663,6 +1546,40 @@ bool PageHandlerStubDispatch::Accept(
       break;
     }
     case internal::kPageHandler_GetContentRestrictionsInfo_Name: {
+      break;
+    }
+    case internal::kPageHandler_ObserveReporting_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::PageHandler_ObserveReporting_Params_Data* params =
+          reinterpret_cast<internal::PageHandler_ObserveReporting_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      ::mojo::PendingRemote<ReportingObserver> p_observer{};
+      PageHandler_ObserveReporting_ParamsDataView input_data_view(params, message);
+      
+      if (success) {
+        p_observer =
+            input_data_view.TakeObserver<decltype(p_observer)>();
+      }
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            PageHandler::Name_, 2, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->ObserveReporting(
+std::move(p_observer));
+      return true;
+    }
+    case internal::kPageHandler_GetFilesDatabaseEntries_Name: {
+      break;
+    }
+    case internal::kPageHandler_GetFileInode_Name: {
       break;
     }
   }
@@ -728,16 +1645,79 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
       impl->GetContentRestrictionsInfo(std::move(callback));
       return true;
     }
+    case internal::kPageHandler_ObserveReporting_Name: {
+      break;
+    }
+    case internal::kPageHandler_GetFilesDatabaseEntries_Name: {
+
+      internal::PageHandler_GetFilesDatabaseEntries_Params_Data* params =
+          reinterpret_cast<
+              internal::PageHandler_GetFilesDatabaseEntries_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      PageHandler_GetFilesDatabaseEntries_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            PageHandler::Name_, 3, false);
+        return false;
+      }
+      PageHandler::GetFilesDatabaseEntriesCallback callback =
+          PageHandler_GetFilesDatabaseEntries_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->GetFilesDatabaseEntries(std::move(callback));
+      return true;
+    }
+    case internal::kPageHandler_GetFileInode_Name: {
+
+      internal::PageHandler_GetFileInode_Params_Data* params =
+          reinterpret_cast<
+              internal::PageHandler_GetFileInode_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      std::string p_file_name{};
+      PageHandler_GetFileInode_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadFileName(&p_file_name))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            PageHandler::Name_, 4, false);
+        return false;
+      }
+      PageHandler::GetFileInodeCallback callback =
+          PageHandler_GetFileInode_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->GetFileInode(
+std::move(p_file_name), std::move(callback));
+      return true;
+    }
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPageHandlerValidationInfo[] = {
-    {&internal::PageHandler_GetClipboardDataSource_Params_Data::Validate,
+    { &internal::PageHandler_GetClipboardDataSource_Params_Data::Validate,
      &internal::PageHandler_GetClipboardDataSource_ResponseParams_Data::Validate},
-    {&internal::PageHandler_GetContentRestrictionsInfo_Params_Data::Validate,
+    { &internal::PageHandler_GetContentRestrictionsInfo_Params_Data::Validate,
      &internal::PageHandler_GetContentRestrictionsInfo_ResponseParams_Data::Validate},
+    { &internal::PageHandler_ObserveReporting_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::PageHandler_GetFilesDatabaseEntries_Params_Data::Validate,
+     &internal::PageHandler_GetFilesDatabaseEntries_ResponseParams_Data::Validate},
+    { &internal::PageHandler_GetFileInode_Params_Data::Validate,
+     &internal::PageHandler_GetFileInode_ResponseParams_Data::Validate},
 };
 
 bool PageHandlerRequestValidator::Accept(mojo::Message* message) {
@@ -824,6 +1804,79 @@ bool StructTraits<::dlp_internals::mojom::WebContentsInfo::DataView, ::dlp_inter
   return success;
 }
 
+
+// static
+bool StructTraits<::dlp_internals::mojom::EventDestination::DataView, ::dlp_internals::mojom::EventDestinationPtr>::Read(
+    ::dlp_internals::mojom::EventDestination::DataView input,
+    ::dlp_internals::mojom::EventDestinationPtr* output) {
+  bool success = true;
+  ::dlp_internals::mojom::EventDestinationPtr result(::dlp_internals::mojom::EventDestination::New());
+  
+      if (success && !input.ReadUrlPattern(&result->url_pattern))
+        success = false;
+      if (success && !input.ReadComponent(&result->component)) {
+        success = false;
+      }
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::dlp_internals::mojom::DlpEvent::DataView, ::dlp_internals::mojom::DlpEventPtr>::Read(
+    ::dlp_internals::mojom::DlpEvent::DataView input,
+    ::dlp_internals::mojom::DlpEventPtr* output) {
+  bool success = true;
+  ::dlp_internals::mojom::DlpEventPtr result(::dlp_internals::mojom::DlpEvent::New());
+  
+      if (success && !input.ReadSourcePattern(&result->source_pattern))
+        success = false;
+      if (success && !input.ReadDestination(&result->destination))
+        success = false;
+      if (success && !input.ReadRestriction(&result->restriction)) {
+        success = false;
+      }
+      if (success && !input.ReadMode(&result->mode)) {
+        success = false;
+      }
+      if (success) {
+        result->timestamp_micro = input.timestamp_micro();
+      }
+      if (success && !input.ReadUserType(&result->user_type)) {
+        success = false;
+      }
+      if (success && !input.ReadContentName(&result->content_name))
+        success = false;
+      if (success && !input.ReadTriggeredRuleName(&result->triggered_rule_name))
+        success = false;
+      if (success && !input.ReadTriggeredRuleId(&result->triggered_rule_id))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::dlp_internals::mojom::FileDatabaseEntry::DataView, ::dlp_internals::mojom::FileDatabaseEntryPtr>::Read(
+    ::dlp_internals::mojom::FileDatabaseEntry::DataView input,
+    ::dlp_internals::mojom::FileDatabaseEntryPtr* output) {
+  bool success = true;
+  ::dlp_internals::mojom::FileDatabaseEntryPtr result(::dlp_internals::mojom::FileDatabaseEntry::New());
+  
+      if (success) {
+        result->inode = input.inode();
+      }
+      if (success) {
+        result->crtime = input.crtime();
+      }
+      if (success && !input.ReadSourceUrl(&result->source_url))
+        success = false;
+      if (success && !input.ReadReferrerUrl(&result->referrer_url))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
 }  // namespace mojo
 
 
@@ -834,11 +1887,31 @@ bool StructTraits<::dlp_internals::mojom::WebContentsInfo::DataView, ::dlp_inter
 namespace dlp_internals::mojom {
 
 
+void ReportingObserverInterceptorForTesting::OnReportEvent(DlpEventPtr event) {
+  GetForwardingInterface()->OnReportEvent(std::move(event));
+}
+ReportingObserverAsyncWaiter::ReportingObserverAsyncWaiter(
+    ReportingObserver* proxy) : proxy_(proxy) {}
+
+ReportingObserverAsyncWaiter::~ReportingObserverAsyncWaiter() = default;
+
+
+
+
 void PageHandlerInterceptorForTesting::GetClipboardDataSource(GetClipboardDataSourceCallback callback) {
   GetForwardingInterface()->GetClipboardDataSource(std::move(callback));
 }
 void PageHandlerInterceptorForTesting::GetContentRestrictionsInfo(GetContentRestrictionsInfoCallback callback) {
   GetForwardingInterface()->GetContentRestrictionsInfo(std::move(callback));
+}
+void PageHandlerInterceptorForTesting::ObserveReporting(::mojo::PendingRemote<ReportingObserver> observer) {
+  GetForwardingInterface()->ObserveReporting(std::move(observer));
+}
+void PageHandlerInterceptorForTesting::GetFilesDatabaseEntries(GetFilesDatabaseEntriesCallback callback) {
+  GetForwardingInterface()->GetFilesDatabaseEntries(std::move(callback));
+}
+void PageHandlerInterceptorForTesting::GetFileInode(const std::string& file_name, GetFileInodeCallback callback) {
+  GetForwardingInterface()->GetFileInode(std::move(file_name), std::move(callback));
 }
 PageHandlerAsyncWaiter::PageHandlerAsyncWaiter(
     PageHandler* proxy) : proxy_(proxy) {}
@@ -888,6 +1961,52 @@ std::vector<WebContentsInfoPtr> PageHandlerAsyncWaiter::GetContentRestrictionsIn
     ) {
   std::vector<WebContentsInfoPtr> async_wait_result;
   GetContentRestrictionsInfo(&async_wait_result);
+  return async_wait_result;
+}
+
+void PageHandlerAsyncWaiter::GetFilesDatabaseEntries(
+    std::vector<FileDatabaseEntryPtr>* out_db_entries) {
+  base::RunLoop loop;
+  proxy_->GetFilesDatabaseEntries(
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             std::vector<FileDatabaseEntryPtr>* out_db_entries
+,
+             std::vector<FileDatabaseEntryPtr> db_entries) {*out_db_entries = std::move(db_entries);
+            loop->Quit();
+          },
+          &loop,
+          out_db_entries));
+  loop.Run();
+}
+
+std::vector<FileDatabaseEntryPtr> PageHandlerAsyncWaiter::GetFilesDatabaseEntries(
+    ) {
+  std::vector<FileDatabaseEntryPtr> async_wait_result;
+  GetFilesDatabaseEntries(&async_wait_result);
+  return async_wait_result;
+}
+
+void PageHandlerAsyncWaiter::GetFileInode(
+    const std::string& file_name, uint64_t* out_inode) {
+  base::RunLoop loop;
+  proxy_->GetFileInode(std::move(file_name),
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             uint64_t* out_inode
+,
+             uint64_t inode) {*out_inode = std::move(inode);
+            loop->Quit();
+          },
+          &loop,
+          out_inode));
+  loop.Run();
+}
+
+uint64_t PageHandlerAsyncWaiter::GetFileInode(
+    const std::string& file_name) {
+  uint64_t async_wait_result;
+  GetFileInode(std::move(file_name),&async_wait_result);
   return async_wait_result;
 }
 

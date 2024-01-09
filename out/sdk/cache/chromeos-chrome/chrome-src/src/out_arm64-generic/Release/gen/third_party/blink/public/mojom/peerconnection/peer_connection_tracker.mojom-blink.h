@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/peerconnection/peer_connection_tracker.mojom-features.h"
 #include "third_party/blink/public/mojom/peerconnection/peer_connection_tracker.mojom-shared.h"
 #include "third_party/blink/public/mojom/peerconnection/peer_connection_tracker.mojom-blink-forward.h"
 #include "mojo/public/mojom/base/values.mojom-blink.h"
@@ -39,18 +40,6 @@
 #include "third_party/blink/renderer/platform/platform_export.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::DeviceThermalState>
-    : EnumHashTraits<::blink::mojom::DeviceThermalState, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace blink::mojom::blink {
@@ -90,7 +79,6 @@ class PLATFORM_EXPORT PeerConnectionManager
     kStartEventLogMinVersion = 0,
     kStopEventLogMinVersion = 0,
     kGetStandardStatsMinVersion = 0,
-    kGetLegacyStatsMinVersion = 0,
     kGetCurrentStateMinVersion = 0,
   };
 
@@ -113,9 +101,6 @@ class PLATFORM_EXPORT PeerConnectionManager
     NOINLINE static uint32_t IPCStableHash();
   };
   struct GetStandardStats_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct GetLegacyStats_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct GetCurrentState_Sym {
@@ -141,9 +126,6 @@ class PLATFORM_EXPORT PeerConnectionManager
 
   
   virtual void GetStandardStats() = 0;
-
-  
-  virtual void GetLegacyStats() = 0;
 
   
   virtual void GetCurrentState() = 0;
@@ -298,8 +280,6 @@ class PLATFORM_EXPORT PeerConnectionManagerProxy
   void StopEventLog(int32_t peer_connection_local_id) final;
   
   void GetStandardStats() final;
-  
-  void GetLegacyStats() final;
   
   void GetCurrentState() final;
 

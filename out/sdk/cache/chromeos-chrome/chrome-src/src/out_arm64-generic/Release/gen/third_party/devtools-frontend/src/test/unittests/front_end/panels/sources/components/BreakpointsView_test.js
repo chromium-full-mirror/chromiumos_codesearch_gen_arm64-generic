@@ -2,6 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import * as Common from '../../../../../../front_end/core/common/common.js';
+import { assertNotNullOrUndefined } from '../../../../../../front_end/core/platform/platform.js';
 import * as SDK from '../../../../../../front_end/core/sdk/sdk.js';
 import * as Bindings from '../../../../../../front_end/models/bindings/bindings.js';
 import * as Breakpoints from '../../../../../../front_end/models/breakpoints/breakpoints.js';
@@ -9,12 +10,11 @@ import * as Workspace from '../../../../../../front_end/models/workspace/workspa
 import * as SourcesComponents from '../../../../../../front_end/panels/sources/components/components.js';
 import * as Coordinator from '../../../../../../front_end/ui/components/render_coordinator/render_coordinator.js';
 import * as UI from '../../../../../../front_end/ui/legacy/legacy.js';
-import { assertElement, assertElements, assertShadowRoot, renderElementIntoDOM, dispatchKeyDownEvent, dispatchClickEvent, } from '../../../helpers/DOMHelpers.js';
-import { describeWithMockConnection } from '../../../helpers/MockConnection.js';
-import { assertNotNullOrUndefined } from '../../../../../../front_end/core/platform/platform.js';
-import { createContentProviderUISourceCode, setupMockedUISourceCode } from '../../../helpers/UISourceCodeHelpers.js';
+import { assertElement, assertElements, assertShadowRoot, dispatchClickEvent, dispatchKeyDownEvent, renderElementIntoDOM, } from '../../../helpers/DOMHelpers.js';
 import { createTarget, describeWithEnvironment } from '../../../helpers/EnvironmentHelpers.js';
+import { describeWithMockConnection } from '../../../helpers/MockConnection.js';
 import { describeWithRealConnection } from '../../../helpers/RealConnection.js';
+import { createContentProviderUISourceCode, createFakeScriptMapping, setupMockedUISourceCode, } from '../../../helpers/UISourceCodeHelpers.js';
 const DETAILS_SELECTOR = 'details';
 const EXPANDED_GROUPS_SELECTOR = 'details[open]';
 const COLLAPSED_GROUPS_SELECTOR = 'details:not([open])';
@@ -100,7 +100,7 @@ async function setUpTestWithOneBreakpointLocation(params = {
     return { controller, groups: data.groups, location: locations[0] };
 }
 class MockRevealer {
-    async reveal(_object, _omitFocus) {
+    async reveal(_revealable, _omitFocus) {
     }
 }
 async function createAndInitializeBreakpointsView() {
@@ -301,7 +301,7 @@ describeWithEnvironment('BreakpointsSidebarController', () => {
     it('correctly reveals source location', async () => {
         const { groups, location: { uiLocation } } = await setUpTestWithOneBreakpointLocation();
         const breakpointItem = groups[0].breakpointItems[0];
-        const revealer = sinon.createStubInstance(MockRevealer);
+        const revealer = sinon.createStubInstance((MockRevealer));
         Common.Revealer.registerRevealer({
             contextTypes() {
                 return [Workspace.UISourceCode.UILocation];
@@ -317,7 +317,7 @@ describeWithEnvironment('BreakpointsSidebarController', () => {
     it('correctly reveals breakpoint editor', async () => {
         const { groups, location } = await setUpTestWithOneBreakpointLocation();
         const breakpointItem = groups[0].breakpointItems[0];
-        const revealer = sinon.createStubInstance(MockRevealer);
+        const revealer = sinon.createStubInstance((MockRevealer));
         Common.Revealer.registerRevealer({
             contextTypes() {
                 return [Breakpoints.BreakpointManager.BreakpointLocation];
@@ -673,13 +673,7 @@ describeWithRealConnection('BreakpointsSidebarController', () => {
         const uiLocation = new Workspace.UISourceCode.UILocation(uiSourceCode, 0, 0);
         const debuggerModel = sinon.createStubInstance(SDK.DebuggerModel.DebuggerModel);
         const sdkLocation = new SDK.DebuggerModel.Location(debuggerModel, scriptId, 0);
-        const mapping = {
-            rawLocationToUILocation: (_) => uiLocation,
-            uiLocationToRawLocations: (_uiSourceCode, _lineNumber, _columnNumber) => [sdkLocation],
-            uiLocationRangeToRawLocationRanges: (_uiSourceCode, _textRange) => {
-                throw new Error('Not implemented');
-            },
-        };
+        const mapping = createFakeScriptMapping(debuggerModel, uiSourceCode, 0, scriptId);
         Bindings.DebuggerWorkspaceBinding.DebuggerWorkspaceBinding.instance().addSourceMapping(mapping);
         // Add one breakpoint and collapse its group.
         const b1 = await breakpointManager.setBreakpoint(uiSourceCode, uiLocation.lineNumber, uiLocation.columnNumber, ...DEFAULT_BREAKPOINT);

@@ -127,8 +127,16 @@ mojo.internal.Struct(
         false /* nullable */,
         0,
       ),
+      mojo.internal.StructField(
+        'previousEntry', 16,
+        0,
+        NavigationApiHistoryEntrySpec.$,
+        null,
+        true /* nullable */,
+        0,
+      ),
     ],
-    [[0, 24],]);
+    [[0, 32],]);
 
 
 
@@ -141,6 +149,8 @@ export class NavigationApiHistoryEntryArrays {
     this.backEntries;
     /** @type { !Array<!NavigationApiHistoryEntry> } */
     this.forwardEntries;
+    /** @type { (NavigationApiHistoryEntry|undefined) } */
+    this.previousEntry;
   }
 }
 

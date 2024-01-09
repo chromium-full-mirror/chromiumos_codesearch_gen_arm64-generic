@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "ui/accessibility/mojom/ax_assistant_structure.mojom-features.h"
 #include "ui/accessibility/mojom/ax_assistant_structure.mojom-shared.h"
 #include "ui/accessibility/mojom/ax_assistant_structure.mojom-forward.h"
 #include "mojo/public/mojom/base/string16.mojom.h"
@@ -231,9 +232,9 @@ class  AssistantNode {
       bool italic,
       bool underline,
       bool line_through,
-      const absl::optional<::gfx::Range>& selection,
+      const std::optional<::gfx::Range>& selection,
       const std::string& class_name,
-      const absl::optional<std::string>& role);
+      const std::optional<std::string>& role);
 
 
   ~AssistantNode();
@@ -331,11 +332,11 @@ class  AssistantNode {
   
   bool line_through;
   
-  absl::optional<::gfx::Range> selection;
+  std::optional<::gfx::Range> selection;
   
   std::string class_name;
   
-  absl::optional<std::string> role;
+  std::optional<std::string> role;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

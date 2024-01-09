@@ -69,11 +69,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, VTTRegion>::value,
     "VTTRegion inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&VTTRegion::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "VTTRegion is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -86,10 +81,10 @@ BLINK_BINDINGS_TRACE_EVENT("VTTRegion.id.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-VTTRegion* blink_receiver = V8VTTRegion::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->id();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+VTTRegion* blink_receiver = V8VTTRegion::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->id();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -100,9 +95,9 @@ BLINK_BINDINGS_TRACE_EVENT("VTTRegion.id.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-VTTRegion* blink_receiver = V8VTTRegion::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+VTTRegion* blink_receiver = V8VTTRegion::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "VTTRegion";
@@ -123,8 +118,9 @@ BLINK_BINDINGS_TRACE_EVENT("VTTRegion.width.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-VTTRegion* blink_receiver = V8VTTRegion::ToWrappableUnsafe(v8_receiver);
+VTTRegion* blink_receiver = V8VTTRegion::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->width();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -136,9 +132,9 @@ BLINK_BINDINGS_TRACE_EVENT("VTTRegion.width.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-VTTRegion* blink_receiver = V8VTTRegion::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+VTTRegion* blink_receiver = V8VTTRegion::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "VTTRegion";
@@ -162,8 +158,9 @@ BLINK_BINDINGS_TRACE_EVENT("VTTRegion.lines.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-VTTRegion* blink_receiver = V8VTTRegion::ToWrappableUnsafe(v8_receiver);
+VTTRegion* blink_receiver = V8VTTRegion::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->lines();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -175,9 +172,9 @@ BLINK_BINDINGS_TRACE_EVENT("VTTRegion.lines.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-VTTRegion* blink_receiver = V8VTTRegion::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+VTTRegion* blink_receiver = V8VTTRegion::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "VTTRegion";
@@ -198,8 +195,9 @@ BLINK_BINDINGS_TRACE_EVENT("VTTRegion.regionAnchorX.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-VTTRegion* blink_receiver = V8VTTRegion::ToWrappableUnsafe(v8_receiver);
+VTTRegion* blink_receiver = V8VTTRegion::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->regionAnchorX();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -211,9 +209,9 @@ BLINK_BINDINGS_TRACE_EVENT("VTTRegion.regionAnchorX.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-VTTRegion* blink_receiver = V8VTTRegion::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+VTTRegion* blink_receiver = V8VTTRegion::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "VTTRegion";
@@ -237,8 +235,9 @@ BLINK_BINDINGS_TRACE_EVENT("VTTRegion.regionAnchorY.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-VTTRegion* blink_receiver = V8VTTRegion::ToWrappableUnsafe(v8_receiver);
+VTTRegion* blink_receiver = V8VTTRegion::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->regionAnchorY();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -250,9 +249,9 @@ BLINK_BINDINGS_TRACE_EVENT("VTTRegion.regionAnchorY.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-VTTRegion* blink_receiver = V8VTTRegion::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+VTTRegion* blink_receiver = V8VTTRegion::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "VTTRegion";
@@ -276,8 +275,9 @@ BLINK_BINDINGS_TRACE_EVENT("VTTRegion.viewportAnchorX.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-VTTRegion* blink_receiver = V8VTTRegion::ToWrappableUnsafe(v8_receiver);
+VTTRegion* blink_receiver = V8VTTRegion::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->viewportAnchorX();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -289,9 +289,9 @@ BLINK_BINDINGS_TRACE_EVENT("VTTRegion.viewportAnchorX.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-VTTRegion* blink_receiver = V8VTTRegion::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+VTTRegion* blink_receiver = V8VTTRegion::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "VTTRegion";
@@ -315,8 +315,9 @@ BLINK_BINDINGS_TRACE_EVENT("VTTRegion.viewportAnchorY.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-VTTRegion* blink_receiver = V8VTTRegion::ToWrappableUnsafe(v8_receiver);
+VTTRegion* blink_receiver = V8VTTRegion::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->viewportAnchorY();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -328,9 +329,9 @@ BLINK_BINDINGS_TRACE_EVENT("VTTRegion.viewportAnchorY.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-VTTRegion* blink_receiver = V8VTTRegion::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+VTTRegion* blink_receiver = V8VTTRegion::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "VTTRegion";
@@ -354,10 +355,10 @@ BLINK_BINDINGS_TRACE_EVENT("VTTRegion.scroll.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-VTTRegion* blink_receiver = V8VTTRegion::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->scroll();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+VTTRegion* blink_receiver = V8VTTRegion::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->scroll();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -368,9 +369,9 @@ BLINK_BINDINGS_TRACE_EVENT("VTTRegion.scroll.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-VTTRegion* blink_receiver = V8VTTRegion::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+VTTRegion* blink_receiver = V8VTTRegion::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "VTTRegion";

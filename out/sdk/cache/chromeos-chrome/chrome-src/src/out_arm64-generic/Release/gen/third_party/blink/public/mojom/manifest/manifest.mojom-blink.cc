@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -50,6 +51,7 @@ Manifest::Manifest()
       short_name(),
       description(),
       id(),
+      has_custom_id(),
       start_url(),
       display(),
       display_override(),
@@ -89,6 +91,7 @@ Manifest::Manifest(
     const ::WTF::String& short_name_in,
     const ::WTF::String& description_in,
     const ::blink::KURL& id_in,
+    bool has_custom_id_in,
     const ::blink::KURL& start_url_in,
     ::blink::mojom::blink::DisplayMode display_in,
     WTF::Vector<::blink::mojom::blink::DisplayMode> display_override_in,
@@ -126,6 +129,7 @@ Manifest::Manifest(
       short_name(std::move(short_name_in)),
       description(std::move(description_in)),
       id(std::move(id_in)),
+      has_custom_id(std::move(has_custom_id_in)),
       start_url(std::move(start_url_in)),
       display(std::move(display_in)),
       display_override(std::move(display_override_in)),
@@ -197,6 +201,15 @@ void Manifest::WriteIntoTrace(
       "id"), this->id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type const ::blink::KURL&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "has_custom_id"), this->has_custom_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -920,7 +933,7 @@ ManifestRelatedApplication::ManifestRelatedApplication()
 
 ManifestRelatedApplication::ManifestRelatedApplication(
     const ::WTF::String& platform_in,
-    const absl::optional<::blink::KURL>& url_in,
+    const std::optional<::blink::KURL>& url_in,
     const ::WTF::String& id_in)
     : platform(std::move(platform_in)),
       url(std::move(url_in)),
@@ -944,7 +957,7 @@ void ManifestRelatedApplication::WriteIntoTrace(
     dict.AddItem(
       "url"), this->url,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::blink::KURL>&>"
+      "<value of type const std::optional<::blink::KURL>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -975,7 +988,7 @@ ManifestShareTargetParams::ManifestShareTargetParams(
     const ::WTF::String& title_in,
     const ::WTF::String& text_in,
     const ::WTF::String& url_in,
-    absl::optional<WTF::Vector<ManifestFileFilterPtr>> files_in)
+    std::optional<WTF::Vector<ManifestFileFilterPtr>> files_in)
     : title(std::move(title_in)),
       text(std::move(text_in)),
       url(std::move(url_in)),
@@ -1017,7 +1030,7 @@ void ManifestShareTargetParams::WriteIntoTrace(
     dict.AddItem(
       "files"), this->files,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<WTF::Vector<ManifestFileFilterPtr>>>"
+      "<value of type std::optional<WTF::Vector<ManifestFileFilterPtr>>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1404,7 +1417,7 @@ NewTabButtonParams::NewTabButtonParams()
     : url() {}
 
 NewTabButtonParams::NewTabButtonParams(
-    const absl::optional<::blink::KURL>& url_in)
+    const std::optional<::blink::KURL>& url_in)
     : url(std::move(url_in)) {}
 
 NewTabButtonParams::~NewTabButtonParams() = default;
@@ -1416,7 +1429,7 @@ void NewTabButtonParams::WriteIntoTrace(
     dict.AddItem(
       "url"), this->url,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::blink::KURL>&>"
+      "<value of type const std::optional<::blink::KURL>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1609,6 +1622,8 @@ bool StructTraits<::blink::mojom::blink::Manifest::DataView, ::blink::mojom::bli
         success = false;
       if (success && !input.ReadId(&result->id))
         success = false;
+      if (success)
+        result->has_custom_id = input.has_custom_id();
       if (success && !input.ReadStartUrl(&result->start_url))
         success = false;
       if (success && !input.ReadDisplay(&result->display))

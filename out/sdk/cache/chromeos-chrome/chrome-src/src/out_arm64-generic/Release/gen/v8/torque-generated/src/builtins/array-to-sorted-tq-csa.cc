@@ -66,6 +66,7 @@
 #include "src/objects/turboshaft-types.h"
 #include "src/torque/runtime-support.h"
 #include "src/wasm/wasm-linkage.h"
+#include "src/codegen/code-stub-assembler-inl.h"
 // Required Builtins:
 #include "torque-generated/src/builtins/array-to-sorted-tq-csa.h"
 #include "torque-generated/src/builtins/array-join-tq-csa.h"
@@ -272,7 +273,7 @@ TNode<JSArray> CopyWorkArrayToNewJSArray_0(compiler::CodeAssemblerState* state_,
     std::tie(tmp16, tmp17) = NewReference_Object_0(state_, TNode<Object>{tmp7}, TNode<IntPtrT>{tmp15}).Flatten();
     tmp18 = CodeStubAssembler(state_).LoadReference<Object>(CodeStubAssembler::Reference{tmp16, tmp17});
     tmp19 = UnsafeCast_JSAny_0(state_, TNode<Context>{p_context}, TNode<Object>{tmp18});
-    tmp20 = ca_.CallStub<Object>(Builtins::CallableFor(ca_.isolate(), Builtin::kSetProperty), p_context, tmp4, phi_bb14_8, tmp19);
+    tmp20 = ca_.CallBuiltin<Object>(Builtin::kSetProperty, p_context, tmp4, phi_bb14_8, tmp19);
     tmp21 = FromConstexpr_Smi_constexpr_int31_0(state_, 1);
     tmp22 = CodeStubAssembler(state_).SmiAdd(TNode<Smi>{phi_bb14_6}, TNode<Smi>{tmp21});
     ca_.Goto(&block8, tmp22);
@@ -309,7 +310,7 @@ TNode<JSArray> CopyWorkArrayToNewJSArray_0(compiler::CodeAssemblerState* state_,
   if (block18.is_used()) {
     ca_.Bind(&block18, &phi_bb18_6);
     tmp24 = Undefined_0(state_);
-    tmp25 = ca_.CallStub<Object>(Builtins::CallableFor(ca_.isolate(), Builtin::kSetProperty), p_context, tmp4, phi_bb18_6, tmp24);
+    tmp25 = ca_.CallBuiltin<Object>(Builtin::kSetProperty, p_context, tmp4, phi_bb18_6, tmp24);
     tmp26 = FromConstexpr_Smi_constexpr_int31_0(state_, 1);
     tmp27 = CodeStubAssembler(state_).SmiAdd(TNode<Smi>{phi_bb18_6}, TNode<Smi>{tmp26});
     ca_.Goto(&block20, tmp27);
@@ -534,7 +535,7 @@ TF_BUILTIN(ArrayPrototypeToSorted, CodeStubAssembler) {
   TNode<BoolT> tmp7;
   if (block3.is_used()) {
     ca_.Bind(&block3);
-    tmp4 = ca_.CallStub<JSReceiver>(Builtins::CallableFor(ca_.isolate(), Builtin::kToObject), parameter0, parameter1);
+    tmp4 = ca_.CallBuiltin<JSReceiver>(Builtin::kToObject, parameter0, parameter1);
     tmp5 = GetLengthProperty_0(state_, TNode<Context>{parameter0}, TNode<Object>{tmp4});
     tmp6 = FromConstexpr_Number_constexpr_IntegerLiteral_0(state_, IntegerLiteral(false, 0x0ull));
     tmp7 = IsNumberEqual_0(state_, TNode<Number>{tmp5}, TNode<Number>{tmp6});
@@ -570,7 +571,7 @@ TF_BUILTIN(ArrayPrototypeToSorted, CodeStubAssembler) {
     tmp13 = CodeStubAssembler(state_).ArrayCreate(TNode<Context>{parameter0}, TNode<Number>{tmp12});
     tmp14 = FromConstexpr_Smi_constexpr_IntegerLiteral_0(state_, IntegerLiteral(false, 0x0ull));
     tmp15 = CodeStubAssembler(state_).GetProperty(TNode<Context>{parameter0}, TNode<Object>{tmp4}, TNode<Object>{tmp14});
-    tmp16 = ca_.CallStub<Object>(Builtins::CallableFor(ca_.isolate(), Builtin::kSetProperty), parameter0, tmp13, tmp14, tmp15);
+    tmp16 = ca_.CallBuiltin<Object>(Builtin::kSetProperty, parameter0, tmp13, tmp14, tmp15);
     arguments.PopAndReturn(tmp13);
   }
 
@@ -593,7 +594,7 @@ TF_BUILTIN(ArrayPrototypeToSorted, CodeStubAssembler) {
   if (block10.is_used()) {
     ca_.Bind(&block10);
     tmp19 = NewSortState_0(state_, TNode<Context>{parameter0}, TNode<JSReceiver>{tmp4}, TNode<HeapObject>{tmp2}, TNode<Number>{tmp5}, true);
-    tmp20 = ca_.CallStub<JSArray>(Builtins::CallableFor(ca_.isolate(), Builtin::kArrayTimSortIntoCopy), parameter0, tmp19);
+    tmp20 = ca_.CallBuiltin<JSArray>(Builtin::kArrayTimSortIntoCopy, parameter0, tmp19);
     arguments.PopAndReturn(tmp20);
   }
 }

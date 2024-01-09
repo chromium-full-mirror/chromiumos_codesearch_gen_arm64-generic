@@ -430,17 +430,19 @@ bool TraceConfig_TraceFilter_StringFilterPolicy_IsValid(int value) {
     case 2:
     case 3:
     case 4:
+    case 5:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> TraceConfig_TraceFilter_StringFilterPolicy_strings[5] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> TraceConfig_TraceFilter_StringFilterPolicy_strings[6] = {};
 
 static const char TraceConfig_TraceFilter_StringFilterPolicy_names[] =
   "SFP_ATRACE_MATCH_BREAK"
   "SFP_ATRACE_MATCH_REDACT_GROUPS"
+  "SFP_ATRACE_REPEATED_SEARCH_REDACT_GROUPS"
   "SFP_MATCH_BREAK"
   "SFP_MATCH_REDACT_GROUPS"
   "SFP_UNSPECIFIED";
@@ -448,17 +450,19 @@ static const char TraceConfig_TraceFilter_StringFilterPolicy_names[] =
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry TraceConfig_TraceFilter_StringFilterPolicy_entries[] = {
   { {TraceConfig_TraceFilter_StringFilterPolicy_names + 0, 22}, 4 },
   { {TraceConfig_TraceFilter_StringFilterPolicy_names + 22, 30}, 2 },
-  { {TraceConfig_TraceFilter_StringFilterPolicy_names + 52, 15}, 3 },
-  { {TraceConfig_TraceFilter_StringFilterPolicy_names + 67, 23}, 1 },
-  { {TraceConfig_TraceFilter_StringFilterPolicy_names + 90, 15}, 0 },
+  { {TraceConfig_TraceFilter_StringFilterPolicy_names + 52, 40}, 5 },
+  { {TraceConfig_TraceFilter_StringFilterPolicy_names + 92, 15}, 3 },
+  { {TraceConfig_TraceFilter_StringFilterPolicy_names + 107, 23}, 1 },
+  { {TraceConfig_TraceFilter_StringFilterPolicy_names + 130, 15}, 0 },
 };
 
 static const int TraceConfig_TraceFilter_StringFilterPolicy_entries_by_number[] = {
-  4, // 0 -> SFP_UNSPECIFIED
-  3, // 1 -> SFP_MATCH_REDACT_GROUPS
+  5, // 0 -> SFP_UNSPECIFIED
+  4, // 1 -> SFP_MATCH_REDACT_GROUPS
   1, // 2 -> SFP_ATRACE_MATCH_REDACT_GROUPS
-  2, // 3 -> SFP_MATCH_BREAK
+  3, // 3 -> SFP_MATCH_BREAK
   0, // 4 -> SFP_ATRACE_MATCH_BREAK
+  2, // 5 -> SFP_ATRACE_REPEATED_SEARCH_REDACT_GROUPS
 };
 
 const std::string& TraceConfig_TraceFilter_StringFilterPolicy_Name(
@@ -467,12 +471,12 @@ const std::string& TraceConfig_TraceFilter_StringFilterPolicy_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           TraceConfig_TraceFilter_StringFilterPolicy_entries,
           TraceConfig_TraceFilter_StringFilterPolicy_entries_by_number,
-          5, TraceConfig_TraceFilter_StringFilterPolicy_strings);
+          6, TraceConfig_TraceFilter_StringFilterPolicy_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       TraceConfig_TraceFilter_StringFilterPolicy_entries,
       TraceConfig_TraceFilter_StringFilterPolicy_entries_by_number,
-      5, value);
+      6, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      TraceConfig_TraceFilter_StringFilterPolicy_strings[idx].get();
 }
@@ -480,7 +484,7 @@ bool TraceConfig_TraceFilter_StringFilterPolicy_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, TraceConfig_TraceFilter_StringFilterPolicy* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      TraceConfig_TraceFilter_StringFilterPolicy_entries, 5, name, &int_value);
+      TraceConfig_TraceFilter_StringFilterPolicy_entries, 6, name, &int_value);
   if (success) {
     *value = static_cast<TraceConfig_TraceFilter_StringFilterPolicy>(int_value);
   }
@@ -492,6 +496,7 @@ constexpr TraceConfig_TraceFilter_StringFilterPolicy TraceConfig_TraceFilter::SF
 constexpr TraceConfig_TraceFilter_StringFilterPolicy TraceConfig_TraceFilter::SFP_ATRACE_MATCH_REDACT_GROUPS;
 constexpr TraceConfig_TraceFilter_StringFilterPolicy TraceConfig_TraceFilter::SFP_MATCH_BREAK;
 constexpr TraceConfig_TraceFilter_StringFilterPolicy TraceConfig_TraceFilter::SFP_ATRACE_MATCH_BREAK;
+constexpr TraceConfig_TraceFilter_StringFilterPolicy TraceConfig_TraceFilter::SFP_ATRACE_REPEATED_SEARCH_REDACT_GROUPS;
 constexpr TraceConfig_TraceFilter_StringFilterPolicy TraceConfig_TraceFilter::StringFilterPolicy_MIN;
 constexpr TraceConfig_TraceFilter_StringFilterPolicy TraceConfig_TraceFilter::StringFilterPolicy_MAX;
 constexpr int TraceConfig_TraceFilter::StringFilterPolicy_ARRAYSIZE;

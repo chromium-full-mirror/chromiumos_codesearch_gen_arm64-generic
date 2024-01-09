@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/file_system_access/file_system_access_observer.mojom-features.h"
 #include "third_party/blink/public/mojom/file_system_access/file_system_access_observer.mojom-shared.h"
 #include "third_party/blink/public/mojom/file_system_access/file_system_access_observer.mojom-blink-forward.h"
 #include "third_party/blink/public/mojom/file_system_access/file_system_access_directory_handle.mojom-blink.h"
@@ -854,49 +855,49 @@ class PLATFORM_EXPORT FileSystemAccessChangeType {
   // Construct an instance holding |created|.
   static FileSystemAccessChangeTypePtr
   NewCreated(
-      FileSystemAccessChangeTypeCreatedPtr created) {
+      FileSystemAccessChangeTypeCreatedPtr value) {
     auto result = FileSystemAccessChangeTypePtr(absl::in_place);
-    result->set_created(std::move(created));
+    result->set_created(std::move(value));
     return result;
   }
   // Construct an instance holding |deleted|.
   static FileSystemAccessChangeTypePtr
   NewDeleted(
-      FileSystemAccessChangeTypeDeletedPtr deleted) {
+      FileSystemAccessChangeTypeDeletedPtr value) {
     auto result = FileSystemAccessChangeTypePtr(absl::in_place);
-    result->set_deleted(std::move(deleted));
+    result->set_deleted(std::move(value));
     return result;
   }
   // Construct an instance holding |errored|.
   static FileSystemAccessChangeTypePtr
   NewErrored(
-      FileSystemAccessChangeTypeErroredPtr errored) {
+      FileSystemAccessChangeTypeErroredPtr value) {
     auto result = FileSystemAccessChangeTypePtr(absl::in_place);
-    result->set_errored(std::move(errored));
+    result->set_errored(std::move(value));
     return result;
   }
   // Construct an instance holding |modified|.
   static FileSystemAccessChangeTypePtr
   NewModified(
-      FileSystemAccessChangeTypeModifiedPtr modified) {
+      FileSystemAccessChangeTypeModifiedPtr value) {
     auto result = FileSystemAccessChangeTypePtr(absl::in_place);
-    result->set_modified(std::move(modified));
+    result->set_modified(std::move(value));
     return result;
   }
   // Construct an instance holding |moved|.
   static FileSystemAccessChangeTypePtr
   NewMoved(
-      FileSystemAccessChangeTypeMovedPtr moved) {
+      FileSystemAccessChangeTypeMovedPtr value) {
     auto result = FileSystemAccessChangeTypePtr(absl::in_place);
-    result->set_moved(std::move(moved));
+    result->set_moved(std::move(value));
     return result;
   }
   // Construct an instance holding |unsupported|.
   static FileSystemAccessChangeTypePtr
   NewUnsupported(
-      FileSystemAccessChangeTypeUnsupportedPtr unsupported) {
+      FileSystemAccessChangeTypeUnsupportedPtr value) {
     auto result = FileSystemAccessChangeTypePtr(absl::in_place);
-    result->set_unsupported(std::move(unsupported));
+    result->set_unsupported(std::move(value));
     return result;
   }
 
@@ -1082,7 +1083,7 @@ class PLATFORM_EXPORT FileSystemAccessChangeTypeMoved {
   FileSystemAccessChangeTypeMoved();
 
   explicit FileSystemAccessChangeTypeMoved(
-      absl::optional<WTF::Vector<WTF::String>> former_relative_path);
+      std::optional<WTF::Vector<WTF::String>> former_relative_path);
 
 
   ~FileSystemAccessChangeTypeMoved();
@@ -1160,7 +1161,7 @@ class PLATFORM_EXPORT FileSystemAccessChangeTypeMoved {
   }
 
   
-  absl::optional<WTF::Vector<WTF::String>> former_relative_path;
+  std::optional<WTF::Vector<WTF::String>> former_relative_path;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

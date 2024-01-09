@@ -65,11 +65,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, WebGLDrawInstancedBaseVertexBaseInstance>::value,
     "WebGLDrawInstancedBaseVertexBaseInstance inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&WebGLDrawInstancedBaseVertexBaseInstance::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "WebGLDrawInstancedBaseVertexBaseInstance is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -96,7 +91,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGLDrawInstancedBaseVertexBaseInstance* blink_receiver = V8WebGLDrawInstancedBaseVertexBaseInstance::ToWrappableUnsafe(v8_receiver);
+WebGLDrawInstancedBaseVertexBaseInstance* blink_receiver = V8WebGLDrawInstancedBaseVertexBaseInstance::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_mode = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -142,7 +137,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGLDrawInstancedBaseVertexBaseInstance* blink_receiver = V8WebGLDrawInstancedBaseVertexBaseInstance::ToWrappableUnsafe(v8_receiver);
+WebGLDrawInstancedBaseVertexBaseInstance* blink_receiver = V8WebGLDrawInstancedBaseVertexBaseInstance::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_mode = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

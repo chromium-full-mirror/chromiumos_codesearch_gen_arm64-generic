@@ -70,11 +70,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, DOMRect>::value,
     "DOMRect inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&DOMRect::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "DOMRect is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -87,8 +82,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMRect.x.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMRect* blink_receiver = V8DOMRect::ToWrappableUnsafe(v8_receiver);
+DOMRect* blink_receiver = V8DOMRect::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->x();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -100,9 +96,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMRect.x.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMRect* blink_receiver = V8DOMRect::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMRect* blink_receiver = V8DOMRect::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "DOMRect";
@@ -123,8 +119,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMRect.y.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMRect* blink_receiver = V8DOMRect::ToWrappableUnsafe(v8_receiver);
+DOMRect* blink_receiver = V8DOMRect::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->y();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -136,9 +133,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMRect.y.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMRect* blink_receiver = V8DOMRect::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMRect* blink_receiver = V8DOMRect::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "DOMRect";
@@ -159,8 +156,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMRect.width.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMRect* blink_receiver = V8DOMRect::ToWrappableUnsafe(v8_receiver);
+DOMRect* blink_receiver = V8DOMRect::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->width();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -172,9 +170,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMRect.width.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMRect* blink_receiver = V8DOMRect::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMRect* blink_receiver = V8DOMRect::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "DOMRect";
@@ -195,8 +193,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMRect.height.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMRect* blink_receiver = V8DOMRect::ToWrappableUnsafe(v8_receiver);
+DOMRect* blink_receiver = V8DOMRect::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->height();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -208,9 +207,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMRect.height.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMRect* blink_receiver = V8DOMRect::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMRect* blink_receiver = V8DOMRect::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "DOMRect";

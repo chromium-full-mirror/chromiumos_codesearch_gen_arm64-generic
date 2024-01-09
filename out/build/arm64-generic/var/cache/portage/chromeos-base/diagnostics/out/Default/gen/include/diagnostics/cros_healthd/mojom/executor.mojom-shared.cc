@@ -1463,7 +1463,7 @@ bool Executor_ReadMsr_ResponseParams_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
+          data, 24, validation_context)) {
     return false;
   }
 
@@ -1471,9 +1471,6 @@ bool Executor_ReadMsr_ResponseParams_Data::Validate(
   // the message comes from an older version.
   [[maybe_unused]] const Executor_ReadMsr_ResponseParams_Data* object =
       static_cast<const Executor_ReadMsr_ResponseParams_Data*>(data);
-
-  if (!mojo::internal::ValidateStruct(object->value, validation_context))
-    return false;
 
   return true;
 }
@@ -2281,7 +2278,7 @@ bool Executor_GetConnectedExternalDisplayConnectors_Params_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 8, validation_context)) {
+          data, 16, validation_context)) {
     return false;
   }
 
@@ -2289,6 +2286,13 @@ bool Executor_GetConnectedExternalDisplayConnectors_Params_Data::Validate(
   // the message comes from an older version.
   [[maybe_unused]] const Executor_GetConnectedExternalDisplayConnectors_Params_Data* object =
       static_cast<const Executor_GetConnectedExternalDisplayConnectors_Params_Data*>(data);
+
+  constexpr const mojo::internal::ContainerValidateParams& last_known_connectors_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->last_known_connectors, validation_context,
+                                         &last_known_connectors_validate_params)) {
+    return false;
+  }
 
   return true;
 }
@@ -2955,6 +2959,288 @@ bool Executor_SetAllFanAutoControl_ResponseParams_Data::Validate(
 }
 
 Executor_SetAllFanAutoControl_ResponseParams_Data::Executor_SetAllFanAutoControl_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool Executor_GetEcThermalSensors_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Executor_GetEcThermalSensors_Params_Data* object =
+      static_cast<const Executor_GetEcThermalSensors_Params_Data*>(data);
+
+  return true;
+}
+
+Executor_GetEcThermalSensors_Params_Data::Executor_GetEcThermalSensors_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool Executor_GetEcThermalSensors_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Executor_GetEcThermalSensors_ResponseParams_Data* object =
+      static_cast<const Executor_GetEcThermalSensors_ResponseParams_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->thermal_sensors, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& thermal_sensors_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->thermal_sensors, validation_context,
+                                         &thermal_sensors_validate_params)) {
+    return false;
+  }
+
+  constexpr const mojo::internal::ContainerValidateParams& err_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->err, validation_context,
+                                         &err_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+Executor_GetEcThermalSensors_ResponseParams_Data::Executor_GetEcThermalSensors_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool Executor_GetTouchpadDevices_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Executor_GetTouchpadDevices_Params_Data* object =
+      static_cast<const Executor_GetTouchpadDevices_Params_Data*>(data);
+
+  return true;
+}
+
+Executor_GetTouchpadDevices_Params_Data::Executor_GetTouchpadDevices_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool Executor_GetTouchpadDevices_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Executor_GetTouchpadDevices_ResponseParams_Data* object =
+      static_cast<const Executor_GetTouchpadDevices_ResponseParams_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->devices, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& devices_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->devices, validation_context,
+                                         &devices_validate_params)) {
+    return false;
+  }
+
+  constexpr const mojo::internal::ContainerValidateParams& err_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->err, validation_context,
+                                         &err_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+Executor_GetTouchpadDevices_ResponseParams_Data::Executor_GetTouchpadDevices_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool Executor_GetSmartBatteryManufactureDate_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Executor_GetSmartBatteryManufactureDate_Params_Data* object =
+      static_cast<const Executor_GetSmartBatteryManufactureDate_Params_Data*>(data);
+
+  return true;
+}
+
+Executor_GetSmartBatteryManufactureDate_Params_Data::Executor_GetSmartBatteryManufactureDate_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool Executor_GetSmartBatteryManufactureDate_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Executor_GetSmartBatteryManufactureDate_ResponseParams_Data* object =
+      static_cast<const Executor_GetSmartBatteryManufactureDate_ResponseParams_Data*>(data);
+
+  return true;
+}
+
+Executor_GetSmartBatteryManufactureDate_ResponseParams_Data::Executor_GetSmartBatteryManufactureDate_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool Executor_GetSmartBatteryTemperature_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Executor_GetSmartBatteryTemperature_Params_Data* object =
+      static_cast<const Executor_GetSmartBatteryTemperature_Params_Data*>(data);
+
+  return true;
+}
+
+Executor_GetSmartBatteryTemperature_Params_Data::Executor_GetSmartBatteryTemperature_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool Executor_GetSmartBatteryTemperature_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Executor_GetSmartBatteryTemperature_ResponseParams_Data* object =
+      static_cast<const Executor_GetSmartBatteryTemperature_ResponseParams_Data*>(data);
+
+  return true;
+}
+
+Executor_GetSmartBatteryTemperature_ResponseParams_Data::Executor_GetSmartBatteryTemperature_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool Executor_RunUrandom_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Executor_RunUrandom_Params_Data* object =
+      static_cast<const Executor_RunUrandom_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->exec_duration, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->exec_duration, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
+          object->process_control, 2, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateHandleOrInterface(object->process_control,
+                                                 validation_context)) {
+    return false;
+  }
+
+  return true;
+}
+
+Executor_RunUrandom_Params_Data::Executor_RunUrandom_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool Executor_RunUrandom_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Executor_RunUrandom_ResponseParams_Data* object =
+      static_cast<const Executor_RunUrandom_ResponseParams_Data*>(data);
+
+  return true;
+}
+
+Executor_RunUrandom_ResponseParams_Data::Executor_RunUrandom_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
 }  // namespace internal

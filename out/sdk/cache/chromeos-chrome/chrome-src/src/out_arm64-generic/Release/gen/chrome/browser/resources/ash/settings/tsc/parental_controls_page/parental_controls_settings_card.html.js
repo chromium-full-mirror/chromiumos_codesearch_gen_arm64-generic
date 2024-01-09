@@ -1,6 +1,6 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_--><style include="settings-shared">cr-link-row{--cr-section-padding:0}</style>
+    return html `<!--_html_template_start_--><style include="settings-shared">:host-context(body.revamp-wayfinding-enabled) #parentalControlRowIcon{--iron-icon-fill-color:var(--cros-sys-primary)}cr-link-row{--cr-section-padding:0}</style>
 
 <settings-card header-text="$i18n{parentalControlsPageTitle}">
   <div id="parentalControlsItem" class="settings-box two-line">
@@ -9,7 +9,8 @@ export function getTemplate() {
       </cr-link-row>
     </template>
     <template is="dom-if" if="[[!isChild_]]">
-      <iron-icon class="start-icon" icon="cr20:kite"></iron-icon>
+      <iron-icon id="parentalControlRowIcon" class="start-icon" icon="cr20:kite">
+      </iron-icon>
       <div class="middle settings-box-text">
         <div id="label" aria-hidden="true">
           $i18n{parentalControlsPageTitle}
@@ -18,7 +19,7 @@ export function getTemplate() {
           [[getSetupLabelText_(online_)]]
         </div>
       </div>
-      <cr-button id="setupButton" on-click="handleSetupButtonClick_" disabled$="[[!online_]]" aria-labelledby="label" aria-describedby="subLabel" aria-roledescription="$i18n{parentalControlsSetUpButtonRole}">
+      <cr-button id="setupButton" on-click="handleSetupButtonClick_" disabled$="[[!online_]]" aria-labelledby="label" aria-describedby="subLabel" aria-roledescription="$i18n{parentalControlsSetUpButtonRole}" deep-link-focus-id$="[[Setting.kSetUpParentalControls]]">
         $i18n{parentalControlsSetUpButtonLabel}
       </cr-button>
     </template>

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -80,6 +81,9 @@ MediaMetricsProvider::IPCStableHashFunction MediaMetricsProvider::MessageToMetho
     }
     case internal::kMediaMetricsProvider_SetKeySystem_Name: {
       return &MediaMetricsProvider::SetKeySystem_Sym::IPCStableHash;
+    }
+    case internal::kMediaMetricsProvider_SetHasWaitingForKey_Name: {
+      return &MediaMetricsProvider::SetHasWaitingForKey_Sym::IPCStableHash;
     }
     case internal::kMediaMetricsProvider_SetIsHardwareSecure_Name: {
       return &MediaMetricsProvider::SetIsHardwareSecure_Sym::IPCStableHash;
@@ -144,6 +148,8 @@ const char* MediaMetricsProvider::MessageToMethodName_(mojo::Message& message) {
             return "Receive media::mojom::MediaMetricsProvider::SetRendererType";
       case internal::kMediaMetricsProvider_SetKeySystem_Name:
             return "Receive media::mojom::MediaMetricsProvider::SetKeySystem";
+      case internal::kMediaMetricsProvider_SetHasWaitingForKey_Name:
+            return "Receive media::mojom::MediaMetricsProvider::SetHasWaitingForKey";
       case internal::kMediaMetricsProvider_SetIsHardwareSecure_Name:
             return "Receive media::mojom::MediaMetricsProvider::SetIsHardwareSecure";
       case internal::kMediaMetricsProvider_SetContainerName_Name:
@@ -189,6 +195,8 @@ const char* MediaMetricsProvider::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply media::mojom::MediaMetricsProvider::SetRendererType";
       case internal::kMediaMetricsProvider_SetKeySystem_Name:
             return "Receive reply media::mojom::MediaMetricsProvider::SetKeySystem";
+      case internal::kMediaMetricsProvider_SetHasWaitingForKey_Name:
+            return "Receive reply media::mojom::MediaMetricsProvider::SetHasWaitingForKey";
       case internal::kMediaMetricsProvider_SetIsHardwareSecure_Name:
             return "Receive reply media::mojom::MediaMetricsProvider::SetIsHardwareSecure";
       case internal::kMediaMetricsProvider_SetContainerName_Name:
@@ -366,6 +374,19 @@ uint32_t MediaMetricsProvider::SetKeySystem_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t MediaMetricsProvider::SetHasWaitingForKey_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)media::mojom::MediaMetricsProvider::SetHasWaitingForKey");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 uint32_t MediaMetricsProvider::SetIsHardwareSecure_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
@@ -520,14 +541,17 @@ void MediaMetricsProviderProxy::Initialize(
                         "<value of type ::media::mojom::MediaStreamType>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaMetricsProvider_Initialize_Name, kFlags, 0, 0, nullptr);
@@ -562,14 +586,17 @@ void MediaMetricsProviderProxy::OnError(
                         "<value of type const ::media::PipelineStatus&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaMetricsProvider_OnError_Name, kFlags, 0, 0, nullptr);
@@ -610,14 +637,17 @@ void MediaMetricsProviderProxy::OnFallback(
                         "<value of type const ::media::PipelineStatus&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaMetricsProvider_OnFallback_Name, kFlags, 0, 0, nullptr);
@@ -651,14 +681,17 @@ void MediaMetricsProviderProxy::SetHasPlayed(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send media::mojom::MediaMetricsProvider::SetHasPlayed");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaMetricsProvider_SetHasPlayed_Name, kFlags, 0, 0, nullptr);
@@ -681,14 +714,17 @@ void MediaMetricsProviderProxy::SetHaveEnough(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send media::mojom::MediaMetricsProvider::SetHaveEnough");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaMetricsProvider_SetHaveEnough_Name, kFlags, 0, 0, nullptr);
@@ -711,14 +747,17 @@ void MediaMetricsProviderProxy::SetIsEME(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send media::mojom::MediaMetricsProvider::SetIsEME");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaMetricsProvider_SetIsEME_Name, kFlags, 0, 0, nullptr);
@@ -748,14 +787,17 @@ void MediaMetricsProviderProxy::SetTimeToMetadata(
                         "<value of type ::base::TimeDelta>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaMetricsProvider_SetTimeToMetadata_Name, kFlags, 0, 0, nullptr);
@@ -796,14 +838,17 @@ void MediaMetricsProviderProxy::SetTimeToFirstFrame(
                         "<value of type ::base::TimeDelta>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaMetricsProvider_SetTimeToFirstFrame_Name, kFlags, 0, 0, nullptr);
@@ -844,14 +889,17 @@ void MediaMetricsProviderProxy::SetTimeToPlayReady(
                         "<value of type ::base::TimeDelta>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaMetricsProvider_SetTimeToPlayReady_Name, kFlags, 0, 0, nullptr);
@@ -892,14 +940,17 @@ void MediaMetricsProviderProxy::SetRendererType(
                         "<value of type ::media::RendererType>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaMetricsProvider_SetRendererType_Name, kFlags, 0, 0, nullptr);
@@ -931,14 +982,17 @@ void MediaMetricsProviderProxy::SetKeySystem(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaMetricsProvider_SetKeySystem_Name, kFlags, 0, 0, nullptr);
@@ -967,19 +1021,55 @@ void MediaMetricsProviderProxy::SetKeySystem(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
+void MediaMetricsProviderProxy::SetHasWaitingForKey(
+    ) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send media::mojom::MediaMetricsProvider::SetHasWaitingForKey");
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kMediaMetricsProvider_SetHasWaitingForKey_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::media::mojom::internal::MediaMetricsProvider_SetHasWaitingForKey_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(MediaMetricsProvider::Name_);
+  message.set_method_name("SetHasWaitingForKey");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
 void MediaMetricsProviderProxy::SetIsHardwareSecure(
     ) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send media::mojom::MediaMetricsProvider::SetIsHardwareSecure");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaMetricsProvider_SetIsHardwareSecure_Name, kFlags, 0, 0, nullptr);
@@ -1009,14 +1099,17 @@ void MediaMetricsProviderProxy::SetContainerName(
                         "<value of type ::media::container_names::MediaContainerName>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaMetricsProvider_SetContainerName_Name, kFlags, 0, 0, nullptr);
@@ -1051,14 +1144,17 @@ void MediaMetricsProviderProxy::AcquireWatchTimeRecorder(
                         "<value of type ::mojo::PendingReceiver<::media::mojom::WatchTimeRecorder>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaMetricsProvider_AcquireWatchTimeRecorder_Name, kFlags, 0, 0, nullptr);
@@ -1105,14 +1201,17 @@ void MediaMetricsProviderProxy::AcquireVideoDecodeStatsRecorder(
                         "<value of type ::mojo::PendingReceiver<::media::mojom::VideoDecodeStatsRecorder>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaMetricsProvider_AcquireVideoDecodeStatsRecorder_Name, kFlags, 0, 0, nullptr);
@@ -1151,14 +1250,17 @@ void MediaMetricsProviderProxy::AcquireLearningTaskController(
                         "<value of type ::mojo::PendingReceiver<::media::learning::mojom::LearningTaskController>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaMetricsProvider_AcquireLearningTaskController_Name, kFlags, 0, 0, nullptr);
@@ -1205,14 +1307,17 @@ void MediaMetricsProviderProxy::AcquirePlaybackEventsRecorder(
                         "<value of type ::mojo::PendingReceiver<::media::mojom::PlaybackEventsRecorder>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaMetricsProvider_AcquirePlaybackEventsRecorder_Name, kFlags, 0, 0, nullptr);
@@ -1248,14 +1353,17 @@ void MediaMetricsProviderProxy::SetHasAudio(
                         "<value of type ::media::AudioCodec>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaMetricsProvider_SetHasAudio_Name, kFlags, 0, 0, nullptr);
@@ -1287,14 +1395,17 @@ void MediaMetricsProviderProxy::SetHasVideo(
                         "<value of type ::media::VideoCodec>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaMetricsProvider_SetHasVideo_Name, kFlags, 0, 0, nullptr);
@@ -1326,14 +1437,17 @@ void MediaMetricsProviderProxy::SetVideoPipelineInfo(
                         "<value of type const ::media::VideoPipelineInfo&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaMetricsProvider_SetVideoPipelineInfo_Name, kFlags, 0, 0, nullptr);
@@ -1374,14 +1488,17 @@ void MediaMetricsProviderProxy::SetAudioPipelineInfo(
                         "<value of type const ::media::AudioPipelineInfo&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaMetricsProvider_SetAudioPipelineInfo_Name, kFlags, 0, 0, nullptr);
@@ -1697,6 +1814,28 @@ std::move(p_renderer_type));
 std::move(p_key_system));
       return true;
     }
+    case internal::kMediaMetricsProvider_SetHasWaitingForKey_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::MediaMetricsProvider_SetHasWaitingForKey_Params_Data* params =
+          reinterpret_cast<internal::MediaMetricsProvider_SetHasWaitingForKey_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      MediaMetricsProvider_SetHasWaitingForKey_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            MediaMetricsProvider::Name_, 11, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->SetHasWaitingForKey();
+      return true;
+    }
     case internal::kMediaMetricsProvider_SetIsHardwareSecure_Name: {
 
       DCHECK(message->is_serialized());
@@ -1711,7 +1850,7 @@ std::move(p_key_system));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            MediaMetricsProvider::Name_, 11, false);
+            MediaMetricsProvider::Name_, 12, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1736,7 +1875,7 @@ std::move(p_key_system));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            MediaMetricsProvider::Name_, 12, false);
+            MediaMetricsProvider::Name_, 13, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1767,7 +1906,7 @@ std::move(p_container_name));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            MediaMetricsProvider::Name_, 13, false);
+            MediaMetricsProvider::Name_, 14, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1796,7 +1935,7 @@ std::move(p_recorder));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            MediaMetricsProvider::Name_, 14, false);
+            MediaMetricsProvider::Name_, 15, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1827,7 +1966,7 @@ std::move(p_recorder));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            MediaMetricsProvider::Name_, 15, false);
+            MediaMetricsProvider::Name_, 16, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1856,7 +1995,7 @@ std::move(p_controller));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            MediaMetricsProvider::Name_, 16, false);
+            MediaMetricsProvider::Name_, 17, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1882,7 +2021,7 @@ std::move(p_receiver));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            MediaMetricsProvider::Name_, 17, false);
+            MediaMetricsProvider::Name_, 18, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1908,7 +2047,7 @@ std::move(p_codec));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            MediaMetricsProvider::Name_, 18, false);
+            MediaMetricsProvider::Name_, 19, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1934,7 +2073,7 @@ std::move(p_codec));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            MediaMetricsProvider::Name_, 19, false);
+            MediaMetricsProvider::Name_, 20, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1960,7 +2099,7 @@ std::move(p_info));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            MediaMetricsProvider::Name_, 20, false);
+            MediaMetricsProvider::Name_, 21, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -2015,6 +2154,9 @@ bool MediaMetricsProviderStubDispatch::AcceptWithResponder(
     case internal::kMediaMetricsProvider_SetKeySystem_Name: {
       break;
     }
+    case internal::kMediaMetricsProvider_SetHasWaitingForKey_Name: {
+      break;
+    }
     case internal::kMediaMetricsProvider_SetIsHardwareSecure_Name: {
       break;
     }
@@ -2048,50 +2190,52 @@ bool MediaMetricsProviderStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kMediaMetricsProviderValidationInfo[] = {
-    {&internal::MediaMetricsProvider_Initialize_Params_Data::Validate,
+    { &internal::MediaMetricsProvider_Initialize_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaMetricsProvider_OnError_Params_Data::Validate,
+    { &internal::MediaMetricsProvider_OnError_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaMetricsProvider_OnFallback_Params_Data::Validate,
+    { &internal::MediaMetricsProvider_OnFallback_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaMetricsProvider_SetHasPlayed_Params_Data::Validate,
+    { &internal::MediaMetricsProvider_SetHasPlayed_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaMetricsProvider_SetHaveEnough_Params_Data::Validate,
+    { &internal::MediaMetricsProvider_SetHaveEnough_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaMetricsProvider_SetIsEME_Params_Data::Validate,
+    { &internal::MediaMetricsProvider_SetIsEME_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaMetricsProvider_SetTimeToMetadata_Params_Data::Validate,
+    { &internal::MediaMetricsProvider_SetTimeToMetadata_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaMetricsProvider_SetTimeToFirstFrame_Params_Data::Validate,
+    { &internal::MediaMetricsProvider_SetTimeToFirstFrame_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaMetricsProvider_SetTimeToPlayReady_Params_Data::Validate,
+    { &internal::MediaMetricsProvider_SetTimeToPlayReady_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaMetricsProvider_SetRendererType_Params_Data::Validate,
+    { &internal::MediaMetricsProvider_SetRendererType_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaMetricsProvider_SetKeySystem_Params_Data::Validate,
+    { &internal::MediaMetricsProvider_SetKeySystem_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaMetricsProvider_SetIsHardwareSecure_Params_Data::Validate,
+    { &internal::MediaMetricsProvider_SetHasWaitingForKey_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaMetricsProvider_SetContainerName_Params_Data::Validate,
+    { &internal::MediaMetricsProvider_SetIsHardwareSecure_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaMetricsProvider_AcquireWatchTimeRecorder_Params_Data::Validate,
+    { &internal::MediaMetricsProvider_SetContainerName_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaMetricsProvider_AcquireVideoDecodeStatsRecorder_Params_Data::Validate,
+    { &internal::MediaMetricsProvider_AcquireWatchTimeRecorder_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaMetricsProvider_AcquireLearningTaskController_Params_Data::Validate,
+    { &internal::MediaMetricsProvider_AcquireVideoDecodeStatsRecorder_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaMetricsProvider_AcquirePlaybackEventsRecorder_Params_Data::Validate,
+    { &internal::MediaMetricsProvider_AcquireLearningTaskController_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaMetricsProvider_SetHasAudio_Params_Data::Validate,
+    { &internal::MediaMetricsProvider_AcquirePlaybackEventsRecorder_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaMetricsProvider_SetHasVideo_Params_Data::Validate,
+    { &internal::MediaMetricsProvider_SetHasAudio_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaMetricsProvider_SetVideoPipelineInfo_Params_Data::Validate,
+    { &internal::MediaMetricsProvider_SetHasVideo_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaMetricsProvider_SetAudioPipelineInfo_Params_Data::Validate,
+    { &internal::MediaMetricsProvider_SetVideoPipelineInfo_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::MediaMetricsProvider_SetAudioPipelineInfo_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2149,6 +2293,9 @@ void MediaMetricsProviderInterceptorForTesting::SetRendererType(::media::Rendere
 }
 void MediaMetricsProviderInterceptorForTesting::SetKeySystem(const std::string& key_system) {
   GetForwardingInterface()->SetKeySystem(std::move(key_system));
+}
+void MediaMetricsProviderInterceptorForTesting::SetHasWaitingForKey() {
+  GetForwardingInterface()->SetHasWaitingForKey();
 }
 void MediaMetricsProviderInterceptorForTesting::SetIsHardwareSecure() {
   GetForwardingInterface()->SetIsHardwareSecure();

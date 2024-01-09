@@ -51,6 +51,15 @@ class SequencedTaskSource {
 
   virtual ~SequencedTaskSource() = default;
 
+  // Controls whether a `SequencedTaskRunner` associated with this source can
+  // run a task synchronously in `RunOrPostTask`. Enable this to indicate that
+  // there isn't any pending or running work that has mutual exclusion or
+  // ordering expectations with tasks from this source, outside of
+  // `SelectNextTask()` or `OnBeginWork()` -> `OnIdle()` (those prevent tasks
+  // from running synchronously, irrespective of the state set here).
+  virtual void SetRunTaskSynchronouslyAllowed(
+      bool can_run_tasks_synchronously) = 0;
+
   // Returns the next task to run from this source or nullopt if
   // there're no more tasks ready to run. If a task is returned,
   // DidRunTask() must be invoked before the next call to SelectNextTask().
@@ -63,27 +72,26 @@ class SequencedTaskSource {
   // from SelectNextTask() has been completed.
   virtual void DidRunTask(LazyNow& lazy_now) = 0;
 
-  // Removes all canceled delayed tasks from the front of the queue. After
-  // calling this, GetPendingWakeUp() is guaranteed to return a ready time for a
-  // non-canceled task.
-  virtual void RemoveAllCanceledDelayedTasksFromFront(LazyNow* lazy_now) = 0;
-
   // Returns a WakeUp for the next pending task, is_immediate() if the
   // next task can run immediately, or nullopt if there are no more immediate or
   // delayed tasks. |option| allows control on which kind of tasks can be
-  // selected.
+  // selected. May delete canceled tasks.
   virtual absl::optional<WakeUp> GetPendingWakeUp(
       LazyNow* lazy_now,
-      SelectTaskOption option = SelectTaskOption::kDefault) const = 0;
+      SelectTaskOption option = SelectTaskOption::kDefault) = 0;
 
   // Return true if there are any pending tasks in the task source which require
   // high resolution timing.
   virtual bool HasPendingHighResolutionTasks() = 0;
 
+  // Indicates that work that has mutual exclusion expectations with tasks from
+  // this `SequencedTaskSource` will start running.
+  virtual void OnBeginWork() = 0;
+
   // Called when we have run out of immediate work.  If more immediate work
   // becomes available as a result of any processing done by this callback,
   // return true to schedule a future DoWork.
-  virtual bool OnSystemIdle() = 0;
+  virtual bool OnIdle() = 0;
 
   // Called prior to running `selected_task` to emit trace event data for it.
   virtual void MaybeEmitTaskDetails(

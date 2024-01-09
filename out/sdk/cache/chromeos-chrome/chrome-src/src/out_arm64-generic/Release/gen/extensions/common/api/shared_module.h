@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -35,8 +36,8 @@ struct Import {
   ~Import();
   Import(const Import&) = delete;
   Import& operator=(const Import&) = delete;
-  Import(Import&& rhs);
-  Import& operator=(Import&& rhs);
+  Import(Import&& rhs) noexcept;
+  Import& operator=(Import&& rhs) noexcept;
 
   // Manifest key constants.
   static constexpr char kId[] = "id";
@@ -52,9 +53,6 @@ struct Import {
 
   // Creates a deep copy of Import.
   Import Clone() const;
-
-  // Creates a Import object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Import> FromValueDeprecated(const base::Value& value, std::u16string* error);
 
   // Creates a Import object from a base::Value::Dict, or unexpected on failure.
   static base::expected<Import, std::u16string> FromValue(const base::Value::Dict& value);
@@ -76,7 +74,7 @@ struct Import {
   std::string id;
 
   // Minimum supported version of the shared module.
-  absl::optional<std::string> minimum_version;
+  std::optional<std::string> minimum_version;
 
 };
 
@@ -85,8 +83,8 @@ struct Export {
   ~Export();
   Export(const Export&) = delete;
   Export& operator=(const Export&) = delete;
-  Export(Export&& rhs);
-  Export& operator=(Export&& rhs);
+  Export(Export&& rhs) noexcept;
+  Export& operator=(Export&& rhs) noexcept;
 
   // Manifest key constants.
   static constexpr char kAllowlist[] = "allowlist";
@@ -101,9 +99,6 @@ struct Export {
 
   // Creates a deep copy of Export.
   Export Clone() const;
-
-  // Creates a Export object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Export> FromValueDeprecated(const base::Value& value, std::u16string* error);
 
   // Creates a Export object from a base::Value::Dict, or unexpected on failure.
   static base::expected<Export, std::u16string> FromValue(const base::Value::Dict& value);
@@ -124,7 +119,7 @@ struct Export {
   // Optional list of extension IDs explicitly allowed to import this Shared
   // Module's resources.  If no allowlist is given, all extensions are allowed to
   // import it.
-  absl::optional<std::vector<std::string>> allowlist;
+  std::optional<std::vector<std::string>> allowlist;
 
 };
 
@@ -138,8 +133,8 @@ struct ManifestKeys {
   ~ManifestKeys();
   ManifestKeys(const ManifestKeys&) = delete;
   ManifestKeys& operator=(const ManifestKeys&) = delete;
-  ManifestKeys(ManifestKeys&& rhs);
-  ManifestKeys& operator=(ManifestKeys&& rhs);
+  ManifestKeys(ManifestKeys&& rhs) noexcept;
+  ManifestKeys& operator=(ManifestKeys&& rhs) noexcept;
 
   // Manifest key constants.
   static constexpr char kImport[] = "import";
@@ -153,11 +148,11 @@ struct ManifestKeys {
 
   // The import field is used by extensions and apps to declare that they depend
   // on the resources from particular Shared Modules.
-  absl::optional<std::vector<Import>> import;
+  std::optional<std::vector<Import>> import;
 
   // The export field indicates an extension is a Shared Module that exports its
   // resources.
-  absl::optional<Export> export_;
+  std::optional<Export> export_;
 
 };
 

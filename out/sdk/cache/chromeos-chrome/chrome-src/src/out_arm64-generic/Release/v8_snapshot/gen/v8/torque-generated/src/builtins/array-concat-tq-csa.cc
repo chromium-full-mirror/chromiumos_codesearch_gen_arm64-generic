@@ -66,6 +66,7 @@
 #include "src/objects/turboshaft-types.h"
 #include "src/torque/runtime-support.h"
 #include "src/wasm/wasm-linkage.h"
+#include "src/codegen/code-stub-assembler-inl.h"
 // Required Builtins:
 #include "torque-generated/src/builtins/array-concat-tq-csa.h"
 #include "torque-generated/src/builtins/array-concat-tq-csa.h"
@@ -136,7 +137,7 @@ TF_BUILTIN(ArrayPrototypeConcat, CodeStubAssembler) {
   TNode<JSArray> tmp4;
   if (block5.is_used()) {
     ca_.Bind(&block5);
-    tmp4 = ca_.CallStub<JSArray>(Builtins::CallableFor(ca_.isolate(), Builtin::kCloneFastJSArray), parameter0, tmp2);
+    tmp4 = ca_.CallBuiltin<JSArray>(Builtin::kCloneFastJSArray, parameter0, tmp2);
     arguments.PopAndReturn(tmp4);
   }
 
@@ -210,7 +211,7 @@ TF_BUILTIN(ArrayPrototypeConcat, CodeStubAssembler) {
   TNode<JSArray> tmp15;
   if (block18.is_used()) {
     ca_.Bind(&block18);
-    tmp15 = ca_.CallStub<JSArray>(Builtins::CallableFor(ca_.isolate(), Builtin::kCloneFastJSArray), parameter0, tmp13);
+    tmp15 = ca_.CallBuiltin<JSArray>(Builtin::kCloneFastJSArray, parameter0, tmp13);
     arguments.PopAndReturn(tmp15);
   }
 

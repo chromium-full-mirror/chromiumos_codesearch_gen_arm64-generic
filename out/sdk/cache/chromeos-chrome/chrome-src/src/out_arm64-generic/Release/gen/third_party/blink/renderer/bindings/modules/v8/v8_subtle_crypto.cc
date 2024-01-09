@@ -76,11 +76,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, SubtleCrypto>::value,
     "SubtleCrypto inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&SubtleCrypto::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "SubtleCrypto is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -117,7 +112,7 @@ return;
 
 
 
-SubtleCrypto* blink_receiver = V8SubtleCrypto::ToWrappableUnsafe(v8_receiver);
+SubtleCrypto* blink_receiver = V8SubtleCrypto::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -171,7 +166,7 @@ return;
 
 
 
-SubtleCrypto* blink_receiver = V8SubtleCrypto::ToWrappableUnsafe(v8_receiver);
+SubtleCrypto* blink_receiver = V8SubtleCrypto::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -225,7 +220,7 @@ return;
 
 
 
-SubtleCrypto* blink_receiver = V8SubtleCrypto::ToWrappableUnsafe(v8_receiver);
+SubtleCrypto* blink_receiver = V8SubtleCrypto::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -287,7 +282,7 @@ return;
 
 
 
-SubtleCrypto* blink_receiver = V8SubtleCrypto::ToWrappableUnsafe(v8_receiver);
+SubtleCrypto* blink_receiver = V8SubtleCrypto::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -337,7 +332,7 @@ return;
 
 
 
-SubtleCrypto* blink_receiver = V8SubtleCrypto::ToWrappableUnsafe(v8_receiver);
+SubtleCrypto* blink_receiver = V8SubtleCrypto::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -391,7 +386,7 @@ return;
 
 
 
-SubtleCrypto* blink_receiver = V8SubtleCrypto::ToWrappableUnsafe(v8_receiver);
+SubtleCrypto* blink_receiver = V8SubtleCrypto::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -438,7 +433,7 @@ return;
 
 
 
-SubtleCrypto* blink_receiver = V8SubtleCrypto::ToWrappableUnsafe(v8_receiver);
+SubtleCrypto* blink_receiver = V8SubtleCrypto::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -492,7 +487,7 @@ return;
 
 
 
-SubtleCrypto* blink_receiver = V8SubtleCrypto::ToWrappableUnsafe(v8_receiver);
+SubtleCrypto* blink_receiver = V8SubtleCrypto::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -554,7 +549,7 @@ return;
 
 
 
-SubtleCrypto* blink_receiver = V8SubtleCrypto::ToWrappableUnsafe(v8_receiver);
+SubtleCrypto* blink_receiver = V8SubtleCrypto::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -608,7 +603,7 @@ return;
 
 
 
-SubtleCrypto* blink_receiver = V8SubtleCrypto::ToWrappableUnsafe(v8_receiver);
+SubtleCrypto* blink_receiver = V8SubtleCrypto::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -678,7 +673,7 @@ return;
 
 
 
-SubtleCrypto* blink_receiver = V8SubtleCrypto::ToWrappableUnsafe(v8_receiver);
+SubtleCrypto* blink_receiver = V8SubtleCrypto::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -736,7 +731,7 @@ return;
 
 
 
-SubtleCrypto* blink_receiver = V8SubtleCrypto::ToWrappableUnsafe(v8_receiver);
+SubtleCrypto* blink_receiver = V8SubtleCrypto::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

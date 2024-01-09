@@ -6,6 +6,7 @@
  * page.
  */
 import 'chrome://resources/cr_elements/cr_icon_button/cr_icon_button.js';
+import 'chrome://resources/cr_elements/cr_screen_reader_only.css.js';
 import 'chrome://resources/cr_elements/cr_shared_vars.css.js';
 import '../i18n_setup.js';
 import '../settings_shared.css.js';
@@ -61,19 +62,19 @@ export class SettingsIbanListEntryElement extends SettingsIbanListEntryElementBa
             composed: true,
         }));
     }
+    getA11yIbanDescription_(iban) {
+        // Strip all whitespace and get the pure last four digits of the value.
+        const strippedSummaryLabel = iban.metadata ? iban.metadata.summaryLabel.replace(/\s/g, '') : '';
+        const lastFourDigits = strippedSummaryLabel.substring(Math.max(0, strippedSummaryLabel.length - 4));
+        return this.i18n('a11yIbanDescription', lastFourDigits);
+    }
     /**
      * @return the title for the More Actions button corresponding to the IBAN
      *     which is described by the nickname or last 4 digits of the IBAN's
      *     value.
      */
     getMoreActionsTitle_(iban) {
-        if (iban.nickname) {
-            return this.i18n('moreActionsForIban', iban.nickname);
-        }
-        // Strip all whitespace and get the pure last four digits of the value.
-        const strippedSummaryLabel = iban.metadata ? iban.metadata.summaryLabel.replace(/\s/g, '') : '';
-        const lastFourDigits = strippedSummaryLabel.substring(Math.max(0, strippedSummaryLabel.length - 4));
-        return this.i18n('moreActionsForIban', this.i18n('moreActionsForIbanDescription', lastFourDigits));
+        return this.i18n('moreActionsForIban', iban.nickname || this.getA11yIbanDescription_(iban));
     }
 }
 customElements.define(SettingsIbanListEntryElement.is, SettingsIbanListEntryElement);

@@ -22,6 +22,13 @@ class debugdInterface {
  public:
   virtual ~debugdInterface() = default;
 
+  // Starts a crosh shell instance.
+  virtual bool CroshShellStart(
+      brillo::ErrorPtr* error,
+      const base::ScopedFD& in_lifeline_fd,
+      const base::ScopedFD& in_infd,
+      const base::ScopedFD& in_outfd,
+      std::string* out_handle) = 0;
   // Starts pinging the specified hostname with the specified options, with
   // output directed to the given output file descriptor. The returned opaque
   // string functions as a handle for this particular ping. Multiple pings
@@ -392,13 +399,6 @@ class debugdInterface {
       uint32_t* out_num_cores_disabled) = 0;
   // Trigger wifi firmware dump.
   virtual std::string WifiFWDump() = 0;
-  // Runs the ectool i2cread command with pre-defined
-  // sandbox options in rootfs and retrieves the
-  // requested smart battery metric used by cros_healthd.
-  virtual bool CollectSmartBatteryMetric(
-      brillo::ErrorPtr* error,
-      const std::string& in_metric_name,
-      std::string* out_output) = 0;
   // Runs the 'ectool inventory' command with pre-defined
   // sandbox options in rootfs and returns the output.
   virtual std::string EcGetInventory() = 0;
@@ -486,6 +486,10 @@ class debugdAdaptor {
     brillo::dbus_utils::DBusInterface* itf =
         object->AddOrGetInterface("org.chromium.debugd");
 
+    itf->AddSimpleMethodHandlerWithError(
+        "CroshShellStart",
+        base::Unretained(interface_),
+        &debugdInterface::CroshShellStart);
     itf->AddSimpleMethodHandlerWithError(
         "PingStart",
         base::Unretained(interface_),
@@ -786,10 +790,6 @@ class debugdAdaptor {
         "WifiFWDump",
         base::Unretained(interface_),
         &debugdInterface::WifiFWDump);
-    itf->AddSimpleMethodHandlerWithError(
-        "CollectSmartBatteryMetric",
-        base::Unretained(interface_),
-        &debugdInterface::CollectSmartBatteryMetric);
     itf->AddSimpleMethodHandler(
         "EcGetInventory",
         base::Unretained(interface_),
@@ -871,6 +871,12 @@ class debugdAdaptor {
   static const char* GetIntrospectionXml() {
     return
         "  <interface name=\"org.chromium.debugd\">\n"
+        "    <method name=\"CroshShellStart\">\n"
+        "      <arg name=\"lifeline_fd\" type=\"h\" direction=\"in\"/>\n"
+        "      <arg name=\"infd\" type=\"h\" direction=\"in\"/>\n"
+        "      <arg name=\"outfd\" type=\"h\" direction=\"in\"/>\n"
+        "      <arg name=\"handle\" type=\"s\" direction=\"out\"/>\n"
+        "    </method>\n"
         "    <method name=\"PingStart\">\n"
         "      <arg name=\"outfd\" type=\"h\" direction=\"in\"/>\n"
         "      <arg name=\"destination\" type=\"s\" direction=\"in\"/>\n"
@@ -1157,10 +1163,6 @@ class debugdAdaptor {
         "      <arg name=\"num_cores_disabled\" type=\"u\" direction=\"out\"/>\n"
         "    </method>\n"
         "    <method name=\"WifiFWDump\">\n"
-        "      <arg name=\"output\" type=\"s\" direction=\"out\"/>\n"
-        "    </method>\n"
-        "    <method name=\"CollectSmartBatteryMetric\">\n"
-        "      <arg name=\"metric_name\" type=\"s\" direction=\"in\"/>\n"
         "      <arg name=\"output\" type=\"s\" direction=\"out\"/>\n"
         "    </method>\n"
         "    <method name=\"EcGetInventory\">\n"

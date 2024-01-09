@@ -5,9 +5,6 @@
  * @fileoverview Trash implementation is based on
  * https://specifications.freedesktop.org/trash-spec/trashspec-1.0.html.
  *
- * This file is checked via TS, so we suppress Closure checks.
- * @suppress {checkTypes}
- *
  * When you move /dir/hello.txt to trash, you get:
  *  .Trash/files/hello.txt
  *  .Trash/info/hello.trashinfo
@@ -21,13 +18,12 @@
  * TrashEntry combines both files for display.
  */
 import { loadTimeData } from 'chrome://resources/ash/common/load_time_data.m.js';
-import '../../externs/volume_manager.js';
 import { parseTrashInfoFiles, startIOTask } from './api.js';
 import { isDirectoryEntry, isFileEntry } from './entry_utils.js';
 import { FakeEntryImpl } from './files_app_entry_types.js';
 import { recordMediumCount } from './metrics.js';
-import { str } from './util.js';
-import { VolumeManagerCommon } from './volume_manager_types.js';
+import { str } from './translations.js';
+import { RootType, VolumeType } from './volume_manager_types.js';
 /**
  * Configuration for where Trash is stored in a volume.
  */
@@ -48,12 +44,13 @@ const TRASH_CONFIG = [
     // MyFiles/Downloads is a separate volume on a physical device, and doing a
     // move from MyFiles/Downloads/<path> to MyFiles/.Trash actually does a
     // copy across volumes, so we have a dedicated MyFiles/Downloads/.Trash.
-    new TrashConfig(VolumeManagerCommon.VolumeType.DOWNLOADS, '/Downloads/', '/Downloads/.Trash/', /*deleteIsForever=*/ true),
-    new TrashConfig(VolumeManagerCommon.VolumeType.DOWNLOADS, '/', '/.Trash/', 
+    new TrashConfig(VolumeType.DOWNLOADS, '/Downloads/', '/Downloads/.Trash/', 
+    /*deleteIsForever=*/ true),
+    new TrashConfig(VolumeType.DOWNLOADS, '/', '/.Trash/', 
     /*deleteIsForever=*/ true),
 ];
 if (loadTimeData.getBoolean('FILES_TRASH_DRIVE_ENABLED')) {
-    TRASH_CONFIG.push(new TrashConfig(VolumeManagerCommon.VolumeType.DRIVE, '/', '/.Trash-1000/', 
+    TRASH_CONFIG.push(new TrashConfig(VolumeType.DRIVE, '/', '/.Trash-1000/', 
     /*deleteIsForever=*/ false));
 }
 /**
@@ -217,12 +214,11 @@ export class TrashEntry {
         /**
          * The trash root type.
          */
-        this.rootType = VolumeManagerCommon.RootType.TRASH;
+        this.rootType = RootType.TRASH;
         /**
          * The type name of TrashEntry.
          */
-        // eslint-disable-next-line @typescript-eslint/naming-convention
-        this.type_name = 'TrashEntry';
+        this.typeName = 'TrashEntry';
         this.filesystem = filesEntry.filesystem;
         this.fullPath = filesEntry.fullPath;
         this.isDirectory = filesEntry.isDirectory;
@@ -482,7 +478,7 @@ class TrashDirectoryReader {
  */
 export class TrashRootEntry extends FakeEntryImpl {
     constructor() {
-        super(str('TRASH_ROOT_LABEL'), VolumeManagerCommon.RootType.TRASH);
+        super(str('TRASH_ROOT_LABEL'), RootType.TRASH);
     }
 }
 /**
@@ -526,8 +522,8 @@ export const RestoreFailedType = {
  * tools/metrics/histograms/enums.xml.
  */
 export const RestoreFailedTypesUMA = [
-    RestoreFailedType.SINGLE_ITEM,
-    RestoreFailedType.MULTIPLE_ITEMS_SAME_PARENTS,
-    RestoreFailedType.MULTIPLE_ITEMS_DIFFERENT_PARENTS,
+    RestoreFailedType.SINGLE_ITEM, // 0
+    RestoreFailedType.MULTIPLE_ITEMS_SAME_PARENTS, // 1
+    RestoreFailedType.MULTIPLE_ITEMS_DIFFERENT_PARENTS, // 2
     RestoreFailedType.MULTIPLE_ITEMS_MIXED, // 3
 ];

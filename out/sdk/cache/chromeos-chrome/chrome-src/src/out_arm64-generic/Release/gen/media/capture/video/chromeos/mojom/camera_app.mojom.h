@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "media/capture/video/chromeos/mojom/camera_app.mojom-features.h"
 #include "media/capture/video/chromeos/mojom/camera_app.mojom-shared.h"
 #include "media/capture/video/chromeos/mojom/camera_app.mojom-forward.h"
 #include "media/capture/mojom/image_capture.mojom-forward.h"
@@ -234,6 +235,8 @@ class CameraAppDevice
     kRegisterDocumentCornersObserverMinVersion = 0,
     kSetMultipleStreamsEnabledMinVersion = 0,
     kRegisterCameraInfoObserverMinVersion = 0,
+    kSetCropRegionMinVersion = 0,
+    kResetCropRegionMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -270,6 +273,12 @@ class CameraAppDevice
     NOINLINE static uint32_t IPCStableHash();
   };
   struct RegisterCameraInfoObserver_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct SetCropRegion_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct ResetCropRegion_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -329,6 +338,16 @@ class CameraAppDevice
   using RegisterCameraInfoObserverCallback = base::OnceCallback<void()>;
   
   virtual void RegisterCameraInfoObserver(::mojo::PendingRemote<CameraInfoObserver> observer, RegisterCameraInfoObserverCallback callback) = 0;
+
+
+  using SetCropRegionCallback = base::OnceCallback<void()>;
+  
+  virtual void SetCropRegion(const ::gfx::Rect& crop_region, SetCropRegionCallback callback) = 0;
+
+
+  using ResetCropRegionCallback = base::OnceCallback<void()>;
+  
+  virtual void ResetCropRegion(ResetCropRegionCallback callback) = 0;
 };
 
 class ResultMetadataObserverProxy;
@@ -628,6 +647,10 @@ class  CameraAppDeviceProxy
   void SetMultipleStreamsEnabled(bool enabled, SetMultipleStreamsEnabledCallback callback) final;
   
   void RegisterCameraInfoObserver(::mojo::PendingRemote<CameraInfoObserver> observer, RegisterCameraInfoObserverCallback callback) final;
+  
+  void SetCropRegion(const ::gfx::Rect& crop_region, SetCropRegionCallback callback) final;
+  
+  void ResetCropRegion(ResetCropRegionCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

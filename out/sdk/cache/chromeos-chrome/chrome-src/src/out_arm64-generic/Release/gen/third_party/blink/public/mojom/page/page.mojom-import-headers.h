@@ -12,6 +12,8 @@
 #include "mojo/public/mojom/base/unguessable_token.mojom-import-headers.h"
 #include "skia/public/mojom/skcolor.mojom.h"
 #include "skia/public/mojom/skcolor.mojom-import-headers.h"
+#include "services/network/public/mojom/attribution.mojom.h"
+#include "services/network/public/mojom/attribution.mojom-import-headers.h"
 #include "third_party/blink/public/mojom/frame/frame_replication_state.mojom.h"
 #include "third_party/blink/public/mojom/frame/frame_replication_state.mojom-import-headers.h"
 #include "third_party/blink/public/mojom/frame/remote_frame.mojom.h"
@@ -30,5 +32,7 @@
 #include "third_party/blink/public/mojom/webpreferences/web_preferences.mojom-import-headers.h"
 #include "third_party/blink/public/mojom/renderer_preferences.mojom.h"
 #include "third_party/blink/public/mojom/renderer_preferences.mojom-import-headers.h"
+#include "ui/color/color_id.mojom.h"
+#include "ui/color/color_id.mojom-import-headers.h"
 
 #endif  // THIRD_PARTY_BLINK_PUBLIC_MOJOM_PAGE_PAGE_MOJOM_IMPORT_HEADERS_H_

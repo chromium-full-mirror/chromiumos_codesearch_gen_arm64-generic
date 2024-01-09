@@ -72,11 +72,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, VideoColorSpace>::value,
     "VideoColorSpace inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&VideoColorSpace::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "VideoColorSpace is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -89,10 +84,10 @@ BLINK_BINDINGS_TRACE_EVENT("VideoColorSpace.primaries.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-VideoColorSpace* blink_receiver = V8VideoColorSpace::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->primaries();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+VideoColorSpace* blink_receiver = V8VideoColorSpace::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->primaries();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
 }
 
@@ -104,10 +99,10 @@ BLINK_BINDINGS_TRACE_EVENT("VideoColorSpace.transfer.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-VideoColorSpace* blink_receiver = V8VideoColorSpace::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->transfer();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+VideoColorSpace* blink_receiver = V8VideoColorSpace::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->transfer();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
 }
 
@@ -119,10 +114,10 @@ BLINK_BINDINGS_TRACE_EVENT("VideoColorSpace.matrix.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-VideoColorSpace* blink_receiver = V8VideoColorSpace::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->matrix();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+VideoColorSpace* blink_receiver = V8VideoColorSpace::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->matrix();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
 }
 
@@ -134,8 +129,9 @@ BLINK_BINDINGS_TRACE_EVENT("VideoColorSpace.fullRange.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-VideoColorSpace* blink_receiver = V8VideoColorSpace::ToWrappableUnsafe(v8_receiver);
+VideoColorSpace* blink_receiver = V8VideoColorSpace::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->fullRange();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -194,7 +190,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-VideoColorSpace* blink_receiver = V8VideoColorSpace::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+VideoColorSpace* blink_receiver = V8VideoColorSpace::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->toJSON();
 if (!ToV8Traits<VideoColorSpaceInit>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;

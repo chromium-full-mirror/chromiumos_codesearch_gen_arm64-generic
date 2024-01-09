@@ -13,20 +13,20 @@
 namespace chrome::mojom {
 
 
-class  BoundSessionRequestThrottledListenerInterceptorForTesting : public BoundSessionRequestThrottledListener {
-  virtual BoundSessionRequestThrottledListener* GetForwardingInterface() = 0;
+class  BoundSessionRequestThrottledHandlerInterceptorForTesting : public BoundSessionRequestThrottledHandler {
+  virtual BoundSessionRequestThrottledHandler* GetForwardingInterface() = 0;
 };
-class  BoundSessionRequestThrottledListenerAsyncWaiter {
+class  BoundSessionRequestThrottledHandlerAsyncWaiter {
  public:
-  explicit BoundSessionRequestThrottledListenerAsyncWaiter(BoundSessionRequestThrottledListener* proxy);
+  explicit BoundSessionRequestThrottledHandlerAsyncWaiter(BoundSessionRequestThrottledHandler* proxy);
 
-  BoundSessionRequestThrottledListenerAsyncWaiter(const BoundSessionRequestThrottledListenerAsyncWaiter&) = delete;
-  BoundSessionRequestThrottledListenerAsyncWaiter& operator=(const BoundSessionRequestThrottledListenerAsyncWaiter&) = delete;
+  BoundSessionRequestThrottledHandlerAsyncWaiter(const BoundSessionRequestThrottledHandlerAsyncWaiter&) = delete;
+  BoundSessionRequestThrottledHandlerAsyncWaiter& operator=(const BoundSessionRequestThrottledHandlerAsyncWaiter&) = delete;
 
-  ~BoundSessionRequestThrottledListenerAsyncWaiter();
+  ~BoundSessionRequestThrottledHandlerAsyncWaiter();
 
  private:
-  BoundSessionRequestThrottledListener* const proxy_;
+  BoundSessionRequestThrottledHandler* const proxy_;
 };
 
 
@@ -50,7 +50,7 @@ class  ChromeOSListenerAsyncWaiter {
 
 class  RendererConfigurationInterceptorForTesting : public RendererConfiguration {
   virtual RendererConfiguration* GetForwardingInterface() = 0;
-  void SetInitialConfiguration(bool is_incognito_process, ::mojo::PendingReceiver<ChromeOSListener> chromeos_listener, ::mojo::PendingRemote<::content_settings::mojom::ContentSettingsManager> content_settings_manager, ::mojo::PendingRemote<BoundSessionRequestThrottledListener> bound_session_request_throttled_listener) override;
+  void SetInitialConfiguration(bool is_incognito_process, ::mojo::PendingReceiver<ChromeOSListener> chromeos_listener, ::mojo::PendingRemote<::content_settings::mojom::ContentSettingsManager> content_settings_manager, ::mojo::PendingRemote<BoundSessionRequestThrottledHandler> bound_session_request_throttled_handler) override;
   void SetConfiguration(DynamicParamsPtr params) override;
 };
 class  RendererConfigurationAsyncWaiter {

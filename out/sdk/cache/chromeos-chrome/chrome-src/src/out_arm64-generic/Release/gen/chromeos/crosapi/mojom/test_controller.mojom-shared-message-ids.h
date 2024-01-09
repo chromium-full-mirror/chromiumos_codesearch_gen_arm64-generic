@@ -14,12 +14,19 @@ namespace crosapi::mojom {
 namespace internal {
 
 
+constexpr uint32_t kDomMessageObserver_OnMessage_Name = 0;
 constexpr uint32_t kStandaloneBrowserTestController_InstallWebApp_Name = 0;
 constexpr uint32_t kStandaloneBrowserTestController_LoadVpnExtension_Name = 1;
 constexpr uint32_t kStandaloneBrowserTestController_GetTtsVoices_Name = 2;
 constexpr uint32_t kStandaloneBrowserTestController_GetExtensionKeeplist_Name = 3;
 constexpr uint32_t kStandaloneBrowserTestController_TtsSpeak_Name = 4;
 constexpr uint32_t kStandaloneBrowserTestController_InstallSubApp_Name = 5;
+constexpr uint32_t kStandaloneBrowserTestController_InstallIsolatedWebApp_Name = 6;
+constexpr uint32_t kStandaloneBrowserTestController_SetWebAppSettingsPref_Name = 7;
+constexpr uint32_t kStandaloneBrowserTestController_InstallUnpackedExtension_Name = 8;
+constexpr uint32_t kStandaloneBrowserTestController_RemoveComponentExtension_Name = 9;
+constexpr uint32_t kStandaloneBrowserTestController_ObserveDomMessages_Name = 10;
+constexpr uint32_t kStandaloneBrowserTestController_SetWebAppInstallForceListPref_Name = 11;
 constexpr uint32_t kTestShillController_OnPacketReceived_Name = 0;
 constexpr uint32_t kTestShillController_OnPlatformMessage_Name = 1;
 constexpr uint32_t kShillClientTestInterface_AddDevice_Name = 0;
@@ -84,6 +91,8 @@ constexpr uint32_t kTestController_GetAppListItemAttributes_Name = 39;
 constexpr uint32_t kTestController_SetAppListItemAttributes_Name = 40;
 constexpr uint32_t kTestController_CloseAllAshBrowserWindowsAndConfirm_Name = 41;
 constexpr uint32_t kTestController_CheckAtLeastOneAshBrowserWindowOpen_Name = 42;
+constexpr uint32_t kTestController_GetAllOpenTabURLs_Name = 43;
+constexpr uint32_t kTestController_SetAlmanacEndpointUrlForTesting_Name = 44;
 
 }  // namespace internal
 

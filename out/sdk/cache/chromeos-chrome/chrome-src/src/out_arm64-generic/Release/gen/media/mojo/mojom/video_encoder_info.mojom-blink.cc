@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -121,6 +122,7 @@ VideoEncoderInfo::VideoEncoderInfo()
       reports_average_qp(),
       requested_resolution_alignment(),
       apply_alignment_to_all_simulcast_layers(),
+      supports_frame_size_change(false),
       fps_allocation(),
       resolution_bitrate_limits() {}
 
@@ -137,6 +139,7 @@ VideoEncoderInfo::VideoEncoderInfo(
     bool reports_average_qp_in,
     uint32_t requested_resolution_alignment_in,
     bool apply_alignment_to_all_simulcast_layers_in,
+    bool supports_frame_size_change_in,
     WTF::Vector<WTF::Vector<uint8_t>> fps_allocation_in,
     WTF::Vector<ResolutionBitrateLimitPtr> resolution_bitrate_limits_in)
     : implementation_name(std::move(implementation_name_in)),
@@ -151,6 +154,7 @@ VideoEncoderInfo::VideoEncoderInfo(
       reports_average_qp(std::move(reports_average_qp_in)),
       requested_resolution_alignment(std::move(requested_resolution_alignment_in)),
       apply_alignment_to_all_simulcast_layers(std::move(apply_alignment_to_all_simulcast_layers_in)),
+      supports_frame_size_change(std::move(supports_frame_size_change_in)),
       fps_allocation(std::move(fps_allocation_in)),
       resolution_bitrate_limits(std::move(resolution_bitrate_limits_in)) {}
 
@@ -269,6 +273,15 @@ void VideoEncoderInfo::WriteIntoTrace(
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
+      "supports_frame_size_change"), this->supports_frame_size_change,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
       "fps_allocation"), this->fps_allocation,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type const WTF::Vector<WTF::Vector<uint8_t>>&>"
@@ -351,6 +364,8 @@ bool StructTraits<::media::mojom::blink::VideoEncoderInfo::DataView, ::media::mo
         result->requested_resolution_alignment = input.requested_resolution_alignment();
       if (success)
         result->apply_alignment_to_all_simulcast_layers = input.apply_alignment_to_all_simulcast_layers();
+      if (success)
+        result->supports_frame_size_change = input.supports_frame_size_change();
       if (success && !input.ReadFpsAllocation(&result->fps_allocation))
         success = false;
       if (success && !input.ReadResolutionBitrateLimits(&result->resolution_bitrate_limits))

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "extensions/common/mojom/event_dispatcher.mojom-features.h"
 #include "extensions/common/mojom/event_dispatcher.mojom-shared.h"
 #include "extensions/common/mojom/event_dispatcher.mojom-forward.h"
 #include "mojo/public/mojom/base/values.mojom.h"
@@ -46,6 +47,7 @@ template <typename ImplRefTraits>
 class EventDispatcherStub;
 
 class EventDispatcherRequestValidator;
+class EventDispatcherResponseValidator;
 
 
 class EventDispatcher
@@ -67,7 +69,7 @@ class EventDispatcher
   using Stub_ = EventDispatcherStub<ImplRefTraits>;
 
   using RequestValidator_ = EventDispatcherRequestValidator;
-  using ResponseValidator_ = mojo::PassThroughFilter;
+  using ResponseValidator_ = EventDispatcherResponseValidator;
   enum MethodMinVersions : uint32_t {
     kDispatchEventMinVersion = 0,
   };
@@ -81,8 +83,10 @@ class EventDispatcher
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~EventDispatcher() = default;
 
+
+  using DispatchEventCallback = base::OnceCallback<void(bool)>;
   
-  virtual void DispatchEvent(DispatchEventParamsPtr params, ::base::Value::List event_args) = 0;
+  virtual void DispatchEvent(DispatchEventParamsPtr params, ::base::Value::List event_args, DispatchEventCallback callback) = 0;
 };
 
 
@@ -94,7 +98,7 @@ class  EventDispatcherProxy
 
   explicit EventDispatcherProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void DispatchEvent(DispatchEventParamsPtr params, ::base::Value::List event_args) final;
+  void DispatchEvent(DispatchEventParamsPtr params, ::base::Value::List event_args, DispatchEventCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -144,6 +148,10 @@ class  EventDispatcherRequestValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
 };
+class  EventDispatcherResponseValidator : public mojo::MessageReceiver {
+ public:
+  bool Accept(mojo::Message* message) override;
+};
 
 
 
@@ -180,11 +188,11 @@ class  EventFilteringInfo {
   EventFilteringInfo();
 
   EventFilteringInfo(
-      const absl::optional<::GURL>& url,
-      const absl::optional<std::string>& service_type,
+      const std::optional<::GURL>& url,
+      const std::optional<std::string>& service_type,
       bool has_instance_id,
       int32_t instance_id,
-      const absl::optional<std::string>& window_type,
+      const std::optional<std::string>& window_type,
       bool has_window_exposed_by_default,
       bool window_exposed_by_default);
 
@@ -264,15 +272,15 @@ class  EventFilteringInfo {
   }
 
   
-  absl::optional<::GURL> url;
+  std::optional<::GURL> url;
   
-  absl::optional<std::string> service_type;
+  std::optional<std::string> service_type;
   
   bool has_instance_id;
   
   int32_t instance_id;
   
-  absl::optional<std::string> window_type;
+  std::optional<std::string> window_type;
   
   bool has_window_exposed_by_default;
   

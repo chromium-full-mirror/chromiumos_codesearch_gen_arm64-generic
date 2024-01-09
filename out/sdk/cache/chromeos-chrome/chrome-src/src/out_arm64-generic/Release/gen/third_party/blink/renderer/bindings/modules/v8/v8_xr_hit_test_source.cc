@@ -68,11 +68,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, XRHitTestSource>::value,
     "XRHitTestSource inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&XRHitTestSource::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "XRHitTestSource is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -89,9 +84,9 @@ BLINK_BINDINGS_TRACE_EVENT("XRHitTestSource.cancel");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-XRHitTestSource* blink_receiver = V8XRHitTestSource::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+XRHitTestSource* blink_receiver = V8XRHitTestSource::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "XRHitTestSource";
 const char* const property_name = "cancel";

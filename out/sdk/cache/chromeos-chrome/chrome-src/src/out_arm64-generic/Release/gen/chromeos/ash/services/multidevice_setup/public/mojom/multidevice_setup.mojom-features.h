@@ -8,6 +8,7 @@
 #define CHROMEOS_ASH_SERVICES_MULTIDEVICE_SETUP_PUBLIC_MOJOM_MULTIDEVICE_SETUP_MOJOM_FEATURES_H_
 
 #include "base/feature_list.h"
+#include "mojo/public/cpp/bindings/runtime_features.h"
 
 
 

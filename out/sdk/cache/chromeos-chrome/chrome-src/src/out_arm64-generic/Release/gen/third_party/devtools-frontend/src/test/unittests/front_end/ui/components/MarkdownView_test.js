@@ -3,36 +3,39 @@
 // found in the LICENSE file.
 import * as Marked from '../../../../../front_end/third_party/marked/marked.js';
 import * as MarkdownView from '../../../../../front_end/ui/components/markdown_view/markdown_view.js';
+import * as LitHtml from '../../../../../front_end/ui/lit-html/lit-html.js';
 import { assertShadowRoot, renderElementIntoDOM } from '../../helpers/DOMHelpers.js';
+import { describeWithEnvironment } from '../../helpers/EnvironmentHelpers.js';
 const { assert } = chai;
 function getFakeToken(token) {
     return token;
 }
-describe('MarkdownView', async () => {
+describeWithEnvironment('MarkdownView', async () => {
     describe('renderToken', async () => {
+        const renderer = new MarkdownView.MarkdownView.MarkdownLitRenderer();
         it('wraps paragraph tokens in <p> tags', () => {
-            const renderResult = MarkdownView.MarkdownView.renderToken(getFakeToken({ type: 'paragraph', tokens: [] }));
+            const renderResult = renderer.renderToken(getFakeToken({ type: 'paragraph', tokens: [] }));
             assert.deepStrictEqual(renderResult.strings.raw, ['<p>', '']);
         });
         it('wraps an unordered list token in <ul> tags', () => {
-            const renderResult = MarkdownView.MarkdownView.renderToken(getFakeToken({ type: 'list', items: [] }));
+            const renderResult = renderer.renderToken(getFakeToken({ type: 'list', items: [] }));
             assert.deepStrictEqual(renderResult.strings.raw, ['<ul>', '</ul>']);
         });
         it('wraps list items in <li> tags', () => {
-            const renderResult = MarkdownView.MarkdownView.renderToken(getFakeToken({ type: 'list_item', tokens: [] }));
+            const renderResult = renderer.renderToken(getFakeToken({ type: 'list_item', tokens: [] }));
             assert.deepStrictEqual(renderResult.strings.raw, ['<li>', '']);
         });
         it('wraps a codespan token in <code> tags', () => {
-            const renderResult = MarkdownView.MarkdownView.renderToken(getFakeToken({ type: 'codespan', text: 'const foo = 42;' }));
+            const renderResult = renderer.renderToken(getFakeToken({ type: 'codespan', text: 'const foo = 42;' }));
             assert.deepStrictEqual(renderResult.strings.raw, ['<code>', '</code>']);
             assert.deepStrictEqual(renderResult.values, ['const foo = 42;']);
         });
         it('renders childless text tokens as-is', () => {
-            const renderResult = MarkdownView.MarkdownView.renderToken(getFakeToken({ type: 'text', text: 'Simple text token' }));
+            const renderResult = renderer.renderToken(getFakeToken({ type: 'text', text: 'Simple text token' }));
             assert.deepStrictEqual(renderResult.values, ['Simple text token']);
         });
         it('renders nested text tokens correctly', () => {
-            const renderResult = MarkdownView.MarkdownView.renderToken(getFakeToken({
+            const renderResult = renderer.renderToken(getFakeToken({
                 type: 'text',
                 text: 'This text should not be rendered. Only the subtokens!',
                 tokens: [
@@ -46,12 +49,11 @@ describe('MarkdownView', async () => {
             assert.deepStrictEqual(renderedParts[1].values, ['and a nested codespan to boot']);
         });
         it('throws an error for invalid or unsupported token types', () => {
-            assert.throws(() => MarkdownView.MarkdownView.renderToken(getFakeToken({ type: 'no_way_this_is_a_valid_markdown_token' })));
+            assert.throws(() => renderer.renderToken(getFakeToken({ type: 'no_way_this_is_a_valid_markdown_token' })));
         });
         it('renders link with valid key', () => {
             MarkdownView.MarkdownLinksMap.markdownLinks.set('exampleLink', 'https://web.dev/');
-            const renderResult = MarkdownView.MarkdownView.renderToken(getFakeToken({ type: 'link', text: 'learn more', href: 'exampleLink' }))
-                .strings.join('');
+            const renderResult = renderer.renderToken(getFakeToken({ type: 'link', text: 'learn more', href: 'exampleLink' })).strings.join('');
             assert.isTrue(renderResult.includes('<devtools-markdown-link'));
         });
         it('throws an error if invalid link key is provided', () => {
@@ -62,8 +64,7 @@ describe('MarkdownView', async () => {
                 src: 'devices',
                 isIcon: true,
             });
-            const renderResult = MarkdownView.MarkdownView.renderToken(getFakeToken({ type: 'image', text: 'phone', href: 'testExampleImage' }))
-                .strings.join('');
+            const renderResult = renderer.renderToken(getFakeToken({ type: 'image', text: 'phone', href: 'testExampleImage' })).strings.join('');
             assert.isTrue(renderResult.includes('<devtools-markdown-image'));
         });
         it('renders image with valid key', () => {
@@ -71,24 +72,22 @@ describe('MarkdownView', async () => {
                 src: 'Images/phone-logo.png',
                 isIcon: false,
             });
-            const renderResult = MarkdownView.MarkdownView.renderToken(getFakeToken({ type: 'image', text: 'phone', href: 'exampleImage' }))
-                .strings.join('');
+            const renderResult = renderer.renderToken(getFakeToken({ type: 'image', text: 'phone', href: 'exampleImage' })).strings.join('');
             assert.isTrue(renderResult.includes('<devtools-markdown-image'));
         });
         it('throws an error if invalid image key is provided', () => {
             assert.throws(() => MarkdownView.MarkdownImagesMap.getMarkdownImage('testErrorImageLink'));
         });
         it('renders a heading correctly', () => {
-            const renderResult = MarkdownView.MarkdownView.renderToken(getFakeToken({ type: 'heading', text: 'a heading text', depth: 3 }))
-                .strings.join('');
+            const renderResult = renderer.renderToken(getFakeToken({ type: 'heading', text: 'a heading text', depth: 3 })).strings.join('');
             assert.isTrue(renderResult.includes('<h3'));
         });
         it('renders strong correctly', () => {
-            const renderResult = MarkdownView.MarkdownView.renderToken(getFakeToken({ type: 'strong', text: 'a strong text' })).strings.join('');
+            const renderResult = renderer.renderToken(getFakeToken({ type: 'strong', text: 'a strong text' })).strings.join('');
             assert.isTrue(renderResult.includes('<strong'));
         });
         it('renders em correctly', () => {
-            const renderResult = MarkdownView.MarkdownView.renderToken(getFakeToken({ type: 'em', text: 'em text' })).strings.join('');
+            const renderResult = renderer.renderToken(getFakeToken({ type: 'em', text: 'em text' })).strings.join('');
             assert.isTrue(renderResult.includes('<em'));
         });
     });
@@ -100,6 +99,14 @@ ${paragraphText}
 * ${listItemTexts[0]}
 * ${listItemTexts[1]}
 `;
+    const renderString = (string, selector, renderer) => {
+        const component = new MarkdownView.MarkdownView.MarkdownView();
+        renderElementIntoDOM(component);
+        component.data = { tokens: Marked.Marked.lexer(string), renderer };
+        assertShadowRoot(component.shadowRoot);
+        const element = component.shadowRoot.querySelector(selector);
+        return element ? element : document.createElement('span');
+    };
     describe('component', () => {
         it('renders basic markdown correctly', () => {
             const component = new MarkdownView.MarkdownView.MarkdownView();
@@ -113,15 +120,24 @@ ${paragraphText}
             assert.strictEqual(listItems.length, 2);
             assert.deepStrictEqual(listItems.map(item => item.textContent), listItemTexts);
         });
+        it('renders a codeblock', () => {
+            const codeBlock = renderString(`\`\`\`
+console.log('test')
+\`\`\``, 'devtools-code-block');
+            assert.strictEqual(codeBlock.code, 'console.log(\'test\')');
+        });
+        it('renders using a custom renderer', () => {
+            const codeBlock = renderString('`console.log()`', 'code', new class extends MarkdownView.MarkdownView.MarkdownLitRenderer {
+                templateForToken(token) {
+                    if (token.type === 'codespan') {
+                        return LitHtml.html `<code>overriden</code>`;
+                    }
+                    return super.templateForToken(token);
+                }
+            }());
+            assert.strictEqual(codeBlock.innerText, 'overriden');
+        });
     });
-    const renderString = (string, selector) => {
-        const component = new MarkdownView.MarkdownView.MarkdownView();
-        renderElementIntoDOM(component);
-        component.data = { tokens: Marked.Marked.lexer(string) };
-        assertShadowRoot(component.shadowRoot);
-        const element = component.shadowRoot.querySelector(selector);
-        return element ? element : document.createElement('span');
-    };
     describe('escaping', () => {
         it('renders basic escaped non-html tag', () => {
             const paragraph = renderString('<123>', 'p');

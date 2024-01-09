@@ -66,6 +66,7 @@
 #include "src/objects/turboshaft-types.h"
 #include "src/torque/runtime-support.h"
 #include "src/wasm/wasm-linkage.h"
+#include "src/codegen/code-stub-assembler-inl.h"
 // Required Builtins:
 #include "torque-generated/src/builtins/math-tq-csa.h"
 #include "torque-generated/src/builtins/base-tq-csa.h"
@@ -151,7 +152,7 @@ void ReduceToSmiOrFloat64_0(compiler::CodeAssemblerState* state_, TNode<Context>
   TNode<Number> tmp5;
   if (block13.is_used()) {
     ca_.Bind(&block13, &phi_bb13_2, &phi_bb13_3);
-    tmp5 = ca_.CallStub<Number>(Builtins::CallableFor(ca_.isolate(), Builtin::kNonNumberToNumber), p_context, ca_.UncheckedCast<HeapObject>(phi_bb13_3));
+    tmp5 = ca_.CallBuiltin<Number>(Builtin::kNonNumberToNumber, p_context, ca_.UncheckedCast<HeapObject>(phi_bb13_3));
     ca_.Goto(&block5, tmp5);
   }
 

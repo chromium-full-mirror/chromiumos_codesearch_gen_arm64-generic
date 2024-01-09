@@ -728,6 +728,38 @@ const char* InternalVisitedColor::GetJSPropertyName() const {
 
 
 
+ // position
+
+
+
+const char* Position::GetPropertyName() const {
+  return "position";
+}
+
+const WTF::AtomicString& Position::GetPropertyNameAtomicString() const {
+  DEFINE_STATIC_LOCAL(const AtomicString, name, ("position"));
+  return name;
+}
+
+const char* Position::GetJSPropertyName() const {
+  return "position";
+}
+
+
+
+void Position::ApplyInitial(StyleResolverState& state) const {
+  state.StyleBuilder().
+SetPosition(ComputedStyleInitialValues::InitialPosition());
+}
+void Position::ApplyInherit(StyleResolverState& state) const {
+  state.StyleBuilder().
+SetPosition(state.ParentStyle()->GetPosition());
+}
+void Position::ApplyValue(StyleResolverState& state, const CSSValue& value, ValueMode) const {
+  state.StyleBuilder().
+SetPosition(To<CSSIdentifierValue>(value).ConvertTo<blink::EPosition>());
+}
+
  // text-orientation
 
 
@@ -2755,12 +2787,6 @@ SetBaselineShift(ComputedStyleInitialValues::InitialBaselineShift());
  // baseline-source
 
 
-CSSExposure BaselineSource::Exposure(const ExecutionContext* execution_context) const {
-  if (!RuntimeEnabledFeatures::CSSBaselineSourceEnabled(execution_context)) {
-    return CSSExposure::kNone;
-  }
-  return CSSExposure::kWeb;
-}
 
 const char* BaselineSource::GetPropertyName() const {
   return "baseline-source";
@@ -4789,7 +4815,7 @@ void ColumnCount::ApplyValue(StyleResolverState& state, const CSSValue& value, V
 SetHasAutoColumnCount();
   else
     state.StyleBuilder().
-SetColumnCount(To<CSSPrimitiveValue>(value).ConvertTo<unsigned short>());
+SetColumnCount(To<CSSPrimitiveValue>(value).ConvertTo<unsigned short>(state.CssToLengthConversionData()));
 }
 
  // column-fill
@@ -5716,11 +5742,11 @@ SetDynamicRangeLimit(ComputedStyleInitialValues::InitialDynamicRangeLimit());
 }
 void DynamicRangeLimit::ApplyInherit(StyleResolverState& state) const {
   state.StyleBuilder().
-SetDynamicRangeLimit(state.ParentStyle()->DynamicRangeLimit());
+SetDynamicRangeLimit(state.ParentStyle()->GetDynamicRangeLimit());
 }
 void DynamicRangeLimit::ApplyValue(StyleResolverState& state, const CSSValue& value, ValueMode) const {
   state.StyleBuilder().
-SetDynamicRangeLimit(To<CSSIdentifierValue>(value).ConvertTo<blink::EDynamicRangeLimit>());
+SetDynamicRangeLimit(StyleBuilderConverter::ConvertDynamicRangeLimit(state, value));
 }
 
  // empty-cells
@@ -6035,7 +6061,7 @@ SetFlexGrow(state.ParentStyle()->FlexGrow());
 }
 void FlexGrow::ApplyValue(StyleResolverState& state, const CSSValue& value, ValueMode) const {
   state.StyleBuilder().
-SetFlexGrow(To<CSSPrimitiveValue>(value).ConvertTo<float>());
+SetFlexGrow(To<CSSPrimitiveValue>(value).ConvertTo<float>(state.CssToLengthConversionData()));
 }
 
  // flex-shrink
@@ -6067,7 +6093,7 @@ SetFlexShrink(state.ParentStyle()->FlexShrink());
 }
 void FlexShrink::ApplyValue(StyleResolverState& state, const CSSValue& value, ValueMode) const {
   state.StyleBuilder().
-SetFlexShrink(To<CSSPrimitiveValue>(value).ConvertTo<float>());
+SetFlexShrink(To<CSSPrimitiveValue>(value).ConvertTo<float>(state.CssToLengthConversionData()));
 }
 
  // flex-wrap
@@ -6619,12 +6645,6 @@ SetHyphenationString(StyleBuilderConverter::ConvertString<CSSValueID::kAuto>(sta
  // hyphenate-limit-chars
 
 
-CSSExposure HyphenateLimitChars::Exposure(const ExecutionContext* execution_context) const {
-  if (!RuntimeEnabledFeatures::CSSHyphenateLimitCharsEnabled(execution_context)) {
-    return CSSExposure::kNone;
-  }
-  return CSSExposure::kWeb;
-}
 
 const char* HyphenateLimitChars::GetPropertyName() const {
   return "hyphenate-limit-chars";
@@ -6707,15 +6727,15 @@ const char* ImageOrientation::GetJSPropertyName() const {
 
 void ImageOrientation::ApplyInitial(StyleResolverState& state) const {
   state.StyleBuilder().
-SetRespectImageOrientation(ComputedStyleInitialValues::InitialRespectImageOrientation());
+SetImageOrientation(ComputedStyleInitialValues::InitialImageOrientation());
 }
 void ImageOrientation::ApplyInherit(StyleResolverState& state) const {
   state.StyleBuilder().
-SetRespectImageOrientation(state.ParentStyle()->RespectImageOrientation());
+SetImageOrientation(state.ParentStyle()->ImageOrientation());
 }
 void ImageOrientation::ApplyValue(StyleResolverState& state, const CSSValue& value, ValueMode) const {
   state.StyleBuilder().
-SetRespectImageOrientation(StyleBuilderConverter::ConvertImageOrientation(state, value));
+SetImageOrientation(StyleBuilderConverter::ConvertImageOrientation(state, value));
 }
 
  // image-rendering
@@ -6857,6 +6877,44 @@ bool InlineSize::IsInSameLogicalPropertyGroupWithDifferentMappingLogic(
   return CSSDirectionAwareResolver::PhysicalSizeMapping().Contains(id);
 }
 
+
+ // inset-area
+
+
+CSSExposure InsetArea::Exposure(const ExecutionContext* execution_context) const {
+  if (!RuntimeEnabledFeatures::CSSAnchorPositioningEnabled(execution_context)) {
+    return CSSExposure::kNone;
+  }
+  return CSSExposure::kWeb;
+}
+
+const char* InsetArea::GetPropertyName() const {
+  return "inset-area";
+}
+
+const WTF::AtomicString& InsetArea::GetPropertyNameAtomicString() const {
+  DEFINE_STATIC_LOCAL(const AtomicString, name, ("inset-area"));
+  return name;
+}
+
+const char* InsetArea::GetJSPropertyName() const {
+  return "insetArea";
+}
+
+
+
+void InsetArea::ApplyInitial(StyleResolverState& state) const {
+  state.StyleBuilder().
+SetInsetArea(ComputedStyleInitialValues::InitialInsetArea());
+}
+void InsetArea::ApplyInherit(StyleResolverState& state) const {
+  state.StyleBuilder().
+SetInsetArea(state.ParentStyle()->GetInsetArea());
+}
+void InsetArea::ApplyValue(StyleResolverState& state, const CSSValue& value, ValueMode) const {
+  state.StyleBuilder().
+SetInsetArea(StyleBuilderConverter::ConvertInsetArea(state, value));
+}
 
  // inset-block-end
 
@@ -8809,6 +8867,13 @@ SetMarkerStartResource(StyleBuilderConverter::ConvertElementReference(state, val
  // mask
 
 
+CSSExposure Mask::Exposure(const ExecutionContext* execution_context) const {
+  if (RuntimeEnabledFeatures::CSSMaskingInteropEnabled(execution_context)) {
+    // -alternative-mask
+    return CSSExposure::kNone;
+  }
+  return CSSExposure::kWeb;
+}
 
 const char* Mask::GetPropertyName() const {
   return "mask";
@@ -9062,6 +9127,82 @@ void MaskImage::ApplyValue(StyleResolverState& state, const CSSValue& value, Val
   while (curr_child) {
     // Reset all remaining layers to not have the property set.
     curr_child->ClearImage();
+    curr_child = curr_child->Next();
+  }
+}
+
+ // mask-mode
+
+
+CSSExposure MaskMode::Exposure(const ExecutionContext* execution_context) const {
+  if (!RuntimeEnabledFeatures::CSSMaskingInteropEnabled(execution_context)) {
+    return CSSExposure::kNone;
+  }
+  return CSSExposure::kWeb;
+}
+
+const char* MaskMode::GetPropertyName() const {
+  return "mask-mode";
+}
+
+const WTF::AtomicString& MaskMode::GetPropertyNameAtomicString() const {
+  DEFINE_STATIC_LOCAL(const AtomicString, name, ("mask-mode"));
+  return name;
+}
+
+const char* MaskMode::GetJSPropertyName() const {
+  return "maskMode";
+}
+
+
+
+void MaskMode::ApplyInitial(StyleResolverState& state) const {
+  FillLayer* curr_child = &state.StyleBuilder().AccessMaskLayers();
+  curr_child->SetMaskMode(FillLayer::InitialFillMaskMode(EFillLayerType::kMask));
+  for (curr_child = curr_child->Next(); curr_child; curr_child = curr_child->Next())
+    curr_child->ClearMaskMode();
+}
+
+void MaskMode::ApplyInherit(StyleResolverState& state) const {
+  FillLayer* curr_child = &state.StyleBuilder().AccessMaskLayers();
+  FillLayer* prev_child = 0;
+  const FillLayer* curr_parent = &state.ParentStyle()->MaskLayers();
+  while (curr_parent && curr_parent->IsMaskModeSet()) {
+    if (!curr_child)
+      curr_child = prev_child->EnsureNext();
+    curr_child->SetMaskMode(curr_parent->MaskMode());
+    prev_child = curr_child;
+    curr_child = prev_child->Next();
+    curr_parent = curr_parent->Next();
+  }
+
+  while (curr_child) {
+    // Reset any remaining layers to not have the property set.
+    curr_child->ClearMaskMode();
+    curr_child = curr_child->Next();
+  }
+}
+
+void MaskMode::ApplyValue(StyleResolverState& state, const CSSValue& value, ValueMode) const {
+  FillLayer* curr_child = &state.StyleBuilder().AccessMaskLayers();
+  FillLayer* prev_child = 0;
+  const auto* value_list = DynamicTo<CSSValueList>(value);
+  if (value_list && !value.IsImageSetValue()) {
+    // Walk each value and put it into a layer, creating new layers as needed.
+    for (unsigned int i = 0; i < value_list->length(); i++) {
+      if (!curr_child)
+        curr_child = prev_child->EnsureNext();
+      CSSToStyleMap::MapFillMaskMode(state, curr_child, value_list->Item(i));
+      prev_child = curr_child;
+      curr_child = curr_child->Next();
+    }
+  } else {
+    CSSToStyleMap::MapFillMaskMode(state, curr_child, value);
+    curr_child = curr_child->Next();
+  }
+  while (curr_child) {
+    // Reset all remaining layers to not have the property set.
+    curr_child->ClearMaskMode();
     curr_child = curr_child->Next();
   }
 }
@@ -9738,27 +9879,27 @@ void MixBlendMode::ApplyValue(StyleResolverState& state, const CSSValue& value, 
 SetBlendMode(To<CSSIdentifierValue>(value).ConvertTo<blink::BlendMode>());
 }
 
- // navigation-trigger
+ // navigation
 
 
-CSSExposure NavigationTrigger::Exposure(const ExecutionContext* execution_context) const {
+CSSExposure Navigation::Exposure(const ExecutionContext* execution_context) const {
   if (!RuntimeEnabledFeatures::ViewTransitionOnNavigationEnabled(execution_context)) {
     return CSSExposure::kNone;
   }
   return CSSExposure::kWeb;
 }
 
-const char* NavigationTrigger::GetPropertyName() const {
-  return "navigation-trigger";
+const char* Navigation::GetPropertyName() const {
+  return "navigation";
 }
 
-const WTF::AtomicString& NavigationTrigger::GetPropertyNameAtomicString() const {
-  DEFINE_STATIC_LOCAL(const AtomicString, name, ("navigation-trigger"));
+const WTF::AtomicString& Navigation::GetPropertyNameAtomicString() const {
+  DEFINE_STATIC_LOCAL(const AtomicString, name, ("navigation"));
   return name;
 }
 
-const char* NavigationTrigger::GetJSPropertyName() const {
-  return "navigationTrigger";
+const char* Navigation::GetJSPropertyName() const {
+  return "navigation";
 }
 
 
@@ -9851,12 +9992,6 @@ SetObjectPosition(StyleBuilderConverter::ConvertPosition(state, value));
  // object-view-box
 
 
-CSSExposure ObjectViewBox::Exposure(const ExecutionContext* execution_context) const {
-  if (!RuntimeEnabledFeatures::CSSObjectViewBoxEnabled(execution_context)) {
-    return CSSExposure::kNone;
-  }
-  return CSSExposure::kWeb;
-}
 
 const char* ObjectViewBox::GetPropertyName() const {
   return "object-view-box";
@@ -10087,7 +10222,7 @@ SetOpacity(state.ParentStyle()->Opacity());
 }
 void Opacity::ApplyValue(StyleResolverState& state, const CSSValue& value, ValueMode) const {
   state.StyleBuilder().
-SetOpacity(To<CSSPrimitiveValue>(value).ConvertTo<float>());
+SetOpacity(To<CSSPrimitiveValue>(value).ConvertTo<float>(state.CssToLengthConversionData()));
 }
 
  // order
@@ -10119,7 +10254,7 @@ SetOrder(state.ParentStyle()->Order());
 }
 void Order::ApplyValue(StyleResolverState& state, const CSSValue& value, ValueMode) const {
   state.StyleBuilder().
-SetOrder(To<CSSPrimitiveValue>(value).ConvertTo<int>());
+SetOrder(To<CSSPrimitiveValue>(value).ConvertTo<int>(state.CssToLengthConversionData()));
 }
 
  // origin-trial-test-property
@@ -10189,7 +10324,7 @@ SetOrphans(state.ParentStyle()->Orphans());
 }
 void Orphans::ApplyValue(StyleResolverState& state, const CSSValue& value, ValueMode) const {
   state.StyleBuilder().
-SetOrphans(To<CSSPrimitiveValue>(value).ConvertTo<short>());
+SetOrphans(To<CSSPrimitiveValue>(value).ConvertTo<short>(state.CssToLengthConversionData()));
 }
 
  // outline-color
@@ -10541,12 +10676,6 @@ bool OverflowY::IsInSameLogicalPropertyGroupWithDifferentMappingLogic(
  // overlay
 
 
-CSSExposure Overlay::Exposure(const ExecutionContext* execution_context) const {
-  if (!RuntimeEnabledFeatures::CSSTopLayerForTransitionsEnabled(execution_context)) {
-    return CSSExposure::kNone;
-  }
-  return CSSExposure::kWeb;
-}
 
 const char* Overlay::GetPropertyName() const {
   return "overlay";
@@ -11319,34 +11448,6 @@ void PopoverShowDelay::ApplyValue(StyleResolverState& state, const CSSValue& val
 SetPopoverShowDelay(StyleBuilderConverter::ConvertTimeValue(state, value));
 }
 
- // position
-
-
-
-const char* Position::GetPropertyName() const {
-  return "position";
-}
-
-const WTF::AtomicString& Position::GetPropertyNameAtomicString() const {
-  DEFINE_STATIC_LOCAL(const AtomicString, name, ("position"));
-  return name;
-}
-
-const char* Position::GetJSPropertyName() const {
-  return "position";
-}
-
-
-
-void Position::ApplyInitial(StyleResolverState& state) const {
-  state.StyleBuilder().
-SetPosition(ComputedStyleInitialValues::InitialPosition());
-}
-void Position::ApplyValue(StyleResolverState& state, const CSSValue& value, ValueMode) const {
-  state.StyleBuilder().
-SetPosition(To<CSSIdentifierValue>(value).ConvertTo<blink::EPosition>());
-}
-
  // position-fallback
 
 
@@ -11590,12 +11691,6 @@ SetRight(state.ParentStyle()->Right());
  // rotate
 
 
-CSSExposure Rotate::Exposure(const ExecutionContext* execution_context) const {
-  if (!RuntimeEnabledFeatures::CSSIndependentTransformPropertiesEnabled(execution_context)) {
-    return CSSExposure::kNone;
-  }
-  return CSSExposure::kWeb;
-}
 
 const char* Rotate::GetPropertyName() const {
   return "rotate";
@@ -11748,12 +11843,6 @@ SetRy(StyleBuilderConverter::ConvertLengthOrAuto(state, value));
  // scale
 
 
-CSSExposure Scale::Exposure(const ExecutionContext* execution_context) const {
-  if (!RuntimeEnabledFeatures::CSSIndependentTransformPropertiesEnabled(execution_context)) {
-    return CSSExposure::kNone;
-  }
-  return CSSExposure::kWeb;
-}
 
 const char* Scale::GetPropertyName() const {
   return "scale";
@@ -13036,7 +13125,7 @@ SetShapeImageThreshold(state.ParentStyle()->ShapeImageThreshold());
 }
 void ShapeImageThreshold::ApplyValue(StyleResolverState& state, const CSSValue& value, ValueMode) const {
   state.StyleBuilder().
-SetShapeImageThreshold(To<CSSPrimitiveValue>(value).ConvertTo<float>());
+SetShapeImageThreshold(To<CSSPrimitiveValue>(value).ConvertTo<float>(state.CssToLengthConversionData()));
 }
 
  // shape-margin
@@ -13504,7 +13593,7 @@ SetStrokeMiterLimit(state.ParentStyle()->StrokeMiterLimit());
 }
 void StrokeMiterlimit::ApplyValue(StyleResolverState& state, const CSSValue& value, ValueMode) const {
   state.StyleBuilder().
-SetStrokeMiterLimit(To<CSSPrimitiveValue>(value).ConvertTo<float>());
+SetStrokeMiterLimit(To<CSSPrimitiveValue>(value).ConvertTo<float>(state.CssToLengthConversionData()));
 }
 
  // stroke-opacity
@@ -14456,158 +14545,6 @@ void TimelineScope::ApplyValue(StyleResolverState& state, const CSSValue& value,
 SetTimelineScope(StyleBuilderConverter::ConvertTimelineScope(state, value));
 }
 
- // toggle-group
-
-
-CSSExposure ToggleGroup::Exposure(const ExecutionContext* execution_context) const {
-  if (!RuntimeEnabledFeatures::CSSTogglesEnabled(execution_context)) {
-    return CSSExposure::kNone;
-  }
-  return CSSExposure::kWeb;
-}
-
-const char* ToggleGroup::GetPropertyName() const {
-  return "toggle-group";
-}
-
-const WTF::AtomicString& ToggleGroup::GetPropertyNameAtomicString() const {
-  DEFINE_STATIC_LOCAL(const AtomicString, name, ("toggle-group"));
-  return name;
-}
-
-const char* ToggleGroup::GetJSPropertyName() const {
-  return "toggleGroup";
-}
-
-
-
-void ToggleGroup::ApplyInitial(StyleResolverState& state) const {
-  state.StyleBuilder().
-SetToggleGroup(ComputedStyleInitialValues::InitialToggleGroup());
-}
-void ToggleGroup::ApplyInherit(StyleResolverState& state) const {
-  state.StyleBuilder().
-SetToggleGroup(state.ParentStyle()->ToggleGroup());
-}
-void ToggleGroup::ApplyValue(StyleResolverState& state, const CSSValue& value, ValueMode) const {
-  state.StyleBuilder().
-SetToggleGroup(StyleBuilderConverter::ConvertToggleGroup(state, value));
-}
-
- // toggle-root
-
-
-CSSExposure ToggleRoot::Exposure(const ExecutionContext* execution_context) const {
-  if (!RuntimeEnabledFeatures::CSSTogglesEnabled(execution_context)) {
-    return CSSExposure::kNone;
-  }
-  return CSSExposure::kWeb;
-}
-
-const char* ToggleRoot::GetPropertyName() const {
-  return "toggle-root";
-}
-
-const WTF::AtomicString& ToggleRoot::GetPropertyNameAtomicString() const {
-  DEFINE_STATIC_LOCAL(const AtomicString, name, ("toggle-root"));
-  return name;
-}
-
-const char* ToggleRoot::GetJSPropertyName() const {
-  return "toggleRoot";
-}
-
-
-
-void ToggleRoot::ApplyInitial(StyleResolverState& state) const {
-  state.StyleBuilder().
-SetToggleRoot(ComputedStyleInitialValues::InitialToggleRoot());
-}
-void ToggleRoot::ApplyInherit(StyleResolverState& state) const {
-  state.StyleBuilder().
-SetToggleRoot(state.ParentStyle()->ToggleRoot());
-}
-void ToggleRoot::ApplyValue(StyleResolverState& state, const CSSValue& value, ValueMode) const {
-  state.StyleBuilder().
-SetToggleRoot(StyleBuilderConverter::ConvertToggleRoot(state, value));
-}
-
- // toggle-trigger
-
-
-CSSExposure ToggleTrigger::Exposure(const ExecutionContext* execution_context) const {
-  if (!RuntimeEnabledFeatures::CSSTogglesEnabled(execution_context)) {
-    return CSSExposure::kNone;
-  }
-  return CSSExposure::kWeb;
-}
-
-const char* ToggleTrigger::GetPropertyName() const {
-  return "toggle-trigger";
-}
-
-const WTF::AtomicString& ToggleTrigger::GetPropertyNameAtomicString() const {
-  DEFINE_STATIC_LOCAL(const AtomicString, name, ("toggle-trigger"));
-  return name;
-}
-
-const char* ToggleTrigger::GetJSPropertyName() const {
-  return "toggleTrigger";
-}
-
-
-
-void ToggleTrigger::ApplyInitial(StyleResolverState& state) const {
-  state.StyleBuilder().
-SetToggleTrigger(ComputedStyleInitialValues::InitialToggleTrigger());
-}
-void ToggleTrigger::ApplyInherit(StyleResolverState& state) const {
-  state.StyleBuilder().
-SetToggleTrigger(state.ParentStyle()->ToggleTrigger());
-}
-void ToggleTrigger::ApplyValue(StyleResolverState& state, const CSSValue& value, ValueMode) const {
-  state.StyleBuilder().
-SetToggleTrigger(StyleBuilderConverter::ConvertToggleTrigger(state, value));
-}
-
- // toggle-visibility
-
-
-CSSExposure ToggleVisibility::Exposure(const ExecutionContext* execution_context) const {
-  if (!RuntimeEnabledFeatures::CSSTogglesEnabled(execution_context)) {
-    return CSSExposure::kNone;
-  }
-  return CSSExposure::kWeb;
-}
-
-const char* ToggleVisibility::GetPropertyName() const {
-  return "toggle-visibility";
-}
-
-const WTF::AtomicString& ToggleVisibility::GetPropertyNameAtomicString() const {
-  DEFINE_STATIC_LOCAL(const AtomicString, name, ("toggle-visibility"));
-  return name;
-}
-
-const char* ToggleVisibility::GetJSPropertyName() const {
-  return "toggleVisibility";
-}
-
-
-
-void ToggleVisibility::ApplyInitial(StyleResolverState& state) const {
-  state.StyleBuilder().
-SetToggleVisibility(ComputedStyleInitialValues::InitialToggleVisibility());
-}
-void ToggleVisibility::ApplyInherit(StyleResolverState& state) const {
-  state.StyleBuilder().
-SetToggleVisibility(state.ParentStyle()->ToggleVisibility());
-}
-void ToggleVisibility::ApplyValue(StyleResolverState& state, const CSSValue& value, ValueMode) const {
-  state.StyleBuilder().
-SetToggleVisibility(StyleBuilderConverter::ConvertToggleVisibility(state, value));
-}
-
  // top
 
 
@@ -15029,12 +14966,6 @@ void TransitionTimingFunction::ApplyValue(StyleResolverState& state, const CSSVa
  // translate
 
 
-CSSExposure Translate::Exposure(const ExecutionContext* execution_context) const {
-  if (!RuntimeEnabledFeatures::CSSIndependentTransformPropertiesEnabled(execution_context)) {
-    return CSSExposure::kNone;
-  }
-  return CSSExposure::kWeb;
-}
 
 const char* Translate::GetPropertyName() const {
   return "translate";
@@ -15544,13 +15475,6 @@ SetBoxDecorationBreak(To<CSSIdentifierValue>(value).ConvertTo<blink::EBoxDecorat
  // -webkit-box-direction
 
 
-CSSExposure WebkitBoxDirection::Exposure(const ExecutionContext* execution_context) const {
-  if (RuntimeEnabledFeatures::NonInheritedWebkitBoxDirectionEnabled(execution_context)) {
-    // -webkit-box-direction-alternative
-    return CSSExposure::kNone;
-  }
-  return CSSExposure::kWeb;
-}
 
 const char* WebkitBoxDirection::GetPropertyName() const {
   return "-webkit-box-direction";
@@ -15570,55 +15494,14 @@ const char* WebkitBoxDirection::GetJSPropertyName() const {
 void WebkitBoxDirection::ApplyInitial(StyleResolverState& state) const {
   state.StyleBuilder().
 SetBoxDirection(ComputedStyleInitialValues::InitialBoxDirection());
-  state.StyleBuilder().SetBoxDirectionIsInherited(false);
 }
 void WebkitBoxDirection::ApplyInherit(StyleResolverState& state) const {
   state.StyleBuilder().
 SetBoxDirection(state.ParentStyle()->BoxDirection());
-  state.StyleBuilder().SetBoxDirectionIsInherited(true);
 }
 void WebkitBoxDirection::ApplyValue(StyleResolverState& state, const CSSValue& value, ValueMode) const {
   state.StyleBuilder().
 SetBoxDirection(To<CSSIdentifierValue>(value).ConvertTo<blink::EBoxDirection>());
-  state.StyleBuilder().SetBoxDirectionIsInherited(false);
-}
-
- // -webkit-box-direction-alternative
-
-
-CSSExposure WebkitBoxDirectionAlternative::Exposure(const ExecutionContext* execution_context) const {
-  if (!RuntimeEnabledFeatures::NonInheritedWebkitBoxDirectionEnabled(execution_context)) {
-    return CSSExposure::kNone;
-  }
-  return CSSExposure::kWeb;
-}
-
-const char* WebkitBoxDirectionAlternative::GetPropertyName() const {
-  return "-webkit-box-direction";
-}
-
-const WTF::AtomicString& WebkitBoxDirectionAlternative::GetPropertyNameAtomicString() const {
-  DEFINE_STATIC_LOCAL(const AtomicString, name, ("-webkit-box-direction"));
-  return name;
-}
-
-const char* WebkitBoxDirectionAlternative::GetJSPropertyName() const {
-  return "webkitBoxDirection";
-}
-
-
-
-void WebkitBoxDirectionAlternative::ApplyInitial(StyleResolverState& state) const {
-  state.StyleBuilder().
-SetBoxDirectionAlternative(ComputedStyleInitialValues::InitialBoxDirectionAlternative());
-}
-void WebkitBoxDirectionAlternative::ApplyInherit(StyleResolverState& state) const {
-  state.StyleBuilder().
-SetBoxDirectionAlternative(state.ParentStyle()->BoxDirectionAlternative());
-}
-void WebkitBoxDirectionAlternative::ApplyValue(StyleResolverState& state, const CSSValue& value, ValueMode) const {
-  state.StyleBuilder().
-SetBoxDirectionAlternative(To<CSSIdentifierValue>(value).ConvertTo<blink::EBoxDirectionAlternative>());
 }
 
  // -webkit-box-flex
@@ -15650,7 +15533,7 @@ SetBoxFlex(state.ParentStyle()->BoxFlex());
 }
 void WebkitBoxFlex::ApplyValue(StyleResolverState& state, const CSSValue& value, ValueMode) const {
   state.StyleBuilder().
-SetBoxFlex(To<CSSPrimitiveValue>(value).ConvertTo<float>());
+SetBoxFlex(To<CSSPrimitiveValue>(value).ConvertTo<float>(state.CssToLengthConversionData()));
 }
 
  // -webkit-box-ordinal-group
@@ -15682,7 +15565,7 @@ SetBoxOrdinalGroup(state.ParentStyle()->BoxOrdinalGroup());
 }
 void WebkitBoxOrdinalGroup::ApplyValue(StyleResolverState& state, const CSSValue& value, ValueMode) const {
   state.StyleBuilder().
-SetBoxOrdinalGroup(To<CSSPrimitiveValue>(value).ConvertTo<unsigned>());
+SetBoxOrdinalGroup(To<CSSPrimitiveValue>(value).ConvertTo<unsigned>(state.CssToLengthConversionData()));
 }
 
  // -webkit-box-orient
@@ -15842,7 +15725,7 @@ SetLineClamp(state.ParentStyle()->LineClamp());
 }
 void WebkitLineClamp::ApplyValue(StyleResolverState& state, const CSSValue& value, ValueMode) const {
   state.StyleBuilder().
-SetLineClamp(To<CSSPrimitiveValue>(value).ConvertTo<int>());
+SetLineClamp(To<CSSPrimitiveValue>(value).ConvertTo<int>(state.CssToLengthConversionData()));
 }
 
  // -webkit-mask-box-image-outset
@@ -17222,7 +17105,7 @@ SetWidows(state.ParentStyle()->Widows());
 }
 void Widows::ApplyValue(StyleResolverState& state, const CSSValue& value, ValueMode) const {
   state.StyleBuilder().
-SetWidows(To<CSSPrimitiveValue>(value).ConvertTo<short>());
+SetWidows(To<CSSPrimitiveValue>(value).ConvertTo<short>(state.CssToLengthConversionData()));
 }
 
  // width

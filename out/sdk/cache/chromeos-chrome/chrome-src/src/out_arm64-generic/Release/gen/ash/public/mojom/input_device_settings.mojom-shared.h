@@ -372,8 +372,14 @@ enum class StaticShortcutAction : int32_t {
   kPreviousPage = 7,
   
   kNextPage = 8,
+  
+  kLeftClick = 9,
+  
+  kRightClick = 10,
+  
+  kMiddleClick = 11,
   kMinValue = 0,
-  kMaxValue = 8,
+  kMaxValue = 11,
 };
 
  std::ostream& operator<<(std::ostream& os, StaticShortcutAction value);
@@ -390,8 +396,12 @@ enum class CustomizationRestriction : int32_t {
   kDisallowCustomizations = 1,
   
   kDisableKeyEventRewrites = 2,
+  
+  kAllowAlphabetKeyEventRewrites = 3,
+  
+  kAllowAlphabetOrNumberKeyEventRewrites = 4,
   kMinValue = 0,
-  kMaxValue = 2,
+  kMaxValue = 4,
 };
 
  std::ostream& operator<<(std::ostream& os, CustomizationRestriction value);
@@ -789,7 +799,7 @@ static_assert(
     return mojo::internal::Deserialize<::ui::mojom::ExtendedFkeysModifier>(
         data_->f11_$value, &output->emplace());
   }
-  absl::optional<::ui::mojom::ExtendedFkeysModifier> f11() const {
+  std::optional<::ui::mojom::ExtendedFkeysModifier> f11() const {
     if (!data_->f11_$flag) {
       return absl::nullopt;
     }
@@ -806,7 +816,7 @@ static_assert(
     return mojo::internal::Deserialize<::ui::mojom::ExtendedFkeysModifier>(
         data_->f12_$value, &output->emplace());
   }
-  absl::optional<::ui::mojom::ExtendedFkeysModifier> f12() const {
+  std::optional<::ui::mojom::ExtendedFkeysModifier> f12() const {
     if (!data_->f12_$flag) {
       return absl::nullopt;
     }
@@ -1159,6 +1169,16 @@ class GraphicsTabletDataView {
     return mojo::internal::Deserialize<mojo::StringDataView>(
         pointer, output, message_);
   }
+  template <typename UserType>
+  [[nodiscard]] bool ReadCustomizationRestriction(UserType* output) const {
+    auto data_value = data_->customization_restriction;
+    return mojo::internal::Deserialize<::ash::mojom::CustomizationRestriction>(
+        data_value, output);
+  }
+  CustomizationRestriction customization_restriction() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::mojom::CustomizationRestriction>(data_->customization_restriction));
+  }
   inline void GetSettingsDataView(
       GraphicsTabletSettingsDataView* output);
 
@@ -1274,7 +1294,7 @@ class KeyEventDataView {
   KeyEventDataView(
       internal::KeyEvent_Data* data,
       mojo::Message* message)
-      : data_(data) {}
+      : data_(data), message_(message) {}
 
   bool is_null() const { return !data_; }
   template <typename UserType>
@@ -1296,8 +1316,19 @@ class KeyEventDataView {
   uint32_t modifiers() const {
     return data_->modifiers;
   }
+  inline void GetKeyDisplayDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadKeyDisplay(UserType* output) {
+    
+    auto* pointer = data_->key_display.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
  private:
   internal::KeyEvent_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
 };
 
 
@@ -2323,6 +2354,8 @@ struct Serializer<::ash::mojom::GraphicsTabletDataView, MaybeConstUserType> {
         fragment->device_key.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null device_key in GraphicsTablet struct");
+    mojo::internal::Serialize<::ash::mojom::CustomizationRestriction>(
+        Traits::customization_restriction(input), &fragment->customization_restriction);
     decltype(Traits::settings(input)) in_settings = Traits::settings(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->settings)::BaseType> settings_fragment(
@@ -2483,6 +2516,18 @@ struct Serializer<::ash::mojom::KeyEventDataView, MaybeConstUserType> {
     fragment->dom_code = Traits::dom_code(input);
     fragment->dom_key = Traits::dom_key(input);
     fragment->modifiers = Traits::modifiers(input);
+    decltype(Traits::key_display(input)) in_key_display = Traits::key_display(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->key_display)::BaseType> key_display_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_key_display, key_display_fragment);
+    fragment->key_display.Set(
+        key_display_fragment.is_null() ? nullptr : key_display_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->key_display.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null key_display in KeyEvent struct");
   }
 
   static bool Deserialize(::ash::mojom::internal::KeyEvent_Data* input,
@@ -2808,6 +2853,11 @@ inline void ButtonRemappingDataView::GetRemappingActionDataView(
 }
 
 
+inline void KeyEventDataView::GetKeyDisplayDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->key_display.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
 
 
 inline void RemappingActionDataView::GetKeyEventDataView(

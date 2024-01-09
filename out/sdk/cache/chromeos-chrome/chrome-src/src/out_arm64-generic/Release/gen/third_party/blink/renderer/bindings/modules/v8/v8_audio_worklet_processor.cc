@@ -70,11 +70,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, AudioWorkletProcessor>::value,
     "AudioWorkletProcessor inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&AudioWorkletProcessor::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "AudioWorkletProcessor is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -87,8 +82,9 @@ BLINK_BINDINGS_TRACE_EVENT("AudioWorkletProcessor.port.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-AudioWorkletProcessor* blink_receiver = V8AudioWorkletProcessor::ToWrappableUnsafe(v8_receiver);
+AudioWorkletProcessor* blink_receiver = V8AudioWorkletProcessor::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->port();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }

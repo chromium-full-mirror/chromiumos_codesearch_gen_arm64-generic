@@ -414,6 +414,11 @@ export class MediaControllerInterface {
    */
 
   enterAutoPictureInPicture() {}
+  
+  /**
+   */
+
+  skipAd() {}
 }
 
 /**
@@ -741,6 +746,19 @@ export class MediaControllerRemote {
         [
         ]);
   }
+
+  
+  /**
+   */
+
+  skipAd() {
+    this.proxy.sendMessage(
+        21,
+        MediaController_SkipAd_ParamsSpec.$,
+        null,
+        [
+        ]);
+  }
 }
 
 /**
@@ -868,6 +886,11 @@ export class MediaControllerReceiver {
         MediaController_EnterAutoPictureInPicture_ParamsSpec.$,
         null,
         impl.enterAutoPictureInPicture.bind(impl));
+    this.helper_internal_.registerHandler(
+        21,
+        MediaController_SkipAd_ParamsSpec.$,
+        null,
+        impl.skipAd.bind(impl));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -1166,6 +1189,18 @@ export class MediaControllerCallbackRouter {
         MediaController_EnterAutoPictureInPicture_ParamsSpec.$,
         null,
         this.enterAutoPictureInPicture.createReceiverHandler(false /* expectsResponse */));
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.skipAd =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        21,
+        MediaController_SkipAd_ParamsSpec.$,
+        null,
+        this.skipAd.createReceiverHandler(false /* expectsResponse */));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -1818,6 +1853,12 @@ export const MediaController_EnterAutoPictureInPicture_ParamsSpec =
 /**
  * @const { {$:!mojo.internal.MojomType}}
  */
+export const MediaController_SkipAd_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ */
 export const MediaControllerObserver_MediaSessionInfoChanged_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
@@ -2434,6 +2475,25 @@ mojo.internal.Struct(
  * @record
  */
 export class MediaController_EnterAutoPictureInPicture_Params {
+  constructor() {
+  }
+}
+
+
+
+mojo.internal.Struct(
+    MediaController_SkipAd_ParamsSpec.$,
+    'MediaController_SkipAd_Params',
+    [
+    ],
+    [[0, 8],]);
+
+
+
+/**
+ * @record
+ */
+export class MediaController_SkipAd_Params {
   constructor() {
   }
 }

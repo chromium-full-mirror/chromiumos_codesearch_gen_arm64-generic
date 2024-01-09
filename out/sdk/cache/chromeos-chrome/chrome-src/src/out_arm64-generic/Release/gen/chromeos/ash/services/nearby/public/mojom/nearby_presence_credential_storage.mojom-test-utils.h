@@ -18,6 +18,7 @@ class  NearbyPresenceCredentialStorageInterceptorForTesting : public NearbyPrese
   void SaveCredentials(std::vector<::ash::nearby::presence::mojom::LocalCredentialPtr> local_credentials, std::vector<::ash::nearby::presence::mojom::SharedCredentialPtr> shared_credentials, ::ash::nearby::presence::mojom::PublicCredentialType public_credential_type, SaveCredentialsCallback callback) override;
   void GetPublicCredentials(::ash::nearby::presence::mojom::PublicCredentialType public_credential_type, GetPublicCredentialsCallback callback) override;
   void GetPrivateCredentials(GetPrivateCredentialsCallback callback) override;
+  void UpdateLocalCredential(::ash::nearby::presence::mojom::LocalCredentialPtr local_credential, UpdateLocalCredentialCallback callback) override;
 };
 class  NearbyPresenceCredentialStorageAsyncWaiter {
  public:
@@ -31,11 +32,14 @@ class  NearbyPresenceCredentialStorageAsyncWaiter {
       std::vector<::ash::nearby::presence::mojom::LocalCredentialPtr> local_credentials, std::vector<::ash::nearby::presence::mojom::SharedCredentialPtr> shared_credentials, ::ash::nearby::presence::mojom::PublicCredentialType public_credential_type, ::mojo_base::mojom::AbslStatusCode* out_status);
   ::mojo_base::mojom::AbslStatusCode SaveCredentials(std::vector<::ash::nearby::presence::mojom::LocalCredentialPtr> local_credentials, std::vector<::ash::nearby::presence::mojom::SharedCredentialPtr> shared_credentials, ::ash::nearby::presence::mojom::PublicCredentialType public_credential_type);
   void GetPublicCredentials(
-      ::ash::nearby::presence::mojom::PublicCredentialType public_credential_type, ::mojo_base::mojom::AbslStatusCode* out_status, absl::optional<std::vector<::ash::nearby::presence::mojom::SharedCredentialPtr>>* out_shared_credentials);
+      ::ash::nearby::presence::mojom::PublicCredentialType public_credential_type, ::mojo_base::mojom::AbslStatusCode* out_status, std::optional<std::vector<::ash::nearby::presence::mojom::SharedCredentialPtr>>* out_shared_credentials);
   
   void GetPrivateCredentials(
-      ::mojo_base::mojom::AbslStatusCode* out_status, absl::optional<std::vector<::ash::nearby::presence::mojom::LocalCredentialPtr>>* out_local_credentials);
+      ::mojo_base::mojom::AbslStatusCode* out_status, std::optional<std::vector<::ash::nearby::presence::mojom::LocalCredentialPtr>>* out_local_credentials);
   
+  void UpdateLocalCredential(
+      ::ash::nearby::presence::mojom::LocalCredentialPtr local_credential, ::mojo_base::mojom::AbslStatusCode* out_status);
+  ::mojo_base::mojom::AbslStatusCode UpdateLocalCredential(::ash::nearby::presence::mojom::LocalCredentialPtr local_credential);
 
  private:
   NearbyPresenceCredentialStorage* const proxy_;

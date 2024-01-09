@@ -72,11 +72,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, FileSystemSyncAccessHandle>::value,
     "FileSystemSyncAccessHandle inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&FileSystemSyncAccessHandle::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "FileSystemSyncAccessHandle is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -89,10 +84,10 @@ BLINK_BINDINGS_TRACE_EVENT("FileSystemSyncAccessHandle.mode.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-FileSystemSyncAccessHandle* blink_receiver = V8FileSystemSyncAccessHandle::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->mode();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+FileSystemSyncAccessHandle* blink_receiver = V8FileSystemSyncAccessHandle::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->mode();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -114,7 +109,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8FileSystemSyncAccess
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-FileSystemSyncAccessHandle* blink_receiver = V8FileSystemSyncAccessHandle::ToWrappableUnsafe(v8_receiver);
+FileSystemSyncAccessHandle* blink_receiver = V8FileSystemSyncAccessHandle::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->close();
 
 }
@@ -136,7 +131,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8FileSystemSyncAccess
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-FileSystemSyncAccessHandle* blink_receiver = V8FileSystemSyncAccessHandle::ToWrappableUnsafe(v8_receiver);
+FileSystemSyncAccessHandle* blink_receiver = V8FileSystemSyncAccessHandle::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "FileSystemSyncAccessHandle";
 const char* const property_name = "flush";
@@ -165,7 +160,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8FileSystemSyncAccess
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-FileSystemSyncAccessHandle* blink_receiver = V8FileSystemSyncAccessHandle::ToWrappableUnsafe(v8_receiver);
+FileSystemSyncAccessHandle* blink_receiver = V8FileSystemSyncAccessHandle::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "FileSystemSyncAccessHandle";
 const char* const property_name = "getSize";
@@ -202,7 +197,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-FileSystemSyncAccessHandle* blink_receiver = V8FileSystemSyncAccessHandle::ToWrappableUnsafe(v8_receiver);
+FileSystemSyncAccessHandle* blink_receiver = V8FileSystemSyncAccessHandle::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_buffer = NativeValueTraits<V8UnionArrayBufferAllowSharedOrArrayBufferViewAllowShared>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -248,7 +243,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-FileSystemSyncAccessHandle* blink_receiver = V8FileSystemSyncAccessHandle::ToWrappableUnsafe(v8_receiver);
+FileSystemSyncAccessHandle* blink_receiver = V8FileSystemSyncAccessHandle::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_size = NativeValueTraits<IDLUnsignedLongLongEnforceRange>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -285,7 +280,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-FileSystemSyncAccessHandle* blink_receiver = V8FileSystemSyncAccessHandle::ToWrappableUnsafe(v8_receiver);
+FileSystemSyncAccessHandle* blink_receiver = V8FileSystemSyncAccessHandle::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_buffer = NativeValueTraits<V8UnionArrayBufferAllowSharedOrArrayBufferViewAllowShared>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

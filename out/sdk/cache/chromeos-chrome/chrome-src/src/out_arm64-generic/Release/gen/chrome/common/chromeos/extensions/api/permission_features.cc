@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -13,7 +13,9 @@
 #include "extensions/common/features/feature_provider.h"
 #include "extensions/common/features/manifest_feature.h"
 #include "extensions/common/features/permission_feature.h"
+#include "extensions/common/mojom/context_type.mojom.h"
 #include "extensions/common/mojom/feature_session_type.mojom.h"
+#include "printing/buildflags/buildflags.h"
 
 namespace extensions {
 
@@ -49,6 +51,14 @@ void AddChromeOSSystemExtensionsPermissionFeatures(FeatureProvider* provider) {
     feature->set_dependencies({"manifest:chromeos_system_extension"});
     feature->set_extension_types({Manifest::TYPE_CHROMEOS_SYSTEM_EXTENSION});
     provider->AddFeature("os.events", feature);
+  }
+  {
+    PermissionFeature* feature = new PermissionFeature();
+    feature->set_name("os.management.audio");
+    feature->set_channel(version_info::Channel::STABLE);
+    feature->set_dependencies({"manifest:chromeos_system_extension"});
+    feature->set_extension_types({Manifest::TYPE_CHROMEOS_SYSTEM_EXTENSION});
+    provider->AddFeature("os.management.audio", feature);
   }
   {
     PermissionFeature* feature = new PermissionFeature();

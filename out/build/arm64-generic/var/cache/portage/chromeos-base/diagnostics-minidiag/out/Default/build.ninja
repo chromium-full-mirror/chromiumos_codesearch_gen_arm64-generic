@@ -22,24 +22,18 @@ build _cros-minidiag-tool-install_config: phony obj/diagnostics/cros_minidiag/_c
 build install_upstart_config: phony obj/diagnostics/cros_minidiag/install_upstart_config.stamp
 build libcros-minidiag-tool: phony obj/diagnostics/cros_minidiag/libcros-minidiag-tool.stamp
 build root: phony obj/common-mk/gn_root/root.stamp
-build testrunner: phony ./libtestrunner.a
 build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
-build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
-build common-mk/testrunner: phony ./libtestrunner.a
 build diagnostics/cros_minidiag$:_cros-minidiag-tool-install_config: phony obj/diagnostics/cros_minidiag/_cros-minidiag-tool-install_config.stamp
 build diagnostics/cros_minidiag$:all: phony obj/diagnostics/cros_minidiag/all.stamp
 build diagnostics/cros_minidiag$:cros-minidiag-tool: phony ./cros-minidiag-tool
-build diagnostics/cros_minidiag$:cros_minidiag_test: phony ./cros_minidiag_test
 build diagnostics/cros_minidiag$:install_upstart_config: phony obj/diagnostics/cros_minidiag/install_upstart_config.stamp
 build diagnostics/cros_minidiag$:libcros-minidiag-tool: phony obj/diagnostics/cros_minidiag/libcros-minidiag-tool.stamp
 
 build all: phony $
     obj/common-mk/gn_root/root.stamp $
-    ./libtestrunner.a $
     obj/diagnostics/cros_minidiag/_cros-minidiag-tool-install_config.stamp $
     obj/diagnostics/cros_minidiag/all.stamp $
     ./cros-minidiag-tool $
-    ./cros_minidiag_test $
     obj/diagnostics/cros_minidiag/install_upstart_config.stamp $
     obj/diagnostics/cros_minidiag/libcros-minidiag-tool.stamp
 

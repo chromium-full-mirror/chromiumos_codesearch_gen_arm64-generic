@@ -212,6 +212,7 @@ export function createRoutes() {
     r.PRIVACY_HUB = createSubpage(r.OS_PRIVACY, routesMojom.PRIVACY_HUB_SUBPAGE_PATH, Subpage.kPrivacyHub);
     r.PRIVACY_HUB_MICROPHONE = createSubpage(r.OS_PRIVACY, routesMojom.PRIVACY_HUB_MICROPHONE_SUBPAGE_PATH, Subpage.kPrivacyHubMicrophone);
     r.PRIVACY_HUB_GEOLOCATION = createSubpage(r.OS_PRIVACY, routesMojom.PRIVACY_HUB_GEOLOCATION_SUBPAGE_PATH, Subpage.kPrivacyHubGeolocation);
+    r.PRIVACY_HUB_CAMERA = createSubpage(r.OS_PRIVACY, routesMojom.PRIVACY_HUB_CAMERA_SUBPAGE_PATH, Subpage.kPrivacyHubCamera);
     // About section.
     r.ABOUT = createSection(
     /*parent=*/ null, routesMojom.ABOUT_CHROME_OS_SECTION_PATH, Section.kAboutChromeOs);
@@ -232,10 +233,7 @@ export function createRoutes() {
         r.DATETIME_TIMEZONE_SUBPAGE = createSubpage(r.SYSTEM_PREFERENCES, routesMojom.TIME_ZONE_SUBPAGE_PATH, Subpage.kTimeZone);
         // Files subpages.
         if (!isGuest()) {
-            if (loadTimeData.getBoolean('showGoogleDriveSettingsPage') ||
-                loadTimeData.getBoolean('enableDriveFsBulkPinning')) {
-                r.GOOGLE_DRIVE = createSubpage(r.SYSTEM_PREFERENCES, routesMojom.GOOGLE_DRIVE_SUBPAGE_PATH, Subpage.kGoogleDrive);
-            }
+            r.GOOGLE_DRIVE = createSubpage(r.SYSTEM_PREFERENCES, routesMojom.GOOGLE_DRIVE_SUBPAGE_PATH, Subpage.kGoogleDrive);
             if (loadTimeData.getBoolean('showOfficeSettings')) {
                 r.OFFICE = createSubpage(r.SYSTEM_PREFERENCES, routesMojom.OFFICE_FILES_SUBPAGE_PATH, Subpage.kOfficeFiles);
                 r.ONE_DRIVE = createSubpage(r.SYSTEM_PREFERENCES, routesMojom.ONE_DRIVE_SUBPAGE_PATH, Subpage.kOneDrive);
@@ -244,6 +242,9 @@ export function createRoutes() {
         }
         // Language subpages.
         r.OS_LANGUAGES_LANGUAGES = createSubpage(r.SYSTEM_PREFERENCES, routesMojom.LANGUAGES_SUBPAGE_PATH, Subpage.kLanguages);
+        if (loadTimeData.getBoolean('isPerAppLanguageEnabled')) {
+            r.OS_LANGUAGES_APP_LANGUAGES = createSubpage(r.OS_LANGUAGES_LANGUAGES, routesMojom.APP_LANGUAGES_SUBPAGE_PATH, Subpage.kAppLanguages);
+        }
         // Search and Assistant subpages.
         r.SEARCH_SUBPAGE = createSubpage(r.SYSTEM_PREFERENCES, routesMojom.SEARCH_SUBPAGE_PATH, Subpage.kSearch);
         r.GOOGLE_ASSISTANT = createSubpage(r.SYSTEM_PREFERENCES, routesMojom.ASSISTANT_SUBPAGE_PATH, Subpage.kAssistant);
@@ -278,10 +279,7 @@ export function createRoutes() {
         // Files section.
         if (!isGuest()) {
             r.FILES = createSection(r.ADVANCED, routesMojom.FILES_SECTION_PATH, Section.kFiles);
-            if (loadTimeData.getBoolean('showGoogleDriveSettingsPage') ||
-                loadTimeData.getBoolean('enableDriveFsBulkPinning')) {
-                r.GOOGLE_DRIVE = createSubpage(r.FILES, routesMojom.GOOGLE_DRIVE_SUBPAGE_PATH, Subpage.kGoogleDrive);
-            }
+            r.GOOGLE_DRIVE = createSubpage(r.FILES, routesMojom.GOOGLE_DRIVE_SUBPAGE_PATH, Subpage.kGoogleDrive);
             if (loadTimeData.getBoolean('showOfficeSettings')) {
                 r.OFFICE = createSubpage(r.FILES, routesMojom.OFFICE_FILES_SUBPAGE_PATH, Subpage.kOfficeFiles);
                 r.ONE_DRIVE = createSubpage(r.FILES, routesMojom.ONE_DRIVE_SUBPAGE_PATH, Subpage.kOneDrive);
@@ -295,6 +293,9 @@ export function createRoutes() {
         r.OS_LANGUAGES_INPUT_METHOD_OPTIONS = createSubpage(r.OS_LANGUAGES_INPUT, routesMojom.INPUT_METHOD_OPTIONS_SUBPAGE_PATH, Subpage.kInputMethodOptions);
         r.OS_LANGUAGES_EDIT_DICTIONARY = createSubpage(r.OS_LANGUAGES_INPUT, routesMojom.EDIT_DICTIONARY_SUBPAGE_PATH, Subpage.kEditDictionary);
         r.OS_LANGUAGES_JAPANESE_MANAGE_USER_DICTIONARY = createSubpage(r.OS_LANGUAGES_INPUT, routesMojom.JAPANESE_MANAGE_USER_DICTIONARY_SUBPAGE_PATH, Subpage.kJapaneseManageUserDictionary);
+        if (loadTimeData.getBoolean('isPerAppLanguageEnabled')) {
+            r.OS_LANGUAGES_APP_LANGUAGES = createSubpage(r.OS_LANGUAGES_LANGUAGES, routesMojom.APP_LANGUAGES_SUBPAGE_PATH, Subpage.kAppLanguages);
+        }
         // Reset section.
         if (isPowerwashAllowed()) {
             r.OS_RESET = createSection(r.ADVANCED, routesMojom.RESET_SECTION_PATH, Section.kReset);

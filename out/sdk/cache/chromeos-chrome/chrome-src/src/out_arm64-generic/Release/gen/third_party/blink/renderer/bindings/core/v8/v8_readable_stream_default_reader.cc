@@ -70,11 +70,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, ReadableStreamDefaultReader>::value,
     "ReadableStreamDefaultReader does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&ReadableStreamDefaultReader::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "ReadableStreamDefaultReader is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -99,7 +94,7 @@ BLINK_BINDINGS_TRACE_EVENT("ReadableStreamDefaultReader.closed.get");
 
 
 
-ReadableStreamDefaultReader* blink_receiver = V8ReadableStreamDefaultReader::ToWrappableUnsafe(v8_receiver);
+ReadableStreamDefaultReader* blink_receiver = V8ReadableStreamDefaultReader::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -173,7 +168,7 @@ return;
 ScriptPromise return_value;
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
-ReadableStreamDefaultReader* blink_receiver = V8ReadableStreamDefaultReader::ToWrappableUnsafe(v8_receiver);
+ReadableStreamDefaultReader* blink_receiver = V8ReadableStreamDefaultReader::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -216,7 +211,7 @@ return;
 
 
 
-ReadableStreamDefaultReader* blink_receiver = V8ReadableStreamDefaultReader::ToWrappableUnsafe(v8_receiver);
+ReadableStreamDefaultReader* blink_receiver = V8ReadableStreamDefaultReader::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -238,12 +233,12 @@ BLINK_BINDINGS_TRACE_EVENT("ReadableStreamDefaultReader.releaseLock");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ReadableStreamDefaultReader* blink_receiver = V8ReadableStreamDefaultReader::ToWrappableUnsafe(v8_receiver);
+ReadableStreamDefaultReader* blink_receiver = V8ReadableStreamDefaultReader::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "ReadableStreamDefaultReader";
 const char* const property_name = "releaseLock";

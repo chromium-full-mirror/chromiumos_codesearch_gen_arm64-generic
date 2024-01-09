@@ -427,6 +427,10 @@ class HEADLESS_EXPORT FilledField {
   ::headless::autofill::FillingStrategy GetFillingStrategy() const { return filling_strategy_; }
   void SetFillingStrategy(::headless::autofill::FillingStrategy value) { filling_strategy_ = value; }
 
+  // The form field's DOM node
+  int GetFieldId() const { return field_id_; }
+  void SetFieldId(int value) { field_id_ = value; }
+
   base::Value Serialize() const;
   std::unique_ptr<FilledField> Clone() const;
 
@@ -441,7 +445,8 @@ class HEADLESS_EXPORT FilledField {
     kValueSet = 1 << 4,
     kAutofillTypeSet = 1 << 5,
     kFillingStrategySet = 1 << 6,
-      kAllRequiredFieldsSet = (kHtmlTypeSet | kIdSet | kNameSet | kValueSet | kAutofillTypeSet | kFillingStrategySet | 0)
+    kFieldIdSet = 1 << 7,
+      kAllRequiredFieldsSet = (kHtmlTypeSet | kIdSet | kNameSet | kValueSet | kAutofillTypeSet | kFillingStrategySet | kFieldIdSet | 0)
     };
 
     FilledFieldBuilder<STATE | kHtmlTypeSet>& SetHtmlType(const std::string& value) {
@@ -480,6 +485,12 @@ class HEADLESS_EXPORT FilledField {
       return CastState<kFillingStrategySet>();
     }
 
+    FilledFieldBuilder<STATE | kFieldIdSet>& SetFieldId(int value) {
+      static_assert(!(STATE & kFieldIdSet), "property fieldId should not have already been set");
+      result_->SetFieldId(value);
+      return CastState<kFieldIdSet>();
+    }
+
     std::unique_ptr<FilledField> Build() {
       static_assert(STATE == kAllRequiredFieldsSet, "all required fields should have been set");
       return std::move(result_);
@@ -509,6 +520,7 @@ class HEADLESS_EXPORT FilledField {
   std::string value_;
   std::string autofill_type_;
   ::headless::autofill::FillingStrategy filling_strategy_;
+  int field_id_;
 };
 
 

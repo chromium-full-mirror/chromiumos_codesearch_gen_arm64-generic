@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -253,8 +254,8 @@ DownloadURLParams::DownloadURLParams()
 DownloadURLParams::DownloadURLParams(
     const ::GURL& url_in,
     ::blink::mojom::ReferrerPtr referrer_in,
-    const absl::optional<::url::Origin>& initiator_origin_in,
-    const absl::optional<::std::u16string>& suggested_name_in,
+    const std::optional<::url::Origin>& initiator_origin_in,
+    const std::optional<::std::u16string>& suggested_name_in,
     ::network::mojom::RedirectMode cross_origin_redirects_in,
     ::mojo::PendingRemote<::blink::mojom::BlobURLToken> blob_url_token_in,
     ::mojo::PendingRemote<::blink::mojom::Blob> data_url_blob_in,
@@ -297,7 +298,7 @@ void DownloadURLParams::WriteIntoTrace(
     dict.AddItem(
       "initiator_origin"), this->initiator_origin,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::url::Origin>&>"
+      "<value of type const std::optional<::url::Origin>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -306,7 +307,7 @@ void DownloadURLParams::WriteIntoTrace(
     dict.AddItem(
       "suggested_name"), this->suggested_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::std::u16string>&>"
+      "<value of type const std::optional<::std::u16string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -367,7 +368,8 @@ IframeAttributes::IframeAttributes()
     : parsed_csp_attribute(),
       credentialless(),
       browsing_topics(),
-      shared_storage_writable(),
+      ad_auction_headers(),
+      shared_storage_writable_opted_in(),
       id(),
       name(),
       src() {}
@@ -376,14 +378,16 @@ IframeAttributes::IframeAttributes(
     ::network::mojom::ContentSecurityPolicyPtr parsed_csp_attribute_in,
     bool credentialless_in,
     bool browsing_topics_in,
-    bool shared_storage_writable_in,
-    const absl::optional<std::string>& id_in,
-    const absl::optional<std::string>& name_in,
-    const absl::optional<std::string>& src_in)
+    bool ad_auction_headers_in,
+    bool shared_storage_writable_opted_in_in,
+    const std::optional<std::string>& id_in,
+    const std::optional<std::string>& name_in,
+    const std::optional<std::string>& src_in)
     : parsed_csp_attribute(std::move(parsed_csp_attribute_in)),
       credentialless(std::move(credentialless_in)),
       browsing_topics(std::move(browsing_topics_in)),
-      shared_storage_writable(std::move(shared_storage_writable_in)),
+      ad_auction_headers(std::move(ad_auction_headers_in)),
+      shared_storage_writable_opted_in(std::move(shared_storage_writable_opted_in_in)),
       id(std::move(id_in)),
       name(std::move(name_in)),
       src(std::move(src_in)) {}
@@ -422,7 +426,16 @@ void IframeAttributes::WriteIntoTrace(
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "shared_storage_writable"), this->shared_storage_writable,
+      "ad_auction_headers"), this->ad_auction_headers,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "shared_storage_writable_opted_in"), this->shared_storage_writable_opted_in,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type bool>"
 #else
@@ -433,7 +446,7 @@ void IframeAttributes::WriteIntoTrace(
     dict.AddItem(
       "id"), this->id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -442,7 +455,7 @@ void IframeAttributes::WriteIntoTrace(
     dict.AddItem(
       "name"), this->name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -451,7 +464,7 @@ void IframeAttributes::WriteIntoTrace(
     dict.AddItem(
       "src"), this->src,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -534,15 +547,6 @@ LocalFrameHost::IPCStableHashFunction LocalFrameHost::MessageToMethodInfo_(mojo:
     }
     case internal::kLocalFrameHost_FullscreenStateChanged_Name: {
       return &LocalFrameHost::FullscreenStateChanged_Sym::IPCStableHash;
-    }
-    case internal::kLocalFrameHost_Maximize_Name: {
-      return &LocalFrameHost::Maximize_Sym::IPCStableHash;
-    }
-    case internal::kLocalFrameHost_Minimize_Name: {
-      return &LocalFrameHost::Minimize_Sym::IPCStableHash;
-    }
-    case internal::kLocalFrameHost_Restore_Name: {
-      return &LocalFrameHost::Restore_Sym::IPCStableHash;
     }
     case internal::kLocalFrameHost_RegisterProtocolHandler_Name: {
       return &LocalFrameHost::RegisterProtocolHandler_Sym::IPCStableHash;
@@ -739,11 +743,8 @@ LocalFrameHost::IPCStableHashFunction LocalFrameHost::MessageToMethodInfo_(mojo:
     case internal::kLocalFrameHost_SendPrivateAggregationRequestsForFencedFrameEvent_Name: {
       return &LocalFrameHost::SendPrivateAggregationRequestsForFencedFrameEvent_Sym::IPCStableHash;
     }
-    case internal::kLocalFrameHost_CreatePortal_Name: {
-      return &LocalFrameHost::CreatePortal_Sym::IPCStableHash;
-    }
-    case internal::kLocalFrameHost_AdoptPortal_Name: {
-      return &LocalFrameHost::AdoptPortal_Sym::IPCStableHash;
+    case internal::kLocalFrameHost_SetAttributionReportingRuntimeFeatures_Name: {
+      return &LocalFrameHost::SetAttributionReportingRuntimeFeatures_Sym::IPCStableHash;
     }
     case internal::kLocalFrameHost_CreateFencedFrame_Name: {
       return &LocalFrameHost::CreateFencedFrame_Sym::IPCStableHash;
@@ -771,12 +772,6 @@ const char* LocalFrameHost::MessageToMethodName_(mojo::Message& message) {
             return "Receive blink::mojom::LocalFrameHost::ExitFullscreen";
       case internal::kLocalFrameHost_FullscreenStateChanged_Name:
             return "Receive blink::mojom::LocalFrameHost::FullscreenStateChanged";
-      case internal::kLocalFrameHost_Maximize_Name:
-            return "Receive blink::mojom::LocalFrameHost::Maximize";
-      case internal::kLocalFrameHost_Minimize_Name:
-            return "Receive blink::mojom::LocalFrameHost::Minimize";
-      case internal::kLocalFrameHost_Restore_Name:
-            return "Receive blink::mojom::LocalFrameHost::Restore";
       case internal::kLocalFrameHost_RegisterProtocolHandler_Name:
             return "Receive blink::mojom::LocalFrameHost::RegisterProtocolHandler";
       case internal::kLocalFrameHost_UnregisterProtocolHandler_Name:
@@ -907,10 +902,8 @@ const char* LocalFrameHost::MessageToMethodName_(mojo::Message& message) {
             return "Receive blink::mojom::LocalFrameHost::SetFencedFrameAutomaticBeaconReportEventData";
       case internal::kLocalFrameHost_SendPrivateAggregationRequestsForFencedFrameEvent_Name:
             return "Receive blink::mojom::LocalFrameHost::SendPrivateAggregationRequestsForFencedFrameEvent";
-      case internal::kLocalFrameHost_CreatePortal_Name:
-            return "Receive blink::mojom::LocalFrameHost::CreatePortal";
-      case internal::kLocalFrameHost_AdoptPortal_Name:
-            return "Receive blink::mojom::LocalFrameHost::AdoptPortal";
+      case internal::kLocalFrameHost_SetAttributionReportingRuntimeFeatures_Name:
+            return "Receive blink::mojom::LocalFrameHost::SetAttributionReportingRuntimeFeatures";
       case internal::kLocalFrameHost_CreateFencedFrame_Name:
             return "Receive blink::mojom::LocalFrameHost::CreateFencedFrame";
       case internal::kLocalFrameHost_OnViewTransitionOptInChanged_Name:
@@ -926,12 +919,6 @@ const char* LocalFrameHost::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply blink::mojom::LocalFrameHost::ExitFullscreen";
       case internal::kLocalFrameHost_FullscreenStateChanged_Name:
             return "Receive reply blink::mojom::LocalFrameHost::FullscreenStateChanged";
-      case internal::kLocalFrameHost_Maximize_Name:
-            return "Receive reply blink::mojom::LocalFrameHost::Maximize";
-      case internal::kLocalFrameHost_Minimize_Name:
-            return "Receive reply blink::mojom::LocalFrameHost::Minimize";
-      case internal::kLocalFrameHost_Restore_Name:
-            return "Receive reply blink::mojom::LocalFrameHost::Restore";
       case internal::kLocalFrameHost_RegisterProtocolHandler_Name:
             return "Receive reply blink::mojom::LocalFrameHost::RegisterProtocolHandler";
       case internal::kLocalFrameHost_UnregisterProtocolHandler_Name:
@@ -1062,10 +1049,8 @@ const char* LocalFrameHost::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply blink::mojom::LocalFrameHost::SetFencedFrameAutomaticBeaconReportEventData";
       case internal::kLocalFrameHost_SendPrivateAggregationRequestsForFencedFrameEvent_Name:
             return "Receive reply blink::mojom::LocalFrameHost::SendPrivateAggregationRequestsForFencedFrameEvent";
-      case internal::kLocalFrameHost_CreatePortal_Name:
-            return "Receive reply blink::mojom::LocalFrameHost::CreatePortal";
-      case internal::kLocalFrameHost_AdoptPortal_Name:
-            return "Receive reply blink::mojom::LocalFrameHost::AdoptPortal";
+      case internal::kLocalFrameHost_SetAttributionReportingRuntimeFeatures_Name:
+            return "Receive reply blink::mojom::LocalFrameHost::SetAttributionReportingRuntimeFeatures";
       case internal::kLocalFrameHost_CreateFencedFrame_Name:
             return "Receive reply blink::mojom::LocalFrameHost::CreateFencedFrame";
       case internal::kLocalFrameHost_OnViewTransitionOptInChanged_Name:
@@ -1121,45 +1106,6 @@ uint32_t LocalFrameHost::FullscreenStateChanged_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)blink::mojom::LocalFrameHost::FullscreenStateChanged");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
-uint32_t LocalFrameHost::Maximize_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)blink::mojom::LocalFrameHost::Maximize");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
-uint32_t LocalFrameHost::Minimize_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)blink::mojom::LocalFrameHost::Minimize");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
-uint32_t LocalFrameHost::Restore_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)blink::mojom::LocalFrameHost::Restore");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -2009,7 +1955,7 @@ uint32_t LocalFrameHost::SendPrivateAggregationRequestsForFencedFrameEvent_Sym::
   base::debug::Alias(&hash);
   return hash;
 }
-uint32_t LocalFrameHost::CreatePortal_Sym::IPCStableHash() {
+uint32_t LocalFrameHost::SetAttributionReportingRuntimeFeatures_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
   // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
@@ -2017,20 +1963,7 @@ uint32_t LocalFrameHost::CreatePortal_Sym::IPCStableHash() {
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)blink::mojom::LocalFrameHost::CreatePortal");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
-uint32_t LocalFrameHost::AdoptPortal_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)blink::mojom::LocalFrameHost::AdoptPortal");
+          "(Impl)blink::mojom::LocalFrameHost::SetAttributionReportingRuntimeFeatures");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -2088,14 +2021,6 @@ bool LocalFrameHost::RunModalPromptDialog(const ::std::u16string& alert_message,
   return false;
 }
 bool LocalFrameHost::RunBeforeUnloadConfirm(bool is_reload, bool* out_success) {
-  NOTREACHED();
-  return false;
-}
-bool LocalFrameHost::CreatePortal(::mojo::PendingAssociatedReceiver<::blink::mojom::Portal> portal, ::mojo::PendingAssociatedRemote<::blink::mojom::PortalClient> client, ::blink::mojom::RemoteFrameInterfacesFromRendererPtr remote_frame_interfaces, ::blink::mojom::FrameReplicationStatePtr* out_initial_replicated_state, ::blink::PortalToken* out_portal_token, ::blink::RemoteFrameToken* out_frame_token, ::base::UnguessableToken* out_devtools_frame_token) {
-  NOTREACHED();
-  return false;
-}
-bool LocalFrameHost::AdoptPortal(const ::blink::PortalToken& portal_token, ::blink::mojom::RemoteFrameInterfacesFromRendererPtr remote_frame_interfaces, ::blink::mojom::FrameReplicationStatePtr* out_replicated_state, ::blink::RemoteFrameToken* out_frame_token, ::base::UnguessableToken* out_devtools_frame_token) {
   NOTREACHED();
   return false;
 }
@@ -2243,75 +2168,6 @@ class LocalFrameHost_RunBeforeUnloadConfirm_ForwardToCallback
  private:
   LocalFrameHost::RunBeforeUnloadConfirmCallback callback_;
 };
-class LocalFrameHost_CreatePortal_HandleSyncResponse
-    : public mojo::MessageReceiver {
- public:
-  LocalFrameHost_CreatePortal_HandleSyncResponse(
-      bool* result, ::blink::mojom::FrameReplicationStatePtr* out_initial_replicated_state, ::blink::PortalToken* out_portal_token, ::blink::RemoteFrameToken* out_frame_token, ::base::UnguessableToken* out_devtools_frame_token)
-      : result_(result), out_initial_replicated_state_(out_initial_replicated_state), out_portal_token_(out_portal_token), out_frame_token_(out_frame_token), out_devtools_frame_token_(out_devtools_frame_token) {
-    DCHECK(!*result_);
-  }
-
-  LocalFrameHost_CreatePortal_HandleSyncResponse(const LocalFrameHost_CreatePortal_HandleSyncResponse&) = delete;
-  LocalFrameHost_CreatePortal_HandleSyncResponse& operator=(const LocalFrameHost_CreatePortal_HandleSyncResponse&) = delete;
-
-  bool Accept(mojo::Message* message) override;
- private:
-  bool* result_;
-  ::blink::mojom::FrameReplicationStatePtr* out_initial_replicated_state_;
-  ::blink::PortalToken* out_portal_token_;
-  ::blink::RemoteFrameToken* out_frame_token_;
-  ::base::UnguessableToken* out_devtools_frame_token_;};
-
-class LocalFrameHost_CreatePortal_ForwardToCallback
-    : public mojo::MessageReceiver {
- public:
-  LocalFrameHost_CreatePortal_ForwardToCallback(
-      LocalFrameHost::CreatePortalCallback callback
-      ) : callback_(std::move(callback)) {
-  }
-
-  LocalFrameHost_CreatePortal_ForwardToCallback(const LocalFrameHost_CreatePortal_ForwardToCallback&) = delete;
-  LocalFrameHost_CreatePortal_ForwardToCallback& operator=(const LocalFrameHost_CreatePortal_ForwardToCallback&) = delete;
-
-  bool Accept(mojo::Message* message) override;
- private:
-  LocalFrameHost::CreatePortalCallback callback_;
-};
-class LocalFrameHost_AdoptPortal_HandleSyncResponse
-    : public mojo::MessageReceiver {
- public:
-  LocalFrameHost_AdoptPortal_HandleSyncResponse(
-      bool* result, ::blink::mojom::FrameReplicationStatePtr* out_replicated_state, ::blink::RemoteFrameToken* out_frame_token, ::base::UnguessableToken* out_devtools_frame_token)
-      : result_(result), out_replicated_state_(out_replicated_state), out_frame_token_(out_frame_token), out_devtools_frame_token_(out_devtools_frame_token) {
-    DCHECK(!*result_);
-  }
-
-  LocalFrameHost_AdoptPortal_HandleSyncResponse(const LocalFrameHost_AdoptPortal_HandleSyncResponse&) = delete;
-  LocalFrameHost_AdoptPortal_HandleSyncResponse& operator=(const LocalFrameHost_AdoptPortal_HandleSyncResponse&) = delete;
-
-  bool Accept(mojo::Message* message) override;
- private:
-  bool* result_;
-  ::blink::mojom::FrameReplicationStatePtr* out_replicated_state_;
-  ::blink::RemoteFrameToken* out_frame_token_;
-  ::base::UnguessableToken* out_devtools_frame_token_;};
-
-class LocalFrameHost_AdoptPortal_ForwardToCallback
-    : public mojo::MessageReceiver {
- public:
-  LocalFrameHost_AdoptPortal_ForwardToCallback(
-      LocalFrameHost::AdoptPortalCallback callback
-      ) : callback_(std::move(callback)) {
-  }
-
-  LocalFrameHost_AdoptPortal_ForwardToCallback(const LocalFrameHost_AdoptPortal_ForwardToCallback&) = delete;
-  LocalFrameHost_AdoptPortal_ForwardToCallback& operator=(const LocalFrameHost_AdoptPortal_ForwardToCallback&) = delete;
-
-  bool Accept(mojo::Message* message) override;
- private:
-  LocalFrameHost::AdoptPortalCallback callback_;
-};
 
 LocalFrameHostProxy::LocalFrameHostProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
@@ -2329,14 +2185,17 @@ void LocalFrameHostProxy::EnterFullscreen(
                         "<value of type ::blink::mojom::FullscreenOptionsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_EnterFullscreen_Name, kFlags, 0, 0, nullptr);
@@ -2371,14 +2230,17 @@ void LocalFrameHostProxy::ExitFullscreen(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::LocalFrameHost::ExitFullscreen");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_ExitFullscreen_Name, kFlags, 0, 0, nullptr);
@@ -2411,14 +2273,17 @@ void LocalFrameHostProxy::FullscreenStateChanged(
                         "<value of type ::blink::mojom::FullscreenOptionsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_FullscreenStateChanged_Name, kFlags, 0, 0, nullptr);
@@ -2444,96 +2309,6 @@ void LocalFrameHostProxy::FullscreenStateChanged(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
-void LocalFrameHostProxy::Maximize(
-    ) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send blink::mojom::LocalFrameHost::Maximize");
-#endif
-  const bool kExpectsResponse = false;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kLocalFrameHost_Maximize_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::blink::mojom::internal::LocalFrameHost_Maximize_Params_Data> params(
-          message);
-  params.Allocate();
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(LocalFrameHost::Name_);
-  message.set_method_name("Maximize");
-#endif
-  // This return value may be ignored as false implies the Connector has
-  // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMojoMessage(*receiver_, message);
-}
-
-void LocalFrameHostProxy::Minimize(
-    ) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send blink::mojom::LocalFrameHost::Minimize");
-#endif
-  const bool kExpectsResponse = false;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kLocalFrameHost_Minimize_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::blink::mojom::internal::LocalFrameHost_Minimize_Params_Data> params(
-          message);
-  params.Allocate();
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(LocalFrameHost::Name_);
-  message.set_method_name("Minimize");
-#endif
-  // This return value may be ignored as false implies the Connector has
-  // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMojoMessage(*receiver_, message);
-}
-
-void LocalFrameHostProxy::Restore(
-    ) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send blink::mojom::LocalFrameHost::Restore");
-#endif
-  const bool kExpectsResponse = false;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kLocalFrameHost_Restore_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::blink::mojom::internal::LocalFrameHost_Restore_Params_Data> params(
-          message);
-  params.Allocate();
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(LocalFrameHost::Name_);
-  message.set_method_name("Restore");
-#endif
-  // This return value may be ignored as false implies the Connector has
-  // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMojoMessage(*receiver_, message);
-}
-
 void LocalFrameHostProxy::RegisterProtocolHandler(
     const std::string& in_scheme, const ::GURL& in_url, bool in_user_gesture) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2552,14 +2327,17 @@ void LocalFrameHostProxy::RegisterProtocolHandler(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_RegisterProtocolHandler_Name, kFlags, 0, 0, nullptr);
@@ -2618,14 +2396,17 @@ void LocalFrameHostProxy::UnregisterProtocolHandler(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_UnregisterProtocolHandler_Name, kFlags, 0, 0, nullptr);
@@ -2671,14 +2452,17 @@ void LocalFrameHostProxy::DidDisplayInsecureContent(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::LocalFrameHost::DidDisplayInsecureContent");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_DidDisplayInsecureContent_Name, kFlags, 0, 0, nullptr);
@@ -2701,14 +2485,17 @@ void LocalFrameHostProxy::DidContainInsecureFormAction(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::LocalFrameHost::DidContainInsecureFormAction");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_DidContainInsecureFormAction_Name, kFlags, 0, 0, nullptr);
@@ -2738,14 +2525,17 @@ void LocalFrameHostProxy::MainDocumentElementAvailable(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_MainDocumentElementAvailable_Name, kFlags, 0, 0, nullptr);
@@ -2776,14 +2566,17 @@ void LocalFrameHostProxy::SetNeedsOcclusionTracking(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_SetNeedsOcclusionTracking_Name, kFlags, 0, 0, nullptr);
@@ -2814,14 +2607,17 @@ void LocalFrameHostProxy::SetVirtualKeyboardMode(
                         "<value of type ::ui::mojom::VirtualKeyboardMode>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_SetVirtualKeyboardMode_Name, kFlags, 0, 0, nullptr);
@@ -2853,14 +2649,17 @@ void LocalFrameHostProxy::VisibilityChanged(
                         "<value of type ::blink::mojom::FrameVisibility>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_VisibilityChanged_Name, kFlags, 0, 0, nullptr);
@@ -2881,7 +2680,7 @@ void LocalFrameHostProxy::VisibilityChanged(
 }
 
 void LocalFrameHostProxy::DidChangeThemeColor(
-    absl::optional<::SkColor> in_theme_color) {
+    std::optional<::SkColor> in_theme_color) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send blink::mojom::LocalFrameHost::DidChangeThemeColor", "input_parameters",
@@ -2889,17 +2688,20 @@ void LocalFrameHostProxy::DidChangeThemeColor(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("theme_color"), in_theme_color,
-                        "<value of type absl::optional<::SkColor>>");
+                        "<value of type std::optional<::SkColor>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_DidChangeThemeColor_Name, kFlags, 0, 0, nullptr);
@@ -2939,14 +2741,17 @@ void LocalFrameHostProxy::DidChangeBackgroundColor(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_DidChangeBackgroundColor_Name, kFlags, 0, 0, nullptr);
@@ -2991,14 +2796,17 @@ void LocalFrameHostProxy::DidFailLoadWithError(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_DidFailLoadWithError_Name, kFlags, 0, 0, nullptr);
@@ -3033,14 +2841,17 @@ void LocalFrameHostProxy::DidFocusFrame(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::LocalFrameHost::DidFocusFrame");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_DidFocusFrame_Name, kFlags, 0, 0, nullptr);
@@ -3063,14 +2874,17 @@ void LocalFrameHostProxy::DidCallFocus(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::LocalFrameHost::DidCallFocus");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_DidCallFocus_Name, kFlags, 0, 0, nullptr);
@@ -3100,14 +2914,17 @@ void LocalFrameHostProxy::EnforceInsecureRequestPolicy(
                         "<value of type ::blink::mojom::InsecureRequestPolicy>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_EnforceInsecureRequestPolicy_Name, kFlags, 0, 0, nullptr);
@@ -3139,14 +2956,17 @@ void LocalFrameHostProxy::EnforceInsecureNavigationsSet(
                         "<value of type const std::vector<uint32_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_EnforceInsecureNavigationsSet_Name, kFlags, 0, 0, nullptr);
@@ -3192,14 +3012,17 @@ void LocalFrameHostProxy::SuddenTerminationDisablerChanged(
                         "<value of type ::blink::mojom::SuddenTerminationDisablerType>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_SuddenTerminationDisablerChanged_Name, kFlags, 0, 0, nullptr);
@@ -3232,14 +3055,17 @@ void LocalFrameHostProxy::HadStickyUserActivationBeforeNavigationChanged(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_HadStickyUserActivationBeforeNavigationChanged_Name, kFlags, 0, 0, nullptr);
@@ -3273,14 +3099,17 @@ void LocalFrameHostProxy::ScrollRectToVisibleInParentFrame(
                         "<value of type ::blink::mojom::ScrollIntoViewParamsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_ScrollRectToVisibleInParentFrame_Name, kFlags, 0, 0, nullptr);
@@ -3335,14 +3164,17 @@ void LocalFrameHostProxy::BubbleLogicalScrollInParentFrame(
                         "<value of type ::ui::ScrollGranularity>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_BubbleLogicalScrollInParentFrame_Name, kFlags, 0, 0, nullptr);
@@ -3369,14 +3201,17 @@ void LocalFrameHostProxy::StartLoadingForAsyncNavigationApiCommit(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::LocalFrameHost::StartLoadingForAsyncNavigationApiCommit");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_StartLoadingForAsyncNavigationApiCommit_Name, kFlags, 0, 0, nullptr);
@@ -3412,14 +3247,17 @@ void LocalFrameHostProxy::DidBlockNavigation(
                         "<value of type ::blink::mojom::NavigationBlockedReason>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_DidBlockNavigation_Name, kFlags, 0, 0, nullptr);
@@ -3473,14 +3311,17 @@ void LocalFrameHostProxy::DidChangeLoadProgress(
                         "<value of type double>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_DidChangeLoadProgress_Name, kFlags, 0, 0, nullptr);
@@ -3511,14 +3352,17 @@ void LocalFrameHostProxy::DidFinishLoad(
                         "<value of type const ::GURL&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_DidFinishLoad_Name, kFlags, 0, 0, nullptr);
@@ -3552,14 +3396,17 @@ void LocalFrameHostProxy::DispatchLoad(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::LocalFrameHost::DispatchLoad");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_DispatchLoad_Name, kFlags, 0, 0, nullptr);
@@ -3578,7 +3425,7 @@ void LocalFrameHostProxy::DispatchLoad(
 }
 
 void LocalFrameHostProxy::GoToEntryAtOffset(
-    int32_t in_offset, bool in_has_user_gesture, absl::optional<::blink::scheduler::TaskAttributionId> in_soft_navigation_heuristics_task_id) {
+    int32_t in_offset, bool in_has_user_gesture, std::optional<::blink::scheduler::TaskAttributionId> in_soft_navigation_heuristics_task_id) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send blink::mojom::LocalFrameHost::GoToEntryAtOffset", "input_parameters",
@@ -3592,17 +3439,20 @@ void LocalFrameHostProxy::GoToEntryAtOffset(
                         "<value of type bool>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("soft_navigation_heuristics_task_id"), in_soft_navigation_heuristics_task_id,
-                        "<value of type absl::optional<::blink::scheduler::TaskAttributionId>>");
+                        "<value of type std::optional<::blink::scheduler::TaskAttributionId>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_GoToEntryAtOffset_Name, kFlags, 0, 0, nullptr);
@@ -3630,7 +3480,7 @@ void LocalFrameHostProxy::GoToEntryAtOffset(
 }
 
 void LocalFrameHostProxy::NavigateToNavigationApiKey(
-    const std::string& in_key, bool in_has_user_gesture, absl::optional<::blink::scheduler::TaskAttributionId> in_soft_navigation_heuristics_task_id) {
+    const std::string& in_key, bool in_has_user_gesture, std::optional<::blink::scheduler::TaskAttributionId> in_soft_navigation_heuristics_task_id) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send blink::mojom::LocalFrameHost::NavigateToNavigationApiKey", "input_parameters",
@@ -3644,17 +3494,20 @@ void LocalFrameHostProxy::NavigateToNavigationApiKey(
                         "<value of type bool>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("soft_navigation_heuristics_task_id"), in_soft_navigation_heuristics_task_id,
-                        "<value of type absl::optional<::blink::scheduler::TaskAttributionId>>");
+                        "<value of type std::optional<::blink::scheduler::TaskAttributionId>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_NavigateToNavigationApiKey_Name, kFlags, 0, 0, nullptr);
@@ -3703,14 +3556,17 @@ void LocalFrameHostProxy::NavigateEventHandlerPresenceChanged(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_NavigateEventHandlerPresenceChanged_Name, kFlags, 0, 0, nullptr);
@@ -3730,7 +3586,7 @@ void LocalFrameHostProxy::NavigateEventHandlerPresenceChanged(
 }
 
 void LocalFrameHostProxy::UpdateTitle(
-    const absl::optional<::std::u16string>& in_title, ::base::i18n::TextDirection in_title_direction) {
+    const std::optional<::std::u16string>& in_title, ::base::i18n::TextDirection in_title_direction) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send blink::mojom::LocalFrameHost::UpdateTitle", "input_parameters",
@@ -3738,20 +3594,23 @@ void LocalFrameHostProxy::UpdateTitle(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("title"), in_title,
-                        "<value of type const absl::optional<::std::u16string>&>");
+                        "<value of type const std::optional<::std::u16string>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("title_direction"), in_title_direction,
                         "<value of type ::base::i18n::TextDirection>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_UpdateTitle_Name, kFlags, 0, 0, nullptr);
@@ -3793,14 +3652,17 @@ void LocalFrameHostProxy::UpdateUserActivationState(
                         "<value of type ::blink::mojom::UserActivationNotificationType>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_UpdateUserActivationState_Name, kFlags, 0, 0, nullptr);
@@ -3827,14 +3689,17 @@ void LocalFrameHostProxy::DidConsumeHistoryUserActivation(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::LocalFrameHost::DidConsumeHistoryUserActivation");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_DidConsumeHistoryUserActivation_Name, kFlags, 0, 0, nullptr);
@@ -3864,14 +3729,17 @@ void LocalFrameHostProxy::HandleAccessibilityFindInPageResult(
                         "<value of type FindInPageResultAXParamsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_HandleAccessibilityFindInPageResult_Name, kFlags, 0, 0, nullptr);
@@ -3905,14 +3773,17 @@ void LocalFrameHostProxy::HandleAccessibilityFindInPageTermination(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::LocalFrameHost::HandleAccessibilityFindInPageTermination");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_HandleAccessibilityFindInPageTermination_Name, kFlags, 0, 0, nullptr);
@@ -3935,14 +3806,17 @@ void LocalFrameHostProxy::DocumentOnLoadCompleted(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::LocalFrameHost::DocumentOnLoadCompleted");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_DocumentOnLoadCompleted_Name, kFlags, 0, 0, nullptr);
@@ -3972,14 +3846,17 @@ void LocalFrameHostProxy::ForwardResourceTimingToParent(
                         "<value of type ::blink::mojom::ResourceTimingInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_ForwardResourceTimingToParent_Name, kFlags, 0, 0, nullptr);
@@ -4013,14 +3890,17 @@ void LocalFrameHostProxy::DidDispatchDOMContentLoadedEvent(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::LocalFrameHost::DidDispatchDOMContentLoadedEvent");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_DidDispatchDOMContentLoadedEvent_Name, kFlags, 0, 0, nullptr);
@@ -4054,15 +3934,18 @@ bool LocalFrameHostProxy::RunModalAlertDialog(
 #else
   TRACE_EVENT0("mojom", "LocalFrameHost::RunModalAlertDialog");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_RunModalAlertDialog_Name, kFlags, 0, 0, nullptr);
@@ -4114,14 +3997,17 @@ void LocalFrameHostProxy::RunModalAlertDialog(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_RunModalAlertDialog_Name, kFlags, 0, 0, nullptr);
@@ -4168,15 +4054,18 @@ bool LocalFrameHostProxy::RunModalConfirmDialog(
 #else
   TRACE_EVENT0("mojom", "LocalFrameHost::RunModalConfirmDialog");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_RunModalConfirmDialog_Name, kFlags, 0, 0, nullptr);
@@ -4235,14 +4124,17 @@ void LocalFrameHostProxy::RunModalConfirmDialog(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_RunModalConfirmDialog_Name, kFlags, 0, 0, nullptr);
@@ -4292,15 +4184,18 @@ bool LocalFrameHostProxy::RunModalPromptDialog(
 #else
   TRACE_EVENT0("mojom", "LocalFrameHost::RunModalPromptDialog");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_RunModalPromptDialog_Name, kFlags, 0, 0, nullptr);
@@ -4376,14 +4271,17 @@ void LocalFrameHostProxy::RunModalPromptDialog(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_RunModalPromptDialog_Name, kFlags, 0, 0, nullptr);
@@ -4438,15 +4336,18 @@ bool LocalFrameHostProxy::RunBeforeUnloadConfirm(
 #else
   TRACE_EVENT0("mojom", "LocalFrameHost::RunBeforeUnloadConfirm");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_RunBeforeUnloadConfirm_Name, kFlags, 0, 0, nullptr);
@@ -4491,14 +4392,17 @@ void LocalFrameHostProxy::RunBeforeUnloadConfirm(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_RunBeforeUnloadConfirm_Name, kFlags, 0, 0, nullptr);
@@ -4530,14 +4434,17 @@ void LocalFrameHostProxy::UpdateFaviconURL(
                         "<value of type std::vector<::blink::mojom::FaviconURLPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_UpdateFaviconURL_Name, kFlags, 0, 0, nullptr);
@@ -4580,14 +4487,17 @@ void LocalFrameHostProxy::DownloadURL(
                         "<value of type DownloadURLParamsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_DownloadURL_Name, kFlags, 0, 0, nullptr);
@@ -4637,14 +4547,17 @@ void LocalFrameHostProxy::FocusedElementChanged(
                         "<value of type ::blink::mojom::FocusType>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_FocusedElementChanged_Name, kFlags, 0, 0, nullptr);
@@ -4695,14 +4608,17 @@ void LocalFrameHostProxy::TextSelectionChanged(
                         "<value of type const ::gfx::Range&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_TextSelectionChanged_Name, kFlags, 0, 0, nullptr);
@@ -4776,14 +4692,17 @@ void LocalFrameHostProxy::ShowPopupMenu(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_ShowPopupMenu_Name, kFlags, 0, 0, nullptr);
@@ -4854,14 +4773,17 @@ void LocalFrameHostProxy::CreateNewPopupWidget(
                         "<value of type ::mojo::PendingAssociatedRemote<::blink::mojom::Widget>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_CreateNewPopupWidget_Name, kFlags, 0, 0, nullptr);
@@ -4912,14 +4834,17 @@ void LocalFrameHostProxy::ShowContextMenu(
                         "<value of type const ::blink::UntrustworthyContextMenuParams&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_ShowContextMenu_Name, kFlags, 0, 0, nullptr);
@@ -4978,14 +4903,17 @@ void LocalFrameHostProxy::DidLoadResourceFromMemoryCache(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_DidLoadResourceFromMemoryCache_Name, kFlags, 0, 0, nullptr);
@@ -5054,14 +4982,17 @@ void LocalFrameHostProxy::DidChangeFrameOwnerProperties(
                         "<value of type ::blink::mojom::FrameOwnerPropertiesPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_DidChangeFrameOwnerProperties_Name, kFlags, 0, 0, nullptr);
@@ -5100,7 +5031,7 @@ void LocalFrameHostProxy::DidChangeFrameOwnerProperties(
 }
 
 void LocalFrameHostProxy::DidChangeOpener(
-    const absl::optional<::blink::LocalFrameToken>& in_opener_frame) {
+    const std::optional<::blink::LocalFrameToken>& in_opener_frame) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send blink::mojom::LocalFrameHost::DidChangeOpener", "input_parameters",
@@ -5108,17 +5039,20 @@ void LocalFrameHostProxy::DidChangeOpener(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("opener_frame"), in_opener_frame,
-                        "<value of type const absl::optional<::blink::LocalFrameToken>&>");
+                        "<value of type const std::optional<::blink::LocalFrameToken>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_DidChangeOpener_Name, kFlags, 0, 0, nullptr);
@@ -5158,14 +5092,17 @@ void LocalFrameHostProxy::DidChangeFramePolicy(
                         "<value of type const ::blink::FramePolicy&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_DidChangeFramePolicy_Name, kFlags, 0, 0, nullptr);
@@ -5218,14 +5155,17 @@ void LocalFrameHostProxy::DidChangeIframeAttributes(
                         "<value of type IframeAttributesPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_DidChangeIframeAttributes_Name, kFlags, 0, 0, nullptr);
@@ -5278,14 +5218,17 @@ void LocalFrameHostProxy::CapturePaintPreviewOfSubframe(
                         "<value of type const ::base::UnguessableToken&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_CapturePaintPreviewOfSubframe_Name, kFlags, 0, 0, nullptr);
@@ -5337,14 +5280,17 @@ void LocalFrameHostProxy::SetCloseListener(
                         "<value of type ::mojo::PendingRemote<::blink::mojom::CloseListener>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_SetCloseListener_Name, kFlags, 0, 0, nullptr);
@@ -5373,14 +5319,17 @@ void LocalFrameHostProxy::Detach(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::LocalFrameHost::Detach");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_Detach_Name, kFlags, 0, 0, nullptr);
@@ -5410,14 +5359,17 @@ void LocalFrameHostProxy::GetKeepAliveHandleFactory(
                         "<value of type ::mojo::PendingReceiver<::blink::mojom::KeepAliveHandleFactory>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_GetKeepAliveHandleFactory_Name, kFlags, 0, 0, nullptr);
@@ -5442,7 +5394,7 @@ void LocalFrameHostProxy::GetKeepAliveHandleFactory(
 }
 
 void LocalFrameHostProxy::DidAddMessageToConsole(
-    ::blink::mojom::ConsoleMessageLevel in_log_level, const ::std::u16string& in_msg, uint32_t in_line_number, const absl::optional<::std::u16string>& in_source_id, const absl::optional<::std::u16string>& in_untrusted_stack_trace) {
+    ::blink::mojom::ConsoleMessageLevel in_log_level, const ::std::u16string& in_msg, uint32_t in_line_number, const std::optional<::std::u16string>& in_source_id, const std::optional<::std::u16string>& in_untrusted_stack_trace) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send blink::mojom::LocalFrameHost::DidAddMessageToConsole", "input_parameters",
@@ -5459,20 +5411,23 @@ void LocalFrameHostProxy::DidAddMessageToConsole(
                         "<value of type uint32_t>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("source_id"), in_source_id,
-                        "<value of type const absl::optional<::std::u16string>&>");
+                        "<value of type const std::optional<::std::u16string>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("untrusted_stack_trace"), in_untrusted_stack_trace,
-                        "<value of type const absl::optional<::std::u16string>&>");
+                        "<value of type const std::optional<::std::u16string>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_DidAddMessageToConsole_Name, kFlags, 0, 0, nullptr);
@@ -5530,14 +5485,17 @@ void LocalFrameHostProxy::FrameSizeChanged(
                         "<value of type const ::gfx::Size&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_FrameSizeChanged_Name, kFlags, 0, 0, nullptr);
@@ -5578,14 +5536,17 @@ void LocalFrameHostProxy::DidInferColorScheme(
                         "<value of type ::blink::mojom::PreferredColorScheme>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_DidInferColorScheme_Name, kFlags, 0, 0, nullptr);
@@ -5620,14 +5581,17 @@ void LocalFrameHostProxy::DidChangeSrcDoc(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_DidChangeSrcDoc_Name, kFlags, 0, 0, nullptr);
@@ -5677,14 +5641,17 @@ void LocalFrameHostProxy::ReceivedDelegatedCapability(
                         "<value of type ::blink::mojom::DelegatedCapability>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_ReceivedDelegatedCapability_Name, kFlags, 0, 0, nullptr);
@@ -5705,7 +5672,7 @@ void LocalFrameHostProxy::ReceivedDelegatedCapability(
 }
 
 void LocalFrameHostProxy::SendFencedFrameReportingBeacon(
-    const std::string& in_event_data, const std::string& in_event_type, const std::vector<::blink::FencedFrame::ReportingDestination>& in_destinations, ::network::AttributionReportingRuntimeFeatures in_attribution_reporting_runtime_features) {
+    const std::string& in_event_data, const std::string& in_event_type, const std::vector<::blink::FencedFrame::ReportingDestination>& in_destinations) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send blink::mojom::LocalFrameHost::SendFencedFrameReportingBeacon", "input_parameters",
@@ -5720,19 +5687,19 @@ void LocalFrameHostProxy::SendFencedFrameReportingBeacon(
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("destinations"), in_destinations,
                         "<value of type const std::vector<::blink::FencedFrame::ReportingDestination>&>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("attribution_reporting_runtime_features"), in_attribution_reporting_runtime_features,
-                        "<value of type ::network::AttributionReportingRuntimeFeatures>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_SendFencedFrameReportingBeacon_Name, kFlags, 0, 0, nullptr);
@@ -5775,17 +5742,6 @@ void LocalFrameHostProxy::SendFencedFrameReportingBeacon(
       params->destinations.is_null(),
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
       "null destinations in LocalFrameHost.SendFencedFrameReportingBeacon request");
-  mojo::internal::MessageFragment<
-      typename decltype(params->attribution_reporting_runtime_features)::BaseType> attribution_reporting_runtime_features_fragment(
-          params.message());
-  mojo::internal::Serialize<::network::mojom::AttributionReportingRuntimeFeaturesDataView>(
-      in_attribution_reporting_runtime_features, attribution_reporting_runtime_features_fragment);
-  params->attribution_reporting_runtime_features.Set(
-      attribution_reporting_runtime_features_fragment.is_null() ? nullptr : attribution_reporting_runtime_features_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->attribution_reporting_runtime_features.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null attribution_reporting_runtime_features in LocalFrameHost.SendFencedFrameReportingBeacon request");
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(LocalFrameHost::Name_);
@@ -5797,7 +5753,7 @@ void LocalFrameHostProxy::SendFencedFrameReportingBeacon(
 }
 
 void LocalFrameHostProxy::SendFencedFrameReportingBeaconToCustomURL(
-    const ::GURL& in_destination_url, ::network::AttributionReportingRuntimeFeatures in_attribution_reporting_runtime_features) {
+    const ::GURL& in_destination_url) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send blink::mojom::LocalFrameHost::SendFencedFrameReportingBeaconToCustomURL", "input_parameters",
@@ -5806,19 +5762,19 @@ void LocalFrameHostProxy::SendFencedFrameReportingBeaconToCustomURL(
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("destination_url"), in_destination_url,
                         "<value of type const ::GURL&>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("attribution_reporting_runtime_features"), in_attribution_reporting_runtime_features,
-                        "<value of type ::network::AttributionReportingRuntimeFeatures>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_SendFencedFrameReportingBeaconToCustomURL_Name, kFlags, 0, 0, nullptr);
@@ -5837,17 +5793,6 @@ void LocalFrameHostProxy::SendFencedFrameReportingBeaconToCustomURL(
       params->destination_url.is_null(),
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
       "null destination_url in LocalFrameHost.SendFencedFrameReportingBeaconToCustomURL request");
-  mojo::internal::MessageFragment<
-      typename decltype(params->attribution_reporting_runtime_features)::BaseType> attribution_reporting_runtime_features_fragment(
-          params.message());
-  mojo::internal::Serialize<::network::mojom::AttributionReportingRuntimeFeaturesDataView>(
-      in_attribution_reporting_runtime_features, attribution_reporting_runtime_features_fragment);
-  params->attribution_reporting_runtime_features.Set(
-      attribution_reporting_runtime_features_fragment.is_null() ? nullptr : attribution_reporting_runtime_features_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->attribution_reporting_runtime_features.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null attribution_reporting_runtime_features in LocalFrameHost.SendFencedFrameReportingBeaconToCustomURL request");
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(LocalFrameHost::Name_);
@@ -5873,14 +5818,17 @@ void LocalFrameHostProxy::SendLegacyTechEvent(
                         "<value of type LegacyTechEventCodeLocationPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_SendLegacyTechEvent_Name, kFlags, 0, 0, nullptr);
@@ -5921,12 +5869,15 @@ void LocalFrameHostProxy::SendLegacyTechEvent(
 }
 
 void LocalFrameHostProxy::SetFencedFrameAutomaticBeaconReportEventData(
-    const std::string& in_event_data, const std::vector<::blink::FencedFrame::ReportingDestination>& in_destinations, ::network::AttributionReportingRuntimeFeatures in_attribution_reporting_runtime_features, bool in_once) {
+    ::blink::mojom::AutomaticBeaconType in_event_type, const std::string& in_event_data, const std::vector<::blink::FencedFrame::ReportingDestination>& in_destinations, bool in_once, bool in_cross_origin_exposed) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send blink::mojom::LocalFrameHost::SetFencedFrameAutomaticBeaconReportEventData", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("event_type"), in_event_type,
+                        "<value of type ::blink::mojom::AutomaticBeaconType>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("event_data"), in_event_data,
                         "<value of type const std::string&>");
@@ -5934,21 +5885,24 @@ void LocalFrameHostProxy::SetFencedFrameAutomaticBeaconReportEventData(
            dict.AddItem("destinations"), in_destinations,
                         "<value of type const std::vector<::blink::FencedFrame::ReportingDestination>&>");
       perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("attribution_reporting_runtime_features"), in_attribution_reporting_runtime_features,
-                        "<value of type ::network::AttributionReportingRuntimeFeatures>");
-      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("once"), in_once,
+                        "<value of type bool>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("cross_origin_exposed"), in_cross_origin_exposed,
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_SetFencedFrameAutomaticBeaconReportEventData_Name, kFlags, 0, 0, nullptr);
@@ -5956,6 +5910,8 @@ void LocalFrameHostProxy::SetFencedFrameAutomaticBeaconReportEventData(
       ::blink::mojom::internal::LocalFrameHost_SetFencedFrameAutomaticBeaconReportEventData_Params_Data> params(
           message);
   params.Allocate();
+  mojo::internal::Serialize<::blink::mojom::AutomaticBeaconType>(
+      in_event_type, &params->event_type);
   mojo::internal::MessageFragment<
       typename decltype(params->event_data)::BaseType> event_data_fragment(
           params.message());
@@ -5980,18 +5936,8 @@ void LocalFrameHostProxy::SetFencedFrameAutomaticBeaconReportEventData(
       params->destinations.is_null(),
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
       "null destinations in LocalFrameHost.SetFencedFrameAutomaticBeaconReportEventData request");
-  mojo::internal::MessageFragment<
-      typename decltype(params->attribution_reporting_runtime_features)::BaseType> attribution_reporting_runtime_features_fragment(
-          params.message());
-  mojo::internal::Serialize<::network::mojom::AttributionReportingRuntimeFeaturesDataView>(
-      in_attribution_reporting_runtime_features, attribution_reporting_runtime_features_fragment);
-  params->attribution_reporting_runtime_features.Set(
-      attribution_reporting_runtime_features_fragment.is_null() ? nullptr : attribution_reporting_runtime_features_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->attribution_reporting_runtime_features.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null attribution_reporting_runtime_features in LocalFrameHost.SetFencedFrameAutomaticBeaconReportEventData request");
   params->once = in_once;
+  params->cross_origin_exposed = in_cross_origin_exposed;
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(LocalFrameHost::Name_);
@@ -6014,14 +5960,17 @@ void LocalFrameHostProxy::SendPrivateAggregationRequestsForFencedFrameEvent(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_SendPrivateAggregationRequestsForFencedFrameEvent_Name, kFlags, 0, 0, nullptr);
@@ -6049,310 +5998,56 @@ void LocalFrameHostProxy::SendPrivateAggregationRequestsForFencedFrameEvent(
   // encountered an error, which will be visible through other means.
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
-bool LocalFrameHostProxy::CreatePortal(
-    ::mojo::PendingAssociatedReceiver<::blink::mojom::Portal> param_portal, ::mojo::PendingAssociatedRemote<::blink::mojom::PortalClient> param_client, ::blink::mojom::RemoteFrameInterfacesFromRendererPtr param_remote_frame_interfaces, ::blink::mojom::FrameReplicationStatePtr* out_param_initial_replicated_state, ::blink::PortalToken* out_param_portal_token, ::blink::RemoteFrameToken* out_param_frame_token, ::base::UnguessableToken* out_param_devtools_frame_token) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT_BEGIN1(
-    "mojom", "Call blink::mojom::LocalFrameHost::CreatePortal (sync)", "input_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("portal"), param_portal,
-                        "<value of type ::mojo::PendingAssociatedReceiver<::blink::mojom::Portal>>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("client"), param_client,
-                        "<value of type ::mojo::PendingAssociatedRemote<::blink::mojom::PortalClient>>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("remote_frame_interfaces"), param_remote_frame_interfaces,
-                        "<value of type ::blink::mojom::RemoteFrameInterfacesFromRendererPtr>");
-   });
-#else
-  TRACE_EVENT0("mojom", "LocalFrameHost::CreatePortal");
-#endif
-  const bool kExpectsResponse = true;
-  const bool kIsSync = true;
-  const bool kAllowInterrupt =
-      true;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kLocalFrameHost_CreatePortal_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::blink::mojom::internal::LocalFrameHost_CreatePortal_Params_Data> params(
-          message);
-  params.Allocate();
-  mojo::internal::Serialize<::blink::mojom::PortalAssociatedRequestDataView>(
-      param_portal, &params->portal, &params.message());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      !mojo::internal::IsHandleOrInterfaceValid(params->portal),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_INTERFACE_ID,
-      "invalid portal in LocalFrameHost.CreatePortal request");
-  mojo::internal::Serialize<::blink::mojom::PortalClientAssociatedPtrInfoDataView>(
-      param_client, &params->client, &params.message());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      !mojo::internal::IsHandleOrInterfaceValid(params->client),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_INTERFACE_ID,
-      "invalid client in LocalFrameHost.CreatePortal request");
-  mojo::internal::MessageFragment<
-      typename decltype(params->remote_frame_interfaces)::BaseType> remote_frame_interfaces_fragment(
-          params.message());
-  mojo::internal::Serialize<::blink::mojom::RemoteFrameInterfacesFromRendererDataView>(
-      param_remote_frame_interfaces, remote_frame_interfaces_fragment);
-  params->remote_frame_interfaces.Set(
-      remote_frame_interfaces_fragment.is_null() ? nullptr : remote_frame_interfaces_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->remote_frame_interfaces.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null remote_frame_interfaces in LocalFrameHost.CreatePortal request");
 
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(LocalFrameHost::Name_);
-  message.set_method_name("CreatePortal");
-#endif
-
-  bool result = false;
-  std::unique_ptr<mojo::MessageReceiver> responder(
-      new LocalFrameHost_CreatePortal_HandleSyncResponse(
-          &result, out_param_initial_replicated_state, out_param_portal_token, out_param_frame_token, out_param_devtools_frame_token));
-  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT_END1(
-    "mojom", "LocalFrameHost::CreatePortal", "sync_response_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("initial_replicated_state"), out_param_initial_replicated_state,
-                        "<value of type ::blink::mojom::FrameReplicationStatePtr>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("portal_token"), out_param_portal_token,
-                        "<value of type const ::blink::PortalToken&>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("frame_token"), out_param_frame_token,
-                        "<value of type const ::blink::RemoteFrameToken&>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("devtools_frame_token"), out_param_devtools_frame_token,
-                        "<value of type const ::base::UnguessableToken&>");
-   });
-#endif
-  return result;
-}
-
-void LocalFrameHostProxy::CreatePortal(
-    ::mojo::PendingAssociatedReceiver<::blink::mojom::Portal> in_portal, ::mojo::PendingAssociatedRemote<::blink::mojom::PortalClient> in_client, ::blink::mojom::RemoteFrameInterfacesFromRendererPtr in_remote_frame_interfaces, CreatePortalCallback callback) {
+void LocalFrameHostProxy::SetAttributionReportingRuntimeFeatures(
+    ::network::AttributionReportingRuntimeFeatures in_features) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send blink::mojom::LocalFrameHost::CreatePortal", "input_parameters",
+    "mojom", "Send blink::mojom::LocalFrameHost::SetAttributionReportingRuntimeFeatures", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("portal"), in_portal,
-                        "<value of type ::mojo::PendingAssociatedReceiver<::blink::mojom::Portal>>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("client"), in_client,
-                        "<value of type ::mojo::PendingAssociatedRemote<::blink::mojom::PortalClient>>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("remote_frame_interfaces"), in_remote_frame_interfaces,
-                        "<value of type ::blink::mojom::RemoteFrameInterfacesFromRendererPtr>");
+           dict.AddItem("features"), in_features,
+                        "<value of type ::network::AttributionReportingRuntimeFeatures>");
    });
 #endif
-  const bool kExpectsResponse = true;
+
+  const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
-      internal::kLocalFrameHost_CreatePortal_Name, kFlags, 0, 0, nullptr);
+      internal::kLocalFrameHost_SetAttributionReportingRuntimeFeatures_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::blink::mojom::internal::LocalFrameHost_CreatePortal_Params_Data> params(
-          message);
-  params.Allocate();
-  mojo::internal::Serialize<::blink::mojom::PortalAssociatedRequestDataView>(
-      in_portal, &params->portal, &params.message());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      !mojo::internal::IsHandleOrInterfaceValid(params->portal),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_INTERFACE_ID,
-      "invalid portal in LocalFrameHost.CreatePortal request");
-  mojo::internal::Serialize<::blink::mojom::PortalClientAssociatedPtrInfoDataView>(
-      in_client, &params->client, &params.message());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      !mojo::internal::IsHandleOrInterfaceValid(params->client),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_INTERFACE_ID,
-      "invalid client in LocalFrameHost.CreatePortal request");
-  mojo::internal::MessageFragment<
-      typename decltype(params->remote_frame_interfaces)::BaseType> remote_frame_interfaces_fragment(
-          params.message());
-  mojo::internal::Serialize<::blink::mojom::RemoteFrameInterfacesFromRendererDataView>(
-      in_remote_frame_interfaces, remote_frame_interfaces_fragment);
-  params->remote_frame_interfaces.Set(
-      remote_frame_interfaces_fragment.is_null() ? nullptr : remote_frame_interfaces_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->remote_frame_interfaces.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null remote_frame_interfaces in LocalFrameHost.CreatePortal request");
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(LocalFrameHost::Name_);
-  message.set_method_name("CreatePortal");
-#endif
-  std::unique_ptr<mojo::MessageReceiver> responder(
-      new LocalFrameHost_CreatePortal_ForwardToCallback(
-          std::move(callback)));
-  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
-}
-bool LocalFrameHostProxy::AdoptPortal(
-    const ::blink::PortalToken& param_portal_token, ::blink::mojom::RemoteFrameInterfacesFromRendererPtr param_remote_frame_interfaces, ::blink::mojom::FrameReplicationStatePtr* out_param_replicated_state, ::blink::RemoteFrameToken* out_param_frame_token, ::base::UnguessableToken* out_param_devtools_frame_token) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT_BEGIN1(
-    "mojom", "Call blink::mojom::LocalFrameHost::AdoptPortal (sync)", "input_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("portal_token"), param_portal_token,
-                        "<value of type const ::blink::PortalToken&>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("remote_frame_interfaces"), param_remote_frame_interfaces,
-                        "<value of type ::blink::mojom::RemoteFrameInterfacesFromRendererPtr>");
-   });
-#else
-  TRACE_EVENT0("mojom", "LocalFrameHost::AdoptPortal");
-#endif
-  const bool kExpectsResponse = true;
-  const bool kIsSync = true;
-  const bool kAllowInterrupt =
-      true;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kLocalFrameHost_AdoptPortal_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::blink::mojom::internal::LocalFrameHost_AdoptPortal_Params_Data> params(
+      ::blink::mojom::internal::LocalFrameHost_SetAttributionReportingRuntimeFeatures_Params_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
-      typename decltype(params->portal_token)::BaseType> portal_token_fragment(
+      typename decltype(params->features)::BaseType> features_fragment(
           params.message());
-  mojo::internal::Serialize<::blink::mojom::PortalTokenDataView>(
-      param_portal_token, portal_token_fragment);
-  params->portal_token.Set(
-      portal_token_fragment.is_null() ? nullptr : portal_token_fragment.data());
+  mojo::internal::Serialize<::network::mojom::AttributionReportingRuntimeFeaturesDataView>(
+      in_features, features_fragment);
+  params->features.Set(
+      features_fragment.is_null() ? nullptr : features_fragment.data());
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->portal_token.is_null(),
+      params->features.is_null(),
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null portal_token in LocalFrameHost.AdoptPortal request");
-  mojo::internal::MessageFragment<
-      typename decltype(params->remote_frame_interfaces)::BaseType> remote_frame_interfaces_fragment(
-          params.message());
-  mojo::internal::Serialize<::blink::mojom::RemoteFrameInterfacesFromRendererDataView>(
-      param_remote_frame_interfaces, remote_frame_interfaces_fragment);
-  params->remote_frame_interfaces.Set(
-      remote_frame_interfaces_fragment.is_null() ? nullptr : remote_frame_interfaces_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->remote_frame_interfaces.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null remote_frame_interfaces in LocalFrameHost.AdoptPortal request");
+      "null features in LocalFrameHost.SetAttributionReportingRuntimeFeatures request");
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(LocalFrameHost::Name_);
-  message.set_method_name("AdoptPortal");
+  message.set_method_name("SetAttributionReportingRuntimeFeatures");
 #endif
-
-  bool result = false;
-  std::unique_ptr<mojo::MessageReceiver> responder(
-      new LocalFrameHost_AdoptPortal_HandleSyncResponse(
-          &result, out_param_replicated_state, out_param_frame_token, out_param_devtools_frame_token));
-  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT_END1(
-    "mojom", "LocalFrameHost::AdoptPortal", "sync_response_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("replicated_state"), out_param_replicated_state,
-                        "<value of type ::blink::mojom::FrameReplicationStatePtr>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("frame_token"), out_param_frame_token,
-                        "<value of type const ::blink::RemoteFrameToken&>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("devtools_frame_token"), out_param_devtools_frame_token,
-                        "<value of type const ::base::UnguessableToken&>");
-   });
-#endif
-  return result;
-}
-
-void LocalFrameHostProxy::AdoptPortal(
-    const ::blink::PortalToken& in_portal_token, ::blink::mojom::RemoteFrameInterfacesFromRendererPtr in_remote_frame_interfaces, AdoptPortalCallback callback) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send blink::mojom::LocalFrameHost::AdoptPortal", "input_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("portal_token"), in_portal_token,
-                        "<value of type const ::blink::PortalToken&>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("remote_frame_interfaces"), in_remote_frame_interfaces,
-                        "<value of type ::blink::mojom::RemoteFrameInterfacesFromRendererPtr>");
-   });
-#endif
-  const bool kExpectsResponse = true;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kLocalFrameHost_AdoptPortal_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::blink::mojom::internal::LocalFrameHost_AdoptPortal_Params_Data> params(
-          message);
-  params.Allocate();
-  mojo::internal::MessageFragment<
-      typename decltype(params->portal_token)::BaseType> portal_token_fragment(
-          params.message());
-  mojo::internal::Serialize<::blink::mojom::PortalTokenDataView>(
-      in_portal_token, portal_token_fragment);
-  params->portal_token.Set(
-      portal_token_fragment.is_null() ? nullptr : portal_token_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->portal_token.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null portal_token in LocalFrameHost.AdoptPortal request");
-  mojo::internal::MessageFragment<
-      typename decltype(params->remote_frame_interfaces)::BaseType> remote_frame_interfaces_fragment(
-          params.message());
-  mojo::internal::Serialize<::blink::mojom::RemoteFrameInterfacesFromRendererDataView>(
-      in_remote_frame_interfaces, remote_frame_interfaces_fragment);
-  params->remote_frame_interfaces.Set(
-      remote_frame_interfaces_fragment.is_null() ? nullptr : remote_frame_interfaces_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->remote_frame_interfaces.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null remote_frame_interfaces in LocalFrameHost.AdoptPortal request");
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(LocalFrameHost::Name_);
-  message.set_method_name("AdoptPortal");
-#endif
-  std::unique_ptr<mojo::MessageReceiver> responder(
-      new LocalFrameHost_AdoptPortal_ForwardToCallback(
-          std::move(callback)));
-  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 void LocalFrameHostProxy::CreateFencedFrame(
@@ -6376,14 +6071,17 @@ void LocalFrameHostProxy::CreateFencedFrame(
                         "<value of type const ::base::UnguessableToken&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_CreateFencedFrame_Name, kFlags, 0, 0, nullptr);
@@ -6452,14 +6150,17 @@ void LocalFrameHostProxy::OnViewTransitionOptInChanged(
                         "<value of type ViewTransitionSameOriginOptIn>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_OnViewTransitionOptInChanged_Name, kFlags, 0, 0, nullptr);
@@ -6506,14 +6207,17 @@ void LocalFrameHostProxy::StartDragging(
                         "<value of type ::blink::mojom::DragEventSourceInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_StartDragging_Name, kFlags, 0, 0, nullptr);
@@ -6684,7 +6388,8 @@ void LocalFrameHost_EnterFullscreen_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_EnterFullscreen_Name, kFlags, 0, 0, nullptr);
@@ -6775,7 +6480,7 @@ bool LocalFrameHost_RunModalAlertDialog_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        LocalFrameHost::Name_, 41, true);
+        LocalFrameHost::Name_, 38, true);
     return false;
   }
   if (!callback_.is_null())
@@ -6791,7 +6496,8 @@ void LocalFrameHost_RunModalAlertDialog_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_RunModalAlertDialog_Name, kFlags, 0, 0, nullptr);
@@ -6831,7 +6537,7 @@ bool LocalFrameHost_RunModalAlertDialog_HandleSyncResponse::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        LocalFrameHost::Name_, 41, true);
+        LocalFrameHost::Name_, 38, true);
     return false;
   }
   *result_ = true;
@@ -6905,7 +6611,7 @@ bool LocalFrameHost_RunModalConfirmDialog_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        LocalFrameHost::Name_, 42, true);
+        LocalFrameHost::Name_, 39, true);
     return false;
   }
   if (!callback_.is_null())
@@ -6929,7 +6635,8 @@ void LocalFrameHost_RunModalConfirmDialog_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_RunModalConfirmDialog_Name, kFlags, 0, 0, nullptr);
@@ -6973,7 +6680,7 @@ bool LocalFrameHost_RunModalConfirmDialog_HandleSyncResponse::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        LocalFrameHost::Name_, 42, true);
+        LocalFrameHost::Name_, 39, true);
     return false;
   }
   *out_success_ = std::move(p_success);
@@ -7051,7 +6758,7 @@ bool LocalFrameHost_RunModalPromptDialog_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        LocalFrameHost::Name_, 43, true);
+        LocalFrameHost::Name_, 40, true);
     return false;
   }
   if (!callback_.is_null())
@@ -7079,7 +6786,8 @@ void LocalFrameHost_RunModalPromptDialog_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_RunModalPromptDialog_Name, kFlags, 0, 0, nullptr);
@@ -7137,7 +6845,7 @@ bool LocalFrameHost_RunModalPromptDialog_HandleSyncResponse::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        LocalFrameHost::Name_, 43, true);
+        LocalFrameHost::Name_, 40, true);
     return false;
   }
   *out_success_ = std::move(p_success);
@@ -7213,7 +6921,7 @@ bool LocalFrameHost_RunBeforeUnloadConfirm_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        LocalFrameHost::Name_, 44, true);
+        LocalFrameHost::Name_, 41, true);
     return false;
   }
   if (!callback_.is_null())
@@ -7237,7 +6945,8 @@ void LocalFrameHost_RunBeforeUnloadConfirm_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrameHost_RunBeforeUnloadConfirm_Name, kFlags, 0, 0, nullptr);
@@ -7281,426 +6990,10 @@ bool LocalFrameHost_RunBeforeUnloadConfirm_HandleSyncResponse::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        LocalFrameHost::Name_, 44, true);
+        LocalFrameHost::Name_, 41, true);
     return false;
   }
   *out_success_ = std::move(p_success);
-  *result_ = true;
-  return true;
-}
-class LocalFrameHost_CreatePortal_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
- public:
-  static LocalFrameHost::CreatePortalCallback CreateCallback(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
-    std::unique_ptr<LocalFrameHost_CreatePortal_ProxyToResponder> proxy(
-        new LocalFrameHost_CreatePortal_ProxyToResponder(
-            message, std::move(responder)));
-    return base::BindOnce(&LocalFrameHost_CreatePortal_ProxyToResponder::Run,
-                          std::move(proxy));
-  }
-
-  ~LocalFrameHost_CreatePortal_ProxyToResponder() {
-#if DCHECK_IS_ON()
-    if (responder_) {
-      // If we're being destroyed without being run, we want to ensure the
-      // binding endpoint has been closed. This checks for that asynchronously.
-      // We pass a bound generated callback to handle the response so that any
-      // resulting DCHECK stack will have useful interface type information.
-      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
-      // fizzle if this happens after shutdown and the endpoint is bound to a
-      // BLOCK_SHUTDOWN sequence.
-      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
-      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
-    }
-#endif
-  }
-
- private:
-  LocalFrameHost_CreatePortal_ProxyToResponder(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
-      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
-  }
-
-#if DCHECK_IS_ON()
-  static void OnIsConnectedComplete(bool connected) {
-    DCHECK(!connected)
-        << "LocalFrameHost::CreatePortalCallback was destroyed without "
-        << "first either being run or its corresponding binding being closed. "
-        << "It is an error to drop response callbacks which still correspond "
-        << "to an open interface pipe.";
-  }
-#endif
-
-  void Run(
-      ::blink::mojom::FrameReplicationStatePtr in_initial_replicated_state, const ::blink::PortalToken& in_portal_token, const ::blink::RemoteFrameToken& in_frame_token, const ::base::UnguessableToken& in_devtools_frame_token);
-};
-
-bool LocalFrameHost_CreatePortal_ForwardToCallback::Accept(
-    mojo::Message* message) {
-
-  DCHECK(message->is_serialized());
-  internal::LocalFrameHost_CreatePortal_ResponseParams_Data* params =
-      reinterpret_cast<
-          internal::LocalFrameHost_CreatePortal_ResponseParams_Data*>(
-              message->mutable_payload());
-  
-  bool success = true;
-  ::blink::mojom::FrameReplicationStatePtr p_initial_replicated_state{};
-  ::blink::PortalToken p_portal_token{};
-  ::blink::RemoteFrameToken p_frame_token{};
-  ::base::UnguessableToken p_devtools_frame_token{};
-  LocalFrameHost_CreatePortal_ResponseParamsDataView input_data_view(params, message);
-  
-  if (success && !input_data_view.ReadInitialReplicatedState(&p_initial_replicated_state))
-    success = false;
-  if (success && !input_data_view.ReadPortalToken(&p_portal_token))
-    success = false;
-  if (success && !input_data_view.ReadFrameToken(&p_frame_token))
-    success = false;
-  if (success && !input_data_view.ReadDevtoolsFrameToken(&p_devtools_frame_token))
-    success = false;
-  if (!success) {
-    ReportValidationErrorForMessage(
-        message,
-        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        LocalFrameHost::Name_, 71, true);
-    return false;
-  }
-  if (!callback_.is_null())
-    std::move(callback_).Run(
-std::move(p_initial_replicated_state), 
-std::move(p_portal_token), 
-std::move(p_frame_token), 
-std::move(p_devtools_frame_token));
-  return true;
-}
-
-void LocalFrameHost_CreatePortal_ProxyToResponder::Run(
-    ::blink::mojom::FrameReplicationStatePtr in_initial_replicated_state, const ::blink::PortalToken& in_portal_token, const ::blink::RemoteFrameToken& in_frame_token, const ::base::UnguessableToken& in_devtools_frame_token) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send reply blink::mojom::LocalFrameHost::CreatePortal", "async_response_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("initial_replicated_state"), in_initial_replicated_state,
-                        "<value of type ::blink::mojom::FrameReplicationStatePtr>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("portal_token"), in_portal_token,
-                        "<value of type const ::blink::PortalToken&>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("frame_token"), in_frame_token,
-                        "<value of type const ::blink::RemoteFrameToken&>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("devtools_frame_token"), in_devtools_frame_token,
-                        "<value of type const ::base::UnguessableToken&>");
-   });
-#endif
-  
-  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
-      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kLocalFrameHost_CreatePortal_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::blink::mojom::internal::LocalFrameHost_CreatePortal_ResponseParams_Data> params(
-          message);
-  params.Allocate();
-  mojo::internal::MessageFragment<
-      typename decltype(params->initial_replicated_state)::BaseType> initial_replicated_state_fragment(
-          params.message());
-  mojo::internal::Serialize<::blink::mojom::FrameReplicationStateDataView>(
-      in_initial_replicated_state, initial_replicated_state_fragment);
-  params->initial_replicated_state.Set(
-      initial_replicated_state_fragment.is_null() ? nullptr : initial_replicated_state_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->initial_replicated_state.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null initial_replicated_state in ");
-  mojo::internal::MessageFragment<
-      typename decltype(params->portal_token)::BaseType> portal_token_fragment(
-          params.message());
-  mojo::internal::Serialize<::blink::mojom::PortalTokenDataView>(
-      in_portal_token, portal_token_fragment);
-  params->portal_token.Set(
-      portal_token_fragment.is_null() ? nullptr : portal_token_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->portal_token.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null portal_token in ");
-  mojo::internal::MessageFragment<
-      typename decltype(params->frame_token)::BaseType> frame_token_fragment(
-          params.message());
-  mojo::internal::Serialize<::blink::mojom::RemoteFrameTokenDataView>(
-      in_frame_token, frame_token_fragment);
-  params->frame_token.Set(
-      frame_token_fragment.is_null() ? nullptr : frame_token_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->frame_token.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null frame_token in ");
-  mojo::internal::MessageFragment<
-      typename decltype(params->devtools_frame_token)::BaseType> devtools_frame_token_fragment(
-          params.message());
-  mojo::internal::Serialize<::mojo_base::mojom::UnguessableTokenDataView>(
-      in_devtools_frame_token, devtools_frame_token_fragment);
-  params->devtools_frame_token.Set(
-      devtools_frame_token_fragment.is_null() ? nullptr : devtools_frame_token_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->devtools_frame_token.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null devtools_frame_token in ");
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(LocalFrameHost::Name_);
-  message.set_method_name("CreatePortal");
-#endif
-
-  message.set_request_id(request_id_);
-  message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMojoMessage(*responder_, message);
-  // SendMojoMessage() fails silently if the responder connection is closed,
-  // or if the message is malformed.
-  //
-  // TODO(darin): If Accept() returns false due to a malformed message, that
-  // may be good reason to close the connection. However, we don't have a
-  // way to do that from here. We should add a way.
-  responder_ = nullptr;
-}
-bool LocalFrameHost_CreatePortal_HandleSyncResponse::Accept(
-    mojo::Message* message) {
-
-  DCHECK(message->is_serialized());
-  internal::LocalFrameHost_CreatePortal_ResponseParams_Data* params =
-      reinterpret_cast<internal::LocalFrameHost_CreatePortal_ResponseParams_Data*>(
-          message->mutable_payload());
-  
-  bool success = true;
-  ::blink::mojom::FrameReplicationStatePtr p_initial_replicated_state{};
-  ::blink::PortalToken p_portal_token{};
-  ::blink::RemoteFrameToken p_frame_token{};
-  ::base::UnguessableToken p_devtools_frame_token{};
-  LocalFrameHost_CreatePortal_ResponseParamsDataView input_data_view(params, message);
-  
-  if (success && !input_data_view.ReadInitialReplicatedState(&p_initial_replicated_state))
-    success = false;
-  if (success && !input_data_view.ReadPortalToken(&p_portal_token))
-    success = false;
-  if (success && !input_data_view.ReadFrameToken(&p_frame_token))
-    success = false;
-  if (success && !input_data_view.ReadDevtoolsFrameToken(&p_devtools_frame_token))
-    success = false;
-  if (!success) {
-    ReportValidationErrorForMessage(
-        message,
-        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        LocalFrameHost::Name_, 71, true);
-    return false;
-  }
-  *out_initial_replicated_state_ = std::move(p_initial_replicated_state);
-  *out_portal_token_ = std::move(p_portal_token);
-  *out_frame_token_ = std::move(p_frame_token);
-  *out_devtools_frame_token_ = std::move(p_devtools_frame_token);
-  *result_ = true;
-  return true;
-}
-class LocalFrameHost_AdoptPortal_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
- public:
-  static LocalFrameHost::AdoptPortalCallback CreateCallback(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
-    std::unique_ptr<LocalFrameHost_AdoptPortal_ProxyToResponder> proxy(
-        new LocalFrameHost_AdoptPortal_ProxyToResponder(
-            message, std::move(responder)));
-    return base::BindOnce(&LocalFrameHost_AdoptPortal_ProxyToResponder::Run,
-                          std::move(proxy));
-  }
-
-  ~LocalFrameHost_AdoptPortal_ProxyToResponder() {
-#if DCHECK_IS_ON()
-    if (responder_) {
-      // If we're being destroyed without being run, we want to ensure the
-      // binding endpoint has been closed. This checks for that asynchronously.
-      // We pass a bound generated callback to handle the response so that any
-      // resulting DCHECK stack will have useful interface type information.
-      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
-      // fizzle if this happens after shutdown and the endpoint is bound to a
-      // BLOCK_SHUTDOWN sequence.
-      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
-      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
-    }
-#endif
-  }
-
- private:
-  LocalFrameHost_AdoptPortal_ProxyToResponder(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
-      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
-  }
-
-#if DCHECK_IS_ON()
-  static void OnIsConnectedComplete(bool connected) {
-    DCHECK(!connected)
-        << "LocalFrameHost::AdoptPortalCallback was destroyed without "
-        << "first either being run or its corresponding binding being closed. "
-        << "It is an error to drop response callbacks which still correspond "
-        << "to an open interface pipe.";
-  }
-#endif
-
-  void Run(
-      ::blink::mojom::FrameReplicationStatePtr in_replicated_state, const ::blink::RemoteFrameToken& in_frame_token, const ::base::UnguessableToken& in_devtools_frame_token);
-};
-
-bool LocalFrameHost_AdoptPortal_ForwardToCallback::Accept(
-    mojo::Message* message) {
-
-  DCHECK(message->is_serialized());
-  internal::LocalFrameHost_AdoptPortal_ResponseParams_Data* params =
-      reinterpret_cast<
-          internal::LocalFrameHost_AdoptPortal_ResponseParams_Data*>(
-              message->mutable_payload());
-  
-  bool success = true;
-  ::blink::mojom::FrameReplicationStatePtr p_replicated_state{};
-  ::blink::RemoteFrameToken p_frame_token{};
-  ::base::UnguessableToken p_devtools_frame_token{};
-  LocalFrameHost_AdoptPortal_ResponseParamsDataView input_data_view(params, message);
-  
-  if (success && !input_data_view.ReadReplicatedState(&p_replicated_state))
-    success = false;
-  if (success && !input_data_view.ReadFrameToken(&p_frame_token))
-    success = false;
-  if (success && !input_data_view.ReadDevtoolsFrameToken(&p_devtools_frame_token))
-    success = false;
-  if (!success) {
-    ReportValidationErrorForMessage(
-        message,
-        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        LocalFrameHost::Name_, 72, true);
-    return false;
-  }
-  if (!callback_.is_null())
-    std::move(callback_).Run(
-std::move(p_replicated_state), 
-std::move(p_frame_token), 
-std::move(p_devtools_frame_token));
-  return true;
-}
-
-void LocalFrameHost_AdoptPortal_ProxyToResponder::Run(
-    ::blink::mojom::FrameReplicationStatePtr in_replicated_state, const ::blink::RemoteFrameToken& in_frame_token, const ::base::UnguessableToken& in_devtools_frame_token) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send reply blink::mojom::LocalFrameHost::AdoptPortal", "async_response_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("replicated_state"), in_replicated_state,
-                        "<value of type ::blink::mojom::FrameReplicationStatePtr>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("frame_token"), in_frame_token,
-                        "<value of type const ::blink::RemoteFrameToken&>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("devtools_frame_token"), in_devtools_frame_token,
-                        "<value of type const ::base::UnguessableToken&>");
-   });
-#endif
-  
-  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
-      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kLocalFrameHost_AdoptPortal_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::blink::mojom::internal::LocalFrameHost_AdoptPortal_ResponseParams_Data> params(
-          message);
-  params.Allocate();
-  mojo::internal::MessageFragment<
-      typename decltype(params->replicated_state)::BaseType> replicated_state_fragment(
-          params.message());
-  mojo::internal::Serialize<::blink::mojom::FrameReplicationStateDataView>(
-      in_replicated_state, replicated_state_fragment);
-  params->replicated_state.Set(
-      replicated_state_fragment.is_null() ? nullptr : replicated_state_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->replicated_state.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null replicated_state in ");
-  mojo::internal::MessageFragment<
-      typename decltype(params->frame_token)::BaseType> frame_token_fragment(
-          params.message());
-  mojo::internal::Serialize<::blink::mojom::RemoteFrameTokenDataView>(
-      in_frame_token, frame_token_fragment);
-  params->frame_token.Set(
-      frame_token_fragment.is_null() ? nullptr : frame_token_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->frame_token.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null frame_token in ");
-  mojo::internal::MessageFragment<
-      typename decltype(params->devtools_frame_token)::BaseType> devtools_frame_token_fragment(
-          params.message());
-  mojo::internal::Serialize<::mojo_base::mojom::UnguessableTokenDataView>(
-      in_devtools_frame_token, devtools_frame_token_fragment);
-  params->devtools_frame_token.Set(
-      devtools_frame_token_fragment.is_null() ? nullptr : devtools_frame_token_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->devtools_frame_token.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null devtools_frame_token in ");
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(LocalFrameHost::Name_);
-  message.set_method_name("AdoptPortal");
-#endif
-
-  message.set_request_id(request_id_);
-  message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMojoMessage(*responder_, message);
-  // SendMojoMessage() fails silently if the responder connection is closed,
-  // or if the message is malformed.
-  //
-  // TODO(darin): If Accept() returns false due to a malformed message, that
-  // may be good reason to close the connection. However, we don't have a
-  // way to do that from here. We should add a way.
-  responder_ = nullptr;
-}
-bool LocalFrameHost_AdoptPortal_HandleSyncResponse::Accept(
-    mojo::Message* message) {
-
-  DCHECK(message->is_serialized());
-  internal::LocalFrameHost_AdoptPortal_ResponseParams_Data* params =
-      reinterpret_cast<internal::LocalFrameHost_AdoptPortal_ResponseParams_Data*>(
-          message->mutable_payload());
-  
-  bool success = true;
-  ::blink::mojom::FrameReplicationStatePtr p_replicated_state{};
-  ::blink::RemoteFrameToken p_frame_token{};
-  ::base::UnguessableToken p_devtools_frame_token{};
-  LocalFrameHost_AdoptPortal_ResponseParamsDataView input_data_view(params, message);
-  
-  if (success && !input_data_view.ReadReplicatedState(&p_replicated_state))
-    success = false;
-  if (success && !input_data_view.ReadFrameToken(&p_frame_token))
-    success = false;
-  if (success && !input_data_view.ReadDevtoolsFrameToken(&p_devtools_frame_token))
-    success = false;
-  if (!success) {
-    ReportValidationErrorForMessage(
-        message,
-        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        LocalFrameHost::Name_, 72, true);
-    return false;
-  }
-  *out_replicated_state_ = std::move(p_replicated_state);
-  *out_frame_token_ = std::move(p_frame_token);
-  *out_devtools_frame_token_ = std::move(p_devtools_frame_token);
   *result_ = true;
   return true;
 }
@@ -7765,72 +7058,6 @@ std::move(p_is_fullscreen),
 std::move(p_options));
       return true;
     }
-    case internal::kLocalFrameHost_Maximize_Name: {
-
-      DCHECK(message->is_serialized());
-      internal::LocalFrameHost_Maximize_Params_Data* params =
-          reinterpret_cast<internal::LocalFrameHost_Maximize_Params_Data*>(
-              message->mutable_payload());
-      
-      bool success = true;
-      LocalFrameHost_Maximize_ParamsDataView input_data_view(params, message);
-      
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 3, false);
-        return false;
-      }
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->Maximize();
-      return true;
-    }
-    case internal::kLocalFrameHost_Minimize_Name: {
-
-      DCHECK(message->is_serialized());
-      internal::LocalFrameHost_Minimize_Params_Data* params =
-          reinterpret_cast<internal::LocalFrameHost_Minimize_Params_Data*>(
-              message->mutable_payload());
-      
-      bool success = true;
-      LocalFrameHost_Minimize_ParamsDataView input_data_view(params, message);
-      
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 4, false);
-        return false;
-      }
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->Minimize();
-      return true;
-    }
-    case internal::kLocalFrameHost_Restore_Name: {
-
-      DCHECK(message->is_serialized());
-      internal::LocalFrameHost_Restore_Params_Data* params =
-          reinterpret_cast<internal::LocalFrameHost_Restore_Params_Data*>(
-              message->mutable_payload());
-      
-      bool success = true;
-      LocalFrameHost_Restore_ParamsDataView input_data_view(params, message);
-      
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 5, false);
-        return false;
-      }
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->Restore();
-      return true;
-    }
     case internal::kLocalFrameHost_RegisterProtocolHandler_Name: {
 
       DCHECK(message->is_serialized());
@@ -7854,7 +7081,7 @@ std::move(p_options));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 6, false);
+            LocalFrameHost::Name_, 3, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -7888,7 +7115,7 @@ std::move(p_user_gesture));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 7, false);
+            LocalFrameHost::Name_, 4, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -7913,7 +7140,7 @@ std::move(p_user_gesture));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 8, false);
+            LocalFrameHost::Name_, 5, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -7935,7 +7162,7 @@ std::move(p_user_gesture));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 9, false);
+            LocalFrameHost::Name_, 6, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -7960,7 +7187,7 @@ std::move(p_user_gesture));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 10, false);
+            LocalFrameHost::Name_, 7, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -7986,7 +7213,7 @@ std::move(p_uses_temporary_zoom_level));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 11, false);
+            LocalFrameHost::Name_, 8, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -8012,7 +7239,7 @@ std::move(p_needs_tracking));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 12, false);
+            LocalFrameHost::Name_, 9, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -8038,7 +7265,7 @@ std::move(p_type));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 13, false);
+            LocalFrameHost::Name_, 10, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -8055,7 +7282,7 @@ std::move(p_visibility));
               message->mutable_payload());
       
       bool success = true;
-      absl::optional<::SkColor> p_theme_color{};
+      std::optional<::SkColor> p_theme_color{};
       LocalFrameHost_DidChangeThemeColor_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadThemeColor(&p_theme_color))
@@ -8064,7 +7291,7 @@ std::move(p_visibility));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 14, false);
+            LocalFrameHost::Name_, 11, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -8093,7 +7320,7 @@ std::move(p_theme_color));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 15, false);
+            LocalFrameHost::Name_, 12, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -8123,7 +7350,7 @@ std::move(p_color_adjust));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 16, false);
+            LocalFrameHost::Name_, 13, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -8147,7 +7374,7 @@ std::move(p_error_code));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 17, false);
+            LocalFrameHost::Name_, 14, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -8169,7 +7396,7 @@ std::move(p_error_code));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 18, false);
+            LocalFrameHost::Name_, 15, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -8194,7 +7421,7 @@ std::move(p_error_code));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 19, false);
+            LocalFrameHost::Name_, 16, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -8220,7 +7447,7 @@ std::move(p_policy_bitmap));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 20, false);
+            LocalFrameHost::Name_, 17, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -8249,7 +7476,7 @@ std::move(p_set));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 21, false);
+            LocalFrameHost::Name_, 18, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -8276,7 +7503,7 @@ std::move(p_disabler_type));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 22, false);
+            LocalFrameHost::Name_, 19, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -8305,7 +7532,7 @@ std::move(p_has_gesture));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 23, false);
+            LocalFrameHost::Name_, 20, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -8335,7 +7562,7 @@ std::move(p_params));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 24, false);
+            LocalFrameHost::Name_, 21, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -8359,7 +7586,7 @@ std::move(p_granularity));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 25, false);
+            LocalFrameHost::Name_, 22, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -8390,7 +7617,7 @@ std::move(p_granularity));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 26, false);
+            LocalFrameHost::Name_, 23, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -8418,7 +7645,7 @@ std::move(p_reason));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 27, false);
+            LocalFrameHost::Name_, 24, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -8444,7 +7671,7 @@ std::move(p_load_progress));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 28, false);
+            LocalFrameHost::Name_, 25, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -8467,7 +7694,7 @@ std::move(p_validated_url));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 29, false);
+            LocalFrameHost::Name_, 26, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -8485,7 +7712,7 @@ std::move(p_validated_url));
       bool success = true;
       int32_t p_offset{};
       bool p_has_user_gesture{};
-      absl::optional<::blink::scheduler::TaskAttributionId> p_soft_navigation_heuristics_task_id{};
+      std::optional<::blink::scheduler::TaskAttributionId> p_soft_navigation_heuristics_task_id{};
       LocalFrameHost_GoToEntryAtOffset_ParamsDataView input_data_view(params, message);
       
       if (success)
@@ -8498,7 +7725,7 @@ std::move(p_validated_url));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 30, false);
+            LocalFrameHost::Name_, 27, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -8519,7 +7746,7 @@ std::move(p_soft_navigation_heuristics_task_id));
       bool success = true;
       std::string p_key{};
       bool p_has_user_gesture{};
-      absl::optional<::blink::scheduler::TaskAttributionId> p_soft_navigation_heuristics_task_id{};
+      std::optional<::blink::scheduler::TaskAttributionId> p_soft_navigation_heuristics_task_id{};
       LocalFrameHost_NavigateToNavigationApiKey_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadKey(&p_key))
@@ -8532,7 +7759,7 @@ std::move(p_soft_navigation_heuristics_task_id));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 31, false);
+            LocalFrameHost::Name_, 28, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -8560,7 +7787,7 @@ std::move(p_soft_navigation_heuristics_task_id));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 32, false);
+            LocalFrameHost::Name_, 29, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -8577,7 +7804,7 @@ std::move(p_present));
               message->mutable_payload());
       
       bool success = true;
-      absl::optional<::std::u16string> p_title{};
+      std::optional<::std::u16string> p_title{};
       ::base::i18n::TextDirection p_title_direction{};
       LocalFrameHost_UpdateTitle_ParamsDataView input_data_view(params, message);
       
@@ -8589,7 +7816,7 @@ std::move(p_present));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 33, false);
+            LocalFrameHost::Name_, 30, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -8619,7 +7846,7 @@ std::move(p_title_direction));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 34, false);
+            LocalFrameHost::Name_, 31, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -8643,7 +7870,7 @@ std::move(p_notification_type));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 35, false);
+            LocalFrameHost::Name_, 32, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -8668,7 +7895,7 @@ std::move(p_notification_type));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 36, false);
+            LocalFrameHost::Name_, 33, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -8691,7 +7918,7 @@ std::move(p_params));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 37, false);
+            LocalFrameHost::Name_, 34, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -8713,7 +7940,7 @@ std::move(p_params));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 38, false);
+            LocalFrameHost::Name_, 35, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -8738,7 +7965,7 @@ std::move(p_params));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 39, false);
+            LocalFrameHost::Name_, 36, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -8761,7 +7988,7 @@ std::move(p_timing));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 40, false);
+            LocalFrameHost::Name_, 37, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -8798,7 +8025,7 @@ std::move(p_timing));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 45, false);
+            LocalFrameHost::Name_, 42, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -8824,7 +8051,7 @@ std::move(p_favicon_urls));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 46, false);
+            LocalFrameHost::Name_, 43, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -8859,7 +8086,7 @@ std::move(p_params));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 47, false);
+            LocalFrameHost::Name_, 44, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -8894,7 +8121,7 @@ std::move(p_focus_type));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 48, false);
+            LocalFrameHost::Name_, 45, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -8945,7 +8172,7 @@ std::move(p_range));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 49, false);
+            LocalFrameHost::Name_, 46, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -8990,7 +8217,7 @@ std::move(p_allow_multiple_selection));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 50, false);
+            LocalFrameHost::Name_, 47, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -9023,7 +8250,7 @@ std::move(p_blink_widget));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 51, false);
+            LocalFrameHost::Name_, 48, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -9062,7 +8289,7 @@ std::move(p_params));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 52, false);
+            LocalFrameHost::Name_, 49, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -9095,7 +8322,7 @@ std::move(p_include_credentials));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 53, false);
+            LocalFrameHost::Name_, 50, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -9113,7 +8340,7 @@ std::move(p_frame_owner_properties));
               message->mutable_payload());
       
       bool success = true;
-      absl::optional<::blink::LocalFrameToken> p_opener_frame{};
+      std::optional<::blink::LocalFrameToken> p_opener_frame{};
       LocalFrameHost_DidChangeOpener_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadOpenerFrame(&p_opener_frame))
@@ -9122,7 +8349,7 @@ std::move(p_frame_owner_properties));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 54, false);
+            LocalFrameHost::Name_, 51, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -9151,7 +8378,7 @@ std::move(p_opener_frame));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 55, false);
+            LocalFrameHost::Name_, 52, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -9181,7 +8408,7 @@ std::move(p_frame_policy));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 56, false);
+            LocalFrameHost::Name_, 53, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -9211,7 +8438,7 @@ std::move(p_attributes));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 57, false);
+            LocalFrameHost::Name_, 54, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -9240,7 +8467,7 @@ std::move(p_guid));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 58, false);
+            LocalFrameHost::Name_, 55, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -9263,7 +8490,7 @@ std::move(p_listener));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 59, false);
+            LocalFrameHost::Name_, 56, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -9290,7 +8517,7 @@ std::move(p_listener));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 60, false);
+            LocalFrameHost::Name_, 57, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -9310,8 +8537,8 @@ std::move(p_factory));
       ::blink::mojom::ConsoleMessageLevel p_log_level{};
       ::std::u16string p_msg{};
       uint32_t p_line_number{};
-      absl::optional<::std::u16string> p_source_id{};
-      absl::optional<::std::u16string> p_untrusted_stack_trace{};
+      std::optional<::std::u16string> p_source_id{};
+      std::optional<::std::u16string> p_untrusted_stack_trace{};
       LocalFrameHost_DidAddMessageToConsole_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadLogLevel(&p_log_level))
@@ -9328,7 +8555,7 @@ std::move(p_factory));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 61, false);
+            LocalFrameHost::Name_, 58, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -9358,7 +8585,7 @@ std::move(p_untrusted_stack_trace));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 62, false);
+            LocalFrameHost::Name_, 59, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -9384,7 +8611,7 @@ std::move(p_size));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 63, false);
+            LocalFrameHost::Name_, 60, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -9413,7 +8640,7 @@ std::move(p_color_scheme));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 64, false);
+            LocalFrameHost::Name_, 61, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -9440,7 +8667,7 @@ std::move(p_srcdoc_value));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 65, false);
+            LocalFrameHost::Name_, 62, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -9460,7 +8687,6 @@ std::move(p_delegated_capability));
       std::string p_event_data{};
       std::string p_event_type{};
       std::vector<::blink::FencedFrame::ReportingDestination> p_destinations{};
-      ::network::AttributionReportingRuntimeFeatures p_attribution_reporting_runtime_features{};
       LocalFrameHost_SendFencedFrameReportingBeacon_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadEventData(&p_event_data))
@@ -9469,13 +8695,11 @@ std::move(p_delegated_capability));
         success = false;
       if (success && !input_data_view.ReadDestinations(&p_destinations))
         success = false;
-      if (success && !input_data_view.ReadAttributionReportingRuntimeFeatures(&p_attribution_reporting_runtime_features))
-        success = false;
       if (!success) {
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 66, false);
+            LocalFrameHost::Name_, 63, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -9483,8 +8707,7 @@ std::move(p_delegated_capability));
       impl->SendFencedFrameReportingBeacon(
 std::move(p_event_data), 
 std::move(p_event_type), 
-std::move(p_destinations), 
-std::move(p_attribution_reporting_runtime_features));
+std::move(p_destinations));
       return true;
     }
     case internal::kLocalFrameHost_SendFencedFrameReportingBeaconToCustomURL_Name: {
@@ -9496,25 +8719,21 @@ std::move(p_attribution_reporting_runtime_features));
       
       bool success = true;
       ::GURL p_destination_url{};
-      ::network::AttributionReportingRuntimeFeatures p_attribution_reporting_runtime_features{};
       LocalFrameHost_SendFencedFrameReportingBeaconToCustomURL_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadDestinationUrl(&p_destination_url))
-        success = false;
-      if (success && !input_data_view.ReadAttributionReportingRuntimeFeatures(&p_attribution_reporting_runtime_features))
         success = false;
       if (!success) {
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 67, false);
+            LocalFrameHost::Name_, 64, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
       impl->SendFencedFrameReportingBeaconToCustomURL(
-std::move(p_destination_url), 
-std::move(p_attribution_reporting_runtime_features));
+std::move(p_destination_url));
       return true;
     }
     case internal::kLocalFrameHost_SendLegacyTechEvent_Name: {
@@ -9537,7 +8756,7 @@ std::move(p_attribution_reporting_runtime_features));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 68, false);
+            LocalFrameHost::Name_, 65, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -9555,34 +8774,38 @@ std::move(p_code_location));
               message->mutable_payload());
       
       bool success = true;
+      ::blink::mojom::AutomaticBeaconType p_event_type{};
       std::string p_event_data{};
       std::vector<::blink::FencedFrame::ReportingDestination> p_destinations{};
-      ::network::AttributionReportingRuntimeFeatures p_attribution_reporting_runtime_features{};
       bool p_once{};
+      bool p_cross_origin_exposed{};
       LocalFrameHost_SetFencedFrameAutomaticBeaconReportEventData_ParamsDataView input_data_view(params, message);
       
+      if (success && !input_data_view.ReadEventType(&p_event_type))
+        success = false;
       if (success && !input_data_view.ReadEventData(&p_event_data))
         success = false;
       if (success && !input_data_view.ReadDestinations(&p_destinations))
         success = false;
-      if (success && !input_data_view.ReadAttributionReportingRuntimeFeatures(&p_attribution_reporting_runtime_features))
-        success = false;
       if (success)
         p_once = input_data_view.once();
+      if (success)
+        p_cross_origin_exposed = input_data_view.cross_origin_exposed();
       if (!success) {
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 69, false);
+            LocalFrameHost::Name_, 66, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
       impl->SetFencedFrameAutomaticBeaconReportEventData(
+std::move(p_event_type), 
 std::move(p_event_data), 
 std::move(p_destinations), 
-std::move(p_attribution_reporting_runtime_features), 
-std::move(p_once));
+std::move(p_once), 
+std::move(p_cross_origin_exposed));
       return true;
     }
     case internal::kLocalFrameHost_SendPrivateAggregationRequestsForFencedFrameEvent_Name: {
@@ -9602,7 +8825,7 @@ std::move(p_once));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 70, false);
+            LocalFrameHost::Name_, 67, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -9611,11 +8834,31 @@ std::move(p_once));
 std::move(p_event_type));
       return true;
     }
-    case internal::kLocalFrameHost_CreatePortal_Name: {
-      break;
-    }
-    case internal::kLocalFrameHost_AdoptPortal_Name: {
-      break;
+    case internal::kLocalFrameHost_SetAttributionReportingRuntimeFeatures_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::LocalFrameHost_SetAttributionReportingRuntimeFeatures_Params_Data* params =
+          reinterpret_cast<internal::LocalFrameHost_SetAttributionReportingRuntimeFeatures_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      ::network::AttributionReportingRuntimeFeatures p_features{};
+      LocalFrameHost_SetAttributionReportingRuntimeFeatures_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadFeatures(&p_features))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            LocalFrameHost::Name_, 68, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->SetAttributionReportingRuntimeFeatures(
+std::move(p_features));
+      return true;
     }
     case internal::kLocalFrameHost_CreateFencedFrame_Name: {
 
@@ -9645,7 +8888,7 @@ std::move(p_event_type));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 73, false);
+            LocalFrameHost::Name_, 69, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -9674,7 +8917,7 @@ std::move(p_devtools_frame_token));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 74, false);
+            LocalFrameHost::Name_, 70, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -9715,7 +8958,7 @@ std::move(p_view_transition_opt_in));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 75, false);
+            LocalFrameHost::Name_, 71, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -9775,15 +9018,6 @@ std::move(p_options), std::move(callback));
       break;
     }
     case internal::kLocalFrameHost_FullscreenStateChanged_Name: {
-      break;
-    }
-    case internal::kLocalFrameHost_Maximize_Name: {
-      break;
-    }
-    case internal::kLocalFrameHost_Minimize_Name: {
-      break;
-    }
-    case internal::kLocalFrameHost_Restore_Name: {
       break;
     }
     case internal::kLocalFrameHost_RegisterProtocolHandler_Name: {
@@ -9911,7 +9145,7 @@ std::move(p_options), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 41, false);
+            LocalFrameHost::Name_, 38, false);
         return false;
       }
       LocalFrameHost::RunModalAlertDialogCallback callback =
@@ -9944,7 +9178,7 @@ std::move(p_disable_third_party_subframe_suppresion), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 42, false);
+            LocalFrameHost::Name_, 39, false);
         return false;
       }
       LocalFrameHost::RunModalConfirmDialogCallback callback =
@@ -9980,7 +9214,7 @@ std::move(p_disable_third_party_subframe_suppresion), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 43, false);
+            LocalFrameHost::Name_, 40, false);
         return false;
       }
       LocalFrameHost::RunModalPromptDialogCallback callback =
@@ -10011,7 +9245,7 @@ std::move(p_disable_third_party_subframe_suppresion), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 44, false);
+            LocalFrameHost::Name_, 41, false);
         return false;
       }
       LocalFrameHost::RunBeforeUnloadConfirmCallback callback =
@@ -10101,79 +9335,8 @@ std::move(p_is_reload), std::move(callback));
     case internal::kLocalFrameHost_SendPrivateAggregationRequestsForFencedFrameEvent_Name: {
       break;
     }
-    case internal::kLocalFrameHost_CreatePortal_Name: {
-
-      internal::LocalFrameHost_CreatePortal_Params_Data* params =
-          reinterpret_cast<
-              internal::LocalFrameHost_CreatePortal_Params_Data*>(
-                  message->mutable_payload());
-      
-      bool success = true;
-      ::mojo::PendingAssociatedReceiver<::blink::mojom::Portal> p_portal{};
-      ::mojo::PendingAssociatedRemote<::blink::mojom::PortalClient> p_client{};
-      ::blink::mojom::RemoteFrameInterfacesFromRendererPtr p_remote_frame_interfaces{};
-      LocalFrameHost_CreatePortal_ParamsDataView input_data_view(params, message);
-      
-      if (success) {
-        p_portal =
-            input_data_view.TakePortal<decltype(p_portal)>();
-      }
-      if (success) {
-        p_client =
-            input_data_view.TakeClient<decltype(p_client)>();
-      }
-      if (success && !input_data_view.ReadRemoteFrameInterfaces(&p_remote_frame_interfaces))
-        success = false;
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 71, false);
-        return false;
-      }
-      LocalFrameHost::CreatePortalCallback callback =
-          LocalFrameHost_CreatePortal_ProxyToResponder::CreateCallback(
-              *message, std::move(responder));
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->CreatePortal(
-std::move(p_portal), 
-std::move(p_client), 
-std::move(p_remote_frame_interfaces), std::move(callback));
-      return true;
-    }
-    case internal::kLocalFrameHost_AdoptPortal_Name: {
-
-      internal::LocalFrameHost_AdoptPortal_Params_Data* params =
-          reinterpret_cast<
-              internal::LocalFrameHost_AdoptPortal_Params_Data*>(
-                  message->mutable_payload());
-      
-      bool success = true;
-      ::blink::PortalToken p_portal_token{};
-      ::blink::mojom::RemoteFrameInterfacesFromRendererPtr p_remote_frame_interfaces{};
-      LocalFrameHost_AdoptPortal_ParamsDataView input_data_view(params, message);
-      
-      if (success && !input_data_view.ReadPortalToken(&p_portal_token))
-        success = false;
-      if (success && !input_data_view.ReadRemoteFrameInterfaces(&p_remote_frame_interfaces))
-        success = false;
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrameHost::Name_, 72, false);
-        return false;
-      }
-      LocalFrameHost::AdoptPortalCallback callback =
-          LocalFrameHost_AdoptPortal_ProxyToResponder::CreateCallback(
-              *message, std::move(responder));
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->AdoptPortal(
-std::move(p_portal_token), 
-std::move(p_remote_frame_interfaces), std::move(callback));
-      return true;
+    case internal::kLocalFrameHost_SetAttributionReportingRuntimeFeatures_Name: {
+      break;
     }
     case internal::kLocalFrameHost_CreateFencedFrame_Name: {
       break;
@@ -10187,160 +9350,152 @@ std::move(p_remote_frame_interfaces), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kLocalFrameHostValidationInfo[] = {
-    {&internal::LocalFrameHost_EnterFullscreen_Params_Data::Validate,
+    { &internal::LocalFrameHost_EnterFullscreen_Params_Data::Validate,
      &internal::LocalFrameHost_EnterFullscreen_ResponseParams_Data::Validate},
-    {&internal::LocalFrameHost_ExitFullscreen_Params_Data::Validate,
+    { &internal::LocalFrameHost_ExitFullscreen_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrameHost_FullscreenStateChanged_Params_Data::Validate,
+    { &internal::LocalFrameHost_FullscreenStateChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrameHost_Maximize_Params_Data::Validate,
+    { &internal::LocalFrameHost_RegisterProtocolHandler_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrameHost_Minimize_Params_Data::Validate,
+    { &internal::LocalFrameHost_UnregisterProtocolHandler_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrameHost_Restore_Params_Data::Validate,
+    { &internal::LocalFrameHost_DidDisplayInsecureContent_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrameHost_RegisterProtocolHandler_Params_Data::Validate,
+    { &internal::LocalFrameHost_DidContainInsecureFormAction_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrameHost_UnregisterProtocolHandler_Params_Data::Validate,
+    { &internal::LocalFrameHost_MainDocumentElementAvailable_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrameHost_DidDisplayInsecureContent_Params_Data::Validate,
+    { &internal::LocalFrameHost_SetNeedsOcclusionTracking_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrameHost_DidContainInsecureFormAction_Params_Data::Validate,
+    { &internal::LocalFrameHost_SetVirtualKeyboardMode_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrameHost_MainDocumentElementAvailable_Params_Data::Validate,
+    { &internal::LocalFrameHost_VisibilityChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrameHost_SetNeedsOcclusionTracking_Params_Data::Validate,
+    { &internal::LocalFrameHost_DidChangeThemeColor_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrameHost_SetVirtualKeyboardMode_Params_Data::Validate,
+    { &internal::LocalFrameHost_DidChangeBackgroundColor_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrameHost_VisibilityChanged_Params_Data::Validate,
+    { &internal::LocalFrameHost_DidFailLoadWithError_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrameHost_DidChangeThemeColor_Params_Data::Validate,
+    { &internal::LocalFrameHost_DidFocusFrame_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrameHost_DidChangeBackgroundColor_Params_Data::Validate,
+    { &internal::LocalFrameHost_DidCallFocus_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrameHost_DidFailLoadWithError_Params_Data::Validate,
+    { &internal::LocalFrameHost_EnforceInsecureRequestPolicy_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrameHost_DidFocusFrame_Params_Data::Validate,
+    { &internal::LocalFrameHost_EnforceInsecureNavigationsSet_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrameHost_DidCallFocus_Params_Data::Validate,
+    { &internal::LocalFrameHost_SuddenTerminationDisablerChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrameHost_EnforceInsecureRequestPolicy_Params_Data::Validate,
+    { &internal::LocalFrameHost_HadStickyUserActivationBeforeNavigationChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrameHost_EnforceInsecureNavigationsSet_Params_Data::Validate,
+    { &internal::LocalFrameHost_ScrollRectToVisibleInParentFrame_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrameHost_SuddenTerminationDisablerChanged_Params_Data::Validate,
+    { &internal::LocalFrameHost_BubbleLogicalScrollInParentFrame_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrameHost_HadStickyUserActivationBeforeNavigationChanged_Params_Data::Validate,
+    { &internal::LocalFrameHost_StartLoadingForAsyncNavigationApiCommit_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrameHost_ScrollRectToVisibleInParentFrame_Params_Data::Validate,
+    { &internal::LocalFrameHost_DidBlockNavigation_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrameHost_BubbleLogicalScrollInParentFrame_Params_Data::Validate,
+    { &internal::LocalFrameHost_DidChangeLoadProgress_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrameHost_StartLoadingForAsyncNavigationApiCommit_Params_Data::Validate,
+    { &internal::LocalFrameHost_DidFinishLoad_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrameHost_DidBlockNavigation_Params_Data::Validate,
+    { &internal::LocalFrameHost_DispatchLoad_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrameHost_DidChangeLoadProgress_Params_Data::Validate,
+    { &internal::LocalFrameHost_GoToEntryAtOffset_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrameHost_DidFinishLoad_Params_Data::Validate,
+    { &internal::LocalFrameHost_NavigateToNavigationApiKey_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrameHost_DispatchLoad_Params_Data::Validate,
+    { &internal::LocalFrameHost_NavigateEventHandlerPresenceChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrameHost_GoToEntryAtOffset_Params_Data::Validate,
+    { &internal::LocalFrameHost_UpdateTitle_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrameHost_NavigateToNavigationApiKey_Params_Data::Validate,
+    { &internal::LocalFrameHost_UpdateUserActivationState_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrameHost_NavigateEventHandlerPresenceChanged_Params_Data::Validate,
+    { &internal::LocalFrameHost_DidConsumeHistoryUserActivation_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrameHost_UpdateTitle_Params_Data::Validate,
+    { &internal::LocalFrameHost_HandleAccessibilityFindInPageResult_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrameHost_UpdateUserActivationState_Params_Data::Validate,
+    { &internal::LocalFrameHost_HandleAccessibilityFindInPageTermination_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrameHost_DidConsumeHistoryUserActivation_Params_Data::Validate,
+    { &internal::LocalFrameHost_DocumentOnLoadCompleted_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrameHost_HandleAccessibilityFindInPageResult_Params_Data::Validate,
+    { &internal::LocalFrameHost_ForwardResourceTimingToParent_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrameHost_HandleAccessibilityFindInPageTermination_Params_Data::Validate,
+    { &internal::LocalFrameHost_DidDispatchDOMContentLoadedEvent_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrameHost_DocumentOnLoadCompleted_Params_Data::Validate,
-     nullptr /* no response */},
-    {&internal::LocalFrameHost_ForwardResourceTimingToParent_Params_Data::Validate,
-     nullptr /* no response */},
-    {&internal::LocalFrameHost_DidDispatchDOMContentLoadedEvent_Params_Data::Validate,
-     nullptr /* no response */},
-    {&internal::LocalFrameHost_RunModalAlertDialog_Params_Data::Validate,
+    { &internal::LocalFrameHost_RunModalAlertDialog_Params_Data::Validate,
      &internal::LocalFrameHost_RunModalAlertDialog_ResponseParams_Data::Validate},
-    {&internal::LocalFrameHost_RunModalConfirmDialog_Params_Data::Validate,
+    { &internal::LocalFrameHost_RunModalConfirmDialog_Params_Data::Validate,
      &internal::LocalFrameHost_RunModalConfirmDialog_ResponseParams_Data::Validate},
-    {&internal::LocalFrameHost_RunModalPromptDialog_Params_Data::Validate,
+    { &internal::LocalFrameHost_RunModalPromptDialog_Params_Data::Validate,
      &internal::LocalFrameHost_RunModalPromptDialog_ResponseParams_Data::Validate},
-    {&internal::LocalFrameHost_RunBeforeUnloadConfirm_Params_Data::Validate,
+    { &internal::LocalFrameHost_RunBeforeUnloadConfirm_Params_Data::Validate,
      &internal::LocalFrameHost_RunBeforeUnloadConfirm_ResponseParams_Data::Validate},
-    {&internal::LocalFrameHost_UpdateFaviconURL_Params_Data::Validate,
+    { &internal::LocalFrameHost_UpdateFaviconURL_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrameHost_DownloadURL_Params_Data::Validate,
+    { &internal::LocalFrameHost_DownloadURL_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrameHost_FocusedElementChanged_Params_Data::Validate,
+    { &internal::LocalFrameHost_FocusedElementChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrameHost_TextSelectionChanged_Params_Data::Validate,
+    { &internal::LocalFrameHost_TextSelectionChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrameHost_ShowPopupMenu_Params_Data::Validate,
+    { &internal::LocalFrameHost_ShowPopupMenu_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrameHost_CreateNewPopupWidget_Params_Data::Validate,
+    { &internal::LocalFrameHost_CreateNewPopupWidget_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrameHost_ShowContextMenu_Params_Data::Validate,
+    { &internal::LocalFrameHost_ShowContextMenu_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrameHost_DidLoadResourceFromMemoryCache_Params_Data::Validate,
+    { &internal::LocalFrameHost_DidLoadResourceFromMemoryCache_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrameHost_DidChangeFrameOwnerProperties_Params_Data::Validate,
+    { &internal::LocalFrameHost_DidChangeFrameOwnerProperties_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrameHost_DidChangeOpener_Params_Data::Validate,
+    { &internal::LocalFrameHost_DidChangeOpener_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrameHost_DidChangeFramePolicy_Params_Data::Validate,
+    { &internal::LocalFrameHost_DidChangeFramePolicy_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrameHost_DidChangeIframeAttributes_Params_Data::Validate,
+    { &internal::LocalFrameHost_DidChangeIframeAttributes_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrameHost_CapturePaintPreviewOfSubframe_Params_Data::Validate,
+    { &internal::LocalFrameHost_CapturePaintPreviewOfSubframe_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrameHost_SetCloseListener_Params_Data::Validate,
+    { &internal::LocalFrameHost_SetCloseListener_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrameHost_Detach_Params_Data::Validate,
+    { &internal::LocalFrameHost_Detach_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrameHost_GetKeepAliveHandleFactory_Params_Data::Validate,
+    { &internal::LocalFrameHost_GetKeepAliveHandleFactory_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrameHost_DidAddMessageToConsole_Params_Data::Validate,
+    { &internal::LocalFrameHost_DidAddMessageToConsole_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrameHost_FrameSizeChanged_Params_Data::Validate,
+    { &internal::LocalFrameHost_FrameSizeChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrameHost_DidInferColorScheme_Params_Data::Validate,
+    { &internal::LocalFrameHost_DidInferColorScheme_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrameHost_DidChangeSrcDoc_Params_Data::Validate,
+    { &internal::LocalFrameHost_DidChangeSrcDoc_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrameHost_ReceivedDelegatedCapability_Params_Data::Validate,
+    { &internal::LocalFrameHost_ReceivedDelegatedCapability_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrameHost_SendFencedFrameReportingBeacon_Params_Data::Validate,
+    { &internal::LocalFrameHost_SendFencedFrameReportingBeacon_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrameHost_SendFencedFrameReportingBeaconToCustomURL_Params_Data::Validate,
+    { &internal::LocalFrameHost_SendFencedFrameReportingBeaconToCustomURL_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrameHost_SendLegacyTechEvent_Params_Data::Validate,
+    { &internal::LocalFrameHost_SendLegacyTechEvent_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrameHost_SetFencedFrameAutomaticBeaconReportEventData_Params_Data::Validate,
+    { &internal::LocalFrameHost_SetFencedFrameAutomaticBeaconReportEventData_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrameHost_SendPrivateAggregationRequestsForFencedFrameEvent_Params_Data::Validate,
+    { &internal::LocalFrameHost_SendPrivateAggregationRequestsForFencedFrameEvent_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrameHost_CreatePortal_Params_Data::Validate,
-     &internal::LocalFrameHost_CreatePortal_ResponseParams_Data::Validate},
-    {&internal::LocalFrameHost_AdoptPortal_Params_Data::Validate,
-     &internal::LocalFrameHost_AdoptPortal_ResponseParams_Data::Validate},
-    {&internal::LocalFrameHost_CreateFencedFrame_Params_Data::Validate,
+    { &internal::LocalFrameHost_SetAttributionReportingRuntimeFeatures_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrameHost_OnViewTransitionOptInChanged_Params_Data::Validate,
+    { &internal::LocalFrameHost_CreateFencedFrame_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrameHost_StartDragging_Params_Data::Validate,
+    { &internal::LocalFrameHost_OnViewTransitionOptInChanged_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::LocalFrameHost_StartDragging_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -10424,14 +9579,17 @@ void NonAssociatedLocalFrameHostProxy::MaybeStartOutermostMainFrameNavigation(
                         "<value of type const std::vector<::GURL>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kNonAssociatedLocalFrameHost_MaybeStartOutermostMainFrameNavigation_Name, kFlags, 0, 0, nullptr);
@@ -10512,10 +9670,10 @@ bool NonAssociatedLocalFrameHostStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kNonAssociatedLocalFrameHostValidationInfo[] = {
-    {&internal::NonAssociatedLocalFrameHost_MaybeStartOutermostMainFrameNavigation_Params_Data::Validate,
+    { &internal::NonAssociatedLocalFrameHost_MaybeStartOutermostMainFrameNavigation_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -10546,9 +9704,6 @@ LocalFrame::IPCStableHashFunction LocalFrame::MessageToMethodInfo_(mojo::Message
     }
     case internal::kLocalFrame_AddMessageToConsole_Name: {
       return &LocalFrame::AddMessageToConsole_Sym::IPCStableHash;
-    }
-    case internal::kLocalFrame_AddInspectorIssue_Name: {
-      return &LocalFrame::AddInspectorIssue_Sym::IPCStableHash;
     }
     case internal::kLocalFrame_SwapInImmediately_Name: {
       return &LocalFrame::SwapInImmediately_Sym::IPCStableHash;
@@ -10588,6 +9743,9 @@ LocalFrame::IPCStableHashFunction LocalFrame::MessageToMethodInfo_(mojo::Message
     }
     case internal::kLocalFrame_MediaPlayerActionAt_Name: {
       return &LocalFrame::MediaPlayerActionAt_Sym::IPCStableHash;
+    }
+    case internal::kLocalFrame_RequestVideoFrameAt_Name: {
+      return &LocalFrame::RequestVideoFrameAt_Sym::IPCStableHash;
     }
     case internal::kLocalFrame_PluginActionAt_Name: {
       return &LocalFrame::PluginActionAt_Sym::IPCStableHash;
@@ -10652,6 +9810,9 @@ LocalFrame::IPCStableHashFunction LocalFrame::MessageToMethodInfo_(mojo::Message
     case internal::kLocalFrame_TraverseCancelled_Name: {
       return &LocalFrame::TraverseCancelled_Sym::IPCStableHash;
     }
+    case internal::kLocalFrame_DispatchNavigateEventForCrossDocumentTraversal_Name: {
+      return &LocalFrame::DispatchNavigateEventForCrossDocumentTraversal_Sym::IPCStableHash;
+    }
     case internal::kLocalFrame_SnapshotDocumentForViewTransition_Name: {
       return &LocalFrame::SnapshotDocumentForViewTransition_Sym::IPCStableHash;
     }
@@ -10684,8 +9845,6 @@ const char* LocalFrame::MessageToMethodName_(mojo::Message& message) {
             return "Receive blink::mojom::LocalFrame::NotifyVirtualKeyboardOverlayRect";
       case internal::kLocalFrame_AddMessageToConsole_Name:
             return "Receive blink::mojom::LocalFrame::AddMessageToConsole";
-      case internal::kLocalFrame_AddInspectorIssue_Name:
-            return "Receive blink::mojom::LocalFrame::AddInspectorIssue";
       case internal::kLocalFrame_SwapInImmediately_Name:
             return "Receive blink::mojom::LocalFrame::SwapInImmediately";
       case internal::kLocalFrame_CheckCompleted_Name:
@@ -10712,6 +9871,8 @@ const char* LocalFrame::MessageToMethodName_(mojo::Message& message) {
             return "Receive blink::mojom::LocalFrame::BeforeUnload";
       case internal::kLocalFrame_MediaPlayerActionAt_Name:
             return "Receive blink::mojom::LocalFrame::MediaPlayerActionAt";
+      case internal::kLocalFrame_RequestVideoFrameAt_Name:
+            return "Receive blink::mojom::LocalFrame::RequestVideoFrameAt";
       case internal::kLocalFrame_PluginActionAt_Name:
             return "Receive blink::mojom::LocalFrame::PluginActionAt";
       case internal::kLocalFrame_AdvanceFocusInFrame_Name:
@@ -10754,6 +9915,8 @@ const char* LocalFrame::MessageToMethodName_(mojo::Message& message) {
             return "Receive blink::mojom::LocalFrame::NotifyNavigationApiOfDisposedEntries";
       case internal::kLocalFrame_TraverseCancelled_Name:
             return "Receive blink::mojom::LocalFrame::TraverseCancelled";
+      case internal::kLocalFrame_DispatchNavigateEventForCrossDocumentTraversal_Name:
+            return "Receive blink::mojom::LocalFrame::DispatchNavigateEventForCrossDocumentTraversal";
       case internal::kLocalFrame_SnapshotDocumentForViewTransition_Name:
             return "Receive blink::mojom::LocalFrame::SnapshotDocumentForViewTransition";
       case internal::kLocalFrame_AddResourceTimingEntryForFailedSubframeNavigation_Name:
@@ -10775,8 +9938,6 @@ const char* LocalFrame::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply blink::mojom::LocalFrame::NotifyVirtualKeyboardOverlayRect";
       case internal::kLocalFrame_AddMessageToConsole_Name:
             return "Receive reply blink::mojom::LocalFrame::AddMessageToConsole";
-      case internal::kLocalFrame_AddInspectorIssue_Name:
-            return "Receive reply blink::mojom::LocalFrame::AddInspectorIssue";
       case internal::kLocalFrame_SwapInImmediately_Name:
             return "Receive reply blink::mojom::LocalFrame::SwapInImmediately";
       case internal::kLocalFrame_CheckCompleted_Name:
@@ -10803,6 +9964,8 @@ const char* LocalFrame::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply blink::mojom::LocalFrame::BeforeUnload";
       case internal::kLocalFrame_MediaPlayerActionAt_Name:
             return "Receive reply blink::mojom::LocalFrame::MediaPlayerActionAt";
+      case internal::kLocalFrame_RequestVideoFrameAt_Name:
+            return "Receive reply blink::mojom::LocalFrame::RequestVideoFrameAt";
       case internal::kLocalFrame_PluginActionAt_Name:
             return "Receive reply blink::mojom::LocalFrame::PluginActionAt";
       case internal::kLocalFrame_AdvanceFocusInFrame_Name:
@@ -10845,6 +10008,8 @@ const char* LocalFrame::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply blink::mojom::LocalFrame::NotifyNavigationApiOfDisposedEntries";
       case internal::kLocalFrame_TraverseCancelled_Name:
             return "Receive reply blink::mojom::LocalFrame::TraverseCancelled";
+      case internal::kLocalFrame_DispatchNavigateEventForCrossDocumentTraversal_Name:
+            return "Receive reply blink::mojom::LocalFrame::DispatchNavigateEventForCrossDocumentTraversal";
       case internal::kLocalFrame_SnapshotDocumentForViewTransition_Name:
             return "Receive reply blink::mojom::LocalFrame::SnapshotDocumentForViewTransition";
       case internal::kLocalFrame_AddResourceTimingEntryForFailedSubframeNavigation_Name:
@@ -10939,19 +10104,6 @@ uint32_t LocalFrame::AddMessageToConsole_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)blink::mojom::LocalFrame::AddMessageToConsole");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
-uint32_t LocalFrame::AddInspectorIssue_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)blink::mojom::LocalFrame::AddInspectorIssue");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -11121,6 +10273,19 @@ uint32_t LocalFrame::MediaPlayerActionAt_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)blink::mojom::LocalFrame::MediaPlayerActionAt");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t LocalFrame::RequestVideoFrameAt_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)blink::mojom::LocalFrame::RequestVideoFrameAt");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -11398,6 +10563,19 @@ uint32_t LocalFrame::TraverseCancelled_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t LocalFrame::DispatchNavigateEventForCrossDocumentTraversal_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)blink::mojom::LocalFrame::DispatchNavigateEventForCrossDocumentTraversal");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 uint32_t LocalFrame::SnapshotDocumentForViewTransition_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
@@ -11469,6 +10647,22 @@ class LocalFrame_BeforeUnload_ForwardToCallback
   bool Accept(mojo::Message* message) override;
  private:
   LocalFrame::BeforeUnloadCallback callback_;
+};
+
+class LocalFrame_RequestVideoFrameAt_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  LocalFrame_RequestVideoFrameAt_ForwardToCallback(
+      LocalFrame::RequestVideoFrameAtCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  LocalFrame_RequestVideoFrameAt_ForwardToCallback(const LocalFrame_RequestVideoFrameAt_ForwardToCallback&) = delete;
+  LocalFrame_RequestVideoFrameAt_ForwardToCallback& operator=(const LocalFrame_RequestVideoFrameAt_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  LocalFrame::RequestVideoFrameAtCallback callback_;
 };
 
 class LocalFrame_JavaScriptMethodExecuteRequest_ForwardToCallback
@@ -11615,14 +10809,17 @@ void LocalFrameProxy::GetTextSurroundingSelection(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrame_GetTextSurroundingSelection_Name, kFlags, 0, 0, nullptr);
@@ -11657,14 +10854,17 @@ void LocalFrameProxy::SendInterventionReport(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrame_SendInterventionReport_Name, kFlags, 0, 0, nullptr);
@@ -11716,14 +10916,17 @@ void LocalFrameProxy::SetFrameOwnerProperties(
                         "<value of type ::blink::mojom::FrameOwnerPropertiesPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrame_SetFrameOwnerProperties_Name, kFlags, 0, 0, nullptr);
@@ -11764,14 +10967,17 @@ void LocalFrameProxy::NotifyUserActivation(
                         "<value of type ::blink::mojom::UserActivationNotificationType>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrame_NotifyUserActivation_Name, kFlags, 0, 0, nullptr);
@@ -11803,14 +11009,17 @@ void LocalFrameProxy::NotifyVirtualKeyboardOverlayRect(
                         "<value of type const ::gfx::Rect&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrame_NotifyVirtualKeyboardOverlayRect_Name, kFlags, 0, 0, nullptr);
@@ -11857,14 +11066,17 @@ void LocalFrameProxy::AddMessageToConsole(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrame_AddMessageToConsole_Name, kFlags, 0, 0, nullptr);
@@ -11896,67 +11108,22 @@ void LocalFrameProxy::AddMessageToConsole(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
-void LocalFrameProxy::AddInspectorIssue(
-    ::blink::mojom::InspectorIssueInfoPtr in_info) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send blink::mojom::LocalFrame::AddInspectorIssue", "input_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("info"), in_info,
-                        "<value of type ::blink::mojom::InspectorIssueInfoPtr>");
-   });
-#endif
-  const bool kExpectsResponse = false;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kLocalFrame_AddInspectorIssue_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::blink::mojom::internal::LocalFrame_AddInspectorIssue_Params_Data> params(
-          message);
-  params.Allocate();
-  mojo::internal::MessageFragment<
-      typename decltype(params->info)::BaseType> info_fragment(
-          params.message());
-  mojo::internal::Serialize<::blink::mojom::InspectorIssueInfoDataView>(
-      in_info, info_fragment);
-  params->info.Set(
-      info_fragment.is_null() ? nullptr : info_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->info.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null info in LocalFrame.AddInspectorIssue request");
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(LocalFrame::Name_);
-  message.set_method_name("AddInspectorIssue");
-#endif
-  // This return value may be ignored as false implies the Connector has
-  // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMojoMessage(*receiver_, message);
-}
-
 void LocalFrameProxy::SwapInImmediately(
     ) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::LocalFrame::SwapInImmediately");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrame_SwapInImmediately_Name, kFlags, 0, 0, nullptr);
@@ -11979,14 +11146,17 @@ void LocalFrameProxy::CheckCompleted(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::LocalFrame::CheckCompleted");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrame_CheckCompleted_Name, kFlags, 0, 0, nullptr);
@@ -12009,14 +11179,17 @@ void LocalFrameProxy::StopLoading(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::LocalFrame::StopLoading");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrame_StopLoading_Name, kFlags, 0, 0, nullptr);
@@ -12046,14 +11219,17 @@ void LocalFrameProxy::Collapse(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrame_Collapse_Name, kFlags, 0, 0, nullptr);
@@ -12077,14 +11253,17 @@ void LocalFrameProxy::EnableViewSourceMode(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::LocalFrame::EnableViewSourceMode");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrame_EnableViewSourceMode_Name, kFlags, 0, 0, nullptr);
@@ -12107,14 +11286,17 @@ void LocalFrameProxy::Focus(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::LocalFrame::Focus");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrame_Focus_Name, kFlags, 0, 0, nullptr);
@@ -12137,14 +11319,17 @@ void LocalFrameProxy::ClearFocusedElement(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::LocalFrame::ClearFocusedElement");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrame_ClearFocusedElement_Name, kFlags, 0, 0, nullptr);
@@ -12174,14 +11359,17 @@ void LocalFrameProxy::CopyImageAt(
                         "<value of type const ::gfx::Point&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrame_CopyImageAt_Name, kFlags, 0, 0, nullptr);
@@ -12222,14 +11410,17 @@ void LocalFrameProxy::SaveImageAt(
                         "<value of type const ::gfx::Point&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrame_SaveImageAt_Name, kFlags, 0, 0, nullptr);
@@ -12270,14 +11461,17 @@ void LocalFrameProxy::ReportBlinkFeatureUsage(
                         "<value of type const std::vector<::blink::mojom::WebFeature>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrame_ReportBlinkFeatureUsage_Name, kFlags, 0, 0, nullptr);
@@ -12313,14 +11507,17 @@ void LocalFrameProxy::RenderFallbackContent(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::LocalFrame::RenderFallbackContent");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrame_RenderFallbackContent_Name, kFlags, 0, 0, nullptr);
@@ -12350,14 +11547,18 @@ void LocalFrameProxy::BeforeUnload(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = mojo::UrgentMessageScope::IsInUrgentScope();
+
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrame_BeforeUnload_Name, kFlags, 0, 0, nullptr);
@@ -12392,14 +11593,17 @@ void LocalFrameProxy::MediaPlayerActionAt(
                         "<value of type ::blink::mojom::MediaPlayerActionPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrame_MediaPlayerActionAt_Name, kFlags, 0, 0, nullptr);
@@ -12439,6 +11643,76 @@ void LocalFrameProxy::MediaPlayerActionAt(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
+void LocalFrameProxy::RequestVideoFrameAt(
+    const ::gfx::Point& in_location, const ::gfx::Size& in_max_size, int32_t in_max_area, RequestVideoFrameAtCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send blink::mojom::LocalFrame::RequestVideoFrameAt", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("location"), in_location,
+                        "<value of type const ::gfx::Point&>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("max_size"), in_max_size,
+                        "<value of type const ::gfx::Size&>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("max_area"), in_max_area,
+                        "<value of type int32_t>");
+   });
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kLocalFrame_RequestVideoFrameAt_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::blink::mojom::internal::LocalFrame_RequestVideoFrameAt_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->location)::BaseType> location_fragment(
+          params.message());
+  mojo::internal::Serialize<::gfx::mojom::PointDataView>(
+      in_location, location_fragment);
+  params->location.Set(
+      location_fragment.is_null() ? nullptr : location_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->location.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null location in LocalFrame.RequestVideoFrameAt request");
+  mojo::internal::MessageFragment<
+      typename decltype(params->max_size)::BaseType> max_size_fragment(
+          params.message());
+  mojo::internal::Serialize<::gfx::mojom::SizeDataView>(
+      in_max_size, max_size_fragment);
+  params->max_size.Set(
+      max_size_fragment.is_null() ? nullptr : max_size_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->max_size.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null max_size in LocalFrame.RequestVideoFrameAt request");
+  params->max_area = in_max_area;
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(LocalFrame::Name_);
+  message.set_method_name("RequestVideoFrameAt");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new LocalFrame_RequestVideoFrameAt_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
 void LocalFrameProxy::PluginActionAt(
     const ::gfx::Point& in_location, PluginActionType in_action) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -12454,14 +11728,17 @@ void LocalFrameProxy::PluginActionAt(
                         "<value of type PluginActionType>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrame_PluginActionAt_Name, kFlags, 0, 0, nullptr);
@@ -12493,7 +11770,7 @@ void LocalFrameProxy::PluginActionAt(
 }
 
 void LocalFrameProxy::AdvanceFocusInFrame(
-    ::blink::mojom::FocusType in_focus_type, const absl::optional<::blink::RemoteFrameToken>& in_source_frame_token) {
+    ::blink::mojom::FocusType in_focus_type, const std::optional<::blink::RemoteFrameToken>& in_source_frame_token) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send blink::mojom::LocalFrame::AdvanceFocusInFrame", "input_parameters",
@@ -12504,17 +11781,20 @@ void LocalFrameProxy::AdvanceFocusInFrame(
                         "<value of type ::blink::mojom::FocusType>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("source_frame_token"), in_source_frame_token,
-                        "<value of type const absl::optional<::blink::RemoteFrameToken>&>");
+                        "<value of type const std::optional<::blink::RemoteFrameToken>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrame_AdvanceFocusInFrame_Name, kFlags, 0, 0, nullptr);
@@ -12553,14 +11833,17 @@ void LocalFrameProxy::AdvanceFocusForIME(
                         "<value of type ::blink::mojom::FocusType>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrame_AdvanceFocusForIME_Name, kFlags, 0, 0, nullptr);
@@ -12592,14 +11875,17 @@ void LocalFrameProxy::ReportContentSecurityPolicyViolation(
                         "<value of type ::network::mojom::CSPViolationPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrame_ReportContentSecurityPolicyViolation_Name, kFlags, 0, 0, nullptr);
@@ -12640,14 +11926,17 @@ void LocalFrameProxy::DidUpdateFramePolicy(
                         "<value of type const ::blink::FramePolicy&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrame_DidUpdateFramePolicy_Name, kFlags, 0, 0, nullptr);
@@ -12677,7 +11966,7 @@ void LocalFrameProxy::DidUpdateFramePolicy(
 }
 
 void LocalFrameProxy::PostMessageEvent(
-    const absl::optional<::blink::RemoteFrameToken>& in_source_frame_token, const ::std::u16string& in_source_origin, const ::std::u16string& in_target_origin, ::blink::TransferableMessage in_message) {
+    const std::optional<::blink::RemoteFrameToken>& in_source_frame_token, const ::std::u16string& in_source_origin, const ::std::u16string& in_target_origin, ::blink::TransferableMessage in_message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send blink::mojom::LocalFrame::PostMessageEvent", "input_parameters",
@@ -12685,7 +11974,7 @@ void LocalFrameProxy::PostMessageEvent(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("source_frame_token"), in_source_frame_token,
-                        "<value of type const absl::optional<::blink::RemoteFrameToken>&>");
+                        "<value of type const std::optional<::blink::RemoteFrameToken>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("source_origin"), in_source_origin,
                         "<value of type const ::std::u16string&>");
@@ -12697,14 +11986,17 @@ void LocalFrameProxy::PostMessageEvent(
                         "<value of type ::blink::TransferableMessage>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrame_PostMessageEvent_Name, kFlags, 0, 0, nullptr);
@@ -12783,14 +12075,17 @@ void LocalFrameProxy::JavaScriptMethodExecuteRequest(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrame_JavaScriptMethodExecuteRequest_Name, kFlags, 0, 0, nullptr);
@@ -12858,14 +12153,17 @@ void LocalFrameProxy::JavaScriptExecuteRequest(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrame_JavaScriptExecuteRequest_Name, kFlags, 0, 0, nullptr);
@@ -12917,14 +12215,17 @@ void LocalFrameProxy::JavaScriptExecuteRequestForTests(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrame_JavaScriptExecuteRequestForTests_Name, kFlags, 0, 0, nullptr);
@@ -12975,14 +12276,17 @@ void LocalFrameProxy::JavaScriptExecuteRequestInIsolatedWorld(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrame_JavaScriptExecuteRequestInIsolatedWorld_Name, kFlags, 0, 0, nullptr);
@@ -13026,14 +12330,17 @@ void LocalFrameProxy::BindReportingObserver(
                         "<value of type ::mojo::PendingReceiver<::blink::mojom::ReportingObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrame_BindReportingObserver_Name, kFlags, 0, 0, nullptr);
@@ -13058,7 +12365,7 @@ void LocalFrameProxy::BindReportingObserver(
 }
 
 void LocalFrameProxy::UpdateOpener(
-    const absl::optional<::blink::FrameToken>& in_opener_frame_token) {
+    const std::optional<::blink::FrameToken>& in_opener_frame_token) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send blink::mojom::LocalFrame::UpdateOpener", "input_parameters",
@@ -13066,17 +12373,20 @@ void LocalFrameProxy::UpdateOpener(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("opener_frame_token"), in_opener_frame_token,
-                        "<value of type const absl::optional<::blink::FrameToken>&>");
+                        "<value of type const std::optional<::blink::FrameToken>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrame_UpdateOpener_Name, kFlags, 0, 0, nullptr);
@@ -13104,14 +12414,17 @@ void LocalFrameProxy::GetSavableResourceLinks(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::LocalFrame::GetSavableResourceLinks");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrame_GetSavableResourceLinks_Name, kFlags, 0, 0, nullptr);
@@ -13160,14 +12473,17 @@ void LocalFrameProxy::MixedContentFound(
                         "<value of type ::network::mojom::SourceLocationPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrame_MixedContentFound_Name, kFlags, 0, 0, nullptr);
@@ -13244,14 +12560,17 @@ void LocalFrameProxy::BindDevToolsAgent(
                         "<value of type ::mojo::PendingAssociatedReceiver<::blink::mojom::DevToolsAgent>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrame_BindDevToolsAgent_Name, kFlags, 0, 0, nullptr);
@@ -13293,14 +12612,17 @@ void LocalFrameProxy::HandleRendererDebugURL(
                         "<value of type const ::GURL&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrame_HandleRendererDebugURL_Name, kFlags, 0, 0, nullptr);
@@ -13334,14 +12656,17 @@ void LocalFrameProxy::GetCanonicalUrlForSharing(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::LocalFrame::GetCanonicalUrlForSharing");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrame_GetCanonicalUrlForSharing_Name, kFlags, 0, 0, nullptr);
@@ -13365,14 +12690,17 @@ void LocalFrameProxy::GetOpenGraphMetadata(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::LocalFrame::GetOpenGraphMetadata");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrame_GetOpenGraphMetadata_Name, kFlags, 0, 0, nullptr);
@@ -13392,7 +12720,7 @@ void LocalFrameProxy::GetOpenGraphMetadata(
 }
 
 void LocalFrameProxy::SetNavigationApiHistoryEntriesForRestore(
-    ::blink::mojom::NavigationApiHistoryEntryArraysPtr in_entry_arrays) {
+    ::blink::mojom::NavigationApiHistoryEntryArraysPtr in_entry_arrays, NavigationApiEntryRestoreReason in_restore_reason) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send blink::mojom::LocalFrame::SetNavigationApiHistoryEntriesForRestore", "input_parameters",
@@ -13401,16 +12729,22 @@ void LocalFrameProxy::SetNavigationApiHistoryEntriesForRestore(
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("entry_arrays"), in_entry_arrays,
                         "<value of type ::blink::mojom::NavigationApiHistoryEntryArraysPtr>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("restore_reason"), in_restore_reason,
+                        "<value of type NavigationApiEntryRestoreReason>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrame_SetNavigationApiHistoryEntriesForRestore_Name, kFlags, 0, 0, nullptr);
@@ -13429,6 +12763,8 @@ void LocalFrameProxy::SetNavigationApiHistoryEntriesForRestore(
       params->entry_arrays.is_null(),
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
       "null entry_arrays in LocalFrame.SetNavigationApiHistoryEntriesForRestore request");
+  mojo::internal::Serialize<::blink::mojom::NavigationApiEntryRestoreReason>(
+      in_restore_reason, &params->restore_reason);
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(LocalFrame::Name_);
@@ -13451,14 +12787,17 @@ void LocalFrameProxy::NotifyNavigationApiOfDisposedEntries(
                         "<value of type const std::vector<std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrame_NotifyNavigationApiOfDisposedEntries_Name, kFlags, 0, 0, nullptr);
@@ -13504,14 +12843,17 @@ void LocalFrameProxy::TraverseCancelled(
                         "<value of type TraverseCancelledReason>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrame_TraverseCancelled_Name, kFlags, 0, 0, nullptr);
@@ -13542,19 +12884,91 @@ void LocalFrameProxy::TraverseCancelled(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
+void LocalFrameProxy::DispatchNavigateEventForCrossDocumentTraversal(
+    const ::GURL& in_url, const std::string& in_page_state, bool in_is_browser_initiated) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send blink::mojom::LocalFrame::DispatchNavigateEventForCrossDocumentTraversal", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("url"), in_url,
+                        "<value of type const ::GURL&>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("page_state"), in_page_state,
+                        "<value of type const std::string&>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("is_browser_initiated"), in_is_browser_initiated,
+                        "<value of type bool>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kLocalFrame_DispatchNavigateEventForCrossDocumentTraversal_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::blink::mojom::internal::LocalFrame_DispatchNavigateEventForCrossDocumentTraversal_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->url)::BaseType> url_fragment(
+          params.message());
+  mojo::internal::Serialize<::url::mojom::UrlDataView>(
+      in_url, url_fragment);
+  params->url.Set(
+      url_fragment.is_null() ? nullptr : url_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->url.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null url in LocalFrame.DispatchNavigateEventForCrossDocumentTraversal request");
+  mojo::internal::MessageFragment<
+      typename decltype(params->page_state)::BaseType> page_state_fragment(
+          params.message());
+  mojo::internal::Serialize<::mojo_base::mojom::ByteStringDataView>(
+      in_page_state, page_state_fragment);
+  params->page_state.Set(
+      page_state_fragment.is_null() ? nullptr : page_state_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->page_state.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null page_state in LocalFrame.DispatchNavigateEventForCrossDocumentTraversal request");
+  params->is_browser_initiated = in_is_browser_initiated;
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(LocalFrame::Name_);
+  message.set_method_name("DispatchNavigateEventForCrossDocumentTraversal");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
 void LocalFrameProxy::SnapshotDocumentForViewTransition(
     SnapshotDocumentForViewTransitionCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::LocalFrame::SnapshotDocumentForViewTransition");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrame_SnapshotDocumentForViewTransition_Name, kFlags, 0, 0, nullptr);
@@ -13574,7 +12988,7 @@ void LocalFrameProxy::SnapshotDocumentForViewTransition(
 }
 
 void LocalFrameProxy::AddResourceTimingEntryForFailedSubframeNavigation(
-    const ::blink::FrameToken& in_subframe_token, const ::GURL& in_initial_url, ::base::TimeTicks in_start_time, ::base::TimeTicks in_redirect_time, ::base::TimeTicks in_request_start, ::base::TimeTicks in_response_start, uint32_t in_response_code, const std::string& in_mime_type, const ::net::LoadTimingInfo& in_load_timing_info, ::net::HttpResponseInfo::ConnectionInfo in_connection_info, const std::string& in_alpn_negotiated_protocol, bool in_is_secure_transport, bool in_is_validated, const std::string& in_normalized_server_timing, const ::network::URLLoaderCompletionStatus& in_completion_status) {
+    const ::blink::FrameToken& in_subframe_token, const ::GURL& in_initial_url, ::base::TimeTicks in_start_time, ::base::TimeTicks in_redirect_time, ::base::TimeTicks in_request_start, ::base::TimeTicks in_response_start, uint32_t in_response_code, const std::string& in_mime_type, const ::net::LoadTimingInfo& in_load_timing_info, ::net::HttpConnectionInfo in_connection_info, const std::string& in_alpn_negotiated_protocol, bool in_is_secure_transport, bool in_is_validated, const std::string& in_normalized_server_timing, const ::network::URLLoaderCompletionStatus& in_completion_status) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send blink::mojom::LocalFrame::AddResourceTimingEntryForFailedSubframeNavigation", "input_parameters",
@@ -13609,7 +13023,7 @@ void LocalFrameProxy::AddResourceTimingEntryForFailedSubframeNavigation(
                         "<value of type const ::net::LoadTimingInfo&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("connection_info"), in_connection_info,
-                        "<value of type ::net::HttpResponseInfo::ConnectionInfo>");
+                        "<value of type ::net::HttpConnectionInfo>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("alpn_negotiated_protocol"), in_alpn_negotiated_protocol,
                         "<value of type const std::string&>");
@@ -13627,14 +13041,17 @@ void LocalFrameProxy::AddResourceTimingEntryForFailedSubframeNavigation(
                         "<value of type const ::network::URLLoaderCompletionStatus&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrame_AddResourceTimingEntryForFailedSubframeNavigation_Name, kFlags, 0, 0, nullptr);
@@ -13781,14 +13198,17 @@ void LocalFrameProxy::RequestFullscreenDocumentElement(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::LocalFrame::RequestFullscreenDocumentElement");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrame_RequestFullscreenDocumentElement_Name, kFlags, 0, 0, nullptr);
@@ -13911,7 +13331,8 @@ void LocalFrame_GetTextSurroundingSelection_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrame_GetTextSurroundingSelection_Name, kFlags, 0, 0, nullptr);
@@ -14023,7 +13444,7 @@ bool LocalFrame_BeforeUnload_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        LocalFrame::Name_, 18, true);
+        LocalFrame::Name_, 17, true);
     return false;
   }
   if (!callback_.is_null())
@@ -14055,7 +13476,8 @@ void LocalFrame_BeforeUnload_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrame_BeforeUnload_Name, kFlags, 0, 0, nullptr);
@@ -14090,6 +13512,135 @@ void LocalFrame_BeforeUnload_ProxyToResponder::Run(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(LocalFrame::Name_);
   message.set_method_name("BeforeUnload");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class LocalFrame_RequestVideoFrameAt_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static LocalFrame::RequestVideoFrameAtCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<LocalFrame_RequestVideoFrameAt_ProxyToResponder> proxy(
+        new LocalFrame_RequestVideoFrameAt_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&LocalFrame_RequestVideoFrameAt_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~LocalFrame_RequestVideoFrameAt_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  LocalFrame_RequestVideoFrameAt_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "LocalFrame::RequestVideoFrameAtCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      const ::gfx::ImageSkia& in_image);
+};
+
+bool LocalFrame_RequestVideoFrameAt_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::LocalFrame_RequestVideoFrameAt_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::LocalFrame_RequestVideoFrameAt_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  ::gfx::ImageSkia p_image{};
+  LocalFrame_RequestVideoFrameAt_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadImage(&p_image))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        LocalFrame::Name_, 19, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_image));
+  return true;
+}
+
+void LocalFrame_RequestVideoFrameAt_ProxyToResponder::Run(
+    const ::gfx::ImageSkia& in_image) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply blink::mojom::LocalFrame::RequestVideoFrameAt", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("image"), in_image,
+                        "<value of type const ::gfx::ImageSkia&>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kLocalFrame_RequestVideoFrameAt_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::blink::mojom::internal::LocalFrame_RequestVideoFrameAt_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->image)::BaseType> image_fragment(
+          params.message());
+  mojo::internal::Serialize<::gfx::mojom::ImageSkiaDataView>(
+      in_image, image_fragment);
+  params->image.Set(
+      image_fragment.is_null() ? nullptr : image_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->image.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null image in ");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(LocalFrame::Name_);
+  message.set_method_name("RequestVideoFrameAt");
 #endif
 
   message.set_request_id(request_id_);
@@ -14195,7 +13746,8 @@ void LocalFrame_JavaScriptMethodExecuteRequest_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrame_JavaScriptMethodExecuteRequest_Name, kFlags, 0, 0, nullptr);
@@ -14321,7 +13873,8 @@ void LocalFrame_JavaScriptExecuteRequest_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrame_JavaScriptExecuteRequest_Name, kFlags, 0, 0, nullptr);
@@ -14454,7 +14007,8 @@ void LocalFrame_JavaScriptExecuteRequestForTests_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrame_JavaScriptExecuteRequestForTests_Name, kFlags, 0, 0, nullptr);
@@ -14582,7 +14136,8 @@ void LocalFrame_JavaScriptExecuteRequestInIsolatedWorld_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrame_JavaScriptExecuteRequestInIsolatedWorld_Name, kFlags, 0, 0, nullptr);
@@ -14708,7 +14263,8 @@ void LocalFrame_GetSavableResourceLinks_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrame_GetSavableResourceLinks_Name, kFlags, 0, 0, nullptr);
@@ -14786,7 +14342,7 @@ class LocalFrame_GetCanonicalUrlForSharing_ProxyToResponder : public ::mojo::int
 #endif
 
   void Run(
-      const absl::optional<::GURL>& in_canonical_url);
+      const std::optional<::GURL>& in_canonical_url);
 };
 
 bool LocalFrame_GetCanonicalUrlForSharing_ForwardToCallback::Accept(
@@ -14799,7 +14355,7 @@ bool LocalFrame_GetCanonicalUrlForSharing_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<::GURL> p_canonical_url{};
+  std::optional<::GURL> p_canonical_url{};
   LocalFrame_GetCanonicalUrlForSharing_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadCanonicalUrl(&p_canonical_url))
@@ -14818,7 +14374,7 @@ std::move(p_canonical_url));
 }
 
 void LocalFrame_GetCanonicalUrlForSharing_ProxyToResponder::Run(
-    const absl::optional<::GURL>& in_canonical_url) {
+    const std::optional<::GURL>& in_canonical_url) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply blink::mojom::LocalFrame::GetCanonicalUrlForSharing", "async_response_parameters",
@@ -14826,13 +14382,14 @@ void LocalFrame_GetCanonicalUrlForSharing_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("canonical_url"), in_canonical_url,
-                        "<value of type const absl::optional<::GURL>&>");
+                        "<value of type const std::optional<::GURL>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrame_GetCanonicalUrlForSharing_Name, kFlags, 0, 0, nullptr);
@@ -14956,7 +14513,8 @@ void LocalFrame_GetOpenGraphMetadata_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrame_GetOpenGraphMetadata_Name, kFlags, 0, 0, nullptr);
@@ -15060,7 +14618,7 @@ bool LocalFrame_SnapshotDocumentForViewTransition_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        LocalFrame::Name_, 41, true);
+        LocalFrame::Name_, 42, true);
     return false;
   }
   if (!callback_.is_null())
@@ -15084,7 +14642,8 @@ void LocalFrame_SnapshotDocumentForViewTransition_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalFrame_SnapshotDocumentForViewTransition_Name, kFlags, 0, 0, nullptr);
@@ -15271,32 +14830,6 @@ std::move(p_message),
 std::move(p_discard_duplicates));
       return true;
     }
-    case internal::kLocalFrame_AddInspectorIssue_Name: {
-
-      DCHECK(message->is_serialized());
-      internal::LocalFrame_AddInspectorIssue_Params_Data* params =
-          reinterpret_cast<internal::LocalFrame_AddInspectorIssue_Params_Data*>(
-              message->mutable_payload());
-      
-      bool success = true;
-      ::blink::mojom::InspectorIssueInfoPtr p_info{};
-      LocalFrame_AddInspectorIssue_ParamsDataView input_data_view(params, message);
-      
-      if (success && !input_data_view.ReadInfo(&p_info))
-        success = false;
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrame::Name_, 6, false);
-        return false;
-      }
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->AddInspectorIssue(
-std::move(p_info));
-      return true;
-    }
     case internal::kLocalFrame_SwapInImmediately_Name: {
 
       DCHECK(message->is_serialized());
@@ -15311,7 +14844,7 @@ std::move(p_info));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrame::Name_, 7, false);
+            LocalFrame::Name_, 6, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -15333,7 +14866,7 @@ std::move(p_info));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrame::Name_, 8, false);
+            LocalFrame::Name_, 7, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -15355,7 +14888,7 @@ std::move(p_info));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrame::Name_, 9, false);
+            LocalFrame::Name_, 8, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -15380,7 +14913,7 @@ std::move(p_info));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrame::Name_, 10, false);
+            LocalFrame::Name_, 9, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -15403,7 +14936,7 @@ std::move(p_collapsed));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrame::Name_, 11, false);
+            LocalFrame::Name_, 10, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -15425,7 +14958,7 @@ std::move(p_collapsed));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrame::Name_, 12, false);
+            LocalFrame::Name_, 11, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -15447,7 +14980,7 @@ std::move(p_collapsed));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrame::Name_, 13, false);
+            LocalFrame::Name_, 12, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -15472,7 +15005,7 @@ std::move(p_collapsed));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrame::Name_, 14, false);
+            LocalFrame::Name_, 13, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -15498,7 +15031,7 @@ std::move(p_window_point));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrame::Name_, 15, false);
+            LocalFrame::Name_, 14, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -15524,7 +15057,7 @@ std::move(p_window_point));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrame::Name_, 16, false);
+            LocalFrame::Name_, 15, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -15547,7 +15080,7 @@ std::move(p_features));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrame::Name_, 17, false);
+            LocalFrame::Name_, 16, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -15578,7 +15111,7 @@ std::move(p_features));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrame::Name_, 19, false);
+            LocalFrame::Name_, 18, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -15587,6 +15120,9 @@ std::move(p_features));
 std::move(p_location), 
 std::move(p_action));
       return true;
+    }
+    case internal::kLocalFrame_RequestVideoFrameAt_Name: {
+      break;
     }
     case internal::kLocalFrame_PluginActionAt_Name: {
 
@@ -15627,7 +15163,7 @@ std::move(p_action));
       
       bool success = true;
       ::blink::mojom::FocusType p_focus_type{};
-      absl::optional<::blink::RemoteFrameToken> p_source_frame_token{};
+      std::optional<::blink::RemoteFrameToken> p_source_frame_token{};
       LocalFrame_AdvanceFocusInFrame_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadFocusType(&p_focus_type))
@@ -15734,7 +15270,7 @@ std::move(p_frame_policy));
               message->mutable_payload());
       
       bool success = true;
-      absl::optional<::blink::RemoteFrameToken> p_source_frame_token{};
+      std::optional<::blink::RemoteFrameToken> p_source_frame_token{};
       ::std::u16string p_source_origin{};
       ::std::u16string p_target_origin{};
       ::blink::TransferableMessage p_message{};
@@ -15812,7 +15348,7 @@ std::move(p_receiver));
               message->mutable_payload());
       
       bool success = true;
-      absl::optional<::blink::FrameToken> p_opener_frame_token{};
+      std::optional<::blink::FrameToken> p_opener_frame_token{};
       LocalFrame_UpdateOpener_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadOpenerFrameToken(&p_opener_frame_token))
@@ -15958,9 +15494,12 @@ std::move(p_url));
       
       bool success = true;
       ::blink::mojom::NavigationApiHistoryEntryArraysPtr p_entry_arrays{};
+      NavigationApiEntryRestoreReason p_restore_reason{};
       LocalFrame_SetNavigationApiHistoryEntriesForRestore_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadEntryArrays(&p_entry_arrays))
+        success = false;
+      if (success && !input_data_view.ReadRestoreReason(&p_restore_reason))
         success = false;
       if (!success) {
         ReportValidationErrorForMessage(
@@ -15972,7 +15511,8 @@ std::move(p_url));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
       impl->SetNavigationApiHistoryEntriesForRestore(
-std::move(p_entry_arrays));
+std::move(p_entry_arrays), 
+std::move(p_restore_reason));
       return true;
     }
     case internal::kLocalFrame_NotifyNavigationApiOfDisposedEntries_Name: {
@@ -16031,6 +15571,40 @@ std::move(p_navigation_api_key),
 std::move(p_reason));
       return true;
     }
+    case internal::kLocalFrame_DispatchNavigateEventForCrossDocumentTraversal_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::LocalFrame_DispatchNavigateEventForCrossDocumentTraversal_Params_Data* params =
+          reinterpret_cast<internal::LocalFrame_DispatchNavigateEventForCrossDocumentTraversal_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      ::GURL p_url{};
+      std::string p_page_state{};
+      bool p_is_browser_initiated{};
+      LocalFrame_DispatchNavigateEventForCrossDocumentTraversal_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadUrl(&p_url))
+        success = false;
+      if (success && !input_data_view.ReadPageState(&p_page_state))
+        success = false;
+      if (success)
+        p_is_browser_initiated = input_data_view.is_browser_initiated();
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            LocalFrame::Name_, 41, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->DispatchNavigateEventForCrossDocumentTraversal(
+std::move(p_url), 
+std::move(p_page_state), 
+std::move(p_is_browser_initiated));
+      return true;
+    }
     case internal::kLocalFrame_SnapshotDocumentForViewTransition_Name: {
       break;
     }
@@ -16051,7 +15625,7 @@ std::move(p_reason));
       uint32_t p_response_code{};
       std::string p_mime_type{};
       ::net::LoadTimingInfo p_load_timing_info{};
-      ::net::HttpResponseInfo::ConnectionInfo p_connection_info{};
+      ::net::HttpConnectionInfo p_connection_info{};
       std::string p_alpn_negotiated_protocol{};
       bool p_is_secure_transport{};
       bool p_is_validated{};
@@ -16093,7 +15667,7 @@ std::move(p_reason));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrame::Name_, 42, false);
+            LocalFrame::Name_, 43, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -16130,7 +15704,7 @@ std::move(p_completion_status));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrame::Name_, 43, false);
+            LocalFrame::Name_, 44, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -16195,9 +15769,6 @@ std::move(p_max_length), std::move(callback));
     case internal::kLocalFrame_AddMessageToConsole_Name: {
       break;
     }
-    case internal::kLocalFrame_AddInspectorIssue_Name: {
-      break;
-    }
     case internal::kLocalFrame_SwapInImmediately_Name: {
       break;
     }
@@ -16248,7 +15819,7 @@ std::move(p_max_length), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrame::Name_, 18, false);
+            LocalFrame::Name_, 17, false);
         return false;
       }
       LocalFrame::BeforeUnloadCallback callback =
@@ -16262,6 +15833,43 @@ std::move(p_is_reload), std::move(callback));
     }
     case internal::kLocalFrame_MediaPlayerActionAt_Name: {
       break;
+    }
+    case internal::kLocalFrame_RequestVideoFrameAt_Name: {
+
+      internal::LocalFrame_RequestVideoFrameAt_Params_Data* params =
+          reinterpret_cast<
+              internal::LocalFrame_RequestVideoFrameAt_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      ::gfx::Point p_location{};
+      ::gfx::Size p_max_size{};
+      int32_t p_max_area{};
+      LocalFrame_RequestVideoFrameAt_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadLocation(&p_location))
+        success = false;
+      if (success && !input_data_view.ReadMaxSize(&p_max_size))
+        success = false;
+      if (success)
+        p_max_area = input_data_view.max_area();
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            LocalFrame::Name_, 19, false);
+        return false;
+      }
+      LocalFrame::RequestVideoFrameAtCallback callback =
+          LocalFrame_RequestVideoFrameAt_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->RequestVideoFrameAt(
+std::move(p_location), 
+std::move(p_max_size), 
+std::move(p_max_area), std::move(callback));
+      return true;
     }
     case internal::kLocalFrame_PluginActionAt_Name: {
       break;
@@ -16532,6 +16140,9 @@ std::move(p_world_id), std::move(callback));
     case internal::kLocalFrame_TraverseCancelled_Name: {
       break;
     }
+    case internal::kLocalFrame_DispatchNavigateEventForCrossDocumentTraversal_Name: {
+      break;
+    }
     case internal::kLocalFrame_SnapshotDocumentForViewTransition_Name: {
 
       internal::LocalFrame_SnapshotDocumentForViewTransition_Params_Data* params =
@@ -16546,7 +16157,7 @@ std::move(p_world_id), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalFrame::Name_, 41, false);
+            LocalFrame::Name_, 42, false);
         return false;
       }
       LocalFrame::SnapshotDocumentForViewTransitionCallback callback =
@@ -16566,96 +16177,98 @@ std::move(p_world_id), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kLocalFrameValidationInfo[] = {
-    {&internal::LocalFrame_GetTextSurroundingSelection_Params_Data::Validate,
+    { &internal::LocalFrame_GetTextSurroundingSelection_Params_Data::Validate,
      &internal::LocalFrame_GetTextSurroundingSelection_ResponseParams_Data::Validate},
-    {&internal::LocalFrame_SendInterventionReport_Params_Data::Validate,
+    { &internal::LocalFrame_SendInterventionReport_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrame_SetFrameOwnerProperties_Params_Data::Validate,
+    { &internal::LocalFrame_SetFrameOwnerProperties_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrame_NotifyUserActivation_Params_Data::Validate,
+    { &internal::LocalFrame_NotifyUserActivation_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrame_NotifyVirtualKeyboardOverlayRect_Params_Data::Validate,
+    { &internal::LocalFrame_NotifyVirtualKeyboardOverlayRect_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrame_AddMessageToConsole_Params_Data::Validate,
+    { &internal::LocalFrame_AddMessageToConsole_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrame_AddInspectorIssue_Params_Data::Validate,
+    { &internal::LocalFrame_SwapInImmediately_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrame_SwapInImmediately_Params_Data::Validate,
+    { &internal::LocalFrame_CheckCompleted_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrame_CheckCompleted_Params_Data::Validate,
+    { &internal::LocalFrame_StopLoading_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrame_StopLoading_Params_Data::Validate,
+    { &internal::LocalFrame_Collapse_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrame_Collapse_Params_Data::Validate,
+    { &internal::LocalFrame_EnableViewSourceMode_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrame_EnableViewSourceMode_Params_Data::Validate,
+    { &internal::LocalFrame_Focus_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrame_Focus_Params_Data::Validate,
+    { &internal::LocalFrame_ClearFocusedElement_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrame_ClearFocusedElement_Params_Data::Validate,
+    { &internal::LocalFrame_CopyImageAt_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrame_CopyImageAt_Params_Data::Validate,
+    { &internal::LocalFrame_SaveImageAt_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrame_SaveImageAt_Params_Data::Validate,
+    { &internal::LocalFrame_ReportBlinkFeatureUsage_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrame_ReportBlinkFeatureUsage_Params_Data::Validate,
+    { &internal::LocalFrame_RenderFallbackContent_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrame_RenderFallbackContent_Params_Data::Validate,
-     nullptr /* no response */},
-    {&internal::LocalFrame_BeforeUnload_Params_Data::Validate,
+    { &internal::LocalFrame_BeforeUnload_Params_Data::Validate,
      &internal::LocalFrame_BeforeUnload_ResponseParams_Data::Validate},
-    {&internal::LocalFrame_MediaPlayerActionAt_Params_Data::Validate,
+    { &internal::LocalFrame_MediaPlayerActionAt_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrame_PluginActionAt_Params_Data::Validate,
+    { &internal::LocalFrame_RequestVideoFrameAt_Params_Data::Validate,
+     &internal::LocalFrame_RequestVideoFrameAt_ResponseParams_Data::Validate},
+    { &internal::LocalFrame_PluginActionAt_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrame_AdvanceFocusInFrame_Params_Data::Validate,
+    { &internal::LocalFrame_AdvanceFocusInFrame_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrame_AdvanceFocusForIME_Params_Data::Validate,
+    { &internal::LocalFrame_AdvanceFocusForIME_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrame_ReportContentSecurityPolicyViolation_Params_Data::Validate,
+    { &internal::LocalFrame_ReportContentSecurityPolicyViolation_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrame_DidUpdateFramePolicy_Params_Data::Validate,
+    { &internal::LocalFrame_DidUpdateFramePolicy_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrame_PostMessageEvent_Params_Data::Validate,
+    { &internal::LocalFrame_PostMessageEvent_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrame_JavaScriptMethodExecuteRequest_Params_Data::Validate,
+    { &internal::LocalFrame_JavaScriptMethodExecuteRequest_Params_Data::Validate,
      &internal::LocalFrame_JavaScriptMethodExecuteRequest_ResponseParams_Data::Validate},
-    {&internal::LocalFrame_JavaScriptExecuteRequest_Params_Data::Validate,
+    { &internal::LocalFrame_JavaScriptExecuteRequest_Params_Data::Validate,
      &internal::LocalFrame_JavaScriptExecuteRequest_ResponseParams_Data::Validate},
-    {&internal::LocalFrame_JavaScriptExecuteRequestForTests_Params_Data::Validate,
+    { &internal::LocalFrame_JavaScriptExecuteRequestForTests_Params_Data::Validate,
      &internal::LocalFrame_JavaScriptExecuteRequestForTests_ResponseParams_Data::Validate},
-    {&internal::LocalFrame_JavaScriptExecuteRequestInIsolatedWorld_Params_Data::Validate,
+    { &internal::LocalFrame_JavaScriptExecuteRequestInIsolatedWorld_Params_Data::Validate,
      &internal::LocalFrame_JavaScriptExecuteRequestInIsolatedWorld_ResponseParams_Data::Validate},
-    {&internal::LocalFrame_BindReportingObserver_Params_Data::Validate,
+    { &internal::LocalFrame_BindReportingObserver_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrame_UpdateOpener_Params_Data::Validate,
+    { &internal::LocalFrame_UpdateOpener_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrame_GetSavableResourceLinks_Params_Data::Validate,
+    { &internal::LocalFrame_GetSavableResourceLinks_Params_Data::Validate,
      &internal::LocalFrame_GetSavableResourceLinks_ResponseParams_Data::Validate},
-    {&internal::LocalFrame_MixedContentFound_Params_Data::Validate,
+    { &internal::LocalFrame_MixedContentFound_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrame_BindDevToolsAgent_Params_Data::Validate,
+    { &internal::LocalFrame_BindDevToolsAgent_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrame_HandleRendererDebugURL_Params_Data::Validate,
+    { &internal::LocalFrame_HandleRendererDebugURL_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrame_GetCanonicalUrlForSharing_Params_Data::Validate,
+    { &internal::LocalFrame_GetCanonicalUrlForSharing_Params_Data::Validate,
      &internal::LocalFrame_GetCanonicalUrlForSharing_ResponseParams_Data::Validate},
-    {&internal::LocalFrame_GetOpenGraphMetadata_Params_Data::Validate,
+    { &internal::LocalFrame_GetOpenGraphMetadata_Params_Data::Validate,
      &internal::LocalFrame_GetOpenGraphMetadata_ResponseParams_Data::Validate},
-    {&internal::LocalFrame_SetNavigationApiHistoryEntriesForRestore_Params_Data::Validate,
+    { &internal::LocalFrame_SetNavigationApiHistoryEntriesForRestore_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrame_NotifyNavigationApiOfDisposedEntries_Params_Data::Validate,
+    { &internal::LocalFrame_NotifyNavigationApiOfDisposedEntries_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrame_TraverseCancelled_Params_Data::Validate,
+    { &internal::LocalFrame_TraverseCancelled_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrame_SnapshotDocumentForViewTransition_Params_Data::Validate,
+    { &internal::LocalFrame_DispatchNavigateEventForCrossDocumentTraversal_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::LocalFrame_SnapshotDocumentForViewTransition_Params_Data::Validate,
      &internal::LocalFrame_SnapshotDocumentForViewTransition_ResponseParams_Data::Validate},
-    {&internal::LocalFrame_AddResourceTimingEntryForFailedSubframeNavigation_Params_Data::Validate,
+    { &internal::LocalFrame_AddResourceTimingEntryForFailedSubframeNavigation_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalFrame_RequestFullscreenDocumentElement_Params_Data::Validate,
+    { &internal::LocalFrame_RequestFullscreenDocumentElement_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -16755,14 +16368,17 @@ void HighPriorityLocalFrameProxy::DispatchBeforeUnload(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHighPriorityLocalFrame_DispatchBeforeUnload_Name, kFlags, 0, 0, nullptr);
@@ -16887,7 +16503,8 @@ void HighPriorityLocalFrame_DispatchBeforeUnload_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kHighPriorityLocalFrame_DispatchBeforeUnload_Name, kFlags, 0, 0, nullptr);
@@ -16989,10 +16606,10 @@ std::move(p_is_reload), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kHighPriorityLocalFrameValidationInfo[] = {
-    {&internal::HighPriorityLocalFrame_DispatchBeforeUnload_Params_Data::Validate,
+    { &internal::HighPriorityLocalFrame_DispatchBeforeUnload_Params_Data::Validate,
      &internal::HighPriorityLocalFrame_DispatchBeforeUnload_ResponseParams_Data::Validate},
 };
 
@@ -17034,12 +16651,6 @@ LocalMainFrame::IPCStableHashFunction LocalMainFrame::MessageToMethodInfo_(mojo:
     case internal::kLocalMainFrame_InstallCoopAccessMonitor_Name: {
       return &LocalMainFrame::InstallCoopAccessMonitor_Sym::IPCStableHash;
     }
-    case internal::kLocalMainFrame_OnPortalActivated_Name: {
-      return &LocalMainFrame::OnPortalActivated_Sym::IPCStableHash;
-    }
-    case internal::kLocalMainFrame_ForwardMessageFromHost_Name: {
-      return &LocalMainFrame::ForwardMessageFromHost_Sym::IPCStableHash;
-    }
     case internal::kLocalMainFrame_UpdateBrowserControlsState_Name: {
       return &LocalMainFrame::UpdateBrowserControlsState_Sym::IPCStableHash;
     }
@@ -17073,10 +16684,6 @@ const char* LocalMainFrame::MessageToMethodName_(mojo::Message& message) {
             return "Receive blink::mojom::LocalMainFrame::ZoomToFindInPageRect";
       case internal::kLocalMainFrame_InstallCoopAccessMonitor_Name:
             return "Receive blink::mojom::LocalMainFrame::InstallCoopAccessMonitor";
-      case internal::kLocalMainFrame_OnPortalActivated_Name:
-            return "Receive blink::mojom::LocalMainFrame::OnPortalActivated";
-      case internal::kLocalMainFrame_ForwardMessageFromHost_Name:
-            return "Receive blink::mojom::LocalMainFrame::ForwardMessageFromHost";
       case internal::kLocalMainFrame_UpdateBrowserControlsState_Name:
             return "Receive blink::mojom::LocalMainFrame::UpdateBrowserControlsState";
       case internal::kLocalMainFrame_SetV8CompileHints_Name:
@@ -17100,10 +16707,6 @@ const char* LocalMainFrame::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply blink::mojom::LocalMainFrame::ZoomToFindInPageRect";
       case internal::kLocalMainFrame_InstallCoopAccessMonitor_Name:
             return "Receive reply blink::mojom::LocalMainFrame::InstallCoopAccessMonitor";
-      case internal::kLocalMainFrame_OnPortalActivated_Name:
-            return "Receive reply blink::mojom::LocalMainFrame::OnPortalActivated";
-      case internal::kLocalMainFrame_ForwardMessageFromHost_Name:
-            return "Receive reply blink::mojom::LocalMainFrame::ForwardMessageFromHost";
       case internal::kLocalMainFrame_UpdateBrowserControlsState_Name:
             return "Receive reply blink::mojom::LocalMainFrame::UpdateBrowserControlsState";
       case internal::kLocalMainFrame_SetV8CompileHints_Name:
@@ -17226,32 +16829,6 @@ uint32_t LocalMainFrame::InstallCoopAccessMonitor_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
-uint32_t LocalMainFrame::OnPortalActivated_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)blink::mojom::LocalMainFrame::OnPortalActivated");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
-uint32_t LocalMainFrame::ForwardMessageFromHost_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)blink::mojom::LocalMainFrame::ForwardMessageFromHost");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
 uint32_t LocalMainFrame::UpdateBrowserControlsState_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
@@ -17312,22 +16889,6 @@ class LocalMainFrame_GetFullPageSize_ForwardToCallback
   LocalMainFrame::GetFullPageSizeCallback callback_;
 };
 
-class LocalMainFrame_OnPortalActivated_ForwardToCallback
-    : public mojo::MessageReceiver {
- public:
-  LocalMainFrame_OnPortalActivated_ForwardToCallback(
-      LocalMainFrame::OnPortalActivatedCallback callback
-      ) : callback_(std::move(callback)) {
-  }
-
-  LocalMainFrame_OnPortalActivated_ForwardToCallback(const LocalMainFrame_OnPortalActivated_ForwardToCallback&) = delete;
-  LocalMainFrame_OnPortalActivated_ForwardToCallback& operator=(const LocalMainFrame_OnPortalActivated_ForwardToCallback&) = delete;
-
-  bool Accept(mojo::Message* message) override;
- private:
-  LocalMainFrame::OnPortalActivatedCallback callback_;
-};
-
 LocalMainFrameProxy::LocalMainFrameProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
 }
@@ -17347,14 +16908,17 @@ void LocalMainFrameProxy::AnimateDoubleTapZoom(
                         "<value of type const ::gfx::Rect&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalMainFrame_AnimateDoubleTapZoom_Name, kFlags, 0, 0, nullptr);
@@ -17406,14 +16970,17 @@ void LocalMainFrameProxy::SetScaleFactor(
                         "<value of type float>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalMainFrame_SetScaleFactor_Name, kFlags, 0, 0, nullptr);
@@ -17437,14 +17004,17 @@ void LocalMainFrameProxy::ClosePage(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::LocalMainFrame::ClosePage");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalMainFrame_ClosePage_Name, kFlags, 0, 0, nullptr);
@@ -17468,14 +17038,17 @@ void LocalMainFrameProxy::GetFullPageSize(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::LocalMainFrame::GetFullPageSize");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalMainFrame_GetFullPageSize_Name, kFlags, 0, 0, nullptr);
@@ -17506,14 +17079,17 @@ void LocalMainFrameProxy::SetInitialFocus(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalMainFrame_SetInitialFocus_Name, kFlags, 0, 0, nullptr);
@@ -17537,14 +17113,17 @@ void LocalMainFrameProxy::EnablePreferredSizeChangedMode(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::LocalMainFrame::EnablePreferredSizeChangedMode");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalMainFrame_EnablePreferredSizeChangedMode_Name, kFlags, 0, 0, nullptr);
@@ -17574,14 +17153,17 @@ void LocalMainFrameProxy::ZoomToFindInPageRect(
                         "<value of type const ::gfx::Rect&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalMainFrame_ZoomToFindInPageRect_Name, kFlags, 0, 0, nullptr);
@@ -17628,14 +17210,17 @@ void LocalMainFrameProxy::InstallCoopAccessMonitor(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalMainFrame_InstallCoopAccessMonitor_Name, kFlags, 0, 0, nullptr);
@@ -17674,153 +17259,6 @@ void LocalMainFrameProxy::InstallCoopAccessMonitor(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
-void LocalMainFrameProxy::OnPortalActivated(
-    const ::blink::PortalToken& in_portal_token, ::mojo::PendingAssociatedRemote<::blink::mojom::Portal> in_portal, ::mojo::PendingAssociatedReceiver<::blink::mojom::PortalClient> in_portal_client, ::blink::TransferableMessage in_data, uint64_t in_trace_id, OnPortalActivatedCallback callback) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send blink::mojom::LocalMainFrame::OnPortalActivated", "input_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("portal_token"), in_portal_token,
-                        "<value of type const ::blink::PortalToken&>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("portal"), in_portal,
-                        "<value of type ::mojo::PendingAssociatedRemote<::blink::mojom::Portal>>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("portal_client"), in_portal_client,
-                        "<value of type ::mojo::PendingAssociatedReceiver<::blink::mojom::PortalClient>>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("data"), in_data,
-                        "<value of type ::blink::TransferableMessage>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("trace_id"), in_trace_id,
-                        "<value of type uint64_t>");
-   });
-#endif
-  const bool kExpectsResponse = true;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kLocalMainFrame_OnPortalActivated_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::blink::mojom::internal::LocalMainFrame_OnPortalActivated_Params_Data> params(
-          message);
-  params.Allocate();
-  mojo::internal::MessageFragment<
-      typename decltype(params->portal_token)::BaseType> portal_token_fragment(
-          params.message());
-  mojo::internal::Serialize<::blink::mojom::PortalTokenDataView>(
-      in_portal_token, portal_token_fragment);
-  params->portal_token.Set(
-      portal_token_fragment.is_null() ? nullptr : portal_token_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->portal_token.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null portal_token in LocalMainFrame.OnPortalActivated request");
-  mojo::internal::Serialize<::blink::mojom::PortalAssociatedPtrInfoDataView>(
-      in_portal, &params->portal, &params.message());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      !mojo::internal::IsHandleOrInterfaceValid(params->portal),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_INTERFACE_ID,
-      "invalid portal in LocalMainFrame.OnPortalActivated request");
-  mojo::internal::Serialize<::blink::mojom::PortalClientAssociatedRequestDataView>(
-      in_portal_client, &params->portal_client, &params.message());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      !mojo::internal::IsHandleOrInterfaceValid(params->portal_client),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_INTERFACE_ID,
-      "invalid portal_client in LocalMainFrame.OnPortalActivated request");
-  mojo::internal::MessageFragment<
-      typename decltype(params->data)::BaseType> data_fragment(
-          params.message());
-  mojo::internal::Serialize<::blink::mojom::TransferableMessageDataView>(
-      in_data, data_fragment);
-  params->data.Set(
-      data_fragment.is_null() ? nullptr : data_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->data.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null data in LocalMainFrame.OnPortalActivated request");
-  params->trace_id = in_trace_id;
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(LocalMainFrame::Name_);
-  message.set_method_name("OnPortalActivated");
-#endif
-  std::unique_ptr<mojo::MessageReceiver> responder(
-      new LocalMainFrame_OnPortalActivated_ForwardToCallback(
-          std::move(callback)));
-  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
-}
-
-void LocalMainFrameProxy::ForwardMessageFromHost(
-    ::blink::TransferableMessage in_message, const ::url::Origin& in_source_origin) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send blink::mojom::LocalMainFrame::ForwardMessageFromHost", "input_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("message"), in_message,
-                        "<value of type ::blink::TransferableMessage>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("source_origin"), in_source_origin,
-                        "<value of type const ::url::Origin&>");
-   });
-#endif
-  const bool kExpectsResponse = false;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kLocalMainFrame_ForwardMessageFromHost_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::blink::mojom::internal::LocalMainFrame_ForwardMessageFromHost_Params_Data> params(
-          message);
-  params.Allocate();
-  mojo::internal::MessageFragment<
-      typename decltype(params->message)::BaseType> message_fragment(
-          params.message());
-  mojo::internal::Serialize<::blink::mojom::TransferableMessageDataView>(
-      in_message, message_fragment);
-  params->message.Set(
-      message_fragment.is_null() ? nullptr : message_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->message.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null message in LocalMainFrame.ForwardMessageFromHost request");
-  mojo::internal::MessageFragment<
-      typename decltype(params->source_origin)::BaseType> source_origin_fragment(
-          params.message());
-  mojo::internal::Serialize<::url::mojom::OriginDataView>(
-      in_source_origin, source_origin_fragment);
-  params->source_origin.Set(
-      source_origin_fragment.is_null() ? nullptr : source_origin_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->source_origin.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null source_origin in LocalMainFrame.ForwardMessageFromHost request");
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(LocalMainFrame::Name_);
-  message.set_method_name("ForwardMessageFromHost");
-#endif
-  // This return value may be ignored as false implies the Connector has
-  // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMojoMessage(*receiver_, message);
-}
-
 void LocalMainFrameProxy::UpdateBrowserControlsState(
     ::cc::BrowserControlsState in_constraints, ::cc::BrowserControlsState in_current, bool in_animate) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -17839,14 +17277,17 @@ void LocalMainFrameProxy::UpdateBrowserControlsState(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalMainFrame_UpdateBrowserControlsState_Name, kFlags, 0, 0, nullptr);
@@ -17881,14 +17322,17 @@ void LocalMainFrameProxy::SetV8CompileHints(
                         "<value of type ::base::ReadOnlySharedMemoryRegion>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalMainFrame_SetV8CompileHints_Name, kFlags, 0, 0, nullptr);
@@ -17997,7 +17441,8 @@ void LocalMainFrame_ClosePage_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalMainFrame_ClosePage_Name, kFlags, 0, 0, nullptr);
@@ -18114,7 +17559,8 @@ void LocalMainFrame_GetFullPageSize_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalMainFrame_GetFullPageSize_Name, kFlags, 0, 0, nullptr);
@@ -18137,125 +17583,6 @@ void LocalMainFrame_GetFullPageSize_ProxyToResponder::Run(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(LocalMainFrame::Name_);
   message.set_method_name("GetFullPageSize");
-#endif
-
-  message.set_request_id(request_id_);
-  message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMojoMessage(*responder_, message);
-  // SendMojoMessage() fails silently if the responder connection is closed,
-  // or if the message is malformed.
-  //
-  // TODO(darin): If Accept() returns false due to a malformed message, that
-  // may be good reason to close the connection. However, we don't have a
-  // way to do that from here. We should add a way.
-  responder_ = nullptr;
-}
-class LocalMainFrame_OnPortalActivated_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
- public:
-  static LocalMainFrame::OnPortalActivatedCallback CreateCallback(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
-    std::unique_ptr<LocalMainFrame_OnPortalActivated_ProxyToResponder> proxy(
-        new LocalMainFrame_OnPortalActivated_ProxyToResponder(
-            message, std::move(responder)));
-    return base::BindOnce(&LocalMainFrame_OnPortalActivated_ProxyToResponder::Run,
-                          std::move(proxy));
-  }
-
-  ~LocalMainFrame_OnPortalActivated_ProxyToResponder() {
-#if DCHECK_IS_ON()
-    if (responder_) {
-      // If we're being destroyed without being run, we want to ensure the
-      // binding endpoint has been closed. This checks for that asynchronously.
-      // We pass a bound generated callback to handle the response so that any
-      // resulting DCHECK stack will have useful interface type information.
-      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
-      // fizzle if this happens after shutdown and the endpoint is bound to a
-      // BLOCK_SHUTDOWN sequence.
-      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
-      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
-    }
-#endif
-  }
-
- private:
-  LocalMainFrame_OnPortalActivated_ProxyToResponder(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
-      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
-  }
-
-#if DCHECK_IS_ON()
-  static void OnIsConnectedComplete(bool connected) {
-    DCHECK(!connected)
-        << "LocalMainFrame::OnPortalActivatedCallback was destroyed without "
-        << "first either being run or its corresponding binding being closed. "
-        << "It is an error to drop response callbacks which still correspond "
-        << "to an open interface pipe.";
-  }
-#endif
-
-  void Run(
-      ::blink::mojom::PortalActivateResult in_result);
-};
-
-bool LocalMainFrame_OnPortalActivated_ForwardToCallback::Accept(
-    mojo::Message* message) {
-
-  DCHECK(message->is_serialized());
-  internal::LocalMainFrame_OnPortalActivated_ResponseParams_Data* params =
-      reinterpret_cast<
-          internal::LocalMainFrame_OnPortalActivated_ResponseParams_Data*>(
-              message->mutable_payload());
-  
-  bool success = true;
-  ::blink::mojom::PortalActivateResult p_result{};
-  LocalMainFrame_OnPortalActivated_ResponseParamsDataView input_data_view(params, message);
-  
-  if (success && !input_data_view.ReadResult(&p_result))
-    success = false;
-  if (!success) {
-    ReportValidationErrorForMessage(
-        message,
-        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        LocalMainFrame::Name_, 8, true);
-    return false;
-  }
-  if (!callback_.is_null())
-    std::move(callback_).Run(
-std::move(p_result));
-  return true;
-}
-
-void LocalMainFrame_OnPortalActivated_ProxyToResponder::Run(
-    ::blink::mojom::PortalActivateResult in_result) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send reply blink::mojom::LocalMainFrame::OnPortalActivated", "async_response_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("result"), in_result,
-                        "<value of type ::blink::mojom::PortalActivateResult>");
-   });
-#endif
-  
-  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
-      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kLocalMainFrame_OnPortalActivated_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::blink::mojom::internal::LocalMainFrame_OnPortalActivated_ResponseParams_Data> params(
-          message);
-  params.Allocate();
-  mojo::internal::Serialize<::blink::mojom::PortalActivateResult>(
-      in_result, &params->result);
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(LocalMainFrame::Name_);
-  message.set_method_name("OnPortalActivated");
 #endif
 
   message.set_request_id(request_id_);
@@ -18445,39 +17772,6 @@ std::move(p_coop_reporter_info),
 std::move(p_is_in_same_virtual_coop_related_group));
       return true;
     }
-    case internal::kLocalMainFrame_OnPortalActivated_Name: {
-      break;
-    }
-    case internal::kLocalMainFrame_ForwardMessageFromHost_Name: {
-
-      DCHECK(message->is_serialized());
-      internal::LocalMainFrame_ForwardMessageFromHost_Params_Data* params =
-          reinterpret_cast<internal::LocalMainFrame_ForwardMessageFromHost_Params_Data*>(
-              message->mutable_payload());
-      
-      bool success = true;
-      ::blink::TransferableMessage p_message{};
-      ::url::Origin p_source_origin{};
-      LocalMainFrame_ForwardMessageFromHost_ParamsDataView input_data_view(params, message);
-      
-      if (success && !input_data_view.ReadMessage(&p_message))
-        success = false;
-      if (success && !input_data_view.ReadSourceOrigin(&p_source_origin))
-        success = false;
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalMainFrame::Name_, 9, false);
-        return false;
-      }
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->ForwardMessageFromHost(
-std::move(p_message), 
-std::move(p_source_origin));
-      return true;
-    }
     case internal::kLocalMainFrame_UpdateBrowserControlsState_Name: {
 
       DCHECK(message->is_serialized());
@@ -18501,7 +17795,7 @@ std::move(p_source_origin));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalMainFrame::Name_, 10, false);
+            LocalMainFrame::Name_, 8, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -18529,7 +17823,7 @@ std::move(p_animate));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalMainFrame::Name_, 11, false);
+            LocalMainFrame::Name_, 9, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -18619,58 +17913,6 @@ bool LocalMainFrameStubDispatch::AcceptWithResponder(
     case internal::kLocalMainFrame_InstallCoopAccessMonitor_Name: {
       break;
     }
-    case internal::kLocalMainFrame_OnPortalActivated_Name: {
-
-      internal::LocalMainFrame_OnPortalActivated_Params_Data* params =
-          reinterpret_cast<
-              internal::LocalMainFrame_OnPortalActivated_Params_Data*>(
-                  message->mutable_payload());
-      
-      bool success = true;
-      ::blink::PortalToken p_portal_token{};
-      ::mojo::PendingAssociatedRemote<::blink::mojom::Portal> p_portal{};
-      ::mojo::PendingAssociatedReceiver<::blink::mojom::PortalClient> p_portal_client{};
-      ::blink::TransferableMessage p_data{};
-      uint64_t p_trace_id{};
-      LocalMainFrame_OnPortalActivated_ParamsDataView input_data_view(params, message);
-      
-      if (success && !input_data_view.ReadPortalToken(&p_portal_token))
-        success = false;
-      if (success) {
-        p_portal =
-            input_data_view.TakePortal<decltype(p_portal)>();
-      }
-      if (success) {
-        p_portal_client =
-            input_data_view.TakePortalClient<decltype(p_portal_client)>();
-      }
-      if (success && !input_data_view.ReadData(&p_data))
-        success = false;
-      if (success)
-        p_trace_id = input_data_view.trace_id();
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalMainFrame::Name_, 8, false);
-        return false;
-      }
-      LocalMainFrame::OnPortalActivatedCallback callback =
-          LocalMainFrame_OnPortalActivated_ProxyToResponder::CreateCallback(
-              *message, std::move(responder));
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->OnPortalActivated(
-std::move(p_portal_token), 
-std::move(p_portal), 
-std::move(p_portal_client), 
-std::move(p_data), 
-std::move(p_trace_id), std::move(callback));
-      return true;
-    }
-    case internal::kLocalMainFrame_ForwardMessageFromHost_Name: {
-      break;
-    }
     case internal::kLocalMainFrame_UpdateBrowserControlsState_Name: {
       break;
     }
@@ -18680,32 +17922,28 @@ std::move(p_trace_id), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kLocalMainFrameValidationInfo[] = {
-    {&internal::LocalMainFrame_AnimateDoubleTapZoom_Params_Data::Validate,
+    { &internal::LocalMainFrame_AnimateDoubleTapZoom_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalMainFrame_SetScaleFactor_Params_Data::Validate,
+    { &internal::LocalMainFrame_SetScaleFactor_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalMainFrame_ClosePage_Params_Data::Validate,
+    { &internal::LocalMainFrame_ClosePage_Params_Data::Validate,
      &internal::LocalMainFrame_ClosePage_ResponseParams_Data::Validate},
-    {&internal::LocalMainFrame_GetFullPageSize_Params_Data::Validate,
+    { &internal::LocalMainFrame_GetFullPageSize_Params_Data::Validate,
      &internal::LocalMainFrame_GetFullPageSize_ResponseParams_Data::Validate},
-    {&internal::LocalMainFrame_SetInitialFocus_Params_Data::Validate,
+    { &internal::LocalMainFrame_SetInitialFocus_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalMainFrame_EnablePreferredSizeChangedMode_Params_Data::Validate,
+    { &internal::LocalMainFrame_EnablePreferredSizeChangedMode_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalMainFrame_ZoomToFindInPageRect_Params_Data::Validate,
+    { &internal::LocalMainFrame_ZoomToFindInPageRect_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalMainFrame_InstallCoopAccessMonitor_Params_Data::Validate,
+    { &internal::LocalMainFrame_InstallCoopAccessMonitor_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalMainFrame_OnPortalActivated_Params_Data::Validate,
-     &internal::LocalMainFrame_OnPortalActivated_ResponseParams_Data::Validate},
-    {&internal::LocalMainFrame_ForwardMessageFromHost_Params_Data::Validate,
+    { &internal::LocalMainFrame_UpdateBrowserControlsState_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalMainFrame_UpdateBrowserControlsState_Params_Data::Validate,
-     nullptr /* no response */},
-    {&internal::LocalMainFrame_SetV8CompileHints_Params_Data::Validate,
+    { &internal::LocalMainFrame_SetV8CompileHints_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -18756,6 +17994,15 @@ LocalMainFrameHost::IPCStableHashFunction LocalMainFrameHost::MessageToMethodInf
     case internal::kLocalMainFrameHost_DidAccessInitialMainDocument_Name: {
       return &LocalMainFrameHost::DidAccessInitialMainDocument_Sym::IPCStableHash;
     }
+    case internal::kLocalMainFrameHost_Maximize_Name: {
+      return &LocalMainFrameHost::Maximize_Sym::IPCStableHash;
+    }
+    case internal::kLocalMainFrameHost_Minimize_Name: {
+      return &LocalMainFrameHost::Minimize_Sym::IPCStableHash;
+    }
+    case internal::kLocalMainFrameHost_Restore_Name: {
+      return &LocalMainFrameHost::Restore_Sym::IPCStableHash;
+    }
     case internal::kLocalMainFrameHost_SetResizable_Name: {
       return &LocalMainFrameHost::SetResizable_Sym::IPCStableHash;
     }
@@ -18792,6 +18039,12 @@ const char* LocalMainFrameHost::MessageToMethodName_(mojo::Message& message) {
             return "Receive blink::mojom::LocalMainFrameHost::DidFirstVisuallyNonEmptyPaint";
       case internal::kLocalMainFrameHost_DidAccessInitialMainDocument_Name:
             return "Receive blink::mojom::LocalMainFrameHost::DidAccessInitialMainDocument";
+      case internal::kLocalMainFrameHost_Maximize_Name:
+            return "Receive blink::mojom::LocalMainFrameHost::Maximize";
+      case internal::kLocalMainFrameHost_Minimize_Name:
+            return "Receive blink::mojom::LocalMainFrameHost::Minimize";
+      case internal::kLocalMainFrameHost_Restore_Name:
+            return "Receive blink::mojom::LocalMainFrameHost::Restore";
       case internal::kLocalMainFrameHost_SetResizable_Name:
             return "Receive blink::mojom::LocalMainFrameHost::SetResizable";
     }
@@ -18819,6 +18072,12 @@ const char* LocalMainFrameHost::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply blink::mojom::LocalMainFrameHost::DidFirstVisuallyNonEmptyPaint";
       case internal::kLocalMainFrameHost_DidAccessInitialMainDocument_Name:
             return "Receive reply blink::mojom::LocalMainFrameHost::DidAccessInitialMainDocument";
+      case internal::kLocalMainFrameHost_Maximize_Name:
+            return "Receive reply blink::mojom::LocalMainFrameHost::Maximize";
+      case internal::kLocalMainFrameHost_Minimize_Name:
+            return "Receive reply blink::mojom::LocalMainFrameHost::Minimize";
+      case internal::kLocalMainFrameHost_Restore_Name:
+            return "Receive reply blink::mojom::LocalMainFrameHost::Restore";
       case internal::kLocalMainFrameHost_SetResizable_Name:
             return "Receive reply blink::mojom::LocalMainFrameHost::SetResizable";
     }
@@ -18978,6 +18237,45 @@ uint32_t LocalMainFrameHost::DidAccessInitialMainDocument_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t LocalMainFrameHost::Maximize_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)blink::mojom::LocalMainFrameHost::Maximize");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t LocalMainFrameHost::Minimize_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)blink::mojom::LocalMainFrameHost::Minimize");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t LocalMainFrameHost::Restore_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)blink::mojom::LocalMainFrameHost::Restore");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 uint32_t LocalMainFrameHost::SetResizable_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
@@ -19057,14 +18355,17 @@ void LocalMainFrameHostProxy::ScaleFactorChanged(
                         "<value of type float>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalMainFrameHost_ScaleFactorChanged_Name, kFlags, 0, 0, nullptr);
@@ -19095,14 +18396,17 @@ void LocalMainFrameHostProxy::ContentsPreferredSizeChanged(
                         "<value of type const ::gfx::Size&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalMainFrameHost_ContentsPreferredSizeChanged_Name, kFlags, 0, 0, nullptr);
@@ -19143,14 +18447,17 @@ void LocalMainFrameHostProxy::TextAutosizerPageInfoChanged(
                         "<value of type ::blink::mojom::TextAutosizerPageInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalMainFrameHost_TextAutosizerPageInfoChanged_Name, kFlags, 0, 0, nullptr);
@@ -19184,14 +18491,17 @@ void LocalMainFrameHostProxy::FocusPage(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::LocalMainFrameHost::FocusPage");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalMainFrameHost_FocusPage_Name, kFlags, 0, 0, nullptr);
@@ -19221,14 +18531,17 @@ void LocalMainFrameHostProxy::TakeFocus(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalMainFrameHost_TakeFocus_Name, kFlags, 0, 0, nullptr);
@@ -19259,14 +18572,17 @@ void LocalMainFrameHostProxy::UpdateTargetURL(
                         "<value of type const ::GURL&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalMainFrameHost_UpdateTargetURL_Name, kFlags, 0, 0, nullptr);
@@ -19301,14 +18617,17 @@ void LocalMainFrameHostProxy::RequestClose(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::LocalMainFrameHost::RequestClose");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalMainFrameHost_RequestClose_Name, kFlags, 0, 0, nullptr);
@@ -19347,14 +18666,17 @@ void LocalMainFrameHostProxy::ShowCreatedWindow(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalMainFrameHost_ShowCreatedWindow_Name, kFlags, 0, 0, nullptr);
@@ -19410,14 +18732,17 @@ void LocalMainFrameHostProxy::SetWindowRect(
                         "<value of type const ::gfx::Rect&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalMainFrameHost_SetWindowRect_Name, kFlags, 0, 0, nullptr);
@@ -19452,14 +18777,17 @@ void LocalMainFrameHostProxy::DidFirstVisuallyNonEmptyPaint(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::LocalMainFrameHost::DidFirstVisuallyNonEmptyPaint");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalMainFrameHost_DidFirstVisuallyNonEmptyPaint_Name, kFlags, 0, 0, nullptr);
@@ -19482,14 +18810,17 @@ void LocalMainFrameHostProxy::DidAccessInitialMainDocument(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::LocalMainFrameHost::DidAccessInitialMainDocument");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalMainFrameHost_DidAccessInitialMainDocument_Name, kFlags, 0, 0, nullptr);
@@ -19501,6 +18832,105 @@ void LocalMainFrameHostProxy::DidAccessInitialMainDocument(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(LocalMainFrameHost::Name_);
   message.set_method_name("DidAccessInitialMainDocument");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void LocalMainFrameHostProxy::Maximize(
+    ) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send blink::mojom::LocalMainFrameHost::Maximize");
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kLocalMainFrameHost_Maximize_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::blink::mojom::internal::LocalMainFrameHost_Maximize_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(LocalMainFrameHost::Name_);
+  message.set_method_name("Maximize");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void LocalMainFrameHostProxy::Minimize(
+    ) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send blink::mojom::LocalMainFrameHost::Minimize");
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kLocalMainFrameHost_Minimize_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::blink::mojom::internal::LocalMainFrameHost_Minimize_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(LocalMainFrameHost::Name_);
+  message.set_method_name("Minimize");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void LocalMainFrameHostProxy::Restore(
+    ) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send blink::mojom::LocalMainFrameHost::Restore");
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kLocalMainFrameHost_Restore_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::blink::mojom::internal::LocalMainFrameHost_Restore_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(LocalMainFrameHost::Name_);
+  message.set_method_name("Restore");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
@@ -19519,14 +18949,17 @@ void LocalMainFrameHostProxy::SetResizable(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalMainFrameHost_SetResizable_Name, kFlags, 0, 0, nullptr);
@@ -19625,7 +19058,8 @@ void LocalMainFrameHost_UpdateTargetURL_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalMainFrameHost_UpdateTargetURL_Name, kFlags, 0, 0, nullptr);
@@ -19731,7 +19165,8 @@ void LocalMainFrameHost_ShowCreatedWindow_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalMainFrameHost_ShowCreatedWindow_Name, kFlags, 0, 0, nullptr);
@@ -19837,7 +19272,8 @@ void LocalMainFrameHost_SetWindowRect_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLocalMainFrameHost_SetWindowRect_Name, kFlags, 0, 0, nullptr);
@@ -20069,6 +19505,72 @@ std::move(p_reverse));
       impl->DidAccessInitialMainDocument();
       return true;
     }
+    case internal::kLocalMainFrameHost_Maximize_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::LocalMainFrameHost_Maximize_Params_Data* params =
+          reinterpret_cast<internal::LocalMainFrameHost_Maximize_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      LocalMainFrameHost_Maximize_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            LocalMainFrameHost::Name_, 11, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->Maximize();
+      return true;
+    }
+    case internal::kLocalMainFrameHost_Minimize_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::LocalMainFrameHost_Minimize_Params_Data* params =
+          reinterpret_cast<internal::LocalMainFrameHost_Minimize_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      LocalMainFrameHost_Minimize_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            LocalMainFrameHost::Name_, 12, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->Minimize();
+      return true;
+    }
+    case internal::kLocalMainFrameHost_Restore_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::LocalMainFrameHost_Restore_Params_Data* params =
+          reinterpret_cast<internal::LocalMainFrameHost_Restore_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      LocalMainFrameHost_Restore_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            LocalMainFrameHost::Name_, 13, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->Restore();
+      return true;
+    }
     case internal::kLocalMainFrameHost_SetResizable_Name: {
 
       DCHECK(message->is_serialized());
@@ -20086,7 +19588,7 @@ std::move(p_reverse));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LocalMainFrameHost::Name_, 11, false);
+            LocalMainFrameHost::Name_, 14, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -20231,38 +19733,53 @@ std::move(p_bounds), std::move(callback));
     case internal::kLocalMainFrameHost_DidAccessInitialMainDocument_Name: {
       break;
     }
+    case internal::kLocalMainFrameHost_Maximize_Name: {
+      break;
+    }
+    case internal::kLocalMainFrameHost_Minimize_Name: {
+      break;
+    }
+    case internal::kLocalMainFrameHost_Restore_Name: {
+      break;
+    }
     case internal::kLocalMainFrameHost_SetResizable_Name: {
       break;
     }
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kLocalMainFrameHostValidationInfo[] = {
-    {&internal::LocalMainFrameHost_ScaleFactorChanged_Params_Data::Validate,
+    { &internal::LocalMainFrameHost_ScaleFactorChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalMainFrameHost_ContentsPreferredSizeChanged_Params_Data::Validate,
+    { &internal::LocalMainFrameHost_ContentsPreferredSizeChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalMainFrameHost_TextAutosizerPageInfoChanged_Params_Data::Validate,
+    { &internal::LocalMainFrameHost_TextAutosizerPageInfoChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalMainFrameHost_FocusPage_Params_Data::Validate,
+    { &internal::LocalMainFrameHost_FocusPage_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalMainFrameHost_TakeFocus_Params_Data::Validate,
+    { &internal::LocalMainFrameHost_TakeFocus_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalMainFrameHost_UpdateTargetURL_Params_Data::Validate,
+    { &internal::LocalMainFrameHost_UpdateTargetURL_Params_Data::Validate,
      &internal::LocalMainFrameHost_UpdateTargetURL_ResponseParams_Data::Validate},
-    {&internal::LocalMainFrameHost_RequestClose_Params_Data::Validate,
+    { &internal::LocalMainFrameHost_RequestClose_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalMainFrameHost_ShowCreatedWindow_Params_Data::Validate,
+    { &internal::LocalMainFrameHost_ShowCreatedWindow_Params_Data::Validate,
      &internal::LocalMainFrameHost_ShowCreatedWindow_ResponseParams_Data::Validate},
-    {&internal::LocalMainFrameHost_SetWindowRect_Params_Data::Validate,
+    { &internal::LocalMainFrameHost_SetWindowRect_Params_Data::Validate,
      &internal::LocalMainFrameHost_SetWindowRect_ResponseParams_Data::Validate},
-    {&internal::LocalMainFrameHost_DidFirstVisuallyNonEmptyPaint_Params_Data::Validate,
+    { &internal::LocalMainFrameHost_DidFirstVisuallyNonEmptyPaint_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalMainFrameHost_DidAccessInitialMainDocument_Params_Data::Validate,
+    { &internal::LocalMainFrameHost_DidAccessInitialMainDocument_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::LocalMainFrameHost_SetResizable_Params_Data::Validate,
+    { &internal::LocalMainFrameHost_Maximize_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::LocalMainFrameHost_Minimize_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::LocalMainFrameHost_Restore_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::LocalMainFrameHost_SetResizable_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -20389,7 +19906,9 @@ bool StructTraits<::blink::mojom::IframeAttributes::DataView, ::blink::mojom::If
       if (success)
         result->browsing_topics = input.browsing_topics();
       if (success)
-        result->shared_storage_writable = input.shared_storage_writable();
+        result->ad_auction_headers = input.ad_auction_headers();
+      if (success)
+        result->shared_storage_writable_opted_in = input.shared_storage_writable_opted_in();
       if (success && !input.ReadId(&result->id))
         success = false;
       if (success && !input.ReadName(&result->name))
@@ -20437,15 +19956,6 @@ void LocalFrameHostInterceptorForTesting::ExitFullscreen() {
 void LocalFrameHostInterceptorForTesting::FullscreenStateChanged(bool is_fullscreen, ::blink::mojom::FullscreenOptionsPtr options) {
   GetForwardingInterface()->FullscreenStateChanged(std::move(is_fullscreen), std::move(options));
 }
-void LocalFrameHostInterceptorForTesting::Maximize() {
-  GetForwardingInterface()->Maximize();
-}
-void LocalFrameHostInterceptorForTesting::Minimize() {
-  GetForwardingInterface()->Minimize();
-}
-void LocalFrameHostInterceptorForTesting::Restore() {
-  GetForwardingInterface()->Restore();
-}
 void LocalFrameHostInterceptorForTesting::RegisterProtocolHandler(const std::string& scheme, const ::GURL& url, bool user_gesture) {
   GetForwardingInterface()->RegisterProtocolHandler(std::move(scheme), std::move(url), std::move(user_gesture));
 }
@@ -20470,7 +19980,7 @@ void LocalFrameHostInterceptorForTesting::SetVirtualKeyboardMode(::ui::mojom::Vi
 void LocalFrameHostInterceptorForTesting::VisibilityChanged(::blink::mojom::FrameVisibility visibility) {
   GetForwardingInterface()->VisibilityChanged(std::move(visibility));
 }
-void LocalFrameHostInterceptorForTesting::DidChangeThemeColor(absl::optional<::SkColor> theme_color) {
+void LocalFrameHostInterceptorForTesting::DidChangeThemeColor(std::optional<::SkColor> theme_color) {
   GetForwardingInterface()->DidChangeThemeColor(std::move(theme_color));
 }
 void LocalFrameHostInterceptorForTesting::DidChangeBackgroundColor(const ::SkColor4f& background_color, bool color_adjust) {
@@ -20518,16 +20028,16 @@ void LocalFrameHostInterceptorForTesting::DidFinishLoad(const ::GURL& validated_
 void LocalFrameHostInterceptorForTesting::DispatchLoad() {
   GetForwardingInterface()->DispatchLoad();
 }
-void LocalFrameHostInterceptorForTesting::GoToEntryAtOffset(int32_t offset, bool has_user_gesture, absl::optional<::blink::scheduler::TaskAttributionId> soft_navigation_heuristics_task_id) {
+void LocalFrameHostInterceptorForTesting::GoToEntryAtOffset(int32_t offset, bool has_user_gesture, std::optional<::blink::scheduler::TaskAttributionId> soft_navigation_heuristics_task_id) {
   GetForwardingInterface()->GoToEntryAtOffset(std::move(offset), std::move(has_user_gesture), std::move(soft_navigation_heuristics_task_id));
 }
-void LocalFrameHostInterceptorForTesting::NavigateToNavigationApiKey(const std::string& key, bool has_user_gesture, absl::optional<::blink::scheduler::TaskAttributionId> soft_navigation_heuristics_task_id) {
+void LocalFrameHostInterceptorForTesting::NavigateToNavigationApiKey(const std::string& key, bool has_user_gesture, std::optional<::blink::scheduler::TaskAttributionId> soft_navigation_heuristics_task_id) {
   GetForwardingInterface()->NavigateToNavigationApiKey(std::move(key), std::move(has_user_gesture), std::move(soft_navigation_heuristics_task_id));
 }
 void LocalFrameHostInterceptorForTesting::NavigateEventHandlerPresenceChanged(bool present) {
   GetForwardingInterface()->NavigateEventHandlerPresenceChanged(std::move(present));
 }
-void LocalFrameHostInterceptorForTesting::UpdateTitle(const absl::optional<::std::u16string>& title, ::base::i18n::TextDirection title_direction) {
+void LocalFrameHostInterceptorForTesting::UpdateTitle(const std::optional<::std::u16string>& title, ::base::i18n::TextDirection title_direction) {
   GetForwardingInterface()->UpdateTitle(std::move(title), std::move(title_direction));
 }
 void LocalFrameHostInterceptorForTesting::UpdateUserActivationState(::blink::mojom::UserActivationUpdateType update_type, ::blink::mojom::UserActivationNotificationType notification_type) {
@@ -20590,7 +20100,7 @@ void LocalFrameHostInterceptorForTesting::DidLoadResourceFromMemoryCache(const :
 void LocalFrameHostInterceptorForTesting::DidChangeFrameOwnerProperties(const ::blink::FrameToken& child_frame_token, ::blink::mojom::FrameOwnerPropertiesPtr frame_owner_properties) {
   GetForwardingInterface()->DidChangeFrameOwnerProperties(std::move(child_frame_token), std::move(frame_owner_properties));
 }
-void LocalFrameHostInterceptorForTesting::DidChangeOpener(const absl::optional<::blink::LocalFrameToken>& opener_frame) {
+void LocalFrameHostInterceptorForTesting::DidChangeOpener(const std::optional<::blink::LocalFrameToken>& opener_frame) {
   GetForwardingInterface()->DidChangeOpener(std::move(opener_frame));
 }
 void LocalFrameHostInterceptorForTesting::DidChangeFramePolicy(const ::blink::FrameToken& child_frame_token, const ::blink::FramePolicy& frame_policy) {
@@ -20611,7 +20121,7 @@ void LocalFrameHostInterceptorForTesting::Detach() {
 void LocalFrameHostInterceptorForTesting::GetKeepAliveHandleFactory(::mojo::PendingReceiver<::blink::mojom::KeepAliveHandleFactory> factory) {
   GetForwardingInterface()->GetKeepAliveHandleFactory(std::move(factory));
 }
-void LocalFrameHostInterceptorForTesting::DidAddMessageToConsole(::blink::mojom::ConsoleMessageLevel log_level, const ::std::u16string& msg, uint32_t line_number, const absl::optional<::std::u16string>& source_id, const absl::optional<::std::u16string>& untrusted_stack_trace) {
+void LocalFrameHostInterceptorForTesting::DidAddMessageToConsole(::blink::mojom::ConsoleMessageLevel log_level, const ::std::u16string& msg, uint32_t line_number, const std::optional<::std::u16string>& source_id, const std::optional<::std::u16string>& untrusted_stack_trace) {
   GetForwardingInterface()->DidAddMessageToConsole(std::move(log_level), std::move(msg), std::move(line_number), std::move(source_id), std::move(untrusted_stack_trace));
 }
 void LocalFrameHostInterceptorForTesting::FrameSizeChanged(const ::gfx::Size& size) {
@@ -20626,26 +20136,23 @@ void LocalFrameHostInterceptorForTesting::DidChangeSrcDoc(const ::blink::FrameTo
 void LocalFrameHostInterceptorForTesting::ReceivedDelegatedCapability(::blink::mojom::DelegatedCapability delegated_capability) {
   GetForwardingInterface()->ReceivedDelegatedCapability(std::move(delegated_capability));
 }
-void LocalFrameHostInterceptorForTesting::SendFencedFrameReportingBeacon(const std::string& event_data, const std::string& event_type, const std::vector<::blink::FencedFrame::ReportingDestination>& destinations, ::network::AttributionReportingRuntimeFeatures attribution_reporting_runtime_features) {
-  GetForwardingInterface()->SendFencedFrameReportingBeacon(std::move(event_data), std::move(event_type), std::move(destinations), std::move(attribution_reporting_runtime_features));
+void LocalFrameHostInterceptorForTesting::SendFencedFrameReportingBeacon(const std::string& event_data, const std::string& event_type, const std::vector<::blink::FencedFrame::ReportingDestination>& destinations) {
+  GetForwardingInterface()->SendFencedFrameReportingBeacon(std::move(event_data), std::move(event_type), std::move(destinations));
 }
-void LocalFrameHostInterceptorForTesting::SendFencedFrameReportingBeaconToCustomURL(const ::GURL& destination_url, ::network::AttributionReportingRuntimeFeatures attribution_reporting_runtime_features) {
-  GetForwardingInterface()->SendFencedFrameReportingBeaconToCustomURL(std::move(destination_url), std::move(attribution_reporting_runtime_features));
+void LocalFrameHostInterceptorForTesting::SendFencedFrameReportingBeaconToCustomURL(const ::GURL& destination_url) {
+  GetForwardingInterface()->SendFencedFrameReportingBeaconToCustomURL(std::move(destination_url));
 }
 void LocalFrameHostInterceptorForTesting::SendLegacyTechEvent(const std::string& type, LegacyTechEventCodeLocationPtr code_location) {
   GetForwardingInterface()->SendLegacyTechEvent(std::move(type), std::move(code_location));
 }
-void LocalFrameHostInterceptorForTesting::SetFencedFrameAutomaticBeaconReportEventData(const std::string& event_data, const std::vector<::blink::FencedFrame::ReportingDestination>& destinations, ::network::AttributionReportingRuntimeFeatures attribution_reporting_runtime_features, bool once) {
-  GetForwardingInterface()->SetFencedFrameAutomaticBeaconReportEventData(std::move(event_data), std::move(destinations), std::move(attribution_reporting_runtime_features), std::move(once));
+void LocalFrameHostInterceptorForTesting::SetFencedFrameAutomaticBeaconReportEventData(::blink::mojom::AutomaticBeaconType event_type, const std::string& event_data, const std::vector<::blink::FencedFrame::ReportingDestination>& destinations, bool once, bool cross_origin_exposed) {
+  GetForwardingInterface()->SetFencedFrameAutomaticBeaconReportEventData(std::move(event_type), std::move(event_data), std::move(destinations), std::move(once), std::move(cross_origin_exposed));
 }
 void LocalFrameHostInterceptorForTesting::SendPrivateAggregationRequestsForFencedFrameEvent(const std::string& event_type) {
   GetForwardingInterface()->SendPrivateAggregationRequestsForFencedFrameEvent(std::move(event_type));
 }
-void LocalFrameHostInterceptorForTesting::CreatePortal(::mojo::PendingAssociatedReceiver<::blink::mojom::Portal> portal, ::mojo::PendingAssociatedRemote<::blink::mojom::PortalClient> client, ::blink::mojom::RemoteFrameInterfacesFromRendererPtr remote_frame_interfaces, CreatePortalCallback callback) {
-  GetForwardingInterface()->CreatePortal(std::move(portal), std::move(client), std::move(remote_frame_interfaces), std::move(callback));
-}
-void LocalFrameHostInterceptorForTesting::AdoptPortal(const ::blink::PortalToken& portal_token, ::blink::mojom::RemoteFrameInterfacesFromRendererPtr remote_frame_interfaces, AdoptPortalCallback callback) {
-  GetForwardingInterface()->AdoptPortal(std::move(portal_token), std::move(remote_frame_interfaces), std::move(callback));
+void LocalFrameHostInterceptorForTesting::SetAttributionReportingRuntimeFeatures(::network::AttributionReportingRuntimeFeatures features) {
+  GetForwardingInterface()->SetAttributionReportingRuntimeFeatures(std::move(features));
 }
 void LocalFrameHostInterceptorForTesting::CreateFencedFrame(::mojo::PendingAssociatedReceiver<::blink::mojom::FencedFrameOwnerHost> fenced_frame, ::blink::mojom::RemoteFrameInterfacesFromRendererPtr remote_frame_interfaces, const ::blink::RemoteFrameToken& frame_token, const ::base::UnguessableToken& devtools_frame_token) {
   GetForwardingInterface()->CreateFencedFrame(std::move(fenced_frame), std::move(remote_frame_interfaces), std::move(frame_token), std::move(devtools_frame_token));
@@ -20766,62 +20273,6 @@ bool LocalFrameHostAsyncWaiter::RunBeforeUnloadConfirm(
   return async_wait_result;
 }
 
-void LocalFrameHostAsyncWaiter::CreatePortal(
-    ::mojo::PendingAssociatedReceiver<::blink::mojom::Portal> portal, ::mojo::PendingAssociatedRemote<::blink::mojom::PortalClient> client, ::blink::mojom::RemoteFrameInterfacesFromRendererPtr remote_frame_interfaces, ::blink::mojom::FrameReplicationStatePtr* out_initial_replicated_state, ::blink::PortalToken* out_portal_token, ::blink::RemoteFrameToken* out_frame_token, ::base::UnguessableToken* out_devtools_frame_token) {
-  base::RunLoop loop;
-  proxy_->CreatePortal(std::move(portal),std::move(client),std::move(remote_frame_interfaces),
-      base::BindOnce(
-          [](base::RunLoop* loop,
-             ::blink::mojom::FrameReplicationStatePtr* out_initial_replicated_state
-,
-             ::blink::PortalToken* out_portal_token
-,
-             ::blink::RemoteFrameToken* out_frame_token
-,
-             ::base::UnguessableToken* out_devtools_frame_token
-,
-             ::blink::mojom::FrameReplicationStatePtr initial_replicated_state,
-             const ::blink::PortalToken& portal_token,
-             const ::blink::RemoteFrameToken& frame_token,
-             const ::base::UnguessableToken& devtools_frame_token) {*out_initial_replicated_state = std::move(initial_replicated_state);*out_portal_token = std::move(portal_token);*out_frame_token = std::move(frame_token);*out_devtools_frame_token = std::move(devtools_frame_token);
-            loop->Quit();
-          },
-          &loop,
-          out_initial_replicated_state,
-          out_portal_token,
-          out_frame_token,
-          out_devtools_frame_token));
-  loop.Run();
-}
-
-
-
-void LocalFrameHostAsyncWaiter::AdoptPortal(
-    const ::blink::PortalToken& portal_token, ::blink::mojom::RemoteFrameInterfacesFromRendererPtr remote_frame_interfaces, ::blink::mojom::FrameReplicationStatePtr* out_replicated_state, ::blink::RemoteFrameToken* out_frame_token, ::base::UnguessableToken* out_devtools_frame_token) {
-  base::RunLoop loop;
-  proxy_->AdoptPortal(std::move(portal_token),std::move(remote_frame_interfaces),
-      base::BindOnce(
-          [](base::RunLoop* loop,
-             ::blink::mojom::FrameReplicationStatePtr* out_replicated_state
-,
-             ::blink::RemoteFrameToken* out_frame_token
-,
-             ::base::UnguessableToken* out_devtools_frame_token
-,
-             ::blink::mojom::FrameReplicationStatePtr replicated_state,
-             const ::blink::RemoteFrameToken& frame_token,
-             const ::base::UnguessableToken& devtools_frame_token) {*out_replicated_state = std::move(replicated_state);*out_frame_token = std::move(frame_token);*out_devtools_frame_token = std::move(devtools_frame_token);
-            loop->Quit();
-          },
-          &loop,
-          out_replicated_state,
-          out_frame_token,
-          out_devtools_frame_token));
-  loop.Run();
-}
-
-
-
 
 
 
@@ -20853,9 +20304,6 @@ void LocalFrameInterceptorForTesting::NotifyVirtualKeyboardOverlayRect(const ::g
 }
 void LocalFrameInterceptorForTesting::AddMessageToConsole(::blink::mojom::ConsoleMessageLevel level, const std::string& message, bool discard_duplicates) {
   GetForwardingInterface()->AddMessageToConsole(std::move(level), std::move(message), std::move(discard_duplicates));
-}
-void LocalFrameInterceptorForTesting::AddInspectorIssue(::blink::mojom::InspectorIssueInfoPtr info) {
-  GetForwardingInterface()->AddInspectorIssue(std::move(info));
 }
 void LocalFrameInterceptorForTesting::SwapInImmediately() {
   GetForwardingInterface()->SwapInImmediately();
@@ -20896,10 +20344,13 @@ void LocalFrameInterceptorForTesting::BeforeUnload(bool is_reload, BeforeUnloadC
 void LocalFrameInterceptorForTesting::MediaPlayerActionAt(const ::gfx::Point& location, ::blink::mojom::MediaPlayerActionPtr action) {
   GetForwardingInterface()->MediaPlayerActionAt(std::move(location), std::move(action));
 }
+void LocalFrameInterceptorForTesting::RequestVideoFrameAt(const ::gfx::Point& location, const ::gfx::Size& max_size, int32_t max_area, RequestVideoFrameAtCallback callback) {
+  GetForwardingInterface()->RequestVideoFrameAt(std::move(location), std::move(max_size), std::move(max_area), std::move(callback));
+}
 void LocalFrameInterceptorForTesting::PluginActionAt(const ::gfx::Point& location, PluginActionType action) {
   GetForwardingInterface()->PluginActionAt(std::move(location), std::move(action));
 }
-void LocalFrameInterceptorForTesting::AdvanceFocusInFrame(::blink::mojom::FocusType focus_type, const absl::optional<::blink::RemoteFrameToken>& source_frame_token) {
+void LocalFrameInterceptorForTesting::AdvanceFocusInFrame(::blink::mojom::FocusType focus_type, const std::optional<::blink::RemoteFrameToken>& source_frame_token) {
   GetForwardingInterface()->AdvanceFocusInFrame(std::move(focus_type), std::move(source_frame_token));
 }
 void LocalFrameInterceptorForTesting::AdvanceFocusForIME(::blink::mojom::FocusType focus_type) {
@@ -20911,7 +20362,7 @@ void LocalFrameInterceptorForTesting::ReportContentSecurityPolicyViolation(::net
 void LocalFrameInterceptorForTesting::DidUpdateFramePolicy(const ::blink::FramePolicy& frame_policy) {
   GetForwardingInterface()->DidUpdateFramePolicy(std::move(frame_policy));
 }
-void LocalFrameInterceptorForTesting::PostMessageEvent(const absl::optional<::blink::RemoteFrameToken>& source_frame_token, const ::std::u16string& source_origin, const ::std::u16string& target_origin, ::blink::TransferableMessage message) {
+void LocalFrameInterceptorForTesting::PostMessageEvent(const std::optional<::blink::RemoteFrameToken>& source_frame_token, const ::std::u16string& source_origin, const ::std::u16string& target_origin, ::blink::TransferableMessage message) {
   GetForwardingInterface()->PostMessageEvent(std::move(source_frame_token), std::move(source_origin), std::move(target_origin), std::move(message));
 }
 void LocalFrameInterceptorForTesting::JavaScriptMethodExecuteRequest(const ::std::u16string& object_name, const ::std::u16string& method_name, ::base::Value::List arguments, bool wants_result, JavaScriptMethodExecuteRequestCallback callback) {
@@ -20929,7 +20380,7 @@ void LocalFrameInterceptorForTesting::JavaScriptExecuteRequestInIsolatedWorld(co
 void LocalFrameInterceptorForTesting::BindReportingObserver(::mojo::PendingReceiver<::blink::mojom::ReportingObserver> receiver) {
   GetForwardingInterface()->BindReportingObserver(std::move(receiver));
 }
-void LocalFrameInterceptorForTesting::UpdateOpener(const absl::optional<::blink::FrameToken>& opener_frame_token) {
+void LocalFrameInterceptorForTesting::UpdateOpener(const std::optional<::blink::FrameToken>& opener_frame_token) {
   GetForwardingInterface()->UpdateOpener(std::move(opener_frame_token));
 }
 void LocalFrameInterceptorForTesting::GetSavableResourceLinks(GetSavableResourceLinksCallback callback) {
@@ -20950,8 +20401,8 @@ void LocalFrameInterceptorForTesting::GetCanonicalUrlForSharing(GetCanonicalUrlF
 void LocalFrameInterceptorForTesting::GetOpenGraphMetadata(GetOpenGraphMetadataCallback callback) {
   GetForwardingInterface()->GetOpenGraphMetadata(std::move(callback));
 }
-void LocalFrameInterceptorForTesting::SetNavigationApiHistoryEntriesForRestore(::blink::mojom::NavigationApiHistoryEntryArraysPtr entry_arrays) {
-  GetForwardingInterface()->SetNavigationApiHistoryEntriesForRestore(std::move(entry_arrays));
+void LocalFrameInterceptorForTesting::SetNavigationApiHistoryEntriesForRestore(::blink::mojom::NavigationApiHistoryEntryArraysPtr entry_arrays, NavigationApiEntryRestoreReason restore_reason) {
+  GetForwardingInterface()->SetNavigationApiHistoryEntriesForRestore(std::move(entry_arrays), std::move(restore_reason));
 }
 void LocalFrameInterceptorForTesting::NotifyNavigationApiOfDisposedEntries(const std::vector<std::string>& keys) {
   GetForwardingInterface()->NotifyNavigationApiOfDisposedEntries(std::move(keys));
@@ -20959,10 +20410,13 @@ void LocalFrameInterceptorForTesting::NotifyNavigationApiOfDisposedEntries(const
 void LocalFrameInterceptorForTesting::TraverseCancelled(const std::string& navigation_api_key, TraverseCancelledReason reason) {
   GetForwardingInterface()->TraverseCancelled(std::move(navigation_api_key), std::move(reason));
 }
+void LocalFrameInterceptorForTesting::DispatchNavigateEventForCrossDocumentTraversal(const ::GURL& url, const std::string& page_state, bool is_browser_initiated) {
+  GetForwardingInterface()->DispatchNavigateEventForCrossDocumentTraversal(std::move(url), std::move(page_state), std::move(is_browser_initiated));
+}
 void LocalFrameInterceptorForTesting::SnapshotDocumentForViewTransition(SnapshotDocumentForViewTransitionCallback callback) {
   GetForwardingInterface()->SnapshotDocumentForViewTransition(std::move(callback));
 }
-void LocalFrameInterceptorForTesting::AddResourceTimingEntryForFailedSubframeNavigation(const ::blink::FrameToken& subframe_token, const ::GURL& initial_url, ::base::TimeTicks start_time, ::base::TimeTicks redirect_time, ::base::TimeTicks request_start, ::base::TimeTicks response_start, uint32_t response_code, const std::string& mime_type, const ::net::LoadTimingInfo& load_timing_info, ::net::HttpResponseInfo::ConnectionInfo connection_info, const std::string& alpn_negotiated_protocol, bool is_secure_transport, bool is_validated, const std::string& normalized_server_timing, const ::network::URLLoaderCompletionStatus& completion_status) {
+void LocalFrameInterceptorForTesting::AddResourceTimingEntryForFailedSubframeNavigation(const ::blink::FrameToken& subframe_token, const ::GURL& initial_url, ::base::TimeTicks start_time, ::base::TimeTicks redirect_time, ::base::TimeTicks request_start, ::base::TimeTicks response_start, uint32_t response_code, const std::string& mime_type, const ::net::LoadTimingInfo& load_timing_info, ::net::HttpConnectionInfo connection_info, const std::string& alpn_negotiated_protocol, bool is_secure_transport, bool is_validated, const std::string& normalized_server_timing, const ::network::URLLoaderCompletionStatus& completion_status) {
   GetForwardingInterface()->AddResourceTimingEntryForFailedSubframeNavigation(std::move(subframe_token), std::move(initial_url), std::move(start_time), std::move(redirect_time), std::move(request_start), std::move(response_start), std::move(response_code), std::move(mime_type), std::move(load_timing_info), std::move(connection_info), std::move(alpn_negotiated_protocol), std::move(is_secure_transport), std::move(is_validated), std::move(normalized_server_timing), std::move(completion_status));
 }
 void LocalFrameInterceptorForTesting::RequestFullscreenDocumentElement() {
@@ -21024,6 +20478,29 @@ void LocalFrameAsyncWaiter::BeforeUnload(
 }
 
 
+
+void LocalFrameAsyncWaiter::RequestVideoFrameAt(
+    const ::gfx::Point& location, const ::gfx::Size& max_size, int32_t max_area, ::gfx::ImageSkia* out_image) {
+  base::RunLoop loop;
+  proxy_->RequestVideoFrameAt(std::move(location),std::move(max_size),std::move(max_area),
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             ::gfx::ImageSkia* out_image
+,
+             const ::gfx::ImageSkia& image) {*out_image = std::move(image);
+            loop->Quit();
+          },
+          &loop,
+          out_image));
+  loop.Run();
+}
+
+::gfx::ImageSkia LocalFrameAsyncWaiter::RequestVideoFrameAt(
+    const ::gfx::Point& location, const ::gfx::Size& max_size, int32_t max_area) {
+  ::gfx::ImageSkia async_wait_result;
+  RequestVideoFrameAt(std::move(location),std::move(max_size),std::move(max_area),&async_wait_result);
+  return async_wait_result;
+}
 
 void LocalFrameAsyncWaiter::JavaScriptMethodExecuteRequest(
     const ::std::u16string& object_name, const ::std::u16string& method_name, ::base::Value::List arguments, bool wants_result, ::base::Value* out_result) {
@@ -21140,14 +20617,14 @@ GetSavableResourceLinksReplyPtr LocalFrameAsyncWaiter::GetSavableResourceLinks(
 }
 
 void LocalFrameAsyncWaiter::GetCanonicalUrlForSharing(
-    absl::optional<::GURL>* out_canonical_url) {
+    std::optional<::GURL>* out_canonical_url) {
   base::RunLoop loop;
   proxy_->GetCanonicalUrlForSharing(
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<::GURL>* out_canonical_url
+             std::optional<::GURL>* out_canonical_url
 ,
-             const absl::optional<::GURL>& canonical_url) {*out_canonical_url = std::move(canonical_url);
+             const std::optional<::GURL>& canonical_url) {*out_canonical_url = std::move(canonical_url);
             loop->Quit();
           },
           &loop,
@@ -21155,9 +20632,9 @@ void LocalFrameAsyncWaiter::GetCanonicalUrlForSharing(
   loop.Run();
 }
 
-absl::optional<::GURL> LocalFrameAsyncWaiter::GetCanonicalUrlForSharing(
+std::optional<::GURL> LocalFrameAsyncWaiter::GetCanonicalUrlForSharing(
     ) {
-  absl::optional<::GURL> async_wait_result;
+  std::optional<::GURL> async_wait_result;
   GetCanonicalUrlForSharing(&async_wait_result);
   return async_wait_result;
 }
@@ -21272,12 +20749,6 @@ void LocalMainFrameInterceptorForTesting::ZoomToFindInPageRect(const ::gfx::Rect
 void LocalMainFrameInterceptorForTesting::InstallCoopAccessMonitor(const ::blink::FrameToken& accessed_window, ::network::mojom::CrossOriginOpenerPolicyReporterParamsPtr coop_reporter_info, bool is_in_same_virtual_coop_related_group) {
   GetForwardingInterface()->InstallCoopAccessMonitor(std::move(accessed_window), std::move(coop_reporter_info), std::move(is_in_same_virtual_coop_related_group));
 }
-void LocalMainFrameInterceptorForTesting::OnPortalActivated(const ::blink::PortalToken& portal_token, ::mojo::PendingAssociatedRemote<::blink::mojom::Portal> portal, ::mojo::PendingAssociatedReceiver<::blink::mojom::PortalClient> portal_client, ::blink::TransferableMessage data, uint64_t trace_id, OnPortalActivatedCallback callback) {
-  GetForwardingInterface()->OnPortalActivated(std::move(portal_token), std::move(portal), std::move(portal_client), std::move(data), std::move(trace_id), std::move(callback));
-}
-void LocalMainFrameInterceptorForTesting::ForwardMessageFromHost(::blink::TransferableMessage message, const ::url::Origin& source_origin) {
-  GetForwardingInterface()->ForwardMessageFromHost(std::move(message), std::move(source_origin));
-}
 void LocalMainFrameInterceptorForTesting::UpdateBrowserControlsState(::cc::BrowserControlsState constraints, ::cc::BrowserControlsState current, bool animate) {
   GetForwardingInterface()->UpdateBrowserControlsState(std::move(constraints), std::move(current), std::move(animate));
 }
@@ -21326,29 +20797,6 @@ void LocalMainFrameAsyncWaiter::GetFullPageSize(
   return async_wait_result;
 }
 
-void LocalMainFrameAsyncWaiter::OnPortalActivated(
-    const ::blink::PortalToken& portal_token, ::mojo::PendingAssociatedRemote<::blink::mojom::Portal> portal, ::mojo::PendingAssociatedReceiver<::blink::mojom::PortalClient> portal_client, ::blink::TransferableMessage data, uint64_t trace_id, ::blink::mojom::PortalActivateResult* out_result) {
-  base::RunLoop loop;
-  proxy_->OnPortalActivated(std::move(portal_token),std::move(portal),std::move(portal_client),std::move(data),std::move(trace_id),
-      base::BindOnce(
-          [](base::RunLoop* loop,
-             ::blink::mojom::PortalActivateResult* out_result
-,
-             ::blink::mojom::PortalActivateResult result) {*out_result = std::move(result);
-            loop->Quit();
-          },
-          &loop,
-          out_result));
-  loop.Run();
-}
-
-::blink::mojom::PortalActivateResult LocalMainFrameAsyncWaiter::OnPortalActivated(
-    const ::blink::PortalToken& portal_token, ::mojo::PendingAssociatedRemote<::blink::mojom::Portal> portal, ::mojo::PendingAssociatedReceiver<::blink::mojom::PortalClient> portal_client, ::blink::TransferableMessage data, uint64_t trace_id) {
-  ::blink::mojom::PortalActivateResult async_wait_result;
-  OnPortalActivated(std::move(portal_token),std::move(portal),std::move(portal_client),std::move(data),std::move(trace_id),&async_wait_result);
-  return async_wait_result;
-}
-
 
 
 
@@ -21384,6 +20832,15 @@ void LocalMainFrameHostInterceptorForTesting::DidFirstVisuallyNonEmptyPaint() {
 }
 void LocalMainFrameHostInterceptorForTesting::DidAccessInitialMainDocument() {
   GetForwardingInterface()->DidAccessInitialMainDocument();
+}
+void LocalMainFrameHostInterceptorForTesting::Maximize() {
+  GetForwardingInterface()->Maximize();
+}
+void LocalMainFrameHostInterceptorForTesting::Minimize() {
+  GetForwardingInterface()->Minimize();
+}
+void LocalMainFrameHostInterceptorForTesting::Restore() {
+  GetForwardingInterface()->Restore();
 }
 void LocalMainFrameHostInterceptorForTesting::SetResizable(bool resizable) {
   GetForwardingInterface()->SetResizable(std::move(resizable));

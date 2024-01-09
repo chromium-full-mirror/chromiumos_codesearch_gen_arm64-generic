@@ -3,8 +3,8 @@
 // found in the LICENSE file.
 import * as Root from '../../core/root/root.js';
 import * as SDK from '../../core/sdk/sdk.js';
-import * as UI from '../../ui/legacy/legacy.js';
 import * as EmulationModel from '../../models/emulation/emulation.js';
+import * as UI from '../../ui/legacy/legacy.js';
 import { DeviceModeView } from './DeviceModeView.js';
 let deviceModeWrapperInstance;
 export class DeviceModeWrapper extends UI.Widget.VBox {
@@ -16,7 +16,7 @@ export class DeviceModeWrapper extends UI.Widget.VBox {
         super();
         this.inspectedPagePlaceholder = inspectedPagePlaceholder;
         this.deviceModeView = null;
-        this.toggleDeviceModeAction = UI.ActionRegistry.ActionRegistry.instance().action('emulation.toggle-device-mode');
+        this.toggleDeviceModeAction = UI.ActionRegistry.ActionRegistry.instance().getAction('emulation.toggle-device-mode');
         const model = EmulationModel.DeviceModeModel.DeviceModeModel.instance();
         this.showDeviceModeSetting = model.enabledSetting();
         this.showDeviceModeSetting.setRequiresUserAction(Boolean(Root.Runtime.Runtime.queryParam('hasOtherClients')));
@@ -61,9 +61,7 @@ export class DeviceModeWrapper extends UI.Widget.VBox {
         this.captureScreenshot(false, clip);
     }
     update(force) {
-        if (this.toggleDeviceModeAction) {
-            this.toggleDeviceModeAction.setToggled(this.showDeviceModeSetting.get());
-        }
+        this.toggleDeviceModeAction.setToggled(this.showDeviceModeSetting.get());
         if (!force) {
             const showing = this.deviceModeView && this.deviceModeView.isShowing();
             if (this.showDeviceModeSetting.get() === showing) {
@@ -88,9 +86,8 @@ export class DeviceModeWrapper extends UI.Widget.VBox {
         }
     }
 }
-let actionDelegateInstance;
 export class ActionDelegate {
-    handleAction(context, actionId) {
+    handleAction(_context, actionId) {
         if (DeviceModeWrapper.instance()) {
             switch (actionId) {
                 case 'emulation.capture-screenshot':
@@ -145,13 +142,6 @@ export class ActionDelegate {
             }
         }
         return false;
-    }
-    static instance(opts = { forceNew: null }) {
-        const { forceNew } = opts;
-        if (!actionDelegateInstance || forceNew) {
-            actionDelegateInstance = new ActionDelegate();
-        }
-        return actionDelegateInstance;
     }
 }
 //# sourceMappingURL=DeviceModeWrapper.js.map

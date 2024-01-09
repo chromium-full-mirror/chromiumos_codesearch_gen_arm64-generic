@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -258,14 +259,17 @@ void PageHandlerFactoryProxy::CreatePageHandler(
                         "<value of type ::mojo::PendingReceiver<PageHandler>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandlerFactory_CreatePageHandler_Name, kFlags, 0, 0, nullptr);
@@ -341,10 +345,10 @@ bool PageHandlerFactoryStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPageHandlerFactoryValidationInfo[] = {
-    {&internal::PageHandlerFactory_CreatePageHandler_Params_Data::Validate,
+    { &internal::PageHandlerFactory_CreatePageHandler_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -693,14 +697,17 @@ void PageHandlerProxy::ShowUI(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send emoji_picker::mojom::PageHandler::ShowUI");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_ShowUI_Name, kFlags, 0, 0, nullptr);
@@ -736,14 +743,17 @@ void PageHandlerProxy::InsertEmoji(
                         "<value of type int16_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_InsertEmoji_Name, kFlags, 0, 0, nullptr);
@@ -786,14 +796,17 @@ void PageHandlerProxy::InsertGif(
                         "<value of type const ::GURL&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_InsertGif_Name, kFlags, 0, 0, nullptr);
@@ -827,14 +840,17 @@ void PageHandlerProxy::IsIncognitoTextField(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send emoji_picker::mojom::PageHandler::IsIncognitoTextField");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_IsIncognitoTextField_Name, kFlags, 0, 0, nullptr);
@@ -858,14 +874,17 @@ void PageHandlerProxy::GetFeatureList(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send emoji_picker::mojom::PageHandler::GetFeatureList");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetFeatureList_Name, kFlags, 0, 0, nullptr);
@@ -889,14 +908,17 @@ void PageHandlerProxy::GetCategories(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send emoji_picker::mojom::PageHandler::GetCategories");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetCategories_Name, kFlags, 0, 0, nullptr);
@@ -916,7 +938,7 @@ void PageHandlerProxy::GetCategories(
 }
 
 void PageHandlerProxy::GetFeaturedGifs(
-    const absl::optional<std::string>& in_pos, GetFeaturedGifsCallback callback) {
+    const std::optional<std::string>& in_pos, GetFeaturedGifsCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send emoji_picker::mojom::PageHandler::GetFeaturedGifs", "input_parameters",
@@ -924,17 +946,20 @@ void PageHandlerProxy::GetFeaturedGifs(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("pos"), in_pos,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetFeaturedGifs_Name, kFlags, 0, 0, nullptr);
@@ -961,7 +986,7 @@ void PageHandlerProxy::GetFeaturedGifs(
 }
 
 void PageHandlerProxy::SearchGifs(
-    const std::string& in_query, const absl::optional<std::string>& in_pos, SearchGifsCallback callback) {
+    const std::string& in_query, const std::optional<std::string>& in_pos, SearchGifsCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send emoji_picker::mojom::PageHandler::SearchGifs", "input_parameters",
@@ -972,17 +997,20 @@ void PageHandlerProxy::SearchGifs(
                         "<value of type const std::string&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("pos"), in_pos,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_SearchGifs_Name, kFlags, 0, 0, nullptr);
@@ -1031,14 +1059,17 @@ void PageHandlerProxy::GetGifsByIds(
                         "<value of type const std::vector<std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetGifsByIds_Name, kFlags, 0, 0, nullptr);
@@ -1075,14 +1106,17 @@ void PageHandlerProxy::OnUiFullyLoaded(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send emoji_picker::mojom::PageHandler::OnUiFullyLoaded");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_OnUiFullyLoaded_Name, kFlags, 0, 0, nullptr);
@@ -1191,7 +1225,8 @@ void PageHandler_IsIncognitoTextField_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_IsIncognitoTextField_Name, kFlags, 0, 0, nullptr);
@@ -1309,7 +1344,8 @@ void PageHandler_GetFeatureList_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetFeatureList_Name, kFlags, 0, 0, nullptr);
@@ -1446,7 +1482,8 @@ void PageHandler_GetCategories_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetCategories_Name, kFlags, 0, 0, nullptr);
@@ -1585,7 +1622,8 @@ void PageHandler_GetFeaturedGifs_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetFeaturedGifs_Name, kFlags, 0, 0, nullptr);
@@ -1722,7 +1760,8 @@ void PageHandler_SearchGifs_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_SearchGifs_Name, kFlags, 0, 0, nullptr);
@@ -1859,7 +1898,8 @@ void PageHandler_GetGifsByIds_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetGifsByIds_Name, kFlags, 0, 0, nullptr);
@@ -2132,7 +2172,7 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
                   message->mutable_payload());
       
       bool success = true;
-      absl::optional<std::string> p_pos{};
+      std::optional<std::string> p_pos{};
       PageHandler_GetFeaturedGifs_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadPos(&p_pos))
@@ -2162,7 +2202,7 @@ std::move(p_pos), std::move(callback));
       
       bool success = true;
       std::string p_query{};
-      absl::optional<std::string> p_pos{};
+      std::optional<std::string> p_pos{};
       PageHandler_SearchGifs_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadQuery(&p_query))
@@ -2221,28 +2261,28 @@ std::move(p_ids), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPageHandlerValidationInfo[] = {
-    {&internal::PageHandler_ShowUI_Params_Data::Validate,
+    { &internal::PageHandler_ShowUI_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_InsertEmoji_Params_Data::Validate,
+    { &internal::PageHandler_InsertEmoji_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_InsertGif_Params_Data::Validate,
+    { &internal::PageHandler_InsertGif_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_IsIncognitoTextField_Params_Data::Validate,
+    { &internal::PageHandler_IsIncognitoTextField_Params_Data::Validate,
      &internal::PageHandler_IsIncognitoTextField_ResponseParams_Data::Validate},
-    {&internal::PageHandler_GetFeatureList_Params_Data::Validate,
+    { &internal::PageHandler_GetFeatureList_Params_Data::Validate,
      &internal::PageHandler_GetFeatureList_ResponseParams_Data::Validate},
-    {&internal::PageHandler_GetCategories_Params_Data::Validate,
+    { &internal::PageHandler_GetCategories_Params_Data::Validate,
      &internal::PageHandler_GetCategories_ResponseParams_Data::Validate},
-    {&internal::PageHandler_GetFeaturedGifs_Params_Data::Validate,
+    { &internal::PageHandler_GetFeaturedGifs_Params_Data::Validate,
      &internal::PageHandler_GetFeaturedGifs_ResponseParams_Data::Validate},
-    {&internal::PageHandler_SearchGifs_Params_Data::Validate,
+    { &internal::PageHandler_SearchGifs_Params_Data::Validate,
      &internal::PageHandler_SearchGifs_ResponseParams_Data::Validate},
-    {&internal::PageHandler_GetGifsByIds_Params_Data::Validate,
+    { &internal::PageHandler_GetGifsByIds_Params_Data::Validate,
      &internal::PageHandler_GetGifsByIds_ResponseParams_Data::Validate},
-    {&internal::PageHandler_OnUiFullyLoaded_Params_Data::Validate,
+    { &internal::PageHandler_OnUiFullyLoaded_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2353,10 +2393,10 @@ void PageHandlerInterceptorForTesting::GetFeatureList(GetFeatureListCallback cal
 void PageHandlerInterceptorForTesting::GetCategories(GetCategoriesCallback callback) {
   GetForwardingInterface()->GetCategories(std::move(callback));
 }
-void PageHandlerInterceptorForTesting::GetFeaturedGifs(const absl::optional<std::string>& pos, GetFeaturedGifsCallback callback) {
+void PageHandlerInterceptorForTesting::GetFeaturedGifs(const std::optional<std::string>& pos, GetFeaturedGifsCallback callback) {
   GetForwardingInterface()->GetFeaturedGifs(std::move(pos), std::move(callback));
 }
-void PageHandlerInterceptorForTesting::SearchGifs(const std::string& query, const absl::optional<std::string>& pos, SearchGifsCallback callback) {
+void PageHandlerInterceptorForTesting::SearchGifs(const std::string& query, const std::optional<std::string>& pos, SearchGifsCallback callback) {
   GetForwardingInterface()->SearchGifs(std::move(query), std::move(pos), std::move(callback));
 }
 void PageHandlerInterceptorForTesting::GetGifsByIds(const std::vector<std::string>& ids, GetGifsByIdsCallback callback) {
@@ -2439,7 +2479,7 @@ void PageHandlerAsyncWaiter::GetCategories(
 
 
 void PageHandlerAsyncWaiter::GetFeaturedGifs(
-    const absl::optional<std::string>& pos, Status* out_status, TenorGifResponsePtr* out_featured_gifs) {
+    const std::optional<std::string>& pos, Status* out_status, TenorGifResponsePtr* out_featured_gifs) {
   base::RunLoop loop;
   proxy_->GetFeaturedGifs(std::move(pos),
       base::BindOnce(
@@ -2461,7 +2501,7 @@ void PageHandlerAsyncWaiter::GetFeaturedGifs(
 
 
 void PageHandlerAsyncWaiter::SearchGifs(
-    const std::string& query, const absl::optional<std::string>& pos, Status* out_status, TenorGifResponsePtr* out_search_gifs) {
+    const std::string& query, const std::optional<std::string>& pos, Status* out_status, TenorGifResponsePtr* out_search_gifs) {
   base::RunLoop loop;
   proxy_->SearchGifs(std::move(query),std::move(pos),
       base::BindOnce(

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "ui/accessibility/mojom/ax_tree_id.mojom-features.h"
 #include "ui/accessibility/mojom/ax_tree_id.mojom-shared.h"
 #include "ui/accessibility/mojom/ax_tree_id.mojom-forward.h"
 #include "ui/accessibility/ax_enums.mojom-forward.h"
@@ -63,17 +64,17 @@ class  AXTreeID {
   // Construct an instance holding |unknown|.
   static AXTreeIDPtr
   NewUnknown(
-      uint8_t unknown) {
+      uint8_t value) {
     auto result = AXTreeIDPtr(absl::in_place);
-    result->set_unknown(std::move(unknown));
+    result->set_unknown(std::move(value));
     return result;
   }
   // Construct an instance holding |token|.
   static AXTreeIDPtr
   NewToken(
-      const ::base::UnguessableToken& token) {
+      const ::base::UnguessableToken& value) {
     auto result = AXTreeIDPtr(absl::in_place);
-    result->set_token(std::move(token));
+    result->set_token(std::move(value));
     return result;
   }
 

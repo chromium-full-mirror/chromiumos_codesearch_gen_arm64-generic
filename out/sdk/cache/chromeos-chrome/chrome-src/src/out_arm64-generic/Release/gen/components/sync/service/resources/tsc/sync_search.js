@@ -6,6 +6,14 @@ import { getAllNodes, Timer } from './chrome_sync.js';
 const ERROR_ATTR = 'error';
 const SELECTED_ATTR = 'selected';
 export class SyncSearchManager {
+    currSearchId_ = 0;
+    resultsData_ = [];
+    selected_ = null;
+    selectedIndex_ = -1;
+    resultsControl_;
+    detailsControl_;
+    queryControl_;
+    statusControl_;
     /**
      * @param queryControl The <input> object of
      *     type=search where the user's query is typed.
@@ -19,10 +27,6 @@ export class SyncSearchManager {
      *     holds the details of the selected result.
      */
     constructor(queryControl, submitControl, statusControl, resultsControl, detailsControl) {
-        this.currSearchId_ = 0;
-        this.resultsData_ = [];
-        this.selected_ = null;
-        this.selectedIndex_ = -1;
         this.resultsControl_ = resultsControl;
         this.detailsControl_ = detailsControl;
         this.queryControl_ = queryControl;

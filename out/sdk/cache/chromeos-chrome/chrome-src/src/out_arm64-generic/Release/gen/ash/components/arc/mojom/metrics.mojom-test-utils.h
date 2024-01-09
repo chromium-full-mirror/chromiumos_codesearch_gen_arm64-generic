@@ -48,6 +48,7 @@ class  MetricsHostInterceptorForTesting : public MetricsHost {
   void ReportVpnServiceBuilderCompatApiUsage(VpnServiceBuilderCompatApiId api_id) override;
   void ReportNewQosSocketCount(int32_t count) override;
   void ReportQosSocketPercentage(int32_t perc) override;
+  void ReportArcKeyMintError(ArcKeyMintError error) override;
 };
 class  MetricsHostAsyncWaiter {
  public:

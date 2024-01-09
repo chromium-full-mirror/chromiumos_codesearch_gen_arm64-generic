@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -405,14 +406,17 @@ void RemoteAppsProxy::AddFolder(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoteApps_AddFolder_Name, kFlags, 0, 0, nullptr);
@@ -467,14 +471,17 @@ void RemoteAppsProxy::AddApp(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoteApps_AddApp_Name, kFlags, 0, 0, nullptr);
@@ -550,14 +557,17 @@ void RemoteAppsProxy::DeleteApp(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoteApps_DeleteApp_Name, kFlags, 0, 0, nullptr);
@@ -592,14 +602,17 @@ void RemoteAppsProxy::SortLauncherWithRemoteAppsFirst(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send chromeos::remote_apps::mojom::RemoteApps::SortLauncherWithRemoteAppsFirst");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoteApps_SortLauncherWithRemoteAppsFirst_Name, kFlags, 0, 0, nullptr);
@@ -630,14 +643,17 @@ void RemoteAppsProxy::SetPinnedApps(
                         "<value of type const std::vector<std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoteApps_SetPinnedApps_Name, kFlags, 0, 0, nullptr);
@@ -760,7 +776,8 @@ void RemoteApps_AddFolder_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoteApps_AddFolder_Name, kFlags, 0, 0, nullptr);
@@ -886,7 +903,8 @@ void RemoteApps_AddApp_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoteApps_AddApp_Name, kFlags, 0, 0, nullptr);
@@ -966,7 +984,7 @@ class RemoteApps_DeleteApp_ProxyToResponder : public ::mojo::internal::ProxyToRe
 #endif
 
   void Run(
-      const absl::optional<std::string>& in_error);
+      const std::optional<std::string>& in_error);
 };
 
 bool RemoteApps_DeleteApp_ForwardToCallback::Accept(
@@ -979,7 +997,7 @@ bool RemoteApps_DeleteApp_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::string> p_error{};
+  std::optional<std::string> p_error{};
   RemoteApps_DeleteApp_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadError(&p_error))
@@ -998,7 +1016,7 @@ std::move(p_error));
 }
 
 void RemoteApps_DeleteApp_ProxyToResponder::Run(
-    const absl::optional<std::string>& in_error) {
+    const std::optional<std::string>& in_error) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply chromeos::remote_apps::mojom::RemoteApps::DeleteApp", "async_response_parameters",
@@ -1006,13 +1024,14 @@ void RemoteApps_DeleteApp_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("error"), in_error,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoteApps_DeleteApp_Name, kFlags, 0, 0, nullptr);
@@ -1090,7 +1109,7 @@ class RemoteApps_SortLauncherWithRemoteAppsFirst_ProxyToResponder : public ::moj
 #endif
 
   void Run(
-      const absl::optional<std::string>& in_error);
+      const std::optional<std::string>& in_error);
 };
 
 bool RemoteApps_SortLauncherWithRemoteAppsFirst_ForwardToCallback::Accept(
@@ -1103,7 +1122,7 @@ bool RemoteApps_SortLauncherWithRemoteAppsFirst_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::string> p_error{};
+  std::optional<std::string> p_error{};
   RemoteApps_SortLauncherWithRemoteAppsFirst_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadError(&p_error))
@@ -1122,7 +1141,7 @@ std::move(p_error));
 }
 
 void RemoteApps_SortLauncherWithRemoteAppsFirst_ProxyToResponder::Run(
-    const absl::optional<std::string>& in_error) {
+    const std::optional<std::string>& in_error) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply chromeos::remote_apps::mojom::RemoteApps::SortLauncherWithRemoteAppsFirst", "async_response_parameters",
@@ -1130,13 +1149,14 @@ void RemoteApps_SortLauncherWithRemoteAppsFirst_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("error"), in_error,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoteApps_SortLauncherWithRemoteAppsFirst_Name, kFlags, 0, 0, nullptr);
@@ -1214,7 +1234,7 @@ class RemoteApps_SetPinnedApps_ProxyToResponder : public ::mojo::internal::Proxy
 #endif
 
   void Run(
-      const absl::optional<std::string>& in_error);
+      const std::optional<std::string>& in_error);
 };
 
 bool RemoteApps_SetPinnedApps_ForwardToCallback::Accept(
@@ -1227,7 +1247,7 @@ bool RemoteApps_SetPinnedApps_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::string> p_error{};
+  std::optional<std::string> p_error{};
   RemoteApps_SetPinnedApps_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadError(&p_error))
@@ -1246,7 +1266,7 @@ std::move(p_error));
 }
 
 void RemoteApps_SetPinnedApps_ProxyToResponder::Run(
-    const absl::optional<std::string>& in_error) {
+    const std::optional<std::string>& in_error) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply chromeos::remote_apps::mojom::RemoteApps::SetPinnedApps", "async_response_parameters",
@@ -1254,13 +1274,14 @@ void RemoteApps_SetPinnedApps_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("error"), in_error,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoteApps_SetPinnedApps_Name, kFlags, 0, 0, nullptr);
@@ -1490,18 +1511,18 @@ std::move(p_app_ids), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kRemoteAppsValidationInfo[] = {
-    {&internal::RemoteApps_AddFolder_Params_Data::Validate,
+    { &internal::RemoteApps_AddFolder_Params_Data::Validate,
      &internal::RemoteApps_AddFolder_ResponseParams_Data::Validate},
-    {&internal::RemoteApps_AddApp_Params_Data::Validate,
+    { &internal::RemoteApps_AddApp_Params_Data::Validate,
      &internal::RemoteApps_AddApp_ResponseParams_Data::Validate},
-    {&internal::RemoteApps_DeleteApp_Params_Data::Validate,
+    { &internal::RemoteApps_DeleteApp_Params_Data::Validate,
      &internal::RemoteApps_DeleteApp_ResponseParams_Data::Validate},
-    {&internal::RemoteApps_SortLauncherWithRemoteAppsFirst_Params_Data::Validate,
+    { &internal::RemoteApps_SortLauncherWithRemoteAppsFirst_Params_Data::Validate,
      &internal::RemoteApps_SortLauncherWithRemoteAppsFirst_ResponseParams_Data::Validate},
-    {&internal::RemoteApps_SetPinnedApps_Params_Data::Validate,
+    { &internal::RemoteApps_SetPinnedApps_Params_Data::Validate,
      &internal::RemoteApps_SetPinnedApps_ResponseParams_Data::Validate},
 };
 
@@ -1591,14 +1612,17 @@ void RemoteAppsFactoryProxy::BindRemoteAppsAndAppLaunchObserver(
                         "<value of type ::mojo::PendingRemote<RemoteAppLaunchObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoteAppsFactory_BindRemoteAppsAndAppLaunchObserver_Name, kFlags, 0, 0, nullptr);
@@ -1701,10 +1725,10 @@ bool RemoteAppsFactoryStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kRemoteAppsFactoryValidationInfo[] = {
-    {&internal::RemoteAppsFactory_BindRemoteAppsAndAppLaunchObserver_Params_Data::Validate,
+    { &internal::RemoteAppsFactory_BindRemoteAppsAndAppLaunchObserver_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1788,14 +1812,17 @@ void RemoteAppsLacrosBridgeProxy::BindRemoteAppsAndAppLaunchObserverForLacros(
                         "<value of type ::mojo::PendingRemote<RemoteAppLaunchObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoteAppsLacrosBridge_BindRemoteAppsAndAppLaunchObserverForLacros_Name, kFlags, 0, 0, nullptr);
@@ -1883,10 +1910,10 @@ bool RemoteAppsLacrosBridgeStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kRemoteAppsLacrosBridgeValidationInfo[] = {
-    {&internal::RemoteAppsLacrosBridge_BindRemoteAppsAndAppLaunchObserverForLacros_Params_Data::Validate,
+    { &internal::RemoteAppsLacrosBridge_BindRemoteAppsAndAppLaunchObserverForLacros_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1969,14 +1996,17 @@ void RemoteAppLaunchObserverProxy::OnRemoteAppLaunched(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoteAppLaunchObserver_OnRemoteAppLaunched_Name, kFlags, 0, 0, nullptr);
@@ -2070,10 +2100,10 @@ bool RemoteAppLaunchObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kRemoteAppLaunchObserverValidationInfo[] = {
-    {&internal::RemoteAppLaunchObserver_OnRemoteAppLaunched_Params_Data::Validate,
+    { &internal::RemoteAppLaunchObserver_OnRemoteAppLaunched_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2232,14 +2262,14 @@ AddAppResultPtr RemoteAppsAsyncWaiter::AddApp(
 }
 
 void RemoteAppsAsyncWaiter::DeleteApp(
-    const std::string& app_id, absl::optional<std::string>* out_error) {
+    const std::string& app_id, std::optional<std::string>* out_error) {
   base::RunLoop loop;
   proxy_->DeleteApp(std::move(app_id),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<std::string>* out_error
+             std::optional<std::string>* out_error
 ,
-             const absl::optional<std::string>& error) {*out_error = std::move(error);
+             const std::optional<std::string>& error) {*out_error = std::move(error);
             loop->Quit();
           },
           &loop,
@@ -2247,22 +2277,22 @@ void RemoteAppsAsyncWaiter::DeleteApp(
   loop.Run();
 }
 
-absl::optional<std::string> RemoteAppsAsyncWaiter::DeleteApp(
+std::optional<std::string> RemoteAppsAsyncWaiter::DeleteApp(
     const std::string& app_id) {
-  absl::optional<std::string> async_wait_result;
+  std::optional<std::string> async_wait_result;
   DeleteApp(std::move(app_id),&async_wait_result);
   return async_wait_result;
 }
 
 void RemoteAppsAsyncWaiter::SortLauncherWithRemoteAppsFirst(
-    absl::optional<std::string>* out_error) {
+    std::optional<std::string>* out_error) {
   base::RunLoop loop;
   proxy_->SortLauncherWithRemoteAppsFirst(
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<std::string>* out_error
+             std::optional<std::string>* out_error
 ,
-             const absl::optional<std::string>& error) {*out_error = std::move(error);
+             const std::optional<std::string>& error) {*out_error = std::move(error);
             loop->Quit();
           },
           &loop,
@@ -2270,22 +2300,22 @@ void RemoteAppsAsyncWaiter::SortLauncherWithRemoteAppsFirst(
   loop.Run();
 }
 
-absl::optional<std::string> RemoteAppsAsyncWaiter::SortLauncherWithRemoteAppsFirst(
+std::optional<std::string> RemoteAppsAsyncWaiter::SortLauncherWithRemoteAppsFirst(
     ) {
-  absl::optional<std::string> async_wait_result;
+  std::optional<std::string> async_wait_result;
   SortLauncherWithRemoteAppsFirst(&async_wait_result);
   return async_wait_result;
 }
 
 void RemoteAppsAsyncWaiter::SetPinnedApps(
-    const std::vector<std::string>& app_ids, absl::optional<std::string>* out_error) {
+    const std::vector<std::string>& app_ids, std::optional<std::string>* out_error) {
   base::RunLoop loop;
   proxy_->SetPinnedApps(std::move(app_ids),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<std::string>* out_error
+             std::optional<std::string>* out_error
 ,
-             const absl::optional<std::string>& error) {*out_error = std::move(error);
+             const std::optional<std::string>& error) {*out_error = std::move(error);
             loop->Quit();
           },
           &loop,
@@ -2293,9 +2323,9 @@ void RemoteAppsAsyncWaiter::SetPinnedApps(
   loop.Run();
 }
 
-absl::optional<std::string> RemoteAppsAsyncWaiter::SetPinnedApps(
+std::optional<std::string> RemoteAppsAsyncWaiter::SetPinnedApps(
     const std::vector<std::string>& app_ids) {
-  absl::optional<std::string> async_wait_result;
+  std::optional<std::string> async_wait_result;
   SetPinnedApps(std::move(app_ids),&async_wait_result);
   return async_wait_result;
 }

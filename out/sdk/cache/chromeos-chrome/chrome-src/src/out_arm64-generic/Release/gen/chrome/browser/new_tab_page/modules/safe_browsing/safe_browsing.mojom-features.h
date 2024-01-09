@@ -8,6 +8,7 @@
 #define CHROME_BROWSER_NEW_TAB_PAGE_MODULES_SAFE_BROWSING_SAFE_BROWSING_MOJOM_FEATURES_H_
 
 #include "base/feature_list.h"
+#include "mojo/public/cpp/bindings/runtime_features.h"
 
 
 

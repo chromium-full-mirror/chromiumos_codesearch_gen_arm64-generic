@@ -8,6 +8,7 @@
 #define COMPONENTS_OPTIMIZATION_GUIDE_OPTIMIZATION_GUIDE_INTERNALS_WEBUI_OPTIMIZATION_GUIDE_INTERNALS_MOJOM_FEATURES_H_
 
 #include "base/feature_list.h"
+#include "mojo/public/cpp/bindings/runtime_features.h"
 
 
 

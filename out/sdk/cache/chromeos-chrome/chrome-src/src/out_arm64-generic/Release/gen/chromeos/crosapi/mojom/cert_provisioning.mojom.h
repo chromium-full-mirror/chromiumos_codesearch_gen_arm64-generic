@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/crosapi/mojom/cert_provisioning.mojom-features.h"
 #include "chromeos/crosapi/mojom/cert_provisioning.mojom-shared.h"
 #include "chromeos/crosapi/mojom/cert_provisioning.mojom-forward.h"
 #include "mojo/public/mojom/base/time.mojom.h"
@@ -106,7 +107,7 @@ class CertProvisioning
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr base::Token Uuid_{ 18401971615477549823ULL,
                                       10394152547171515894ULL };
-  static constexpr uint32_t Version_ = 0;
+  static constexpr uint32_t Version_ = 2;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -122,6 +123,7 @@ class CertProvisioning
     kAddObserverMinVersion = 0,
     kGetStatusMinVersion = 0,
     kUpdateOneProcessMinVersion = 0,
+    kResetOneProcessMinVersion = 2,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -134,6 +136,9 @@ class CertProvisioning
     NOINLINE static uint32_t IPCStableHash();
   };
   struct UpdateOneProcess_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct ResetOneProcess_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -149,6 +154,9 @@ class CertProvisioning
 
   
   virtual void UpdateOneProcess(const std::string& cert_profile_id) = 0;
+
+  
+  virtual void ResetOneProcess(const std::string& cert_profile_id) = 0;
 };
 
 
@@ -180,6 +188,8 @@ class  CertProvisioningProxy
   void GetStatus(GetStatusCallback callback) final;
   
   void UpdateOneProcess(const std::string& cert_profile_id) final;
+  
+  void ResetOneProcess(const std::string& cert_profile_id) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -475,7 +485,7 @@ class  CertProvisioningProcessStatus {
       CertProvisioningProcessState state,
       bool did_fail,
       bool is_device_wide,
-      const absl::optional<std::string>& failure_message);
+      const std::optional<std::string>& failure_message);
 
 CertProvisioningProcessStatus(const CertProvisioningProcessStatus&) = delete;
 CertProvisioningProcessStatus& operator=(const CertProvisioningProcessStatus&) = delete;
@@ -571,7 +581,7 @@ CertProvisioningProcessStatus& operator=(const CertProvisioningProcessStatus&) =
   
   bool is_device_wide;
   
-  absl::optional<std::string> failure_message;
+  std::optional<std::string> failure_message;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

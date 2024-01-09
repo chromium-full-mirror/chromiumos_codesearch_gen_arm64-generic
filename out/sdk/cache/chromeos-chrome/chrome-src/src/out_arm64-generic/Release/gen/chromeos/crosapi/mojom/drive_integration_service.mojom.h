@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/crosapi/mojom/drive_integration_service.mojom-features.h"
 #include "chromeos/crosapi/mojom/drive_integration_service.mojom-shared.h"
 #include "chromeos/crosapi/mojom/drive_integration_service.mojom-forward.h"
 #include "chromeos/components/drivefs/mojom/drivefs_native_messaging.mojom-forward.h"
@@ -166,7 +167,7 @@ class DriveIntegrationService
   using RequestValidator_ = DriveIntegrationServiceRequestValidator;
   using ResponseValidator_ = DriveIntegrationServiceResponseValidator;
   enum MethodMinVersions : uint32_t {
-    kGetMountPointPathMinVersion = 0,
+    kDeprecatedGetMountPointPathMinVersion = 0,
     kAddDriveIntegrationServiceObserverMinVersion = 1,
     kCreateNativeHostSessionMinVersion = 2,
     kRegisterDriveFsNativeMessageHostBridgeMinVersion = 2,
@@ -175,7 +176,7 @@ class DriveIntegrationService
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
 // with not having this data in traces there.
 #if !BUILDFLAG(IS_FUCHSIA)
-  struct GetMountPointPath_Sym {
+  struct DeprecatedGetMountPointPath_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct AddDriveIntegrationServiceObserver_Sym {
@@ -191,9 +192,9 @@ class DriveIntegrationService
   virtual ~DriveIntegrationService() = default;
 
 
-  using GetMountPointPathCallback = base::OnceCallback<void(const ::base::FilePath&)>;
+  using DeprecatedGetMountPointPathCallback = base::OnceCallback<void(const ::base::FilePath&)>;
   
-  virtual void GetMountPointPath(GetMountPointPathCallback callback) = 0;
+  virtual void DeprecatedGetMountPointPath(DeprecatedGetMountPointPathCallback callback) = 0;
 
   
   virtual void AddDriveIntegrationServiceObserver(::mojo::PendingRemote<DriveIntegrationServiceObserver> observer) = 0;
@@ -244,7 +245,7 @@ class  DriveIntegrationServiceProxy
 
   explicit DriveIntegrationServiceProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void GetMountPointPath(GetMountPointPathCallback callback) final;
+  void DeprecatedGetMountPointPath(DeprecatedGetMountPointPathCallback callback) final;
   
   void AddDriveIntegrationServiceObserver(::mojo::PendingRemote<DriveIntegrationServiceObserver> observer) final;
   

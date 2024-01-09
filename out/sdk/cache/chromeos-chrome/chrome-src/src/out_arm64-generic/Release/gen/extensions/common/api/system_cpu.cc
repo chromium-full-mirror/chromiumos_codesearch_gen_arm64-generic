@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "extensions/common/api/system_cpu.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -39,8 +40,8 @@ idle(0.0),
 total(0.0) {}
 
 CpuTime::~CpuTime() = default;
-CpuTime::CpuTime(CpuTime&& rhs) = default;
-CpuTime& CpuTime::operator=(CpuTime&& rhs) = default;
+CpuTime::CpuTime(CpuTime&& rhs) noexcept = default;
+CpuTime& CpuTime::operator=(CpuTime&& rhs) noexcept = default;
 CpuTime CpuTime::Clone() const {
   CpuTime out;
   out.user = user;
@@ -114,34 +115,21 @@ bool CpuTime::Populate(
 }
 
 // static
-std::unique_ptr<CpuTime> CpuTime::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<CpuTime>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<CpuTime> CpuTime::FromValue(const base::Value::Dict& value) {
+  CpuTime out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<CpuTime> CpuTime::FromValue(const base::Value::Dict& value) {
+std::optional<CpuTime> CpuTime::FromValue(const base::Value& value) {
   CpuTime out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<CpuTime> CpuTime::FromValue(const base::Value& value) {
-  CpuTime out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -166,8 +154,8 @@ ProcessorInfo::ProcessorInfo()
  {}
 
 ProcessorInfo::~ProcessorInfo() = default;
-ProcessorInfo::ProcessorInfo(ProcessorInfo&& rhs) = default;
-ProcessorInfo& ProcessorInfo::operator=(ProcessorInfo&& rhs) = default;
+ProcessorInfo::ProcessorInfo(ProcessorInfo&& rhs) noexcept = default;
+ProcessorInfo& ProcessorInfo::operator=(ProcessorInfo&& rhs) noexcept = default;
 ProcessorInfo ProcessorInfo::Clone() const {
   ProcessorInfo out;
   out.usage = usage.Clone();
@@ -203,34 +191,21 @@ bool ProcessorInfo::Populate(
 }
 
 // static
-std::unique_ptr<ProcessorInfo> ProcessorInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ProcessorInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ProcessorInfo> ProcessorInfo::FromValue(const base::Value::Dict& value) {
+  ProcessorInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ProcessorInfo> ProcessorInfo::FromValue(const base::Value::Dict& value) {
+std::optional<ProcessorInfo> ProcessorInfo::FromValue(const base::Value& value) {
   ProcessorInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ProcessorInfo> ProcessorInfo::FromValue(const base::Value& value) {
-  ProcessorInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -249,8 +224,8 @@ CpuInfo::CpuInfo()
 : num_of_processors(0) {}
 
 CpuInfo::~CpuInfo() = default;
-CpuInfo::CpuInfo(CpuInfo&& rhs) = default;
-CpuInfo& CpuInfo::operator=(CpuInfo&& rhs) = default;
+CpuInfo::CpuInfo(CpuInfo&& rhs) noexcept = default;
+CpuInfo& CpuInfo::operator=(CpuInfo&& rhs) noexcept = default;
 CpuInfo CpuInfo::Clone() const {
   CpuInfo out;
   out.num_of_processors = num_of_processors;
@@ -362,34 +337,21 @@ bool CpuInfo::Populate(
 }
 
 // static
-std::unique_ptr<CpuInfo> CpuInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<CpuInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<CpuInfo> CpuInfo::FromValue(const base::Value::Dict& value) {
+  CpuInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<CpuInfo> CpuInfo::FromValue(const base::Value::Dict& value) {
+std::optional<CpuInfo> CpuInfo::FromValue(const base::Value& value) {
   CpuInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<CpuInfo> CpuInfo::FromValue(const base::Value& value) {
-  CpuInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }

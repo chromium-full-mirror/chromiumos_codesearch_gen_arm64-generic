@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -185,14 +186,17 @@ void PageHandlerFactoryProxy::CreatePageHandler(
                         "<value of type ::mojo::PendingReceiver<PageHandler>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandlerFactory_CreatePageHandler_Name, kFlags, 0, 0, nullptr);
@@ -268,10 +272,10 @@ bool PageHandlerFactoryStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPageHandlerFactoryValidationInfo[] = {
-    {&internal::PageHandlerFactory_CreatePageHandler_Params_Data::Validate,
+    { &internal::PageHandlerFactory_CreatePageHandler_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -588,14 +592,17 @@ void PageHandlerProxy::OpenFeedbackDialog(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::help_app::mojom::PageHandler::OpenFeedbackDialog");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_OpenFeedbackDialog_Name, kFlags, 0, 0, nullptr);
@@ -619,14 +626,17 @@ void PageHandlerProxy::ShowParentalControls(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::help_app::mojom::PageHandler::ShowParentalControls");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_ShowParentalControls_Name, kFlags, 0, 0, nullptr);
@@ -656,14 +666,17 @@ void PageHandlerProxy::TriggerWelcomeTipCallToAction(
                         "<value of type ActionTypeId>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_TriggerWelcomeTipCallToAction_Name, kFlags, 0, 0, nullptr);
@@ -688,14 +701,17 @@ void PageHandlerProxy::IsLssEnabled(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::help_app::mojom::PageHandler::IsLssEnabled");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_IsLssEnabled_Name, kFlags, 0, 0, nullptr);
@@ -719,14 +735,17 @@ void PageHandlerProxy::IsLauncherSearchEnabled(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::help_app::mojom::PageHandler::IsLauncherSearchEnabled");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_IsLauncherSearchEnabled_Name, kFlags, 0, 0, nullptr);
@@ -750,14 +769,17 @@ void PageHandlerProxy::LaunchMicrosoft365Setup(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::help_app::mojom::PageHandler::LaunchMicrosoft365Setup");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_LaunchMicrosoft365Setup_Name, kFlags, 0, 0, nullptr);
@@ -780,14 +802,17 @@ void PageHandlerProxy::MaybeShowDiscoverNotification(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::help_app::mojom::PageHandler::MaybeShowDiscoverNotification");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_MaybeShowDiscoverNotification_Name, kFlags, 0, 0, nullptr);
@@ -810,14 +835,17 @@ void PageHandlerProxy::MaybeShowReleaseNotesNotification(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::help_app::mojom::PageHandler::MaybeShowReleaseNotesNotification");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_MaybeShowReleaseNotesNotification_Name, kFlags, 0, 0, nullptr);
@@ -840,14 +868,17 @@ void PageHandlerProxy::GetDeviceInfo(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::help_app::mojom::PageHandler::GetDeviceInfo");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetDeviceInfo_Name, kFlags, 0, 0, nullptr);
@@ -878,14 +909,17 @@ void PageHandlerProxy::OpenUrlInBrowserAndTriggerInstallDialog(
                         "<value of type const ::GURL&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_OpenUrlInBrowserAndTriggerInstallDialog_Name, kFlags, 0, 0, nullptr);
@@ -959,7 +993,7 @@ class PageHandler_OpenFeedbackDialog_ProxyToResponder : public ::mojo::internal:
 #endif
 
   void Run(
-      const absl::optional<std::string>& in_error_message);
+      const std::optional<std::string>& in_error_message);
 };
 
 bool PageHandler_OpenFeedbackDialog_ForwardToCallback::Accept(
@@ -972,7 +1006,7 @@ bool PageHandler_OpenFeedbackDialog_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::string> p_error_message{};
+  std::optional<std::string> p_error_message{};
   PageHandler_OpenFeedbackDialog_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadErrorMessage(&p_error_message))
@@ -991,7 +1025,7 @@ std::move(p_error_message));
 }
 
 void PageHandler_OpenFeedbackDialog_ProxyToResponder::Run(
-    const absl::optional<std::string>& in_error_message) {
+    const std::optional<std::string>& in_error_message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::help_app::mojom::PageHandler::OpenFeedbackDialog", "async_response_parameters",
@@ -999,13 +1033,14 @@ void PageHandler_OpenFeedbackDialog_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("error_message"), in_error_message,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_OpenFeedbackDialog_Name, kFlags, 0, 0, nullptr);
@@ -1129,7 +1164,8 @@ void PageHandler_IsLssEnabled_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_IsLssEnabled_Name, kFlags, 0, 0, nullptr);
@@ -1247,7 +1283,8 @@ void PageHandler_IsLauncherSearchEnabled_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_IsLauncherSearchEnabled_Name, kFlags, 0, 0, nullptr);
@@ -1365,7 +1402,8 @@ void PageHandler_GetDeviceInfo_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetDeviceInfo_Name, kFlags, 0, 0, nullptr);
@@ -1693,28 +1731,28 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPageHandlerValidationInfo[] = {
-    {&internal::PageHandler_OpenFeedbackDialog_Params_Data::Validate,
+    { &internal::PageHandler_OpenFeedbackDialog_Params_Data::Validate,
      &internal::PageHandler_OpenFeedbackDialog_ResponseParams_Data::Validate},
-    {&internal::PageHandler_ShowParentalControls_Params_Data::Validate,
+    { &internal::PageHandler_ShowParentalControls_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_TriggerWelcomeTipCallToAction_Params_Data::Validate,
+    { &internal::PageHandler_TriggerWelcomeTipCallToAction_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_IsLssEnabled_Params_Data::Validate,
+    { &internal::PageHandler_IsLssEnabled_Params_Data::Validate,
      &internal::PageHandler_IsLssEnabled_ResponseParams_Data::Validate},
-    {&internal::PageHandler_IsLauncherSearchEnabled_Params_Data::Validate,
+    { &internal::PageHandler_IsLauncherSearchEnabled_Params_Data::Validate,
      &internal::PageHandler_IsLauncherSearchEnabled_ResponseParams_Data::Validate},
-    {&internal::PageHandler_LaunchMicrosoft365Setup_Params_Data::Validate,
+    { &internal::PageHandler_LaunchMicrosoft365Setup_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_MaybeShowDiscoverNotification_Params_Data::Validate,
+    { &internal::PageHandler_MaybeShowDiscoverNotification_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_MaybeShowReleaseNotesNotification_Params_Data::Validate,
+    { &internal::PageHandler_MaybeShowReleaseNotesNotification_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_GetDeviceInfo_Params_Data::Validate,
+    { &internal::PageHandler_GetDeviceInfo_Params_Data::Validate,
      &internal::PageHandler_GetDeviceInfo_ResponseParams_Data::Validate},
-    {&internal::PageHandler_OpenUrlInBrowserAndTriggerInstallDialog_Params_Data::Validate,
+    { &internal::PageHandler_OpenUrlInBrowserAndTriggerInstallDialog_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1811,14 +1849,14 @@ PageHandlerAsyncWaiter::PageHandlerAsyncWaiter(
 PageHandlerAsyncWaiter::~PageHandlerAsyncWaiter() = default;
 
 void PageHandlerAsyncWaiter::OpenFeedbackDialog(
-    absl::optional<std::string>* out_error_message) {
+    std::optional<std::string>* out_error_message) {
   base::RunLoop loop;
   proxy_->OpenFeedbackDialog(
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<std::string>* out_error_message
+             std::optional<std::string>* out_error_message
 ,
-             const absl::optional<std::string>& error_message) {*out_error_message = std::move(error_message);
+             const std::optional<std::string>& error_message) {*out_error_message = std::move(error_message);
             loop->Quit();
           },
           &loop,
@@ -1826,9 +1864,9 @@ void PageHandlerAsyncWaiter::OpenFeedbackDialog(
   loop.Run();
 }
 
-absl::optional<std::string> PageHandlerAsyncWaiter::OpenFeedbackDialog(
+std::optional<std::string> PageHandlerAsyncWaiter::OpenFeedbackDialog(
     ) {
-  absl::optional<std::string> async_wait_result;
+  std::optional<std::string> async_wait_result;
   OpenFeedbackDialog(&async_wait_result);
   return async_wait_result;
 }

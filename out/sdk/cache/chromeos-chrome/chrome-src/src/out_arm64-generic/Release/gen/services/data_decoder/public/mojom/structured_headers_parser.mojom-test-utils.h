@@ -27,11 +27,11 @@ class  StructuredHeadersParserAsyncWaiter {
 
   ~StructuredHeadersParserAsyncWaiter();
   void ParseItem(
-      const std::string& header, absl::optional<::net::structured_headers::ParameterizedItem>* out_result);
-  absl::optional<::net::structured_headers::ParameterizedItem> ParseItem(const std::string& header);
+      const std::string& header, std::optional<::net::structured_headers::ParameterizedItem>* out_result);
+  std::optional<::net::structured_headers::ParameterizedItem> ParseItem(const std::string& header);
   void ParseList(
-      const std::string& header, absl::optional<std::vector<::net::structured_headers::ParameterizedMember>>* out_result);
-  absl::optional<std::vector<::net::structured_headers::ParameterizedMember>> ParseList(const std::string& header);
+      const std::string& header, std::optional<std::vector<::net::structured_headers::ParameterizedMember>>* out_result);
+  std::optional<std::vector<::net::structured_headers::ParameterizedMember>> ParseList(const std::string& header);
 
  private:
   StructuredHeadersParser* const proxy_;

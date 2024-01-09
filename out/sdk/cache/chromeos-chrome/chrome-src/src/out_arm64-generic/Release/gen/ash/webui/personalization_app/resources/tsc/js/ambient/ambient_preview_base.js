@@ -1,11 +1,16 @@
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
+/**
+ * @fileoverview A base polymer element that previews the current selected
+ * screensaver. Extend this element and provide a template to make a full
+ * polymer element.
+ */
+import { isNonEmptyArray } from 'chrome://resources/ash/common/sea_pen/sea_pen_utils.js';
 import { TopicSource } from '../../personalization_app.mojom-webui.js';
 import { isAmbientModeAllowed, isPersonalizationJellyEnabled } from '../load_time_booleans.js';
 import { setErrorAction } from '../personalization_actions.js';
 import { WithPersonalizationStore } from '../personalization_store.js';
-import { isNonEmptyArray } from '../utils.js';
 import { AmbientObserver } from './ambient_observer.js';
 import { getPhotoCount, getTopicSourceName } from './utils.js';
 /**

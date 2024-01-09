@@ -12,7 +12,7 @@ const simulateRequestWithStartTime = (startTime) => {
     const requestId = 'r0';
     const request = SDK.NetworkRequest.NetworkRequest.create(requestId, 'p0.com', Platform.DevToolsPath.EmptyUrlString, null, null, null);
     request.setIssueTime(startTime, startTime);
-    request.setContentDataProvider(() => Promise.resolve({ error: null, content: '', encoded: false }));
+    request.setContentDataProvider(() => Promise.resolve(new SDK.ContentData.ContentData('', false, request.resourceType(), request.mimeType)));
     return request;
 };
 describeWithLocale('HARWriter', () => {

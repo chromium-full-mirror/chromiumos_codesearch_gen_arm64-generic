@@ -3,7 +3,7 @@
 // found in the LICENSE file.
 import '../strings.m.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
-import { getRequiredElement } from 'chrome://resources/js/util_ts.js';
+import { getRequiredElement } from 'chrome://resources/js/util.js';
 /**
  * A queue of a sequence of closures that will incrementally build the sys info
  * html table.

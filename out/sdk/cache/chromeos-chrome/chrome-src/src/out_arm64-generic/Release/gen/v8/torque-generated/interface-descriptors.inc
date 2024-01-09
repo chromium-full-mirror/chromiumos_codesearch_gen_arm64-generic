@@ -40,6 +40,20 @@ class ArrayFindLastIndexLoopContinuationDescriptor : public StaticCallInterfaceD
   DECLARE_DEFAULT_DESCRIPTOR(ArrayFindLastIndexLoopContinuationDescriptor)
 };
 
+class FlattenIntoArrayWithoutMapFnDescriptor : public StaticCallInterfaceDescriptor<FlattenIntoArrayWithoutMapFnDescriptor> {
+ public:
+  DEFINE_RESULT_AND_PARAMETERS(1, kTarget, kSource, kSourceLength, kStart, kDepth)
+  DEFINE_RESULT_AND_PARAMETER_TYPES(MachineType::AnyTagged(), MachineType::TaggedPointer(), MachineType::TaggedPointer(), MachineType::AnyTagged(), MachineType::AnyTagged(), MachineType::TaggedSigned())
+  DECLARE_DEFAULT_DESCRIPTOR(FlattenIntoArrayWithoutMapFnDescriptor)
+};
+
+class FlattenIntoArrayWithMapFnDescriptor : public StaticCallInterfaceDescriptor<FlattenIntoArrayWithMapFnDescriptor> {
+ public:
+  DEFINE_RESULT_AND_PARAMETERS(1, kTarget, kSource, kSourceLength, kStart, kDepth, kMapfn, kThisArgs)
+  DEFINE_RESULT_AND_PARAMETER_TYPES(MachineType::AnyTagged(), MachineType::TaggedPointer(), MachineType::TaggedPointer(), MachineType::AnyTagged(), MachineType::AnyTagged(), MachineType::TaggedSigned(), MachineType::AnyTagged(), MachineType::AnyTagged())
+  DECLARE_DEFAULT_DESCRIPTOR(FlattenIntoArrayWithMapFnDescriptor)
+};
+
 class ArrayForEachLoopContinuationDescriptor : public StaticCallInterfaceDescriptor<ArrayForEachLoopContinuationDescriptor> {
  public:
   DEFINE_RESULT_AND_PARAMETERS(1, kReceiver, kCallbackfn, kThisArg, kArray, kO, kInitialK, kLen, kTo)
@@ -1552,6 +1566,13 @@ class ThrowWasmTrapUnreachableDescriptor : public StaticCallInterfaceDescriptor<
   DECLARE_DEFAULT_DESCRIPTOR(ThrowWasmTrapUnreachableDescriptor)
 };
 
+class WasmTrapHandlerThrowTrapDescriptor : public StaticCallInterfaceDescriptor<WasmTrapHandlerThrowTrapDescriptor> {
+ public:
+  DEFINE_RESULT_AND_PARAMETERS_NO_CONTEXT(1)
+  DEFINE_RESULT_AND_PARAMETER_TYPES(MachineType::AnyTagged())
+  DECLARE_DEFAULT_DESCRIPTOR(WasmTrapHandlerThrowTrapDescriptor)
+};
+
 class ThrowWasmTrapMemOutOfBoundsDescriptor : public StaticCallInterfaceDescriptor<ThrowWasmTrapMemOutOfBoundsDescriptor> {
  public:
   DEFINE_RESULT_AND_PARAMETERS_NO_CONTEXT(1)
@@ -1769,424 +1790,25 @@ class ThrowIndexOfCalledOnNullDescriptor : public StaticCallInterfaceDescriptor<
   DECLARE_DEFAULT_DESCRIPTOR(ThrowIndexOfCalledOnNullDescriptor)
 };
 
-class ThrowDataViewGetBigInt64DetachedErrorDescriptor : public StaticCallInterfaceDescriptor<ThrowDataViewGetBigInt64DetachedErrorDescriptor> {
- public:
-  DEFINE_RESULT_AND_PARAMETERS_NO_CONTEXT(1)
-  DEFINE_RESULT_AND_PARAMETER_TYPES(MachineType::AnyTagged())
-  DECLARE_DEFAULT_DESCRIPTOR(ThrowDataViewGetBigInt64DetachedErrorDescriptor)
-};
-
-class ThrowDataViewGetBigInt64OutOfBoundsDescriptor : public StaticCallInterfaceDescriptor<ThrowDataViewGetBigInt64OutOfBoundsDescriptor> {
- public:
-  DEFINE_RESULT_AND_PARAMETERS_NO_CONTEXT(1)
-  DEFINE_RESULT_AND_PARAMETER_TYPES(MachineType::AnyTagged())
-  DECLARE_DEFAULT_DESCRIPTOR(ThrowDataViewGetBigInt64OutOfBoundsDescriptor)
-};
-
-class ThrowDataViewGetBigInt64TypeErrorDescriptor : public StaticCallInterfaceDescriptor<ThrowDataViewGetBigInt64TypeErrorDescriptor> {
+class ThrowDataViewTypeErrorDescriptor : public StaticCallInterfaceDescriptor<ThrowDataViewTypeErrorDescriptor> {
  public:
   DEFINE_RESULT_AND_PARAMETERS_NO_CONTEXT(1, kValue)
   DEFINE_RESULT_AND_PARAMETER_TYPES(MachineType::AnyTagged(), MachineType::AnyTagged())
-  DECLARE_DEFAULT_DESCRIPTOR(ThrowDataViewGetBigInt64TypeErrorDescriptor)
+  DECLARE_DEFAULT_DESCRIPTOR(ThrowDataViewTypeErrorDescriptor)
 };
 
-class ThrowDataViewGetBigUint64DetachedErrorDescriptor : public StaticCallInterfaceDescriptor<ThrowDataViewGetBigUint64DetachedErrorDescriptor> {
+class ThrowDataViewDetachedErrorDescriptor : public StaticCallInterfaceDescriptor<ThrowDataViewDetachedErrorDescriptor> {
  public:
   DEFINE_RESULT_AND_PARAMETERS_NO_CONTEXT(1)
   DEFINE_RESULT_AND_PARAMETER_TYPES(MachineType::AnyTagged())
-  DECLARE_DEFAULT_DESCRIPTOR(ThrowDataViewGetBigUint64DetachedErrorDescriptor)
+  DECLARE_DEFAULT_DESCRIPTOR(ThrowDataViewDetachedErrorDescriptor)
 };
 
-class ThrowDataViewGetBigUint64OutOfBoundsDescriptor : public StaticCallInterfaceDescriptor<ThrowDataViewGetBigUint64OutOfBoundsDescriptor> {
+class ThrowDataViewOutOfBoundsDescriptor : public StaticCallInterfaceDescriptor<ThrowDataViewOutOfBoundsDescriptor> {
  public:
   DEFINE_RESULT_AND_PARAMETERS_NO_CONTEXT(1)
   DEFINE_RESULT_AND_PARAMETER_TYPES(MachineType::AnyTagged())
-  DECLARE_DEFAULT_DESCRIPTOR(ThrowDataViewGetBigUint64OutOfBoundsDescriptor)
-};
-
-class ThrowDataViewGetBigUint64TypeErrorDescriptor : public StaticCallInterfaceDescriptor<ThrowDataViewGetBigUint64TypeErrorDescriptor> {
- public:
-  DEFINE_RESULT_AND_PARAMETERS_NO_CONTEXT(1, kValue)
-  DEFINE_RESULT_AND_PARAMETER_TYPES(MachineType::AnyTagged(), MachineType::AnyTagged())
-  DECLARE_DEFAULT_DESCRIPTOR(ThrowDataViewGetBigUint64TypeErrorDescriptor)
-};
-
-class ThrowDataViewGetFloat32DetachedErrorDescriptor : public StaticCallInterfaceDescriptor<ThrowDataViewGetFloat32DetachedErrorDescriptor> {
- public:
-  DEFINE_RESULT_AND_PARAMETERS_NO_CONTEXT(1)
-  DEFINE_RESULT_AND_PARAMETER_TYPES(MachineType::AnyTagged())
-  DECLARE_DEFAULT_DESCRIPTOR(ThrowDataViewGetFloat32DetachedErrorDescriptor)
-};
-
-class ThrowDataViewGetFloat32OutOfBoundsDescriptor : public StaticCallInterfaceDescriptor<ThrowDataViewGetFloat32OutOfBoundsDescriptor> {
- public:
-  DEFINE_RESULT_AND_PARAMETERS_NO_CONTEXT(1)
-  DEFINE_RESULT_AND_PARAMETER_TYPES(MachineType::AnyTagged())
-  DECLARE_DEFAULT_DESCRIPTOR(ThrowDataViewGetFloat32OutOfBoundsDescriptor)
-};
-
-class ThrowDataViewGetFloat32TypeErrorDescriptor : public StaticCallInterfaceDescriptor<ThrowDataViewGetFloat32TypeErrorDescriptor> {
- public:
-  DEFINE_RESULT_AND_PARAMETERS_NO_CONTEXT(1, kValue)
-  DEFINE_RESULT_AND_PARAMETER_TYPES(MachineType::AnyTagged(), MachineType::AnyTagged())
-  DECLARE_DEFAULT_DESCRIPTOR(ThrowDataViewGetFloat32TypeErrorDescriptor)
-};
-
-class ThrowDataViewGetFloat64DetachedErrorDescriptor : public StaticCallInterfaceDescriptor<ThrowDataViewGetFloat64DetachedErrorDescriptor> {
- public:
-  DEFINE_RESULT_AND_PARAMETERS_NO_CONTEXT(1)
-  DEFINE_RESULT_AND_PARAMETER_TYPES(MachineType::AnyTagged())
-  DECLARE_DEFAULT_DESCRIPTOR(ThrowDataViewGetFloat64DetachedErrorDescriptor)
-};
-
-class ThrowDataViewGetFloat64OutOfBoundsDescriptor : public StaticCallInterfaceDescriptor<ThrowDataViewGetFloat64OutOfBoundsDescriptor> {
- public:
-  DEFINE_RESULT_AND_PARAMETERS_NO_CONTEXT(1)
-  DEFINE_RESULT_AND_PARAMETER_TYPES(MachineType::AnyTagged())
-  DECLARE_DEFAULT_DESCRIPTOR(ThrowDataViewGetFloat64OutOfBoundsDescriptor)
-};
-
-class ThrowDataViewGetFloat64TypeErrorDescriptor : public StaticCallInterfaceDescriptor<ThrowDataViewGetFloat64TypeErrorDescriptor> {
- public:
-  DEFINE_RESULT_AND_PARAMETERS_NO_CONTEXT(1, kValue)
-  DEFINE_RESULT_AND_PARAMETER_TYPES(MachineType::AnyTagged(), MachineType::AnyTagged())
-  DECLARE_DEFAULT_DESCRIPTOR(ThrowDataViewGetFloat64TypeErrorDescriptor)
-};
-
-class ThrowDataViewGetInt8DetachedErrorDescriptor : public StaticCallInterfaceDescriptor<ThrowDataViewGetInt8DetachedErrorDescriptor> {
- public:
-  DEFINE_RESULT_AND_PARAMETERS_NO_CONTEXT(1)
-  DEFINE_RESULT_AND_PARAMETER_TYPES(MachineType::AnyTagged())
-  DECLARE_DEFAULT_DESCRIPTOR(ThrowDataViewGetInt8DetachedErrorDescriptor)
-};
-
-class ThrowDataViewGetInt8OutOfBoundsDescriptor : public StaticCallInterfaceDescriptor<ThrowDataViewGetInt8OutOfBoundsDescriptor> {
- public:
-  DEFINE_RESULT_AND_PARAMETERS_NO_CONTEXT(1)
-  DEFINE_RESULT_AND_PARAMETER_TYPES(MachineType::AnyTagged())
-  DECLARE_DEFAULT_DESCRIPTOR(ThrowDataViewGetInt8OutOfBoundsDescriptor)
-};
-
-class ThrowDataViewGetInt8TypeErrorDescriptor : public StaticCallInterfaceDescriptor<ThrowDataViewGetInt8TypeErrorDescriptor> {
- public:
-  DEFINE_RESULT_AND_PARAMETERS_NO_CONTEXT(1, kValue)
-  DEFINE_RESULT_AND_PARAMETER_TYPES(MachineType::AnyTagged(), MachineType::AnyTagged())
-  DECLARE_DEFAULT_DESCRIPTOR(ThrowDataViewGetInt8TypeErrorDescriptor)
-};
-
-class ThrowDataViewGetInt16DetachedErrorDescriptor : public StaticCallInterfaceDescriptor<ThrowDataViewGetInt16DetachedErrorDescriptor> {
- public:
-  DEFINE_RESULT_AND_PARAMETERS_NO_CONTEXT(1)
-  DEFINE_RESULT_AND_PARAMETER_TYPES(MachineType::AnyTagged())
-  DECLARE_DEFAULT_DESCRIPTOR(ThrowDataViewGetInt16DetachedErrorDescriptor)
-};
-
-class ThrowDataViewGetInt16OutOfBoundsDescriptor : public StaticCallInterfaceDescriptor<ThrowDataViewGetInt16OutOfBoundsDescriptor> {
- public:
-  DEFINE_RESULT_AND_PARAMETERS_NO_CONTEXT(1)
-  DEFINE_RESULT_AND_PARAMETER_TYPES(MachineType::AnyTagged())
-  DECLARE_DEFAULT_DESCRIPTOR(ThrowDataViewGetInt16OutOfBoundsDescriptor)
-};
-
-class ThrowDataViewGetInt16TypeErrorDescriptor : public StaticCallInterfaceDescriptor<ThrowDataViewGetInt16TypeErrorDescriptor> {
- public:
-  DEFINE_RESULT_AND_PARAMETERS_NO_CONTEXT(1, kValue)
-  DEFINE_RESULT_AND_PARAMETER_TYPES(MachineType::AnyTagged(), MachineType::AnyTagged())
-  DECLARE_DEFAULT_DESCRIPTOR(ThrowDataViewGetInt16TypeErrorDescriptor)
-};
-
-class ThrowDataViewGetInt32DetachedErrorDescriptor : public StaticCallInterfaceDescriptor<ThrowDataViewGetInt32DetachedErrorDescriptor> {
- public:
-  DEFINE_RESULT_AND_PARAMETERS_NO_CONTEXT(1)
-  DEFINE_RESULT_AND_PARAMETER_TYPES(MachineType::AnyTagged())
-  DECLARE_DEFAULT_DESCRIPTOR(ThrowDataViewGetInt32DetachedErrorDescriptor)
-};
-
-class ThrowDataViewGetInt32OutOfBoundsDescriptor : public StaticCallInterfaceDescriptor<ThrowDataViewGetInt32OutOfBoundsDescriptor> {
- public:
-  DEFINE_RESULT_AND_PARAMETERS_NO_CONTEXT(1)
-  DEFINE_RESULT_AND_PARAMETER_TYPES(MachineType::AnyTagged())
-  DECLARE_DEFAULT_DESCRIPTOR(ThrowDataViewGetInt32OutOfBoundsDescriptor)
-};
-
-class ThrowDataViewGetInt32TypeErrorDescriptor : public StaticCallInterfaceDescriptor<ThrowDataViewGetInt32TypeErrorDescriptor> {
- public:
-  DEFINE_RESULT_AND_PARAMETERS_NO_CONTEXT(1, kValue)
-  DEFINE_RESULT_AND_PARAMETER_TYPES(MachineType::AnyTagged(), MachineType::AnyTagged())
-  DECLARE_DEFAULT_DESCRIPTOR(ThrowDataViewGetInt32TypeErrorDescriptor)
-};
-
-class ThrowDataViewGetUint8DetachedErrorDescriptor : public StaticCallInterfaceDescriptor<ThrowDataViewGetUint8DetachedErrorDescriptor> {
- public:
-  DEFINE_RESULT_AND_PARAMETERS_NO_CONTEXT(1)
-  DEFINE_RESULT_AND_PARAMETER_TYPES(MachineType::AnyTagged())
-  DECLARE_DEFAULT_DESCRIPTOR(ThrowDataViewGetUint8DetachedErrorDescriptor)
-};
-
-class ThrowDataViewGetUint8OutOfBoundsDescriptor : public StaticCallInterfaceDescriptor<ThrowDataViewGetUint8OutOfBoundsDescriptor> {
- public:
-  DEFINE_RESULT_AND_PARAMETERS_NO_CONTEXT(1)
-  DEFINE_RESULT_AND_PARAMETER_TYPES(MachineType::AnyTagged())
-  DECLARE_DEFAULT_DESCRIPTOR(ThrowDataViewGetUint8OutOfBoundsDescriptor)
-};
-
-class ThrowDataViewGetUint8TypeErrorDescriptor : public StaticCallInterfaceDescriptor<ThrowDataViewGetUint8TypeErrorDescriptor> {
- public:
-  DEFINE_RESULT_AND_PARAMETERS_NO_CONTEXT(1, kValue)
-  DEFINE_RESULT_AND_PARAMETER_TYPES(MachineType::AnyTagged(), MachineType::AnyTagged())
-  DECLARE_DEFAULT_DESCRIPTOR(ThrowDataViewGetUint8TypeErrorDescriptor)
-};
-
-class ThrowDataViewGetUint16DetachedErrorDescriptor : public StaticCallInterfaceDescriptor<ThrowDataViewGetUint16DetachedErrorDescriptor> {
- public:
-  DEFINE_RESULT_AND_PARAMETERS_NO_CONTEXT(1)
-  DEFINE_RESULT_AND_PARAMETER_TYPES(MachineType::AnyTagged())
-  DECLARE_DEFAULT_DESCRIPTOR(ThrowDataViewGetUint16DetachedErrorDescriptor)
-};
-
-class ThrowDataViewGetUint16OutOfBoundsDescriptor : public StaticCallInterfaceDescriptor<ThrowDataViewGetUint16OutOfBoundsDescriptor> {
- public:
-  DEFINE_RESULT_AND_PARAMETERS_NO_CONTEXT(1)
-  DEFINE_RESULT_AND_PARAMETER_TYPES(MachineType::AnyTagged())
-  DECLARE_DEFAULT_DESCRIPTOR(ThrowDataViewGetUint16OutOfBoundsDescriptor)
-};
-
-class ThrowDataViewGetUint16TypeErrorDescriptor : public StaticCallInterfaceDescriptor<ThrowDataViewGetUint16TypeErrorDescriptor> {
- public:
-  DEFINE_RESULT_AND_PARAMETERS_NO_CONTEXT(1, kValue)
-  DEFINE_RESULT_AND_PARAMETER_TYPES(MachineType::AnyTagged(), MachineType::AnyTagged())
-  DECLARE_DEFAULT_DESCRIPTOR(ThrowDataViewGetUint16TypeErrorDescriptor)
-};
-
-class ThrowDataViewGetUint32DetachedErrorDescriptor : public StaticCallInterfaceDescriptor<ThrowDataViewGetUint32DetachedErrorDescriptor> {
- public:
-  DEFINE_RESULT_AND_PARAMETERS_NO_CONTEXT(1)
-  DEFINE_RESULT_AND_PARAMETER_TYPES(MachineType::AnyTagged())
-  DECLARE_DEFAULT_DESCRIPTOR(ThrowDataViewGetUint32DetachedErrorDescriptor)
-};
-
-class ThrowDataViewGetUint32OutOfBoundsDescriptor : public StaticCallInterfaceDescriptor<ThrowDataViewGetUint32OutOfBoundsDescriptor> {
- public:
-  DEFINE_RESULT_AND_PARAMETERS_NO_CONTEXT(1)
-  DEFINE_RESULT_AND_PARAMETER_TYPES(MachineType::AnyTagged())
-  DECLARE_DEFAULT_DESCRIPTOR(ThrowDataViewGetUint32OutOfBoundsDescriptor)
-};
-
-class ThrowDataViewGetUint32TypeErrorDescriptor : public StaticCallInterfaceDescriptor<ThrowDataViewGetUint32TypeErrorDescriptor> {
- public:
-  DEFINE_RESULT_AND_PARAMETERS_NO_CONTEXT(1, kValue)
-  DEFINE_RESULT_AND_PARAMETER_TYPES(MachineType::AnyTagged(), MachineType::AnyTagged())
-  DECLARE_DEFAULT_DESCRIPTOR(ThrowDataViewGetUint32TypeErrorDescriptor)
-};
-
-class ThrowDataViewSetBigInt64DetachedErrorDescriptor : public StaticCallInterfaceDescriptor<ThrowDataViewSetBigInt64DetachedErrorDescriptor> {
- public:
-  DEFINE_RESULT_AND_PARAMETERS_NO_CONTEXT(1)
-  DEFINE_RESULT_AND_PARAMETER_TYPES(MachineType::AnyTagged())
-  DECLARE_DEFAULT_DESCRIPTOR(ThrowDataViewSetBigInt64DetachedErrorDescriptor)
-};
-
-class ThrowDataViewSetBigInt64OutOfBoundsDescriptor : public StaticCallInterfaceDescriptor<ThrowDataViewSetBigInt64OutOfBoundsDescriptor> {
- public:
-  DEFINE_RESULT_AND_PARAMETERS_NO_CONTEXT(1)
-  DEFINE_RESULT_AND_PARAMETER_TYPES(MachineType::AnyTagged())
-  DECLARE_DEFAULT_DESCRIPTOR(ThrowDataViewSetBigInt64OutOfBoundsDescriptor)
-};
-
-class ThrowDataViewSetBigInt64TypeErrorDescriptor : public StaticCallInterfaceDescriptor<ThrowDataViewSetBigInt64TypeErrorDescriptor> {
- public:
-  DEFINE_RESULT_AND_PARAMETERS_NO_CONTEXT(1, kValue)
-  DEFINE_RESULT_AND_PARAMETER_TYPES(MachineType::AnyTagged(), MachineType::AnyTagged())
-  DECLARE_DEFAULT_DESCRIPTOR(ThrowDataViewSetBigInt64TypeErrorDescriptor)
-};
-
-class ThrowDataViewSetBigUint64DetachedErrorDescriptor : public StaticCallInterfaceDescriptor<ThrowDataViewSetBigUint64DetachedErrorDescriptor> {
- public:
-  DEFINE_RESULT_AND_PARAMETERS_NO_CONTEXT(1)
-  DEFINE_RESULT_AND_PARAMETER_TYPES(MachineType::AnyTagged())
-  DECLARE_DEFAULT_DESCRIPTOR(ThrowDataViewSetBigUint64DetachedErrorDescriptor)
-};
-
-class ThrowDataViewSetBigUint64OutOfBoundsDescriptor : public StaticCallInterfaceDescriptor<ThrowDataViewSetBigUint64OutOfBoundsDescriptor> {
- public:
-  DEFINE_RESULT_AND_PARAMETERS_NO_CONTEXT(1)
-  DEFINE_RESULT_AND_PARAMETER_TYPES(MachineType::AnyTagged())
-  DECLARE_DEFAULT_DESCRIPTOR(ThrowDataViewSetBigUint64OutOfBoundsDescriptor)
-};
-
-class ThrowDataViewSetBigUint64TypeErrorDescriptor : public StaticCallInterfaceDescriptor<ThrowDataViewSetBigUint64TypeErrorDescriptor> {
- public:
-  DEFINE_RESULT_AND_PARAMETERS_NO_CONTEXT(1, kValue)
-  DEFINE_RESULT_AND_PARAMETER_TYPES(MachineType::AnyTagged(), MachineType::AnyTagged())
-  DECLARE_DEFAULT_DESCRIPTOR(ThrowDataViewSetBigUint64TypeErrorDescriptor)
-};
-
-class ThrowDataViewSetFloat32DetachedErrorDescriptor : public StaticCallInterfaceDescriptor<ThrowDataViewSetFloat32DetachedErrorDescriptor> {
- public:
-  DEFINE_RESULT_AND_PARAMETERS_NO_CONTEXT(1)
-  DEFINE_RESULT_AND_PARAMETER_TYPES(MachineType::AnyTagged())
-  DECLARE_DEFAULT_DESCRIPTOR(ThrowDataViewSetFloat32DetachedErrorDescriptor)
-};
-
-class ThrowDataViewSetFloat32OutOfBoundsDescriptor : public StaticCallInterfaceDescriptor<ThrowDataViewSetFloat32OutOfBoundsDescriptor> {
- public:
-  DEFINE_RESULT_AND_PARAMETERS_NO_CONTEXT(1)
-  DEFINE_RESULT_AND_PARAMETER_TYPES(MachineType::AnyTagged())
-  DECLARE_DEFAULT_DESCRIPTOR(ThrowDataViewSetFloat32OutOfBoundsDescriptor)
-};
-
-class ThrowDataViewSetFloat32TypeErrorDescriptor : public StaticCallInterfaceDescriptor<ThrowDataViewSetFloat32TypeErrorDescriptor> {
- public:
-  DEFINE_RESULT_AND_PARAMETERS_NO_CONTEXT(1, kValue)
-  DEFINE_RESULT_AND_PARAMETER_TYPES(MachineType::AnyTagged(), MachineType::AnyTagged())
-  DECLARE_DEFAULT_DESCRIPTOR(ThrowDataViewSetFloat32TypeErrorDescriptor)
-};
-
-class ThrowDataViewSetFloat64DetachedErrorDescriptor : public StaticCallInterfaceDescriptor<ThrowDataViewSetFloat64DetachedErrorDescriptor> {
- public:
-  DEFINE_RESULT_AND_PARAMETERS_NO_CONTEXT(1)
-  DEFINE_RESULT_AND_PARAMETER_TYPES(MachineType::AnyTagged())
-  DECLARE_DEFAULT_DESCRIPTOR(ThrowDataViewSetFloat64DetachedErrorDescriptor)
-};
-
-class ThrowDataViewSetFloat64OutOfBoundsDescriptor : public StaticCallInterfaceDescriptor<ThrowDataViewSetFloat64OutOfBoundsDescriptor> {
- public:
-  DEFINE_RESULT_AND_PARAMETERS_NO_CONTEXT(1)
-  DEFINE_RESULT_AND_PARAMETER_TYPES(MachineType::AnyTagged())
-  DECLARE_DEFAULT_DESCRIPTOR(ThrowDataViewSetFloat64OutOfBoundsDescriptor)
-};
-
-class ThrowDataViewSetFloat64TypeErrorDescriptor : public StaticCallInterfaceDescriptor<ThrowDataViewSetFloat64TypeErrorDescriptor> {
- public:
-  DEFINE_RESULT_AND_PARAMETERS_NO_CONTEXT(1, kValue)
-  DEFINE_RESULT_AND_PARAMETER_TYPES(MachineType::AnyTagged(), MachineType::AnyTagged())
-  DECLARE_DEFAULT_DESCRIPTOR(ThrowDataViewSetFloat64TypeErrorDescriptor)
-};
-
-class ThrowDataViewSetInt8DetachedErrorDescriptor : public StaticCallInterfaceDescriptor<ThrowDataViewSetInt8DetachedErrorDescriptor> {
- public:
-  DEFINE_RESULT_AND_PARAMETERS_NO_CONTEXT(1)
-  DEFINE_RESULT_AND_PARAMETER_TYPES(MachineType::AnyTagged())
-  DECLARE_DEFAULT_DESCRIPTOR(ThrowDataViewSetInt8DetachedErrorDescriptor)
-};
-
-class ThrowDataViewSetInt8OutOfBoundsDescriptor : public StaticCallInterfaceDescriptor<ThrowDataViewSetInt8OutOfBoundsDescriptor> {
- public:
-  DEFINE_RESULT_AND_PARAMETERS_NO_CONTEXT(1)
-  DEFINE_RESULT_AND_PARAMETER_TYPES(MachineType::AnyTagged())
-  DECLARE_DEFAULT_DESCRIPTOR(ThrowDataViewSetInt8OutOfBoundsDescriptor)
-};
-
-class ThrowDataViewSetInt8TypeErrorDescriptor : public StaticCallInterfaceDescriptor<ThrowDataViewSetInt8TypeErrorDescriptor> {
- public:
-  DEFINE_RESULT_AND_PARAMETERS_NO_CONTEXT(1, kValue)
-  DEFINE_RESULT_AND_PARAMETER_TYPES(MachineType::AnyTagged(), MachineType::AnyTagged())
-  DECLARE_DEFAULT_DESCRIPTOR(ThrowDataViewSetInt8TypeErrorDescriptor)
-};
-
-class ThrowDataViewSetInt16DetachedErrorDescriptor : public StaticCallInterfaceDescriptor<ThrowDataViewSetInt16DetachedErrorDescriptor> {
- public:
-  DEFINE_RESULT_AND_PARAMETERS_NO_CONTEXT(1)
-  DEFINE_RESULT_AND_PARAMETER_TYPES(MachineType::AnyTagged())
-  DECLARE_DEFAULT_DESCRIPTOR(ThrowDataViewSetInt16DetachedErrorDescriptor)
-};
-
-class ThrowDataViewSetInt16OutOfBoundsDescriptor : public StaticCallInterfaceDescriptor<ThrowDataViewSetInt16OutOfBoundsDescriptor> {
- public:
-  DEFINE_RESULT_AND_PARAMETERS_NO_CONTEXT(1)
-  DEFINE_RESULT_AND_PARAMETER_TYPES(MachineType::AnyTagged())
-  DECLARE_DEFAULT_DESCRIPTOR(ThrowDataViewSetInt16OutOfBoundsDescriptor)
-};
-
-class ThrowDataViewSetInt16TypeErrorDescriptor : public StaticCallInterfaceDescriptor<ThrowDataViewSetInt16TypeErrorDescriptor> {
- public:
-  DEFINE_RESULT_AND_PARAMETERS_NO_CONTEXT(1, kValue)
-  DEFINE_RESULT_AND_PARAMETER_TYPES(MachineType::AnyTagged(), MachineType::AnyTagged())
-  DECLARE_DEFAULT_DESCRIPTOR(ThrowDataViewSetInt16TypeErrorDescriptor)
-};
-
-class ThrowDataViewSetInt32DetachedErrorDescriptor : public StaticCallInterfaceDescriptor<ThrowDataViewSetInt32DetachedErrorDescriptor> {
- public:
-  DEFINE_RESULT_AND_PARAMETERS_NO_CONTEXT(1)
-  DEFINE_RESULT_AND_PARAMETER_TYPES(MachineType::AnyTagged())
-  DECLARE_DEFAULT_DESCRIPTOR(ThrowDataViewSetInt32DetachedErrorDescriptor)
-};
-
-class ThrowDataViewSetInt32OutOfBoundsDescriptor : public StaticCallInterfaceDescriptor<ThrowDataViewSetInt32OutOfBoundsDescriptor> {
- public:
-  DEFINE_RESULT_AND_PARAMETERS_NO_CONTEXT(1)
-  DEFINE_RESULT_AND_PARAMETER_TYPES(MachineType::AnyTagged())
-  DECLARE_DEFAULT_DESCRIPTOR(ThrowDataViewSetInt32OutOfBoundsDescriptor)
-};
-
-class ThrowDataViewSetInt32TypeErrorDescriptor : public StaticCallInterfaceDescriptor<ThrowDataViewSetInt32TypeErrorDescriptor> {
- public:
-  DEFINE_RESULT_AND_PARAMETERS_NO_CONTEXT(1, kValue)
-  DEFINE_RESULT_AND_PARAMETER_TYPES(MachineType::AnyTagged(), MachineType::AnyTagged())
-  DECLARE_DEFAULT_DESCRIPTOR(ThrowDataViewSetInt32TypeErrorDescriptor)
-};
-
-class ThrowDataViewSetUint8DetachedErrorDescriptor : public StaticCallInterfaceDescriptor<ThrowDataViewSetUint8DetachedErrorDescriptor> {
- public:
-  DEFINE_RESULT_AND_PARAMETERS_NO_CONTEXT(1)
-  DEFINE_RESULT_AND_PARAMETER_TYPES(MachineType::AnyTagged())
-  DECLARE_DEFAULT_DESCRIPTOR(ThrowDataViewSetUint8DetachedErrorDescriptor)
-};
-
-class ThrowDataViewSetUint8OutOfBoundsDescriptor : public StaticCallInterfaceDescriptor<ThrowDataViewSetUint8OutOfBoundsDescriptor> {
- public:
-  DEFINE_RESULT_AND_PARAMETERS_NO_CONTEXT(1)
-  DEFINE_RESULT_AND_PARAMETER_TYPES(MachineType::AnyTagged())
-  DECLARE_DEFAULT_DESCRIPTOR(ThrowDataViewSetUint8OutOfBoundsDescriptor)
-};
-
-class ThrowDataViewSetUint8TypeErrorDescriptor : public StaticCallInterfaceDescriptor<ThrowDataViewSetUint8TypeErrorDescriptor> {
- public:
-  DEFINE_RESULT_AND_PARAMETERS_NO_CONTEXT(1, kValue)
-  DEFINE_RESULT_AND_PARAMETER_TYPES(MachineType::AnyTagged(), MachineType::AnyTagged())
-  DECLARE_DEFAULT_DESCRIPTOR(ThrowDataViewSetUint8TypeErrorDescriptor)
-};
-
-class ThrowDataViewSetUint16DetachedErrorDescriptor : public StaticCallInterfaceDescriptor<ThrowDataViewSetUint16DetachedErrorDescriptor> {
- public:
-  DEFINE_RESULT_AND_PARAMETERS_NO_CONTEXT(1)
-  DEFINE_RESULT_AND_PARAMETER_TYPES(MachineType::AnyTagged())
-  DECLARE_DEFAULT_DESCRIPTOR(ThrowDataViewSetUint16DetachedErrorDescriptor)
-};
-
-class ThrowDataViewSetUint16OutOfBoundsDescriptor : public StaticCallInterfaceDescriptor<ThrowDataViewSetUint16OutOfBoundsDescriptor> {
- public:
-  DEFINE_RESULT_AND_PARAMETERS_NO_CONTEXT(1)
-  DEFINE_RESULT_AND_PARAMETER_TYPES(MachineType::AnyTagged())
-  DECLARE_DEFAULT_DESCRIPTOR(ThrowDataViewSetUint16OutOfBoundsDescriptor)
-};
-
-class ThrowDataViewSetUint16TypeErrorDescriptor : public StaticCallInterfaceDescriptor<ThrowDataViewSetUint16TypeErrorDescriptor> {
- public:
-  DEFINE_RESULT_AND_PARAMETERS_NO_CONTEXT(1, kValue)
-  DEFINE_RESULT_AND_PARAMETER_TYPES(MachineType::AnyTagged(), MachineType::AnyTagged())
-  DECLARE_DEFAULT_DESCRIPTOR(ThrowDataViewSetUint16TypeErrorDescriptor)
-};
-
-class ThrowDataViewSetUint32DetachedErrorDescriptor : public StaticCallInterfaceDescriptor<ThrowDataViewSetUint32DetachedErrorDescriptor> {
- public:
-  DEFINE_RESULT_AND_PARAMETERS_NO_CONTEXT(1)
-  DEFINE_RESULT_AND_PARAMETER_TYPES(MachineType::AnyTagged())
-  DECLARE_DEFAULT_DESCRIPTOR(ThrowDataViewSetUint32DetachedErrorDescriptor)
-};
-
-class ThrowDataViewSetUint32OutOfBoundsDescriptor : public StaticCallInterfaceDescriptor<ThrowDataViewSetUint32OutOfBoundsDescriptor> {
- public:
-  DEFINE_RESULT_AND_PARAMETERS_NO_CONTEXT(1)
-  DEFINE_RESULT_AND_PARAMETER_TYPES(MachineType::AnyTagged())
-  DECLARE_DEFAULT_DESCRIPTOR(ThrowDataViewSetUint32OutOfBoundsDescriptor)
-};
-
-class ThrowDataViewSetUint32TypeErrorDescriptor : public StaticCallInterfaceDescriptor<ThrowDataViewSetUint32TypeErrorDescriptor> {
- public:
-  DEFINE_RESULT_AND_PARAMETERS_NO_CONTEXT(1, kValue)
-  DEFINE_RESULT_AND_PARAMETER_TYPES(MachineType::AnyTagged(), MachineType::AnyTagged())
-  DECLARE_DEFAULT_DESCRIPTOR(ThrowDataViewSetUint32TypeErrorDescriptor)
+  DECLARE_DEFAULT_DESCRIPTOR(ThrowDataViewOutOfBoundsDescriptor)
 };
 
 class WasmStringConcatDescriptor : public StaticCallInterfaceDescriptor<WasmStringConcatDescriptor> {

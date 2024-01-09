@@ -8,6 +8,7 @@
 #define MEDIA_MOJO_MOJOM_AUDIO_DATA_PIPE_MOJOM_FEATURES_H_
 
 #include "base/feature_list.h"
+#include "mojo/public/cpp/bindings/runtime_features.h"
 
 
 

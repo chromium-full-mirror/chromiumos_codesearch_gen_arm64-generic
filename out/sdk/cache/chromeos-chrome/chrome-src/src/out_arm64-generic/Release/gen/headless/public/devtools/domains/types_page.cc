@@ -3103,79 +3103,6 @@ std::unique_ptr<GetAdScriptIdResult> GetAdScriptIdResult::Clone() const {
 }
 
 
-std::unique_ptr<GetCookiesParams> GetCookiesParams::Parse(const base::Value& value, ErrorReporter* errors) {
-  errors->Push();
-  errors->SetName("GetCookiesParams");
-  if (!value.is_dict()) {
-    errors->AddError("object expected");
-    errors->Pop();
-    return nullptr;
-  }
-
-  std::unique_ptr<GetCookiesParams> result(new GetCookiesParams());
-  errors->Push();
-  errors->SetName("GetCookiesParams");
-  errors->Pop();
-  errors->Pop();
-  if (errors->HasErrors())
-    return nullptr;
-  return result;
-}
-
-base::Value GetCookiesParams::Serialize() const {
-  base::Value::Dict result;
-  return base::Value(std::move(result));
-}
-
-std::unique_ptr<GetCookiesParams> GetCookiesParams::Clone() const {
-  ErrorReporter errors;
-  std::unique_ptr<GetCookiesParams> result = Parse(Serialize(), &errors);
-  DCHECK(!errors.HasErrors());
-  return result;
-}
-
-
-std::unique_ptr<GetCookiesResult> GetCookiesResult::Parse(const base::Value& value, ErrorReporter* errors) {
-  errors->Push();
-  errors->SetName("GetCookiesResult");
-  if (!value.is_dict()) {
-    errors->AddError("object expected");
-    errors->Pop();
-    return nullptr;
-  }
-
-  std::unique_ptr<GetCookiesResult> result(new GetCookiesResult());
-  errors->Push();
-  errors->SetName("GetCookiesResult");
-  const base::Value::Dict& dict = value.GetDict();
-  const base::Value* cookies_value = dict.Find("cookies");
-  if (cookies_value) {
-    errors->SetName("cookies");
-    result->cookies_ = internal::FromValue<std::vector<std::unique_ptr<::headless::network::Cookie>>>::Parse(*cookies_value, errors);
-  } else {
-    errors->AddError("required property missing: cookies");
-  }
-  errors->Pop();
-  errors->Pop();
-  if (errors->HasErrors())
-    return nullptr;
-  return result;
-}
-
-base::Value GetCookiesResult::Serialize() const {
-  base::Value::Dict result;
-  result.Set("cookies", internal::ToValue(cookies_));
-  return base::Value(std::move(result));
-}
-
-std::unique_ptr<GetCookiesResult> GetCookiesResult::Clone() const {
-  ErrorReporter errors;
-  std::unique_ptr<GetCookiesResult> result = Parse(Serialize(), &errors);
-  DCHECK(!errors.HasErrors());
-  return result;
-}
-
-
 std::unique_ptr<GetFrameTreeParams> GetFrameTreeParams::Parse(const base::Value& value, ErrorReporter* errors) {
   errors->Push();
   errors->SetName("GetFrameTreeParams");
@@ -4048,6 +3975,11 @@ std::unique_ptr<PrintToPDFParams> PrintToPDFParams::Parse(const base::Value& val
     errors->SetName("generateTaggedPDF");
     result->generate_taggedpdf_ = internal::FromValue<bool>::Parse(*generate_taggedpdf_value, errors);
   }
+  const base::Value* generate_document_outline_value = dict.Find("generateDocumentOutline");
+  if (generate_document_outline_value) {
+    errors->SetName("generateDocumentOutline");
+    result->generate_document_outline_ = internal::FromValue<bool>::Parse(*generate_document_outline_value, errors);
+  }
   errors->Pop();
   errors->Pop();
   if (errors->HasErrors())
@@ -4089,6 +4021,8 @@ base::Value PrintToPDFParams::Serialize() const {
     result.Set("transferMode", internal::ToValue(transfer_mode_.value()));
   if (generate_taggedpdf_)
     result.Set("generateTaggedPDF", internal::ToValue(generate_taggedpdf_.value()));
+  if (generate_document_outline_)
+    result.Set("generateDocumentOutline", internal::ToValue(generate_document_outline_.value()));
   return base::Value(std::move(result));
 }
 

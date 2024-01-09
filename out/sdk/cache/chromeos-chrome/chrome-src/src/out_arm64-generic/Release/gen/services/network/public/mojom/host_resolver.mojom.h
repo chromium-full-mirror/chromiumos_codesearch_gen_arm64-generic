@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/network/public/mojom/host_resolver.mojom-features.h"
 #include "services/network/public/mojom/host_resolver.mojom-shared.h"
 #include "services/network/public/mojom/host_resolver.mojom-forward.h"
 #include "mojo/public/mojom/base/time.mojom.h"
@@ -143,7 +144,7 @@ class ResolveHostClient
   virtual ~ResolveHostClient() = default;
 
   
-  virtual void OnComplete(int32_t result, const ::net::ResolveErrorInfo& resolve_error_info, const absl::optional<::net::AddressList>& resolved_addresses, const absl::optional<std::vector<::net::HostResolverEndpointResult>>& endpoint_results_with_metadata) = 0;
+  virtual void OnComplete(int32_t result, const ::net::ResolveErrorInfo& resolve_error_info, const std::optional<::net::AddressList>& resolved_addresses, const std::optional<std::vector<::net::HostResolverEndpointResult>>& endpoint_results_with_metadata) = 0;
 
   
   virtual void OnTextResults(const std::vector<std::string>& text_results) = 0;
@@ -389,7 +390,7 @@ class  ResolveHostClientProxy
 
   explicit ResolveHostClientProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void OnComplete(int32_t result, const ::net::ResolveErrorInfo& resolve_error_info, const absl::optional<::net::AddressList>& resolved_addresses, const absl::optional<std::vector<::net::HostResolverEndpointResult>>& endpoint_results_with_metadata) final;
+  void OnComplete(int32_t result, const ::net::ResolveErrorInfo& resolve_error_info, const std::optional<::net::AddressList>& resolved_addresses, const std::optional<std::vector<::net::HostResolverEndpointResult>>& endpoint_results_with_metadata) final;
   
   void OnTextResults(const std::vector<std::string>& text_results) final;
   
@@ -768,17 +769,17 @@ class  HostResolverHost {
   // Construct an instance holding |scheme_host_port|.
   static HostResolverHostPtr
   NewSchemeHostPort(
-      const ::url::SchemeHostPort& scheme_host_port) {
+      const ::url::SchemeHostPort& value) {
     auto result = HostResolverHostPtr(absl::in_place);
-    result->set_scheme_host_port(std::move(scheme_host_port));
+    result->set_scheme_host_port(std::move(value));
     return result;
   }
   // Construct an instance holding |host_port_pair|.
   static HostResolverHostPtr
   NewHostPortPair(
-      const ::net::HostPortPair& host_port_pair) {
+      const ::net::HostPortPair& value) {
     auto result = HostResolverHostPtr(absl::in_place);
-    result->set_host_port_pair(std::move(host_port_pair));
+    result->set_host_port_pair(std::move(value));
     return result;
   }
 
@@ -1192,15 +1193,15 @@ class  DnsConfigOverrides {
   DnsConfigOverrides();
 
   DnsConfigOverrides(
-      absl::optional<std::vector<::net::IPEndPoint>> nameservers,
-      absl::optional<std::vector<std::string>> search,
+      std::optional<std::vector<::net::IPEndPoint>> nameservers,
+      std::optional<std::vector<std::string>> search,
       DnsConfigOverrides::Tristate append_to_multi_label_name,
       int8_t ndots,
-      absl::optional<::base::TimeDelta> fallback_period,
+      std::optional<::base::TimeDelta> fallback_period,
       int32_t attempts,
       DnsConfigOverrides::Tristate rotate,
       DnsConfigOverrides::Tristate use_local_ipv6,
-      const absl::optional<::net::DnsOverHttpsConfig>& dns_over_https_config,
+      const std::optional<::net::DnsOverHttpsConfig>& dns_over_https_config,
       OptionalSecureDnsMode secure_dns_mode,
       DnsConfigOverrides::Tristate allow_dns_over_https_upgrade,
       bool clear_hosts);
@@ -1281,15 +1282,15 @@ class  DnsConfigOverrides {
   }
 
   
-  absl::optional<std::vector<::net::IPEndPoint>> nameservers;
+  std::optional<std::vector<::net::IPEndPoint>> nameservers;
   
-  absl::optional<std::vector<std::string>> search;
+  std::optional<std::vector<std::string>> search;
   
   DnsConfigOverrides::Tristate append_to_multi_label_name;
   
   int8_t ndots;
   
-  absl::optional<::base::TimeDelta> fallback_period;
+  std::optional<::base::TimeDelta> fallback_period;
   
   int32_t attempts;
   
@@ -1297,7 +1298,7 @@ class  DnsConfigOverrides {
   
   DnsConfigOverrides::Tristate use_local_ipv6;
   
-  absl::optional<::net::DnsOverHttpsConfig> dns_over_https_config;
+  std::optional<::net::DnsOverHttpsConfig> dns_over_https_config;
   
   OptionalSecureDnsMode secure_dns_mode;
   

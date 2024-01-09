@@ -22,8 +22,6 @@ constexpr uint32_t kScreen2xMainContentExtractor_ExtractMainContent_Name = 0;
 constexpr uint32_t kOCRService_BindAnnotator_Name = 0;
 constexpr uint32_t kOCRService_BindAnnotatorClient_Name = 1;
 constexpr uint32_t kMainContentExtractionService_BindMainContentExtractor_Name = 0;
-constexpr uint32_t kScreenAIServiceFactory_InitializeOCR_Name = 0;
-constexpr uint32_t kScreenAIServiceFactory_InitializeMainContentExtraction_Name = 1;
 
 }  // namespace internal
 

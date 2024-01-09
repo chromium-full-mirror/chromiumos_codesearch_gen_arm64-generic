@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,8 +23,10 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "extensions/common/mojom/service_worker.mojom-features.h"
 #include "extensions/common/mojom/service_worker.mojom-shared.h"
 #include "extensions/common/mojom/service_worker.mojom-forward.h"
+#include "extensions/common/mojom/message_port.mojom.h"
 #include "extensions/common/mojom/permission_set.mojom.h"
 #include <string>
 #include <vector>
@@ -45,6 +47,7 @@ template <typename ImplRefTraits>
 class ServiceWorkerStub;
 
 class ServiceWorkerRequestValidator;
+class ServiceWorkerResponseValidator;
 
 
 class ServiceWorker
@@ -56,7 +59,7 @@ class ServiceWorker
   static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 0;
-  static constexpr bool PassesAssociatedKinds_ = false;
+  static constexpr bool PassesAssociatedKinds_ = true;
   static constexpr bool HasUninterruptableMethods_ = false;
 
   using Base_ = ServiceWorkerInterfaceBase;
@@ -66,9 +69,10 @@ class ServiceWorker
   using Stub_ = ServiceWorkerStub<ImplRefTraits>;
 
   using RequestValidator_ = ServiceWorkerRequestValidator;
-  using ResponseValidator_ = mojo::PassThroughFilter;
+  using ResponseValidator_ = ServiceWorkerResponseValidator;
   enum MethodMinVersions : uint32_t {
     kUpdatePermissionsMinVersion = 0,
+    kDispatchOnConnectMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -77,11 +81,19 @@ class ServiceWorker
   struct UpdatePermissions_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
+  struct DispatchOnConnect_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~ServiceWorker() = default;
 
   
   virtual void UpdatePermissions(::extensions::PermissionSet active_permissions, ::extensions::PermissionSet withheld_permissions) = 0;
+
+
+  using DispatchOnConnectCallback = base::OnceCallback<void(bool)>;
+  
+  virtual void DispatchOnConnect(const ::extensions::PortId& port_id, ::extensions::mojom::ChannelType channel_type, const std::string& channel_name, ::extensions::mojom::TabConnectionInfoPtr tab_info, ::extensions::mojom::ExternalConnectionInfoPtr external_connection_info, ::mojo::PendingAssociatedReceiver<::extensions::mojom::MessagePort> port, ::mojo::PendingAssociatedRemote<::extensions::mojom::MessagePortHost> port_host, DispatchOnConnectCallback callback) = 0;
 };
 
 
@@ -94,6 +106,8 @@ class  ServiceWorkerProxy
   explicit ServiceWorkerProxy(mojo::MessageReceiverWithResponder* receiver);
   
   void UpdatePermissions(::extensions::PermissionSet active_permissions, ::extensions::PermissionSet withheld_permissions) final;
+  
+  void DispatchOnConnect(const ::extensions::PortId& port_id, ::extensions::mojom::ChannelType channel_type, const std::string& channel_name, ::extensions::mojom::TabConnectionInfoPtr tab_info, ::extensions::mojom::ExternalConnectionInfoPtr external_connection_info, ::mojo::PendingAssociatedReceiver<::extensions::mojom::MessagePort> port, ::mojo::PendingAssociatedRemote<::extensions::mojom::MessagePortHost> port_host, DispatchOnConnectCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -140,6 +154,10 @@ class ServiceWorkerStub
   ImplPointerType sink_;
 };
 class  ServiceWorkerRequestValidator : public mojo::MessageReceiver {
+ public:
+  bool Accept(mojo::Message* message) override;
+};
+class  ServiceWorkerResponseValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
 };

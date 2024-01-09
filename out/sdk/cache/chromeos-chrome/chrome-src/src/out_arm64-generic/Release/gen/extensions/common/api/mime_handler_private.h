@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -32,8 +33,8 @@ struct StreamInfo {
   ~StreamInfo();
   StreamInfo(const StreamInfo&) = delete;
   StreamInfo& operator=(const StreamInfo&) = delete;
-  StreamInfo(StreamInfo&& rhs);
-  StreamInfo& operator=(StreamInfo&& rhs);
+  StreamInfo(StreamInfo&& rhs) noexcept;
+  StreamInfo& operator=(StreamInfo&& rhs) noexcept;
 
   // Populates a StreamInfo object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -46,15 +47,12 @@ struct StreamInfo {
   // Creates a deep copy of StreamInfo.
   StreamInfo Clone() const;
 
-  // Creates a StreamInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<StreamInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a StreamInfo object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<StreamInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<StreamInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a StreamInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<StreamInfo> FromValue(const base::Value& value);
+  static std::optional<StreamInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisStreamInfo object.
@@ -69,8 +67,8 @@ struct StreamInfo {
     ~ResponseHeaders();
     ResponseHeaders(const ResponseHeaders&) = delete;
     ResponseHeaders& operator=(const ResponseHeaders&) = delete;
-    ResponseHeaders(ResponseHeaders&& rhs);
-    ResponseHeaders& operator=(ResponseHeaders&& rhs);
+    ResponseHeaders(ResponseHeaders&& rhs) noexcept;
+    ResponseHeaders& operator=(ResponseHeaders&& rhs) noexcept;
 
     // Populates a ResponseHeaders object from a base::Value& instance. Returns
     // whether |out| was successfully populated.
@@ -85,10 +83,10 @@ struct StreamInfo {
 
     // Creates a ResponseHeaders object from a base::Value::Dict, or nullopt on
     // failure.
-    static absl::optional<ResponseHeaders> FromValue(const base::Value::Dict& value);
+    static std::optional<ResponseHeaders> FromValue(const base::Value::Dict& value);
 
     // Creates a ResponseHeaders object from a base::Value, or nullopt on failure.
-    static absl::optional<ResponseHeaders> FromValue(const base::Value& value);
+    static std::optional<ResponseHeaders> FromValue(const base::Value& value);
 
     // Returns a new base::Value::Dict representing the serialized form of
     // thisResponseHeaders object.
@@ -127,8 +125,8 @@ struct PdfPluginAttributes {
   ~PdfPluginAttributes();
   PdfPluginAttributes(const PdfPluginAttributes&) = delete;
   PdfPluginAttributes& operator=(const PdfPluginAttributes&) = delete;
-  PdfPluginAttributes(PdfPluginAttributes&& rhs);
-  PdfPluginAttributes& operator=(PdfPluginAttributes&& rhs);
+  PdfPluginAttributes(PdfPluginAttributes&& rhs) noexcept;
+  PdfPluginAttributes& operator=(PdfPluginAttributes&& rhs) noexcept;
 
   // Populates a PdfPluginAttributes object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -141,17 +139,13 @@ struct PdfPluginAttributes {
   // Creates a deep copy of PdfPluginAttributes.
   PdfPluginAttributes Clone() const;
 
-  // Creates a PdfPluginAttributes object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<PdfPluginAttributes> FromValueDeprecated(const base::Value& value);
-
   // Creates a PdfPluginAttributes object from a base::Value::Dict, or nullopt
   // on failure.
-  static absl::optional<PdfPluginAttributes> FromValue(const base::Value::Dict& value);
+  static std::optional<PdfPluginAttributes> FromValue(const base::Value::Dict& value);
 
   // Creates a PdfPluginAttributes object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<PdfPluginAttributes> FromValue(const base::Value& value);
+  static std::optional<PdfPluginAttributes> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisPdfPluginAttributes object.

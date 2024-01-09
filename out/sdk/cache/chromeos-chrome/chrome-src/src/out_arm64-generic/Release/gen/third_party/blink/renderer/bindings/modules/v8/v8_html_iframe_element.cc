@@ -13,6 +13,7 @@
 #include "third_party/blink/public/mojom/origin_trial_feature/origin_trial_feature.mojom-shared.h"
 #include "third_party/blink/renderer/bindings/core/v8/binding_security.h"
 #include "third_party/blink/renderer/bindings/core/v8/generated_code_helper.h"
+#include "third_party/blink/renderer/bindings/core/v8/local_window_proxy.h"
 #include "third_party/blink/renderer/bindings/core/v8/native_value_traits_impl.h"
 #include "third_party/blink/renderer/bindings/core/v8/to_v8_traits.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_document.h"
@@ -62,10 +63,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLIFrameElement.src.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLIFrameElement* blink_receiver = V8HTMLIFrameElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->GetURLAttribute(html_names::kSrcAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLIFrameElement* blink_receiver = V8HTMLIFrameElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->GetURLAttribute(html_names::kSrcAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -85,7 +86,7 @@ ExceptionState exception_state(isolate, exception_context_type, class_like_name,
 CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLIFrameElement* blink_receiver = V8HTMLIFrameElement::ToWrappableUnsafe(v8_receiver);
+HTMLIFrameElement* blink_receiver = V8HTMLIFrameElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLUSVString>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -102,10 +103,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLIFrameElement.srcdoc.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLIFrameElement* blink_receiver = V8HTMLIFrameElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->FastGetAttribute(html_names::kSrcdocAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLIFrameElement* blink_receiver = V8HTMLIFrameElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastGetAttribute(html_names::kSrcdocAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -125,7 +126,7 @@ ExceptionState exception_state(isolate, exception_context_type, class_like_name,
 CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLIFrameElement* blink_receiver = V8HTMLIFrameElement::ToWrappableUnsafe(v8_receiver);
+HTMLIFrameElement* blink_receiver = V8HTMLIFrameElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 ExecutionContext* execution_context_of_document_tree = bindings::ExecutionContextFromV8Wrappable(blink_receiver);
 auto&& arg1_value = NativeValueTraits<IDLStringStringContextTrustedHTML>::NativeValue(isolate, v8_property_value, exception_state, execution_context_of_document_tree);
@@ -146,10 +147,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLIFrameElement.name.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLIFrameElement* blink_receiver = V8HTMLIFrameElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->GetNameAttribute();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLIFrameElement* blink_receiver = V8HTMLIFrameElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->GetNameAttribute();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -170,8 +171,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLIFrameElement.sandbox.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLIFrameElement* blink_receiver = V8HTMLIFrameElement::ToWrappableUnsafe(v8_receiver);
+HTMLIFrameElement* blink_receiver = V8HTMLIFrameElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->sandbox();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -219,8 +221,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLIFrameElement.allowFullscreen.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLIFrameElement* blink_receiver = V8HTMLIFrameElement::ToWrappableUnsafe(v8_receiver);
+HTMLIFrameElement* blink_receiver = V8HTMLIFrameElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->FastHasAttribute(html_names::kAllowfullscreenAttr);
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -242,10 +245,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLIFrameElement.width.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLIFrameElement* blink_receiver = V8HTMLIFrameElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->FastGetAttribute(html_names::kWidthAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLIFrameElement* blink_receiver = V8HTMLIFrameElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastGetAttribute(html_names::kWidthAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -266,10 +269,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLIFrameElement.height.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLIFrameElement* blink_receiver = V8HTMLIFrameElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->FastGetAttribute(html_names::kHeightAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLIFrameElement* blink_receiver = V8HTMLIFrameElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastGetAttribute(html_names::kHeightAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -294,7 +297,7 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLIFrameElement.contentDocument.get");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLIFrameElement* blink_receiver = V8HTMLIFrameElement::ToWrappableUnsafe(v8_receiver);
+HTMLIFrameElement* blink_receiver = V8HTMLIFrameElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->contentDocument();
 if (!BindingSecurity::ShouldAllowAccessTo(ToLocalDOMWindow(current_context), return_value)) {
   ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
@@ -306,14 +309,17 @@ return;
   // [CheckSecurity=ReturnValue]
 Frame* blink_frame = blink_receiver->contentWindow()->GetFrame();
 DCHECK(IsA<LocalFrame>(blink_frame));
-if (UNLIKELY(!blink_frame->IsAttached())) {
-  bindings::V8SetReturnValue(info, nullptr);
-return;
-}
-v8::Local<v8::Value> v8_value;
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
+if (UNLIKELY(!blink_frame->IsAttached() && To<LocalFrame>(blink_frame)->WindowProxyMaybeUninitialized(script_state->World())->ContextIfInitialized().IsEmpty())) {
+  // Don't wrap the return value if its frame is in the process of detaching and
+// has already invalidated its v8::Context, as it is not safe to
+// re-initialize the v8::Context in that state. Return null instead.
+bindings::V8SetReturnValue(info, nullptr);
+return;
+}
+v8::Local<v8::Value> v8_value;
 if (!ToV8Traits<IDLNullable<Document>>::ToV8(ToScriptState(To<LocalFrame>(blink_frame), script_state->World()),return_value).ToLocal(&v8_value)) {
   return;
 }
@@ -329,8 +335,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLIFrameElement.contentWindow.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLIFrameElement* blink_receiver = V8HTMLIFrameElement::ToWrappableUnsafe(v8_receiver);
+HTMLIFrameElement* blink_receiver = V8HTMLIFrameElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->contentWindow();
 bindings::V8SetReturnValue(info, return_value, blink_receiver, bindings::V8ReturnValue::kMaybeCrossOrigin);
 }
@@ -343,8 +350,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLIFrameElement.referrerPolicy.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLIFrameElement* blink_receiver = V8HTMLIFrameElement::ToWrappableUnsafe(v8_receiver);
+HTMLIFrameElement* blink_receiver = V8HTMLIFrameElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto return_value = blink_receiver->FastGetAttribute(html_names::kReferrerpolicyAttr);
 
 // [ReflectOnly]
@@ -356,7 +364,6 @@ if (reflect_value.IsNull()) {
 } else {
   return_value = g_empty_atom;
 }  
-v8::Isolate* isolate = info.GetIsolate();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -377,10 +384,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLIFrameElement.csp.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLIFrameElement* blink_receiver = V8HTMLIFrameElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->FastGetAttribute(html_names::kCspAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLIFrameElement* blink_receiver = V8HTMLIFrameElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastGetAttribute(html_names::kCspAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -401,10 +408,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLIFrameElement.allow.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLIFrameElement* blink_receiver = V8HTMLIFrameElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->FastGetAttribute(html_names::kAllowAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLIFrameElement* blink_receiver = V8HTMLIFrameElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastGetAttribute(html_names::kAllowAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -425,8 +432,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLIFrameElement.featurePolicy.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLIFrameElement* blink_receiver = V8HTMLIFrameElement::ToWrappableUnsafe(v8_receiver);
+HTMLIFrameElement* blink_receiver = V8HTMLIFrameElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->featurePolicy();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -439,10 +447,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLIFrameElement.policy.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLIFrameElement* blink_receiver = V8HTMLIFrameElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->FastGetAttribute(html_names::kPolicyAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLIFrameElement* blink_receiver = V8HTMLIFrameElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastGetAttribute(html_names::kPolicyAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -463,8 +471,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLIFrameElement.loading.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLIFrameElement* blink_receiver = V8HTMLIFrameElement::ToWrappableUnsafe(v8_receiver);
+HTMLIFrameElement* blink_receiver = V8HTMLIFrameElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto return_value = blink_receiver->FastGetAttribute(html_names::kLoadingAttr);
 
 // [ReflectOnly]
@@ -476,7 +485,6 @@ if (reflect_value.IsNull()) {
 } else {
   return_value = keywords::kAuto;
 }  
-v8::Isolate* isolate = info.GetIsolate();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -503,7 +511,7 @@ UseCounter::Count(current_execution_context, WebFeature::kTrustTokenIframe);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLIFrameElement* blink_receiver = V8HTMLIFrameElement::ToWrappableUnsafe(v8_receiver);
+HTMLIFrameElement* blink_receiver = V8HTMLIFrameElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->FastGetAttribute(html_names::kPrivatetokenAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
@@ -521,7 +529,7 @@ UseCounter::Count(current_execution_context, WebFeature::kTrustTokenIframe);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLIFrameElement* blink_receiver = V8HTMLIFrameElement::ToWrappableUnsafe(v8_receiver);
+HTMLIFrameElement* blink_receiver = V8HTMLIFrameElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "HTMLIFrameElement";
@@ -542,8 +550,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLIFrameElement.browsingTopics.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLIFrameElement* blink_receiver = V8HTMLIFrameElement::ToWrappableUnsafe(v8_receiver);
+HTMLIFrameElement* blink_receiver = V8HTMLIFrameElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->FastHasAttribute(html_names::kBrowsingtopicsAttr);
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -558,6 +567,30 @@ const char* const property_name = "browsingTopics";
 bindings::PerformAttributeSetCEReactionsReflectTypeBoolean(info, html_names::kBrowsingtopicsAttr, class_like_name, property_name);
 }
 
+void AdAuctionHeadersAttributeGetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  
+RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_HTMLIFrameElement_adAuctionHeaders_Getter");
+BLINK_BINDINGS_TRACE_EVENT("HTMLIFrameElement.adAuctionHeaders.get");
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLIFrameElement* blink_receiver = V8HTMLIFrameElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastHasAttribute(html_names::kAdauctionheadersAttr);
+bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
+}
+
+void AdAuctionHeadersAttributeSetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  
+RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_HTMLIFrameElement_adAuctionHeaders_Setter");
+BLINK_BINDINGS_TRACE_EVENT("HTMLIFrameElement.adAuctionHeaders.set");
+
+const char* const class_like_name = "HTMLIFrameElement";
+const char* const property_name = "adAuctionHeaders";
+bindings::PerformAttributeSetCEReactionsReflectTypeBoolean(info, html_names::kAdauctionheadersAttr, class_like_name, property_name);
+}
+
 void CredentiallessAttributeGetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
   
 RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_HTMLIFrameElement_credentialless_Getter");
@@ -565,8 +598,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLIFrameElement.credentialless.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLIFrameElement* blink_receiver = V8HTMLIFrameElement::ToWrappableUnsafe(v8_receiver);
+HTMLIFrameElement* blink_receiver = V8HTMLIFrameElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->FastHasAttribute(html_names::kCredentiallessAttr);
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -588,10 +622,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLIFrameElement.align.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLIFrameElement* blink_receiver = V8HTMLIFrameElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->FastGetAttribute(html_names::kAlignAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLIFrameElement* blink_receiver = V8HTMLIFrameElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastGetAttribute(html_names::kAlignAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -612,10 +646,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLIFrameElement.scrolling.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLIFrameElement* blink_receiver = V8HTMLIFrameElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->FastGetAttribute(html_names::kScrollingAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLIFrameElement* blink_receiver = V8HTMLIFrameElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastGetAttribute(html_names::kScrollingAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -636,10 +670,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLIFrameElement.frameBorder.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLIFrameElement* blink_receiver = V8HTMLIFrameElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->FastGetAttribute(html_names::kFrameborderAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLIFrameElement* blink_receiver = V8HTMLIFrameElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastGetAttribute(html_names::kFrameborderAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -660,10 +694,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLIFrameElement.longDesc.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLIFrameElement* blink_receiver = V8HTMLIFrameElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->GetURLAttribute(html_names::kLongdescAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLIFrameElement* blink_receiver = V8HTMLIFrameElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->GetURLAttribute(html_names::kLongdescAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -683,7 +717,7 @@ ExceptionState exception_state(isolate, exception_context_type, class_like_name,
 CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLIFrameElement* blink_receiver = V8HTMLIFrameElement::ToWrappableUnsafe(v8_receiver);
+HTMLIFrameElement* blink_receiver = V8HTMLIFrameElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLUSVString>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -700,10 +734,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLIFrameElement.marginHeight.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLIFrameElement* blink_receiver = V8HTMLIFrameElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->FastGetAttribute(html_names::kMarginheightAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLIFrameElement* blink_receiver = V8HTMLIFrameElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastGetAttribute(html_names::kMarginheightAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -724,10 +758,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLIFrameElement.marginWidth.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLIFrameElement* blink_receiver = V8HTMLIFrameElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->FastGetAttribute(html_names::kMarginwidthAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLIFrameElement* blink_receiver = V8HTMLIFrameElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastGetAttribute(html_names::kMarginwidthAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -748,8 +782,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLIFrameElement.allowPaymentRequest.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLIFrameElement* blink_receiver = V8HTMLIFrameElement::ToWrappableUnsafe(v8_receiver);
+HTMLIFrameElement* blink_receiver = V8HTMLIFrameElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = HTMLIFrameElementPayments::FastHasAttribute(*blink_receiver, html_names::kAllowpaymentrequestAttr);
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -771,8 +806,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLIFrameElement.sharedStorageWritable.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLIFrameElement* blink_receiver = V8HTMLIFrameElement::ToWrappableUnsafe(v8_receiver);
+HTMLIFrameElement* blink_receiver = V8HTMLIFrameElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->FastHasAttribute(html_names::kSharedstoragewritableAttr);
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -826,7 +862,7 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLIFrameElement.getSVGDocument");
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLIFrameElement* blink_receiver = V8HTMLIFrameElement::ToWrappableUnsafe(v8_receiver);
+HTMLIFrameElement* blink_receiver = V8HTMLIFrameElement::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "HTMLIFrameElement";
 const char* const property_name = "getSVGDocument";
@@ -845,14 +881,17 @@ return;
   // [CheckSecurity=ReturnValue]
 Frame* blink_frame = blink_receiver->contentWindow()->GetFrame();
 DCHECK(IsA<LocalFrame>(blink_frame));
-if (UNLIKELY(!blink_frame->IsAttached())) {
-  bindings::V8SetReturnValue(info, nullptr);
-return;
-}
-v8::Local<v8::Value> v8_value;
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
+if (UNLIKELY(!blink_frame->IsAttached() && To<LocalFrame>(blink_frame)->WindowProxyMaybeUninitialized(script_state->World())->ContextIfInitialized().IsEmpty())) {
+  // Don't wrap the return value if its frame is in the process of detaching and
+// has already invalidated its v8::Context, as it is not safe to
+// re-initialize the v8::Context in that state. Return null instead.
+bindings::V8SetReturnValue(info, nullptr);
+return;
+}
+v8::Local<v8::Value> v8_value;
 if (!ToV8Traits<IDLNullable<Document>>::ToV8(ToScriptState(To<LocalFrame>(blink_frame), script_state->World()),return_value).ToLocal(&v8_value)) {
   return;
 }
@@ -909,6 +948,7 @@ v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_funct
 {"csp", CspAttributeGetCallback, CspAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"allow", AllowAttributeGetCallback, AllowAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"featurePolicy", FeaturePolicyAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
+{"loading", LoadingAttributeGetCallback, LoadingAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"align", AlignAttributeGetCallback, AlignAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"scrolling", ScrollingAttributeGetCallback, ScrollingAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"frameBorder", FrameBorderAttributeGetCallback, FrameBorderAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
@@ -937,14 +977,6 @@ IDLMemberInstaller::InstallOperations(isolate, world, instance_template, prototy
 void V8HTMLIFrameElement::Impl::InstallContextIndependentProperties(v8::Isolate* isolate, const DOMWrapperWorld& world, v8::Local<v8::Template> instance_template, v8::Local<v8::Template> prototype_template, v8::Local<v8::Template> interface_template) {
   using bindings::IDLMemberInstaller;
 
-if (RuntimeEnabledFeatures::LazyFrameLoadingEnabled()) {
-  static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
-{"loading", LoadingAttributeGetCallback, LoadingAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
-};
-v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
-v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
-IDLMemberInstaller::InstallAttributes(isolate, world, instance_template, prototype_template, interface_template, signature, kAttributeTable);
-}
 if (RuntimeEnabledFeatures::AnonymousIframeEnabled()) {
   static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
 {"credentialless", CredentiallessAttributeGetCallback, CredentiallessAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
@@ -996,6 +1028,15 @@ IDLMemberInstaller::InstallAttributes(isolate, world, instance_object, prototype
 if (is_in_secure_context && ((feature_selector.IsAll() && RuntimeEnabledFeatures::TopicsAPIEnabled(execution_context)) || feature_selector.IsAnyOf(mojom::blink::OriginTrialFeature::kTopicsAPI))) {
   static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
 {"browsingTopics", BrowsingTopicsAttributeGetCallback, BrowsingTopicsAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
+};
+v8::Isolate* isolate = context->GetIsolate();
+v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
+v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
+IDLMemberInstaller::InstallAttributes(isolate, world, instance_object, prototype_object, interface_object, signature, kAttributeTable);
+}
+if (is_in_secure_context && (feature_selector.IsAll() && RuntimeEnabledFeatures::FledgeNegativeTargetingEnabled())) {
+  static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
+{"adAuctionHeaders", AdAuctionHeadersAttributeGetCallback, AdAuctionHeadersAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 };
 v8::Isolate* isolate = context->GetIsolate();
 v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();

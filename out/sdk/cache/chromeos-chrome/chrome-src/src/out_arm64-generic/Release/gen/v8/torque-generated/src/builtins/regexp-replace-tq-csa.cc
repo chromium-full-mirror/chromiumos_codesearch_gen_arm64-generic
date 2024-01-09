@@ -66,12 +66,12 @@
 #include "src/objects/turboshaft-types.h"
 #include "src/torque/runtime-support.h"
 #include "src/wasm/wasm-linkage.h"
+#include "src/codegen/code-stub-assembler-inl.h"
 // Required Builtins:
 #include "torque-generated/src/builtins/regexp-replace-tq-csa.h"
 #include "torque-generated/src/builtins/array-every-tq-csa.h"
-#include "torque-generated/src/builtins/array-isarray-tq-csa.h"
+#include "torque-generated/src/builtins/array-flat-tq-csa.h"
 #include "torque-generated/src/builtins/array-join-tq-csa.h"
-#include "torque-generated/src/builtins/array-slice-tq-csa.h"
 #include "torque-generated/src/builtins/base-tq-csa.h"
 #include "torque-generated/src/builtins/cast-tq-csa.h"
 #include "torque-generated/src/builtins/convert-tq-csa.h"
@@ -875,7 +875,7 @@ TNode<String> RegExpReplaceFastString_0(compiler::CodeAssemblerState* state_, TN
     ca_.Bind(&block12, &phi_bb12_4, &phi_bb12_5, &phi_bb12_6);
     tmp13 = Method_RegExpMatchInfo_GetStartOfCapture_0(state_, TNode<RegExpMatchInfo>{tmp11}, (FromConstexpr_constexpr_int31_constexpr_IntegerLiteral_0(state_, IntegerLiteral(false, 0x0ull))));
     tmp14 = Method_RegExpMatchInfo_GetEndOfCapture_0(state_, TNode<RegExpMatchInfo>{tmp11}, (FromConstexpr_constexpr_int31_constexpr_IntegerLiteral_0(state_, IntegerLiteral(false, 0x0ull))));
-    tmp15 = ca_.CallStub<String>(Builtins::CallableFor(ca_.isolate(), Builtin::kSubString), p_context, p_string, phi_bb12_5, tmp13);
+    tmp15 = ca_.CallBuiltin<String>(Builtin::kSubString, p_context, p_string, phi_bb12_5, tmp13);
     tmp16 = StringAdd_0(state_, TNode<Context>{p_context}, TNode<String>{phi_bb12_4}, TNode<String>{tmp15});
     tmp17 = FromConstexpr_Smi_constexpr_IntegerLiteral_0(state_, IntegerLiteral(false, 0x0ull));
     tmp18 = CodeStubAssembler(state_).SmiNotEqual(TNode<Smi>{tmp3}, TNode<Smi>{tmp17});
@@ -971,7 +971,7 @@ TNode<String> RegExpReplaceFastString_0(compiler::CodeAssemblerState* state_, TN
   if (block8.is_used()) {
     ca_.Bind(&block8, &phi_bb8_4, &phi_bb8_5, &phi_bb8_6);
     tmp29 = CodeStubAssembler(state_).LoadStringLengthAsSmi(TNode<String>{p_string});
-    tmp30 = ca_.CallStub<String>(Builtins::CallableFor(ca_.isolate(), Builtin::kSubString), p_context, p_string, phi_bb8_5, tmp29);
+    tmp30 = ca_.CallBuiltin<String>(Builtin::kSubString, p_context, p_string, phi_bb8_5, tmp29);
     tmp31 = StringAdd_0(state_, TNode<Context>{p_context}, TNode<String>{phi_bb8_4}, TNode<String>{tmp30});
     ca_.Goto(&block24);
   }
@@ -1070,7 +1070,7 @@ TF_BUILTIN(RegExpReplace, CodeStubAssembler) {
     ca_.Bind(&block15);
     tmp8 = CodeStubAssembler(state_).SingleCharacterStringConstant("$");
     tmp9 = FromConstexpr_Smi_constexpr_IntegerLiteral_0(state_, IntegerLiteral(false, 0x0ull));
-    tmp10 = ca_.CallStub<Smi>(Builtins::CallableFor(ca_.isolate(), Builtin::kStringIndexOf), TNode<Object>(), tmp2, tmp8, tmp9);
+    tmp10 = ca_.CallBuiltin<Smi>(Builtin::kStringIndexOf, TNode<Object>(), tmp2, tmp8, tmp9);
     tmp11 = FromConstexpr_Smi_constexpr_IntegerLiteral_0(state_, IntegerLiteral(true, 0x1ull));
     tmp12 = CodeStubAssembler(state_).SmiNotEqual(TNode<Smi>{tmp10}, TNode<Smi>{tmp11});
     ca_.Branch(tmp12, &block17, std::vector<compiler::Node*>{}, &block18, std::vector<compiler::Node*>{});
@@ -1168,7 +1168,7 @@ TF_BUILTIN(RegExpPrototypeReplace, CodeStubAssembler) {
   TNode<String> tmp12;
   if (block7.is_used()) {
     ca_.Bind(&block7);
-    tmp12 = ca_.CallStub<String>(Builtins::CallableFor(ca_.isolate(), Builtin::kRegExpReplace), parameter0, tmp8, tmp7, tmp3);
+    tmp12 = ca_.CallBuiltin<String>(Builtin::kRegExpReplace, parameter0, tmp8, tmp7, tmp3);
     arguments.PopAndReturn(tmp12);
   }
 }

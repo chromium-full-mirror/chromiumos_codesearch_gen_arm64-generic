@@ -2,11 +2,14 @@
 // If you make any local change, they will be lost.
 // source: tremplin.proto
 
+#ifndef GRPC_MOCK_tremplin_2eproto__INCLUDED
+#define GRPC_MOCK_tremplin_2eproto__INCLUDED
+
 #include "tremplin.pb.h"
 #include "tremplin.grpc.pb.h"
 
-#include <grpcpp/impl/codegen/async_stream.h>
-#include <grpcpp/impl/codegen/sync_stream.h>
+#include <grpcpp/support/async_stream.h>
+#include <grpcpp/support/sync_stream.h>
 #include <gmock/gmock.h>
 namespace vm_tools {
 namespace tremplin {
@@ -112,6 +115,8 @@ class MockTremplinListenerStub : public TremplinListener::StubInterface {
   MOCK_METHOD3(PrepareAsyncUpgradeContainerStatusRaw, ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::tremplin::EmptyMessage>*(::grpc::ClientContext* context, const ::vm_tools::tremplin::UpgradeContainerProgress& request, ::grpc::CompletionQueue* cq));
 };
 
-} // namespace vm_tools
-} // namespace tremplin
+}  // namespace tremplin
+}  // namespace vm_tools
 
+
+#endif  // GRPC_MOCK_tremplin_2eproto__INCLUDED

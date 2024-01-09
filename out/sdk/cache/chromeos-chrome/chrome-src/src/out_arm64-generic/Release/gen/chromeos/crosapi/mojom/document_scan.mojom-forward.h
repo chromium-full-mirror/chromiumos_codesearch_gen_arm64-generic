@@ -9,11 +9,12 @@
 
 #include <stdint.h>
 
-
+#include "mojo/public/cpp/bindings/struct_forward.h"
 
 #include "mojo/public/cpp/bindings/deprecated_interface_types_forward.h"
 
 
+#include "mojo/public/interfaces/bindings/native_struct.mojom-forward.h"
 
 
 
@@ -21,8 +22,120 @@
 
 
 namespace crosapi::mojom {
+class ScannerInfoDataView;
+
+class ScannerEnumFilterDataView;
+
+class IntRangeDataView;
+
+class FixedRangeDataView;
+
+class OptionConstraintDataView;
+
+class ScannerOptionDataView;
+
+class GetScannerListResponseDataView;
+
+class OpenScannerResponseDataView;
+
+class CloseScannerResponseDataView;
+
+class StartScanOptionsDataView;
+
+class StartPreparedScanResponseDataView;
+
+class ReadScanDataResponseDataView;
+
+class OptionSettingDataView;
+
+class OptionGroupDataView;
+
+class SetOptionResultDataView;
+
+class SetOptionsResponseDataView;
+
+class GetOptionGroupsResponseDataView;
+
+class CancelScanResponseDataView;
+
+class OptionValueDataView;
+class OptionConstraintRestrictionDataView;
 
 enum class ScanFailureMode : int32_t;
+
+enum class ScannerOperationResult : int32_t;
+
+enum class OptionType : int32_t;
+
+enum class OptionUnit : int32_t;
+
+enum class OptionConstraintType : int32_t;
+
+enum class OptionConfigurability : int32_t;
+
+enum class ScannerInfo_ConnectionType : int32_t;
+class ScannerInfo;
+using ScannerInfoPtr = mojo::StructPtr<ScannerInfo>;
+
+class ScannerEnumFilter;
+using ScannerEnumFilterPtr = mojo::InlinedStructPtr<ScannerEnumFilter>;
+
+class IntRange;
+using IntRangePtr = mojo::InlinedStructPtr<IntRange>;
+
+class FixedRange;
+using FixedRangePtr = mojo::InlinedStructPtr<FixedRange>;
+
+class OptionConstraint;
+using OptionConstraintPtr = mojo::StructPtr<OptionConstraint>;
+
+class ScannerOption;
+using ScannerOptionPtr = mojo::StructPtr<ScannerOption>;
+
+class GetScannerListResponse;
+using GetScannerListResponsePtr = mojo::StructPtr<GetScannerListResponse>;
+
+class OpenScannerResponse;
+using OpenScannerResponsePtr = mojo::StructPtr<OpenScannerResponse>;
+
+class CloseScannerResponse;
+using CloseScannerResponsePtr = mojo::InlinedStructPtr<CloseScannerResponse>;
+
+class StartScanOptions;
+using StartScanOptionsPtr = mojo::InlinedStructPtr<StartScanOptions>;
+
+class StartPreparedScanResponse;
+using StartPreparedScanResponsePtr = mojo::InlinedStructPtr<StartPreparedScanResponse>;
+
+class ReadScanDataResponse;
+using ReadScanDataResponsePtr = mojo::StructPtr<ReadScanDataResponse>;
+
+class OptionSetting;
+using OptionSettingPtr = mojo::StructPtr<OptionSetting>;
+
+class OptionGroup;
+using OptionGroupPtr = mojo::StructPtr<OptionGroup>;
+
+class SetOptionResult;
+using SetOptionResultPtr = mojo::InlinedStructPtr<SetOptionResult>;
+
+class SetOptionsResponse;
+using SetOptionsResponsePtr = mojo::StructPtr<SetOptionsResponse>;
+
+class GetOptionGroupsResponse;
+using GetOptionGroupsResponsePtr = mojo::StructPtr<GetOptionGroupsResponse>;
+
+class CancelScanResponse;
+using CancelScanResponsePtr = mojo::InlinedStructPtr<CancelScanResponse>;
+
+class OptionValue;
+
+using OptionValuePtr = mojo::StructPtr<OptionValue>;
+
+class OptionConstraintRestriction;
+
+using OptionConstraintRestrictionPtr = mojo::StructPtr<OptionConstraintRestriction>;
+
 class DocumentScan;
 
 

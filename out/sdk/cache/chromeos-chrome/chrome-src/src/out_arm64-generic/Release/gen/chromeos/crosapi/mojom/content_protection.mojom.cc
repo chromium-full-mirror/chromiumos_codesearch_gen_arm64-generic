@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -378,14 +379,17 @@ void ContentProtectionProxy::QueryWindowStatus(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kContentProtection_QueryWindowStatus_Name, kFlags, 0, 0, nullptr);
@@ -430,14 +434,17 @@ void ContentProtectionProxy::EnableWindowProtection(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kContentProtection_EnableWindowProtection_Name, kFlags, 0, 0, nullptr);
@@ -473,14 +480,17 @@ void ContentProtectionProxy::GetSystemSalt(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::ContentProtection::GetSystemSalt");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kContentProtection_GetSystemSalt_Name, kFlags, 0, 0, nullptr);
@@ -514,14 +524,17 @@ void ContentProtectionProxy::ChallengePlatform(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kContentProtection_ChallengePlatform_Name, kFlags, 0, 0, nullptr);
@@ -567,14 +580,17 @@ void ContentProtectionProxy::IsVerifiedAccessEnabled(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::ContentProtection::IsVerifiedAccessEnabled");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kContentProtection_IsVerifiedAccessEnabled_Name, kFlags, 0, 0, nullptr);
@@ -684,7 +700,8 @@ void ContentProtection_QueryWindowStatus_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kContentProtection_QueryWindowStatus_Name, kFlags, 0, 0, nullptr);
@@ -808,7 +825,8 @@ void ContentProtection_EnableWindowProtection_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kContentProtection_EnableWindowProtection_Name, kFlags, 0, 0, nullptr);
@@ -926,7 +944,8 @@ void ContentProtection_GetSystemSalt_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kContentProtection_GetSystemSalt_Name, kFlags, 0, 0, nullptr);
@@ -1054,7 +1073,8 @@ void ContentProtection_ChallengePlatform_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kContentProtection_ChallengePlatform_Name, kFlags, 0, 0, nullptr);
@@ -1178,7 +1198,8 @@ void ContentProtection_IsVerifiedAccessEnabled_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kContentProtection_IsVerifiedAccessEnabled_Name, kFlags, 0, 0, nullptr);
@@ -1386,18 +1407,18 @@ std::move(p_challenge), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kContentProtectionValidationInfo[] = {
-    {&internal::ContentProtection_QueryWindowStatus_Params_Data::Validate,
+    { &internal::ContentProtection_QueryWindowStatus_Params_Data::Validate,
      &internal::ContentProtection_QueryWindowStatus_ResponseParams_Data::Validate},
-    {&internal::ContentProtection_EnableWindowProtection_Params_Data::Validate,
+    { &internal::ContentProtection_EnableWindowProtection_Params_Data::Validate,
      &internal::ContentProtection_EnableWindowProtection_ResponseParams_Data::Validate},
-    {&internal::ContentProtection_GetSystemSalt_Params_Data::Validate,
+    { &internal::ContentProtection_GetSystemSalt_Params_Data::Validate,
      &internal::ContentProtection_GetSystemSalt_ResponseParams_Data::Validate},
-    {&internal::ContentProtection_ChallengePlatform_Params_Data::Validate,
+    { &internal::ContentProtection_ChallengePlatform_Params_Data::Validate,
      &internal::ContentProtection_ChallengePlatform_ResponseParams_Data::Validate},
-    {&internal::ContentProtection_IsVerifiedAccessEnabled_Params_Data::Validate,
+    { &internal::ContentProtection_IsVerifiedAccessEnabled_Params_Data::Validate,
      &internal::ContentProtection_IsVerifiedAccessEnabled_ResponseParams_Data::Validate},
 };
 

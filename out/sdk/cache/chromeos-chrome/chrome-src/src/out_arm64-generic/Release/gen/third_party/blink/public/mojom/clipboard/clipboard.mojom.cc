@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -49,7 +50,7 @@ ClipboardFiles::ClipboardFiles()
 
 ClipboardFiles::ClipboardFiles(
     std::vector<::blink::mojom::DataTransferFilePtr> files_in,
-    const absl::optional<std::string>& file_system_id_in)
+    const std::optional<std::string>& file_system_id_in)
     : files(std::move(files_in)),
       file_system_id(std::move(file_system_id_in)) {}
 
@@ -71,7 +72,7 @@ void ClipboardFiles::WriteIntoTrace(
     dict.AddItem(
       "file_system_id"), this->file_system_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -952,15 +953,18 @@ bool ClipboardHostProxy::GetSequenceNumber(
 #else
   TRACE_EVENT0("mojom", "ClipboardHost::GetSequenceNumber");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kClipboardHost_GetSequenceNumber_Name, kFlags, 0, 0, nullptr);
@@ -1006,14 +1010,17 @@ void ClipboardHostProxy::GetSequenceNumber(
                         "<value of type ::ui::ClipboardBuffer>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kClipboardHost_GetSequenceNumber_Name, kFlags, 0, 0, nullptr);
@@ -1050,15 +1057,18 @@ bool ClipboardHostProxy::IsFormatAvailable(
 #else
   TRACE_EVENT0("mojom", "ClipboardHost::IsFormatAvailable");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kClipboardHost_IsFormatAvailable_Name, kFlags, 0, 0, nullptr);
@@ -1109,14 +1119,17 @@ void ClipboardHostProxy::IsFormatAvailable(
                         "<value of type ::ui::ClipboardBuffer>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kClipboardHost_IsFormatAvailable_Name, kFlags, 0, 0, nullptr);
@@ -1152,15 +1165,18 @@ bool ClipboardHostProxy::ReadAvailableTypes(
 #else
   TRACE_EVENT0("mojom", "ClipboardHost::ReadAvailableTypes");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kClipboardHost_ReadAvailableTypes_Name, kFlags, 0, 0, nullptr);
@@ -1206,14 +1222,17 @@ void ClipboardHostProxy::ReadAvailableTypes(
                         "<value of type ::ui::ClipboardBuffer>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kClipboardHost_ReadAvailableTypes_Name, kFlags, 0, 0, nullptr);
@@ -1247,15 +1266,18 @@ bool ClipboardHostProxy::ReadText(
 #else
   TRACE_EVENT0("mojom", "ClipboardHost::ReadText");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kClipboardHost_ReadText_Name, kFlags, 0, 0, nullptr);
@@ -1301,14 +1323,17 @@ void ClipboardHostProxy::ReadText(
                         "<value of type ::ui::ClipboardBuffer>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kClipboardHost_ReadText_Name, kFlags, 0, 0, nullptr);
@@ -1342,15 +1367,18 @@ bool ClipboardHostProxy::ReadHtml(
 #else
   TRACE_EVENT0("mojom", "ClipboardHost::ReadHtml");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kClipboardHost_ReadHtml_Name, kFlags, 0, 0, nullptr);
@@ -1405,14 +1433,17 @@ void ClipboardHostProxy::ReadHtml(
                         "<value of type ::ui::ClipboardBuffer>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kClipboardHost_ReadHtml_Name, kFlags, 0, 0, nullptr);
@@ -1445,14 +1476,17 @@ void ClipboardHostProxy::ReadSvg(
                         "<value of type ::ui::ClipboardBuffer>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kClipboardHost_ReadSvg_Name, kFlags, 0, 0, nullptr);
@@ -1486,15 +1520,18 @@ bool ClipboardHostProxy::ReadRtf(
 #else
   TRACE_EVENT0("mojom", "ClipboardHost::ReadRtf");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kClipboardHost_ReadRtf_Name, kFlags, 0, 0, nullptr);
@@ -1540,14 +1577,17 @@ void ClipboardHostProxy::ReadRtf(
                         "<value of type ::ui::ClipboardBuffer>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kClipboardHost_ReadRtf_Name, kFlags, 0, 0, nullptr);
@@ -1581,15 +1621,18 @@ bool ClipboardHostProxy::ReadPng(
 #else
   TRACE_EVENT0("mojom", "ClipboardHost::ReadPng");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kClipboardHost_ReadPng_Name, kFlags, 0, 0, nullptr);
@@ -1635,14 +1678,17 @@ void ClipboardHostProxy::ReadPng(
                         "<value of type ::ui::ClipboardBuffer>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kClipboardHost_ReadPng_Name, kFlags, 0, 0, nullptr);
@@ -1676,15 +1722,18 @@ bool ClipboardHostProxy::ReadFiles(
 #else
   TRACE_EVENT0("mojom", "ClipboardHost::ReadFiles");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kClipboardHost_ReadFiles_Name, kFlags, 0, 0, nullptr);
@@ -1730,14 +1779,17 @@ void ClipboardHostProxy::ReadFiles(
                         "<value of type ::ui::ClipboardBuffer>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kClipboardHost_ReadFiles_Name, kFlags, 0, 0, nullptr);
@@ -1774,15 +1826,18 @@ bool ClipboardHostProxy::ReadCustomData(
 #else
   TRACE_EVENT0("mojom", "ClipboardHost::ReadCustomData");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kClipboardHost_ReadCustomData_Name, kFlags, 0, 0, nullptr);
@@ -1842,14 +1897,17 @@ void ClipboardHostProxy::ReadCustomData(
                         "<value of type const ::std::u16string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kClipboardHost_ReadCustomData_Name, kFlags, 0, 0, nullptr);
@@ -1887,15 +1945,18 @@ bool ClipboardHostProxy::ReadAvailableCustomAndStandardFormats(
 #else
   TRACE_EVENT0("mojom", "ClipboardHost::ReadAvailableCustomAndStandardFormats");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kClipboardHost_ReadAvailableCustomAndStandardFormats_Name, kFlags, 0, 0, nullptr);
@@ -1932,14 +1993,17 @@ void ClipboardHostProxy::ReadAvailableCustomAndStandardFormats(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::ClipboardHost::ReadAvailableCustomAndStandardFormats");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kClipboardHost_ReadAvailableCustomAndStandardFormats_Name, kFlags, 0, 0, nullptr);
@@ -1970,14 +2034,17 @@ void ClipboardHostProxy::ReadUnsanitizedCustomFormat(
                         "<value of type const ::std::u16string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kClipboardHost_ReadUnsanitizedCustomFormat_Name, kFlags, 0, 0, nullptr);
@@ -2019,14 +2086,17 @@ void ClipboardHostProxy::WriteText(
                         "<value of type const ::std::u16string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kClipboardHost_WriteText_Name, kFlags, 0, 0, nullptr);
@@ -2070,14 +2140,17 @@ void ClipboardHostProxy::WriteHtml(
                         "<value of type const ::GURL&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kClipboardHost_WriteHtml_Name, kFlags, 0, 0, nullptr);
@@ -2129,14 +2202,17 @@ void ClipboardHostProxy::WriteSvg(
                         "<value of type const ::std::u16string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kClipboardHost_WriteSvg_Name, kFlags, 0, 0, nullptr);
@@ -2170,14 +2246,17 @@ void ClipboardHostProxy::WriteSmartPasteMarker(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::ClipboardHost::WriteSmartPasteMarker");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kClipboardHost_WriteSmartPasteMarker_Name, kFlags, 0, 0, nullptr);
@@ -2207,14 +2286,17 @@ void ClipboardHostProxy::WriteCustomData(
                         "<value of type const base::flat_map<::std::u16string, ::std::u16string>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kClipboardHost_WriteCustomData_Name, kFlags, 0, 0, nullptr);
@@ -2260,14 +2342,17 @@ void ClipboardHostProxy::WriteBookmark(
                         "<value of type const ::std::u16string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kClipboardHost_WriteBookmark_Name, kFlags, 0, 0, nullptr);
@@ -2319,14 +2404,17 @@ void ClipboardHostProxy::WriteImage(
                         "<value of type const ::SkBitmap&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kClipboardHost_WriteImage_Name, kFlags, 0, 0, nullptr);
@@ -2370,14 +2458,17 @@ void ClipboardHostProxy::WriteUnsanitizedCustomFormat(
                         "<value of type ::mojo_base::BigBuffer>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kClipboardHost_WriteUnsanitizedCustomFormat_Name, kFlags, 0, 0, nullptr);
@@ -2420,14 +2511,17 @@ void ClipboardHostProxy::CommitWrite(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::ClipboardHost::CommitWrite");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kClipboardHost_CommitWrite_Name, kFlags, 0, 0, nullptr);
@@ -2536,7 +2630,8 @@ void ClipboardHost_GetSequenceNumber_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kClipboardHost_GetSequenceNumber_Name, kFlags, 0, 0, nullptr);
@@ -2689,7 +2784,8 @@ void ClipboardHost_IsFormatAvailable_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kClipboardHost_IsFormatAvailable_Name, kFlags, 0, 0, nullptr);
@@ -2832,7 +2928,8 @@ void ClipboardHost_ReadAvailableTypes_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kClipboardHost_ReadAvailableTypes_Name, kFlags, 0, 0, nullptr);
@@ -2987,7 +3084,8 @@ void ClipboardHost_ReadText_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kClipboardHost_ReadText_Name, kFlags, 0, 0, nullptr);
@@ -3161,7 +3259,8 @@ void ClipboardHost_ReadHtml_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kClipboardHost_ReadHtml_Name, kFlags, 0, 0, nullptr);
@@ -3339,7 +3438,8 @@ void ClipboardHost_ReadSvg_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kClipboardHost_ReadSvg_Name, kFlags, 0, 0, nullptr);
@@ -3467,7 +3567,8 @@ void ClipboardHost_ReadRtf_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kClipboardHost_ReadRtf_Name, kFlags, 0, 0, nullptr);
@@ -3620,7 +3721,8 @@ void ClipboardHost_ReadPng_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kClipboardHost_ReadPng_Name, kFlags, 0, 0, nullptr);
@@ -3771,7 +3873,8 @@ void ClipboardHost_ReadFiles_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kClipboardHost_ReadFiles_Name, kFlags, 0, 0, nullptr);
@@ -3924,7 +4027,8 @@ void ClipboardHost_ReadCustomData_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kClipboardHost_ReadCustomData_Name, kFlags, 0, 0, nullptr);
@@ -4077,7 +4181,8 @@ void ClipboardHost_ReadAvailableCustomAndStandardFormats_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kClipboardHost_ReadAvailableCustomAndStandardFormats_Name, kFlags, 0, 0, nullptr);
@@ -4232,7 +4337,8 @@ void ClipboardHost_ReadUnsanitizedCustomFormat_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kClipboardHost_ReadUnsanitizedCustomFormat_Name, kFlags, 0, 0, nullptr);
@@ -4941,50 +5047,50 @@ std::move(p_format), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kClipboardHostValidationInfo[] = {
-    {&internal::ClipboardHost_GetSequenceNumber_Params_Data::Validate,
+    { &internal::ClipboardHost_GetSequenceNumber_Params_Data::Validate,
      &internal::ClipboardHost_GetSequenceNumber_ResponseParams_Data::Validate},
-    {&internal::ClipboardHost_IsFormatAvailable_Params_Data::Validate,
+    { &internal::ClipboardHost_IsFormatAvailable_Params_Data::Validate,
      &internal::ClipboardHost_IsFormatAvailable_ResponseParams_Data::Validate},
-    {&internal::ClipboardHost_ReadAvailableTypes_Params_Data::Validate,
+    { &internal::ClipboardHost_ReadAvailableTypes_Params_Data::Validate,
      &internal::ClipboardHost_ReadAvailableTypes_ResponseParams_Data::Validate},
-    {&internal::ClipboardHost_ReadText_Params_Data::Validate,
+    { &internal::ClipboardHost_ReadText_Params_Data::Validate,
      &internal::ClipboardHost_ReadText_ResponseParams_Data::Validate},
-    {&internal::ClipboardHost_ReadHtml_Params_Data::Validate,
+    { &internal::ClipboardHost_ReadHtml_Params_Data::Validate,
      &internal::ClipboardHost_ReadHtml_ResponseParams_Data::Validate},
-    {&internal::ClipboardHost_ReadSvg_Params_Data::Validate,
+    { &internal::ClipboardHost_ReadSvg_Params_Data::Validate,
      &internal::ClipboardHost_ReadSvg_ResponseParams_Data::Validate},
-    {&internal::ClipboardHost_ReadRtf_Params_Data::Validate,
+    { &internal::ClipboardHost_ReadRtf_Params_Data::Validate,
      &internal::ClipboardHost_ReadRtf_ResponseParams_Data::Validate},
-    {&internal::ClipboardHost_ReadPng_Params_Data::Validate,
+    { &internal::ClipboardHost_ReadPng_Params_Data::Validate,
      &internal::ClipboardHost_ReadPng_ResponseParams_Data::Validate},
-    {&internal::ClipboardHost_ReadFiles_Params_Data::Validate,
+    { &internal::ClipboardHost_ReadFiles_Params_Data::Validate,
      &internal::ClipboardHost_ReadFiles_ResponseParams_Data::Validate},
-    {&internal::ClipboardHost_ReadCustomData_Params_Data::Validate,
+    { &internal::ClipboardHost_ReadCustomData_Params_Data::Validate,
      &internal::ClipboardHost_ReadCustomData_ResponseParams_Data::Validate},
-    {&internal::ClipboardHost_ReadAvailableCustomAndStandardFormats_Params_Data::Validate,
+    { &internal::ClipboardHost_ReadAvailableCustomAndStandardFormats_Params_Data::Validate,
      &internal::ClipboardHost_ReadAvailableCustomAndStandardFormats_ResponseParams_Data::Validate},
-    {&internal::ClipboardHost_ReadUnsanitizedCustomFormat_Params_Data::Validate,
+    { &internal::ClipboardHost_ReadUnsanitizedCustomFormat_Params_Data::Validate,
      &internal::ClipboardHost_ReadUnsanitizedCustomFormat_ResponseParams_Data::Validate},
-    {&internal::ClipboardHost_WriteText_Params_Data::Validate,
+    { &internal::ClipboardHost_WriteText_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ClipboardHost_WriteHtml_Params_Data::Validate,
+    { &internal::ClipboardHost_WriteHtml_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ClipboardHost_WriteSvg_Params_Data::Validate,
+    { &internal::ClipboardHost_WriteSvg_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ClipboardHost_WriteSmartPasteMarker_Params_Data::Validate,
+    { &internal::ClipboardHost_WriteSmartPasteMarker_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ClipboardHost_WriteCustomData_Params_Data::Validate,
+    { &internal::ClipboardHost_WriteCustomData_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ClipboardHost_WriteBookmark_Params_Data::Validate,
+    { &internal::ClipboardHost_WriteBookmark_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ClipboardHost_WriteImage_Params_Data::Validate,
+    { &internal::ClipboardHost_WriteImage_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ClipboardHost_WriteUnsanitizedCustomFormat_Params_Data::Validate,
+    { &internal::ClipboardHost_WriteUnsanitizedCustomFormat_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ClipboardHost_CommitWrite_Params_Data::Validate,
+    { &internal::ClipboardHost_CommitWrite_Params_Data::Validate,
      nullptr /* no response */},
 };
 

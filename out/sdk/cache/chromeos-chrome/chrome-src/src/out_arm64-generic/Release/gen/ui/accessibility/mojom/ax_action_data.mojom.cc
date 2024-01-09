@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -122,7 +123,7 @@ AXActionData::AXActionData(
     ::ax::mojom::ScrollAlignment horizontal_scroll_alignment_in,
     ::ax::mojom::ScrollAlignment vertical_scroll_alignment_in,
     ::ax::mojom::ScrollBehavior scroll_behavior_in,
-    const absl::optional<::ui::AXTreeID>& child_tree_id_in)
+    const std::optional<::ui::AXTreeID>& child_tree_id_in)
     : action(std::move(action_in)),
       target_tree_id(std::move(target_tree_id_in)),
       source_extension_id(std::move(source_extension_id_in)),
@@ -314,7 +315,7 @@ void AXActionData::WriteIntoTrace(
     dict.AddItem(
       "child_tree_id"), this->child_tree_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::ui::AXTreeID>&>"
+      "<value of type const std::optional<::ui::AXTreeID>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

@@ -105,6 +105,8 @@ enum class Setting : int32_t {
   
   kHotspotAutoDisabled = 31,
   
+  kCellularAddApn = 32,
+  
   kBluetoothOnOff = 100,
   
   kBluetoothPairDevice = 103,

@@ -71,11 +71,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, PaymentManager>::value,
     "PaymentManager inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&PaymentManager::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "PaymentManager is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -94,7 +89,7 @@ Deprecation::CountDeprecation(current_execution_context, WebFeature::kPaymentIns
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-PaymentManager* blink_receiver = V8PaymentManager::ToWrappableUnsafe(v8_receiver);
+PaymentManager* blink_receiver = V8PaymentManager::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->instruments();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -107,10 +102,10 @@ BLINK_BINDINGS_TRACE_EVENT("PaymentManager.userHint.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-PaymentManager* blink_receiver = V8PaymentManager::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->userHint();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+PaymentManager* blink_receiver = V8PaymentManager::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->userHint();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -121,9 +116,9 @@ BLINK_BINDINGS_TRACE_EVENT("PaymentManager.userHint.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-PaymentManager* blink_receiver = V8PaymentManager::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+PaymentManager* blink_receiver = V8PaymentManager::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "PaymentManager";
@@ -164,7 +159,7 @@ return;
 
 
 
-PaymentManager* blink_receiver = V8PaymentManager::ToWrappableUnsafe(v8_receiver);
+PaymentManager* blink_receiver = V8PaymentManager::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

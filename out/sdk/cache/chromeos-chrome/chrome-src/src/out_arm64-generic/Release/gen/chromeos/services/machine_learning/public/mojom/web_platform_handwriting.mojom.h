@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/services/machine_learning/public/mojom/web_platform_handwriting.mojom-features.h"
 #include "chromeos/services/machine_learning/public/mojom/web_platform_handwriting.mojom-shared.h"
 #include "chromeos/services/machine_learning/public/mojom/web_platform_handwriting.mojom-forward.h"
 #include "mojo/public/mojom/base/time.mojom.h"
@@ -84,7 +85,7 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) HandwritingRecognizer
   virtual ~HandwritingRecognizer() = default;
 
 
-  using GetPredictionCallback = base::OnceCallback<void(absl::optional<std::vector<HandwritingPredictionPtr>>)>;
+  using GetPredictionCallback = base::OnceCallback<void(std::optional<std::vector<HandwritingPredictionPtr>>)>;
   
   virtual void GetPrediction(std::vector<HandwritingStrokePtr> strokes, HandwritingHintsPtr hints, GetPredictionCallback callback) = 0;
 };
@@ -340,7 +341,7 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) HandwritingPoint {
 
   HandwritingPoint(
       const ::gfx::PointF& location,
-      absl::optional<::base::TimeDelta> t);
+      std::optional<::base::TimeDelta> t);
 
 
   ~HandwritingPoint();
@@ -420,7 +421,7 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) HandwritingPoint {
   
   ::gfx::PointF location;
   
-  absl::optional<::base::TimeDelta> t;
+  std::optional<::base::TimeDelta> t;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -931,7 +932,7 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) HandwritingHints {
       const std::string& input_type,
       const std::string& deprecated_text_context,
       uint32_t alternatives,
-      const absl::optional<std::string>& text_context);
+      const std::optional<std::string>& text_context);
 
 
   ~HandwritingHints();
@@ -1017,7 +1018,7 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) HandwritingHints {
   
   uint32_t alternatives;
   
-  absl::optional<std::string> text_context;
+  std::optional<std::string> text_context;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

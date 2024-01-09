@@ -67,6 +67,9 @@ export class SafetyHubBrowserProxyImpl {
     resetNotificationPermissionForOrigins(origins) {
         chrome.send('resetNotificationPermissionForOrigins', [origins]);
     }
+    dismissActiveMenuNotification() {
+        chrome.send('dismissActiveMenuNotification');
+    }
     getPasswordCardData() {
         return sendWithPromise('getPasswordCardData');
     }

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "media/mojo/mojom/video_decoder.mojom-features.h"
 #include "media/mojo/mojom/video_decoder.mojom-shared.h"
 #include "media/mojo/mojom/video_decoder.mojom-forward.h"
 #include "gpu/ipc/common/sync_token.mojom.h"
@@ -90,7 +91,7 @@ class VideoFrameHandleReleaser
   virtual ~VideoFrameHandleReleaser() = default;
 
   
-  virtual void ReleaseVideoFrame(const ::base::UnguessableToken& release_token, const absl::optional<::gpu::SyncToken>& release_sync_token) = 0;
+  virtual void ReleaseVideoFrame(const ::base::UnguessableToken& release_token, const std::optional<::gpu::SyncToken>& release_sync_token) = 0;
 };
 
 class VideoDecoderProxy;
@@ -173,7 +174,7 @@ class VideoDecoder
 
   using InitializeCallback = base::OnceCallback<void(const ::media::DecoderStatus&, bool, int32_t, ::media::VideoDecoderType)>;
   
-  virtual void Initialize(const ::media::VideoDecoderConfig& config, bool low_delay, const absl::optional<::base::UnguessableToken>& cdm_id, InitializeCallback callback) = 0;
+  virtual void Initialize(const ::media::VideoDecoderConfig& config, bool low_delay, const std::optional<::base::UnguessableToken>& cdm_id, InitializeCallback callback) = 0;
 
 
   using DecodeCallback = base::OnceCallback<void(const ::media::DecoderStatus&)>;
@@ -239,7 +240,7 @@ class VideoDecoderClient
   virtual ~VideoDecoderClient() = default;
 
   
-  virtual void OnVideoFrameDecoded(const ::scoped_refptr<::media::VideoFrame>& frame, bool can_read_without_stalling, const absl::optional<::base::UnguessableToken>& release_token) = 0;
+  virtual void OnVideoFrameDecoded(const ::scoped_refptr<::media::VideoFrame>& frame, bool can_read_without_stalling, const std::optional<::base::UnguessableToken>& release_token) = 0;
 
   
   virtual void OnWaiting(::media::WaitingReason reason) = 0;
@@ -257,7 +258,7 @@ class  VideoFrameHandleReleaserProxy
 
   explicit VideoFrameHandleReleaserProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void ReleaseVideoFrame(const ::base::UnguessableToken& release_token, const absl::optional<::gpu::SyncToken>& release_sync_token) final;
+  void ReleaseVideoFrame(const ::base::UnguessableToken& release_token, const std::optional<::gpu::SyncToken>& release_sync_token) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -278,7 +279,7 @@ class  VideoDecoderProxy
   
   void Construct(::mojo::PendingAssociatedRemote<VideoDecoderClient> client, ::mojo::PendingRemote<::media::mojom::MediaLog> media_log, ::mojo::PendingReceiver<VideoFrameHandleReleaser> video_frame_handle_releaser, ::mojo::ScopedDataPipeConsumerHandle decoder_buffer_pipe, CommandBufferIdPtr command_buffer_id, const ::gfx::ColorSpace& target_color_space) final;
   
-  void Initialize(const ::media::VideoDecoderConfig& config, bool low_delay, const absl::optional<::base::UnguessableToken>& cdm_id, InitializeCallback callback) final;
+  void Initialize(const ::media::VideoDecoderConfig& config, bool low_delay, const std::optional<::base::UnguessableToken>& cdm_id, InitializeCallback callback) final;
   
   void Decode(::media::mojom::DecoderBufferPtr buffer, DecodeCallback callback) final;
   
@@ -299,7 +300,7 @@ class  VideoDecoderClientProxy
 
   explicit VideoDecoderClientProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void OnVideoFrameDecoded(const ::scoped_refptr<::media::VideoFrame>& frame, bool can_read_without_stalling, const absl::optional<::base::UnguessableToken>& release_token) final;
+  void OnVideoFrameDecoded(const ::scoped_refptr<::media::VideoFrame>& frame, bool can_read_without_stalling, const std::optional<::base::UnguessableToken>& release_token) final;
   
   void OnWaiting(::media::WaitingReason reason) final;
   

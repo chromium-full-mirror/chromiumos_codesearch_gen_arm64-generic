@@ -1,7 +1,10 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
     return html `<!--_html_template_start_--><style include="shared-style cr-shared-style iron-flex">#header{align-items:center;display:flex}a[href]{color:var(--cr-link-color)}#addPasswordButton{height:auto;padding:3px 16px}#passwords{margin-top:20px}promo-card{margin-bottom:24px;margin-top:24px}password-list-item:first-of-type{border-top-left-radius:inherit;border-top-right-radius:inherit}password-list-item:last-of-type{border-bottom-left-radius:inherit;border-bottom-right-radius:inherit}</style>
-
+<template is="dom-if" if="[[promoCard_]]" restamp>
+  <promo-card id="promoCard" class="card" promo-card="[[promoCard_]]" on-promo-closed="onPromoClosed_">
+  </promo-card>
+</template>
 <div id="header">
   <h2 class="flex page-title">$i18n{passwords}</h2>
   <cr-button id="addPasswordButton" on-click="onAddPasswordClick_" title="$i18n{addPasswordTitle}" hidden="[[passwordManagerDisabled_]]">
@@ -17,9 +20,9 @@ export function getTemplate() {
 <div id="noPasswordsFound" class="cr-secondary-text" hidden="[[!showNoPasswordsFound_(groups_, searchTerm_)]]">
   $i18n{noPasswordsFound}
 </div>
-<div class="card" id="passwords" role="list" hidden$="[[hideGroupsList_(groups_, searchTerm_)]]">
+<div class="card" id="passwords" role="list" hidden$="[[hideGroupsList_(groups_, searchTerm_)]]" aria-label="$i18n{passwordListAriaLabel}">
   <template id="passwordsList" is="dom-repeat" initial-count="50" items="[[groups_]]" filter="[[groupFilter_(searchTerm_)]]" rendered-item-count="{{shownGroupsCount_::dom-change}}" sort="[[computeSortFunction_(searchTerm_)]]">
-    <password-list-item item="[[item]]" first="[[!index]]" on-password-details-shown="onPasswordDetailsShown_" search-term="[[searchTerm_]]" role="listitem">
+    <password-list-item item="[[item]]" first="[[!index]]" is-account-store-user="[[isAccountStoreUser]]" on-password-details-shown="onPasswordDetailsShown_" search-term="[[searchTerm_]]" role="listitem">
     </password-list-item>
   </template>
 </div>

@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/extensions/api/printing.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -47,8 +48,8 @@ SubmitJobRequest::SubmitJobRequest()
  {}
 
 SubmitJobRequest::~SubmitJobRequest() = default;
-SubmitJobRequest::SubmitJobRequest(SubmitJobRequest&& rhs) = default;
-SubmitJobRequest& SubmitJobRequest::operator=(SubmitJobRequest&& rhs) = default;
+SubmitJobRequest::SubmitJobRequest(SubmitJobRequest&& rhs) noexcept = default;
+SubmitJobRequest& SubmitJobRequest::operator=(SubmitJobRequest&& rhs) noexcept = default;
 SubmitJobRequest SubmitJobRequest::Clone() const {
   SubmitJobRequest out;
   out.job = job.Clone();
@@ -77,7 +78,7 @@ bool SubmitJobRequest::Populate(
     {
       auto* temp = (*document_blob_uuid_value).GetIfString();
       if (!temp) {
-        out.document_blob_uuid = absl::nullopt;
+        out.document_blob_uuid = std::nullopt;
         return false;
       }
       out.document_blob_uuid = *temp;
@@ -97,34 +98,21 @@ bool SubmitJobRequest::Populate(
 }
 
 // static
-std::unique_ptr<SubmitJobRequest> SubmitJobRequest::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<SubmitJobRequest>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<SubmitJobRequest> SubmitJobRequest::FromValue(const base::Value::Dict& value) {
+  SubmitJobRequest out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<SubmitJobRequest> SubmitJobRequest::FromValue(const base::Value::Dict& value) {
+std::optional<SubmitJobRequest> SubmitJobRequest::FromValue(const base::Value& value) {
   SubmitJobRequest out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<SubmitJobRequest> SubmitJobRequest::FromValue(const base::Value& value) {
-  SubmitJobRequest out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -145,11 +133,11 @@ base::Value::Dict SubmitJobRequest::ToValue() const {
 
 const char* ToString(SubmitJobStatus enum_param) {
   switch (enum_param) {
-    case SUBMIT_JOB_STATUS_OK:
+    case SubmitJobStatus::kOk:
       return "OK";
-    case SUBMIT_JOB_STATUS_USER_REJECTED:
+    case SubmitJobStatus::kUserRejected:
       return "USER_REJECTED";
-    case SUBMIT_JOB_STATUS_NONE:
+    case SubmitJobStatus::kNone:
       return "";
   }
   NOTREACHED();
@@ -158,10 +146,10 @@ const char* ToString(SubmitJobStatus enum_param) {
 
 SubmitJobStatus ParseSubmitJobStatus(base::StringPiece enum_string) {
   if (enum_string == "OK")
-    return SUBMIT_JOB_STATUS_OK;
+    return SubmitJobStatus::kOk;
   if (enum_string == "USER_REJECTED")
-    return SUBMIT_JOB_STATUS_USER_REJECTED;
-  return SUBMIT_JOB_STATUS_NONE;
+    return SubmitJobStatus::kUserRejected;
+  return SubmitJobStatus::kNone;
 }
 
 std::u16string GetSubmitJobStatusParseError(base::StringPiece enum_string) {
@@ -173,8 +161,8 @@ SubmitJobResponse::SubmitJobResponse()
 : status() {}
 
 SubmitJobResponse::~SubmitJobResponse() = default;
-SubmitJobResponse::SubmitJobResponse(SubmitJobResponse&& rhs) = default;
-SubmitJobResponse& SubmitJobResponse::operator=(SubmitJobResponse&& rhs) = default;
+SubmitJobResponse::SubmitJobResponse(SubmitJobResponse&& rhs) noexcept = default;
+SubmitJobResponse& SubmitJobResponse::operator=(SubmitJobResponse&& rhs) noexcept = default;
 SubmitJobResponse SubmitJobResponse::Clone() const {
   SubmitJobResponse out;
   out.status = status;
@@ -205,7 +193,7 @@ bool SubmitJobResponse::Populate(
     {
       auto* temp = (*job_id_value).GetIfString();
       if (!temp) {
-        out.job_id = absl::nullopt;
+        out.job_id = std::nullopt;
         return false;
       }
       out.job_id = *temp;
@@ -225,34 +213,21 @@ bool SubmitJobResponse::Populate(
 }
 
 // static
-std::unique_ptr<SubmitJobResponse> SubmitJobResponse::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<SubmitJobResponse>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<SubmitJobResponse> SubmitJobResponse::FromValue(const base::Value::Dict& value) {
+  SubmitJobResponse out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<SubmitJobResponse> SubmitJobResponse::FromValue(const base::Value::Dict& value) {
+std::optional<SubmitJobResponse> SubmitJobResponse::FromValue(const base::Value& value) {
   SubmitJobResponse out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<SubmitJobResponse> SubmitJobResponse::FromValue(const base::Value& value) {
-  SubmitJobResponse out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -273,11 +248,11 @@ base::Value::Dict SubmitJobResponse::ToValue() const {
 
 const char* ToString(PrinterSource enum_param) {
   switch (enum_param) {
-    case PRINTER_SOURCE_USER:
+    case PrinterSource::kUser:
       return "USER";
-    case PRINTER_SOURCE_POLICY:
+    case PrinterSource::kPolicy:
       return "POLICY";
-    case PRINTER_SOURCE_NONE:
+    case PrinterSource::kNone:
       return "";
   }
   NOTREACHED();
@@ -286,10 +261,10 @@ const char* ToString(PrinterSource enum_param) {
 
 PrinterSource ParsePrinterSource(base::StringPiece enum_string) {
   if (enum_string == "USER")
-    return PRINTER_SOURCE_USER;
+    return PrinterSource::kUser;
   if (enum_string == "POLICY")
-    return PRINTER_SOURCE_POLICY;
-  return PRINTER_SOURCE_NONE;
+    return PrinterSource::kPolicy;
+  return PrinterSource::kNone;
 }
 
 std::u16string GetPrinterSourceParseError(base::StringPiece enum_string) {
@@ -302,8 +277,8 @@ Printer::Printer()
 is_default(false) {}
 
 Printer::~Printer() = default;
-Printer::Printer(Printer&& rhs) = default;
-Printer& Printer::operator=(Printer&& rhs) = default;
+Printer::Printer(Printer&& rhs) noexcept = default;
+Printer& Printer::operator=(Printer&& rhs) noexcept = default;
 Printer Printer::Clone() const {
   Printer out;
   out.id = id;
@@ -399,7 +374,7 @@ bool Printer::Populate(
     {
       auto temp = (*recently_used_rank_value).GetIfInt();
       if (!temp.has_value()) {
-        out.recently_used_rank = absl::nullopt;
+        out.recently_used_rank = std::nullopt;
         return false;
       }
       out.recently_used_rank = *temp;
@@ -419,34 +394,21 @@ bool Printer::Populate(
 }
 
 // static
-std::unique_ptr<Printer> Printer::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<Printer>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<Printer> Printer::FromValue(const base::Value::Dict& value) {
+  Printer out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Printer> Printer::FromValue(const base::Value::Dict& value) {
+std::optional<Printer> Printer::FromValue(const base::Value& value) {
   Printer out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<Printer> Printer::FromValue(const base::Value& value) {
-  Printer out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -477,29 +439,29 @@ base::Value::Dict Printer::ToValue() const {
 
 const char* ToString(PrinterStatus enum_param) {
   switch (enum_param) {
-    case PRINTER_STATUS_DOOR_OPEN:
+    case PrinterStatus::kDoorOpen:
       return "DOOR_OPEN";
-    case PRINTER_STATUS_TRAY_MISSING:
+    case PrinterStatus::kTrayMissing:
       return "TRAY_MISSING";
-    case PRINTER_STATUS_OUT_OF_INK:
+    case PrinterStatus::kOutOfInk:
       return "OUT_OF_INK";
-    case PRINTER_STATUS_OUT_OF_PAPER:
+    case PrinterStatus::kOutOfPaper:
       return "OUT_OF_PAPER";
-    case PRINTER_STATUS_OUTPUT_FULL:
+    case PrinterStatus::kOutputFull:
       return "OUTPUT_FULL";
-    case PRINTER_STATUS_PAPER_JAM:
+    case PrinterStatus::kPaperJam:
       return "PAPER_JAM";
-    case PRINTER_STATUS_GENERIC_ISSUE:
+    case PrinterStatus::kGenericIssue:
       return "GENERIC_ISSUE";
-    case PRINTER_STATUS_STOPPED:
+    case PrinterStatus::kStopped:
       return "STOPPED";
-    case PRINTER_STATUS_UNREACHABLE:
+    case PrinterStatus::kUnreachable:
       return "UNREACHABLE";
-    case PRINTER_STATUS_EXPIRED_CERTIFICATE:
+    case PrinterStatus::kExpiredCertificate:
       return "EXPIRED_CERTIFICATE";
-    case PRINTER_STATUS_AVAILABLE:
+    case PrinterStatus::kAvailable:
       return "AVAILABLE";
-    case PRINTER_STATUS_NONE:
+    case PrinterStatus::kNone:
       return "";
   }
   NOTREACHED();
@@ -508,28 +470,28 @@ const char* ToString(PrinterStatus enum_param) {
 
 PrinterStatus ParsePrinterStatus(base::StringPiece enum_string) {
   if (enum_string == "DOOR_OPEN")
-    return PRINTER_STATUS_DOOR_OPEN;
+    return PrinterStatus::kDoorOpen;
   if (enum_string == "TRAY_MISSING")
-    return PRINTER_STATUS_TRAY_MISSING;
+    return PrinterStatus::kTrayMissing;
   if (enum_string == "OUT_OF_INK")
-    return PRINTER_STATUS_OUT_OF_INK;
+    return PrinterStatus::kOutOfInk;
   if (enum_string == "OUT_OF_PAPER")
-    return PRINTER_STATUS_OUT_OF_PAPER;
+    return PrinterStatus::kOutOfPaper;
   if (enum_string == "OUTPUT_FULL")
-    return PRINTER_STATUS_OUTPUT_FULL;
+    return PrinterStatus::kOutputFull;
   if (enum_string == "PAPER_JAM")
-    return PRINTER_STATUS_PAPER_JAM;
+    return PrinterStatus::kPaperJam;
   if (enum_string == "GENERIC_ISSUE")
-    return PRINTER_STATUS_GENERIC_ISSUE;
+    return PrinterStatus::kGenericIssue;
   if (enum_string == "STOPPED")
-    return PRINTER_STATUS_STOPPED;
+    return PrinterStatus::kStopped;
   if (enum_string == "UNREACHABLE")
-    return PRINTER_STATUS_UNREACHABLE;
+    return PrinterStatus::kUnreachable;
   if (enum_string == "EXPIRED_CERTIFICATE")
-    return PRINTER_STATUS_EXPIRED_CERTIFICATE;
+    return PrinterStatus::kExpiredCertificate;
   if (enum_string == "AVAILABLE")
-    return PRINTER_STATUS_AVAILABLE;
-  return PRINTER_STATUS_NONE;
+    return PrinterStatus::kAvailable;
+  return PrinterStatus::kNone;
 }
 
 std::u16string GetPrinterStatusParseError(base::StringPiece enum_string) {
@@ -541,8 +503,8 @@ GetPrinterInfoResponse::Capabilities::Capabilities()
  {}
 
 GetPrinterInfoResponse::Capabilities::~Capabilities() = default;
-GetPrinterInfoResponse::Capabilities::Capabilities(Capabilities&& rhs) = default;
-GetPrinterInfoResponse::Capabilities& GetPrinterInfoResponse::Capabilities::operator=(Capabilities&& rhs) = default;
+GetPrinterInfoResponse::Capabilities::Capabilities(Capabilities&& rhs) noexcept = default;
+GetPrinterInfoResponse::Capabilities& GetPrinterInfoResponse::Capabilities::operator=(Capabilities&& rhs) noexcept = default;
 GetPrinterInfoResponse::Capabilities GetPrinterInfoResponse::Capabilities::Clone() const {
   Capabilities out;
   return out;
@@ -565,21 +527,21 @@ bool GetPrinterInfoResponse::Capabilities::Populate(
 }
 
 // static
-absl::optional<GetPrinterInfoResponse::Capabilities> GetPrinterInfoResponse::Capabilities::FromValue(const base::Value::Dict& value) {
+std::optional<GetPrinterInfoResponse::Capabilities> GetPrinterInfoResponse::Capabilities::FromValue(const base::Value::Dict& value) {
   Capabilities out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<GetPrinterInfoResponse::Capabilities> GetPrinterInfoResponse::Capabilities::FromValue(const base::Value& value) {
+std::optional<GetPrinterInfoResponse::Capabilities> GetPrinterInfoResponse::Capabilities::FromValue(const base::Value& value) {
   Capabilities out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -598,8 +560,8 @@ GetPrinterInfoResponse::GetPrinterInfoResponse()
 : status() {}
 
 GetPrinterInfoResponse::~GetPrinterInfoResponse() = default;
-GetPrinterInfoResponse::GetPrinterInfoResponse(GetPrinterInfoResponse&& rhs) = default;
-GetPrinterInfoResponse& GetPrinterInfoResponse::operator=(GetPrinterInfoResponse&& rhs) = default;
+GetPrinterInfoResponse::GetPrinterInfoResponse(GetPrinterInfoResponse&& rhs) noexcept = default;
+GetPrinterInfoResponse& GetPrinterInfoResponse::operator=(GetPrinterInfoResponse&& rhs) noexcept = default;
 GetPrinterInfoResponse GetPrinterInfoResponse::Clone() const {
   GetPrinterInfoResponse out;
   if (capabilities) {
@@ -655,34 +617,21 @@ bool GetPrinterInfoResponse::Populate(
 }
 
 // static
-std::unique_ptr<GetPrinterInfoResponse> GetPrinterInfoResponse::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<GetPrinterInfoResponse>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<GetPrinterInfoResponse> GetPrinterInfoResponse::FromValue(const base::Value::Dict& value) {
+  GetPrinterInfoResponse out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<GetPrinterInfoResponse> GetPrinterInfoResponse::FromValue(const base::Value::Dict& value) {
+std::optional<GetPrinterInfoResponse> GetPrinterInfoResponse::FromValue(const base::Value& value) {
   GetPrinterInfoResponse out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<GetPrinterInfoResponse> GetPrinterInfoResponse::FromValue(const base::Value& value) {
-  GetPrinterInfoResponse out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -703,17 +652,17 @@ base::Value::Dict GetPrinterInfoResponse::ToValue() const {
 
 const char* ToString(JobStatus enum_param) {
   switch (enum_param) {
-    case JOB_STATUS_PENDING:
+    case JobStatus::kPending:
       return "PENDING";
-    case JOB_STATUS_IN_PROGRESS:
+    case JobStatus::kInProgress:
       return "IN_PROGRESS";
-    case JOB_STATUS_FAILED:
+    case JobStatus::kFailed:
       return "FAILED";
-    case JOB_STATUS_CANCELED:
+    case JobStatus::kCanceled:
       return "CANCELED";
-    case JOB_STATUS_PRINTED:
+    case JobStatus::kPrinted:
       return "PRINTED";
-    case JOB_STATUS_NONE:
+    case JobStatus::kNone:
       return "";
   }
   NOTREACHED();
@@ -722,16 +671,16 @@ const char* ToString(JobStatus enum_param) {
 
 JobStatus ParseJobStatus(base::StringPiece enum_string) {
   if (enum_string == "PENDING")
-    return JOB_STATUS_PENDING;
+    return JobStatus::kPending;
   if (enum_string == "IN_PROGRESS")
-    return JOB_STATUS_IN_PROGRESS;
+    return JobStatus::kInProgress;
   if (enum_string == "FAILED")
-    return JOB_STATUS_FAILED;
+    return JobStatus::kFailed;
   if (enum_string == "CANCELED")
-    return JOB_STATUS_CANCELED;
+    return JobStatus::kCanceled;
   if (enum_string == "PRINTED")
-    return JOB_STATUS_PRINTED;
-  return JOB_STATUS_NONE;
+    return JobStatus::kPrinted;
+  return JobStatus::kNone;
 }
 
 std::u16string GetJobStatusParseError(base::StringPiece enum_string) {
@@ -748,13 +697,13 @@ namespace SubmitJob {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -763,15 +712,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& request_value = args[0];
     {
       if (!request_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!SubmitJobRequest::Populate(request_value.GetDict(), params.request)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -791,13 +740,13 @@ namespace CancelJob {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -807,13 +756,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = job_id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.job_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -842,13 +791,13 @@ namespace GetPrinterInfo {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -858,13 +807,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = printer_id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.printer_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;

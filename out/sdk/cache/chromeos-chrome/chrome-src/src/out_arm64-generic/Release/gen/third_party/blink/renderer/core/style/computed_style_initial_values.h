@@ -29,6 +29,7 @@
 #include "third_party/blink/renderer/core/style/filter_operations.h"
 #include "third_party/blink/renderer/core/style/grid_position.h"
 #include "third_party/blink/renderer/core/style/grid_track_list.h"
+#include "third_party/blink/renderer/core/style/inset_area.h"
 #include "third_party/blink/renderer/core/style/list_style_type_data.h"
 #include "third_party/blink/renderer/core/style/nine_piece_image.h"
 #include "third_party/blink/renderer/core/style/scroll_start_data.h"
@@ -56,6 +57,7 @@
 #include "third_party/blink/renderer/platform/geometry/length_point.h"
 #include "third_party/blink/renderer/platform/geometry/length_size.h"
 #include "third_party/blink/renderer/platform/graphics/graphics_types.h"
+#include "third_party/blink/renderer/platform/graphics/image_orientation.h"
 #include "third_party/blink/renderer/platform/graphics/touch_action.h"
 #include "third_party/blink/renderer/platform/heap/collection_support/heap_hash_set.h"
 #include "third_party/blink/renderer/platform/heap/member.h"
@@ -99,9 +101,6 @@ class StyleNonInheritedVariables;
 class StylePath;
 class StyleReflection;
 class StyleSVGResource;
-class ToggleGroupList;
-class ToggleRootList;
-class ToggleTriggerList;
 class TranslateTransformOperation;
 
 /**
@@ -186,6 +185,10 @@ class ComputedStyleInitialValues{
 
   static StyleColor InitialInternalVisitedColor() {
     return StyleColor(Color::kBlack);
+  }
+
+  static EPosition InitialPosition() {
+    return EPosition::kStatic;
   }
 
   static ETextOrientation InitialTextOrientation() {
@@ -468,8 +471,8 @@ class ComputedStyleInitialValues{
     return EDominantBaseline::kAuto;
   }
 
-  static EDynamicRangeLimit InitialDynamicRangeLimit() {
-    return EDynamicRangeLimit::kHigh;
+  static DynamicRangeLimit InitialDynamicRangeLimit() {
+    return DynamicRangeLimit(cc::PaintFlags::DynamicRangeLimit::kHigh);
   }
 
   static EEmptyCells InitialEmptyCells() {
@@ -580,8 +583,8 @@ class ComputedStyleInitialValues{
     return Hyphens::kManual;
   }
 
-  static bool InitialRespectImageOrientation() {
-    return true;
+  static RespectImageOrientationEnum InitialImageOrientation() {
+    return kRespectImageOrientation;
   }
 
   static EImageRendering InitialImageRendering() {
@@ -590,6 +593,10 @@ class ComputedStyleInitialValues{
 
   static StyleInitialLetter InitialInitialLetter() {
     return StyleInitialLetter();
+  }
+
+  static InsetArea InitialInsetArea() {
+    return InsetArea();
   }
 
   static bool InitialAlignContentBlockCenter() {
@@ -928,10 +935,6 @@ class ComputedStyleInitialValues{
     return 0.5;
   }
 
-  static EPosition InitialPosition() {
-    return EPosition::kStatic;
-  }
-
   static ScopedCSSName* InitialPositionFallback() {
     return nullptr;
   }
@@ -1232,22 +1235,6 @@ class ComputedStyleInitialValues{
     return nullptr;
   }
 
-  static ToggleGroupList* InitialToggleGroup() {
-    return nullptr;
-  }
-
-  static ToggleRootList* InitialToggleRoot() {
-    return nullptr;
-  }
-
-  static ToggleTriggerList* InitialToggleTrigger() {
-    return nullptr;
-  }
-
-  static AtomicString InitialToggleVisibility() {
-    return g_null_atom;
-  }
-
   static Length InitialTop() {
     return Length();
   }
@@ -1326,10 +1313,6 @@ class ComputedStyleInitialValues{
 
   static EBoxDirection InitialBoxDirection() {
     return EBoxDirection::kNormal;
-  }
-
-  static EBoxDirectionAlternative InitialBoxDirectionAlternative() {
-    return EBoxDirectionAlternative::kNormal;
   }
 
   static float InitialBoxFlex() {
@@ -1709,6 +1692,10 @@ class ComputedStyleInitialValues{
   }
 
   static bool InitialDarkColorScheme() {
+    return false;
+  }
+
+  static bool InitialColorSchemeFlagsIsNormal() {
     return false;
   }
 

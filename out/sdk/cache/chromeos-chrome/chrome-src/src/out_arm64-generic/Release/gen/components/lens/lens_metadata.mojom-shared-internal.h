@@ -93,6 +93,8 @@ class  LatencyLog_Data {
   mojo::internal::Pointer<::gfx::mojom::internal::Size_Data> original_size;
   mojo::internal::Pointer<::gfx::mojom::internal::Size_Data> downscaled_size;
   mojo::internal::Pointer<::mojo_base::mojom::internal::Time_Data> time;
+  uint32_t encoded_bytes_size;
+  uint8_t padfinal_[4];
 
  private:
   friend class mojo::internal::MessageFragment<LatencyLog_Data>;
@@ -100,7 +102,7 @@ class  LatencyLog_Data {
   LatencyLog_Data();
   ~LatencyLog_Data() = delete;
 };
-static_assert(sizeof(LatencyLog_Data) == 40,
+static_assert(sizeof(LatencyLog_Data) == 48,
               "Bad sizeof(LatencyLog_Data)");
 // Used by LatencyLog::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

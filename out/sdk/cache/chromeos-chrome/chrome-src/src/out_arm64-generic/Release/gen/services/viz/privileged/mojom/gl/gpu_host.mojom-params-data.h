@@ -142,9 +142,8 @@ class  GpuHost_DidLoseContext_Params_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  uint8_t offscreen : 1;
-  uint8_t pad0_[3];
   int32_t reason;
+  uint8_t pad0_[4];
   mojo::internal::Pointer<::url::mojom::internal::Url_Data> active_url;
 
  private:
@@ -472,9 +471,6 @@ class GpuHost_DidLoseContext_ParamsDataView {
       : data_(data), message_(message) {}
 
   bool is_null() const { return !data_; }
-  bool offscreen() const {
-    return data_->offscreen;
-  }
   template <typename UserType>
   [[nodiscard]] bool ReadReason(UserType* output) const {
     auto data_value = data_->reason;

@@ -1,3 +1,4 @@
+import * as CPUProfile from '../../../../front_end/models/cpu_profile/cpu_profile.js';
 import * as TraceEngine from '../../../../front_end/models/trace/trace.js';
 import * as Timeline from '../../../../front_end/panels/timeline/timeline.js';
 import * as PerfUI from '../../../../front_end/ui/legacy/components/perf_ui/perf_ui.js';
@@ -177,12 +178,37 @@ export function getRootAt(thread, index) {
     return node;
 }
 /**
+ * Gets all nodes in a thread. To finish this task, we Walk through all the nodes, starting from the root node.
+ */
+export function getAllNodes(roots) {
+    const allNodes = [];
+    const children = Array.from(roots);
+    while (children.length > 0) {
+        const childNode = children.shift();
+        if (childNode) {
+            allNodes.push(childNode);
+            children.push(...childNode.children);
+        }
+    }
+    return allNodes;
+}
+/**
  * Gets the node with an id from a tree in a thread.
  * @see RendererHandler.ts
  */
 export function getNodeFor(thread, nodeId) {
     const tree = getTree(thread);
-    const node = tree.nodes.get(nodeId);
+    function findNode(nodes, nodeId) {
+        for (const node of nodes) {
+            const event = node.entry;
+            if (TraceEngine.Types.TraceEvents.isProfileCall(event) && event.nodeId === nodeId) {
+                return node;
+            }
+            return findNode(node.children, nodeId);
+        }
+        return undefined;
+    }
+    const node = findNode(tree.roots, nodeId);
     if (!node) {
         assert(false, `Couldn't get the node with id ${nodeId} in thread ${thread.name}`);
         return null;
@@ -302,6 +328,7 @@ export function makeProfileCall(functionName, tsMs, durMs, pid = TraceEngine.Typ
             lineNumber: -1,
             columnNumber: -1,
         },
+        args: {},
     };
 }
 /**
@@ -392,7 +419,48 @@ export function makeMockRendererHandlerData(entries) {
         processes: new Map([[1, mockProcess]]),
         compositorTileWorkers: new Map(),
         entryToNode,
-        allRendererEvents: renderereEvents,
+        allTraceEntries: renderereEvents,
+    };
+}
+/**
+ * Mocks an object compatible with the return type of the
+ * SamplesHandler using only an array of ordered profile calls.
+ */
+export function makeMockSamplesHandlerData(profileCalls) {
+    const { tree, entryToNode } = TraceEngine.Helpers.TreeHelpers.treify(profileCalls, { filter: { has: () => true } });
+    const profile = {
+        nodes: [],
+        startTime: profileCalls.at(0)?.ts || TraceEngine.Types.Timing.MicroSeconds(0),
+        endTime: profileCalls.at(-1)?.ts || TraceEngine.Types.Timing.MicroSeconds(10e5),
+        samples: [],
+        timeDeltas: [],
+    };
+    const nodesIds = new Map();
+    const lastTimestamp = profile.startTime;
+    for (const profileCall of profileCalls) {
+        let node = nodesIds.get(profileCall.nodeId);
+        if (!node) {
+            node = {
+                id: profileCall.nodeId,
+                callFrame: profileCall.callFrame,
+            };
+            profile.nodes.push(node);
+            nodesIds.set(profileCall.nodeId, node);
+        }
+        profile.samples?.push(node.id);
+        const timeDelta = profileCall.ts - lastTimestamp;
+        profile.timeDeltas?.push(timeDelta);
+    }
+    const profileData = {
+        rawProfile: profile,
+        parsedProfile: new CPUProfile.CPUProfileDataModel.CPUProfileDataModel(profile),
+        profileCalls,
+        profileTree: tree,
+    };
+    const profilesInThread = new Map([[1, profileData]]);
+    return {
+        profilesInProcess: new Map([[1, profilesInThread]]),
+        entryToNode,
     };
 }
 export class FakeFlameChartProvider {
@@ -459,5 +527,67 @@ export function getMainThread(data) {
         throw new Error('Could not find main thread.');
     }
     return mainThread;
+}
+export function getBaseTraceParseModelData(overrides = {}) {
+    return {
+        Animations: [],
+        LayoutShifts: {
+            clusters: [],
+            sessionMaxScore: 0,
+            clsWindowID: 0,
+            prePaintEvents: [],
+            layoutInvalidationEvents: [],
+            styleRecalcInvalidationEvents: [],
+            backendNodeIds: [],
+            scoreRecords: [],
+        },
+        Meta: {
+            traceBounds: {
+                min: TraceEngine.Types.Timing.MicroSeconds(0),
+                max: TraceEngine.Types.Timing.MicroSeconds(100),
+                range: TraceEngine.Types.Timing.MicroSeconds(100),
+            },
+            browserProcessId: TraceEngine.Types.TraceEvents.ProcessID(-1),
+            browserThreadId: TraceEngine.Types.TraceEvents.ThreadID(-1),
+            gpuProcessId: TraceEngine.Types.TraceEvents.ProcessID(-1),
+            gpuThreadId: TraceEngine.Types.TraceEvents.ThreadID(-1),
+            threadsInProcess: new Map(),
+            navigationsByFrameId: new Map(),
+            navigationsByNavigationId: new Map(),
+            mainFrameId: '',
+            mainFrameURL: '',
+            rendererProcessesByFrame: new Map(),
+            topLevelRendererIds: new Set(),
+            frameByProcessId: new Map(),
+            mainFrameNavigations: [],
+        },
+        Renderer: {
+            processes: new Map(),
+            compositorTileWorkers: new Map(),
+            entryToNode: new Map(),
+            allTraceEntries: [],
+        },
+        Screenshots: [],
+        Samples: {
+            profiles: new Map(),
+            processes: new Map(),
+        },
+        PageLoadMetrics: { metricScoresByFrameId: new Map(), lcpEventNodeIdToDOMNodeMap: new Map() },
+        UserInteractions: { allEvents: [], interactionEvents: [] },
+        NetworkRequests: {
+            byOrigin: new Map(),
+            byTime: [],
+        },
+        GPU: {
+            mainGPUThreadTasks: [],
+            errorsByUseCase: new Map(),
+        },
+        UserTimings: {
+            timings: [],
+        },
+        LargestImagePaint: new Map(),
+        LargestTextPaint: new Map(),
+        ...overrides,
+    };
 }
 //# sourceMappingURL=TraceHelpers.js.map

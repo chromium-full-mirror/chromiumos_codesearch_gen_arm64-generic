@@ -21,6 +21,7 @@ constexpr uint32_t kEditorPanelManager_StartEditingFlow_Name = 3;
 constexpr uint32_t kEditorPanelManager_StartEditingFlowWithPreset_Name = 4;
 constexpr uint32_t kEditorPanelManager_StartEditingFlowWithFreeform_Name = 5;
 constexpr uint32_t kEditorPanelManager_OnEditorMenuVisibilityChanged_Name = 6;
+constexpr uint32_t kEditorPanelManager_LogEditorMode_Name = 7;
 
 }  // namespace internal
 

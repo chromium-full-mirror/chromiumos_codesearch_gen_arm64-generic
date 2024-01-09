@@ -74,11 +74,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, CompositionEvent>::value,
     "CompositionEvent inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&CompositionEvent::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "CompositionEvent is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -91,10 +86,10 @@ BLINK_BINDINGS_TRACE_EVENT("CompositionEvent.data.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-CompositionEvent* blink_receiver = V8CompositionEvent::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->data();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+CompositionEvent* blink_receiver = V8CompositionEvent::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->data();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -106,8 +101,9 @@ BLINK_BINDINGS_TRACE_EVENT("CompositionEvent.isTrusted.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CompositionEvent* blink_receiver = V8CompositionEvent::ToWrappableUnsafe(v8_receiver);
+CompositionEvent* blink_receiver = V8CompositionEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isTrusted();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -180,7 +176,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-CompositionEvent* blink_receiver = V8CompositionEvent::ToWrappableUnsafe(v8_receiver);
+CompositionEvent* blink_receiver = V8CompositionEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_type = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

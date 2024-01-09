@@ -3207,7 +3207,6 @@ class KeyInfo final :
     kUserCustomerIdFieldNumber = 12,
     kObfuscatedGaiaIdFieldNumber = 13,
     kProfileIdFieldNumber = 14,
-    kDeviceTrustSignalsFieldNumber = 9,
     kFlowTypeFieldNumber = 1,
   };
   // optional string domain = 2;
@@ -3426,24 +3425,6 @@ class KeyInfo final :
   std::string* _internal_mutable_profile_id();
   public:
 
-  // optional .attestation.DeviceTrustSignals device_trust_signals = 9 [deprecated = true];
-  PROTOBUF_DEPRECATED bool has_device_trust_signals() const;
-  private:
-  bool _internal_has_device_trust_signals() const;
-  public:
-  PROTOBUF_DEPRECATED void clear_device_trust_signals();
-  PROTOBUF_DEPRECATED const ::attestation::DeviceTrustSignals& device_trust_signals() const;
-  PROTOBUF_NODISCARD PROTOBUF_DEPRECATED ::attestation::DeviceTrustSignals* release_device_trust_signals();
-  PROTOBUF_DEPRECATED ::attestation::DeviceTrustSignals* mutable_device_trust_signals();
-  PROTOBUF_DEPRECATED void set_allocated_device_trust_signals(::attestation::DeviceTrustSignals* device_trust_signals);
-  private:
-  const ::attestation::DeviceTrustSignals& _internal_device_trust_signals() const;
-  ::attestation::DeviceTrustSignals* _internal_mutable_device_trust_signals();
-  public:
-  PROTOBUF_DEPRECATED void unsafe_arena_set_allocated_device_trust_signals(
-      ::attestation::DeviceTrustSignals* device_trust_signals);
-  PROTOBUF_DEPRECATED ::attestation::DeviceTrustSignals* unsafe_arena_release_device_trust_signals();
-
   // optional .attestation.VerifiedAccessFlow flow_type = 1;
   bool has_flow_type() const;
   private:
@@ -3478,7 +3459,6 @@ class KeyInfo final :
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr user_customer_id_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr obfuscated_gaia_id_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr profile_id_;
-  ::attestation::DeviceTrustSignals* device_trust_signals_;
   int flow_type_;
   friend struct ::TableStruct_attestation_5fca_2eproto;
 };
@@ -8211,7 +8191,7 @@ inline void ChallengeResponse::set_allocated_encrypted_key_info(::attestation::E
 
 // optional .attestation.VerifiedAccessFlow flow_type = 1;
 inline bool KeyInfo::_internal_has_flow_type() const {
-  bool value = (_has_bits_[0] & 0x00002000u) != 0;
+  bool value = (_has_bits_[0] & 0x00001000u) != 0;
   return value;
 }
 inline bool KeyInfo::has_flow_type() const {
@@ -8219,7 +8199,7 @@ inline bool KeyInfo::has_flow_type() const {
 }
 inline void KeyInfo::clear_flow_type() {
   flow_type_ = 0;
-  _has_bits_[0] &= ~0x00002000u;
+  _has_bits_[0] &= ~0x00001000u;
 }
 inline ::attestation::VerifiedAccessFlow KeyInfo::_internal_flow_type() const {
   return static_cast< ::attestation::VerifiedAccessFlow >(flow_type_);
@@ -8230,7 +8210,7 @@ inline ::attestation::VerifiedAccessFlow KeyInfo::flow_type() const {
 }
 inline void KeyInfo::_internal_set_flow_type(::attestation::VerifiedAccessFlow value) {
   assert(::attestation::VerifiedAccessFlow_IsValid(value));
-  _has_bits_[0] |= 0x00002000u;
+  _has_bits_[0] |= 0x00001000u;
   flow_type_ = value;
 }
 inline void KeyInfo::set_flow_type(::attestation::VerifiedAccessFlow value) {
@@ -8712,96 +8692,6 @@ inline void KeyInfo::set_allocated_signing_scheme(std::string* signing_scheme) {
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   // @@protoc_insertion_point(field_set_allocated:attestation.KeyInfo.signing_scheme)
-}
-
-// optional .attestation.DeviceTrustSignals device_trust_signals = 9 [deprecated = true];
-inline bool KeyInfo::_internal_has_device_trust_signals() const {
-  bool value = (_has_bits_[0] & 0x00001000u) != 0;
-  PROTOBUF_ASSUME(!value || device_trust_signals_ != nullptr);
-  return value;
-}
-inline bool KeyInfo::has_device_trust_signals() const {
-  return _internal_has_device_trust_signals();
-}
-inline void KeyInfo::clear_device_trust_signals() {
-  if (device_trust_signals_ != nullptr) device_trust_signals_->Clear();
-  _has_bits_[0] &= ~0x00001000u;
-}
-inline const ::attestation::DeviceTrustSignals& KeyInfo::_internal_device_trust_signals() const {
-  const ::attestation::DeviceTrustSignals* p = device_trust_signals_;
-  return p != nullptr ? *p : reinterpret_cast<const ::attestation::DeviceTrustSignals&>(
-      ::attestation::_DeviceTrustSignals_default_instance_);
-}
-inline const ::attestation::DeviceTrustSignals& KeyInfo::device_trust_signals() const {
-  // @@protoc_insertion_point(field_get:attestation.KeyInfo.device_trust_signals)
-  return _internal_device_trust_signals();
-}
-inline void KeyInfo::unsafe_arena_set_allocated_device_trust_signals(
-    ::attestation::DeviceTrustSignals* device_trust_signals) {
-  if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(device_trust_signals_);
-  }
-  device_trust_signals_ = device_trust_signals;
-  if (device_trust_signals) {
-    _has_bits_[0] |= 0x00001000u;
-  } else {
-    _has_bits_[0] &= ~0x00001000u;
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:attestation.KeyInfo.device_trust_signals)
-}
-inline ::attestation::DeviceTrustSignals* KeyInfo::release_device_trust_signals() {
-  _has_bits_[0] &= ~0x00001000u;
-  ::attestation::DeviceTrustSignals* temp = device_trust_signals_;
-  device_trust_signals_ = nullptr;
-#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
-  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
-  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  if (GetArenaForAllocation() == nullptr) { delete old; }
-#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
-  if (GetArenaForAllocation() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  }
-#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
-  return temp;
-}
-inline ::attestation::DeviceTrustSignals* KeyInfo::unsafe_arena_release_device_trust_signals() {
-  // @@protoc_insertion_point(field_release:attestation.KeyInfo.device_trust_signals)
-  _has_bits_[0] &= ~0x00001000u;
-  ::attestation::DeviceTrustSignals* temp = device_trust_signals_;
-  device_trust_signals_ = nullptr;
-  return temp;
-}
-inline ::attestation::DeviceTrustSignals* KeyInfo::_internal_mutable_device_trust_signals() {
-  _has_bits_[0] |= 0x00001000u;
-  if (device_trust_signals_ == nullptr) {
-    auto* p = CreateMaybeMessage<::attestation::DeviceTrustSignals>(GetArenaForAllocation());
-    device_trust_signals_ = p;
-  }
-  return device_trust_signals_;
-}
-inline ::attestation::DeviceTrustSignals* KeyInfo::mutable_device_trust_signals() {
-  ::attestation::DeviceTrustSignals* _msg = _internal_mutable_device_trust_signals();
-  // @@protoc_insertion_point(field_mutable:attestation.KeyInfo.device_trust_signals)
-  return _msg;
-}
-inline void KeyInfo::set_allocated_device_trust_signals(::attestation::DeviceTrustSignals* device_trust_signals) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  if (message_arena == nullptr) {
-    delete device_trust_signals_;
-  }
-  if (device_trust_signals) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(device_trust_signals);
-    if (message_arena != submessage_arena) {
-      device_trust_signals = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, device_trust_signals, submessage_arena);
-    }
-    _has_bits_[0] |= 0x00001000u;
-  } else {
-    _has_bits_[0] &= ~0x00001000u;
-  }
-  device_trust_signals_ = device_trust_signals;
-  // @@protoc_insertion_point(field_set_allocated:attestation.KeyInfo.device_trust_signals)
 }
 
 // optional string device_trust_signals_json = 10;

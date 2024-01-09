@@ -16,6 +16,7 @@
 #include "third_party/blink/renderer/modules/modules_export.h"
 #include "third_party/blink/renderer/platform/bindings/dictionary_base.h"
 #include "third_party/blink/renderer/platform/heap/collection_support/heap_vector.h"
+#include "third_party/blink/renderer/platform/wtf/text/wtf_string.h"
 
 namespace blink {
 
@@ -64,6 +65,18 @@ Vector<uint32_t> getContributingSourcesOr(const Vector<uint32_t>& fallback_value
 Vector<uint32_t> getContributingSourcesOr(Vector<uint32_t>&& fallback_value) const;
 void setContributingSources(const Vector<uint32_t>& value);
 void setContributingSources(Vector<uint32_t>&& value);
+
+bool hasMimeType() const {
+  return has_mime_type_;
+}
+const String& mimeType() const {
+  DCHECK(hasMimeType());
+return member_mime_type_;
+}
+String getMimeTypeOr(const String& fallback_value) const;
+String getMimeTypeOr(String&& fallback_value) const;
+void setMimeType(const String& value);
+void setMimeType(String&& value);
 
 bool hasPayloadType() const {
   return has_payload_type_;
@@ -165,6 +178,7 @@ static const base::span<const v8::Eternal<v8::Name>> GetV8OwnMemberNames(v8::Iso
 
 bool has_abs_capture_time_ = false;
 bool has_contributing_sources_ = false;
+bool has_mime_type_ = false;
 bool has_payload_type_ = false;
 bool has_rtp_timestamp_ = false;
 bool has_sequence_number_ = false;
@@ -172,6 +186,7 @@ bool has_synchronization_source_ = false;
 
 uint64_t member_abs_capture_time_;
 Vector<uint32_t> member_contributing_sources_;
+String member_mime_type_;
 uint8_t member_payload_type_;
 uint32_t member_rtp_timestamp_;
 absl::optional<uint16_t> member_sequence_number_;

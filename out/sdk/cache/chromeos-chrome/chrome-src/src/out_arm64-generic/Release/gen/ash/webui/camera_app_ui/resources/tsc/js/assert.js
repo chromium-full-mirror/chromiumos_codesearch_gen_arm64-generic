@@ -45,6 +45,22 @@ export function assertNotReached(optMessage = 'Unreachable code hit') {
     assert(false, optMessage);
 }
 /**
+ * Check if a value is a instance of a class.
+ *
+ * @param value The value to check.
+ * @param ctor A user-defined constructor.
+ */
+export function checkInstanceof(value, 
+// "unknown" doesn't work well here if the constructor have overloads with
+// different numbers of argument and strictNullChecks on.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+ctor) {
+    if (!(value instanceof ctor)) {
+        return null;
+    }
+    return value;
+}
+/**
  * @param value The value to check.
  * @param ctor A user-defined constructor.
  * @param optMessage A message to show when this is hit.
@@ -118,7 +134,7 @@ export function assertExists(value, optMessage) {
  * @return The value if it's an enum variant, null otherwise.
  */
 export function checkEnumVariant(enumType, value) {
-    if (value === null || value === undefined ||
+    if (value === null || value === undefined || typeof value !== 'string' ||
         !Object.values(enumType).includes(value)) {
         return null;
     }

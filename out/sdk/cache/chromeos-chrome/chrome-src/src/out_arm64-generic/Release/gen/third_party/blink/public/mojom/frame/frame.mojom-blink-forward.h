@@ -32,6 +32,8 @@ enum class TraverseCancelledReason : int32_t;
 enum class ViewTransitionSameOriginOptIn : int32_t;
 
 enum class FrameOwnerElementType : int32_t;
+
+enum class NavigationApiEntryRestoreReason : int32_t;
 class LocalFrameHostInterfaceBase;
 class NonAssociatedLocalFrameHostInterfaceBase;
 class LocalFrameInterfaceBase;
@@ -50,6 +52,7 @@ using JavaScriptExecutionResultType = JavaScriptExecutionResultType;
 using TraverseCancelledReason = TraverseCancelledReason;
 using ViewTransitionSameOriginOptIn = ViewTransitionSameOriginOptIn;
 using FrameOwnerElementType = FrameOwnerElementType;
+using NavigationApiEntryRestoreReason = NavigationApiEntryRestoreReason;
 using LocalFrameHostInterfaceBase = LocalFrameHostInterfaceBase;
 using NonAssociatedLocalFrameHostInterfaceBase = NonAssociatedLocalFrameHostInterfaceBase;
 using LocalFrameInterfaceBase = LocalFrameInterfaceBase;

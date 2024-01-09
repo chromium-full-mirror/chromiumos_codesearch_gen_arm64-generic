@@ -13,10 +13,9 @@ import './input_device_settings_shared.css.js';
 import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { castExists } from '../assert_extras.js';
-import { RouteObserverMixin } from '../route_observer_mixin.js';
+import { RouteObserverMixin } from '../common/route_observer_mixin.js';
 import { Router, routes } from '../router.js';
 import { getTemplate } from './customize_pen_buttons_subpage.html.js';
-import { FakeInputDeviceSettingsProvider } from './fake_input_device_settings_provider.js';
 import { getInputDeviceSettingsProvider } from './input_device_mojo_interface_provider.js';
 const SettingsCustomizePenButtonsSubpageElementBase = RouteObserverMixin(I18nMixin(PolymerElement));
 export class SettingsCustomizePenButtonsSubpageElement extends SettingsCustomizePenButtonsSubpageElementBase {
@@ -24,6 +23,7 @@ export class SettingsCustomizePenButtonsSubpageElement extends SettingsCustomize
         super(...arguments);
         this.inputDeviceSettingsProvider_ = getInputDeviceSettingsProvider();
         this.previousRoute_ = null;
+        this.isInitialized_ = false;
     }
     static get is() {
         return 'settings-customize-pen-buttons-subpage';
@@ -39,6 +39,12 @@ export class SettingsCustomizePenButtonsSubpageElement extends SettingsCustomize
             graphicsTablets: {
                 type: Array,
             },
+            /**
+             * Use hasLauncherButton to decide which meta key icon to display.
+             */
+            hasLauncherButton_: {
+                type: Boolean,
+            },
         };
     }
     static get observers() {
@@ -46,9 +52,12 @@ export class SettingsCustomizePenButtonsSubpageElement extends SettingsCustomize
             'onGraphicsTabletListUpdated(graphicsTablets.*)',
         ];
     }
-    connectedCallback() {
+    async connectedCallback() {
         super.connectedCallback();
         this.addEventListener('button-remapping-changed', this.onSettingsChanged);
+        this.hasLauncherButton_ =
+            (await this.inputDeviceSettingsProvider_.hasLauncherButton())
+                ?.hasLauncherButton;
     }
     disconnectedCallback() {
         super.disconnectedCallback();
@@ -78,6 +87,7 @@ export class SettingsCustomizePenButtonsSubpageElement extends SettingsCustomize
      * query, initializing the page and pref with the graphics tablet data.
      */
     async initializePen() {
+        this.isInitialized_ = false;
         const tabletId = this.getGraphicsTabletIdFromUrl();
         const searchedGraphicsTablet = this.graphicsTablets.find((graphicsTablet) => graphicsTablet.id === tabletId);
         this.selectedTablet = castExists(searchedGraphicsTablet);
@@ -85,6 +95,7 @@ export class SettingsCustomizePenButtonsSubpageElement extends SettingsCustomize
             (await this.inputDeviceSettingsProvider_
                 .getActionsForGraphicsTabletButtonCustomization())
                 ?.options;
+        this.isInitialized_ = true;
     }
     getGraphicsTabletIdFromUrl() {
         return Number(Router.getInstance().getQueryParameters().get('graphicsTabletId'));
@@ -99,20 +110,22 @@ export class SettingsCustomizePenButtonsSubpageElement extends SettingsCustomize
         if (Router.getInstance().currentRoute !== routes.CUSTOMIZE_PEN_BUTTONS) {
             return;
         }
-        if (!this.hasGraphicsTablets() ||
-            !this.isTabletConnected(this.getGraphicsTabletIdFromUrl())) {
+        if (!this.hasGraphicsTablets()) {
             Router.getInstance().navigateTo(routes.DEVICE);
+            return;
+        }
+        if (!this.isTabletConnected(this.getGraphicsTabletIdFromUrl())) {
+            Router.getInstance().navigateTo(routes.GRAPHICS_TABLET);
             return;
         }
         await this.initializePen();
         this.inputDeviceSettingsProvider_.startObserving(this.selectedTablet.id);
     }
     onSettingsChanged() {
-        // TODO(yyhyyh@): Remove the if-condition after mojo api is done.
-        if (this.inputDeviceSettingsProvider_ instanceof
-            FakeInputDeviceSettingsProvider) {
-            this.inputDeviceSettingsProvider_.setGraphicsTabletSettings(this.selectedTablet.id, this.selectedTablet.settings);
+        if (!this.isInitialized_) {
+            return;
         }
+        this.inputDeviceSettingsProvider_.setGraphicsTabletSettings(this.selectedTablet.id, this.selectedTablet.settings);
     }
     getDescription_() {
         if (!this.selectedTablet?.name) {

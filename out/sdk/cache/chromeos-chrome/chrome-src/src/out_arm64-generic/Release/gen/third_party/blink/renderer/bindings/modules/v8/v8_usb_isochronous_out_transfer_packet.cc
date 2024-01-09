@@ -70,11 +70,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, USBIsochronousOutTransferPacket>::value,
     "USBIsochronousOutTransferPacket inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&USBIsochronousOutTransferPacket::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "USBIsochronousOutTransferPacket is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -87,8 +82,9 @@ BLINK_BINDINGS_TRACE_EVENT("USBIsochronousOutTransferPacket.bytesWritten.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-USBIsochronousOutTransferPacket* blink_receiver = V8USBIsochronousOutTransferPacket::ToWrappableUnsafe(v8_receiver);
+USBIsochronousOutTransferPacket* blink_receiver = V8USBIsochronousOutTransferPacket::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->bytesWritten();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -101,10 +97,10 @@ BLINK_BINDINGS_TRACE_EVENT("USBIsochronousOutTransferPacket.status.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-USBIsochronousOutTransferPacket* blink_receiver = V8USBIsochronousOutTransferPacket::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->status();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+USBIsochronousOutTransferPacket* blink_receiver = V8USBIsochronousOutTransferPacket::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->status();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 

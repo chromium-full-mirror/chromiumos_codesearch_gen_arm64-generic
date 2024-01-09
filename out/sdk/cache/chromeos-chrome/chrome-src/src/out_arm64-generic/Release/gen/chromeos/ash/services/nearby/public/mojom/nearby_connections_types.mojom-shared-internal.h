@@ -37,6 +37,8 @@ class BytesPayload_Data;
 class FilePayload_Data;
 class Payload_Data;
 class PayloadTransferUpdate_Data;
+class InitialConnectionInfoV3_Data;
+class BandwidthInfo_Data;
 class PayloadContent_Data;
 
 struct Status_Data {
@@ -203,6 +205,31 @@ struct LogSeverity_Data {
       case 1:
       case 2:
       case 3:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
+struct AuthenticationStatus_Data {
+ public:
+  static bool constexpr kIsExtensible = false;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
         return true;
     }
     return false;
@@ -780,6 +807,107 @@ struct PayloadTransferUpdate_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     PayloadTransferUpdate_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  InitialConnectionInfoV3_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> authentication_digits;
+  mojo::internal::Pointer<mojo::internal::String_Data> raw_authentication_token;
+  uint8_t is_incoming_connection : 1;
+  uint8_t pad2_[3];
+  int32_t authentication_status;
+
+ private:
+  friend class mojo::internal::MessageFragment<InitialConnectionInfoV3_Data>;
+
+  InitialConnectionInfoV3_Data();
+  ~InitialConnectionInfoV3_Data() = delete;
+};
+static_assert(sizeof(InitialConnectionInfoV3_Data) == 32,
+              "Bad sizeof(InitialConnectionInfoV3_Data)");
+// Used by InitialConnectionInfoV3::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct InitialConnectionInfoV3_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  InitialConnectionInfoV3_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~InitialConnectionInfoV3_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<InitialConnectionInfoV3_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    InitialConnectionInfoV3_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  BandwidthInfo_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t quality;
+  int32_t medium;
+
+ private:
+  friend class mojo::internal::MessageFragment<BandwidthInfo_Data>;
+
+  BandwidthInfo_Data();
+  ~BandwidthInfo_Data() = delete;
+};
+static_assert(sizeof(BandwidthInfo_Data) == 16,
+              "Bad sizeof(BandwidthInfo_Data)");
+// Used by BandwidthInfo::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct BandwidthInfo_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  BandwidthInfo_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~BandwidthInfo_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<BandwidthInfo_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    BandwidthInfo_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 
 #pragma pack(pop)
 

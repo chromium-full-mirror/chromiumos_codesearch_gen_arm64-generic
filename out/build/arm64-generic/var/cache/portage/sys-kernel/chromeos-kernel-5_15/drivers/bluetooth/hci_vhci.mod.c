@@ -30,4 +30,4 @@ MODULE_INFO(retpoline, "Y");
 MODULE_INFO(depends, "bluetooth");
 
 
-MODULE_INFO(srcversion, "27DC69B4A53D7A948D01FA9");
+MODULE_INFO(srcversion, "483F05435E94E295606A482");

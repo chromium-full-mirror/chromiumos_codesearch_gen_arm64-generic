@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "ash/components/arc/mojom/notifications.mojom-features.h"
 #include "ash/components/arc/mojom/notifications.mojom-shared.h"
 #include "ash/components/arc/mojom/notifications.mojom-forward.h"
 #include "ash/components/arc/mojom/bitmap.mojom.h"
@@ -481,7 +482,7 @@ class  ArcNotificationButton {
 
   ArcNotificationButton(
       const std::string& label,
-      const absl::optional<std::string>& buttonPlaceholder);
+      const std::optional<std::string>& buttonPlaceholder);
 
 
   ~ArcNotificationButton();
@@ -561,7 +562,7 @@ class  ArcNotificationButton {
   
   std::string label;
   
-  absl::optional<std::string> buttonPlaceholder;
+  std::optional<std::string> buttonPlaceholder;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1351,26 +1352,26 @@ class  ArcNotificationData {
       ArcNotificationType type,
       const std::string& message,
       const std::string& title,
-      const absl::optional<std::string>& app_display_name,
-      absl::optional<std::vector<uint8_t>> deprecated_icon_data,
+      const std::optional<std::string>& app_display_name,
+      std::optional<std::vector<uint8_t>> deprecated_icon_data,
       ArcNotificationPriority priority,
       int64_t time,
       int32_t progress_current,
       int32_t progress_max,
-      absl::optional<std::vector<ArcNotificationButtonPtr>> buttons);
+      std::optional<std::vector<ArcNotificationButtonPtr>> buttons);
 
   ArcNotificationData(
       const std::string& key,
       ArcNotificationType type,
       const std::string& message,
       const std::string& title,
-      const absl::optional<std::string>& app_display_name,
-      absl::optional<std::vector<uint8_t>> deprecated_icon_data,
+      const std::optional<std::string>& app_display_name,
+      std::optional<std::vector<uint8_t>> deprecated_icon_data,
       ArcNotificationPriority priority,
       int64_t time,
       int32_t progress_current,
       int32_t progress_max,
-      absl::optional<std::vector<ArcNotificationButtonPtr>> buttons,
+      std::optional<std::vector<ArcNotificationButtonPtr>> buttons,
       bool no_clear,
       bool ongoing_event);
 
@@ -1379,34 +1380,34 @@ class  ArcNotificationData {
       ArcNotificationType type,
       const std::string& message,
       const std::string& title,
-      const absl::optional<std::string>& app_display_name,
-      absl::optional<std::vector<uint8_t>> deprecated_icon_data,
+      const std::optional<std::string>& app_display_name,
+      std::optional<std::vector<uint8_t>> deprecated_icon_data,
       ArcNotificationPriority priority,
       int64_t time,
       int32_t progress_current,
       int32_t progress_max,
-      absl::optional<std::vector<ArcNotificationButtonPtr>> buttons,
+      std::optional<std::vector<ArcNotificationButtonPtr>> buttons,
       bool no_clear,
       bool ongoing_event,
-      absl::optional<std::vector<std::string>> texts,
-      const absl::optional<::SkBitmap>& big_picture);
+      std::optional<std::vector<std::string>> texts,
+      const std::optional<::SkBitmap>& big_picture);
 
   ArcNotificationData(
       const std::string& key,
       ArcNotificationType type,
       const std::string& message,
       const std::string& title,
-      const absl::optional<std::string>& app_display_name,
-      absl::optional<std::vector<uint8_t>> deprecated_icon_data,
+      const std::optional<std::string>& app_display_name,
+      std::optional<std::vector<uint8_t>> deprecated_icon_data,
       ArcNotificationPriority priority,
       int64_t time,
       int32_t progress_current,
       int32_t progress_max,
-      absl::optional<std::vector<ArcNotificationButtonPtr>> buttons,
+      std::optional<std::vector<ArcNotificationButtonPtr>> buttons,
       bool no_clear,
       bool ongoing_event,
-      absl::optional<std::vector<std::string>> texts,
-      const absl::optional<::SkBitmap>& big_picture,
+      std::optional<std::vector<std::string>> texts,
+      const std::optional<::SkBitmap>& big_picture,
       bool is_custom_notification);
 
   ArcNotificationData(
@@ -1414,39 +1415,39 @@ class  ArcNotificationData {
       ArcNotificationType type,
       const std::string& message,
       const std::string& title,
-      const absl::optional<std::string>& app_display_name,
-      absl::optional<std::vector<uint8_t>> deprecated_icon_data,
+      const std::optional<std::string>& app_display_name,
+      std::optional<std::vector<uint8_t>> deprecated_icon_data,
       ArcNotificationPriority priority,
       int64_t time,
       int32_t progress_current,
       int32_t progress_max,
-      absl::optional<std::vector<ArcNotificationButtonPtr>> buttons,
+      std::optional<std::vector<ArcNotificationButtonPtr>> buttons,
       bool no_clear,
       bool ongoing_event,
-      absl::optional<std::vector<std::string>> texts,
-      const absl::optional<::SkBitmap>& big_picture,
+      std::optional<std::vector<std::string>> texts,
+      const std::optional<::SkBitmap>& big_picture,
       bool is_custom_notification,
-      const absl::optional<::SkBitmap>& small_icon);
+      const std::optional<::SkBitmap>& small_icon);
 
   ArcNotificationData(
       const std::string& key,
       ArcNotificationType type,
       const std::string& message,
       const std::string& title,
-      const absl::optional<std::string>& app_display_name,
-      absl::optional<std::vector<uint8_t>> deprecated_icon_data,
+      const std::optional<std::string>& app_display_name,
+      std::optional<std::vector<uint8_t>> deprecated_icon_data,
       ArcNotificationPriority priority,
       int64_t time,
       int32_t progress_current,
       int32_t progress_max,
-      absl::optional<std::vector<ArcNotificationButtonPtr>> buttons,
+      std::optional<std::vector<ArcNotificationButtonPtr>> buttons,
       bool no_clear,
       bool ongoing_event,
-      absl::optional<std::vector<std::string>> texts,
-      const absl::optional<::SkBitmap>& big_picture,
+      std::optional<std::vector<std::string>> texts,
+      const std::optional<::SkBitmap>& big_picture,
       bool is_custom_notification,
-      const absl::optional<::SkBitmap>& small_icon,
-      const absl::optional<::SkBitmap>& snapshot_image,
+      const std::optional<::SkBitmap>& small_icon,
+      const std::optional<::SkBitmap>& snapshot_image,
       float snapshot_image_scale);
 
   ArcNotificationData(
@@ -1454,44 +1455,44 @@ class  ArcNotificationData {
       ArcNotificationType type,
       const std::string& message,
       const std::string& title,
-      const absl::optional<std::string>& app_display_name,
-      absl::optional<std::vector<uint8_t>> deprecated_icon_data,
+      const std::optional<std::string>& app_display_name,
+      std::optional<std::vector<uint8_t>> deprecated_icon_data,
       ArcNotificationPriority priority,
       int64_t time,
       int32_t progress_current,
       int32_t progress_max,
-      absl::optional<std::vector<ArcNotificationButtonPtr>> buttons,
+      std::optional<std::vector<ArcNotificationButtonPtr>> buttons,
       bool no_clear,
       bool ongoing_event,
-      absl::optional<std::vector<std::string>> texts,
-      const absl::optional<::SkBitmap>& big_picture,
+      std::optional<std::vector<std::string>> texts,
+      const std::optional<::SkBitmap>& big_picture,
       bool is_custom_notification,
-      const absl::optional<::SkBitmap>& small_icon,
-      const absl::optional<::SkBitmap>& snapshot_image,
+      const std::optional<::SkBitmap>& small_icon,
+      const std::optional<::SkBitmap>& snapshot_image,
       float snapshot_image_scale,
-      const absl::optional<std::string>& accessible_name);
+      const std::optional<std::string>& accessible_name);
 
   ArcNotificationData(
       const std::string& key,
       ArcNotificationType type,
       const std::string& message,
       const std::string& title,
-      const absl::optional<std::string>& app_display_name,
-      absl::optional<std::vector<uint8_t>> deprecated_icon_data,
+      const std::optional<std::string>& app_display_name,
+      std::optional<std::vector<uint8_t>> deprecated_icon_data,
       ArcNotificationPriority priority,
       int64_t time,
       int32_t progress_current,
       int32_t progress_max,
-      absl::optional<std::vector<ArcNotificationButtonPtr>> buttons,
+      std::optional<std::vector<ArcNotificationButtonPtr>> buttons,
       bool no_clear,
       bool ongoing_event,
-      absl::optional<std::vector<std::string>> texts,
-      const absl::optional<::SkBitmap>& big_picture,
+      std::optional<std::vector<std::string>> texts,
+      const std::optional<::SkBitmap>& big_picture,
       bool is_custom_notification,
-      const absl::optional<::SkBitmap>& small_icon,
-      const absl::optional<::SkBitmap>& snapshot_image,
+      const std::optional<::SkBitmap>& small_icon,
+      const std::optional<::SkBitmap>& snapshot_image,
       float snapshot_image_scale,
-      const absl::optional<std::string>& accessible_name,
+      const std::optional<std::string>& accessible_name,
       ArcNotificationExpandState expand_state);
 
   ArcNotificationData(
@@ -1499,22 +1500,22 @@ class  ArcNotificationData {
       ArcNotificationType type,
       const std::string& message,
       const std::string& title,
-      const absl::optional<std::string>& app_display_name,
-      absl::optional<std::vector<uint8_t>> deprecated_icon_data,
+      const std::optional<std::string>& app_display_name,
+      std::optional<std::vector<uint8_t>> deprecated_icon_data,
       ArcNotificationPriority priority,
       int64_t time,
       int32_t progress_current,
       int32_t progress_max,
-      absl::optional<std::vector<ArcNotificationButtonPtr>> buttons,
+      std::optional<std::vector<ArcNotificationButtonPtr>> buttons,
       bool no_clear,
       bool ongoing_event,
-      absl::optional<std::vector<std::string>> texts,
-      const absl::optional<::SkBitmap>& big_picture,
+      std::optional<std::vector<std::string>> texts,
+      const std::optional<::SkBitmap>& big_picture,
       bool is_custom_notification,
-      const absl::optional<::SkBitmap>& small_icon,
-      const absl::optional<::SkBitmap>& snapshot_image,
+      const std::optional<::SkBitmap>& small_icon,
+      const std::optional<::SkBitmap>& snapshot_image,
       float snapshot_image_scale,
-      const absl::optional<std::string>& accessible_name,
+      const std::optional<std::string>& accessible_name,
       ArcNotificationExpandState expand_state,
       ArcNotificationShownContents shown_contents);
 
@@ -1523,22 +1524,22 @@ class  ArcNotificationData {
       ArcNotificationType type,
       const std::string& message,
       const std::string& title,
-      const absl::optional<std::string>& app_display_name,
-      absl::optional<std::vector<uint8_t>> deprecated_icon_data,
+      const std::optional<std::string>& app_display_name,
+      std::optional<std::vector<uint8_t>> deprecated_icon_data,
       ArcNotificationPriority priority,
       int64_t time,
       int32_t progress_current,
       int32_t progress_max,
-      absl::optional<std::vector<ArcNotificationButtonPtr>> buttons,
+      std::optional<std::vector<ArcNotificationButtonPtr>> buttons,
       bool no_clear,
       bool ongoing_event,
-      absl::optional<std::vector<std::string>> texts,
-      const absl::optional<::SkBitmap>& big_picture,
+      std::optional<std::vector<std::string>> texts,
+      const std::optional<::SkBitmap>& big_picture,
       bool is_custom_notification,
-      const absl::optional<::SkBitmap>& small_icon,
-      const absl::optional<::SkBitmap>& snapshot_image,
+      const std::optional<::SkBitmap>& small_icon,
+      const std::optional<::SkBitmap>& snapshot_image,
       float snapshot_image_scale,
-      const absl::optional<std::string>& accessible_name,
+      const std::optional<std::string>& accessible_name,
       ArcNotificationExpandState expand_state,
       ArcNotificationShownContents shown_contents,
       ArcNotificationRemoteInputState remote_input_state);
@@ -1548,80 +1549,80 @@ class  ArcNotificationData {
       ArcNotificationType type,
       const std::string& message,
       const std::string& title,
-      const absl::optional<std::string>& app_display_name,
-      absl::optional<std::vector<uint8_t>> deprecated_icon_data,
+      const std::optional<std::string>& app_display_name,
+      std::optional<std::vector<uint8_t>> deprecated_icon_data,
       ArcNotificationPriority priority,
       int64_t time,
       int32_t progress_current,
       int32_t progress_max,
-      absl::optional<std::vector<ArcNotificationButtonPtr>> buttons,
+      std::optional<std::vector<ArcNotificationButtonPtr>> buttons,
       bool no_clear,
       bool ongoing_event,
-      absl::optional<std::vector<std::string>> texts,
-      const absl::optional<::SkBitmap>& big_picture,
+      std::optional<std::vector<std::string>> texts,
+      const std::optional<::SkBitmap>& big_picture,
       bool is_custom_notification,
-      const absl::optional<::SkBitmap>& small_icon,
-      const absl::optional<::SkBitmap>& snapshot_image,
+      const std::optional<::SkBitmap>& small_icon,
+      const std::optional<::SkBitmap>& snapshot_image,
       float snapshot_image_scale,
-      const absl::optional<std::string>& accessible_name,
+      const std::optional<std::string>& accessible_name,
       ArcNotificationExpandState expand_state,
       ArcNotificationShownContents shown_contents,
       ArcNotificationRemoteInputState remote_input_state,
-      const absl::optional<::gfx::Rect>& swipe_input_rect);
+      const std::optional<::gfx::Rect>& swipe_input_rect);
 
   ArcNotificationData(
       const std::string& key,
       ArcNotificationType type,
       const std::string& message,
       const std::string& title,
-      const absl::optional<std::string>& app_display_name,
-      absl::optional<std::vector<uint8_t>> deprecated_icon_data,
+      const std::optional<std::string>& app_display_name,
+      std::optional<std::vector<uint8_t>> deprecated_icon_data,
       ArcNotificationPriority priority,
       int64_t time,
       int32_t progress_current,
       int32_t progress_max,
-      absl::optional<std::vector<ArcNotificationButtonPtr>> buttons,
+      std::optional<std::vector<ArcNotificationButtonPtr>> buttons,
       bool no_clear,
       bool ongoing_event,
-      absl::optional<std::vector<std::string>> texts,
-      const absl::optional<::SkBitmap>& big_picture,
+      std::optional<std::vector<std::string>> texts,
+      const std::optional<::SkBitmap>& big_picture,
       bool is_custom_notification,
-      const absl::optional<::SkBitmap>& small_icon,
-      const absl::optional<::SkBitmap>& snapshot_image,
+      const std::optional<::SkBitmap>& small_icon,
+      const std::optional<::SkBitmap>& snapshot_image,
       float snapshot_image_scale,
-      const absl::optional<std::string>& accessible_name,
+      const std::optional<std::string>& accessible_name,
       ArcNotificationExpandState expand_state,
       ArcNotificationShownContents shown_contents,
       ArcNotificationRemoteInputState remote_input_state,
-      const absl::optional<::gfx::Rect>& swipe_input_rect,
-      const absl::optional<std::string>& package_name);
+      const std::optional<::gfx::Rect>& swipe_input_rect,
+      const std::optional<std::string>& package_name);
 
   ArcNotificationData(
       const std::string& key,
       ArcNotificationType type,
       const std::string& message,
       const std::string& title,
-      const absl::optional<std::string>& app_display_name,
-      absl::optional<std::vector<uint8_t>> deprecated_icon_data,
+      const std::optional<std::string>& app_display_name,
+      std::optional<std::vector<uint8_t>> deprecated_icon_data,
       ArcNotificationPriority priority,
       int64_t time,
       int32_t progress_current,
       int32_t progress_max,
-      absl::optional<std::vector<ArcNotificationButtonPtr>> buttons,
+      std::optional<std::vector<ArcNotificationButtonPtr>> buttons,
       bool no_clear,
       bool ongoing_event,
-      absl::optional<std::vector<std::string>> texts,
-      const absl::optional<::SkBitmap>& big_picture,
+      std::optional<std::vector<std::string>> texts,
+      const std::optional<::SkBitmap>& big_picture,
       bool is_custom_notification,
-      const absl::optional<::SkBitmap>& small_icon,
-      const absl::optional<::SkBitmap>& snapshot_image,
+      const std::optional<::SkBitmap>& small_icon,
+      const std::optional<::SkBitmap>& snapshot_image,
       float snapshot_image_scale,
-      const absl::optional<std::string>& accessible_name,
+      const std::optional<std::string>& accessible_name,
       ArcNotificationExpandState expand_state,
       ArcNotificationShownContents shown_contents,
       ArcNotificationRemoteInputState remote_input_state,
-      const absl::optional<::gfx::Rect>& swipe_input_rect,
-      const absl::optional<std::string>& package_name,
+      const std::optional<::gfx::Rect>& swipe_input_rect,
+      const std::optional<std::string>& package_name,
       ArcNotificationFlagsPtr flags);
 
   ArcNotificationData(
@@ -1629,60 +1630,60 @@ class  ArcNotificationData {
       ArcNotificationType type,
       const std::string& message,
       const std::string& title,
-      const absl::optional<std::string>& app_display_name,
-      absl::optional<std::vector<uint8_t>> deprecated_icon_data,
+      const std::optional<std::string>& app_display_name,
+      std::optional<std::vector<uint8_t>> deprecated_icon_data,
       ArcNotificationPriority priority,
       int64_t time,
       int32_t progress_current,
       int32_t progress_max,
-      absl::optional<std::vector<ArcNotificationButtonPtr>> buttons,
+      std::optional<std::vector<ArcNotificationButtonPtr>> buttons,
       bool no_clear,
       bool ongoing_event,
-      absl::optional<std::vector<std::string>> texts,
-      const absl::optional<::SkBitmap>& big_picture,
+      std::optional<std::vector<std::string>> texts,
+      const std::optional<::SkBitmap>& big_picture,
       bool is_custom_notification,
-      const absl::optional<::SkBitmap>& small_icon,
-      const absl::optional<::SkBitmap>& snapshot_image,
+      const std::optional<::SkBitmap>& small_icon,
+      const std::optional<::SkBitmap>& snapshot_image,
       float snapshot_image_scale,
-      const absl::optional<std::string>& accessible_name,
+      const std::optional<std::string>& accessible_name,
       ArcNotificationExpandState expand_state,
       ArcNotificationShownContents shown_contents,
       ArcNotificationRemoteInputState remote_input_state,
-      const absl::optional<::gfx::Rect>& swipe_input_rect,
-      const absl::optional<std::string>& package_name,
+      const std::optional<::gfx::Rect>& swipe_input_rect,
+      const std::optional<std::string>& package_name,
       ArcNotificationFlagsPtr flags,
       bool indeterminate_progress,
-      const absl::optional<::SkBitmap>& snapshot_image_public);
+      const std::optional<::SkBitmap>& snapshot_image_public);
 
   ArcNotificationData(
       const std::string& key,
       ArcNotificationType type,
       const std::string& message,
       const std::string& title,
-      const absl::optional<std::string>& app_display_name,
-      absl::optional<std::vector<uint8_t>> deprecated_icon_data,
+      const std::optional<std::string>& app_display_name,
+      std::optional<std::vector<uint8_t>> deprecated_icon_data,
       ArcNotificationPriority priority,
       int64_t time,
       int32_t progress_current,
       int32_t progress_max,
-      absl::optional<std::vector<ArcNotificationButtonPtr>> buttons,
+      std::optional<std::vector<ArcNotificationButtonPtr>> buttons,
       bool no_clear,
       bool ongoing_event,
-      absl::optional<std::vector<std::string>> texts,
-      const absl::optional<::SkBitmap>& big_picture,
+      std::optional<std::vector<std::string>> texts,
+      const std::optional<::SkBitmap>& big_picture,
       bool is_custom_notification,
-      const absl::optional<::SkBitmap>& small_icon,
-      const absl::optional<::SkBitmap>& snapshot_image,
+      const std::optional<::SkBitmap>& small_icon,
+      const std::optional<::SkBitmap>& snapshot_image,
       float snapshot_image_scale,
-      const absl::optional<std::string>& accessible_name,
+      const std::optional<std::string>& accessible_name,
       ArcNotificationExpandState expand_state,
       ArcNotificationShownContents shown_contents,
       ArcNotificationRemoteInputState remote_input_state,
-      const absl::optional<::gfx::Rect>& swipe_input_rect,
-      const absl::optional<std::string>& package_name,
+      const std::optional<::gfx::Rect>& swipe_input_rect,
+      const std::optional<std::string>& package_name,
       ArcNotificationFlagsPtr flags,
       bool indeterminate_progress,
-      const absl::optional<::SkBitmap>& snapshot_image_public,
+      const std::optional<::SkBitmap>& snapshot_image_public,
       bool is_media_notification);
 
   ArcNotificationData(
@@ -1690,30 +1691,30 @@ class  ArcNotificationData {
       ArcNotificationType type,
       const std::string& message,
       const std::string& title,
-      const absl::optional<std::string>& app_display_name,
-      absl::optional<std::vector<uint8_t>> deprecated_icon_data,
+      const std::optional<std::string>& app_display_name,
+      std::optional<std::vector<uint8_t>> deprecated_icon_data,
       ArcNotificationPriority priority,
       int64_t time,
       int32_t progress_current,
       int32_t progress_max,
-      absl::optional<std::vector<ArcNotificationButtonPtr>> buttons,
+      std::optional<std::vector<ArcNotificationButtonPtr>> buttons,
       bool no_clear,
       bool ongoing_event,
-      absl::optional<std::vector<std::string>> texts,
-      const absl::optional<::SkBitmap>& big_picture,
+      std::optional<std::vector<std::string>> texts,
+      const std::optional<::SkBitmap>& big_picture,
       bool is_custom_notification,
-      const absl::optional<::SkBitmap>& small_icon,
-      const absl::optional<::SkBitmap>& snapshot_image,
+      const std::optional<::SkBitmap>& small_icon,
+      const std::optional<::SkBitmap>& snapshot_image,
       float snapshot_image_scale,
-      const absl::optional<std::string>& accessible_name,
+      const std::optional<std::string>& accessible_name,
       ArcNotificationExpandState expand_state,
       ArcNotificationShownContents shown_contents,
       ArcNotificationRemoteInputState remote_input_state,
-      const absl::optional<::gfx::Rect>& swipe_input_rect,
-      const absl::optional<std::string>& package_name,
+      const std::optional<::gfx::Rect>& swipe_input_rect,
+      const std::optional<std::string>& package_name,
       ArcNotificationFlagsPtr flags,
       bool indeterminate_progress,
-      const absl::optional<::SkBitmap>& snapshot_image_public,
+      const std::optional<::SkBitmap>& snapshot_image_public,
       bool is_media_notification,
       ArcNotificationStyle style,
       bool is_action_enabled);
@@ -1723,30 +1724,30 @@ class  ArcNotificationData {
       ArcNotificationType type,
       const std::string& message,
       const std::string& title,
-      const absl::optional<std::string>& app_display_name,
-      absl::optional<std::vector<uint8_t>> deprecated_icon_data,
+      const std::optional<std::string>& app_display_name,
+      std::optional<std::vector<uint8_t>> deprecated_icon_data,
       ArcNotificationPriority priority,
       int64_t time,
       int32_t progress_current,
       int32_t progress_max,
-      absl::optional<std::vector<ArcNotificationButtonPtr>> buttons,
+      std::optional<std::vector<ArcNotificationButtonPtr>> buttons,
       bool no_clear,
       bool ongoing_event,
-      absl::optional<std::vector<std::string>> texts,
-      const absl::optional<::SkBitmap>& big_picture,
+      std::optional<std::vector<std::string>> texts,
+      const std::optional<::SkBitmap>& big_picture,
       bool is_custom_notification,
-      const absl::optional<::SkBitmap>& small_icon,
-      const absl::optional<::SkBitmap>& snapshot_image,
+      const std::optional<::SkBitmap>& small_icon,
+      const std::optional<::SkBitmap>& snapshot_image,
       float snapshot_image_scale,
-      const absl::optional<std::string>& accessible_name,
+      const std::optional<std::string>& accessible_name,
       ArcNotificationExpandState expand_state,
       ArcNotificationShownContents shown_contents,
       ArcNotificationRemoteInputState remote_input_state,
-      const absl::optional<::gfx::Rect>& swipe_input_rect,
-      const absl::optional<std::string>& package_name,
+      const std::optional<::gfx::Rect>& swipe_input_rect,
+      const std::optional<std::string>& package_name,
       ArcNotificationFlagsPtr flags,
       bool indeterminate_progress,
-      const absl::optional<::SkBitmap>& snapshot_image_public,
+      const std::optional<::SkBitmap>& snapshot_image_public,
       bool is_media_notification,
       ArcNotificationStyle style,
       bool is_action_enabled,
@@ -1757,30 +1758,30 @@ class  ArcNotificationData {
       ArcNotificationType type,
       const std::string& message,
       const std::string& title,
-      const absl::optional<std::string>& app_display_name,
-      absl::optional<std::vector<uint8_t>> deprecated_icon_data,
+      const std::optional<std::string>& app_display_name,
+      std::optional<std::vector<uint8_t>> deprecated_icon_data,
       ArcNotificationPriority priority,
       int64_t time,
       int32_t progress_current,
       int32_t progress_max,
-      absl::optional<std::vector<ArcNotificationButtonPtr>> buttons,
+      std::optional<std::vector<ArcNotificationButtonPtr>> buttons,
       bool no_clear,
       bool ongoing_event,
-      absl::optional<std::vector<std::string>> texts,
-      const absl::optional<::SkBitmap>& big_picture,
+      std::optional<std::vector<std::string>> texts,
+      const std::optional<::SkBitmap>& big_picture,
       bool is_custom_notification,
-      const absl::optional<::SkBitmap>& small_icon,
-      const absl::optional<::SkBitmap>& snapshot_image,
+      const std::optional<::SkBitmap>& small_icon,
+      const std::optional<::SkBitmap>& snapshot_image,
       float snapshot_image_scale,
-      const absl::optional<std::string>& accessible_name,
+      const std::optional<std::string>& accessible_name,
       ArcNotificationExpandState expand_state,
       ArcNotificationShownContents shown_contents,
       ArcNotificationRemoteInputState remote_input_state,
-      const absl::optional<::gfx::Rect>& swipe_input_rect,
-      const absl::optional<std::string>& package_name,
+      const std::optional<::gfx::Rect>& swipe_input_rect,
+      const std::optional<std::string>& package_name,
       ArcNotificationFlagsPtr flags,
       bool indeterminate_progress,
-      const absl::optional<::SkBitmap>& snapshot_image_public,
+      const std::optional<::SkBitmap>& snapshot_image_public,
       bool is_media_notification,
       ArcNotificationStyle style,
       bool is_action_enabled,
@@ -1792,72 +1793,72 @@ class  ArcNotificationData {
       ArcNotificationType type,
       const std::string& message,
       const std::string& title,
-      const absl::optional<std::string>& app_display_name,
-      absl::optional<std::vector<uint8_t>> deprecated_icon_data,
+      const std::optional<std::string>& app_display_name,
+      std::optional<std::vector<uint8_t>> deprecated_icon_data,
       ArcNotificationPriority priority,
       int64_t time,
       int32_t progress_current,
       int32_t progress_max,
-      absl::optional<std::vector<ArcNotificationButtonPtr>> buttons,
+      std::optional<std::vector<ArcNotificationButtonPtr>> buttons,
       bool no_clear,
       bool ongoing_event,
-      absl::optional<std::vector<std::string>> texts,
-      const absl::optional<::SkBitmap>& big_picture,
+      std::optional<std::vector<std::string>> texts,
+      const std::optional<::SkBitmap>& big_picture,
       bool is_custom_notification,
-      const absl::optional<::SkBitmap>& small_icon,
-      const absl::optional<::SkBitmap>& snapshot_image,
+      const std::optional<::SkBitmap>& small_icon,
+      const std::optional<::SkBitmap>& snapshot_image,
       float snapshot_image_scale,
-      const absl::optional<std::string>& accessible_name,
+      const std::optional<std::string>& accessible_name,
       ArcNotificationExpandState expand_state,
       ArcNotificationShownContents shown_contents,
       ArcNotificationRemoteInputState remote_input_state,
-      const absl::optional<::gfx::Rect>& swipe_input_rect,
-      const absl::optional<std::string>& package_name,
+      const std::optional<::gfx::Rect>& swipe_input_rect,
+      const std::optional<std::string>& package_name,
       ArcNotificationFlagsPtr flags,
       bool indeterminate_progress,
-      const absl::optional<::SkBitmap>& snapshot_image_public,
+      const std::optional<::SkBitmap>& snapshot_image_public,
       bool is_media_notification,
       ArcNotificationStyle style,
       bool is_action_enabled,
       bool is_inline_reply_enabled,
       bool render_on_chrome,
-      const absl::optional<std::string>& group_key);
+      const std::optional<std::string>& group_key);
 
   ArcNotificationData(
       const std::string& key,
       ArcNotificationType type,
       const std::string& message,
       const std::string& title,
-      const absl::optional<std::string>& app_display_name,
-      absl::optional<std::vector<uint8_t>> deprecated_icon_data,
+      const std::optional<std::string>& app_display_name,
+      std::optional<std::vector<uint8_t>> deprecated_icon_data,
       ArcNotificationPriority priority,
       int64_t time,
       int32_t progress_current,
       int32_t progress_max,
-      absl::optional<std::vector<ArcNotificationButtonPtr>> buttons,
+      std::optional<std::vector<ArcNotificationButtonPtr>> buttons,
       bool no_clear,
       bool ongoing_event,
-      absl::optional<std::vector<std::string>> texts,
-      const absl::optional<::SkBitmap>& big_picture,
+      std::optional<std::vector<std::string>> texts,
+      const std::optional<::SkBitmap>& big_picture,
       bool is_custom_notification,
-      const absl::optional<::SkBitmap>& small_icon,
-      const absl::optional<::SkBitmap>& snapshot_image,
+      const std::optional<::SkBitmap>& small_icon,
+      const std::optional<::SkBitmap>& snapshot_image,
       float snapshot_image_scale,
-      const absl::optional<std::string>& accessible_name,
+      const std::optional<std::string>& accessible_name,
       ArcNotificationExpandState expand_state,
       ArcNotificationShownContents shown_contents,
       ArcNotificationRemoteInputState remote_input_state,
-      const absl::optional<::gfx::Rect>& swipe_input_rect,
-      const absl::optional<std::string>& package_name,
+      const std::optional<::gfx::Rect>& swipe_input_rect,
+      const std::optional<std::string>& package_name,
       ArcNotificationFlagsPtr flags,
       bool indeterminate_progress,
-      const absl::optional<::SkBitmap>& snapshot_image_public,
+      const std::optional<::SkBitmap>& snapshot_image_public,
       bool is_media_notification,
       ArcNotificationStyle style,
       bool is_action_enabled,
       bool is_inline_reply_enabled,
       bool render_on_chrome,
-      const absl::optional<std::string>& group_key,
+      const std::optional<std::string>& group_key,
       int32_t reply_button_index);
 
 ArcNotificationData(const ArcNotificationData&) = delete;
@@ -1946,9 +1947,9 @@ ArcNotificationData& operator=(const ArcNotificationData&) = delete;
   
   std::string title;
   
-  absl::optional<std::string> app_display_name;
+  std::optional<std::string> app_display_name;
   
-  absl::optional<std::vector<uint8_t>> deprecated_icon_data;
+  std::optional<std::vector<uint8_t>> deprecated_icon_data;
   
   ArcNotificationPriority priority;
   
@@ -1958,25 +1959,25 @@ ArcNotificationData& operator=(const ArcNotificationData&) = delete;
   
   int32_t progress_max;
   
-  absl::optional<std::vector<ArcNotificationButtonPtr>> buttons;
+  std::optional<std::vector<ArcNotificationButtonPtr>> buttons;
   
   bool no_clear;
   
   bool ongoing_event;
   
-  absl::optional<std::vector<std::string>> texts;
+  std::optional<std::vector<std::string>> texts;
   
-  absl::optional<::SkBitmap> big_picture;
+  std::optional<::SkBitmap> big_picture;
   
   bool is_custom_notification;
   
-  absl::optional<::SkBitmap> small_icon;
+  std::optional<::SkBitmap> small_icon;
   
-  absl::optional<::SkBitmap> snapshot_image;
+  std::optional<::SkBitmap> snapshot_image;
   
   float snapshot_image_scale;
   
-  absl::optional<std::string> accessible_name;
+  std::optional<std::string> accessible_name;
   
   ArcNotificationExpandState expand_state;
   
@@ -1984,15 +1985,15 @@ ArcNotificationData& operator=(const ArcNotificationData&) = delete;
   
   ArcNotificationRemoteInputState remote_input_state;
   
-  absl::optional<::gfx::Rect> swipe_input_rect;
+  std::optional<::gfx::Rect> swipe_input_rect;
   
-  absl::optional<std::string> package_name;
+  std::optional<std::string> package_name;
   
   ArcNotificationFlagsPtr flags;
   
   bool indeterminate_progress;
   
-  absl::optional<::SkBitmap> snapshot_image_public;
+  std::optional<::SkBitmap> snapshot_image_public;
   
   bool is_media_notification;
   
@@ -2004,7 +2005,7 @@ ArcNotificationData& operator=(const ArcNotificationData&) = delete;
   
   bool render_on_chrome;
   
-  absl::optional<std::string> group_key;
+  std::optional<std::string> group_key;
   
   int32_t reply_button_index;
 

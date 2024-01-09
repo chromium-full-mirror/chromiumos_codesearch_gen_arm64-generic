@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/file_system_access/file_system_access_file_handle.mojom-features.h"
 #include "third_party/blink/public/mojom/file_system_access/file_system_access_file_handle.mojom-shared.h"
 #include "third_party/blink/public/mojom/file_system_access/file_system_access_file_handle.mojom-forward.h"
 #include "mojo/public/mojom/base/file_info.mojom.h"
@@ -306,17 +307,17 @@ class BLINK_COMMON_EXPORT FileSystemAccessAccessHandleFile {
   // Construct an instance holding |regular_file|.
   static FileSystemAccessAccessHandleFilePtr
   NewRegularFile(
-      FileSystemAccessRegularFilePtr regular_file) {
+      FileSystemAccessRegularFilePtr value) {
     auto result = FileSystemAccessAccessHandleFilePtr(absl::in_place);
-    result->set_regular_file(std::move(regular_file));
+    result->set_regular_file(std::move(value));
     return result;
   }
   // Construct an instance holding |incognito_file_delegate|.
   static FileSystemAccessAccessHandleFilePtr
   NewIncognitoFileDelegate(
-      ::mojo::PendingRemote<::blink::mojom::FileSystemAccessFileDelegateHost> incognito_file_delegate) {
+      ::mojo::PendingRemote<::blink::mojom::FileSystemAccessFileDelegateHost> value) {
     auto result = FileSystemAccessAccessHandleFilePtr(absl::in_place);
-    result->set_incognito_file_delegate(std::move(incognito_file_delegate));
+    result->set_incognito_file_delegate(std::move(value));
     return result;
   }
 

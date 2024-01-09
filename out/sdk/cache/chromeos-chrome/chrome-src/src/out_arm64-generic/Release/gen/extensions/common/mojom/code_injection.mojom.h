@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "extensions/common/mojom/code_injection.mojom-features.h"
 #include "extensions/common/mojom/code_injection.mojom-shared.h"
 #include "extensions/common/mojom/code_injection.mojom-forward.h"
 #include "extensions/common/mojom/css_origin.mojom-forward.h"
@@ -74,7 +75,7 @@ class  CSSSource {
 
   CSSSource(
       const std::string& code,
-      const absl::optional<std::string>& key);
+      const std::optional<std::string>& key);
 
 
   ~CSSSource();
@@ -154,7 +155,7 @@ class  CSSSource {
   
   std::string code;
   
-  absl::optional<std::string> key;
+  std::optional<std::string> key;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -210,17 +211,17 @@ class  CodeInjection {
   // Construct an instance holding |css|.
   static CodeInjectionPtr
   NewCss(
-      CSSInjectionPtr css) {
+      CSSInjectionPtr value) {
     auto result = CodeInjectionPtr(absl::in_place);
-    result->set_css(std::move(css));
+    result->set_css(std::move(value));
     return result;
   }
   // Construct an instance holding |js|.
   static CodeInjectionPtr
   NewJs(
-      JSInjectionPtr js) {
+      JSInjectionPtr value) {
     auto result = CodeInjectionPtr(absl::in_place);
-    result->set_js(std::move(js));
+    result->set_js(std::move(value));
     return result;
   }
 

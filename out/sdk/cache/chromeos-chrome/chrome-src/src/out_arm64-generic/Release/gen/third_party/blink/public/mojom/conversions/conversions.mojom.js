@@ -252,8 +252,78 @@
     encoder.skip(1);
     encoder.encodeStructPointer(tokens$.AttributionSrcToken, val.attributionSrcToken);
   };
+  function AttributionHost_NotifyNavigationWithBackgroundRegistrationsWillStart_Params(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  AttributionHost_NotifyNavigationWithBackgroundRegistrationsWillStart_Params.prototype.initDefaults_ = function() {
+    this.attributionSrcToken = null;
+    this.expectedRegistrations = 0;
+  };
+  AttributionHost_NotifyNavigationWithBackgroundRegistrationsWillStart_Params.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  AttributionHost_NotifyNavigationWithBackgroundRegistrationsWillStart_Params.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 24}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate AttributionHost_NotifyNavigationWithBackgroundRegistrationsWillStart_Params.attributionSrcToken
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 0, tokens$.AttributionSrcToken, false);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    return validator.validationError.NONE;
+  };
+
+  AttributionHost_NotifyNavigationWithBackgroundRegistrationsWillStart_Params.encodedSize = codec.kStructHeaderSize + 16;
+
+  AttributionHost_NotifyNavigationWithBackgroundRegistrationsWillStart_Params.decode = function(decoder) {
+    var packed;
+    var val = new AttributionHost_NotifyNavigationWithBackgroundRegistrationsWillStart_Params();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    val.attributionSrcToken =
+        decoder.decodeStructPointer(tokens$.AttributionSrcToken);
+    val.expectedRegistrations =
+        decoder.decodeStruct(codec.Uint32);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    return val;
+  };
+
+  AttributionHost_NotifyNavigationWithBackgroundRegistrationsWillStart_Params.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(AttributionHost_NotifyNavigationWithBackgroundRegistrationsWillStart_Params.encodedSize);
+    encoder.writeUint32(0);
+    encoder.encodeStructPointer(tokens$.AttributionSrcToken, val.attributionSrcToken);
+    encoder.encodeStruct(codec.Uint32, val.expectedRegistrations);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+  };
   var kAttributionHost_RegisterDataHost_Name = 0;
   var kAttributionHost_RegisterNavigationDataHost_Name = 1;
+  var kAttributionHost_NotifyNavigationWithBackgroundRegistrationsWillStart_Name = 2;
 
   function AttributionHostPtr(handleOrPtrInfo) {
     this.ptr = new bindings.InterfacePtrController(AttributionHost,
@@ -305,6 +375,22 @@
     var message = builder.finish();
     this.receiver_.accept(message);
   };
+  AttributionHostPtr.prototype.notifyNavigationWithBackgroundRegistrationsWillStart = function() {
+    return AttributionHostProxy.prototype.notifyNavigationWithBackgroundRegistrationsWillStart
+        .apply(this.ptr.getProxy(), arguments);
+  };
+
+  AttributionHostProxy.prototype.notifyNavigationWithBackgroundRegistrationsWillStart = function(attributionSrcToken, expectedRegistrations) {
+    var params_ = new AttributionHost_NotifyNavigationWithBackgroundRegistrationsWillStart_Params();
+    params_.attributionSrcToken = attributionSrcToken;
+    params_.expectedRegistrations = expectedRegistrations;
+    var builder = new codec.MessageV0Builder(
+        kAttributionHost_NotifyNavigationWithBackgroundRegistrationsWillStart_Name,
+        codec.align(AttributionHost_NotifyNavigationWithBackgroundRegistrationsWillStart_Params.encodedSize));
+    builder.encodeStruct(AttributionHost_NotifyNavigationWithBackgroundRegistrationsWillStart_Params, params_);
+    var message = builder.finish();
+    this.receiver_.accept(message);
+  };
 
   function AttributionHostStub(delegate) {
     this.delegate_ = delegate;
@@ -314,6 +400,9 @@
   }
   AttributionHostStub.prototype.registerNavigationDataHost = function(dataHost, attributionSrcToken) {
     return this.delegate_ && this.delegate_.registerNavigationDataHost && this.delegate_.registerNavigationDataHost(dataHost, attributionSrcToken);
+  }
+  AttributionHostStub.prototype.notifyNavigationWithBackgroundRegistrationsWillStart = function(attributionSrcToken, expectedRegistrations) {
+    return this.delegate_ && this.delegate_.notifyNavigationWithBackgroundRegistrationsWillStart && this.delegate_.notifyNavigationWithBackgroundRegistrationsWillStart(attributionSrcToken, expectedRegistrations);
   }
 
   AttributionHostStub.prototype.accept = function(message) {
@@ -326,6 +415,10 @@
     case kAttributionHost_RegisterNavigationDataHost_Name:
       var params = reader.decodeStruct(AttributionHost_RegisterNavigationDataHost_Params);
       this.registerNavigationDataHost(params.dataHost, params.attributionSrcToken);
+      return true;
+    case kAttributionHost_NotifyNavigationWithBackgroundRegistrationsWillStart_Name:
+      var params = reader.decodeStruct(AttributionHost_NotifyNavigationWithBackgroundRegistrationsWillStart_Params);
+      this.notifyNavigationWithBackgroundRegistrationsWillStart(params.attributionSrcToken, params.expectedRegistrations);
       return true;
     default:
       return false;
@@ -352,6 +445,10 @@
       case kAttributionHost_RegisterNavigationDataHost_Name:
         if (!message.expectsResponse() && !message.isResponse())
           paramsClass = AttributionHost_RegisterNavigationDataHost_Params;
+      break;
+      case kAttributionHost_NotifyNavigationWithBackgroundRegistrationsWillStart_Name:
+        if (!message.expectsResponse() && !message.isResponse())
+          paramsClass = AttributionHost_NotifyNavigationWithBackgroundRegistrationsWillStart_Params;
       break;
     }
     if (paramsClass === null)

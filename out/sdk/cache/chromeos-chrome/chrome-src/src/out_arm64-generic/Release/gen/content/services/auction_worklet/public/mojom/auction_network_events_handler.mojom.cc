@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -181,14 +182,17 @@ void AuctionNetworkEventsHandlerProxy::OnNetworkSendRequest(
                         "<value of type ::base::TimeTicks>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAuctionNetworkEventsHandler_OnNetworkSendRequest_Name, kFlags, 0, 0, nullptr);
@@ -249,14 +253,17 @@ void AuctionNetworkEventsHandlerProxy::OnNetworkResponseReceived(
                         "<value of type ::network::mojom::URLResponseHeadPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAuctionNetworkEventsHandler_OnNetworkResponseReceived_Name, kFlags, 0, 0, nullptr);
@@ -333,14 +340,17 @@ void AuctionNetworkEventsHandlerProxy::OnNetworkRequestComplete(
                         "<value of type const ::network::URLLoaderCompletionStatus&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAuctionNetworkEventsHandler_OnNetworkRequestComplete_Name, kFlags, 0, 0, nullptr);
@@ -392,14 +402,17 @@ void AuctionNetworkEventsHandlerProxy::Clone(
                         "<value of type ::mojo::PendingReceiver<AuctionNetworkEventsHandler>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kAuctionNetworkEventsHandler_Clone_Name, kFlags, 0, 0, nullptr);
@@ -582,16 +595,16 @@ bool AuctionNetworkEventsHandlerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kAuctionNetworkEventsHandlerValidationInfo[] = {
-    {&internal::AuctionNetworkEventsHandler_OnNetworkSendRequest_Params_Data::Validate,
+    { &internal::AuctionNetworkEventsHandler_OnNetworkSendRequest_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AuctionNetworkEventsHandler_OnNetworkResponseReceived_Params_Data::Validate,
+    { &internal::AuctionNetworkEventsHandler_OnNetworkResponseReceived_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AuctionNetworkEventsHandler_OnNetworkRequestComplete_Params_Data::Validate,
+    { &internal::AuctionNetworkEventsHandler_OnNetworkRequestComplete_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::AuctionNetworkEventsHandler_Clone_Params_Data::Validate,
+    { &internal::AuctionNetworkEventsHandler_Clone_Params_Data::Validate,
      nullptr /* no response */},
 };
 

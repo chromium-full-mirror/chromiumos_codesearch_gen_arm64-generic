@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -594,14 +595,17 @@ void ParentAccessUiHandlerProxy::GetOauthToken(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send parent_access_ui::mojom::ParentAccessUiHandler::GetOauthToken");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kParentAccessUiHandler_GetOauthToken_Name, kFlags, 0, 0, nullptr);
@@ -632,14 +636,17 @@ void ParentAccessUiHandlerProxy::OnParentAccessCallbackReceived(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kParentAccessUiHandler_OnParentAccessCallbackReceived_Name, kFlags, 0, 0, nullptr);
@@ -674,14 +681,17 @@ void ParentAccessUiHandlerProxy::GetParentAccessParams(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send parent_access_ui::mojom::ParentAccessUiHandler::GetParentAccessParams");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kParentAccessUiHandler_GetParentAccessParams_Name, kFlags, 0, 0, nullptr);
@@ -705,14 +715,17 @@ void ParentAccessUiHandlerProxy::GetParentAccessUrl(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send parent_access_ui::mojom::ParentAccessUiHandler::GetParentAccessUrl");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kParentAccessUiHandler_GetParentAccessUrl_Name, kFlags, 0, 0, nullptr);
@@ -743,14 +756,17 @@ void ParentAccessUiHandlerProxy::OnParentAccessDone(
                         "<value of type ParentAccessResult>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kParentAccessUiHandler_OnParentAccessDone_Name, kFlags, 0, 0, nullptr);
@@ -776,14 +792,17 @@ void ParentAccessUiHandlerProxy::OnBeforeScreenDone(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send parent_access_ui::mojom::ParentAccessUiHandler::OnBeforeScreenDone");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kParentAccessUiHandler_OnBeforeScreenDone_Name, kFlags, 0, 0, nullptr);
@@ -900,7 +919,8 @@ void ParentAccessUiHandler_GetOauthToken_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kParentAccessUiHandler_GetOauthToken_Name, kFlags, 0, 0, nullptr);
@@ -1030,7 +1050,8 @@ void ParentAccessUiHandler_OnParentAccessCallbackReceived_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kParentAccessUiHandler_OnParentAccessCallbackReceived_Name, kFlags, 0, 0, nullptr);
@@ -1158,7 +1179,8 @@ void ParentAccessUiHandler_GetParentAccessParams_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kParentAccessUiHandler_GetParentAccessParams_Name, kFlags, 0, 0, nullptr);
@@ -1286,7 +1308,8 @@ void ParentAccessUiHandler_GetParentAccessUrl_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kParentAccessUiHandler_GetParentAccessUrl_Name, kFlags, 0, 0, nullptr);
@@ -1403,7 +1426,8 @@ void ParentAccessUiHandler_OnParentAccessDone_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kParentAccessUiHandler_OnParentAccessDone_Name, kFlags, 0, 0, nullptr);
@@ -1509,7 +1533,8 @@ void ParentAccessUiHandler_OnBeforeScreenDone_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kParentAccessUiHandler_OnBeforeScreenDone_Name, kFlags, 0, 0, nullptr);
@@ -1732,20 +1757,20 @@ std::move(p_result), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kParentAccessUiHandlerValidationInfo[] = {
-    {&internal::ParentAccessUiHandler_GetOauthToken_Params_Data::Validate,
+    { &internal::ParentAccessUiHandler_GetOauthToken_Params_Data::Validate,
      &internal::ParentAccessUiHandler_GetOauthToken_ResponseParams_Data::Validate},
-    {&internal::ParentAccessUiHandler_OnParentAccessCallbackReceived_Params_Data::Validate,
+    { &internal::ParentAccessUiHandler_OnParentAccessCallbackReceived_Params_Data::Validate,
      &internal::ParentAccessUiHandler_OnParentAccessCallbackReceived_ResponseParams_Data::Validate},
-    {&internal::ParentAccessUiHandler_GetParentAccessParams_Params_Data::Validate,
+    { &internal::ParentAccessUiHandler_GetParentAccessParams_Params_Data::Validate,
      &internal::ParentAccessUiHandler_GetParentAccessParams_ResponseParams_Data::Validate},
-    {&internal::ParentAccessUiHandler_GetParentAccessUrl_Params_Data::Validate,
+    { &internal::ParentAccessUiHandler_GetParentAccessUrl_Params_Data::Validate,
      &internal::ParentAccessUiHandler_GetParentAccessUrl_ResponseParams_Data::Validate},
-    {&internal::ParentAccessUiHandler_OnParentAccessDone_Params_Data::Validate,
+    { &internal::ParentAccessUiHandler_OnParentAccessDone_Params_Data::Validate,
      &internal::ParentAccessUiHandler_OnParentAccessDone_ResponseParams_Data::Validate},
-    {&internal::ParentAccessUiHandler_OnBeforeScreenDone_Params_Data::Validate,
+    { &internal::ParentAccessUiHandler_OnBeforeScreenDone_Params_Data::Validate,
      &internal::ParentAccessUiHandler_OnBeforeScreenDone_ResponseParams_Data::Validate},
 };
 

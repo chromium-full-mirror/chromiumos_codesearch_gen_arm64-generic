@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/ash/services/nearby/public/mojom/nearby_presence_credential_storage.mojom-features.h"
 #include "chromeos/ash/services/nearby/public/mojom/nearby_presence_credential_storage.mojom-shared.h"
 #include "chromeos/ash/services/nearby/public/mojom/nearby_presence_credential_storage.mojom-forward.h"
 #include "chromeos/ash/services/nearby/public/mojom/nearby_presence.mojom-forward.h"
@@ -73,6 +74,7 @@ class NearbyPresenceCredentialStorage
     kSaveCredentialsMinVersion = 0,
     kGetPublicCredentialsMinVersion = 0,
     kGetPrivateCredentialsMinVersion = 0,
+    kUpdateLocalCredentialMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -87,6 +89,9 @@ class NearbyPresenceCredentialStorage
   struct GetPrivateCredentials_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
+  struct UpdateLocalCredential_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~NearbyPresenceCredentialStorage() = default;
 
@@ -96,14 +101,19 @@ class NearbyPresenceCredentialStorage
   virtual void SaveCredentials(std::vector<::ash::nearby::presence::mojom::LocalCredentialPtr> local_credentials, std::vector<::ash::nearby::presence::mojom::SharedCredentialPtr> shared_credentials, ::ash::nearby::presence::mojom::PublicCredentialType public_credential_type, SaveCredentialsCallback callback) = 0;
 
 
-  using GetPublicCredentialsCallback = base::OnceCallback<void(::mojo_base::mojom::AbslStatusCode, absl::optional<std::vector<::ash::nearby::presence::mojom::SharedCredentialPtr>>)>;
+  using GetPublicCredentialsCallback = base::OnceCallback<void(::mojo_base::mojom::AbslStatusCode, std::optional<std::vector<::ash::nearby::presence::mojom::SharedCredentialPtr>>)>;
   
   virtual void GetPublicCredentials(::ash::nearby::presence::mojom::PublicCredentialType public_credential_type, GetPublicCredentialsCallback callback) = 0;
 
 
-  using GetPrivateCredentialsCallback = base::OnceCallback<void(::mojo_base::mojom::AbslStatusCode, absl::optional<std::vector<::ash::nearby::presence::mojom::LocalCredentialPtr>>)>;
+  using GetPrivateCredentialsCallback = base::OnceCallback<void(::mojo_base::mojom::AbslStatusCode, std::optional<std::vector<::ash::nearby::presence::mojom::LocalCredentialPtr>>)>;
   
   virtual void GetPrivateCredentials(GetPrivateCredentialsCallback callback) = 0;
+
+
+  using UpdateLocalCredentialCallback = base::OnceCallback<void(::mojo_base::mojom::AbslStatusCode)>;
+  
+  virtual void UpdateLocalCredential(::ash::nearby::presence::mojom::LocalCredentialPtr local_credential, UpdateLocalCredentialCallback callback) = 0;
 };
 
 
@@ -120,6 +130,8 @@ class  NearbyPresenceCredentialStorageProxy
   void GetPublicCredentials(::ash::nearby::presence::mojom::PublicCredentialType public_credential_type, GetPublicCredentialsCallback callback) final;
   
   void GetPrivateCredentials(GetPrivateCredentialsCallback callback) final;
+  
+  void UpdateLocalCredential(::ash::nearby::presence::mojom::LocalCredentialPtr local_credential, UpdateLocalCredentialCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

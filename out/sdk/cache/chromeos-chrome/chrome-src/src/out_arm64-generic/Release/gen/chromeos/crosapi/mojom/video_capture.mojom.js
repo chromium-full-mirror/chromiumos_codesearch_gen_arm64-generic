@@ -553,6 +553,72 @@
     encoder.skip(1);
     encoder.encodeStruct(VideoBufferHandle, val.bufferHandle);
   };
+  function VideoFrameHandler_DEPRECATED_OnFrameReadyInBuffer_Params(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  VideoFrameHandler_DEPRECATED_OnFrameReadyInBuffer_Params.prototype.initDefaults_ = function() {
+    this.buffer = null;
+    this.scaledBuffers = null;
+  };
+  VideoFrameHandler_DEPRECATED_OnFrameReadyInBuffer_Params.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  VideoFrameHandler_DEPRECATED_OnFrameReadyInBuffer_Params.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 24}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate VideoFrameHandler_DEPRECATED_OnFrameReadyInBuffer_Params.buffer
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 0, ReadyFrameInBuffer, false);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate VideoFrameHandler_DEPRECATED_OnFrameReadyInBuffer_Params.scaledBuffers
+    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 8, 8, new codec.PointerTo(ReadyFrameInBuffer), false, [0], 0);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    return validator.validationError.NONE;
+  };
+
+  VideoFrameHandler_DEPRECATED_OnFrameReadyInBuffer_Params.encodedSize = codec.kStructHeaderSize + 16;
+
+  VideoFrameHandler_DEPRECATED_OnFrameReadyInBuffer_Params.decode = function(decoder) {
+    var packed;
+    var val = new VideoFrameHandler_DEPRECATED_OnFrameReadyInBuffer_Params();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    val.buffer =
+        decoder.decodeStructPointer(ReadyFrameInBuffer);
+    val.scaledBuffers =
+        decoder.decodeArrayPointer(new codec.PointerTo(ReadyFrameInBuffer));
+    return val;
+  };
+
+  VideoFrameHandler_DEPRECATED_OnFrameReadyInBuffer_Params.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(VideoFrameHandler_DEPRECATED_OnFrameReadyInBuffer_Params.encodedSize);
+    encoder.writeUint32(0);
+    encoder.encodeStructPointer(ReadyFrameInBuffer, val.buffer);
+    encoder.encodeArrayPointer(new codec.PointerTo(ReadyFrameInBuffer), val.scaledBuffers);
+  };
   function VideoFrameHandler_OnFrameReadyInBuffer_Params(values) {
     this.initDefaults_();
     this.initFields_(values);
@@ -561,7 +627,6 @@
 
   VideoFrameHandler_OnFrameReadyInBuffer_Params.prototype.initDefaults_ = function() {
     this.buffer = null;
-    this.scaledBuffers = null;
   };
   VideoFrameHandler_OnFrameReadyInBuffer_Params.prototype.initFields_ = function(fields) {
     for(var field in fields) {
@@ -577,7 +642,7 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 24}
+      {version: 0, numBytes: 16}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
@@ -589,16 +654,10 @@
     if (err !== validator.validationError.NONE)
         return err;
 
-
-    // validate VideoFrameHandler_OnFrameReadyInBuffer_Params.scaledBuffers
-    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 8, 8, new codec.PointerTo(ReadyFrameInBuffer), false, [0], 0);
-    if (err !== validator.validationError.NONE)
-        return err;
-
     return validator.validationError.NONE;
   };
 
-  VideoFrameHandler_OnFrameReadyInBuffer_Params.encodedSize = codec.kStructHeaderSize + 16;
+  VideoFrameHandler_OnFrameReadyInBuffer_Params.encodedSize = codec.kStructHeaderSize + 8;
 
   VideoFrameHandler_OnFrameReadyInBuffer_Params.decode = function(decoder) {
     var packed;
@@ -607,8 +666,6 @@
     var version = decoder.readUint32();
     val.buffer =
         decoder.decodeStructPointer(ReadyFrameInBuffer);
-    val.scaledBuffers =
-        decoder.decodeArrayPointer(new codec.PointerTo(ReadyFrameInBuffer));
     return val;
   };
 
@@ -617,7 +674,6 @@
     encoder.writeUint32(VideoFrameHandler_OnFrameReadyInBuffer_Params.encodedSize);
     encoder.writeUint32(0);
     encoder.encodeStructPointer(ReadyFrameInBuffer, val.buffer);
-    encoder.encodeArrayPointer(new codec.PointerTo(ReadyFrameInBuffer), val.scaledBuffers);
   };
   function VideoFrameHandler_OnBufferRetired_Params(values) {
     this.initDefaults_();
@@ -2389,7 +2445,8 @@
   ScopedAccessPermissionProxy.prototype.validator = null;
   var kVideoFrameHandler_OnCaptureConfigurationChanged_Name = 11;
   var kVideoFrameHandler_OnNewBuffer_Name = 0;
-  var kVideoFrameHandler_OnFrameReadyInBuffer_Name = 1;
+  var kVideoFrameHandler_DEPRECATED_OnFrameReadyInBuffer_Name = 1;
+  var kVideoFrameHandler_OnFrameReadyInBuffer_Name = 13;
   var kVideoFrameHandler_OnBufferRetired_Name = 2;
   var kVideoFrameHandler_OnError_Name = 3;
   var kVideoFrameHandler_OnFrameDropped_Name = 4;
@@ -2449,15 +2506,30 @@
     var message = builder.finish();
     this.receiver_.accept(message);
   };
+  VideoFrameHandlerPtr.prototype.dEPRECATEDOnFrameReadyInBuffer = function() {
+    return VideoFrameHandlerProxy.prototype.dEPRECATEDOnFrameReadyInBuffer
+        .apply(this.ptr.getProxy(), arguments);
+  };
+
+  VideoFrameHandlerProxy.prototype.dEPRECATEDOnFrameReadyInBuffer = function(buffer, scaledBuffers) {
+    var params_ = new VideoFrameHandler_DEPRECATED_OnFrameReadyInBuffer_Params();
+    params_.buffer = buffer;
+    params_.scaledBuffers = scaledBuffers;
+    var builder = new codec.MessageV0Builder(
+        kVideoFrameHandler_DEPRECATED_OnFrameReadyInBuffer_Name,
+        codec.align(VideoFrameHandler_DEPRECATED_OnFrameReadyInBuffer_Params.encodedSize));
+    builder.encodeStruct(VideoFrameHandler_DEPRECATED_OnFrameReadyInBuffer_Params, params_);
+    var message = builder.finish();
+    this.receiver_.accept(message);
+  };
   VideoFrameHandlerPtr.prototype.onFrameReadyInBuffer = function() {
     return VideoFrameHandlerProxy.prototype.onFrameReadyInBuffer
         .apply(this.ptr.getProxy(), arguments);
   };
 
-  VideoFrameHandlerProxy.prototype.onFrameReadyInBuffer = function(buffer, scaledBuffers) {
+  VideoFrameHandlerProxy.prototype.onFrameReadyInBuffer = function(buffer) {
     var params_ = new VideoFrameHandler_OnFrameReadyInBuffer_Params();
     params_.buffer = buffer;
-    params_.scaledBuffers = scaledBuffers;
     var builder = new codec.MessageV0Builder(
         kVideoFrameHandler_OnFrameReadyInBuffer_Name,
         codec.align(VideoFrameHandler_OnFrameReadyInBuffer_Params.encodedSize));
@@ -2621,8 +2693,11 @@
   VideoFrameHandlerStub.prototype.onNewBuffer = function(bufferId, bufferHandle) {
     return this.delegate_ && this.delegate_.onNewBuffer && this.delegate_.onNewBuffer(bufferId, bufferHandle);
   }
-  VideoFrameHandlerStub.prototype.onFrameReadyInBuffer = function(buffer, scaledBuffers) {
-    return this.delegate_ && this.delegate_.onFrameReadyInBuffer && this.delegate_.onFrameReadyInBuffer(buffer, scaledBuffers);
+  VideoFrameHandlerStub.prototype.dEPRECATEDOnFrameReadyInBuffer = function(buffer, scaledBuffers) {
+    return this.delegate_ && this.delegate_.dEPRECATEDOnFrameReadyInBuffer && this.delegate_.dEPRECATEDOnFrameReadyInBuffer(buffer, scaledBuffers);
+  }
+  VideoFrameHandlerStub.prototype.onFrameReadyInBuffer = function(buffer) {
+    return this.delegate_ && this.delegate_.onFrameReadyInBuffer && this.delegate_.onFrameReadyInBuffer(buffer);
   }
   VideoFrameHandlerStub.prototype.onBufferRetired = function(bufferId) {
     return this.delegate_ && this.delegate_.onBufferRetired && this.delegate_.onBufferRetired(bufferId);
@@ -2666,9 +2741,13 @@
       var params = reader.decodeStruct(VideoFrameHandler_OnNewBuffer_Params);
       this.onNewBuffer(params.bufferId, params.bufferHandle);
       return true;
+    case kVideoFrameHandler_DEPRECATED_OnFrameReadyInBuffer_Name:
+      var params = reader.decodeStruct(VideoFrameHandler_DEPRECATED_OnFrameReadyInBuffer_Params);
+      this.dEPRECATEDOnFrameReadyInBuffer(params.buffer, params.scaledBuffers);
+      return true;
     case kVideoFrameHandler_OnFrameReadyInBuffer_Name:
       var params = reader.decodeStruct(VideoFrameHandler_OnFrameReadyInBuffer_Params);
-      this.onFrameReadyInBuffer(params.buffer, params.scaledBuffers);
+      this.onFrameReadyInBuffer(params.buffer);
       return true;
     case kVideoFrameHandler_OnBufferRetired_Name:
       var params = reader.decodeStruct(VideoFrameHandler_OnBufferRetired_Params);
@@ -2736,6 +2815,10 @@
         if (!message.expectsResponse() && !message.isResponse())
           paramsClass = VideoFrameHandler_OnNewBuffer_Params;
       break;
+      case kVideoFrameHandler_DEPRECATED_OnFrameReadyInBuffer_Name:
+        if (!message.expectsResponse() && !message.isResponse())
+          paramsClass = VideoFrameHandler_DEPRECATED_OnFrameReadyInBuffer_Params;
+      break;
       case kVideoFrameHandler_OnFrameReadyInBuffer_Name:
         if (!message.expectsResponse() && !message.isResponse())
           paramsClass = VideoFrameHandler_OnFrameReadyInBuffer_Params;
@@ -2792,7 +2875,7 @@
 
   var VideoFrameHandler = {
     name: 'crosapi.mojom.VideoFrameHandler',
-    kVersion: 4,
+    kVersion: 13,
     ptrClass: VideoFrameHandlerPtr,
     proxyClass: VideoFrameHandlerProxy,
     stubClass: VideoFrameHandlerStub,

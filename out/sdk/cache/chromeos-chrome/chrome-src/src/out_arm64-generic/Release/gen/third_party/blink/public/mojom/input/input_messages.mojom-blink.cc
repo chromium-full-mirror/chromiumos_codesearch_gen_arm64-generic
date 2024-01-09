@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -215,14 +216,17 @@ void TextSuggestionBackendProxy::ApplySpellCheckSuggestion(
                         "<value of type const WTF::String&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTextSuggestionBackend_ApplySpellCheckSuggestion_Name, kFlags, 0, 0, nullptr);
@@ -266,14 +270,17 @@ void TextSuggestionBackendProxy::ApplyTextSuggestion(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTextSuggestionBackend_ApplyTextSuggestion_Name, kFlags, 0, 0, nullptr);
@@ -298,14 +305,17 @@ void TextSuggestionBackendProxy::DeleteActiveSuggestionRange(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::TextSuggestionBackend::DeleteActiveSuggestionRange");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTextSuggestionBackend_DeleteActiveSuggestionRange_Name, kFlags, 0, 0, nullptr);
@@ -335,14 +345,17 @@ void TextSuggestionBackendProxy::OnNewWordAddedToDictionary(
                         "<value of type const WTF::String&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTextSuggestionBackend_OnNewWordAddedToDictionary_Name, kFlags, 0, 0, nullptr);
@@ -376,14 +389,17 @@ void TextSuggestionBackendProxy::OnSuggestionMenuClosed(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::TextSuggestionBackend::OnSuggestionMenuClosed");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTextSuggestionBackend_OnSuggestionMenuClosed_Name, kFlags, 0, 0, nullptr);
@@ -413,14 +429,17 @@ void TextSuggestionBackendProxy::SuggestionMenuTimeoutCallback(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTextSuggestionBackend_SuggestionMenuTimeoutCallback_Name, kFlags, 0, 0, nullptr);
@@ -630,20 +649,20 @@ bool TextSuggestionBackendStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kTextSuggestionBackendValidationInfo[] = {
-    {&internal::TextSuggestionBackend_ApplySpellCheckSuggestion_Params_Data::Validate,
+    { &internal::TextSuggestionBackend_ApplySpellCheckSuggestion_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::TextSuggestionBackend_ApplyTextSuggestion_Params_Data::Validate,
+    { &internal::TextSuggestionBackend_ApplyTextSuggestion_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::TextSuggestionBackend_DeleteActiveSuggestionRange_Params_Data::Validate,
+    { &internal::TextSuggestionBackend_DeleteActiveSuggestionRange_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::TextSuggestionBackend_OnNewWordAddedToDictionary_Params_Data::Validate,
+    { &internal::TextSuggestionBackend_OnNewWordAddedToDictionary_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::TextSuggestionBackend_OnSuggestionMenuClosed_Params_Data::Validate,
+    { &internal::TextSuggestionBackend_OnSuggestionMenuClosed_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::TextSuggestionBackend_SuggestionMenuTimeoutCallback_Params_Data::Validate,
+    { &internal::TextSuggestionBackend_SuggestionMenuTimeoutCallback_Params_Data::Validate,
      nullptr /* no response */},
 };
 

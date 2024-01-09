@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "ui/accessibility/mojom/ax_tree_data.mojom-features.h"
 #include "ui/accessibility/mojom/ax_tree_data.mojom-shared.h"
 #include "ui/accessibility/mojom/ax_tree_data.mojom-forward.h"
 #include "ui/accessibility/ax_enums.mojom-forward.h"
@@ -112,7 +113,7 @@ class  AXTreeData {
       int32_t sel_focus_offset,
       ::ax::mojom::TextAffinity sel_focus_affinity,
       int32_t root_scroller_id,
-      absl::optional<std::vector<std::string>> metadata);
+      std::optional<std::vector<std::string>> metadata);
 
 
   ~AXTreeData();
@@ -226,7 +227,7 @@ class  AXTreeData {
   
   int32_t root_scroller_id;
   
-  absl::optional<std::vector<std::string>> metadata;
+  std::optional<std::vector<std::string>> metadata;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

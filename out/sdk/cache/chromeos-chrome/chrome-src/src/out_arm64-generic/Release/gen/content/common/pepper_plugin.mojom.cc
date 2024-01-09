@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -246,7 +247,7 @@ bool PepperHost::DidCreateOutOfProcessPepperInstance(int32_t plugin_child_id, in
   NOTREACHED();
   return false;
 }
-bool PepperHost::OpenChannelToPepperPlugin(const ::url::Origin& embedder_origin, const ::base::FilePath& path, const absl::optional<::url::Origin>& origin_lock, ::mojo::ScopedMessagePipeHandle* out_handle_to_channel, ::base::ProcessId* out_plugin_pid, int32_t* out_plugin_child_id) {
+bool PepperHost::OpenChannelToPepperPlugin(const ::url::Origin& embedder_origin, const ::base::FilePath& path, const std::optional<::url::Origin>& origin_lock, ::mojo::ScopedMessagePipeHandle* out_handle_to_channel, ::base::ProcessId* out_plugin_pid, int32_t* out_plugin_child_id) {
   NOTREACHED();
   return false;
 }
@@ -372,14 +373,17 @@ void PepperHostProxy::InstanceCreated(
                         "<value of type ::mojo::PendingAssociatedReceiver<PepperPluginInstanceHost>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPepperHost_InstanceCreated_Name, kFlags, 0, 0, nullptr);
@@ -428,14 +432,17 @@ void PepperHostProxy::BindHungDetectorHost(
                         "<value of type const ::base::FilePath&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPepperHost_BindHungDetectorHost_Name, kFlags, 0, 0, nullptr);
@@ -487,15 +494,18 @@ bool PepperHostProxy::GetPluginInfo(
 #else
   TRACE_EVENT0("mojom", "PepperHost::GetPluginInfo");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPepperHost_GetPluginInfo_Name, kFlags, 0, 0, nullptr);
@@ -570,14 +580,17 @@ void PepperHostProxy::GetPluginInfo(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPepperHost_GetPluginInfo_Name, kFlags, 0, 0, nullptr);
@@ -639,14 +652,17 @@ void PepperHostProxy::DidCreateInProcessInstance(
                         "<value of type const ::GURL&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPepperHost_DidCreateInProcessInstance_Name, kFlags, 0, 0, nullptr);
@@ -700,14 +716,17 @@ void PepperHostProxy::DidDeleteInProcessInstance(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPepperHost_DidDeleteInProcessInstance_Name, kFlags, 0, 0, nullptr);
@@ -757,15 +776,18 @@ bool PepperHostProxy::DidCreateOutOfProcessPepperInstance(
 #else
   TRACE_EVENT0("mojom", "PepperHost::DidCreateOutOfProcessPepperInstance");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPepperHost_DidCreateOutOfProcessPepperInstance_Name, kFlags, 0, 0, nullptr);
@@ -847,14 +869,17 @@ void PepperHostProxy::DidCreateOutOfProcessPepperInstance(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPepperHost_DidCreateOutOfProcessPepperInstance_Name, kFlags, 0, 0, nullptr);
@@ -918,14 +943,17 @@ void PepperHostProxy::DidDeleteOutOfProcessPepperInstance(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPepperHost_DidDeleteOutOfProcessPepperInstance_Name, kFlags, 0, 0, nullptr);
@@ -946,7 +974,7 @@ void PepperHostProxy::DidDeleteOutOfProcessPepperInstance(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 bool PepperHostProxy::OpenChannelToPepperPlugin(
-    const ::url::Origin& param_embedder_origin, const ::base::FilePath& param_path, const absl::optional<::url::Origin>& param_origin_lock, ::mojo::ScopedMessagePipeHandle* out_param_handle_to_channel, ::base::ProcessId* out_param_plugin_pid, int32_t* out_param_plugin_child_id) {
+    const ::url::Origin& param_embedder_origin, const ::base::FilePath& param_path, const std::optional<::url::Origin>& param_origin_lock, ::mojo::ScopedMessagePipeHandle* out_param_handle_to_channel, ::base::ProcessId* out_param_plugin_pid, int32_t* out_param_plugin_child_id) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT_BEGIN1(
     "mojom", "Call content::mojom::PepperHost::OpenChannelToPepperPlugin (sync)", "input_parameters",
@@ -960,20 +988,23 @@ bool PepperHostProxy::OpenChannelToPepperPlugin(
                         "<value of type const ::base::FilePath&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("origin_lock"), param_origin_lock,
-                        "<value of type const absl::optional<::url::Origin>&>");
+                        "<value of type const std::optional<::url::Origin>&>");
    });
 #else
   TRACE_EVENT0("mojom", "PepperHost::OpenChannelToPepperPlugin");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPepperHost_OpenChannelToPepperPlugin_Name, kFlags, 0, 0, nullptr);
@@ -1041,7 +1072,7 @@ bool PepperHostProxy::OpenChannelToPepperPlugin(
 }
 
 void PepperHostProxy::OpenChannelToPepperPlugin(
-    const ::url::Origin& in_embedder_origin, const ::base::FilePath& in_path, const absl::optional<::url::Origin>& in_origin_lock, OpenChannelToPepperPluginCallback callback) {
+    const ::url::Origin& in_embedder_origin, const ::base::FilePath& in_path, const std::optional<::url::Origin>& in_origin_lock, OpenChannelToPepperPluginCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send content::mojom::PepperHost::OpenChannelToPepperPlugin", "input_parameters",
@@ -1055,17 +1086,20 @@ void PepperHostProxy::OpenChannelToPepperPlugin(
                         "<value of type const ::base::FilePath&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("origin_lock"), in_origin_lock,
-                        "<value of type const absl::optional<::url::Origin>&>");
+                        "<value of type const std::optional<::url::Origin>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPepperHost_OpenChannelToPepperPlugin_Name, kFlags, 0, 0, nullptr);
@@ -1218,7 +1252,8 @@ void PepperHost_GetPluginInfo_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPepperHost_GetPluginInfo_Name, kFlags, 0, 0, nullptr);
@@ -1380,7 +1415,8 @@ void PepperHost_DidCreateOutOfProcessPepperInstance_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPepperHost_DidCreateOutOfProcessPepperInstance_Name, kFlags, 0, 0, nullptr);
@@ -1532,7 +1568,8 @@ void PepperHost_OpenChannelToPepperPlugin_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPepperHost_OpenChannelToPepperPlugin_Name, kFlags, 0, 0, nullptr);
@@ -1915,7 +1952,7 @@ std::move(p_is_privileged_context), std::move(callback));
       bool success = true;
       ::url::Origin p_embedder_origin{};
       ::base::FilePath p_path{};
-      absl::optional<::url::Origin> p_origin_lock{};
+      std::optional<::url::Origin> p_origin_lock{};
       PepperHost_OpenChannelToPepperPlugin_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadEmbedderOrigin(&p_embedder_origin))
@@ -1945,24 +1982,24 @@ std::move(p_origin_lock), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPepperHostValidationInfo[] = {
-    {&internal::PepperHost_InstanceCreated_Params_Data::Validate,
+    { &internal::PepperHost_InstanceCreated_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PepperHost_BindHungDetectorHost_Params_Data::Validate,
+    { &internal::PepperHost_BindHungDetectorHost_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PepperHost_GetPluginInfo_Params_Data::Validate,
+    { &internal::PepperHost_GetPluginInfo_Params_Data::Validate,
      &internal::PepperHost_GetPluginInfo_ResponseParams_Data::Validate},
-    {&internal::PepperHost_DidCreateInProcessInstance_Params_Data::Validate,
+    { &internal::PepperHost_DidCreateInProcessInstance_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PepperHost_DidDeleteInProcessInstance_Params_Data::Validate,
+    { &internal::PepperHost_DidDeleteInProcessInstance_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PepperHost_DidCreateOutOfProcessPepperInstance_Params_Data::Validate,
+    { &internal::PepperHost_DidCreateOutOfProcessPepperInstance_Params_Data::Validate,
      &internal::PepperHost_DidCreateOutOfProcessPepperInstance_ResponseParams_Data::Validate},
-    {&internal::PepperHost_DidDeleteOutOfProcessPepperInstance_Params_Data::Validate,
+    { &internal::PepperHost_DidDeleteOutOfProcessPepperInstance_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PepperHost_OpenChannelToPepperPlugin_Params_Data::Validate,
+    { &internal::PepperHost_OpenChannelToPepperPlugin_Params_Data::Validate,
      &internal::PepperHost_OpenChannelToPepperPlugin_ResponseParams_Data::Validate},
 };
 
@@ -2046,14 +2083,17 @@ void PepperHungDetectorHostProxy::PluginHung(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPepperHungDetectorHost_PluginHung_Name, kFlags, 0, 0, nullptr);
@@ -2122,10 +2162,10 @@ bool PepperHungDetectorHostStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPepperHungDetectorHostValidationInfo[] = {
-    {&internal::PepperHungDetectorHost_PluginHung_Params_Data::Validate,
+    { &internal::PepperHungDetectorHost_PluginHung_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2238,14 +2278,17 @@ void PepperPluginInstanceHostProxy::StartsPlayback(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send content::mojom::PepperPluginInstanceHost::StartsPlayback");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPepperPluginInstanceHost_StartsPlayback_Name, kFlags, 0, 0, nullptr);
@@ -2268,14 +2311,17 @@ void PepperPluginInstanceHostProxy::StopsPlayback(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send content::mojom::PepperPluginInstanceHost::StopsPlayback");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPepperPluginInstanceHost_StopsPlayback_Name, kFlags, 0, 0, nullptr);
@@ -2308,14 +2354,17 @@ void PepperPluginInstanceHostProxy::InstanceCrashed(
                         "<value of type ::base::ProcessId>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPepperPluginInstanceHost_InstanceCrashed_Name, kFlags, 0, 0, nullptr);
@@ -2459,14 +2508,14 @@ bool PepperPluginInstanceHostStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPepperPluginInstanceHostValidationInfo[] = {
-    {&internal::PepperPluginInstanceHost_StartsPlayback_Params_Data::Validate,
+    { &internal::PepperPluginInstanceHost_StartsPlayback_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PepperPluginInstanceHost_StopsPlayback_Params_Data::Validate,
+    { &internal::PepperPluginInstanceHost_StopsPlayback_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PepperPluginInstanceHost_InstanceCrashed_Params_Data::Validate,
+    { &internal::PepperPluginInstanceHost_InstanceCrashed_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2546,14 +2595,17 @@ void PepperPluginInstanceProxy::SetVolume(
                         "<value of type double>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPepperPluginInstance_SetVolume_Name, kFlags, 0, 0, nullptr);
@@ -2622,10 +2674,10 @@ bool PepperPluginInstanceStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPepperPluginInstanceValidationInfo[] = {
-    {&internal::PepperPluginInstance_SetVolume_Params_Data::Validate,
+    { &internal::PepperPluginInstance_SetVolume_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2672,7 +2724,7 @@ void PepperHostInterceptorForTesting::DidCreateOutOfProcessPepperInstance(int32_
 void PepperHostInterceptorForTesting::DidDeleteOutOfProcessPepperInstance(int32_t plugin_child_id, int32_t pp_instance, bool is_external) {
   GetForwardingInterface()->DidDeleteOutOfProcessPepperInstance(std::move(plugin_child_id), std::move(pp_instance), std::move(is_external));
 }
-void PepperHostInterceptorForTesting::OpenChannelToPepperPlugin(const ::url::Origin& embedder_origin, const ::base::FilePath& path, const absl::optional<::url::Origin>& origin_lock, OpenChannelToPepperPluginCallback callback) {
+void PepperHostInterceptorForTesting::OpenChannelToPepperPlugin(const ::url::Origin& embedder_origin, const ::base::FilePath& path, const std::optional<::url::Origin>& origin_lock, OpenChannelToPepperPluginCallback callback) {
   GetForwardingInterface()->OpenChannelToPepperPlugin(std::move(embedder_origin), std::move(path), std::move(origin_lock), std::move(callback));
 }
 PepperHostAsyncWaiter::PepperHostAsyncWaiter(
@@ -2721,7 +2773,7 @@ void PepperHostAsyncWaiter::DidCreateOutOfProcessPepperInstance(
 
 
 void PepperHostAsyncWaiter::OpenChannelToPepperPlugin(
-    const ::url::Origin& embedder_origin, const ::base::FilePath& path, const absl::optional<::url::Origin>& origin_lock, ::mojo::ScopedMessagePipeHandle* out_handle_to_channel, ::base::ProcessId* out_plugin_pid, int32_t* out_plugin_child_id) {
+    const ::url::Origin& embedder_origin, const ::base::FilePath& path, const std::optional<::url::Origin>& origin_lock, ::mojo::ScopedMessagePipeHandle* out_handle_to_channel, ::base::ProcessId* out_plugin_pid, int32_t* out_plugin_child_id) {
   base::RunLoop loop;
   proxy_->OpenChannelToPepperPlugin(std::move(embedder_origin),std::move(path),std::move(origin_lock),
       base::BindOnce(

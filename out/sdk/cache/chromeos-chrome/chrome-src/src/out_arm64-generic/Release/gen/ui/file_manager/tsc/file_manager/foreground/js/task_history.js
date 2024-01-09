@@ -3,8 +3,15 @@
 // found in the LICENSE file.
 import { dispatchSimpleEvent } from 'chrome://resources/ash/common/cr_deprecated.js';
 import { NativeEventTarget as EventTarget } from 'chrome://resources/ash/common/event_target.js';
-import { storage, ValueChanged } from '../../common/js/storage.js';
-import { util } from '../../common/js/util.js';
+import { storage } from '../../common/js/storage.js';
+import { makeTaskID } from '../../common/js/util.js';
+export var EventType;
+(function (EventType) {
+    EventType["UPDATE"] = "update";
+})(EventType || (EventType = {}));
+/** Key used to store the task history in local storage. */
+const STORAGE_KEY_LAST_EXECUTED_TIME = 'task-last-executed-time';
+const LAST_EXECUTED_TIME_HISTORY_MAX = 100;
 /**
  * TaskHistory object keeps track of the history of task executions. Recent
  * history is stored in local storage.
@@ -15,18 +22,14 @@ export class TaskHistory extends EventTarget {
         /**
          * The recent history of task executions. Key is task ID and value is time
          * stamp of the latest execution of the task.
-         * @type {!Object<string, number>}
          */
         this.lastExecutedTime_ = {};
         storage.onChanged.addListener(this.onLocalStorageChanged_.bind(this));
         this.load_();
     }
-    /**
-     * Records the timing of task execution.
-     * @param {!chrome.fileManagerPrivate.FileTaskDescriptor} descriptor
-     */
+    /** Records the timing of task execution. */
     recordTaskExecuted(descriptor) {
-        const taskId = util.makeTaskID(descriptor);
+        const taskId = makeTaskID(descriptor);
         this.lastExecutedTime_[taskId] = Date.now();
         this.truncate_();
         this.save_();
@@ -34,97 +37,52 @@ export class TaskHistory extends EventTarget {
     /**
      * Gets the time stamp of last execution of given task. If the record is not
      * found, returns 0.
-     * @param {!chrome.fileManagerPrivate.FileTaskDescriptor} descriptor
-     * @return {number}
      */
     getLastExecutedTime(descriptor) {
-        const taskId = util.makeTaskID(descriptor);
-        // @ts-ignore: error TS2322: Type 'number | undefined' is not assignable to
-        // type 'number'.
-        return this.lastExecutedTime_[taskId] ? this.lastExecutedTime_[taskId] : 0;
+        const taskId = makeTaskID(descriptor);
+        return this.lastExecutedTime_[taskId] ?? 0;
     }
-    /**
-     * Loads the current history from local storage.
-     * @private
-     */
+    /** Loads the current history from local storage. */
     load_() {
-        storage.local.get(TaskHistory.STORAGE_KEY_LAST_EXECUTED_TIME, value => {
-            this.lastExecutedTime_ =
-                // @ts-ignore: error TS7053: Element implicitly has an 'any' type
-                // because expression of type 'string' can't be used to index type
-                // 'Object'.
-                value[TaskHistory.STORAGE_KEY_LAST_EXECUTED_TIME] || {};
+        storage.local.get(STORAGE_KEY_LAST_EXECUTED_TIME, (value) => {
+            this.lastExecutedTime_ = value[STORAGE_KEY_LAST_EXECUTED_TIME] ?? {};
         });
     }
-    /**
-     * Saves the current history to local storage.
-     * @private
-     */
+    /** Saves the current history to local storage. */
     save_() {
-        const objectToSave = {};
-        // @ts-ignore: error TS7053: Element implicitly has an 'any' type because
-        // expression of type 'string' can't be used to index type '{}'.
-        objectToSave[TaskHistory.STORAGE_KEY_LAST_EXECUTED_TIME] =
-            this.lastExecutedTime_;
-        storage.local.set(objectToSave);
+        storage.local.set({ [STORAGE_KEY_LAST_EXECUTED_TIME]: this.lastExecutedTime_ });
     }
-    /**
-     * Handles local storage change event to update the current history.
-     * @param {!Object<string, !ValueChanged>} changes
-     * @param {string} areaName
-     * @private
-     */
+    /** Handles local storage change event to update the current history. */
     onLocalStorageChanged_(changes, areaName) {
         if (areaName !== 'local') {
             return;
         }
         for (const key in changes) {
-            if (key == TaskHistory.STORAGE_KEY_LAST_EXECUTED_TIME) {
+            if (key == STORAGE_KEY_LAST_EXECUTED_TIME) {
                 this.lastExecutedTime_ = changes[key]?.newValue;
-                dispatchSimpleEvent(this, TaskHistory.EventType.UPDATE);
+                dispatchSimpleEvent(this, EventType.UPDATE);
             }
         }
     }
     /**
-     * Trancates current history so that the size of history does not exceed
+     * Truncates current history so that the size of history does not exceed
      * STORAGE_KEY_LAST_EXECUTED_TIME.
-     * @private
      */
     truncate_() {
         const keys = Object.keys(this.lastExecutedTime_);
-        if (keys.length <= TaskHistory.LAST_EXECUTED_TIME_HISTORY_MAX) {
+        if (keys.length <= LAST_EXECUTED_TIME_HISTORY_MAX) {
             return;
         }
         let items = [];
-        for (let i = 0; i < keys.length; i++) {
-            // @ts-ignore: error TS2538: Type 'undefined' cannot be used as an index
-            // type.
-            items.push({ id: keys[i], timestamp: this.lastExecutedTime_[keys[i]] });
+        for (const key of keys) {
+            items.push({ id: key, timestamp: this.lastExecutedTime_[key] });
         }
         items.sort((a, b) => b.timestamp - a.timestamp);
-        items = items.slice(0, TaskHistory.LAST_EXECUTED_TIME_HISTORY_MAX);
+        items = items.slice(0, LAST_EXECUTED_TIME_HISTORY_MAX);
         const newObject = {};
-        for (let i = 0; i < items.length; i++) {
-            // @ts-ignore: error TS2532: Object is possibly 'undefined'.
-            newObject[items[i].id] = items[i].timestamp;
+        for (const item of items) {
+            newObject[item.id] = item.timestamp;
         }
-        // @ts-ignore: error TS2322: Type '{}' is not assignable to type '{ [x:
-        // string]: number; }'.
         this.lastExecutedTime_ = newObject;
     }
 }
-/**
- * @enum {string}
- */
-TaskHistory.EventType = {
-    UPDATE: 'update',
-};
-/**
- * Key used to store the task history in local storage.
- * @const @type {string}
- */
-TaskHistory.STORAGE_KEY_LAST_EXECUTED_TIME = 'task-last-executed-time';
-/**
- * @const @type {number}
- */
-TaskHistory.LAST_EXECUTED_TIME_HISTORY_MAX = 100;

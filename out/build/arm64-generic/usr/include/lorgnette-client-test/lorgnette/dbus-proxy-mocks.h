@@ -99,6 +99,21 @@ class ManagerProxyMock : public ManagerProxyInterface {
               (override));
 
   MOCK_METHOD(bool,
+              GetCurrentConfig,
+              (const ::lorgnette::GetCurrentConfigRequest& /*in_request*/,
+               ::lorgnette::GetCurrentConfigResponse* /*out_response*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              GetCurrentConfigAsync,
+              (const ::lorgnette::GetCurrentConfigRequest& /*in_request*/,
+               base::OnceCallback<void(const ::lorgnette::GetCurrentConfigResponse& /*response*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
               StartPreparedScan,
               (const ::lorgnette::StartPreparedScanRequest& /*in_request*/,
                ::lorgnette::StartPreparedScanResponse* /*out_response*/,

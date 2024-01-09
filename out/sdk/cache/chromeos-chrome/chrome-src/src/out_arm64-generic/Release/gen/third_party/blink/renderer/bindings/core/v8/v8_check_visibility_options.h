@@ -53,6 +53,36 @@ void setCheckVisibilityCSS(bool value) {
   member_check_visibility_css_ = value;
 }
 
+bool hasContentVisibilityAuto() const {
+  return true;
+}
+bool contentVisibilityAuto() const {
+  return member_content_visibility_auto_;
+}
+void setContentVisibilityAuto(bool value) {
+  member_content_visibility_auto_ = value;
+}
+
+bool hasOpacityProperty() const {
+  return true;
+}
+bool opacityProperty() const {
+  return member_opacity_property_;
+}
+void setOpacityProperty(bool value) {
+  member_opacity_property_ = value;
+}
+
+bool hasVisibilityProperty() const {
+  return true;
+}
+bool visibilityProperty() const {
+  return member_visibility_property_;
+}
+void setVisibilityProperty(bool value) {
+  member_visibility_property_ = value;
+}
+
 
 
 
@@ -72,6 +102,9 @@ static const base::span<const v8::Eternal<v8::Name>> GetV8OwnMemberNames(v8::Iso
 
 bool member_check_opacity_{false};
 bool member_check_visibility_css_{false};
+bool member_content_visibility_auto_{false};
+bool member_opacity_property_{false};
+bool member_visibility_property_{false};
 
 
   

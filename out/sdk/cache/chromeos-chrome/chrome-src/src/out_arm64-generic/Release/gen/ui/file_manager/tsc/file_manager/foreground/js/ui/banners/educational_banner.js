@@ -1,14 +1,9 @@
 // Copyright 2021 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-/**
- * @fileoverview
- * This file is checked via TS, so we suppress Closure checks.
- * @suppress {checkTypes}
- */
 import 'chrome://resources/cros_components/button/button.js';
 import { isCrosComponentsEnabled } from '../../../../common/js/flags.js';
-import { util } from '../../../../common/js/util.js';
+import { visitURL } from '../../../../common/js/util.js';
 import { getTemplate } from './educational_banner.html.js';
 import { Banner, BannerEvent, DismissedForeverEventSource } from './types.js';
 /**
@@ -26,7 +21,7 @@ import { Banner, BannerEvent, DismissedForeverEventSource } from './types.js';
  *
  *    class ConcreteEducationalBanner extends EducationalBanner {
  *      allowedVolumes() {
- *        return [{type: VolumeManagerCommon.VolumeType.DOWNLOADS}];
+ *        return [{type: VolumeType.DOWNLOADS}];
  *      }
  *    }
  *
@@ -107,7 +102,7 @@ export class EducationalBanner extends Banner {
         const href = extraButton?.getAttribute('href');
         if (href && extraButton) {
             extraButton.addEventListener('click', (e) => {
-                util.visitURL(/** @type {!string} */ (href));
+                visitURL(/** @type {!string} */ (href));
                 if (extraButton.hasAttribute('dismiss-banner-when-clicked')) {
                     this.dispatchEvent(new CustomEvent(BannerEvent.BANNER_DISMISSED_FOREVER, {
                         bubbles: true,

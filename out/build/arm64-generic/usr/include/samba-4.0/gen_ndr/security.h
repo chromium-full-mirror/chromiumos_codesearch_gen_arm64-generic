@@ -226,6 +226,7 @@
 #define BUILTIN_RID_REMOTE_MANAGEMENT_USERS	( 580 )
 #define NT4_ACL_REVISION	( SECURITY_ACL_REVISION_NT4 )
 #define SD_REVISION	( SECURITY_DESCRIPTOR_REVISION_1 )
+#define SE_GROUP_DEFAULT_FLAGS	( SE_GROUP_MANDATORY|SE_GROUP_ENABLED_BY_DEFAULT|SE_GROUP_ENABLED )
 #define SMB_SUPPORTED_SECINFO_FLAGS	( (SECINFO_OWNER|SECINFO_GROUP|SECINFO_DACL|SECINFO_SACL|SECINFO_LABEL|SECINFO_ATTRIBUTE|SECINFO_SCOPE|SECINFO_BACKUP|0) )
 #define GUID_DRS_ALLOCATE_RIDS	( "1abd7cf8-0a99-11d1-adbb-00c04fd8d5cd" )
 #define GUID_DRS_CHANGE_DOMAIN_MASTER	( "014bf69c-7b3b-11d1-85f6-08002be74fab" )
@@ -523,6 +524,12 @@ struct security_token {
 	struct dom_sid *sids;/* [size_is(num_sids)] */
 	uint64_t privilege_mask;
 	uint32_t rights_mask;
+}/* [public] */;
+
+struct security_token_descriptor_fuzzing_pair {
+	struct security_token token;
+	struct security_descriptor sd;
+	uint32_t access_desired;
 }/* [public] */;
 
 struct security_unix_token {

@@ -32,7 +32,7 @@ namespace blink {
 
 bool V8DocumentTimeline::IsExposed(ExecutionContext* execution_context) {
   
-return execution_context->IsWindow() && RuntimeEnabledFeatures::WebAnimationsAPIEnabled();
+return execution_context->IsWindow();
 }
 
 // Construction of WrapperTypeInfo may require non-trivial initialization due
@@ -69,11 +69,6 @@ const WrapperTypeInfo& DocumentTimeline::wrapper_type_info_ =
 static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, DocumentTimeline>::value,
     "DocumentTimeline inherits from ActiveScriptWrappable<> without "
-    "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&DocumentTimeline::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "DocumentTimeline is overriding hasPendingActivity() without "
     "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {

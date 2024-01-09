@@ -85,6 +85,16 @@ std::unique_ptr<VirtualAuthenticatorOptions> VirtualAuthenticatorOptions::Parse(
     errors->SetName("isUserVerified");
     result->is_user_verified_ = internal::FromValue<bool>::Parse(*is_user_verified_value, errors);
   }
+  const base::Value* default_backup_eligibility_value = dict.Find("defaultBackupEligibility");
+  if (default_backup_eligibility_value) {
+    errors->SetName("defaultBackupEligibility");
+    result->default_backup_eligibility_ = internal::FromValue<bool>::Parse(*default_backup_eligibility_value, errors);
+  }
+  const base::Value* default_backup_state_value = dict.Find("defaultBackupState");
+  if (default_backup_state_value) {
+    errors->SetName("defaultBackupState");
+    result->default_backup_state_ = internal::FromValue<bool>::Parse(*default_backup_state_value, errors);
+  }
   errors->Pop();
   errors->Pop();
   if (errors->HasErrors())
@@ -114,6 +124,10 @@ base::Value VirtualAuthenticatorOptions::Serialize() const {
     result.Set("automaticPresenceSimulation", internal::ToValue(automatic_presence_simulation_.value()));
   if (is_user_verified_)
     result.Set("isUserVerified", internal::ToValue(is_user_verified_.value()));
+  if (default_backup_eligibility_)
+    result.Set("defaultBackupEligibility", internal::ToValue(default_backup_eligibility_.value()));
+  if (default_backup_state_)
+    result.Set("defaultBackupState", internal::ToValue(default_backup_state_.value()));
   return base::Value(std::move(result));
 }
 

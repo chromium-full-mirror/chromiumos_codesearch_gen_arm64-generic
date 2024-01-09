@@ -8,5 +8,7 @@
 #define SERVICES_AUDIO_PUBLIC_MOJOM_LOG_FACTORY_MANAGER_MOJOM_IMPORT_HEADERS_H_
 #include "media/mojo/mojom/audio_logging.mojom.h"
 #include "media/mojo/mojom/audio_logging.mojom-import-headers.h"
+#include "sandbox/policy/mojom/context.mojom.h"
+#include "sandbox/policy/mojom/context.mojom-import-headers.h"
 
 #endif  // SERVICES_AUDIO_PUBLIC_MOJOM_LOG_FACTORY_MANAGER_MOJOM_IMPORT_HEADERS_H_

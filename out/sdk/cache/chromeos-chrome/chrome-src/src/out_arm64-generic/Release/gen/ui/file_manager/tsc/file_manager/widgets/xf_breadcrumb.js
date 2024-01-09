@@ -5,7 +5,7 @@ var XfBreadcrumb_1;
 import 'chrome://resources/cr_elements/cr_action_menu/cr_action_menu.js';
 import 'chrome://resources/polymer/v3_0/paper-ripple/paper-ripple.js';
 import { getCrActionMenuTop, mouseEnterMaybeShowTooltip } from '../common/js/dom_utils.js';
-import { str } from '../common/js/util.js';
+import { str } from '../common/js/translations.js';
 import { css, customElement, html, property, query, state, XfBase } from './xf_base.js';
 /**
  * Breadcrumb displays the current directory path.

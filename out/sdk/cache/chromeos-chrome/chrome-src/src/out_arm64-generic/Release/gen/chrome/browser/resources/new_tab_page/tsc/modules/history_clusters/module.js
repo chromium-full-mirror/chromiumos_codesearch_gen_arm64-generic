@@ -5,7 +5,7 @@ import '../module_header.js';
 import './suggest_tile.js';
 import '../../discount.mojom-webui.js';
 import { assert } from 'chrome://resources/js/assert.js';
-import { listenOnce } from 'chrome://resources/js/util_ts.js';
+import { listenOnce } from 'chrome://resources/js/util.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { LayoutType } from '../../history_clusters_layout_type.mojom-webui.js';
 import { I18nMixin, loadTimeData } from '../../i18n_setup.js';
@@ -245,29 +245,24 @@ async function createElement() {
         .length;
     const visitCount = element.cluster.visits.length;
     element.discounts = [];
-    if (loadTimeData.getBoolean('historyClustersModuleDiscountsEnabled')) {
-        const { discounts } = await HistoryClustersProxyImpl.getInstance()
-            .handler.getDiscountsForCluster(clusters[0]);
-        for (const visit of clusters[0].visits) {
-            let discountInValue = '';
-            for (const [url, urlDiscounts] of discounts) {
-                if (url.url === visit.normalizedUrl.url && urlDiscounts.length > 0) {
-                    // API is designed to support multiple discounts, but for now we only
-                    // have one.
-                    discountInValue = urlDiscounts[0].valueInText;
-                    visit.normalizedUrl.url = urlDiscounts[0].annotatedVisitUrl.url;
-                }
+    const { discounts } = await HistoryClustersProxyImpl.getInstance()
+        .handler.getDiscountsForCluster(clusters[0]);
+    for (const visit of clusters[0].visits) {
+        let discountInValue = '';
+        for (const [url, urlDiscounts] of discounts) {
+            if (url.url === visit.normalizedUrl.url && urlDiscounts.length > 0) {
+                // API is designed to support multiple discounts, but for now we only
+                // have one.
+                discountInValue = urlDiscounts[0].valueInText;
+                visit.normalizedUrl.url = urlDiscounts[0].annotatedVisitUrl.url;
             }
-            element.discounts.push(discountInValue);
         }
-        // For visits without discounts, discount string in corresponding index in
-        // `discounts` array is empty.
-        const hasDiscount = element.discounts.some((discount) => discount.length > 0);
-        chrome.metricsPrivate.recordBoolean(`NewTabPage.HistoryClusters.HasDiscount`, hasDiscount);
+        element.discounts.push(discountInValue);
     }
-    else {
-        element.discounts = Array(visitCount).fill('');
-    }
+    // For visits without discounts, discount string in corresponding index in
+    // `discounts` array is empty.
+    const hasDiscount = element.discounts.some((discount) => discount.length > 0);
+    chrome.metricsPrivate.recordBoolean(`NewTabPage.HistoryClusters.HasDiscount`, hasDiscount);
     // Calculate which layout to use.
     if (imageCount >= LAYOUT_3_MIN_IMAGE_VISITS) {
         // Layout 1 and 3 require the same number of images.

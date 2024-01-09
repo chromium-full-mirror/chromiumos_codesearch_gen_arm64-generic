@@ -48,12 +48,6 @@ export function getNumberOfGridItemsPerRow() {
     return window.innerWidth > 720 ? 4 : 3;
 }
 /**
- * Checks if argument is an array with non-zero length.
- */
-export function isNonEmptyArray(maybeArray) {
-    return Array.isArray(maybeArray) && maybeArray.length > 0;
-}
-/**
  * Checks if argument is a string with non-zero length.
  */
 export function isNonEmptyString(maybeString) {
@@ -64,15 +58,6 @@ export function isNonEmptyString(maybeString) {
  */
 export function inBetween(num, minVal, maxVal) {
     return minVal <= num && num <= maxVal;
-}
-/** Converts a String16 to a JavaScript String. */
-export function decodeString16(str) {
-    return str ? str.data.map(ch => String.fromCodePoint(ch)).join('') : '';
-}
-export function isImageDataUrl(maybeDataUrl) {
-    return !!maybeDataUrl && typeof maybeDataUrl.url === 'string' &&
-        (maybeDataUrl.url.startsWith('data:image/png;base64') ||
-            maybeDataUrl.url.startsWith('data:image/jpeg;base64'));
 }
 /** Returns the RGB hex in #ffffff format. */
 export function convertToRgbHexStr(hexVal) {
@@ -128,7 +113,8 @@ export function isRecentHighlightsAlbum(album) {
  * Returns the icon string for the checkmark.
  */
 export function getCheckmarkIcon() {
-    return isPersonalizationJellyEnabled() ? 'personalization:circle_checkmark' :
+    return isPersonalizationJellyEnabled() ?
+        'personalization-shared:circle-checkmark' :
         'personalization:checkmark';
 }
 /**

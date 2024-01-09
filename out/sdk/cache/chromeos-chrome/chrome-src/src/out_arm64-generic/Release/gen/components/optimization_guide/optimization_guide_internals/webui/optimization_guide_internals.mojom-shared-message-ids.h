@@ -16,6 +16,7 @@ namespace internal {
 
 constexpr uint32_t kPageHandlerFactory_CreatePageHandler_Name = 0;
 constexpr uint32_t kPageHandlerFactory_RequestDownloadedModelsInfo_Name = 1;
+constexpr uint32_t kPageHandlerFactory_RequestLoggedModelQualityClientIds_Name = 2;
 constexpr uint32_t kPage_OnLogMessageAdded_Name = 0;
 
 }  // namespace internal

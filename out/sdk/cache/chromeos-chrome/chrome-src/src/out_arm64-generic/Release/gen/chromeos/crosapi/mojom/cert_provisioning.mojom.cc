@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -122,7 +123,7 @@ CertProvisioningProcessStatus::CertProvisioningProcessStatus(
     CertProvisioningProcessState state_in,
     bool did_fail_in,
     bool is_device_wide_in,
-    const absl::optional<std::string>& failure_message_in)
+    const std::optional<std::string>& failure_message_in)
     : cert_profile_id(std::move(cert_profile_id_in)),
       cert_profile_name(std::move(cert_profile_name_in)),
       public_key(std::move(public_key_in)),
@@ -214,7 +215,7 @@ void CertProvisioningProcessStatus::WriteIntoTrace(
     dict.AddItem(
       "failure_message"), this->failure_message,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -291,14 +292,17 @@ void CertProvisioningObserverProxy::OnStateChanged(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::CertProvisioningObserver::OnStateChanged");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCertProvisioningObserver_OnStateChanged_Name, kFlags, 0, 0, nullptr);
@@ -362,10 +366,10 @@ bool CertProvisioningObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kCertProvisioningObserverValidationInfo[] = {
-    {&internal::CertProvisioningObserver_OnStateChanged_Params_Data::Validate,
+    { &internal::CertProvisioningObserver_OnStateChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -389,6 +393,9 @@ CertProvisioning::IPCStableHashFunction CertProvisioning::MessageToMethodInfo_(m
     case internal::kCertProvisioning_UpdateOneProcess_Name: {
       return &CertProvisioning::UpdateOneProcess_Sym::IPCStableHash;
     }
+    case internal::kCertProvisioning_ResetOneProcess_Name: {
+      return &CertProvisioning::ResetOneProcess_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -406,6 +413,8 @@ const char* CertProvisioning::MessageToMethodName_(mojo::Message& message) {
             return "Receive crosapi::mojom::CertProvisioning::GetStatus";
       case internal::kCertProvisioning_UpdateOneProcess_Name:
             return "Receive crosapi::mojom::CertProvisioning::UpdateOneProcess";
+      case internal::kCertProvisioning_ResetOneProcess_Name:
+            return "Receive crosapi::mojom::CertProvisioning::ResetOneProcess";
     }
   } else {
     switch (message.name()) {
@@ -415,6 +424,8 @@ const char* CertProvisioning::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply crosapi::mojom::CertProvisioning::GetStatus";
       case internal::kCertProvisioning_UpdateOneProcess_Name:
             return "Receive reply crosapi::mojom::CertProvisioning::UpdateOneProcess";
+      case internal::kCertProvisioning_ResetOneProcess_Name:
+            return "Receive reply crosapi::mojom::CertProvisioning::ResetOneProcess";
     }
   }
   return "Receive unknown mojo message";
@@ -468,6 +479,19 @@ uint32_t CertProvisioning::UpdateOneProcess_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t CertProvisioning::ResetOneProcess_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)crosapi::mojom::CertProvisioning::ResetOneProcess");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 class CertProvisioning_GetStatus_ForwardToCallback
@@ -502,14 +526,17 @@ void CertProvisioningProxy::AddObserver(
                         "<value of type ::mojo::PendingRemote<CertProvisioningObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCertProvisioning_AddObserver_Name, kFlags, 0, 0, nullptr);
@@ -538,14 +565,17 @@ void CertProvisioningProxy::GetStatus(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::CertProvisioning::GetStatus");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCertProvisioning_GetStatus_Name, kFlags, 0, 0, nullptr);
@@ -576,14 +606,17 @@ void CertProvisioningProxy::UpdateOneProcess(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCertProvisioning_UpdateOneProcess_Name, kFlags, 0, 0, nullptr);
@@ -606,6 +639,57 @@ void CertProvisioningProxy::UpdateOneProcess(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(CertProvisioning::Name_);
   message.set_method_name("UpdateOneProcess");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void CertProvisioningProxy::ResetOneProcess(
+    const std::string& in_cert_profile_id) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send crosapi::mojom::CertProvisioning::ResetOneProcess", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("cert_profile_id"), in_cert_profile_id,
+                        "<value of type const std::string&>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kCertProvisioning_ResetOneProcess_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::crosapi::mojom::internal::CertProvisioning_ResetOneProcess_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->cert_profile_id)::BaseType> cert_profile_id_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_cert_profile_id, cert_profile_id_fragment);
+  params->cert_profile_id.Set(
+      cert_profile_id_fragment.is_null() ? nullptr : cert_profile_id_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->cert_profile_id.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null cert_profile_id in CertProvisioning.ResetOneProcess request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(CertProvisioning::Name_);
+  message.set_method_name("ResetOneProcess");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
@@ -703,7 +787,8 @@ void CertProvisioning_GetStatus_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCertProvisioning_GetStatus_Name, kFlags, 0, 0, nullptr);
@@ -804,6 +889,32 @@ std::move(p_observer));
 std::move(p_cert_profile_id));
       return true;
     }
+    case internal::kCertProvisioning_ResetOneProcess_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::CertProvisioning_ResetOneProcess_Params_Data* params =
+          reinterpret_cast<internal::CertProvisioning_ResetOneProcess_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      std::string p_cert_profile_id{};
+      CertProvisioning_ResetOneProcess_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadCertProfileId(&p_cert_profile_id))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            CertProvisioning::Name_, 3, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->ResetOneProcess(
+std::move(p_cert_profile_id));
+      return true;
+    }
   }
   return false;
 }
@@ -848,17 +959,22 @@ bool CertProvisioningStubDispatch::AcceptWithResponder(
     case internal::kCertProvisioning_UpdateOneProcess_Name: {
       break;
     }
+    case internal::kCertProvisioning_ResetOneProcess_Name: {
+      break;
+    }
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kCertProvisioningValidationInfo[] = {
-    {&internal::CertProvisioning_AddObserver_Params_Data::Validate,
+    { &internal::CertProvisioning_AddObserver_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CertProvisioning_GetStatus_Params_Data::Validate,
+    { &internal::CertProvisioning_GetStatus_Params_Data::Validate,
      &internal::CertProvisioning_GetStatus_ResponseParams_Data::Validate},
-    {&internal::CertProvisioning_UpdateOneProcess_Params_Data::Validate,
+    { &internal::CertProvisioning_UpdateOneProcess_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::CertProvisioning_ResetOneProcess_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -953,6 +1069,9 @@ void CertProvisioningInterceptorForTesting::GetStatus(GetStatusCallback callback
 }
 void CertProvisioningInterceptorForTesting::UpdateOneProcess(const std::string& cert_profile_id) {
   GetForwardingInterface()->UpdateOneProcess(std::move(cert_profile_id));
+}
+void CertProvisioningInterceptorForTesting::ResetOneProcess(const std::string& cert_profile_id) {
+  GetForwardingInterface()->ResetOneProcess(std::move(cert_profile_id));
 }
 CertProvisioningAsyncWaiter::CertProvisioningAsyncWaiter(
     CertProvisioning* proxy) : proxy_(proxy) {}

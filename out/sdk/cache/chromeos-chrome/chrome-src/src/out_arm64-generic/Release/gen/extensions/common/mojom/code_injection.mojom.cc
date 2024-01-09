@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -89,7 +90,7 @@ CSSSource::CSSSource()
 
 CSSSource::CSSSource(
     const std::string& code_in,
-    const absl::optional<std::string>& key_in)
+    const std::optional<std::string>& key_in)
     : code(std::move(code_in)),
       key(std::move(key_in)) {}
 
@@ -111,7 +112,7 @@ void CSSSource::WriteIntoTrace(
     dict.AddItem(
       "key"), this->key,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

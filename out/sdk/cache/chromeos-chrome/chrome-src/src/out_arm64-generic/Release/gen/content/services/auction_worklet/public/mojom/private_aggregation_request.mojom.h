@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "content/services/auction_worklet/public/mojom/private_aggregation_request.mojom-features.h"
 #include "content/services/auction_worklet/public/mojom/private_aggregation_request.mojom-shared.h"
 #include "content/services/auction_worklet/public/mojom/private_aggregation_request.mojom-forward.h"
 #include "mojo/public/mojom/base/int128.mojom.h"
@@ -215,17 +216,17 @@ class CONTENT_EXPORT ForEventSignalBucket {
   // Construct an instance holding |id_bucket|.
   static ForEventSignalBucketPtr
   NewIdBucket(
-      const ::absl::uint128& id_bucket) {
+      const ::absl::uint128& value) {
     auto result = ForEventSignalBucketPtr(absl::in_place);
-    result->set_id_bucket(std::move(id_bucket));
+    result->set_id_bucket(std::move(value));
     return result;
   }
   // Construct an instance holding |signal_bucket|.
   static ForEventSignalBucketPtr
   NewSignalBucket(
-      SignalBucketPtr signal_bucket) {
+      SignalBucketPtr value) {
     auto result = ForEventSignalBucketPtr(absl::in_place);
-    result->set_signal_bucket(std::move(signal_bucket));
+    result->set_signal_bucket(std::move(value));
     return result;
   }
 
@@ -345,17 +346,17 @@ class CONTENT_EXPORT ForEventSignalValue {
   // Construct an instance holding |int_value|.
   static ForEventSignalValuePtr
   NewIntValue(
-      int32_t int_value) {
+      int32_t value) {
     auto result = ForEventSignalValuePtr(absl::in_place);
-    result->set_int_value(std::move(int_value));
+    result->set_int_value(std::move(value));
     return result;
   }
   // Construct an instance holding |signal_value|.
   static ForEventSignalValuePtr
   NewSignalValue(
-      SignalValuePtr signal_value) {
+      SignalValuePtr value) {
     auto result = ForEventSignalValuePtr(absl::in_place);
-    result->set_signal_value(std::move(signal_value));
+    result->set_signal_value(std::move(value));
     return result;
   }
 
@@ -476,17 +477,17 @@ class CONTENT_EXPORT AggregatableReportContribution {
   // Construct an instance holding |histogram_contribution|.
   static AggregatableReportContributionPtr
   NewHistogramContribution(
-      ::blink::mojom::AggregatableReportHistogramContributionPtr histogram_contribution) {
+      ::blink::mojom::AggregatableReportHistogramContributionPtr value) {
     auto result = AggregatableReportContributionPtr(absl::in_place);
-    result->set_histogram_contribution(std::move(histogram_contribution));
+    result->set_histogram_contribution(std::move(value));
     return result;
   }
   // Construct an instance holding |for_event_contribution|.
   static AggregatableReportContributionPtr
   NewForEventContribution(
-      AggregatableReportForEventContributionPtr for_event_contribution) {
+      AggregatableReportForEventContributionPtr value) {
     auto result = AggregatableReportContributionPtr(absl::in_place);
-    result->set_for_event_contribution(std::move(for_event_contribution));
+    result->set_for_event_contribution(std::move(value));
     return result;
   }
 

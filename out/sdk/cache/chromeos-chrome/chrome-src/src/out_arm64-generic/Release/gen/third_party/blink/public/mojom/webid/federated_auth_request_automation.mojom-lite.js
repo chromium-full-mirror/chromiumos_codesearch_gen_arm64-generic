@@ -16,6 +16,26 @@ mojo.internal.exportModule('blink.test.mojom');
 
 
 
+/**
+ * @const { {$: !mojo.internal.MojomType} }
+ * @export
+ */
+blink.test.mojom.DialogButtonSpec = { $: mojo.internal.Enum() };
+
+/**
+ * @enum {number}
+ * @export
+ */
+blink.test.mojom.DialogButton = {
+  
+  kConfirmIdpLoginContinue: 0,
+  kErrorGotIt: 1,
+  kErrorMoreDetails: 2,
+  MIN_VALUE: 0,
+  MAX_VALUE: 2,
+};
+
+
 
 
 
@@ -136,17 +156,20 @@ blink.test.mojom.FederatedAuthRequestAutomationRemote = class {
 
   
   /**
+   * @param { !blink.test.mojom.DialogButton } dialogButton
    * @return {!Promise<{
         success: !boolean,
    *  }>}
    */
 
-  confirmIdpLogin() {
+  clickFedCmDialogButton(
+      dialogButton) {
     return this.proxy.sendMessage(
         4,
-        blink.test.mojom.FederatedAuthRequestAutomation_ConfirmIdpLogin_ParamsSpec.$,
-        blink.test.mojom.FederatedAuthRequestAutomation_ConfirmIdpLogin_ResponseParamsSpec.$,
+        blink.test.mojom.FederatedAuthRequestAutomation_ClickFedCmDialogButton_ParamsSpec.$,
+        blink.test.mojom.FederatedAuthRequestAutomation_ClickFedCmDialogButton_ResponseParamsSpec.$,
         [
+          dialogButton
         ]);
   }
 };
@@ -195,9 +218,9 @@ blink.test.mojom.FederatedAuthRequestAutomationReceiver = class {
         impl.dismissFedCmDialog.bind(impl));
     this.helper_internal_.registerHandler(
         4,
-        blink.test.mojom.FederatedAuthRequestAutomation_ConfirmIdpLogin_ParamsSpec.$,
-        blink.test.mojom.FederatedAuthRequestAutomation_ConfirmIdpLogin_ResponseParamsSpec.$,
-        impl.confirmIdpLogin.bind(impl));
+        blink.test.mojom.FederatedAuthRequestAutomation_ClickFedCmDialogButton_ParamsSpec.$,
+        blink.test.mojom.FederatedAuthRequestAutomation_ClickFedCmDialogButton_ResponseParamsSpec.$,
+        impl.clickFedCmDialogButton.bind(impl));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -301,15 +324,15 @@ blink.test.mojom.FederatedAuthRequestAutomationCallbackRouter = class {
     /**
      * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
      */
-    this.confirmIdpLogin =
+    this.clickFedCmDialogButton =
         new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
             this.router_);
 
     this.helper_internal_.registerHandler(
         4,
-        blink.test.mojom.FederatedAuthRequestAutomation_ConfirmIdpLogin_ParamsSpec.$,
-        blink.test.mojom.FederatedAuthRequestAutomation_ConfirmIdpLogin_ResponseParamsSpec.$,
-        this.confirmIdpLogin.createReceiverHandler(true /* expectsResponse */));
+        blink.test.mojom.FederatedAuthRequestAutomation_ClickFedCmDialogButton_ParamsSpec.$,
+        blink.test.mojom.FederatedAuthRequestAutomation_ClickFedCmDialogButton_ResponseParamsSpec.$,
+        this.clickFedCmDialogButton.createReceiverHandler(true /* expectsResponse */));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -394,7 +417,7 @@ blink.test.mojom.FederatedAuthRequestAutomation_DismissFedCmDialog_ResponseParam
  * @const { {$:!mojo.internal.MojomType}}
  * @export
  */
-blink.test.mojom.FederatedAuthRequestAutomation_ConfirmIdpLogin_ParamsSpec =
+blink.test.mojom.FederatedAuthRequestAutomation_ClickFedCmDialogButton_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 
@@ -402,7 +425,7 @@ blink.test.mojom.FederatedAuthRequestAutomation_ConfirmIdpLogin_ParamsSpec =
  * @const { {$:!mojo.internal.MojomType}}
  * @export
  */
-blink.test.mojom.FederatedAuthRequestAutomation_ConfirmIdpLogin_ResponseParamsSpec =
+blink.test.mojom.FederatedAuthRequestAutomation_ClickFedCmDialogButton_ResponseParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 
@@ -611,27 +634,37 @@ blink.test.mojom.FederatedAuthRequestAutomation_DismissFedCmDialog_ResponseParam
 
 
 mojo.internal.Struct(
-    blink.test.mojom.FederatedAuthRequestAutomation_ConfirmIdpLogin_ParamsSpec.$,
-    'FederatedAuthRequestAutomation_ConfirmIdpLogin_Params',
+    blink.test.mojom.FederatedAuthRequestAutomation_ClickFedCmDialogButton_ParamsSpec.$,
+    'FederatedAuthRequestAutomation_ClickFedCmDialogButton_Params',
     [
+      mojo.internal.StructField(
+        'dialogButton', 0,
+        0,
+        blink.test.mojom.DialogButtonSpec.$,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
     ],
-    [[0, 8],]);
+    [[0, 16],]);
 
 
 
 
 
 /** @record */
-blink.test.mojom.FederatedAuthRequestAutomation_ConfirmIdpLogin_Params = class {
+blink.test.mojom.FederatedAuthRequestAutomation_ClickFedCmDialogButton_Params = class {
   constructor() {
+    /** @export { !blink.test.mojom.DialogButton } */
+    this.dialogButton;
   }
 };
 
 
 
 mojo.internal.Struct(
-    blink.test.mojom.FederatedAuthRequestAutomation_ConfirmIdpLogin_ResponseParamsSpec.$,
-    'FederatedAuthRequestAutomation_ConfirmIdpLogin_ResponseParams',
+    blink.test.mojom.FederatedAuthRequestAutomation_ClickFedCmDialogButton_ResponseParamsSpec.$,
+    'FederatedAuthRequestAutomation_ClickFedCmDialogButton_ResponseParams',
     [
       mojo.internal.StructField(
         'success', 0,
@@ -649,7 +682,7 @@ mojo.internal.Struct(
 
 
 /** @record */
-blink.test.mojom.FederatedAuthRequestAutomation_ConfirmIdpLogin_ResponseParams = class {
+blink.test.mojom.FederatedAuthRequestAutomation_ClickFedCmDialogButton_ResponseParams = class {
   constructor() {
     /** @export { !boolean } */
     this.success;

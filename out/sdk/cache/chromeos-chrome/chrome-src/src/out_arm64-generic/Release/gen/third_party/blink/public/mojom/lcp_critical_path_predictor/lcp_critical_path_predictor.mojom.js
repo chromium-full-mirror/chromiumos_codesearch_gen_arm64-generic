@@ -25,6 +25,12 @@
     mojo.internal.loadMojomIfNecessary(
         'mojo/public/mojom/base/byte_string.mojom', '../../../../../mojo/public/mojom/base/byte_string.mojom.js');
   }
+  var time$ =
+      mojo.internal.exposeNamespace('mojoBase.mojom');
+  if (mojo.config.autoLoadMojomDeps) {
+    mojo.internal.loadMojomIfNecessary(
+        'mojo/public/mojom/base/time.mojom', '../../../../../mojo/public/mojom/base/time.mojom.js');
+  }
   var url$ =
       mojo.internal.exposeNamespace('url.mojom');
   if (mojo.config.autoLoadMojomDeps) {
@@ -118,6 +124,8 @@
 
   LCPCriticalPathPredictorHost_SetLcpElementLocator_Params.prototype.initDefaults_ = function() {
     this.lcpElementLocator = null;
+    this.predicted_lcp_index_$flag = false;
+    this.predicted_lcp_index_$value = 0;
   };
   LCPCriticalPathPredictorHost_SetLcpElementLocator_Params.prototype.initFields_ = function(fields) {
     for(var field in fields) {
@@ -133,7 +141,7 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 16}
+      {version: 0, numBytes: 24}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
@@ -145,10 +153,12 @@
     if (err !== validator.validationError.NONE)
         return err;
 
+
+
     return validator.validationError.NONE;
   };
 
-  LCPCriticalPathPredictorHost_SetLcpElementLocator_Params.encodedSize = codec.kStructHeaderSize + 8;
+  LCPCriticalPathPredictorHost_SetLcpElementLocator_Params.encodedSize = codec.kStructHeaderSize + 16;
 
   LCPCriticalPathPredictorHost_SetLcpElementLocator_Params.decode = function(decoder) {
     var packed;
@@ -157,6 +167,13 @@
     var version = decoder.readUint32();
     val.lcpElementLocator =
         decoder.decodeStructPointer(byte_string$.ByteString);
+    packed = decoder.readUint8();
+    val.predicted_lcp_index_$flag = (packed >> 0) & 1 ? true : false;
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    val.predicted_lcp_index_$value =
+        decoder.decodeStruct(codec.Uint32);
     return val;
   };
 
@@ -165,6 +182,13 @@
     encoder.writeUint32(LCPCriticalPathPredictorHost_SetLcpElementLocator_Params.encodedSize);
     encoder.writeUint32(0);
     encoder.encodeStructPointer(byte_string$.ByteString, val.lcpElementLocator);
+    packed = 0;
+    packed |= (val.predicted_lcp_index_$flag & 1) << 0
+    encoder.writeUint8(packed);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.encodeStruct(codec.Uint32, val.predicted_lcp_index_$value);
   };
   function LCPCriticalPathPredictorHost_SetLcpInfluencerScriptUrls_Params(values) {
     this.initDefaults_();
@@ -278,9 +302,76 @@
     encoder.writeUint32(0);
     encoder.encodeStructPointer(url$.Url, val.fontUrl);
   };
+  function LCPCriticalPathPredictorHost_NotifyFetchedSubresource_Params(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  LCPCriticalPathPredictorHost_NotifyFetchedSubresource_Params.prototype.initDefaults_ = function() {
+    this.subresourceUrl = null;
+    this.subresourceLoadStart = null;
+  };
+  LCPCriticalPathPredictorHost_NotifyFetchedSubresource_Params.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  LCPCriticalPathPredictorHost_NotifyFetchedSubresource_Params.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 24}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate LCPCriticalPathPredictorHost_NotifyFetchedSubresource_Params.subresourceUrl
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 0, url$.Url, false);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate LCPCriticalPathPredictorHost_NotifyFetchedSubresource_Params.subresourceLoadStart
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 8, time$.TimeDelta, false);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    return validator.validationError.NONE;
+  };
+
+  LCPCriticalPathPredictorHost_NotifyFetchedSubresource_Params.encodedSize = codec.kStructHeaderSize + 16;
+
+  LCPCriticalPathPredictorHost_NotifyFetchedSubresource_Params.decode = function(decoder) {
+    var packed;
+    var val = new LCPCriticalPathPredictorHost_NotifyFetchedSubresource_Params();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    val.subresourceUrl =
+        decoder.decodeStructPointer(url$.Url);
+    val.subresourceLoadStart =
+        decoder.decodeStructPointer(time$.TimeDelta);
+    return val;
+  };
+
+  LCPCriticalPathPredictorHost_NotifyFetchedSubresource_Params.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(LCPCriticalPathPredictorHost_NotifyFetchedSubresource_Params.encodedSize);
+    encoder.writeUint32(0);
+    encoder.encodeStructPointer(url$.Url, val.subresourceUrl);
+    encoder.encodeStructPointer(time$.TimeDelta, val.subresourceLoadStart);
+  };
   var kLCPCriticalPathPredictorHost_SetLcpElementLocator_Name = 0;
   var kLCPCriticalPathPredictorHost_SetLcpInfluencerScriptUrls_Name = 1;
   var kLCPCriticalPathPredictorHost_NotifyFetchedFont_Name = 2;
+  var kLCPCriticalPathPredictorHost_NotifyFetchedSubresource_Name = 3;
 
   function LCPCriticalPathPredictorHostPtr(handleOrPtrInfo) {
     this.ptr = new bindings.InterfacePtrController(LCPCriticalPathPredictorHost,
@@ -305,9 +396,10 @@
         .apply(this.ptr.getProxy(), arguments);
   };
 
-  LCPCriticalPathPredictorHostProxy.prototype.setLcpElementLocator = function(lcpElementLocator) {
+  LCPCriticalPathPredictorHostProxy.prototype.setLcpElementLocator = function(lcpElementLocator, predictedLcpIndex) {
     var params_ = new LCPCriticalPathPredictorHost_SetLcpElementLocator_Params();
     params_.lcpElementLocator = lcpElementLocator;
+    params_.predictedLcpIndex = predictedLcpIndex;
     var builder = new codec.MessageV0Builder(
         kLCPCriticalPathPredictorHost_SetLcpElementLocator_Name,
         codec.align(LCPCriticalPathPredictorHost_SetLcpElementLocator_Params.encodedSize));
@@ -345,12 +437,28 @@
     var message = builder.finish();
     this.receiver_.accept(message);
   };
+  LCPCriticalPathPredictorHostPtr.prototype.notifyFetchedSubresource = function() {
+    return LCPCriticalPathPredictorHostProxy.prototype.notifyFetchedSubresource
+        .apply(this.ptr.getProxy(), arguments);
+  };
+
+  LCPCriticalPathPredictorHostProxy.prototype.notifyFetchedSubresource = function(subresourceUrl, subresourceLoadStart) {
+    var params_ = new LCPCriticalPathPredictorHost_NotifyFetchedSubresource_Params();
+    params_.subresourceUrl = subresourceUrl;
+    params_.subresourceLoadStart = subresourceLoadStart;
+    var builder = new codec.MessageV0Builder(
+        kLCPCriticalPathPredictorHost_NotifyFetchedSubresource_Name,
+        codec.align(LCPCriticalPathPredictorHost_NotifyFetchedSubresource_Params.encodedSize));
+    builder.encodeStruct(LCPCriticalPathPredictorHost_NotifyFetchedSubresource_Params, params_);
+    var message = builder.finish();
+    this.receiver_.accept(message);
+  };
 
   function LCPCriticalPathPredictorHostStub(delegate) {
     this.delegate_ = delegate;
   }
-  LCPCriticalPathPredictorHostStub.prototype.setLcpElementLocator = function(lcpElementLocator) {
-    return this.delegate_ && this.delegate_.setLcpElementLocator && this.delegate_.setLcpElementLocator(lcpElementLocator);
+  LCPCriticalPathPredictorHostStub.prototype.setLcpElementLocator = function(lcpElementLocator, predictedLcpIndex) {
+    return this.delegate_ && this.delegate_.setLcpElementLocator && this.delegate_.setLcpElementLocator(lcpElementLocator, predictedLcpIndex);
   }
   LCPCriticalPathPredictorHostStub.prototype.setLcpInfluencerScriptUrls = function(lcpInfluencerScripts) {
     return this.delegate_ && this.delegate_.setLcpInfluencerScriptUrls && this.delegate_.setLcpInfluencerScriptUrls(lcpInfluencerScripts);
@@ -358,13 +466,16 @@
   LCPCriticalPathPredictorHostStub.prototype.notifyFetchedFont = function(fontUrl) {
     return this.delegate_ && this.delegate_.notifyFetchedFont && this.delegate_.notifyFetchedFont(fontUrl);
   }
+  LCPCriticalPathPredictorHostStub.prototype.notifyFetchedSubresource = function(subresourceUrl, subresourceLoadStart) {
+    return this.delegate_ && this.delegate_.notifyFetchedSubresource && this.delegate_.notifyFetchedSubresource(subresourceUrl, subresourceLoadStart);
+  }
 
   LCPCriticalPathPredictorHostStub.prototype.accept = function(message) {
     var reader = new codec.MessageReader(message);
     switch (reader.messageName) {
     case kLCPCriticalPathPredictorHost_SetLcpElementLocator_Name:
       var params = reader.decodeStruct(LCPCriticalPathPredictorHost_SetLcpElementLocator_Params);
-      this.setLcpElementLocator(params.lcpElementLocator);
+      this.setLcpElementLocator(params.lcpElementLocator, params.predictedLcpIndex);
       return true;
     case kLCPCriticalPathPredictorHost_SetLcpInfluencerScriptUrls_Name:
       var params = reader.decodeStruct(LCPCriticalPathPredictorHost_SetLcpInfluencerScriptUrls_Params);
@@ -373,6 +484,10 @@
     case kLCPCriticalPathPredictorHost_NotifyFetchedFont_Name:
       var params = reader.decodeStruct(LCPCriticalPathPredictorHost_NotifyFetchedFont_Params);
       this.notifyFetchedFont(params.fontUrl);
+      return true;
+    case kLCPCriticalPathPredictorHost_NotifyFetchedSubresource_Name:
+      var params = reader.decodeStruct(LCPCriticalPathPredictorHost_NotifyFetchedSubresource_Params);
+      this.notifyFetchedSubresource(params.subresourceUrl, params.subresourceLoadStart);
       return true;
     default:
       return false;
@@ -403,6 +518,10 @@
       case kLCPCriticalPathPredictorHost_NotifyFetchedFont_Name:
         if (!message.expectsResponse() && !message.isResponse())
           paramsClass = LCPCriticalPathPredictorHost_NotifyFetchedFont_Params;
+      break;
+      case kLCPCriticalPathPredictorHost_NotifyFetchedSubresource_Name:
+        if (!message.expectsResponse() && !message.isResponse())
+          paramsClass = LCPCriticalPathPredictorHost_NotifyFetchedSubresource_Params;
       break;
     }
     if (paramsClass === null)

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -84,7 +85,7 @@ Document::Document(
     const std::string& mime_type_in,
     int64_t size_in,
     uint64_t last_modified_in,
-    const absl::optional<std::string>& android_file_system_path_in)
+    const std::optional<std::string>& android_file_system_path_in)
     : document_id(std::move(document_id_in)),
       display_name(std::move(display_name_in)),
       mime_type(std::move(mime_type_in)),
@@ -105,7 +106,7 @@ Document::Document(
     const std::string& mime_type_in,
     int64_t size_in,
     uint64_t last_modified_in,
-    const absl::optional<std::string>& android_file_system_path_in,
+    const std::optional<std::string>& android_file_system_path_in,
     bool supports_delete_in,
     bool supports_rename_in,
     bool supports_write_in,
@@ -132,7 +133,7 @@ Document::Document(
     const std::string& mime_type_in,
     int64_t size_in,
     uint64_t last_modified_in,
-    const absl::optional<std::string>& android_file_system_path_in,
+    const std::optional<std::string>& android_file_system_path_in,
     bool supports_delete_in,
     bool supports_rename_in,
     bool supports_write_in,
@@ -208,7 +209,7 @@ void Document::WriteIntoTrace(
     dict.AddItem(
       "android_file_system_path"), this->android_file_system_path,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -298,8 +299,8 @@ Root::Root(
     const std::string& root_id_in,
     const std::string& document_id_in,
     const std::string& title_in,
-    const absl::optional<std::string>& summary_in,
-    const absl::optional<::SkBitmap>& icon_in)
+    const std::optional<std::string>& summary_in,
+    const std::optional<::SkBitmap>& icon_in)
     : authority(std::move(authority_in)),
       root_id(std::move(root_id_in)),
       document_id(std::move(document_id_in)),
@@ -314,10 +315,10 @@ Root::Root(
     const std::string& root_id_in,
     const std::string& document_id_in,
     const std::string& title_in,
-    const absl::optional<std::string>& summary_in,
-    const absl::optional<::SkBitmap>& icon_in,
+    const std::optional<std::string>& summary_in,
+    const std::optional<::SkBitmap>& icon_in,
     bool supports_create_in,
-    absl::optional<std::vector<std::string>> mime_types_in)
+    std::optional<std::vector<std::string>> mime_types_in)
     : authority(std::move(authority_in)),
       root_id(std::move(root_id_in)),
       document_id(std::move(document_id_in)),
@@ -372,7 +373,7 @@ void Root::WriteIntoTrace(
     dict.AddItem(
       "summary"), this->summary,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -381,7 +382,7 @@ void Root::WriteIntoTrace(
     dict.AddItem(
       "icon"), this->icon,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::SkBitmap>&>"
+      "<value of type const std::optional<::SkBitmap>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -399,7 +400,7 @@ void Root::WriteIntoTrace(
     dict.AddItem(
       "mime_types"), this->mime_types,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<std::string>>&>"
+      "<value of type const std::optional<std::vector<std::string>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -470,7 +471,7 @@ OpenUrlsRequest::OpenUrlsRequest(
     ::arc::mojom::ActionType action_type_in,
     ::arc::mojom::ActivityNamePtr activity_name_in,
     std::vector<ContentUrlWithMimeTypePtr> urls_in,
-    const absl::optional<base::flat_map<std::string, std::string>>& extras_in)
+    const std::optional<base::flat_map<std::string, std::string>>& extras_in)
     : action_type(std::move(action_type_in)),
       activity_name(std::move(activity_name_in)),
       urls(std::move(urls_in)),
@@ -512,7 +513,7 @@ void OpenUrlsRequest::WriteIntoTrace(
     dict.AddItem(
       "extras"), this->extras,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<base::flat_map<std::string, std::string>>&>"
+      "<value of type const std::optional<base::flat_map<std::string, std::string>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -544,7 +545,7 @@ SelectFilesRequest::SelectFilesRequest(
     const std::string& initial_content_uri_in,
     DocumentPathPtr initial_document_path_in,
     int32_t task_id_in,
-    const absl::optional<std::string>& search_query_in)
+    const std::optional<std::string>& search_query_in)
     : action_type(std::move(action_type_in)),
       mime_types(std::move(mime_types_in)),
       openable_only(std::move(openable_only_in)),
@@ -636,7 +637,7 @@ void SelectFilesRequest::WriteIntoTrace(
     dict.AddItem(
       "search_query"), this->search_query,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -694,7 +695,7 @@ SelectFilesResult::SelectFilesResult()
 
 SelectFilesResult::SelectFilesResult(
     std::vector<::GURL> urls_in,
-    const absl::optional<std::string>& picker_activity_in)
+    const std::optional<std::string>& picker_activity_in)
     : urls(std::move(urls_in)),
       picker_activity(std::move(picker_activity_in)) {}
 
@@ -716,7 +717,7 @@ void SelectFilesResult::WriteIntoTrace(
     dict.AddItem(
       "picker_activity"), this->picker_activity,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -858,7 +859,7 @@ FileSelectorElements::FileSelectorElements()
 FileSelectorElements::FileSelectorElements(
     std::vector<FileSelectorElementPtr> directory_elements_in,
     std::vector<FileSelectorElementPtr> file_elements_in,
-    const absl::optional<std::string>& search_query_in)
+    const std::optional<std::string>& search_query_in)
     : directory_elements(std::move(directory_elements_in)),
       file_elements(std::move(file_elements_in)),
       search_query(std::move(search_query_in)) {}
@@ -890,7 +891,7 @@ void FileSelectorElements::WriteIntoTrace(
     dict.AddItem(
       "search_query"), this->search_query,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1557,14 +1558,17 @@ void FileSystemHostProxy::GetFileName(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemHost_GetFileName_Name, kFlags, 0, 0, nullptr);
@@ -1606,14 +1610,17 @@ void FileSystemHostProxy::GetFileSize(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemHost_GetFileSize_Name, kFlags, 0, 0, nullptr);
@@ -1655,14 +1662,17 @@ void FileSystemHostProxy::GetLastModified(
                         "<value of type const ::GURL&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemHost_GetLastModified_Name, kFlags, 0, 0, nullptr);
@@ -1704,14 +1714,17 @@ void FileSystemHostProxy::GetFileType(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemHost_GetFileType_Name, kFlags, 0, 0, nullptr);
@@ -1756,14 +1769,17 @@ void FileSystemHostProxy::OnDocumentChanged(
                         "<value of type ::storage::WatcherManager::ChangeType>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemHost_OnDocumentChanged_Name, kFlags, 0, 0, nullptr);
@@ -1789,14 +1805,17 @@ void FileSystemHostProxy::OnRootsChanged(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::FileSystemHost::OnRootsChanged");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemHost_OnRootsChanged_Name, kFlags, 0, 0, nullptr);
@@ -1826,14 +1845,17 @@ void FileSystemHostProxy::GetVirtualFileId(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemHost_GetVirtualFileId_Name, kFlags, 0, 0, nullptr);
@@ -1875,14 +1897,17 @@ void FileSystemHostProxy::HandleIdReleased(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemHost_HandleIdReleased_Name, kFlags, 0, 0, nullptr);
@@ -1924,14 +1949,17 @@ void FileSystemHostProxy::OpenFileToRead(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemHost_OpenFileToRead_Name, kFlags, 0, 0, nullptr);
@@ -1973,14 +2001,17 @@ void FileSystemHostProxy::SelectFiles(
                         "<value of type SelectFilesRequestPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemHost_SelectFiles_Name, kFlags, 0, 0, nullptr);
@@ -2022,14 +2053,17 @@ void FileSystemHostProxy::OnFileSelectorEvent(
                         "<value of type FileSelectorEventPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemHost_OnFileSelectorEvent_Name, kFlags, 0, 0, nullptr);
@@ -2071,14 +2105,17 @@ void FileSystemHostProxy::GetFileSelectorElements(
                         "<value of type GetFileSelectorElementsRequestPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemHost_GetFileSelectorElements_Name, kFlags, 0, 0, nullptr);
@@ -2123,14 +2160,17 @@ void FileSystemHostProxy::OnMediaStoreUriAdded(
                         "<value of type MediaStoreMetadataPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemHost_OnMediaStoreUriAdded_Name, kFlags, 0, 0, nullptr);
@@ -2213,7 +2253,7 @@ class FileSystemHost_GetFileName_ProxyToResponder : public ::mojo::internal::Pro
 #endif
 
   void Run(
-      const absl::optional<std::string>& in_name);
+      const std::optional<std::string>& in_name);
 };
 
 bool FileSystemHost_GetFileName_ForwardToCallback::Accept(
@@ -2226,7 +2266,7 @@ bool FileSystemHost_GetFileName_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::string> p_name{};
+  std::optional<std::string> p_name{};
   FileSystemHost_GetFileName_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadName(&p_name))
@@ -2245,7 +2285,7 @@ std::move(p_name));
 }
 
 void FileSystemHost_GetFileName_ProxyToResponder::Run(
-    const absl::optional<std::string>& in_name) {
+    const std::optional<std::string>& in_name) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply arc::mojom::FileSystemHost::GetFileName", "async_response_parameters",
@@ -2253,13 +2293,14 @@ void FileSystemHost_GetFileName_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("name"), in_name,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemHost_GetFileName_Name, kFlags, 0, 0, nullptr);
@@ -2383,7 +2424,8 @@ void FileSystemHost_GetFileSize_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemHost_GetFileSize_Name, kFlags, 0, 0, nullptr);
@@ -2455,7 +2497,7 @@ class FileSystemHost_GetLastModified_ProxyToResponder : public ::mojo::internal:
 #endif
 
   void Run(
-      absl::optional<::base::Time> in_last_modified);
+      std::optional<::base::Time> in_last_modified);
 };
 
 bool FileSystemHost_GetLastModified_ForwardToCallback::Accept(
@@ -2468,7 +2510,7 @@ bool FileSystemHost_GetLastModified_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<::base::Time> p_last_modified{};
+  std::optional<::base::Time> p_last_modified{};
   FileSystemHost_GetLastModified_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadLastModified(&p_last_modified))
@@ -2487,7 +2529,7 @@ std::move(p_last_modified));
 }
 
 void FileSystemHost_GetLastModified_ProxyToResponder::Run(
-    absl::optional<::base::Time> in_last_modified) {
+    std::optional<::base::Time> in_last_modified) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply arc::mojom::FileSystemHost::GetLastModified", "async_response_parameters",
@@ -2495,13 +2537,14 @@ void FileSystemHost_GetLastModified_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("last_modified"), in_last_modified,
-                        "<value of type absl::optional<::base::Time>>");
+                        "<value of type std::optional<::base::Time>>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemHost_GetLastModified_Name, kFlags, 0, 0, nullptr);
@@ -2579,7 +2622,7 @@ class FileSystemHost_GetFileType_ProxyToResponder : public ::mojo::internal::Pro
 #endif
 
   void Run(
-      const absl::optional<std::string>& in_mime_type);
+      const std::optional<std::string>& in_mime_type);
 };
 
 bool FileSystemHost_GetFileType_ForwardToCallback::Accept(
@@ -2592,7 +2635,7 @@ bool FileSystemHost_GetFileType_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::string> p_mime_type{};
+  std::optional<std::string> p_mime_type{};
   FileSystemHost_GetFileType_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadMimeType(&p_mime_type))
@@ -2611,7 +2654,7 @@ std::move(p_mime_type));
 }
 
 void FileSystemHost_GetFileType_ProxyToResponder::Run(
-    const absl::optional<std::string>& in_mime_type) {
+    const std::optional<std::string>& in_mime_type) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply arc::mojom::FileSystemHost::GetFileType", "async_response_parameters",
@@ -2619,13 +2662,14 @@ void FileSystemHost_GetFileType_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("mime_type"), in_mime_type,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemHost_GetFileType_Name, kFlags, 0, 0, nullptr);
@@ -2703,7 +2747,7 @@ class FileSystemHost_GetVirtualFileId_ProxyToResponder : public ::mojo::internal
 #endif
 
   void Run(
-      const absl::optional<std::string>& in_id);
+      const std::optional<std::string>& in_id);
 };
 
 bool FileSystemHost_GetVirtualFileId_ForwardToCallback::Accept(
@@ -2716,7 +2760,7 @@ bool FileSystemHost_GetVirtualFileId_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::string> p_id{};
+  std::optional<std::string> p_id{};
   FileSystemHost_GetVirtualFileId_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadId(&p_id))
@@ -2735,7 +2779,7 @@ std::move(p_id));
 }
 
 void FileSystemHost_GetVirtualFileId_ProxyToResponder::Run(
-    const absl::optional<std::string>& in_id) {
+    const std::optional<std::string>& in_id) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply arc::mojom::FileSystemHost::GetVirtualFileId", "async_response_parameters",
@@ -2743,13 +2787,14 @@ void FileSystemHost_GetVirtualFileId_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("id"), in_id,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemHost_GetVirtualFileId_Name, kFlags, 0, 0, nullptr);
@@ -2873,7 +2918,8 @@ void FileSystemHost_HandleIdReleased_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemHost_HandleIdReleased_Name, kFlags, 0, 0, nullptr);
@@ -2991,7 +3037,8 @@ void FileSystemHost_OpenFileToRead_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemHost_OpenFileToRead_Name, kFlags, 0, 0, nullptr);
@@ -3110,7 +3157,8 @@ void FileSystemHost_SelectFiles_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemHost_SelectFiles_Name, kFlags, 0, 0, nullptr);
@@ -3227,7 +3275,8 @@ void FileSystemHost_OnFileSelectorEvent_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemHost_OnFileSelectorEvent_Name, kFlags, 0, 0, nullptr);
@@ -3344,7 +3393,8 @@ void FileSystemHost_GetFileSelectorElements_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemHost_GetFileSelectorElements_Name, kFlags, 0, 0, nullptr);
@@ -3813,34 +3863,34 @@ std::move(p_request), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kFileSystemHostValidationInfo[] = {
-    {&internal::FileSystemHost_OnDocumentChanged_Params_Data::Validate,
+    { &internal::FileSystemHost_OnDocumentChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FileSystemHost_GetFileName_Params_Data::Validate,
+    { &internal::FileSystemHost_GetFileName_Params_Data::Validate,
      &internal::FileSystemHost_GetFileName_ResponseParams_Data::Validate},
-    {&internal::FileSystemHost_GetFileSize_Params_Data::Validate,
+    { &internal::FileSystemHost_GetFileSize_Params_Data::Validate,
      &internal::FileSystemHost_GetFileSize_ResponseParams_Data::Validate},
-    {&internal::FileSystemHost_GetFileType_Params_Data::Validate,
+    { &internal::FileSystemHost_GetFileType_Params_Data::Validate,
      &internal::FileSystemHost_GetFileType_ResponseParams_Data::Validate},
-    {&internal::FileSystemHost_OpenFileToRead_Params_Data::Validate,
+    { &internal::FileSystemHost_OpenFileToRead_Params_Data::Validate,
      &internal::FileSystemHost_OpenFileToRead_ResponseParams_Data::Validate},
-    {&internal::FileSystemHost_SelectFiles_Params_Data::Validate,
+    { &internal::FileSystemHost_SelectFiles_Params_Data::Validate,
      &internal::FileSystemHost_SelectFiles_ResponseParams_Data::Validate},
-    {&internal::FileSystemHost_OnRootsChanged_Params_Data::Validate,
+    { &internal::FileSystemHost_OnRootsChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FileSystemHost_OnFileSelectorEvent_Params_Data::Validate,
+    { &internal::FileSystemHost_OnFileSelectorEvent_Params_Data::Validate,
      &internal::FileSystemHost_OnFileSelectorEvent_ResponseParams_Data::Validate},
-    {&internal::FileSystemHost_GetFileSelectorElements_Params_Data::Validate,
+    { &internal::FileSystemHost_GetFileSelectorElements_Params_Data::Validate,
      &internal::FileSystemHost_GetFileSelectorElements_ResponseParams_Data::Validate},
-    {&internal::FileSystemHost_GetVirtualFileId_Params_Data::Validate,
+    { &internal::FileSystemHost_GetVirtualFileId_Params_Data::Validate,
      &internal::FileSystemHost_GetVirtualFileId_ResponseParams_Data::Validate},
-    {&internal::FileSystemHost_HandleIdReleased_Params_Data::Validate,
+    { &internal::FileSystemHost_HandleIdReleased_Params_Data::Validate,
      &internal::FileSystemHost_HandleIdReleased_ResponseParams_Data::Validate},
-    {&internal::FileSystemHost_GetLastModified_Params_Data::Validate,
+    { &internal::FileSystemHost_GetLastModified_Params_Data::Validate,
      &internal::FileSystemHost_GetLastModified_ResponseParams_Data::Validate},
-    {&internal::FileSystemHost_OnMediaStoreUriAdded_Params_Data::Validate,
+    { &internal::FileSystemHost_OnMediaStoreUriAdded_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -4707,14 +4757,17 @@ void FileSystemInstanceProxy::AddWatcher(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemInstance_AddWatcher_Name, kFlags, 0, 0, nullptr);
@@ -4770,14 +4823,17 @@ void FileSystemInstanceProxy::GetChildDocuments(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemInstance_GetChildDocuments_Name, kFlags, 0, 0, nullptr);
@@ -4833,14 +4889,17 @@ void FileSystemInstanceProxy::GetDocument(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemInstance_GetDocument_Name, kFlags, 0, 0, nullptr);
@@ -4893,14 +4952,17 @@ void FileSystemInstanceProxy::GetFileSize(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemInstance_GetFileSize_Name, kFlags, 0, 0, nullptr);
@@ -4942,14 +5004,17 @@ void FileSystemInstanceProxy::GetMimeType(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemInstance_GetMimeType_Name, kFlags, 0, 0, nullptr);
@@ -4994,14 +5059,17 @@ void FileSystemInstanceProxy::GetRecentDocuments(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemInstance_GetRecentDocuments_Name, kFlags, 0, 0, nullptr);
@@ -5047,14 +5115,17 @@ void FileSystemInstanceProxy::GetRoots(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send arc::mojom::FileSystemInstance::GetRoots");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemInstance_GetRoots_Name, kFlags, 0, 0, nullptr);
@@ -5088,14 +5159,17 @@ void FileSystemInstanceProxy::GetRootSize(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemInstance_GetRootSize_Name, kFlags, 0, 0, nullptr);
@@ -5151,14 +5225,17 @@ void FileSystemInstanceProxy::DeleteDocument(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemInstance_DeleteDocument_Name, kFlags, 0, 0, nullptr);
@@ -5217,14 +5294,17 @@ void FileSystemInstanceProxy::RenameDocument(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemInstance_RenameDocument_Name, kFlags, 0, 0, nullptr);
@@ -5297,14 +5377,17 @@ void FileSystemInstanceProxy::CreateDocument(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemInstance_CreateDocument_Name, kFlags, 0, 0, nullptr);
@@ -5385,14 +5468,17 @@ void FileSystemInstanceProxy::CopyDocument(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemInstance_CopyDocument_Name, kFlags, 0, 0, nullptr);
@@ -5465,14 +5551,17 @@ void FileSystemInstanceProxy::MoveDocument(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemInstance_MoveDocument_Name, kFlags, 0, 0, nullptr);
@@ -5547,14 +5636,17 @@ void FileSystemInstanceProxy::Init(
                         "<value of type ::mojo::PendingRemote<FileSystemHost>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemInstance_Init_Name, kFlags, 0, 0, nullptr);
@@ -5594,14 +5686,17 @@ void FileSystemInstanceProxy::OpenThumbnail(
                         "<value of type const ::gfx::Size&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemInstance_OpenThumbnail_Name, kFlags, 0, 0, nullptr);
@@ -5657,14 +5752,17 @@ void FileSystemInstanceProxy::CloseFileSession(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemInstance_CloseFileSession_Name, kFlags, 0, 0, nullptr);
@@ -5716,14 +5814,17 @@ void FileSystemInstanceProxy::OpenFileSessionToWrite(
                         "<value of type const ::GURL&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemInstance_OpenFileSessionToWrite_Name, kFlags, 0, 0, nullptr);
@@ -5765,14 +5866,17 @@ void FileSystemInstanceProxy::OpenFileSessionToRead(
                         "<value of type const ::GURL&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemInstance_OpenFileSessionToRead_Name, kFlags, 0, 0, nullptr);
@@ -5814,14 +5918,17 @@ void FileSystemInstanceProxy::RemoveWatcher(
                         "<value of type int64_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemInstance_RemoveWatcher_Name, kFlags, 0, 0, nullptr);
@@ -5853,14 +5960,17 @@ void FileSystemInstanceProxy::RequestMediaScan(
                         "<value of type const std::vector<std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemInstance_RequestMediaScan_Name, kFlags, 0, 0,
@@ -5904,14 +6014,17 @@ void FileSystemInstanceProxy::ReindexDirectory(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemInstance_ReindexDirectory_Name, kFlags, 0, 0, nullptr);
@@ -5952,14 +6065,17 @@ void FileSystemInstanceProxy::RequestFileRemovalScan(
                         "<value of type const std::vector<std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemInstance_RequestFileRemovalScan_Name, kFlags, 0, 0, nullptr);
@@ -6002,14 +6118,17 @@ void FileSystemInstanceProxy::DEPRECATED_OpenUrlsWithPermission(
                         "<value of type OpenUrlsRequestPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemInstance_DEPRECATED_OpenUrlsWithPermission_Name, kFlags, 0, 0, nullptr);
@@ -6054,14 +6173,17 @@ void FileSystemInstanceProxy::OpenUrlsWithPermissionAndWindowInfo(
                         "<value of type ::arc::mojom::WindowInfoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemInstance_OpenUrlsWithPermissionAndWindowInfo_Name, kFlags, 0, 0, nullptr);
@@ -6193,7 +6315,8 @@ void FileSystemInstance_AddWatcher_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemInstance_AddWatcher_Name, kFlags, 0, 0, nullptr);
@@ -6265,7 +6388,7 @@ class FileSystemInstance_GetChildDocuments_ProxyToResponder : public ::mojo::int
 #endif
 
   void Run(
-      absl::optional<std::vector<DocumentPtr>> in_documents);
+      std::optional<std::vector<DocumentPtr>> in_documents);
 };
 
 bool FileSystemInstance_GetChildDocuments_ForwardToCallback::Accept(
@@ -6278,7 +6401,7 @@ bool FileSystemInstance_GetChildDocuments_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::vector<DocumentPtr>> p_documents{};
+  std::optional<std::vector<DocumentPtr>> p_documents{};
   FileSystemInstance_GetChildDocuments_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadDocuments(&p_documents))
@@ -6297,7 +6420,7 @@ std::move(p_documents));
 }
 
 void FileSystemInstance_GetChildDocuments_ProxyToResponder::Run(
-    absl::optional<std::vector<DocumentPtr>> in_documents) {
+    std::optional<std::vector<DocumentPtr>> in_documents) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply arc::mojom::FileSystemInstance::GetChildDocuments", "async_response_parameters",
@@ -6305,13 +6428,14 @@ void FileSystemInstance_GetChildDocuments_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("documents"), in_documents,
-                        "<value of type absl::optional<std::vector<DocumentPtr>>>");
+                        "<value of type std::optional<std::vector<DocumentPtr>>>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemInstance_GetChildDocuments_Name, kFlags, 0, 0, nullptr);
@@ -6437,7 +6561,8 @@ void FileSystemInstance_GetDocument_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemInstance_GetDocument_Name, kFlags, 0, 0, nullptr);
@@ -6561,7 +6686,8 @@ void FileSystemInstance_GetFileSize_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemInstance_GetFileSize_Name, kFlags, 0, 0, nullptr);
@@ -6633,7 +6759,7 @@ class FileSystemInstance_GetMimeType_ProxyToResponder : public ::mojo::internal:
 #endif
 
   void Run(
-      const absl::optional<std::string>& in_mime_type);
+      const std::optional<std::string>& in_mime_type);
 };
 
 bool FileSystemInstance_GetMimeType_ForwardToCallback::Accept(
@@ -6646,7 +6772,7 @@ bool FileSystemInstance_GetMimeType_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::string> p_mime_type{};
+  std::optional<std::string> p_mime_type{};
   FileSystemInstance_GetMimeType_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadMimeType(&p_mime_type))
@@ -6665,7 +6791,7 @@ std::move(p_mime_type));
 }
 
 void FileSystemInstance_GetMimeType_ProxyToResponder::Run(
-    const absl::optional<std::string>& in_mime_type) {
+    const std::optional<std::string>& in_mime_type) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply arc::mojom::FileSystemInstance::GetMimeType", "async_response_parameters",
@@ -6673,13 +6799,14 @@ void FileSystemInstance_GetMimeType_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("mime_type"), in_mime_type,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemInstance_GetMimeType_Name, kFlags, 0, 0, nullptr);
@@ -6757,7 +6884,7 @@ class FileSystemInstance_GetRecentDocuments_ProxyToResponder : public ::mojo::in
 #endif
 
   void Run(
-      absl::optional<std::vector<DocumentPtr>> in_documents);
+      std::optional<std::vector<DocumentPtr>> in_documents);
 };
 
 bool FileSystemInstance_GetRecentDocuments_ForwardToCallback::Accept(
@@ -6770,7 +6897,7 @@ bool FileSystemInstance_GetRecentDocuments_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::vector<DocumentPtr>> p_documents{};
+  std::optional<std::vector<DocumentPtr>> p_documents{};
   FileSystemInstance_GetRecentDocuments_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadDocuments(&p_documents))
@@ -6789,7 +6916,7 @@ std::move(p_documents));
 }
 
 void FileSystemInstance_GetRecentDocuments_ProxyToResponder::Run(
-    absl::optional<std::vector<DocumentPtr>> in_documents) {
+    std::optional<std::vector<DocumentPtr>> in_documents) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply arc::mojom::FileSystemInstance::GetRecentDocuments", "async_response_parameters",
@@ -6797,13 +6924,14 @@ void FileSystemInstance_GetRecentDocuments_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("documents"), in_documents,
-                        "<value of type absl::optional<std::vector<DocumentPtr>>>");
+                        "<value of type std::optional<std::vector<DocumentPtr>>>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemInstance_GetRecentDocuments_Name, kFlags, 0, 0, nullptr);
@@ -6883,7 +7011,7 @@ class FileSystemInstance_GetRoots_ProxyToResponder : public ::mojo::internal::Pr
 #endif
 
   void Run(
-      absl::optional<std::vector<RootPtr>> in_roots);
+      std::optional<std::vector<RootPtr>> in_roots);
 };
 
 bool FileSystemInstance_GetRoots_ForwardToCallback::Accept(
@@ -6896,7 +7024,7 @@ bool FileSystemInstance_GetRoots_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::vector<RootPtr>> p_roots{};
+  std::optional<std::vector<RootPtr>> p_roots{};
   FileSystemInstance_GetRoots_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadRoots(&p_roots))
@@ -6915,7 +7043,7 @@ std::move(p_roots));
 }
 
 void FileSystemInstance_GetRoots_ProxyToResponder::Run(
-    absl::optional<std::vector<RootPtr>> in_roots) {
+    std::optional<std::vector<RootPtr>> in_roots) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply arc::mojom::FileSystemInstance::GetRoots", "async_response_parameters",
@@ -6923,13 +7051,14 @@ void FileSystemInstance_GetRoots_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("roots"), in_roots,
-                        "<value of type absl::optional<std::vector<RootPtr>>>");
+                        "<value of type std::optional<std::vector<RootPtr>>>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemInstance_GetRoots_Name, kFlags, 0, 0, nullptr);
@@ -7055,7 +7184,8 @@ void FileSystemInstance_GetRootSize_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemInstance_GetRootSize_Name, kFlags, 0, 0, nullptr);
@@ -7179,7 +7309,8 @@ void FileSystemInstance_DeleteDocument_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemInstance_DeleteDocument_Name, kFlags, 0, 0, nullptr);
@@ -7297,7 +7428,8 @@ void FileSystemInstance_RenameDocument_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemInstance_RenameDocument_Name, kFlags, 0, 0, nullptr);
@@ -7421,7 +7553,8 @@ void FileSystemInstance_CreateDocument_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemInstance_CreateDocument_Name, kFlags, 0, 0, nullptr);
@@ -7545,7 +7678,8 @@ void FileSystemInstance_CopyDocument_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemInstance_CopyDocument_Name, kFlags, 0, 0, nullptr);
@@ -7669,7 +7803,8 @@ void FileSystemInstance_MoveDocument_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemInstance_MoveDocument_Name, kFlags, 0, 0, nullptr);
@@ -7782,7 +7917,8 @@ void FileSystemInstance_Init_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemInstance_Init_Name, kFlags, 0, 0, nullptr);
@@ -7899,7 +8035,8 @@ void FileSystemInstance_OpenThumbnail_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemInstance_OpenThumbnail_Name, kFlags, 0, 0, nullptr);
@@ -8018,7 +8155,8 @@ void FileSystemInstance_OpenFileSessionToWrite_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemInstance_OpenFileSessionToWrite_Name, kFlags, 0, 0, nullptr);
@@ -8142,7 +8280,8 @@ void FileSystemInstance_OpenFileSessionToRead_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemInstance_OpenFileSessionToRead_Name, kFlags, 0, 0, nullptr);
@@ -8266,7 +8405,8 @@ void FileSystemInstance_RemoveWatcher_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemInstance_RemoveWatcher_Name, kFlags, 0, 0, nullptr);
@@ -8373,7 +8513,8 @@ void FileSystemInstance_DEPRECATED_OpenUrlsWithPermission_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemInstance_DEPRECATED_OpenUrlsWithPermission_Name, kFlags, 0, 0, nullptr);
@@ -8479,7 +8620,8 @@ void FileSystemInstance_OpenUrlsWithPermissionAndWindowInfo_ProxyToResponder::Ru
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFileSystemInstance_OpenUrlsWithPermissionAndWindowInfo_Name, kFlags, 0, 0, nullptr);
@@ -9356,59 +9498,59 @@ std::move(p_window_info), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kFileSystemInstanceValidationInfo[] = {
-    {&internal::FileSystemInstance_RequestMediaScan_Params_Data::Validate,
+    { &internal::FileSystemInstance_RequestMediaScan_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FileSystemInstance_GetFileSize_Params_Data::Validate,
+    { &internal::FileSystemInstance_GetFileSize_Params_Data::Validate,
      &internal::FileSystemInstance_GetFileSize_ResponseParams_Data::Validate},
     {nullptr, nullptr},  // nonexistent
-    {&internal::FileSystemInstance_GetDocument_Params_Data::Validate,
+    { &internal::FileSystemInstance_GetDocument_Params_Data::Validate,
      &internal::FileSystemInstance_GetDocument_ResponseParams_Data::Validate},
-    {&internal::FileSystemInstance_GetChildDocuments_Params_Data::Validate,
+    { &internal::FileSystemInstance_GetChildDocuments_Params_Data::Validate,
      &internal::FileSystemInstance_GetChildDocuments_ResponseParams_Data::Validate},
     {nullptr, nullptr},  // nonexistent
-    {&internal::FileSystemInstance_AddWatcher_Params_Data::Validate,
+    { &internal::FileSystemInstance_AddWatcher_Params_Data::Validate,
      &internal::FileSystemInstance_AddWatcher_ResponseParams_Data::Validate},
-    {&internal::FileSystemInstance_RemoveWatcher_Params_Data::Validate,
+    { &internal::FileSystemInstance_RemoveWatcher_Params_Data::Validate,
      &internal::FileSystemInstance_RemoveWatcher_ResponseParams_Data::Validate},
-    {&internal::FileSystemInstance_GetMimeType_Params_Data::Validate,
+    { &internal::FileSystemInstance_GetMimeType_Params_Data::Validate,
      &internal::FileSystemInstance_GetMimeType_ResponseParams_Data::Validate},
-    {&internal::FileSystemInstance_GetRecentDocuments_Params_Data::Validate,
+    { &internal::FileSystemInstance_GetRecentDocuments_Params_Data::Validate,
      &internal::FileSystemInstance_GetRecentDocuments_ResponseParams_Data::Validate},
-    {&internal::FileSystemInstance_Init_Params_Data::Validate,
+    { &internal::FileSystemInstance_Init_Params_Data::Validate,
      &internal::FileSystemInstance_Init_ResponseParams_Data::Validate},
-    {&internal::FileSystemInstance_DEPRECATED_OpenUrlsWithPermission_Params_Data::Validate,
+    { &internal::FileSystemInstance_DEPRECATED_OpenUrlsWithPermission_Params_Data::Validate,
      &internal::FileSystemInstance_DEPRECATED_OpenUrlsWithPermission_ResponseParams_Data::Validate},
-    {&internal::FileSystemInstance_GetRoots_Params_Data::Validate,
+    { &internal::FileSystemInstance_GetRoots_Params_Data::Validate,
      &internal::FileSystemInstance_GetRoots_ResponseParams_Data::Validate},
-    {&internal::FileSystemInstance_DeleteDocument_Params_Data::Validate,
+    { &internal::FileSystemInstance_DeleteDocument_Params_Data::Validate,
      &internal::FileSystemInstance_DeleteDocument_ResponseParams_Data::Validate},
-    {&internal::FileSystemInstance_RenameDocument_Params_Data::Validate,
+    { &internal::FileSystemInstance_RenameDocument_Params_Data::Validate,
      &internal::FileSystemInstance_RenameDocument_ResponseParams_Data::Validate},
-    {&internal::FileSystemInstance_CreateDocument_Params_Data::Validate,
+    { &internal::FileSystemInstance_CreateDocument_Params_Data::Validate,
      &internal::FileSystemInstance_CreateDocument_ResponseParams_Data::Validate},
-    {&internal::FileSystemInstance_CopyDocument_Params_Data::Validate,
+    { &internal::FileSystemInstance_CopyDocument_Params_Data::Validate,
      &internal::FileSystemInstance_CopyDocument_ResponseParams_Data::Validate},
-    {&internal::FileSystemInstance_MoveDocument_Params_Data::Validate,
+    { &internal::FileSystemInstance_MoveDocument_Params_Data::Validate,
      &internal::FileSystemInstance_MoveDocument_ResponseParams_Data::Validate},
     {nullptr, nullptr},  // nonexistent
-    {&internal::FileSystemInstance_ReindexDirectory_Params_Data::Validate,
+    { &internal::FileSystemInstance_ReindexDirectory_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FileSystemInstance_RequestFileRemovalScan_Params_Data::Validate,
+    { &internal::FileSystemInstance_RequestFileRemovalScan_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FileSystemInstance_OpenThumbnail_Params_Data::Validate,
+    { &internal::FileSystemInstance_OpenThumbnail_Params_Data::Validate,
      &internal::FileSystemInstance_OpenThumbnail_ResponseParams_Data::Validate},
-    {&internal::FileSystemInstance_GetRootSize_Params_Data::Validate,
+    { &internal::FileSystemInstance_GetRootSize_Params_Data::Validate,
      &internal::FileSystemInstance_GetRootSize_ResponseParams_Data::Validate},
-    {&internal::FileSystemInstance_OpenUrlsWithPermissionAndWindowInfo_Params_Data::Validate,
+    { &internal::FileSystemInstance_OpenUrlsWithPermissionAndWindowInfo_Params_Data::Validate,
      &internal::FileSystemInstance_OpenUrlsWithPermissionAndWindowInfo_ResponseParams_Data::Validate},
-    {&internal::FileSystemInstance_CloseFileSession_Params_Data::Validate,
+    { &internal::FileSystemInstance_CloseFileSession_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::FileSystemInstance_OpenFileSessionToWrite_Params_Data::Validate,
+    { &internal::FileSystemInstance_OpenFileSessionToWrite_Params_Data::Validate,
      &internal::FileSystemInstance_OpenFileSessionToWrite_ResponseParams_Data::Validate},
-    {&internal::FileSystemInstance_OpenFileSessionToRead_Params_Data::Validate,
+    { &internal::FileSystemInstance_OpenFileSessionToRead_Params_Data::Validate,
      &internal::FileSystemInstance_OpenFileSessionToRead_ResponseParams_Data::Validate},
 };
 
@@ -9790,14 +9932,14 @@ FileSystemHostAsyncWaiter::FileSystemHostAsyncWaiter(
 FileSystemHostAsyncWaiter::~FileSystemHostAsyncWaiter() = default;
 
 void FileSystemHostAsyncWaiter::GetFileName(
-    const std::string& url, absl::optional<std::string>* out_name) {
+    const std::string& url, std::optional<std::string>* out_name) {
   base::RunLoop loop;
   proxy_->GetFileName(std::move(url),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<std::string>* out_name
+             std::optional<std::string>* out_name
 ,
-             const absl::optional<std::string>& name) {*out_name = std::move(name);
+             const std::optional<std::string>& name) {*out_name = std::move(name);
             loop->Quit();
           },
           &loop,
@@ -9805,9 +9947,9 @@ void FileSystemHostAsyncWaiter::GetFileName(
   loop.Run();
 }
 
-absl::optional<std::string> FileSystemHostAsyncWaiter::GetFileName(
+std::optional<std::string> FileSystemHostAsyncWaiter::GetFileName(
     const std::string& url) {
-  absl::optional<std::string> async_wait_result;
+  std::optional<std::string> async_wait_result;
   GetFileName(std::move(url),&async_wait_result);
   return async_wait_result;
 }
@@ -9836,14 +9978,14 @@ int64_t FileSystemHostAsyncWaiter::GetFileSize(
 }
 
 void FileSystemHostAsyncWaiter::GetLastModified(
-    const ::GURL& url, absl::optional<::base::Time>* out_last_modified) {
+    const ::GURL& url, std::optional<::base::Time>* out_last_modified) {
   base::RunLoop loop;
   proxy_->GetLastModified(std::move(url),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<::base::Time>* out_last_modified
+             std::optional<::base::Time>* out_last_modified
 ,
-             absl::optional<::base::Time> last_modified) {*out_last_modified = std::move(last_modified);
+             std::optional<::base::Time> last_modified) {*out_last_modified = std::move(last_modified);
             loop->Quit();
           },
           &loop,
@@ -9851,22 +9993,22 @@ void FileSystemHostAsyncWaiter::GetLastModified(
   loop.Run();
 }
 
-absl::optional<::base::Time> FileSystemHostAsyncWaiter::GetLastModified(
+std::optional<::base::Time> FileSystemHostAsyncWaiter::GetLastModified(
     const ::GURL& url) {
-  absl::optional<::base::Time> async_wait_result;
+  std::optional<::base::Time> async_wait_result;
   GetLastModified(std::move(url),&async_wait_result);
   return async_wait_result;
 }
 
 void FileSystemHostAsyncWaiter::GetFileType(
-    const std::string& url, absl::optional<std::string>* out_mime_type) {
+    const std::string& url, std::optional<std::string>* out_mime_type) {
   base::RunLoop loop;
   proxy_->GetFileType(std::move(url),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<std::string>* out_mime_type
+             std::optional<std::string>* out_mime_type
 ,
-             const absl::optional<std::string>& mime_type) {*out_mime_type = std::move(mime_type);
+             const std::optional<std::string>& mime_type) {*out_mime_type = std::move(mime_type);
             loop->Quit();
           },
           &loop,
@@ -9874,22 +10016,22 @@ void FileSystemHostAsyncWaiter::GetFileType(
   loop.Run();
 }
 
-absl::optional<std::string> FileSystemHostAsyncWaiter::GetFileType(
+std::optional<std::string> FileSystemHostAsyncWaiter::GetFileType(
     const std::string& url) {
-  absl::optional<std::string> async_wait_result;
+  std::optional<std::string> async_wait_result;
   GetFileType(std::move(url),&async_wait_result);
   return async_wait_result;
 }
 
 void FileSystemHostAsyncWaiter::GetVirtualFileId(
-    const std::string& url, absl::optional<std::string>* out_id) {
+    const std::string& url, std::optional<std::string>* out_id) {
   base::RunLoop loop;
   proxy_->GetVirtualFileId(std::move(url),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<std::string>* out_id
+             std::optional<std::string>* out_id
 ,
-             const absl::optional<std::string>& id) {*out_id = std::move(id);
+             const std::optional<std::string>& id) {*out_id = std::move(id);
             loop->Quit();
           },
           &loop,
@@ -9897,9 +10039,9 @@ void FileSystemHostAsyncWaiter::GetVirtualFileId(
   loop.Run();
 }
 
-absl::optional<std::string> FileSystemHostAsyncWaiter::GetVirtualFileId(
+std::optional<std::string> FileSystemHostAsyncWaiter::GetVirtualFileId(
     const std::string& url) {
-  absl::optional<std::string> async_wait_result;
+  std::optional<std::string> async_wait_result;
   GetVirtualFileId(std::move(url),&async_wait_result);
   return async_wait_result;
 }
@@ -10114,14 +10256,14 @@ int64_t FileSystemInstanceAsyncWaiter::AddWatcher(
 }
 
 void FileSystemInstanceAsyncWaiter::GetChildDocuments(
-    const std::string& authority, const std::string& parent_document_id, absl::optional<std::vector<DocumentPtr>>* out_documents) {
+    const std::string& authority, const std::string& parent_document_id, std::optional<std::vector<DocumentPtr>>* out_documents) {
   base::RunLoop loop;
   proxy_->GetChildDocuments(std::move(authority),std::move(parent_document_id),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<std::vector<DocumentPtr>>* out_documents
+             std::optional<std::vector<DocumentPtr>>* out_documents
 ,
-             absl::optional<std::vector<DocumentPtr>> documents) {*out_documents = std::move(documents);
+             std::optional<std::vector<DocumentPtr>> documents) {*out_documents = std::move(documents);
             loop->Quit();
           },
           &loop,
@@ -10129,9 +10271,9 @@ void FileSystemInstanceAsyncWaiter::GetChildDocuments(
   loop.Run();
 }
 
-absl::optional<std::vector<DocumentPtr>> FileSystemInstanceAsyncWaiter::GetChildDocuments(
+std::optional<std::vector<DocumentPtr>> FileSystemInstanceAsyncWaiter::GetChildDocuments(
     const std::string& authority, const std::string& parent_document_id) {
-  absl::optional<std::vector<DocumentPtr>> async_wait_result;
+  std::optional<std::vector<DocumentPtr>> async_wait_result;
   GetChildDocuments(std::move(authority),std::move(parent_document_id),&async_wait_result);
   return async_wait_result;
 }
@@ -10183,14 +10325,14 @@ int64_t FileSystemInstanceAsyncWaiter::GetFileSize(
 }
 
 void FileSystemInstanceAsyncWaiter::GetMimeType(
-    const std::string& url, absl::optional<std::string>* out_mime_type) {
+    const std::string& url, std::optional<std::string>* out_mime_type) {
   base::RunLoop loop;
   proxy_->GetMimeType(std::move(url),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<std::string>* out_mime_type
+             std::optional<std::string>* out_mime_type
 ,
-             const absl::optional<std::string>& mime_type) {*out_mime_type = std::move(mime_type);
+             const std::optional<std::string>& mime_type) {*out_mime_type = std::move(mime_type);
             loop->Quit();
           },
           &loop,
@@ -10198,22 +10340,22 @@ void FileSystemInstanceAsyncWaiter::GetMimeType(
   loop.Run();
 }
 
-absl::optional<std::string> FileSystemInstanceAsyncWaiter::GetMimeType(
+std::optional<std::string> FileSystemInstanceAsyncWaiter::GetMimeType(
     const std::string& url) {
-  absl::optional<std::string> async_wait_result;
+  std::optional<std::string> async_wait_result;
   GetMimeType(std::move(url),&async_wait_result);
   return async_wait_result;
 }
 
 void FileSystemInstanceAsyncWaiter::GetRecentDocuments(
-    const std::string& authority, const std::string& root_id, absl::optional<std::vector<DocumentPtr>>* out_documents) {
+    const std::string& authority, const std::string& root_id, std::optional<std::vector<DocumentPtr>>* out_documents) {
   base::RunLoop loop;
   proxy_->GetRecentDocuments(std::move(authority),std::move(root_id),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<std::vector<DocumentPtr>>* out_documents
+             std::optional<std::vector<DocumentPtr>>* out_documents
 ,
-             absl::optional<std::vector<DocumentPtr>> documents) {*out_documents = std::move(documents);
+             std::optional<std::vector<DocumentPtr>> documents) {*out_documents = std::move(documents);
             loop->Quit();
           },
           &loop,
@@ -10221,22 +10363,22 @@ void FileSystemInstanceAsyncWaiter::GetRecentDocuments(
   loop.Run();
 }
 
-absl::optional<std::vector<DocumentPtr>> FileSystemInstanceAsyncWaiter::GetRecentDocuments(
+std::optional<std::vector<DocumentPtr>> FileSystemInstanceAsyncWaiter::GetRecentDocuments(
     const std::string& authority, const std::string& root_id) {
-  absl::optional<std::vector<DocumentPtr>> async_wait_result;
+  std::optional<std::vector<DocumentPtr>> async_wait_result;
   GetRecentDocuments(std::move(authority),std::move(root_id),&async_wait_result);
   return async_wait_result;
 }
 
 void FileSystemInstanceAsyncWaiter::GetRoots(
-    absl::optional<std::vector<RootPtr>>* out_roots) {
+    std::optional<std::vector<RootPtr>>* out_roots) {
   base::RunLoop loop;
   proxy_->GetRoots(
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<std::vector<RootPtr>>* out_roots
+             std::optional<std::vector<RootPtr>>* out_roots
 ,
-             absl::optional<std::vector<RootPtr>> roots) {*out_roots = std::move(roots);
+             std::optional<std::vector<RootPtr>> roots) {*out_roots = std::move(roots);
             loop->Quit();
           },
           &loop,
@@ -10244,9 +10386,9 @@ void FileSystemInstanceAsyncWaiter::GetRoots(
   loop.Run();
 }
 
-absl::optional<std::vector<RootPtr>> FileSystemInstanceAsyncWaiter::GetRoots(
+std::optional<std::vector<RootPtr>> FileSystemInstanceAsyncWaiter::GetRoots(
     ) {
-  absl::optional<std::vector<RootPtr>> async_wait_result;
+  std::optional<std::vector<RootPtr>> async_wait_result;
   GetRoots(&async_wait_result);
   return async_wait_result;
 }

@@ -1,2 +1,0 @@
-android_clang_arm64/gen/net/grit/net_resources.h
-android_clang_arm64/gen/net/net_resources.pak

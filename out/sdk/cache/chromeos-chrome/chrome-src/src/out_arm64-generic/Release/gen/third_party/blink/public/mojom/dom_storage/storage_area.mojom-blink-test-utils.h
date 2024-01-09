@@ -16,9 +16,9 @@ namespace blink::mojom::blink {
 
 class PLATFORM_EXPORT StorageAreaObserverInterceptorForTesting : public StorageAreaObserver {
   virtual StorageAreaObserver* GetForwardingInterface() = 0;
-  void KeyChanged(const WTF::Vector<uint8_t>& key, const WTF::Vector<uint8_t>& new_value, const absl::optional<WTF::Vector<uint8_t>>& old_value, const WTF::String& source) override;
+  void KeyChanged(const WTF::Vector<uint8_t>& key, const WTF::Vector<uint8_t>& new_value, const std::optional<WTF::Vector<uint8_t>>& old_value, const WTF::String& source) override;
   void KeyChangeFailed(const WTF::Vector<uint8_t>& key, const WTF::String& source) override;
-  void KeyDeleted(const WTF::Vector<uint8_t>& key, const absl::optional<WTF::Vector<uint8_t>>& old_value, const WTF::String& source) override;
+  void KeyDeleted(const WTF::Vector<uint8_t>& key, const std::optional<WTF::Vector<uint8_t>>& old_value, const WTF::String& source) override;
   void AllDeleted(bool was_nonempty, const WTF::String& source) override;
   void ShouldSendOldValueOnMutations(bool value) override;
 };
@@ -39,8 +39,8 @@ class PLATFORM_EXPORT StorageAreaObserverAsyncWaiter {
 class PLATFORM_EXPORT StorageAreaInterceptorForTesting : public StorageArea {
   virtual StorageArea* GetForwardingInterface() = 0;
   void AddObserver(::mojo::PendingRemote<StorageAreaObserver> observer) override;
-  void Put(const WTF::Vector<uint8_t>& key, const WTF::Vector<uint8_t>& value, const absl::optional<WTF::Vector<uint8_t>>& client_old_value, const WTF::String& source, PutCallback callback) override;
-  void Delete(const WTF::Vector<uint8_t>& key, const absl::optional<WTF::Vector<uint8_t>>& client_old_value, const WTF::String& source, DeleteCallback callback) override;
+  void Put(const WTF::Vector<uint8_t>& key, const WTF::Vector<uint8_t>& value, const std::optional<WTF::Vector<uint8_t>>& client_old_value, const WTF::String& source, PutCallback callback) override;
+  void Delete(const WTF::Vector<uint8_t>& key, const std::optional<WTF::Vector<uint8_t>>& client_old_value, const WTF::String& source, DeleteCallback callback) override;
   void DeleteAll(const WTF::String& source, ::mojo::PendingRemote<StorageAreaObserver> new_observer, DeleteAllCallback callback) override;
   void Get(const WTF::Vector<uint8_t>& key, GetCallback callback) override;
   void GetAll(::mojo::PendingRemote<StorageAreaObserver> new_observer, GetAllCallback callback) override;
@@ -54,11 +54,11 @@ class PLATFORM_EXPORT StorageAreaAsyncWaiter {
 
   ~StorageAreaAsyncWaiter();
   void Put(
-      const WTF::Vector<uint8_t>& key, const WTF::Vector<uint8_t>& value, const absl::optional<WTF::Vector<uint8_t>>& client_old_value, const WTF::String& source, bool* out_success);
-  bool Put(const WTF::Vector<uint8_t>& key, const WTF::Vector<uint8_t>& value, const absl::optional<WTF::Vector<uint8_t>>& client_old_value, const WTF::String& source);
+      const WTF::Vector<uint8_t>& key, const WTF::Vector<uint8_t>& value, const std::optional<WTF::Vector<uint8_t>>& client_old_value, const WTF::String& source, bool* out_success);
+  bool Put(const WTF::Vector<uint8_t>& key, const WTF::Vector<uint8_t>& value, const std::optional<WTF::Vector<uint8_t>>& client_old_value, const WTF::String& source);
   void Delete(
-      const WTF::Vector<uint8_t>& key, const absl::optional<WTF::Vector<uint8_t>>& client_old_value, const WTF::String& source, bool* out_success);
-  bool Delete(const WTF::Vector<uint8_t>& key, const absl::optional<WTF::Vector<uint8_t>>& client_old_value, const WTF::String& source);
+      const WTF::Vector<uint8_t>& key, const std::optional<WTF::Vector<uint8_t>>& client_old_value, const WTF::String& source, bool* out_success);
+  bool Delete(const WTF::Vector<uint8_t>& key, const std::optional<WTF::Vector<uint8_t>>& client_old_value, const WTF::String& source);
   void DeleteAll(
       const WTF::String& source, ::mojo::PendingRemote<StorageAreaObserver> new_observer, bool* out_success);
   bool DeleteAll(const WTF::String& source, ::mojo::PendingRemote<StorageAreaObserver> new_observer);

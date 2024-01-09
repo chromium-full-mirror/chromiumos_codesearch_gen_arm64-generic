@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chrome/browser/ui/webui/ash/settings/pages/device/display_settings/display_settings_provider.mojom-features.h"
 #include "chrome/browser/ui/webui/ash/settings/pages/device/display_settings/display_settings_provider.mojom-shared.h"
 #include "chrome/browser/ui/webui/ash/settings/pages/device/display_settings/display_settings_provider.mojom-forward.h"
 #include <string>
@@ -83,6 +84,51 @@ class TabletModeObserver
   virtual void OnTabletModeChanged(bool is_tablet_mode) = 0;
 };
 
+class DisplayConfigurationObserverProxy;
+
+template <typename ImplRefTraits>
+class DisplayConfigurationObserverStub;
+
+class DisplayConfigurationObserverRequestValidator;
+
+
+class DisplayConfigurationObserver
+    : public DisplayConfigurationObserverInterfaceBase {
+ public:
+  using IPCStableHashFunction = uint32_t(*)();
+
+  static const char Name_[];
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
+  static const char* MessageToMethodName_(mojo::Message& message);
+  static constexpr uint32_t Version_ = 0;
+  static constexpr bool PassesAssociatedKinds_ = false;
+  static constexpr bool HasUninterruptableMethods_ = false;
+
+  using Base_ = DisplayConfigurationObserverInterfaceBase;
+  using Proxy_ = DisplayConfigurationObserverProxy;
+
+  template <typename ImplRefTraits>
+  using Stub_ = DisplayConfigurationObserverStub<ImplRefTraits>;
+
+  using RequestValidator_ = DisplayConfigurationObserverRequestValidator;
+  using ResponseValidator_ = mojo::PassThroughFilter;
+  enum MethodMinVersions : uint32_t {
+    kOnDisplayConfigurationChangedMinVersion = 0,
+  };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+  struct OnDisplayConfigurationChanged_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+#endif // !BUILDFLAG(IS_FUCHSIA)
+  virtual ~DisplayConfigurationObserver() = default;
+
+  
+  virtual void OnDisplayConfigurationChanged() = 0;
+};
+
 class DisplaySettingsProviderProxy;
 
 template <typename ImplRefTraits>
@@ -114,12 +160,20 @@ class DisplaySettingsProvider
   using ResponseValidator_ = DisplaySettingsProviderResponseValidator;
   enum MethodMinVersions : uint32_t {
     kObserveTabletModeMinVersion = 0,
+    kObserveDisplayConfigurationMinVersion = 0,
+    kRecordChangingDisplaySettingsMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
 // with not having this data in traces there.
 #if !BUILDFLAG(IS_FUCHSIA)
   struct ObserveTabletMode_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct ObserveDisplayConfiguration_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct RecordChangingDisplaySettings_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -129,6 +183,12 @@ class DisplaySettingsProvider
   using ObserveTabletModeCallback = base::OnceCallback<void(bool)>;
   
   virtual void ObserveTabletMode(::mojo::PendingRemote<TabletModeObserver> observer, ObserveTabletModeCallback callback) = 0;
+
+  
+  virtual void ObserveDisplayConfiguration(::mojo::PendingRemote<DisplayConfigurationObserver> observer) = 0;
+
+  
+  virtual void RecordChangingDisplaySettings(DisplaySettingsType type, DisplaySettingsValuePtr value) = 0;
 };
 
 
@@ -148,6 +208,21 @@ class  TabletModeObserverProxy
 
 
 
+class  DisplayConfigurationObserverProxy
+    : public DisplayConfigurationObserver {
+ public:
+  using InterfaceType = DisplayConfigurationObserver;
+
+  explicit DisplayConfigurationObserverProxy(mojo::MessageReceiverWithResponder* receiver);
+  
+  void OnDisplayConfigurationChanged() final;
+
+ private:
+  mojo::MessageReceiverWithResponder* receiver_;
+};
+
+
+
 class  DisplaySettingsProviderProxy
     : public DisplaySettingsProvider {
  public:
@@ -156,6 +231,10 @@ class  DisplaySettingsProviderProxy
   explicit DisplaySettingsProviderProxy(mojo::MessageReceiverWithResponder* receiver);
   
   void ObserveTabletMode(::mojo::PendingRemote<TabletModeObserver> observer, ObserveTabletModeCallback callback) final;
+  
+  void ObserveDisplayConfiguration(::mojo::PendingRemote<DisplayConfigurationObserver> observer) final;
+  
+  void RecordChangingDisplaySettings(DisplaySettingsType type, DisplaySettingsValuePtr value) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -195,6 +274,47 @@ class TabletModeObserverStub
     if (ImplRefTraits::IsNull(sink_))
       return false;
     return TabletModeObserverStubDispatch::AcceptWithResponder(
+        ImplRefTraits::GetRawPointer(&sink_), message, std::move(responder));
+  }
+
+ private:
+  ImplPointerType sink_;
+};
+class  DisplayConfigurationObserverStubDispatch {
+ public:
+  static bool Accept(DisplayConfigurationObserver* impl, mojo::Message* message);
+  static bool AcceptWithResponder(
+      DisplayConfigurationObserver* impl,
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder);
+};
+
+template <typename ImplRefTraits =
+              mojo::RawPtrImplRefTraits<DisplayConfigurationObserver>>
+class DisplayConfigurationObserverStub
+    : public mojo::MessageReceiverWithResponderStatus {
+ public:
+  using ImplPointerType = typename ImplRefTraits::PointerType;
+
+  DisplayConfigurationObserverStub() = default;
+  ~DisplayConfigurationObserverStub() override = default;
+
+  void set_sink(ImplPointerType sink) { sink_ = std::move(sink); }
+  ImplPointerType& sink() { return sink_; }
+
+  bool Accept(mojo::Message* message) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return DisplayConfigurationObserverStubDispatch::Accept(
+        ImplRefTraits::GetRawPointer(&sink_), message);
+  }
+
+  bool AcceptWithResponder(
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return DisplayConfigurationObserverStubDispatch::AcceptWithResponder(
         ImplRefTraits::GetRawPointer(&sink_), message, std::move(responder));
   }
 
@@ -246,6 +366,10 @@ class  TabletModeObserverRequestValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
 };
+class  DisplayConfigurationObserverRequestValidator : public mojo::MessageReceiver {
+ public:
+  bool Accept(mojo::Message* message) override;
+};
 class  DisplaySettingsProviderRequestValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
@@ -259,9 +383,202 @@ class  DisplaySettingsProviderResponseValidator : public mojo::MessageReceiver {
 
 
 
+class  DisplaySettingsValue {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<DisplaySettingsValue, T>::value>;
+  using DataView = DisplaySettingsValueDataView;
+  using Data_ = internal::DisplaySettingsValue_Data;
+
+  template <typename... Args>
+  static DisplaySettingsValuePtr New(Args&&... args) {
+    return DisplaySettingsValuePtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static DisplaySettingsValuePtr From(const U& u) {
+    return mojo::TypeConverter<DisplaySettingsValuePtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, DisplaySettingsValue>::Convert(*this);
+  }
+
+
+  DisplaySettingsValue();
+
+  DisplaySettingsValue(
+      std::optional<bool> is_internal_display,
+      std::optional<int64_t> display_id);
+
+
+  ~DisplaySettingsValue();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = DisplaySettingsValuePtr>
+  DisplaySettingsValuePtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, DisplaySettingsValue::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, DisplaySettingsValue::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, DisplaySettingsValue::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        DisplaySettingsValue::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        DisplaySettingsValue::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::DisplaySettingsValue_UnserializedMessageContext<
+            UserType, DisplaySettingsValue::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<DisplaySettingsValue::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return DisplaySettingsValue::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::DisplaySettingsValue_UnserializedMessageContext<
+            UserType, DisplaySettingsValue::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<DisplaySettingsValue::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  std::optional<bool> is_internal_display;
+  
+  std::optional<int64_t> display_id;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, DisplaySettingsValue::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, DisplaySettingsValue::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, DisplaySettingsValue::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, DisplaySettingsValue::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+template <typename StructPtrType>
+DisplaySettingsValuePtr DisplaySettingsValue::Clone() const {
+  return New(
+      mojo::Clone(is_internal_display),
+      mojo::Clone(display_id)
+  );
+}
+
+template <typename T, DisplaySettingsValue::EnableIfSame<T>*>
+bool DisplaySettingsValue::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->is_internal_display, other_struct.is_internal_display))
+    return false;
+  if (!mojo::Equals(this->display_id, other_struct.display_id))
+    return false;
+  return true;
+}
+
+template <typename T, DisplaySettingsValue::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.is_internal_display < rhs.is_internal_display)
+    return true;
+  if (rhs.is_internal_display < lhs.is_internal_display)
+    return false;
+  if (lhs.display_id < rhs.display_id)
+    return true;
+  if (rhs.display_id < lhs.display_id)
+    return false;
+  return false;
+}
+
+
 }  // ash::settings::mojom
 
 namespace mojo {
+
+
+template <>
+struct  StructTraits<::ash::settings::mojom::DisplaySettingsValue::DataView,
+                                         ::ash::settings::mojom::DisplaySettingsValuePtr> {
+  static bool IsNull(const ::ash::settings::mojom::DisplaySettingsValuePtr& input) { return !input; }
+  static void SetToNull(::ash::settings::mojom::DisplaySettingsValuePtr* output) { output->reset(); }
+
+  static decltype(::ash::settings::mojom::DisplaySettingsValue::is_internal_display) is_internal_display(
+      const ::ash::settings::mojom::DisplaySettingsValuePtr& input) {
+    return input->is_internal_display;
+  }
+
+  static decltype(::ash::settings::mojom::DisplaySettingsValue::display_id) display_id(
+      const ::ash::settings::mojom::DisplaySettingsValuePtr& input) {
+    return input->display_id;
+  }
+
+  static bool Read(::ash::settings::mojom::DisplaySettingsValue::DataView input, ::ash::settings::mojom::DisplaySettingsValuePtr* output);
+};
 
 }  // namespace mojo
 

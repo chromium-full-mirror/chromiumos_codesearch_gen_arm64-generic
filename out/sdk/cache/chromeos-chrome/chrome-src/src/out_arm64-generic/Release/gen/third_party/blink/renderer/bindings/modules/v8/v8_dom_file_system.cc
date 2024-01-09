@@ -67,11 +67,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, DOMFileSystem>::value,
     "DOMFileSystem does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&DOMFileSystem::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "DOMFileSystem is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -84,10 +79,10 @@ BLINK_BINDINGS_TRACE_EVENT("DOMFileSystem.name.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMFileSystem* blink_receiver = V8DOMFileSystem::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->name();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMFileSystem* blink_receiver = V8DOMFileSystem::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->name();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -99,8 +94,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMFileSystem.root.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMFileSystem* blink_receiver = V8DOMFileSystem::ToWrappableUnsafe(v8_receiver);
+DOMFileSystem* blink_receiver = V8DOMFileSystem::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->root();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }

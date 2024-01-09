@@ -58,16 +58,15 @@ export const SettingsBooleanControlMixin = dedupingMixin((superClass) => {
                     value: '',
                 },
                 /**
-                 * For numeric prefs only, the integer value equivalent to the
-                 * unchecked state. This is the value sent to prefs if the user
-                 * unchecks the control. During initialization, the control is
-                 * unchecked if and only if the pref value is equal to the this
-                 * value. (Values 2, 3, 4, etc. all are checked.)
+                 * For numeric prefs only. The integer values equivalent to the
+                 * initial unchecked state. During initialization, the control is
+                 * unchecked if and only if the pref value is equal to one of the
+                 * values in the array. When sendPrefChange() is called the *first*
+                 * value in this array will be sent to the backend.
                  */
-                numericUncheckedValue: {
-                    type: Number,
-                    value: DEFAULT_UNCHECKED_VALUE,
-                    reflectToAttribute: true,
+                numericUncheckedValues: {
+                    type: Array,
+                    value: () => [DEFAULT_UNCHECKED_VALUE],
                 },
                 /**
                  * For numeric prefs only, the integer value equivalent to the
@@ -77,7 +76,6 @@ export const SettingsBooleanControlMixin = dedupingMixin((superClass) => {
                 numericCheckedValue: {
                     type: Number,
                     value: DEFAULT_CHECKED_VALUE,
-                    reflectToAttribute: true,
                 },
             };
         }
@@ -106,8 +104,9 @@ export const SettingsBooleanControlMixin = dedupingMixin((superClass) => {
             // a boolean or a number.
             if (this.pref.type === chrome.settingsPrivate.PrefType.NUMBER) {
                 assert(!this.inverted);
+                assert(this.numericUncheckedValues.length > 0);
                 this.set('pref.value', this.checked ? this.numericCheckedValue :
-                    this.numericUncheckedValue);
+                    this.numericUncheckedValues[0]);
                 return;
             }
             this.set('pref.value', this.inverted ? !this.checked : this.checked);
@@ -120,10 +119,10 @@ export const SettingsBooleanControlMixin = dedupingMixin((superClass) => {
          */
         getNewValue_(value) {
             // For numeric prefs, the control is only false if the value is
-            // exactly equal to the unchecked-equivalent value.
+            // a member of `numericUncheckedValues` value.
             if (this.pref.type === chrome.settingsPrivate.PrefType.NUMBER) {
                 assert(!this.inverted);
-                return value !== this.numericUncheckedValue;
+                return !this.numericUncheckedValues.includes(value);
             }
             return this.inverted ? !value : !!value;
         }

@@ -326,6 +326,111 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) MediaStreamDispatcherHo
 };
 static_assert(sizeof(MediaStreamDispatcherHost_ApplySubCaptureTarget_ResponseParams_Data) == 16,
               "Bad sizeof(MediaStreamDispatcherHost_ApplySubCaptureTarget_ResponseParams_Data)");
+class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) MediaStreamDispatcherHost_SendWheel_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::mojo_base::mojom::internal::UnguessableToken_Data> device_id;
+  mojo::internal::Pointer<internal::CapturedWheelAction_Data> action;
+
+ private:
+  friend class mojo::internal::MessageFragment<MediaStreamDispatcherHost_SendWheel_Params_Data>;
+
+  MediaStreamDispatcherHost_SendWheel_Params_Data();
+  ~MediaStreamDispatcherHost_SendWheel_Params_Data() = delete;
+};
+static_assert(sizeof(MediaStreamDispatcherHost_SendWheel_Params_Data) == 24,
+              "Bad sizeof(MediaStreamDispatcherHost_SendWheel_Params_Data)");
+class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) MediaStreamDispatcherHost_SendWheel_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t result;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<MediaStreamDispatcherHost_SendWheel_ResponseParams_Data>;
+
+  MediaStreamDispatcherHost_SendWheel_ResponseParams_Data();
+  ~MediaStreamDispatcherHost_SendWheel_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(MediaStreamDispatcherHost_SendWheel_ResponseParams_Data) == 16,
+              "Bad sizeof(MediaStreamDispatcherHost_SendWheel_ResponseParams_Data)");
+class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) MediaStreamDispatcherHost_GetZoomLevel_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::mojo_base::mojom::internal::UnguessableToken_Data> device_id;
+
+ private:
+  friend class mojo::internal::MessageFragment<MediaStreamDispatcherHost_GetZoomLevel_Params_Data>;
+
+  MediaStreamDispatcherHost_GetZoomLevel_Params_Data();
+  ~MediaStreamDispatcherHost_GetZoomLevel_Params_Data() = delete;
+};
+static_assert(sizeof(MediaStreamDispatcherHost_GetZoomLevel_Params_Data) == 16,
+              "Bad sizeof(MediaStreamDispatcherHost_GetZoomLevel_Params_Data)");
+class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) MediaStreamDispatcherHost_GetZoomLevel_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t zoom_level_$flag : 1;
+  uint8_t pad0_[3];
+  int32_t zoom_level_$value;
+  int32_t result;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<MediaStreamDispatcherHost_GetZoomLevel_ResponseParams_Data>;
+
+  MediaStreamDispatcherHost_GetZoomLevel_ResponseParams_Data();
+  ~MediaStreamDispatcherHost_GetZoomLevel_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(MediaStreamDispatcherHost_GetZoomLevel_ResponseParams_Data) == 24,
+              "Bad sizeof(MediaStreamDispatcherHost_GetZoomLevel_ResponseParams_Data)");
+class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) MediaStreamDispatcherHost_SetZoomLevel_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::mojo_base::mojom::internal::UnguessableToken_Data> device_id;
+  int32_t zoom_level;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<MediaStreamDispatcherHost_SetZoomLevel_Params_Data>;
+
+  MediaStreamDispatcherHost_SetZoomLevel_Params_Data();
+  ~MediaStreamDispatcherHost_SetZoomLevel_Params_Data() = delete;
+};
+static_assert(sizeof(MediaStreamDispatcherHost_SetZoomLevel_Params_Data) == 24,
+              "Bad sizeof(MediaStreamDispatcherHost_SetZoomLevel_Params_Data)");
+class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) MediaStreamDispatcherHost_SetZoomLevel_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t result;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<MediaStreamDispatcherHost_SetZoomLevel_ResponseParams_Data>;
+
+  MediaStreamDispatcherHost_SetZoomLevel_ResponseParams_Data();
+  ~MediaStreamDispatcherHost_SetZoomLevel_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(MediaStreamDispatcherHost_SetZoomLevel_ResponseParams_Data) == 16,
+              "Bad sizeof(MediaStreamDispatcherHost_SetZoomLevel_ResponseParams_Data)");
 class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) MediaStreamDispatcherHost_GetOpenDevice_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -1032,12 +1137,12 @@ class MediaStreamDispatcherHost_ApplySubCaptureTarget_ParamsDataView {
   template <typename UserType>
   [[nodiscard]] bool ReadType(UserType* output) const {
     auto data_value = data_->type;
-    return mojo::internal::Deserialize<::blink::mojom::SubCaptureTargetType>(
+    return mojo::internal::Deserialize<::media::mojom::SubCaptureTargetType>(
         data_value, output);
   }
-  ::blink::mojom::SubCaptureTargetType type() const {
+  ::media::mojom::SubCaptureTargetType type() const {
     return ::mojo::internal::ToKnownEnumValueHelper(
-          static_cast<::blink::mojom::SubCaptureTargetType>(data_->type));
+          static_cast<::media::mojom::SubCaptureTargetType>(data_->type));
   }
   inline void GetSubCaptureTargetDataView(
       ::mojo_base::mojom::TokenDataView* output);
@@ -1080,6 +1185,178 @@ class MediaStreamDispatcherHost_ApplySubCaptureTarget_ResponseParamsDataView {
   }
  private:
   internal::MediaStreamDispatcherHost_ApplySubCaptureTarget_ResponseParams_Data* data_ = nullptr;
+};
+
+
+class MediaStreamDispatcherHost_SendWheel_ParamsDataView {
+ public:
+  MediaStreamDispatcherHost_SendWheel_ParamsDataView() = default;
+
+  MediaStreamDispatcherHost_SendWheel_ParamsDataView(
+      internal::MediaStreamDispatcherHost_SendWheel_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetDeviceIdDataView(
+      ::mojo_base::mojom::UnguessableTokenDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadDeviceId(UserType* output) {
+    
+    auto* pointer = data_->device_id.Get();
+    return mojo::internal::Deserialize<::mojo_base::mojom::UnguessableTokenDataView>(
+        pointer, output, message_);
+  }
+  inline void GetActionDataView(
+      CapturedWheelActionDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadAction(UserType* output) {
+    
+    auto* pointer = data_->action.Get();
+    return mojo::internal::Deserialize<::blink::mojom::CapturedWheelActionDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::MediaStreamDispatcherHost_SendWheel_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class MediaStreamDispatcherHost_SendWheel_ResponseParamsDataView {
+ public:
+  MediaStreamDispatcherHost_SendWheel_ResponseParamsDataView() = default;
+
+  MediaStreamDispatcherHost_SendWheel_ResponseParamsDataView(
+      internal::MediaStreamDispatcherHost_SendWheel_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadResult(UserType* output) const {
+    auto data_value = data_->result;
+    return mojo::internal::Deserialize<::blink::mojom::CapturedSurfaceControlResult>(
+        data_value, output);
+  }
+  CapturedSurfaceControlResult result() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::blink::mojom::CapturedSurfaceControlResult>(data_->result));
+  }
+ private:
+  internal::MediaStreamDispatcherHost_SendWheel_ResponseParams_Data* data_ = nullptr;
+};
+
+
+class MediaStreamDispatcherHost_GetZoomLevel_ParamsDataView {
+ public:
+  MediaStreamDispatcherHost_GetZoomLevel_ParamsDataView() = default;
+
+  MediaStreamDispatcherHost_GetZoomLevel_ParamsDataView(
+      internal::MediaStreamDispatcherHost_GetZoomLevel_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetDeviceIdDataView(
+      ::mojo_base::mojom::UnguessableTokenDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadDeviceId(UserType* output) {
+    
+    auto* pointer = data_->device_id.Get();
+    return mojo::internal::Deserialize<::mojo_base::mojom::UnguessableTokenDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::MediaStreamDispatcherHost_GetZoomLevel_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class MediaStreamDispatcherHost_GetZoomLevel_ResponseParamsDataView {
+ public:
+  MediaStreamDispatcherHost_GetZoomLevel_ResponseParamsDataView() = default;
+
+  MediaStreamDispatcherHost_GetZoomLevel_ResponseParamsDataView(
+      internal::MediaStreamDispatcherHost_GetZoomLevel_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  std::optional<int32_t> zoom_level() const {
+
+    return data_->zoom_level_$flag
+        ? absl::make_optional(data_->zoom_level_$value)
+        : absl::nullopt;
+  }
+  template <typename UserType>
+  [[nodiscard]] bool ReadResult(UserType* output) const {
+    auto data_value = data_->result;
+    return mojo::internal::Deserialize<::blink::mojom::CapturedSurfaceControlResult>(
+        data_value, output);
+  }
+  CapturedSurfaceControlResult result() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::blink::mojom::CapturedSurfaceControlResult>(data_->result));
+  }
+ private:
+  internal::MediaStreamDispatcherHost_GetZoomLevel_ResponseParams_Data* data_ = nullptr;
+};
+
+
+class MediaStreamDispatcherHost_SetZoomLevel_ParamsDataView {
+ public:
+  MediaStreamDispatcherHost_SetZoomLevel_ParamsDataView() = default;
+
+  MediaStreamDispatcherHost_SetZoomLevel_ParamsDataView(
+      internal::MediaStreamDispatcherHost_SetZoomLevel_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetDeviceIdDataView(
+      ::mojo_base::mojom::UnguessableTokenDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadDeviceId(UserType* output) {
+    
+    auto* pointer = data_->device_id.Get();
+    return mojo::internal::Deserialize<::mojo_base::mojom::UnguessableTokenDataView>(
+        pointer, output, message_);
+  }
+  int32_t zoom_level() const {
+    return data_->zoom_level;
+  }
+ private:
+  internal::MediaStreamDispatcherHost_SetZoomLevel_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class MediaStreamDispatcherHost_SetZoomLevel_ResponseParamsDataView {
+ public:
+  MediaStreamDispatcherHost_SetZoomLevel_ResponseParamsDataView() = default;
+
+  MediaStreamDispatcherHost_SetZoomLevel_ResponseParamsDataView(
+      internal::MediaStreamDispatcherHost_SetZoomLevel_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadResult(UserType* output) const {
+    auto data_value = data_->result;
+    return mojo::internal::Deserialize<::blink::mojom::CapturedSurfaceControlResult>(
+        data_value, output);
+  }
+  CapturedSurfaceControlResult result() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::blink::mojom::CapturedSurfaceControlResult>(data_->result));
+  }
+ private:
+  internal::MediaStreamDispatcherHost_SetZoomLevel_ResponseParams_Data* data_ = nullptr;
 };
 
 
@@ -1422,6 +1699,38 @@ inline void MediaStreamDispatcherHost_ApplySubCaptureTarget_ParamsDataView::GetS
     ::mojo_base::mojom::TokenDataView* output) {
   auto pointer = data_->sub_capture_target.Get();
   *output = ::mojo_base::mojom::TokenDataView(pointer, message_);
+}
+
+
+
+
+inline void MediaStreamDispatcherHost_SendWheel_ParamsDataView::GetDeviceIdDataView(
+    ::mojo_base::mojom::UnguessableTokenDataView* output) {
+  auto pointer = data_->device_id.Get();
+  *output = ::mojo_base::mojom::UnguessableTokenDataView(pointer, message_);
+}
+inline void MediaStreamDispatcherHost_SendWheel_ParamsDataView::GetActionDataView(
+    CapturedWheelActionDataView* output) {
+  auto pointer = data_->action.Get();
+  *output = CapturedWheelActionDataView(pointer, message_);
+}
+
+
+
+
+inline void MediaStreamDispatcherHost_GetZoomLevel_ParamsDataView::GetDeviceIdDataView(
+    ::mojo_base::mojom::UnguessableTokenDataView* output) {
+  auto pointer = data_->device_id.Get();
+  *output = ::mojo_base::mojom::UnguessableTokenDataView(pointer, message_);
+}
+
+
+
+
+inline void MediaStreamDispatcherHost_SetZoomLevel_ParamsDataView::GetDeviceIdDataView(
+    ::mojo_base::mojom::UnguessableTokenDataView* output) {
+  auto pointer = data_->device_id.Get();
+  *output = ::mojo_base::mojom::UnguessableTokenDataView(pointer, message_);
 }
 
 

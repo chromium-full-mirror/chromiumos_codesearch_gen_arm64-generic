@@ -88,51 +88,6 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) LocalFrameHost_Fullscre
 };
 static_assert(sizeof(LocalFrameHost_FullscreenStateChanged_Params_Data) == 24,
               "Bad sizeof(LocalFrameHost_FullscreenStateChanged_Params_Data)");
-class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) LocalFrameHost_Maximize_Params_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-
- private:
-  friend class mojo::internal::MessageFragment<LocalFrameHost_Maximize_Params_Data>;
-
-  LocalFrameHost_Maximize_Params_Data();
-  ~LocalFrameHost_Maximize_Params_Data() = delete;
-};
-static_assert(sizeof(LocalFrameHost_Maximize_Params_Data) == 8,
-              "Bad sizeof(LocalFrameHost_Maximize_Params_Data)");
-class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) LocalFrameHost_Minimize_Params_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-
- private:
-  friend class mojo::internal::MessageFragment<LocalFrameHost_Minimize_Params_Data>;
-
-  LocalFrameHost_Minimize_Params_Data();
-  ~LocalFrameHost_Minimize_Params_Data() = delete;
-};
-static_assert(sizeof(LocalFrameHost_Minimize_Params_Data) == 8,
-              "Bad sizeof(LocalFrameHost_Minimize_Params_Data)");
-class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) LocalFrameHost_Restore_Params_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-
- private:
-  friend class mojo::internal::MessageFragment<LocalFrameHost_Restore_Params_Data>;
-
-  LocalFrameHost_Restore_Params_Data();
-  ~LocalFrameHost_Restore_Params_Data() = delete;
-};
-static_assert(sizeof(LocalFrameHost_Restore_Params_Data) == 8,
-              "Bad sizeof(LocalFrameHost_Restore_Params_Data)");
 class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) LocalFrameHost_RegisterProtocolHandler_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -1234,7 +1189,6 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) LocalFrameHost_SendFenc
   mojo::internal::Pointer<mojo::internal::String_Data> event_data;
   mojo::internal::Pointer<mojo::internal::String_Data> event_type;
   mojo::internal::Pointer<mojo::internal::Array_Data<int32_t>> destinations;
-  mojo::internal::Pointer<::network::mojom::internal::AttributionReportingRuntimeFeatures_Data> attribution_reporting_runtime_features;
 
  private:
   friend class mojo::internal::MessageFragment<LocalFrameHost_SendFencedFrameReportingBeacon_Params_Data>;
@@ -1242,7 +1196,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) LocalFrameHost_SendFenc
   LocalFrameHost_SendFencedFrameReportingBeacon_Params_Data();
   ~LocalFrameHost_SendFencedFrameReportingBeacon_Params_Data() = delete;
 };
-static_assert(sizeof(LocalFrameHost_SendFencedFrameReportingBeacon_Params_Data) == 40,
+static_assert(sizeof(LocalFrameHost_SendFencedFrameReportingBeacon_Params_Data) == 32,
               "Bad sizeof(LocalFrameHost_SendFencedFrameReportingBeacon_Params_Data)");
 class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) LocalFrameHost_SendFencedFrameReportingBeaconToCustomURL_Params_Data {
  public:
@@ -1251,7 +1205,6 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) LocalFrameHost_SendFenc
 
   mojo::internal::StructHeader header_;
   mojo::internal::Pointer<::url::mojom::internal::Url_Data> destination_url;
-  mojo::internal::Pointer<::network::mojom::internal::AttributionReportingRuntimeFeatures_Data> attribution_reporting_runtime_features;
 
  private:
   friend class mojo::internal::MessageFragment<LocalFrameHost_SendFencedFrameReportingBeaconToCustomURL_Params_Data>;
@@ -1259,7 +1212,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) LocalFrameHost_SendFenc
   LocalFrameHost_SendFencedFrameReportingBeaconToCustomURL_Params_Data();
   ~LocalFrameHost_SendFencedFrameReportingBeaconToCustomURL_Params_Data() = delete;
 };
-static_assert(sizeof(LocalFrameHost_SendFencedFrameReportingBeaconToCustomURL_Params_Data) == 24,
+static_assert(sizeof(LocalFrameHost_SendFencedFrameReportingBeaconToCustomURL_Params_Data) == 16,
               "Bad sizeof(LocalFrameHost_SendFencedFrameReportingBeaconToCustomURL_Params_Data)");
 class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) LocalFrameHost_SendLegacyTechEvent_Params_Data {
  public:
@@ -1284,11 +1237,12 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) LocalFrameHost_SetFence
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
+  int32_t event_type;
+  uint8_t once : 1;
+  uint8_t cross_origin_exposed : 1;
+  uint8_t pad2_[3];
   mojo::internal::Pointer<mojo::internal::String_Data> event_data;
   mojo::internal::Pointer<mojo::internal::Array_Data<int32_t>> destinations;
-  mojo::internal::Pointer<::network::mojom::internal::AttributionReportingRuntimeFeatures_Data> attribution_reporting_runtime_features;
-  uint8_t once : 1;
-  uint8_t padfinal_[7];
 
  private:
   friend class mojo::internal::MessageFragment<LocalFrameHost_SetFencedFrameAutomaticBeaconReportEventData_Params_Data>;
@@ -1296,7 +1250,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) LocalFrameHost_SetFence
   LocalFrameHost_SetFencedFrameAutomaticBeaconReportEventData_Params_Data();
   ~LocalFrameHost_SetFencedFrameAutomaticBeaconReportEventData_Params_Data() = delete;
 };
-static_assert(sizeof(LocalFrameHost_SetFencedFrameAutomaticBeaconReportEventData_Params_Data) == 40,
+static_assert(sizeof(LocalFrameHost_SetFencedFrameAutomaticBeaconReportEventData_Params_Data) == 32,
               "Bad sizeof(LocalFrameHost_SetFencedFrameAutomaticBeaconReportEventData_Params_Data)");
 class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) LocalFrameHost_SendPrivateAggregationRequestsForFencedFrameEvent_Params_Data {
  public:
@@ -1314,79 +1268,22 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) LocalFrameHost_SendPriv
 };
 static_assert(sizeof(LocalFrameHost_SendPrivateAggregationRequestsForFencedFrameEvent_Params_Data) == 16,
               "Bad sizeof(LocalFrameHost_SendPrivateAggregationRequestsForFencedFrameEvent_Params_Data)");
-class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) LocalFrameHost_CreatePortal_Params_Data {
+class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) LocalFrameHost_SetAttributionReportingRuntimeFeatures_Params_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::AssociatedEndpointHandle_Data portal;
-  mojo::internal::AssociatedInterface_Data client;
-  uint8_t pad1_[4];
-  mojo::internal::Pointer<::blink::mojom::internal::RemoteFrameInterfacesFromRenderer_Data> remote_frame_interfaces;
+  mojo::internal::Pointer<::network::mojom::internal::AttributionReportingRuntimeFeatures_Data> features;
 
  private:
-  friend class mojo::internal::MessageFragment<LocalFrameHost_CreatePortal_Params_Data>;
+  friend class mojo::internal::MessageFragment<LocalFrameHost_SetAttributionReportingRuntimeFeatures_Params_Data>;
 
-  LocalFrameHost_CreatePortal_Params_Data();
-  ~LocalFrameHost_CreatePortal_Params_Data() = delete;
+  LocalFrameHost_SetAttributionReportingRuntimeFeatures_Params_Data();
+  ~LocalFrameHost_SetAttributionReportingRuntimeFeatures_Params_Data() = delete;
 };
-static_assert(sizeof(LocalFrameHost_CreatePortal_Params_Data) == 32,
-              "Bad sizeof(LocalFrameHost_CreatePortal_Params_Data)");
-class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) LocalFrameHost_CreatePortal_ResponseParams_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::blink::mojom::internal::FrameReplicationState_Data> initial_replicated_state;
-  mojo::internal::Pointer<::blink::mojom::internal::PortalToken_Data> portal_token;
-  mojo::internal::Pointer<::blink::mojom::internal::RemoteFrameToken_Data> frame_token;
-  mojo::internal::Pointer<::mojo_base::mojom::internal::UnguessableToken_Data> devtools_frame_token;
-
- private:
-  friend class mojo::internal::MessageFragment<LocalFrameHost_CreatePortal_ResponseParams_Data>;
-
-  LocalFrameHost_CreatePortal_ResponseParams_Data();
-  ~LocalFrameHost_CreatePortal_ResponseParams_Data() = delete;
-};
-static_assert(sizeof(LocalFrameHost_CreatePortal_ResponseParams_Data) == 40,
-              "Bad sizeof(LocalFrameHost_CreatePortal_ResponseParams_Data)");
-class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) LocalFrameHost_AdoptPortal_Params_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::blink::mojom::internal::PortalToken_Data> portal_token;
-  mojo::internal::Pointer<::blink::mojom::internal::RemoteFrameInterfacesFromRenderer_Data> remote_frame_interfaces;
-
- private:
-  friend class mojo::internal::MessageFragment<LocalFrameHost_AdoptPortal_Params_Data>;
-
-  LocalFrameHost_AdoptPortal_Params_Data();
-  ~LocalFrameHost_AdoptPortal_Params_Data() = delete;
-};
-static_assert(sizeof(LocalFrameHost_AdoptPortal_Params_Data) == 24,
-              "Bad sizeof(LocalFrameHost_AdoptPortal_Params_Data)");
-class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) LocalFrameHost_AdoptPortal_ResponseParams_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::blink::mojom::internal::FrameReplicationState_Data> replicated_state;
-  mojo::internal::Pointer<::blink::mojom::internal::RemoteFrameToken_Data> frame_token;
-  mojo::internal::Pointer<::mojo_base::mojom::internal::UnguessableToken_Data> devtools_frame_token;
-
- private:
-  friend class mojo::internal::MessageFragment<LocalFrameHost_AdoptPortal_ResponseParams_Data>;
-
-  LocalFrameHost_AdoptPortal_ResponseParams_Data();
-  ~LocalFrameHost_AdoptPortal_ResponseParams_Data() = delete;
-};
-static_assert(sizeof(LocalFrameHost_AdoptPortal_ResponseParams_Data) == 32,
-              "Bad sizeof(LocalFrameHost_AdoptPortal_ResponseParams_Data)");
+static_assert(sizeof(LocalFrameHost_SetAttributionReportingRuntimeFeatures_Params_Data) == 16,
+              "Bad sizeof(LocalFrameHost_SetAttributionReportingRuntimeFeatures_Params_Data)");
 class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) LocalFrameHost_CreateFencedFrame_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -1581,22 +1478,6 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) LocalFrame_AddMessageTo
 };
 static_assert(sizeof(LocalFrame_AddMessageToConsole_Params_Data) == 24,
               "Bad sizeof(LocalFrame_AddMessageToConsole_Params_Data)");
-class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) LocalFrame_AddInspectorIssue_Params_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::blink::mojom::internal::InspectorIssueInfo_Data> info;
-
- private:
-  friend class mojo::internal::MessageFragment<LocalFrame_AddInspectorIssue_Params_Data>;
-
-  LocalFrame_AddInspectorIssue_Params_Data();
-  ~LocalFrame_AddInspectorIssue_Params_Data() = delete;
-};
-static_assert(sizeof(LocalFrame_AddInspectorIssue_Params_Data) == 16,
-              "Bad sizeof(LocalFrame_AddInspectorIssue_Params_Data)");
 class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) LocalFrame_SwapInImmediately_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -1820,6 +1701,41 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) LocalFrame_MediaPlayerA
 };
 static_assert(sizeof(LocalFrame_MediaPlayerActionAt_Params_Data) == 24,
               "Bad sizeof(LocalFrame_MediaPlayerActionAt_Params_Data)");
+class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) LocalFrame_RequestVideoFrameAt_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::gfx::mojom::internal::Point_Data> location;
+  mojo::internal::Pointer<::gfx::mojom::internal::Size_Data> max_size;
+  int32_t max_area;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<LocalFrame_RequestVideoFrameAt_Params_Data>;
+
+  LocalFrame_RequestVideoFrameAt_Params_Data();
+  ~LocalFrame_RequestVideoFrameAt_Params_Data() = delete;
+};
+static_assert(sizeof(LocalFrame_RequestVideoFrameAt_Params_Data) == 32,
+              "Bad sizeof(LocalFrame_RequestVideoFrameAt_Params_Data)");
+class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) LocalFrame_RequestVideoFrameAt_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::gfx::mojom::internal::ImageSkia_Data> image;
+
+ private:
+  friend class mojo::internal::MessageFragment<LocalFrame_RequestVideoFrameAt_ResponseParams_Data>;
+
+  LocalFrame_RequestVideoFrameAt_ResponseParams_Data();
+  ~LocalFrame_RequestVideoFrameAt_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(LocalFrame_RequestVideoFrameAt_ResponseParams_Data) == 16,
+              "Bad sizeof(LocalFrame_RequestVideoFrameAt_ResponseParams_Data)");
 class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) LocalFrame_PluginActionAt_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -2257,6 +2173,8 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) LocalFrame_SetNavigatio
 
   mojo::internal::StructHeader header_;
   mojo::internal::Pointer<::blink::mojom::internal::NavigationApiHistoryEntryArrays_Data> entry_arrays;
+  int32_t restore_reason;
+  uint8_t padfinal_[4];
 
  private:
   friend class mojo::internal::MessageFragment<LocalFrame_SetNavigationApiHistoryEntriesForRestore_Params_Data>;
@@ -2264,7 +2182,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) LocalFrame_SetNavigatio
   LocalFrame_SetNavigationApiHistoryEntriesForRestore_Params_Data();
   ~LocalFrame_SetNavigationApiHistoryEntriesForRestore_Params_Data() = delete;
 };
-static_assert(sizeof(LocalFrame_SetNavigationApiHistoryEntriesForRestore_Params_Data) == 16,
+static_assert(sizeof(LocalFrame_SetNavigationApiHistoryEntriesForRestore_Params_Data) == 24,
               "Bad sizeof(LocalFrame_SetNavigationApiHistoryEntriesForRestore_Params_Data)");
 class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) LocalFrame_NotifyNavigationApiOfDisposedEntries_Params_Data {
  public:
@@ -2300,6 +2218,25 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) LocalFrame_TraverseCanc
 };
 static_assert(sizeof(LocalFrame_TraverseCancelled_Params_Data) == 24,
               "Bad sizeof(LocalFrame_TraverseCancelled_Params_Data)");
+class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) LocalFrame_DispatchNavigateEventForCrossDocumentTraversal_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::url::mojom::internal::Url_Data> url;
+  mojo::internal::Pointer<::mojo_base::mojom::internal::ByteString_Data> page_state;
+  uint8_t is_browser_initiated : 1;
+  uint8_t padfinal_[7];
+
+ private:
+  friend class mojo::internal::MessageFragment<LocalFrame_DispatchNavigateEventForCrossDocumentTraversal_Params_Data>;
+
+  LocalFrame_DispatchNavigateEventForCrossDocumentTraversal_Params_Data();
+  ~LocalFrame_DispatchNavigateEventForCrossDocumentTraversal_Params_Data() = delete;
+};
+static_assert(sizeof(LocalFrame_DispatchNavigateEventForCrossDocumentTraversal_Params_Data) == 32,
+              "Bad sizeof(LocalFrame_DispatchNavigateEventForCrossDocumentTraversal_Params_Data)");
 class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) LocalFrame_SnapshotDocumentForViewTransition_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -2575,61 +2512,6 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) LocalMainFrame_InstallC
 };
 static_assert(sizeof(LocalMainFrame_InstallCoopAccessMonitor_Params_Data) == 40,
               "Bad sizeof(LocalMainFrame_InstallCoopAccessMonitor_Params_Data)");
-class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) LocalMainFrame_OnPortalActivated_Params_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::blink::mojom::internal::PortalToken_Data> portal_token;
-  mojo::internal::AssociatedInterface_Data portal;
-  mojo::internal::AssociatedEndpointHandle_Data portal_client;
-  uint8_t pad2_[4];
-  mojo::internal::Pointer<::blink::mojom::internal::TransferableMessage_Data> data;
-  uint64_t trace_id;
-
- private:
-  friend class mojo::internal::MessageFragment<LocalMainFrame_OnPortalActivated_Params_Data>;
-
-  LocalMainFrame_OnPortalActivated_Params_Data();
-  ~LocalMainFrame_OnPortalActivated_Params_Data() = delete;
-};
-static_assert(sizeof(LocalMainFrame_OnPortalActivated_Params_Data) == 48,
-              "Bad sizeof(LocalMainFrame_OnPortalActivated_Params_Data)");
-class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) LocalMainFrame_OnPortalActivated_ResponseParams_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  int32_t result;
-  uint8_t padfinal_[4];
-
- private:
-  friend class mojo::internal::MessageFragment<LocalMainFrame_OnPortalActivated_ResponseParams_Data>;
-
-  LocalMainFrame_OnPortalActivated_ResponseParams_Data();
-  ~LocalMainFrame_OnPortalActivated_ResponseParams_Data() = delete;
-};
-static_assert(sizeof(LocalMainFrame_OnPortalActivated_ResponseParams_Data) == 16,
-              "Bad sizeof(LocalMainFrame_OnPortalActivated_ResponseParams_Data)");
-class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) LocalMainFrame_ForwardMessageFromHost_Params_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::blink::mojom::internal::TransferableMessage_Data> message;
-  mojo::internal::Pointer<::url::mojom::internal::Origin_Data> source_origin;
-
- private:
-  friend class mojo::internal::MessageFragment<LocalMainFrame_ForwardMessageFromHost_Params_Data>;
-
-  LocalMainFrame_ForwardMessageFromHost_Params_Data();
-  ~LocalMainFrame_ForwardMessageFromHost_Params_Data() = delete;
-};
-static_assert(sizeof(LocalMainFrame_ForwardMessageFromHost_Params_Data) == 24,
-              "Bad sizeof(LocalMainFrame_ForwardMessageFromHost_Params_Data)");
 class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) LocalMainFrame_UpdateBrowserControlsState_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -2888,6 +2770,51 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) LocalMainFrameHost_DidA
 };
 static_assert(sizeof(LocalMainFrameHost_DidAccessInitialMainDocument_Params_Data) == 8,
               "Bad sizeof(LocalMainFrameHost_DidAccessInitialMainDocument_Params_Data)");
+class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) LocalMainFrameHost_Maximize_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<LocalMainFrameHost_Maximize_Params_Data>;
+
+  LocalMainFrameHost_Maximize_Params_Data();
+  ~LocalMainFrameHost_Maximize_Params_Data() = delete;
+};
+static_assert(sizeof(LocalMainFrameHost_Maximize_Params_Data) == 8,
+              "Bad sizeof(LocalMainFrameHost_Maximize_Params_Data)");
+class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) LocalMainFrameHost_Minimize_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<LocalMainFrameHost_Minimize_Params_Data>;
+
+  LocalMainFrameHost_Minimize_Params_Data();
+  ~LocalMainFrameHost_Minimize_Params_Data() = delete;
+};
+static_assert(sizeof(LocalMainFrameHost_Minimize_Params_Data) == 8,
+              "Bad sizeof(LocalMainFrameHost_Minimize_Params_Data)");
+class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) LocalMainFrameHost_Restore_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<LocalMainFrameHost_Restore_Params_Data>;
+
+  LocalMainFrameHost_Restore_Params_Data();
+  ~LocalMainFrameHost_Restore_Params_Data() = delete;
+};
+static_assert(sizeof(LocalMainFrameHost_Restore_Params_Data) == 8,
+              "Bad sizeof(LocalMainFrameHost_Restore_Params_Data)");
 class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) LocalMainFrameHost_SetResizable_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -3004,51 +2931,6 @@ static_assert(
  private:
   internal::LocalFrameHost_FullscreenStateChanged_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
-};
-
-
-class LocalFrameHost_Maximize_ParamsDataView {
- public:
-  LocalFrameHost_Maximize_ParamsDataView() = default;
-
-  LocalFrameHost_Maximize_ParamsDataView(
-      internal::LocalFrameHost_Maximize_Params_Data* data,
-      mojo::Message* message)
-      : data_(data) {}
-
-  bool is_null() const { return !data_; }
- private:
-  internal::LocalFrameHost_Maximize_Params_Data* data_ = nullptr;
-};
-
-
-class LocalFrameHost_Minimize_ParamsDataView {
- public:
-  LocalFrameHost_Minimize_ParamsDataView() = default;
-
-  LocalFrameHost_Minimize_ParamsDataView(
-      internal::LocalFrameHost_Minimize_Params_Data* data,
-      mojo::Message* message)
-      : data_(data) {}
-
-  bool is_null() const { return !data_; }
- private:
-  internal::LocalFrameHost_Minimize_Params_Data* data_ = nullptr;
-};
-
-
-class LocalFrameHost_Restore_ParamsDataView {
- public:
-  LocalFrameHost_Restore_ParamsDataView() = default;
-
-  LocalFrameHost_Restore_ParamsDataView(
-      internal::LocalFrameHost_Restore_Params_Data* data,
-      mojo::Message* message)
-      : data_(data) {}
-
-  bool is_null() const { return !data_; }
- private:
-  internal::LocalFrameHost_Restore_Params_Data* data_ = nullptr;
 };
 
 
@@ -4961,16 +4843,6 @@ class LocalFrameHost_SendFencedFrameReportingBeacon_ParamsDataView {
     return mojo::internal::Deserialize<mojo::ArrayDataView<::blink::mojom::ReportingDestination>>(
         pointer, output, message_);
   }
-  inline void GetAttributionReportingRuntimeFeaturesDataView(
-      ::network::mojom::AttributionReportingRuntimeFeaturesDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadAttributionReportingRuntimeFeatures(UserType* output) {
-    
-    auto* pointer = data_->attribution_reporting_runtime_features.Get();
-    return mojo::internal::Deserialize<::network::mojom::AttributionReportingRuntimeFeaturesDataView>(
-        pointer, output, message_);
-  }
  private:
   internal::LocalFrameHost_SendFencedFrameReportingBeacon_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -4995,16 +4867,6 @@ class LocalFrameHost_SendFencedFrameReportingBeaconToCustomURL_ParamsDataView {
     
     auto* pointer = data_->destination_url.Get();
     return mojo::internal::Deserialize<::url::mojom::UrlDataView>(
-        pointer, output, message_);
-  }
-  inline void GetAttributionReportingRuntimeFeaturesDataView(
-      ::network::mojom::AttributionReportingRuntimeFeaturesDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadAttributionReportingRuntimeFeatures(UserType* output) {
-    
-    auto* pointer = data_->attribution_reporting_runtime_features.Get();
-    return mojo::internal::Deserialize<::network::mojom::AttributionReportingRuntimeFeaturesDataView>(
         pointer, output, message_);
   }
  private:
@@ -5059,6 +4921,16 @@ class LocalFrameHost_SetFencedFrameAutomaticBeaconReportEventData_ParamsDataView
       : data_(data), message_(message) {}
 
   bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadEventType(UserType* output) const {
+    auto data_value = data_->event_type;
+    return mojo::internal::Deserialize<::blink::mojom::AutomaticBeaconType>(
+        data_value, output);
+  }
+  ::blink::mojom::AutomaticBeaconType event_type() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::blink::mojom::AutomaticBeaconType>(data_->event_type));
+  }
   inline void GetEventDataDataView(
       mojo::StringDataView* output);
 
@@ -5079,18 +4951,11 @@ class LocalFrameHost_SetFencedFrameAutomaticBeaconReportEventData_ParamsDataView
     return mojo::internal::Deserialize<mojo::ArrayDataView<::blink::mojom::ReportingDestination>>(
         pointer, output, message_);
   }
-  inline void GetAttributionReportingRuntimeFeaturesDataView(
-      ::network::mojom::AttributionReportingRuntimeFeaturesDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadAttributionReportingRuntimeFeatures(UserType* output) {
-    
-    auto* pointer = data_->attribution_reporting_runtime_features.Get();
-    return mojo::internal::Deserialize<::network::mojom::AttributionReportingRuntimeFeaturesDataView>(
-        pointer, output, message_);
-  }
   bool once() const {
     return data_->once;
+  }
+  bool cross_origin_exposed() const {
+    return data_->cross_origin_exposed;
   }
  private:
   internal::LocalFrameHost_SetFencedFrameAutomaticBeaconReportEventData_Params_Data* data_ = nullptr;
@@ -5124,184 +4989,28 @@ class LocalFrameHost_SendPrivateAggregationRequestsForFencedFrameEvent_ParamsDat
 };
 
 
-class LocalFrameHost_CreatePortal_ParamsDataView {
+class LocalFrameHost_SetAttributionReportingRuntimeFeatures_ParamsDataView {
  public:
-  LocalFrameHost_CreatePortal_ParamsDataView() = default;
+  LocalFrameHost_SetAttributionReportingRuntimeFeatures_ParamsDataView() = default;
 
-  LocalFrameHost_CreatePortal_ParamsDataView(
-      internal::LocalFrameHost_CreatePortal_Params_Data* data,
+  LocalFrameHost_SetAttributionReportingRuntimeFeatures_ParamsDataView(
+      internal::LocalFrameHost_SetAttributionReportingRuntimeFeatures_Params_Data* data,
       mojo::Message* message)
       : data_(data), message_(message) {}
 
   bool is_null() const { return !data_; }
-  template <typename UserType>
-  UserType TakePortal() {
-    UserType result;
-    bool ret =
-        mojo::internal::Deserialize<::blink::mojom::PortalAssociatedRequestDataView>(
-            &data_->portal, &result, message_);
-    DCHECK(ret);
-    return result;
-  }
-  template <typename UserType>
-  UserType TakeClient() {
-    UserType result;
-    bool ret =
-        mojo::internal::Deserialize<::blink::mojom::PortalClientAssociatedPtrInfoDataView>(
-            &data_->client, &result, message_);
-    DCHECK(ret);
-    return result;
-  }
-  inline void GetRemoteFrameInterfacesDataView(
-      ::blink::mojom::RemoteFrameInterfacesFromRendererDataView* output);
+  inline void GetFeaturesDataView(
+      ::network::mojom::AttributionReportingRuntimeFeaturesDataView* output);
 
   template <typename UserType>
-  [[nodiscard]] bool ReadRemoteFrameInterfaces(UserType* output) {
+  [[nodiscard]] bool ReadFeatures(UserType* output) {
     
-    auto* pointer = data_->remote_frame_interfaces.Get();
-    return mojo::internal::Deserialize<::blink::mojom::RemoteFrameInterfacesFromRendererDataView>(
+    auto* pointer = data_->features.Get();
+    return mojo::internal::Deserialize<::network::mojom::AttributionReportingRuntimeFeaturesDataView>(
         pointer, output, message_);
   }
  private:
-  internal::LocalFrameHost_CreatePortal_Params_Data* data_ = nullptr;
-  mojo::Message* message_ = nullptr;
-};
-
-
-class LocalFrameHost_CreatePortal_ResponseParamsDataView {
- public:
-  LocalFrameHost_CreatePortal_ResponseParamsDataView() = default;
-
-  LocalFrameHost_CreatePortal_ResponseParamsDataView(
-      internal::LocalFrameHost_CreatePortal_ResponseParams_Data* data,
-      mojo::Message* message)
-      : data_(data), message_(message) {}
-
-  bool is_null() const { return !data_; }
-  inline void GetInitialReplicatedStateDataView(
-      ::blink::mojom::FrameReplicationStateDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadInitialReplicatedState(UserType* output) {
-    
-    auto* pointer = data_->initial_replicated_state.Get();
-    return mojo::internal::Deserialize<::blink::mojom::FrameReplicationStateDataView>(
-        pointer, output, message_);
-  }
-  inline void GetPortalTokenDataView(
-      ::blink::mojom::PortalTokenDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadPortalToken(UserType* output) {
-    
-    auto* pointer = data_->portal_token.Get();
-    return mojo::internal::Deserialize<::blink::mojom::PortalTokenDataView>(
-        pointer, output, message_);
-  }
-  inline void GetFrameTokenDataView(
-      ::blink::mojom::RemoteFrameTokenDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadFrameToken(UserType* output) {
-    
-    auto* pointer = data_->frame_token.Get();
-    return mojo::internal::Deserialize<::blink::mojom::RemoteFrameTokenDataView>(
-        pointer, output, message_);
-  }
-  inline void GetDevtoolsFrameTokenDataView(
-      ::mojo_base::mojom::UnguessableTokenDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadDevtoolsFrameToken(UserType* output) {
-    
-    auto* pointer = data_->devtools_frame_token.Get();
-    return mojo::internal::Deserialize<::mojo_base::mojom::UnguessableTokenDataView>(
-        pointer, output, message_);
-  }
- private:
-  internal::LocalFrameHost_CreatePortal_ResponseParams_Data* data_ = nullptr;
-  mojo::Message* message_ = nullptr;
-};
-
-
-class LocalFrameHost_AdoptPortal_ParamsDataView {
- public:
-  LocalFrameHost_AdoptPortal_ParamsDataView() = default;
-
-  LocalFrameHost_AdoptPortal_ParamsDataView(
-      internal::LocalFrameHost_AdoptPortal_Params_Data* data,
-      mojo::Message* message)
-      : data_(data), message_(message) {}
-
-  bool is_null() const { return !data_; }
-  inline void GetPortalTokenDataView(
-      ::blink::mojom::PortalTokenDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadPortalToken(UserType* output) {
-    
-    auto* pointer = data_->portal_token.Get();
-    return mojo::internal::Deserialize<::blink::mojom::PortalTokenDataView>(
-        pointer, output, message_);
-  }
-  inline void GetRemoteFrameInterfacesDataView(
-      ::blink::mojom::RemoteFrameInterfacesFromRendererDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadRemoteFrameInterfaces(UserType* output) {
-    
-    auto* pointer = data_->remote_frame_interfaces.Get();
-    return mojo::internal::Deserialize<::blink::mojom::RemoteFrameInterfacesFromRendererDataView>(
-        pointer, output, message_);
-  }
- private:
-  internal::LocalFrameHost_AdoptPortal_Params_Data* data_ = nullptr;
-  mojo::Message* message_ = nullptr;
-};
-
-
-class LocalFrameHost_AdoptPortal_ResponseParamsDataView {
- public:
-  LocalFrameHost_AdoptPortal_ResponseParamsDataView() = default;
-
-  LocalFrameHost_AdoptPortal_ResponseParamsDataView(
-      internal::LocalFrameHost_AdoptPortal_ResponseParams_Data* data,
-      mojo::Message* message)
-      : data_(data), message_(message) {}
-
-  bool is_null() const { return !data_; }
-  inline void GetReplicatedStateDataView(
-      ::blink::mojom::FrameReplicationStateDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadReplicatedState(UserType* output) {
-    
-    auto* pointer = data_->replicated_state.Get();
-    return mojo::internal::Deserialize<::blink::mojom::FrameReplicationStateDataView>(
-        pointer, output, message_);
-  }
-  inline void GetFrameTokenDataView(
-      ::blink::mojom::RemoteFrameTokenDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadFrameToken(UserType* output) {
-    
-    auto* pointer = data_->frame_token.Get();
-    return mojo::internal::Deserialize<::blink::mojom::RemoteFrameTokenDataView>(
-        pointer, output, message_);
-  }
-  inline void GetDevtoolsFrameTokenDataView(
-      ::mojo_base::mojom::UnguessableTokenDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadDevtoolsFrameToken(UserType* output) {
-    
-    auto* pointer = data_->devtools_frame_token.Get();
-    return mojo::internal::Deserialize<::mojo_base::mojom::UnguessableTokenDataView>(
-        pointer, output, message_);
-  }
- private:
-  internal::LocalFrameHost_AdoptPortal_ResponseParams_Data* data_ = nullptr;
+  internal::LocalFrameHost_SetAttributionReportingRuntimeFeatures_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -5700,32 +5409,6 @@ class LocalFrame_AddMessageToConsole_ParamsDataView {
 };
 
 
-class LocalFrame_AddInspectorIssue_ParamsDataView {
- public:
-  LocalFrame_AddInspectorIssue_ParamsDataView() = default;
-
-  LocalFrame_AddInspectorIssue_ParamsDataView(
-      internal::LocalFrame_AddInspectorIssue_Params_Data* data,
-      mojo::Message* message)
-      : data_(data), message_(message) {}
-
-  bool is_null() const { return !data_; }
-  inline void GetInfoDataView(
-      ::blink::mojom::InspectorIssueInfoDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadInfo(UserType* output) {
-    
-    auto* pointer = data_->info.Get();
-    return mojo::internal::Deserialize<::blink::mojom::InspectorIssueInfoDataView>(
-        pointer, output, message_);
-  }
- private:
-  internal::LocalFrame_AddInspectorIssue_Params_Data* data_ = nullptr;
-  mojo::Message* message_ = nullptr;
-};
-
-
 class LocalFrame_SwapInImmediately_ParamsDataView {
  public:
   LocalFrame_SwapInImmediately_ParamsDataView() = default;
@@ -6016,6 +5699,71 @@ class LocalFrame_MediaPlayerActionAt_ParamsDataView {
   }
  private:
   internal::LocalFrame_MediaPlayerActionAt_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class LocalFrame_RequestVideoFrameAt_ParamsDataView {
+ public:
+  LocalFrame_RequestVideoFrameAt_ParamsDataView() = default;
+
+  LocalFrame_RequestVideoFrameAt_ParamsDataView(
+      internal::LocalFrame_RequestVideoFrameAt_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetLocationDataView(
+      ::gfx::mojom::PointDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadLocation(UserType* output) {
+    
+    auto* pointer = data_->location.Get();
+    return mojo::internal::Deserialize<::gfx::mojom::PointDataView>(
+        pointer, output, message_);
+  }
+  inline void GetMaxSizeDataView(
+      ::gfx::mojom::SizeDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadMaxSize(UserType* output) {
+    
+    auto* pointer = data_->max_size.Get();
+    return mojo::internal::Deserialize<::gfx::mojom::SizeDataView>(
+        pointer, output, message_);
+  }
+  int32_t max_area() const {
+    return data_->max_area;
+  }
+ private:
+  internal::LocalFrame_RequestVideoFrameAt_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class LocalFrame_RequestVideoFrameAt_ResponseParamsDataView {
+ public:
+  LocalFrame_RequestVideoFrameAt_ResponseParamsDataView() = default;
+
+  LocalFrame_RequestVideoFrameAt_ResponseParamsDataView(
+      internal::LocalFrame_RequestVideoFrameAt_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetImageDataView(
+      ::gfx::mojom::ImageSkiaDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadImage(UserType* output) {
+    
+    auto* pointer = data_->image.Get();
+    return mojo::internal::Deserialize<::gfx::mojom::ImageSkiaDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::LocalFrame_RequestVideoFrameAt_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -6870,6 +6618,16 @@ class LocalFrame_SetNavigationApiHistoryEntriesForRestore_ParamsDataView {
     return mojo::internal::Deserialize<::blink::mojom::NavigationApiHistoryEntryArraysDataView>(
         pointer, output, message_);
   }
+  template <typename UserType>
+  [[nodiscard]] bool ReadRestoreReason(UserType* output) const {
+    auto data_value = data_->restore_reason;
+    return mojo::internal::Deserialize<::blink::mojom::NavigationApiEntryRestoreReason>(
+        data_value, output);
+  }
+  NavigationApiEntryRestoreReason restore_reason() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::blink::mojom::NavigationApiEntryRestoreReason>(data_->restore_reason));
+  }
  private:
   internal::LocalFrame_SetNavigationApiHistoryEntriesForRestore_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -6934,6 +6692,45 @@ class LocalFrame_TraverseCancelled_ParamsDataView {
   }
  private:
   internal::LocalFrame_TraverseCancelled_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class LocalFrame_DispatchNavigateEventForCrossDocumentTraversal_ParamsDataView {
+ public:
+  LocalFrame_DispatchNavigateEventForCrossDocumentTraversal_ParamsDataView() = default;
+
+  LocalFrame_DispatchNavigateEventForCrossDocumentTraversal_ParamsDataView(
+      internal::LocalFrame_DispatchNavigateEventForCrossDocumentTraversal_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetUrlDataView(
+      ::url::mojom::UrlDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadUrl(UserType* output) {
+    
+    auto* pointer = data_->url.Get();
+    return mojo::internal::Deserialize<::url::mojom::UrlDataView>(
+        pointer, output, message_);
+  }
+  inline void GetPageStateDataView(
+      ::mojo_base::mojom::ByteStringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadPageState(UserType* output) {
+    
+    auto* pointer = data_->page_state.Get();
+    return mojo::internal::Deserialize<::mojo_base::mojom::ByteStringDataView>(
+        pointer, output, message_);
+  }
+  bool is_browser_initiated() const {
+    return data_->is_browser_initiated;
+  }
+ private:
+  internal::LocalFrame_DispatchNavigateEventForCrossDocumentTraversal_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -7419,124 +7216,6 @@ class LocalMainFrame_InstallCoopAccessMonitor_ParamsDataView {
 };
 
 
-class LocalMainFrame_OnPortalActivated_ParamsDataView {
- public:
-  LocalMainFrame_OnPortalActivated_ParamsDataView() = default;
-
-  LocalMainFrame_OnPortalActivated_ParamsDataView(
-      internal::LocalMainFrame_OnPortalActivated_Params_Data* data,
-      mojo::Message* message)
-      : data_(data), message_(message) {}
-
-  bool is_null() const { return !data_; }
-  inline void GetPortalTokenDataView(
-      ::blink::mojom::PortalTokenDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadPortalToken(UserType* output) {
-    
-    auto* pointer = data_->portal_token.Get();
-    return mojo::internal::Deserialize<::blink::mojom::PortalTokenDataView>(
-        pointer, output, message_);
-  }
-  template <typename UserType>
-  UserType TakePortal() {
-    UserType result;
-    bool ret =
-        mojo::internal::Deserialize<::blink::mojom::PortalAssociatedPtrInfoDataView>(
-            &data_->portal, &result, message_);
-    DCHECK(ret);
-    return result;
-  }
-  template <typename UserType>
-  UserType TakePortalClient() {
-    UserType result;
-    bool ret =
-        mojo::internal::Deserialize<::blink::mojom::PortalClientAssociatedRequestDataView>(
-            &data_->portal_client, &result, message_);
-    DCHECK(ret);
-    return result;
-  }
-  inline void GetDataDataView(
-      ::blink::mojom::TransferableMessageDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadData(UserType* output) {
-    
-    auto* pointer = data_->data.Get();
-    return mojo::internal::Deserialize<::blink::mojom::TransferableMessageDataView>(
-        pointer, output, message_);
-  }
-  uint64_t trace_id() const {
-    return data_->trace_id;
-  }
- private:
-  internal::LocalMainFrame_OnPortalActivated_Params_Data* data_ = nullptr;
-  mojo::Message* message_ = nullptr;
-};
-
-
-class LocalMainFrame_OnPortalActivated_ResponseParamsDataView {
- public:
-  LocalMainFrame_OnPortalActivated_ResponseParamsDataView() = default;
-
-  LocalMainFrame_OnPortalActivated_ResponseParamsDataView(
-      internal::LocalMainFrame_OnPortalActivated_ResponseParams_Data* data,
-      mojo::Message* message)
-      : data_(data) {}
-
-  bool is_null() const { return !data_; }
-  template <typename UserType>
-  [[nodiscard]] bool ReadResult(UserType* output) const {
-    auto data_value = data_->result;
-    return mojo::internal::Deserialize<::blink::mojom::PortalActivateResult>(
-        data_value, output);
-  }
-  ::blink::mojom::PortalActivateResult result() const {
-    return ::mojo::internal::ToKnownEnumValueHelper(
-          static_cast<::blink::mojom::PortalActivateResult>(data_->result));
-  }
- private:
-  internal::LocalMainFrame_OnPortalActivated_ResponseParams_Data* data_ = nullptr;
-};
-
-
-class LocalMainFrame_ForwardMessageFromHost_ParamsDataView {
- public:
-  LocalMainFrame_ForwardMessageFromHost_ParamsDataView() = default;
-
-  LocalMainFrame_ForwardMessageFromHost_ParamsDataView(
-      internal::LocalMainFrame_ForwardMessageFromHost_Params_Data* data,
-      mojo::Message* message)
-      : data_(data), message_(message) {}
-
-  bool is_null() const { return !data_; }
-  inline void GetMessageDataView(
-      ::blink::mojom::TransferableMessageDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadMessage(UserType* output) {
-    
-    auto* pointer = data_->message.Get();
-    return mojo::internal::Deserialize<::blink::mojom::TransferableMessageDataView>(
-        pointer, output, message_);
-  }
-  inline void GetSourceOriginDataView(
-      ::url::mojom::OriginDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadSourceOrigin(UserType* output) {
-    
-    auto* pointer = data_->source_origin.Get();
-    return mojo::internal::Deserialize<::url::mojom::OriginDataView>(
-        pointer, output, message_);
-  }
- private:
-  internal::LocalMainFrame_ForwardMessageFromHost_Params_Data* data_ = nullptr;
-  mojo::Message* message_ = nullptr;
-};
-
-
 class LocalMainFrame_UpdateBrowserControlsState_ParamsDataView {
  public:
   LocalMainFrame_UpdateBrowserControlsState_ParamsDataView() = default;
@@ -7895,6 +7574,51 @@ class LocalMainFrameHost_DidAccessInitialMainDocument_ParamsDataView {
 };
 
 
+class LocalMainFrameHost_Maximize_ParamsDataView {
+ public:
+  LocalMainFrameHost_Maximize_ParamsDataView() = default;
+
+  LocalMainFrameHost_Maximize_ParamsDataView(
+      internal::LocalMainFrameHost_Maximize_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::LocalMainFrameHost_Maximize_Params_Data* data_ = nullptr;
+};
+
+
+class LocalMainFrameHost_Minimize_ParamsDataView {
+ public:
+  LocalMainFrameHost_Minimize_ParamsDataView() = default;
+
+  LocalMainFrameHost_Minimize_ParamsDataView(
+      internal::LocalMainFrameHost_Minimize_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::LocalMainFrameHost_Minimize_Params_Data* data_ = nullptr;
+};
+
+
+class LocalMainFrameHost_Restore_ParamsDataView {
+ public:
+  LocalMainFrameHost_Restore_ParamsDataView() = default;
+
+  LocalMainFrameHost_Restore_ParamsDataView(
+      internal::LocalMainFrameHost_Restore_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::LocalMainFrameHost_Restore_Params_Data* data_ = nullptr;
+};
+
+
 class LocalMainFrameHost_SetResizable_ParamsDataView {
  public:
   LocalMainFrameHost_SetResizable_ParamsDataView() = default;
@@ -7928,12 +7652,6 @@ inline void LocalFrameHost_FullscreenStateChanged_ParamsDataView::GetOptionsData
   auto pointer = data_->options.Get();
   *output = ::blink::mojom::FullscreenOptionsDataView(pointer, message_);
 }
-
-
-
-
-
-
 
 
 inline void LocalFrameHost_RegisterProtocolHandler_ParamsDataView::GetSchemeDataView(
@@ -8329,22 +8047,12 @@ inline void LocalFrameHost_SendFencedFrameReportingBeacon_ParamsDataView::GetDes
   auto pointer = data_->destinations.Get();
   *output = mojo::ArrayDataView<::blink::mojom::ReportingDestination>(pointer, message_);
 }
-inline void LocalFrameHost_SendFencedFrameReportingBeacon_ParamsDataView::GetAttributionReportingRuntimeFeaturesDataView(
-    ::network::mojom::AttributionReportingRuntimeFeaturesDataView* output) {
-  auto pointer = data_->attribution_reporting_runtime_features.Get();
-  *output = ::network::mojom::AttributionReportingRuntimeFeaturesDataView(pointer, message_);
-}
 
 
 inline void LocalFrameHost_SendFencedFrameReportingBeaconToCustomURL_ParamsDataView::GetDestinationUrlDataView(
     ::url::mojom::UrlDataView* output) {
   auto pointer = data_->destination_url.Get();
   *output = ::url::mojom::UrlDataView(pointer, message_);
-}
-inline void LocalFrameHost_SendFencedFrameReportingBeaconToCustomURL_ParamsDataView::GetAttributionReportingRuntimeFeaturesDataView(
-    ::network::mojom::AttributionReportingRuntimeFeaturesDataView* output) {
-  auto pointer = data_->attribution_reporting_runtime_features.Get();
-  *output = ::network::mojom::AttributionReportingRuntimeFeaturesDataView(pointer, message_);
 }
 
 
@@ -8370,11 +8078,6 @@ inline void LocalFrameHost_SetFencedFrameAutomaticBeaconReportEventData_ParamsDa
   auto pointer = data_->destinations.Get();
   *output = mojo::ArrayDataView<::blink::mojom::ReportingDestination>(pointer, message_);
 }
-inline void LocalFrameHost_SetFencedFrameAutomaticBeaconReportEventData_ParamsDataView::GetAttributionReportingRuntimeFeaturesDataView(
-    ::network::mojom::AttributionReportingRuntimeFeaturesDataView* output) {
-  auto pointer = data_->attribution_reporting_runtime_features.Get();
-  *output = ::network::mojom::AttributionReportingRuntimeFeaturesDataView(pointer, message_);
-}
 
 
 inline void LocalFrameHost_SendPrivateAggregationRequestsForFencedFrameEvent_ParamsDataView::GetEventTypeDataView(
@@ -8384,61 +8087,10 @@ inline void LocalFrameHost_SendPrivateAggregationRequestsForFencedFrameEvent_Par
 }
 
 
-inline void LocalFrameHost_CreatePortal_ParamsDataView::GetRemoteFrameInterfacesDataView(
-    ::blink::mojom::RemoteFrameInterfacesFromRendererDataView* output) {
-  auto pointer = data_->remote_frame_interfaces.Get();
-  *output = ::blink::mojom::RemoteFrameInterfacesFromRendererDataView(pointer, message_);
-}
-
-
-inline void LocalFrameHost_CreatePortal_ResponseParamsDataView::GetInitialReplicatedStateDataView(
-    ::blink::mojom::FrameReplicationStateDataView* output) {
-  auto pointer = data_->initial_replicated_state.Get();
-  *output = ::blink::mojom::FrameReplicationStateDataView(pointer, message_);
-}
-inline void LocalFrameHost_CreatePortal_ResponseParamsDataView::GetPortalTokenDataView(
-    ::blink::mojom::PortalTokenDataView* output) {
-  auto pointer = data_->portal_token.Get();
-  *output = ::blink::mojom::PortalTokenDataView(pointer, message_);
-}
-inline void LocalFrameHost_CreatePortal_ResponseParamsDataView::GetFrameTokenDataView(
-    ::blink::mojom::RemoteFrameTokenDataView* output) {
-  auto pointer = data_->frame_token.Get();
-  *output = ::blink::mojom::RemoteFrameTokenDataView(pointer, message_);
-}
-inline void LocalFrameHost_CreatePortal_ResponseParamsDataView::GetDevtoolsFrameTokenDataView(
-    ::mojo_base::mojom::UnguessableTokenDataView* output) {
-  auto pointer = data_->devtools_frame_token.Get();
-  *output = ::mojo_base::mojom::UnguessableTokenDataView(pointer, message_);
-}
-
-
-inline void LocalFrameHost_AdoptPortal_ParamsDataView::GetPortalTokenDataView(
-    ::blink::mojom::PortalTokenDataView* output) {
-  auto pointer = data_->portal_token.Get();
-  *output = ::blink::mojom::PortalTokenDataView(pointer, message_);
-}
-inline void LocalFrameHost_AdoptPortal_ParamsDataView::GetRemoteFrameInterfacesDataView(
-    ::blink::mojom::RemoteFrameInterfacesFromRendererDataView* output) {
-  auto pointer = data_->remote_frame_interfaces.Get();
-  *output = ::blink::mojom::RemoteFrameInterfacesFromRendererDataView(pointer, message_);
-}
-
-
-inline void LocalFrameHost_AdoptPortal_ResponseParamsDataView::GetReplicatedStateDataView(
-    ::blink::mojom::FrameReplicationStateDataView* output) {
-  auto pointer = data_->replicated_state.Get();
-  *output = ::blink::mojom::FrameReplicationStateDataView(pointer, message_);
-}
-inline void LocalFrameHost_AdoptPortal_ResponseParamsDataView::GetFrameTokenDataView(
-    ::blink::mojom::RemoteFrameTokenDataView* output) {
-  auto pointer = data_->frame_token.Get();
-  *output = ::blink::mojom::RemoteFrameTokenDataView(pointer, message_);
-}
-inline void LocalFrameHost_AdoptPortal_ResponseParamsDataView::GetDevtoolsFrameTokenDataView(
-    ::mojo_base::mojom::UnguessableTokenDataView* output) {
-  auto pointer = data_->devtools_frame_token.Get();
-  *output = ::mojo_base::mojom::UnguessableTokenDataView(pointer, message_);
+inline void LocalFrameHost_SetAttributionReportingRuntimeFeatures_ParamsDataView::GetFeaturesDataView(
+    ::network::mojom::AttributionReportingRuntimeFeaturesDataView* output) {
+  auto pointer = data_->features.Get();
+  *output = ::network::mojom::AttributionReportingRuntimeFeaturesDataView(pointer, message_);
 }
 
 
@@ -8544,13 +8196,6 @@ inline void LocalFrame_AddMessageToConsole_ParamsDataView::GetMessageDataView(
 }
 
 
-inline void LocalFrame_AddInspectorIssue_ParamsDataView::GetInfoDataView(
-    ::blink::mojom::InspectorIssueInfoDataView* output) {
-  auto pointer = data_->info.Get();
-  *output = ::blink::mojom::InspectorIssueInfoDataView(pointer, message_);
-}
-
-
 
 
 
@@ -8611,6 +8256,25 @@ inline void LocalFrame_MediaPlayerActionAt_ParamsDataView::GetActionDataView(
     ::blink::mojom::MediaPlayerActionDataView* output) {
   auto pointer = data_->action.Get();
   *output = ::blink::mojom::MediaPlayerActionDataView(pointer, message_);
+}
+
+
+inline void LocalFrame_RequestVideoFrameAt_ParamsDataView::GetLocationDataView(
+    ::gfx::mojom::PointDataView* output) {
+  auto pointer = data_->location.Get();
+  *output = ::gfx::mojom::PointDataView(pointer, message_);
+}
+inline void LocalFrame_RequestVideoFrameAt_ParamsDataView::GetMaxSizeDataView(
+    ::gfx::mojom::SizeDataView* output) {
+  auto pointer = data_->max_size.Get();
+  *output = ::gfx::mojom::SizeDataView(pointer, message_);
+}
+
+
+inline void LocalFrame_RequestVideoFrameAt_ResponseParamsDataView::GetImageDataView(
+    ::gfx::mojom::ImageSkiaDataView* output) {
+  auto pointer = data_->image.Get();
+  *output = ::gfx::mojom::ImageSkiaDataView(pointer, message_);
 }
 
 
@@ -8820,6 +8484,18 @@ inline void LocalFrame_TraverseCancelled_ParamsDataView::GetNavigationApiKeyData
 }
 
 
+inline void LocalFrame_DispatchNavigateEventForCrossDocumentTraversal_ParamsDataView::GetUrlDataView(
+    ::url::mojom::UrlDataView* output) {
+  auto pointer = data_->url.Get();
+  *output = ::url::mojom::UrlDataView(pointer, message_);
+}
+inline void LocalFrame_DispatchNavigateEventForCrossDocumentTraversal_ParamsDataView::GetPageStateDataView(
+    ::mojo_base::mojom::ByteStringDataView* output) {
+  auto pointer = data_->page_state.Get();
+  *output = ::mojo_base::mojom::ByteStringDataView(pointer, message_);
+}
+
+
 
 
 inline void LocalFrame_SnapshotDocumentForViewTransition_ResponseParamsDataView::GetViewTransitionStateDataView(
@@ -8952,32 +8628,6 @@ inline void LocalMainFrame_InstallCoopAccessMonitor_ParamsDataView::GetCoopRepor
 }
 
 
-inline void LocalMainFrame_OnPortalActivated_ParamsDataView::GetPortalTokenDataView(
-    ::blink::mojom::PortalTokenDataView* output) {
-  auto pointer = data_->portal_token.Get();
-  *output = ::blink::mojom::PortalTokenDataView(pointer, message_);
-}
-inline void LocalMainFrame_OnPortalActivated_ParamsDataView::GetDataDataView(
-    ::blink::mojom::TransferableMessageDataView* output) {
-  auto pointer = data_->data.Get();
-  *output = ::blink::mojom::TransferableMessageDataView(pointer, message_);
-}
-
-
-
-
-inline void LocalMainFrame_ForwardMessageFromHost_ParamsDataView::GetMessageDataView(
-    ::blink::mojom::TransferableMessageDataView* output) {
-  auto pointer = data_->message.Get();
-  *output = ::blink::mojom::TransferableMessageDataView(pointer, message_);
-}
-inline void LocalMainFrame_ForwardMessageFromHost_ParamsDataView::GetSourceOriginDataView(
-    ::url::mojom::OriginDataView* output) {
-  auto pointer = data_->source_origin.Get();
-  *output = ::url::mojom::OriginDataView(pointer, message_);
-}
-
-
 
 
 inline void LocalMainFrame_SetV8CompileHints_ParamsDataView::GetDataDataView(
@@ -9037,6 +8687,12 @@ inline void LocalMainFrameHost_SetWindowRect_ParamsDataView::GetBoundsDataView(
   auto pointer = data_->bounds.Get();
   *output = ::gfx::mojom::RectDataView(pointer, message_);
 }
+
+
+
+
+
+
 
 
 

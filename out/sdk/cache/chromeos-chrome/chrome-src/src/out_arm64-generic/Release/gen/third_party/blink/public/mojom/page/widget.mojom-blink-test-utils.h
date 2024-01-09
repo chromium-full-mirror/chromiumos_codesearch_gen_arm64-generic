@@ -34,7 +34,7 @@ class CORE_EXPORT FrameWidgetInterceptorForTesting : public FrameWidget {
   void DisableDeviceEmulation() override;
   void BindWidgetCompositor(::mojo::PendingReceiver<::blink::mojom::blink::WidgetCompositor> host) override;
   void BindInputTargetClient(::mojo::PendingReceiver<::viz::mojom::blink::InputTargetClient> host) override;
-  void SetViewportIntersection(::blink::mojom::blink::ViewportIntersectionStatePtr intersection_state, const absl::optional<::blink::VisualProperties>& visual_properties) override;
+  void SetViewportIntersection(::blink::mojom::blink::ViewportIntersectionStatePtr intersection_state, const std::optional<::blink::VisualProperties>& visual_properties) override;
 };
 class CORE_EXPORT FrameWidgetAsyncWaiter {
  public:
@@ -57,7 +57,7 @@ class CORE_EXPORT FrameWidgetAsyncWaiter {
       const ::gfx::PointF& point_in_viewport, const ::gfx::PointF& screen_point, ::ui::mojom::blink::DragOperation drag_operation);
   
   void OnStartStylusWriting(
-      absl::optional<::gfx::Rect>* out_focused_edit_bounds, absl::optional<::gfx::Rect>* out_caret_bounds);
+      std::optional<::gfx::Rect>* out_focused_edit_bounds, std::optional<::gfx::Rect>* out_caret_bounds);
   
 
  private:

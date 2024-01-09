@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "components/page_load_metrics/common/page_load_metrics.mojom-features.h"
 #include "components/page_load_metrics/common/page_load_metrics.mojom-shared.h"
 #include "components/page_load_metrics/common/page_load_metrics.mojom-forward.h"
 #include "ui/gfx/geometry/mojom/geometry.mojom.h"
@@ -92,7 +93,7 @@ class PageLoadMetrics
   virtual ~PageLoadMetrics() = default;
 
   
-  virtual void UpdateTiming(PageLoadTimingPtr page_load_timing, FrameMetadataPtr frame_metadata, const std::vector<::blink::UseCounterFeature>& new_features, std::vector<ResourceDataUpdatePtr> resources, FrameRenderDataUpdatePtr render_data, CpuTimingPtr cpu_load_timing, InputTimingPtr input_timing_delta, const absl::optional<::blink::SubresourceLoadMetrics>& subresource_load_metrics, SoftNavigationMetricsPtr soft_navigation_metrics) = 0;
+  virtual void UpdateTiming(PageLoadTimingPtr page_load_timing, FrameMetadataPtr frame_metadata, const std::vector<::blink::UseCounterFeature>& new_features, std::vector<ResourceDataUpdatePtr> resources, FrameRenderDataUpdatePtr render_data, CpuTimingPtr cpu_load_timing, InputTimingPtr input_timing_delta, const std::optional<::blink::SubresourceLoadMetrics>& subresource_load_metrics, SoftNavigationMetricsPtr soft_navigation_metrics) = 0;
 
   
   virtual void SetUpSharedMemoryForSmoothness(::base::ReadOnlySharedMemoryRegion shared_memory) = 0;
@@ -107,7 +108,7 @@ class  PageLoadMetricsProxy
 
   explicit PageLoadMetricsProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void UpdateTiming(PageLoadTimingPtr page_load_timing, FrameMetadataPtr frame_metadata, const std::vector<::blink::UseCounterFeature>& new_features, std::vector<ResourceDataUpdatePtr> resources, FrameRenderDataUpdatePtr render_data, CpuTimingPtr cpu_load_timing, InputTimingPtr input_timing_delta, const absl::optional<::blink::SubresourceLoadMetrics>& subresource_load_metrics, SoftNavigationMetricsPtr soft_navigation_metrics) final;
+  void UpdateTiming(PageLoadTimingPtr page_load_timing, FrameMetadataPtr frame_metadata, const std::vector<::blink::UseCounterFeature>& new_features, std::vector<ResourceDataUpdatePtr> resources, FrameRenderDataUpdatePtr render_data, CpuTimingPtr cpu_load_timing, InputTimingPtr input_timing_delta, const std::optional<::blink::SubresourceLoadMetrics>& subresource_load_metrics, SoftNavigationMetricsPtr soft_navigation_metrics) final;
   
   void SetUpSharedMemoryForSmoothness(::base::ReadOnlySharedMemoryRegion shared_memory) final;
 
@@ -200,17 +201,17 @@ class  UserInteractionLatencies {
   // Construct an instance holding |user_interaction_latencies|.
   static UserInteractionLatenciesPtr
   NewUserInteractionLatencies(
-      std::vector<UserInteractionLatencyPtr> user_interaction_latencies) {
+      std::vector<UserInteractionLatencyPtr> value) {
     auto result = UserInteractionLatenciesPtr(absl::in_place);
-    result->set_user_interaction_latencies(std::move(user_interaction_latencies));
+    result->set_user_interaction_latencies(std::move(value));
     return result;
   }
   // Construct an instance holding |worst_interaction_latency|.
   static UserInteractionLatenciesPtr
   NewWorstInteractionLatency(
-      ::base::TimeDelta worst_interaction_latency) {
+      ::base::TimeDelta value) {
     auto result = UserInteractionLatenciesPtr(absl::in_place);
-    result->set_worst_interaction_latency(std::move(worst_interaction_latency));
+    result->set_worst_interaction_latency(std::move(value));
     return result;
   }
 
@@ -340,8 +341,8 @@ class  DocumentTiming {
   DocumentTiming();
 
   DocumentTiming(
-      absl::optional<::base::TimeDelta> dom_content_loaded_event_start,
-      absl::optional<::base::TimeDelta> load_event_start);
+      std::optional<::base::TimeDelta> dom_content_loaded_event_start,
+      std::optional<::base::TimeDelta> load_event_start);
 
 
   ~DocumentTiming();
@@ -419,9 +420,9 @@ class  DocumentTiming {
   }
 
   
-  absl::optional<::base::TimeDelta> dom_content_loaded_event_start;
+  std::optional<::base::TimeDelta> dom_content_loaded_event_start;
   
-  absl::optional<::base::TimeDelta> load_event_start;
+  std::optional<::base::TimeDelta> load_event_start;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -483,12 +484,12 @@ class  LargestContentfulPaintTiming {
   LargestContentfulPaintTiming();
 
   LargestContentfulPaintTiming(
-      absl::optional<::base::TimeDelta> largest_image_paint,
-      absl::optional<::base::TimeDelta> largest_image_discovery_time,
-      absl::optional<::base::TimeDelta> largest_image_load_start,
-      absl::optional<::base::TimeDelta> largest_image_load_end,
+      std::optional<::base::TimeDelta> largest_image_paint,
+      std::optional<::base::TimeDelta> largest_image_discovery_time,
+      std::optional<::base::TimeDelta> largest_image_load_start,
+      std::optional<::base::TimeDelta> largest_image_load_end,
       uint64_t largest_image_paint_size,
-      absl::optional<::base::TimeDelta> largest_text_paint,
+      std::optional<::base::TimeDelta> largest_text_paint,
       uint64_t largest_text_paint_size,
       uint64_t type,
       double image_bpp,
@@ -573,17 +574,17 @@ class  LargestContentfulPaintTiming {
   }
 
   
-  absl::optional<::base::TimeDelta> largest_image_paint;
+  std::optional<::base::TimeDelta> largest_image_paint;
   
-  absl::optional<::base::TimeDelta> largest_image_discovery_time;
+  std::optional<::base::TimeDelta> largest_image_discovery_time;
   
-  absl::optional<::base::TimeDelta> largest_image_load_start;
+  std::optional<::base::TimeDelta> largest_image_load_start;
   
-  absl::optional<::base::TimeDelta> largest_image_load_end;
+  std::optional<::base::TimeDelta> largest_image_load_end;
   
   uint64_t largest_image_paint_size;
   
-  absl::optional<::base::TimeDelta> largest_text_paint;
+  std::optional<::base::TimeDelta> largest_text_paint;
   
   uint64_t largest_text_paint_size;
   
@@ -659,15 +660,15 @@ class  PaintTiming {
   PaintTiming();
 
   PaintTiming(
-      absl::optional<::base::TimeDelta> first_paint,
-      absl::optional<::base::TimeDelta> first_image_paint,
-      absl::optional<::base::TimeDelta> first_contentful_paint,
-      absl::optional<::base::TimeDelta> first_meaningful_paint,
+      std::optional<::base::TimeDelta> first_paint,
+      std::optional<::base::TimeDelta> first_image_paint,
+      std::optional<::base::TimeDelta> first_contentful_paint,
+      std::optional<::base::TimeDelta> first_meaningful_paint,
       LargestContentfulPaintTimingPtr largest_contentful_paint,
       LargestContentfulPaintTimingPtr experimental_largest_contentful_paint,
-      absl::optional<::base::TimeDelta> first_eligible_to_paint,
-      absl::optional<::base::TimeDelta> first_input_or_scroll_notified_timestamp,
-      absl::optional<::base::TimeTicks> portal_activated_paint);
+      std::optional<::base::TimeDelta> first_eligible_to_paint,
+      std::optional<::base::TimeDelta> first_input_or_scroll_notified_timestamp,
+      std::optional<::base::TimeTicks> portal_activated_paint);
 
 PaintTiming(const PaintTiming&) = delete;
 PaintTiming& operator=(const PaintTiming&) = delete;
@@ -747,23 +748,23 @@ PaintTiming& operator=(const PaintTiming&) = delete;
   }
 
   
-  absl::optional<::base::TimeDelta> first_paint;
+  std::optional<::base::TimeDelta> first_paint;
   
-  absl::optional<::base::TimeDelta> first_image_paint;
+  std::optional<::base::TimeDelta> first_image_paint;
   
-  absl::optional<::base::TimeDelta> first_contentful_paint;
+  std::optional<::base::TimeDelta> first_contentful_paint;
   
-  absl::optional<::base::TimeDelta> first_meaningful_paint;
+  std::optional<::base::TimeDelta> first_meaningful_paint;
   
   LargestContentfulPaintTimingPtr largest_contentful_paint;
   
   LargestContentfulPaintTimingPtr experimental_largest_contentful_paint;
   
-  absl::optional<::base::TimeDelta> first_eligible_to_paint;
+  std::optional<::base::TimeDelta> first_eligible_to_paint;
   
-  absl::optional<::base::TimeDelta> first_input_or_scroll_notified_timestamp;
+  std::optional<::base::TimeDelta> first_input_or_scroll_notified_timestamp;
   
-  absl::optional<::base::TimeTicks> portal_activated_paint;
+  std::optional<::base::TimeTicks> portal_activated_paint;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -825,12 +826,12 @@ class  ParseTiming {
   ParseTiming();
 
   ParseTiming(
-      absl::optional<::base::TimeDelta> parse_start,
-      absl::optional<::base::TimeDelta> parse_stop,
-      absl::optional<::base::TimeDelta> parse_blocked_on_script_load_duration,
-      absl::optional<::base::TimeDelta> parse_blocked_on_script_load_from_document_write_duration,
-      absl::optional<::base::TimeDelta> parse_blocked_on_script_execution_duration,
-      absl::optional<::base::TimeDelta> parse_blocked_on_script_execution_from_document_write_duration);
+      std::optional<::base::TimeDelta> parse_start,
+      std::optional<::base::TimeDelta> parse_stop,
+      std::optional<::base::TimeDelta> parse_blocked_on_script_load_duration,
+      std::optional<::base::TimeDelta> parse_blocked_on_script_load_from_document_write_duration,
+      std::optional<::base::TimeDelta> parse_blocked_on_script_execution_duration,
+      std::optional<::base::TimeDelta> parse_blocked_on_script_execution_from_document_write_duration);
 
 
   ~ParseTiming();
@@ -908,17 +909,17 @@ class  ParseTiming {
   }
 
   
-  absl::optional<::base::TimeDelta> parse_start;
+  std::optional<::base::TimeDelta> parse_start;
   
-  absl::optional<::base::TimeDelta> parse_stop;
+  std::optional<::base::TimeDelta> parse_stop;
   
-  absl::optional<::base::TimeDelta> parse_blocked_on_script_load_duration;
+  std::optional<::base::TimeDelta> parse_blocked_on_script_load_duration;
   
-  absl::optional<::base::TimeDelta> parse_blocked_on_script_load_from_document_write_duration;
+  std::optional<::base::TimeDelta> parse_blocked_on_script_load_from_document_write_duration;
   
-  absl::optional<::base::TimeDelta> parse_blocked_on_script_execution_duration;
+  std::optional<::base::TimeDelta> parse_blocked_on_script_execution_duration;
   
-  absl::optional<::base::TimeDelta> parse_blocked_on_script_execution_from_document_write_duration;
+  std::optional<::base::TimeDelta> parse_blocked_on_script_execution_from_document_write_duration;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -980,10 +981,10 @@ class  InteractiveTiming {
   InteractiveTiming();
 
   InteractiveTiming(
-      absl::optional<::base::TimeDelta> first_input_delay,
-      absl::optional<::base::TimeDelta> first_input_timestamp,
-      absl::optional<::base::TimeDelta> first_scroll_delay,
-      absl::optional<::base::TimeDelta> first_scroll_timestamp);
+      std::optional<::base::TimeDelta> first_input_delay,
+      std::optional<::base::TimeDelta> first_input_timestamp,
+      std::optional<::base::TimeDelta> first_scroll_delay,
+      std::optional<::base::TimeDelta> first_scroll_timestamp);
 
 
   ~InteractiveTiming();
@@ -1061,13 +1062,13 @@ class  InteractiveTiming {
   }
 
   
-  absl::optional<::base::TimeDelta> first_input_delay;
+  std::optional<::base::TimeDelta> first_input_delay;
   
-  absl::optional<::base::TimeDelta> first_input_timestamp;
+  std::optional<::base::TimeDelta> first_input_timestamp;
   
-  absl::optional<::base::TimeDelta> first_scroll_delay;
+  std::optional<::base::TimeDelta> first_scroll_delay;
   
-  absl::optional<::base::TimeDelta> first_scroll_timestamp;
+  std::optional<::base::TimeDelta> first_scroll_timestamp;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1130,17 +1131,17 @@ class  PageLoadTiming {
 
   PageLoadTiming(
       ::base::Time navigation_start,
-      absl::optional<::base::TimeDelta> response_start,
+      std::optional<::base::TimeDelta> response_start,
       DocumentTimingPtr document_timing,
       InteractiveTimingPtr interactive_timing,
       PaintTimingPtr paint_timing,
       ParseTimingPtr parse_timing,
       std::vector<BackForwardCacheTimingPtr> back_forward_cache_timings,
-      absl::optional<::base::TimeDelta> activation_start,
-      absl::optional<::base::TimeDelta> input_to_navigation_start,
-      absl::optional<::base::TimeDelta> user_timing_mark_fully_loaded,
-      absl::optional<::base::TimeDelta> user_timing_mark_fully_visible,
-      absl::optional<::base::TimeDelta> user_timing_mark_interactive);
+      std::optional<::base::TimeDelta> activation_start,
+      std::optional<::base::TimeDelta> input_to_navigation_start,
+      std::optional<::base::TimeDelta> user_timing_mark_fully_loaded,
+      std::optional<::base::TimeDelta> user_timing_mark_fully_visible,
+      std::optional<::base::TimeDelta> user_timing_mark_interactive);
 
 PageLoadTiming(const PageLoadTiming&) = delete;
 PageLoadTiming& operator=(const PageLoadTiming&) = delete;
@@ -1222,7 +1223,7 @@ PageLoadTiming& operator=(const PageLoadTiming&) = delete;
   
   ::base::Time navigation_start;
   
-  absl::optional<::base::TimeDelta> response_start;
+  std::optional<::base::TimeDelta> response_start;
   
   DocumentTimingPtr document_timing;
   
@@ -1234,15 +1235,15 @@ PageLoadTiming& operator=(const PageLoadTiming&) = delete;
   
   std::vector<BackForwardCacheTimingPtr> back_forward_cache_timings;
   
-  absl::optional<::base::TimeDelta> activation_start;
+  std::optional<::base::TimeDelta> activation_start;
   
-  absl::optional<::base::TimeDelta> input_to_navigation_start;
+  std::optional<::base::TimeDelta> input_to_navigation_start;
   
-  absl::optional<::base::TimeDelta> user_timing_mark_fully_loaded;
+  std::optional<::base::TimeDelta> user_timing_mark_fully_loaded;
   
-  absl::optional<::base::TimeDelta> user_timing_mark_fully_visible;
+  std::optional<::base::TimeDelta> user_timing_mark_fully_visible;
   
-  absl::optional<::base::TimeDelta> user_timing_mark_interactive;
+  std::optional<::base::TimeDelta> user_timing_mark_interactive;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1305,8 +1306,8 @@ class  FrameMetadata {
 
   FrameMetadata(
       int32_t behavior_flags,
-      const absl::optional<::gfx::Rect>& main_frame_intersection_rect,
-      const absl::optional<::gfx::Rect>& main_frame_viewport_rect,
+      const std::optional<::gfx::Rect>& main_frame_intersection_rect,
+      const std::optional<::gfx::Rect>& main_frame_viewport_rect,
       const base::flat_map<int32_t, ::gfx::Rect>& main_frame_image_ad_rects,
       const ::blink::JavaScriptFrameworkDetectionResult& framework_detection_result);
 
@@ -1388,9 +1389,9 @@ class  FrameMetadata {
   
   int32_t behavior_flags;
   
-  absl::optional<::gfx::Rect> main_frame_intersection_rect;
+  std::optional<::gfx::Rect> main_frame_intersection_rect;
   
-  absl::optional<::gfx::Rect> main_frame_viewport_rect;
+  std::optional<::gfx::Rect> main_frame_viewport_rect;
   
   base::flat_map<int32_t, ::gfx::Rect> main_frame_image_ad_rects;
   
@@ -1458,7 +1459,7 @@ class  SubresourceLoadMetrics {
   SubresourceLoadMetrics(
       uint32_t number_of_subresources_loaded,
       uint32_t number_of_subresource_loads_handled_by_service_worker,
-      const absl::optional<::blink::ServiceWorkerSubresourceLoadMetrics>& service_worker_subresource_load_metrics);
+      const std::optional<::blink::ServiceWorkerSubresourceLoadMetrics>& service_worker_subresource_load_metrics);
 
 
   ~SubresourceLoadMetrics();
@@ -1540,7 +1541,7 @@ class  SubresourceLoadMetrics {
   
   uint32_t number_of_subresource_loads_handled_by_service_worker;
   
-  absl::optional<::blink::ServiceWorkerSubresourceLoadMetrics> service_worker_subresource_load_metrics;
+  std::optional<::blink::ServiceWorkerSubresourceLoadMetrics> service_worker_subresource_load_metrics;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1841,8 +1842,7 @@ class  ResourceDataUpdate {
       bool is_primary_frame_resource,
       const std::string& mime_type,
       bool is_secure_scheme,
-      bool proxy_used,
-      bool completed_before_fcp);
+      bool proxy_used);
 
 
   ~ResourceDataUpdate();
@@ -1946,8 +1946,6 @@ class  ResourceDataUpdate {
   bool is_secure_scheme;
   
   bool proxy_used;
-  
-  bool completed_before_fcp;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -2586,7 +2584,9 @@ class  UserInteractionLatency {
 
   UserInteractionLatency(
       ::base::TimeDelta interaction_latency,
-      UserInteractionType interaction_type);
+      UserInteractionType interaction_type,
+      uint64_t interaction_offset,
+      ::base::TimeTicks interaction_time);
 
 
   ~UserInteractionLatency();
@@ -2667,6 +2667,10 @@ class  UserInteractionLatency {
   ::base::TimeDelta interaction_latency;
   
   UserInteractionType interaction_type;
+  
+  uint64_t interaction_offset;
+  
+  ::base::TimeTicks interaction_time;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -2730,7 +2734,7 @@ class  BackForwardCacheTiming {
   BackForwardCacheTiming(
       ::base::TimeDelta first_paint_after_back_forward_cache_restore,
       std::vector<::base::TimeDelta> request_animation_frames_after_back_forward_cache_restore,
-      absl::optional<::base::TimeDelta> first_input_delay_after_back_forward_cache_restore);
+      std::optional<::base::TimeDelta> first_input_delay_after_back_forward_cache_restore);
 
 
   ~BackForwardCacheTiming();
@@ -2812,7 +2816,7 @@ class  BackForwardCacheTiming {
   
   std::vector<::base::TimeDelta> request_animation_frames_after_back_forward_cache_restore;
   
-  absl::optional<::base::TimeDelta> first_input_delay_after_back_forward_cache_restore;
+  std::optional<::base::TimeDelta> first_input_delay_after_back_forward_cache_restore;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -3761,8 +3765,7 @@ ResourceDataUpdatePtr ResourceDataUpdate::Clone() const {
       mojo::Clone(is_primary_frame_resource),
       mojo::Clone(mime_type),
       mojo::Clone(is_secure_scheme),
-      mojo::Clone(proxy_used),
-      mojo::Clone(completed_before_fcp)
+      mojo::Clone(proxy_used)
   );
 }
 
@@ -3793,8 +3796,6 @@ bool ResourceDataUpdate::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->is_secure_scheme, other_struct.is_secure_scheme))
     return false;
   if (!mojo::Equals(this->proxy_used, other_struct.proxy_used))
-    return false;
-  if (!mojo::Equals(this->completed_before_fcp, other_struct.completed_before_fcp))
     return false;
   return true;
 }
@@ -3852,10 +3853,6 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.proxy_used < rhs.proxy_used)
     return true;
   if (rhs.proxy_used < lhs.proxy_used)
-    return false;
-  if (lhs.completed_before_fcp < rhs.completed_before_fcp)
-    return true;
-  if (rhs.completed_before_fcp < lhs.completed_before_fcp)
     return false;
   return false;
 }
@@ -3979,7 +3976,9 @@ template <typename StructPtrType>
 UserInteractionLatencyPtr UserInteractionLatency::Clone() const {
   return New(
       mojo::Clone(interaction_latency),
-      mojo::Clone(interaction_type)
+      mojo::Clone(interaction_type),
+      mojo::Clone(interaction_offset),
+      mojo::Clone(interaction_time)
   );
 }
 
@@ -3988,6 +3987,10 @@ bool UserInteractionLatency::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->interaction_latency, other_struct.interaction_latency))
     return false;
   if (!mojo::Equals(this->interaction_type, other_struct.interaction_type))
+    return false;
+  if (!mojo::Equals(this->interaction_offset, other_struct.interaction_offset))
+    return false;
+  if (!mojo::Equals(this->interaction_time, other_struct.interaction_time))
     return false;
   return true;
 }
@@ -4001,6 +4004,14 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.interaction_type < rhs.interaction_type)
     return true;
   if (rhs.interaction_type < lhs.interaction_type)
+    return false;
+  if (lhs.interaction_offset < rhs.interaction_offset)
+    return true;
+  if (rhs.interaction_offset < lhs.interaction_offset)
+    return false;
+  if (lhs.interaction_time < rhs.interaction_time)
+    return true;
+  if (rhs.interaction_time < lhs.interaction_time)
     return false;
   return false;
 }
@@ -4671,11 +4682,6 @@ struct  StructTraits<::page_load_metrics::mojom::ResourceDataUpdate::DataView,
     return input->proxy_used;
   }
 
-  static decltype(::page_load_metrics::mojom::ResourceDataUpdate::completed_before_fcp) completed_before_fcp(
-      const ::page_load_metrics::mojom::ResourceDataUpdatePtr& input) {
-    return input->completed_before_fcp;
-  }
-
   static bool Read(::page_load_metrics::mojom::ResourceDataUpdate::DataView input, ::page_load_metrics::mojom::ResourceDataUpdatePtr* output);
 };
 
@@ -4774,6 +4780,16 @@ struct  StructTraits<::page_load_metrics::mojom::UserInteractionLatency::DataVie
   static decltype(::page_load_metrics::mojom::UserInteractionLatency::interaction_type) interaction_type(
       const ::page_load_metrics::mojom::UserInteractionLatencyPtr& input) {
     return input->interaction_type;
+  }
+
+  static decltype(::page_load_metrics::mojom::UserInteractionLatency::interaction_offset) interaction_offset(
+      const ::page_load_metrics::mojom::UserInteractionLatencyPtr& input) {
+    return input->interaction_offset;
+  }
+
+  static const decltype(::page_load_metrics::mojom::UserInteractionLatency::interaction_time)& interaction_time(
+      const ::page_load_metrics::mojom::UserInteractionLatencyPtr& input) {
+    return input->interaction_time;
   }
 
   static bool Read(::page_load_metrics::mojom::UserInteractionLatency::DataView input, ::page_load_metrics::mojom::UserInteractionLatencyPtr* output);

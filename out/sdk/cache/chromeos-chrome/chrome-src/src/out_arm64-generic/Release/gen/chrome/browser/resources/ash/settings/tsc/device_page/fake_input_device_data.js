@@ -593,12 +593,6 @@ export const fakeGraphicsTablets = [
 export const fakeMouseButtonActions = [
     {
         actionType: {
-            staticShortcutAction: StaticShortcutAction.kDisable,
-        },
-        name: 'Disable',
-    },
-    {
-        actionType: {
             staticShortcutAction: StaticShortcutAction.kCopy,
         },
         name: 'Copy',

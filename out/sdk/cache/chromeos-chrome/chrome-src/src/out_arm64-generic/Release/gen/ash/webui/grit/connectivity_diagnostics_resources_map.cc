@@ -9,10 +9,11 @@
 #include "connectivity_diagnostics_resources.h"
 
 const webui::ResourcePath kConnectivityDiagnosticsResources[] = {
-  {"index.html", IDR_CONNECTIVITY_DIAGNOSTICS_INDEX_HTML},
   {"app_icon_192.png", IDR_CONNECTIVITY_DIAGNOSTICS_APP_ICON_192_PNG},
   {"app_icon_256.png", IDR_CONNECTIVITY_DIAGNOSTICS_APP_ICON_256_PNG},
+  {"index.html", IDR_CONNECTIVITY_DIAGNOSTICS_INDEX_HTML},
   {"connectivity_diagnostics.js", IDR_CONNECTIVITY_DIAGNOSTICS_CONNECTIVITY_DIAGNOSTICS_JS},
+  {"connectivity_diagnostics.html.js", IDR_CONNECTIVITY_DIAGNOSTICS_CONNECTIVITY_DIAGNOSTICS_HTML_JS},
 };
 
 const size_t kConnectivityDiagnosticsResourcesSize = std::size(kConnectivityDiagnosticsResources);

@@ -651,10 +651,6 @@ struct CSSSampleId_Data {
       case 712:
       case 713:
       case 714:
-      case 715:
-      case 716:
-      case 717:
-      case 718:
       case 719:
       case 720:
       case 722:
@@ -667,7 +663,6 @@ struct CSSSampleId_Data {
       case 729:
       case 730:
       case 731:
-      case 732:
       case 733:
       case 734:
       case 735:
@@ -713,6 +708,9 @@ struct CSSSampleId_Data {
       case 776:
       case 777:
       case 778:
+      case 779:
+      case 780:
+      case 781:
         return true;
     }
     return false;

@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -43,8 +44,8 @@ struct Filter {
   ~Filter();
   Filter(const Filter&) = delete;
   Filter& operator=(const Filter&) = delete;
-  Filter(Filter&& rhs);
-  Filter& operator=(Filter&& rhs);
+  Filter(Filter&& rhs) noexcept;
+  Filter& operator=(Filter&& rhs) noexcept;
 
   // Populates a Filter object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -57,14 +58,11 @@ struct Filter {
   // Creates a deep copy of Filter.
   Filter Clone() const;
 
-  // Creates a Filter object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Filter> FromValueDeprecated(const base::Value& value);
-
   // Creates a Filter object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<Filter> FromValue(const base::Value::Dict& value);
+  static std::optional<Filter> FromValue(const base::Value::Dict& value);
 
   // Creates a Filter object from a base::Value, or nullopt on failure.
-  static absl::optional<Filter> FromValue(const base::Value& value);
+  static std::optional<Filter> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisFilter object.
@@ -73,7 +71,7 @@ struct Filter {
   // The maximum number of entries to be fetched in the requested list. Omit this
   // parameter to fetch the maximum number of entries
   // ($(ref:sessions.MAX_SESSION_RESULTS)).
-  absl::optional<int> max_results;
+  std::optional<int> max_results;
 
 };
 
@@ -82,8 +80,8 @@ struct Session {
   ~Session();
   Session(const Session&) = delete;
   Session& operator=(const Session&) = delete;
-  Session(Session&& rhs);
-  Session& operator=(Session&& rhs);
+  Session(Session&& rhs) noexcept;
+  Session& operator=(Session&& rhs) noexcept;
 
   // Populates a Session object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -96,14 +94,11 @@ struct Session {
   // Creates a deep copy of Session.
   Session Clone() const;
 
-  // Creates a Session object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Session> FromValueDeprecated(const base::Value& value);
-
   // Creates a Session object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<Session> FromValue(const base::Value::Dict& value);
+  static std::optional<Session> FromValue(const base::Value::Dict& value);
 
   // Creates a Session object from a base::Value, or nullopt on failure.
-  static absl::optional<Session> FromValue(const base::Value& value);
+  static std::optional<Session> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisSession object.
@@ -115,11 +110,11 @@ struct Session {
 
   // The $(ref:tabs.Tab), if this entry describes a tab. Either this or
   // $(ref:sessions.Session.window) will be set.
-  absl::optional<extensions::api::tabs::Tab> tab;
+  std::optional<extensions::api::tabs::Tab> tab;
 
   // The $(ref:windows.Window), if this entry describes a window. Either this or
   // $(ref:sessions.Session.tab) will be set.
-  absl::optional<extensions::api::windows::Window> window;
+  std::optional<extensions::api::windows::Window> window;
 
 };
 
@@ -128,8 +123,8 @@ struct Device {
   ~Device();
   Device(const Device&) = delete;
   Device& operator=(const Device&) = delete;
-  Device(Device&& rhs);
-  Device& operator=(Device&& rhs);
+  Device(Device&& rhs) noexcept;
+  Device& operator=(Device&& rhs) noexcept;
 
   // Populates a Device object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -142,14 +137,11 @@ struct Device {
   // Creates a deep copy of Device.
   Device Clone() const;
 
-  // Creates a Device object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Device> FromValueDeprecated(const base::Value& value);
-
   // Creates a Device object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<Device> FromValue(const base::Value::Dict& value);
+  static std::optional<Device> FromValue(const base::Value::Dict& value);
 
   // Creates a Device object from a base::Value, or nullopt on failure.
-  static absl::optional<Device> FromValue(const base::Value& value);
+  static std::optional<Device> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDevice object.
@@ -174,14 +166,14 @@ struct Device {
 namespace GetRecentlyClosed {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
-  absl::optional<Filter> filter;
+  std::optional<Filter> filter;
 
 
  private:
@@ -201,14 +193,14 @@ base::Value::List Create(const std::vector<Session>& sessions);
 namespace GetDevices {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
-  absl::optional<Filter> filter;
+  std::optional<Filter> filter;
 
 
  private:
@@ -229,17 +221,17 @@ base::Value::List Create(const std::vector<Device>& devices);
 namespace Restore {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The $(ref:windows.Window.sessionId), or $(ref:tabs.Tab.sessionId) to restore.
   // If this parameter is not specified, the most recently closed session is
   // restored.
-  absl::optional<std::string> session_id;
+  std::optional<std::string> session_id;
 
 
  private:

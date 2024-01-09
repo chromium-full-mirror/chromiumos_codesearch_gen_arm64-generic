@@ -51,6 +51,9 @@ extern ProcessState_FileSystemStateDefaultTypeInternal _ProcessState_FileSystemS
 class ProcessState_FileSystemState_PosixFileSystemState;
 struct ProcessState_FileSystemState_PosixFileSystemStateDefaultTypeInternal;
 extern ProcessState_FileSystemState_PosixFileSystemStateDefaultTypeInternal _ProcessState_FileSystemState_PosixFileSystemState_default_instance_;
+class ProcessState_FileSystemState_WindowsFileSystemState;
+struct ProcessState_FileSystemState_WindowsFileSystemStateDefaultTypeInternal;
+extern ProcessState_FileSystemState_WindowsFileSystemStateDefaultTypeInternal _ProcessState_FileSystemState_WindowsFileSystemState_default_instance_;
 class ProcessState_MemoryState;
 struct ProcessState_MemoryStateDefaultTypeInternal;
 extern ProcessState_MemoryStateDefaultTypeInternal _ProcessState_MemoryState_default_instance_;
@@ -71,6 +74,7 @@ PROTOBUF_NAMESPACE_OPEN
 template<> ::stability_report::ProcessState* Arena::CreateMaybeMessage<::stability_report::ProcessState>(Arena*);
 template<> ::stability_report::ProcessState_FileSystemState* Arena::CreateMaybeMessage<::stability_report::ProcessState_FileSystemState>(Arena*);
 template<> ::stability_report::ProcessState_FileSystemState_PosixFileSystemState* Arena::CreateMaybeMessage<::stability_report::ProcessState_FileSystemState_PosixFileSystemState>(Arena*);
+template<> ::stability_report::ProcessState_FileSystemState_WindowsFileSystemState* Arena::CreateMaybeMessage<::stability_report::ProcessState_FileSystemState_WindowsFileSystemState>(Arena*);
 template<> ::stability_report::ProcessState_MemoryState* Arena::CreateMaybeMessage<::stability_report::ProcessState_MemoryState>(Arena*);
 template<> ::stability_report::ProcessState_MemoryState_WindowsMemory* Arena::CreateMaybeMessage<::stability_report::ProcessState_MemoryState_WindowsMemory>(Arena*);
 template<> ::stability_report::StabilityReport* Arena::CreateMaybeMessage<::stability_report::StabilityReport>(Arena*);
@@ -195,7 +199,6 @@ class ProcessState_MemoryState_WindowsMemory final :
     kProcessPeakWorkingsetSizeFieldNumber = 2,
     kProcessPeakPagefileUsageFieldNumber = 3,
     kProcessAllocationAttemptFieldNumber = 4,
-    kProcessHandleCountFieldNumber = 5,
   };
   // optional uint32 process_private_usage = 1;
   bool has_process_private_usage() const;
@@ -249,19 +252,6 @@ class ProcessState_MemoryState_WindowsMemory final :
   void _internal_set_process_allocation_attempt(uint32_t value);
   public:
 
-  // optional uint32 process_handle_count = 5;
-  bool has_process_handle_count() const;
-  private:
-  bool _internal_has_process_handle_count() const;
-  public:
-  void clear_process_handle_count();
-  uint32_t process_handle_count() const;
-  void set_process_handle_count(uint32_t value);
-  private:
-  uint32_t _internal_process_handle_count() const;
-  void _internal_set_process_handle_count(uint32_t value);
-  public:
-
   // @@protoc_insertion_point(class_scope:stability_report.ProcessState.MemoryState.WindowsMemory)
  private:
   class _Internal;
@@ -275,7 +265,6 @@ class ProcessState_MemoryState_WindowsMemory final :
   uint32_t process_peak_workingset_size_;
   uint32_t process_peak_pagefile_usage_;
   uint32_t process_allocation_attempt_;
-  uint32_t process_handle_count_;
   friend struct ::TableStruct_stability_5freport_2eproto;
 };
 // -------------------------------------------------------------------
@@ -536,19 +525,19 @@ class ProcessState_FileSystemState_PosixFileSystemState final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kCrashingOpenFileDescriptorsFieldNumber = 1,
+    kOpenFileDescriptorsFieldNumber = 1,
   };
-  // optional uint32 crashing_open_file_descriptors = 1;
-  bool has_crashing_open_file_descriptors() const;
+  // optional uint32 open_file_descriptors = 1;
+  bool has_open_file_descriptors() const;
   private:
-  bool _internal_has_crashing_open_file_descriptors() const;
+  bool _internal_has_open_file_descriptors() const;
   public:
-  void clear_crashing_open_file_descriptors();
-  uint32_t crashing_open_file_descriptors() const;
-  void set_crashing_open_file_descriptors(uint32_t value);
+  void clear_open_file_descriptors();
+  uint32_t open_file_descriptors() const;
+  void set_open_file_descriptors(uint32_t value);
   private:
-  uint32_t _internal_crashing_open_file_descriptors() const;
-  void _internal_set_crashing_open_file_descriptors(uint32_t value);
+  uint32_t _internal_open_file_descriptors() const;
+  void _internal_set_open_file_descriptors(uint32_t value);
   public:
 
   // @@protoc_insertion_point(class_scope:stability_report.ProcessState.FileSystemState.PosixFileSystemState)
@@ -560,7 +549,146 @@ class ProcessState_FileSystemState_PosixFileSystemState final :
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  uint32_t crashing_open_file_descriptors_;
+  uint32_t open_file_descriptors_;
+  friend struct ::TableStruct_stability_5freport_2eproto;
+};
+// -------------------------------------------------------------------
+
+class ProcessState_FileSystemState_WindowsFileSystemState final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:stability_report.ProcessState.FileSystemState.WindowsFileSystemState) */ {
+ public:
+  inline ProcessState_FileSystemState_WindowsFileSystemState() : ProcessState_FileSystemState_WindowsFileSystemState(nullptr) {}
+  ~ProcessState_FileSystemState_WindowsFileSystemState() override;
+  explicit PROTOBUF_CONSTEXPR ProcessState_FileSystemState_WindowsFileSystemState(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  ProcessState_FileSystemState_WindowsFileSystemState(const ProcessState_FileSystemState_WindowsFileSystemState& from);
+  ProcessState_FileSystemState_WindowsFileSystemState(ProcessState_FileSystemState_WindowsFileSystemState&& from) noexcept
+    : ProcessState_FileSystemState_WindowsFileSystemState() {
+    *this = ::std::move(from);
+  }
+
+  inline ProcessState_FileSystemState_WindowsFileSystemState& operator=(const ProcessState_FileSystemState_WindowsFileSystemState& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline ProcessState_FileSystemState_WindowsFileSystemState& operator=(ProcessState_FileSystemState_WindowsFileSystemState&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const ProcessState_FileSystemState_WindowsFileSystemState& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const ProcessState_FileSystemState_WindowsFileSystemState* internal_default_instance() {
+    return reinterpret_cast<const ProcessState_FileSystemState_WindowsFileSystemState*>(
+               &_ProcessState_FileSystemState_WindowsFileSystemState_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    3;
+
+  friend void swap(ProcessState_FileSystemState_WindowsFileSystemState& a, ProcessState_FileSystemState_WindowsFileSystemState& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(ProcessState_FileSystemState_WindowsFileSystemState* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(ProcessState_FileSystemState_WindowsFileSystemState* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  ProcessState_FileSystemState_WindowsFileSystemState* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<ProcessState_FileSystemState_WindowsFileSystemState>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const ProcessState_FileSystemState_WindowsFileSystemState& from);
+  void MergeFrom(const ProcessState_FileSystemState_WindowsFileSystemState& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(ProcessState_FileSystemState_WindowsFileSystemState* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "stability_report.ProcessState.FileSystemState.WindowsFileSystemState";
+  }
+  protected:
+  explicit ProcessState_FileSystemState_WindowsFileSystemState(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kProcessHandleCountFieldNumber = 1,
+  };
+  // optional uint32 process_handle_count = 1;
+  bool has_process_handle_count() const;
+  private:
+  bool _internal_has_process_handle_count() const;
+  public:
+  void clear_process_handle_count();
+  uint32_t process_handle_count() const;
+  void set_process_handle_count(uint32_t value);
+  private:
+  uint32_t _internal_process_handle_count() const;
+  void _internal_set_process_handle_count(uint32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:stability_report.ProcessState.FileSystemState.WindowsFileSystemState)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  uint32_t process_handle_count_;
   friend struct ::TableStruct_stability_5freport_2eproto;
 };
 // -------------------------------------------------------------------
@@ -611,7 +739,7 @@ class ProcessState_FileSystemState final :
                &_ProcessState_FileSystemState_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    3;
+    4;
 
   friend void swap(ProcessState_FileSystemState& a, ProcessState_FileSystemState& b) {
     a.Swap(&b);
@@ -673,11 +801,13 @@ class ProcessState_FileSystemState final :
   // nested types ----------------------------------------------------
 
   typedef ProcessState_FileSystemState_PosixFileSystemState PosixFileSystemState;
+  typedef ProcessState_FileSystemState_WindowsFileSystemState WindowsFileSystemState;
 
   // accessors -------------------------------------------------------
 
   enum : int {
     kPosixFileSystemStateFieldNumber = 1,
+    kWindowsFileSystemStateFieldNumber = 2,
   };
   // optional .stability_report.ProcessState.FileSystemState.PosixFileSystemState posix_file_system_state = 1;
   bool has_posix_file_system_state() const;
@@ -697,6 +827,24 @@ class ProcessState_FileSystemState final :
       ::stability_report::ProcessState_FileSystemState_PosixFileSystemState* posix_file_system_state);
   ::stability_report::ProcessState_FileSystemState_PosixFileSystemState* unsafe_arena_release_posix_file_system_state();
 
+  // optional .stability_report.ProcessState.FileSystemState.WindowsFileSystemState windows_file_system_state = 2;
+  bool has_windows_file_system_state() const;
+  private:
+  bool _internal_has_windows_file_system_state() const;
+  public:
+  void clear_windows_file_system_state();
+  const ::stability_report::ProcessState_FileSystemState_WindowsFileSystemState& windows_file_system_state() const;
+  PROTOBUF_NODISCARD ::stability_report::ProcessState_FileSystemState_WindowsFileSystemState* release_windows_file_system_state();
+  ::stability_report::ProcessState_FileSystemState_WindowsFileSystemState* mutable_windows_file_system_state();
+  void set_allocated_windows_file_system_state(::stability_report::ProcessState_FileSystemState_WindowsFileSystemState* windows_file_system_state);
+  private:
+  const ::stability_report::ProcessState_FileSystemState_WindowsFileSystemState& _internal_windows_file_system_state() const;
+  ::stability_report::ProcessState_FileSystemState_WindowsFileSystemState* _internal_mutable_windows_file_system_state();
+  public:
+  void unsafe_arena_set_allocated_windows_file_system_state(
+      ::stability_report::ProcessState_FileSystemState_WindowsFileSystemState* windows_file_system_state);
+  ::stability_report::ProcessState_FileSystemState_WindowsFileSystemState* unsafe_arena_release_windows_file_system_state();
+
   // @@protoc_insertion_point(class_scope:stability_report.ProcessState.FileSystemState)
  private:
   class _Internal;
@@ -707,6 +855,7 @@ class ProcessState_FileSystemState final :
   ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   ::stability_report::ProcessState_FileSystemState_PosixFileSystemState* posix_file_system_state_;
+  ::stability_report::ProcessState_FileSystemState_WindowsFileSystemState* windows_file_system_state_;
   friend struct ::TableStruct_stability_5freport_2eproto;
 };
 // -------------------------------------------------------------------
@@ -757,7 +906,7 @@ class ProcessState final :
                &_ProcessState_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    4;
+    5;
 
   friend void swap(ProcessState& a, ProcessState& b) {
     a.Swap(&b);
@@ -939,7 +1088,7 @@ class SystemMemoryState_WindowsMemory final :
                &_SystemMemoryState_WindowsMemory_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    5;
+    6;
 
   friend void swap(SystemMemoryState_WindowsMemory& a, SystemMemoryState_WindowsMemory& b) {
     a.Swap(&b);
@@ -1108,7 +1257,7 @@ class SystemMemoryState final :
                &_SystemMemoryState_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    6;
+    7;
 
   friend void swap(SystemMemoryState& a, SystemMemoryState& b) {
     a.Swap(&b);
@@ -1254,7 +1403,7 @@ class StabilityReport final :
                &_StabilityReport_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    7;
+    8;
 
   friend void swap(StabilityReport& a, StabilityReport& b) {
     a.Swap(&b);
@@ -1493,34 +1642,6 @@ inline void ProcessState_MemoryState_WindowsMemory::set_process_allocation_attem
   // @@protoc_insertion_point(field_set:stability_report.ProcessState.MemoryState.WindowsMemory.process_allocation_attempt)
 }
 
-// optional uint32 process_handle_count = 5;
-inline bool ProcessState_MemoryState_WindowsMemory::_internal_has_process_handle_count() const {
-  bool value = (_has_bits_[0] & 0x00000010u) != 0;
-  return value;
-}
-inline bool ProcessState_MemoryState_WindowsMemory::has_process_handle_count() const {
-  return _internal_has_process_handle_count();
-}
-inline void ProcessState_MemoryState_WindowsMemory::clear_process_handle_count() {
-  process_handle_count_ = 0u;
-  _has_bits_[0] &= ~0x00000010u;
-}
-inline uint32_t ProcessState_MemoryState_WindowsMemory::_internal_process_handle_count() const {
-  return process_handle_count_;
-}
-inline uint32_t ProcessState_MemoryState_WindowsMemory::process_handle_count() const {
-  // @@protoc_insertion_point(field_get:stability_report.ProcessState.MemoryState.WindowsMemory.process_handle_count)
-  return _internal_process_handle_count();
-}
-inline void ProcessState_MemoryState_WindowsMemory::_internal_set_process_handle_count(uint32_t value) {
-  _has_bits_[0] |= 0x00000010u;
-  process_handle_count_ = value;
-}
-inline void ProcessState_MemoryState_WindowsMemory::set_process_handle_count(uint32_t value) {
-  _internal_set_process_handle_count(value);
-  // @@protoc_insertion_point(field_set:stability_report.ProcessState.MemoryState.WindowsMemory.process_handle_count)
-}
-
 // -------------------------------------------------------------------
 
 // ProcessState_MemoryState
@@ -1619,32 +1740,64 @@ inline void ProcessState_MemoryState::set_allocated_windows_memory(::stability_r
 
 // ProcessState_FileSystemState_PosixFileSystemState
 
-// optional uint32 crashing_open_file_descriptors = 1;
-inline bool ProcessState_FileSystemState_PosixFileSystemState::_internal_has_crashing_open_file_descriptors() const {
+// optional uint32 open_file_descriptors = 1;
+inline bool ProcessState_FileSystemState_PosixFileSystemState::_internal_has_open_file_descriptors() const {
   bool value = (_has_bits_[0] & 0x00000001u) != 0;
   return value;
 }
-inline bool ProcessState_FileSystemState_PosixFileSystemState::has_crashing_open_file_descriptors() const {
-  return _internal_has_crashing_open_file_descriptors();
+inline bool ProcessState_FileSystemState_PosixFileSystemState::has_open_file_descriptors() const {
+  return _internal_has_open_file_descriptors();
 }
-inline void ProcessState_FileSystemState_PosixFileSystemState::clear_crashing_open_file_descriptors() {
-  crashing_open_file_descriptors_ = 0u;
+inline void ProcessState_FileSystemState_PosixFileSystemState::clear_open_file_descriptors() {
+  open_file_descriptors_ = 0u;
   _has_bits_[0] &= ~0x00000001u;
 }
-inline uint32_t ProcessState_FileSystemState_PosixFileSystemState::_internal_crashing_open_file_descriptors() const {
-  return crashing_open_file_descriptors_;
+inline uint32_t ProcessState_FileSystemState_PosixFileSystemState::_internal_open_file_descriptors() const {
+  return open_file_descriptors_;
 }
-inline uint32_t ProcessState_FileSystemState_PosixFileSystemState::crashing_open_file_descriptors() const {
-  // @@protoc_insertion_point(field_get:stability_report.ProcessState.FileSystemState.PosixFileSystemState.crashing_open_file_descriptors)
-  return _internal_crashing_open_file_descriptors();
+inline uint32_t ProcessState_FileSystemState_PosixFileSystemState::open_file_descriptors() const {
+  // @@protoc_insertion_point(field_get:stability_report.ProcessState.FileSystemState.PosixFileSystemState.open_file_descriptors)
+  return _internal_open_file_descriptors();
 }
-inline void ProcessState_FileSystemState_PosixFileSystemState::_internal_set_crashing_open_file_descriptors(uint32_t value) {
+inline void ProcessState_FileSystemState_PosixFileSystemState::_internal_set_open_file_descriptors(uint32_t value) {
   _has_bits_[0] |= 0x00000001u;
-  crashing_open_file_descriptors_ = value;
+  open_file_descriptors_ = value;
 }
-inline void ProcessState_FileSystemState_PosixFileSystemState::set_crashing_open_file_descriptors(uint32_t value) {
-  _internal_set_crashing_open_file_descriptors(value);
-  // @@protoc_insertion_point(field_set:stability_report.ProcessState.FileSystemState.PosixFileSystemState.crashing_open_file_descriptors)
+inline void ProcessState_FileSystemState_PosixFileSystemState::set_open_file_descriptors(uint32_t value) {
+  _internal_set_open_file_descriptors(value);
+  // @@protoc_insertion_point(field_set:stability_report.ProcessState.FileSystemState.PosixFileSystemState.open_file_descriptors)
+}
+
+// -------------------------------------------------------------------
+
+// ProcessState_FileSystemState_WindowsFileSystemState
+
+// optional uint32 process_handle_count = 1;
+inline bool ProcessState_FileSystemState_WindowsFileSystemState::_internal_has_process_handle_count() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool ProcessState_FileSystemState_WindowsFileSystemState::has_process_handle_count() const {
+  return _internal_has_process_handle_count();
+}
+inline void ProcessState_FileSystemState_WindowsFileSystemState::clear_process_handle_count() {
+  process_handle_count_ = 0u;
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline uint32_t ProcessState_FileSystemState_WindowsFileSystemState::_internal_process_handle_count() const {
+  return process_handle_count_;
+}
+inline uint32_t ProcessState_FileSystemState_WindowsFileSystemState::process_handle_count() const {
+  // @@protoc_insertion_point(field_get:stability_report.ProcessState.FileSystemState.WindowsFileSystemState.process_handle_count)
+  return _internal_process_handle_count();
+}
+inline void ProcessState_FileSystemState_WindowsFileSystemState::_internal_set_process_handle_count(uint32_t value) {
+  _has_bits_[0] |= 0x00000001u;
+  process_handle_count_ = value;
+}
+inline void ProcessState_FileSystemState_WindowsFileSystemState::set_process_handle_count(uint32_t value) {
+  _internal_set_process_handle_count(value);
+  // @@protoc_insertion_point(field_set:stability_report.ProcessState.FileSystemState.WindowsFileSystemState.process_handle_count)
 }
 
 // -------------------------------------------------------------------
@@ -1739,6 +1892,96 @@ inline void ProcessState_FileSystemState::set_allocated_posix_file_system_state(
   }
   posix_file_system_state_ = posix_file_system_state;
   // @@protoc_insertion_point(field_set_allocated:stability_report.ProcessState.FileSystemState.posix_file_system_state)
+}
+
+// optional .stability_report.ProcessState.FileSystemState.WindowsFileSystemState windows_file_system_state = 2;
+inline bool ProcessState_FileSystemState::_internal_has_windows_file_system_state() const {
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  PROTOBUF_ASSUME(!value || windows_file_system_state_ != nullptr);
+  return value;
+}
+inline bool ProcessState_FileSystemState::has_windows_file_system_state() const {
+  return _internal_has_windows_file_system_state();
+}
+inline void ProcessState_FileSystemState::clear_windows_file_system_state() {
+  if (windows_file_system_state_ != nullptr) windows_file_system_state_->Clear();
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline const ::stability_report::ProcessState_FileSystemState_WindowsFileSystemState& ProcessState_FileSystemState::_internal_windows_file_system_state() const {
+  const ::stability_report::ProcessState_FileSystemState_WindowsFileSystemState* p = windows_file_system_state_;
+  return p != nullptr ? *p : reinterpret_cast<const ::stability_report::ProcessState_FileSystemState_WindowsFileSystemState&>(
+      ::stability_report::_ProcessState_FileSystemState_WindowsFileSystemState_default_instance_);
+}
+inline const ::stability_report::ProcessState_FileSystemState_WindowsFileSystemState& ProcessState_FileSystemState::windows_file_system_state() const {
+  // @@protoc_insertion_point(field_get:stability_report.ProcessState.FileSystemState.windows_file_system_state)
+  return _internal_windows_file_system_state();
+}
+inline void ProcessState_FileSystemState::unsafe_arena_set_allocated_windows_file_system_state(
+    ::stability_report::ProcessState_FileSystemState_WindowsFileSystemState* windows_file_system_state) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(windows_file_system_state_);
+  }
+  windows_file_system_state_ = windows_file_system_state;
+  if (windows_file_system_state) {
+    _has_bits_[0] |= 0x00000002u;
+  } else {
+    _has_bits_[0] &= ~0x00000002u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:stability_report.ProcessState.FileSystemState.windows_file_system_state)
+}
+inline ::stability_report::ProcessState_FileSystemState_WindowsFileSystemState* ProcessState_FileSystemState::release_windows_file_system_state() {
+  _has_bits_[0] &= ~0x00000002u;
+  ::stability_report::ProcessState_FileSystemState_WindowsFileSystemState* temp = windows_file_system_state_;
+  windows_file_system_state_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::stability_report::ProcessState_FileSystemState_WindowsFileSystemState* ProcessState_FileSystemState::unsafe_arena_release_windows_file_system_state() {
+  // @@protoc_insertion_point(field_release:stability_report.ProcessState.FileSystemState.windows_file_system_state)
+  _has_bits_[0] &= ~0x00000002u;
+  ::stability_report::ProcessState_FileSystemState_WindowsFileSystemState* temp = windows_file_system_state_;
+  windows_file_system_state_ = nullptr;
+  return temp;
+}
+inline ::stability_report::ProcessState_FileSystemState_WindowsFileSystemState* ProcessState_FileSystemState::_internal_mutable_windows_file_system_state() {
+  _has_bits_[0] |= 0x00000002u;
+  if (windows_file_system_state_ == nullptr) {
+    auto* p = CreateMaybeMessage<::stability_report::ProcessState_FileSystemState_WindowsFileSystemState>(GetArenaForAllocation());
+    windows_file_system_state_ = p;
+  }
+  return windows_file_system_state_;
+}
+inline ::stability_report::ProcessState_FileSystemState_WindowsFileSystemState* ProcessState_FileSystemState::mutable_windows_file_system_state() {
+  ::stability_report::ProcessState_FileSystemState_WindowsFileSystemState* _msg = _internal_mutable_windows_file_system_state();
+  // @@protoc_insertion_point(field_mutable:stability_report.ProcessState.FileSystemState.windows_file_system_state)
+  return _msg;
+}
+inline void ProcessState_FileSystemState::set_allocated_windows_file_system_state(::stability_report::ProcessState_FileSystemState_WindowsFileSystemState* windows_file_system_state) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete windows_file_system_state_;
+  }
+  if (windows_file_system_state) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(windows_file_system_state);
+    if (message_arena != submessage_arena) {
+      windows_file_system_state = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, windows_file_system_state, submessage_arena);
+    }
+    _has_bits_[0] |= 0x00000002u;
+  } else {
+    _has_bits_[0] &= ~0x00000002u;
+  }
+  windows_file_system_state_ = windows_file_system_state;
+  // @@protoc_insertion_point(field_set_allocated:stability_report.ProcessState.FileSystemState.windows_file_system_state)
 }
 
 // -------------------------------------------------------------------
@@ -2272,6 +2515,8 @@ inline void StabilityReport::set_allocated_system_memory_state(::stability_repor
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

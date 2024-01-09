@@ -28,8 +28,6 @@ NOINLINE static const char* ViewWidgetTypeToStringHelper(ViewWidgetType value) {
       return "kTopLevel";
     case ViewWidgetType::kGuestView:
       return "kGuestView";
-    case ViewWidgetType::kPortal:
-      return "kPortal";
     case ViewWidgetType::kFencedFrame:
       return "kFencedFrame";
     default:
@@ -198,7 +196,7 @@ bool CreateViewParams_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 120, validation_context)) {
+          data, 136, validation_context)) {
     return false;
   }
 
@@ -282,10 +280,22 @@ bool CreateViewParams_Data::Validate(
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->browsing_context_group_info, 17, validation_context)) {
+          object->color_provider_colors, 17, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->color_provider_colors, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->browsing_context_group_info, 18, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->browsing_context_group_info, validation_context))
+    return false;
+
+
+  if (!::network::mojom::internal::AttributionSupport_Data
+        ::Validate(object->attribution_support, validation_context))
     return false;
 
   return true;
@@ -756,7 +766,7 @@ bool CreateNewWindowReply_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 96, validation_context)) {
+          data, 104, validation_context)) {
     return false;
   }
 
@@ -852,6 +862,13 @@ bool CreateNewWindowReply_Data::Validate(
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->browsing_context_group_info, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->color_provider_colors, 14, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->color_provider_colors, validation_context))
     return false;
 
   return true;
@@ -1557,7 +1574,7 @@ bool FrameHost_CreateChildFrame_Params_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 88, validation_context)) {
+          data, 96, validation_context)) {
     return false;
   }
 
@@ -1565,6 +1582,13 @@ bool FrameHost_CreateChildFrame_Params_Data::Validate(
   // the message comes from an older version.
   [[maybe_unused]] const FrameHost_CreateChildFrame_Params_Data* object =
       static_cast<const FrameHost_CreateChildFrame_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->child_frame_token, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->child_frame_token, validation_context))
+    return false;
 
   if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
           object->frame, 2, validation_context)) {

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -154,14 +155,17 @@ void PdfListenerProxy::SetCaretPosition(
                         "<value of type const ::gfx::PointF&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPdfListener_SetCaretPosition_Name, kFlags, 0, 0, nullptr);
@@ -202,14 +206,17 @@ void PdfListenerProxy::MoveRangeSelectionExtent(
                         "<value of type const ::gfx::PointF&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPdfListener_MoveRangeSelectionExtent_Name, kFlags, 0, 0, nullptr);
@@ -253,14 +260,17 @@ void PdfListenerProxy::SetSelectionBounds(
                         "<value of type const ::gfx::PointF&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPdfListener_SetSelectionBounds_Name, kFlags, 0, 0, nullptr);
@@ -412,14 +422,14 @@ bool PdfListenerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPdfListenerValidationInfo[] = {
-    {&internal::PdfListener_SetCaretPosition_Params_Data::Validate,
+    { &internal::PdfListener_SetCaretPosition_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PdfListener_MoveRangeSelectionExtent_Params_Data::Validate,
+    { &internal::PdfListener_MoveRangeSelectionExtent_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PdfListener_SetSelectionBounds_Params_Data::Validate,
+    { &internal::PdfListener_SetSelectionBounds_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -599,14 +609,17 @@ void PdfServiceProxy::SetListener(
                         "<value of type ::mojo::PendingRemote<PdfListener>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPdfService_SetListener_Name, kFlags, 0, 0, nullptr);
@@ -642,14 +655,17 @@ void PdfServiceProxy::UpdateContentRestrictions(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPdfService_UpdateContentRestrictions_Name, kFlags, 0, 0, nullptr);
@@ -673,14 +689,17 @@ void PdfServiceProxy::HasUnsupportedFeature(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send pdf::mojom::PdfService::HasUnsupportedFeature");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPdfService_HasUnsupportedFeature_Name, kFlags, 0, 0, nullptr);
@@ -713,14 +732,17 @@ void PdfServiceProxy::SaveUrlAs(
                         "<value of type ::network::mojom::ReferrerPolicy>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPdfService_SaveUrlAs_Name, kFlags, 0, 0, nullptr);
@@ -772,14 +794,17 @@ void PdfServiceProxy::SelectionChanged(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPdfService_SelectionChanged_Name, kFlags, 0, 0, nullptr);
@@ -833,14 +858,17 @@ void PdfServiceProxy::SetPluginCanSave(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPdfService_SetPluginCanSave_Name, kFlags, 0, 0, nullptr);
@@ -1068,20 +1096,20 @@ bool PdfServiceStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPdfServiceValidationInfo[] = {
-    {&internal::PdfService_SetListener_Params_Data::Validate,
+    { &internal::PdfService_SetListener_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PdfService_UpdateContentRestrictions_Params_Data::Validate,
+    { &internal::PdfService_UpdateContentRestrictions_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PdfService_HasUnsupportedFeature_Params_Data::Validate,
+    { &internal::PdfService_HasUnsupportedFeature_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PdfService_SaveUrlAs_Params_Data::Validate,
+    { &internal::PdfService_SaveUrlAs_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PdfService_SelectionChanged_Params_Data::Validate,
+    { &internal::PdfService_SelectionChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PdfService_SetPluginCanSave_Params_Data::Validate,
+    { &internal::PdfService_SetPluginCanSave_Params_Data::Validate,
      nullptr /* no response */},
 };
 

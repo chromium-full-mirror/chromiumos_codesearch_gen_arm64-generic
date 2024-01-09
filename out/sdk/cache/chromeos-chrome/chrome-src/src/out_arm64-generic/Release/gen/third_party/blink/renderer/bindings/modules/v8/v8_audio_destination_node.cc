@@ -68,11 +68,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, AudioDestinationNode>::value,
     "AudioDestinationNode inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&AudioDestinationNode::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "AudioDestinationNode is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -85,8 +80,9 @@ BLINK_BINDINGS_TRACE_EVENT("AudioDestinationNode.maxChannelCount.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-AudioDestinationNode* blink_receiver = V8AudioDestinationNode::ToWrappableUnsafe(v8_receiver);
+AudioDestinationNode* blink_receiver = V8AudioDestinationNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->maxChannelCount();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }

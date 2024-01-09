@@ -1,6 +1,6 @@
 import { getTrustedHTML } from '//resources/js/static_types.js';
 export function getTemplate() {
-    return getTrustedHTML `<!--_html_template_start_--><style>.table{width:100%}button{font-size:125%;font-weight:700;padding:5px;margin-top:5px;border:1px solid rgba(0,0,0,.06);width:100%}button:hover{filter:brightness(90%)}button:active{filter:brightness(85%)}@media only screen and (min-width:711px){.table{display:table;border:1px solid rgba(0,0,0,.06)}header{display:table-row;background-color:#f0f0f0;font-size:100%;font-weight:700}.cell{display:table-cell;padding:7px}#name-header{border-right:1px solid rgba(0,0,0,.06)}}@media only screen and (max-width:710px){header{display:none}.cell{display:block;border:none;padding:none}}</style>
+    return getTrustedHTML `<!--_html_template_start_--><style>.table{width:100%;box-sizing:border-box}button{background:var(--table-header);color:var(--text-color);font-size:125%;font-weight:700;padding:5px;border:1px solid var(--table-border);border-radius:0 0 var(--element-border-radius) var(--element-border-radius);box-sizing:border-box;width:100%}button:hover{filter:brightness(var(--action-row-button-hover-brightness))}button:active{filter:brightness(var(--action-row-button-active-brightness))}@media only screen and (min-width:711px){.table{display:table;border:1px solid var(--table-border);border-radius:var(--element-border-radius) var(--element-border-radius) 0 0;border-bottom:none}header{display:table-row;background-color:var(--table-header);font-size:100%}.cell{border-right:1px solid var(--table-border);display:table-cell;padding:12px 7px}#name-header{border-radius:var(--element-border-radius) 0 0 0}#header-remove-btn-cell{border-radius:0 var(--element-border-radius) 0 0;border-right:none}}@media only screen and (max-width:710px){header{display:none}.cell{display:block;border:none;padding:none}}</style>
 <div class="table" role="table">
   <header role="row">
     <div class="cell" id="name-header">$i18n{testTableName}</div>
@@ -9,7 +9,7 @@ export function getTemplate() {
     <div class="cell">$i18n{testTableSource}</div>
     <div class="cell">$i18n{testTableScope}</div>
     <div class="cell">$i18n{testTableLevel}</div>
-    <div class="cell"></div>
+    <div class="cell" id="header-remove-btn-cell"></div>
   </header>
   <policy-test-row></policy-test-row>
 </div>

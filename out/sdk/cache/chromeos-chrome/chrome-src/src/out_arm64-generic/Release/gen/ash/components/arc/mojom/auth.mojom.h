@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "ash/components/arc/mojom/auth.mojom-features.h"
 #include "ash/components/arc/mojom/auth.mojom-shared.h"
 #include "ash/components/arc/mojom/auth.mojom-forward.h"
 #include <string>
@@ -575,33 +576,33 @@ class  ArcSignInError {
   // Construct an instance holding |cloud_provision_flow_error|.
   static ArcSignInErrorPtr
   NewCloudProvisionFlowError(
-      CloudProvisionFlowError cloud_provision_flow_error) {
+      CloudProvisionFlowError value) {
     auto result = ArcSignInErrorPtr(absl::in_place);
-    result->set_cloud_provision_flow_error(std::move(cloud_provision_flow_error));
+    result->set_cloud_provision_flow_error(std::move(value));
     return result;
   }
   // Construct an instance holding |general_error|.
   static ArcSignInErrorPtr
   NewGeneralError(
-      GeneralSignInError general_error) {
+      GeneralSignInError value) {
     auto result = ArcSignInErrorPtr(absl::in_place);
-    result->set_general_error(std::move(general_error));
+    result->set_general_error(std::move(value));
     return result;
   }
   // Construct an instance holding |sign_in_error|.
   static ArcSignInErrorPtr
   NewSignInError(
-      GMSSignInError sign_in_error) {
+      GMSSignInError value) {
     auto result = ArcSignInErrorPtr(absl::in_place);
-    result->set_sign_in_error(std::move(sign_in_error));
+    result->set_sign_in_error(std::move(value));
     return result;
   }
   // Construct an instance holding |check_in_error|.
   static ArcSignInErrorPtr
   NewCheckInError(
-      GMSCheckInError check_in_error) {
+      GMSCheckInError value) {
     auto result = ArcSignInErrorPtr(absl::in_place);
-    result->set_check_in_error(std::move(check_in_error));
+    result->set_check_in_error(std::move(value));
     return result;
   }
 
@@ -744,17 +745,17 @@ class  ArcSignInResult {
   // Construct an instance holding |success|.
   static ArcSignInResultPtr
   NewSuccess(
-      ArcSignInSuccess success) {
+      ArcSignInSuccess value) {
     auto result = ArcSignInResultPtr(absl::in_place);
-    result->set_success(std::move(success));
+    result->set_success(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static ArcSignInResultPtr
   NewError(
-      ArcSignInErrorPtr error) {
+      ArcSignInErrorPtr value) {
     auto result = ArcSignInResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 
@@ -874,17 +875,17 @@ class  ArcSignInAccount {
   // Construct an instance holding |initial_signin|.
   static ArcSignInAccountPtr
   NewInitialSignin(
-      uint8_t initial_signin) {
+      uint8_t value) {
     auto result = ArcSignInAccountPtr(absl::in_place);
-    result->set_initial_signin(std::move(initial_signin));
+    result->set_initial_signin(std::move(value));
     return result;
   }
   // Construct an instance holding |account_name|.
   static ArcSignInAccountPtr
   NewAccountName(
-      const absl::optional<std::string>& account_name) {
+      const std::optional<std::string>& value) {
     auto result = ArcSignInAccountPtr(absl::in_place);
-    result->set_account_name(std::move(account_name));
+    result->set_account_name(std::move(value));
     return result;
   }
 
@@ -945,14 +946,14 @@ class  ArcSignInAccount {
   bool is_account_name() const { return tag_ == Tag::kAccountName; }
 
   
-  absl::optional<std::string>& get_account_name() const {
+  std::optional<std::string>& get_account_name() const {
     CHECK(tag_ == Tag::kAccountName);
     return *(data_.account_name);
   }
 
   
   void set_account_name(
-      const absl::optional<std::string>& account_name);
+      const std::optional<std::string>& account_name);
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
@@ -972,7 +973,7 @@ class  ArcSignInAccount {
     Union_() = default;
     ~Union_() = default;
     uint8_t initial_signin;
-    absl::optional<std::string>* account_name;
+    std::optional<std::string>* account_name;
   };
 
   static bool Validate(const void* data,
@@ -1014,22 +1015,22 @@ class  AccountInfo {
   AccountInfo();
 
   AccountInfo(
-      const absl::optional<std::string>& auth_code,
+      const std::optional<std::string>& auth_code,
       ChromeAccountType account_type,
       bool is_managed);
 
   AccountInfo(
-      const absl::optional<std::string>& auth_code,
+      const std::optional<std::string>& auth_code,
       ChromeAccountType account_type,
       bool is_managed,
-      const absl::optional<std::string>& DEPRECATED_enrollment_token);
+      const std::optional<std::string>& DEPRECATED_enrollment_token);
 
   AccountInfo(
-      const absl::optional<std::string>& auth_code,
+      const std::optional<std::string>& auth_code,
       ChromeAccountType account_type,
       bool is_managed,
-      const absl::optional<std::string>& DEPRECATED_enrollment_token,
-      const absl::optional<std::string>& account_name);
+      const std::optional<std::string>& DEPRECATED_enrollment_token,
+      const std::optional<std::string>& account_name);
 
 
   ~AccountInfo();
@@ -1107,15 +1108,15 @@ class  AccountInfo {
   }
 
   
-  absl::optional<std::string> auth_code;
+  std::optional<std::string> auth_code;
   
   ChromeAccountType account_type;
   
   bool is_managed;
   
-  absl::optional<std::string> DEPRECATED_enrollment_token;
+  std::optional<std::string> DEPRECATED_enrollment_token;
   
-  absl::optional<std::string> account_name;
+  std::optional<std::string> account_name;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1451,7 +1452,7 @@ struct  UnionTraits<::arc::mojom::ArcSignInAccount::DataView,
     return input->get_initial_signin();
   }
 
-  static const absl::optional<std::string>& account_name(const ::arc::mojom::ArcSignInAccountPtr& input) {
+  static const std::optional<std::string>& account_name(const ::arc::mojom::ArcSignInAccountPtr& input) {
     return input->get_account_name();
   }
 

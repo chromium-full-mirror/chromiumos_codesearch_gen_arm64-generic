@@ -5,12 +5,15 @@ import * as TextUtils from '../../models/text_utils/text_utils.js';
 import * as Common from '../common/common.js';
 import * as i18n from '../i18n/i18n.js';
 import * as Platform from '../platform/platform.js';
-import * as HttpReasonPhraseStrings from './HttpReasonPhraseStrings.js';
+import { ContentData as ContentDataClass } from './ContentData.js';
 import { Attributes } from './Cookie.js';
+import { CookieModel } from './CookieModel.js';
 import { CookieParser } from './CookieParser.js';
-import { NetworkManager, Events as NetworkManagerEvents } from './NetworkManager.js';
-import { Type } from './Target.js';
+import * as HttpReasonPhraseStrings from './HttpReasonPhraseStrings.js';
+import { parseContentType } from './MimeType.js';
+import { Events as NetworkManagerEvents, NetworkManager } from './NetworkManager.js';
 import { ServerTiming } from './ServerTiming.js';
+import { Type } from './Target.js';
 // clang-format off
 const UIStrings = {
     /**
@@ -52,6 +55,10 @@ const UIStrings = {
     /**
      *@description Tooltip to explain why a cookie was blocked
      */
+    thirdPartyPhaseout: 'This cookie was blocked due to third-party cookie phaseout. Learn more in the Issues tab.',
+    /**
+     *@description Tooltip to explain why a cookie was blocked
+     */
     unknownError: 'An unknown error was encountered when trying to send this cookie.',
     /**
      *@description Tooltip to explain why a cookie was blocked due to Schemeful Same-Site
@@ -77,6 +84,10 @@ const UIStrings = {
      *@description Tooltip to explain why an attempt to set a cookie via `Set-Cookie` HTTP header on a request's response was blocked.
      */
     thisSetcookieWasBlockedDueToUser: 'This attempt to set a cookie via a `Set-Cookie` header was blocked due to user preferences.',
+    /**
+     *@description Tooltip to explain why an attempt to set a cookie via `Set-Cookie` HTTP header on a request's response was blocked.
+     */
+    thisSetcookieWasBlockedDueThirdPartyPhaseout: 'Setting this cookie was blocked due to third-party cookie phaseout. Learn more in the Issues tab.',
     /**
      *@description Tooltip to explain why an attempt to set a cookie via `Set-Cookie` HTTP header on a request's response was blocked.
      */
@@ -152,21 +163,6 @@ const UIStrings = {
 // clang-format on
 const str_ = i18n.i18n.registerUIStrings('core/sdk/NetworkRequest.ts', UIStrings);
 const i18nString = i18n.i18n.getLocalizedString.bind(undefined, str_);
-// TODO(crbug.com/1167717): Make this a const enum again
-// eslint-disable-next-line rulesdir/const_enum, @typescript-eslint/naming-convention
-export var MIME_TYPE;
-(function (MIME_TYPE) {
-    MIME_TYPE["HTML"] = "text/html";
-    MIME_TYPE["XML"] = "text/xml";
-    MIME_TYPE["PLAIN"] = "text/plain";
-    MIME_TYPE["XHTML"] = "application/xhtml+xml";
-    MIME_TYPE["SVG"] = "image/svg+xml";
-    MIME_TYPE["CSS"] = "text/css";
-    MIME_TYPE["XSL"] = "text/xsl";
-    MIME_TYPE["VTT"] = "text/vtt";
-    MIME_TYPE["PDF"] = "application/pdf";
-    MIME_TYPE["EVENTSTREAM"] = "text/event-stream";
-})(MIME_TYPE || (MIME_TYPE = {}));
 export class NetworkRequest extends Common.ObjectWrapper.ObjectWrapper {
     #requestIdInternal;
     #backendRequestIdInternal;
@@ -252,6 +248,7 @@ export class NetworkRequest extends Common.ObjectWrapper.ObjectWrapper {
     #fromDiskCache;
     #fromPrefetchCacheInternal;
     #fetchedViaServiceWorkerInternal;
+    #serviceWorkerRouterInfoInternal;
     #timingInternal;
     #requestHeadersTextInternal;
     #responseHeadersInternal;
@@ -265,6 +262,7 @@ export class NetworkRequest extends Common.ObjectWrapper.ObjectWrapper {
     #wasIntercepted;
     #associatedData = new Map();
     #hasOverriddenContent;
+    #hasThirdPartyCookiePhaseoutIssue;
     constructor(requestId, backendRequestId, url, documentURL, frameId, loaderId, initiator, hasUserGesture) {
         super();
         this.#requestIdInternal = requestId;
@@ -329,6 +327,7 @@ export class NetworkRequest extends Common.ObjectWrapper.ObjectWrapper {
         this.#isSameSiteInternal = null;
         this.#wasIntercepted = false;
         this.#hasOverriddenContent = false;
+        this.#hasThirdPartyCookiePhaseoutIssue = false;
     }
     static create(backendRequestId, url, documentURL, frameId, loaderId, initiator, hasUserGesture) {
         return new NetworkRequest(backendRequestId, backendRequestId, url, documentURL, frameId, loaderId, initiator, hasUserGesture);
@@ -360,7 +359,7 @@ export class NetworkRequest extends Common.ObjectWrapper.ObjectWrapper {
         return this.#urlInternal;
     }
     isBlobRequest() {
-        return this.#urlInternal.startsWith('blob:');
+        return Common.ParsedURL.schemeIs(this.#urlInternal, 'blob:');
     }
     setUrl(x) {
         if (this.#urlInternal === x) {
@@ -582,6 +581,12 @@ export class NetworkRequest extends Common.ObjectWrapper.ObjectWrapper {
     }
     set fetchedViaServiceWorker(x) {
         this.#fetchedViaServiceWorkerInternal = x;
+    }
+    get serviceWorkerRouterInfo() {
+        return this.#serviceWorkerRouterInfoInternal;
+    }
+    set serviceWorkerRouterInfo(x) {
+        this.#serviceWorkerRouterInfoInternal = x;
     }
     /**
      * Returns true if the request was sent by a service worker.
@@ -816,8 +821,7 @@ export class NetworkRequest extends Common.ObjectWrapper.ObjectWrapper {
         }
         this.#sortedResponseHeadersInternal = this.responseHeaders.slice();
         return this.#sortedResponseHeadersInternal.sort(function (a, b) {
-            return Platform.StringUtilities.compare(a.name.toLowerCase(), b.name.toLowerCase()) ||
-                Platform.StringUtilities.compare(a.value, b.value);
+            return Platform.StringUtilities.compare(a.name.toLowerCase(), b.name.toLowerCase());
         });
     }
     get sortedOriginalResponseHeaders() {
@@ -826,8 +830,7 @@ export class NetworkRequest extends Common.ObjectWrapper.ObjectWrapper {
         }
         this.#sortedOriginalResponseHeaders = this.originalResponseHeaders.slice();
         return this.#sortedOriginalResponseHeaders.sort(function (a, b) {
-            return Platform.StringUtilities.compare(a.name.toLowerCase(), b.name.toLowerCase()) ||
-                Platform.StringUtilities.compare(a.value, b.value);
+            return Platform.StringUtilities.compare(a.name.toLowerCase(), b.name.toLowerCase());
         });
     }
     get overrideTypes() {
@@ -846,20 +849,32 @@ export class NetworkRequest extends Common.ObjectWrapper.ObjectWrapper {
     set hasOverriddenContent(value) {
         this.#hasOverriddenContent = value;
     }
+    #deduplicateHeaders(sortedHeaders) {
+        const dedupedHeaders = [];
+        for (const header of sortedHeaders) {
+            if (dedupedHeaders.length && dedupedHeaders[dedupedHeaders.length - 1].name === header.name) {
+                dedupedHeaders[dedupedHeaders.length - 1].value += `, ${header.value}`;
+            }
+            else {
+                dedupedHeaders.push({ name: header.name, value: header.value });
+            }
+        }
+        return dedupedHeaders;
+    }
     hasOverriddenHeaders() {
         if (!this.#originalResponseHeaders.length) {
             return false;
         }
-        const sortedResponseHeaders = this.sortedResponseHeaders;
-        const sortedOriginalResponseHeaders = this.sortedOriginalResponseHeaders;
-        if (sortedOriginalResponseHeaders.length !== sortedResponseHeaders.length) {
+        const responseHeaders = this.#deduplicateHeaders(this.sortedResponseHeaders);
+        const originalResponseHeaders = this.#deduplicateHeaders(this.sortedOriginalResponseHeaders);
+        if (responseHeaders.length !== originalResponseHeaders.length) {
             return true;
         }
-        for (let i = 0; i < sortedResponseHeaders.length; i++) {
-            if (sortedResponseHeaders[i].name.toLowerCase() !== sortedOriginalResponseHeaders[i].name.toLowerCase()) {
+        for (let i = 0; i < responseHeaders.length; i++) {
+            if (responseHeaders[i].name.toLowerCase() !== originalResponseHeaders[i].name.toLowerCase()) {
                 return true;
             }
-            if (sortedResponseHeaders[i].value !== sortedOriginalResponseHeaders[i].value) {
+            if (responseHeaders[i].value !== originalResponseHeaders[i].value) {
                 return true;
             }
         }
@@ -1075,26 +1090,17 @@ export class NetworkRequest extends Common.ObjectWrapper.ObjectWrapper {
         return this.#resourceTypeInternal;
     }
     async requestContent() {
-        const { content, error, encoded } = await this.contentData();
-        return {
-            content,
-            error,
-            isEncoded: encoded,
-        };
+        return ContentDataClass.asDeferredContent(await this.contentData());
     }
     async searchInContent(query, caseSensitive, isRegex) {
         if (!this.#contentDataProvider) {
             return NetworkManager.searchInRequest(this, query, caseSensitive, isRegex);
         }
         const contentData = await this.contentData();
-        let content = contentData.content;
-        if (!content) {
+        if (ContentDataClass.isError(contentData) || !contentData.resourceType.isTextType()) {
             return [];
         }
-        if (contentData.encoded) {
-            content = window.atob(content);
-        }
-        return TextUtils.TextUtils.performSearchInContent(content, query, caseSensitive, isRegex);
+        return TextUtils.TextUtils.performSearchInContent(contentData.text, query, caseSensitive, isRegex);
     }
     isHttpFamily() {
         return Boolean(this.url().match(/^https?:/i));
@@ -1136,8 +1142,11 @@ export class NetworkRequest extends Common.ObjectWrapper.ObjectWrapper {
         return this.#webBundleInnerRequestInfoInternal;
     }
     async populateImageSource(image) {
-        const { content, encoded } = await this.contentData();
-        let imageSrc = TextUtils.ContentProvider.contentAsDataURL(content, this.#mimeTypeInternal, encoded);
+        const contentData = await this.contentData();
+        if (ContentDataClass.isError(contentData)) {
+            return;
+        }
+        let imageSrc = contentData.asDataUrl();
         if (imageSrc === null && !this.#failedInternal) {
             const cacheControl = this.responseHeaderValue('cache-control') || '';
             if (!cacheControl.includes('no-cache')) {
@@ -1198,14 +1207,7 @@ export class NetworkRequest extends Common.ObjectWrapper.ObjectWrapper {
         if (!contentTypeHeader) {
             return null;
         }
-        const responseCharsets = contentTypeHeader.replace(/ /g, '')
-            .split(';')
-            .filter(parameter => parameter.toLowerCase().startsWith('charset='))
-            .map(parameter => parameter.slice('charset='.length));
-        if (responseCharsets.length) {
-            return responseCharsets[0];
-        }
-        return null;
+        return parseContentType(contentTypeHeader)?.charset;
     }
     addExtraRequestInfo(extraRequestInfo) {
         this.#blockedRequestCookiesInternal = extraRequestInfo.blockedRequestCookies;
@@ -1216,6 +1218,12 @@ export class NetworkRequest extends Common.ObjectWrapper.ObjectWrapper {
         this.#clientSecurityStateInternal = extraRequestInfo.clientSecurityState;
         this.setConnectTimingFromExtraInfo(extraRequestInfo.connectTiming);
         this.#siteHasCookieInOtherPartition = extraRequestInfo.siteHasCookieInOtherPartition ?? false;
+        for (const item of this.#blockedRequestCookiesInternal) {
+            if (item.blockedReasons.includes("ThirdPartyPhaseout" /* Protocol.Network.CookieBlockedReason.ThirdPartyPhaseout */)) {
+                this.#hasThirdPartyCookiePhaseoutIssue = true;
+                break;
+            }
+        }
     }
     hasExtraRequestInfo() {
         return this.#hasExtraRequestInfoInternal;
@@ -1270,13 +1278,31 @@ export class NetworkRequest extends Common.ObjectWrapper.ObjectWrapper {
         this.#hasExtraResponseInfoInternal = true;
         // TODO(crbug.com/1252463) Explore replacing this with a DevTools Issue.
         const networkManager = NetworkManager.forRequest(this);
-        if (networkManager) {
-            for (const blockedCookie of this.#blockedResponseCookiesInternal) {
-                if (blockedCookie.blockedReasons.includes("NameValuePairExceedsMaxSize" /* Protocol.Network.SetCookieBlockedReason.NameValuePairExceedsMaxSize */)) {
-                    const message = i18nString(UIStrings.setcookieHeaderIsIgnoredIn, { PH1: this.url() });
-                    networkManager.dispatchEventToListeners(NetworkManagerEvents.MessageGenerated, { message: message, requestId: this.#requestIdInternal, warning: true });
-                }
+        if (!networkManager) {
+            return;
+        }
+        for (const blockedCookie of this.#blockedResponseCookiesInternal) {
+            if (blockedCookie.blockedReasons.includes("NameValuePairExceedsMaxSize" /* Protocol.Network.SetCookieBlockedReason.NameValuePairExceedsMaxSize */)) {
+                const message = i18nString(UIStrings.setcookieHeaderIsIgnoredIn, { PH1: this.url() });
+                networkManager.dispatchEventToListeners(NetworkManagerEvents.MessageGenerated, { message: message, requestId: this.#requestIdInternal, warning: true });
             }
+        }
+        const cookieModel = networkManager.target().model(CookieModel);
+        if (!cookieModel) {
+            return;
+        }
+        for (const blockedCookie of this.#blockedResponseCookiesInternal) {
+            const cookie = blockedCookie.cookie;
+            if (!cookie) {
+                continue;
+            }
+            if (blockedCookie.blockedReasons.includes("ThirdPartyPhaseout" /* Protocol.Network.SetCookieBlockedReason.ThirdPartyPhaseout */)) {
+                this.#hasThirdPartyCookiePhaseoutIssue = true;
+            }
+            cookieModel.addBlockedCookie(cookie, blockedCookie.blockedReasons.map(blockedReason => ({
+                attribute: setCookieBlockedReasonToAttribute(blockedReason),
+                uiString: setCookieBlockedReasonToUiString(blockedReason),
+            })));
         }
     }
     hasExtraResponseInfo() {
@@ -1339,6 +1365,9 @@ export class NetworkRequest extends Common.ObjectWrapper.ObjectWrapper {
     }
     deleteAssociatedData(key) {
         this.#associatedData.delete(key);
+    }
+    hasThirdPartyCookiePhaseoutIssue() {
+        return this.#hasThirdPartyCookiePhaseoutIssue;
     }
 }
 // TODO(crbug.com/1167717): Make this a const enum again
@@ -1404,6 +1433,8 @@ export const cookieBlockedReasonToUiString = function (blockedReason) {
             return i18nString(UIStrings.samePartyFromCrossPartyContext);
         case "NameValuePairExceedsMaxSize" /* Protocol.Network.CookieBlockedReason.NameValuePairExceedsMaxSize */:
             return i18nString(UIStrings.nameValuePairExceedsMaxSize);
+        case "ThirdPartyPhaseout" /* Protocol.Network.CookieBlockedReason.ThirdPartyPhaseout */:
+            return i18nString(UIStrings.thirdPartyPhaseout);
     }
     return '';
 };
@@ -1447,6 +1478,8 @@ export const setCookieBlockedReasonToUiString = function (blockedReason) {
             return i18nString(UIStrings.thisSetcookieWasBlockedBecauseTheNameValuePairExceedsMaxSize);
         case "DisallowedCharacter" /* Protocol.Network.SetCookieBlockedReason.DisallowedCharacter */:
             return i18nString(UIStrings.thisSetcookieHadADisallowedCharacter);
+        case "ThirdPartyPhaseout" /* Protocol.Network.SetCookieBlockedReason.ThirdPartyPhaseout */:
+            return i18nString(UIStrings.thisSetcookieWasBlockedDueThirdPartyPhaseout);
     }
     return '';
 };
@@ -1469,6 +1502,7 @@ export const cookieBlockedReasonToAttribute = function (blockedReason) {
         case "SamePartyFromCrossPartyContext" /* Protocol.Network.CookieBlockedReason.SamePartyFromCrossPartyContext */:
         case "NameValuePairExceedsMaxSize" /* Protocol.Network.CookieBlockedReason.NameValuePairExceedsMaxSize */:
         case "UserPreferences" /* Protocol.Network.CookieBlockedReason.UserPreferences */:
+        case "ThirdPartyPhaseout" /* Protocol.Network.CookieBlockedReason.ThirdPartyPhaseout */:
         case "UnknownError" /* Protocol.Network.CookieBlockedReason.UnknownError */:
             return null;
     }
@@ -1495,6 +1529,7 @@ export const setCookieBlockedReasonToAttribute = function (blockedReason) {
         case "SamePartyFromCrossPartyContext" /* Protocol.Network.SetCookieBlockedReason.SamePartyFromCrossPartyContext */:
         case "NameValuePairExceedsMaxSize" /* Protocol.Network.SetCookieBlockedReason.NameValuePairExceedsMaxSize */:
         case "UserPreferences" /* Protocol.Network.SetCookieBlockedReason.UserPreferences */:
+        case "ThirdPartyPhaseout" /* Protocol.Network.SetCookieBlockedReason.ThirdPartyPhaseout */:
         case "SyntaxError" /* Protocol.Network.SetCookieBlockedReason.SyntaxError */:
         case "SchemeNotSupported" /* Protocol.Network.SetCookieBlockedReason.SchemeNotSupported */:
         case "UnknownError" /* Protocol.Network.SetCookieBlockedReason.UnknownError */:

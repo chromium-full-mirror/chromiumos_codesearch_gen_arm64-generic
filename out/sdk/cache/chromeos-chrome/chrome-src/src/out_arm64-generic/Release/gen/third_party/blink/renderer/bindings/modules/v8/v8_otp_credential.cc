@@ -69,11 +69,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, OTPCredential>::value,
     "OTPCredential inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&OTPCredential::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "OTPCredential is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -86,10 +81,10 @@ BLINK_BINDINGS_TRACE_EVENT("OTPCredential.code.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-OTPCredential* blink_receiver = V8OTPCredential::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->code();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+OTPCredential* blink_receiver = V8OTPCredential::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->code();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 

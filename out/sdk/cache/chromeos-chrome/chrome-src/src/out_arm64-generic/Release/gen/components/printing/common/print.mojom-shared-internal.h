@@ -554,7 +554,8 @@ class  PrintParams_Data {
   uint8_t prefer_css_page_size : 1;
   uint8_t generate_tagged_pdf_$flag : 1;
   uint8_t generate_tagged_pdf_$value : 1;
-  uint8_t pad17_[2];
+  uint8_t generate_document_outline : 1;
+  uint8_t pad18_[2];
   int32_t preview_ui_id;
   int32_t preview_request_id;
   int32_t print_scaling_option;

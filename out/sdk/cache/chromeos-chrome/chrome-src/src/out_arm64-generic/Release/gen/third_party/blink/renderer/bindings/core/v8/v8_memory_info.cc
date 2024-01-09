@@ -69,11 +69,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, MemoryInfo>::value,
     "MemoryInfo inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&MemoryInfo::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "MemoryInfo is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -92,7 +87,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8MemoryInfo_TotalJSHe
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MemoryInfo* blink_receiver = V8MemoryInfo::ToWrappableUnsafe(v8_receiver);
+MemoryInfo* blink_receiver = V8MemoryInfo::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->totalJSHeapSize();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint64_t>());
 }
@@ -111,7 +106,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8MemoryInfo_UsedJSHea
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MemoryInfo* blink_receiver = V8MemoryInfo::ToWrappableUnsafe(v8_receiver);
+MemoryInfo* blink_receiver = V8MemoryInfo::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->usedJSHeapSize();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint64_t>());
 }
@@ -130,7 +125,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8MemoryInfo_JSHeapSiz
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MemoryInfo* blink_receiver = V8MemoryInfo::ToWrappableUnsafe(v8_receiver);
+MemoryInfo* blink_receiver = V8MemoryInfo::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->jsHeapSizeLimit();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint64_t>());
 }

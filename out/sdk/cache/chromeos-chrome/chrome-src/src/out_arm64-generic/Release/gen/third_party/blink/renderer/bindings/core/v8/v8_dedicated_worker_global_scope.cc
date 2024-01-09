@@ -60,11 +60,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, DedicatedWorkerGlobalScope>::value,
     "DedicatedWorkerGlobalScope does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&DedicatedWorkerGlobalScope::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "DedicatedWorkerGlobalScope is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 // Cross-component trampolines
 V8DedicatedWorkerGlobalScope::InstallInterfaceTemplateFuncType V8DedicatedWorkerGlobalScope::install_interface_template_func_ = nullptr;

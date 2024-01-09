@@ -175,6 +175,57 @@ DevicePostureProvider_AddListenerAndGetCurrentViewportSegments_ResponseParams_Da
 
 
 // static
+bool DevicePostureProvider_OverrideDevicePostureForEmulation_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const DevicePostureProvider_OverrideDevicePostureForEmulation_Params_Data* object =
+      static_cast<const DevicePostureProvider_OverrideDevicePostureForEmulation_Params_Data*>(data);
+
+
+  if (!::device::mojom::internal::DevicePostureType_Data
+        ::Validate(object->posture, validation_context))
+    return false;
+
+  return true;
+}
+
+DevicePostureProvider_OverrideDevicePostureForEmulation_Params_Data::DevicePostureProvider_OverrideDevicePostureForEmulation_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool DevicePostureProvider_DisableDevicePostureOverrideForEmulation_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const DevicePostureProvider_DisableDevicePostureOverrideForEmulation_Params_Data* object =
+      static_cast<const DevicePostureProvider_DisableDevicePostureOverrideForEmulation_Params_Data*>(data);
+
+  return true;
+}
+
+DevicePostureProvider_DisableDevicePostureOverrideForEmulation_Params_Data::DevicePostureProvider_DisableDevicePostureOverrideForEmulation_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool DevicePostureClient_OnPostureChanged_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {

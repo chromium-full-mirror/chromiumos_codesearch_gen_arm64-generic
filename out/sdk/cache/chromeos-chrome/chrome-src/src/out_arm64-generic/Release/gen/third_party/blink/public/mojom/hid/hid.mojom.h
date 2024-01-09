@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/hid/hid.mojom-features.h"
 #include "third_party/blink/public/mojom/hid/hid.mojom-shared.h"
 #include "third_party/blink/public/mojom/hid/hid.mojom-forward.h"
 #include "services/device/public/mojom/hid.mojom.h"
@@ -362,17 +363,17 @@ class BLINK_COMMON_EXPORT DeviceIdFilter {
   // Construct an instance holding |vendor|.
   static DeviceIdFilterPtr
   NewVendor(
-      uint16_t vendor) {
+      uint16_t value) {
     auto result = DeviceIdFilterPtr(absl::in_place);
-    result->set_vendor(std::move(vendor));
+    result->set_vendor(std::move(value));
     return result;
   }
   // Construct an instance holding |vendor_and_product|.
   static DeviceIdFilterPtr
   NewVendorAndProduct(
-      VendorAndProductPtr vendor_and_product) {
+      VendorAndProductPtr value) {
     auto result = DeviceIdFilterPtr(absl::in_place);
-    result->set_vendor_and_product(std::move(vendor_and_product));
+    result->set_vendor_and_product(std::move(value));
     return result;
   }
 
@@ -493,17 +494,17 @@ class BLINK_COMMON_EXPORT UsageFilter {
   // Construct an instance holding |page|.
   static UsageFilterPtr
   NewPage(
-      uint16_t page) {
+      uint16_t value) {
     auto result = UsageFilterPtr(absl::in_place);
-    result->set_page(std::move(page));
+    result->set_page(std::move(value));
     return result;
   }
   // Construct an instance holding |usage_and_page|.
   static UsageFilterPtr
   NewUsageAndPage(
-      ::device::mojom::HidUsageAndPagePtr usage_and_page) {
+      ::device::mojom::HidUsageAndPagePtr value) {
     auto result = UsageFilterPtr(absl::in_place);
-    result->set_usage_and_page(std::move(usage_and_page));
+    result->set_usage_and_page(std::move(value));
     return result;
   }
 

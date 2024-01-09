@@ -25,6 +25,7 @@
 
 #include "chromeos/ash/services/nearby/public/mojom/nearby_connections.mojom-shared-internal.h"
 #include "chromeos/ash/services/nearby/public/mojom/nearby_connections_types.mojom-shared.h"
+#include "chromeos/ash/services/nearby/public/mojom/nearby_presence.mojom-shared.h"
 #include "mojo/public/mojom/base/file.mojom-shared.h"
 #include "mojo/public/mojom/base/read_only_file.mojom-shared.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
@@ -79,6 +80,26 @@ using PayloadListenerAssociatedPtrInfoDataView =
     mojo::AssociatedInterfacePtrInfoDataView<PayloadListenerInterfaceBase>;
 using PayloadListenerAssociatedRequestDataView =
     mojo::AssociatedInterfaceRequestDataView<PayloadListenerInterfaceBase>;
+class ConnectionListenerV3InterfaceBase {};
+
+using ConnectionListenerV3PtrDataView =
+    mojo::InterfacePtrDataView<ConnectionListenerV3InterfaceBase>;
+using ConnectionListenerV3RequestDataView =
+    mojo::InterfaceRequestDataView<ConnectionListenerV3InterfaceBase>;
+using ConnectionListenerV3AssociatedPtrInfoDataView =
+    mojo::AssociatedInterfacePtrInfoDataView<ConnectionListenerV3InterfaceBase>;
+using ConnectionListenerV3AssociatedRequestDataView =
+    mojo::AssociatedInterfaceRequestDataView<ConnectionListenerV3InterfaceBase>;
+class PayloadListenerV3InterfaceBase {};
+
+using PayloadListenerV3PtrDataView =
+    mojo::InterfacePtrDataView<PayloadListenerV3InterfaceBase>;
+using PayloadListenerV3RequestDataView =
+    mojo::InterfaceRequestDataView<PayloadListenerV3InterfaceBase>;
+using PayloadListenerV3AssociatedPtrInfoDataView =
+    mojo::AssociatedInterfacePtrInfoDataView<PayloadListenerV3InterfaceBase>;
+using PayloadListenerV3AssociatedRequestDataView =
+    mojo::AssociatedInterfaceRequestDataView<PayloadListenerV3InterfaceBase>;
 class NearbyConnectionsInterfaceBase {};
 
 using NearbyConnectionsPtrDataView =

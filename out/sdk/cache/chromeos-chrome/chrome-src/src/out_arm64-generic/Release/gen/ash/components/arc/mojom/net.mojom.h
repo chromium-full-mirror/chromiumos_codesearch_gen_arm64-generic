@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "ash/components/arc/mojom/net.mojom-features.h"
 #include "ash/components/arc/mojom/net.mojom-shared.h"
 #include "ash/components/arc/mojom/net.mojom-forward.h"
 #include "ash/components/arc/mojom/app.mojom-forward.h"
@@ -719,13 +720,13 @@ class  ConfiguredNetworkDetails {
   ConfiguredNetworkDetails();
 
   ConfiguredNetworkDetails(
-      const absl::optional<std::string>& passphrase,
+      const std::optional<std::string>& passphrase,
       bool autoconnect);
 
   ConfiguredNetworkDetails(
-      const absl::optional<std::string>& passphrase,
+      const std::optional<std::string>& passphrase,
       bool autoconnect,
-      const absl::optional<std::string>& bssid);
+      const std::optional<std::string>& bssid);
 
 
   ~ConfiguredNetworkDetails();
@@ -803,11 +804,11 @@ class  ConfiguredNetworkDetails {
   }
 
   
-  absl::optional<std::string> passphrase;
+  std::optional<std::string> passphrase;
   
   bool autoconnect;
   
-  absl::optional<std::string> bssid;
+  std::optional<std::string> bssid;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -870,8 +871,8 @@ class  PasspointRemovalProperties {
   PasspointRemovalProperties();
 
   PasspointRemovalProperties(
-      const absl::optional<std::string>& fqdn,
-      const absl::optional<std::string>& package_name);
+      const std::optional<std::string>& fqdn,
+      const std::optional<std::string>& package_name);
 
 
   ~PasspointRemovalProperties();
@@ -949,9 +950,9 @@ class  PasspointRemovalProperties {
   }
 
   
-  absl::optional<std::string> fqdn;
+  std::optional<std::string> fqdn;
   
-  absl::optional<std::string> package_name;
+  std::optional<std::string> package_name;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1162,8 +1163,8 @@ class  StaticIpv4Configuration {
   StaticIpv4Configuration();
 
   StaticIpv4Configuration(
-      const absl::optional<std::string>& ipv4_addr,
-      const absl::optional<std::string>& gateway_ipv4_addr,
+      const std::optional<std::string>& ipv4_addr,
+      const std::optional<std::string>& gateway_ipv4_addr,
       int32_t prefix_length);
 
 
@@ -1242,9 +1243,9 @@ class  StaticIpv4Configuration {
   }
 
   
-  absl::optional<std::string> ipv4_addr;
+  std::optional<std::string> ipv4_addr;
   
-  absl::optional<std::string> gateway_ipv4_addr;
+  std::optional<std::string> gateway_ipv4_addr;
   
   int32_t prefix_length;
 
@@ -1607,7 +1608,7 @@ class  LohsConfig {
       WifiBand band,
       SecurityType security_type,
       const std::string& hexssid,
-      const absl::optional<std::string>& passphrase);
+      const std::optional<std::string>& passphrase);
 
 
   ~LohsConfig();
@@ -1691,7 +1692,7 @@ class  LohsConfig {
   
   std::string hexssid;
   
-  absl::optional<std::string> passphrase;
+  std::optional<std::string> passphrase;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1759,7 +1760,7 @@ class  PasspointApprovalRequest {
   PasspointApprovalRequest(
       const std::string& package_name,
       const std::string& app_name,
-      const absl::optional<std::string>& friendly_name,
+      const std::optional<std::string>& friendly_name,
       int64_t subscription_expiration_time_ms);
 
 
@@ -1842,7 +1843,7 @@ class  PasspointApprovalRequest {
   
   std::string app_name;
   
-  absl::optional<std::string> friendly_name;
+  std::optional<std::string> friendly_name;
   
   int64_t subscription_expiration_time_ms;
 
@@ -2040,17 +2041,17 @@ class  NetworkDetails {
   // Construct an instance holding |visible|.
   static NetworkDetailsPtr
   NewVisible(
-      VisibleNetworkDetailsPtr visible) {
+      VisibleNetworkDetailsPtr value) {
     auto result = NetworkDetailsPtr(absl::in_place);
-    result->set_visible(std::move(visible));
+    result->set_visible(std::move(value));
     return result;
   }
   // Construct an instance holding |configured|.
   static NetworkDetailsPtr
   NewConfigured(
-      ConfiguredNetworkDetailsPtr configured) {
+      ConfiguredNetworkDetailsPtr value) {
     auto result = NetworkDetailsPtr(absl::in_place);
-    result->set_configured(std::move(configured));
+    result->set_configured(std::move(value));
     return result;
   }
 
@@ -2170,17 +2171,17 @@ class  ArcProxyInfo {
   // Construct an instance holding |manual_proxy|.
   static ArcProxyInfoPtr
   NewManualProxy(
-      ManualProxyConfigPtr manual_proxy) {
+      ManualProxyConfigPtr value) {
     auto result = ArcProxyInfoPtr(absl::in_place);
-    result->set_manual_proxy(std::move(manual_proxy));
+    result->set_manual_proxy(std::move(value));
     return result;
   }
   // Construct an instance holding |pac_url_proxy|.
   static ArcProxyInfoPtr
   NewPacUrlProxy(
-      PacUrlProxyConfigPtr pac_url_proxy) {
+      PacUrlProxyConfigPtr value) {
     auto result = ArcProxyInfoPtr(absl::in_place);
-    result->set_pac_url_proxy(std::move(pac_url_proxy));
+    result->set_pac_url_proxy(std::move(value));
     return result;
   }
 
@@ -2330,7 +2331,7 @@ class  PasspointCredentials {
       EapCredentialsPtr eap,
       bool metered,
       const std::string& package_name,
-      const absl::optional<std::string>& friendly_name,
+      const std::optional<std::string>& friendly_name,
       int64_t subscription_expiration_time_ms);
 
 PasspointCredentials(const PasspointCredentials&) = delete;
@@ -2427,7 +2428,7 @@ PasspointCredentials& operator=(const PasspointCredentials&) = delete;
   
   std::string package_name;
   
-  absl::optional<std::string> friendly_name;
+  std::optional<std::string> friendly_name;
   
   int64_t subscription_expiration_time_ms;
 
@@ -2494,17 +2495,17 @@ class  EapCredentials {
   EapCredentials(
       EapMethod method,
       EapPhase2Method phase2_method,
-      const absl::optional<std::string>& anonymous_identity,
-      const absl::optional<std::string>& identity,
-      const absl::optional<std::string>& password,
+      const std::optional<std::string>& anonymous_identity,
+      const std::optional<std::string>& identity,
+      const std::optional<std::string>& password,
       KeyManagement key_management,
-      absl::optional<std::vector<std::string>> ca_certificate_pem,
-      absl::optional<std::vector<std::string>> client_certificate_pem,
-      const absl::optional<std::string>& client_certificate_key,
-      const absl::optional<std::string>& subject_match,
-      absl::optional<std::vector<std::string>> subject_alternative_name_match_list,
-      absl::optional<std::vector<std::string>> domain_suffix_match_list,
-      const absl::optional<std::string>& tls_version_max,
+      std::optional<std::vector<std::string>> ca_certificate_pem,
+      std::optional<std::vector<std::string>> client_certificate_pem,
+      const std::optional<std::string>& client_certificate_key,
+      const std::optional<std::string>& subject_match,
+      std::optional<std::vector<std::string>> subject_alternative_name_match_list,
+      std::optional<std::vector<std::string>> domain_suffix_match_list,
+      const std::optional<std::string>& tls_version_max,
       bool use_system_cas,
       bool use_proactive_key_caching,
       bool use_login_password);
@@ -2589,27 +2590,27 @@ class  EapCredentials {
   
   EapPhase2Method phase2_method;
   
-  absl::optional<std::string> anonymous_identity;
+  std::optional<std::string> anonymous_identity;
   
-  absl::optional<std::string> identity;
+  std::optional<std::string> identity;
   
-  absl::optional<std::string> password;
+  std::optional<std::string> password;
   
   KeyManagement key_management;
   
-  absl::optional<std::vector<std::string>> ca_certificate_pem;
+  std::optional<std::vector<std::string>> ca_certificate_pem;
   
-  absl::optional<std::vector<std::string>> client_certificate_pem;
+  std::optional<std::vector<std::string>> client_certificate_pem;
   
-  absl::optional<std::string> client_certificate_key;
+  std::optional<std::string> client_certificate_key;
   
-  absl::optional<std::string> subject_match;
+  std::optional<std::string> subject_match;
   
-  absl::optional<std::vector<std::string>> subject_alternative_name_match_list;
+  std::optional<std::vector<std::string>> subject_alternative_name_match_list;
   
-  absl::optional<std::vector<std::string>> domain_suffix_match_list;
+  std::optional<std::vector<std::string>> domain_suffix_match_list;
   
-  absl::optional<std::string> tls_version_max;
+  std::optional<std::string> tls_version_max;
   
   bool use_system_cas;
   
@@ -2844,7 +2845,7 @@ class  WiFi {
       SecurityType security,
       int32_t signal_strength,
       bool is_passpoint,
-      const absl::optional<std::string>& fqdn);
+      const std::optional<std::string>& fqdn);
 
   WiFi(
       const std::string& bssid,
@@ -2854,7 +2855,7 @@ class  WiFi {
       SecurityType security,
       int32_t signal_strength,
       bool is_passpoint,
-      const absl::optional<std::string>& fqdn,
+      const std::optional<std::string>& fqdn,
       int16_t rssi);
 
 
@@ -2947,7 +2948,7 @@ class  WiFi {
   
   bool is_passpoint;
   
-  absl::optional<std::string> fqdn;
+  std::optional<std::string> fqdn;
   
   int16_t rssi;
 
@@ -3013,16 +3014,16 @@ class  NetworkConfiguration {
   NetworkConfiguration(
       ConnectionStateType connection_state,
       const std::string& guid,
-      absl::optional<std::vector<IPConfigurationPtr>> deprecated_ip_configs,
-      const absl::optional<std::string>& deprecated_mac_address,
+      std::optional<std::vector<IPConfigurationPtr>> deprecated_ip_configs,
+      const std::optional<std::string>& deprecated_mac_address,
       NetworkType type,
       WiFiPtr wifi);
 
   NetworkConfiguration(
       ConnectionStateType connection_state,
       const std::string& guid,
-      absl::optional<std::vector<IPConfigurationPtr>> deprecated_ip_configs,
-      const absl::optional<std::string>& deprecated_mac_address,
+      std::optional<std::vector<IPConfigurationPtr>> deprecated_ip_configs,
+      const std::optional<std::string>& deprecated_mac_address,
       NetworkType type,
       WiFiPtr wifi,
       TetheringClientState deprecated_tethering_client_state);
@@ -3030,172 +3031,172 @@ class  NetworkConfiguration {
   NetworkConfiguration(
       ConnectionStateType connection_state,
       const std::string& guid,
-      absl::optional<std::vector<IPConfigurationPtr>> deprecated_ip_configs,
-      const absl::optional<std::string>& deprecated_mac_address,
+      std::optional<std::vector<IPConfigurationPtr>> deprecated_ip_configs,
+      const std::optional<std::string>& deprecated_mac_address,
       NetworkType type,
       WiFiPtr wifi,
       TetheringClientState deprecated_tethering_client_state,
-      const absl::optional<std::string>& network_interface);
+      const std::optional<std::string>& network_interface);
 
   NetworkConfiguration(
       ConnectionStateType connection_state,
       const std::string& guid,
-      absl::optional<std::vector<IPConfigurationPtr>> deprecated_ip_configs,
-      const absl::optional<std::string>& deprecated_mac_address,
+      std::optional<std::vector<IPConfigurationPtr>> deprecated_ip_configs,
+      const std::optional<std::string>& deprecated_mac_address,
       NetworkType type,
       WiFiPtr wifi,
       TetheringClientState deprecated_tethering_client_state,
-      const absl::optional<std::string>& network_interface,
+      const std::optional<std::string>& network_interface,
       bool is_default_network);
 
   NetworkConfiguration(
       ConnectionStateType connection_state,
       const std::string& guid,
-      absl::optional<std::vector<IPConfigurationPtr>> deprecated_ip_configs,
-      const absl::optional<std::string>& deprecated_mac_address,
+      std::optional<std::vector<IPConfigurationPtr>> deprecated_ip_configs,
+      const std::optional<std::string>& deprecated_mac_address,
       NetworkType type,
       WiFiPtr wifi,
       TetheringClientState deprecated_tethering_client_state,
-      const absl::optional<std::string>& network_interface,
+      const std::optional<std::string>& network_interface,
       bool is_default_network,
-      const absl::optional<std::string>& service_name);
+      const std::optional<std::string>& service_name);
 
   NetworkConfiguration(
       ConnectionStateType connection_state,
       const std::string& guid,
-      absl::optional<std::vector<IPConfigurationPtr>> deprecated_ip_configs,
-      const absl::optional<std::string>& deprecated_mac_address,
+      std::optional<std::vector<IPConfigurationPtr>> deprecated_ip_configs,
+      const std::optional<std::string>& deprecated_mac_address,
       NetworkType type,
       WiFiPtr wifi,
       TetheringClientState deprecated_tethering_client_state,
-      const absl::optional<std::string>& network_interface,
+      const std::optional<std::string>& network_interface,
       bool is_default_network,
-      const absl::optional<std::string>& service_name,
+      const std::optional<std::string>& service_name,
       uint32_t host_mtu,
       uint32_t host_ipv4_prefix_length,
-      const absl::optional<std::string>& host_ipv4_address,
-      const absl::optional<std::string>& host_ipv4_gateway,
+      const std::optional<std::string>& host_ipv4_address,
+      const std::optional<std::string>& host_ipv4_gateway,
       uint32_t host_ipv6_prefix_length,
-      absl::optional<std::vector<std::string>> host_ipv6_global_addresses,
-      const absl::optional<std::string>& host_ipv6_gateway,
-      absl::optional<std::vector<std::string>> host_dns_addresses,
-      absl::optional<std::vector<std::string>> host_search_domains,
+      std::optional<std::vector<std::string>> host_ipv6_global_addresses,
+      const std::optional<std::string>& host_ipv6_gateway,
+      std::optional<std::vector<std::string>> host_dns_addresses,
+      std::optional<std::vector<std::string>> host_search_domains,
       uint32_t arc_ipv4_prefix_length,
-      const absl::optional<std::string>& arc_ipv4_address,
-      const absl::optional<std::string>& arc_ipv4_gateway,
-      const absl::optional<std::string>& arc_network_interface);
+      const std::optional<std::string>& arc_ipv4_address,
+      const std::optional<std::string>& arc_ipv4_gateway,
+      const std::optional<std::string>& arc_network_interface);
 
   NetworkConfiguration(
       ConnectionStateType connection_state,
       const std::string& guid,
-      absl::optional<std::vector<IPConfigurationPtr>> deprecated_ip_configs,
-      const absl::optional<std::string>& deprecated_mac_address,
+      std::optional<std::vector<IPConfigurationPtr>> deprecated_ip_configs,
+      const std::optional<std::string>& deprecated_mac_address,
       NetworkType type,
       WiFiPtr wifi,
       TetheringClientState deprecated_tethering_client_state,
-      const absl::optional<std::string>& network_interface,
+      const std::optional<std::string>& network_interface,
       bool is_default_network,
-      const absl::optional<std::string>& service_name,
+      const std::optional<std::string>& service_name,
       uint32_t host_mtu,
       uint32_t host_ipv4_prefix_length,
-      const absl::optional<std::string>& host_ipv4_address,
-      const absl::optional<std::string>& host_ipv4_gateway,
+      const std::optional<std::string>& host_ipv4_address,
+      const std::optional<std::string>& host_ipv4_gateway,
       uint32_t host_ipv6_prefix_length,
-      absl::optional<std::vector<std::string>> host_ipv6_global_addresses,
-      const absl::optional<std::string>& host_ipv6_gateway,
-      absl::optional<std::vector<std::string>> host_dns_addresses,
-      absl::optional<std::vector<std::string>> host_search_domains,
+      std::optional<std::vector<std::string>> host_ipv6_global_addresses,
+      const std::optional<std::string>& host_ipv6_gateway,
+      std::optional<std::vector<std::string>> host_dns_addresses,
+      std::optional<std::vector<std::string>> host_search_domains,
       uint32_t arc_ipv4_prefix_length,
-      const absl::optional<std::string>& arc_ipv4_address,
-      const absl::optional<std::string>& arc_ipv4_gateway,
-      const absl::optional<std::string>& arc_network_interface,
+      const std::optional<std::string>& arc_ipv4_address,
+      const std::optional<std::string>& arc_ipv4_gateway,
+      const std::optional<std::string>& arc_network_interface,
       bool is_metered);
 
   NetworkConfiguration(
       ConnectionStateType connection_state,
       const std::string& guid,
-      absl::optional<std::vector<IPConfigurationPtr>> deprecated_ip_configs,
-      const absl::optional<std::string>& deprecated_mac_address,
+      std::optional<std::vector<IPConfigurationPtr>> deprecated_ip_configs,
+      const std::optional<std::string>& deprecated_mac_address,
       NetworkType type,
       WiFiPtr wifi,
       TetheringClientState deprecated_tethering_client_state,
-      const absl::optional<std::string>& network_interface,
+      const std::optional<std::string>& network_interface,
       bool is_default_network,
-      const absl::optional<std::string>& service_name,
+      const std::optional<std::string>& service_name,
       uint32_t host_mtu,
       uint32_t host_ipv4_prefix_length,
-      const absl::optional<std::string>& host_ipv4_address,
-      const absl::optional<std::string>& host_ipv4_gateway,
+      const std::optional<std::string>& host_ipv4_address,
+      const std::optional<std::string>& host_ipv4_gateway,
       uint32_t host_ipv6_prefix_length,
-      absl::optional<std::vector<std::string>> host_ipv6_global_addresses,
-      const absl::optional<std::string>& host_ipv6_gateway,
-      absl::optional<std::vector<std::string>> host_dns_addresses,
-      absl::optional<std::vector<std::string>> host_search_domains,
+      std::optional<std::vector<std::string>> host_ipv6_global_addresses,
+      const std::optional<std::string>& host_ipv6_gateway,
+      std::optional<std::vector<std::string>> host_dns_addresses,
+      std::optional<std::vector<std::string>> host_search_domains,
       uint32_t arc_ipv4_prefix_length,
-      const absl::optional<std::string>& arc_ipv4_address,
-      const absl::optional<std::string>& arc_ipv4_gateway,
-      const absl::optional<std::string>& arc_network_interface,
+      const std::optional<std::string>& arc_ipv4_address,
+      const std::optional<std::string>& arc_ipv4_gateway,
+      const std::optional<std::string>& arc_network_interface,
       bool is_metered,
-      absl::optional<std::vector<std::string>> include_routes,
-      absl::optional<std::vector<std::string>> exclude_routes);
+      std::optional<std::vector<std::string>> include_routes,
+      std::optional<std::vector<std::string>> exclude_routes);
 
   NetworkConfiguration(
       ConnectionStateType connection_state,
       const std::string& guid,
-      absl::optional<std::vector<IPConfigurationPtr>> deprecated_ip_configs,
-      const absl::optional<std::string>& deprecated_mac_address,
+      std::optional<std::vector<IPConfigurationPtr>> deprecated_ip_configs,
+      const std::optional<std::string>& deprecated_mac_address,
       NetworkType type,
       WiFiPtr wifi,
       TetheringClientState deprecated_tethering_client_state,
-      const absl::optional<std::string>& network_interface,
+      const std::optional<std::string>& network_interface,
       bool is_default_network,
-      const absl::optional<std::string>& service_name,
+      const std::optional<std::string>& service_name,
       uint32_t host_mtu,
       uint32_t host_ipv4_prefix_length,
-      const absl::optional<std::string>& host_ipv4_address,
-      const absl::optional<std::string>& host_ipv4_gateway,
+      const std::optional<std::string>& host_ipv4_address,
+      const std::optional<std::string>& host_ipv4_gateway,
       uint32_t host_ipv6_prefix_length,
-      absl::optional<std::vector<std::string>> host_ipv6_global_addresses,
-      const absl::optional<std::string>& host_ipv6_gateway,
-      absl::optional<std::vector<std::string>> host_dns_addresses,
-      absl::optional<std::vector<std::string>> host_search_domains,
+      std::optional<std::vector<std::string>> host_ipv6_global_addresses,
+      const std::optional<std::string>& host_ipv6_gateway,
+      std::optional<std::vector<std::string>> host_dns_addresses,
+      std::optional<std::vector<std::string>> host_search_domains,
       uint32_t arc_ipv4_prefix_length,
-      const absl::optional<std::string>& arc_ipv4_address,
-      const absl::optional<std::string>& arc_ipv4_gateway,
-      const absl::optional<std::string>& arc_network_interface,
+      const std::optional<std::string>& arc_ipv4_address,
+      const std::optional<std::string>& arc_ipv4_gateway,
+      const std::optional<std::string>& arc_network_interface,
       bool is_metered,
-      absl::optional<std::vector<std::string>> include_routes,
-      absl::optional<std::vector<std::string>> exclude_routes,
-      absl::optional<std::vector<std::string>> dns_proxy_addresses);
+      std::optional<std::vector<std::string>> include_routes,
+      std::optional<std::vector<std::string>> exclude_routes,
+      std::optional<std::vector<std::string>> dns_proxy_addresses);
 
   NetworkConfiguration(
       ConnectionStateType connection_state,
       const std::string& guid,
-      absl::optional<std::vector<IPConfigurationPtr>> deprecated_ip_configs,
-      const absl::optional<std::string>& deprecated_mac_address,
+      std::optional<std::vector<IPConfigurationPtr>> deprecated_ip_configs,
+      const std::optional<std::string>& deprecated_mac_address,
       NetworkType type,
       WiFiPtr wifi,
       TetheringClientState deprecated_tethering_client_state,
-      const absl::optional<std::string>& network_interface,
+      const std::optional<std::string>& network_interface,
       bool is_default_network,
-      const absl::optional<std::string>& service_name,
+      const std::optional<std::string>& service_name,
       uint32_t host_mtu,
       uint32_t host_ipv4_prefix_length,
-      const absl::optional<std::string>& host_ipv4_address,
-      const absl::optional<std::string>& host_ipv4_gateway,
+      const std::optional<std::string>& host_ipv4_address,
+      const std::optional<std::string>& host_ipv4_gateway,
       uint32_t host_ipv6_prefix_length,
-      absl::optional<std::vector<std::string>> host_ipv6_global_addresses,
-      const absl::optional<std::string>& host_ipv6_gateway,
-      absl::optional<std::vector<std::string>> host_dns_addresses,
-      absl::optional<std::vector<std::string>> host_search_domains,
+      std::optional<std::vector<std::string>> host_ipv6_global_addresses,
+      const std::optional<std::string>& host_ipv6_gateway,
+      std::optional<std::vector<std::string>> host_dns_addresses,
+      std::optional<std::vector<std::string>> host_search_domains,
       uint32_t arc_ipv4_prefix_length,
-      const absl::optional<std::string>& arc_ipv4_address,
-      const absl::optional<std::string>& arc_ipv4_gateway,
-      const absl::optional<std::string>& arc_network_interface,
+      const std::optional<std::string>& arc_ipv4_address,
+      const std::optional<std::string>& arc_ipv4_gateway,
+      const std::optional<std::string>& arc_network_interface,
       bool is_metered,
-      absl::optional<std::vector<std::string>> include_routes,
-      absl::optional<std::vector<std::string>> exclude_routes,
-      absl::optional<std::vector<std::string>> dns_proxy_addresses,
+      std::optional<std::vector<std::string>> include_routes,
+      std::optional<std::vector<std::string>> exclude_routes,
+      std::optional<std::vector<std::string>> dns_proxy_addresses,
       LinkSpeedPtr link_speed);
 
 NetworkConfiguration(const NetworkConfiguration&) = delete;
@@ -3280,9 +3281,9 @@ NetworkConfiguration& operator=(const NetworkConfiguration&) = delete;
   
   std::string guid;
   
-  absl::optional<std::vector<IPConfigurationPtr>> deprecated_ip_configs;
+  std::optional<std::vector<IPConfigurationPtr>> deprecated_ip_configs;
   
-  absl::optional<std::string> deprecated_mac_address;
+  std::optional<std::string> deprecated_mac_address;
   
   NetworkType type;
   
@@ -3290,45 +3291,45 @@ NetworkConfiguration& operator=(const NetworkConfiguration&) = delete;
   
   TetheringClientState deprecated_tethering_client_state;
   
-  absl::optional<std::string> network_interface;
+  std::optional<std::string> network_interface;
   
   bool is_default_network;
   
-  absl::optional<std::string> service_name;
+  std::optional<std::string> service_name;
   
   uint32_t host_mtu;
   
   uint32_t host_ipv4_prefix_length;
   
-  absl::optional<std::string> host_ipv4_address;
+  std::optional<std::string> host_ipv4_address;
   
-  absl::optional<std::string> host_ipv4_gateway;
+  std::optional<std::string> host_ipv4_gateway;
   
   uint32_t host_ipv6_prefix_length;
   
-  absl::optional<std::vector<std::string>> host_ipv6_global_addresses;
+  std::optional<std::vector<std::string>> host_ipv6_global_addresses;
   
-  absl::optional<std::string> host_ipv6_gateway;
+  std::optional<std::string> host_ipv6_gateway;
   
-  absl::optional<std::vector<std::string>> host_dns_addresses;
+  std::optional<std::vector<std::string>> host_dns_addresses;
   
-  absl::optional<std::vector<std::string>> host_search_domains;
+  std::optional<std::vector<std::string>> host_search_domains;
   
   uint32_t arc_ipv4_prefix_length;
   
-  absl::optional<std::string> arc_ipv4_address;
+  std::optional<std::string> arc_ipv4_address;
   
-  absl::optional<std::string> arc_ipv4_gateway;
+  std::optional<std::string> arc_ipv4_gateway;
   
-  absl::optional<std::string> arc_network_interface;
+  std::optional<std::string> arc_network_interface;
   
   bool is_metered;
   
-  absl::optional<std::vector<std::string>> include_routes;
+  std::optional<std::vector<std::string>> include_routes;
   
-  absl::optional<std::vector<std::string>> exclude_routes;
+  std::optional<std::vector<std::string>> exclude_routes;
   
-  absl::optional<std::vector<std::string>> dns_proxy_addresses;
+  std::optional<std::vector<std::string>> dns_proxy_addresses;
   
   LinkSpeedPtr link_speed;
 
@@ -3400,7 +3401,7 @@ class  WifiConfiguration {
       const std::string& ssid);
 
   WifiConfiguration(
-      const absl::optional<std::string>& guid,
+      const std::optional<std::string>& guid,
       const std::string& security,
       int32_t frequency,
       int32_t signal_strength,
@@ -3408,8 +3409,8 @@ class  WifiConfiguration {
       const std::string& ssid);
 
   WifiConfiguration(
-      const absl::optional<std::string>& hexssid,
-      const absl::optional<std::string>& guid,
+      const std::optional<std::string>& hexssid,
+      const std::optional<std::string>& guid,
       const std::string& security,
       NetworkDetailsPtr details,
       int32_t frequency,
@@ -3418,8 +3419,8 @@ class  WifiConfiguration {
       const std::string& ssid);
 
   WifiConfiguration(
-      const absl::optional<std::string>& hexssid,
-      const absl::optional<std::string>& guid,
+      const std::optional<std::string>& hexssid,
+      const std::optional<std::string>& guid,
       const std::string& security,
       NetworkDetailsPtr details,
       int32_t frequency,
@@ -3429,8 +3430,8 @@ class  WifiConfiguration {
       EapCredentialsPtr eap);
 
   WifiConfiguration(
-      const absl::optional<std::string>& hexssid,
-      const absl::optional<std::string>& guid,
+      const std::optional<std::string>& hexssid,
+      const std::optional<std::string>& guid,
       const std::string& security,
       NetworkDetailsPtr details,
       int32_t frequency,
@@ -3441,12 +3442,12 @@ class  WifiConfiguration {
       MeteredOverride metered_override,
       ArcProxyInfoPtr http_proxy,
       StaticIpv4ConfigurationPtr static_ipv4_config,
-      absl::optional<std::vector<std::string>> domains,
-      absl::optional<std::vector<std::string>> dns_servers);
+      std::optional<std::vector<std::string>> domains,
+      std::optional<std::vector<std::string>> dns_servers);
 
   WifiConfiguration(
-      const absl::optional<std::string>& hexssid,
-      const absl::optional<std::string>& guid,
+      const std::optional<std::string>& hexssid,
+      const std::optional<std::string>& guid,
       const std::string& security,
       NetworkDetailsPtr details,
       int32_t frequency,
@@ -3457,9 +3458,9 @@ class  WifiConfiguration {
       MeteredOverride metered_override,
       ArcProxyInfoPtr http_proxy,
       StaticIpv4ConfigurationPtr static_ipv4_config,
-      absl::optional<std::vector<std::string>> domains,
-      absl::optional<std::vector<std::string>> dns_servers,
-      absl::optional<std::vector<std::string>> bssid_allowlist);
+      std::optional<std::vector<std::string>> domains,
+      std::optional<std::vector<std::string>> dns_servers,
+      std::optional<std::vector<std::string>> bssid_allowlist);
 
 WifiConfiguration(const WifiConfiguration&) = delete;
 WifiConfiguration& operator=(const WifiConfiguration&) = delete;
@@ -3539,9 +3540,9 @@ WifiConfiguration& operator=(const WifiConfiguration&) = delete;
   }
 
   
-  absl::optional<std::string> hexssid;
+  std::optional<std::string> hexssid;
   
-  absl::optional<std::string> guid;
+  std::optional<std::string> guid;
   
   std::string security;
   
@@ -3563,11 +3564,11 @@ WifiConfiguration& operator=(const WifiConfiguration&) = delete;
   
   StaticIpv4ConfigurationPtr static_ipv4_config;
   
-  absl::optional<std::vector<std::string>> domains;
+  std::optional<std::vector<std::string>> domains;
   
-  absl::optional<std::vector<std::string>> dns_servers;
+  std::optional<std::vector<std::string>> dns_servers;
   
-  absl::optional<std::vector<std::string>> bssid_allowlist;
+  std::optional<std::vector<std::string>> bssid_allowlist;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

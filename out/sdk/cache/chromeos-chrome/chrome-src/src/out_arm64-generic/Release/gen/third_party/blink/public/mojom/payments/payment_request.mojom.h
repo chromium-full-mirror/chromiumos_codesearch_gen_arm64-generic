@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/payments/payment_request.mojom-features.h"
 #include "third_party/blink/public/mojom/payments/payment_request.mojom-shared.h"
 #include "third_party/blink/public/mojom/payments/payment_request.mojom-forward.h"
 #include "components/payments/mojom/payment_request_data.mojom.h"
@@ -466,9 +467,9 @@ class BLINK_COMMON_EXPORT PayerDetail {
   PayerDetail();
 
   PayerDetail(
-      const absl::optional<std::string>& email,
-      const absl::optional<std::string>& name,
-      const absl::optional<std::string>& phone);
+      const std::optional<std::string>& email,
+      const std::optional<std::string>& name,
+      const std::optional<std::string>& phone);
 
 
   ~PayerDetail();
@@ -546,11 +547,11 @@ class BLINK_COMMON_EXPORT PayerDetail {
   }
 
   
-  absl::optional<std::string> email;
+  std::optional<std::string> email;
   
-  absl::optional<std::string> name;
+  std::optional<std::string> name;
   
-  absl::optional<std::string> phone;
+  std::optional<std::string> phone;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -624,7 +625,7 @@ class BLINK_COMMON_EXPORT PaymentResponse {
       const std::string& method_name,
       const std::string& stringified_details,
       ::payments::mojom::PaymentAddressPtr shipping_address,
-      const absl::optional<std::string>& shipping_option,
+      const std::optional<std::string>& shipping_option,
       PayerDetailPtr payer,
       SecurePaymentConfirmationResponsePtr secure_payment_confirmation,
       ::blink::mojom::GetAssertionAuthenticatorResponsePtr get_assertion_authenticator_response);
@@ -713,7 +714,7 @@ PaymentResponse& operator=(const PaymentResponse&) = delete;
   
   ::payments::mojom::PaymentAddressPtr shipping_address;
   
-  absl::optional<std::string> shipping_option;
+  std::optional<std::string> shipping_option;
   
   PayerDetailPtr payer;
   
@@ -784,7 +785,7 @@ class BLINK_COMMON_EXPORT SecurePaymentConfirmationResponse {
       ::blink::mojom::CommonCredentialInfoPtr credential_info,
       std::vector<uint8_t> signature,
       ::device::AuthenticatorAttachment authenticator_attachment,
-      absl::optional<std::vector<uint8_t>> user_handle);
+      std::optional<std::vector<uint8_t>> user_handle);
 
 SecurePaymentConfirmationResponse(const SecurePaymentConfirmationResponse&) = delete;
 SecurePaymentConfirmationResponse& operator=(const SecurePaymentConfirmationResponse&) = delete;
@@ -870,7 +871,7 @@ SecurePaymentConfirmationResponse& operator=(const SecurePaymentConfirmationResp
   
   ::device::AuthenticatorAttachment authenticator_attachment;
   
-  absl::optional<std::vector<uint8_t>> user_handle;
+  std::optional<std::vector<uint8_t>> user_handle;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1237,9 +1238,9 @@ class BLINK_COMMON_EXPORT SecurePaymentConfirmationRequest {
       std::vector<std::vector<uint8_t>> credential_ids,
       std::vector<uint8_t> challenge,
       ::blink::mojom::PaymentCredentialInstrumentPtr instrument,
-      absl::optional<::base::TimeDelta> timeout,
-      const absl::optional<::url::Origin>& payee_origin,
-      const absl::optional<std::string>& payee_name,
+      std::optional<::base::TimeDelta> timeout,
+      const std::optional<::url::Origin>& payee_origin,
+      const std::optional<std::string>& payee_name,
       const std::string& rp_id,
       ::blink::mojom::AuthenticationExtensionsClientInputsPtr extensions,
       bool show_opt_out);
@@ -1328,11 +1329,11 @@ SecurePaymentConfirmationRequest& operator=(const SecurePaymentConfirmationReque
   
   ::blink::mojom::PaymentCredentialInstrumentPtr instrument;
   
-  absl::optional<::base::TimeDelta> timeout;
+  std::optional<::base::TimeDelta> timeout;
   
-  absl::optional<::url::Origin> payee_origin;
+  std::optional<::url::Origin> payee_origin;
   
-  absl::optional<std::string> payee_name;
+  std::optional<std::string> payee_name;
   
   std::string rp_id;
   
@@ -1709,13 +1710,13 @@ class BLINK_COMMON_EXPORT PaymentDetails {
 
   PaymentDetails(
       PaymentItemPtr total,
-      absl::optional<std::vector<PaymentItemPtr>> display_items,
-      absl::optional<std::vector<PaymentShippingOptionPtr>> shipping_options,
-      absl::optional<std::vector<PaymentDetailsModifierPtr>> modifiers,
+      std::optional<std::vector<PaymentItemPtr>> display_items,
+      std::optional<std::vector<PaymentShippingOptionPtr>> shipping_options,
+      std::optional<std::vector<PaymentDetailsModifierPtr>> modifiers,
       const std::string& error,
       ::payments::mojom::AddressErrorsPtr shipping_address_errors,
-      const absl::optional<std::string>& id,
-      const absl::optional<std::string>& stringified_payment_method_errors,
+      const std::optional<std::string>& id,
+      const std::optional<std::string>& stringified_payment_method_errors,
       bool payment_handler_minimal_header_ux_enabled);
 
 PaymentDetails(const PaymentDetails&) = delete;
@@ -1798,19 +1799,19 @@ PaymentDetails& operator=(const PaymentDetails&) = delete;
   
   PaymentItemPtr total;
   
-  absl::optional<std::vector<PaymentItemPtr>> display_items;
+  std::optional<std::vector<PaymentItemPtr>> display_items;
   
-  absl::optional<std::vector<PaymentShippingOptionPtr>> shipping_options;
+  std::optional<std::vector<PaymentShippingOptionPtr>> shipping_options;
   
-  absl::optional<std::vector<PaymentDetailsModifierPtr>> modifiers;
+  std::optional<std::vector<PaymentDetailsModifierPtr>> modifiers;
   
   std::string error;
   
   ::payments::mojom::AddressErrorsPtr shipping_address_errors;
   
-  absl::optional<std::string> id;
+  std::optional<std::string> id;
   
-  absl::optional<std::string> stringified_payment_method_errors;
+  std::optional<std::string> stringified_payment_method_errors;
   
   bool payment_handler_minimal_header_ux_enabled;
 

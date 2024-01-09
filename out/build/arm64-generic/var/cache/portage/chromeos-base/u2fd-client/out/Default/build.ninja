@@ -22,31 +22,25 @@ build _libu2fd-client-install_config: phony obj/u2fd/client/_libu2fd-client-inst
 build _u2fd-client-install_config: phony obj/u2fd/client/_u2fd-client-install_config.stamp
 build libu2fd-client: phony ./lib/libu2fd-client.so
 build root: phony obj/common-mk/gn_root/root.stamp
-build testrunner: phony ./libtestrunner.a
 build u2fd-client: phony obj/u2fd/client/u2fd-client.stamp
 build user_state_proto: phony ./libuser_state_proto.a
 build user_state_proto_gen: phony obj/u2fd/client/user_state_proto_gen.stamp
 build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
-build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
-build common-mk/testrunner: phony ./libtestrunner.a
 build u2fd/client$:_libu2fd-client-install_config: phony obj/u2fd/client/_libu2fd-client-install_config.stamp
 build u2fd/client$:_u2fd-client-install_config: phony obj/u2fd/client/_u2fd-client-install_config.stamp
 build u2fd/client$:all: phony obj/u2fd/client/all.stamp
 build u2fd/client$:libu2fd-client: phony ./lib/libu2fd-client.so
 build u2fd/client$:u2fd-client: phony obj/u2fd/client/u2fd-client.stamp
-build u2fd/client$:u2fd_client_test_runner: phony ./u2fd_client_test_runner
 build u2fd/client$:user_state_proto: phony ./libuser_state_proto.a
 build u2fd/client$:user_state_proto_gen: phony obj/u2fd/client/user_state_proto_gen.stamp
 
 build all: phony $
     obj/common-mk/gn_root/root.stamp $
-    ./libtestrunner.a $
     obj/u2fd/client/_libu2fd-client-install_config.stamp $
     obj/u2fd/client/_u2fd-client-install_config.stamp $
     obj/u2fd/client/all.stamp $
     ./lib/libu2fd-client.so $
     obj/u2fd/client/u2fd-client.stamp $
-    ./u2fd_client_test_runner $
     ./libuser_state_proto.a $
     obj/u2fd/client/user_state_proto_gen.stamp
 

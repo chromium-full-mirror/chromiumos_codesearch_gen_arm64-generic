@@ -34,9 +34,11 @@ export function getTemplate() {
                     )]]" disabled="[[clearingInProgress_]]" no-set-pref>
             </settings-checkbox>
             <settings-checkbox id="cookiesCheckboxBasic" class="cookies-checkbox" pref="{{prefs.browser.clear_data.cookies_basic}}" label="$i18n{clearCookies}" sub-label="[[cookiesCheckboxLabel_(
+                    isSignedIn_,
                     shouldShowCookieException_,
                     '$i18nPolymer{clearCookiesSummary}',
                     '$i18nPolymer{clearCookiesSummarySignedIn}',
+                    '$i18nPolymer{clearCookiesSummarySyncing}',
                     '$i18nPolymer{clearCookiesSummarySignedInSupervisedProfile}'
                     )]]" disabled="[[clearingInProgress_]]" no-set-pref>
             </settings-checkbox>
@@ -102,13 +104,16 @@ export function getTemplate() {
           [[clearingDataAlertString_]]
         </div>
       </div>
-      <template is="dom-if" if="[[shouldShowFooter_(syncStatus.signedIn)]]" restamp>
+      <template is="dom-if" if="[[shouldShowFooter_(isSignedIn_, syncStatus.signedIn)]]" restamp>
         <div slot="footer">
-          <settings-sync-account-control sync-status="[[syncStatus]]" prefs="{{prefs}}" hide-buttons>
+          <settings-sync-account-control sync-status="[[syncStatus]]" prefs="{{prefs}}" hide-buttons hide-banner>
           </settings-sync-account-control>
           <div class="divider"></div>
           <div id="footer-description" on-click="onSyncDescriptionLinkClicked_">
-            <span id="sync-info" hidden="[[syncStatus.hasError]]">
+            <span id="signin-info" hidden="[[!showSigninInfo_(isSignedIn_, syncStatus.signedIn)]]">
+              $i18nRaw{clearBrowsingDataSignedIn}
+            </span>
+            <span id="sync-info" hidden="[[!showSyncInfo_(isSignedIn_, syncStatus.signedIn)]]">
               $i18nRaw{clearBrowsingDataWithSync}
             </span>
             <span id="sync-paused-info" hidden="[[!isSyncPaused_]]">

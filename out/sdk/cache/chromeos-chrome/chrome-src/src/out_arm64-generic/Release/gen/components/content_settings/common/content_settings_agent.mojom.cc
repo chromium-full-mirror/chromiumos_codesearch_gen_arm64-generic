@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -148,14 +149,17 @@ void ContentSettingsAgentProxy::SetAllowRunningInsecureContent(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send content_settings::mojom::ContentSettingsAgent::SetAllowRunningInsecureContent");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kContentSettingsAgent_SetAllowRunningInsecureContent_Name, kFlags, 0, 0, nullptr);
@@ -178,14 +182,17 @@ void ContentSettingsAgentProxy::SetDisabledMixedContentUpgrades(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send content_settings::mojom::ContentSettingsAgent::SetDisabledMixedContentUpgrades");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kContentSettingsAgent_SetDisabledMixedContentUpgrades_Name, kFlags, 0, 0, nullptr);
@@ -215,14 +222,17 @@ void ContentSettingsAgentProxy::SendRendererContentSettingRules(
                         "<value of type const ::RendererContentSettingRules&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kContentSettingsAgent_SendRendererContentSettingRules_Name, kFlags, 0, 0, nullptr);
@@ -351,14 +361,14 @@ bool ContentSettingsAgentStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kContentSettingsAgentValidationInfo[] = {
-    {&internal::ContentSettingsAgent_SetAllowRunningInsecureContent_Params_Data::Validate,
+    { &internal::ContentSettingsAgent_SetAllowRunningInsecureContent_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ContentSettingsAgent_SetDisabledMixedContentUpgrades_Params_Data::Validate,
+    { &internal::ContentSettingsAgent_SetDisabledMixedContentUpgrades_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ContentSettingsAgent_SendRendererContentSettingRules_Params_Data::Validate,
+    { &internal::ContentSettingsAgent_SendRendererContentSettingRules_Params_Data::Validate,
      nullptr /* no response */},
 };
 

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/services/machine_learning/public/mojom/document_scanner.mojom-features.h"
 #include "chromeos/services/machine_learning/public/mojom/document_scanner.mojom-shared.h"
 #include "chromeos/services/machine_learning/public/mojom/document_scanner.mojom-forward.h"
 #include "chromeos/services/machine_learning/public/mojom/document_scanner_param_types.mojom-forward.h"
@@ -217,7 +218,7 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) DocumentScannerConfig {
 
   DocumentScannerConfig(
       const std::string& deprecated_library_dlc_path,
-      const absl::optional<::base::FilePath>& library_dlc_path);
+      const std::optional<::base::FilePath>& library_dlc_path);
 
 
   ~DocumentScannerConfig();
@@ -297,7 +298,7 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) DocumentScannerConfig {
   
   std::string deprecated_library_dlc_path;
   
-  absl::optional<::base::FilePath> library_dlc_path;
+  std::optional<::base::FilePath> library_dlc_path;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

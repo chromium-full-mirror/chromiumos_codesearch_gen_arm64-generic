@@ -34,6 +34,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) SharedStorageWorkletHos
   uint8_t keep_alive_after_operation : 1;
   uint8_t pad3_[7];
   mojo::internal::Pointer<mojo::internal::String_Data> context_id;
+  mojo::internal::Pointer<::url::mojom::internal::Origin_Data> aggregation_coordinator_origin;
 
  private:
   friend class mojo::internal::MessageFragment<SharedStorageWorkletHost_SelectURL_Params_Data>;
@@ -41,7 +42,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) SharedStorageWorkletHos
   SharedStorageWorkletHost_SelectURL_Params_Data();
   ~SharedStorageWorkletHost_SelectURL_Params_Data() = delete;
 };
-static_assert(sizeof(SharedStorageWorkletHost_SelectURL_Params_Data) == 48,
+static_assert(sizeof(SharedStorageWorkletHost_SelectURL_Params_Data) == 56,
               "Bad sizeof(SharedStorageWorkletHost_SelectURL_Params_Data)");
 class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) SharedStorageWorkletHost_SelectURL_ResponseParams_Data {
  public:
@@ -73,6 +74,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) SharedStorageWorkletHos
   uint8_t keep_alive_after_operation : 1;
   uint8_t pad2_[7];
   mojo::internal::Pointer<mojo::internal::String_Data> context_id;
+  mojo::internal::Pointer<::url::mojom::internal::Origin_Data> aggregation_coordinator_origin;
 
  private:
   friend class mojo::internal::MessageFragment<SharedStorageWorkletHost_Run_Params_Data>;
@@ -80,7 +82,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) SharedStorageWorkletHos
   SharedStorageWorkletHost_Run_Params_Data();
   ~SharedStorageWorkletHost_Run_Params_Data() = delete;
 };
-static_assert(sizeof(SharedStorageWorkletHost_Run_Params_Data) == 40,
+static_assert(sizeof(SharedStorageWorkletHost_Run_Params_Data) == 48,
               "Bad sizeof(SharedStorageWorkletHost_Run_Params_Data)");
 class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) SharedStorageWorkletHost_Run_ResponseParams_Data {
  public:
@@ -343,6 +345,26 @@ static_assert(
     return mojo::internal::Deserialize<mojo::StringDataView>(
         pointer, output, message_);
   }
+  inline void GetAggregationCoordinatorOriginDataView(
+      ::url::mojom::OriginDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadAggregationCoordinatorOrigin(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::url::mojom::OriginDataView, UserType>(),
+    "Attempting to read the optional `aggregation_coordinator_origin` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadAggregationCoordinatorOrigin` instead "
+    "of `ReadAggregationCoordinatorOrigin if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->aggregation_coordinator_origin.Get();
+    return mojo::internal::Deserialize<::url::mojom::OriginDataView>(
+        pointer, output, message_);
+  }
  private:
   internal::SharedStorageWorkletHost_SelectURL_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -449,6 +471,26 @@ static_assert(
     "silently ignored in this case.");
     auto* pointer = data_->context_id.Get();
     return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetAggregationCoordinatorOriginDataView(
+      ::url::mojom::OriginDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadAggregationCoordinatorOrigin(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::url::mojom::OriginDataView, UserType>(),
+    "Attempting to read the optional `aggregation_coordinator_origin` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadAggregationCoordinatorOrigin` instead "
+    "of `ReadAggregationCoordinatorOrigin if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->aggregation_coordinator_origin.Get();
+    return mojo::internal::Deserialize<::url::mojom::OriginDataView>(
         pointer, output, message_);
   }
  private:
@@ -811,6 +853,11 @@ inline void SharedStorageWorkletHost_SelectURL_ParamsDataView::GetContextIdDataV
   auto pointer = data_->context_id.Get();
   *output = mojo::StringDataView(pointer, message_);
 }
+inline void SharedStorageWorkletHost_SelectURL_ParamsDataView::GetAggregationCoordinatorOriginDataView(
+    ::url::mojom::OriginDataView* output) {
+  auto pointer = data_->aggregation_coordinator_origin.Get();
+  *output = ::url::mojom::OriginDataView(pointer, message_);
+}
 
 
 inline void SharedStorageWorkletHost_SelectURL_ResponseParamsDataView::GetErrorMessageDataView(
@@ -839,6 +886,11 @@ inline void SharedStorageWorkletHost_Run_ParamsDataView::GetContextIdDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->context_id.Get();
   *output = mojo::StringDataView(pointer, message_);
+}
+inline void SharedStorageWorkletHost_Run_ParamsDataView::GetAggregationCoordinatorOriginDataView(
+    ::url::mojom::OriginDataView* output) {
+  auto pointer = data_->aggregation_coordinator_origin.Get();
+  *output = ::url::mojom::OriginDataView(pointer, message_);
 }
 
 

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -200,14 +201,17 @@ void ServiceWorkerFetchResponseCallbackProxy::OnResponse(
                         "<value of type ServiceWorkerFetchEventTimingPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerFetchResponseCallback_OnResponse_Name, kFlags, 0, 0, nullptr);
@@ -265,14 +269,17 @@ void ServiceWorkerFetchResponseCallbackProxy::OnResponseStream(
                         "<value of type ServiceWorkerFetchEventTimingPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerFetchResponseCallback_OnResponseStream_Name, kFlags, 0, 0, nullptr);
@@ -324,7 +331,7 @@ void ServiceWorkerFetchResponseCallbackProxy::OnResponseStream(
 }
 
 void ServiceWorkerFetchResponseCallbackProxy::OnFallback(
-    absl::optional<::network::DataElementChunkedDataPipe> in_request_body, ServiceWorkerFetchEventTimingPtr in_timing) {
+    std::optional<::network::DataElementChunkedDataPipe> in_request_body, ServiceWorkerFetchEventTimingPtr in_timing) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send blink::mojom::ServiceWorkerFetchResponseCallback::OnFallback", "input_parameters",
@@ -332,20 +339,23 @@ void ServiceWorkerFetchResponseCallbackProxy::OnFallback(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("request_body"), in_request_body,
-                        "<value of type absl::optional<::network::DataElementChunkedDataPipe>>");
+                        "<value of type std::optional<::network::DataElementChunkedDataPipe>>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("timing"), in_timing,
                         "<value of type ServiceWorkerFetchEventTimingPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kServiceWorkerFetchResponseCallback_OnFallback_Name, kFlags, 0, 0, nullptr);
@@ -458,7 +468,7 @@ std::move(p_timing));
               message->mutable_payload());
       
       bool success = true;
-      absl::optional<::network::DataElementChunkedDataPipe> p_request_body{};
+      std::optional<::network::DataElementChunkedDataPipe> p_request_body{};
       ServiceWorkerFetchEventTimingPtr p_timing{};
       ServiceWorkerFetchResponseCallback_OnFallback_ParamsDataView input_data_view(params, message);
       
@@ -505,14 +515,14 @@ bool ServiceWorkerFetchResponseCallbackStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kServiceWorkerFetchResponseCallbackValidationInfo[] = {
-    {&internal::ServiceWorkerFetchResponseCallback_OnResponse_Params_Data::Validate,
+    { &internal::ServiceWorkerFetchResponseCallback_OnResponse_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ServiceWorkerFetchResponseCallback_OnResponseStream_Params_Data::Validate,
+    { &internal::ServiceWorkerFetchResponseCallback_OnResponseStream_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ServiceWorkerFetchResponseCallback_OnFallback_Params_Data::Validate,
+    { &internal::ServiceWorkerFetchResponseCallback_OnFallback_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -560,7 +570,7 @@ void ServiceWorkerFetchResponseCallbackInterceptorForTesting::OnResponse(::blink
 void ServiceWorkerFetchResponseCallbackInterceptorForTesting::OnResponseStream(::blink::mojom::FetchAPIResponsePtr response, ::blink::mojom::ServiceWorkerStreamHandlePtr body_as_stream, ServiceWorkerFetchEventTimingPtr timing) {
   GetForwardingInterface()->OnResponseStream(std::move(response), std::move(body_as_stream), std::move(timing));
 }
-void ServiceWorkerFetchResponseCallbackInterceptorForTesting::OnFallback(absl::optional<::network::DataElementChunkedDataPipe> request_body, ServiceWorkerFetchEventTimingPtr timing) {
+void ServiceWorkerFetchResponseCallbackInterceptorForTesting::OnFallback(std::optional<::network::DataElementChunkedDataPipe> request_body, ServiceWorkerFetchEventTimingPtr timing) {
   GetForwardingInterface()->OnFallback(std::move(request_body), std::move(timing));
 }
 ServiceWorkerFetchResponseCallbackAsyncWaiter::ServiceWorkerFetchResponseCallbackAsyncWaiter(

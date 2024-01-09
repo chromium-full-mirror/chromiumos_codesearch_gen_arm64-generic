@@ -246,38 +246,38 @@ class ClientResolution final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kDipsWidthFieldNumber = 1,
-    kDipsHeightFieldNumber = 2,
+    kWidthPixelsFieldNumber = 1,
+    kHeightPixelsFieldNumber = 2,
     kWidthDeprecatedFieldNumber = 3,
     kHeightDeprecatedFieldNumber = 4,
     kXDpiFieldNumber = 5,
     kYDpiFieldNumber = 6,
     kScreenIdFieldNumber = 7,
   };
-  // optional int32 dips_width = 1;
-  bool has_dips_width() const;
+  // optional int32 width_pixels = 1;
+  bool has_width_pixels() const;
   private:
-  bool _internal_has_dips_width() const;
+  bool _internal_has_width_pixels() const;
   public:
-  void clear_dips_width();
-  int32_t dips_width() const;
-  void set_dips_width(int32_t value);
+  void clear_width_pixels();
+  int32_t width_pixels() const;
+  void set_width_pixels(int32_t value);
   private:
-  int32_t _internal_dips_width() const;
-  void _internal_set_dips_width(int32_t value);
+  int32_t _internal_width_pixels() const;
+  void _internal_set_width_pixels(int32_t value);
   public:
 
-  // optional int32 dips_height = 2;
-  bool has_dips_height() const;
+  // optional int32 height_pixels = 2;
+  bool has_height_pixels() const;
   private:
-  bool _internal_has_dips_height() const;
+  bool _internal_has_height_pixels() const;
   public:
-  void clear_dips_height();
-  int32_t dips_height() const;
-  void set_dips_height(int32_t value);
+  void clear_height_pixels();
+  int32_t height_pixels() const;
+  void set_height_pixels(int32_t value);
   private:
-  int32_t _internal_dips_height() const;
-  void _internal_set_dips_height(int32_t value);
+  int32_t _internal_height_pixels() const;
+  void _internal_set_height_pixels(int32_t value);
   public:
 
   // optional int32 width_deprecated = 3;
@@ -354,8 +354,8 @@ class ClientResolution final :
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  int32_t dips_width_;
-  int32_t dips_height_;
+  int32_t width_pixels_;
+  int32_t height_pixels_;
   int32_t width_deprecated_;
   int32_t height_deprecated_;
   int32_t x_dpi_;
@@ -3229,60 +3229,60 @@ class ActiveDisplay final :
 #endif  // __GNUC__
 // ClientResolution
 
-// optional int32 dips_width = 1;
-inline bool ClientResolution::_internal_has_dips_width() const {
+// optional int32 width_pixels = 1;
+inline bool ClientResolution::_internal_has_width_pixels() const {
   bool value = (_has_bits_[0] & 0x00000001u) != 0;
   return value;
 }
-inline bool ClientResolution::has_dips_width() const {
-  return _internal_has_dips_width();
+inline bool ClientResolution::has_width_pixels() const {
+  return _internal_has_width_pixels();
 }
-inline void ClientResolution::clear_dips_width() {
-  dips_width_ = 0;
+inline void ClientResolution::clear_width_pixels() {
+  width_pixels_ = 0;
   _has_bits_[0] &= ~0x00000001u;
 }
-inline int32_t ClientResolution::_internal_dips_width() const {
-  return dips_width_;
+inline int32_t ClientResolution::_internal_width_pixels() const {
+  return width_pixels_;
 }
-inline int32_t ClientResolution::dips_width() const {
-  // @@protoc_insertion_point(field_get:remoting.protocol.ClientResolution.dips_width)
-  return _internal_dips_width();
+inline int32_t ClientResolution::width_pixels() const {
+  // @@protoc_insertion_point(field_get:remoting.protocol.ClientResolution.width_pixels)
+  return _internal_width_pixels();
 }
-inline void ClientResolution::_internal_set_dips_width(int32_t value) {
+inline void ClientResolution::_internal_set_width_pixels(int32_t value) {
   _has_bits_[0] |= 0x00000001u;
-  dips_width_ = value;
+  width_pixels_ = value;
 }
-inline void ClientResolution::set_dips_width(int32_t value) {
-  _internal_set_dips_width(value);
-  // @@protoc_insertion_point(field_set:remoting.protocol.ClientResolution.dips_width)
+inline void ClientResolution::set_width_pixels(int32_t value) {
+  _internal_set_width_pixels(value);
+  // @@protoc_insertion_point(field_set:remoting.protocol.ClientResolution.width_pixels)
 }
 
-// optional int32 dips_height = 2;
-inline bool ClientResolution::_internal_has_dips_height() const {
+// optional int32 height_pixels = 2;
+inline bool ClientResolution::_internal_has_height_pixels() const {
   bool value = (_has_bits_[0] & 0x00000002u) != 0;
   return value;
 }
-inline bool ClientResolution::has_dips_height() const {
-  return _internal_has_dips_height();
+inline bool ClientResolution::has_height_pixels() const {
+  return _internal_has_height_pixels();
 }
-inline void ClientResolution::clear_dips_height() {
-  dips_height_ = 0;
+inline void ClientResolution::clear_height_pixels() {
+  height_pixels_ = 0;
   _has_bits_[0] &= ~0x00000002u;
 }
-inline int32_t ClientResolution::_internal_dips_height() const {
-  return dips_height_;
+inline int32_t ClientResolution::_internal_height_pixels() const {
+  return height_pixels_;
 }
-inline int32_t ClientResolution::dips_height() const {
-  // @@protoc_insertion_point(field_get:remoting.protocol.ClientResolution.dips_height)
-  return _internal_dips_height();
+inline int32_t ClientResolution::height_pixels() const {
+  // @@protoc_insertion_point(field_get:remoting.protocol.ClientResolution.height_pixels)
+  return _internal_height_pixels();
 }
-inline void ClientResolution::_internal_set_dips_height(int32_t value) {
+inline void ClientResolution::_internal_set_height_pixels(int32_t value) {
   _has_bits_[0] |= 0x00000002u;
-  dips_height_ = value;
+  height_pixels_ = value;
 }
-inline void ClientResolution::set_dips_height(int32_t value) {
-  _internal_set_dips_height(value);
-  // @@protoc_insertion_point(field_set:remoting.protocol.ClientResolution.dips_height)
+inline void ClientResolution::set_height_pixels(int32_t value) {
+  _internal_set_height_pixels(value);
+  // @@protoc_insertion_point(field_set:remoting.protocol.ClientResolution.height_pixels)
 }
 
 // optional int32 width_deprecated = 3;

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -314,14 +315,17 @@ void DisplayPrivateProxy::SetDisplayVisible(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDisplayPrivate_SetDisplayVisible_Name, kFlags, 0, 0, nullptr);
@@ -352,14 +356,17 @@ void DisplayPrivateProxy::Resize(
                         "<value of type const ::gfx::Size&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDisplayPrivate_Resize_Name, kFlags, 0, 0, nullptr);
@@ -400,14 +407,17 @@ void DisplayPrivateProxy::SetDisplayColorMatrix(
                         "<value of type const ::gfx::Transform&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDisplayPrivate_SetDisplayColorMatrix_Name, kFlags, 0, 0, nullptr);
@@ -448,14 +458,17 @@ void DisplayPrivateProxy::SetDisplayColorSpaces(
                         "<value of type const ::gfx::DisplayColorSpaces&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDisplayPrivate_SetDisplayColorSpaces_Name, kFlags, 0, 0, nullptr);
@@ -496,14 +509,17 @@ void DisplayPrivateProxy::SetOutputIsSecure(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDisplayPrivate_SetOutputIsSecure_Name, kFlags, 0, 0, nullptr);
@@ -537,14 +553,17 @@ void DisplayPrivateProxy::SetDisplayVSyncParameters(
                         "<value of type ::base::TimeDelta>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDisplayPrivate_SetDisplayVSyncParameters_Name, kFlags, 0, 0, nullptr);
@@ -589,14 +608,17 @@ void DisplayPrivateProxy::ForceImmediateDrawAndSwapIfPossible(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send viz::mojom::DisplayPrivate::ForceImmediateDrawAndSwapIfPossible");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDisplayPrivate_ForceImmediateDrawAndSwapIfPossible_Name, kFlags, 0, 0, nullptr);
@@ -626,14 +648,17 @@ void DisplayPrivateProxy::AddVSyncParameterObserver(
                         "<value of type ::mojo::PendingRemote<::viz::mojom::VSyncParameterObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDisplayPrivate_AddVSyncParameterObserver_Name, kFlags, 0, 0, nullptr);
@@ -669,14 +694,17 @@ void DisplayPrivateProxy::SetDelegatedInkPointRenderer(
                         "<value of type ::mojo::PendingReceiver<::gfx::mojom::DelegatedInkPointRenderer>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDisplayPrivate_SetDelegatedInkPointRenderer_Name, kFlags, 0, 0, nullptr);
@@ -712,14 +740,17 @@ void DisplayPrivateProxy::SetStandaloneBeginFrameObserver(
                         "<value of type ::mojo::PendingRemote<::viz::mojom::BeginFrameObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDisplayPrivate_SetStandaloneBeginFrameObserver_Name, kFlags, 0, 0, nullptr);
@@ -744,7 +775,7 @@ void DisplayPrivateProxy::SetStandaloneBeginFrameObserver(
 }
 
 void DisplayPrivateProxy::SetMaxVrrInterval(
-    absl::optional<::base::TimeDelta> in_max_vrr_interval) {
+    std::optional<::base::TimeDelta> in_max_vrr_interval) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send viz::mojom::DisplayPrivate::SetMaxVrrInterval", "input_parameters",
@@ -752,17 +783,20 @@ void DisplayPrivateProxy::SetMaxVrrInterval(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("max_vrr_interval"), in_max_vrr_interval,
-                        "<value of type absl::optional<::base::TimeDelta>>");
+                        "<value of type std::optional<::base::TimeDelta>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kDisplayPrivate_SetMaxVrrInterval_Name, kFlags, 0, 0, nullptr);
@@ -1066,7 +1100,7 @@ std::move(p_observer));
               message->mutable_payload());
       
       bool success = true;
-      absl::optional<::base::TimeDelta> p_max_vrr_interval{};
+      std::optional<::base::TimeDelta> p_max_vrr_interval{};
       DisplayPrivate_SetMaxVrrInterval_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadMaxVrrInterval(&p_max_vrr_interval))
@@ -1133,30 +1167,30 @@ bool DisplayPrivateStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kDisplayPrivateValidationInfo[] = {
-    {&internal::DisplayPrivate_SetDisplayVisible_Params_Data::Validate,
+    { &internal::DisplayPrivate_SetDisplayVisible_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DisplayPrivate_Resize_Params_Data::Validate,
+    { &internal::DisplayPrivate_Resize_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DisplayPrivate_SetDisplayColorMatrix_Params_Data::Validate,
+    { &internal::DisplayPrivate_SetDisplayColorMatrix_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DisplayPrivate_SetDisplayColorSpaces_Params_Data::Validate,
+    { &internal::DisplayPrivate_SetDisplayColorSpaces_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DisplayPrivate_SetOutputIsSecure_Params_Data::Validate,
+    { &internal::DisplayPrivate_SetOutputIsSecure_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DisplayPrivate_SetDisplayVSyncParameters_Params_Data::Validate,
+    { &internal::DisplayPrivate_SetDisplayVSyncParameters_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DisplayPrivate_ForceImmediateDrawAndSwapIfPossible_Params_Data::Validate,
+    { &internal::DisplayPrivate_ForceImmediateDrawAndSwapIfPossible_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DisplayPrivate_AddVSyncParameterObserver_Params_Data::Validate,
+    { &internal::DisplayPrivate_AddVSyncParameterObserver_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DisplayPrivate_SetDelegatedInkPointRenderer_Params_Data::Validate,
+    { &internal::DisplayPrivate_SetDelegatedInkPointRenderer_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DisplayPrivate_SetStandaloneBeginFrameObserver_Params_Data::Validate,
+    { &internal::DisplayPrivate_SetStandaloneBeginFrameObserver_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::DisplayPrivate_SetMaxVrrInterval_Params_Data::Validate,
+    { &internal::DisplayPrivate_SetMaxVrrInterval_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1208,8 +1242,8 @@ bool DisplayClientStubDispatch::AcceptWithResponder(
     std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
   return false;
 }
-
-
+namespace {
+}  // namespace
 
 bool DisplayClientRequestValidator::Accept(mojo::Message* message) {
   const char* name = ::viz::mojom::DisplayClient::Name_;
@@ -1263,7 +1297,7 @@ void DisplayPrivateInterceptorForTesting::SetDelegatedInkPointRenderer(::mojo::P
 void DisplayPrivateInterceptorForTesting::SetStandaloneBeginFrameObserver(::mojo::PendingRemote<::viz::mojom::BeginFrameObserver> observer) {
   GetForwardingInterface()->SetStandaloneBeginFrameObserver(std::move(observer));
 }
-void DisplayPrivateInterceptorForTesting::SetMaxVrrInterval(absl::optional<::base::TimeDelta> max_vrr_interval) {
+void DisplayPrivateInterceptorForTesting::SetMaxVrrInterval(std::optional<::base::TimeDelta> max_vrr_interval) {
   GetForwardingInterface()->SetMaxVrrInterval(std::move(max_vrr_interval));
 }
 DisplayPrivateAsyncWaiter::DisplayPrivateAsyncWaiter(

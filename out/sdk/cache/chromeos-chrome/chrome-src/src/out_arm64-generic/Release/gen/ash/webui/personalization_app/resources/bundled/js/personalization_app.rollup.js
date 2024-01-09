@@ -3047,15 +3047,15 @@ Polymer({
   }
 });
 
-const styleMod$9 = document.createElement('dom-module');
-styleMod$9.appendChild(html `
+const styleMod$a = document.createElement('dom-module');
+styleMod$a.appendChild(html `
   <template>
     <style>
-:host-context([cros]) a:not(.item)[href]{color:var(--cros-link-color)}:host-context([cros]) cr-button[has-prefix-icon_],:host-context([cros]) cr-button[has-suffix-icon_]{--iron-icon-fill-color:currentColor}:host-context([cros]) cr-dialog::part(dialog){--cr-dialog-background-color:var(--cros-bg-color-elevation-3);background-image:none;box-shadow:var(--cros-elevation-3-shadow)}:host-context([cros]) cr-radio-button{--cr-radio-button-checked-color:var(--cros-radio-button-color);--cr-radio-button-checked-ripple-color:var(--cros-radio-button-ripple-color);--cr-radio-button-unchecked-color:var(--cros-radio-button-color-unchecked);--cr-radio-button-unchecked-ripple-color:var(--cros-radio-button-ripple-color-unchecked)}:host-context([cros]) cr-toast{--cr-toast-background-color:var(--cros-toast-background-color);--cr-toast-background:var(--cros-toast-background-color);--cr-toast-text-color:var(--cros-toast-text-color);--iron-icon-fill-color:var(--cros-toast-icon-color)}:host-context([cros]) cr-toast .error-message{color:var(--cros-toast-text-color)}:host-context([cros]) cr-toggle{--cr-toggle-checked-bar-color:var(--cros-switch-track-color-active);--cr-toggle-checked-bar-opacity:100%;--cr-toggle-checked-button-color:var(--cros-switch-knob-color-active);--cr-toggle-checked-ripple-color:var(--cros-focus-aura-color);--cr-toggle-unchecked-bar-color:var(--cros-switch-track-color-inactive);--cr-toggle-unchecked-button-color:var(--cros-switch-knob-color-inactive);--cr-toggle-unchecked-ripple-color:var(--cros-ripple-color);--cr-toggle-box-shadow:var(--cros-elevation-1-shadow);--cr-toggle-ripple-diameter:32px}:host-context([cros]) cr-toggle:focus{--cr-toggle-ripple-ring:2px solid var(--cros-focus-ring-color)}:host-context([cros]) .primary-toggle{color:var(--cros-text-color-secondary)}:host-context([cros]) .primary-toggle[checked]{color:var(--cros-text-color-prominent)}:host-context([cros]) paper-spinner-lite{--paper-spinner-color:var(--cros-icon-color-prominent)}:host-context([cros]) cr-tooltip-icon{--cr-link-color:var(--cros-tooltip-link-color)}:host-context(body.jelly-enabled){--cros-button-label-color-primary:var(--cros-sys-on_primary);--cros-link-color:var(--cros-sys-primary);--cros-separator-color:var(--cros-sys-separator);--cros-tab-slider-track-color:var(--cros-sys-surface_variant, 80%);--cr-form-field-label-color:var(--cros-sys-on_surface);--cr-link-color:var(--cros-sys-primary);--cr-primary-text-color:var(--cros-sys-on_surface);--cr-secondary-text-color:var(--cros-sys-on_surface_variant)}:host-context(body.jelly-enabled) cr-button{--text-color:var(--cros-sys-on_primary_container);--ink-color:var(--cros-sys-ripple_primary);--iron-icon-fill-color:currentColor;--hover-bg-color:var(--cros-sys-hover_on_subtle);--ripple-opacity:.1;--bg-action:var(--cros-sys-primary);--ink-color-action:var(--cros-sys-ripple_primary);--text-color-action:var(--cros-sys-on_primary);--hover-bg-action:var(--cros-sys-hover_on_prominent);--ripple-opacity-action:1;--disabled-bg:var(--cros-sys-disabled_container);--disabled-bg-action:var(--cros-sys-disabled_container);--disabled-text-color:var(--cros-sys-disabled);background-color:var(--cros-sys-primary_container);border:none}:host-context(body.jelly-enabled) cr-button:hover::part(hoverBackground){background-color:var(--hover-bg-color);display:block}:host-context(body.jelly-enabled) cr-button.action-button:not(:active):hover,:host-context(body.jelly-enabled) cr-button:active{box-shadow:none}:host-context(body.jelly-enabled) cr-button.action-button{background-color:var(--bg-action)}:host-context(body.jelly-enabled) cr-button.action-button:hover::part(hoverBackground){background-color:var(--hover-bg-action)}:host-context(body.jelly-enabled) cr-button[disabled]{background-color:var(--cros-sys-disabled_container)}:host-context(body.jelly-enabled):host-context(.focus-outline-visible) cr-button:focus{box-shadow:none;outline:2px solid var(--cros-sys-focus_ring)}:host-context(body.jelly-enabled) cr-checkbox{--cr-checkbox-checked-box-color:var(--cros-sys-primary);--cr-checkbox-ripple-checked-color:var(--cros-sys-ripple_primary);--cr-checkbox-checked-ripple-opacity:1;--cr-checkbox-mark-color:var(--cros-sys-inverse_on_surface);--cr-checkbox-ripple-unchecked-color:var(--cros-sys-ripple_primary);--cr-checkbox-unchecked-box-color:var(--cros-sys-on_surface);--cr-checkbox-unchecked-ripple-opacity:1}:host-context(body.jelly-enabled) cr-dialog::part(dialog){--cr-dialog-background-color:var(--cros-sys-base_elevated);background-image:none;box-shadow:0 0 12px 0 var(--cros-sys-shadow)}:host-context(body.jelly-enabled) cr-dialog>[slot=title]{font:var(--cros-display-7-font)}:host-context(body.jelly-enabled) cr-drawer{--cr-drawer-background-color:var(--cros-sys-app_base_shaded)}:host-context(body.jelly-enabled) cr-expand-button::part(icon),:host-context(body.jelly-enabled) cr-icon-button,:host-context(body.jelly-enabled) cr-link-row::part(icon){--cr-icon-button-fill-color:var(--cros-sys-secondary)}:host-context(body.jelly-enabled) cr-input,:host-context(body.jelly-enabled) cr-search-field::part(searchInput),:host-context(body.jelly-enabled) cr-textarea{--cr-input-background-color:var(--cros-sys-input_field_on_base);--cr-input-error-color:var(--cros-sys-error);--cr-input-focus-color:var(--cros-sys-primary);--cr-input-placeholder-color:var(--cros-sys-secondary)}:host-context(body.jelly-enabled) .md-select{--md-select-bg-color:var(--cros-sys-input_field_on_base);--md-select-focus-shadow-color:var(--cros-sys-primary);--md-select-option-bg-color:var(--cros-sys-base_elevated);--md-select-text-color:var(--cros-sys-on_surface)}:host-context(body.jelly-enabled) cr-action-menu{--cr-menu-background-color:var(--cros-sys-base_elevated);--cr-menu-background-focus-color:var(--cros-sys-hover_on_subtle)}:host-context(body.jelly-enabled),:host-context(body.jelly-enabled) cr-radio-button{--cr-radio-button-checked-color:var(--cros-sys-primary);--cr-radio-button-checked-ripple-color:var(--cros-sys-ripple_primary);--cr-radio-button-unchecked-color:var(--cros-sys-on_surface);--cr-radio-button-unchecked-ripple-color:var(--cros-sys-ripple_neutral_on_subtle)}:host-context(body.jelly-enabled) cr-card-radio-button{--cr-card-background-color:var(--cros-sys-app_base);--cr-checked-color:var(--cros-sys-primary);--cr-radio-button-checked-ripple-color:var(--cros-sys-ripple_primary);--hover-bg-color:var(--cros-sys-hover_on_subtle)}:host-context(body.jelly-enabled) cr-search-field{--cr-search-field-clear-icon-fill:var(--cros-sys-primary);--cr-search-field-clear-icon-margin-end:6px;--cr-search-field-input-border-bottom:none;--cr-search-field-input-padding-start:8px;--cr-search-field-input-underline-border-radius:4px;--cr-search-field-search-icon-display:none;--cr-search-field-search-icon-fill:var(--cros-sys-primary);--cr-search-field-search-icon-inline-display:block;--cr-search-field-search-icon-inline-margin-start:6px;border-radius:4px}:host-context(body.jelly-enabled) cr-slider{--cr-slider-active-color:var(--cros-sys-primary);--cr-slider-container-color:var(--cros-sys-primary_container);--cr-slider-container-disabled-color:var(--cros-sys-disabled_container);--cr-slider-disabled-color:var(--cros-sys-disabled);--cr-slider-knob-active-color:var(--cros-sys-primary);--cr-slider-knob-disabled-color:var(--cros-sys-disabled);--cr-slider-marker-active-color:var(--cros-sys-primary_container);--cr-slider-marker-color:var(--cros-sys-primary);--cr-slider-marker-disabled-color:var(--cros-sys-disabled);--cr-slider-ripple-color:var(--cros-sys-hover_on_prominent)}:host-context(body.jelly-enabled) cr-slider:not([disabled])::part(knob){background-color:var(--cros-sys-primary)}:host-context(body.jelly-enabled) cr-slider[disabled]::part(knob){border:none}:host-context(body.jelly-enabled) cr-slider::part(label){background:var(--cros-sys-primary);color:var(--cros-sys-on_primary)}:host-context(body.jelly-enabled) cr-tabs{--cr-tabs-selected-color:var(--cros-sys-primary)}:host-context(body.jelly-enabled) cr-toggle{--cr-toggle-checked-bar-color:var(--cros-sys-primary_container);--cr-toggle-checked-bar-opacity:100%;--cr-toggle-checked-button-color:var(--cros-sys-primary);--cr-toggle-checked-ripple-color:var(--cros-sys-hover_on_prominent);--cr-toggle-unchecked-bar-color:var(--cros-sys-secondary);--cr-toggle-unchecked-button-color:var(--cros-sys-surface_variant);--cr-toggle-unchecked-ripple-color:var(--cros-sys-hover_on_prominent);--cr-toggle-box-shadow:var(--cros-elevation-1-shadow);--cr-toggle-ripple-diameter:32px}:host-context(body.jelly-enabled) cr-toggle:focus{--cr-toggle-ripple-ring:2px solid var(--cros-sys-focus_ring)}
+:host-context([cros]) a:not(.item)[href]{color:var(--cros-link-color)}:host-context([cros]) cr-button[has-prefix-icon_],:host-context([cros]) cr-button[has-suffix-icon_]{--iron-icon-fill-color:currentColor}:host-context([cros]) cr-dialog::part(dialog){--cr-dialog-background-color:var(--cros-bg-color-elevation-3);background-image:none;box-shadow:var(--cros-elevation-3-shadow)}:host-context([cros]) cr-radio-button{--cr-radio-button-checked-color:var(--cros-radio-button-color);--cr-radio-button-checked-ripple-color:var(--cros-radio-button-ripple-color);--cr-radio-button-unchecked-color:var(--cros-radio-button-color-unchecked);--cr-radio-button-unchecked-ripple-color:var(--cros-radio-button-ripple-color-unchecked)}:host-context([cros]) cr-toast{--cr-toast-background-color:var(--cros-toast-background-color);--cr-toast-background:var(--cros-toast-background-color);--cr-toast-text-color:var(--cros-toast-text-color);--iron-icon-fill-color:var(--cros-toast-icon-color)}:host-context([cros]) cr-toast .error-message{color:var(--cros-toast-text-color)}:host-context([cros]) cr-toggle{--cr-toggle-checked-bar-color:var(--cros-switch-track-color-active);--cr-toggle-checked-bar-opacity:100%;--cr-toggle-checked-button-color:var(--cros-switch-knob-color-active);--cr-toggle-checked-ripple-color:var(--cros-focus-aura-color);--cr-toggle-unchecked-bar-color:var(--cros-switch-track-color-inactive);--cr-toggle-unchecked-button-color:var(--cros-switch-knob-color-inactive);--cr-toggle-unchecked-ripple-color:var(--cros-ripple-color);--cr-toggle-box-shadow:var(--cros-elevation-1-shadow);--cr-toggle-ripple-diameter:32px}:host-context([cros]):host-context(.focus-outline-visible) cr-toggle:focus{--cr-toggle-ripple-ring:2px solid var(--cros-focus-ring-color)}:host-context([cros]) .primary-toggle{color:var(--cros-text-color-secondary)}:host-context([cros]) .primary-toggle[checked]{color:var(--cros-text-color-prominent)}:host-context([cros]) paper-spinner-lite{--paper-spinner-color:var(--cros-icon-color-prominent)}:host-context([cros]) cr-tooltip-icon{--cr-link-color:var(--cros-tooltip-link-color)}:host-context(body.jelly-enabled){--cros-button-label-color-primary:var(--cros-sys-on_primary);--cros-link-color:var(--cros-sys-primary);--cros-separator-color:var(--cros-sys-separator);--cros-tab-slider-track-color:var(--cros-sys-surface_variant, 80%);--cr-form-field-label-color:var(--cros-sys-on_surface);--cr-link-color:var(--cros-sys-primary);--cr-primary-text-color:var(--cros-sys-on_surface);--cr-secondary-text-color:var(--cros-sys-on_surface_variant)}:host-context([cros][chrome-refresh-2023]){--cr-focus-outline-color:var(--cros-sys-focus_ring);--cr-disabled-opacity:var(--cros-disabled-opacity)}:host-context(body.jelly-enabled) cr-button{--text-color:var(--cros-sys-on_primary_container);--ink-color:var(--cros-sys-ripple_primary);--iron-icon-fill-color:currentColor;--hover-bg-color:var(--cros-sys-hover_on_subtle);--ripple-opacity:.1;--bg-action:var(--cros-sys-primary);--ink-color-action:var(--cros-sys-ripple_primary);--text-color-action:var(--cros-sys-on_primary);--hover-bg-action:var(--cros-sys-hover_on_prominent);--ripple-opacity-action:1;--disabled-bg:var(--cros-sys-disabled_container);--disabled-bg-action:var(--cros-sys-disabled_container);--disabled-text-color:var(--cros-sys-disabled);background-color:var(--cros-sys-primary_container);border:none}:host-context(body.jelly-enabled) cr-button:hover::part(hoverBackground){background-color:var(--hover-bg-color);display:block}:host-context(body.jelly-enabled) cr-button.action-button:not(:active):hover,:host-context(body.jelly-enabled) cr-button:active{box-shadow:none}:host-context(body.jelly-enabled) cr-button.action-button{background-color:var(--bg-action)}:host-context(body.jelly-enabled) cr-button.action-button:hover::part(hoverBackground){background-color:var(--hover-bg-action)}:host-context(body.jelly-enabled) cr-button[disabled]{background-color:var(--cros-sys-disabled_container)}:host-context(body.jelly-enabled):host-context(.focus-outline-visible) cr-button:focus{box-shadow:none;outline:2px solid var(--cros-sys-focus_ring)}:host-context(body.jelly-enabled) cr-checkbox{--cr-checkbox-checked-box-color:var(--cros-sys-primary);--cr-checkbox-ripple-checked-color:var(--cros-sys-ripple_primary);--cr-checkbox-checked-ripple-opacity:1;--cr-checkbox-mark-color:var(--cros-sys-inverse_on_surface);--cr-checkbox-ripple-unchecked-color:var(--cros-sys-ripple_primary);--cr-checkbox-unchecked-box-color:var(--cros-sys-on_surface);--cr-checkbox-unchecked-ripple-opacity:1}:host-context([cros][chrome-refresh-2023]) cr-checkbox{--cr-checkbox-focus-outline:none}:host-context([cros][chrome-refresh-2023]) cr-checkbox[disabled]{opacity:var(--cros-disabled-opacity)}:host-context([cros][chrome-refresh-2023]):host-context(.focus-outline-visible) cr-checkbox:focus{--cr-checkbox-ripple-ring:2px solid var(--cros-sys-focus_ring)}:host-context(body.jelly-enabled) cr-dialog::part(dialog){--cr-dialog-background-color:var(--cros-sys-base_elevated);background-image:none;box-shadow:0 0 12px 0 var(--cros-sys-shadow)}:host-context(body.jelly-enabled) cr-dialog>[slot=title]{font:var(--cros-display-7-font)}:host-context(body.jelly-enabled) cr-drawer{--cr-drawer-background-color:var(--cros-sys-app_base_shaded)}:host-context(body.jelly-enabled) cr-expand-button::part(icon),:host-context(body.jelly-enabled) cr-icon-button,:host-context(body.jelly-enabled) cr-link-row::part(icon){--cr-icon-button-fill-color:var(--cros-sys-secondary)}:host-context(body.jelly-enabled) cr-input,:host-context(body.jelly-enabled) cr-search-field::part(searchInput),:host-context(body.jelly-enabled) cr-searchable-drop-down::part(input),:host-context(body.jelly-enabled) cr-textarea{--cr-input-background-color:var(--cros-sys-input_field_on_base);--cr-input-error-color:var(--cros-sys-error);--cr-input-focus-color:var(--cros-sys-primary);--cr-input-placeholder-color:var(--cros-sys-secondary)}:host-context([cros][chrome-refresh-2023]) cr-input,:host-context([cros][chrome-refresh-2023]) cr-search-field::part(searchInput),:host-context([cros][chrome-refresh-2023]) cr-searchable-drop-down::part(input){--cr-input-background-color:var(--cros-sys-input_field_on_base);--cr-input-border:none;--cr-input-border-bottom:none;--cr-input-border-radius:8px;--cr-input-label-color:var(--cros-sys-on-surface);--cr-input-padding-start:16px;--cr-input-padding-end:16px;--cr-input-placeholder-color:var(--cros-sys-secondary);--cr-input-underline-display:none;font:var(--cros-body-2-font);--cr-input-focus-color:var(--cros-sys-primary);--cr-input-focus-label-color:var(--cros-sys-primary);--cr-input-focus-outline:2px solid var(--cros-sys-focus_ring);--cr-input-hover-background-color:transparent;--cr-input-error-color:var(--cros-sys-error)}:host-context([cros][chrome-refresh-2023]) cr-input[disabled]{color:currentColor;opacity:var(--cros-disabled-opacity)}:host-context([cros][chrome-refresh-2023]) cr-input[invalid]{--cr-input-focus-outline:2px solid var(--cros-sys-error)}:host-context([cros][chrome-refresh-2023]) cr-toolbar-search-field{--cr-toolbar-search-field-hover-background:none}:host-context(body.jelly-enabled) .md-select{--md-select-bg-color:var(--cros-sys-input_field_on_base);--md-select-focus-shadow-color:var(--cros-sys-primary);--md-select-option-bg-color:var(--cros-sys-base_elevated);--md-select-text-color:var(--cros-sys-on_surface)}:host-context([cros][chrome-refresh-2023]) .md-select{--md-arrow-width:7px;--md-select-bg-color:var(--cros-sys-input_field_on_base);--md-select-focus-shadow-color:transparent;--md-select-option-bg-color:var(--cros-sys-base_elevated);--md-select-side-padding:16px;--md-select-text-color:var(--cros-sys-on_surface);border:none;border-radius:8px;font:var(--cros-body-2-font);height:36px;line-height:36px}:host-context([cros][chrome-refresh-2023]) .md-select:hover{background-color:var(--md-select-bg-color)}:host-context([cros][chrome-refresh-2023]) .md-select[disabled]{background-color:var(--md-select-bg-color);border-color:transparent;color:var(--md-select-text-color);opacity:var(--cros-disabled-opacity)}:host-context(body.jelly-enabled) cr-action-menu{--cr-menu-background-color:var(--cros-sys-base_elevated);--cr-menu-background-focus-color:var(--cros-sys-hover_on_subtle)}:host-context(body.jelly-enabled),:host-context(body.jelly-enabled) cr-radio-button{--cr-radio-button-checked-color:var(--cros-sys-primary);--cr-radio-button-checked-ripple-color:var(--cros-sys-ripple_primary);--cr-radio-button-unchecked-color:var(--cros-sys-on_surface);--cr-radio-button-unchecked-ripple-color:var(--cros-sys-ripple_neutral_on_subtle)}:host-context([cros][chrome-refresh-2023]),:host-context([cros][chrome-refresh-2023]) cr-radio-button{--cr-radio-button-checked-color:var(--cros-sys-primary);--cr-radio-button-checked-ripple-color:var(--cros-sys-ripple_primary);--cr-radio-button-unchecked-color:var(--cros-sys-on_surface);--cr-radio-button-unchecked-ripple-color:var(--cros-sys-ripple_neutral_on_subtle);--cr-radio-button-ink-size:40px}:host-context([cros][chrome-refresh-2023]) cr-radio-button[disabled]{--cr-radio-button-checked-color:var(--cros-sys-disabled);--cr-radio-button-unchecked-color:var(--cros-sys-disabled)}:host-context(body.jelly-enabled) cr-card-radio-button{--cr-card-background-color:var(--cros-sys-app_base);--cr-checked-color:var(--cros-sys-primary);--cr-radio-button-checked-ripple-color:var(--cros-sys-ripple_primary);--hover-bg-color:var(--cros-sys-hover_on_subtle)}:host-context(body.jelly-enabled) cr-search-field{--cr-search-field-clear-icon-fill:var(--cros-sys-primary);--cr-search-field-clear-icon-margin-end:6px;--cr-search-field-input-border-bottom:none;--cr-search-field-input-padding-start:8px;--cr-search-field-input-underline-border-radius:4px;--cr-search-field-search-icon-display:none;--cr-search-field-search-icon-fill:var(--cros-sys-primary);--cr-search-field-search-icon-inline-display:block;--cr-search-field-search-icon-inline-margin-start:6px;border-radius:4px}:host-context([cros][chrome-refresh-2023]) cr-search-field{--cr-search-field-search-icon-fill:var(--cros-sys-secondary);--cr-search-field-search-icon-inline-margin-start:0;--cr-search-field-clear-icon-fill:var(--cros-sys-secondary);--cr-search-field-clear-icon-margin-end:6px;--cr-search-field-clear-icon-size:16px}:host-context([cros][chrome-refresh-2023]) cr-search-field::part(searchInput){--cr-input-padding-bottom:10px;--cr-input-padding-end:28px;--cr-input-padding-start:8px;--cr-input-padding-top:10px}:host-context([cros][chrome-refresh-2023]) cr-searchable-drop-down,:host-context(body.jelly-enabled) cr-searchable-drop-down{--cr-searchable-drop-down-bg-color:var(--cros-sys-base_elevated);--cr-searchable-drop-down-icon-color-focus:var(--cros-sys-primary);--cr-searchable-drop-down-list-bg-color-selected:var(--cros-sys-base_highlight);--cr-searchable-drop-down-list-item-color:var(--cros-sys-on_surface);--cr-searchable-drop-down-shadow:var(--cros-elevation-3-shadow)}:host-context(body.jelly-enabled) cr-slider{--cr-slider-active-color:var(--cros-sys-primary);--cr-slider-container-color:var(--cros-sys-primary_container);--cr-slider-container-disabled-color:var(--cros-sys-disabled_container);--cr-slider-disabled-color:var(--cros-sys-disabled);--cr-slider-knob-active-color:var(--cros-sys-primary);--cr-slider-knob-disabled-color:var(--cros-sys-disabled);--cr-slider-marker-active-color:var(--cros-sys-primary_container);--cr-slider-marker-color:var(--cros-sys-primary);--cr-slider-marker-disabled-color:var(--cros-sys-disabled);--cr-slider-ripple-color:var(--cros-sys-hover_on_prominent)}:host-context(body.jelly-enabled) cr-slider:not([disabled])::part(knob){background-color:var(--cros-sys-primary)}:host-context(body.jelly-enabled) cr-slider[disabled]::part(knob){border:none}:host-context(body.jelly-enabled) cr-slider::part(label){background:var(--cros-sys-primary);color:var(--cros-sys-on_primary)}:host-context(body.jelly-enabled) cr-tabs{--cr-tabs-selected-color:var(--cros-sys-primary)}:host-context(body.jelly-enabled) cr-toggle{--cr-toggle-checked-bar-color:var(--cros-sys-primary_container);--cr-toggle-checked-bar-opacity:100%;--cr-toggle-checked-button-color:var(--cros-sys-primary);--cr-toggle-checked-ripple-color:var(--cros-sys-hover_on_prominent);--cr-toggle-unchecked-bar-color:var(--cros-sys-secondary);--cr-toggle-unchecked-button-color:var(--cros-sys-surface_variant);--cr-toggle-unchecked-ripple-color:var(--cros-sys-hover_on_prominent);--cr-toggle-box-shadow:var(--cros-elevation-1-shadow);--cr-toggle-ripple-diameter:32px}:host-context(body.jelly-enabled):host-context(.focus-outline-visible) cr-toggle:focus{--cr-toggle-ripple-ring:2px solid var(--cros-sys-focus_ring)}:host-context([cros][chrome-refresh-2023]) cr-toggle{--cr-toggle-bar-width:32px;--cr-toggle-knob-diameter:12px;--cr-toggle-bar-border:none;--cr-toggle-checked-bar-color:var(--cros-sys-primary);--cr-toggle-checked-button-color:var(--cros-sys-on_primary);--cr-toggle-unchecked-bar-color:var(--cros-sys-secondary);--cr-toggle-unchecked-button-color:var(--cros-sys-on_secondary);--color-toggle-button-thumb-on-hover:var(--cros-sys-on_primary);--cr-toggle-disabled-opacity:var(--cros-disabled-opacity)}:host-context([cros][chrome-refresh-2023]):host-context(.focus-outline-visible) cr-toggle:focus{--cr-toggle-ripple-ring:none}:host-context([cros][chrome-refresh-2023]) cr-policy-indicator,:host-context([cros][chrome-refresh-2023]) cr-policy-pref-indicator,:host-context([cros][chrome-refresh-2023]) cr-tooltip-icon::part(tooltip),:host-context(body.jelly-enabled) cr-policy-indicator,:host-context(body.jelly-enabled) cr-policy-pref-indicator,:host-context(body.jelly-enabled) cr-tooltip-icon::part(tooltip){--paper-tooltip-background:var(--cros-sys-on_surface);--paper-tooltip-padding:5px 8px;--paper-tooltip-text-color:var(--cros-sys-inverse_on_surface);font:var(--cros-annotation-1-font)}
     </style>
   </template>
 `.content);
-styleMod$9.register('cros-color-overrides');
+styleMod$a.register('cros-color-overrides');
 
 /**
 @license
@@ -3068,7 +3068,7 @@ part of the polymer project is also subject to an additional IP rights grant
 found at http://polymer.github.io/PATENTS.txt
 */
 
-const template$5 = html`
+const template$7 = html`
 <custom-style>
   <style is="custom-style">
     html {
@@ -3221,12 +3221,11 @@ const template$5 = html`
   </style>
 </custom-style>
 `;
-template$5.setAttribute('style', 'display: none;');
-document.head.appendChild(template$5.content);
+template$7.setAttribute('style', 'display: none;');
+document.head.appendChild(template$7.content);
 
-const template$4 = html `
-<custom-style>
-  <style>
+const template$6 = html `
+<style>
 html{--google-blue-50-rgb:232,240,254;--google-blue-50:rgb(var(--google-blue-50-rgb));--google-blue-100-rgb:210,227,252;--google-blue-100:rgb(var(--google-blue-100-rgb));--google-blue-200-rgb:174,203,250;--google-blue-200:rgb(var(--google-blue-200-rgb));--google-blue-300-rgb:138,180,248;--google-blue-300:rgb(var(--google-blue-300-rgb));--google-blue-400-rgb:102,157,246;--google-blue-400:rgb(var(--google-blue-400-rgb));--google-blue-500-rgb:66,133,244;--google-blue-500:rgb(var(--google-blue-500-rgb));--google-blue-600-rgb:26,115,232;--google-blue-600:rgb(var(--google-blue-600-rgb));--google-blue-700-rgb:25,103,210;--google-blue-700:rgb(var(--google-blue-700-rgb));--google-blue-800-rgb:24,90,188;--google-blue-800:rgb(var(--google-blue-800-rgb));--google-blue-900-rgb:23,78,166;--google-blue-900:rgb(var(--google-blue-900-rgb));--google-green-50-rgb:230,244,234;--google-green-50:rgb(var(--google-green-50-rgb));--google-green-200-rgb:168,218,181;--google-green-200:rgb(var(--google-green-200-rgb));--google-green-300-rgb:129,201,149;--google-green-300:rgb(var(--google-green-300-rgb));--google-green-400-rgb:91,185,116;--google-green-400:rgb(var(--google-green-400-rgb));--google-green-500-rgb:52,168,83;--google-green-500:rgb(var(--google-green-500-rgb));--google-green-600-rgb:30,142,62;--google-green-600:rgb(var(--google-green-600-rgb));--google-green-700-rgb:24,128,56;--google-green-700:rgb(var(--google-green-700-rgb));--google-green-800-rgb:19,115,51;--google-green-800:rgb(var(--google-green-800-rgb));--google-green-900-rgb:13,101,45;--google-green-900:rgb(var(--google-green-900-rgb));--google-grey-50-rgb:248,249,250;--google-grey-50:rgb(var(--google-grey-50-rgb));--google-grey-100-rgb:241,243,244;--google-grey-100:rgb(var(--google-grey-100-rgb));--google-grey-200-rgb:232,234,237;--google-grey-200:rgb(var(--google-grey-200-rgb));--google-grey-300-rgb:218,220,224;--google-grey-300:rgb(var(--google-grey-300-rgb));--google-grey-400-rgb:189,193,198;--google-grey-400:rgb(var(--google-grey-400-rgb));--google-grey-500-rgb:154,160,166;--google-grey-500:rgb(var(--google-grey-500-rgb));--google-grey-600-rgb:128,134,139;--google-grey-600:rgb(var(--google-grey-600-rgb));--google-grey-700-rgb:95,99,104;--google-grey-700:rgb(var(--google-grey-700-rgb));--google-grey-800-rgb:60,64,67;--google-grey-800:rgb(var(--google-grey-800-rgb));--google-grey-900-rgb:32,33,36;--google-grey-900:rgb(var(--google-grey-900-rgb));--google-grey-900-white-4-percent:#292a2d;--google-purple-200-rgb:215,174,251;--google-purple-200:rgb(var(--google-purple-200-rgb));--google-purple-900-rgb:104,29,168;--google-purple-900:rgb(var(--google-purple-900-rgb));--google-red-300-rgb:242,139,130;--google-red-300:rgb(var(--google-red-300-rgb));--google-red-500-rgb:234,67,53;--google-red-500:rgb(var(--google-red-500-rgb));--google-red-600-rgb:217,48,37;--google-red-600:rgb(var(--google-red-600-rgb));--google-yellow-50-rgb:254,247,224;--google-yellow-50:rgb(var(--google-yellow-50-rgb));--google-yellow-100-rgb:254,239,195;--google-yellow-100:rgb(var(--google-yellow-100-rgb));--google-yellow-200-rgb:253,226,147;--google-yellow-200:rgb(var(--google-yellow-200-rgb));--google-yellow-300-rgb:253,214,51;--google-yellow-300:rgb(var(--google-yellow-300-rgb));--google-yellow-400-rgb:252,201,52;--google-yellow-400:rgb(var(--google-yellow-400-rgb));--google-yellow-500-rgb:251,188,4;--google-yellow-500:rgb(var(--google-yellow-500-rgb));--cr-primary-text-color:var(--google-grey-900);--cr-secondary-text-color:var(--google-grey-700);--cr-card-background-color:white;--cr-shadow-color:var(--google-grey-800);--cr-shadow-key-color_:color-mix(in srgb, var(--cr-shadow-color) 30%, transparent);--cr-shadow-ambient-color_:color-mix(in srgb, var(--cr-shadow-color) 15%, transparent);--cr-elevation-1:var(--cr-shadow-key-color_) 0 1px 2px 0,var(--cr-shadow-ambient-color_) 0 1px 3px 1px;--cr-elevation-2:var(--cr-shadow-key-color_) 0 1px 2px 0,var(--cr-shadow-ambient-color_) 0 2px 6px 2px;--cr-elevation-3:var(--cr-shadow-key-color_) 0 1px 3px 0,var(--cr-shadow-ambient-color_) 0 4px 8px 3px;--cr-elevation-4:var(--cr-shadow-key-color_) 0 2px 3px 0,var(--cr-shadow-ambient-color_) 0 6px 10px 4px;--cr-elevation-5:var(--cr-shadow-key-color_) 0 4px 4px 0,var(--cr-shadow-ambient-color_) 0 8px 12px 6px;--cr-card-shadow:var(--cr-elevation-2);--cr-checked-color:var(--google-blue-600);--cr-focused-item-color:var(--google-grey-300);--cr-form-field-label-color:var(--google-grey-700);--cr-hairline-rgb:0,0,0;--cr-iph-anchor-highlight-color:rgba(var(--google-blue-600-rgb), 0.1);--cr-link-color:var(--google-blue-700);--cr-menu-background-color:white;--cr-menu-background-focus-color:var(--google-grey-400);--cr-menu-shadow:0 2px 6px var(--paper-grey-500);--cr-separator-color:rgba(0, 0, 0, .06);--cr-title-text-color:rgb(90, 90, 90);--cr-toolbar-background-color:white;--cr-hover-background-color:rgba(var(--google-grey-900-rgb), .1);--cr-active-background-color:rgba(var(--google-grey-900-rgb), .16);--cr-focus-outline-color:rgba(var(--google-blue-600-rgb), .4)}@media (prefers-color-scheme:dark){html{--cr-primary-text-color:var(--google-grey-200);--cr-secondary-text-color:var(--google-grey-500);--cr-card-background-color:var(--google-grey-900-white-4-percent);--cr-card-shadow-color-rgb:0,0,0;--cr-checked-color:var(--google-blue-300);--cr-focused-item-color:var(--google-grey-800);--cr-form-field-label-color:var(--dark-secondary-color);--cr-hairline-rgb:255,255,255;--cr-iph-anchor-highlight-color:rgba(var(--google-grey-100-rgb), 0.1);--cr-link-color:var(--google-blue-300);--cr-menu-background-color:var(--google-grey-900);--cr-menu-background-focus-color:var(--google-grey-700);--cr-menu-background-sheen:rgba(255, 255, 255, .06);--cr-menu-shadow:rgba(0, 0, 0, .3) 0 1px 2px 0,rgba(0, 0, 0, .15) 0 3px 6px 2px;--cr-separator-color:rgba(255, 255, 255, .1);--cr-title-text-color:var(--cr-primary-text-color);--cr-toolbar-background-color:var(--google-grey-900-white-4-percent);--cr-hover-background-color:rgba(255, 255, 255, .1);--cr-active-background-color:rgba(var(--google-grey-200-rgb), .16);--cr-focus-outline-color:rgba(var(--google-blue-300-rgb), .4)}}@media (forced-colors:active){html{--cr-focus-outline-hcm:2px solid transparent;--cr-border-hcm:2px solid transparent}}html{--cr-button-edge-spacing:12px;--cr-button-height:32px;--cr-controlled-by-spacing:24px;--cr-default-input-max-width:264px;--cr-icon-ripple-size:36px;--cr-icon-ripple-padding:8px;--cr-icon-size:20px;--cr-icon-button-margin-start:16px;--cr-icon-ripple-margin:calc(var(--cr-icon-ripple-padding) * -1);--cr-section-min-height:48px;--cr-section-two-line-min-height:64px;--cr-section-padding:20px;--cr-section-vertical-padding:12px;--cr-section-indent-width:40px;--cr-section-indent-padding:calc(
       var(--cr-section-padding) + var(--cr-section-indent-width));--cr-section-vertical-margin:21px;--cr-centered-card-max-width:680px;--cr-centered-card-width-percentage:0.96;--cr-hairline:1px solid rgba(var(--cr-hairline-rgb), .14);--cr-separator-height:1px;--cr-separator-line:var(--cr-separator-height) solid var(--cr-separator-color);--cr-toolbar-overlay-animation-duration:150ms;--cr-toolbar-height:56px;--cr-container-shadow-height:6px;--cr-container-shadow-margin:calc(-1 * var(--cr-container-shadow-height));--cr-container-shadow-max-opacity:1;--cr-card-border-radius:8px;--cr-disabled-opacity:.38;--cr-form-field-bottom-spacing:16px;--cr-form-field-label-font-size:.625rem;--cr-form-field-label-height:1em;--cr-form-field-label-line-height:1}html[chrome-refresh-2023]{--cr-fallback-color-outline:rgb(116, 119, 117);--cr-fallback-color-primary:rgb(11, 87, 208);--cr-fallback-color-on-primary:rgb(255, 255, 255);--cr-fallback-color-primary-container:rgb(211, 227, 253);--cr-fallback-color-on-primary-container:rgb(4, 30, 73);--cr-fallback-color-secondary-container:rgb(194, 231, 255);--cr-fallback-color-on-secondary-container:rgb(0, 29, 53);--cr-fallback-color-neutral-container:rgb(242, 242, 242);--cr-fallback-color-neutral-outline:rgb(199, 199, 199);--cr-fallback-color-surface:rgb(255, 255, 255);--cr-fallback-color-on-surface-rgb:31,31,31;--cr-fallback-color-on-surface:rgb(var(--cr-fallback-color-on-surface-rgb));--cr-fallback-color-surface-variant:rgb(225, 227, 225);--cr-fallback-color-on-surface-variant:rgb(68, 71, 70);--cr-fallback-color-on-surface-subtle:rgb(71, 71, 71);--cr-fallback-color-inverse-primary:rgb(168, 199, 250);--cr-fallback-color-inverse-surface:rgb(48, 48, 48);--cr-fallback-color-inverse-on-surface:rgb(242, 242, 242);--cr-fallback-color-tonal-container:rgb(211, 227, 253);--cr-fallback-color-on-tonal-container:rgb(4, 30, 73);--cr-fallback-color-tonal-outline:rgb(168, 199, 250);--cr-fallback-color-error:rgb(179, 38, 30);--cr-fallback-color-divider:rgb(211, 227, 253);--cr-fallback-color-state-hover-on-prominent_:rgba(253, 252, 251, .1);--cr-fallback-color-state-on-subtle-rgb_:31,31,31;--cr-fallback-color-state-hover-on-subtle_:rgba(
       var(--cr-fallback-color-state-on-subtle-rgb_), .06);--cr-fallback-color-state-ripple-neutral-on-subtle_:rgba(
@@ -3250,20 +3249,19 @@ html{--google-blue-50-rgb:232,240,254;--google-blue-50:rgb(var(--google-blue-50-
       var(--cr-fallback-color-primary));--cr-button-height:36px;--cr-shadow-color:var(--color-sys-shadow, rgb(0, 0, 0))}@media (prefers-color-scheme:dark){html[chrome-refresh-2023]{--cr-fallback-color-outline:rgb(142, 145, 143);--cr-fallback-color-primary:rgb(168, 199, 250);--cr-fallback-color-on-primary:rgb(6, 46, 111);--cr-fallback-color-primary-container:rgb(8, 66, 160);--cr-fallback-color-on-primary-container:rgb(211, 227, 253);--cr-fallback-color-secondary-container:rgb(0, 74, 119);--cr-fallback-color-on-secondary-container:rgb(194, 231, 255);--cr-fallback-color-neutral-container:rgb(42, 42, 42);--cr-fallback-color-neutral-outline:rgb(117, 117, 117);--cr-fallback-color-surface:rgb(26, 27, 30);--cr-fallback-color-on-surface-rgb:227,227,227;--cr-fallback-color-surface-variant:rgb(68, 71, 70);--cr-fallback-color-on-surface-variant:rgb(196, 199, 197);--cr-fallback-color-on-surface-subtle:rgb(199, 199, 199);--cr-fallback-color-inverse-primary:rgb(11, 87, 208);--cr-fallback-color-inverse-surface:rgb(227, 227, 227);--cr-fallback-color-inverse-on-surface:rgb(31, 31, 31);--cr-fallback-color-tonal-container:rgb(0, 74, 119);--cr-fallback-color-on-tonal-container:rgb(194, 231, 255);--cr-fallback-color-tonal-outline:rgb(0, 99, 155);--cr-fallback-color-error:rgb(242, 184, 181);--cr-fallback-color-divider:rgb(71, 71, 71);--cr-fallback-color-state-hover-on-prominent_:rgba(31, 31, 31, .06);--cr-fallback-color-state-on-subtle-rgb_:253,252,251;--cr-fallback-color-state-hover-on-subtle_:rgba(
         var(--cr-fallback-color-state-on-subtle-rgb_), .10);--cr-fallback-color-state-ripple-neutral-on-subtle_:rgba(
         var(--cr-fallback-color-state-on-subtle-rgb_), .16);--cr-fallback-color-state-ripple-primary-rgb_:76,141,246;--cr-fallback-color-base-container:rgba(40, 40, 40, 1)}}@media (forced-colors:active){html[chrome-refresh-2023]{--cr-fallback-color-disabled-background:Canvas;--cr-fallback-color-disabled-foreground:GrayText}}
-  </style>
-</custom-style>
+</style>
 `;
-document.head.appendChild(template$4.content);
+document.head.appendChild(template$6.content);
 
-const styleMod$8 = document.createElement('dom-module');
-styleMod$8.appendChild(html `
+const styleMod$9 = document.createElement('dom-module');
+styleMod$9.appendChild(html `
   <template>
     <style include="cros-color-overrides">
-[hidden]{display:none!important}:host{--personalization-app-breadcrumb-height:56px;--personalization-app-subpage-container-min-height:calc(100vh - var(--personalization-app-breadcrumb-height));--personalization-app-grid-item-background-color:var(--google-grey-100);--personalization-app-grid-item-border-radius:12px;--personalization-app-grid-item-height:120px;--personalization-app-grid-item-spacing:16px;--personalization-app-text-shadow-elevation-1:0 1px 3px rgba(0, 0, 0, 15%),0 1px 2px rgba(0, 0, 0, 30%);--personalization-app-second-tone-opacity:0.3;--personalization-app-label-font:var(--cros-button-2-font)}:host-context(body.jelly-enabled){--personalization-app-grid-item-background-color:var(--cros-sys-secondary_container)}@media (prefers-color-scheme:dark){:host{--personalization-app-grid-item-background-color:rgba(var(--google-grey-700-rgb), 0.3)}:host-context(body.jelly-enabled){--personalization-app-grid-item-background-color:var(--cros-sys-secondary_container)}}@keyframes ripple{from{opacity:1}9%{opacity:.15}15.8%{opacity:.15}24.9%{opacity:1}to{opacity:1}}.placeholder{animation:2.21s linear var(--animation-delay,1s) infinite ripple}.preview-container{border:1px solid var(--cros-separator-color);border-radius:16px}:host-context(body.jelly-enabled) .preview-container{border:none}.preview-text-container,.preview-text-placeholder{align-items:flex-start;display:flex;flex-flow:column nowrap;margin:0}.preview-text-container{justify-content:flex-end}.preview-text-placeholder{justify-content:center}.placeholder{background-color:var(--personalization-app-grid-item-background-color);border-radius:12px}.preview-image-container{border-radius:12px;box-sizing:border-box;overflow:hidden;position:relative}.photo-images-border,.preview-image-border,.wallpaper-grid-item-border{border:1px solid rgba(0,0,0,.08);border-radius:12px;bottom:0;box-sizing:border-box;left:0;pointer-events:none;position:absolute;right:0;top:0;z-index:2}.preview-image{height:100%;object-fit:cover;width:100%}.preview-text-container>*,.preview-text-placeholder>*{margin:0;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.preview-text-container>*+*{margin-top:4px}.preview-text-placeholder>*+*{margin-top:8px}.preview-text-container>span:first-child{color:var(--cros-text-color-secondary);font:var(--cros-body-2-font)}.preview-text-placeholder>.placeholder:first-child{--animation-delay:calc(1s + 83ms);height:20px;width:20%}.preview-text-container>span:nth-child(2){color:var(--cros-text-color-primary);font:var(--cros-display-6-font)}.preview-text-placeholder>.placeholder:nth-child(2){--animation-delay:calc(1s + 83ms * 2);height:24px;width:75%}.preview-text-container>span:nth-child(n+3){color:var(--cros-text-color-secondary);font:var(--cros-body-1-font)}.preview-text-placeholder>.placeholder:nth-child(n+3){--animation-delay:calc(1s + 83ms * 3);height:20px;width:33%}.ambient-subpage-element-title{color:var(--cros-text-color-primary);font:var(--personalization-app-label-font);margin:34px 8px 16px 8px}.ambient-toggle-row-container{border:1px solid var(--cros-separator-color);border-radius:8px;display:flex;flex-flow:column nowrap;height:48px;width:100%}.ambient-toggle-row{align-items:center;display:flex;flex:1;flex-flow:row nowrap;justify-content:space-between;margin:0 20px}.ambient-toggle-row+.ambient-toggle-row{border-top:1px solid var(--cros-separator-color)}.ambient-toggle-row>p{font:var(--cros-body-1-font);height:20px;margin:0}.clickable{cursor:pointer}.leftspacertop{grid-area:leftspacertop}.leftspacerbottom{grid-area:leftspacerbottom}.rightspacertop{grid-area:rightspacertop}.rightspacerbottom{grid-area:rightspacerbottom}:host-context(body.jelly-enabled) div[class$=spacertop]{background-color:var(--cros-sys-app_base_shaded)}:host-context(body.jelly-enabled) div[class$=spacerbottom]{background-color:var(--cros-bg-color)}:host-context(body.jelly-enabled) .leftspacerbottom{border-radius:12px 0 0 12px}:host-context(body.jelly-enabled) .rightspacerbottom{border-radius:0 12px 12px 0}:host-context(body.jelly-enabled) .preview-container{background-color:var(--cros-bg-color)}:host-context(body.jelly-enabled) .ambient-toggle-row-container{border:none}:host-context(body.jelly-enabled) .ambient-toggle-row{margin:0}:host-context(body.jelly-enabled) .ambient-toggle-row>p{color:var(--cros-text-color-secondary);font:var(--cros-body-2-font)}:host-context(body.jelly-enabled) .ambient-subpage-element-title{margin-top:20px}:host-context([dir=rtl]) iron-icon[icon='cr:chevron-right']{transform:scaleX(-1)}.ellipsis{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.disabled{opacity:var(--cros-disabled-opacity)}img.disabled{opacity:50%}
+[hidden]{display:none!important}:host{--personalization-app-breadcrumb-height:56px;--personalization-app-subpage-container-min-height:calc(100vh - var(--personalization-app-breadcrumb-height));--personalization-app-grid-item-background-color:var(--google-grey-100);--personalization-app-grid-item-border-radius:12px;--personalization-app-grid-item-height:120px;--personalization-app-grid-item-spacing:20px;--personalization-app-text-shadow-elevation-1:0 1px 3px rgba(0, 0, 0, 15%),0 1px 2px rgba(0, 0, 0, 30%);--personalization-app-second-tone-opacity:0.3;--personalization-app-label-font:var(--cros-button-2-font)}:host-context(body.jelly-enabled){--personalization-app-grid-item-background-color:var(--cros-sys-secondary_container)}@media (prefers-color-scheme:dark){:host{--personalization-app-grid-item-background-color:rgba(var(--google-grey-700-rgb), 0.3)}:host-context(body.jelly-enabled){--personalization-app-grid-item-background-color:var(--cros-sys-secondary_container)}}@keyframes ripple{from{opacity:1}9%{opacity:.15}15.8%{opacity:.15}24.9%{opacity:1}to{opacity:1}}.placeholder{animation:2.21s linear var(--animation-delay,1s) infinite ripple}.preview-container{border:1px solid var(--cros-separator-color);border-radius:16px}:host-context(body.jelly-enabled) .preview-container{border:none}.preview-text-container,.preview-text-placeholder{align-items:flex-start;display:flex;flex-flow:column nowrap;margin:0}.preview-text-container{justify-content:flex-end}.preview-text-placeholder{justify-content:center}.placeholder{background-color:var(--personalization-app-grid-item-background-color);border-radius:12px}.preview-image-container{border-radius:12px;box-sizing:border-box;overflow:hidden;position:relative}.photo-images-border,.preview-image-border,.wallpaper-grid-item-border{border:1px solid rgba(0,0,0,.08);border-radius:12px;bottom:0;box-sizing:border-box;left:0;pointer-events:none;position:absolute;right:0;top:0;z-index:2}.preview-image{height:100%;object-fit:cover;width:100%}.preview-text-container>*,.preview-text-placeholder>*{margin:0;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.preview-text-container>*+*{margin-top:4px}.preview-text-placeholder>*+*{margin-top:8px}.preview-text-container>span:first-child{color:var(--cros-text-color-secondary);font:var(--cros-body-2-font)}.preview-text-placeholder>.placeholder:first-child{--animation-delay:calc(1s + 83ms);height:20px;width:20%}.preview-text-container>span:nth-child(2){color:var(--cros-text-color-primary);font:var(--cros-display-6-font)}.preview-text-placeholder>.placeholder:nth-child(2){--animation-delay:calc(1s + 83ms * 2);height:24px;width:75%}.preview-text-container>span:nth-child(n+3){color:var(--cros-text-color-secondary);font:var(--cros-body-1-font)}.preview-text-placeholder>.placeholder:nth-child(n+3){--animation-delay:calc(1s + 83ms * 3);height:20px;width:33%}.ambient-subpage-element-title{color:var(--cros-text-color-primary);font:var(--personalization-app-label-font);margin:34px 10px 16px 10px}.ambient-toggle-row-container{border:1px solid var(--cros-separator-color);border-radius:8px;display:flex;flex-flow:column nowrap;height:48px;width:100%}.ambient-toggle-row{align-items:center;display:flex;flex:1;flex-flow:row nowrap;justify-content:space-between;margin:0 20px}.ambient-toggle-row+.ambient-toggle-row{border-top:1px solid var(--cros-separator-color)}.ambient-toggle-row>p{font:var(--cros-body-1-font);height:20px;margin:0}.clickable{cursor:pointer}.leftspacertop{grid-area:leftspacertop}.leftspacerbottom{grid-area:leftspacerbottom}.rightspacertop{grid-area:rightspacertop}.rightspacerbottom{grid-area:rightspacerbottom}:host-context(body.jelly-enabled) div[class$=spacertop]{background-color:var(--cros-sys-app_base_shaded)}:host-context(body.jelly-enabled) div[class$=spacerbottom]{background-color:var(--cros-bg-color)}:host-context(body.jelly-enabled) .leftspacerbottom{border-radius:12px 0 0 12px}:host-context(body.jelly-enabled) .rightspacerbottom{border-radius:0 12px 12px 0}:host-context(body.jelly-enabled) .preview-container{background-color:var(--cros-bg-color)}:host-context(body.jelly-enabled) .ambient-toggle-row-container{border:none}:host-context(body.jelly-enabled) .ambient-toggle-row{margin:0}:host-context(body.jelly-enabled) .ambient-toggle-row>p{color:var(--cros-text-color-secondary);font:var(--cros-body-2-font)}:host-context(body.jelly-enabled) .ambient-subpage-element-title{margin-top:20px}:host-context([dir=rtl]) iron-icon[icon='cr:chevron-right']{transform:scaleX(-1)}.ellipsis{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.disabled{opacity:var(--cros-disabled-opacity)}img.disabled{opacity:50%}
     </style>
   </template>
 `.content);
-styleMod$8.register('common');
+styleMod$9.register('common');
 
 // Copyright 2022 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
@@ -3469,7 +3467,7 @@ const WallpaperTypeSpec = { $: mojo.internal.Enum() };
 var WallpaperType;
 (function (WallpaperType) {
     WallpaperType[WallpaperType["MIN_VALUE"] = 0] = "MIN_VALUE";
-    WallpaperType[WallpaperType["MAX_VALUE"] = 12] = "MAX_VALUE";
+    WallpaperType[WallpaperType["MAX_VALUE"] = 13] = "MAX_VALUE";
     WallpaperType[WallpaperType["kDaily"] = 0] = "kDaily";
     WallpaperType[WallpaperType["kCustomized"] = 1] = "kCustomized";
     WallpaperType[WallpaperType["kDefault"] = 2] = "kDefault";
@@ -3481,6 +3479,7 @@ var WallpaperType;
     WallpaperType[WallpaperType["kDailyGooglePhotos"] = 10] = "kDailyGooglePhotos";
     WallpaperType[WallpaperType["kOnceGooglePhotos"] = 11] = "kOnceGooglePhotos";
     WallpaperType[WallpaperType["kOobe"] = 12] = "kOobe";
+    WallpaperType[WallpaperType["kSeaPen"] = 13] = "kSeaPen";
 })(WallpaperType || (WallpaperType = {}));
 const OnlineImageTypeSpec = { $: mojo.internal.Enum() };
 var OnlineImageType;
@@ -3761,6 +3760,9 @@ class WallpaperProviderRemote {
     cancelPreviewWallpaper() {
         this.proxy.sendMessage(24, WallpaperProvider_CancelPreviewWallpaper_ParamsSpec.$, null, []);
     }
+    shouldShowTimeOfDayWallpaperDialog() {
+        return this.proxy.sendMessage(25, WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_ParamsSpec.$, WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_ResponseParamsSpec.$, []);
+    }
 }
 /**
  * An object which receives request messages for the WallpaperProvider
@@ -3796,6 +3798,7 @@ class WallpaperProviderReceiver {
         this.helper_internal_.registerHandler(22, WallpaperProvider_IsInTabletMode_ParamsSpec.$, WallpaperProvider_IsInTabletMode_ResponseParamsSpec.$, impl.isInTabletMode.bind(impl));
         this.helper_internal_.registerHandler(23, WallpaperProvider_ConfirmPreviewWallpaper_ParamsSpec.$, null, impl.confirmPreviewWallpaper.bind(impl));
         this.helper_internal_.registerHandler(24, WallpaperProvider_CancelPreviewWallpaper_ParamsSpec.$, null, impl.cancelPreviewWallpaper.bind(impl));
+        this.helper_internal_.registerHandler(25, WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_ParamsSpec.$, WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_ResponseParamsSpec.$, impl.shouldShowTimeOfDayWallpaperDialog.bind(impl));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
 }
@@ -3900,6 +3903,9 @@ class WallpaperProviderCallbackRouter {
         this.cancelPreviewWallpaper =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
         this.helper_internal_.registerHandler(24, WallpaperProvider_CancelPreviewWallpaper_ParamsSpec.$, null, this.cancelPreviewWallpaper.createReceiverHandler(false /* expectsResponse */));
+        this.shouldShowTimeOfDayWallpaperDialog =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(25, WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_ParamsSpec.$, WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_ResponseParamsSpec.$, this.shouldShowTimeOfDayWallpaperDialog.createReceiverHandler(true /* expectsResponse */));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
     /**
@@ -4886,6 +4892,8 @@ const WallpaperProvider_IsInTabletMode_ParamsSpec = { $: {} };
 const WallpaperProvider_IsInTabletMode_ResponseParamsSpec = { $: {} };
 const WallpaperProvider_ConfirmPreviewWallpaper_ParamsSpec = { $: {} };
 const WallpaperProvider_CancelPreviewWallpaper_ParamsSpec = { $: {} };
+const WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_ParamsSpec = { $: {} };
+const WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_ResponseParamsSpec = { $: {} };
 const ThemeObserver_OnColorModeChanged_ParamsSpec = { $: {} };
 const ThemeObserver_OnColorModeAutoScheduleChanged_ParamsSpec = { $: {} };
 const ThemeObserver_OnColorSchemeChanged_ParamsSpec = { $: {} };
@@ -5152,6 +5160,10 @@ mojo.internal.Struct(WallpaperProvider_IsInTabletMode_ResponseParamsSpec.$, 'Wal
 ], [[0, 16],]);
 mojo.internal.Struct(WallpaperProvider_ConfirmPreviewWallpaper_ParamsSpec.$, 'WallpaperProvider_ConfirmPreviewWallpaper_Params', [], [[0, 8],]);
 mojo.internal.Struct(WallpaperProvider_CancelPreviewWallpaper_ParamsSpec.$, 'WallpaperProvider_CancelPreviewWallpaper_Params', [], [[0, 8],]);
+mojo.internal.Struct(WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_ParamsSpec.$, 'WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_Params', [], [[0, 8],]);
+mojo.internal.Struct(WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_ResponseParamsSpec.$, 'WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_ResponseParams', [
+    mojo.internal.StructField('shouldShowDialog', 0, 0, mojo.internal.Bool, false, false /* nullable */, 0),
+], [[0, 16],]);
 mojo.internal.Struct(ThemeObserver_OnColorModeChanged_ParamsSpec.$, 'ThemeObserver_OnColorModeChanged_Params', [
     mojo.internal.StructField('darkModeEnabled', 0, 0, mojo.internal.Bool, false, false /* nullable */, 0),
 ], [[0, 16],]);
@@ -5758,11 +5770,13 @@ function makeStoreClientMixin(storeGetter) {
  * associated with the store.
  */
 class Store {
+    data;
+    reducer_;
+    initialized_ = false;
+    queuedActions_ = [];
+    observers_ = new Set();
+    batchMode_ = false;
     constructor(emptyState, reducer) {
-        this.initialized_ = false;
-        this.queuedActions_ = [];
-        this.observers_ = new Set();
-        this.batchMode_ = false;
         this.data = emptyState;
         this.reducer_ = reducer;
     }
@@ -5847,6 +5861,26 @@ class Store {
             o.onStateChanged(state);
         });
     }
+}
+
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+// Returns true if `maybeDataUrl` is a Url that contains a base64 encoded image.
+function isImageDataUrl(maybeDataUrl) {
+    return !!maybeDataUrl && typeof maybeDataUrl === 'object' &&
+        'url' in maybeDataUrl && typeof maybeDataUrl.url === 'string' &&
+        (maybeDataUrl.url.startsWith('data:image/png;base64') ||
+            maybeDataUrl.url.startsWith('data:image/jpeg;base64'));
+}
+// Returns true if `maybeArray` is an array with at least one item.
+function isNonEmptyArray(maybeArray) {
+    return Array.isArray(maybeArray) && maybeArray.length > 0;
+}
+// Returns true is `obj` is a FilePath with a non-empty path.
+function isNonEmptyFilePath(obj) {
+    return !!obj && typeof obj === 'object' && 'path' in obj &&
+        typeof obj.path === 'string' && !!obj.path;
 }
 
 // Copyright 2022 The Chromium Authors
@@ -6327,189 +6361,6 @@ const userReducers = {
     imageIsEnterpriseManaged: imageIsEnterpriseManagedReducer,
 };
 
-// Copyright 2023 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @fileoverview Getters for all of the loadTimeData booleans used throughout
- * personalization app.
- * @see //ash/webui/personalization_app/personalization_app_ui.cc
- * Export them as functions so they reload the values when overridden in test.
- */
-function isGooglePhotosIntegrationEnabled() {
-    return loadTimeData.getBoolean('isGooglePhotosIntegrationEnabled');
-}
-function isGooglePhotosSharedAlbumsEnabled() {
-    return loadTimeData.getBoolean('isGooglePhotosSharedAlbumsEnabled');
-}
-function isAmbientModeAllowed() {
-    return loadTimeData.getBoolean('isAmbientModeAllowed');
-}
-function isRgbKeyboardSupported() {
-    return loadTimeData.getBoolean('isRgbKeyboardSupported');
-}
-function isScreenSaverDurationEnabled() {
-    return loadTimeData.getBoolean('isScreenSaverDurationEnabled');
-}
-function isPersonalizationJellyEnabled() {
-    return loadTimeData.getBoolean('isPersonalizationJellyEnabled');
-}
-function isMultiZoneRgbKeyboardSupported() {
-    return loadTimeData.getInteger('keyboardBacklightZoneCount') > 1;
-}
-function isUserAvatarCustomizationSelectorsEnabled() {
-    return loadTimeData.getBoolean('isUserAvatarCustomizationSelectorsEnabled');
-}
-function isTimeOfDayScreenSaverEnabled() {
-    return loadTimeData.getBoolean('isTimeOfDayScreenSaverEnabled');
-}
-function isTimeOfDayWallpaperEnabled() {
-    return loadTimeData.getBoolean('isTimeOfDayWallpaperEnabled');
-}
-function isSeaPenEnabled() {
-    return loadTimeData.getBoolean('isSeaPenEnabled');
-}
-function isSeaPenTextInputEnabled() {
-    return loadTimeData.getBoolean('isSeaPenTextInputEnabled');
-}
-
-// Copyright 2021 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @fileoverview Utility functions to be used throughout personalization app.
- */
-const WALLPAPER = 'wallpaperColor';
-const WHITE = 'whiteColor';
-const RED = 'redColor';
-const YELLOW = 'yellowColor';
-const GREEN = 'greenColor';
-const BLUE = 'blueColor';
-const INDIGO = 'indigoColor';
-const PURPLE = 'purpleColor';
-const RAINBOW = 'rainbowColor';
-const staticColorIds = [WALLPAPER, WHITE, RED, YELLOW, GREEN, BLUE, INDIGO, PURPLE];
-/** Returns true if this event is a user action to select an item. */
-function isSelectionEvent(event) {
-    return (event instanceof MouseEvent && event.type === 'click') ||
-        (event instanceof KeyboardEvent && event.key === 'Enter');
-}
-/** Returns the text to display for a number of images. */
-function getCountText(x) {
-    switch (x) {
-        case null:
-        case undefined:
-            return '';
-        case 0:
-            return loadTimeData.getString('zeroImages');
-        case 1:
-            return loadTimeData.getString('oneImage');
-        default:
-            if ('number' !== typeof x || x < 0) {
-                console.error('Received an impossible value');
-                return '';
-            }
-            return loadTimeData.getStringF('multipleImages', x);
-    }
-}
-/**
- * Returns the number of grid items to render per row given the current inner
- * width of the |window|.
- */
-function getNumberOfGridItemsPerRow() {
-    return window.innerWidth > 720 ? 4 : 3;
-}
-/**
- * Checks if argument is an array with non-zero length.
- */
-function isNonEmptyArray(maybeArray) {
-    return Array.isArray(maybeArray) && maybeArray.length > 0;
-}
-/**
- * Checks if argument is a string with non-zero length.
- */
-function isNonEmptyString(maybeString) {
-    return typeof maybeString === 'string' && maybeString.length > 0;
-}
-/**
- * Checks if a number is within a range.
- */
-function inBetween(num, minVal, maxVal) {
-    return minVal <= num && num <= maxVal;
-}
-/** Converts a String16 to a JavaScript String. */
-function decodeString16(str) {
-    return str ? str.data.map(ch => String.fromCodePoint(ch)).join('') : '';
-}
-function isImageDataUrl(maybeDataUrl) {
-    return !!maybeDataUrl && typeof maybeDataUrl.url === 'string' &&
-        (maybeDataUrl.url.startsWith('data:image/png;base64') ||
-            maybeDataUrl.url.startsWith('data:image/jpeg;base64'));
-}
-/** Returns the RGB hex in #ffffff format. */
-function convertToRgbHexStr(hexVal) {
-    const PADDING_LENGTH = 6;
-    const STRING_LENGTH = 16;
-    return `#${(hexVal & 0x0FFFFFF)
-        .toString(STRING_LENGTH)
-        .padStart(PADDING_LENGTH, '0')}`;
-}
-/**
- * Returns the mapping of preset colors to their hex value and enum value in
- * BacklightColor.
- */
-function getPresetColors() {
-    return {
-        [WHITE]: {
-            hexVal: convertToRgbHexStr(WHITE_COLOR),
-            enumVal: BacklightColor.kWhite,
-        },
-        [RED]: {
-            hexVal: convertToRgbHexStr(RED_COLOR),
-            enumVal: BacklightColor.kRed,
-        },
-        [YELLOW]: {
-            hexVal: convertToRgbHexStr(YELLOW_COLOR),
-            enumVal: BacklightColor.kYellow,
-        },
-        [GREEN]: {
-            hexVal: convertToRgbHexStr(GREEN_COLOR),
-            enumVal: BacklightColor.kGreen,
-        },
-        [BLUE]: {
-            hexVal: convertToRgbHexStr(BLUE_COLOR),
-            enumVal: BacklightColor.kBlue,
-        },
-        [INDIGO]: {
-            hexVal: convertToRgbHexStr(INDIGO_COLOR),
-            enumVal: BacklightColor.kIndigo,
-        },
-        [PURPLE]: {
-            hexVal: convertToRgbHexStr(PURPLE_COLOR),
-            enumVal: BacklightColor.kPurple,
-        },
-    };
-}
-/**
- * Returns whether the given album is Recent Highlights.
- */
-function isRecentHighlightsAlbum(album) {
-    return album.id === 'RecentHighlights';
-}
-/**
- * Returns the icon string for the checkmark.
- */
-function getCheckmarkIcon() {
-    return isPersonalizationJellyEnabled() ? 'personalization:circle_checkmark' :
-        'personalization:checkmark';
-}
-/**
- * Returns a x-length dummy array of zeros (0s)
- */
-function getZerosArray(x) {
-    return new Array(x).fill(0);
-}
-
 // Copyright 2021 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
@@ -6522,7 +6373,6 @@ var WallpaperActionName;
     WallpaperActionName["APPEND_GOOGLE_PHOTOS_ALBUMS"] = "append_google_photos_albums";
     WallpaperActionName["APPEND_GOOGLE_PHOTOS_SHARED_ALBUMS"] = "append_google_photos_shared_albums";
     WallpaperActionName["APPEND_GOOGLE_PHOTOS_PHOTOS"] = "append_google_photos_photos";
-    WallpaperActionName["BEGIN_SEARCH_IMAGE_THUMBNAILS"] = "begin_search_image_thumbnails";
     WallpaperActionName["BEGIN_LOAD_GOOGLE_PHOTOS_ALBUM"] = "begin_load_google_photos_album";
     WallpaperActionName["BEGIN_LOAD_GOOGLE_PHOTOS_ALBUMS"] = "begin_load_google_photos_albums";
     WallpaperActionName["BEGIN_LOAD_GOOGLE_PHOTOS_SHARED_ALBUMS"] = "begin_load_google_photos_shared_albums";
@@ -6549,7 +6399,7 @@ var WallpaperActionName;
     WallpaperActionName["SET_SELECTED_IMAGE"] = "set_selected_image";
     WallpaperActionName["SET_UPDATED_DAILY_REFRESH_IMAGE"] = "set_updated_daily_refreshed_image";
     WallpaperActionName["SET_FULLSCREEN_ENABLED"] = "set_fullscreen_enabled";
-    WallpaperActionName["SET_IMAGE_THUMBNAILS"] = "set_image_thumbnails";
+    WallpaperActionName["SET_SHOULD_SHOW_TIME_OF_DAY_WALLPAPER_DIALOG"] = "set_shoud_show_time_of_day_wallpaper_dialog";
 })(WallpaperActionName || (WallpaperActionName = {}));
 /**
  * Appends to the list of Google Photos photos for the album associated with the
@@ -6594,12 +6444,6 @@ function appendGooglePhotosPhotosAction(photos, resumeToken) {
         photos,
         resumeToken,
         name: WallpaperActionName.APPEND_GOOGLE_PHOTOS_PHOTOS,
-    };
-}
-function beginSearchImageThumbnailsAction(query) {
-    return {
-        query: query,
-        name: WallpaperActionName.BEGIN_SEARCH_IMAGE_THUMBNAILS,
     };
 }
 /**
@@ -6791,17 +6635,22 @@ function setSelectedImageAction(image) {
     };
 }
 /**
+ * Sets the boolean that determines whether to show the time of day wallpaper
+ * dialog.
+ */
+function setShouldShowTimeOfDayWallpaperDialog(shouldShowDialog) {
+    assert$1(typeof shouldShowDialog === 'boolean');
+    return {
+        name: WallpaperActionName.SET_SHOULD_SHOW_TIME_OF_DAY_WALLPAPER_DIALOG,
+        shouldShowDialog,
+    };
+}
+/**
  * Enables/disables the fullscreen preview mode for wallpaper.
  */
 function setFullscreenEnabledAction(enabled) {
     assert$1(typeof enabled === 'boolean');
     return { name: WallpaperActionName.SET_FULLSCREEN_ENABLED, enabled };
-}
-/**
- * Set the generated thumbnails for the given prompt text.
- */
-function setImageThumbnailsAction(query, images) {
-    return { name: WallpaperActionName.SET_IMAGE_THUMBNAILS, query, images };
 }
 
 // Copyright 2021 The Chromium Authors
@@ -6814,16 +6663,439 @@ function setImageThumbnailsAction(query, images) {
 const kDefaultImageSymbol = Symbol.for('chromeos_default_wallpaper');
 const kMaximumLocalImagePreviews = 4;
 
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview defines the actions to change SeaPen state.
+ */
+var SeaPenActionName;
+(function (SeaPenActionName) {
+    SeaPenActionName["BEGIN_SEARCH_SEA_PEN_THUMBNAILS"] = "begin_search_sea_pen_thumbnails";
+    SeaPenActionName["BEGIN_LOAD_RECENT_SEA_PEN_IMAGES"] = "begin_load_recent_sea_pen_images";
+    SeaPenActionName["BEGIN_LOAD_RECENT_SEA_PEN_IMAGE_DATA"] = "begin_load_recent_sea_pen_image_data";
+    SeaPenActionName["BEGIN_LOAD_SELECTED_RECENT_SEA_PEN_IMAGE"] = "begin_load_selected_recent_sea_pen_image";
+    SeaPenActionName["BEGIN_SELECT_RECENT_SEA_PEN_IMAGE"] = "begin_select_recent_sea_pen_image";
+    SeaPenActionName["END_SELECT_RECENT_SEA_PEN_IMAGE"] = "end_select_recent_sea_pen_image";
+    SeaPenActionName["SET_SEA_PEN_THUMBNAILS"] = "set_sea_pen_thumbnails";
+    SeaPenActionName["SET_RECENT_SEA_PEN_IMAGES"] = "set_recent_sea_pen_images";
+    SeaPenActionName["SET_RECENT_SEA_PEN_IMAGE_DATA"] = "set_recent_sea_pen_image_data";
+    SeaPenActionName["SET_SELECTED_RECENT_SEA_PEN_IMAGE"] = "set_selected_recent_sea_pen_image";
+})(SeaPenActionName || (SeaPenActionName = {}));
+function beginSearchSeaPenThumbnailsAction(query) {
+    return {
+        query: query,
+        name: SeaPenActionName.BEGIN_SEARCH_SEA_PEN_THUMBNAILS,
+    };
+}
+/**
+ * Sets the generated thumbnails for the given prompt text.
+ */
+function setSeaPenThumbnailsAction(query, images) {
+    return { name: SeaPenActionName.SET_SEA_PEN_THUMBNAILS, query, images };
+}
+/**
+ * Begins load recent sea pen images.
+ */
+function beginLoadRecentSeaPenImagesAction() {
+    return {
+        name: SeaPenActionName.BEGIN_LOAD_RECENT_SEA_PEN_IMAGES,
+    };
+}
+/**
+ * Sets the recent sea pen images.
+ */
+function setRecentSeaPenImagesAction(recentImages) {
+    return {
+        name: SeaPenActionName.SET_RECENT_SEA_PEN_IMAGES,
+        recentImages,
+    };
+}
+/**
+ * Begins load the recent sea pen image data.
+ */
+function beginLoadRecentSeaPenImageDataAction(image) {
+    return {
+        name: SeaPenActionName.BEGIN_LOAD_RECENT_SEA_PEN_IMAGE_DATA,
+        id: image.path,
+    };
+}
+/**
+ * Sets the recent sea pen image data.
+ */
+function setRecentSeaPenImageDataAction(filePath, data) {
+    return {
+        name: SeaPenActionName.SET_RECENT_SEA_PEN_IMAGE_DATA,
+        id: filePath.path,
+        data,
+    };
+}
+/**
+ * Begins selecting a recent Sea Pen image.
+ */
+function beginSelectRecentSeaPenImageAction(image) {
+    return {
+        name: SeaPenActionName.BEGIN_SELECT_RECENT_SEA_PEN_IMAGE,
+        image: image,
+    };
+}
+/**
+ * Ends selecting a recent Sea Pen image.
+ */
+function endSelectRecentSeaPenImageAction(image, success) {
+    return {
+        name: SeaPenActionName.END_SELECT_RECENT_SEA_PEN_IMAGE,
+        image,
+        success,
+    };
+}
+/**
+ * Begins loading the selected recent Sea Pen image.
+ */
+function beginLoadSelectedRecentSeaPenImageAction() {
+    return { name: SeaPenActionName.BEGIN_LOAD_SELECTED_RECENT_SEA_PEN_IMAGE };
+}
+/**
+ * Sets the selected recent Sea Pen image.
+ */
+function setSelectedRecentSeaPenImageAction(key) {
+    return {
+        name: SeaPenActionName.SET_SELECTED_RECENT_SEA_PEN_IMAGE,
+        key: key,
+    };
+}
+
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+function loadingReducer$1(state, action) {
+    switch (action.name) {
+        case SeaPenActionName.BEGIN_SEARCH_SEA_PEN_THUMBNAILS:
+            return {
+                ...state,
+                thumbnails: true,
+            };
+        case SeaPenActionName.SET_SEA_PEN_THUMBNAILS:
+            return {
+                ...state,
+                thumbnails: false,
+            };
+        case SeaPenActionName.BEGIN_LOAD_RECENT_SEA_PEN_IMAGES:
+            return {
+                ...state,
+                recentImages: true,
+            };
+        case SeaPenActionName.SET_RECENT_SEA_PEN_IMAGES:
+            const newRecentImages = Array.isArray(action.recentImages) ? action.recentImages : [];
+            // Only keep loading state for most recent Sea Pen images.
+            return {
+                ...state,
+                recentImageData: newRecentImages.reduce((result, next) => {
+                    const path = next.path;
+                    if (state.recentImageData.hasOwnProperty(path)) {
+                        result[path] = state.recentImageData[path];
+                    }
+                    return result;
+                }, {}),
+                // Recent image list is done loading.
+                recentImages: false,
+            };
+        case SeaPenActionName.BEGIN_LOAD_RECENT_SEA_PEN_IMAGE_DATA:
+            return {
+                ...state,
+                recentImageData: {
+                    ...state.recentImageData,
+                    [action.id]: true,
+                },
+            };
+        case SeaPenActionName.SET_RECENT_SEA_PEN_IMAGE_DATA:
+            return {
+                ...state,
+                recentImageData: {
+                    ...state.recentImageData,
+                    [action.id]: false,
+                },
+            };
+        case SeaPenActionName.BEGIN_SELECT_RECENT_SEA_PEN_IMAGE:
+            return { ...state, setImage: state.setImage + 1 };
+        case SeaPenActionName.END_SELECT_RECENT_SEA_PEN_IMAGE:
+            if (state.setImage <= 0) {
+                console.error('Impossible state for loading.setImage');
+                // Reset to 0.
+                return { ...state, setImage: 0 };
+            }
+            return { ...state, setImage: state.setImage - 1 };
+        case SeaPenActionName.BEGIN_LOAD_SELECTED_RECENT_SEA_PEN_IMAGE:
+            return {
+                ...state,
+                currentSelected: true,
+            };
+        case SeaPenActionName.SET_SELECTED_RECENT_SEA_PEN_IMAGE:
+            return {
+                ...state,
+                currentSelected: false,
+            };
+        default:
+            return state;
+    }
+}
+function currentSelectedReducer$1(state, action) {
+    switch (action.name) {
+        case SeaPenActionName.SET_SELECTED_RECENT_SEA_PEN_IMAGE:
+            return action.key;
+        default:
+            return state;
+    }
+}
+/**
+ * Reducer for the pending selected image. The pendingSelected state is set when
+ * a user clicks on an image and before the client code is reached.
+ *
+ * Note: We allow multiple concurrent requests of selecting images while only
+ * keeping the latest pending image and failing others occurred in between.
+ * The pendingSelected state should not be cleared in this scenario (of multiple
+ * concurrent requests). Otherwise, it results in a unwanted jumpy motion of
+ * selected state.
+ */
+function pendingSelectedReducer$1(state, action, globalState) {
+    switch (action.name) {
+        case SeaPenActionName.BEGIN_SELECT_RECENT_SEA_PEN_IMAGE:
+            return action.image;
+        case SeaPenActionName.SET_SELECTED_RECENT_SEA_PEN_IMAGE:
+            const { key } = action;
+            if (!key) {
+                console.warn('pendingSelectedReducer: Failed to get selected image.');
+                return null;
+            }
+            else if (globalState.loading.setImage == 0) {
+                // Clear the pending state when there are no more requests.
+                return null;
+            }
+            return state;
+        case SeaPenActionName.END_SELECT_RECENT_SEA_PEN_IMAGE:
+            const { success } = action;
+            if (!success && globalState.loading.setImage <= 1) {
+                // Clear the pending selected state if an error occurs and
+                // there are no multiple concurrent requests of selecting images.
+                return null;
+            }
+            return state;
+        default:
+            return state;
+    }
+}
+function recentImagesReducer(state, action) {
+    switch (action.name) {
+        case SeaPenActionName.SET_RECENT_SEA_PEN_IMAGES:
+            return action.recentImages;
+        default:
+            return state;
+    }
+}
+function recentImageDataReducer(state, action) {
+    switch (action.name) {
+        case SeaPenActionName.SET_RECENT_SEA_PEN_IMAGES:
+            const newRecentImages = Array.isArray(action.recentImages) ? action.recentImages : [];
+            return newRecentImages.reduce((result, next) => {
+                const key = next.path;
+                if (key && state.hasOwnProperty(key)) {
+                    result[key] = state[key];
+                }
+                return result;
+            }, {});
+        case SeaPenActionName.SET_RECENT_SEA_PEN_IMAGE_DATA:
+            return { ...state, [action.id]: action.data };
+        default:
+            return state;
+    }
+}
+function thumbnailsReducer(state, action) {
+    switch (action.name) {
+        case SeaPenActionName.SET_SEA_PEN_THUMBNAILS:
+            assert$1(!!action.query, 'input text is empty.');
+            return action.images;
+        default:
+            return state;
+    }
+}
+function seaPenReducer(state, action) {
+    const newState = {
+        loading: loadingReducer$1(state.loading, action),
+        recentImageData: recentImageDataReducer(state.recentImageData, action),
+        recentImages: recentImagesReducer(state.recentImages, action),
+        thumbnails: thumbnailsReducer(state.thumbnails, action),
+        currentSelected: currentSelectedReducer$1(state.currentSelected, action),
+        pendingSelected: pendingSelectedReducer$1(state.pendingSelected, action, state),
+    };
+    return newState;
+}
+
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview Getters for all of the loadTimeData booleans used throughout
+ * personalization app.
+ * @see //ash/webui/personalization_app/personalization_app_ui.cc
+ * Export them as functions so they reload the values when overridden in test.
+ */
+function isGooglePhotosIntegrationEnabled() {
+    return loadTimeData.getBoolean('isGooglePhotosIntegrationEnabled');
+}
+function isGooglePhotosSharedAlbumsEnabled() {
+    return loadTimeData.getBoolean('isGooglePhotosSharedAlbumsEnabled');
+}
+function isAmbientModeAllowed() {
+    return loadTimeData.getBoolean('isAmbientModeAllowed');
+}
+function isRgbKeyboardSupported() {
+    return loadTimeData.getBoolean('isRgbKeyboardSupported');
+}
+function isScreenSaverDurationEnabled() {
+    return loadTimeData.getBoolean('isScreenSaverDurationEnabled');
+}
+function isPersonalizationJellyEnabled() {
+    return loadTimeData.getBoolean('isPersonalizationJellyEnabled');
+}
+function isMultiZoneRgbKeyboardSupported() {
+    return loadTimeData.getInteger('keyboardBacklightZoneCount') > 1;
+}
+function isUserAvatarCustomizationSelectorsEnabled() {
+    return loadTimeData.getBoolean('isUserAvatarCustomizationSelectorsEnabled');
+}
+function isTimeOfDayScreenSaverEnabled() {
+    return loadTimeData.getBoolean('isTimeOfDayScreenSaverEnabled');
+}
+function isTimeOfDayWallpaperEnabled() {
+    return loadTimeData.getBoolean('isTimeOfDayWallpaperEnabled');
+}
+function isTimeOfDayWallpaperForcedAutoScheduleEnabled() {
+    return loadTimeData.getBoolean('isTimeOfDayWallpaperForcedAutoScheduleEnabled');
+}
+
+// Copyright 2021 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview Utility functions to be used throughout personalization app.
+ */
+const WALLPAPER = 'wallpaperColor';
+const WHITE = 'whiteColor';
+const RED = 'redColor';
+const YELLOW = 'yellowColor';
+const GREEN = 'greenColor';
+const BLUE = 'blueColor';
+const INDIGO = 'indigoColor';
+const PURPLE = 'purpleColor';
+const RAINBOW = 'rainbowColor';
+const staticColorIds = [WALLPAPER, WHITE, RED, YELLOW, GREEN, BLUE, INDIGO, PURPLE];
+/** Returns true if this event is a user action to select an item. */
+function isSelectionEvent$1(event) {
+    return (event instanceof MouseEvent && event.type === 'click') ||
+        (event instanceof KeyboardEvent && event.key === 'Enter');
+}
+/** Returns the text to display for a number of images. */
+function getCountText(x) {
+    switch (x) {
+        case null:
+        case undefined:
+            return '';
+        case 0:
+            return loadTimeData.getString('zeroImages');
+        case 1:
+            return loadTimeData.getString('oneImage');
+        default:
+            if ('number' !== typeof x || x < 0) {
+                console.error('Received an impossible value');
+                return '';
+            }
+            return loadTimeData.getStringF('multipleImages', x);
+    }
+}
+/**
+ * Returns the number of grid items to render per row given the current inner
+ * width of the |window|.
+ */
+function getNumberOfGridItemsPerRow() {
+    return window.innerWidth > 720 ? 4 : 3;
+}
+/**
+ * Checks if argument is a string with non-zero length.
+ */
+function isNonEmptyString(maybeString) {
+    return typeof maybeString === 'string' && maybeString.length > 0;
+}
+/**
+ * Checks if a number is within a range.
+ */
+function inBetween(num, minVal, maxVal) {
+    return minVal <= num && num <= maxVal;
+}
+/** Returns the RGB hex in #ffffff format. */
+function convertToRgbHexStr(hexVal) {
+    const PADDING_LENGTH = 6;
+    const STRING_LENGTH = 16;
+    return `#${(hexVal & 0x0FFFFFF)
+        .toString(STRING_LENGTH)
+        .padStart(PADDING_LENGTH, '0')}`;
+}
+/**
+ * Returns the mapping of preset colors to their hex value and enum value in
+ * BacklightColor.
+ */
+function getPresetColors() {
+    return {
+        [WHITE]: {
+            hexVal: convertToRgbHexStr(WHITE_COLOR),
+            enumVal: BacklightColor.kWhite,
+        },
+        [RED]: {
+            hexVal: convertToRgbHexStr(RED_COLOR),
+            enumVal: BacklightColor.kRed,
+        },
+        [YELLOW]: {
+            hexVal: convertToRgbHexStr(YELLOW_COLOR),
+            enumVal: BacklightColor.kYellow,
+        },
+        [GREEN]: {
+            hexVal: convertToRgbHexStr(GREEN_COLOR),
+            enumVal: BacklightColor.kGreen,
+        },
+        [BLUE]: {
+            hexVal: convertToRgbHexStr(BLUE_COLOR),
+            enumVal: BacklightColor.kBlue,
+        },
+        [INDIGO]: {
+            hexVal: convertToRgbHexStr(INDIGO_COLOR),
+            enumVal: BacklightColor.kIndigo,
+        },
+        [PURPLE]: {
+            hexVal: convertToRgbHexStr(PURPLE_COLOR),
+            enumVal: BacklightColor.kPurple,
+        },
+    };
+}
+/**
+ * Returns whether the given album is Recent Highlights.
+ */
+function isRecentHighlightsAlbum(album) {
+    return album.id === 'RecentHighlights';
+}
+/**
+ * Returns the icon string for the checkmark.
+ */
+function getCheckmarkIcon() {
+    return isPersonalizationJellyEnabled() ?
+        'personalization-shared:circle-checkmark' :
+        'personalization:checkmark';
+}
+
 // Copyright 2022 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 /** @fileoverview Wallpaper related utility functions in personalization app */
-const QUERY = 'query';
 function isWallpaperImage(obj) {
     return !!obj && typeof obj.unitId === 'bigint';
-}
-function isFilePath(obj) {
-    return !!obj && typeof obj.path === 'string' && obj.path;
 }
 function isDefaultImage(obj) {
     return obj === kDefaultImageSymbol;
@@ -6840,7 +7112,7 @@ function isImageAMatchForKey(image, key) {
     if (isDefaultImage(image)) {
         return key === kDefaultImageSymbol;
     }
-    if (isFilePath(image)) {
+    if (isNonEmptyFilePath(image)) {
         return key === image.path;
     }
     assert$1(isGooglePhotosPhoto(image));
@@ -6868,7 +7140,7 @@ function isImageEqualToSelected(image, selected) {
  * path. |getPathOrSymbol| returns the whole path for local images.
  */
 function getPathOrSymbol(image) {
-    if (isFilePath(image)) {
+    if (isNonEmptyFilePath(image)) {
         return image.path;
     }
     assert$1(image === kDefaultImageSymbol, 'only one symbol should be present');
@@ -6887,7 +7159,7 @@ function getWallpaperLayoutEnum(layout) {
     }
 }
 /** Returns a css variable to control the animation delay. */
-function getLoadingPlaceholderAnimationDelay(index) {
+function getLoadingPlaceholderAnimationDelay$1(index) {
     // 48 is chosen because 4 and 3 are both factors, and it's large enough
     // that 48 grid items don't fit on one screen.
     const wrapped = index % 48;
@@ -6981,65 +7253,25 @@ function findAlbumById(albumId, albums) {
     }
     return null;
 }
-function getSampleSeaPenTemplates() {
-    return [
-        {
-            preview: [{
-                    url: 'chrome://personalization/images/google_photos.svg',
-                }],
-            text: 'the',
-            id: '1',
+
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+function emptyState$6() {
+    return {
+        loading: {
+            recentImages: false,
+            recentImageData: {},
+            thumbnails: false,
+            currentSelected: false,
+            setImage: 0,
         },
-        {
-            preview: [{
-                    url: 'chrome://personalization/images/ambient_mode_disabled.svg',
-                }],
-            text: 'faster',
-            id: '2',
-        },
-        {
-            preview: [{
-                    url: 'chrome://personalization/images/google_photos.svg',
-                }],
-            text: 'you',
-            id: '3',
-        },
-        {
-            preview: [{
-                    url: 'chrome://personalization/images/no_google_photos_images.svg',
-                }],
-            text: 'go',
-            id: '4',
-        },
-        {
-            preview: [{
-                    url: 'chrome://personalization/images/ambient_mode_disabled_dark.svg',
-                }],
-            text: 'the',
-            id: '5',
-        },
-        {
-            preview: [{
-                    url: 'chrome://personalization/images/no_google_photos_images.svg',
-                }],
-            text: 'shorter',
-            id: '6',
-        },
-        {
-            preview: [{
-                    url: 'chrome://personalization/images/no_images.svg',
-                }],
-            text: 'you',
-            id: '7',
-        },
-        {
-            preview: [{
-                    url: 'chrome://personalization/images/no_google_photos_images_dark.svg',
-                }],
-            text: 'are',
-            id: '8',
-        },
-    ];
+        recentImageData: {},
+        recentImages: null,
+        thumbnails: null,
+        currentSelected: null,
+        pendingSelected: null,
+    };
 }
 
 var DailyRefreshType;
@@ -7074,6 +7306,7 @@ function emptyState$5() {
         pendingSelected: null,
         dailyRefresh: null,
         fullscreen: false,
+        shouldShowTimeOfDayWallpaperDialog: false,
         googlePhotos: {
             enabled: undefined,
             albums: undefined,
@@ -7082,11 +7315,7 @@ function emptyState$5() {
             photosByAlbumId: {},
             resumeTokens: { albums: null, albumsShared: null, photos: null, photosByAlbumId: {} },
         },
-        seaPen: {
-            query: null,
-            thumbnails: null,
-            thumbnailsLoading: false,
-        },
+        seaPen: emptyState$6(),
     };
 }
 
@@ -7185,7 +7414,7 @@ function loadingReducer(state, action, globalState) {
                 ...state,
                 local: {
                     data: imagesToKeep.reduce((result, next) => {
-                        const path = isFilePath(next) ? next.path : next;
+                        const path = isNonEmptyFilePath(next) ? next.path : next;
                         if (state.local.data.hasOwnProperty(path)) {
                             result[path] = state.local.data[path];
                         }
@@ -7328,7 +7557,7 @@ function localReducer(state, action, _) {
                 return {
                     images: [
                         kDefaultImageSymbol,
-                        ...(state.images || []).filter(img => isFilePath(img)),
+                        ...(state.images || []).filter(img => isNonEmptyFilePath(img)),
                     ],
                     data: {
                         ...state.data,
@@ -7338,7 +7567,7 @@ function localReducer(state, action, _) {
             }
             return {
                 images: Array.isArray(state.images) ?
-                    state.images.filter(img => isFilePath(img)) :
+                    state.images.filter(img => isNonEmptyFilePath(img)) :
                     null,
                 data: { ...state.data, [kDefaultImageSymbol]: { url: '' } },
             };
@@ -7360,7 +7589,7 @@ function localReducer(state, action, _) {
                 images: newImages,
                 // Only keep image thumbnails if the image is still in |images|.
                 data: newImages.reduce((result, next) => {
-                    const key = isFilePath(next) ? next.path : next;
+                    const key = isNonEmptyFilePath(next) ? next.path : next;
                     if (state.data.hasOwnProperty(key)) {
                         result[key] = state.data[key];
                     }
@@ -7465,6 +7694,14 @@ function fullscreenReducer(state, action, _) {
     switch (action.name) {
         case WallpaperActionName.SET_FULLSCREEN_ENABLED:
             return action.enabled;
+        default:
+            return state;
+    }
+}
+function shouldShowTimeOfDayWallpaperDialogReducer(state, action, _) {
+    switch (action.name) {
+        case WallpaperActionName.SET_SHOULD_SHOW_TIME_OF_DAY_WALLPAPER_DIALOG:
+            return action.shouldShowDialog;
         default:
             return state;
     }
@@ -7651,26 +7888,15 @@ function googlePhotosReducer(state, action, _) {
             return state;
     }
 }
-function seaPenReducer(state, action, _) {
-    switch (action.name) {
-        case WallpaperActionName.BEGIN_SEARCH_IMAGE_THUMBNAILS:
-            return {
-                thumbnailsLoading: true,
-                query: action.query,
-                thumbnails: state.thumbnails,
-            };
-        case WallpaperActionName.SET_IMAGE_THUMBNAILS:
-            console.log('seaPenReducer, text: ', action.query);
-            assert$1(!!action.query, 'input text is empty.');
-            console.log('seapenReducer, thumbnails: ', action.images);
-            return {
-                thumbnailsLoading: false,
-                query: action.query,
-                thumbnails: action.images,
-            };
-        default:
-            return state;
+const allSeaPenActionNames = new Set(Object.values(SeaPenActionName));
+function actionIsSeaPenAction(action) {
+    return allSeaPenActionNames.has(action.name);
+}
+function seaPenReducerAdapter(state, action, _) {
+    if (actionIsSeaPenAction(action)) {
+        return seaPenReducer(state, action);
     }
+    return state;
 }
 const wallpaperReducers = {
     backdrop: backdropReducer,
@@ -7681,8 +7907,9 @@ const wallpaperReducers = {
     pendingSelected: pendingSelectedReducer,
     dailyRefresh: dailyRefreshReducer,
     fullscreen: fullscreenReducer,
+    shouldShowTimeOfDayWallpaperDialog: shouldShowTimeOfDayWallpaperDialogReducer,
     googlePhotos: googlePhotosReducer,
-    seaPen: seaPenReducer,
+    seaPen: seaPenReducerAdapter,
 };
 
 // Copyright 2021 The Chromium Authors
@@ -7849,7 +8076,7 @@ function emptyState() {
  * The singleton instance of PersonalizationStore. Constructed once when the
  * app starts. Replaced in tests.
  */
-let instance$7 = null;
+let instance$9 = null;
 /**
  * A Personalization App specific version of a Store with singleton getter and
  * setter.
@@ -7859,10 +8086,10 @@ class PersonalizationStore extends Store {
         super(emptyState(), reduce);
     }
     static getInstance() {
-        return instance$7 || (instance$7 = new PersonalizationStore());
+        return instance$9 || (instance$9 = new PersonalizationStore());
     }
     static setInstance(newInstance) {
-        instance$7 = newInstance;
+        instance$9 = newInstance;
     }
 }
 const PersonalizationStoreClientMixin = makeStoreClientMixin(PersonalizationStore.getInstance);
@@ -7872,7 +8099,7 @@ const PersonalizationStoreClientMixin = makeStoreClientMixin(PersonalizationStor
  */
 const WithPersonalizationStore = I18nMixin(ListPropertyUpdateMixin(PersonalizationStoreClientMixin(PolymerElement)));
 
-function getTemplate$Y() {
+function getTemplate$$() {
     return html `<!--_html_template_start_--><style include="wallpaper common">:host{overflow:hidden}iron-list{width:100%}wallpaper-grid-item[data-is-video][aria-selected=true]::part(item){cursor:default}</style>
 <iron-list aria-setsize$="[[albumsForDisplay_.length]]" as="album" grid id="grid" items="[[albumsForDisplay_]]" role="listbox">
   <template>
@@ -7895,7 +8122,7 @@ class AlbumListElement extends WithPersonalizationStore {
         return 'album-list';
     }
     static get template() {
-        return getTemplate$Y();
+        return getTemplate$$();
     }
     static get properties() {
         return {
@@ -7985,37 +8212,37 @@ class AlbumListElement extends WithPersonalizationStore {
 }
 customElements.define(AlbumListElement.is, AlbumListElement);
 
-const styleMod$7 = document.createElement('dom-module');
-styleMod$7.appendChild(html `
+const styleMod$8 = document.createElement('dom-module');
+styleMod$8.appendChild(html `
   <template>
     <style>
 :host([hidden]),[hidden]{display:none!important}
     </style>
   </template>
 `.content);
-styleMod$7.register('cr-hidden-style');
+styleMod$8.register('cr-hidden-style');
 
-const styleMod$6 = document.createElement('dom-module');
-styleMod$6.appendChild(html `
+const styleMod$7 = document.createElement('dom-module');
+styleMod$7.appendChild(html `
   <template>
     <style>
-.icon-arrow-back{--cr-icon-image:url(chrome://resources/images/icon_arrow_back.svg)}.icon-arrow-dropdown{--cr-icon-image:url(chrome://resources/images/icon_arrow_dropdown.svg)}.icon-cancel{--cr-icon-image:url(chrome://resources/images/icon_cancel.svg)}.icon-clear{--cr-icon-image:url(chrome://resources/images/icon_clear.svg)}.icon-copy-content{--cr-icon-image:url(chrome://resources/images/icon_copy_content.svg)}.icon-delete-gray{--cr-icon-image:url(chrome://resources/images/icon_delete_gray.svg)}.icon-edit{--cr-icon-image:url(chrome://resources/images/icon_edit.svg)}.icon-file{--cr-icon-image:url(chrome://resources/images/icon_filetype_generic.svg)}.icon-folder-open{--cr-icon-image:url(chrome://resources/images/icon_folder_open.svg)}.icon-picture-delete{--cr-icon-image:url(chrome://resources/images/icon_picture_delete.svg)}.icon-expand-less{--cr-icon-image:url(chrome://resources/images/icon_expand_less.svg)}.icon-expand-more{--cr-icon-image:url(chrome://resources/images/icon_expand_more.svg)}.icon-external{--cr-icon-image:url(chrome://resources/images/open_in_new.svg)}.icon-more-vert{--cr-icon-image:url(chrome://resources/images/icon_more_vert.svg)}.icon-refresh{--cr-icon-image:url(chrome://resources/images/icon_refresh.svg)}.icon-search{--cr-icon-image:url(chrome://resources/images/icon_search.svg)}.icon-settings{--cr-icon-image:url(chrome://resources/images/icon_settings.svg)}.icon-visibility{--cr-icon-image:url(chrome://resources/images/icon_visibility.svg)}.icon-visibility-off{--cr-icon-image:url(chrome://resources/images/icon_visibility_off.svg)}.subpage-arrow{--cr-icon-image:url(chrome://resources/images/arrow_right.svg)}.cr-icon{-webkit-mask-image:var(--cr-icon-image);-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:var(--cr-icon-size);background-color:var(--cr-icon-color,var(--google-grey-700));flex-shrink:0;height:var(--cr-icon-ripple-size);margin-inline-end:var(--cr-icon-ripple-margin);margin-inline-start:var(--cr-icon-button-margin-start);user-select:none;width:var(--cr-icon-ripple-size)}:host-context([dir=rtl]) .cr-icon{transform:scaleX(-1)}.cr-icon.no-overlap{margin-inline-end:0;margin-inline-start:0}@media (prefers-color-scheme:dark){.cr-icon{background-color:var(--cr-icon-color,var(--google-grey-500))}}
+.icon-arrow-back{--cr-icon-image:url(chrome://resources/images/icon_arrow_back.svg)}.icon-arrow-dropdown{--cr-icon-image:url(chrome://resources/images/icon_arrow_dropdown.svg)}.icon-arrow-drop-down-cr23{--cr-icon-image:url(chrome://resources/images/icon_arrow_drop_down_cr23.svg)}.icon-arrow-drop-up-cr23{--cr-icon-image:url(chrome://resources/images/icon_arrow_drop_up_cr23.svg)}.icon-cancel{--cr-icon-image:url(chrome://resources/images/icon_cancel.svg)}.icon-clear{--cr-icon-image:url(chrome://resources/images/icon_clear.svg)}.icon-copy-content{--cr-icon-image:url(chrome://resources/images/icon_copy_content.svg)}.icon-delete-gray{--cr-icon-image:url(chrome://resources/images/icon_delete_gray.svg)}.icon-edit{--cr-icon-image:url(chrome://resources/images/icon_edit.svg)}.icon-file{--cr-icon-image:url(chrome://resources/images/icon_filetype_generic.svg)}.icon-folder-open{--cr-icon-image:url(chrome://resources/images/icon_folder_open.svg)}.icon-picture-delete{--cr-icon-image:url(chrome://resources/images/icon_picture_delete.svg)}.icon-expand-less{--cr-icon-image:url(chrome://resources/images/icon_expand_less.svg)}.icon-expand-more{--cr-icon-image:url(chrome://resources/images/icon_expand_more.svg)}.icon-external{--cr-icon-image:url(chrome://resources/images/open_in_new.svg)}.icon-more-vert{--cr-icon-image:url(chrome://resources/images/icon_more_vert.svg)}.icon-refresh{--cr-icon-image:url(chrome://resources/images/icon_refresh.svg)}.icon-search{--cr-icon-image:url(chrome://resources/images/icon_search.svg)}.icon-settings{--cr-icon-image:url(chrome://resources/images/icon_settings.svg)}.icon-visibility{--cr-icon-image:url(chrome://resources/images/icon_visibility.svg)}.icon-visibility-off{--cr-icon-image:url(chrome://resources/images/icon_visibility_off.svg)}.subpage-arrow{--cr-icon-image:url(chrome://resources/images/arrow_right.svg)}.cr-icon{-webkit-mask-image:var(--cr-icon-image);-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:var(--cr-icon-size);background-color:var(--cr-icon-color,var(--google-grey-700));flex-shrink:0;height:var(--cr-icon-ripple-size);margin-inline-end:var(--cr-icon-ripple-margin);margin-inline-start:var(--cr-icon-button-margin-start);user-select:none;width:var(--cr-icon-ripple-size)}:host-context([dir=rtl]) .cr-icon{transform:scaleX(-1)}.cr-icon.no-overlap{margin-inline-end:0;margin-inline-start:0}@media (prefers-color-scheme:dark){.cr-icon{background-color:var(--cr-icon-color,var(--google-grey-500))}}
     </style>
   </template>
 `.content);
-styleMod$6.register('cr-icons');
+styleMod$7.register('cr-icons');
 
-const styleMod$5 = document.createElement('dom-module');
-styleMod$5.appendChild(html `
+const styleMod$6 = document.createElement('dom-module');
+styleMod$6.appendChild(html `
   <template>
     <style include="cr-hidden-style cr-icons">
 :host,html{--scrollable-border-color:var(--google-grey-300)}@media (prefers-color-scheme:dark){:host,html{--scrollable-border-color:var(--google-grey-700)}}[actionable]{cursor:pointer}.hr{border-top:var(--cr-separator-line)}iron-list.cr-separators>:not([first]){border-top:var(--cr-separator-line)}[scrollable]{border-color:transparent;border-style:solid;border-width:1px 0;overflow-y:auto}[scrollable].is-scrolled{border-top-color:var(--scrollable-border-color)}[scrollable].can-scroll:not(.scrolled-to-bottom){border-bottom-color:var(--scrollable-border-color)}[scrollable] iron-list>:not(.no-outline):focus,[selectable]:focus,[selectable]>:focus{background-color:var(--cr-focused-item-color);outline:0}.scroll-container{display:flex;flex-direction:column;min-height:1px}[selectable]>*{cursor:pointer}.cr-centered-card-container{box-sizing:border-box;display:block;height:inherit;margin:0 auto;max-width:var(--cr-centered-card-max-width);min-width:550px;position:relative;width:calc(100% * var(--cr-centered-card-width-percentage))}.cr-container-shadow{box-shadow:inset 0 5px 6px -3px rgba(0,0,0,.4);height:var(--cr-container-shadow-height);left:0;margin:0 0 var(--cr-container-shadow-margin);opacity:0;pointer-events:none;position:relative;right:0;top:0;transition:opacity .5s;z-index:1}#cr-container-shadow-bottom{margin-bottom:0;margin-top:var(--cr-container-shadow-margin);transform:scaleY(-1)}#cr-container-shadow-bottom.has-shadow,#cr-container-shadow-top.has-shadow{opacity:var(--cr-container-shadow-max-opacity)}.cr-row{align-items:center;border-top:var(--cr-separator-line);display:flex;min-height:var(--cr-section-min-height);padding:0 var(--cr-section-padding)}.cr-row.continuation,.cr-row.first{border-top:none}.cr-row-gap{padding-inline-start:16px}.cr-button-gap{margin-inline-start:8px}paper-tooltip::part(tooltip){border-radius:var(--paper-tooltip-border-radius,2px);font-size:92.31%;font-weight:500;max-width:330px;min-width:var(--paper-tooltip-min-width,200px);padding:var(--paper-tooltip-padding,10px 8px)}.cr-padded-text{padding-block-end:var(--cr-section-vertical-padding);padding-block-start:var(--cr-section-vertical-padding)}.cr-title-text{color:var(--cr-title-text-color);font-size:107.6923%;font-weight:500}.cr-secondary-text{color:var(--cr-secondary-text-color);font-weight:400}.cr-form-field-label{color:var(--cr-form-field-label-color);display:block;font-size:var(--cr-form-field-label-font-size);font-weight:500;letter-spacing:.4px;line-height:var(--cr-form-field-label-line-height);margin-bottom:8px}.cr-vertical-tab{align-items:center;display:flex}.cr-vertical-tab::before{border-radius:0 3px 3px 0;content:'';display:block;flex-shrink:0;height:var(--cr-vertical-tab-height,100%);width:4px}.cr-vertical-tab.selected::before{background:var(--cr-vertical-tab-selected-color,var(--cr-checked-color))}:host-context([dir=rtl]) .cr-vertical-tab::before{transform:scaleX(-1)}.iph-anchor-highlight{background-color:var(--cr-iph-anchor-highlight-color)}
     </style>
   </template>
 `.content);
-styleMod$5.register('cr-shared-style');
+styleMod$6.register('cr-shared-style');
 
-function getTemplate$X() {
+function getTemplate$_() {
     return html `<!--_html_template_start_--><style include="cr-shared-style">:host{--cr-localized-link-display:inline;display:block}:host([link-disabled]){cursor:pointer;opacity:var(--cr-disabled-opacity);pointer-events:none}a{display:var(--cr-localized-link-display)}a[href]{color:var(--cr-link-color)}a[is=action-link]{user-select:none}#container{display:contents}</style>
 
 <div id="container"></div>
@@ -8047,7 +8274,7 @@ class LocalizedLinkElement extends PolymerElement {
         return 'localized-link';
     }
     static get template() {
-        return getTemplate$X();
+        return getTemplate$_();
     }
     static get properties() {
         return {
@@ -8178,17 +8405,17 @@ class LocalizedLinkElement extends PolymerElement {
 }
 customElements.define(LocalizedLinkElement.is, LocalizedLinkElement);
 
-const styleMod$4 = document.createElement('dom-module');
-styleMod$4.appendChild(html `
+const styleMod$5 = document.createElement('dom-module');
+styleMod$5.appendChild(html `
   <template>
     <style>
 cr-button{border-color:var(--cros-button-stroke-color-secondary);border-radius:16px}cr-button.primary{background-color:var(--cros-button-background-color-primary);border:0;--text-color:var(--cros-button-label-color-primary);--ink-color:var(--cros-button-ripple-color-primary);--hover-bg-color:var(--cros-button-background-color-primary-hover-preblended);--disabled-bg:var(--cros-button-background-color-primary-disabled);--disabled-text-color:var(--cros-button-label-color-primary-disabled)}cr-button.primary:active{box-shadow:0 1px 2px rgba(66,133,244,.3),0 1px 3px rgba(66,133,244,.15)}:host-context(body.jelly-enabled) cr-button.primary:active{box-shadow:none}cr-button.primary:hover{background-color:var(--cros-button-background-color-primary-hover-preblended)}cr-button.secondary{background-color:var(--cros-button-background-color-secondary);border:1px solid var(--cros-button-stroke-color-secondary);--text-color:var(--cros-button-label-color-secondary);--border-color:var(--cros-button-stroke-color-secondary);--ink-color:var(--cros-button-ripple-color-secondary);--hover-border-color:var(--cros-button-stroke-color-secondary-hover);--hover-bg-color:var(--cros-button-background-color-secondary-hover);--disabled-text-color:var(--cros-button-label-color-secondary-disabled);--disabled-border-color:var(--cros-button-stroke-color-secondary-disabled)}cr-button.secondary:hover{background-color:var(--cros-button-background-color-secondary-hover)}cr-button:focus-visible,cr-icon-button:focus-visible{box-shadow:none;outline:2px solid var(--cros-sys-focus_ring,rgba(var(--cros-focus-ring-color-rgb),.8))}cr-button:hover,cr-icon-button:hover{background-color:var(--cros-ripple-color);box-shadow:none}cr-button[aria-pressed=true],cr-button[aria-selected=true]{background-color:var(--cros-sys-highlight_shape,var(--cros-highlight-color));border:none}iron-icon{--iron-icon-height:20px;--iron-icon-width:20px}cr-icon-button{--cr-icon-button-fill-color:var(--cros-menu-icon-color)}
     </style>
   </template>
 `.content);
-styleMod$4.register('cros-button-style');
+styleMod$5.register('cros-button-style');
 
-function getTemplate$W() {
+function getTemplate$Z() {
     return html `<!--_html_template_start_--><style include="common cros-button-style">cr-dialog::part(dialog){min-width:288px;width:288px}</style>
 <cr-dialog id="dialog" show-on-attach>
   <div slot="body">$i18n{ambientModeLastArtAlbumMessage}</div>
@@ -8212,7 +8439,7 @@ class ArtAlbumDialogElement extends WithPersonalizationStore {
         return 'art-album-dialog';
     }
     static get template() {
-        return getTemplate$W();
+        return getTemplate$Z();
     }
     static get properties() {
         return {};
@@ -8768,7 +8995,8 @@ var MetricsPath;
     MetricsPath[MetricsPath["ROOT"] = 6] = "ROOT";
     MetricsPath[MetricsPath["USER"] = 7] = "USER";
     MetricsPath[MetricsPath["WALLPAPER_SEA_PEN_COLLECTION"] = 8] = "WALLPAPER_SEA_PEN_COLLECTION";
-    MetricsPath[MetricsPath["MAX_VALUE"] = 8] = "MAX_VALUE";
+    MetricsPath[MetricsPath["WALLPAPER_SEA_PEN_RESULTS"] = 9] = "WALLPAPER_SEA_PEN_RESULTS";
+    MetricsPath[MetricsPath["MAX_VALUE"] = 9] = "MAX_VALUE";
 })(MetricsPath || (MetricsPath = {}));
 function toMetricsEnum(path) {
     switch (path) {
@@ -8790,6 +9018,8 @@ function toMetricsEnum(path) {
             return MetricsPath.USER;
         case Paths.SEA_PEN_COLLECTION:
             return MetricsPath.WALLPAPER_SEA_PEN_COLLECTION;
+        case Paths.SEA_PEN_RESULTS:
+            return MetricsPath.WALLPAPER_SEA_PEN_RESULTS;
     }
 }
 function logPersonalizationPathUMA(path) {
@@ -8819,8 +9049,8 @@ function logDynamicColorColorSchemeButtonClick(color) {
     chrome.metricsPrivate.recordEnumerationValue("Ash.Personalization.DynamicColor.ColorSchemeButton" /* HistogramName.DYNAMIC_COLOR_COLOR_SCHEME_BUTTON */, color, ColorScheme.MAX_VALUE);
 }
 
-function getTemplate$V() {
-    return html `<!--_html_template_start_--><style include="common">#container{display:flex;flex-flow:column nowrap;position:relative;width:100%}#breadcrumbArea{background-color:var(--cros-bg-color);display:grid;grid-template-areas:'. . breadcrumb . .';grid-template-columns:1fr 16px minmax(568px,920px) 16px 1fr;grid-template-rows:var(--personalization-app-breadcrumb-height);position:sticky;top:0;width:100%;z-index:3}:host-context(body.jelly-enabled) #breadcrumbArea{background-color:var(--cros-sys-app_base_shaded)}personalization-breadcrumb{grid-area:breadcrumb}personalization-toast{bottom:16px;left:16px;max-width:380px;position:sticky}wallpaper-fullscreen{bottom:0;height:100%;left:0;pointer-events:none;position:absolute;width:100%}</style>
+function getTemplate$Y() {
+    return html `<!--_html_template_start_--><style include="common">#container{display:flex;flex-flow:column nowrap;position:relative;width:100%}#breadcrumbArea{background-color:var(--cros-bg-color);display:grid;grid-template-areas:'. . breadcrumb . .';grid-template-columns:1fr 10px minmax(568px,920px) 10px 1fr;grid-template-rows:var(--personalization-app-breadcrumb-height);position:sticky;top:0;width:100%;z-index:3}:host-context(body.jelly-enabled) #breadcrumbArea{background-color:var(--cros-sys-app_base_shaded)}personalization-breadcrumb{grid-area:breadcrumb}personalization-toast{bottom:16px;left:16px;max-width:380px;position:sticky}wallpaper-fullscreen{bottom:0;height:100%;left:0;pointer-events:none;position:absolute;width:100%}</style>
 <div id="container">
   
   <iron-location path="{{path_}}" query="{{query_}}" dwell-time="200">
@@ -8847,9 +9077,562 @@ function getTemplate$V() {
     <wallpaper-subpage path="[[path_]]" query-params="[[queryParams_]]">
     </wallpaper-subpage>
   </template>
+  <template is="dom-if" if="[[shouldShowSeaPen_(path_)]]" restamp>
+    <sea-pen-router base-path="[[seaPenBasePath_]]"></sea-pen-router>
+  </template>
   <personalization-toast></personalization-toast>
 </div>
 <!--_html_template_end_-->`;
+}
+
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview Getters for all of the loadTimeData booleans used throughout
+ * SeaPen.
+ * Export them as functions so they reload the values when overridden in test.
+ */
+function isSeaPenEnabled() {
+    return loadTimeData.getBoolean('isSeaPenEnabled');
+}
+function isSeaPenTextInputEnabled() {
+    return loadTimeData.getBoolean('isSeaPenTextInputEnabled');
+}
+
+// Copyright 2021 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview contains all of the functions to interact with C++ side through
+ * mojom calls. Handles setting |PersonalizationStore| state in response to
+ * mojom data.
+ */
+/** Fetch wallpaper collections and save them to the store. */
+async function fetchCollections(provider, store) {
+    let { collections } = await provider.fetchCollections();
+    if (!isNonEmptyArray(collections)) {
+        console.warn('Failed to fetch wallpaper collections');
+        collections = null;
+    }
+    store.dispatch(setCollectionsAction(collections));
+}
+/** Helper function to fetch and dispatch images for a single collection. */
+async function fetchAndDispatchCollectionImages(provider, store, collection) {
+    let { images } = await provider.fetchImagesForCollection(collection.id);
+    if (!isNonEmptyArray(images)) {
+        console.warn('Failed to fetch images for collection id', collection.id);
+        images = null;
+    }
+    store.dispatch(setImagesForCollectionAction(collection.id, images));
+}
+/** Fetch all of the wallpaper collection images in parallel. */
+async function fetchAllImagesForCollections(provider, store) {
+    const collections = store.data.wallpaper.backdrop.collections;
+    if (!Array.isArray(collections)) {
+        console.warn('Cannot fetch data for collections when it is not initialized');
+        return;
+    }
+    store.dispatch(beginLoadImagesForCollectionsAction(collections));
+    await Promise.all(collections.map(collection => fetchAndDispatchCollectionImages(provider, store, collection)));
+}
+/**
+ * Appends a suffix to request wallpaper images with the longest of width or
+ * height being 512 pixels. This should ensure that the wallpaper image is
+ * large enough to cover a grid item but not significantly more so.
+ */
+function appendMaxResolutionSuffix(value) {
+    return { ...value, url: value.url + '=s512' };
+}
+/**
+ * Fetches the list of Google Photos photos for the album associated with the
+ * specified id and saves it to the store.
+ */
+async function fetchGooglePhotosAlbum(provider, store, albumId) {
+    // Photos should only be fetched after determining whether access is allowed.
+    const enabled = store.data.wallpaper.googlePhotos.enabled;
+    assert$1(enabled !== undefined);
+    store.dispatch(beginLoadGooglePhotosAlbumAction(albumId));
+    // If access is *not* allowed, short-circuit the request.
+    if (enabled !== GooglePhotosEnablementState.kEnabled) {
+        store.dispatch(appendGooglePhotosPhotosAction(
+        /*photos=*/ null, /*resumeToken=*/ null));
+        return;
+    }
+    let photos = [];
+    let resumeToken = store.data.wallpaper.googlePhotos.resumeTokens.photosByAlbumId[albumId] ||
+        null;
+    const { response } = await provider.fetchGooglePhotosPhotos(
+    /*itemId=*/ null, albumId, resumeToken);
+    if (Array.isArray(response.photos)) {
+        photos.push(...response.photos);
+        resumeToken = response.resumeToken || null;
+    }
+    else {
+        console.warn('Failed to fetch Google Photos album');
+        photos = null;
+        // NOTE: `resumeToken` is intentionally *not* modified so that the request
+        // which failed can be reattempted.
+    }
+    // Impose max resolution.
+    if (photos !== null) {
+        photos = photos.map(photo => ({ ...photo, url: appendMaxResolutionSuffix(photo.url) }));
+    }
+    store.dispatch(appendGooglePhotosAlbumAction(albumId, photos, resumeToken));
+}
+/** Fetches the list of Google Photos owned albums and saves it to the store. */
+async function fetchGooglePhotosAlbums(provider, store) {
+    // Albums should only be fetched after determining whether access is allowed.
+    const enabled = store.data.wallpaper.googlePhotos.enabled;
+    assert$1(enabled !== undefined, 'Google Photos albums not enabled.');
+    store.dispatch(beginLoadGooglePhotosAlbumsAction());
+    // If access is *not* allowed, short-circuit the request.
+    if (enabled !== GooglePhotosEnablementState.kEnabled) {
+        store.dispatch(appendGooglePhotosAlbumsAction(
+        /*albums=*/ null, /*resumeToken=*/ null));
+        return;
+    }
+    let albums = [];
+    let resumeToken = store.data.wallpaper.googlePhotos.resumeTokens.albums;
+    const { response } = await provider.fetchGooglePhotosAlbums(resumeToken);
+    if (Array.isArray(response.albums)) {
+        albums.push(...response.albums);
+        resumeToken = response.resumeToken || null;
+    }
+    else {
+        console.warn('Failed to fetch Google Photos owned albums');
+        albums = null;
+        // NOTE: `resumeToken` is intentionally *not* modified so that the request
+        // which failed can be reattempted.
+    }
+    // Impose max resolution.
+    if (albums !== null) {
+        albums = albums.map(album => ({ ...album, preview: appendMaxResolutionSuffix(album.preview) }));
+    }
+    store.dispatch(appendGooglePhotosAlbumsAction(albums, resumeToken));
+}
+/**
+ * Fetches the list of Google Photos shared albums and saves it to the store.
+ */
+async function fetchGooglePhotosSharedAlbums(provider, store) {
+    // Albums should only be fetched after determining whether access is allowed.
+    const enabled = store.data.wallpaper.googlePhotos.enabled;
+    assert$1(enabled !== undefined, 'Google photos enablement state not initialized.');
+    store.dispatch(beginLoadGooglePhotosSharedAlbumsAction());
+    // If access is *not* allowed, short-circuit the request.
+    if (enabled !== GooglePhotosEnablementState.kEnabled) {
+        store.dispatch(appendGooglePhotosSharedAlbumsAction(
+        /*albums=*/ null, /*resumeToken=*/ null));
+        return;
+    }
+    let albums = [];
+    let resumeToken = store.data.wallpaper.googlePhotos.resumeTokens.albumsShared;
+    const { response } = await provider.fetchGooglePhotosSharedAlbums(resumeToken);
+    if (Array.isArray(response.albums)) {
+        albums.push(...response.albums);
+        resumeToken = response.resumeToken || null;
+    }
+    else {
+        console.warn('Failed to fetch Google Photos shared albums');
+        albums = null;
+        // NOTE: `resumeToken` is intentionally *not* modified so that the request
+        // which failed can be reattempted.
+    }
+    // Impose max resolution.
+    if (albums !== null) {
+        albums = albums.map(album => ({ ...album, preview: appendMaxResolutionSuffix(album.preview) }));
+    }
+    store.dispatch(appendGooglePhotosSharedAlbumsAction(albums, resumeToken));
+}
+/** Fetches whether the user is allowed to access Google Photos. */
+async function fetchGooglePhotosEnabled(provider, store) {
+    // Whether access is allowed should only be fetched once.
+    if (store.data.wallpaper.googlePhotos.enabled !== undefined) {
+        return;
+    }
+    store.dispatch(beginLoadGooglePhotosEnabledAction());
+    const { state } = await provider.fetchGooglePhotosEnabled();
+    if (state === GooglePhotosEnablementState.kError) {
+        console.warn('Failed to fetch Google Photos enabled');
+    }
+    store.dispatch(setGooglePhotosEnabledAction(state));
+}
+/** Fetches the list of Google Photos photos and saves it to the store. */
+async function fetchGooglePhotosPhotos(provider, store) {
+    // Photos should only be fetched after determining whether access is allowed.
+    const enabled = store.data.wallpaper.googlePhotos.enabled;
+    assert$1(enabled !== undefined);
+    store.dispatch(beginLoadGooglePhotosPhotosAction());
+    // If access is *not* allowed, short-circuit the request.
+    if (enabled !== GooglePhotosEnablementState.kEnabled) {
+        store.dispatch(appendGooglePhotosPhotosAction(
+        /*photos=*/ null, /*resumeToken=*/ null));
+        return;
+    }
+    let photos = [];
+    let resumeToken = store.data.wallpaper.googlePhotos.resumeTokens.photos;
+    const { response } = await provider.fetchGooglePhotosPhotos(
+    /*itemId=*/ null, /*albumId=*/ null, resumeToken);
+    if (Array.isArray(response.photos)) {
+        photos.push(...response.photos);
+        resumeToken = response.resumeToken || null;
+    }
+    else {
+        console.warn('Failed to fetch Google Photos photos');
+        photos = null;
+        // NOTE: `resumeToken` is intentionally *not* modified so that the request
+        // which failed can be reattempted.
+    }
+    // Impose max resolution.
+    if (photos !== null) {
+        photos = photos.map(photo => ({ ...photo, url: appendMaxResolutionSuffix(photo.url) }));
+    }
+    store.dispatch(appendGooglePhotosPhotosAction(photos, resumeToken));
+}
+async function getDefaultImageThumbnail(provider, store) {
+    store.dispatch(beginLoadDefaultImageThubmnailAction());
+    const { data } = await provider.getDefaultImageThumbnail();
+    store.dispatch(setDefaultImageThumbnailAction(data));
+}
+/** Get list of local images from disk and save it to the store. */
+async function getLocalImages(provider, store) {
+    store.dispatch(beginLoadLocalImagesAction());
+    const { images } = await provider.getLocalImages();
+    if (images == null) {
+        console.warn('Failed to fetch local images');
+    }
+    store.dispatch(setLocalImagesAction(images));
+}
+/**
+ * Because thumbnail loading can happen asynchronously and is triggered
+ * on page load and on window focus, multiple "threads" can be fetching
+ * thumbnails simultaneously. Synchronize them with a task queue.
+ */
+const imageThumbnailsToFetch = new Set();
+/**
+ * Get an image thumbnail one at a time for every local image that does not have
+ * a thumbnail yet.
+ */
+async function getMissingLocalImageThumbnails(provider, store) {
+    if (!Array.isArray(store.data.wallpaper.local.images)) {
+        console.warn('Cannot fetch thumbnails with invalid image list');
+        return;
+    }
+    // Set correct loading state for each image thumbnail. Do in a batch update to
+    // reduce number of times that polymer must re-render.
+    store.beginBatchUpdate();
+    for (const image of store.data.wallpaper.local.images) {
+        if (isDefaultImage(image)) {
+            continue;
+        }
+        if (store.data.wallpaper.local.data[image.path] ||
+            store.data.wallpaper.loading.local.data[image.path] ||
+            imageThumbnailsToFetch.has(image.path)) {
+            // Do not re-load thumbnail if already present, or already loading.
+            continue;
+        }
+        imageThumbnailsToFetch.add(image.path);
+        store.dispatch(beginLoadLocalImageDataAction(image));
+    }
+    store.endBatchUpdate();
+    // There may be multiple async tasks triggered that pull off this queue.
+    while (imageThumbnailsToFetch.size) {
+        await Promise.all(Array.from(imageThumbnailsToFetch).map(async (path) => {
+            imageThumbnailsToFetch.delete(path);
+            const { data } = await provider.getLocalImageThumbnail({ path });
+            if (!data) {
+                console.warn('Failed to fetch local image data', path);
+            }
+            store.dispatch(setLocalImageDataAction({ path }, data));
+        }));
+    }
+}
+async function selectWallpaper(image, provider, store, layout = WallpaperLayout.kCenterCropped) {
+    const currentWallpaper = store.data.wallpaper.currentSelected;
+    if (currentWallpaper && isImageEqualToSelected(image, currentWallpaper)) {
+        return;
+    }
+    // Batch these changes together to reduce polymer churn as multiple state
+    // fields change quickly.
+    store.beginBatchUpdate();
+    store.dispatch(beginSelectImageAction(image));
+    store.dispatch(beginLoadSelectedImageAction());
+    const { tabletMode } = await provider.isInTabletMode();
+    const shouldPreview = tabletMode && !isDefaultImage(image);
+    if (shouldPreview) {
+        provider.makeTransparent();
+    }
+    store.endBatchUpdate();
+    const { success } = await (() => {
+        if (isWallpaperImage(image)) {
+            return provider.selectWallpaper(image.unitId, /*preview_mode=*/ shouldPreview);
+        }
+        else if (isDefaultImage(image)) {
+            return provider.selectDefaultImage();
+        }
+        else if (isNonEmptyFilePath(image)) {
+            return provider.selectLocalImage(image, layout, /*preview_mode=*/ shouldPreview);
+        }
+        else if (isGooglePhotosPhoto(image)) {
+            return provider.selectGooglePhotosPhoto(image.id, layout, /*preview_mode=*/ shouldPreview);
+        }
+        else {
+            console.warn('Image must be a local image or a WallpaperImage');
+            return { success: false };
+        }
+    })();
+    store.beginBatchUpdate();
+    store.dispatch(endSelectImageAction(image, success));
+    // Delay opening full screen preview until done loading. This looks better if
+    // the image load takes a long time, otherwise the user will see the old
+    // wallpaper image for a while.
+    if (success && shouldPreview) {
+        store.dispatch(setFullscreenEnabledAction(/*enabled=*/ true));
+    }
+    if (!success) {
+        console.warn('Error setting wallpaper');
+        store.dispatch(setAttributionAction(store.data.wallpaper.attribution));
+        store.dispatch(setSelectedImageAction(store.data.wallpaper.currentSelected));
+    }
+    store.endBatchUpdate();
+}
+async function setCurrentWallpaperLayout(layout, provider, store) {
+    const image = store.data.wallpaper.currentSelected;
+    assert$1(image);
+    assert$1(image.type === WallpaperType.kCustomized ||
+        image.type === WallpaperType.kOnceGooglePhotos);
+    assert$1(layout === WallpaperLayout.kCenter ||
+        layout === WallpaperLayout.kCenterCropped);
+    if (image.layout === layout) {
+        return;
+    }
+    store.dispatch(beginLoadSelectedImageAction());
+    await provider.setCurrentWallpaperLayout(layout);
+}
+// Do not trigger the loading UI if the currently selected wallpaper is a
+// matching type for the incoming selection and if the currently selected
+// wallpaper is in the chosen album.
+function dailyRefreshShouldTriggerLoading(id, types, currentSelected, imagesById) {
+    if (!id) {
+        // No loading shown if clearing daily refresh state.
+        return false;
+    }
+    if (!currentSelected) {
+        return true;
+    }
+    if (types.has(currentSelected.type)) {
+        return !imagesById[id]?.some(image => isImageAMatchForKey(image, currentSelected.key));
+    }
+    return true;
+}
+async function setDailyRefreshCollectionId(collectionId, provider, store) {
+    if (dailyRefreshShouldTriggerLoading(collectionId, new Set([WallpaperType.kOnline, WallpaperType.kDaily]), store.data.wallpaper.currentSelected, store.data.wallpaper.backdrop.images)) {
+        store.dispatch(beginUpdateDailyRefreshImageAction());
+    }
+    const { success } = await provider.setDailyRefreshCollectionId(collectionId);
+    if (!success) {
+        store.dispatch(setErrorAction({ message: loadTimeData.getString('setWallpaperError') }));
+    }
+    await getDailyRefreshState(provider, store);
+}
+async function selectGooglePhotosAlbum(albumId, provider, store) {
+    if (dailyRefreshShouldTriggerLoading(albumId, new Set([
+        WallpaperType.kOnceGooglePhotos,
+        WallpaperType.kDailyGooglePhotos,
+    ]), store.data.wallpaper.currentSelected, store.data.wallpaper.googlePhotos.photosByAlbumId)) {
+        store.dispatch(beginUpdateDailyRefreshImageAction());
+    }
+    const { success } = await provider.selectGooglePhotosAlbum(albumId);
+    if (!success) {
+        store.dispatch(setErrorAction({ message: loadTimeData.getString('googlePhotosError') }));
+    }
+    await getDailyRefreshState(provider, store);
+}
+/**
+ * Get the currently active daily refresh id for Backdrop and Google Photos.
+ * One or both will be empty, depending on which, if either, is enabled.
+ */
+async function getDailyRefreshState(provider, store) {
+    const [{ collectionId }, { albumId }] = await Promise.all([
+        provider.getDailyRefreshCollectionId(),
+        provider.getGooglePhotosDailyRefreshAlbumId(),
+    ]);
+    // Daily refresh should only be active for either Backdrop or Google Photos
+    assert$1(!collectionId || !albumId);
+    if (collectionId) {
+        store.dispatch(setDailyRefreshCollectionIdAction(collectionId));
+    }
+    else if (albumId) {
+        store.dispatch(setGooglePhotosDailyRefreshAlbumIdAction(albumId));
+    }
+    else {
+        store.dispatch(clearDailyRefreshAction());
+    }
+}
+/** Refresh the wallpaper. Noop if daily refresh is not enabled. */
+async function updateDailyRefreshWallpaper(provider, store) {
+    store.dispatch(beginUpdateDailyRefreshImageAction());
+    store.dispatch(beginLoadSelectedImageAction());
+    const { success } = await provider.updateDailyRefreshWallpaper();
+    if (success) {
+        store.dispatch(setUpdatedDailyRefreshImageAction());
+    }
+    else {
+        const currentAttribution = store.data.wallpaper.attribution;
+        const currentWallpaper = store.data.wallpaper.currentSelected;
+        const dailyRefresh = store.data.wallpaper.dailyRefresh;
+        // Displays error if daily refresh is activated for Google Photos album
+        // and refresh failed to fetch a new Google Photo wallpaper.
+        // Also dispatches setUpdatedDailyRefreshImageAction() and
+        // setSelectedImageAction() to avoid pending UI.
+        // TODO (b/266257678): displays error message when daily refresh fails for
+        // online wallpaper collections.
+        if (!!dailyRefresh && dailyRefresh.type == DailyRefreshType.GOOGLE_PHOTOS) {
+            store.dispatch(setUpdatedDailyRefreshImageAction());
+            store.dispatch(setAttributionAction(currentAttribution));
+            store.dispatch(setSelectedImageAction(currentWallpaper));
+            store.dispatch(setErrorAction({ message: loadTimeData.getString('googlePhotosError') }));
+        }
+    }
+}
+/** Confirm and set preview wallpaper as actual wallpaper. */
+async function confirmPreviewWallpaper(provider) {
+    await provider.confirmPreviewWallpaper();
+    provider.makeOpaque();
+}
+/** Cancel preview wallpaper and show the previous wallpaper. */
+async function cancelPreviewWallpaper(provider) {
+    await provider.cancelPreviewWallpaper();
+    provider.makeOpaque();
+}
+async function getShouldShowTimeOfDayWallpaperDialog(provider, store) {
+    const { shouldShowDialog } = await provider.shouldShowTimeOfDayWallpaperDialog();
+    // Dispatch action to set the should show dialog boolean.
+    store.dispatch(setShouldShowTimeOfDayWallpaperDialog(shouldShowDialog));
+}
+/**
+ * Fetches list of collections, then fetches list of images for each
+ * collection.
+ */
+async function initializeBackdropData(provider, store) {
+    await fetchCollections(provider, store);
+    await fetchAllImagesForCollections(provider, store);
+}
+/**
+ * Gets list of local images, then fetches image thumbnails for each local
+ * image.
+ */
+async function fetchLocalData(provider, store) {
+    // Do not restart loading local image list if a load is already in progress.
+    if (!store.data.wallpaper.loading.local.images) {
+        await getLocalImages(provider, store);
+    }
+    await getMissingLocalImageThumbnails(provider, store);
+}
+
+// Copyright 2021 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview a singleton getter for the wallpaper mojom interface used in
+ * the Personalization SWA. Also contains utility function for mocking out the
+ * implementation for testing.
+ */
+let wallpaperProvider = null;
+function setWallpaperProviderForTesting(testProvider) {
+    wallpaperProvider = testProvider;
+}
+/** Returns a singleton for the WallpaperProvider mojom interface. */
+function getWallpaperProvider() {
+    if (!wallpaperProvider) {
+        wallpaperProvider = WallpaperProvider.getRemote();
+    }
+    return wallpaperProvider;
+}
+
+// Copyright 2021 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+let instance$8 = null;
+let initialLoadTimeout = null;
+const setTimeout$1 = window.setTimeout;
+const clearTimeout$1 = window.clearTimeout;
+/**
+ * Set up the observer to listen for wallpaper changes.
+ */
+function initWallpaperObserver(wallpaperProvider, target) {
+    const receiver = new WallpaperObserverReceiver(target);
+    wallpaperProvider.setWallpaperObserver(receiver.$.bindNewPipeAndPassRemote());
+    return receiver;
+}
+/**
+ * @classdesc Implements interface |WallpaperObserver| generated from
+ * |personalization_app.mojom|. See comments there for method descriptions.
+ */
+class WallpaperObserver {
+    constructor() {
+        this.receiver_ = initWallpaperObserver(getWallpaperProvider(), this);
+    }
+    /**
+     * Create a new wallpaper observer instance if no instance currently running.
+     */
+    static initWallpaperObserverIfNeeded() {
+        if (!instance$8) {
+            instance$8 = new WallpaperObserver();
+            initialLoadTimeout = setTimeout$1(() => {
+                const store = PersonalizationStore.getInstance();
+                // If still loading the initial currently selected wallpaper image after
+                // 120 seconds, consider this an error and update the store.
+                store.dispatch(setSelectedImageAction(null));
+                initialLoadTimeout = null;
+            }, 120 * 1000);
+        }
+    }
+    onWallpaperPreviewEnded() {
+        const store = PersonalizationStore.getInstance();
+        store.dispatch(setFullscreenEnabledAction(false));
+    }
+    onAttributionChanged(attribution) {
+        const store = PersonalizationStore.getInstance();
+        store.dispatch(setAttributionAction(attribution));
+    }
+    onWallpaperChanged(currentWallpaper) {
+        // Ignore updates while in fullscreen preview mode. The attribution
+        // information is for the old (non-preview) wallpaper. This is because
+        // setting an image in preview mode updates the image but not the stored
+        // WallpaperInfo. The wallpaper app should treat the duration of preview
+        // mode as loading. Another onWallpaperChanged will fire when preview mode
+        // is canceled or confirmed.
+        const store = PersonalizationStore.getInstance();
+        if (store.data.wallpaper.fullscreen) {
+            return;
+        }
+        if (initialLoadTimeout) {
+            clearTimeout$1(initialLoadTimeout);
+            initialLoadTimeout = null;
+        }
+        store.dispatch(setSelectedImageAction(currentWallpaper));
+        if (currentWallpaper && currentWallpaper.type == WallpaperType.kSeaPen) {
+            store.dispatch(setSelectedRecentSeaPenImageAction(currentWallpaper.key));
+        }
+        else {
+            store.dispatch(setSelectedRecentSeaPenImageAction(null));
+        }
+        if (currentWallpaper &&
+            (currentWallpaper.type == WallpaperType.kDailyGooglePhotos ||
+                currentWallpaper.type == WallpaperType.kDaily ||
+                currentWallpaper.type == WallpaperType.kDefault)) {
+            store.dispatch(setUpdatedDailyRefreshImageAction());
+        }
+        // Daily Refresh state should also get updated when wallpaper changes.
+        getDailyRefreshState(getWallpaperProvider(), store);
+    }
+    static shutdown() {
+        if (instance$8) {
+            instance$8.receiver_.$.close();
+            instance$8 = null;
+        }
+    }
 }
 
 // Copyright 2021 The Chromium Authors
@@ -8869,6 +9652,7 @@ var Paths;
     Paths["LOCAL_COLLECTION"] = "/wallpaper/local";
     Paths["ROOT"] = "/";
     Paths["SEA_PEN_COLLECTION"] = "/wallpaper/sea-pen";
+    Paths["SEA_PEN_RESULTS"] = "/wallpaper/sea-pen/results";
     Paths["USER"] = "/user";
 })(Paths || (Paths = {}));
 var ScrollableTarget;
@@ -8887,12 +9671,18 @@ function isAmbientPathAllowed(path) {
 function isAmbientPathNotAllowed(path) {
     return isAmbientPath(path) && !isAmbientModeAllowed();
 }
+function isSeaPenPath(path) {
+    return !!path && path.startsWith(Paths.SEA_PEN_COLLECTION);
+}
+function isSeaPenPathNotAllowed(path) {
+    return isSeaPenPath(path) && !isSeaPenEnabled();
+}
 class PersonalizationRouterElement extends PolymerElement {
     static get is() {
         return 'personalization-router';
     }
     static get template() {
-        return getTemplate$V();
+        return getTemplate$Y();
     }
     static get properties() {
         return {
@@ -8905,6 +9695,12 @@ class PersonalizationRouterElement extends PolymerElement {
             },
             queryParams_: {
                 type: Object,
+            },
+            seaPenBasePath_: {
+                type: String,
+                value() {
+                    return Paths.SEA_PEN_COLLECTION;
+                },
             },
         };
     }
@@ -8928,6 +9724,7 @@ class PersonalizationRouterElement extends PolymerElement {
     }
     connectedCallback() {
         super.connectedCallback();
+        WallpaperObserver.initWallpaperObserverIfNeeded();
     }
     get collectionId() {
         if (this.path_ !== Paths.COLLECTION_IMAGES) {
@@ -8955,9 +9752,6 @@ class PersonalizationRouterElement extends PolymerElement {
     selectAmbientAlbums(topicSource) {
         this.goToRoute(Paths.AMBIENT_ALBUMS, { topicSource: topicSource.toString() });
     }
-    selectSeaPenTemplate(templateId) {
-        this.goToRoute(Paths.SEA_PEN_COLLECTION, { seaPenTemplateId: templateId });
-    }
     goToRoute(path, queryParams = {}) {
         this.setProperties({ path_: path, queryParams_: queryParams });
     }
@@ -8973,7 +9767,11 @@ class PersonalizationRouterElement extends PolymerElement {
         return path === Paths.USER;
     }
     shouldShowWallpaperSubpage_(path) {
-        return !!path && path.startsWith(Paths.COLLECTIONS);
+        return !!path && path.startsWith(Paths.COLLECTIONS) &&
+            !path.startsWith(Paths.SEA_PEN_COLLECTION);
+    }
+    shouldShowSeaPen_(path) {
+        return isSeaPenEnabled() && isSeaPenPath(path);
     }
     shouldShowBreadcrumb_(path) {
         return path !== Paths.ROOT;
@@ -8985,7 +9783,8 @@ class PersonalizationRouterElement extends PolymerElement {
     onPathChanged_(path) {
         // Navigates to the top of the subpage.
         window.scrollTo(0, 0);
-        if (!isPathValid(path) || isAmbientPathNotAllowed(path)) {
+        if (!isPathValid(path) || isAmbientPathNotAllowed(path) ||
+            isSeaPenPathNotAllowed(path)) {
             // Reset the path to root.
             this.setProperties({ path_: Paths.ROOT, queryParams_: {} });
         }
@@ -9032,8 +9831,8 @@ class PersonalizationRouterElement extends PolymerElement {
 }
 customElements.define(PersonalizationRouterElement.is, PersonalizationRouterElement);
 
-function getTemplate$U() {
-    return html `<!--_html_template_start_--><style include="cr-shared-style common">:host{height:auto}#descPlaceholderContainer,#pageDescription{margin-inline-start:8px;min-height:32px}#noAlbumText{display:inline}#descriptionPlaceholder{height:20px;width:50%}#albumsPlaceholderContainer{display:grid;gap:calc(var(--personalization-app-grid-item-spacing)) calc(var(--personalization-app-grid-item-spacing)/ 2);grid-template-columns:repeat(3,1fr .34px);grid-template-rows:repeat(auto-fit,calc(var(--personalization-app-grid-item-height)));height:100%;overflow:hidden;padding:calc(var(--personalization-app-grid-item-spacing)/ 2)}@media(min-width:720px){#albumsPlaceholderContainer{grid-template-columns:repeat(4,1fr .25px)}}#albumItemPlaceholder{height:100%;position:relative;width:100%}</style>
+function getTemplate$X() {
+    return html `<!--_html_template_start_--><style include="cr-shared-style common">:host{height:auto}#descPlaceholderContainer,#pageDescription{margin-inline-start:10px;min-height:32px}#noAlbumText{display:inline}#descriptionPlaceholder{height:20px;width:50%}#albumsPlaceholderContainer{display:grid;gap:calc(var(--personalization-app-grid-item-spacing)) calc(var(--personalization-app-grid-item-spacing)/ 2);grid-template-columns:repeat(3,1fr .34px);grid-template-rows:repeat(auto-fit,calc(var(--personalization-app-grid-item-height)));height:100%;overflow:hidden;padding:calc(var(--personalization-app-grid-item-spacing)/ 2)}@media(min-width:720px){#albumsPlaceholderContainer{grid-template-columns:repeat(4,1fr .25px)}}#albumItemPlaceholder{height:100%;position:relative;width:100%}</style>
 <template is="dom-if" if="[[shouldShowContent_(ambientModeEnabled_)]]">
   <template is="dom-if" if="[[loadingAlbums_(albums, topicSource)]]">
     <div id="descPlaceholderContainer">
@@ -9197,7 +9996,7 @@ function dismissTimeOfDayBanner(store) {
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 /** @fileoverview listens for updates on ambient mode changes. */
-let instance$6 = null;
+let instance$7 = null;
 /**
  * Observes ambient mode changes and saves updates to PersonalizationStore.
  */
@@ -9207,14 +10006,14 @@ class AmbientObserver {
     static { this.shouldLogPreviewsLoadPerformance = window.location.pathname === Paths.ROOT ||
         window.location.pathname === Paths.AMBIENT; }
     static initAmbientObserverIfNeeded() {
-        if (isAmbientModeAllowed() && !instance$6) {
-            instance$6 = new AmbientObserver();
+        if (isAmbientModeAllowed() && !instance$7) {
+            instance$7 = new AmbientObserver();
         }
     }
     static shutdown() {
-        if (instance$6) {
-            instance$6.receiver_.$.close();
-            instance$6 = null;
+        if (instance$7) {
+            instance$7.receiver_.$.close();
+            instance$7 = null;
         }
     }
     constructor() {
@@ -9314,7 +10113,7 @@ class AlbumsSubpageElement extends WithPersonalizationStore {
         return 'albums-subpage';
     }
     static get template() {
-        return getTemplate$U();
+        return getTemplate$X();
     }
     static get properties() {
         return {
@@ -9364,7 +10163,7 @@ class AlbumsSubpageElement extends WithPersonalizationStore {
     getLoadingTiles_() {
         const x = getNumberOfGridItemsPerRow();
         const y = Math.floor(this.offsetHeight / kTileHeightPx);
-        return getZerosArray(x * y);
+        return new Array(x * y).fill(0);
     }
     loadingAlbums_() {
         return this.albums === null || this.topicSource === null;
@@ -9550,7 +10349,7 @@ class CrAutoImgElement extends HTMLImageElement {
 }
 customElements.define('cr-auto-img', CrAutoImgElement, { extends: 'img' });
 
-function getTemplate$T() {
+function getTemplate$W() {
     return html `<!--_html_template_start_--><style include="common">:host{-webkit-tap-highlight-color:transparent;box-sizing:border-box;cursor:pointer;overflow:hidden;padding:calc(var(--personalization-app-grid-item-spacing)/ 2);width:calc(100% / 3 - .34px)}@media(min-width:720px){:host{width:calc(100% / 4 - .25px)}}:host(:focus-visible){outline:0}.item{align-items:center;background-color:rgba(0,0,0,.12);border-radius:var(--personalization-app-grid-item-border-radius);box-sizing:border-box;display:flex;flex-direction:column;height:120px;justify-content:center;overflow:hidden;position:relative;width:100%}:host(:focus-visible) .item{outline:2px solid var(--cros-focus-ring-color)}:host([aria-checked=true]) .item{background-color:var(--cros-sys-highlight_shape,rgba(var(--cros-color-prominent-rgb),var(--personalization-app-second-tone-opacity)));border-radius:calc(var(--personalization-app-grid-item-border-radius) + 4px)}img{border-radius:var(--personalization-app-grid-item-border-radius);height:100%;object-fit:cover;width:100%}:host([aria-checked=true]) .item img{animation-duration:.2s;animation-fill-mode:forwards;animation-name:img-resize;animation-timing-function:cubic-bezier(.4,0,.2,1)}@keyframes img-resize{100%{height:calc(100% - 8px);width:calc(100% - 8px)}}.text{color:var(--cros-text-color-secondary);display:flex;flex-direction:column;font:var(--cros-body-2-font);margin:8px 0 0 0}iron-icon{--iron-icon-height:20px;--iron-icon-width:20px;animation-duration:.2s;animation-name:iron-icon-scale;animation-timing-function:cubic-bezier(.4,0,.2,1);left:8px;position:absolute;top:8px}:host(:not([aria-checked=true])) .item iron-icon{display:none}@keyframes iron-icon-scale{from{transform:scale(0)}to{transform:scale(1)}}</style>
 <div class="item">
   <img is="cr-auto-img" auto-src="[[imgSrc_]]">
@@ -9571,7 +10370,7 @@ class AmbientThemeItemElement extends WithPersonalizationStore {
         return 'ambient-theme-item';
     }
     static get template() {
-        return getTemplate$T();
+        return getTemplate$W();
     }
     static get properties() {
         return {
@@ -9629,7 +10428,7 @@ class AmbientThemeItemElement extends WithPersonalizationStore {
     }
     /** Invoked when item is selected. */
     onItemSelected_(event) {
-        if (!isSelectionEvent(event)) {
+        if (!isSelectionEvent$1(event)) {
             return;
         }
         event.preventDefault();
@@ -9639,7 +10438,7 @@ class AmbientThemeItemElement extends WithPersonalizationStore {
 }
 customElements.define(AmbientThemeItemElement.is, AmbientThemeItemElement);
 
-function getTemplate$S() {
+function getTemplate$V() {
     return html `<!--_html_template_start_--><style include="common">:host{--theme-item-padding:24px;--theme-item-width:156px}iron-list{width:calc(var(--theme-item-width)*3 + var(--theme-item-padding)*2)}@media(min-width:720px){iron-list{width:calc(var(--theme-item-width)*4 + var(--theme-item-padding)*3)}}</style>
 
 <h3 id="ambientThemeDescription" class="ambient-subpage-element-title">
@@ -9665,7 +10464,7 @@ class AmbientThemeListElement extends WithPersonalizationStore {
         return 'ambient-theme-list';
     }
     static get template() {
-        return getTemplate$S();
+        return getTemplate$V();
     }
     static get properties() {
         return {
@@ -9692,8 +10491,8 @@ class AmbientThemeListElement extends WithPersonalizationStore {
 }
 customElements.define(AmbientThemeListElement.is, AmbientThemeListElement);
 
-const styleMod$3 = document.createElement('dom-module');
-styleMod$3.appendChild(html `
+const styleMod$4 = document.createElement('dom-module');
+styleMod$4.appendChild(html `
   <template>
     <style>
 :host{--cr-radio-button-checked-color:var(--google-blue-600);--cr-radio-button-checked-ripple-color:rgba(var(--google-blue-600-rgb), .2);--cr-radio-button-ink-size:40px;--cr-radio-button-size:16px;--cr-radio-button-unchecked-color:var(--google-grey-700);--cr-radio-button-unchecked-ripple-color:rgba(var(--google-grey-600-rgb), .15);--ink-to-circle:calc((var(--cr-radio-button-ink-size) -
@@ -9705,7 +10504,7 @@ styleMod$3.appendChild(html `
     </style>
   </template>
 `.content);
-styleMod$3.register('cr-radio-button-style');
+styleMod$4.register('cr-radio-button-style');
 
 var MAX_RADIUS_PX = 300;
 var MIN_DURATION_MS = 800;
@@ -10283,7 +11082,7 @@ const PaperRippleBehavior = {
   }
 };
 
-function getTemplate$R() {
+function getTemplate$U() {
     return html `<!--_html_template_start_-->    <style include="cr-radio-button-style cr-hidden-style"></style>
 
     <div aria-checked$="[[getAriaChecked_(checked)]]" aria-describedby="slotted-content" aria-disabled$="[[getAriaDisabled_(disabled)]]" aria-labelledby="label" class="disc-wrapper" id="button" role="radio" tabindex$="[[buttonTabIndex_]]" on-keydown="onInputKeydown_">
@@ -10423,7 +11222,7 @@ class CrRadioButtonElement extends CrRadioButtonElementBase {
         return 'cr-radio-button';
     }
     static get template() {
-        return getTemplate$R();
+        return getTemplate$U();
     }
     // Overridden from CrRadioButtonMixin
     getPaperRipple() {
@@ -10454,9 +11253,7 @@ customElements.define(CrRadioButtonElement.is, CrRadioButtonElement);
  * calling Function.bind.
  */
 class EventTracker {
-    constructor() {
-        this.listeners_ = [];
-    }
+    listeners_ = [];
     /**
      * Add an event listener - replacement for EventTarget.addEventListener.
      * @param target The DOM target to add a listener to.
@@ -10506,7 +11303,7 @@ class EventTracker {
     }
 }
 
-function getTemplate$Q() {
+function getTemplate$T() {
     return html `<!--_html_template_start_-->    <style>:host{display:inline-block}:host ::slotted(*){padding:var(--cr-radio-group-item-padding,12px)}:host([disabled]){cursor:initial;pointer-events:none;user-select:none}:host([disabled]) ::slotted(*){opacity:var(--cr-disabled-opacity)}</style>
     <slot></slot>
 <!--_html_template_end_-->`;
@@ -10532,7 +11329,7 @@ class CrRadioGroupElement extends PolymerElement {
         return 'cr-radio-group';
     }
     static get template() {
-        return getTemplate$Q();
+        return getTemplate$T();
     }
     static get properties() {
         return {
@@ -10735,18 +11532,18 @@ class CrRadioGroupElement extends PolymerElement {
 }
 customElements.define(CrRadioGroupElement.is, CrRadioGroupElement);
 
-const styleMod$2 = document.createElement('dom-module');
-styleMod$2.appendChild(html `
+const styleMod$3 = document.createElement('dom-module');
+styleMod$3.appendChild(html `
   <template>
     <style>
 .md-select{--md-arrow-width:10px;--md-select-bg-color:var(--google-grey-100);--md-select-focus-shadow-color:rgba(var(--google-blue-600-rgb), .4);--md-select-option-bg-color:white;--md-select-side-padding:8px;--md-select-text-color:var(--cr-primary-text-color);-webkit-appearance:none;background:url(//resources/images/arrow_down.svg) calc(100% - var(--md-select-side-padding)) center no-repeat;background-color:var(--md-select-bg-color);background-size:var(--md-arrow-width);border:none;border-radius:4px;color:var(--md-select-text-color);cursor:pointer;font-family:inherit;font-size:inherit;line-height:inherit;max-width:100%;outline:0;padding-bottom:6px;padding-inline-end:calc(var(--md-select-side-padding) + var(--md-arrow-width) + 3px);padding-inline-start:var(--md-select-side-padding);padding-top:6px;width:var(--md-select-width,200px)}@media (prefers-color-scheme:dark){.md-select{--md-select-bg-color:rgba(0, 0, 0, .3);--md-select-focus-shadow-color:rgba(var(--google-blue-300-rgb), .5);--md-select-option-bg-color:var(--google-grey-900-white-4-percent);background-image:url(//resources/images/dark/arrow_down.svg)}}:host-context([chrome-refresh-2023]) .md-select{--md-select-bg-color:transparent;--md-arrow-width:7px;--md-select-side-padding:10px;--md-select-text-color:inherit;border:solid 1px var(--color-combobox-container-outline,var(--cr-fallback-color-neutral-outline));border-radius:8px;box-sizing:border-box;font-size:12px;height:36px;line-height:36px;padding-bottom:0;padding-top:0}:host-context([chrome-refresh-2023]) .md-select:hover{background-color:var(--color-comboxbox-ink-drop-hovered,var(--cr-hover-on-subtle-background-color))}.md-select :-webkit-any(option,optgroup){background-color:var(--md-select-option-bg-color)}.md-select[disabled]{opacity:var(--cr-disabled-opacity);pointer-events:none}:host-context([chrome-refresh-2023]) .md-select[disabled]{background-color:var(--color-combobox-background-disabled,var(--cr-fallback-color-disabled-background));border-color:transparent;color:var(--color-textfield-foreground-disabled,var(--cr-fallback-color-disabled-foreground));opacity:1}.md-select:focus{box-shadow:0 0 0 2px var(--md-select-focus-shadow-color)}:host-context([chrome-refresh-2023]) .md-select:focus{box-shadow:none;outline:solid 2px var(--cr-focus-outline-color);outline-offset:-1px}@media (forced-colors:active){.md-select:focus{outline:var(--cr-focus-outline-hcm)}}.md-select:active{box-shadow:none}:host-context([dir=rtl]) .md-select{background-position-x:var(--md-select-side-padding)}
     </style>
   </template>
 `.content);
-styleMod$2.register('md-select');
+styleMod$3.register('md-select');
 
-function getTemplate$P() {
-    return html `<!--_html_template_start_--><style include="common md-select">.ambient-subpage-element-title{margin-bottom:0}.md-select{margin-block-start:20px;margin-inline-end:8px}</style>
+function getTemplate$S() {
+    return html `<!--_html_template_start_--><style include="common md-select">.ambient-subpage-element-title{margin-bottom:0;margin-inline-start:0}.md-select{margin-block-start:20px;margin-inline-end:8px}</style>
 <div class="ambient-toggle-row">
   <h3 class="ambient-subpage-element-title">
     $i18n{ambientModeDurationTitle}
@@ -10774,7 +11571,7 @@ class AmbientDurationElement extends WithPersonalizationStore {
         return 'ambient-duration';
     }
     static get template() {
-        return getTemplate$P();
+        return getTemplate$S();
     }
     static get properties() {
         return {
@@ -10851,7 +11648,7 @@ part of the polymer project is also subject to an additional IP rights grant
 found at http://polymer.github.io/PATENTS.txt
 */
 
-const template$3 = html`<dom-module id="paper-spinner-styles">
+const template$5 = html`<dom-module id="paper-spinner-styles">
   <template>
     <style>
       /*
@@ -11164,7 +11961,7 @@ const template$3 = html`<dom-module id="paper-spinner-styles">
   </template>
 </dom-module>`;
 
-document.head.appendChild(template$3.content);
+document.head.appendChild(template$5.content);
 
 /**
 @license
@@ -11250,7 +12047,7 @@ part of the polymer project is also subject to an additional IP rights grant
 found at http://polymer.github.io/PATENTS.txt
 */
 
-const template$2 = html`
+const template$4 = html`
   <style include="paper-spinner-styles"></style>
 
   <div id="spinnerContainer" class-name="[[__computeContainerClasses(active, __coolingDown)]]" on-animationend="__reset" on-webkit-animation-end="__reset">
@@ -11264,7 +12061,7 @@ const template$2 = html`
     </div>
   </div>
 `;
-template$2.setAttribute('strip-whitespace', '');
+template$4.setAttribute('strip-whitespace', '');
 
 /**
 Material design: [Progress &
@@ -11300,14 +12097,14 @@ Custom property | Description | Default
 @demo demo/index.html
 */
 Polymer({
-  _template: template$2,
+  _template: template$4,
 
   is: 'paper-spinner-lite',
 
   behaviors: [PaperSpinnerBehavior]
 });
 
-function getTemplate$O() {
+function getTemplate$R() {
     return html `<!--_html_template_start_--><style>path{fill:var(--cros-sys-primary_container,var(--cros-highlight-color))}</style>
 <svg width="192" height="190" viewBox="0 0 192 190" fill="none" xmlns="http://www.w3.org/2000/svg">
   <path d="M2.12279 105.772C-0.49169 101.433 -0.704305 96.0783 1.55808 91.5495L4.73978 85.1805C6.09266 82.4724 6.58103 79.421 6.14004 76.4317L5.10292 69.4015C4.36546 64.4025 6.23989 59.3745 10.0814 56.0473L15.4839 51.368C17.781 49.3783 19.4122 46.7442 20.1608 43.8154L21.9213 36.9275C23.1731 32.0299 26.8493 28.0945 31.685 26.4752L38.4858 24.198C41.3775 23.2297 43.9032 21.4139 45.7274 18.9915L50.0175 13.2947C53.068 9.24384 57.9862 7.00016 63.08 7.33548L70.2437 7.80705C73.2898 8.00757 76.3255 7.28637 78.9475 5.73923L85.1141 2.10067C89.4989 -0.486566 94.9104 -0.696967 99.4868 1.54185L105.923 4.69041C108.66 6.02919 111.743 6.51248 114.764 6.07608L121.868 5.04976C126.92 4.31999 132 6.17489 135.363 9.97637L140.091 15.3226C142.102 17.5958 144.764 19.21 147.723 19.9508L154.684 21.6929C159.633 22.9317 163.61 26.5696 165.246 31.355L167.547 38.0849C168.526 40.9465 170.361 43.4459 172.809 45.2511L178.565 49.4965C182.659 52.5152 184.926 57.3822 184.587 62.423L184.111 69.512C183.908 72.5264 184.637 75.5304 186.2 78.1252L189.877 84.2275C192.492 88.5667 192.704 93.9217 190.442 98.4505L187.26 104.82C185.907 107.528 185.419 110.579 185.86 113.568L186.897 120.599C187.635 125.597 185.76 130.625 181.919 133.953L176.516 138.632C174.219 140.622 172.588 143.256 171.839 146.185L170.079 153.072C168.827 157.97 165.151 161.906 160.315 163.525L153.514 165.802C150.622 166.77 148.097 168.586 146.273 171.008L141.982 176.705C138.932 180.756 134.014 183 128.92 182.665L121.756 182.193C118.71 181.992 115.675 182.714 113.052 184.261L106.886 187.899C102.501 190.487 97.0896 190.697 92.5132 188.458L86.0771 185.31C83.3405 183.971 80.257 183.488 77.2362 183.924L70.132 184.95C65.0804 185.68 59.9995 183.825 56.6372 180.024L51.9087 174.677C49.8981 172.404 47.2362 170.79 44.2766 170.049L37.3163 168.307C32.367 167.068 28.3902 163.43 26.7539 158.645L24.4527 151.915C23.4743 149.053 21.6393 146.554 19.1914 144.749L13.4346 140.504C9.34115 137.485 7.07385 132.618 7.4127 127.577L7.88923 120.488C8.09186 117.474 7.36307 114.47 5.79964 111.875L2.12279 105.772Z">
@@ -11328,7 +12125,7 @@ class AmbientZeroStateSvgElement extends PolymerElement {
         return 'ambient-zero-state-svg';
     }
     static get template() {
-        return getTemplate$O();
+        return getTemplate$R();
     }
 }
 customElements.define(AmbientZeroStateSvgElement.is, AmbientZeroStateSvgElement);
@@ -11336,6 +12133,11 @@ customElements.define(AmbientZeroStateSvgElement.is, AmbientZeroStateSvgElement)
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
+/**
+ * @fileoverview A base polymer element that previews the current selected
+ * screensaver. Extend this element and provide a template to make a full
+ * polymer element.
+ */
 /**
  * Removes the resolution suffix at the end of an image (from character '=' to
  * the end) and replace it with a new resolution suffix.
@@ -11491,7 +12293,7 @@ class AmbientPreviewBase extends WithPersonalizationStore {
     }
 }
 
-function getTemplate$N() {
+function getTemplate$Q() {
     return html `<!--_html_template_start_--><style include="common cros-button-style">:host-context(body.jelly-enabled) #container{background-color:var(--cros-bg-color);border:none;grid-template-areas:'. slot           slot    slot      .' '. image          image   image     .' '. .              .       .         .' '. message        message message   .' '. mainpage-desc  .       thumbnail .' '. .              .       .         .';grid-template-columns:20px auto 192px auto 20px;grid-template-rows:auto auto 20px 192px 1fr 20px}#container{border:1px solid var(--cros-separator-color);border-radius:16px;display:grid;grid-template-areas:'. slot           slot    slot      .' '. image          image   image     .' '. .              .       .         .' '. message        message message   .' '. mainpage-desc  .       thumbnail .' '. .              .       .         .';grid-template-columns:20px minmax(0,1fr) 16px 106px 20px;grid-template-rows:auto minmax(158px,220px) 20px 106px auto 24px;height:100%}#container.ambient-mode-enabled{grid-template-rows:auto minmax(158px,220px) 20px auto 106px 24px}:host-context(body.jelly-enabled) #container.ambient-mode-enabled{grid-template-areas:'. slot          .' '. image         .' '. .             .' '. thumbnail     .' '. mainpage-desc .' '. .             .';grid-template-columns:20px minmax(0,1fr) 20px;grid-template-rows:auto auto 20px 130px 1fr 18px}#ambientLabel{align-items:center;background:0 0;border:none;display:flex;flex-flow:row nowrap;grid-area:slot;justify-content:space-between;margin-top:12px}#ambientLabel>cr-icon-button{--cr-icon-button-size:44px;margin-inline-end:-18px}#ambientLabel>h2{color:var(--cros-text-color-primary);font:var(--personalization-app-label-font);margin:12px 0}#messageContainer{align-items:center;display:flex;flex-direction:column;grid-area:message;justify-content:space-between}#messageContainer .text{color:var(--cros-sys-on_primary_container,var(--cros-text-color-secondary));font:var(--cros-body-1-font);line-height:1.5;margin-top:12px;position:relative;text-align:center;width:unset}:host-context(body.jelly-enabled) #messageContainer .text{font:var(--cros-body-2-font);margin-top:56px;width:128px}:host-context(body.jelly-enabled) #messageContainer cr-button{margin-top:8px}#messageContainer cr-button{margin-bottom:50px;margin-top:20px}ambient-zero-state-svg{position:absolute}#imageContainer,#imagePlaceholder{display:flex;height:100%;justify-self:center;max-width:360px;min-width:252px;width:100%}:host-context(body.jelly-enabled) #imageContainer,:host-context(body.jelly-enabled) #imagePlaceholder{aspect-ratio:340/220;max-width:460px;min-width:278px}:host-context(body.jelly-enabled) #textPlaceholder,:host-context(body.jelly-enabled) .album-info-mainpage{align-items:center}#textPlaceholder,.album-info-mainpage{align-items:flex-start;display:flex;grid-area:mainpage-desc;justify-content:center}#textPlaceholder .placeholder:first-child{margin-top:8px}#imageContainer,#imagePlaceholder{grid-area:image}#albumTitle{color:var(--cros-text-color-primary);font:var(--cros-display-7-font);margin-top:4px}:host-context(body.jelly-enabled) #albumTitle{margin-top:10px}#albumDescription{color:var(--cros-text-color-secondary);font:var(--cros-body-2-font);margin-top:4px}:host-context(body.jelly-enabled) #albumDescription{margin-top:2px}#collageContainer,#collagePlaceholder{border-radius:12px;display:grid;gap:2px;grid-area:thumbnail;overflow:hidden}#collageContainer{border:1px solid rgba(0,0,0,.08);grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr))}#collageContainer.collage-1 .collage-item:first-child{grid-row:1/3}#collageContainer.collage-1 .collage-item:first-child,#collageContainer.collage-2 .collage-item:first-child,#collageContainer.collage-2 .collage-item:nth-child(2),#collageContainer.collage-3 .collage-item:nth-child(3){grid-column:1/3}.collage-item{height:100%;object-fit:cover;width:100%}#buttonContainer{grid-area:buttons}#buttonContainer .text{margin-inline-start:8px}#buttonContainer .preview-button-disabled{cursor:wait;pointer-events:none}#buttonContainer cr-button{border-color:var(--cros-button-stroke-color-secondary);border-radius:16px}#buttonContainer .spinner{height:20px;width:20px}#thumbnailContainer,#thumbnailPlaceholder{display:grid;grid-area:thumbnail;justify-self:center;max-width:360px;min-width:252px;overflow:hidden;width:100%}:host-context(body.jelly-enabled) #thumbnailContainer,:host-context(body.jelly-enabled) #thumbnailPlaceholder{max-width:460px;min-width:278px}.thumbnail-item{height:100%;overflow:hidden;width:100%}.thumbnail-item img{height:100%;object-fit:cover;width:100%}#thumbnailContainer.thumbnail-0{background-color:var(--personalization-app-grid-item-background-color);border-radius:12px}#thumbnailContainer.thumbnail-1 .thumbnail-item{border-radius:60px}#thumbnailContainer.thumbnail-2{column-gap:12px;grid-template-columns:130px minmax(0,1fr)}#thumbnailContainer.thumbnail-2 .thumbnail-item:first-of-type{clip-path:url(#squiggleClip)}#thumbnailContainer.thumbnail-2 .thumbnail-item:last-of-type{border-radius:60px}#thumbnailContainer.thumbnail-3{column-gap:8px;grid-template-columns:minmax(0,1fr) 32px 32px}#thumbnailContainer.thumbnail-3 .thumbnail-item:first-of-type{border-radius:60px}#thumbnailContainer.thumbnail-3 .thumbnail-item:last-of-type img,#thumbnailContainer.thumbnail-3 .thumbnail-item:nth-last-of-type(2) img{border-radius:16px}.help-link{color:var(--text-color-action);text-decoration:none}</style>
 <div class$="[[getPreviewContainerClass_(ambientModeEnabled_, loading_)]]" id="container">
   
@@ -11656,7 +12458,7 @@ class AmbientPreviewLargeElement extends AmbientPreviewBase {
         return 'ambient-preview-large';
     }
     static get template() {
-        return getTemplate$N();
+        return getTemplate$Q();
     }
     static get properties() {
         return {
@@ -11746,7 +12548,7 @@ class AmbientPreviewLargeElement extends AmbientPreviewBase {
 }
 customElements.define(AmbientPreviewLargeElement.is, AmbientPreviewLargeElement);
 
-function getTemplate$M() {
+function getTemplate$P() {
     return html `<!--_html_template_start_--><style include="common cros-button-style">#container{border:none;display:grid;grid-template-areas:'.              . .' 'image          . subpage-desc' 'image          . buttons' '.              . .';grid-template-columns:224px 32px minmax(0,1fr);grid-template-rows:20px 118px 34px 20px}:host-context(body.jelly-enabled) #container{grid-template-areas:'image          . subpage-desc' 'image          . buttons' '.              . .';grid-template-rows:118px 34px 20px}#container.ambient-mode-disabled{grid-template-areas:'image          . subpage-desc' '.              . .';grid-template-columns:224px 32px minmax(0,1fr);grid-template-rows:152px 20px}#buttonContainer,.currently-set-text{display:inline-flex}.album-info-subpage,.zero-state-info-subpage{display:flex;grid-area:subpage-desc;justify-content:center}#imageContainer,#imagePlaceholder{grid-area:image}#imageContainer img.disabled{opacity:50%}#buttonContainer{grid-area:buttons}#buttonContainer .text{margin-inline-start:8px}#buttonContainer .disabled{cursor:wait;pointer-events:none}#buttonContainer .spinner{--paper-spinner-color:var(--cros-sys-primary, --cros-button-label-color-primary);height:20px;width:20px}</style>
 <div class$="[[getPreviewContainerClass_(ambientModeEnabled_, loading_)]]" id="container">
   <template is="dom-if" if="[[loading_]]" restamp>
@@ -11816,7 +12618,7 @@ class AmbientPreviewSmallElement extends AmbientPreviewBase {
         return 'ambient-preview-small';
     }
     static get template() {
-        return getTemplate$M();
+        return getTemplate$P();
     }
     static get properties() {
         return {
@@ -11864,8 +12666,8 @@ class AmbientPreviewSmallElement extends AmbientPreviewBase {
 }
 customElements.define(AmbientPreviewSmallElement.is, AmbientPreviewSmallElement);
 
-function getTemplate$L() {
-    return html `<!--_html_template_start_--><style include="common">cr-radio-group{width:100%}cr-radio-button{height:48px;padding:0 var(--cr-section-padding)}cr-radio-button+cr-radio-button{border-top:var(--cr-separator-line)}</style>
+function getTemplate$O() {
+    return html `<!--_html_template_start_--><style include="common">cr-radio-group{width:100%}cr-radio-button{height:48px;padding:0 14px;margin:0 10px}cr-radio-button+cr-radio-button{border-top:var(--cr-separator-line)}</style>
 <div id="weatherDiv">
   <h3 id="weatherTitle" class="ambient-subpage-element-title">
     $i18n{ambientModeWeatherTitle}
@@ -11894,7 +12696,7 @@ class AmbientWeatherUnitElement extends WithPersonalizationStore {
         return 'ambient-weather-unit';
     }
     static get template() {
-        return getTemplate$L();
+        return getTemplate$O();
     }
     static get properties() {
         return {
@@ -11923,24 +12725,24 @@ class AmbientWeatherUnitElement extends WithPersonalizationStore {
 }
 customElements.define(AmbientWeatherUnitElement.is, AmbientWeatherUnitElement);
 
-function getTemplate$K() {
+function getTemplate$N() {
     return html `<!--_html_template_start_-->    <style>:host{--cr-toggle-checked-bar-color:var(--google-blue-600);--cr-toggle-checked-button-color:var(--google-blue-600);--cr-toggle-checked-ripple-color:rgba(var(--google-blue-600-rgb), .2);--cr-toggle-ripple-diameter:40px;--cr-toggle-unchecked-bar-color:var(--google-grey-400);--cr-toggle-unchecked-button-color:white;--cr-toggle-unchecked-ripple-color:rgba(var(--google-grey-600-rgb), .15);-webkit-tap-highlight-color:transparent;cursor:pointer;display:block;min-width:34px;outline:0;position:relative;width:34px}:host-context([chrome-refresh-2023]):host{--cr-toggle-checked-bar-color:var(--color-toggle-button-track-on,
                 var(--cr-fallback-color-primary));--cr-toggle-checked-button-color:var(--color-toggle-button-thumb-on,
                 var(--cr-fallback-color-on-primary));--cr-toggle-unchecked-bar-color:var(--color-toggle-button-track-off,
                 var(--cr-fallback-color-surface-variant));--cr-toggle-unchecked-button-color:var(--color-toggle-button-thumb-off,
-                var(--cr-fallback-color-outline));--cr-toggle-checked-ripple-color:var(--cr-active-background-color);--cr-toggle-unchecked-ripple-color:var(--cr-active-background-color);--cr-toggle-ripple-diameter:20px;--cr-toggle-bar-width_:26px;height:fit-content;isolation:isolate;min-width:initial;width:fit-content}@media (forced-colors:active){:host{forced-color-adjust:none}}@media (prefers-color-scheme:dark){:host{--cr-toggle-checked-bar-color:var(--google-blue-300);--cr-toggle-checked-button-color:var(--google-blue-300);--cr-toggle-checked-ripple-color:rgba(var(--google-blue-300-rgb), .4);--cr-toggle-unchecked-bar-color:var(--google-grey-500);--cr-toggle-unchecked-button-color:var(--google-grey-300);--cr-toggle-unchecked-ripple-color:rgba(var(--google-grey-300-rgb), .4)}}:host([dark]){--cr-toggle-checked-bar-color:var(--google-blue-300);--cr-toggle-checked-button-color:var(--google-blue-300);--cr-toggle-checked-ripple-color:rgba(var(--google-blue-300-rgb), .4);--cr-toggle-unchecked-bar-color:var(--google-grey-500);--cr-toggle-unchecked-button-color:var(--google-grey-300);--cr-toggle-unchecked-ripple-color:rgba(var(--google-grey-300-rgb), .4)}:host([disabled]){cursor:initial;opacity:var(--cr-disabled-opacity);pointer-events:none}:host-context([chrome-refresh-2023]):host([disabled]){--cr-toggle-checked-bar-color:var(--color-toggle-button-track-on-disabled,
+                var(--cr-fallback-color-outline));--cr-toggle-disabled-opacity:1;--cr-toggle-checked-ripple-color:var(--cr-active-background-color);--cr-toggle-unchecked-ripple-color:var(--cr-active-background-color);--cr-toggle-ripple-diameter:20px;--cr-toggle-bar-border-color:var(--cr-toggle-unchecked-button-color);--cr-toggle-bar-border:1px solid var(--cr-toggle-bar-border-color);--cr-toggle-bar-width:26px;--cr-toggle-knob-diameter:8px;height:fit-content;isolation:isolate;min-width:initial;width:fit-content}@media (forced-colors:active){:host{forced-color-adjust:none}}@media (prefers-color-scheme:dark){:host{--cr-toggle-checked-bar-color:var(--google-blue-300);--cr-toggle-checked-button-color:var(--google-blue-300);--cr-toggle-checked-ripple-color:rgba(var(--google-blue-300-rgb), .4);--cr-toggle-unchecked-bar-color:var(--google-grey-500);--cr-toggle-unchecked-button-color:var(--google-grey-300);--cr-toggle-unchecked-ripple-color:rgba(var(--google-grey-300-rgb), .4)}}:host([dark]){--cr-toggle-checked-bar-color:var(--google-blue-300);--cr-toggle-checked-button-color:var(--google-blue-300);--cr-toggle-checked-ripple-color:rgba(var(--google-blue-300-rgb), .4);--cr-toggle-unchecked-bar-color:var(--google-grey-500);--cr-toggle-unchecked-button-color:var(--google-grey-300);--cr-toggle-unchecked-ripple-color:rgba(var(--google-grey-300-rgb), .4)}:host-context([chrome-refresh-2023]):host(:active){--cr-toggle-knob-diameter:10px}:host-context([chrome-refresh-2023]):host([checked]){--cr-toggle-bar-border-color:var(--cr-toggle-checked-bar-color);--cr-toggle-knob-diameter:12px}:host-context([chrome-refresh-2023]):host([checked]:active){--cr-toggle-knob-diameter:14px}:host([disabled]){cursor:initial;opacity:var(--cr-disabled-opacity);pointer-events:none}:host-context([chrome-refresh-2023]):host([disabled]){--cr-toggle-checked-bar-color:var(--color-toggle-button-track-on-disabled,
                 var(--cr-fallback-color-disabled-background));--cr-toggle-checked-button-color:var(--color-toggle-button-thumb-on-disabled, var(--cr-fallback-color-surface));--cr-toggle-unchecked-bar-color:transparent;--cr-toggle-unchecked-button-color:var(--color-toggle-button-thumb-off-disabled,
-                var(--cr-fallback-color-disabled-foreground));opacity:1}#bar{background-color:var(--cr-toggle-unchecked-bar-color);border-radius:8px;height:12px;left:3px;position:absolute;top:2px;transition:background-color linear 80ms;width:28px;z-index:0}:host([checked]) #bar{background-color:var(--cr-toggle-checked-bar-color);opacity:var(--cr-toggle-checked-bar-opacity,.5)}:host-context([chrome-refresh-2023]) #bar{border:1px solid var(--cr-toggle-unchecked-button-color);border-radius:50px;box-sizing:border-box;display:block;height:16px;opacity:1;position:initial;width:var(--cr-toggle-bar-width_)}:host-context([chrome-refresh-2023]):host([checked]) #bar{border-color:var(--cr-toggle-checked-bar-color)}:host-context([chrome-refresh-2023]):host([disabled]) #bar{border-color:var(--cr-toggle-unchecked-button-color)}:host-context([chrome-refresh-2023]):host([disabled][checked]) #bar{border:none}:host-context([chrome-refresh-2023]):host(:focus-visible) #bar{outline:2px solid var(--cr-toggle-checked-bar-color);outline-offset:2px}#knob{background-color:var(--cr-toggle-unchecked-button-color);border-radius:50%;box-shadow:var(--cr-toggle-box-shadow,0 1px 3px 0 rgba(0,0,0,.4));display:block;height:16px;position:relative;transition:transform linear 80ms,background-color linear 80ms;width:16px;z-index:1}:host([checked]) #knob{background-color:var(--cr-toggle-checked-button-color);transform:translate3d(18px,0,0)}:host-context([dir=rtl]):host([checked]) #knob{transform:translate3d(-18px,0,0)}:host-context([chrome-refresh-2023]) #knob{--cr-toggle-knob-diameter_:8px;--cr-toggle-knob-center-edge-distance_:8px;--cr-toggle-knob-direction_:1;--cr-toggle-knob-travel-distance_:calc(
-            0.5 * var(--cr-toggle-bar-width_) -
+                var(--cr-fallback-color-disabled-foreground));--cr-toggle-bar-border-color:var(--cr-toggle-unchecked-button-color);opacity:var(--cr-toggle-disabled-opacity)}:host-context([chrome-refresh-2023]):host([checked][disabled]){--cr-toggle-bar-border:none}#bar{background-color:var(--cr-toggle-unchecked-bar-color);border-radius:8px;height:12px;left:3px;position:absolute;top:2px;transition:background-color linear 80ms;width:28px;z-index:0}:host([checked]) #bar{background-color:var(--cr-toggle-checked-bar-color);opacity:var(--cr-toggle-checked-bar-opacity,.5)}:host-context([chrome-refresh-2023]) #bar{border:var(--cr-toggle-bar-border);border-radius:50px;box-sizing:border-box;display:block;height:16px;opacity:1;position:initial;width:var(--cr-toggle-bar-width)}:host-context([chrome-refresh-2023]):host(:focus-visible) #bar{outline:2px solid var(--cr-toggle-checked-bar-color);outline-offset:2px}#knob{background-color:var(--cr-toggle-unchecked-button-color);border-radius:50%;box-shadow:var(--cr-toggle-box-shadow,0 1px 3px 0 rgba(0,0,0,.4));display:block;height:16px;position:relative;transition:transform linear 80ms,background-color linear 80ms;width:16px;z-index:1}:host([checked]) #knob{background-color:var(--cr-toggle-checked-button-color);transform:translate3d(18px,0,0)}:host-context([dir=rtl]):host([checked]) #knob{transform:translate3d(-18px,0,0)}:host-context([chrome-refresh-2023]) #knob{--cr-toggle-knob-center-edge-distance_:8px;--cr-toggle-knob-direction_:1;--cr-toggle-knob-travel-distance_:calc(
+            0.5 * var(--cr-toggle-bar-width) -
             var(--cr-toggle-knob-center-edge-distance_));--cr-toggle-knob-position-center_:calc(
-            0.5 * var(--cr-toggle-bar-width_) + -50%);--cr-toggle-knob-position-start_:calc(
+            0.5 * var(--cr-toggle-bar-width) + -50%);--cr-toggle-knob-position-start_:calc(
             var(--cr-toggle-knob-position-center_) -
             var(--cr-toggle-knob-direction_) *
             var(--cr-toggle-knob-travel-distance_));--cr-toggle-knob-position-end_:calc(
             var(--cr-toggle-knob-position-center_) +
             var(--cr-toggle-knob-direction_) *
-            var(--cr-toggle-knob-travel-distance_));box-shadow:none;height:var(--cr-toggle-knob-diameter_);position:absolute;top:50%;transform:translate(var(--cr-toggle-knob-position-start_),-50%);transition:transform linear 80ms,background-color linear 80ms,width linear 80ms,height linear 80ms;width:var(--cr-toggle-knob-diameter_)}:host-context([dir=rtl][chrome-refresh-2023]) #knob{left:0;--cr-toggle-knob-direction_:-1}:host-context([chrome-refresh-2023]):host(:active) #knob{--cr-toggle-knob-diameter_:10px}:host-context([chrome-refresh-2023]):host([checked]) #knob{--cr-toggle-knob-diameter_:12px;transform:translate(var(--cr-toggle-knob-position-end_),-50%)}:host-context([chrome-refresh-2023]):host([checked]:active) #knob{--cr-toggle-knob-diameter_:14px}:host-context([chrome-refresh-2023]):host([checked]:active) #knob,:host-context([chrome-refresh-2023]):host([checked]:hover) #knob{--cr-toggle-checked-button-color:var(--color-toggle-button-thumb-on-hover,
-                var(--cr-fallback-color-primary-container))}:host-context([chrome-refresh-2023]):host(:hover) #knob::before{background-color:var(--cr-hover-background-color);border-radius:50%;content:'';height:var(--cr-toggle-ripple-diameter);left:calc(var(--cr-toggle-knob-diameter_)/ 2);position:absolute;top:calc(var(--cr-toggle-knob-diameter_)/ 2);transform:translate(-50%,-50%);width:var(--cr-toggle-ripple-diameter)}paper-ripple{--paper-ripple-opacity:1;color:var(--cr-toggle-unchecked-ripple-color);height:var(--cr-toggle-ripple-diameter);left:50%;outline:var(--cr-toggle-ripple-ring,none);pointer-events:none;position:absolute;top:50%;transform:translate(-50%,-50%);transition:color linear 80ms;width:var(--cr-toggle-ripple-diameter)}:host([checked]) paper-ripple{color:var(--cr-toggle-checked-ripple-color)}:host-context([dir=rtl]) paper-ripple{left:auto;right:50%;transform:translate(50%,-50%)}</style>
+            var(--cr-toggle-knob-travel-distance_));box-shadow:none;height:var(--cr-toggle-knob-diameter);position:absolute;top:50%;transform:translate(var(--cr-toggle-knob-position-start_),-50%);transition:transform linear 80ms,background-color linear 80ms,width linear 80ms,height linear 80ms;width:var(--cr-toggle-knob-diameter)}:host-context([dir=rtl][chrome-refresh-2023]) #knob{left:0;--cr-toggle-knob-direction_:-1}:host-context([chrome-refresh-2023]):host([checked]) #knob{transform:translate(var(--cr-toggle-knob-position-end_),-50%)}:host-context([chrome-refresh-2023]):host([checked]:active) #knob,:host-context([chrome-refresh-2023]):host([checked]:hover) #knob{--cr-toggle-checked-button-color:var(--color-toggle-button-thumb-on-hover,
+                var(--cr-fallback-color-primary-container))}:host-context([chrome-refresh-2023]):host(:hover) #knob::before{background-color:var(--cr-hover-background-color);border-radius:50%;content:'';height:var(--cr-toggle-ripple-diameter);left:calc(var(--cr-toggle-knob-diameter)/ 2);position:absolute;top:calc(var(--cr-toggle-knob-diameter)/ 2);transform:translate(-50%,-50%);width:var(--cr-toggle-ripple-diameter)}paper-ripple{--paper-ripple-opacity:1;color:var(--cr-toggle-unchecked-ripple-color);height:var(--cr-toggle-ripple-diameter);left:50%;outline:var(--cr-toggle-ripple-ring,none);pointer-events:none;position:absolute;top:50%;transform:translate(-50%,-50%);transition:color linear 80ms;width:var(--cr-toggle-ripple-diameter)}:host([checked]) paper-ripple{color:var(--cr-toggle-checked-ripple-color)}:host-context([dir=rtl]) paper-ripple{left:auto;right:50%;transform:translate(50%,-50%)}</style>
     <span id="bar"></span>
     <span id="knob"></span>
 <!--_html_template_end_-->`;
@@ -11970,7 +12772,7 @@ class CrToggleElement extends CrToggleElementBase {
         return 'cr-toggle';
     }
     static get template() {
-        return getTemplate$K();
+        return getTemplate$N();
     }
     static get properties() {
         return {
@@ -12126,8 +12928,8 @@ class CrToggleElement extends CrToggleElementBase {
 }
 customElements.define(CrToggleElement.is, CrToggleElement);
 
-function getTemplate$J() {
-    return html `<!--_html_template_start_--><style include="common">#toggleRowTitle{margin:0 8px 2px 0}</style>
+function getTemplate$M() {
+    return html `<!--_html_template_start_--><style include="common">#toggleRowTitle{margin:0 8px 2px 0}#toggle{margin-inline-end:8px}</style>
 <template is="dom-if" if="[[isPersonalizationJellyEnabled_]]">
   <h3 id="toggleRowTitle" class="ambient-subpage-element-title" aria-hidden="true">
     [[getToggleRowTitle_(ambientModeEnabled_)]]
@@ -12154,7 +12956,7 @@ class ToggleRowElement extends WithPersonalizationStore {
         return 'toggle-row';
     }
     static get template() {
-        return getTemplate$J();
+        return getTemplate$M();
     }
     static get properties() {
         return {
@@ -12590,7 +13392,7 @@ Polymer({
   }
 });
 
-function getTemplate$I() {
+function getTemplate$L() {
     return html `<!--_html_template_start_-->    <style>:host{--cr-icon-button-fill-color:var(--google-grey-700);--cr-icon-button-icon-start-offset:0;--cr-icon-button-icon-size:20px;--cr-icon-button-size:36px;--cr-icon-button-height:var(--cr-icon-button-size);--cr-icon-button-transition:150ms ease-in-out;--cr-icon-button-width:var(--cr-icon-button-size);-webkit-tap-highlight-color:transparent;border-radius:50%;color:var(--cr-icon-button-stroke-color,var(--cr-icon-button-fill-color));cursor:pointer;display:inline-flex;flex-shrink:0;height:var(--cr-icon-button-height);margin-inline-end:var(--cr-icon-button-margin-end,var(--cr-icon-ripple-margin));margin-inline-start:var(--cr-icon-button-margin-start);outline:0;overflow:hidden;user-select:none;vertical-align:middle;width:var(--cr-icon-button-width)}:host-context([chrome-refresh-2023]):host{--cr-icon-button-fill-color:currentColor;--cr-icon-button-size:32px;position:relative}:host(:hover){background-color:var(--cr-icon-button-hover-background-color,var(--cr-hover-background-color))}:host(:focus-visible:focus){box-shadow:inset 0 0 0 2px var(--cr-icon-button-focus-outline-color,var(--cr-focus-outline-color))}@media (forced-colors:active){:host(:focus-visible:focus){outline:var(--cr-focus-outline-hcm)}}:host-context(html:not([chrome-refresh-2023])) :host(:active){background-color:var(--cr-icon-button-active-background-color,var(--cr-active-background-color))}paper-ripple{display:none}:host-context([chrome-refresh-2023]) paper-ripple{--paper-ripple-opacity:1;color:var(--cr-active-background-color);display:block}:host([disabled]){cursor:initial;opacity:var(--cr-disabled-opacity);pointer-events:none}:host(.no-overlap){--cr-icon-button-margin-end:0;--cr-icon-button-margin-start:0}:host-context([dir=rtl]):host(:not([dir=ltr]):not([multiple-icons_])){transform:scaleX(-1)}:host-context([dir=rtl]):host(:not([dir=ltr])[multiple-icons_]) iron-icon{transform:scaleX(-1)}:host(:not([iron-icon])) #maskedImage{-webkit-mask-image:var(--cr-icon-image);-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:var(--cr-icon-button-icon-size);-webkit-transform:var(--cr-icon-image-transform,none);background-color:var(--cr-icon-button-fill-color);height:100%;transition:background-color var(--cr-icon-button-transition);width:100%}@media (forced-colors:active){:host(:not([iron-icon])) #maskedImage{background-color:ButtonText}}#icon{align-items:center;border-radius:4px;display:flex;height:100%;justify-content:center;padding-inline-start:var(--cr-icon-button-icon-start-offset);position:relative;width:100%}iron-icon{--iron-icon-fill-color:var(--cr-icon-button-fill-color);--iron-icon-stroke-color:var(--cr-icon-button-stroke-color, none);--iron-icon-height:var(--cr-icon-button-icon-size);--iron-icon-width:var(--cr-icon-button-icon-size);transition:fill var(--cr-icon-button-transition),stroke var(--cr-icon-button-transition)}@media (prefers-color-scheme:dark){:host{--cr-icon-button-fill-color:var(--google-grey-500)}}</style>
     <div id="icon">
       <div id="maskedImage"></div>
@@ -12648,7 +13450,7 @@ class CrIconButtonElement extends CrIconbuttonElementBase {
         return 'cr-icon-button';
     }
     static get template() {
-        return getTemplate$I();
+        return getTemplate$L();
     }
     static get properties() {
         return {
@@ -12785,8 +13587,8 @@ class CrIconButtonElement extends CrIconbuttonElementBase {
 }
 customElements.define(CrIconButtonElement.is, CrIconButtonElement);
 
-function getTemplate$H() {
-    return html `<!--_html_template_start_--><style include="common cr-shared-style cr-radio-button-style">#container{align-items:center;display:flex;flex:1;flex-flow:row nowrap;height:100%;justify-content:space-between;padding-inline-end:var(--cr-icon-ripple-padding);padding-inline-start:var(--cr-section-padding)}#labelWrapper{margin-inline-start:var(--cr-radio-button-label-spacing,20px)}.primary-text{color:var(--cros-text-color-primary);font:var(--cros-body-2-font)}iron-icon{height:20px;width:20px}</style>
+function getTemplate$K() {
+    return html `<!--_html_template_start_--><style include="common cr-shared-style cr-radio-button-style">#container{align-items:center;display:flex;flex:1;flex-flow:row nowrap;height:100%;justify-content:space-between;padding-inline-end:var(--cr-icon-ripple-padding);padding-inline-start:14px}#labelWrapper{margin-inline-start:var(--cr-radio-button-label-spacing,20px)}.primary-text{color:var(--cros-text-color-primary);font:var(--cros-body-2-font)}iron-icon{height:20px;width:20px}</style>
 
 <div id="container">
   
@@ -12818,7 +13620,7 @@ class TopicSourceItemElement extends WithPersonalizationStore {
         return 'topic-source-item';
     }
     static get template() {
-        return getTemplate$H();
+        return getTemplate$K();
     }
     static get properties() {
         return {
@@ -12858,7 +13660,7 @@ class TopicSourceItemElement extends WithPersonalizationStore {
         this.setAttribute('aria-checked', value.toString());
     }
     onItemSelected_(event) {
-        if (!isSelectionEvent(event)) {
+        if (!isSelectionEvent$1(event)) {
             return;
         }
         event.preventDefault();
@@ -12904,8 +13706,8 @@ class TopicSourceItemElement extends WithPersonalizationStore {
 }
 customElements.define(TopicSourceItemElement.is, TopicSourceItemElement);
 
-function getTemplate$G() {
-    return html `<!--_html_template_start_--><style include="common">topic-source-item{align-items:center;height:64px}iron-list>:not(:first-of-type){border-top:var(--cr-separator-line)}iron-list>:focus{background-color:var(--cros-sys-hover_on_subtle,--cr-focused-item-color)}</style>
+function getTemplate$J() {
+    return html `<!--_html_template_start_--><style include="common">topic-source-item{align-items:center;height:64px;margin:0 10px;width:calc(100% - 20px)}iron-list>:not(:first-of-type){border-top:var(--cr-separator-line)}iron-list>:focus{background-color:var(--cros-sys-hover_on_subtle,--cr-focused-item-color)}</style>
 
 <h3 id="topicSourceTitle" class="ambient-subpage-element-title">
   $i18n{ambientModeTopicSourceTitle}
@@ -12932,7 +13734,7 @@ class TopicSourceListElement extends WithPersonalizationStore {
         return 'topic-source-list';
     }
     static get template() {
-        return getTemplate$G();
+        return getTemplate$J();
     }
     static get properties() {
         return {
@@ -12968,8 +13770,8 @@ class TopicSourceListElement extends WithPersonalizationStore {
 }
 customElements.define(TopicSourceListElement.is, TopicSourceListElement);
 
-function getTemplate$F() {
-    return html `<!--_html_template_start_--><style include="common">#container{display:grid;grid-template-areas:'. . content . .';grid-template-columns:1fr 16px minmax(568px,920px) 16px 1fr;grid-template-rows:minmax(0,1fr);height:100%;margin-block-end:48px}:host-context(body.jelly-enabled) #container{grid-template-areas:'leftspacertop    preview rightspacertop   ' 'leftspacerbottom content rightspacerbottom';grid-template-columns:minmax(16px,1fr) minmax(568px,920px) minmax(16px,1fr);grid-template-rows:auto minmax(0,1fr);margin-block-end:0;min-height:var(--personalization-app-subpage-container-min-height)}#mainSettings{display:flex;flex-direction:column;grid-area:content}#toggleRowPlaceholder,toggle-row{margin:0 8px}#durationPlaceholder,ambient-duration{border-top:var(--cr-separator-line);margin-bottom:0}.ambient-toggle-label-placeholder{height:20px;margin-bottom:2px;width:10%}ambient-preview-small{grid-area:preview;margin:20px 8px 0 8px}:host-context(body.jelly-enabled) ambient-preview-small{margin:0 8px}albums-subpage{grid-area:content}#mainSettings,:host-context(body.jelly-enabled) albums-subpage{background-color:var(--cros-bg-color);padding:20px 0 24px 0}.ambient-theme-placeholder-list{width:516px}.ambient-theme-placeholder-container{box-sizing:border-box;overflow:hidden;padding:calc(var(--personalization-app-grid-item-spacing)/ 2);width:calc(100% / 3 - .34px)}.ambient-theme-item-placeholder{align-items:center;border-radius:var(--personalization-app-grid-item-border-radius);box-sizing:border-box;display:flex;flex-direction:column;height:120px;justify-content:center;overflow:hidden;position:relative;width:100%}.ambient-theme-item-title-placeholder{margin-top:8px}div[class^=ambient-text-placeholder]{align-items:flex-start;box-sizing:border-box;display:flex;flex-direction:column;justify-content:center;overflow:hidden;padding-inline:var(--cr-section-padding) var(--cr-icon-ripple-padding);width:100%}.topic-source-placeholder{height:64px}.weather-unit-placeholder{height:48px}.ambient-text-placeholder-0{border-bottom:1px solid var(--cros-separator-color)}div[class^=ambient-text-placeholder]>*+*{margin-top:8px}.ambient-primary-text-placeholder{height:20px;width:75%}.ambient-secondary-text-placeholder{height:20px;width:50%}</style>
+function getTemplate$I() {
+    return html `<!--_html_template_start_--><style include="common">#container{display:grid;grid-template-areas:'. . content . .';grid-template-columns:1fr 16px minmax(568px,920px) 16px 1fr;grid-template-rows:minmax(0,1fr);height:100%;margin-block-end:48px}:host-context(body.jelly-enabled) #container{grid-template-areas:'leftspacertop    preview rightspacertop   ' 'leftspacerbottom content rightspacerbottom';grid-template-columns:minmax(10px,1fr) minmax(568px,920px) minmax(10px,1fr);grid-template-rows:auto minmax(0,1fr);margin-block-end:0;min-height:var(--personalization-app-subpage-container-min-height)}#mainSettings{display:flex;flex-direction:column;grid-area:content}#toggleRowPlaceholder,toggle-row{margin:0 10px}#durationPlaceholder,ambient-duration{border-top:var(--cr-separator-line);margin:0 10px}.ambient-toggle-label-placeholder{height:20px;margin-bottom:2px;width:10%}ambient-preview-small{grid-area:preview;margin:20px 8px 0 8px}:host-context(body.jelly-enabled) ambient-preview-small{margin:0 10px}albums-subpage{grid-area:content}#mainSettings,:host-context(body.jelly-enabled) albums-subpage{background-color:var(--cros-bg-color);padding:20px 0 20px 0}.ambient-theme-placeholder-list{width:516px}.ambient-theme-placeholder-container{box-sizing:border-box;overflow:hidden;padding:calc(var(--personalization-app-grid-item-spacing)/ 2);width:calc(100% / 3 - .34px)}.ambient-theme-item-placeholder{align-items:center;border-radius:var(--personalization-app-grid-item-border-radius);box-sizing:border-box;display:flex;flex-direction:column;height:120px;justify-content:center;overflow:hidden;position:relative;width:100%}.ambient-theme-item-title-placeholder{margin-top:8px}div[class^=ambient-text-placeholder]{align-items:flex-start;box-sizing:border-box;display:flex;flex-direction:column;justify-content:center;overflow:hidden;padding-inline:var(--cr-section-padding) var(--cr-icon-ripple-padding);width:100%}.topic-source-placeholder{height:64px}.weather-unit-placeholder{height:48px}.ambient-text-placeholder-0{border-bottom:1px solid var(--cros-separator-color)}div[class^=ambient-text-placeholder]>*+*{margin-top:8px}.ambient-primary-text-placeholder{height:20px;width:75%}.ambient-secondary-text-placeholder{height:20px;width:50%}</style>
 <div id="container">
   <template is="dom-if" if="[[isPersonalizationJellyEnabled_]]">
     <div class="leftspacertop"></div>
@@ -13153,7 +13955,7 @@ class AmbientSubpageElement extends WithPersonalizationStore {
         return 'ambient-subpage';
     }
     static get template() {
-        return getTemplate$F();
+        return getTemplate$I();
     }
     static get properties() {
         return {
@@ -13311,7 +14113,7 @@ class AmbientSubpageElement extends WithPersonalizationStore {
             !this.isOnline_;
     }
     getPlaceholders_(x) {
-        return getZerosArray(x);
+        return new Array(x).fill(0);
     }
 }
 customElements.define(AmbientSubpageElement.is, AmbientSubpageElement);
@@ -13424,7 +14226,7 @@ Polymer({
 
 });
 
-function getTemplate$E() {
+function getTemplate$H() {
     return html `<!--_html_template_start_--><style include="wallpaper common">:host{align-items:center;display:flex;flex-direction:column;justify-content:center;margin:34px 0;overflow:hidden}div{color:var(--cros-text-color-secondary);font:var(--cros-body-1-font);max-width:236px;text-align:center}img{width:260px}</style>
 
 <iron-media-query query="(prefers-color-scheme: dark)" query-matches="{{isDarkModeActive_}}">
@@ -13445,7 +14247,7 @@ class AmbientZeroStateElement extends WithPersonalizationStore {
         return 'ambient-zero-state';
     }
     static get template() {
-        return getTemplate$E();
+        return getTemplate$H();
     }
     static get properties() {
         return {
@@ -13467,7 +14269,7 @@ class AmbientZeroStateElement extends WithPersonalizationStore {
 }
 customElements.define(AmbientZeroStateElement.is, AmbientZeroStateElement);
 
-function getTemplate$D() {
+function getTemplate$G() {
     return html `<!--_html_template_start_--><style include="common">:host{-webkit-tap-highlight-color:transparent;align-items:center;cursor:pointer;display:flex;height:var(--color-container-size);justify-content:center;width:var(--color-container-size)}.color-inner-container{align-items:center;border-radius:50%;display:flex;justify-content:center;position:relative}:host-context([aria-checked=true]) .color-inner-container{height:36px;width:36px}:host-context([aria-checked=false]) .color-inner-container{height:28px;width:28px}:host-context(.zone-title-container) .color-inner-container{height:27px;outline-color:#fff!important;outline-offset:-1px!important;width:27px}:host-context(.zone-title-container) .wallpaper-icon{background-color:#fff!important}:host-context(.zone-title-container) .wallpaper-icon svg{fill:var(--cros-sys-primary)}.dark-icon{fill:var(--cros-icon-color-primary-dark)}.light-icon{fill:var(--cros-icon-color-primary-light)}</style>
 <template is="dom-if" if="[[isWallpaperColorId_(colorId)]]">
   <div class="color-inner-container wallpaper-icon" style$="[[getWallpaperColorInnerContainerStyle_(wallpaperColor_)]]">
@@ -13510,7 +14312,7 @@ class ColorIconElement extends WithPersonalizationStore {
         return 'color-icon';
     }
     static get template() {
-        return getTemplate$D();
+        return getTemplate$G();
     }
     static get properties() {
         return {
@@ -14557,7 +15359,7 @@ class CrLazyRenderElement extends PolymerElement {
 }
 customElements.define(CrLazyRenderElement.is, CrLazyRenderElement);
 
-function getTemplate$C() {
+function getTemplate$F() {
     return html `<!--_html_template_start_--><style include="common">#selector{display:flex;flex-flow:row wrap;margin-top:14px;position:relative}#wallpaperIconAndDesc{column-gap:5.5px;display:flex;flex-flow:row wrap}#wallpaperColorDescription{color:var(--cros-text-color-secondary);font:var(--cros-body-2-font);height:48px;line-height:48px}.divider{align-self:center;border-inline-start:1px solid var(--cros-separator-color);height:20px}.selectable color-icon:focus-visible{border-radius:50%;outline:2px solid var(--cros-focus-ring-color);outline-offset:-2px}#toast{cursor:default;display:flex;flex-direction:column;position:absolute;top:var(--color-container-size);z-index:1}#toastDot{background-color:var(--cros-button-background-color-primary);border-radius:100%;height:8px;margin-block-end:5px;margin-inline-start:20px;width:8px}#toastContent{align-items:center;background-color:var(--cros-button-background-color-primary);border-radius:20px;display:flex;flex-direction:row;padding:8px 0}#toastContent>svg{fill:var(--cros-button-label-color-primary);padding:0 14px}#toastContent span{color:var(--cros-button-label-color-primary);font:var(--cros-body-2-font);margin-inline-end:14px}::slotted(.customization-button-container){align-self:center;display:flex;margin-inline-start:auto}@media (max-width:690px){#selector{column-gap:11px}:host-context(zone-customization) #selector{column-gap:0}#toast.multizone-supported{top:calc(var(--color-container-size) * 2)}}@media (max-width:823px) and (min-width:691px){#wallpaperIconAndDesc{flex-flow:column wrap}#wallpaperColorDescription{height:auto;line-height:12px;margin-inline-start:-18px}::slotted(.customization-button-container){margin-block-start:-12px}#toast.multizone-supported{top:calc(var(--color-container-size) + 20px)}}</style>
 <div id="container">
   <iron-a11y-keys id="keys" keys="left right enter" on-keys-pressed="onKeysPress_">
@@ -14715,7 +15517,7 @@ class ColorSelectorElement extends WithPersonalizationStore {
         return 'color-selector';
     }
     static get template() {
-        return getTemplate$C();
+        return getTemplate$F();
     }
     static get properties() {
         return {
@@ -14828,7 +15630,7 @@ class ColorSelectorElement extends WithPersonalizationStore {
     }
     /** Invoked when the wallpaper color is selected. */
     onWallpaperColorSelected_(e) {
-        if (!isSelectionEvent(e)) {
+        if (!isSelectionEvent$1(e)) {
             return;
         }
         const eventTarget = e.target;
@@ -14839,7 +15641,7 @@ class ColorSelectorElement extends WithPersonalizationStore {
     }
     /** Invoked when a preset color is selected. */
     onPresetColorSelected_(e) {
-        if (!isSelectionEvent(e)) {
+        if (!isSelectionEvent$1(e)) {
             return;
         }
         const htmlElement = e.currentTarget;
@@ -14849,7 +15651,7 @@ class ColorSelectorElement extends WithPersonalizationStore {
     }
     /** Invoked when the rainbow color is selected. */
     onRainbowColorSelected_(e) {
-        if (!isSelectionEvent(e)) {
+        if (!isSelectionEvent$1(e)) {
             return;
         }
         this.dispatchEvent(new CustomEvent(rainbowColorSelectedEventName, { bubbles: true, composed: true, detail: null }));
@@ -14905,1761 +15707,6 @@ class ColorSelectorElement extends WithPersonalizationStore {
     }
 }
 customElements.define(ColorSelectorElement.is, ColorSelectorElement);
-
-function getTemplate$B() {
-    return html `<!--_html_template_start_--><style include="common cros-button-style">:host{--color-container-size:48px}#container{display:grid;grid-template-areas:'. label   .' '. options .' '. .       .';grid-template-columns:12px 1fr 20px;grid-template-rows:auto 1fr 20px}@media (max-width:700px){#container.preview-container{grid-template-rows:auto 1fr 8px}}#keyboardBacklightLabel{align-items:center;background:0 0;border:none;display:flex;flex-flow:row nowrap;grid-area:label;justify-content:space-between;margin-block-start:20px;margin-inline-start:8px}#keyboardBacklightLabel>p{color:var(--cros-text-color-primary);font:var(--personalization-app-label-font);margin:0}color-selector{grid-area:options}#zoneCustomizationButton[aria-pressed=true]{background-color:var(--cros-sys-primary,var(--cros-button-background-color-primary));color:var(--cros-sys-on_primary,var(--cros-button-label-color-primary))}#zoneCustomizationButton[aria-pressed=true] .text{margin-inline-start:8px}#zoneCustomizationButton:not([aria-pressed=true]) iron-icon{display:none}</style>
-<div id="container" class="preview-container">
-  <div id="keyboardBacklightLabel">
-    <p class="title">$i18n{keyboardBacklightTitle}</p>
-  </div>
-  <color-selector selected-color="[[backlightColor_]]" on-wallpaper-color-selected="onWallpaperColorSelected_" on-preset-color-selected="onPresetColorSelected_" on-rainbow-color-selected="onRainbowColorSelected_">
-    <div slot="button-container" class="customization-button-container">
-      <cr-button id="zoneCustomizationButton" on-click="showZoneCustomizationDialog_" class="secondary" aria-pressed$="[[getZoneCustomizationButtonAriaPressed_(currentBacklightState_)]]">
-        <iron-icon class="customized-checkmark" icon="personalization:circle_checkmark"></iron-icon>
-        <div class="text">$i18n{zoneCustomize}</div>
-      </cr-button>
-    </div>
-  </color-selector>
-  <template is="dom-if" if="[[isZoneCustomizationDialogOpen_]]" restamp>
-    <zone-customization on-cancel="closeZoneCustomizationDialog_"></zone-customization>
-  </template>
-</div>
-<!--_html_template_end_-->`;
-}
-
-// Copyright 2022 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/** @fileoverview listens for updates on keyboard backlight settings changes. */
-let instance$5 = null;
-/**
- * Observes keyboard backlight changes and saves updates to
- * PersonalizationStore.
- */
-class KeyboardBacklightObserver {
-    constructor() {
-        this.receiver_ = this.initReceiver_(getKeyboardBacklightProvider());
-    }
-    static initKeyboardBacklightObserverIfNeeded() {
-        if (!instance$5) {
-            instance$5 = new KeyboardBacklightObserver();
-        }
-    }
-    static shutdown() {
-        if (instance$5) {
-            instance$5.receiver_.$.close();
-            instance$5 = null;
-        }
-    }
-    initReceiver_(keyboardBacklightProvider) {
-        const receiver = new KeyboardBacklightObserverReceiver(this);
-        keyboardBacklightProvider.setKeyboardBacklightObserver(receiver.$.bindNewPipeAndPassRemote());
-        return receiver;
-    }
-    onBacklightStateChanged(currentBacklightState) {
-        const store = PersonalizationStore.getInstance();
-        store.dispatch(setCurrentBacklightStateAction(currentBacklightState));
-    }
-    onWallpaperColorChanged(wallpaperColor) {
-        const store = PersonalizationStore.getInstance();
-        store.dispatch(setWallpaperColorAction(wallpaperColor));
-    }
-}
-
-// Copyright 2022 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @fileoverview
- * The keyboard backlight section that allows users to customize their keyboard
- * backlight colors.
- */
-class KeyboardBacklightElement extends WithPersonalizationStore {
-    static get is() {
-        return 'keyboard-backlight';
-    }
-    static get template() {
-        return getTemplate$B();
-    }
-    static get properties() {
-        return {
-            isMultiZoneRgbKeyboardSupported_: {
-                type: Boolean,
-                value() {
-                    return isMultiZoneRgbKeyboardSupported();
-                },
-            },
-            presetColors_: {
-                type: Object,
-                value() {
-                    return getPresetColors();
-                },
-            },
-            presetColorIds_: {
-                type: Array,
-                computed: 'computePresetColorIds_(presetColors_)',
-            },
-            rainbowColorId_: {
-                type: String,
-                value: RAINBOW,
-            },
-            wallpaperColorId_: {
-                type: String,
-                value: WALLPAPER,
-            },
-            backlightColor_: {
-                type: Object,
-                computed: 'computeBacklightColor_(currentBacklightState_)',
-            },
-            /** The color currently highlighted by keyboard navigation. */
-            ironSelectedColor_: Object,
-            /** The current backlight state in the system. */
-            currentBacklightState_: Object,
-            /** The current wallpaper extracted color. */
-            wallpaperColor_: Object,
-            isZoneCustomizationDialogOpen_: {
-                type: Boolean,
-                value: false,
-            },
-        };
-    }
-    connectedCallback() {
-        super.connectedCallback();
-        KeyboardBacklightObserver.initKeyboardBacklightObserverIfNeeded();
-        this.watch('currentBacklightState_', state => state.keyboardBacklight.currentBacklightState);
-        this.watch('wallpaperColor_', state => state.keyboardBacklight.wallpaperColor);
-        this.updateFromStore();
-    }
-    computePresetColorIds_(presetColors) {
-        // ES2020 maintains ordering of Object.keys.
-        return Object.keys(presetColors);
-    }
-    computeBacklightColor_(currentBacklightState) {
-        return currentBacklightState ? currentBacklightState.color : null;
-    }
-    /** Invoked when the wallpaper color is selected. */
-    onWallpaperColorSelected_() {
-        setBacklightColor(BacklightColor.kWallpaper, getKeyboardBacklightProvider(), this.getStore());
-    }
-    /** Invoked when a preset color is selected. */
-    onPresetColorSelected_(e) {
-        const colorId = e.detail.colorId;
-        assert$1(colorId !== undefined, 'colorId not found');
-        setBacklightColor(this.presetColors_[colorId].enumVal, getKeyboardBacklightProvider(), this.getStore());
-    }
-    /** Invoked when the rainbow color is selected. */
-    onRainbowColorSelected_() {
-        setBacklightColor(BacklightColor.kRainbow, getKeyboardBacklightProvider(), this.getStore());
-    }
-    showZoneCustomizationDialog_() {
-        assert$1(this.isMultiZoneRgbKeyboardSupported_, 'zone customization dialog only available if multi-zone is supported');
-        logKeyboardBacklightOpenZoneCustomizationUMA();
-        this.isZoneCustomizationDialogOpen_ = true;
-    }
-    closeZoneCustomizationDialog_() {
-        this.isZoneCustomizationDialogOpen_ = false;
-    }
-    getZoneCustomizationButtonAriaPressed_(currentBacklightState) {
-        return (!!currentBacklightState && !!currentBacklightState.zoneColors)
-            .toString();
-    }
-}
-customElements.define(KeyboardBacklightElement.is, KeyboardBacklightElement);
-
-// Copyright 2017 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @fileoverview CrContainerShadowMixin holds logic for showing a drop shadow
- * near the top of a container element, when the content has scrolled.
- *
- * Elements using this mixin are expected to define a #container element,
- * which is the element being scrolled. If the #container element has a
- * show-bottom-shadow attribute, a drop shadow will also be shown near the
- * bottom of the container element, when there is additional content to scroll
- * to. Examples:
- *
- * For both top and bottom shadows:
- * <div id="container" show-bottom-shadow>...</div>
- *
- * For top shadow only:
- * <div id="container">...</div>
- *
- * The mixin will take care of inserting an element with ID
- * 'cr-container-shadow-top' which holds the drop shadow effect, and,
- * optionally, an element with ID 'cr-container-shadow-bottom' which holds the
- * same effect. A 'has-shadow' CSS class is automatically added to/removed from
- * both elements while scrolling, as necessary. Note that the show-bottom-shadow
- * attribute is inspected only during attached(), and any changes to it that
- * occur after that point will not be respected.
- *
- * Clients should either use the existing shared styling in
- * cr_shared_style.css, '#cr-container-shadow-[top/bottom]' and
- * '#cr-container-shadow-[top/bottom].has-shadow', or define their own styles.
- */
-var CrContainerShadowSide;
-(function (CrContainerShadowSide) {
-    CrContainerShadowSide["TOP"] = "top";
-    CrContainerShadowSide["BOTTOM"] = "bottom";
-})(CrContainerShadowSide || (CrContainerShadowSide = {}));
-const CrContainerShadowMixin = dedupingMixin((superClass) => {
-    class CrContainerShadowMixin extends superClass {
-        constructor() {
-            super(...arguments);
-            this.intersectionObserver_ = null;
-            this.dropShadows_ = new Map();
-            this.intersectionProbes_ = new Map();
-            this.sides_ = null;
-        }
-        connectedCallback() {
-            super.connectedCallback();
-            const hasBottomShadow = this.getContainer_().hasAttribute('show-bottom-shadow');
-            this.sides_ = hasBottomShadow ?
-                [CrContainerShadowSide.TOP, CrContainerShadowSide.BOTTOM] :
-                [CrContainerShadowSide.TOP];
-            this.sides_.forEach(side => {
-                // The element holding the drop shadow effect to be shown.
-                const shadow = document.createElement('div');
-                shadow.id = `cr-container-shadow-${side}`;
-                shadow.classList.add('cr-container-shadow');
-                this.dropShadows_.set(side, shadow);
-                this.intersectionProbes_.set(side, document.createElement('div'));
-            });
-            this.getContainer_().parentNode.insertBefore(this.dropShadows_.get(CrContainerShadowSide.TOP), this.getContainer_());
-            this.getContainer_().prepend(this.intersectionProbes_.get(CrContainerShadowSide.TOP));
-            if (hasBottomShadow) {
-                this.getContainer_().parentNode.insertBefore(this.dropShadows_.get(CrContainerShadowSide.BOTTOM), this.getContainer_().nextSibling);
-                this.getContainer_().append(this.intersectionProbes_.get(CrContainerShadowSide.BOTTOM));
-            }
-            this.enableShadowBehavior(true);
-        }
-        disconnectedCallback() {
-            super.disconnectedCallback();
-            this.enableShadowBehavior(false);
-        }
-        getContainer_() {
-            return this.shadowRoot.querySelector('#container');
-        }
-        getIntersectionObserver_() {
-            const callback = (entries) => {
-                // In some rare cases, there could be more than one entry per
-                // observed element, in which case the last entry's result
-                // stands.
-                for (const entry of entries) {
-                    const target = entry.target;
-                    this.sides_.forEach(side => {
-                        if (target === this.intersectionProbes_.get(side)) {
-                            this.dropShadows_.get(side).classList.toggle('has-shadow', entry.intersectionRatio === 0);
-                        }
-                    });
-                }
-            };
-            return new IntersectionObserver(callback, { root: this.getContainer_(), threshold: 0 });
-        }
-        /**
-         * @param enable Whether to enable the mixin or disable it.
-         *     This function does nothing if the mixin is already in the
-         *     requested state.
-         */
-        enableShadowBehavior(enable) {
-            // Behavior is already enabled/disabled. Return early.
-            if (enable === !!this.intersectionObserver_) {
-                return;
-            }
-            if (!enable) {
-                this.intersectionObserver_.disconnect();
-                this.intersectionObserver_ = null;
-                return;
-            }
-            this.intersectionObserver_ = this.getIntersectionObserver_();
-            // Need to register the observer within a setTimeout() callback,
-            // otherwise the drop shadow flashes once on startup, because of the
-            // DOM modifications earlier in this function causing a relayout.
-            window.setTimeout(() => {
-                if (this.intersectionObserver_) {
-                    // In case this is already detached.
-                    this.intersectionProbes_.forEach(probe => {
-                        this.intersectionObserver_.observe(probe);
-                    });
-                }
-            });
-        }
-        /**
-         * Shows the shadows. The shadow mixin must be disabled before
-         * calling this method, otherwise the intersection observer might
-         * show the shadows again.
-         */
-        showDropShadows() {
-            assert$1(!this.intersectionObserver_);
-            assert$1(this.sides_);
-            for (const side of this.sides_) {
-                this.dropShadows_.get(side).classList.toggle('has-shadow', true);
-            }
-        }
-    }
-    return CrContainerShadowMixin;
-});
-
-function getTemplate$A() {
-    return html `<!--_html_template_start_-->    <style include="cr-hidden-style cr-icons">dialog{--scroll-border-color:var(--paper-grey-300);--scroll-border:1px solid var(--scroll-border-color);background-color:var(--cr-dialog-background-color,#fff);border:0;border-radius:var(--cr-dialog-border-radius,8px);bottom:50%;box-shadow:0 0 16px rgba(0,0,0,.12),0 16px 16px rgba(0,0,0,.24);color:inherit;max-height:initial;max-width:initial;overflow-y:hidden;padding:0;position:absolute;top:50%;width:var(--cr-dialog-width,512px)}@media (prefers-color-scheme:dark){dialog{--scroll-border-color:var(--google-grey-700);background-color:var(--cr-dialog-background-color,var(--google-grey-900));background-image:linear-gradient(rgba(255,255,255,.04),rgba(255,255,255,.04))}}@media (forced-colors:active){dialog{border:var(--cr-border-hcm)}}dialog[open] #content-wrapper{display:flex;flex-direction:column;max-height:100vh;overflow:auto}.top-container,:host ::slotted([slot=button-container]),:host ::slotted([slot=footer]){flex-shrink:0}dialog::backdrop{background-color:rgba(0,0,0,.6);bottom:0;left:0;position:fixed;right:0;top:0}:host ::slotted([slot=body]){color:var(--cr-secondary-text-color);padding:0 var(--cr-dialog-body-padding-horizontal,20px)}:host ::slotted([slot=title]){color:var(--cr-primary-text-color);flex:1;font-family:var(--cr-dialog-font-family,inherit);font-size:var(--cr-dialog-title-font-size,calc(15 / 13 * 100%));line-height:1;padding-bottom:var(--cr-dialog-title-slot-padding-bottom,16px);padding-inline-end:var(--cr-dialog-title-slot-padding-end,20px);padding-inline-start:var(--cr-dialog-title-slot-padding-start,20px);padding-top:var(--cr-dialog-title-slot-padding-top,20px)}:host ::slotted([slot=button-container]){display:flex;justify-content:flex-end;padding-bottom:var(--cr-dialog-button-container-padding-bottom,16px);padding-inline-end:var(--cr-dialog-button-container-padding-horizontal,16px);padding-inline-start:var(--cr-dialog-button-container-padding-horizontal,16px);padding-top:var(--cr-dialog-button-container-padding-top,16px)}:host ::slotted([slot=footer]){border-bottom-left-radius:inherit;border-bottom-right-radius:inherit;border-top:1px solid #dbdbdb;margin:0;padding:16px 20px}:host([hide-backdrop]) dialog::backdrop{opacity:0}@media (prefers-color-scheme:dark){:host ::slotted([slot=footer]){border-top-color:var(--cr-separator-color)}}.body-container{box-sizing:border-box;display:flex;flex-direction:column;min-height:1.375rem;overflow:auto}:host{--transparent-border:1px solid transparent}#cr-container-shadow-top{border-bottom:var(--cr-dialog-body-border-top,var(--transparent-border))}#cr-container-shadow-bottom{border-bottom:var(--cr-dialog-body-border-bottom,var(--transparent-border))}#cr-container-shadow-bottom.has-shadow,#cr-container-shadow-top.has-shadow{border-bottom:var(--scroll-border)}.top-container{align-items:flex-start;display:flex;min-height:var(--cr-dialog-top-container-min-height,31px)}.title-container{display:flex;flex:1;font-size:inherit;font-weight:inherit;margin:0;outline:0}#close{align-self:flex-start;margin-inline-end:4px;margin-top:4px}</style>
-    <dialog id="dialog" on-close="onNativeDialogClose_" on-cancel="onNativeDialogCancel_" part="dialog" aria-labelledby="title" aria-describedby="container">
-    
-      <div id="content-wrapper" part="wrapper">
-        <div class="top-container">
-          <h2 id="title" class="title-container" tabindex="-1">
-            <slot name="title"></slot>
-          </h2>
-          <cr-icon-button id="close" class="icon-clear" hidden$="[[!showCloseButton]]" aria-label$="[[closeText]]" on-click="cancel" on-keypress="onCloseKeypress_">
-          </cr-icon-button>
-        </div>
-        <slot name="header"></slot>
-        <div class="body-container" id="container" show-bottom-shadow part="body-container">
-          <slot name="body"></slot>
-        </div>
-        <slot name="button-container"></slot>
-        <slot name="footer"></slot>
-      </div>
-    </dialog>
-<!--_html_template_end_-->`;
-}
-
-// Copyright 2016 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @fileoverview 'cr-dialog' is a component for showing a modal dialog. If the
- * dialog is closed via close(), a 'close' event is fired. If the dialog is
- * canceled via cancel(), a 'cancel' event is fired followed by a 'close' event.
- *
- * Additionally clients can get a reference to the internal native <dialog> via
- * calling getNative() and inspecting the |returnValue| property inside
- * the 'close' event listener to determine whether it was canceled or just
- * closed, where a truthy value means success, and a falsy value means it was
- * canceled.
- *
- * Note that <cr-dialog> wrapper itself always has 0x0 dimensions, and
- * specifying width/height on <cr-dialog> directly will have no effect on the
- * internal native <dialog>. Instead use cr-dialog::part(dialog) to specify
- * width/height (as well as other available mixins to style other parts of the
- * dialog contents).
- */
-const CrDialogElementBase = CrContainerShadowMixin(PolymerElement);
-class CrDialogElement extends CrDialogElementBase {
-    constructor() {
-        super(...arguments);
-        this.intersectionObserver_ = null;
-        this.mutationObserver_ = null;
-        this.boundKeydown_ = null;
-    }
-    static get is() {
-        return 'cr-dialog';
-    }
-    static get template() {
-        return getTemplate$A();
-    }
-    static get properties() {
-        return {
-            open: {
-                type: Boolean,
-                value: false,
-                reflectToAttribute: true,
-            },
-            /**
-             * Alt-text for the dialog close button.
-             */
-            closeText: String,
-            /**
-             * True if the dialog should remain open on 'popstate' events. This is
-             * used for navigable dialogs that have their separate navigation handling
-             * code.
-             */
-            ignorePopstate: {
-                type: Boolean,
-                value: false,
-            },
-            /**
-             * True if the dialog should ignore 'Enter' keypresses.
-             */
-            ignoreEnterKey: {
-                type: Boolean,
-                value: false,
-            },
-            /**
-             * True if the dialog should consume 'keydown' events. If ignoreEnterKey
-             * is true, 'Enter' key won't be consumed.
-             */
-            consumeKeydownEvent: {
-                type: Boolean,
-                value: false,
-            },
-            /**
-             * True if the dialog should not be able to be cancelled, which will
-             * prevent 'Escape' key presses from closing the dialog.
-             */
-            noCancel: {
-                type: Boolean,
-                value: false,
-            },
-            // True if dialog should show the 'X' close button.
-            showCloseButton: {
-                type: Boolean,
-                value: false,
-            },
-            showOnAttach: {
-                type: Boolean,
-                value: false,
-            },
-        };
-    }
-    ready() {
-        super.ready();
-        // If the active history entry changes (i.e. user clicks back button),
-        // all open dialogs should be cancelled.
-        window.addEventListener('popstate', () => {
-            if (!this.ignorePopstate && this.$.dialog.open) {
-                this.cancel();
-            }
-        });
-        if (!this.ignoreEnterKey) {
-            this.addEventListener('keypress', this.onKeypress_.bind(this));
-        }
-        this.addEventListener('pointerdown', e => this.onPointerdown_(e));
-    }
-    connectedCallback() {
-        super.connectedCallback();
-        const mutationObserverCallback = () => {
-            if (this.$.dialog.open) {
-                this.enableShadowBehavior(true);
-                this.addKeydownListener_();
-            }
-            else {
-                this.enableShadowBehavior(false);
-                this.removeKeydownListener_();
-            }
-        };
-        this.mutationObserver_ = new MutationObserver(mutationObserverCallback);
-        this.mutationObserver_.observe(this.$.dialog, {
-            attributes: true,
-            attributeFilter: ['open'],
-        });
-        // In some cases dialog already has the 'open' attribute by this point.
-        mutationObserverCallback();
-        if (this.showOnAttach) {
-            this.showModal();
-        }
-    }
-    disconnectedCallback() {
-        super.disconnectedCallback();
-        this.removeKeydownListener_();
-        if (this.mutationObserver_) {
-            this.mutationObserver_.disconnect();
-            this.mutationObserver_ = null;
-        }
-    }
-    addKeydownListener_() {
-        if (!this.consumeKeydownEvent) {
-            return;
-        }
-        this.boundKeydown_ = this.boundKeydown_ || this.onKeydown_.bind(this);
-        this.addEventListener('keydown', this.boundKeydown_);
-        // Sometimes <body> is key event's target and in that case the event
-        // will bypass cr-dialog. We should consume those events too in order to
-        // behave modally. This prevents accidentally triggering keyboard commands.
-        document.body.addEventListener('keydown', this.boundKeydown_);
-    }
-    removeKeydownListener_() {
-        if (!this.boundKeydown_) {
-            return;
-        }
-        this.removeEventListener('keydown', this.boundKeydown_);
-        document.body.removeEventListener('keydown', this.boundKeydown_);
-        this.boundKeydown_ = null;
-    }
-    showModal() {
-        this.$.dialog.showModal();
-        assert$1(this.$.dialog.open);
-        this.open = true;
-        this.dispatchEvent(new CustomEvent('cr-dialog-open', { bubbles: true, composed: true }));
-    }
-    cancel() {
-        this.dispatchEvent(new CustomEvent('cancel', { bubbles: true, composed: true }));
-        this.$.dialog.close();
-        assert$1(!this.$.dialog.open);
-        this.open = false;
-    }
-    close() {
-        this.$.dialog.close('success');
-        assert$1(!this.$.dialog.open);
-        this.open = false;
-    }
-    /**
-     * Set the title of the dialog for a11y reader.
-     * @param title Title of the dialog.
-     */
-    setTitleAriaLabel(title) {
-        this.$.dialog.removeAttribute('aria-labelledby');
-        this.$.dialog.setAttribute('aria-label', title);
-    }
-    onCloseKeypress_(e) {
-        // Because the dialog may have a default Enter key handler, prevent
-        // keypress events from bubbling up from this element.
-        e.stopPropagation();
-    }
-    onNativeDialogClose_(e) {
-        // Ignore any 'close' events not fired directly by the <dialog> element.
-        if (e.target !== this.getNative()) {
-            return;
-        }
-        // Catch and re-fire the 'close' event such that it bubbles across Shadow
-        // DOM v1.
-        this.dispatchEvent(new CustomEvent('close', { bubbles: true, composed: true }));
-    }
-    onNativeDialogCancel_(e) {
-        // Ignore any 'cancel' events not fired directly by the <dialog> element.
-        if (e.target !== this.getNative()) {
-            return;
-        }
-        if (this.noCancel) {
-            e.preventDefault();
-            return;
-        }
-        // When the dialog is dismissed using the 'Esc' key, need to manually update
-        // the |open| property (since close() is not called).
-        this.open = false;
-        // Catch and re-fire the native 'cancel' event such that it bubbles across
-        // Shadow DOM v1.
-        this.dispatchEvent(new CustomEvent('cancel', { bubbles: true, composed: true }));
-    }
-    /**
-     * Expose the inner native <dialog> for some rare cases where it needs to be
-     * directly accessed (for example to programmatically setheight/width, which
-     * would not work on the wrapper).
-     */
-    getNative() {
-        return this.$.dialog;
-    }
-    onKeypress_(e) {
-        if (e.key !== 'Enter') {
-            return;
-        }
-        // Accept Enter keys from either the dialog itself, or a child cr-input,
-        // considering that the event may have been retargeted, for example if the
-        // cr-input is nested inside another element. Also exclude inputs of type
-        // 'search', since hitting 'Enter' on a search field most likely intends to
-        // trigger searching.
-        const accept = e.target === this ||
-            e.composedPath().some(el => el.tagName === 'CR-INPUT' &&
-                el.type !== 'search');
-        if (!accept) {
-            return;
-        }
-        const actionButton = this.querySelector('.action-button:not([disabled]):not([hidden])');
-        if (actionButton) {
-            actionButton.click();
-            e.preventDefault();
-        }
-    }
-    onKeydown_(e) {
-        assert$1(this.consumeKeydownEvent);
-        if (!this.getNative().open) {
-            return;
-        }
-        if (this.ignoreEnterKey && e.key === 'Enter') {
-            return;
-        }
-        // Stop propagation to behave modally.
-        e.stopPropagation();
-    }
-    onPointerdown_(e) {
-        // Only show pulse animation if user left-clicked outside of the dialog
-        // contents.
-        if (e.button !== 0 ||
-            e.composedPath()[0].tagName !== 'DIALOG') {
-            return;
-        }
-        this.$.dialog.animate([
-            { transform: 'scale(1)', offset: 0 },
-            { transform: 'scale(1.02)', offset: 0.4 },
-            { transform: 'scale(1.02)', offset: 0.6 },
-            { transform: 'scale(1)', offset: 1 },
-        ], {
-            duration: 180,
-            easing: 'ease-in-out',
-            iterations: 1,
-        });
-        // Prevent any text from being selected within the dialog when clicking in
-        // the backdrop area.
-        e.preventDefault();
-    }
-    focus() {
-        const titleContainer = this.shadowRoot.querySelector('.title-container');
-        assert$1(titleContainer);
-        titleContainer.focus();
-    }
-}
-customElements.define(CrDialogElement.is, CrDialogElement);
-
-function getTemplate$z() {
-    return html `<!--_html_template_start_--><style include="common cros-button-style">:host{--cros-tab-slider-track-color:var(--cros-button-stroke-color-secondary)}cr-dialog::part(dialog){padding-bottom:28px;width:642px}@media (max-width:650px){cr-dialog::part(dialog){width:560px}}#zoneSelector{background-color:var(--cros-tab-slider-track-color);border-radius:24px;column-gap:2px;display:grid;grid-template-columns:repeat(auto-fit,minmax(0,1fr));grid-template-rows:minmax(0,1fr);margin-block-end:28px;margin-block-start:2px;width:100%}paper-ripple{border-radius:24px;--paper-ripple-opacity:var(--cros-button-primary-ripple-opacity)}.zone-tab[aria-selected=false] paper-ripple{color:var(--cros-sys-ripple_neutral_on_subtle)}.zone-tab[aria-selected=true] paper-ripple{color:var(--cros-sys-ripple_primary)}.zone-tab{-webkit-tap-highlight-color:transparent;border:2px solid var(--cros-tab-slider-track-color);border-radius:24px;box-sizing:border-box;color:var(--cros-sys-secondary,var(--cros-button-label-color-secondary));cursor:pointer;font:var(--cros-button-2-font);height:100%;padding:6px 0 6px 0;position:relative;width:100%}.zone-tab[aria-selected=true]{background-color:var(--cros-sys-primary,var(--cros-button-background-color-primary));color:var(--cros-sys-on_primary,var(--cros-button-label-color-primary))}.zone-tab[aria-selected=false]:hover{background-color:var(--cros-sys-hover_on_subtle,var(--cros-ripple-color));color:var(--cros-sys-on_surface)}.zone-title-container{align-items:center;display:grid;grid-template-columns:auto minmax(0,1fr);height:100%;width:100%}.zone-title-container>color-icon{height:auto;margin-inline-start:8px;width:auto}#zoneTitle{margin-inline:4px 8px;text-align:center;word-break:break-all;word-wrap:break-word}#zoneSelector:focus-visible,color-selector:focus-visible{outline:0}.zone-tab:focus-visible{outline:2px solid var(--cros-focus-ring-color)}</style>
-<cr-dialog id="dialog" show-on-attach>
-  <div slot="body" aria-label=" ">
-    <iron-a11y-keys id="zoneKeys" keys="left right enter" on-keys-pressed="onZoneKeysPress_">
-    </iron-a11y-keys>
-    <iron-selector id="zoneSelector" selected="0" selected-item="{{ironSelectedZone_}}" aria-label$="[[getZoneTabListAriaLabel_()]]" role="tablist">
-      <template is="dom-repeat" items="[[zoneIdxs_]]" as="zoneIdx">
-        <div id$="[[zoneIdx]]" class="zone-tab" tabindex$="[[getZoneTabIndex_(zoneIdx, zoneSelected_)]]" data-zone-idx$="[[zoneIdx]]" on-click="onClickZoneTab_" aria-description$="[[getZoneColorDescription_(zoneIdx, zoneColors_)]]" aria-selected$="[[getZoneAriaSelected_(zoneIdx, zoneSelected_)]]" role="tab">
-          <paper-ripple fit></paper-ripple>
-          <div class="zone-title-container">
-            <color-icon color-id="[[getColorId_(zoneIdx, zoneColors_)]]"></color-icon>
-            <div id="zoneTitle">[[getZoneTitle_(zoneIdx)]]</div>
-          </div>
-        </div>
-      </template>
-    </iron-selector>
-    <color-selector is-customized-dialog selected-color="[[getSelectedColor_(zoneSelected_, zoneColors_)]]" on-wallpaper-color-selected="onWallpaperColorSelected_" on-preset-color-selected="onPresetColorSelected_" role="tabpanel">
-      <div slot="button-container" class="customization-button-container">
-        <cr-button class="primary action-button" id="dialogCloseButton" on-click="onClickCloseDialog_">
-          $i18n{dismissButtonText}
-        </cr-button>
-      </div>
-    </color-selector>
-  </div>
-</cr-dialog>
-<!--_html_template_end_-->`;
-}
-
-// Copyright 2023 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @fileoverview
- * The zone customization dialog that allows users to customize the rgb keyboard
- * zone color.
- */
-class ZoneCustomizationElement extends WithPersonalizationStore {
-    static get is() {
-        return 'zone-customization';
-    }
-    static get template() {
-        return getTemplate$z();
-    }
-    static get properties() {
-        return {
-            zoneSelected_: {
-                type: Number,
-                value: 0,
-            },
-            /** The currently selected zone index. */
-            ironSelectedZone_: Object,
-            /** The current backlight state in the system. */
-            currentBacklightState_: Object,
-            /** The current backlight zone colors. */
-            zoneColors_: {
-                type: Array,
-                computed: 'computeZoneColors_(currentBacklightState_, zoneCount_)',
-            },
-            /** Number of zones available for customization */
-            zoneCount_: {
-                type: Number,
-                value() {
-                    return loadTimeData.getInteger('keyboardBacklightZoneCount');
-                },
-            },
-            /** The zone indexes (of zoneColors_) to indicate the zone number. */
-            zoneIdxs_: {
-                type: Array,
-                computed: 'computeZoneIdxs_(zoneCount_)',
-            },
-        };
-    }
-    ready() {
-        super.ready();
-        this.$.zoneKeys.target = this.$.zoneSelector;
-        // Scroll to the top of the page to view the zone customization dialog.
-        window.scrollTo(0, 0);
-    }
-    connectedCallback() {
-        super.connectedCallback();
-        this.watch('currentBacklightState_', state => state.keyboardBacklight.currentBacklightState);
-        this.updateFromStore();
-        // Set focus on the currently selected zone to overwrite the default focus
-        // on the dialog title.
-        afterNextRender(this, () => {
-            const selectedZoneElem = this.shadowRoot.querySelector('.zone-tab[aria-selected=true]');
-            if (selectedZoneElem) {
-                selectedZoneElem.focus();
-            }
-        });
-    }
-    computeZoneIdxs_() {
-        return [...Array(this.zoneCount_).keys()];
-    }
-    computeZoneColors_() {
-        if (this.currentBacklightState_ && this.currentBacklightState_.zoneColors) {
-            return this.currentBacklightState_.zoneColors;
-        }
-        else if (this.currentBacklightState_ &&
-            this.currentBacklightState_.color !== undefined) {
-            return Array(this.zoneCount_).fill(this.currentBacklightState_.color);
-        }
-        return null;
-    }
-    /** Handle keyboard navigation. */
-    onZoneKeysPress_(e) {
-        const selector = this.$.zoneSelector;
-        const prevButton = this.ironSelectedZone_;
-        switch (e.detail.key) {
-            case 'left':
-                selector.selectPrevious();
-                break;
-            case 'right':
-                selector.selectNext();
-                break;
-            case 'enter':
-                this.zoneSelected_ = Number(this.ironSelectedZone_.id);
-                break;
-            default:
-                return;
-        }
-        // Remove focus state of previous button.
-        if (prevButton) {
-            prevButton.removeAttribute('tabindex');
-        }
-        // Add focus state for new button.
-        if (this.ironSelectedZone_) {
-            this.ironSelectedZone_.setAttribute('tabindex', '0');
-            this.ironSelectedZone_.focus();
-        }
-        e.detail.keyboardEvent.preventDefault();
-    }
-    onClickZoneTab_(event) {
-        if (!isSelectionEvent(event)) {
-            return;
-        }
-        const eventTarget = event.currentTarget;
-        this.zoneSelected_ = Number(eventTarget.dataset['zoneIdx']);
-    }
-    onWallpaperColorSelected_() {
-        if (!this.zoneColors_) {
-            return;
-        }
-        const currentColor = this.getSelectedColor_(this.zoneSelected_, this.zoneColors_);
-        if (currentColor === BacklightColor.kRainbow) {
-            setPreRainbowBacklightZoneColor(this.zoneSelected_, BacklightColor.kWallpaper, this.zoneColors_, getKeyboardBacklightProvider(), this.getStore());
-            return;
-        }
-        if (currentColor !== BacklightColor.kWallpaper) {
-            setBacklightZoneColor(this.zoneSelected_, BacklightColor.kWallpaper, this.zoneColors_, getKeyboardBacklightProvider(), this.getStore());
-        }
-    }
-    onPresetColorSelected_(e) {
-        if (!this.zoneColors_) {
-            return;
-        }
-        const currentColor = this.getSelectedColor_(this.zoneSelected_, this.zoneColors_);
-        const colorId = e.detail.colorId;
-        assert$1(colorId !== undefined, 'colorId not found');
-        const newColor = getPresetColors()[colorId].enumVal;
-        if (currentColor === BacklightColor.kRainbow) {
-            setPreRainbowBacklightZoneColor(this.zoneSelected_, newColor, this.zoneColors_, getKeyboardBacklightProvider(), this.getStore());
-            return;
-        }
-        if (currentColor !== newColor) {
-            setBacklightZoneColor(this.zoneSelected_, newColor, this.zoneColors_, getKeyboardBacklightProvider(), this.getStore());
-        }
-    }
-    getZoneTabIndex_(zoneIdx, zoneSelected) {
-        // Set only the currently selected zone to be tabbable (tabindex="0") and
-        // others are not tabbable (tabindex="-1") by default.
-        return zoneIdx === zoneSelected ? '0' : '-1';
-    }
-    getZoneTabListAriaLabel_() {
-        return this.i18n('keyboardZonesTitle');
-    }
-    getZoneColorDescription_(zoneSelected, zoneColors) {
-        const zoneColorId = this.getColorId_(zoneSelected, zoneColors);
-        return zoneColorId ? this.i18n(zoneColorId) : '';
-    }
-    getZoneAriaSelected_(zoneIdx, zoneSelected) {
-        return (zoneIdx === zoneSelected).toString();
-    }
-    getZoneTitle_(zoneIdx) {
-        return loadTimeData.getStringF('zoneTitle', zoneIdx + 1);
-    }
-    getSelectedColor_(zoneSelected, zoneColors) {
-        return zoneColors ? zoneColors[zoneSelected] : null;
-    }
-    // Returns the matching colorId for each zone based on its zone color.
-    getColorId_(zoneIdx, zoneColors) {
-        if (!zoneColors) {
-            return null;
-        }
-        const zoneColor = zoneColors[zoneIdx];
-        if (zoneColor === BacklightColor.kRainbow) {
-            return RAINBOW;
-        }
-        // BacklightColor value matches with the index of staticColorIds.
-        // Ex: zoneColor value is BacklightColor.kGreen or 4, corresponding to
-        // staticColorIds[4] which is GREEN.
-        return staticColorIds[zoneColor];
-    }
-    onClickCloseDialog_() {
-        this.$.dialog.cancel();
-    }
-}
-customElements.define(ZoneCustomizationElement.is, ZoneCustomizationElement);
-
-// Copyright 2021 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @fileoverview a singleton getter for the theme mojom interface used in
- * the Personalization SWA. Also contains utility functions around fetching
- * mojom data and mocking out the implementation for testing.
- */
-let themeProvider = null;
-function setThemeProviderForTesting(testProvider) {
-    themeProvider = testProvider;
-}
-/** Returns a singleton for the ThemeProvider mojom interface. */
-function getThemeProvider() {
-    if (!themeProvider) {
-        themeProvider = ThemeProvider.getRemote();
-    }
-    return themeProvider;
-}
-
-// Copyright 2020 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * Converts an SkColor object to a string in the form
- * "rgba(<red>, <green>, <blue>, <alpha>)".
- * @param skColor The input color.
- * @return The rgba string.
- */
-/**
- * Converts a string of the form "#rrggbb" to an SkColor object.
- * @param hexColor The color string.
- * @return The SkColor object,
- */
-function hexColorToSkColor(hexColor) {
-    if (!/^#[0-9a-f]{6}$/.test(hexColor)) {
-        return { value: 0 };
-    }
-    const r = parseInt(hexColor.substring(1, 3), 16);
-    const g = parseInt(hexColor.substring(3, 5), 16);
-    const b = parseInt(hexColor.substring(5, 7), 16);
-    return { value: 0xff000000 + (r << 16) + (g << 8) + b };
-}
-
-// Copyright 2023 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @fileoverview Utility functions to be used for theme related components.
- */
-function isAutomaticSeedColorEnabled(colorScheme) {
-    return colorScheme === null || colorScheme !== ColorScheme.kStatic;
-}
-const DEFAULT_STATIC_COLOR = hexColorToSkColor('#4285f4');
-const DEFAULT_COLOR_SCHEME = ColorScheme.kTonalSpot;
-
-// Copyright 2021 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @fileoverview contains all of the functions to interact with C++ side through
- * mojom calls. Handles setting |PersonalizationStore| state in response to
- * mojom data.
- */
-/** Fetch wallpaper collections and save them to the store. */
-async function fetchCollections(provider, store) {
-    let { collections } = await provider.fetchCollections();
-    if (!isNonEmptyArray(collections)) {
-        console.warn('Failed to fetch wallpaper collections');
-        collections = null;
-    }
-    store.dispatch(setCollectionsAction(collections));
-}
-/** Helper function to fetch and dispatch images for a single collection. */
-async function fetchAndDispatchCollectionImages(provider, store, collection) {
-    let { images } = await provider.fetchImagesForCollection(collection.id);
-    if (!isNonEmptyArray(images)) {
-        console.warn('Failed to fetch images for collection id', collection.id);
-        images = null;
-    }
-    store.dispatch(setImagesForCollectionAction(collection.id, images));
-}
-/** Fetch all of the wallpaper collection images in parallel. */
-async function fetchAllImagesForCollections(provider, store) {
-    const collections = store.data.wallpaper.backdrop.collections;
-    if (!Array.isArray(collections)) {
-        console.warn('Cannot fetch data for collections when it is not initialized');
-        return;
-    }
-    store.dispatch(beginLoadImagesForCollectionsAction(collections));
-    await Promise.all(collections.map(collection => fetchAndDispatchCollectionImages(provider, store, collection)));
-}
-/**
- * Appends a suffix to request wallpaper images with the longest of width or
- * height being 512 pixels. This should ensure that the wallpaper image is
- * large enough to cover a grid item but not significantly more so.
- */
-function appendMaxResolutionSuffix(value) {
-    return { ...value, url: value.url + '=s512' };
-}
-/**
- * Fetches the list of Google Photos photos for the album associated with the
- * specified id and saves it to the store.
- */
-async function fetchGooglePhotosAlbum(provider, store, albumId) {
-    // Photos should only be fetched after determining whether access is allowed.
-    const enabled = store.data.wallpaper.googlePhotos.enabled;
-    assert$1(enabled !== undefined);
-    store.dispatch(beginLoadGooglePhotosAlbumAction(albumId));
-    // If access is *not* allowed, short-circuit the request.
-    if (enabled !== GooglePhotosEnablementState.kEnabled) {
-        store.dispatch(appendGooglePhotosPhotosAction(
-        /*photos=*/ null, /*resumeToken=*/ null));
-        return;
-    }
-    let photos = [];
-    let resumeToken = store.data.wallpaper.googlePhotos.resumeTokens.photosByAlbumId[albumId] ||
-        null;
-    const { response } = await provider.fetchGooglePhotosPhotos(
-    /*itemId=*/ null, albumId, resumeToken);
-    if (Array.isArray(response.photos)) {
-        photos.push(...response.photos);
-        resumeToken = response.resumeToken || null;
-    }
-    else {
-        console.warn('Failed to fetch Google Photos album');
-        photos = null;
-        // NOTE: `resumeToken` is intentionally *not* modified so that the request
-        // which failed can be reattempted.
-    }
-    // Impose max resolution.
-    if (photos !== null) {
-        photos = photos.map(photo => ({ ...photo, url: appendMaxResolutionSuffix(photo.url) }));
-    }
-    store.dispatch(appendGooglePhotosAlbumAction(albumId, photos, resumeToken));
-}
-/** Fetches the list of Google Photos owned albums and saves it to the store. */
-async function fetchGooglePhotosAlbums(provider, store) {
-    // Albums should only be fetched after determining whether access is allowed.
-    const enabled = store.data.wallpaper.googlePhotos.enabled;
-    assert$1(enabled !== undefined, 'Google Photos albums not enabled.');
-    store.dispatch(beginLoadGooglePhotosAlbumsAction());
-    // If access is *not* allowed, short-circuit the request.
-    if (enabled !== GooglePhotosEnablementState.kEnabled) {
-        store.dispatch(appendGooglePhotosAlbumsAction(
-        /*albums=*/ null, /*resumeToken=*/ null));
-        return;
-    }
-    let albums = [];
-    let resumeToken = store.data.wallpaper.googlePhotos.resumeTokens.albums;
-    const { response } = await provider.fetchGooglePhotosAlbums(resumeToken);
-    if (Array.isArray(response.albums)) {
-        albums.push(...response.albums);
-        resumeToken = response.resumeToken || null;
-    }
-    else {
-        console.warn('Failed to fetch Google Photos owned albums');
-        albums = null;
-        // NOTE: `resumeToken` is intentionally *not* modified so that the request
-        // which failed can be reattempted.
-    }
-    // Impose max resolution.
-    if (albums !== null) {
-        albums = albums.map(album => ({ ...album, preview: appendMaxResolutionSuffix(album.preview) }));
-    }
-    store.dispatch(appendGooglePhotosAlbumsAction(albums, resumeToken));
-}
-/**
- * Fetches the list of Google Photos shared albums and saves it to the store.
- */
-async function fetchGooglePhotosSharedAlbums(provider, store) {
-    // Albums should only be fetched after determining whether access is allowed.
-    const enabled = store.data.wallpaper.googlePhotos.enabled;
-    assert$1(enabled !== undefined, 'Google photos enablement state not initialized.');
-    store.dispatch(beginLoadGooglePhotosSharedAlbumsAction());
-    // If access is *not* allowed, short-circuit the request.
-    if (enabled !== GooglePhotosEnablementState.kEnabled) {
-        store.dispatch(appendGooglePhotosSharedAlbumsAction(
-        /*albums=*/ null, /*resumeToken=*/ null));
-        return;
-    }
-    let albums = [];
-    let resumeToken = store.data.wallpaper.googlePhotos.resumeTokens.albumsShared;
-    const { response } = await provider.fetchGooglePhotosSharedAlbums(resumeToken);
-    if (Array.isArray(response.albums)) {
-        albums.push(...response.albums);
-        resumeToken = response.resumeToken || null;
-    }
-    else {
-        console.warn('Failed to fetch Google Photos shared albums');
-        albums = null;
-        // NOTE: `resumeToken` is intentionally *not* modified so that the request
-        // which failed can be reattempted.
-    }
-    // Impose max resolution.
-    if (albums !== null) {
-        albums = albums.map(album => ({ ...album, preview: appendMaxResolutionSuffix(album.preview) }));
-    }
-    store.dispatch(appendGooglePhotosSharedAlbumsAction(albums, resumeToken));
-}
-/** Fetches whether the user is allowed to access Google Photos. */
-async function fetchGooglePhotosEnabled(provider, store) {
-    // Whether access is allowed should only be fetched once.
-    if (store.data.wallpaper.googlePhotos.enabled !== undefined) {
-        return;
-    }
-    store.dispatch(beginLoadGooglePhotosEnabledAction());
-    const { state } = await provider.fetchGooglePhotosEnabled();
-    if (state === GooglePhotosEnablementState.kError) {
-        console.warn('Failed to fetch Google Photos enabled');
-    }
-    store.dispatch(setGooglePhotosEnabledAction(state));
-}
-/** Fetches the list of Google Photos photos and saves it to the store. */
-async function fetchGooglePhotosPhotos(provider, store) {
-    // Photos should only be fetched after determining whether access is allowed.
-    const enabled = store.data.wallpaper.googlePhotos.enabled;
-    assert$1(enabled !== undefined);
-    store.dispatch(beginLoadGooglePhotosPhotosAction());
-    // If access is *not* allowed, short-circuit the request.
-    if (enabled !== GooglePhotosEnablementState.kEnabled) {
-        store.dispatch(appendGooglePhotosPhotosAction(
-        /*photos=*/ null, /*resumeToken=*/ null));
-        return;
-    }
-    let photos = [];
-    let resumeToken = store.data.wallpaper.googlePhotos.resumeTokens.photos;
-    const { response } = await provider.fetchGooglePhotosPhotos(
-    /*itemId=*/ null, /*albumId=*/ null, resumeToken);
-    if (Array.isArray(response.photos)) {
-        photos.push(...response.photos);
-        resumeToken = response.resumeToken || null;
-    }
-    else {
-        console.warn('Failed to fetch Google Photos photos');
-        photos = null;
-        // NOTE: `resumeToken` is intentionally *not* modified so that the request
-        // which failed can be reattempted.
-    }
-    // Impose max resolution.
-    if (photos !== null) {
-        photos = photos.map(photo => ({ ...photo, url: appendMaxResolutionSuffix(photo.url) }));
-    }
-    store.dispatch(appendGooglePhotosPhotosAction(photos, resumeToken));
-}
-async function searchImageThumbnails(query, store) {
-    // TODO(b/300129209): use real API to search for thumbnails.
-    store.dispatch(beginSearchImageThumbnailsAction(query));
-    const images = [
-        {
-            id: BigInt(1),
-            url: { url: 'chrome://personalization/images/feel_the_breeze.png' },
-        },
-        {
-            id: BigInt(2),
-            url: { url: 'chrome://personalization/images/float_on_by.png' },
-        },
-        {
-            id: BigInt(3),
-            url: { url: 'chrome://personalization/images/slideshow.png' },
-        },
-        {
-            id: BigInt(4),
-            url: { url: 'chrome://personalization/images/feel_the_breeze.png' },
-        },
-    ];
-    if (!isNonEmptyArray(images)) {
-        console.warn('Failed to generate thumbnails.');
-    }
-    // Mock thumbnail loading by sleeping for 2s.
-    return new Promise(resolve => {
-        window.setTimeout(() => {
-            store.dispatch(setImageThumbnailsAction(query, images));
-            resolve();
-        }, 2000);
-    });
-}
-async function getDefaultImageThumbnail(provider, store) {
-    store.dispatch(beginLoadDefaultImageThubmnailAction());
-    const { data } = await provider.getDefaultImageThumbnail();
-    store.dispatch(setDefaultImageThumbnailAction(data));
-}
-/** Get list of local images from disk and save it to the store. */
-async function getLocalImages(provider, store) {
-    store.dispatch(beginLoadLocalImagesAction());
-    const { images } = await provider.getLocalImages();
-    if (images == null) {
-        console.warn('Failed to fetch local images');
-    }
-    store.dispatch(setLocalImagesAction(images));
-}
-/**
- * Because thumbnail loading can happen asynchronously and is triggered
- * on page load and on window focus, multiple "threads" can be fetching
- * thumbnails simultaneously. Synchronize them with a task queue.
- */
-const imageThumbnailsToFetch = new Set();
-/**
- * Get an image thumbnail one at a time for every local image that does not have
- * a thumbnail yet.
- */
-async function getMissingLocalImageThumbnails(provider, store) {
-    if (!Array.isArray(store.data.wallpaper.local.images)) {
-        console.warn('Cannot fetch thumbnails with invalid image list');
-        return;
-    }
-    // Set correct loading state for each image thumbnail. Do in a batch update to
-    // reduce number of times that polymer must re-render.
-    store.beginBatchUpdate();
-    for (const image of store.data.wallpaper.local.images) {
-        if (isDefaultImage(image)) {
-            continue;
-        }
-        if (store.data.wallpaper.local.data[image.path] ||
-            store.data.wallpaper.loading.local.data[image.path] ||
-            imageThumbnailsToFetch.has(image.path)) {
-            // Do not re-load thumbnail if already present, or already loading.
-            continue;
-        }
-        imageThumbnailsToFetch.add(image.path);
-        store.dispatch(beginLoadLocalImageDataAction(image));
-    }
-    store.endBatchUpdate();
-    // There may be multiple async tasks triggered that pull off this queue.
-    while (imageThumbnailsToFetch.size) {
-        await Promise.all(Array.from(imageThumbnailsToFetch).map(async (path) => {
-            imageThumbnailsToFetch.delete(path);
-            const { data } = await provider.getLocalImageThumbnail({ path });
-            if (!data) {
-                console.warn('Failed to fetch local image data', path);
-            }
-            store.dispatch(setLocalImageDataAction({ path }, data));
-        }));
-    }
-}
-async function selectWallpaper(image, provider, store, layout = WallpaperLayout.kCenterCropped) {
-    const currentWallpaper = store.data.wallpaper.currentSelected;
-    if (currentWallpaper && isImageEqualToSelected(image, currentWallpaper)) {
-        return;
-    }
-    // Batch these changes together to reduce polymer churn as multiple state
-    // fields change quickly.
-    store.beginBatchUpdate();
-    store.dispatch(beginSelectImageAction(image));
-    store.dispatch(beginLoadSelectedImageAction());
-    const { tabletMode } = await provider.isInTabletMode();
-    const shouldPreview = tabletMode && !isDefaultImage(image);
-    if (shouldPreview) {
-        provider.makeTransparent();
-    }
-    store.endBatchUpdate();
-    const { success } = await (() => {
-        if (isWallpaperImage(image)) {
-            return provider.selectWallpaper(image.unitId, /*preview_mode=*/ shouldPreview);
-        }
-        else if (isDefaultImage(image)) {
-            return provider.selectDefaultImage();
-        }
-        else if (isFilePath(image)) {
-            return provider.selectLocalImage(image, layout, /*preview_mode=*/ shouldPreview);
-        }
-        else if (isGooglePhotosPhoto(image)) {
-            return provider.selectGooglePhotosPhoto(image.id, layout, /*preview_mode=*/ shouldPreview);
-        }
-        else {
-            console.warn('Image must be a local image or a WallpaperImage');
-            return { success: false };
-        }
-    })();
-    store.beginBatchUpdate();
-    store.dispatch(endSelectImageAction(image, success));
-    // Delay opening full screen preview until done loading. This looks better if
-    // the image load takes a long time, otherwise the user will see the old
-    // wallpaper image for a while.
-    if (success && shouldPreview) {
-        store.dispatch(setFullscreenEnabledAction(/*enabled=*/ true));
-    }
-    if (!success) {
-        console.warn('Error setting wallpaper');
-        store.dispatch(setAttributionAction(store.data.wallpaper.attribution));
-        store.dispatch(setSelectedImageAction(store.data.wallpaper.currentSelected));
-    }
-    store.endBatchUpdate();
-}
-async function setCurrentWallpaperLayout(layout, provider, store) {
-    const image = store.data.wallpaper.currentSelected;
-    assert$1(image);
-    assert$1(image.type === WallpaperType.kCustomized ||
-        image.type === WallpaperType.kOnceGooglePhotos);
-    assert$1(layout === WallpaperLayout.kCenter ||
-        layout === WallpaperLayout.kCenterCropped);
-    if (image.layout === layout) {
-        return;
-    }
-    store.dispatch(beginLoadSelectedImageAction());
-    await provider.setCurrentWallpaperLayout(layout);
-}
-// Do not trigger the loading UI if the currently selected wallpaper is a
-// matching type for the incoming selection and if the currently selected
-// wallpaper is in the chosen album.
-function dailyRefreshShouldTriggerLoading(id, types, currentSelected, imagesById) {
-    if (!id) {
-        // No loading shown if clearing daily refresh state.
-        return false;
-    }
-    if (!currentSelected) {
-        return true;
-    }
-    if (types.has(currentSelected.type)) {
-        return !imagesById[id]?.some(image => isImageAMatchForKey(image, currentSelected.key));
-    }
-    return true;
-}
-async function setDailyRefreshCollectionId(collectionId, provider, store) {
-    if (dailyRefreshShouldTriggerLoading(collectionId, new Set([WallpaperType.kOnline, WallpaperType.kDaily]), store.data.wallpaper.currentSelected, store.data.wallpaper.backdrop.images)) {
-        store.dispatch(beginUpdateDailyRefreshImageAction());
-    }
-    const { success } = await provider.setDailyRefreshCollectionId(collectionId);
-    if (!success) {
-        store.dispatch(setErrorAction({ message: loadTimeData.getString('setWallpaperError') }));
-    }
-    await getDailyRefreshState(provider, store);
-}
-async function selectGooglePhotosAlbum(albumId, provider, store) {
-    if (dailyRefreshShouldTriggerLoading(albumId, new Set([
-        WallpaperType.kOnceGooglePhotos,
-        WallpaperType.kDailyGooglePhotos,
-    ]), store.data.wallpaper.currentSelected, store.data.wallpaper.googlePhotos.photosByAlbumId)) {
-        store.dispatch(beginUpdateDailyRefreshImageAction());
-    }
-    const { success } = await provider.selectGooglePhotosAlbum(albumId);
-    if (!success) {
-        store.dispatch(setErrorAction({ message: loadTimeData.getString('googlePhotosError') }));
-    }
-    await getDailyRefreshState(provider, store);
-}
-/**
- * Get the currently active daily refresh id for Backdrop and Google Photos.
- * One or both will be empty, depending on which, if either, is enabled.
- */
-async function getDailyRefreshState(provider, store) {
-    const [{ collectionId }, { albumId }] = await Promise.all([
-        provider.getDailyRefreshCollectionId(),
-        provider.getGooglePhotosDailyRefreshAlbumId(),
-    ]);
-    // Daily refresh should only be active for either Backdrop or Google Photos
-    assert$1(!collectionId || !albumId);
-    if (collectionId) {
-        store.dispatch(setDailyRefreshCollectionIdAction(collectionId));
-    }
-    else if (albumId) {
-        store.dispatch(setGooglePhotosDailyRefreshAlbumIdAction(albumId));
-    }
-    else {
-        store.dispatch(clearDailyRefreshAction());
-    }
-}
-/** Refresh the wallpaper. Noop if daily refresh is not enabled. */
-async function updateDailyRefreshWallpaper(provider, store) {
-    store.dispatch(beginUpdateDailyRefreshImageAction());
-    store.dispatch(beginLoadSelectedImageAction());
-    const { success } = await provider.updateDailyRefreshWallpaper();
-    if (success) {
-        store.dispatch(setUpdatedDailyRefreshImageAction());
-    }
-    else {
-        const currentAttribution = store.data.wallpaper.attribution;
-        const currentWallpaper = store.data.wallpaper.currentSelected;
-        const dailyRefresh = store.data.wallpaper.dailyRefresh;
-        // Displays error if daily refresh is activated for Google Photos album
-        // and refresh failed to fetch a new Google Photo wallpaper.
-        // Also dispatches setUpdatedDailyRefreshImageAction() and
-        // setSelectedImageAction() to avoid pending UI.
-        // TODO (b/266257678): displays error message when daily refresh fails for
-        // online wallpaper collections.
-        if (!!dailyRefresh && dailyRefresh.type == DailyRefreshType.GOOGLE_PHOTOS) {
-            store.dispatch(setUpdatedDailyRefreshImageAction());
-            store.dispatch(setAttributionAction(currentAttribution));
-            store.dispatch(setSelectedImageAction(currentWallpaper));
-            store.dispatch(setErrorAction({ message: loadTimeData.getString('googlePhotosError') }));
-        }
-    }
-}
-/** Confirm and set preview wallpaper as actual wallpaper. */
-async function confirmPreviewWallpaper(provider) {
-    await provider.confirmPreviewWallpaper();
-    provider.makeOpaque();
-}
-/** Cancel preview wallpaper and show the previous wallpaper. */
-async function cancelPreviewWallpaper(provider) {
-    await provider.cancelPreviewWallpaper();
-    provider.makeOpaque();
-}
-/**
- * Fetches list of collections, then fetches list of images for each
- * collection.
- */
-async function initializeBackdropData(provider, store) {
-    await fetchCollections(provider, store);
-    await fetchAllImagesForCollections(provider, store);
-}
-/**
- * Gets list of local images, then fetches image thumbnails for each local
- * image.
- */
-async function fetchLocalData(provider, store) {
-    // Do not restart loading local image list if a load is already in progress.
-    if (!store.data.wallpaper.loading.local.images) {
-        await getLocalImages(provider, store);
-    }
-    await getMissingLocalImageThumbnails(provider, store);
-}
-
-// Copyright 2021 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @fileoverview a singleton getter for the wallpaper mojom interface used in
- * the Personalization SWA. Also contains utility function for mocking out the
- * implementation for testing.
- */
-let wallpaperProvider = null;
-function setWallpaperProviderForTesting(testProvider) {
-    wallpaperProvider = testProvider;
-}
-/** Returns a singleton for the WallpaperProvider mojom interface. */
-function getWallpaperProvider() {
-    if (!wallpaperProvider) {
-        wallpaperProvider = WallpaperProvider.getRemote();
-    }
-    return wallpaperProvider;
-}
-
-// Copyright 2021 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @fileoverview provides useful functions for e2e browsertests.
- */
-function enterFullscreen() {
-    const store = PersonalizationStore.getInstance();
-    assert$1(!!store);
-    store.dispatch(setFullscreenEnabledAction(true));
-}
-function makeTransparent() {
-    const wallpaperProvider = getWallpaperProvider();
-    wallpaperProvider.makeTransparent();
-}
-// Reset to a default state at the root of the app. Useful for browsertests.
-async function reset() {
-    const wallpaperProvider = getWallpaperProvider();
-    await wallpaperProvider.selectDefaultImage();
-    if (isPersonalizationJellyEnabled()) {
-        // Turn on dynamic color with default scheme.
-        const themeProvider = getThemeProvider();
-        themeProvider.setColorScheme(DEFAULT_COLOR_SCHEME);
-        const { colorScheme } = await themeProvider.getColorScheme();
-        assert$1(colorScheme === DEFAULT_COLOR_SCHEME, 'reset to default color scheme');
-    }
-    const router = PersonalizationRouterElement.instance();
-    router.goToRoute(Paths.ROOT);
-}
-async function selectTimeOfDayWallpaper() {
-    assert$1(isTimeOfDayWallpaperEnabled(), 'time of day must be enabled');
-    const store = PersonalizationStore.getInstance();
-    assert$1(!!store);
-    const id = loadTimeData.getString('timeOfDayWallpaperCollectionId');
-    const images = store.data.wallpaper.backdrop.images[id];
-    assert$1(isNonEmptyArray(images), 'time of day collection images must exist');
-    const image = images[0];
-    await selectWallpaper(image, getWallpaperProvider(), store);
-}
-async function enableDailyRefresh(collectionId) {
-    const store = PersonalizationStore.getInstance();
-    assert$1(!!store);
-    await setDailyRefreshCollectionId(collectionId, getWallpaperProvider(), store);
-}
-async function disableDailyRefresh() {
-    const store = PersonalizationStore.getInstance();
-    assert$1(!!store);
-    await setDailyRefreshCollectionId('', getWallpaperProvider(), store);
-}
-async function enableDailyGooglePhotosRefresh(albumId) {
-    const store = PersonalizationStore.getInstance();
-    assert$1(!!store);
-    await selectGooglePhotosAlbum(albumId, getWallpaperProvider(), store);
-}
-window.personalizationTestApi = {
-    enterFullscreen,
-    isGooglePhotosIntegrationEnabled,
-    makeTransparent,
-    reset,
-    selectTimeOfDayWallpaper,
-    enableDailyRefresh,
-    disableDailyRefresh,
-    enableDailyGooglePhotosRefresh,
-};
-
-// Copyright 2012 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * The class name to set on the document element.
- */
-const CLASS_NAME = 'focus-outline-visible';
-const docsToManager = new Map();
-/**
- * This class sets a CSS class name on the HTML element of |doc| when the user
- * presses a key. It removes the class name when the user clicks anywhere.
- *
- * This allows you to write CSS like this:
- *
- * html.focus-outline-visible my-element:focus {
- *   outline: 5px auto -webkit-focus-ring-color;
- * }
- *
- * And the outline will only be shown if the user uses the keyboard to get to
- * it.
- *
- */
-class FocusOutlineManager {
-    /**
-     * @param doc The document to attach the focus outline manager to.
-     */
-    constructor(doc) {
-        // Whether focus change is triggered by a keyboard event.
-        this.focusByKeyboard_ = true;
-        this.classList_ = doc.documentElement.classList;
-        doc.addEventListener('keydown', () => this.onEvent_(true), true);
-        doc.addEventListener('mousedown', () => this.onEvent_(false), true);
-        this.updateVisibility();
-    }
-    onEvent_(focusByKeyboard) {
-        if (this.focusByKeyboard_ === focusByKeyboard) {
-            return;
-        }
-        this.focusByKeyboard_ = focusByKeyboard;
-        this.updateVisibility();
-    }
-    updateVisibility() {
-        this.visible = this.focusByKeyboard_;
-    }
-    /**
-     * Whether the focus outline should be visible.
-     */
-    set visible(visible) {
-        this.classList_.toggle(CLASS_NAME, visible);
-    }
-    get visible() {
-        return this.classList_.contains(CLASS_NAME);
-    }
-    /**
-     * Gets a per document singleton focus outline manager.
-     * @param doc The document to get the |FocusOutlineManager| for.
-     * @return The per document singleton focus outline manager.
-     */
-    static forDocument(doc) {
-        let manager = docsToManager.get(doc);
-        if (!manager) {
-            manager = new FocusOutlineManager(doc);
-            docsToManager.set(doc, manager);
-        }
-        return manager;
-    }
-}
-
-function getTemplate$y() {
-    return html `<!--_html_template_start_-->    <style include="cr-hidden-style">:host{--active-shadow-rgb:var(--google-grey-800-rgb);--active-shadow-action-rgb:var(--google-blue-500-rgb);--bg-action:var(--google-blue-600);--border-color:var(--google-grey-300);--disabled-bg-action:var(--google-grey-100);--disabled-bg:white;--disabled-border-color:var(--google-grey-100);--disabled-text-color:var(--google-grey-600);--focus-shadow-color:rgba(var(--google-blue-600-rgb), .4);--hover-bg-action:rgba(var(--google-blue-600-rgb), .9);--hover-bg-color:rgba(var(--google-blue-500-rgb), .04);--hover-border-color:var(--google-blue-100);--hover-shadow-action-rgb:var(--google-blue-500-rgb);--ink-color-action:white;--ink-color:var(--google-blue-600);--ripple-opacity-action:.32;--ripple-opacity:.1;--text-color-action:white;--text-color:var(--google-blue-600)}@media (prefers-color-scheme:dark){:host{--active-bg:black linear-gradient(rgba(255, 255, 255, .06),
-                                             rgba(255, 255, 255, .06));--active-shadow-rgb:0,0,0;--active-shadow-action-rgb:var(--google-blue-500-rgb);--bg-action:var(--google-blue-300);--border-color:var(--google-grey-700);--disabled-bg-action:var(--google-grey-800);--disabled-bg:transparent;--disabled-border-color:var(--google-grey-800);--disabled-text-color:var(--google-grey-500);--focus-shadow-color:rgba(var(--google-blue-300-rgb), .5);--hover-bg-action:var(--bg-action) linear-gradient(rgba(0, 0, 0, .08), rgba(0, 0, 0, .08));--hover-bg-color:rgba(var(--google-blue-300-rgb), .08);--ink-color-action:black;--ink-color:var(--google-blue-300);--ripple-opacity-action:.16;--ripple-opacity:.16;--text-color-action:var(--google-grey-900);--text-color:var(--google-blue-300)}}:host{--paper-ripple-opacity:var(--ripple-opacity);-webkit-tap-highlight-color:transparent;align-items:center;border:1px solid var(--border-color);border-radius:4px;box-sizing:border-box;color:var(--text-color);cursor:pointer;display:inline-flex;flex-shrink:0;font-weight:500;height:var(--cr-button-height);justify-content:center;min-width:5.14em;outline-width:0;overflow:hidden;padding:8px 16px;position:relative;user-select:none}:host-context([chrome-refresh-2023]):host{--border-color:var(--color-button-border,
-            var(--cr-fallback-color-tonal-outline));--text-color:var(--color-button-foreground,
-            var(--cr-fallback-color-primary));--hover-bg-color:transparent;--hover-border-color:var(--border-color);--active-bg:transparent;--active-shadow:none;--ink-color:var(--cr-active-background-color);--ripple-opacity:1;--disabled-bg:transparent;--disabled-border-color:var(--color-button-border-disabled,
-            var(--cr-fallback-color-disabled-background));--disabled-text-color:var(--color-button-foreground-disabled,
-            var(--cr-fallback-color-disabled-foreground));--bg-action:var(--color-button-background-prominent,
-            var(--cr-fallback-color-primary));--text-color-action:var(--color-button-foreground-prominent,
-            var(--cr-fallback-color-on-primary));--hover-bg-action:var(--bg-action);--active-shadow-action:none;--ink-color-action:var(--cr-active-background-color);--ripple-opacity-action:1;--disabled-bg-action:var(--color-button-background-prominent-disabled,
-            var(--cr-fallback-color-disabled-background));background:0 0;border-radius:100px;isolation:isolate;line-height:20px}:host([has-prefix-icon_]),:host([has-suffix-icon_]){--iron-icon-height:16px;--iron-icon-width:16px;gap:8px;padding:8px}:host-context([chrome-refresh-2023]):host([has-prefix-icon_]),:host-context([chrome-refresh-2023]):host([has-suffix-icon_]){--iron-icon-height:20px;--iron-icon-width:20px;--icon-block-padding-large:16px;--icon-block-padding-small:12px;padding-block-end:8px;padding-block-start:8px}:host-context([chrome-refresh-2023]):host([has-prefix-icon_]){padding-inline-end:var(--icon-block-padding-large);padding-inline-start:var(--icon-block-padding-small)}:host-context([chrome-refresh-2023]):host([has-suffix-icon_]){padding-inline-end:var(--icon-block-padding-small);padding-inline-start:var(--icon-block-padding-large)}:host-context(.focus-outline-visible):host(:focus){box-shadow:0 0 0 2px var(--focus-shadow-color)}@media (forced-colors:active){:host-context(.focus-outline-visible):host(:focus){outline:var(--cr-focus-outline-hcm)}:host-context([chrome-refresh-2023]):host{forced-color-adjust:none}}:host-context([chrome-refresh-2023].focus-outline-visible):host(:focus){box-shadow:none;outline:2px solid var(--cr-focus-outline-color);outline-offset:2px}:host(:active){background:var(--active-bg);box-shadow:var(--active-shadow,0 1px 2px 0 rgba(var(--active-shadow-rgb),.3),0 3px 6px 2px rgba(var(--active-shadow-rgb),.15))}:host(:hover){background-color:var(--hover-bg-color)}@media (prefers-color-scheme:light){:host(:hover){border-color:var(--hover-border-color)}}#background{border-radius:inherit;inset:0;pointer-events:none;position:absolute;z-index:0}:host-context([chrome-refresh-2023]):host(:hover) #background{background-color:var(--hover-bg-color)}:host-context([chrome-refresh-2023].focus-outline-visible):host(:focus) #background{background-clip:padding-box}:host-context([chrome-refresh-2023]):host(.action-button) #background{background-color:var(--bg-action)}:host-context([chrome-refresh-2023]):host([disabled]) #background{background-color:var(--disabled-bg)}:host-context([chrome-refresh-2023]):host(.action-button[disabled]) #background{background-color:var(--disabled-bg-action)}:host-context([chrome-refresh-2023]):host(.floating-button) #background,:host-context([chrome-refresh-2023]):host(.tonal-button) #background{background-color:var(--color-button-background-tonal,var(--cr-fallback-color-secondary-container))}:host-context([chrome-refresh-2023]):host([disabled].floating-button) #background,:host-context([chrome-refresh-2023]):host([disabled].tonal-button) #background{background-color:var(--color-button-background-tonal-disabled,var(--cr-fallback-color-disabled-background))}#content{display:contents}:host-context([chrome-refresh-2023]) #content{display:inline;z-index:2}:host-context([chrome-refresh-2023]) ::slotted(*){z-index:2}#hoverBackground{content:'';display:none;inset:0;pointer-events:none;position:absolute;z-index:1}:host-context([chrome-refresh-2023]):host(:hover) #hoverBackground{background:var(--cr-hover-background-color);display:block}:host-context([chrome-refresh-2023]):host(.action-button:hover) #hoverBackground{background:var(--cr-hover-on-prominent-background-color)}:host(.action-button){--ink-color:var(--ink-color-action);--paper-ripple-opacity:var(--ripple-opacity-action);background-color:var(--bg-action);border:none;color:var(--text-color-action)}:host-context([chrome-refresh-2023]):host(.action-button){--ink-color:var(--cr-active-on-primary-background-color);background-color:transparent}:host(.action-button:active){box-shadow:var(--active-shadow-action,0 1px 2px 0 rgba(var(--active-shadow-action-rgb),.3),0 3px 6px 2px rgba(var(--active-shadow-action-rgb),.15))}:host(.action-button:hover){background:var(--hover-bg-action)}@media (prefers-color-scheme:light){:host(.action-button:not(:active):hover){box-shadow:0 1px 2px 0 rgba(var(--hover-shadow-action-rgb),.3),0 1px 3px 1px rgba(var(--hover-shadow-action-rgb),.15)}:host-context([chrome-refresh-2023]):host(.action-button:not(:active):hover){box-shadow:none}}:host([disabled]){background-color:var(--disabled-bg);border-color:var(--disabled-border-color);color:var(--disabled-text-color);cursor:auto;pointer-events:none}:host(.action-button[disabled]){background-color:var(--disabled-bg-action);border-color:transparent}:host(.cancel-button){margin-inline-end:8px}:host(.action-button),:host(.cancel-button){line-height:154%}:host-context([chrome-refresh-2023]):host(.floating-button),:host-context([chrome-refresh-2023]):host(.tonal-button){border:none;color:var(--color-button-foreground-tonal,var(--cr-fallback-color-on-tonal-container))}:host-context([chrome-refresh-2023]):host(.floating-button[disabled]),:host-context([chrome-refresh-2023]):host(.tonal-button[disabled]){border:none;color:var(--disabled-text-color)}:host-context([chrome-refresh-2023]):host(.floating-button){border-radius:8px;height:40px;transition:box-shadow 80ms linear}:host-context([chrome-refresh-2023]):host(.floating-button:hover){box-shadow:var(--cr-elevation-3)}paper-ripple{color:var(--ink-color);height:var(--paper-ripple-height);left:var(--paper-ripple-left,0);top:var(--paper-ripple-top,0);width:var(--paper-ripple-width)}:host-context([chrome-refresh-2023]) paper-ripple{z-index:1}</style>
-
-    <div id="background"></div>
-    <slot id="prefixIcon" name="prefix-icon" on-slotchange="onPrefixIconSlotChanged_">
-    </slot>
-    <span id="content"><slot></slot></span>
-    <slot id="suffixIcon" name="suffix-icon" on-slotchange="onSuffixIconSlotChanged_">
-    </slot>
-    <div id="hoverBackground" part="hoverBackground"></div>
-<!--_html_template_end_-->`;
-}
-
-// Copyright 2019 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @fileoverview 'cr-button' is a button which displays slotted elements. It can
- * be interacted with like a normal button using click as well as space and
- * enter to effectively click the button and fire a 'click' event. It can also
- * style an icon inside of the button with the [has-icon] attribute.
- */
-const CrButtonElementBase = mixinBehaviors([PaperRippleBehavior], PolymerElement);
-class CrButtonElement extends CrButtonElementBase {
-    static get is() {
-        return 'cr-button';
-    }
-    static get template() {
-        return getTemplate$y();
-    }
-    static get properties() {
-        return {
-            disabled: {
-                type: Boolean,
-                value: false,
-                reflectToAttribute: true,
-                observer: 'disabledChanged_',
-            },
-            /**
-             * Use this property in order to configure the "tabindex" attribute.
-             */
-            customTabIndex: {
-                type: Number,
-                observer: 'applyTabIndex_',
-            },
-            /**
-             * Flag used for formatting ripples on circle shaped cr-buttons.
-             * @private
-             */
-            circleRipple: {
-                type: Boolean,
-                value: false,
-            },
-            hasPrefixIcon_: {
-                type: Boolean,
-                reflectToAttribute: true,
-                value: false,
-            },
-            hasSuffixIcon_: {
-                type: Boolean,
-                reflectToAttribute: true,
-                value: false,
-            },
-        };
-    }
-    constructor() {
-        super();
-        /**
-         * It is possible to activate a tab when the space key is pressed down. When
-         * this element has focus, the keyup event for the space key should not
-         * perform a 'click'. |spaceKeyDown_| tracks when a space pressed and
-         * handled by this element. Space keyup will only result in a 'click' when
-         * |spaceKeyDown_| is true. |spaceKeyDown_| is set to false when element
-         * loses focus.
-         */
-        this.spaceKeyDown_ = false;
-        this.timeoutIds_ = new Set();
-        this.addEventListener('blur', this.onBlur_.bind(this));
-        // Must be added in constructor so that stopImmediatePropagation() works as
-        // expected.
-        this.addEventListener('click', this.onClick_.bind(this));
-        this.addEventListener('keydown', this.onKeyDown_.bind(this));
-        this.addEventListener('keyup', this.onKeyUp_.bind(this));
-        this.addEventListener('pointerdown', this.onPointerDown_.bind(this));
-    }
-    ready() {
-        super.ready();
-        if (!this.hasAttribute('role')) {
-            this.setAttribute('role', 'button');
-        }
-        if (!this.hasAttribute('tabindex')) {
-            this.setAttribute('tabindex', '0');
-        }
-        if (!this.hasAttribute('aria-disabled')) {
-            this.setAttribute('aria-disabled', this.disabled ? 'true' : 'false');
-        }
-        FocusOutlineManager.forDocument(document);
-    }
-    disconnectedCallback() {
-        super.disconnectedCallback();
-        this.timeoutIds_.forEach(clearTimeout);
-        this.timeoutIds_.clear();
-    }
-    setTimeout_(fn, delay) {
-        if (!this.isConnected) {
-            return;
-        }
-        const id = setTimeout(() => {
-            this.timeoutIds_.delete(id);
-            fn();
-        }, delay);
-        this.timeoutIds_.add(id);
-    }
-    disabledChanged_(newValue, oldValue) {
-        if (!newValue && oldValue === undefined) {
-            return;
-        }
-        if (this.disabled) {
-            this.blur();
-        }
-        this.setAttribute('aria-disabled', this.disabled ? 'true' : 'false');
-        this.applyTabIndex_();
-    }
-    /**
-     * Updates the tabindex HTML attribute to the actual value.
-     */
-    applyTabIndex_() {
-        let value = this.customTabIndex;
-        if (value === undefined) {
-            value = this.disabled ? -1 : 0;
-        }
-        this.setAttribute('tabindex', value.toString());
-    }
-    onBlur_() {
-        this.spaceKeyDown_ = false;
-        // If a keyup event is never fired (e.g. after keydown the focus is moved to
-        // another element), we need to clear the ripple here. 100ms delay was
-        // chosen manually as a good time period for the ripple to be visible.
-        this.setTimeout_(() => this.getRipple().uiUpAction(), 100);
-    }
-    onClick_(e) {
-        if (this.disabled) {
-            e.stopImmediatePropagation();
-        }
-    }
-    onPrefixIconSlotChanged_() {
-        this.hasPrefixIcon_ = this.$.prefixIcon.assignedElements().length > 0;
-    }
-    onSuffixIconSlotChanged_() {
-        this.hasSuffixIcon_ = this.$.suffixIcon.assignedElements().length > 0;
-    }
-    onKeyDown_(e) {
-        if (e.key !== ' ' && e.key !== 'Enter') {
-            return;
-        }
-        e.preventDefault();
-        e.stopPropagation();
-        if (e.repeat) {
-            return;
-        }
-        this.getRipple().uiDownAction();
-        if (e.key === 'Enter') {
-            this.click();
-            // Delay was chosen manually as a good time period for the ripple to be
-            // visible.
-            this.setTimeout_(() => this.getRipple().uiUpAction(), 100);
-        }
-        else if (e.key === ' ') {
-            this.spaceKeyDown_ = true;
-        }
-    }
-    onKeyUp_(e) {
-        if (e.key !== ' ' && e.key !== 'Enter') {
-            return;
-        }
-        e.preventDefault();
-        e.stopPropagation();
-        if (this.spaceKeyDown_ && e.key === ' ') {
-            this.spaceKeyDown_ = false;
-            this.click();
-            this.getRipple().uiUpAction();
-        }
-    }
-    onPointerDown_() {
-        this.ensureRipple();
-    }
-    /**
-     * Customize the element's ripple. Overriding the '_createRipple' function
-     * from PaperRippleBehavior.
-     */
-    /* eslint-disable-next-line @typescript-eslint/naming-convention */
-    _createRipple() {
-        const ripple = super._createRipple();
-        if (this.circleRipple) {
-            ripple.setAttribute('center', '');
-            ripple.classList.add('circle');
-        }
-        return ripple;
-    }
-}
-customElements.define(CrButtonElement.is, CrButtonElement);
-
-function getTemplate$x() {
-    return html `<!--_html_template_start_--><style>cr-button{--ink-color:var(--google-blue-300);--text-color:var(--google-blue-300)}:host-context(body.jelly-enabled) cr-button{--ink-color:var(--cros-color-primary-inverted);--text-color:var(--cros-color-primary-inverted)}cr-button{--active-shadow-rgb:transparent;--border-color:transparent;--hover-border-color:transparent;--hover-bg-color:transparent;--hover-bg-action:transparent;--cr-button-height:36px;border:0;margin:0;padding:8px}@media (prefers-color-scheme:dark){cr-button{--ink-color:var(--google-blue-600);--text-color:var(--google-blue-600)}:host-context(body.jelly-enabled) cr-button{--ink-color:var(--cros-color-primary-inverted);--text-color:var(--cros-color-primary-inverted)}}#container{align-items:center;background-color:var(--cros-bg-color-elevation-2-inverted);border-radius:4px;box-shadow:0 1px 2px rgba(0,0,0,.3),0 2px 6px rgba(0,0,0,.15);box-sizing:border-box;color:var(--cros-text-color-primary-inverted);display:flex;flex-flow:row nowrap;justify-content:space-between;padding:16px}p{margin:0;margin-inline-end:16px}</style>
-<template is="dom-if" if="[[showError_]]">
-  <div id="container">
-    <p>[[getErrorMessage_(error_)]]</p>
-    <cr-button on-click="onDismissClicked_">
-      [[getDismissMessage_(error_)]]
-    </cr-button>
-  </div>
-</template>
-<!--_html_template_end_-->`;
-}
-
-// Copyright 2021 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @fileoverview This component displays toast notifications to the user.
- */
-class PersonalizationToastElement extends WithPersonalizationStore {
-    static get is() {
-        return 'personalization-toast';
-    }
-    static get template() {
-        return getTemplate$x();
-    }
-    static get properties() {
-        return {
-            error_: {
-                type: Object,
-                value: null,
-            },
-            isLoading_: {
-                type: Boolean,
-            },
-            showError_: {
-                type: Boolean,
-                computed: 'computeShowError_(error_, isLoading_)',
-            },
-        };
-    }
-    static get observers() {
-        return ['onErrorOrShowErrorChanged_(error_, showError_)'];
-    }
-    connectedCallback() {
-        super.connectedCallback();
-        this.watch('error_', state => state.error);
-        this.watch('isLoading_', state => state.wallpaper.loading.setImage > 0 ||
-            state.wallpaper.loading.selected.attribution ||
-            state.wallpaper.loading.selected.image ||
-            state.wallpaper.loading.refreshWallpaper);
-    }
-    onDismissClicked_() {
-        this.dispatch(dismissErrorAction(/*id=*/ null, /*fromUser=*/ true));
-    }
-    onErrorOrShowErrorChanged_(_, showError) {
-        clearTimeout(this.autoDismissTimeout_);
-        if (showError) {
-            this.autoDismissTimeout_ = setTimeout(() => {
-                this.dispatch(dismissErrorAction(/*id=*/ null, /*fromUser=*/ false));
-            }, 10000);
-        }
-    }
-    computeShowError_(error, isLoading) {
-        return !!error && !isLoading;
-    }
-    getErrorMessage_(error) {
-        return error && error.message || null;
-    }
-    getDismissMessage_(error) {
-        return error && error.dismiss && error.dismiss.message ||
-            this.i18n('dismiss');
-    }
-}
-customElements.define(PersonalizationToastElement.is, PersonalizationToastElement);
 
 /**
 @license
@@ -16926,7 +15973,1330 @@ Polymer({
 
 });
 
-const template$1 = html `
+const template$3 = html`<iron-iconset-svg name="personalization-shared" size="20">
+  <svg>
+    <defs>
+      <g id="refresh">
+        <rect width="20" height="20" fill="none"></rect>
+        <path d="M10 3C6.136 3 3 6.136 3 10C3 13.864 6.136 17 10 17C12.1865 17
+        14.1399 15.9959 15.4239 14.4239L13.9984 12.9984C13.0852 14.2129
+        11.6325 15 10 15C7.24375 15 5 12.7563 5 10C5 7.24375 7.24375 5 10
+        5C11.6318 5 13.0839 5.78641 13.9972 7H11V9H17V3H15V5.10253C13.7292
+        3.80529 11.9581 3 10 3Z"></path>
+      </g>
+      <g id="circle-checkmark">
+        <style>
+          circle {
+            fill: transparent;
+          }
+          circle {
+            fill: var(--cros-icon-color-prominent);
+          }
+          path {
+            fill: var(--cros-sys-on_primary);
+          }
+        </style>
+        <circle cx="10" cy="10" r="8"></circle>
+        <path d="M8.854 13.812L14.729 7.93801L13.5 6.72901L8.875 11.354L6.521 9.00001L5.292 10.229L8.854 13.812ZM10 18.333C8.84733 18.333 7.764 18.1143 6.75 17.677C5.736 17.2397 4.854 16.646 4.104 15.896C3.354 15.146 2.76033 14.264 2.323 13.25C1.88567 12.236 1.667 11.1527 1.667 10C1.667 8.84734 1.88567 7.76401 2.323 6.75001C2.76033 5.73601 3.354 4.85401 4.104 4.10401C4.854 3.35401 5.736 2.76034 6.75 2.32301C7.764 1.88567 8.84733 1.66701 10 1.66701C11.1527 1.66701 12.236 1.88567 13.25 2.32301C14.264 2.76034 15.146 3.35401 15.896 4.10401C16.646 4.85401 17.2397 5.73601 17.677 6.75001C18.1143 7.76401 18.333 8.84734 18.333 10C18.333 11.1527 18.1143 12.236 17.677 13.25C17.2397 14.264 16.646 15.146 15.896 15.896C15.146 16.646 14.264 17.2397 13.25 17.677C12.236 18.1143 11.1527 18.333 10 18.333ZM10 16.583C11.8193 16.583 13.3713 15.9407 14.656 14.656C15.9407 13.3713 16.583 11.8193 16.583 10C16.583 8.18067 15.9407 6.62867 14.656 5.34401C13.3713 4.05934 11.8193 3.41701 10 3.41701C8.18067 3.41701 6.62867 4.05934 5.344 5.34401C4.05933 6.62867 3.417 8.18067 3.417 10C3.417 11.8193 4.05933 13.3713 5.344 14.656C6.62867 15.9407 8.18067 16.583 10 16.583Z">
+        </path>
+      </g>
+    </defs>
+  </svg>
+</iron-iconset-svg>
+`;
+document.head.appendChild(template$3.content);
+
+function getTemplate$E() {
+    return html `<!--_html_template_start_--><style include="common cros-button-style">:host{--color-container-size:48px}#container{display:grid;grid-template-areas:'. label   .' '. options .' '. .       .';grid-template-columns:12px 1fr 20px;grid-template-rows:auto 1fr 20px}@media (max-width:700px){#container.preview-container{grid-template-rows:auto 1fr 8px}}#keyboardBacklightLabel{align-items:center;background:0 0;border:none;display:flex;flex-flow:row nowrap;grid-area:label;justify-content:space-between;margin-block-start:20px;margin-inline-start:8px}#keyboardBacklightLabel>p{color:var(--cros-text-color-primary);font:var(--personalization-app-label-font);margin:0}color-selector{grid-area:options}#zoneCustomizationButton[aria-pressed=true]{background-color:var(--cros-sys-primary,var(--cros-button-background-color-primary));color:var(--cros-sys-on_primary,var(--cros-button-label-color-primary))}#zoneCustomizationButton[aria-pressed=true] .text{margin-inline-start:8px}#zoneCustomizationButton:not([aria-pressed=true]) iron-icon{display:none}</style>
+<div id="container" class="preview-container">
+  <div id="keyboardBacklightLabel">
+    <p class="title">$i18n{keyboardBacklightTitle}</p>
+  </div>
+  <color-selector selected-color="[[backlightColor_]]" on-wallpaper-color-selected="onWallpaperColorSelected_" on-preset-color-selected="onPresetColorSelected_" on-rainbow-color-selected="onRainbowColorSelected_">
+    <div slot="button-container" class="customization-button-container">
+      <cr-button id="zoneCustomizationButton" on-click="showZoneCustomizationDialog_" class="secondary" aria-pressed$="[[getZoneCustomizationButtonAriaPressed_(currentBacklightState_)]]">
+        <iron-icon class="customized-checkmark" icon="personalization-shared:circle-checkmark">
+        </iron-icon>
+        <div class="text">$i18n{zoneCustomize}</div>
+      </cr-button>
+    </div>
+  </color-selector>
+  <template is="dom-if" if="[[isZoneCustomizationDialogOpen_]]" restamp>
+    <zone-customization on-cancel="closeZoneCustomizationDialog_"></zone-customization>
+  </template>
+</div>
+<!--_html_template_end_-->`;
+}
+
+// Copyright 2022 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/** @fileoverview listens for updates on keyboard backlight settings changes. */
+let instance$6 = null;
+/**
+ * Observes keyboard backlight changes and saves updates to
+ * PersonalizationStore.
+ */
+class KeyboardBacklightObserver {
+    constructor() {
+        this.receiver_ = this.initReceiver_(getKeyboardBacklightProvider());
+    }
+    static initKeyboardBacklightObserverIfNeeded() {
+        if (!instance$6) {
+            instance$6 = new KeyboardBacklightObserver();
+        }
+    }
+    static shutdown() {
+        if (instance$6) {
+            instance$6.receiver_.$.close();
+            instance$6 = null;
+        }
+    }
+    initReceiver_(keyboardBacklightProvider) {
+        const receiver = new KeyboardBacklightObserverReceiver(this);
+        keyboardBacklightProvider.setKeyboardBacklightObserver(receiver.$.bindNewPipeAndPassRemote());
+        return receiver;
+    }
+    onBacklightStateChanged(currentBacklightState) {
+        const store = PersonalizationStore.getInstance();
+        store.dispatch(setCurrentBacklightStateAction(currentBacklightState));
+    }
+    onWallpaperColorChanged(wallpaperColor) {
+        const store = PersonalizationStore.getInstance();
+        store.dispatch(setWallpaperColorAction(wallpaperColor));
+    }
+}
+
+// Copyright 2022 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview
+ * The keyboard backlight section that allows users to customize their keyboard
+ * backlight colors.
+ */
+class KeyboardBacklightElement extends WithPersonalizationStore {
+    static get is() {
+        return 'keyboard-backlight';
+    }
+    static get template() {
+        return getTemplate$E();
+    }
+    static get properties() {
+        return {
+            isMultiZoneRgbKeyboardSupported_: {
+                type: Boolean,
+                value() {
+                    return isMultiZoneRgbKeyboardSupported();
+                },
+            },
+            presetColors_: {
+                type: Object,
+                value() {
+                    return getPresetColors();
+                },
+            },
+            presetColorIds_: {
+                type: Array,
+                computed: 'computePresetColorIds_(presetColors_)',
+            },
+            rainbowColorId_: {
+                type: String,
+                value: RAINBOW,
+            },
+            wallpaperColorId_: {
+                type: String,
+                value: WALLPAPER,
+            },
+            backlightColor_: {
+                type: Object,
+                computed: 'computeBacklightColor_(currentBacklightState_)',
+            },
+            /** The color currently highlighted by keyboard navigation. */
+            ironSelectedColor_: Object,
+            /** The current backlight state in the system. */
+            currentBacklightState_: Object,
+            /** The current wallpaper extracted color. */
+            wallpaperColor_: Object,
+            isZoneCustomizationDialogOpen_: {
+                type: Boolean,
+                value: false,
+            },
+        };
+    }
+    connectedCallback() {
+        super.connectedCallback();
+        KeyboardBacklightObserver.initKeyboardBacklightObserverIfNeeded();
+        this.watch('currentBacklightState_', state => state.keyboardBacklight.currentBacklightState);
+        this.watch('wallpaperColor_', state => state.keyboardBacklight.wallpaperColor);
+        this.updateFromStore();
+    }
+    computePresetColorIds_(presetColors) {
+        // ES2020 maintains ordering of Object.keys.
+        return Object.keys(presetColors);
+    }
+    computeBacklightColor_(currentBacklightState) {
+        return currentBacklightState ? currentBacklightState.color : null;
+    }
+    /** Invoked when the wallpaper color is selected. */
+    onWallpaperColorSelected_() {
+        setBacklightColor(BacklightColor.kWallpaper, getKeyboardBacklightProvider(), this.getStore());
+    }
+    /** Invoked when a preset color is selected. */
+    onPresetColorSelected_(e) {
+        const colorId = e.detail.colorId;
+        assert$1(colorId !== undefined, 'colorId not found');
+        setBacklightColor(this.presetColors_[colorId].enumVal, getKeyboardBacklightProvider(), this.getStore());
+    }
+    /** Invoked when the rainbow color is selected. */
+    onRainbowColorSelected_() {
+        setBacklightColor(BacklightColor.kRainbow, getKeyboardBacklightProvider(), this.getStore());
+    }
+    showZoneCustomizationDialog_() {
+        assert$1(this.isMultiZoneRgbKeyboardSupported_, 'zone customization dialog only available if multi-zone is supported');
+        logKeyboardBacklightOpenZoneCustomizationUMA();
+        this.isZoneCustomizationDialogOpen_ = true;
+    }
+    closeZoneCustomizationDialog_() {
+        this.isZoneCustomizationDialogOpen_ = false;
+    }
+    getZoneCustomizationButtonAriaPressed_(currentBacklightState) {
+        return (!!currentBacklightState && !!currentBacklightState.zoneColors)
+            .toString();
+    }
+}
+customElements.define(KeyboardBacklightElement.is, KeyboardBacklightElement);
+
+// Copyright 2017 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview CrContainerShadowMixin holds logic for showing a drop shadow
+ * near the top of a container element, when the content has scrolled.
+ *
+ * Elements using this mixin are expected to define a #container element,
+ * which is the element being scrolled. If the #container element has a
+ * show-bottom-shadow attribute, a drop shadow will also be shown near the
+ * bottom of the container element, when there is additional content to scroll
+ * to. Examples:
+ *
+ * For both top and bottom shadows:
+ * <div id="container" show-bottom-shadow>...</div>
+ *
+ * For top shadow only:
+ * <div id="container">...</div>
+ *
+ * The mixin will take care of inserting an element with ID
+ * 'cr-container-shadow-top' which holds the drop shadow effect, and,
+ * optionally, an element with ID 'cr-container-shadow-bottom' which holds the
+ * same effect. A 'has-shadow' CSS class is automatically added to/removed from
+ * both elements while scrolling, as necessary. Note that the show-bottom-shadow
+ * attribute is inspected only during attached(), and any changes to it that
+ * occur after that point will not be respected.
+ *
+ * Clients should either use the existing shared styling in
+ * cr_shared_style.css, '#cr-container-shadow-[top/bottom]' and
+ * '#cr-container-shadow-[top/bottom].has-shadow', or define their own styles.
+ */
+var CrContainerShadowSide;
+(function (CrContainerShadowSide) {
+    CrContainerShadowSide["TOP"] = "top";
+    CrContainerShadowSide["BOTTOM"] = "bottom";
+})(CrContainerShadowSide || (CrContainerShadowSide = {}));
+const CrContainerShadowMixin = dedupingMixin((superClass) => {
+    class CrContainerShadowMixin extends superClass {
+        constructor() {
+            super(...arguments);
+            this.intersectionObserver_ = null;
+            this.dropShadows_ = new Map();
+            this.intersectionProbes_ = new Map();
+            this.sides_ = null;
+        }
+        connectedCallback() {
+            super.connectedCallback();
+            const hasBottomShadow = this.getContainer_().hasAttribute('show-bottom-shadow');
+            this.sides_ = hasBottomShadow ?
+                [CrContainerShadowSide.TOP, CrContainerShadowSide.BOTTOM] :
+                [CrContainerShadowSide.TOP];
+            this.sides_.forEach(side => {
+                // The element holding the drop shadow effect to be shown.
+                const shadow = document.createElement('div');
+                shadow.id = `cr-container-shadow-${side}`;
+                shadow.classList.add('cr-container-shadow');
+                this.dropShadows_.set(side, shadow);
+                this.intersectionProbes_.set(side, document.createElement('div'));
+            });
+            this.getContainer_().parentNode.insertBefore(this.dropShadows_.get(CrContainerShadowSide.TOP), this.getContainer_());
+            this.getContainer_().prepend(this.intersectionProbes_.get(CrContainerShadowSide.TOP));
+            if (hasBottomShadow) {
+                this.getContainer_().parentNode.insertBefore(this.dropShadows_.get(CrContainerShadowSide.BOTTOM), this.getContainer_().nextSibling);
+                this.getContainer_().append(this.intersectionProbes_.get(CrContainerShadowSide.BOTTOM));
+            }
+            this.enableShadowBehavior(true);
+        }
+        disconnectedCallback() {
+            super.disconnectedCallback();
+            this.enableShadowBehavior(false);
+        }
+        getContainer_() {
+            return this.shadowRoot.querySelector('#container');
+        }
+        getIntersectionObserver_() {
+            const callback = (entries) => {
+                // In some rare cases, there could be more than one entry per
+                // observed element, in which case the last entry's result
+                // stands.
+                for (const entry of entries) {
+                    const target = entry.target;
+                    this.sides_.forEach(side => {
+                        if (target === this.intersectionProbes_.get(side)) {
+                            this.dropShadows_.get(side).classList.toggle('has-shadow', entry.intersectionRatio === 0);
+                        }
+                    });
+                }
+            };
+            return new IntersectionObserver(callback, { root: this.getContainer_(), threshold: 0 });
+        }
+        /**
+         * @param enable Whether to enable the mixin or disable it.
+         *     This function does nothing if the mixin is already in the
+         *     requested state.
+         */
+        enableShadowBehavior(enable) {
+            // Behavior is already enabled/disabled. Return early.
+            if (enable === !!this.intersectionObserver_) {
+                return;
+            }
+            if (!enable) {
+                this.intersectionObserver_.disconnect();
+                this.intersectionObserver_ = null;
+                return;
+            }
+            this.intersectionObserver_ = this.getIntersectionObserver_();
+            // Need to register the observer within a setTimeout() callback,
+            // otherwise the drop shadow flashes once on startup, because of the
+            // DOM modifications earlier in this function causing a relayout.
+            window.setTimeout(() => {
+                if (this.intersectionObserver_) {
+                    // In case this is already detached.
+                    this.intersectionProbes_.forEach(probe => {
+                        this.intersectionObserver_.observe(probe);
+                    });
+                }
+            });
+        }
+        /**
+         * Shows the shadows. The shadow mixin must be disabled before
+         * calling this method, otherwise the intersection observer might
+         * show the shadows again.
+         */
+        showDropShadows() {
+            assert$1(!this.intersectionObserver_);
+            assert$1(this.sides_);
+            for (const side of this.sides_) {
+                this.dropShadows_.get(side).classList.toggle('has-shadow', true);
+            }
+        }
+    }
+    return CrContainerShadowMixin;
+});
+
+function getTemplate$D() {
+    return html `<!--_html_template_start_-->    <style include="cr-hidden-style cr-icons">dialog{--scroll-border-color:var(--paper-grey-300);--scroll-border:1px solid var(--scroll-border-color);background-color:var(--cr-dialog-background-color,#fff);border:0;border-radius:var(--cr-dialog-border-radius,8px);bottom:50%;box-shadow:0 0 16px rgba(0,0,0,.12),0 16px 16px rgba(0,0,0,.24);color:inherit;max-height:initial;max-width:initial;overflow-y:hidden;padding:0;position:absolute;top:50%;width:var(--cr-dialog-width,512px)}@media (prefers-color-scheme:dark){dialog{--scroll-border-color:var(--google-grey-700);background-color:var(--cr-dialog-background-color,var(--google-grey-900));background-image:linear-gradient(rgba(255,255,255,.04),rgba(255,255,255,.04))}}@media (forced-colors:active){dialog{border:var(--cr-border-hcm)}}dialog[open] #content-wrapper{display:flex;flex-direction:column;max-height:100vh;overflow:auto}.top-container,:host ::slotted([slot=button-container]),:host ::slotted([slot=footer]){flex-shrink:0}dialog::backdrop{background-color:rgba(0,0,0,.6);bottom:0;left:0;position:fixed;right:0;top:0}:host ::slotted([slot=body]){color:var(--cr-secondary-text-color);padding:0 var(--cr-dialog-body-padding-horizontal,20px)}:host ::slotted([slot=title]){color:var(--cr-primary-text-color);flex:1;font-family:var(--cr-dialog-font-family,inherit);font-size:var(--cr-dialog-title-font-size,calc(15 / 13 * 100%));line-height:1;padding-bottom:var(--cr-dialog-title-slot-padding-bottom,16px);padding-inline-end:var(--cr-dialog-title-slot-padding-end,20px);padding-inline-start:var(--cr-dialog-title-slot-padding-start,20px);padding-top:var(--cr-dialog-title-slot-padding-top,20px)}:host ::slotted([slot=button-container]){display:flex;justify-content:flex-end;padding-bottom:var(--cr-dialog-button-container-padding-bottom,16px);padding-inline-end:var(--cr-dialog-button-container-padding-horizontal,16px);padding-inline-start:var(--cr-dialog-button-container-padding-horizontal,16px);padding-top:var(--cr-dialog-button-container-padding-top,16px)}:host ::slotted([slot=footer]){border-bottom-left-radius:inherit;border-bottom-right-radius:inherit;border-top:1px solid #dbdbdb;margin:0;padding:16px 20px}:host([hide-backdrop]) dialog::backdrop{opacity:0}@media (prefers-color-scheme:dark){:host ::slotted([slot=footer]){border-top-color:var(--cr-separator-color)}}.body-container{box-sizing:border-box;display:flex;flex-direction:column;min-height:1.375rem;overflow:auto}:host{--transparent-border:1px solid transparent}#cr-container-shadow-top{border-bottom:var(--cr-dialog-body-border-top,var(--transparent-border))}#cr-container-shadow-bottom{border-bottom:var(--cr-dialog-body-border-bottom,var(--transparent-border))}#cr-container-shadow-bottom.has-shadow,#cr-container-shadow-top.has-shadow{border-bottom:var(--scroll-border)}.top-container{align-items:flex-start;display:flex;min-height:var(--cr-dialog-top-container-min-height,31px)}.title-container{display:flex;flex:1;font-size:inherit;font-weight:inherit;margin:0;outline:0}#close{align-self:flex-start;margin-inline-end:4px;margin-top:4px}</style>
+    <dialog id="dialog" on-close="onNativeDialogClose_" on-cancel="onNativeDialogCancel_" part="dialog" aria-labelledby="title" aria-description$="[[ariaDescriptionText]]">
+    
+      <div id="content-wrapper" part="wrapper">
+        <div class="top-container">
+          <h2 id="title" class="title-container" tabindex="-1">
+            <slot name="title"></slot>
+          </h2>
+          <cr-icon-button id="close" class="icon-clear" hidden$="[[!showCloseButton]]" aria-label$="[[closeText]]" on-click="cancel" on-keypress="onCloseKeypress_">
+          </cr-icon-button>
+        </div>
+        <slot name="header"></slot>
+        <div class="body-container" id="container" show-bottom-shadow part="body-container">
+          <slot name="body"></slot>
+        </div>
+        <slot name="button-container"></slot>
+        <slot name="footer"></slot>
+      </div>
+    </dialog>
+<!--_html_template_end_-->`;
+}
+
+// Copyright 2016 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview 'cr-dialog' is a component for showing a modal dialog. If the
+ * dialog is closed via close(), a 'close' event is fired. If the dialog is
+ * canceled via cancel(), a 'cancel' event is fired followed by a 'close' event.
+ *
+ * Additionally clients can get a reference to the internal native <dialog> via
+ * calling getNative() and inspecting the |returnValue| property inside
+ * the 'close' event listener to determine whether it was canceled or just
+ * closed, where a truthy value means success, and a falsy value means it was
+ * canceled.
+ *
+ * Note that <cr-dialog> wrapper itself always has 0x0 dimensions, and
+ * specifying width/height on <cr-dialog> directly will have no effect on the
+ * internal native <dialog>. Instead use cr-dialog::part(dialog) to specify
+ * width/height (as well as other available mixins to style other parts of the
+ * dialog contents).
+ */
+const CrDialogElementBase = CrContainerShadowMixin(PolymerElement);
+class CrDialogElement extends CrDialogElementBase {
+    constructor() {
+        super(...arguments);
+        this.intersectionObserver_ = null;
+        this.mutationObserver_ = null;
+        this.boundKeydown_ = null;
+    }
+    static get is() {
+        return 'cr-dialog';
+    }
+    static get template() {
+        return getTemplate$D();
+    }
+    static get properties() {
+        return {
+            open: {
+                type: Boolean,
+                value: false,
+                reflectToAttribute: true,
+            },
+            /**
+             * Alt-text for the dialog close button.
+             */
+            closeText: String,
+            /**
+             * True if the dialog should remain open on 'popstate' events. This is
+             * used for navigable dialogs that have their separate navigation handling
+             * code.
+             */
+            ignorePopstate: {
+                type: Boolean,
+                value: false,
+            },
+            /**
+             * True if the dialog should ignore 'Enter' keypresses.
+             */
+            ignoreEnterKey: {
+                type: Boolean,
+                value: false,
+            },
+            /**
+             * True if the dialog should consume 'keydown' events. If ignoreEnterKey
+             * is true, 'Enter' key won't be consumed.
+             */
+            consumeKeydownEvent: {
+                type: Boolean,
+                value: false,
+            },
+            /**
+             * True if the dialog should not be able to be cancelled, which will
+             * prevent 'Escape' key presses from closing the dialog.
+             */
+            noCancel: {
+                type: Boolean,
+                value: false,
+            },
+            // True if dialog should show the 'X' close button.
+            showCloseButton: {
+                type: Boolean,
+                value: false,
+            },
+            showOnAttach: {
+                type: Boolean,
+                value: false,
+            },
+            /**
+             * Text for the aria description.
+             */
+            ariaDescriptionText: String,
+        };
+    }
+    ready() {
+        super.ready();
+        // If the active history entry changes (i.e. user clicks back button),
+        // all open dialogs should be cancelled.
+        window.addEventListener('popstate', () => {
+            if (!this.ignorePopstate && this.$.dialog.open) {
+                this.cancel();
+            }
+        });
+        if (!this.ignoreEnterKey) {
+            this.addEventListener('keypress', this.onKeypress_.bind(this));
+        }
+        this.addEventListener('pointerdown', e => this.onPointerdown_(e));
+    }
+    connectedCallback() {
+        super.connectedCallback();
+        const mutationObserverCallback = () => {
+            if (this.$.dialog.open) {
+                this.enableShadowBehavior(true);
+                this.addKeydownListener_();
+            }
+            else {
+                this.enableShadowBehavior(false);
+                this.removeKeydownListener_();
+            }
+        };
+        this.mutationObserver_ = new MutationObserver(mutationObserverCallback);
+        this.mutationObserver_.observe(this.$.dialog, {
+            attributes: true,
+            attributeFilter: ['open'],
+        });
+        // In some cases dialog already has the 'open' attribute by this point.
+        mutationObserverCallback();
+        if (this.showOnAttach) {
+            this.showModal();
+        }
+    }
+    disconnectedCallback() {
+        super.disconnectedCallback();
+        this.removeKeydownListener_();
+        if (this.mutationObserver_) {
+            this.mutationObserver_.disconnect();
+            this.mutationObserver_ = null;
+        }
+    }
+    addKeydownListener_() {
+        if (!this.consumeKeydownEvent) {
+            return;
+        }
+        this.boundKeydown_ = this.boundKeydown_ || this.onKeydown_.bind(this);
+        this.addEventListener('keydown', this.boundKeydown_);
+        // Sometimes <body> is key event's target and in that case the event
+        // will bypass cr-dialog. We should consume those events too in order to
+        // behave modally. This prevents accidentally triggering keyboard commands.
+        document.body.addEventListener('keydown', this.boundKeydown_);
+    }
+    removeKeydownListener_() {
+        if (!this.boundKeydown_) {
+            return;
+        }
+        this.removeEventListener('keydown', this.boundKeydown_);
+        document.body.removeEventListener('keydown', this.boundKeydown_);
+        this.boundKeydown_ = null;
+    }
+    showModal() {
+        this.$.dialog.showModal();
+        assert$1(this.$.dialog.open);
+        this.open = true;
+        this.dispatchEvent(new CustomEvent('cr-dialog-open', { bubbles: true, composed: true }));
+    }
+    cancel() {
+        this.dispatchEvent(new CustomEvent('cancel', { bubbles: true, composed: true }));
+        this.$.dialog.close();
+        assert$1(!this.$.dialog.open);
+        this.open = false;
+    }
+    close() {
+        this.$.dialog.close('success');
+        assert$1(!this.$.dialog.open);
+        this.open = false;
+    }
+    /**
+     * Set the title of the dialog for a11y reader.
+     * @param title Title of the dialog.
+     */
+    setTitleAriaLabel(title) {
+        this.$.dialog.removeAttribute('aria-labelledby');
+        this.$.dialog.setAttribute('aria-label', title);
+    }
+    onCloseKeypress_(e) {
+        // Because the dialog may have a default Enter key handler, prevent
+        // keypress events from bubbling up from this element.
+        e.stopPropagation();
+    }
+    onNativeDialogClose_(e) {
+        // Ignore any 'close' events not fired directly by the <dialog> element.
+        if (e.target !== this.getNative()) {
+            return;
+        }
+        // Catch and re-fire the 'close' event such that it bubbles across Shadow
+        // DOM v1.
+        this.dispatchEvent(new CustomEvent('close', { bubbles: true, composed: true }));
+    }
+    onNativeDialogCancel_(e) {
+        // Ignore any 'cancel' events not fired directly by the <dialog> element.
+        if (e.target !== this.getNative()) {
+            return;
+        }
+        if (this.noCancel) {
+            e.preventDefault();
+            return;
+        }
+        // When the dialog is dismissed using the 'Esc' key, need to manually update
+        // the |open| property (since close() is not called).
+        this.open = false;
+        // Catch and re-fire the native 'cancel' event such that it bubbles across
+        // Shadow DOM v1.
+        this.dispatchEvent(new CustomEvent('cancel', { bubbles: true, composed: true }));
+    }
+    /**
+     * Expose the inner native <dialog> for some rare cases where it needs to be
+     * directly accessed (for example to programmatically setheight/width, which
+     * would not work on the wrapper).
+     */
+    getNative() {
+        return this.$.dialog;
+    }
+    onKeypress_(e) {
+        if (e.key !== 'Enter') {
+            return;
+        }
+        // Accept Enter keys from either the dialog itself, or a child cr-input,
+        // considering that the event may have been retargeted, for example if the
+        // cr-input is nested inside another element. Also exclude inputs of type
+        // 'search', since hitting 'Enter' on a search field most likely intends to
+        // trigger searching.
+        const accept = e.target === this ||
+            e.composedPath().some(el => el.tagName === 'CR-INPUT' &&
+                el.type !== 'search');
+        if (!accept) {
+            return;
+        }
+        const actionButton = this.querySelector('.action-button:not([disabled]):not([hidden])');
+        if (actionButton) {
+            actionButton.click();
+            e.preventDefault();
+        }
+    }
+    onKeydown_(e) {
+        assert$1(this.consumeKeydownEvent);
+        if (!this.getNative().open) {
+            return;
+        }
+        if (this.ignoreEnterKey && e.key === 'Enter') {
+            return;
+        }
+        // Stop propagation to behave modally.
+        e.stopPropagation();
+    }
+    onPointerdown_(e) {
+        // Only show pulse animation if user left-clicked outside of the dialog
+        // contents.
+        if (e.button !== 0 ||
+            e.composedPath()[0].tagName !== 'DIALOG') {
+            return;
+        }
+        this.$.dialog.animate([
+            { transform: 'scale(1)', offset: 0 },
+            { transform: 'scale(1.02)', offset: 0.4 },
+            { transform: 'scale(1.02)', offset: 0.6 },
+            { transform: 'scale(1)', offset: 1 },
+        ], {
+            duration: 180,
+            easing: 'ease-in-out',
+            iterations: 1,
+        });
+        // Prevent any text from being selected within the dialog when clicking in
+        // the backdrop area.
+        e.preventDefault();
+    }
+    focus() {
+        const titleContainer = this.shadowRoot.querySelector('.title-container');
+        assert$1(titleContainer);
+        titleContainer.focus();
+    }
+}
+customElements.define(CrDialogElement.is, CrDialogElement);
+
+function getTemplate$C() {
+    return html `<!--_html_template_start_--><style include="common cros-button-style">:host{--cros-tab-slider-track-color:var(--cros-button-stroke-color-secondary)}cr-dialog::part(dialog){padding-bottom:28px;width:642px}@media (max-width:650px){cr-dialog::part(dialog){width:560px}}#zoneSelector{background-color:var(--cros-tab-slider-track-color);border-radius:24px;column-gap:2px;display:grid;grid-template-columns:repeat(auto-fit,minmax(0,1fr));grid-template-rows:minmax(0,1fr);margin-block-end:28px;margin-block-start:2px;width:100%}paper-ripple{border-radius:24px;--paper-ripple-opacity:var(--cros-button-primary-ripple-opacity)}.zone-tab[aria-selected=false] paper-ripple{color:var(--cros-sys-ripple_neutral_on_subtle)}.zone-tab[aria-selected=true] paper-ripple{color:var(--cros-sys-ripple_primary)}.zone-tab{-webkit-tap-highlight-color:transparent;border:2px solid var(--cros-tab-slider-track-color);border-radius:24px;box-sizing:border-box;color:var(--cros-sys-secondary,var(--cros-button-label-color-secondary));cursor:pointer;font:var(--cros-button-2-font);height:100%;padding:6px 0 6px 0;position:relative;width:100%}.zone-tab[aria-selected=true]{background-color:var(--cros-sys-primary,var(--cros-button-background-color-primary));color:var(--cros-sys-on_primary,var(--cros-button-label-color-primary))}.zone-tab[aria-selected=false]:hover{background-color:var(--cros-sys-hover_on_subtle,var(--cros-ripple-color));color:var(--cros-sys-on_surface)}.zone-title-container{align-items:center;display:grid;grid-template-columns:auto minmax(0,1fr);height:100%;width:100%}.zone-title-container>color-icon{height:auto;margin-inline-start:8px;width:auto}#zoneTitle{margin-inline:4px 8px;text-align:center;word-break:break-all;word-wrap:break-word}#zoneSelector:focus-visible,color-selector:focus-visible{outline:0}.zone-tab:focus-visible{outline:2px solid var(--cros-focus-ring-color)}</style>
+<cr-dialog id="dialog" show-on-attach>
+  <div slot="body" aria-label=" ">
+    <iron-a11y-keys id="zoneKeys" keys="left right enter" on-keys-pressed="onZoneKeysPress_">
+    </iron-a11y-keys>
+    <iron-selector id="zoneSelector" selected="0" selected-item="{{ironSelectedZone_}}" aria-label$="[[getZoneTabListAriaLabel_()]]" role="tablist">
+      <template is="dom-repeat" items="[[zoneIdxs_]]" as="zoneIdx">
+        <div id$="[[zoneIdx]]" class="zone-tab" tabindex$="[[getZoneTabIndex_(zoneIdx, zoneSelected_)]]" data-zone-idx$="[[zoneIdx]]" on-click="onClickZoneTab_" aria-description$="[[getZoneColorDescription_(zoneIdx, zoneColors_)]]" aria-selected$="[[getZoneAriaSelected_(zoneIdx, zoneSelected_)]]" role="tab">
+          <paper-ripple fit></paper-ripple>
+          <div class="zone-title-container">
+            <color-icon color-id="[[getColorId_(zoneIdx, zoneColors_)]]"></color-icon>
+            <div id="zoneTitle">[[getZoneTitle_(zoneIdx)]]</div>
+          </div>
+        </div>
+      </template>
+    </iron-selector>
+    <color-selector is-customized-dialog selected-color="[[getSelectedColor_(zoneSelected_, zoneColors_)]]" on-wallpaper-color-selected="onWallpaperColorSelected_" on-preset-color-selected="onPresetColorSelected_" role="tabpanel">
+      <div slot="button-container" class="customization-button-container">
+        <cr-button class="primary action-button" id="dialogCloseButton" on-click="onClickCloseDialog_">
+          $i18n{dismissButtonText}
+        </cr-button>
+      </div>
+    </color-selector>
+  </div>
+</cr-dialog>
+<!--_html_template_end_-->`;
+}
+
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview
+ * The zone customization dialog that allows users to customize the rgb keyboard
+ * zone color.
+ */
+class ZoneCustomizationElement extends WithPersonalizationStore {
+    static get is() {
+        return 'zone-customization';
+    }
+    static get template() {
+        return getTemplate$C();
+    }
+    static get properties() {
+        return {
+            zoneSelected_: {
+                type: Number,
+                value: 0,
+            },
+            /** The currently selected zone index. */
+            ironSelectedZone_: Object,
+            /** The current backlight state in the system. */
+            currentBacklightState_: Object,
+            /** The current backlight zone colors. */
+            zoneColors_: {
+                type: Array,
+                computed: 'computeZoneColors_(currentBacklightState_, zoneCount_)',
+            },
+            /** Number of zones available for customization */
+            zoneCount_: {
+                type: Number,
+                value() {
+                    return loadTimeData.getInteger('keyboardBacklightZoneCount');
+                },
+            },
+            /** The zone indexes (of zoneColors_) to indicate the zone number. */
+            zoneIdxs_: {
+                type: Array,
+                computed: 'computeZoneIdxs_(zoneCount_)',
+            },
+        };
+    }
+    ready() {
+        super.ready();
+        this.$.zoneKeys.target = this.$.zoneSelector;
+        // Scroll to the top of the page to view the zone customization dialog.
+        window.scrollTo(0, 0);
+    }
+    connectedCallback() {
+        super.connectedCallback();
+        this.watch('currentBacklightState_', state => state.keyboardBacklight.currentBacklightState);
+        this.updateFromStore();
+        // Set focus on the currently selected zone to overwrite the default focus
+        // on the dialog title.
+        afterNextRender(this, () => {
+            const selectedZoneElem = this.shadowRoot.querySelector('.zone-tab[aria-selected=true]');
+            if (selectedZoneElem) {
+                selectedZoneElem.focus();
+            }
+        });
+    }
+    computeZoneIdxs_() {
+        return [...Array(this.zoneCount_).keys()];
+    }
+    computeZoneColors_() {
+        if (this.currentBacklightState_ && this.currentBacklightState_.zoneColors) {
+            return this.currentBacklightState_.zoneColors;
+        }
+        else if (this.currentBacklightState_ &&
+            this.currentBacklightState_.color !== undefined) {
+            return Array(this.zoneCount_).fill(this.currentBacklightState_.color);
+        }
+        return null;
+    }
+    /** Handle keyboard navigation. */
+    onZoneKeysPress_(e) {
+        const selector = this.$.zoneSelector;
+        const prevButton = this.ironSelectedZone_;
+        switch (e.detail.key) {
+            case 'left':
+                selector.selectPrevious();
+                break;
+            case 'right':
+                selector.selectNext();
+                break;
+            case 'enter':
+                this.zoneSelected_ = Number(this.ironSelectedZone_.id);
+                break;
+            default:
+                return;
+        }
+        // Remove focus state of previous button.
+        if (prevButton) {
+            prevButton.removeAttribute('tabindex');
+        }
+        // Add focus state for new button.
+        if (this.ironSelectedZone_) {
+            this.ironSelectedZone_.setAttribute('tabindex', '0');
+            this.ironSelectedZone_.focus();
+        }
+        e.detail.keyboardEvent.preventDefault();
+    }
+    onClickZoneTab_(event) {
+        if (!isSelectionEvent$1(event)) {
+            return;
+        }
+        const eventTarget = event.currentTarget;
+        this.zoneSelected_ = Number(eventTarget.dataset['zoneIdx']);
+    }
+    onWallpaperColorSelected_() {
+        if (!this.zoneColors_) {
+            return;
+        }
+        const currentColor = this.getSelectedColor_(this.zoneSelected_, this.zoneColors_);
+        if (currentColor === BacklightColor.kRainbow) {
+            setPreRainbowBacklightZoneColor(this.zoneSelected_, BacklightColor.kWallpaper, this.zoneColors_, getKeyboardBacklightProvider(), this.getStore());
+            return;
+        }
+        if (currentColor !== BacklightColor.kWallpaper) {
+            setBacklightZoneColor(this.zoneSelected_, BacklightColor.kWallpaper, this.zoneColors_, getKeyboardBacklightProvider(), this.getStore());
+        }
+    }
+    onPresetColorSelected_(e) {
+        if (!this.zoneColors_) {
+            return;
+        }
+        const currentColor = this.getSelectedColor_(this.zoneSelected_, this.zoneColors_);
+        const colorId = e.detail.colorId;
+        assert$1(colorId !== undefined, 'colorId not found');
+        const newColor = getPresetColors()[colorId].enumVal;
+        if (currentColor === BacklightColor.kRainbow) {
+            setPreRainbowBacklightZoneColor(this.zoneSelected_, newColor, this.zoneColors_, getKeyboardBacklightProvider(), this.getStore());
+            return;
+        }
+        if (currentColor !== newColor) {
+            setBacklightZoneColor(this.zoneSelected_, newColor, this.zoneColors_, getKeyboardBacklightProvider(), this.getStore());
+        }
+    }
+    getZoneTabIndex_(zoneIdx, zoneSelected) {
+        // Set only the currently selected zone to be tabbable (tabindex="0") and
+        // others are not tabbable (tabindex="-1") by default.
+        return zoneIdx === zoneSelected ? '0' : '-1';
+    }
+    getZoneTabListAriaLabel_() {
+        return this.i18n('keyboardZonesTitle');
+    }
+    getZoneColorDescription_(zoneSelected, zoneColors) {
+        const zoneColorId = this.getColorId_(zoneSelected, zoneColors);
+        return zoneColorId ? this.i18n(zoneColorId) : '';
+    }
+    getZoneAriaSelected_(zoneIdx, zoneSelected) {
+        return (zoneIdx === zoneSelected).toString();
+    }
+    getZoneTitle_(zoneIdx) {
+        return loadTimeData.getStringF('zoneTitle', zoneIdx + 1);
+    }
+    getSelectedColor_(zoneSelected, zoneColors) {
+        return zoneColors ? zoneColors[zoneSelected] : null;
+    }
+    // Returns the matching colorId for each zone based on its zone color.
+    getColorId_(zoneIdx, zoneColors) {
+        if (!zoneColors) {
+            return null;
+        }
+        const zoneColor = zoneColors[zoneIdx];
+        if (zoneColor === BacklightColor.kRainbow) {
+            return RAINBOW;
+        }
+        // BacklightColor value matches with the index of staticColorIds.
+        // Ex: zoneColor value is BacklightColor.kGreen or 4, corresponding to
+        // staticColorIds[4] which is GREEN.
+        return staticColorIds[zoneColor];
+    }
+    onClickCloseDialog_() {
+        this.$.dialog.cancel();
+    }
+}
+customElements.define(ZoneCustomizationElement.is, ZoneCustomizationElement);
+
+// Copyright 2021 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview a singleton getter for the theme mojom interface used in
+ * the Personalization SWA. Also contains utility functions around fetching
+ * mojom data and mocking out the implementation for testing.
+ */
+let themeProvider = null;
+function setThemeProviderForTesting(testProvider) {
+    themeProvider = testProvider;
+}
+/** Returns a singleton for the ThemeProvider mojom interface. */
+function getThemeProvider() {
+    if (!themeProvider) {
+        themeProvider = ThemeProvider.getRemote();
+    }
+    return themeProvider;
+}
+
+// Copyright 2020 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * Converts an SkColor object to a string in the form
+ * "rgba(<red>, <green>, <blue>, <alpha>)".
+ * @param skColor The input color.
+ * @return The rgba string.
+ */
+/**
+ * Converts a string of the form "#rrggbb" to an SkColor object.
+ * @param hexColor The color string.
+ * @return The SkColor object,
+ */
+function hexColorToSkColor(hexColor) {
+    if (!/^#[0-9a-f]{6}$/.test(hexColor)) {
+        return { value: 0 };
+    }
+    const r = parseInt(hexColor.substring(1, 3), 16);
+    const g = parseInt(hexColor.substring(3, 5), 16);
+    const b = parseInt(hexColor.substring(5, 7), 16);
+    return { value: 0xff000000 + (r << 16) + (g << 8) + b };
+}
+
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview Utility functions to be used for theme related components.
+ */
+function isAutomaticSeedColorEnabled(colorScheme) {
+    return colorScheme === null || colorScheme !== ColorScheme.kStatic;
+}
+const DEFAULT_STATIC_COLOR = hexColorToSkColor('#4285f4');
+const DEFAULT_COLOR_SCHEME = ColorScheme.kTonalSpot;
+
+// Copyright 2021 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview provides useful functions for e2e browsertests.
+ */
+function enterFullscreen() {
+    const store = PersonalizationStore.getInstance();
+    assert$1(!!store);
+    store.dispatch(setFullscreenEnabledAction(true));
+}
+function makeTransparent() {
+    const wallpaperProvider = getWallpaperProvider();
+    wallpaperProvider.makeTransparent();
+}
+// Reset to a default state at the root of the app. Useful for browsertests.
+async function reset() {
+    const wallpaperProvider = getWallpaperProvider();
+    await wallpaperProvider.selectDefaultImage();
+    if (isPersonalizationJellyEnabled()) {
+        // Turn on dynamic color with default scheme.
+        const themeProvider = getThemeProvider();
+        themeProvider.setColorScheme(DEFAULT_COLOR_SCHEME);
+        const { colorScheme } = await themeProvider.getColorScheme();
+        assert$1(colorScheme === DEFAULT_COLOR_SCHEME, 'reset to default color scheme');
+    }
+    const router = PersonalizationRouterElement.instance();
+    router.goToRoute(Paths.ROOT);
+}
+async function selectTimeOfDayWallpaper() {
+    assert$1(isTimeOfDayWallpaperEnabled(), 'time of day must be enabled');
+    const store = PersonalizationStore.getInstance();
+    assert$1(!!store);
+    const id = loadTimeData.getString('timeOfDayWallpaperCollectionId');
+    const images = store.data.wallpaper.backdrop.images[id];
+    assert$1(isNonEmptyArray(images), 'time of day collection images must exist');
+    const image = images[0];
+    await selectWallpaper(image, getWallpaperProvider(), store);
+}
+async function enableDailyRefresh(collectionId) {
+    const store = PersonalizationStore.getInstance();
+    assert$1(!!store);
+    await setDailyRefreshCollectionId(collectionId, getWallpaperProvider(), store);
+}
+async function disableDailyRefresh() {
+    const store = PersonalizationStore.getInstance();
+    assert$1(!!store);
+    await setDailyRefreshCollectionId('', getWallpaperProvider(), store);
+}
+async function enableDailyGooglePhotosRefresh(albumId) {
+    const store = PersonalizationStore.getInstance();
+    assert$1(!!store);
+    await selectGooglePhotosAlbum(albumId, getWallpaperProvider(), store);
+}
+window.personalizationTestApi = {
+    enterFullscreen,
+    isGooglePhotosIntegrationEnabled,
+    makeTransparent,
+    reset,
+    selectTimeOfDayWallpaper,
+    enableDailyRefresh,
+    disableDailyRefresh,
+    enableDailyGooglePhotosRefresh,
+};
+
+// Copyright 2012 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * The class name to set on the document element.
+ */
+const CLASS_NAME = 'focus-outline-visible';
+const docsToManager = new Map();
+/**
+ * This class sets a CSS class name on the HTML element of |doc| when the user
+ * presses a key. It removes the class name when the user clicks anywhere.
+ *
+ * This allows you to write CSS like this:
+ *
+ * html.focus-outline-visible my-element:focus {
+ *   outline: 5px auto -webkit-focus-ring-color;
+ * }
+ *
+ * And the outline will only be shown if the user uses the keyboard to get to
+ * it.
+ *
+ */
+class FocusOutlineManager {
+    // Whether focus change is triggered by a keyboard event.
+    focusByKeyboard_ = true;
+    classList_;
+    /**
+     * @param doc The document to attach the focus outline manager to.
+     */
+    constructor(doc) {
+        this.classList_ = doc.documentElement.classList;
+        doc.addEventListener('keydown', (e) => this.onEvent_(true, e), true);
+        doc.addEventListener('mousedown', (e) => this.onEvent_(false, e), true);
+        this.updateVisibility();
+    }
+    onEvent_(focusByKeyboard, e) {
+        if (this.focusByKeyboard_ === focusByKeyboard) {
+            return;
+        }
+        if (e instanceof KeyboardEvent && e.repeat) {
+            // A repeated keydown should not trigger the focus state. For example,
+            // there is a repeated ALT keydown if ALT+CLICK is used to open the
+            // context menu and ALT is not released.
+            return;
+        }
+        this.focusByKeyboard_ = focusByKeyboard;
+        this.updateVisibility();
+    }
+    updateVisibility() {
+        this.visible = this.focusByKeyboard_;
+    }
+    /**
+     * Whether the focus outline should be visible.
+     */
+    set visible(visible) {
+        this.classList_.toggle(CLASS_NAME, visible);
+    }
+    get visible() {
+        return this.classList_.contains(CLASS_NAME);
+    }
+    /**
+     * Gets a per document singleton focus outline manager.
+     * @param doc The document to get the |FocusOutlineManager| for.
+     * @return The per document singleton focus outline manager.
+     */
+    static forDocument(doc) {
+        let manager = docsToManager.get(doc);
+        if (!manager) {
+            manager = new FocusOutlineManager(doc);
+            docsToManager.set(doc, manager);
+        }
+        return manager;
+    }
+}
+
+function getTemplate$B() {
+    return html `<!--_html_template_start_-->    <style include="cr-hidden-style">:host{--active-shadow-rgb:var(--google-grey-800-rgb);--active-shadow-action-rgb:var(--google-blue-500-rgb);--bg-action:var(--google-blue-600);--border-color:var(--google-grey-300);--disabled-bg-action:var(--google-grey-100);--disabled-bg:white;--disabled-border-color:var(--google-grey-100);--disabled-text-color:var(--google-grey-600);--focus-shadow-color:rgba(var(--google-blue-600-rgb), .4);--hover-bg-action:rgba(var(--google-blue-600-rgb), .9);--hover-bg-color:rgba(var(--google-blue-500-rgb), .04);--hover-border-color:var(--google-blue-100);--hover-shadow-action-rgb:var(--google-blue-500-rgb);--ink-color-action:white;--ink-color:var(--google-blue-600);--ripple-opacity-action:.32;--ripple-opacity:.1;--text-color-action:white;--text-color:var(--google-blue-600)}@media (prefers-color-scheme:dark){:host{--active-bg:black linear-gradient(rgba(255, 255, 255, .06),
+                                             rgba(255, 255, 255, .06));--active-shadow-rgb:0,0,0;--active-shadow-action-rgb:var(--google-blue-500-rgb);--bg-action:var(--google-blue-300);--border-color:var(--google-grey-700);--disabled-bg-action:var(--google-grey-800);--disabled-bg:transparent;--disabled-border-color:var(--google-grey-800);--disabled-text-color:var(--google-grey-500);--focus-shadow-color:rgba(var(--google-blue-300-rgb), .5);--hover-bg-action:var(--bg-action) linear-gradient(rgba(0, 0, 0, .08), rgba(0, 0, 0, .08));--hover-bg-color:rgba(var(--google-blue-300-rgb), .08);--ink-color-action:black;--ink-color:var(--google-blue-300);--ripple-opacity-action:.16;--ripple-opacity:.16;--text-color-action:var(--google-grey-900);--text-color:var(--google-blue-300)}}:host{--paper-ripple-opacity:var(--ripple-opacity);-webkit-tap-highlight-color:transparent;align-items:center;border:1px solid var(--border-color);border-radius:4px;box-sizing:border-box;color:var(--text-color);cursor:pointer;display:inline-flex;flex-shrink:0;font-weight:500;height:var(--cr-button-height);justify-content:center;min-width:5.14em;outline-width:0;overflow:hidden;padding:8px 16px;position:relative;user-select:none}:host-context([chrome-refresh-2023]):host{--border-color:var(--color-button-border,
+            var(--cr-fallback-color-tonal-outline));--text-color:var(--color-button-foreground,
+            var(--cr-fallback-color-primary));--hover-bg-color:transparent;--hover-border-color:var(--border-color);--active-bg:transparent;--active-shadow:none;--ink-color:var(--cr-active-background-color);--ripple-opacity:1;--disabled-bg:transparent;--disabled-border-color:var(--color-button-border-disabled,
+            var(--cr-fallback-color-disabled-background));--disabled-text-color:var(--color-button-foreground-disabled,
+            var(--cr-fallback-color-disabled-foreground));--bg-action:var(--color-button-background-prominent,
+            var(--cr-fallback-color-primary));--text-color-action:var(--color-button-foreground-prominent,
+            var(--cr-fallback-color-on-primary));--hover-bg-action:var(--bg-action);--active-shadow-action:none;--ink-color-action:var(--cr-active-background-color);--ripple-opacity-action:1;--disabled-bg-action:var(--color-button-background-prominent-disabled,
+            var(--cr-fallback-color-disabled-background));background:0 0;border-radius:100px;isolation:isolate;line-height:20px}:host([has-prefix-icon_]),:host([has-suffix-icon_]){--iron-icon-height:16px;--iron-icon-width:16px;gap:8px;padding:8px}:host-context([chrome-refresh-2023]):host([has-prefix-icon_]),:host-context([chrome-refresh-2023]):host([has-suffix-icon_]){--iron-icon-height:20px;--iron-icon-width:20px;--icon-block-padding-large:16px;--icon-block-padding-small:12px;padding-block-end:8px;padding-block-start:8px}:host-context([chrome-refresh-2023]):host([has-prefix-icon_]){padding-inline-end:var(--icon-block-padding-large);padding-inline-start:var(--icon-block-padding-small)}:host-context([chrome-refresh-2023]):host([has-suffix-icon_]){padding-inline-end:var(--icon-block-padding-small);padding-inline-start:var(--icon-block-padding-large)}:host-context(.focus-outline-visible):host(:focus){box-shadow:0 0 0 2px var(--focus-shadow-color)}@media (forced-colors:active){:host-context(.focus-outline-visible):host(:focus){outline:var(--cr-focus-outline-hcm)}:host-context([chrome-refresh-2023]):host{forced-color-adjust:none}}:host-context([chrome-refresh-2023].focus-outline-visible):host(:focus){box-shadow:none;outline:2px solid var(--cr-focus-outline-color);outline-offset:2px}:host(:active){background:var(--active-bg);box-shadow:var(--active-shadow,0 1px 2px 0 rgba(var(--active-shadow-rgb),.3),0 3px 6px 2px rgba(var(--active-shadow-rgb),.15))}:host(:hover){background-color:var(--hover-bg-color)}@media (prefers-color-scheme:light){:host(:hover){border-color:var(--hover-border-color)}}#background{border-radius:inherit;inset:0;pointer-events:none;position:absolute;z-index:0}:host-context([chrome-refresh-2023]):host(:hover) #background{background-color:var(--hover-bg-color)}:host-context([chrome-refresh-2023].focus-outline-visible):host(:focus) #background{background-clip:padding-box}:host-context([chrome-refresh-2023]):host(.action-button) #background{background-color:var(--bg-action)}:host-context([chrome-refresh-2023]):host([disabled]) #background{background-color:var(--disabled-bg)}:host-context([chrome-refresh-2023]):host(.action-button[disabled]) #background{background-color:var(--disabled-bg-action)}:host-context([chrome-refresh-2023]):host(.floating-button) #background,:host-context([chrome-refresh-2023]):host(.tonal-button) #background{background-color:var(--color-button-background-tonal,var(--cr-fallback-color-secondary-container))}:host-context([chrome-refresh-2023]):host([disabled].floating-button) #background,:host-context([chrome-refresh-2023]):host([disabled].tonal-button) #background{background-color:var(--color-button-background-tonal-disabled,var(--cr-fallback-color-disabled-background))}#content{display:contents}:host-context([chrome-refresh-2023]) #content{display:inline;z-index:2}:host-context([chrome-refresh-2023]) ::slotted(*){z-index:2}#hoverBackground{content:'';display:none;inset:0;pointer-events:none;position:absolute;z-index:1}:host-context([chrome-refresh-2023]):host(:hover) #hoverBackground{background:var(--cr-hover-background-color);display:block}:host-context([chrome-refresh-2023]):host(.action-button:hover) #hoverBackground{background:var(--cr-hover-on-prominent-background-color)}:host(.action-button){--ink-color:var(--ink-color-action);--paper-ripple-opacity:var(--ripple-opacity-action);background-color:var(--bg-action);border:none;color:var(--text-color-action)}:host-context([chrome-refresh-2023]):host(.action-button){--ink-color:var(--cr-active-on-primary-background-color);background-color:transparent}:host(.action-button:active){box-shadow:var(--active-shadow-action,0 1px 2px 0 rgba(var(--active-shadow-action-rgb),.3),0 3px 6px 2px rgba(var(--active-shadow-action-rgb),.15))}:host(.action-button:hover){background:var(--hover-bg-action)}@media (prefers-color-scheme:light){:host(.action-button:not(:active):hover){box-shadow:0 1px 2px 0 rgba(var(--hover-shadow-action-rgb),.3),0 1px 3px 1px rgba(var(--hover-shadow-action-rgb),.15)}:host-context([chrome-refresh-2023]):host(.action-button:not(:active):hover){box-shadow:none}}:host([disabled]){background-color:var(--disabled-bg);border-color:var(--disabled-border-color);color:var(--disabled-text-color);cursor:auto;pointer-events:none}:host(.action-button[disabled]){background-color:var(--disabled-bg-action);border-color:transparent}:host(.cancel-button){margin-inline-end:8px}:host(.action-button),:host(.cancel-button){line-height:154%}:host-context([chrome-refresh-2023]):host(.floating-button),:host-context([chrome-refresh-2023]):host(.tonal-button){border:none;color:var(--color-button-foreground-tonal,var(--cr-fallback-color-on-tonal-container))}:host-context([chrome-refresh-2023]):host(.floating-button[disabled]),:host-context([chrome-refresh-2023]):host(.tonal-button[disabled]){border:none;color:var(--disabled-text-color)}:host-context([chrome-refresh-2023]):host(.floating-button){border-radius:8px;height:40px;transition:box-shadow 80ms linear}:host-context([chrome-refresh-2023]):host(.floating-button:hover){box-shadow:var(--cr-elevation-3)}paper-ripple{color:var(--ink-color);height:var(--paper-ripple-height);left:var(--paper-ripple-left,0);top:var(--paper-ripple-top,0);width:var(--paper-ripple-width)}:host-context([chrome-refresh-2023]) paper-ripple{z-index:1}</style>
+
+    <div id="background"></div>
+    <slot id="prefixIcon" name="prefix-icon" on-slotchange="onPrefixIconSlotChanged_">
+    </slot>
+    <span id="content"><slot></slot></span>
+    <slot id="suffixIcon" name="suffix-icon" on-slotchange="onSuffixIconSlotChanged_">
+    </slot>
+    <div id="hoverBackground" part="hoverBackground"></div>
+<!--_html_template_end_-->`;
+}
+
+// Copyright 2019 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview 'cr-button' is a button which displays slotted elements. It can
+ * be interacted with like a normal button using click as well as space and
+ * enter to effectively click the button and fire a 'click' event. It can also
+ * style an icon inside of the button with the [has-icon] attribute.
+ */
+const CrButtonElementBase = mixinBehaviors([PaperRippleBehavior], PolymerElement);
+class CrButtonElement extends CrButtonElementBase {
+    static get is() {
+        return 'cr-button';
+    }
+    static get template() {
+        return getTemplate$B();
+    }
+    static get properties() {
+        return {
+            disabled: {
+                type: Boolean,
+                value: false,
+                reflectToAttribute: true,
+                observer: 'disabledChanged_',
+            },
+            /**
+             * Use this property in order to configure the "tabindex" attribute.
+             */
+            customTabIndex: {
+                type: Number,
+                observer: 'applyTabIndex_',
+            },
+            /**
+             * Flag used for formatting ripples on circle shaped cr-buttons.
+             * @private
+             */
+            circleRipple: {
+                type: Boolean,
+                value: false,
+            },
+            hasPrefixIcon_: {
+                type: Boolean,
+                reflectToAttribute: true,
+                value: false,
+            },
+            hasSuffixIcon_: {
+                type: Boolean,
+                reflectToAttribute: true,
+                value: false,
+            },
+        };
+    }
+    constructor() {
+        super();
+        /**
+         * It is possible to activate a tab when the space key is pressed down. When
+         * this element has focus, the keyup event for the space key should not
+         * perform a 'click'. |spaceKeyDown_| tracks when a space pressed and
+         * handled by this element. Space keyup will only result in a 'click' when
+         * |spaceKeyDown_| is true. |spaceKeyDown_| is set to false when element
+         * loses focus.
+         */
+        this.spaceKeyDown_ = false;
+        this.timeoutIds_ = new Set();
+        this.addEventListener('blur', this.onBlur_.bind(this));
+        // Must be added in constructor so that stopImmediatePropagation() works as
+        // expected.
+        this.addEventListener('click', this.onClick_.bind(this));
+        this.addEventListener('keydown', this.onKeyDown_.bind(this));
+        this.addEventListener('keyup', this.onKeyUp_.bind(this));
+        this.addEventListener('pointerdown', this.onPointerDown_.bind(this));
+    }
+    ready() {
+        super.ready();
+        if (!this.hasAttribute('role')) {
+            this.setAttribute('role', 'button');
+        }
+        if (!this.hasAttribute('tabindex')) {
+            this.setAttribute('tabindex', '0');
+        }
+        if (!this.hasAttribute('aria-disabled')) {
+            this.setAttribute('aria-disabled', this.disabled ? 'true' : 'false');
+        }
+        FocusOutlineManager.forDocument(document);
+    }
+    disconnectedCallback() {
+        super.disconnectedCallback();
+        this.timeoutIds_.forEach(clearTimeout);
+        this.timeoutIds_.clear();
+    }
+    setTimeout_(fn, delay) {
+        if (!this.isConnected) {
+            return;
+        }
+        const id = setTimeout(() => {
+            this.timeoutIds_.delete(id);
+            fn();
+        }, delay);
+        this.timeoutIds_.add(id);
+    }
+    disabledChanged_(newValue, oldValue) {
+        if (!newValue && oldValue === undefined) {
+            return;
+        }
+        if (this.disabled) {
+            this.blur();
+        }
+        this.setAttribute('aria-disabled', this.disabled ? 'true' : 'false');
+        this.applyTabIndex_();
+    }
+    /**
+     * Updates the tabindex HTML attribute to the actual value.
+     */
+    applyTabIndex_() {
+        let value = this.customTabIndex;
+        if (value === undefined) {
+            value = this.disabled ? -1 : 0;
+        }
+        this.setAttribute('tabindex', value.toString());
+    }
+    onBlur_() {
+        this.spaceKeyDown_ = false;
+        // If a keyup event is never fired (e.g. after keydown the focus is moved to
+        // another element), we need to clear the ripple here. 100ms delay was
+        // chosen manually as a good time period for the ripple to be visible.
+        this.setTimeout_(() => this.getRipple().uiUpAction(), 100);
+    }
+    onClick_(e) {
+        if (this.disabled) {
+            e.stopImmediatePropagation();
+        }
+    }
+    onPrefixIconSlotChanged_() {
+        this.hasPrefixIcon_ = this.$.prefixIcon.assignedElements().length > 0;
+    }
+    onSuffixIconSlotChanged_() {
+        this.hasSuffixIcon_ = this.$.suffixIcon.assignedElements().length > 0;
+    }
+    onKeyDown_(e) {
+        if (e.key !== ' ' && e.key !== 'Enter') {
+            return;
+        }
+        e.preventDefault();
+        e.stopPropagation();
+        if (e.repeat) {
+            return;
+        }
+        this.getRipple().uiDownAction();
+        if (e.key === 'Enter') {
+            this.click();
+            // Delay was chosen manually as a good time period for the ripple to be
+            // visible.
+            this.setTimeout_(() => this.getRipple().uiUpAction(), 100);
+        }
+        else if (e.key === ' ') {
+            this.spaceKeyDown_ = true;
+        }
+    }
+    onKeyUp_(e) {
+        if (e.key !== ' ' && e.key !== 'Enter') {
+            return;
+        }
+        e.preventDefault();
+        e.stopPropagation();
+        if (this.spaceKeyDown_ && e.key === ' ') {
+            this.spaceKeyDown_ = false;
+            this.click();
+            this.getRipple().uiUpAction();
+        }
+    }
+    onPointerDown_() {
+        this.ensureRipple();
+    }
+    /**
+     * Customize the element's ripple. Overriding the '_createRipple' function
+     * from PaperRippleBehavior.
+     */
+    /* eslint-disable-next-line @typescript-eslint/naming-convention */
+    _createRipple() {
+        const ripple = super._createRipple();
+        if (this.circleRipple) {
+            ripple.setAttribute('center', '');
+            ripple.classList.add('circle');
+        }
+        return ripple;
+    }
+}
+customElements.define(CrButtonElement.is, CrButtonElement);
+
+function getTemplate$A() {
+    return html `<!--_html_template_start_--><style>cr-button{--ink-color:var(--google-blue-300);--text-color:var(--google-blue-300)}:host-context(body.jelly-enabled) cr-button{--ink-color:var(--cros-color-primary-inverted);--text-color:var(--cros-color-primary-inverted)}cr-button{--active-shadow-rgb:transparent;--border-color:transparent;--hover-border-color:transparent;--hover-bg-color:transparent;--hover-bg-action:transparent;--cr-button-height:36px;border:0;margin:0;padding:8px}@media (prefers-color-scheme:dark){cr-button{--ink-color:var(--google-blue-600);--text-color:var(--google-blue-600)}:host-context(body.jelly-enabled) cr-button{--ink-color:var(--cros-color-primary-inverted);--text-color:var(--cros-color-primary-inverted)}}#container{align-items:center;background-color:var(--cros-bg-color-elevation-2-inverted);border-radius:4px;box-shadow:0 1px 2px rgba(0,0,0,.3),0 2px 6px rgba(0,0,0,.15);box-sizing:border-box;color:var(--cros-text-color-primary-inverted);display:flex;flex-flow:row nowrap;justify-content:space-between;padding:16px}p{margin:0;margin-inline-end:16px}</style>
+<template is="dom-if" if="[[showError_]]">
+  <div id="container">
+    <p>[[getErrorMessage_(error_)]]</p>
+    <cr-button on-click="onDismissClicked_">
+      [[getDismissMessage_(error_)]]
+    </cr-button>
+  </div>
+</template>
+<!--_html_template_end_-->`;
+}
+
+// Copyright 2021 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview This component displays toast notifications to the user.
+ */
+class PersonalizationToastElement extends WithPersonalizationStore {
+    static get is() {
+        return 'personalization-toast';
+    }
+    static get template() {
+        return getTemplate$A();
+    }
+    static get properties() {
+        return {
+            error_: {
+                type: Object,
+                value: null,
+            },
+            isLoading_: {
+                type: Boolean,
+            },
+            showError_: {
+                type: Boolean,
+                computed: 'computeShowError_(error_, isLoading_)',
+            },
+        };
+    }
+    static get observers() {
+        return ['onErrorOrShowErrorChanged_(error_, showError_)'];
+    }
+    connectedCallback() {
+        super.connectedCallback();
+        this.watch('error_', state => state.error);
+        this.watch('isLoading_', state => state.wallpaper.loading.setImage > 0 ||
+            state.wallpaper.loading.selected.attribution ||
+            state.wallpaper.loading.selected.image ||
+            state.wallpaper.loading.refreshWallpaper);
+    }
+    onDismissClicked_() {
+        this.dispatch(dismissErrorAction(/*id=*/ null, /*fromUser=*/ true));
+    }
+    onErrorOrShowErrorChanged_(_, showError) {
+        clearTimeout(this.autoDismissTimeout_);
+        if (showError) {
+            this.autoDismissTimeout_ = setTimeout(() => {
+                this.dispatch(dismissErrorAction(/*id=*/ null, /*fromUser=*/ false));
+            }, 10000);
+        }
+    }
+    computeShowError_(error, isLoading) {
+        return !!error && !isLoading;
+    }
+    getErrorMessage_(error) {
+        return error && error.message || null;
+    }
+    getDismissMessage_(error) {
+        return error && error.dismiss && error.dismiss.message ||
+            this.i18n('dismiss');
+    }
+}
+customElements.define(PersonalizationToastElement.is, PersonalizationToastElement);
+
+const template$2 = html `
 <iron-iconset-svg name="cr20" size="20">
   <svg>
     <defs>
@@ -17177,10 +17547,17 @@ const template$1 = html `
         <path d="M6 3h11v13l-7 7-1.25-1.25a1.454 1.454 0 0 1-.3-.475c-.067-.2-.1-.392-.1-.575v-.35L9.45 16H3c-.533 0-1-.2-1.4-.6-.4-.4-.6-.867-.6-1.4v-2c0-.117.017-.242.05-.375s.067-.258.1-.375l3-7.05c.15-.333.4-.617.75-.85C5.25 3.117 5.617 3 6 3Zm9 2H6l-3 7v2h9l-1.35 5.5L15 15.15V5Zm0 10.15V5v10.15Zm2 .85v-2h3V5h-3V3h5v13h-5Z">
         </path>
       </g>
+      <g id="thumbs-down-filled">
+        <path d="M6 3h10v13l-7 7-1.25-1.25a1.336 1.336 0 0 1-.29-.477 1.66 1.66 0 0 1-.108-.574v-.347L8.449 16H3c-.535 0-1-.2-1.398-.602C1.199 15 1 14.535 1 14v-2c0-.117.012-.242.04-.375.022-.133.062-.258.108-.375l3-7.05c.153-.333.403-.618.75-.848A1.957 1.957 0 0 1 6 3Zm12 13V3h4v13Zm0 0">
+        </path>
+      </g>
       <g id="thumbs-up">
         <path d="M18 21H7V8l7-7 1.25 1.25c.117.117.208.275.275.475.083.2.125.392.125.575v.35L14.55 8H21c.533 0 1 .2 1.4.6.4.4.6.867.6 1.4v2c0 .117-.017.242-.05.375s-.067.258-.1.375l-3 7.05c-.15.333-.4.617-.75.85-.35.233-.717.35-1.1.35Zm-9-2h9l3-7v-2h-9l1.35-5.5L9 8.85V19ZM9 8.85V19 8.85ZM7 8v2H4v9h3v2H2V8h5Z">
         </path>
       </g>
+      <g id="thumbs-up-filled">
+        <path d="M18 21H8V8l7-7 1.25 1.25c.117.117.21.273.29.477.073.199.108.39.108.574v.347L15.551 8H21c.535 0 1 .2 1.398.602C22.801 9 23 9.465 23 10v2c0 .117-.012.242-.04.375a1.897 1.897 0 0 1-.108.375l-3 7.05a2.037 2.037 0 0 1-.75.848A1.957 1.957 0 0 1 18 21ZM6 8v13H2V8Zm0 0">
+      </path></g>
       <g id="videocam">
         <path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z">
         </path>
@@ -17192,10 +17569,723 @@ const template$1 = html `
   </svg>
 </iron-iconset-svg>
 `;
-document.head.appendChild(template$1.content);
+document.head.appendChild(template$2.content);
 
-function getTemplate$w() {
-    return html `<!--_html_template_start_--><style include="cr-icons common cros-button-style">#container{align-items:center;box-sizing:border-box;display:flex;flex-flow:row nowrap;height:100%;padding:0 8px}#backButton{--cr-icon-button-margin-start:-12px;--cr-icon-button-margin-end:8px}#selector{align-items:center;box-sizing:border-box;color:var(--cros-text-color-secondary);display:flex;flex-flow:row nowrap;font:var(--cros-headline-1-font);height:100%;width:100%}:host-context(body.jelly-enabled) #selector{font:var(--cros-title-1-font)}:host-context(body.jelly-enabled) #homeButton{--cr-icon-button-fill-color:var(--cros-sys-secondary)}#homeButton{--cr-icon-button-fill-color:var(--cros-text-color-primary);--cr-icon-button-size:36px;margin-inline-end:6px;margin-inline-start:-10px}.breadcrumb{--ink-color:rgba(var(--cros-ripple-color-rgb), 1);--paper-ripple-opacity:var(--cros-ripple-opacity);--text-color:var(--cros-text-color-secondary);border:none;min-width:48px}.breadcrumb:not(last-of-type){flex:0 0 auto}.breadcrumb:last-of-type{--text-color:var(--cros-text-color-primary);flex:0 1 auto}iron-icon[icon='cr:chevron-right']{flex:0 0 auto}:host-context(body.jelly-enabled) cr-button{--text-color:var(--cros-sys-on_surface);background-color:transparent}</style>
+// Copyright 2022 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @return The currently focused element (including elements that are
+ *     behind a shadow root), or null if nothing is focused.
+ */
+function getDeepActiveElement() {
+    let a = document.activeElement;
+    while (a && a.shadowRoot && a.shadowRoot.activeElement) {
+        a = a.shadowRoot.activeElement;
+    }
+    return a;
+}
+/**
+ * Check the directionality of the page.
+ * @return True if Chrome is running an RTL UI.
+ */
+function isRTL() {
+    return document.documentElement.dir === 'rtl';
+}
+/**
+ * @return Whether a modifier key was down when processing |e|.
+ */
+function hasKeyModifiers(e) {
+    return !!(e.altKey || e.ctrlKey || e.metaKey || e.shiftKey);
+}
+
+// Copyright 2014 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+// clang-format off
+// clang-format on
+const ACTIVE_CLASS = 'focus-row-active';
+/**
+ * A class to manage focus between given horizontally arranged elements.
+ *
+ * Pressing left cycles backward and pressing right cycles forward in item
+ * order. Pressing Home goes to the beginning of the list and End goes to the
+ * end of the list.
+ *
+ * If an item in this row is focused, it'll stay active (accessible via tab).
+ * If no items in this row are focused, the row can stay active until focus
+ * changes to a node inside |this.boundary_|. If |boundary| isn't specified,
+ * any focus change deactivates the row.
+ */
+class FocusRow {
+    root;
+    delegate;
+    eventTracker = new EventTracker();
+    boundary_;
+    /**
+     * @param root The root of this focus row. Focus classes are
+     *     applied to |root| and all added elements must live within |root|.
+     * @param boundary Focus events are ignored outside of this element.
+     * @param delegate An optional event delegate.
+     */
+    constructor(root, boundary, delegate) {
+        this.root = root;
+        this.boundary_ = boundary || document.documentElement;
+        this.delegate = delegate;
+    }
+    /**
+     * Whether it's possible that |element| can be focused.
+     */
+    static isFocusable(element) {
+        if (!element || element.disabled) {
+            return false;
+        }
+        // We don't check that element.tabIndex >= 0 here because inactive rows
+        // set a tabIndex of -1.
+        let current = element;
+        while (true) {
+            assertInstanceof(current, Element);
+            const style = window.getComputedStyle(current);
+            if (style.visibility === 'hidden' || style.display === 'none') {
+                return false;
+            }
+            const parent = current.parentNode;
+            if (!parent) {
+                return false;
+            }
+            if (parent === current.ownerDocument ||
+                parent instanceof DocumentFragment) {
+                return true;
+            }
+            current = parent;
+        }
+    }
+    /**
+     * A focus override is a function that returns an element that should gain
+     * focus. The element may not be directly selectable for example the element
+     * that can gain focus is in a shadow DOM. Allowing an override via a
+     * function leaves the details of how the element is retrieved to the
+     * component.
+     */
+    static getFocusableElement(element) {
+        const withFocusable = element;
+        if (withFocusable.getFocusableElement) {
+            return withFocusable.getFocusableElement();
+        }
+        return element;
+    }
+    /**
+     * Register a new type of focusable element (or add to an existing one).
+     *
+     * Example: an (X) button might be 'delete' or 'close'.
+     *
+     * When FocusRow is used within a FocusGrid, these types are used to
+     * determine equivalent controls when Up/Down are pressed to change rows.
+     *
+     * Another example: mutually exclusive controls that hide each other on
+     * activation (i.e. Play/Pause) could use the same type (i.e. 'play-pause')
+     * to indicate they're equivalent.
+     *
+     * @param type The type of element to track focus of.
+     * @param selectorOrElement The selector of the element
+     *    from this row's root, or the element itself.
+     * @return Whether a new item was added.
+     */
+    addItem(type, selectorOrElement) {
+        assert$1(type);
+        let element;
+        if (typeof selectorOrElement === 'string') {
+            element = this.root.querySelector(selectorOrElement);
+        }
+        else {
+            element = selectorOrElement;
+        }
+        if (!element) {
+            return false;
+        }
+        element.setAttribute('focus-type', type);
+        element.tabIndex = this.isActive() ? 0 : -1;
+        this.eventTracker.add(element, 'blur', this.onBlur_.bind(this));
+        this.eventTracker.add(element, 'focus', this.onFocus_.bind(this));
+        this.eventTracker.add(element, 'keydown', this.onKeydown_.bind(this));
+        this.eventTracker.add(element, 'mousedown', this.onMousedown_.bind(this));
+        return true;
+    }
+    /** Dereferences nodes and removes event handlers. */
+    destroy() {
+        this.eventTracker.removeAll();
+    }
+    /**
+     * @param sampleElement An element for to find an equivalent
+     *     for.
+     * @return An equivalent element to focus for
+     *     |sampleElement|.
+     */
+    getCustomEquivalent(_sampleElement) {
+        const focusable = this.getFirstFocusable();
+        assert$1(focusable);
+        return focusable;
+    }
+    /**
+     * @return All registered elements (regardless of focusability).
+     */
+    getElements() {
+        return Array.from(this.root.querySelectorAll('[focus-type]'))
+            .map(FocusRow.getFocusableElement);
+    }
+    /**
+     * Find the element that best matches |sampleElement|.
+     * @param sampleElement An element from a row of the same
+     *     type which previously held focus.
+     * @return The element that best matches sampleElement.
+     */
+    getEquivalentElement(sampleElement) {
+        if (this.getFocusableElements().indexOf(sampleElement) >= 0) {
+            return sampleElement;
+        }
+        const sampleFocusType = this.getTypeForElement(sampleElement);
+        if (sampleFocusType) {
+            const sameType = this.getFirstFocusable(sampleFocusType);
+            if (sameType) {
+                return sameType;
+            }
+        }
+        return this.getCustomEquivalent(sampleElement);
+    }
+    /**
+     * @param type An optional type to search for.
+     * @return The first focusable element with |type|.
+     */
+    getFirstFocusable(type) {
+        const element = this.getFocusableElements().find(el => !type || el.getAttribute('focus-type') === type);
+        return element || null;
+    }
+    /** @return Registered, focusable elements. */
+    getFocusableElements() {
+        return this.getElements().filter(FocusRow.isFocusable);
+    }
+    /**
+     * @param element An element to determine a focus type for.
+     * @return The focus type for |element| or '' if none.
+     */
+    getTypeForElement(element) {
+        return element.getAttribute('focus-type') || '';
+    }
+    /** @return Whether this row is currently active. */
+    isActive() {
+        return this.root.classList.contains(ACTIVE_CLASS);
+    }
+    /**
+     * Enables/disables the tabIndex of the focusable elements in the FocusRow.
+     * tabIndex can be set properly.
+     * @param active True if tab is allowed for this row.
+     */
+    makeActive(active) {
+        if (active === this.isActive()) {
+            return;
+        }
+        this.getElements().forEach(function (element) {
+            element.tabIndex = active ? 0 : -1;
+        });
+        this.root.classList.toggle(ACTIVE_CLASS, active);
+    }
+    onBlur_(e) {
+        if (!this.boundary_.contains(e.relatedTarget)) {
+            return;
+        }
+        const currentTarget = e.currentTarget;
+        if (this.getFocusableElements().indexOf(currentTarget) >= 0) {
+            this.makeActive(false);
+        }
+    }
+    onFocus_(e) {
+        if (this.delegate) {
+            this.delegate.onFocus(this, e);
+        }
+    }
+    onMousedown_(e) {
+        // Only accept left mouse clicks.
+        if (e.button) {
+            return;
+        }
+        // Allow the element under the mouse cursor to be focusable.
+        const target = e.currentTarget;
+        if (!target.disabled) {
+            target.tabIndex = 0;
+        }
+    }
+    onKeydown_(e) {
+        const elements = this.getFocusableElements();
+        const currentElement = FocusRow.getFocusableElement(e.currentTarget);
+        const elementIndex = elements.indexOf(currentElement);
+        assert$1(elementIndex >= 0);
+        if (this.delegate && this.delegate.onKeydown(this, e)) {
+            return;
+        }
+        const isShiftTab = !e.altKey && !e.ctrlKey && !e.metaKey && e.shiftKey &&
+            e.key === 'Tab';
+        if (hasKeyModifiers(e) && !isShiftTab) {
+            return;
+        }
+        let index = -1;
+        let shouldStopPropagation = true;
+        if (isShiftTab) {
+            // This always moves back one element, even in RTL.
+            index = elementIndex - 1;
+            if (index < 0) {
+                // Bubble up to focus on the previous element outside the row.
+                return;
+            }
+        }
+        else if (e.key === 'ArrowLeft') {
+            index = elementIndex + (isRTL() ? 1 : -1);
+        }
+        else if (e.key === 'ArrowRight') {
+            index = elementIndex + (isRTL() ? -1 : 1);
+        }
+        else if (e.key === 'Home') {
+            index = 0;
+        }
+        else if (e.key === 'End') {
+            index = elements.length - 1;
+        }
+        else {
+            shouldStopPropagation = false;
+        }
+        const elementToFocus = elements[index];
+        if (elementToFocus) {
+            this.getEquivalentElement(elementToFocus).focus();
+            e.preventDefault();
+        }
+        if (shouldStopPropagation) {
+            e.stopPropagation();
+        }
+    }
+}
+
+// Copyright 2022 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/* @fileoverview Utilities for determining the current platform. */
+/** Whether we are using a Mac or not. */
+const isMac = /Mac/.test(navigator.platform);
+/** Whether this is on the Windows platform or not. */
+const isWindows = /Win/.test(navigator.platform);
+/** Whether this is on iOS. */
+const isIOS = /CriOS/.test(navigator.userAgent);
+
+// Copyright 2017 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+// clang-format off
+// clang-format on
+let hideInk = false;
+assert$1(!isIOS, 'pointerdown doesn\'t work on iOS');
+document.addEventListener('pointerdown', function () {
+    hideInk = true;
+}, true);
+document.addEventListener('keydown', function () {
+    hideInk = false;
+}, true);
+/**
+ * Attempts to track whether focus outlines should be shown, and if they
+ * shouldn't, removes the "ink" (ripple) from a control while focusing it.
+ * This is helpful when a user is clicking/touching, because it's not super
+ * helpful to show focus ripples in that case. This is Polymer-specific.
+ */
+function focusWithoutInk(toFocus) {
+    // |toFocus| does not have a 'noink' property, so it's unclear whether the
+    // element has "ink" and/or whether it can be suppressed. Just focus().
+    if (!('noink' in toFocus) || !hideInk) {
+        toFocus.focus();
+        return;
+    }
+    const toFocusWithNoInk = toFocus;
+    // Make sure the element is in the document we're listening to events on.
+    assert$1(document === toFocusWithNoInk.ownerDocument);
+    const { noink } = toFocusWithNoInk;
+    toFocusWithNoInk.noink = true;
+    toFocusWithNoInk.focus();
+    toFocusWithNoInk.noink = noink;
+}
+
+function getTemplate$z() {
+    return html `<!--_html_template_start_-->    <style>:host dialog{background-color:var(--cr-menu-background-color);border:none;border-radius:var(--cr-menu-border-radius,4px);box-shadow:var(--cr-menu-shadow);margin:0;min-width:128px;outline:0;padding:0;position:absolute}@media (forced-colors:active){:host dialog{border:var(--cr-border-hcm)}}:host-context([chrome-refresh-2023]){--cr-hairline:1px solid var(--color-menu-separator,
+            var(--cr-fallback-color-divider));--cr-action-menu-disabled-item-color:var(--color-menu-item-foreground-disabled,
+                var(--cr-fallback-color-disabled-foreground));--cr-action-menu-disabled-item-opacity:1;--cr-menu-background-color:var(--color-menu-background,
+            var(--cr-fallback-color-surface));--cr-menu-background-focus-color:var(--cr-hover-background-color);--cr-menu-shadow:var(--cr-elevation-2);--cr-primary-text-color:var(--color-menu-item-foreground,
+            var(--cr-fallback-color-on-surface))}:host dialog::backdrop{background-color:transparent}:host ::slotted(.dropdown-item){-webkit-tap-highlight-color:transparent;background:0 0;border:none;border-radius:0;box-sizing:border-box;color:var(--cr-primary-text-color);font:inherit;min-height:32px;padding:8px 24px;text-align:start;user-select:none;width:100%}:host ::slotted(.dropdown-item:not([hidden])){align-items:center;display:flex}:host ::slotted(.dropdown-item[disabled]){color:var(--cr-action-menu-disabled-item-color,var(--cr-primary-text-color));opacity:var(--cr-action-menu-disabled-item-opacity,.65)}:host ::slotted(.dropdown-item:not([disabled])){cursor:pointer}:host ::slotted(.dropdown-item:focus){background-color:var(--cr-menu-background-focus-color);outline:0}@media (forced-colors:active){:host ::slotted(.dropdown-item:focus){outline:var(--cr-focus-outline-hcm)}}.item-wrapper{background:var(--cr-menu-background-sheen);outline:0;padding:8px 0}:host-context([chrome-refresh-2023]) .item-wrapper{background:0 0}</style>
+    <dialog id="dialog" part="dialog" on-close="onNativeDialogClose_" role="application" aria-roledescription$="[[roleDescription]]">
+      <div id="wrapper" class="item-wrapper" role="menu" tabindex="-1" aria-label$="[[accessibilityLabel]]">
+        <slot id="contentNode" on-slotchange="onSlotchange_"></slot>
+      </div>
+    </dialog>
+<!--_html_template_end_-->`;
+}
+
+// Copyright 2016 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+var AnchorAlignment;
+(function (AnchorAlignment) {
+    AnchorAlignment[AnchorAlignment["BEFORE_START"] = -2] = "BEFORE_START";
+    AnchorAlignment[AnchorAlignment["AFTER_START"] = -1] = "AFTER_START";
+    AnchorAlignment[AnchorAlignment["CENTER"] = 0] = "CENTER";
+    AnchorAlignment[AnchorAlignment["BEFORE_END"] = 1] = "BEFORE_END";
+    AnchorAlignment[AnchorAlignment["AFTER_END"] = 2] = "AFTER_END";
+})(AnchorAlignment || (AnchorAlignment = {}));
+const DROPDOWN_ITEM_CLASS = 'dropdown-item';
+const SELECTABLE_DROPDOWN_ITEM_QUERY = `.${DROPDOWN_ITEM_CLASS}:not([hidden]):not([disabled])`;
+const AFTER_END_OFFSET = 10;
+/**
+ * Returns the point to start along the X or Y axis given a start and end
+ * point to anchor to, the length of the target and the direction to anchor
+ * in. If honoring the anchor would force the menu outside of min/max, this
+ * will ignore the anchor position and try to keep the menu within min/max.
+ */
+function getStartPointWithAnchor(start, end, menuLength, anchorAlignment, min, max) {
+    let startPoint = 0;
+    switch (anchorAlignment) {
+        case AnchorAlignment.BEFORE_START:
+            startPoint = start - menuLength;
+            break;
+        case AnchorAlignment.AFTER_START:
+            startPoint = start;
+            break;
+        case AnchorAlignment.CENTER:
+            startPoint = (start + end - menuLength) / 2;
+            break;
+        case AnchorAlignment.BEFORE_END:
+            startPoint = end - menuLength;
+            break;
+        case AnchorAlignment.AFTER_END:
+            startPoint = end;
+            break;
+    }
+    if (startPoint + menuLength > max) {
+        startPoint = end - menuLength;
+    }
+    if (startPoint < min) {
+        startPoint = start;
+    }
+    startPoint = Math.max(min, Math.min(startPoint, max - menuLength));
+    return startPoint;
+}
+function getDefaultShowConfig() {
+    return {
+        top: 0,
+        left: 0,
+        height: 0,
+        width: 0,
+        anchorAlignmentX: AnchorAlignment.AFTER_START,
+        anchorAlignmentY: AnchorAlignment.AFTER_START,
+        minX: 0,
+        minY: 0,
+        maxX: 0,
+        maxY: 0,
+    };
+}
+class CrActionMenuElement extends PolymerElement {
+    constructor() {
+        super(...arguments);
+        this.boundClose_ = null;
+        this.resizeObserver_ = null;
+        this.hasMousemoveListener_ = false;
+        this.anchorElement_ = null;
+        this.lastConfig_ = null;
+    }
+    static get is() {
+        return 'cr-action-menu';
+    }
+    static get template() {
+        return getTemplate$z();
+    }
+    static get properties() {
+        return {
+            // Accessibility text of the menu. Should be something along the lines of
+            // "actions", or "more actions".
+            accessibilityLabel: String,
+            // Setting this flag will make the menu listen for content size changes
+            // and reposition to its anchor accordingly.
+            autoReposition: {
+                type: Boolean,
+                value: false,
+            },
+            open: {
+                type: Boolean,
+                notify: true,
+                value: false,
+            },
+            // Descriptor of the menu. Should be something along the lines of "menu"
+            roleDescription: String,
+        };
+    }
+    ready() {
+        super.ready();
+        this.addEventListener('keydown', this.onKeyDown_.bind(this));
+        this.addEventListener('mouseover', this.onMouseover_);
+        this.addEventListener('click', this.onClick_);
+    }
+    disconnectedCallback() {
+        super.disconnectedCallback();
+        this.removeListeners_();
+    }
+    fire_(eventName, detail) {
+        this.dispatchEvent(new CustomEvent(eventName, { bubbles: true, composed: true, detail }));
+    }
+    /**
+     * Exposing internal <dialog> elements for tests.
+     */
+    getDialog() {
+        return this.$.dialog;
+    }
+    removeListeners_() {
+        window.removeEventListener('resize', this.boundClose_);
+        window.removeEventListener('popstate', this.boundClose_);
+        if (this.resizeObserver_) {
+            this.resizeObserver_.disconnect();
+            this.resizeObserver_ = null;
+        }
+    }
+    onNativeDialogClose_(e) {
+        // Ignore any 'close' events not fired directly by the <dialog> element.
+        if (e.target !== this.$.dialog) {
+            return;
+        }
+        // Catch and re-fire the 'close' event such that it bubbles across Shadow
+        // DOM v1.
+        this.fire_('close');
+    }
+    onClick_(e) {
+        if (e.target === this) {
+            this.close();
+            e.stopPropagation();
+        }
+    }
+    onKeyDown_(e) {
+        e.stopPropagation();
+        if (e.key === 'Tab' || e.key === 'Escape') {
+            this.close();
+            if (e.key === 'Tab') {
+                this.fire_('tabkeyclose', { shiftKey: e.shiftKey });
+            }
+            e.preventDefault();
+            return;
+        }
+        if (e.key !== 'Enter' && e.key !== 'ArrowUp' && e.key !== 'ArrowDown') {
+            return;
+        }
+        const options = Array.from(this.querySelectorAll(SELECTABLE_DROPDOWN_ITEM_QUERY));
+        if (options.length === 0) {
+            return;
+        }
+        const focused = getDeepActiveElement();
+        const index = options.findIndex(option => FocusRow.getFocusableElement(option) === focused);
+        if (e.key === 'Enter') {
+            // If a menu item has focus, don't change focus or close menu on 'Enter'.
+            if (index !== -1) {
+                return;
+            }
+            if (isWindows || isMac) {
+                this.close();
+                e.preventDefault();
+                return;
+            }
+        }
+        e.preventDefault();
+        this.updateFocus_(options, index, e.key !== 'ArrowUp');
+        if (!this.hasMousemoveListener_) {
+            this.hasMousemoveListener_ = true;
+            this.addEventListener('mousemove', e => {
+                this.onMouseover_(e);
+                this.hasMousemoveListener_ = false;
+            }, { once: true });
+        }
+    }
+    onMouseover_(e) {
+        const item = e.composedPath()
+            .find(el => el.matches && el.matches(SELECTABLE_DROPDOWN_ITEM_QUERY));
+        (item || this.$.wrapper).focus();
+    }
+    updateFocus_(options, focusedIndex, next) {
+        const numOptions = options.length;
+        assert$1(numOptions > 0);
+        let index;
+        if (focusedIndex === -1) {
+            index = next ? 0 : numOptions - 1;
+        }
+        else {
+            const delta = next ? 1 : -1;
+            index = (numOptions + focusedIndex + delta) % numOptions;
+        }
+        options[index].focus();
+    }
+    close() {
+        // Removing 'resize' and 'popstate' listeners when dialog is closed.
+        this.removeListeners_();
+        this.$.dialog.close();
+        this.open = false;
+        if (this.anchorElement_) {
+            assert$1(this.anchorElement_);
+            focusWithoutInk(this.anchorElement_);
+            this.anchorElement_ = null;
+        }
+        if (this.lastConfig_) {
+            this.lastConfig_ = null;
+        }
+    }
+    /**
+     * Shows the menu anchored to the given element.
+     */
+    showAt(anchorElement, config) {
+        this.anchorElement_ = anchorElement;
+        // Scroll the anchor element into view so that the bounding rect will be
+        // accurate for where the menu should be shown.
+        this.anchorElement_.scrollIntoViewIfNeeded();
+        const rect = this.anchorElement_.getBoundingClientRect();
+        let height = rect.height;
+        if (config && !config.noOffset &&
+            config.anchorAlignmentY === AnchorAlignment.AFTER_END) {
+            // When an action menu is positioned after the end of an element, the
+            // action menu can appear too far away from the anchor element, typically
+            // because anchors tend to have padding. So we offset the height a bit
+            // so the menu shows up slightly closer to the content of anchor.
+            height -= AFTER_END_OFFSET;
+        }
+        this.showAtPosition(Object.assign({
+            top: rect.top,
+            left: rect.left,
+            height: height,
+            width: rect.width,
+            // Default to anchoring towards the left.
+            anchorAlignmentX: AnchorAlignment.BEFORE_END,
+        }, config));
+        this.$.wrapper.focus();
+    }
+    /**
+     * Shows the menu anchored to the given box. The anchor alignment is
+     * specified as an X and Y alignment which represents a point in the anchor
+     * where the menu will align to, which can have the menu either before or
+     * after the given point in each axis. Center alignment places the center of
+     * the menu in line with the center of the anchor. Coordinates are relative to
+     * the top-left of the viewport.
+     *
+     *            y-start
+     *         _____________
+     *         |           |
+     *         |           |
+     *         |   CENTER  |
+     * x-start |     x     | x-end
+     *         |           |
+     *         |anchor box |
+     *         |___________|
+     *
+     *             y-end
+     *
+     * For example, aligning the menu to the inside of the top-right edge of
+     * the anchor, extending towards the bottom-left would use a alignment of
+     * (BEFORE_END, AFTER_START), whereas centering the menu below the bottom
+     * edge of the anchor would use (CENTER, AFTER_END).
+     */
+    showAtPosition(config) {
+        // Save the scroll position of the viewport.
+        const doc = document.scrollingElement;
+        const scrollLeft = doc.scrollLeft;
+        const scrollTop = doc.scrollTop;
+        // Reset position so that layout isn't affected by the previous position,
+        // and so that the dialog is positioned at the top-start corner of the
+        // document.
+        this.resetStyle_();
+        this.$.dialog.showModal();
+        this.open = true;
+        config.top += scrollTop;
+        config.left += scrollLeft;
+        this.positionDialog_(Object.assign({
+            minX: scrollLeft,
+            minY: scrollTop,
+            maxX: scrollLeft + doc.clientWidth,
+            maxY: scrollTop + doc.clientHeight,
+        }, config));
+        // Restore the scroll position.
+        doc.scrollTop = scrollTop;
+        doc.scrollLeft = scrollLeft;
+        this.addListeners_();
+        // Focus the first selectable item.
+        const openedByKey = FocusOutlineManager.forDocument(document).visible;
+        if (openedByKey) {
+            const firstSelectableItem = this.querySelector(SELECTABLE_DROPDOWN_ITEM_QUERY);
+            if (firstSelectableItem) {
+                requestAnimationFrame(() => {
+                    // Wait for the next animation frame for the dialog to become visible.
+                    firstSelectableItem.focus();
+                });
+            }
+        }
+    }
+    resetStyle_() {
+        this.$.dialog.style.left = '';
+        this.$.dialog.style.right = '';
+        this.$.dialog.style.top = '0';
+    }
+    /**
+     * Position the dialog using the coordinates in config. Coordinates are
+     * relative to the top-left of the viewport when scrolled to (0, 0).
+     */
+    positionDialog_(config) {
+        this.lastConfig_ = config;
+        const c = Object.assign(getDefaultShowConfig(), config);
+        const top = c.top;
+        const left = c.left;
+        const bottom = top + c.height;
+        const right = left + c.width;
+        // Flip the X anchor in RTL.
+        const rtl = getComputedStyle(this).direction === 'rtl';
+        if (rtl) {
+            c.anchorAlignmentX *= -1;
+        }
+        const offsetWidth = this.$.dialog.offsetWidth;
+        const menuLeft = getStartPointWithAnchor(left, right, offsetWidth, c.anchorAlignmentX, c.minX, c.maxX);
+        if (rtl) {
+            const menuRight = document.scrollingElement.clientWidth - menuLeft - offsetWidth;
+            this.$.dialog.style.right = menuRight + 'px';
+        }
+        else {
+            this.$.dialog.style.left = menuLeft + 'px';
+        }
+        const menuTop = getStartPointWithAnchor(top, bottom, this.$.dialog.offsetHeight, c.anchorAlignmentY, c.minY, c.maxY);
+        this.$.dialog.style.top = menuTop + 'px';
+    }
+    onSlotchange_() {
+        for (const node of this.$.contentNode.assignedElements({ flatten: true })) {
+            if (node.classList.contains(DROPDOWN_ITEM_CLASS) &&
+                !node.getAttribute('role')) {
+                node.setAttribute('role', 'menuitem');
+            }
+        }
+    }
+    addListeners_() {
+        this.boundClose_ = this.boundClose_ || (() => {
+            if (this.$.dialog.open) {
+                this.close();
+            }
+        });
+        window.addEventListener('resize', this.boundClose_);
+        window.addEventListener('popstate', this.boundClose_);
+        if (this.autoReposition) {
+            this.resizeObserver_ = new ResizeObserver(() => {
+                if (this.lastConfig_) {
+                    this.positionDialog_(this.lastConfig_);
+                    this.fire_('cr-action-menu-repositioned'); // For easier testing.
+                }
+            });
+            this.resizeObserver_.observe(this.$.dialog);
+        }
+    }
+}
+customElements.define(CrActionMenuElement.is, CrActionMenuElement);
+
+function getTemplate$y() {
+    return html `<!--_html_template_start_--><style include="cr-icons common cros-button-style">#container{align-items:center;box-sizing:border-box;display:flex;flex-flow:row nowrap;height:100%;padding:0 10px}#backButton{--cr-icon-button-margin-start:-12px;--cr-icon-button-margin-end:8px}#selector{align-items:center;box-sizing:border-box;color:var(--cros-text-color-secondary);display:flex;flex-flow:row nowrap;font:var(--cros-headline-1-font);height:100%;width:100%}:host-context(body.jelly-enabled) #selector{font:var(--cros-title-1-font)}:host-context(body.jelly-enabled) #homeButton{--cr-icon-button-fill-color:var(--cros-sys-secondary)}#homeButton{--cr-icon-button-fill-color:var(--cros-text-color-primary);--cr-icon-button-size:36px;margin-inline-end:6px;margin-inline-start:-10px}.breadcrumb{--ink-color:rgba(var(--cros-ripple-color-rgb), 1);--paper-ripple-opacity:var(--cros-ripple-opacity);--text-color:var(--cros-text-color-secondary);border:none;min-width:48px}.breadcrumb:not(last-of-type){flex:0 0 auto}.breadcrumb:last-of-type{--text-color:var(--cros-text-color-primary);flex:0 1 auto}iron-icon[icon='cr:chevron-right']{flex:0 0 auto}:host-context(body.jelly-enabled) cr-button{--text-color:var(--cros-sys-on_surface);background-color:transparent}#seaPenDropdown{margin-inline-start:6px}.dropdown-check{margin-inline-end:16px}button:not([aria-selected=true]) iron-icon.dropdown-check{visibility:hidden}button{padding:8px 32px 8px 16px}</style>
 <nav id="container">
     <iron-a11y-keys id="keys" keys="left right" on-keys-pressed="onKeysPress_">
     </iron-a11y-keys>
@@ -17209,11 +18299,721 @@ function getTemplate$w() {
         </template>
         <cr-button class="breadcrumb selectable" role="link" aria-current$="[[getBreadcrumbAriaCurrent_(index, breadcrumbs_)]]" tabindex="-1" id="breadcrumb[[index]]" on-click="onBreadcrumbClick_">
           <div class="ellipsis" title$="[[breadcrumb]]">[[breadcrumb]]</div>
+          <template is="dom-if" if="[[shouldShowSeaPenDropdown_(path, breadcrumb)]]" restamp>
+            <cr-icon-button id="seaPenDropdown" iron-icon="cr:arrow-drop-down" role="button" on-click="onClickMenuIcon_">
+            </cr-icon-button>
+          </template>
         </cr-button>
       </template>
+      <cr-action-menu>
+        <template is="dom-repeat" items="[[seaPenTemplates_]]" as="template">
+          <button aria-selected$="[[getAriaSelected_(template.id, seaPenTemplateId)]]" class="dropdown-item" data-id$="[[template.id]]" on-click="onClickMenuItem_">
+            <iron-icon class="dropdown-check" icon="cr:check"></iron-icon>
+            [[template.title]]
+          </button>
+        </template>
+      </cr-action-menu>
     </iron-selector>
 </nav>
 <!--_html_template_end_-->`;
+}
+
+// ash/webui/common/mojom/sea_pen.mojom-webui.ts is auto generated by mojom_bindings_generator.py, do not edit
+// Copyright 2020 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+const MAXIMUM_SEARCH_WALLPAPER_TEXT_BYTES = 3000;
+const SeaPenTemplateIdSpec = { $: mojo.internal.Enum() };
+var SeaPenTemplateId;
+(function (SeaPenTemplateId) {
+    SeaPenTemplateId[SeaPenTemplateId["MIN_VALUE"] = 0] = "MIN_VALUE";
+    SeaPenTemplateId[SeaPenTemplateId["MAX_VALUE"] = 3] = "MAX_VALUE";
+    SeaPenTemplateId[SeaPenTemplateId["kFlower"] = 0] = "kFlower";
+    SeaPenTemplateId[SeaPenTemplateId["kMineral"] = 1] = "kMineral";
+    SeaPenTemplateId[SeaPenTemplateId["kLandscape"] = 2] = "kLandscape";
+    SeaPenTemplateId[SeaPenTemplateId["kScifi"] = 3] = "kScifi";
+})(SeaPenTemplateId || (SeaPenTemplateId = {}));
+const SeaPenTemplateChipSpec = { $: mojo.internal.Enum() };
+var SeaPenTemplateChip;
+(function (SeaPenTemplateChip) {
+    SeaPenTemplateChip[SeaPenTemplateChip["MIN_VALUE"] = 0] = "MIN_VALUE";
+    SeaPenTemplateChip[SeaPenTemplateChip["MAX_VALUE"] = 7] = "MAX_VALUE";
+    SeaPenTemplateChip[SeaPenTemplateChip["kFlowerType"] = 0] = "kFlowerType";
+    SeaPenTemplateChip[SeaPenTemplateChip["kFlowerColor"] = 1] = "kFlowerColor";
+    SeaPenTemplateChip[SeaPenTemplateChip["kMineralName"] = 2] = "kMineralName";
+    SeaPenTemplateChip[SeaPenTemplateChip["kMineralColor"] = 3] = "kMineralColor";
+    SeaPenTemplateChip[SeaPenTemplateChip["kLandscapeBiome"] = 4] = "kLandscapeBiome";
+    SeaPenTemplateChip[SeaPenTemplateChip["kLandscapeLighting"] = 5] = "kLandscapeLighting";
+    SeaPenTemplateChip[SeaPenTemplateChip["kScifiFeature"] = 6] = "kScifiFeature";
+    SeaPenTemplateChip[SeaPenTemplateChip["kScifiColor"] = 7] = "kScifiColor";
+})(SeaPenTemplateChip || (SeaPenTemplateChip = {}));
+const SeaPenTemplateOptionSpec = { $: mojo.internal.Enum() };
+var SeaPenTemplateOption;
+(function (SeaPenTemplateOption) {
+    SeaPenTemplateOption[SeaPenTemplateOption["MIN_VALUE"] = 0] = "MIN_VALUE";
+    SeaPenTemplateOption[SeaPenTemplateOption["MAX_VALUE"] = 84] = "MAX_VALUE";
+    SeaPenTemplateOption[SeaPenTemplateOption["kFlowerTypeRose"] = 0] = "kFlowerTypeRose";
+    SeaPenTemplateOption[SeaPenTemplateOption["kFlowerTypeCallaLily"] = 1] = "kFlowerTypeCallaLily";
+    SeaPenTemplateOption[SeaPenTemplateOption["kFlowerTypeWindflower"] = 2] = "kFlowerTypeWindflower";
+    SeaPenTemplateOption[SeaPenTemplateOption["kFlowerTypeTulip"] = 3] = "kFlowerTypeTulip";
+    SeaPenTemplateOption[SeaPenTemplateOption["kFlowerTypeLilyOfTheValley"] = 4] = "kFlowerTypeLilyOfTheValley";
+    SeaPenTemplateOption[SeaPenTemplateOption["kFlowerTypeBirdOfParadise"] = 5] = "kFlowerTypeBirdOfParadise";
+    SeaPenTemplateOption[SeaPenTemplateOption["kFlowerTypeOrchid"] = 6] = "kFlowerTypeOrchid";
+    SeaPenTemplateOption[SeaPenTemplateOption["kFlowerTypeRanunculus"] = 7] = "kFlowerTypeRanunculus";
+    SeaPenTemplateOption[SeaPenTemplateOption["kFlowerTypeDaisy"] = 8] = "kFlowerTypeDaisy";
+    SeaPenTemplateOption[SeaPenTemplateOption["kFlowerTypeHydrangeas"] = 9] = "kFlowerTypeHydrangeas";
+    SeaPenTemplateOption[SeaPenTemplateOption["kFlowerColorPink"] = 10] = "kFlowerColorPink";
+    SeaPenTemplateOption[SeaPenTemplateOption["kFlowerColorPurple"] = 11] = "kFlowerColorPurple";
+    SeaPenTemplateOption[SeaPenTemplateOption["kFlowerColorBlue"] = 12] = "kFlowerColorBlue";
+    SeaPenTemplateOption[SeaPenTemplateOption["kFlowerColorWhite"] = 13] = "kFlowerColorWhite";
+    SeaPenTemplateOption[SeaPenTemplateOption["kFlowerColorCoral"] = 14] = "kFlowerColorCoral";
+    SeaPenTemplateOption[SeaPenTemplateOption["kFlowerColorYellow"] = 15] = "kFlowerColorYellow";
+    SeaPenTemplateOption[SeaPenTemplateOption["kFlowerColorGreen"] = 16] = "kFlowerColorGreen";
+    SeaPenTemplateOption[SeaPenTemplateOption["kFlowerColorRed"] = 17] = "kFlowerColorRed";
+    SeaPenTemplateOption[SeaPenTemplateOption["kMineralNameAgate"] = 18] = "kMineralNameAgate";
+    SeaPenTemplateOption[SeaPenTemplateOption["kMineralNameAmethyst"] = 19] = "kMineralNameAmethyst";
+    SeaPenTemplateOption[SeaPenTemplateOption["kMineralNameAquamarine"] = 20] = "kMineralNameAquamarine";
+    SeaPenTemplateOption[SeaPenTemplateOption["kMineralNameAragonite"] = 21] = "kMineralNameAragonite";
+    SeaPenTemplateOption[SeaPenTemplateOption["kMineralNameBismuth"] = 22] = "kMineralNameBismuth";
+    SeaPenTemplateOption[SeaPenTemplateOption["kMineralNameCerussite"] = 23] = "kMineralNameCerussite";
+    SeaPenTemplateOption[SeaPenTemplateOption["kMineralNameChalcopyrite"] = 24] = "kMineralNameChalcopyrite";
+    SeaPenTemplateOption[SeaPenTemplateOption["kMineralNameChrysoprase"] = 25] = "kMineralNameChrysoprase";
+    SeaPenTemplateOption[SeaPenTemplateOption["kMineralNameFluorite"] = 26] = "kMineralNameFluorite";
+    SeaPenTemplateOption[SeaPenTemplateOption["kMineralNameGalena"] = 27] = "kMineralNameGalena";
+    SeaPenTemplateOption[SeaPenTemplateOption["kMineralNameJasper"] = 28] = "kMineralNameJasper";
+    SeaPenTemplateOption[SeaPenTemplateOption["kMineralNameLabradorite"] = 29] = "kMineralNameLabradorite";
+    SeaPenTemplateOption[SeaPenTemplateOption["kMineralNameLapisLazuli"] = 30] = "kMineralNameLapisLazuli";
+    SeaPenTemplateOption[SeaPenTemplateOption["kMineralNameMoonstone"] = 31] = "kMineralNameMoonstone";
+    SeaPenTemplateOption[SeaPenTemplateOption["kMineralNameOpal"] = 32] = "kMineralNameOpal";
+    SeaPenTemplateOption[SeaPenTemplateOption["kMineralNamePeridot"] = 33] = "kMineralNamePeridot";
+    SeaPenTemplateOption[SeaPenTemplateOption["kMineralNameRhondochrosite"] = 34] = "kMineralNameRhondochrosite";
+    SeaPenTemplateOption[SeaPenTemplateOption["kMineralNameRuby"] = 35] = "kMineralNameRuby";
+    SeaPenTemplateOption[SeaPenTemplateOption["kMineralNameSapphire"] = 36] = "kMineralNameSapphire";
+    SeaPenTemplateOption[SeaPenTemplateOption["kMineralNameQuartz"] = 37] = "kMineralNameQuartz";
+    SeaPenTemplateOption[SeaPenTemplateOption["kMineralNameTourmaline"] = 38] = "kMineralNameTourmaline";
+    SeaPenTemplateOption[SeaPenTemplateOption["kMineralColorWarm"] = 39] = "kMineralColorWarm";
+    SeaPenTemplateOption[SeaPenTemplateOption["kMineralColorCool"] = 40] = "kMineralColorCool";
+    SeaPenTemplateOption[SeaPenTemplateOption["kMineralColorNeutral"] = 41] = "kMineralColorNeutral";
+    SeaPenTemplateOption[SeaPenTemplateOption["kMineralColorPastel"] = 42] = "kMineralColorPastel";
+    SeaPenTemplateOption[SeaPenTemplateOption["kMineralColorMuted"] = 43] = "kMineralColorMuted";
+    SeaPenTemplateOption[SeaPenTemplateOption["kMineralColorVibrant"] = 44] = "kMineralColorVibrant";
+    SeaPenTemplateOption[SeaPenTemplateOption["kMineralColorEarthy"] = 45] = "kMineralColorEarthy";
+    SeaPenTemplateOption[SeaPenTemplateOption["kMineralColorMetallic"] = 46] = "kMineralColorMetallic";
+    SeaPenTemplateOption[SeaPenTemplateOption["kMineralColorNeon"] = 47] = "kMineralColorNeon";
+    SeaPenTemplateOption[SeaPenTemplateOption["kMineralColorTonal"] = 48] = "kMineralColorTonal";
+    SeaPenTemplateOption[SeaPenTemplateOption["kMineralColorGray"] = 49] = "kMineralColorGray";
+    SeaPenTemplateOption[SeaPenTemplateOption["kLandscapeBiomeTaiga"] = 50] = "kLandscapeBiomeTaiga";
+    SeaPenTemplateOption[SeaPenTemplateOption["kLandscapeBiomeDesert"] = 51] = "kLandscapeBiomeDesert";
+    SeaPenTemplateOption[SeaPenTemplateOption["kLandscapeBiomeRainforest"] = 52] = "kLandscapeBiomeRainforest";
+    SeaPenTemplateOption[SeaPenTemplateOption["kLandscapeBiomeTundra"] = 53] = "kLandscapeBiomeTundra";
+    SeaPenTemplateOption[SeaPenTemplateOption["kLandscapeBiomeBeach"] = 54] = "kLandscapeBiomeBeach";
+    SeaPenTemplateOption[SeaPenTemplateOption["kLandscapeBiomeIcebergs"] = 55] = "kLandscapeBiomeIcebergs";
+    SeaPenTemplateOption[SeaPenTemplateOption["kLandscapeBiomeSwamp"] = 56] = "kLandscapeBiomeSwamp";
+    SeaPenTemplateOption[SeaPenTemplateOption["kLandscapeBiomeGrassland"] = 57] = "kLandscapeBiomeGrassland";
+    SeaPenTemplateOption[SeaPenTemplateOption["kLandscapeBiomeForest"] = 58] = "kLandscapeBiomeForest";
+    SeaPenTemplateOption[SeaPenTemplateOption["kLandscapeLightingDiffuse"] = 59] = "kLandscapeLightingDiffuse";
+    SeaPenTemplateOption[SeaPenTemplateOption["kLandscapeLightingNorthernLights"] = 60] = "kLandscapeLightingNorthernLights";
+    SeaPenTemplateOption[SeaPenTemplateOption["kLandscapeLightingSunRays"] = 61] = "kLandscapeLightingSunRays";
+    SeaPenTemplateOption[SeaPenTemplateOption["kLandscapeLightingGoldenHour"] = 62] = "kLandscapeLightingGoldenHour";
+    SeaPenTemplateOption[SeaPenTemplateOption["kLandscapeLightingEarlyMorning"] = 63] = "kLandscapeLightingEarlyMorning";
+    SeaPenTemplateOption[SeaPenTemplateOption["kLandscapeLightingBlueHour"] = 64] = "kLandscapeLightingBlueHour";
+    SeaPenTemplateOption[SeaPenTemplateOption["kLandscapeLightingMidday"] = 65] = "kLandscapeLightingMidday";
+    SeaPenTemplateOption[SeaPenTemplateOption["kScifiFeatureStreet"] = 66] = "kScifiFeatureStreet";
+    SeaPenTemplateOption[SeaPenTemplateOption["kScifiFeatureSkyline"] = 67] = "kScifiFeatureSkyline";
+    SeaPenTemplateOption[SeaPenTemplateOption["kScifiFeatureSwamp"] = 68] = "kScifiFeatureSwamp";
+    SeaPenTemplateOption[SeaPenTemplateOption["kScifiFeatureTransport"] = 69] = "kScifiFeatureTransport";
+    SeaPenTemplateOption[SeaPenTemplateOption["kScifiFeatureBusStop"] = 70] = "kScifiFeatureBusStop";
+    SeaPenTemplateOption[SeaPenTemplateOption["kScifiFeatureDesert"] = 71] = "kScifiFeatureDesert";
+    SeaPenTemplateOption[SeaPenTemplateOption["kScifiFeatureBeach"] = 72] = "kScifiFeatureBeach";
+    SeaPenTemplateOption[SeaPenTemplateOption["kScifiFeatureMountains"] = 73] = "kScifiFeatureMountains";
+    SeaPenTemplateOption[SeaPenTemplateOption["kScifiFeaturePark"] = 74] = "kScifiFeaturePark";
+    SeaPenTemplateOption[SeaPenTemplateOption["kScifiFeatureForest"] = 75] = "kScifiFeatureForest";
+    SeaPenTemplateOption[SeaPenTemplateOption["kScifiFeatureSmallTown"] = 76] = "kScifiFeatureSmallTown";
+    SeaPenTemplateOption[SeaPenTemplateOption["kScifiFeatureFarm"] = 77] = "kScifiFeatureFarm";
+    SeaPenTemplateOption[SeaPenTemplateOption["kScifiFeatureUnderwater"] = 78] = "kScifiFeatureUnderwater";
+    SeaPenTemplateOption[SeaPenTemplateOption["kScifiColorEarthy"] = 79] = "kScifiColorEarthy";
+    SeaPenTemplateOption[SeaPenTemplateOption["kScifiColorVibrant"] = 80] = "kScifiColorVibrant";
+    SeaPenTemplateOption[SeaPenTemplateOption["kScifiColorSilver"] = 81] = "kScifiColorSilver";
+    SeaPenTemplateOption[SeaPenTemplateOption["kScifiColorEerie"] = 82] = "kScifiColorEerie";
+    SeaPenTemplateOption[SeaPenTemplateOption["kScifiColorComplementary"] = 83] = "kScifiColorComplementary";
+    SeaPenTemplateOption[SeaPenTemplateOption["kScifiColorNeutral"] = 84] = "kScifiColorNeutral";
+})(SeaPenTemplateOption || (SeaPenTemplateOption = {}));
+class SeaPenProviderPendingReceiver {
+    constructor(handle) {
+        this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
+    }
+    bindInBrowser(scope = 'context') {
+        mojo.internal.interfaceSupport.bind(this.handle, 'ash.personalization_app.mojom.SeaPenProvider', scope);
+    }
+}
+class SeaPenProviderRemote {
+    constructor(handle) {
+        this.proxy =
+            new mojo.internal.interfaceSupport.InterfaceRemoteBase(SeaPenProviderPendingReceiver, handle);
+        this.$ = new mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper(this.proxy);
+        this.onConnectionError = this.proxy.getConnectionErrorEventRouter();
+    }
+    searchWallpaper(query) {
+        return this.proxy.sendMessage(0, SeaPenProvider_SearchWallpaper_ParamsSpec.$, SeaPenProvider_SearchWallpaper_ResponseParamsSpec.$, [
+            query
+        ]);
+    }
+    selectSeaPenThumbnail(id) {
+        return this.proxy.sendMessage(1, SeaPenProvider_SelectSeaPenThumbnail_ParamsSpec.$, SeaPenProvider_SelectSeaPenThumbnail_ResponseParamsSpec.$, [
+            id
+        ]);
+    }
+    selectRecentSeaPenImage(path) {
+        return this.proxy.sendMessage(2, SeaPenProvider_SelectRecentSeaPenImage_ParamsSpec.$, SeaPenProvider_SelectRecentSeaPenImage_ResponseParamsSpec.$, [
+            path
+        ]);
+    }
+    getRecentSeaPenImages() {
+        return this.proxy.sendMessage(3, SeaPenProvider_GetRecentSeaPenImages_ParamsSpec.$, SeaPenProvider_GetRecentSeaPenImages_ResponseParamsSpec.$, []);
+    }
+    getRecentSeaPenImageThumbnail(path) {
+        return this.proxy.sendMessage(4, SeaPenProvider_GetRecentSeaPenImageThumbnail_ParamsSpec.$, SeaPenProvider_GetRecentSeaPenImageThumbnail_ResponseParamsSpec.$, [
+            path
+        ]);
+    }
+    deleteRecentSeaPenImage(path) {
+        return this.proxy.sendMessage(5, SeaPenProvider_DeleteRecentSeaPenImage_ParamsSpec.$, SeaPenProvider_DeleteRecentSeaPenImage_ResponseParamsSpec.$, [
+            path
+        ]);
+    }
+}
+class SeaPenProvider {
+    static get $interfaceName() {
+        return "ash.personalization_app.mojom.SeaPenProvider";
+    }
+    /**
+     * Returns a remote for this interface which sends messages to the browser.
+     * The browser must have an interface request binder registered for this
+     * interface and accessible to the calling document's frame.
+     */
+    static getRemote() {
+        let remote = new SeaPenProviderRemote;
+        remote.$.bindNewPipeAndPassReceiver().bindInBrowser();
+        return remote;
+    }
+}
+const SeaPenThumbnailSpec = { $: {} };
+const SeaPenTemplateQuerySpec = { $: {} };
+const SeaPenProvider_SearchWallpaper_ParamsSpec = { $: {} };
+const SeaPenProvider_SearchWallpaper_ResponseParamsSpec = { $: {} };
+const SeaPenProvider_SelectSeaPenThumbnail_ParamsSpec = { $: {} };
+const SeaPenProvider_SelectSeaPenThumbnail_ResponseParamsSpec = { $: {} };
+const SeaPenProvider_SelectRecentSeaPenImage_ParamsSpec = { $: {} };
+const SeaPenProvider_SelectRecentSeaPenImage_ResponseParamsSpec = { $: {} };
+const SeaPenProvider_GetRecentSeaPenImages_ParamsSpec = { $: {} };
+const SeaPenProvider_GetRecentSeaPenImages_ResponseParamsSpec = { $: {} };
+const SeaPenProvider_GetRecentSeaPenImageThumbnail_ParamsSpec = { $: {} };
+const SeaPenProvider_GetRecentSeaPenImageThumbnail_ResponseParamsSpec = { $: {} };
+const SeaPenProvider_DeleteRecentSeaPenImage_ParamsSpec = { $: {} };
+const SeaPenProvider_DeleteRecentSeaPenImage_ResponseParamsSpec = { $: {} };
+const SeaPenQuerySpec = { $: {} };
+mojo.internal.Struct(SeaPenThumbnailSpec.$, 'SeaPenThumbnail', [
+    mojo.internal.StructField('image', 0, 0, UrlSpec.$, null, false /* nullable */, 0),
+    mojo.internal.StructField('id', 8, 0, mojo.internal.Uint32, 0, false /* nullable */, 0),
+], [[0, 24],]);
+mojo.internal.Struct(SeaPenTemplateQuerySpec.$, 'SeaPenTemplateQuery', [
+    mojo.internal.StructField('id', 0, 0, SeaPenTemplateIdSpec.$, 0, false /* nullable */, 0),
+    mojo.internal.StructField('options', 8, 0, mojo.internal.Map(SeaPenTemplateChipSpec.$, SeaPenTemplateOptionSpec.$, false), null, false /* nullable */, 0),
+], [[0, 24],]);
+mojo.internal.Struct(SeaPenProvider_SearchWallpaper_ParamsSpec.$, 'SeaPenProvider_SearchWallpaper_Params', [
+    mojo.internal.StructField('query', 0, 0, SeaPenQuerySpec.$, null, false /* nullable */, 0),
+], [[0, 24],]);
+mojo.internal.Struct(SeaPenProvider_SearchWallpaper_ResponseParamsSpec.$, 'SeaPenProvider_SearchWallpaper_ResponseParams', [
+    mojo.internal.StructField('images', 0, 0, mojo.internal.Array(SeaPenThumbnailSpec.$, false), null, true /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(SeaPenProvider_SelectSeaPenThumbnail_ParamsSpec.$, 'SeaPenProvider_SelectSeaPenThumbnail_Params', [
+    mojo.internal.StructField('id', 0, 0, mojo.internal.Uint32, 0, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(SeaPenProvider_SelectSeaPenThumbnail_ResponseParamsSpec.$, 'SeaPenProvider_SelectSeaPenThumbnail_ResponseParams', [
+    mojo.internal.StructField('success', 0, 0, mojo.internal.Bool, false, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(SeaPenProvider_SelectRecentSeaPenImage_ParamsSpec.$, 'SeaPenProvider_SelectRecentSeaPenImage_Params', [
+    mojo.internal.StructField('path', 0, 0, FilePathSpec.$, null, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(SeaPenProvider_SelectRecentSeaPenImage_ResponseParamsSpec.$, 'SeaPenProvider_SelectRecentSeaPenImage_ResponseParams', [
+    mojo.internal.StructField('success', 0, 0, mojo.internal.Bool, false, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(SeaPenProvider_GetRecentSeaPenImages_ParamsSpec.$, 'SeaPenProvider_GetRecentSeaPenImages_Params', [], [[0, 8],]);
+mojo.internal.Struct(SeaPenProvider_GetRecentSeaPenImages_ResponseParamsSpec.$, 'SeaPenProvider_GetRecentSeaPenImages_ResponseParams', [
+    mojo.internal.StructField('images', 0, 0, mojo.internal.Array(FilePathSpec.$, false), null, true /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(SeaPenProvider_GetRecentSeaPenImageThumbnail_ParamsSpec.$, 'SeaPenProvider_GetRecentSeaPenImageThumbnail_Params', [
+    mojo.internal.StructField('path', 0, 0, FilePathSpec.$, null, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(SeaPenProvider_GetRecentSeaPenImageThumbnail_ResponseParamsSpec.$, 'SeaPenProvider_GetRecentSeaPenImageThumbnail_ResponseParams', [
+    mojo.internal.StructField('url', 0, 0, UrlSpec.$, null, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(SeaPenProvider_DeleteRecentSeaPenImage_ParamsSpec.$, 'SeaPenProvider_DeleteRecentSeaPenImage_Params', [
+    mojo.internal.StructField('path', 0, 0, FilePathSpec.$, null, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(SeaPenProvider_DeleteRecentSeaPenImage_ResponseParamsSpec.$, 'SeaPenProvider_DeleteRecentSeaPenImage_ResponseParams', [
+    mojo.internal.StructField('success', 0, 0, mojo.internal.Bool, false, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Union(SeaPenQuerySpec.$, 'SeaPenQuery', {
+    'textQuery': {
+        'ordinal': 0,
+        'type': mojo.internal.String,
+    },
+    'templateQuery': {
+        'ordinal': 1,
+        'type': SeaPenTemplateQuerySpec.$,
+    },
+});
+
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+const QUERY = 'Query';
+function getSeaPenTemplates() {
+    const templates = [
+        {
+            id: SeaPenTemplateId.kFlower.toString(),
+            title: 'Airbrushed',
+            text: `A radiant <${SeaPenTemplateChip.kFlowerColor}> <${SeaPenTemplateChip.kFlowerType}> in bloom`,
+            preview: [{
+                    url: 'chrome://personalization/images/sea_pen_tile.svg',
+                }],
+            options: new Map([
+                [
+                    SeaPenTemplateChip.kFlowerType,
+                    [
+                        {
+                            value: SeaPenTemplateOption.kFlowerTypeRose,
+                            translation: 'rose',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kFlowerTypeCallaLily,
+                            translation: 'calla lily',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kFlowerTypeWindflower,
+                            translation: 'windflower',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kFlowerTypeTulip,
+                            translation: 'tulip',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kFlowerTypeLilyOfTheValley,
+                            translation: 'lily of the valley',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kFlowerTypeBirdOfParadise,
+                            translation: 'bird-of-paradise flower',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kFlowerTypeOrchid,
+                            translation: 'orchid',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kFlowerTypeRanunculus,
+                            translation: 'ranunculus',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kFlowerTypeDaisy,
+                            translation: 'daisy',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kFlowerTypeHydrangeas,
+                            translation: 'hydrangeas',
+                        },
+                    ],
+                ],
+                [
+                    SeaPenTemplateChip.kFlowerColor,
+                    [
+                        {
+                            value: SeaPenTemplateOption.kFlowerColorPink,
+                            translation: 'pink',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kFlowerColorPurple,
+                            translation: 'purple',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kFlowerColorBlue,
+                            translation: 'blue',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kFlowerColorWhite,
+                            translation: 'white',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kFlowerColorCoral,
+                            translation: 'coral',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kFlowerColorYellow,
+                            translation: 'yellow',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kFlowerColorGreen,
+                            translation: 'green',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kFlowerColorRed,
+                            translation: 'red',
+                        },
+                    ],
+                ],
+            ]),
+        },
+        {
+            id: SeaPenTemplateId.kMineral.toString(),
+            title: 'Minerals',
+            text: `A close-up image of <${SeaPenTemplateChip.kMineralName}> with <${SeaPenTemplateChip.kMineralColor}> hues`,
+            preview: [{
+                    url: 'chrome://personalization/images/sea_pen_tile.svg',
+                }],
+            options: new Map([
+                [
+                    SeaPenTemplateChip.kMineralName,
+                    [
+                        {
+                            value: SeaPenTemplateOption.kMineralNameAgate,
+                            translation: 'agate',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kMineralNameAmethyst,
+                            translation: 'amethyst',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kMineralNameAquamarine,
+                            translation: 'aquamarine',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kMineralNameAragonite,
+                            translation: 'aragonite',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kMineralNameBismuth,
+                            translation: 'bismuth',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kMineralNameCerussite,
+                            translation: 'cerussite',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kMineralNameChalcopyrite,
+                            translation: 'chalcopyrite',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kMineralNameChrysoprase,
+                            translation: 'chrysoprase',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kMineralNameFluorite,
+                            translation: 'fluorite',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kMineralNameGalena,
+                            translation: 'galena',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kMineralNameJasper,
+                            translation: 'jasper',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kMineralNameLabradorite,
+                            translation: 'labradorite',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kMineralNameLapisLazuli,
+                            translation: 'lapis lazuli',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kMineralNameMoonstone,
+                            translation: 'moonstone',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kMineralNameOpal,
+                            translation: 'opal',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kMineralNamePeridot,
+                            translation: 'peridot',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kMineralNameRhondochrosite,
+                            translation: 'rhondochrosite',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kMineralNameRuby,
+                            translation: 'ruby',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kMineralNameSapphire,
+                            translation: 'sapphire',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kMineralNameQuartz,
+                            translation: 'quartz',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kMineralNameTourmaline,
+                            translation: 'tourmaline',
+                        },
+                    ],
+                ],
+                [
+                    SeaPenTemplateChip.kMineralColor,
+                    [
+                        {
+                            value: SeaPenTemplateOption.kMineralColorWarm,
+                            translation: 'warm',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kMineralColorCool,
+                            translation: 'cool',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kMineralColorNeutral,
+                            translation: 'neutral',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kMineralColorPastel,
+                            translation: 'pastel',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kMineralColorMuted,
+                            translation: 'muted',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kMineralColorVibrant,
+                            translation: 'vibrant',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kMineralColorEarthy,
+                            translation: 'earthy',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kMineralColorMetallic,
+                            translation: 'metallic',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kMineralColorNeon,
+                            translation: 'neon',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kMineralColorTonal,
+                            translation: 'tonal',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kMineralColorGray,
+                            translation: 'gray',
+                        },
+                    ],
+                ],
+            ]),
+        },
+        {
+            id: SeaPenTemplateId.kLandscape.toString(),
+            title: 'Landscape',
+            text: `A <${SeaPenTemplateChip.kLandscapeBiome}> landscape with <${SeaPenTemplateChip.kLandscapeLighting}> lighting`,
+            preview: [{
+                    url: 'chrome://personalization/images/sea_pen_tile.svg',
+                }],
+            options: new Map([
+                [
+                    SeaPenTemplateChip.kLandscapeBiome,
+                    [
+                        {
+                            value: SeaPenTemplateOption.kLandscapeBiomeTaiga,
+                            translation: 'taiga',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kLandscapeBiomeDesert,
+                            translation: 'desert',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kLandscapeBiomeRainforest,
+                            translation: 'rainforest',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kLandscapeBiomeTundra,
+                            translation: 'tundra',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kLandscapeBiomeBeach,
+                            translation: 'beach',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kLandscapeBiomeIcebergs,
+                            translation: 'icebergs',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kLandscapeBiomeSwamp,
+                            translation: 'swamp',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kLandscapeBiomeGrassland,
+                            translation: 'grassland',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kLandscapeBiomeForest,
+                            translation: 'forest',
+                        },
+                    ],
+                ],
+                [
+                    SeaPenTemplateChip.kLandscapeLighting,
+                    [
+                        {
+                            value: SeaPenTemplateOption.kLandscapeLightingDiffuse,
+                            translation: 'diffuse',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kLandscapeLightingNorthernLights,
+                            translation: 'northern lights',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kLandscapeLightingSunRays,
+                            translation: 'sun rays',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kLandscapeLightingGoldenHour,
+                            translation: 'golden hour',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kLandscapeLightingEarlyMorning,
+                            translation: 'early morning',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kLandscapeLightingBlueHour,
+                            translation: 'blue hour',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kLandscapeLightingMidday,
+                            translation: 'midday',
+                        },
+                    ],
+                ],
+            ]),
+        },
+        {
+            id: SeaPenTemplateId.kScifi.toString(),
+            title: 'Sci-fi',
+            text: `Otherworldly <${SeaPenTemplateChip.kScifiFeature}> in <${SeaPenTemplateChip.kScifiColor}> colors`,
+            preview: [{
+                    url: 'chrome://personalization/images/sea_pen_tile.svg',
+                }],
+            options: new Map([
+                [
+                    SeaPenTemplateChip.kScifiFeature,
+                    [
+                        {
+                            value: SeaPenTemplateOption.kScifiFeatureStreet,
+                            translation: 'street',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kScifiFeatureSkyline,
+                            translation: 'skyline',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kScifiFeatureSwamp,
+                            translation: 'swamp',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kScifiFeatureTransport,
+                            translation: 'transport hub',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kScifiFeatureBusStop,
+                            translation: 'bus stop',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kScifiFeatureDesert,
+                            translation: 'desert',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kScifiFeatureBeach,
+                            translation: 'beach',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kScifiFeatureMountains,
+                            translation: 'mountains',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kScifiFeaturePark,
+                            translation: 'park',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kScifiFeatureForest,
+                            translation: 'forest',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kScifiFeatureSmallTown,
+                            translation: 'small town',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kScifiFeatureFarm,
+                            translation: 'farm',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kScifiFeatureUnderwater,
+                            translation: 'underwater',
+                        },
+                    ],
+                ],
+                [
+                    SeaPenTemplateChip.kScifiColor,
+                    [
+                        {
+                            value: SeaPenTemplateOption.kScifiColorEarthy,
+                            translation: 'earthy',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kScifiColorVibrant,
+                            translation: 'vibrant',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kScifiColorSilver,
+                            translation: 'silver',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kScifiColorEerie,
+                            translation: 'eerie',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kScifiColorComplementary,
+                            translation: 'complementary',
+                        },
+                        {
+                            value: SeaPenTemplateOption.kScifiColorNeutral,
+                            translation: 'neutral',
+                        },
+                    ],
+                ],
+            ]),
+        },
+    ];
+    if (isSeaPenTextInputEnabled()) {
+        templates.push({
+            preview: [{
+                    url: 'chrome://personalization/images/sea_pen_tile.svg',
+                }],
+            title: 'Freeform',
+            text: 'Freeform',
+            id: QUERY,
+            options: new Map(),
+        });
+    }
+    return templates;
+}
+/**
+ * Split the template string into an array of strings, where each string is
+ * either a literal string or a placeholder for a chip.
+ * @example
+ * // returns ['A park in ', '<city>', ' in the style of ', '<style>']
+ * parseTemplateText('A park in <city> in the style of <style>');
+ */
+function parseTemplateText(template) {
+    return template.split(/(<\w+>)/g);
 }
 
 // Copyright 2022 The Chromium Authors
@@ -17237,7 +19037,7 @@ class PersonalizationBreadcrumbElement extends WithPersonalizationStore {
         return 'personalization-breadcrumb';
     }
     static get template() {
-        return getTemplate$w();
+        return getTemplate$y();
     }
     static get properties() {
         return {
@@ -17361,14 +19161,17 @@ class PersonalizationBreadcrumbElement extends WithPersonalizationStore {
                 break;
             case Paths.SEA_PEN_COLLECTION:
                 breadcrumbs.push(this.i18n('wallpaperLabel'));
+                // TODO(b/308200616): Add real text
                 breadcrumbs.push('Sea Pen');
-                if (this.seaPenTemplateId === QUERY) {
-                    breadcrumbs.push(QUERY);
-                }
-                else if (this.seaPenTemplateId && isNonEmptyArray(this.seaPenTemplates_)) {
+                break;
+            case Paths.SEA_PEN_RESULTS:
+                breadcrumbs.push(this.i18n('wallpaperLabel'));
+                // TODO(b/308200616): Add real text
+                breadcrumbs.push('Sea Pen');
+                if (this.seaPenTemplateId && isNonEmptyArray(this.seaPenTemplates_)) {
                     const template = this.seaPenTemplates_.find(template => template.id === this.seaPenTemplateId);
                     if (template) {
-                        breadcrumbs.push(template.text);
+                        breadcrumbs.push(template.title);
                     }
                 }
                 break;
@@ -17398,7 +19201,7 @@ class PersonalizationBreadcrumbElement extends WithPersonalizationStore {
         return breadcrumbs;
     }
     computeSeaPenTemplates_() {
-        return getSampleSeaPenTemplates();
+        return getSeaPenTemplates();
     }
     getBackButtonAriaLabel_() {
         return this.i18n('back', this.i18n('wallpaperLabel'));
@@ -17422,13 +19225,44 @@ class PersonalizationBreadcrumbElement extends WithPersonalizationStore {
             }
         }
     }
+    onClickMenuIcon_(e) {
+        const targetElement = e.currentTarget;
+        const menuIconContainerRect = targetElement.getBoundingClientRect();
+        const config = {
+            // 8px is the padding of .menu-icon-container.
+            top: menuIconContainerRect.top - 8,
+            left: menuIconContainerRect.left - menuIconContainerRect.width / 2,
+            height: menuIconContainerRect.height,
+            width: menuIconContainerRect.width,
+            anchorAlignmentX: AnchorAlignment.CENTER,
+            anchorAlignmentY: AnchorAlignment.AFTER_END,
+        };
+        const menuElement = this.shadowRoot.querySelector('cr-action-menu');
+        menuElement.showAtPosition(config);
+    }
+    onClickMenuItem_(e) {
+        const targetElement = e.currentTarget;
+        const templateId = targetElement.dataset['id'];
+        assert(!!templateId, 'templateId is required');
+        PersonalizationRouterElement.instance().goToRoute(Paths.SEA_PEN_RESULTS, { seaPenTemplateId: templateId });
+    }
+    shouldShowSeaPenDropdown_(path, breadcrumb) {
+        if (!isSeaPenEnabled()) {
+            return false;
+        }
+        const template = this.seaPenTemplates_?.find(template => template.title === breadcrumb);
+        return path === Paths.SEA_PEN_RESULTS && !!template;
+    }
+    getAriaSelected_(templateId, seaPenTemplateId) {
+        return templateId === seaPenTemplateId ? 'true' : 'false';
+    }
     onHomeIconClick_() {
         PersonalizationRouterElement.instance().goToRoute(Paths.ROOT);
     }
 }
 customElements.define(PersonalizationBreadcrumbElement.is, PersonalizationBreadcrumbElement);
 
-function getTemplate$v() {
+function getTemplate$x() {
     return html `<!--_html_template_start_--><style include="common cros-button-style">#container{display:grid;grid-template-areas:'. . userpreview        . .' '. . time-of-day-banner . .' '. . middle             . .' '. . rbg-keyboard       . .' '. . .                  . .';grid-template-columns:1fr 24px minmax(480px,960px) 24px 1fr;grid-template-rows:108px auto 1fr auto 32px;height:100%;position:relative;width:100%}user-preview{grid-area:userpreview}time-of-day-banner{grid-area:time-of-day-banner;margin-bottom:23px;min-height:72px}#middle{display:grid;gap:16px;grid-area:middle;grid-template-columns:repeat(auto-fit,minmax(380px,1fr))}keyboard-backlight{grid-area:rbg-keyboard;margin-top:16px}:host-context(body.jelly-enabled) #container{grid-template-columns:1fr 24px minmax(500px,1020px) 24px 1fr;grid-template-rows:132px auto 1fr auto 24px}:host-context(body.jelly-enabled) #middle{gap:20px;grid-template-columns:repeat(auto-fit,minmax(318px,1fr))}:host-context(body.jelly-enabled) keyboard-backlight{margin-top:20px}@media (max-width:700px){:host-context(body.jelly-enabled) #container{grid-template-columns:1fr 24px 500px 24px 1fr}:host-context(body.jelly-enabled) #middle{grid-template-columns:repeat(1,500px)}}</style>
 <div id="container">
   <user-preview path="[[path]]">
@@ -17464,7 +19298,7 @@ class PersonalizationMainElement extends WithPersonalizationStore {
         return 'personalization-main';
     }
     static get template() {
-        return getTemplate$v();
+        return getTemplate$x();
     }
     static get properties() {
         return {
@@ -17493,7 +19327,7 @@ class PersonalizationMainElement extends WithPersonalizationStore {
 }
 customElements.define(PersonalizationMainElement.is, PersonalizationMainElement);
 
-function getTemplate$u() {
+function getTemplate$w() {
     return html `<!--_html_template_start_--><style>.crisp{shape-rendering:crispEdges}</style>
 
 <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" fill="none">
@@ -17515,7 +19349,7 @@ class ColorSchemeIconSvgElement extends WithPersonalizationStore {
         return 'color-scheme-icon-svg';
     }
     static get template() {
-        return getTemplate$u();
+        return getTemplate$w();
     }
     static get properties() {
         return {
@@ -17534,7 +19368,7 @@ class ColorSchemeIconSvgElement extends WithPersonalizationStore {
 }
 customElements.define(ColorSchemeIconSvgElement.is, ColorSchemeIconSvgElement);
 
-function getTemplate$t() {
+function getTemplate$v() {
     return html `<!--_html_template_start_--><style include="cros-button-style">#themeLabel>h2{color:var(--cros-text-color-primary);font:var(--personalization-app-label-font)}cr-button{background-color:var(--cros-tab-slider-track-color);border:0;display:flex;flex-flow:column nowrap;height:60px;padding-bottom:8px;padding-top:8px;--ink-color:rgba(var(--cros-ripple-color-rgb), 1);--paper-ripple-opacity:var(--cros-button-primary-ripple-opacity)}cr-button[aria-checked=true] .text{color:var(--cros-button-label-color-primary)!important}cr-button[aria-checked=true] iron-icon{--iron-icon-fill-color:var(--cros-button-label-color-primary)!important}cr-button .text,cr-button:hover .text{color:var(--cros-text-color-secondary);font:var(--personalization-app-label-font);padding-top:4px}cr-button iron-icon,cr-button:hover iron-icon{--iron-icon-fill-color:var(--cros-text-color-secondary)}cr-button:hover{background-color:rgba(var(--cros-ripple-color-rgb),var(--cros-button-primary-ripple-opacity))}:host-context(body.jelly-enabled) cr-button:hover{--hover-bg-color:var(--cros-sys-hover_on_subtle)}:host-context(body.jelly-enabled) #selector>cr-button[aria-checked=true]:hover::part(hoverBackground){--hover-bg-color:var(--cros-sys-hover_on_prominent);background-color:var(--hover-bg-color);display:block}#selector>cr-button[aria-checked=true]{background-color:var(--cros-button-background-color-primary)}#selector{display:grid;gap:8px;grid-template-columns:auto auto auto}</style>
 <div id="container">
   <template is="dom-if" if="[[!isPersonalizationJellyEnabled_]]">
@@ -17621,7 +19455,7 @@ function setStaticColorPref(staticColor, provider, store) {
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 /** @fileoverview listens for updates on color mode changes. */
-let instance$4 = null;
+let instance$5 = null;
 /**
  * Observes color mode changes and saves updates to PersonalizationStore.
  */
@@ -17630,14 +19464,14 @@ class ThemeObserver {
         this.receiver_ = this.initReceiver_(getThemeProvider());
     }
     static initThemeObserverIfNeeded() {
-        if (!instance$4) {
-            instance$4 = new ThemeObserver();
+        if (!instance$5) {
+            instance$5 = new ThemeObserver();
         }
     }
     static shutdown() {
-        if (instance$4) {
-            instance$4.receiver_.$.close();
-            instance$4 = null;
+        if (instance$5) {
+            instance$5.receiver_.$.close();
+            instance$5 = null;
         }
     }
     initReceiver_(themeProvider) {
@@ -17678,7 +19512,7 @@ class PersonalizationThemeElement extends WithPersonalizationStore {
         return 'personalization-theme';
     }
     static get template() {
-        return getTemplate$t();
+        return getTemplate$v();
     }
     static get properties() {
         return {
@@ -17765,7 +19599,7 @@ class PersonalizationThemeElement extends WithPersonalizationStore {
         return (!!this.colorModeAutoScheduleEnabled_).toString();
     }
     onClickColorModeButton_(event) {
-        if (!isSelectionEvent(event)) {
+        if (!isSelectionEvent$1(event)) {
             return;
         }
         const eventTarget = event.currentTarget;
@@ -17776,7 +19610,7 @@ class PersonalizationThemeElement extends WithPersonalizationStore {
         setColorModePref(colorMode === 'DARK', getThemeProvider(), this.getStore());
     }
     onClickAutoModeButton_(event) {
-        if (!isSelectionEvent(event) || this.colorModeAutoScheduleEnabled_) {
+        if (!isSelectionEvent$1(event) || this.colorModeAutoScheduleEnabled_) {
             return;
         }
         setColorModeAutoSchedule(
@@ -17785,8 +19619,8 @@ class PersonalizationThemeElement extends WithPersonalizationStore {
 }
 customElements.define(PersonalizationThemeElement.is, PersonalizationThemeElement);
 
-function getTemplate$s() {
-    return html `<!--_html_template_start_--><style include="common cros-button-style">#themeHeader{align-items:center;display:grid;grid-template-areas:'title       .' '.           .' 'description toggle';grid-template-columns:auto fit-content(40px);grid-template-rows:20px 6px 18px}#themeTitle{color:var(--cros-text-color-primary);font:var(--personalization-app-label-font);grid-area:title}#dynamicColorToggleDescription{color:var(--cros-sys-secondary);font:var(--cros-annotation-1-font);grid-area:description}#dynamicColorToggle{grid-area:toggle}iron-selector{display:grid;gap:12px;grid-template-columns:repeat(4,minmax(0,1fr));margin:16px 0 12px}#container cr-button{background-color:var(--cros-sys-app_base_shaded);border:none;border-radius:16px;display:grid;height:76px;justify-items:center;padding:0;--ink-color:rgba(var(--cros-ripple-color-rgb), 1);--paper-ripple-opacity:var(--cros-button-primary-ripple-opacity)}.container{height:48px;position:relative;width:48px}iron-icon[icon='personalization:circle_checkmark']{display:none}cr-button[aria-checked=true] iron-icon[icon='personalization:circle_checkmark']{--iron-icon-height:20px;--iron-icon-width:20px;bottom:-4px;display:block;position:absolute;right:-4px}svg{grid-column:1;grid-row:1;height:48px;position:relative;width:48px}</style>
+function getTemplate$u() {
+    return html `<!--_html_template_start_--><style include="common cros-button-style">#themeHeader{align-items:center;display:grid;grid-template-areas:'title       .' '.           .' 'description toggle';grid-template-columns:auto fit-content(40px);grid-template-rows:20px 6px 18px}#themeTitle{color:var(--cros-text-color-primary);font:var(--personalization-app-label-font);grid-area:title}#dynamicColorToggleDescription{color:var(--cros-sys-secondary);font:var(--cros-annotation-1-font);grid-area:description}#dynamicColorToggle{grid-area:toggle}iron-selector{display:grid;gap:12px;grid-template-columns:repeat(4,minmax(0,1fr));margin:16px 0 12px}#container cr-button{background-color:var(--cros-sys-app_base_shaded);border:none;border-radius:16px;display:grid;height:76px;justify-items:center;padding:0;--ink-color:rgba(var(--cros-ripple-color-rgb), 1);--paper-ripple-opacity:var(--cros-button-primary-ripple-opacity)}.container{height:48px;position:relative;width:48px}iron-icon[icon='personalization-shared:circle-checkmark']{display:none}cr-button[aria-checked=true] iron-icon[icon='personalization-shared:circle-checkmark']{--iron-icon-height:20px;--iron-icon-width:20px;bottom:-4px;display:block;position:absolute;right:-4px}svg{grid-column:1;grid-row:1;height:48px;position:relative;width:48px}</style>
 <div id="container">
   <div id="themeHeader">
     <div id="themeTitle" class="ellipsis">$i18n{dynamicColorLabel}</div>
@@ -17803,7 +19637,7 @@ function getTemplate$s() {
       <cr-button tabindex$="[[getColorSchemeTabIndex_(colorScheme.scheme)]]" on-click="onClickColorSchemeButton_" data-color-scheme-id$="[[colorScheme.scheme]]" aria-checked$="[[getColorSchemeAriaChecked_(colorScheme.scheme, colorSchemeSelected_)]]" aria-description$="[[getColorSchemeAriaDescription_(colorScheme.scheme)]]" role="radio">
         <div class="container">
           <color-scheme-icon-svg scheme="[[colorScheme]]"></color-scheme-icon-svg>
-          <iron-icon class="checkmark" icon="personalization:circle_checkmark"></iron-icon>
+          <iron-icon class="checkmark" icon="personalization-shared:circle-checkmark"></iron-icon>
         </div>
       </cr-button>
     </template>
@@ -17815,7 +19649,7 @@ function getTemplate$s() {
           <svg>
             <circle style$="fill: [[staticColor.fillVal]]" cx="24" cy="24" r="24"></circle>
           </svg>
-          <iron-icon icon="personalization:circle_checkmark"></iron-icon>
+          <iron-icon icon="personalization-shared:circle-checkmark"></iron-icon>
         </div>
       </cr-button>
     </template>
@@ -17835,7 +19669,7 @@ class DynamicColorElement extends WithPersonalizationStore {
         return 'dynamic-color';
     }
     static get template() {
-        return getTemplate$s();
+        return getTemplate$u();
     }
     static get properties() {
         return {
@@ -18025,7 +19859,7 @@ class DynamicColorElement extends WithPersonalizationStore {
 }
 customElements.define(DynamicColorElement.is, DynamicColorElement);
 
-function getTemplate$r() {
+function getTemplate$t() {
     return html `<!--_html_template_start_--><style include="common cros-button-style">#container{align-items:center;display:flex;flex-flow:row nowrap;height:100%}#promoImageContainer{clip-path:url(#starClip);height:100%;margin:10px 0 10px 10px;max-height:52px;max-width:52px;overflow:hidden;width:100%}#promoImageContainer img{height:100%;object-fit:fill;width:100%}#textContainer{display:flex;flex-flow:column wrap;margin:10px 0 10px 10px}#bannerTitle{color:var(--cros-text-color-primary);font:var(--cros-headline-1-font)}#bannerDescription{color:var(--cros-text-color-secondary);font:var(--cros-body-2-font)}#bannerDescription>a{color:var(--cros-link-color)}#bannerTitle+#bannerDescription{margin-top:2px}#dismissButton{background-color:unset;margin-inline-end:10px;margin-inline-start:auto}</style>
 <div id="container" class="preview-container">
   
@@ -18065,7 +19899,7 @@ class TimeOfDayBannerElement extends WithPersonalizationStore {
         return 'time-of-day-banner';
     }
     static get template() {
-        return getTemplate$r();
+        return getTemplate$t();
     }
     onDismissClick_() {
         dismissTimeOfDayBanner(this.getStore());
@@ -18077,7 +19911,7 @@ class TimeOfDayBannerElement extends WithPersonalizationStore {
 }
 customElements.define(TimeOfDayBannerElement.is, TimeOfDayBannerElement);
 
-function getTemplate$q() {
+function getTemplate$s() {
     return html `<!--_html_template_start_--><style include="common cros-button-style">cr-dialog{--cr-dialog-width:300px;--cr-dialog-body-padding-horizontal:24px;--cr-focus-outline-color:var(--cros-focus-ring-color)}div[slot=body]{height:252px;overflow:hidden;position:relative}@keyframes flash{0%{opacity:0}50%{opacity:.5}100%{opacity:0}}#captureOverlay{animation-delay:.1s;animation-duration:.1s;animation-iteration-count:infinite;animation-name:flash;animation-play-state:paused;animation-timing-function:ease-in-out;background-color:#fff;border-radius:8px;bottom:0;left:0;margin:0 24px;opacity:0;position:absolute;right:0;top:0}#captureOverlay[data-mode=video]:not([hidden]){animation-play-state:running}#webcamVideo{border-radius:8px;height:100%;transform:scaleX(-1);width:100%}cr-button{display:flex;gap:8px;height:32px;padding:6px 16px}:host-context(body.jelly-enabled) #cameraFeedSpinner{--paper-spinner-color:var(--cros-sys-primary)}#cameraFeedSpinner{bottom:50%;left:50%;position:absolute;transform:translate(-50%,-50%)}svg{border-radius:8px;bottom:0;left:0;margin:0 24px;position:absolute;right:0;top:0;z-index:1}#previewImg{border-radius:8px;width:100%}div[slot=footer]{border:0;box-sizing:border-box;display:flex;flex-flow:row nowrap;gap:8px;justify-content:center;min-height:65px}#loadingButton{--disabled-text-color:var(--cros-button-label-color-primary)}#loadingButtonSpinner{--paper-spinner-color:var(--cros-button-label-color-primary);height:14px;width:14px}</style>
 <cr-dialog id="dialog" show-close-button show-on-attach close-text="$i18n{ariaLabelCloseCamera}">
   <div slot="body">
@@ -18117,11 +19951,11 @@ function getTemplate$q() {
       </template>
       <template is="dom-if" if="[[previewBlobUrl_]]">
         <cr-button id="clearPhoto" on-click="clearPhoto_" class="secondary">
-          <iron-icon icon="personalization:refresh"></iron-icon>
+          <iron-icon icon="personalization-shared:refresh"></iron-icon>
           <span>$i18n{rejectWebcamPhoto}</span>
         </cr-button>
         <cr-button id="confirmPhoto" on-click="confirmPhoto_" class="primary action-button">
-          <iron-icon icon="personalization:circle_checkmark"></iron-icon>
+          <iron-icon icon="personalization-shared:circle-checkmark"></iron-icon>
           <span>[[getConfirmText_(mode)]]</span>
         </cr-button>
       </template>
@@ -18899,14 +20733,14 @@ function setWebcamUtilsForTesting(replacement) {
 function getWebcamUtils() {
     return webcamUtilsInstance;
 }
-let instance$3 = null;
+let instance$4 = null;
 /** Wrapper around browser media API to mock out for tests. */
 class GetUserMediaProxy {
     static setInstanceForTesting(replacement) {
-        instance$3 = replacement;
+        instance$4 = replacement;
     }
     static getInstance() {
-        return instance$3 || (instance$3 = new GetUserMediaProxy());
+        return instance$4 || (instance$4 = new GetUserMediaProxy());
     }
     getUserMedia() {
         return navigator.mediaDevices.getUserMedia({
@@ -18953,7 +20787,7 @@ class AvatarCameraElement extends WithPersonalizationStore {
         return 'avatar-camera';
     }
     static get template() {
-        return getTemplate$q();
+        return getTemplate$s();
     }
     static get properties() {
         return {
@@ -19102,8 +20936,17 @@ class AvatarCameraElement extends WithPersonalizationStore {
 }
 customElements.define(AvatarCameraElement.is, AvatarCameraElement);
 
-function getTemplate$p() {
-    return html `<!--_html_template_start_--><style>:host{--personalization-app-avatar-image-size:64px;--personalization-app-avatar-image-padding:8px;--personalization-app-avatar-ripple-color:rgba(var(--cros-ripple-color-prominent-rgb), 1);--personalization-app-avatar-ripple-opacity:var(--cros-button-primary-ripple-opacity)}:host-context(body.jelly-enabled){--personalization-app-avatar-image-size:72px;--personalization-app-avatar-image-padding:10px;--personalization-app-avatar-ripple-color:var(--cros-sys-ripple_primary);--personalization-app-avatar-ripple-opacity:100%}iron-list{height:100%;width:100%}.hidden{display:none}.option-container{padding:var(--personalization-app-avatar-image-padding)}.image-container{background-color:var(--personalization-app-grid-item-background-color);border-radius:50%;cursor:pointer;position:relative}.image-container:hover{filter:brightness(.94)}.image-border-container{border-radius:50%;height:var(--personalization-app-avatar-image-size);outline:1px solid rgba(0,0,0,.08);width:var(--personalization-app-avatar-image-size)}.image-container img{background-size:var(--personalization-app-avatar-image-size) var(--personalization-app-avatar-image-size);border-radius:50%;height:var(--personalization-app-avatar-image-size);width:var(--personalization-app-avatar-image-size)}paper-ripple{color:rgba(var(--cros-ripple-color-rgb),1);--paper-ripple-opacity:var(--cros-button-primary-ripple-opacity)}avatar-camera{bottom:0;left:0;position:fixed;right:0;top:0}.avatar-button-container{background-color:var(--cros-sys-primary_container,var(--cros-highlight-color));border-radius:100%;cursor:pointer;display:inline-block;line-height:var(--personalization-app-avatar-image-size);position:relative;text-align:center;vertical-align:middle}.avatar-button-container:hover{background-color:var(--cros-sys-highlight_text,var(--cros-text-highlight-color))}.avatar-button-container:focus-visible{outline:2px solid var(--cros-focus-ring-color)}.avatar-button-container paper-ripple{color:var(--personalization-app-avatar-ripple-color);--paper-ripple-opacity:var(--personalization-app-avatar-ripple-opacity)}.avatar-button-container iron-icon{line-height:inherit;--iron-icon-height:20px;--iron-icon-width:20px;--iron-icon-fill-color:var(--cros-link-color)}.image-container:focus-visible{border-radius:50%;outline:2px solid var(--cros-focus-ring-color)}.image-container iron-icon[icon='personalization:checkmark'],.image-container iron-icon[icon='personalization:circle_checkmark']{--iron-icon-height:20px;--iron-icon-width:20px;bottom:0;position:absolute;right:0}.image-container:not([aria-selected=true]) iron-icon[icon='personalization:checkmark'],.image-container:not([aria-selected=true]) iron-icon[icon='personalization:circle_checkmark']{display:none}</style>
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+// Convert a javascript string into a Mojo String16.
+// Convert a Mojo String16 into a javascript string.
+function mojoString16ToString(str16) {
+    return String.fromCharCode(...str16.data);
+}
+
+function getTemplate$r() {
+    return html `<!--_html_template_start_--><style>:host{--personalization-app-avatar-image-size:64px;--personalization-app-avatar-image-padding:8px;--personalization-app-avatar-ripple-color:rgba(var(--cros-ripple-color-prominent-rgb), 1);--personalization-app-avatar-ripple-opacity:var(--cros-button-primary-ripple-opacity)}:host-context(body.jelly-enabled){--personalization-app-avatar-image-size:72px;--personalization-app-avatar-image-padding:10px;--personalization-app-avatar-ripple-color:var(--cros-sys-ripple_primary);--personalization-app-avatar-ripple-opacity:100%}iron-list{height:100%;width:100%}.hidden{display:none}.option-container{padding:var(--personalization-app-avatar-image-padding)}.image-container{background-color:var(--personalization-app-grid-item-background-color);border-radius:50%;cursor:pointer;position:relative}.image-container:hover{filter:brightness(.94)}.image-border-container{border-radius:50%;height:var(--personalization-app-avatar-image-size);outline:1px solid rgba(0,0,0,.08);width:var(--personalization-app-avatar-image-size)}.image-container img{background-size:var(--personalization-app-avatar-image-size) var(--personalization-app-avatar-image-size);border-radius:50%;height:var(--personalization-app-avatar-image-size);width:var(--personalization-app-avatar-image-size)}paper-ripple{color:rgba(var(--cros-ripple-color-rgb),1);--paper-ripple-opacity:var(--cros-button-primary-ripple-opacity)}avatar-camera{bottom:0;left:0;position:fixed;right:0;top:0}.avatar-button-container{background-color:var(--cros-sys-primary_container,var(--cros-highlight-color));border-radius:100%;cursor:pointer;display:inline-block;line-height:var(--personalization-app-avatar-image-size);position:relative;text-align:center;vertical-align:middle}.avatar-button-container:hover{background-color:var(--cros-sys-highlight_text,var(--cros-text-highlight-color))}.avatar-button-container:focus-visible{outline:2px solid var(--cros-focus-ring-color)}.avatar-button-container paper-ripple{color:var(--personalization-app-avatar-ripple-color);--paper-ripple-opacity:var(--personalization-app-avatar-ripple-opacity)}.avatar-button-container iron-icon{line-height:inherit;--iron-icon-height:20px;--iron-icon-width:20px;--iron-icon-fill-color:var(--cros-link-color)}.image-container:focus-visible{border-radius:50%;outline:2px solid var(--cros-focus-ring-color)}.image-container iron-icon[icon='personalization-shared:circle-checkmark'],.image-container iron-icon[icon='personalization:checkmark']{--iron-icon-height:20px;--iron-icon-width:20px;bottom:0;position:absolute;right:0}.image-container:not([aria-selected=true]) iron-icon[icon='personalization-shared:circle-checkmark'],.image-container:not([aria-selected=true]) iron-icon[icon='personalization:checkmark']{display:none}</style>
 <iron-list items="[[options_]]" role="listbox" aria-setsize$="[[options_.length]]" grid>
   <template>
     <div class="option-container">
@@ -19285,7 +21128,7 @@ class AvatarListElement extends WithPersonalizationStore {
         return 'avatar-list';
     }
     static get template() {
-        return getTemplate$p();
+        return getTemplate$r();
     }
     static get properties() {
         return {
@@ -19396,7 +21239,7 @@ class AvatarListElement extends WithPersonalizationStore {
                     class: 'image-container',
                     imgSrc: defaultImage.url.url,
                     icon: getCheckmarkIcon(),
-                    title: decodeString16(defaultImage.title),
+                    title: mojoString16ToString(defaultImage.title),
                     defaultImageIndex: defaultImage.index,
                 });
             });
@@ -19429,7 +21272,7 @@ class AvatarListElement extends WithPersonalizationStore {
         }
     }
     onOptionSelected_(e) {
-        if (!isSelectionEvent(e)) {
+        if (!isSelectionEvent$1(e)) {
             return;
         }
         const divElement = e.currentTarget;
@@ -19476,7 +21319,7 @@ class AvatarListElement extends WithPersonalizationStore {
             this.onAvatarNetworkError_();
             return;
         }
-        if (!isSelectionEvent(event)) {
+        if (!isSelectionEvent$1(event)) {
             return;
         }
         const id = event.currentTarget.dataset['id'];
@@ -19487,26 +21330,26 @@ class AvatarListElement extends WithPersonalizationStore {
         getUserProvider().selectDefaultImage(index);
     }
     onSelectProfileImage_(event) {
-        if (!isSelectionEvent(event)) {
+        if (!isSelectionEvent$1(event)) {
             return;
         }
         getUserProvider().selectProfileImage();
     }
     onSelectLastExternalUserImage_(event) {
-        if (!isSelectionEvent(event)) {
+        if (!isSelectionEvent$1(event)) {
             return;
         }
         getUserProvider().selectLastExternalUserImage();
     }
     openCamera_(event) {
-        if (!isSelectionEvent(event)) {
+        if (!isSelectionEvent$1(event)) {
             return;
         }
         assert$1(this.isCameraPresent_, 'Camera needed to record an image');
         this.cameraMode_ = "camera" /* AvatarCameraMode.CAMERA */;
     }
     openVideo_(event) {
-        if (!isSelectionEvent(event)) {
+        if (!isSelectionEvent$1(event)) {
             return;
         }
         assert$1(this.isCameraPresent_, 'Camera needed to record a video');
@@ -19519,7 +21362,7 @@ class AvatarListElement extends WithPersonalizationStore {
         }
     }
     onSelectImageFromDisk_(event) {
-        if (!isSelectionEvent(event)) {
+        if (!isSelectionEvent$1(event)) {
             return;
         }
         getUserProvider().selectImageFromDisk();
@@ -19701,7 +21544,7 @@ IronA11yAnnouncer.requestAvailability = function() {
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 /** @fileoverview listens for updates on user's avatar image. */
-let instance$2 = null;
+let instance$3 = null;
 /**
  * Listens for changes to user image and saves updates to PersonalizationStore.
  */
@@ -19710,14 +21553,14 @@ class UserImageObserver {
         this.receiver_ = this.initReceiver_(getUserProvider());
     }
     static initUserImageObserverIfNeeded() {
-        if (!instance$2) {
-            instance$2 = new UserImageObserver();
+        if (!instance$3) {
+            instance$3 = new UserImageObserver();
         }
     }
     static shutdown() {
-        if (instance$2) {
-            instance$2.receiver_.$.close();
-            instance$2 = null;
+        if (instance$3) {
+            instance$3.receiver_.$.close();
+            instance$3 = null;
         }
     }
     initReceiver_(userProvider) {
@@ -19743,8 +21586,8 @@ class UserImageObserver {
     }
 }
 
-function getTemplate$o() {
-    return html `<!--_html_template_start_--><style include="wallpaper">#container{box-sizing:border-box;display:grid;grid-template-areas:'. .     . .' '. image . text';grid-template-columns:8px 82px 16px minmax(0,1fr);grid-template-rows:12px 82px;height:100%}:host-context(body.jelly-enabled) #container{grid-template-areas:'.     . .' 'image . text';grid-template-columns:96px 20px minmax(0,1fr);grid-template-rows:20px 96px}:host-context(body.jelly-enabled):host-context(user-subpage) #container{grid-template-rows:6px 96px}#imageContainer{grid-area:image;position:relative}#imageBorderContainer{background-color:var(--personalization-app-grid-item-background-color);border:1px solid rgba(0,0,0,.08);border-radius:50%;height:80px;width:80px}#imageContainer #imageBorderContainer img{background-size:80px 80px;border:0;border-radius:50%;height:80px;width:80px}:host-context(body.jelly-enabled) #imageContainer #imageBorderContainer img{background-size:96px 96px;height:96px;width:96px}#imageContainer img{border:1px solid rgba(0,0,0,.08);border-radius:50%;height:80px;width:80px}:host-context(body.jelly-enabled) #imageBorderContainer,:host-context(body.jelly-enabled) #imageContainer img{border:0;height:96px;width:96px}#imageContainer img.clickable{cursor:pointer}#iconContainer:hover~img,#imageContainer img.clickable:hover{filter:brightness(.94)}#infoContainer{display:flex;flex-flow:column nowrap;grid-area:text;justify-content:center;margin:0}#infoContainer>*{margin:0}#infoContainer>h2{color:var(--cros-text-color-primary);font:400 22px/28px var(--cros-font-family-google-sans)}:host-context(body.jelly-enabled) #infoContainer>h2{font:var(--cros-display-6_regular-font);line-height:24px}.avatar-link{align-items:center;cursor:pointer;display:flex;flex-flow:row nowrap;padding-top:4px;text-decoration:none;width:fit-content}.avatar-link:focus-visible{outline:2px solid var(--cros-focus-ring-color)}.avatar-link>span{color:var(--cros-link-color);font:var(--cros-body-2-font);margin:0}:host-context(body.jelly-enabled) .avatar-link>span{color:var(--cros-sys-secondary,var(--cros-link-color))}iron-icon[icon='cr:open-in-new']{--iron-icon-height:16px;--iron-icon-width:16px;--iron-icon-fill-color:var(--cros-link-color);margin-inline-start:6px}:host-context(body.jelly-enabled) iron-icon[icon='cr:open-in-new']{--iron-icon-height:12px;--iron-icon-width:12px;--iron-icon-fill-color:var(--cros-sys-secondary, var(--cros-link-color))}paper-ripple{color:rgba(var(--cros-ripple-color-rgb),1);--paper-ripple-opacity:var(--cros-button-primary-ripple-opacity)}#enterpriseIconContainer,#iconContainer{-webkit-tap-highlight-color:transparent;border-radius:50%;bottom:0;box-shadow:var(--cros-elevation-1-shadow);display:inline-block;height:24px;line-height:24px;position:absolute;right:2px;text-align:center;vertical-align:middle;width:24px}:host-context(body.jelly-enabled) #enterpriseIconContainer,:host-context(body.jelly-enabled) #iconContainer{box-shadow:none;height:32px;line-height:32px;right:0;width:32px}#iconContainer{align-items:center;background-color:var(--cros-icon-color-prominent);cursor:pointer;display:flex;flex-flow:row nowrap;justify-content:center;z-index:1}#iconContainer>svg{fill:var(--cros-sys-on_primary,var(--cros-button-label-color-primary))}#enterpriseIconContainer{--iron-icon-fill-color:var(--google-grey-800);--iron-icon-height:16px;--iron-icon-width:16px;background-color:var(--cros-button-background-color-primary-disabled)}@media (prefers-color-scheme:dark){#enterpriseIconContainer{--iron-icon-fill-color:var(--google-grey-300)}}:host-context(body.jelly-enabled) #enterpriseIconContainer{background-color:var(--cros-sys-on_primary_container)}:host-context(body.jelly-enabled) #enterpriseIconContainer iron-icon{--iron-icon-fill-color:var(--cros-sys-on_primary);--iron-icon-height:12px;--iron-icon-width:13.33px;text-align:center}#avatar:focus-visible{outline:2px solid var(--cros-focus-ring-color)}</style>
+function getTemplate$q() {
+    return html `<!--_html_template_start_--><style include="wallpaper">#container{box-sizing:border-box;display:grid;grid-template-areas:'. .     . .' '. image . text';grid-template-columns:8px 82px 16px minmax(0,1fr);grid-template-rows:12px 82px;height:100%}:host-context(body.jelly-enabled) #container{grid-template-areas:'.     . .' 'image . text';grid-template-columns:96px 20px minmax(0,1fr);grid-template-rows:20px 96px}:host-context(body.jelly-enabled):host-context(user-subpage) #container{grid-template-rows:6px 96px;padding-left:10px}#imageContainer{grid-area:image;position:relative}#imageBorderContainer{background-color:var(--personalization-app-grid-item-background-color);border:1px solid rgba(0,0,0,.08);border-radius:50%;height:80px;width:80px}#imageContainer #imageBorderContainer img{background-size:80px 80px;border:0;border-radius:50%;height:80px;width:80px}:host-context(body.jelly-enabled) #imageContainer #imageBorderContainer img{background-size:96px 96px;height:96px;width:96px}#imageContainer img{border:1px solid rgba(0,0,0,.08);border-radius:50%;height:80px;width:80px}:host-context(body.jelly-enabled) #imageBorderContainer,:host-context(body.jelly-enabled) #imageContainer img{border:0;height:96px;width:96px}#imageContainer img.clickable{cursor:pointer}#iconContainer:hover~img,#imageContainer img.clickable:hover{filter:brightness(.94)}#infoContainer{display:flex;flex-flow:column nowrap;grid-area:text;justify-content:center;margin:0}#infoContainer>*{margin:0}#infoContainer>h2{color:var(--cros-text-color-primary);font:400 22px/28px var(--cros-font-family-google-sans)}:host-context(body.jelly-enabled) #infoContainer>h2{font:var(--cros-display-6_regular-font);line-height:24px}.avatar-link{align-items:center;cursor:pointer;display:flex;flex-flow:row nowrap;padding-top:4px;text-decoration:none;width:fit-content}.avatar-link:focus-visible{outline:2px solid var(--cros-focus-ring-color)}.avatar-link>span{color:var(--cros-link-color);font:var(--cros-body-2-font);margin:0}:host-context(body.jelly-enabled) .avatar-link>span{color:var(--cros-sys-secondary,var(--cros-link-color))}iron-icon[icon='cr:open-in-new']{--iron-icon-height:16px;--iron-icon-width:16px;--iron-icon-fill-color:var(--cros-link-color);margin-inline-start:6px}:host-context(body.jelly-enabled) iron-icon[icon='cr:open-in-new']{--iron-icon-height:12px;--iron-icon-width:12px;--iron-icon-fill-color:var(--cros-sys-secondary, var(--cros-link-color))}paper-ripple{color:rgba(var(--cros-ripple-color-rgb),1);--paper-ripple-opacity:var(--cros-button-primary-ripple-opacity)}#enterpriseIconContainer,#iconContainer{-webkit-tap-highlight-color:transparent;border-radius:50%;bottom:0;box-shadow:var(--cros-elevation-1-shadow);display:inline-block;height:24px;line-height:24px;position:absolute;right:2px;text-align:center;vertical-align:middle;width:24px}:host-context(body.jelly-enabled) #enterpriseIconContainer,:host-context(body.jelly-enabled) #iconContainer{box-shadow:none;height:32px;line-height:32px;right:0;width:32px}#iconContainer{align-items:center;background-color:var(--cros-icon-color-prominent);cursor:pointer;display:flex;flex-flow:row nowrap;justify-content:center;z-index:1}#iconContainer>svg{fill:var(--cros-sys-on_primary,var(--cros-button-label-color-primary))}#enterpriseIconContainer{--iron-icon-fill-color:var(--google-grey-800);--iron-icon-height:16px;--iron-icon-width:16px;background-color:var(--cros-button-background-color-primary-disabled)}@media (prefers-color-scheme:dark){#enterpriseIconContainer{--iron-icon-fill-color:var(--google-grey-300)}}:host-context(body.jelly-enabled) #enterpriseIconContainer{background-color:var(--cros-sys-on_primary_container)}:host-context(body.jelly-enabled) #enterpriseIconContainer iron-icon{--iron-icon-fill-color:var(--cros-sys-on_primary);--iron-icon-height:12px;--iron-icon-width:13.33px;text-align:center}#avatar:focus-visible{outline:2px solid var(--cros-focus-ring-color)}</style>
 <div id="container">
   <div id="imageContainer" class="tast-open-subpage" aria-label$="[[getImageContainerAriaLabel_(path, imageIsEnterpriseManaged_)]]">
     <template is="dom-if" if="[[imageUrl_]]">
@@ -19822,7 +21665,7 @@ class UserPreviewElement extends WithPersonalizationStore {
         return 'user-preview';
     }
     static get template() {
-        return getTemplate$o();
+        return getTemplate$q();
     }
     static get properties() {
         return {
@@ -19894,7 +21737,7 @@ class UserPreviewElement extends WithPersonalizationStore {
             return '';
         }
         if (image.defaultImage) {
-            return decodeString16(image.defaultImage.title);
+            return mojoString16ToString(image.defaultImage.title);
         }
         if (image.externalImage) {
             return this.i18n('lastExternalImageTitle');
@@ -19929,7 +21772,7 @@ class UserPreviewElement extends WithPersonalizationStore {
     }
     getDeprecatedAuthor_(image) {
         assert$1(image && image.defaultImage && image.defaultImage.sourceInfo, 'only called for deprecated default images with sourceInfo');
-        return decodeString16(image.defaultImage.sourceInfo.author);
+        return mojoString16ToString(image.defaultImage.sourceInfo.author);
     }
     getDeprecatedWebsite_(image) {
         assert$1(image && image.defaultImage && image.defaultImage.sourceInfo, 'only called for deprecated default images with sourceInfo');
@@ -19938,8 +21781,8 @@ class UserPreviewElement extends WithPersonalizationStore {
 }
 customElements.define(UserPreviewElement.is, UserPreviewElement);
 
-function getTemplate$n() {
-    return html `<!--_html_template_start_--><style include="common">#container{display:grid;grid-template-areas:'leftspacertop    userpreview rightspacertop   ' 'leftspacerbottom avatars     rightspacerbottom';grid-template-columns:minmax(24px,1fr) minmax(568px,920px) minmax(24px,1fr);grid-template-rows:auto minmax(0,1fr);height:100%;min-height:var(--personalization-app-subpage-container-min-height)}user-preview{grid-area:userpreview;margin-bottom:16px}avatar-list{grid-area:avatars;padding-bottom:12px}user-preview+avatar-list{border-top:1px solid var(--cros-separator-color);padding-top:8px}:host-context(body.jelly-enabled) avatar-list{background-color:var(--cros-bg-color);border:none}</style>
+function getTemplate$p() {
+    return html `<!--_html_template_start_--><style include="common">#container{display:grid;grid-template-areas:'leftspacertop    userpreview rightspacertop   ' 'leftspacerbottom avatars     rightspacerbottom';grid-template-columns:minmax(10px,1fr) minmax(568px,920px) minmax(10px,1fr);grid-template-rows:auto minmax(0,1fr);height:100%;min-height:var(--personalization-app-subpage-container-min-height)}user-preview{grid-area:userpreview;margin-bottom:16px}avatar-list{grid-area:avatars;padding-bottom:12px}user-preview+avatar-list{border-top:1px solid var(--cros-separator-color);padding-top:10px}:host-context(body.jelly-enabled) avatar-list{background-color:var(--cros-bg-color);border:none}</style>
 <div id="container">
   <div class="leftspacertop"></div>
   <div class="leftspacerbottom"></div>
@@ -19965,7 +21808,7 @@ class UserSubpageElement extends WithPersonalizationStore {
         return 'user-subpage';
     }
     static get template() {
-        return getTemplate$n();
+        return getTemplate$p();
     }
     static get properties() {
         return {
@@ -19995,6 +21838,508 @@ class UserSubpageElement extends WithPersonalizationStore {
     }
 }
 customElements.define(UserSubpageElement.is, UserSubpageElement);
+
+function getTemplate$o() {
+  return html`<!--_html_template_start_--><style>
+  :host {
+    --personalization-app-grid-item-border-radius: 12px;
+    --personalization-app-grid-item-height: 120px;
+    --personalization-app-grid-item-spacing: 20px;
+    /* copied from |AshColorProvider| |kSecondToneOpacity| constant. */
+    --personalization-app-second-tone-opacity: 0.3;
+
+    box-sizing: border-box;
+    display: block;
+    height: calc(var(--personalization-app-grid-item-height) + var(--personalization-app-grid-item-spacing));
+    overflow: hidden;
+    padding: calc(var(--personalization-app-grid-item-spacing) / 2);
+    /* Subtract 0.34px to fix subpixel rounding issues with iron-list. This
+     * ensures all grid items in a row add up to at least 1px smaller than the
+     * parent width. */
+    width: var(--wallpaper-grid-item-width, calc(100% / 3 - 0.34px));
+  }
+
+  :host([data-is-promoted-tile]) {
+    padding: 0 calc(var(--personalization-app-grid-item-spacing) / 2);
+  }
+
+  @media(min-width: 720px) {
+    :host {
+      /* Subtract 0.25px to fix subpixel rounding issues with iron-list. This
+       * ensures all grid items in a row add up to at least 1px smaller than the
+       * parent width. */
+      width: var(--wallpaper-grid-item-width, calc(100% / 4 - 0.25px)) !important;
+    }
+  }
+
+  :host(:focus-visible) {
+    outline: none;
+  }
+
+  /* TODO(b/258686035): Clean up style once jelly is on by default. */
+  :host([aria-selected='true']:not([placeholder])) .item {
+    background-color: var(--cros-sys-highlight_shape, rgba(
+      var(--cros-color-prominent-rgb),
+      var(--personalization-app-second-tone-opacity)));
+    border-radius:
+      calc(var(--personalization-app-grid-item-border-radius) + 4px);
+  }
+
+  :host(:not([aria-selected='true'])) iron-icon,
+  :host([placeholder]) iron-icon {
+    display: none;
+  }
+
+  .item {
+    align-items: center;
+    background-color: var(--personalization-app-grid-item-background-color);
+    border-radius: var(--personalization-app-grid-item-border-radius);
+    box-sizing: border-box;
+    cursor: pointer;
+    display: flex;
+    flex-flow: row wrap;
+    height: 100%;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+  }
+
+  :host([aria-disabled='true']) .item {
+    cursor: default;
+  }
+
+  :host(:focus-visible) .item {
+    outline: 2px solid var(--cros-focus-ring-color);
+  }
+
+  :host([placeholder]) .item {
+    animation: 2210ms linear var(--animation-delay, 1s) infinite ripple;
+  }
+
+  img {
+    object-fit: cover;
+    user-select: none;
+  }
+
+  :host(:not([collage])) img {
+    border-radius: var(--personalization-app-grid-item-border-radius);
+    height: 100%;
+    position: absolute;
+    width: 100%;
+  }
+
+  :host(:not([collage])) img:has(+ img) {
+    clip-path: inset(0 50% 0 0);
+  }
+
+  :host(:not([collage])) img+img {
+    clip-path: inset(0 0 0 50%);
+  }
+
+  :host([collage]) img {
+    flex: 1 1 0;
+    height: 100%;
+    min-width: 50%;
+  }
+
+  :host([collage]) img:first-of-type:nth-last-of-type(n+3),
+  :host([collage]) img:first-of-type:nth-last-of-type(n+3) ~ img {
+    height: 50%;
+  }
+
+  :host([aria-selected='true']) img {
+    animation-duration: 200ms;
+    animation-fill-mode: forwards;
+    animation-name: img-resize;
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1.0);
+  }
+
+  @keyframes img-resize {
+    100% {
+      height: calc(100% - 8px);
+      width: calc(100% - 8px);
+    }
+  }
+
+  #textShadow {
+    background: linear-gradient(rgba(var(--google-grey-900-rgb), 0),
+        rgba(var(--google-grey-900-rgb), 55%));
+    bottom: 0;
+    height: 50%;
+    left: 0;
+    position: absolute;
+    right: 0;
+    z-index: 1;
+  }
+
+  :host([data-is-promoted-tile]) #text,
+  :host([data-sea-pen-image]) #text {
+    position: relative;
+    top: 8px;
+  }
+
+  #text {
+    bottom: 0;
+    box-sizing: border-box;
+    left: 0;
+    overflow: hidden;
+    padding: 8px 16px;
+    position: absolute;
+    right: 0;
+    white-space: nowrap;
+    width: 100%;
+    z-index: 2;
+  }
+
+  .primary-text,
+  .secondary-text,
+  ::slotted(.primary-text) {
+    color: white;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    text-align: center;
+    text-overflow: ellipsis;
+    text-shadow: var(--personalization-app-text-shadow-elevation-1);
+  }
+
+  .primary-text,
+  ::slotted(.primary-text) {
+    font: var(--cros-title-2-font);
+  }
+
+  :host([data-is-promoted-tile]) .primary-text,
+  :host([data-is-promoted-tile]) ::slotted(.primary-text),
+  :host([data-sea-pen-image]) .primary-text,
+  :host([data-sea-pen-image]) ::slotted(.primary-text) {
+    font: var(--cros-display-6_regular-font);
+  }
+
+  :host([data-sea-pen-image]) .wallpaper-grid-item-border {
+    visibility: hidden;
+  }
+
+  p.primary-text:last-of-type,
+  ::slotted(p.primary-text:last-of-type) {
+    margin-bottom: var(--cros-annotation-2-line-height);
+  }
+
+  .secondary-text,
+  ::slotted(.secondary-text) {
+    font: var(--cros-annotation-2-font);
+  }
+
+  #infoIcon {
+    filter: drop-shadow(0 0 2px var(--cros-sys-shadow));
+    position: absolute;
+    right: 8px;
+    top: 8px;
+  }
+
+  .check-mark-icon-container {
+    left: 8px;
+    position: absolute;
+    top: 8px;
+    z-index: 2;
+  }
+
+  iron-icon {
+    --iron-icon-height: 20px;
+    --iron-icon-width: 20px;
+    animation-duration: 200ms;
+    animation-name: iron-icon-scale;
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1.0);
+    margin-inline: 0;
+  }
+
+  path {
+    fill: white;
+  }
+
+  #infoIcon {
+    height: 16px;
+    width: 16px;
+  }
+
+  @keyframes iron-icon-scale {
+    from {
+      transform: scale(0);
+    }
+
+    to {
+      transform: scale(1);
+    }
+  }
+</style>
+<div class="item" part="item"
+    style$="[[getItemPlaceholderAnimationDelay_(index)]]">
+  <template is="dom-repeat" items="[[getSrcArray_(src, collage)]]">
+    <img aria-hidden="true"
+        auto-src="[[item.url]]"
+        clear-src
+        data-index$="[[itemsIndex]]"
+        hidden$="[[isImageHidden_(imageStatus_)]]"
+        is-google-photos="[[isGooglePhotos]]"
+        is="cr-auto-img"
+        on-error="onImgError_"
+        on-load="onImgLoad_"
+        part="image">
+  </template>
+  <div part="border" class="wallpaper-grid-item-border"></div>
+  <template is="dom-if"
+      if="[[isTextVisible_(imageStatus_, primaryText, secondaryText)]]"
+      restamp>
+    <div id="textShadow" part="textShadow"></div>
+    <div id="text">
+      <slot name="text">
+        <template is="dom-if" if="[[isPrimaryTextVisible_(primaryText)]]" restamp>
+          <p class="primary-text" title$="[[primaryText]]">[[primaryText]]</p>
+        </template>
+        <template is="dom-if"
+            if="[[isSecondaryTextVisible_(secondaryText)]]"
+            restamp>
+          <p class="secondary-text" title$="[[secondaryText]]">
+            [[secondaryText]]
+          </p>
+        </template>
+      </slot>
+    </div>
+  </template>
+  <template is="dom-if" if="[[shouldShowInfoText_(imageStatus_, infoText)]]"
+      restamp>
+    <div id="infoIcon" title$="[[infoText]]" part="info-icon">
+      <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path part="path"
+            d="M7 12H9V8H7V12ZM8 0C3.584 0 0 3.584 0 8C0 12.416 3.584 16 8 16C12.416 16 16 12.416 16 8C16 3.584 12.416 0 8 0ZM8 14C4.6925 14 2 11.3075 2 8C2 4.6925 4.6925 2 8 2C11.3075 2 14 4.6925 14 8C14 11.3075 11.3075 14 8 14ZM7 6H9V4H7V6Z">
+        </path>
+      </svg>
+    </div>
+  </template>
+  <div class="check-mark-icon-container" part="icon">
+    <iron-icon icon="personalization-shared:circle-checkmark"></iron-icon>
+  </div>
+</div>
+<!--_html_template_end_-->`;
+}
+
+// Copyright 2021 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview Polymer element that displays a single grid item.
+ */
+/**
+ * Returns true if this event is a user action to select an item.
+ * TODO(b/316619844): Move this into a util file and share with Personalization
+ * App.
+ */
+function isSelectionEvent(event) {
+    return (event instanceof MouseEvent && event.type === 'click') ||
+        (event instanceof KeyboardEvent && event.key === 'Enter');
+}
+function getDataIndex(event) {
+    const dataIndex = event.currentTarget.dataset['index'];
+    assert$1(typeof dataIndex === 'string', 'data-index property required');
+    const index = parseInt(dataIndex, 10);
+    assert$1(!isNaN(index), `could not parseInt on ${dataIndex}`);
+    return index;
+}
+/**
+ * TODO(b/316619844): Move this into a util file and share with Personalization
+ * App.
+ */
+function shouldShowPlaceholder(imageStatus) {
+    return imageStatus.length === 0 ||
+        (imageStatus.includes("loading" /* ImageStatus.LOADING */) &&
+            !imageStatus.includes("error" /* ImageStatus.ERROR */));
+}
+/** Returns a css variable to control the animation delay. */
+function getLoadingPlaceholderAnimationDelay(index) {
+    // 48 is chosen because 4 and 3 are both factors, and it's large enough
+    // that 48 grid items don't fit on one screen.
+    const rippleIndex = index % 48;
+    // Since 83 is divisible by neither 3 nor 4, there is a slight pause once the
+    // ripple effect finishes before restarting.
+    const animationDelay = 83;
+    // Setting the animation delay to the ripple index * the animation delay adds
+    // a ripple effect.
+    return `--animation-delay: ${rippleIndex * animationDelay}ms;`;
+}
+const wallpaperGridItemSelectedEventName = 'wallpaper-grid-item-selected';
+class WallpaperGridItemSelectedEvent extends CustomEvent {
+    constructor() {
+        super(wallpaperGridItemSelectedEventName, {
+            bubbles: true,
+            composed: true,
+            detail: null,
+        });
+    }
+}
+class WallpaperGridItemElement extends PolymerElement {
+    static get is() {
+        return 'wallpaper-grid-item';
+    }
+    static get template() {
+        return getTemplate$o();
+    }
+    static get properties() {
+        return {
+            src: {
+                type: Object,
+                observer: 'onImageSrcChanged_',
+                value: null,
+            },
+            index: Number,
+            primaryText: String,
+            secondaryText: String,
+            infoText: String,
+            isGooglePhotos: {
+                type: Boolean,
+                value: false,
+            },
+            selected: {
+                type: Boolean,
+                observer: 'onSelectedChanged_',
+            },
+            disabled: {
+                type: Boolean,
+                value: false,
+                observer: 'onDisabledChanged_',
+            },
+            collage: {
+                type: Boolean,
+                value: false,
+                reflectToAttribute: true,
+                observer: 'onCollageChanged_',
+            },
+            imageStatus_: {
+                type: Array,
+                value() {
+                    return [];
+                },
+                observer: 'onImageStatusChanged_',
+            },
+        };
+    }
+    ready() {
+        super.ready();
+        this.addEventListener('click', this.onUserSelection_);
+        this.addEventListener('keydown', this.onUserSelection_);
+    }
+    onUserSelection_(event) {
+        // Ignore extraneous events and let them continue.
+        // Also ignore click and keydown events if this grid item is disabled.
+        // These events will continue to propagate up in case someone else is
+        // interested that this item was interacted with.
+        if (!isSelectionEvent(event) || this.disabled) {
+            return;
+        }
+        event.preventDefault();
+        event.stopPropagation();
+        this.dispatchEvent(new WallpaperGridItemSelectedEvent());
+    }
+    // Invoked on changes to |imageSrc|.
+    onImageSrcChanged_(src, old) {
+        // Set loading status if src has just changed while we wait for new images.
+        const oldSrcArray = this.getSrcArray_(old, this.collage);
+        this.imageStatus_ = this.getSrcArray_(src, this.collage).map(({ url }, i) => {
+            if (oldSrcArray.length > i && oldSrcArray[i].url === url) {
+                // If the underlying url has not changed, keep the prior image status.
+                // If we have a new |Url| object but the underlying url is the same, the
+                // img onload event will not fire and reset the status to ready.
+                return this.imageStatus_[i];
+            }
+            return "loading" /* ImageStatus.LOADING */;
+        });
+    }
+    onSelectedChanged_(selected) {
+        if (typeof selected === 'boolean') {
+            this.setAttribute('aria-selected', selected.toString());
+        }
+        else {
+            this.removeAttribute('aria-selected');
+        }
+    }
+    onDisabledChanged_(disabled) {
+        this.setAttribute('aria-disabled', disabled.toString());
+    }
+    onCollageChanged_(collage) {
+        if (collage) {
+            const imageStatus = this.getSrcArray_(this.src, collage)
+                .map((_, index) => this.imageStatus_.length > index ?
+                this.imageStatus_[index] :
+                "loading" /* ImageStatus.LOADING */);
+            this.imageStatus_ = imageStatus;
+            return;
+        }
+        this.imageStatus_.length =
+            Math.min(2 /* MaxImageCount.DEFAULT */, this.imageStatus_.length);
+    }
+    onImageStatusChanged_(imageStatus) {
+        if (shouldShowPlaceholder(imageStatus)) {
+            this.setAttribute('placeholder', '');
+        }
+        else {
+            this.removeAttribute('placeholder');
+        }
+    }
+    onImgError_(event) {
+        const targetIndex = getDataIndex(event);
+        this.imageStatus_ = this.imageStatus_.map((status, index) => index === targetIndex ? "error" /* ImageStatus.ERROR */ : status);
+    }
+    onImgLoad_(event) {
+        const targetIndex = getDataIndex(event);
+        this.imageStatus_ = this.imageStatus_.map((status, index) => index === targetIndex ? "ready" /* ImageStatus.READY */ : status);
+    }
+    getSrcArray_(src, collage) {
+        if (!src) {
+            return [];
+        }
+        if (Array.isArray(src)) {
+            const max = collage ? 4 /* MaxImageCount.COLLAGE */ : 2 /* MaxImageCount.DEFAULT */;
+            return src.slice(0, max);
+        }
+        return [src];
+    }
+    isImageHidden_(imageStatus) {
+        // |imageStatus| is usually a non-empty array when this function is called.
+        // But there are weird cases where dom-repeat will still call this function
+        // when |src| goes from an array back to undefined.
+        assert$1(Array.isArray(imageStatus), 'image status must be an array');
+        // Do not show the image while loading because it has an ugly white frame.
+        // Do not show the image on error either because it has an ugly broken red
+        // icon symbol.
+        // Wait until all images are ready to show any of them.
+        return imageStatus.length === 0 ||
+            imageStatus.some(status => status !== "ready" /* ImageStatus.READY */);
+    }
+    /** Returns the delay to use for the grid item's placeholder animation. */
+    getItemPlaceholderAnimationDelay_(index) {
+        return getLoadingPlaceholderAnimationDelay(index);
+    }
+    /** Whether the primary text is currently visible. */
+    isPrimaryTextVisible_() {
+        return !!this.primaryText && !!this.primaryText.length;
+    }
+    /** Whether the secondary text is currently visible. */
+    isSecondaryTextVisible_() {
+        return !!this.secondaryText && !!this.secondaryText.length;
+    }
+    /** Whether any text is currently visible. */
+    isTextVisible_() {
+        if (shouldShowPlaceholder(this.imageStatus_)) {
+            // Hide text while placeholder is displayed.
+            return false;
+        }
+        return this.isSecondaryTextVisible_() || this.isPrimaryTextVisible_();
+    }
+    shouldShowInfoText_() {
+        return typeof this.infoText === 'string' && this.infoText.length > 0 &&
+            !shouldShowPlaceholder(this.imageStatus_);
+    }
+}
+customElements.define(WallpaperGridItemElement.is, WallpaperGridItemElement);
 
 /**
 @license
@@ -20204,17 +22549,17 @@ Polymer({
    */
 });
 
-const styleMod$1 = document.createElement('dom-module');
-styleMod$1.appendChild(html `
+const styleMod$2 = document.createElement('dom-module');
+styleMod$2.appendChild(html `
   <template>
     <style>
-main{height:100%;width:100%}main:focus,main:focus-visible,main:focus-within{outline:0}
+main{height:100%;width:100%}main:focus,main:focus-visible,main:focus-within{outline:0}h2.wallpaper-collections-heading{color:var(--cros-sys-secondary);font:var(--cros-button-2-font);height:20px;margin-block-start:0;margin-block-end:0;padding:6px 10px 6px}
     </style>
   </template>
 `.content);
-styleMod$1.register('wallpaper');
+styleMod$2.register('wallpaper');
 
-function getTemplate$m() {
+function getTemplate$n() {
     return html `<!--_html_template_start_--><style include="wallpaper common">:host{overflow:hidden}iron-list,iron-scroll-threshold{width:100%}</style>
 <iron-scroll-threshold id="gridScrollThreshold" scroll-target="document" on-lower-threshold="onGridScrollThresholdReached_">
   <iron-list id="grid" items="[[albumsForDisplay_]]" as="album" grid scroll-target="document" aria-setsize$="[[albumsForDisplay_.length]]" role="list">
@@ -20258,7 +22603,7 @@ class GooglePhotosAlbumsElement extends WithPersonalizationStore {
         return 'google-photos-albums';
     }
     static get template() {
-        return getTemplate$m();
+        return getTemplate$n();
     }
     static get properties() {
         return {
@@ -20445,7 +22790,7 @@ class GooglePhotosAlbumsElement extends WithPersonalizationStore {
 }
 customElements.define(GooglePhotosAlbumsElement.is, GooglePhotosAlbumsElement);
 
-function getTemplate$l() {
+function getTemplate$m() {
     return html `<!--_html_template_start_--><style include="wallpaper common">:host{align-items:center;display:flex;flex-direction:column;justify-content:center;overflow:hidden}localized-link{color:var(--cros-text-color-secondary);font:var(--cros-body-1-font);max-width:236px;text-align:center}img{margin-bottom:16px;width:160px}iron-icon[icon='personalization-illo:no-google-photos']{--iron-icon-width:400px;--iron-icon-height:100%;top:-10px}:host-context(body.jelly-enabled) #zeroStateImage,:host-context(body:not(.jelly-enabled)) #zeroStateImageJelly{display:none}</style>
 <iron-media-query query="(prefers-color-scheme: dark)" query-matches="{{isDarkModeActive_}}">
 </iron-media-query>
@@ -20469,7 +22814,7 @@ class GooglePhotosZeroStateElement extends Base {
         return 'google-photos-zero-state';
     }
     static get template() {
-        return getTemplate$l();
+        return getTemplate$m();
     }
     static get properties() {
         return {
@@ -20508,7 +22853,7 @@ class GooglePhotosZeroStateElement extends Base {
 }
 customElements.define(GooglePhotosZeroStateElement.is, GooglePhotosZeroStateElement);
 
-function getTemplate$k() {
+function getTemplate$l() {
     return html `<!--_html_template_start_--><style include="wallpaper common cros-button-style">:host{overflow:hidden}#main{display:flex;flex-direction:column;height:100%;overflow:hidden;width:100%}#tabStrip{flex:0 0 auto;margin:4px calc(var(--personalization-app-grid-item-spacing)/ 2) calc(var(--personalization-app-grid-item-spacing)/ 2);width:100%}#tabStrip cr-button{border:0;border-radius:16px}#tabStrip cr-button+cr-button{margin-inline-start:8px}#tabStrip cr-button[aria-pressed=false]{background-color:unset;color:var(--cros-text-color-secondary)}#tabStrip cr-button[aria-pressed=false]:hover{background-color:var(--cros-sys-hover_on_subtle,var(--cros-button-background-color-secondary-hover))}#albumsContent,#photosByAlbumIdContent,#photosContent,#zeroState{flex:1 1 auto;height:100%;overflow:hidden;width:100%}</style>
 <main id="main" aria-label="$i18n{googlePhotosLabel}" tabindex="-1">
   <template is="dom-if" if="[[isTabStripVisible_(albumId, albums_, albumsShared_)]]">
@@ -20567,7 +22912,7 @@ class GooglePhotosCollectionElement extends WithPersonalizationStore {
         return 'google-photos-collection';
     }
     static get template() {
-        return getTemplate$k();
+        return getTemplate$l();
     }
     static get properties() {
         return {
@@ -20754,7 +23099,7 @@ function recordWallpaperGooglePhotosSourceUMA(source) {
     chrome.metricsPrivate.recordEnumerationValue(WallpaperGooglePhotosSourceHistogramName, source, WallpaperGooglePhotosSource.NUM_SOURCES);
 }
 
-function getTemplate$j() {
+function getTemplate$k() {
     return html `<!--_html_template_start_--><style include="wallpaper common">:host{overflow:hidden}iron-list,iron-scroll-threshold{width:100%}</style>
 <iron-scroll-threshold id="gridScrollThreshold" on-lower-threshold="onGridScrollThresholdReached_" scroll-target="document">
   <iron-list id="grid" items="[[album_]]" as="photo" grid scroll-target="document" aria-setsize$="[[album_.length]]" role="listbox">
@@ -20797,7 +23142,7 @@ class GooglePhotosPhotosByAlbumIdElement extends WithPersonalizationStore {
         return 'google-photos-photos-by-album-id';
     }
     static get template() {
-        return getTemplate$j();
+        return getTemplate$k();
     }
     static get properties() {
         return {
@@ -21023,7 +23368,7 @@ class GooglePhotosPhotosByAlbumIdElement extends WithPersonalizationStore {
 }
 customElements.define(GooglePhotosPhotosByAlbumIdElement.is, GooglePhotosPhotosByAlbumIdElement);
 
-function getTemplate$i() {
+function getTemplate$j() {
     return html `<!--_html_template_start_--><style include="wallpaper common">:host{overflow:hidden}iron-list,iron-scroll-threshold{width:100%}.row{display:flex;flex-direction:column;width:100%}.row:focus-visible{outline:0}.photo-row-info{box-sizing:border-box;color:var(--cros-text-color-secondary);font:var(--cros-button-2-font);margin:0;padding:calc(var(--personalization-app-grid-item-spacing)/ 2);width:100%}.location{color:var(--cros-text-color-disabled);font:var(--cros-body-2-font);padding-inline-start:12px}.photos{align-items:center;display:flex;flex-direction:row;justify-content:flex-start;width:100%}</style>
 <iron-scroll-threshold id="gridScrollThreshold" on-lower-threshold="onGridScrollThresholdReached_" scroll-target="document">
   <iron-list id="grid" items="[[photosByRow_]]" as="row" scroll-target="document" aria-setsize$="[[getPhotosAriaSetSize_(photos_, photosByRow_)]]" role="listbox">
@@ -21103,7 +23448,7 @@ class GooglePhotosPhotosElement extends WithPersonalizationStore {
         return 'google-photos-photos';
     }
     static get template() {
-        return getTemplate$i();
+        return getTemplate$j();
     }
     static get properties() {
         return {
@@ -21381,7 +23726,7 @@ class GooglePhotosPhotosElement extends WithPersonalizationStore {
         }
         const sections = [];
         photos.forEach((photo, i) => {
-            const date = photo.date.data.map(c => String.fromCodePoint(c)).join('');
+            const date = mojoString16ToString(photo.date);
             // Find/create the appropriate |section| in which to insert |photo|.
             let section = sections[sections.length - 1];
             if (!section || section.date !== date) {
@@ -21470,7 +23815,7 @@ class GooglePhotosPhotosElement extends WithPersonalizationStore {
 }
 customElements.define(GooglePhotosPhotosElement.is, GooglePhotosPhotosElement);
 
-const template = html `
+const template$1 = html `
 
 <iron-iconset-svg name="personalization" size="20">
   <svg>
@@ -21492,14 +23837,6 @@ const template = html `
         4.16672ZM10.8322 14.1667H2.49891V5.83338H10.8322V14.1667ZM8.00724
         9.37505L6.04058 11.7084L4.79058 10.0001L2.91558
         12.5001H10.4156L8.00724 9.37505Z"/>
-      </g>
-      <g id="refresh">
-        <rect width="20" height="20" fill="none"/>
-        <path d="M10 3C6.136 3 3 6.136 3 10C3 13.864 6.136 17 10 17C12.1865 17
-        14.1399 15.9959 15.4239 14.4239L13.9984 12.9984C13.0852 14.2129
-        11.6325 15 10 15C7.24375 15 5 12.7563 5 10C5 7.24375 7.24375 5 10
-        5C11.6318 5 13.0839 5.78641 13.9972 7H11V9H17V3H15V5.10253C13.7292
-        3.80529 11.9581 3 10 3Z"/>
       </g>
       <g id="layout_fill">
         <rect width="20" height="20" fill="none"/>
@@ -21580,12 +23917,6 @@ const template = html `
         <path d="M15.5 5.51676C14.3 5.51676 13.1667 5.98343 12.3583 6.79176L6.5 11.9918C5.96667 12.5251 5.25833 12.8168 4.5 12.8168C2.94167 12.8168 1.675 11.5584 1.675 10.0001C1.675 8.44176 2.94167 7.18343 4.5 7.18343C5.25833 7.18343 5.96667 7.4751 6.53333 8.04176L7.475 8.8751L8.73333 7.75843L7.68333 6.83343C6.83333 5.98343 5.7 5.51676 4.5 5.51676C2.01667 5.51676 0 7.53343 0 10.0001C0 12.4668 2.01667 14.4834 4.5 14.4834C5.7 14.4834 6.83333 14.0168 7.64167 13.2084L13.5 8.00843C14.0333 7.4751 14.7417 7.18343 15.5 7.18343C17.0583 7.18343 18.325 8.44176 18.325 10.0001C18.325 11.5584 17.0583 12.8168 15.5 12.8168C14.75 12.8168 14.0333 12.5251 13.4667 11.9584L12.5167 11.1168L11.2583 12.2334L12.3167 13.1668C13.1667 14.0084 14.2917 14.4751 15.5 14.4751C17.9833 14.4751 20 12.4668 20 9.99176C20 7.51676 17.9833 5.51676 15.5 5.51676V5.51676Z">
         </path>
       </g>
-      <g id="circle_checkmark">
-        <style>circle{fill:transparent}:host-context(body.jelly-enabled) circle{fill:var(--cros-icon-color-prominent)}:host-context(body.jelly-enabled) path{fill:var(--cros-sys-on_primary)}</style>
-        <circle cx="10" cy="10" r="8"></circle>
-        <path d="M8.854 13.812L14.729 7.93801L13.5 6.72901L8.875 11.354L6.521 9.00001L5.292 10.229L8.854 13.812ZM10 18.333C8.84733 18.333 7.764 18.1143 6.75 17.677C5.736 17.2397 4.854 16.646 4.104 15.896C3.354 15.146 2.76033 14.264 2.323 13.25C1.88567 12.236 1.667 11.1527 1.667 10C1.667 8.84734 1.88567 7.76401 2.323 6.75001C2.76033 5.73601 3.354 4.85401 4.104 4.10401C4.854 3.35401 5.736 2.76034 6.75 2.32301C7.764 1.88567 8.84733 1.66701 10 1.66701C11.1527 1.66701 12.236 1.88567 13.25 2.32301C14.264 2.76034 15.146 3.35401 15.896 4.10401C16.646 4.85401 17.2397 5.73601 17.677 6.75001C18.1143 7.76401 18.333 8.84734 18.333 10C18.333 11.1527 18.1143 12.236 17.677 13.25C17.2397 14.264 16.646 15.146 15.896 15.896C15.146 16.646 14.264 17.2397 13.25 17.677C12.236 18.1143 11.1527 18.333 10 18.333ZM10 16.583C11.8193 16.583 13.3713 15.9407 14.656 14.656C15.9407 13.3713 16.583 11.8193 16.583 10C16.583 8.18067 15.9407 6.62867 14.656 5.34401C13.3713 4.05934 11.8193 3.41701 10 3.41701C8.18067 3.41701 6.62867 4.05934 5.344 5.34401C4.05933 6.62867 3.417 8.18067 3.417 10C3.417 11.8193 4.05933 13.3713 5.344 14.656C6.62867 15.9407 8.18067 16.583 10 16.583Z">
-        </path>
-      </g>
       <g id="managed">
         <path d="M 10.230469 4 L 10.230469 0 L 0.488281 0 L 0.488281 18 L 19.972656 18 L 19.972656 4 Z M 8.28125 16 L 2.4375 16 L 2.4375 14 L 8.28125 14 Z M 8.28125 12 L 2.4375 12 L 2.4375 10 L 8.28125 10 Z M 8.28125 8 L 2.4375 8 L 2.4375 6 L 8.28125 6 Z M 8.28125 4 L 2.4375 4 L 2.4375 2 L 8.28125 2 Z M 18.027344 16 L 10.230469 16 L 10.230469 6 L 18.027344 6 Z M 16.078125 8 L 12.179688 8 L 12.179688 10 L 16.078125 10 Z M 16.078125 12 L 12.179688 12 L 12.179688 14 L 16.078125 14 Z M 16.078125 12">
         </path>
@@ -21607,9 +23938,9 @@ const template = html `
   </svg>
 </iron-iconset-svg>
 `;
-document.head.appendChild(template.content);
+document.head.appendChild(template$1.content);
 
-function getTemplate$h() {
+function getTemplate$i() {
     return html `<!--_html_template_start_--><style include="wallpaper common">:host{overflow:hidden}#main{height:100%;overflow-y:auto;width:100%}</style>
 <main id="main" aria-label="$i18n{myImagesLabel}" tabindex="-1">
   <iron-list items="[[imagesToDisplay_]]" grid role="listbox" aria-setsize$="[[imagesToDisplay_.length]]">
@@ -21636,7 +23967,7 @@ class LocalImagesElement extends WithPersonalizationStore {
         return 'local-images';
     }
     static get template() {
-        return getTemplate$h();
+        return getTemplate$i();
     }
     static get properties() {
         return {
@@ -21717,7 +24048,8 @@ class LocalImagesElement extends WithPersonalizationStore {
                 (!pendingSelected && !!currentSelected &&
                     currentSelected.type === WallpaperType.kDefault));
         }
-        return (isFilePath(pendingSelected) && image.path === pendingSelected.path ||
+        return (isNonEmptyFilePath(pendingSelected) &&
+            image.path === pendingSelected.path ||
             !!currentSelected && image.path === currentSelected.key &&
                 !pendingSelected);
     }
@@ -21728,7 +24060,7 @@ class LocalImagesElement extends WithPersonalizationStore {
         if (isDefaultImage(image)) {
             return this.i18n('defaultWallpaper');
         }
-        if (!isFilePath(image)) {
+        if (!isNonEmptyFilePath(image)) {
             return '';
         }
         const path = image.path;
@@ -21759,11 +24091,11 @@ class LocalImagesElement extends WithPersonalizationStore {
         if (!image) {
             return '';
         }
-        return isFilePath(image) ? image.path : image.toString();
+        return isNonEmptyFilePath(image) ? image.path : image.toString();
     }
     onImageSelected_(event) {
         assert$1(event.model.item === kDefaultImageSymbol ||
-            isFilePath(event.model.item), 'local image is a file path or default image');
+            isNonEmptyFilePath(event.model.item), 'local image is a file path or default image');
         selectWallpaper(event.model.item, this.wallpaperProvider_, this.getStore());
     }
     getAriaIndex_(i) {
@@ -21772,12 +24104,22 @@ class LocalImagesElement extends WithPersonalizationStore {
 }
 customElements.define(LocalImagesElement.is, LocalImagesElement);
 
-function getTemplate$g() {
-    return html `<!--_html_template_start_--><style>:host{height:16px;width:16px}path{fill:#fff}</style>
-<svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path part="path" d="M7 12H9V8H7V12ZM8 0C3.584 0 0 3.584 0 8C0 12.416 3.584 16 8 16C12.416 16 16 12.416 16 8C16 3.584 12.416 0 8 0ZM8 14C4.6925 14 2 11.3075 2 8C2 4.6925 4.6925 2 8 2C11.3075 2 14 4.6925 14 8C14 11.3075 11.3075 14 8 14ZM7 6H9V4H7V6Z">
-  </path>
-</svg>
+function getTemplate$h() {
+    return html `<!--_html_template_start_--><style include="common cros-button-style">h3,p{margin:0}cr-button+cr-button{margin-inline-start:8px}</style>
+<cr-dialog id="dialog" show-on-attach>
+  <h3 slot="title">$i18n{timeOfDayWallpaperDialogTitle}</h3>
+  <div slot="body">
+    <p>$i18n{timeOfDayWallpaperDialogContent}</p>
+  </div>
+  <div slot="button-container">
+    <cr-button id="close" on-click="onClickClose_">
+      <span>$i18n{timeOfDayWallpaperDialogBackButton}</span>
+    </cr-button>
+    <cr-button id="accept" on-click="onClickAccept_" class="action-button">
+      <span>$i18n{timeOfDayWallpaperDialogConfirmButton}</span>
+    </cr-button>
+  </div>
+</cr-dialog>
 <!--_html_template_end_-->`;
 }
 
@@ -21785,264 +24127,73 @@ function getTemplate$g() {
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 /**
- * @fileoverview A polymer component that displays the wavy message container
- * in the ambient preview element.
+ * @fileoverview Displays a dialog asking the user to whether enable auto dark
+ * light mode or not before setting the time of day wallpaper.
  */
-class InfoSvgElement extends PolymerElement {
-    static get is() {
-        return 'info-svg';
-    }
-    static get template() {
-        return getTemplate$g();
-    }
-}
-customElements.define(InfoSvgElement.is, InfoSvgElement);
-
-function getTemplate$f() {
-    return html `<!--_html_template_start_--><style include="common">:host{box-sizing:border-box;display:block;height:calc(var(--personalization-app-grid-item-height) + var(--personalization-app-grid-item-spacing));overflow:hidden;padding:calc(var(--personalization-app-grid-item-spacing)/ 2);width:var(--wallpaper-grid-item-width,calc(100% / 3 - .34px))}@media(min-width:720px){:host{width:var(--wallpaper-grid-item-width,calc(100% / 4 - .25px))!important}}:host(:focus-visible){outline:0}:host([aria-selected=true]:not([placeholder])) .item{background-color:var(--cros-sys-highlight_shape,rgba(var(--cros-color-prominent-rgb),var(--personalization-app-second-tone-opacity)));border-radius:calc(var(--personalization-app-grid-item-border-radius) + 4px)}:host(:not([aria-selected=true])) iron-icon,:host([placeholder]) iron-icon{display:none}.item{align-items:center;background-color:var(--personalization-app-grid-item-background-color);border-radius:var(--personalization-app-grid-item-border-radius);box-sizing:border-box;cursor:pointer;display:flex;flex-flow:row wrap;height:100%;justify-content:center;overflow:hidden;position:relative;width:100%}:host([aria-disabled=true]) .item{cursor:default}:host(:focus-visible) .item{outline:2px solid var(--cros-focus-ring-color)}:host([placeholder]) .item{animation:2.21s linear var(--animation-delay,1s) infinite ripple}img{object-fit:cover;user-select:none}:host(:not([collage])) img{border-radius:var(--personalization-app-grid-item-border-radius);height:100%;position:absolute;width:100%}:host(:not([collage])) img:has(+img){clip-path:inset(0 50% 0 0)}:host(:not([collage])) img+img{clip-path:inset(0 0 0 50%)}:host([collage]) img{flex:1 1 0;height:100%;min-width:50%}:host([collage]) img:first-of-type:nth-last-of-type(n+3),:host([collage]) img:first-of-type:nth-last-of-type(n+3)~img{height:50%}:host([aria-selected=true]) img{animation-duration:.2s;animation-fill-mode:forwards;animation-name:img-resize;animation-timing-function:cubic-bezier(.4,0,.2,1)}@keyframes img-resize{100%{height:calc(100% - 8px);width:calc(100% - 8px)}}#textShadow{background:linear-gradient(rgba(var(--google-grey-900-rgb),0),rgba(var(--google-grey-900-rgb),55%));bottom:0;height:50%;left:0;position:absolute;right:0;z-index:1}#text{bottom:0;box-sizing:border-box;left:0;overflow:hidden;padding:8px 16px;position:absolute;right:0;white-space:nowrap;width:100%;z-index:2}.primary-text,.secondary-text,::slotted(.primary-text){color:#fff;margin:0;overflow:hidden;padding:0;text-align:center;text-overflow:ellipsis;text-shadow:var(--personalization-app-text-shadow-elevation-1)}.primary-text,::slotted(.primary-text){font:var(--cros-headline-1-font)}:host-context(body.jelly-enabled) .primary-text,:host-context(body.jelly-enabled) ::slotted(.primary-text){font:var(--cros-title-2-font)}::slotted(p.primary-text:last-of-type),p.primary-text:last-of-type{margin-bottom:var(--cros-annotation-2-line-height)}.secondary-text,::slotted(.secondary-text){font:var(--cros-annotation-2-font)}#infoIcon{filter:drop-shadow(0 0 2px var(--cros-sys-shadow));position:absolute;right:8px;top:8px}iron-icon{--iron-icon-height:20px;--iron-icon-width:20px;animation-duration:.2s;animation-name:iron-icon-scale;animation-timing-function:cubic-bezier(.4,0,.2,1);left:8px;position:absolute;top:8px;z-index:2}@keyframes iron-icon-scale{from{transform:scale(0)}to{transform:scale(1)}}</style>
-<div class="item" part="item" style$="[[getItemPlaceholderAnimationDelay_(index)]]">
-  <template is="dom-repeat" items="[[getSrcArray_(src, collage)]]">
-    <img aria-hidden="true" auto-src="[[item.url]]" clear-src data-index$="[[itemsIndex]]" hidden$="[[isImageHidden_(imageStatus_)]]" is-google-photos="[[isGooglePhotos]]" is="cr-auto-img" on-error="onImgError_" on-load="onImgLoad_" part="image">
-  </template>
-  <div part="border" class="wallpaper-grid-item-border"></div>
-  <template is="dom-if" if="[[isTextVisible_(imageStatus_, primaryText, secondaryText)]]" restamp>
-    <div id="textShadow" part="textShadow"></div>
-    <div id="text">
-      <slot name="text">
-        <template is="dom-if" if="[[isPrimaryTextVisible_(primaryText)]]" restamp>
-          <p class="primary-text" title$="[[primaryText]]">[[primaryText]]</p>
-        </template>
-        <template is="dom-if" if="[[isSecondaryTextVisible_(secondaryText)]]" restamp>
-          <p class="secondary-text" title$="[[secondaryText]]">
-            [[secondaryText]]
-          </p>
-        </template>
-      </slot>
-    </div>
-  </template>
-  <template is="dom-if" if="[[shouldShowInfoText_(imageStatus_, infoText)]]" restamp>
-    <info-svg id="infoIcon" title$="[[infoText]]" part="info-icon"></info-svg>
-  </template>
-  <iron-icon part="icon" icon="[[checkmarkIcon_]]"></iron-icon>
-</div>
-<!--_html_template_end_-->`;
-}
-
-// Copyright 2021 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @fileoverview Polymer element that displays a single grid item.
- */
-function getDataIndex(event) {
-    const dataIndex = event.currentTarget.dataset['index'];
-    assert$1(typeof dataIndex === 'string', 'data-index property required');
-    const index = parseInt(dataIndex, 10);
-    assert$1(!isNaN(index), `could not parseInt on ${dataIndex}`);
-    return index;
-}
-function shouldShowPlaceholder(imageStatus) {
-    return imageStatus.length === 0 ||
-        (imageStatus.includes("loading" /* ImageStatus.LOADING */) &&
-            !imageStatus.includes("error" /* ImageStatus.ERROR */));
-}
-const wallpaperGridItemSelectedEventName = 'wallpaper-grid-item-selected';
-class WallpaperGridItemSelectedEvent extends CustomEvent {
+class TimeOfDayAcceptEvent extends CustomEvent {
+    static { this.EVENT_NAME = 'time-of-day-wallpaper-dialog-accept'; }
     constructor() {
-        super(wallpaperGridItemSelectedEventName, {
+        super(TimeOfDayAcceptEvent.EVENT_NAME, {
             bubbles: true,
             composed: true,
             detail: null,
         });
     }
 }
-class WallpaperGridItemElement extends PolymerElement {
+class TimeOfDayWallpaperDialogElement extends PolymerElement {
     static get is() {
-        return 'wallpaper-grid-item';
+        return 'time-of-day-wallpaper-dialog';
     }
     static get template() {
-        return getTemplate$f();
+        return getTemplate$h();
     }
     static get properties() {
-        return {
-            src: {
-                type: Object,
-                observer: 'onImageSrcChanged_',
-                value: null,
-            },
-            index: Number,
-            primaryText: String,
-            secondaryText: String,
-            infoText: String,
-            isGooglePhotos: {
-                type: Boolean,
-                value: false,
-            },
-            selected: {
-                type: Boolean,
-                observer: 'onSelectedChanged_',
-            },
-            disabled: {
-                type: Boolean,
-                value: false,
-                observer: 'onDisabledChanged_',
-            },
-            collage: {
-                type: Boolean,
-                value: false,
-                reflectToAttribute: true,
-                observer: 'onCollageChanged_',
-            },
-            imageStatus_: {
-                type: Array,
-                value() {
-                    return [];
-                },
-                observer: 'onImageStatusChanged_',
-            },
-            checkmarkIcon_: {
-                type: String,
-                value() {
-                    return getCheckmarkIcon();
-                },
-            },
-        };
+        return {};
     }
-    ready() {
-        super.ready();
-        this.addEventListener('click', this.onUserSelection_);
-        this.addEventListener('keydown', this.onUserSelection_);
+    onClickAccept_() {
+        this.dispatchEvent(new TimeOfDayAcceptEvent());
     }
-    onUserSelection_(event) {
-        // Ignore extraneous events and let them continue.
-        // Also ignore click and keydown events if this grid item is disabled.
-        // These events will continue to propagate up in case someone else is
-        // interested that this item was interacted with.
-        if (!isSelectionEvent(event) || this.disabled) {
-            return;
-        }
-        event.preventDefault();
-        event.stopPropagation();
-        this.dispatchEvent(new WallpaperGridItemSelectedEvent());
-    }
-    // Invoked on changes to |imageSrc|.
-    onImageSrcChanged_(src, old) {
-        // Set loading status if src has just changed while we wait for new images.
-        const oldSrcArray = this.getSrcArray_(old, this.collage);
-        this.imageStatus_ = this.getSrcArray_(src, this.collage).map(({ url }, i) => {
-            if (oldSrcArray.length > i && oldSrcArray[i].url === url) {
-                // If the underlying url has not changed, keep the prior image status.
-                // If we have a new |Url| object but the underlying url is the same, the
-                // img onload event will not fire and reset the status to ready.
-                return this.imageStatus_[i];
-            }
-            return "loading" /* ImageStatus.LOADING */;
-        });
-    }
-    onSelectedChanged_(selected) {
-        if (typeof selected === 'boolean') {
-            this.setAttribute('aria-selected', selected.toString());
-        }
-        else {
-            this.removeAttribute('aria-selected');
-        }
-    }
-    onDisabledChanged_(disabled) {
-        this.setAttribute('aria-disabled', disabled.toString());
-    }
-    onCollageChanged_(collage) {
-        if (collage) {
-            const imageStatus = this.getSrcArray_(this.src, collage)
-                .map((_, index) => this.imageStatus_.length > index ?
-                this.imageStatus_[index] :
-                "loading" /* ImageStatus.LOADING */);
-            this.imageStatus_ = imageStatus;
-            return;
-        }
-        this.imageStatus_.length =
-            Math.min(2 /* MaxImageCount.DEFAULT */, this.imageStatus_.length);
-    }
-    onImageStatusChanged_(imageStatus) {
-        if (shouldShowPlaceholder(imageStatus)) {
-            this.setAttribute('placeholder', '');
-        }
-        else {
-            this.removeAttribute('placeholder');
-        }
-    }
-    onImgError_(event) {
-        const targetIndex = getDataIndex(event);
-        this.imageStatus_ = this.imageStatus_.map((status, index) => index === targetIndex ? "error" /* ImageStatus.ERROR */ : status);
-    }
-    onImgLoad_(event) {
-        const targetIndex = getDataIndex(event);
-        this.imageStatus_ = this.imageStatus_.map((status, index) => index === targetIndex ? "ready" /* ImageStatus.READY */ : status);
-    }
-    getSrcArray_(src, collage) {
-        if (!src) {
-            return [];
-        }
-        if (Array.isArray(src)) {
-            const max = collage ? 4 /* MaxImageCount.COLLAGE */ : 2 /* MaxImageCount.DEFAULT */;
-            return src.slice(0, max);
-        }
-        return [src];
-    }
-    isImageHidden_(imageStatus) {
-        // |imageStatus| is usually a non-empty array when this function is called.
-        // But there are weird cases where dom-repeat will still call this function
-        // when |src| goes from an array back to undefined.
-        assert$1(Array.isArray(imageStatus), 'image status must be an array');
-        // Do not show the image while loading because it has an ugly white frame.
-        // Do not show the image on error either because it has an ugly broken red
-        // icon symbol.
-        // Wait until all images are ready to show any of them.
-        return imageStatus.length === 0 ||
-            imageStatus.some(status => status !== "ready" /* ImageStatus.READY */);
-    }
-    /** Returns the delay to use for the grid item's placeholder animation. */
-    getItemPlaceholderAnimationDelay_(index) {
-        return getLoadingPlaceholderAnimationDelay(index);
-    }
-    /** Whether the primary text is currently visible. */
-    isPrimaryTextVisible_() {
-        return !!this.primaryText && !!this.primaryText.length;
-    }
-    /** Whether the secondary text is currently visible. */
-    isSecondaryTextVisible_() {
-        return !!this.secondaryText && !!this.secondaryText.length;
-    }
-    /** Whether any text is currently visible. */
-    isTextVisible_() {
-        if (shouldShowPlaceholder(this.imageStatus_)) {
-            // Hide text while placeholder is displayed.
-            return false;
-        }
-        return this.isSecondaryTextVisible_() || this.isPrimaryTextVisible_();
-    }
-    shouldShowInfoText_() {
-        return isPersonalizationJellyEnabled() &&
-            typeof this.infoText === 'string' && this.infoText.length > 0 &&
-            !shouldShowPlaceholder(this.imageStatus_);
+    onClickClose_() {
+        this.$.dialog.cancel();
     }
 }
-customElements.define(WallpaperGridItemElement.is, WallpaperGridItemElement);
+customElements.define(TimeOfDayWallpaperDialogElement.is, TimeOfDayWallpaperDialogElement);
 
-function getTemplate$e() {
-    return html `<!--_html_template_start_--><style include="common wallpaper">wallpaper-grid-item[aria-disabled=true][data-online]::part(image){filter:grayscale(100%);opacity:.3}wallpaper-grid-item[data-google-photos]::part(image){height:64px;margin:12px;position:absolute;top:0;width:64px}wallpaper-grid-item[data-google-photos][aria-disabled=true]::part(image){background-color:#fff;border-radius:100%;box-sizing:border-box;filter:grayscale(100%);height:54px;padding:4px;width:54px}wallpaper-grid-item[data-google-photos][aria-disabled=true]::part(textShadow){display:none}wallpaper-grid-item[data-google-photos] .primary-text{align-items:center;bottom:calc(8px + var(--cros-annotation-2-line-height));display:flex;flex-direction:row;justify-content:center}wallpaper-grid-item[data-google-photos] iron-icon[icon^='personalization:managed']{--iron-icon-fill-color:var(--cros-icon-color-secondary);--iron-icon-height:16px;--iron-icon-width:16px;display:none;flex:0 0 auto;margin-inline-end:8px}wallpaper-grid-item[data-google-photos][aria-disabled=true] iron-icon[icon^='personalization:managed']{--iron-icon-fill-color:var(--cros-icon-color-secondary-light);display:block}wallpaper-grid-item[data-google-photos][aria-disabled=true] p{color:var(--cros-text-color-secondary-light);text-shadow:none}.outer-container{height:calc(var(--personalization-app-grid-item-height) + var(--personalization-app-grid-item-spacing));width:calc(100% / 3 - .34px)}@media(min-width:720px){.outer-container{width:calc(100% / 4 - .25px)}}wallpaper-grid-item{--wallpaper-grid-item-width:100%}wallpaper-grid-item[data-google-photos]:not([aria-disabled=true]):not([placeholder]){--personalization-app-grid-item-background-color:white}wallpaper-grid-item[data-google-photos][aria-disabled=true]:not([placeholder]){--personalization-app-grid-item-background-color:var(--google-grey-200)}:host-context(body.jelly-enabled) wallpaper-grid-item[is-local-no-images]::part(item){background:linear-gradient(var(--cros-sys-primary),var(--cros-sys-primary_container))}:host-context(body.jelly-enabled) wallpaper-grid-item[is-local-no-images]::part(image){display:none}wallpaper-grid-item[data-is-time-of-day-collection]{--personalization-app-grid-item-border-radius:80px}wallpaper-grid-item[data-is-time-of-day-collection]::part(info-icon){right:20px;top:20px}</style>
+function getTemplate$g() {
+    return html `<!--_html_template_start_--><style include="common wallpaper">wallpaper-grid-item[aria-disabled=true][data-online]::part(image){filter:grayscale(100%);opacity:.3}wallpaper-grid-item[data-google-photos]::part(image){height:64px;margin:12px;position:absolute;top:0;width:64px}wallpaper-grid-item[data-google-photos][aria-disabled=true]::part(image){background-color:#fff;border-radius:100%;box-sizing:border-box;filter:grayscale(100%);height:54px;padding:4px;width:54px}wallpaper-grid-item[data-google-photos][aria-disabled=true]::part(textShadow){display:none}wallpaper-grid-item[data-google-photos] .primary-text{align-items:center;bottom:calc(8px + var(--cros-annotation-2-line-height));display:flex;flex-direction:row;justify-content:center}wallpaper-grid-item[data-google-photos] iron-icon[icon^='personalization:managed']{--iron-icon-fill-color:var(--cros-icon-color-secondary);--iron-icon-height:16px;--iron-icon-width:16px;display:none;flex:0 0 auto;margin-inline-end:8px}wallpaper-grid-item[data-google-photos][aria-disabled=true] iron-icon[icon^='personalization:managed']{--iron-icon-fill-color:var(--cros-icon-color-secondary-light);display:block}wallpaper-grid-item[data-google-photos][aria-disabled=true] p{color:var(--cros-text-color-secondary-light);text-shadow:none}.outer-container{height:calc(var(--personalization-app-grid-item-height) + var(--personalization-app-grid-item-spacing));width:calc(100% / 3 - .34px)}#promoted .outer-container{width:calc(100% / 2 - .5px)}@media(min-width:720px){.outer-container{width:calc(100% / 4 - .25px)}}wallpaper-grid-item{--wallpaper-grid-item-width:100%}wallpaper-grid-item[data-google-photos]:not([aria-disabled=true]):not([placeholder]){--personalization-app-grid-item-background-color:white}wallpaper-grid-item[data-google-photos][aria-disabled=true]:not([placeholder]){--personalization-app-grid-item-background-color:var(--google-grey-200)}:host-context(body.jelly-enabled) wallpaper-grid-item[is-local-no-images]::part(item){background:linear-gradient(var(--cros-sys-primary),var(--cros-sys-primary_container))}:host-context(body.jelly-enabled) wallpaper-grid-item[is-local-no-images]::part(image){display:none}#promoted wallpaper-grid-item,wallpaper-grid-item[data-is-time-of-day-collection]{--personalization-app-grid-item-border-radius:80px}#promoted{padding:10px 0}wallpaper-grid-item[data-is-time-of-day-collection]::part(info-icon){right:20px;top:20px}#experimentTag{animation:gradient-animation 1.2s linear infinite reverse;background:linear-gradient(135deg,#c1fee3,#b5c4ff,#bfc2ff,#c1fee3,#b5c4ff,#bfc2ff);background-size:250% 250%;border-radius:36px;color:var(--cros-sys-on_primary_container);font:var(--cros-label-1-font);left:50%;padding:4px 8px;pointer-events:none;position:absolute;text-align:center;top:32px;transform:translate(-50%,0)}@keyframes gradient-animation{0%{background-position:0 0}100%{background-position:100% 100%}}</style>
 <template is="dom-if" if="[[hasError_]]">
   <wallpaper-error></wallpaper-error>
 </template>
 <main aria-label="$i18n{wallpaperCollections}" hidden$="[[hasError_]]">
+  <template is="dom-if" if="[[isSeaPenEnabled_]]" restamp>
+    <h2 class="wallpaper-collections-heading">$i18n{seaPenExclusiveWallpapersHeading}</h2>
+    <iron-list aria-setsize$="[[promotedTiles_.length]]" id="promoted" grid items="[[promotedTiles_]]" role="listbox">
+      <template>
+        <div class="outer-container">
+          <template is="dom-if" if="[[isLoadingTile_(item)]]" restamp>
+            <wallpaper-grid-item aria-label="$i18n{ariaLabelLoading}" aria-posinset$="[[getAriaIndex_(index)]]" data-is-promoted-tile disabled="disabled" index="[[index]]" role="option" tabindex$="[[tabIndex]]">
+            </wallpaper-grid-item>
+          </template>
+          <template is="dom-if" if="[[isSeaPenTile_(item)]]">
+            <wallpaper-grid-item data-sea-pen data-is-promoted-tile aria-posinset$="[[getAriaIndex_(index)]]" disabled="[[!isSelectableTile_(item)]]" index="[[index]]" on-wallpaper-grid-item-selected="onCollectionSelected_" primary-text="Sea Pen" primary-text="[[item.name]]" secondary-text="$i18n{seaPenPoweredByGoogle}" role="option" src="[[item.preview]]" tabindex$="[[tabIndex]]">
+            </wallpaper-grid-item>
+            
+            <div id="experimentTag">$i18n{seaPenExperimentLabel}</div>
+          </template>
+          <template is="dom-if" if="[[isOnlineTile_(item)]]">
+            <wallpaper-grid-item aria-posinset$="[[getAriaIndex_(index)]]" data-online data-is-promoted-tile data-is-time-of-day-collection$="[[isTimeOfDayCollection_(item)]]" disabled="[[!isSelectableTile_(item)]]" index="[[index]]" info-text="[[item.info]]" on-wallpaper-grid-item-selected="onCollectionSelected_" primary-text="[[item.name]]" role="option" secondary-text="[[getOnlineTileSecondaryText_(item)]]" src="[[item.preview]]" tabindex$="[[tabIndex]]">
+            </wallpaper-grid-item>
+          </template>
+        </div>
+      </template>
+    </iron-list>
+    <h2 class="wallpaper-collections-heading">$i18n{seaPenChooseAWallpaperHeading}</h2>
+  </template>
   <iron-list aria-setsize$="[[tiles_.length]]" id="grid" grid items="[[tiles_]]" role="listbox">
     <template>
       <div class="outer-container">
         <template is="dom-if" if="[[isLoadingTile_(item)]]" restamp>
           <wallpaper-grid-item aria-label="$i18n{ariaLabelLoading}" aria-posinset$="[[getAriaIndex_(index)]]" disabled="disabled" index="[[index]]" role="option" tabindex$="[[tabIndex]]">
-          </wallpaper-grid-item>
-        </template>
-        <template is="dom-if" if="[[isSeaPenTile_(item)]]">
-          <wallpaper-grid-item data-sea-pen aria-posinset$="[[getAriaIndex_(index)]]" disabled="[[!isSelectableTile_(item)]]" index="[[index]]" on-wallpaper-grid-item-selected="onCollectionSelected_" primary-text="Sea Pen" primary-text="[[item.name]]" role="option" src="[[item.preview]]" tabindex$="[[tabIndex]]">
           </wallpaper-grid-item>
         </template>
         <template is="dom-if" if="[[isGooglePhotosTile_(item)]]">
@@ -22182,8 +24333,7 @@ function getSeaPenTile() {
         id: kSeaPenId,
         name: 'Sea Pen',
         type: TileType.SEA_PEN,
-        // TODO(b/299359804): Replace with the real preview.
-        preview: [{ url: 'chrome://personalization/images/google_photos.svg' }],
+        preview: [{ url: 'chrome://personalization/images/sea_pen_tile.svg' }],
     };
 }
 function getTemporaryBackdropCollectionId(index) {
@@ -22197,7 +24347,7 @@ class WallpaperCollectionsElement extends WithPersonalizationStore {
         return 'wallpaper-collections';
     }
     static get template() {
-        return getTemplate$e();
+        return getTemplate$g();
     }
     static get properties() {
         return {
@@ -22243,7 +24393,25 @@ class WallpaperCollectionsElement extends WithPersonalizationStore {
                 value: {},
             },
             /**
-             * List of tiles to be displayed to the user.
+             * Stores a list of promoted tiles, including Time of Day and SeaPen.
+             */
+            promotedTiles_: {
+                type: Array,
+                value() {
+                    const tiles = [{ type: TileType.LOADING, id: kSeaPenId }];
+                    if (isTimeOfDayWallpaperEnabled()) {
+                        tiles.push({
+                            type: TileType.LOADING,
+                            id: loadTimeData.getString('timeOfDayWallpaperCollectionId'),
+                        });
+                    }
+                    return tiles;
+                },
+            },
+            /**
+             * List of tiles to be displayed to the user. The Time of Day tile is in
+             * promotedTiles_ when SeaPen is enabled, and in tiles_ when SeaPen is
+             * disabled.
              */
             tiles_: {
                 type: Array,
@@ -22253,13 +24421,9 @@ class WallpaperCollectionsElement extends WithPersonalizationStore {
                     const placeholders = getLoadingPlaceholders(() => ({ type: TileType.LOADING, id: '' }));
                     let currentIndex = 0;
                     // Time of day tile.
-                    if (isTimeOfDayWallpaperEnabled()) {
+                    if (isTimeOfDayWallpaperEnabled() && !isSeaPenEnabled()) {
                         placeholders[currentIndex].id =
                             loadTimeData.getString('timeOfDayWallpaperCollectionId');
-                        currentIndex++;
-                    }
-                    if (isSeaPenEnabled()) {
-                        placeholders[currentIndex].id = kSeaPenId;
                         currentIndex++;
                     }
                     // Local images tile.
@@ -22348,7 +24512,11 @@ class WallpaperCollectionsElement extends WithPersonalizationStore {
         if (!hidden) {
             document.title = this.i18n('wallpaperLabel');
         }
-        afterNextRender(this, () => this.$.grid.fire('iron-resize'));
+        afterNextRender(this, () => {
+            this.$.grid.fire('iron-resize');
+            this.shadowRoot.getElementById('promoted')
+                ?.fire('iron-resize');
+        });
     }
     /**
      * Called when the list of wallpaper collections changes. Collections are not
@@ -22364,6 +24532,8 @@ class WallpaperCollectionsElement extends WithPersonalizationStore {
         if (!timeOfDay && isTimeOfDayWallpaperEnabled()) {
             console.error('missing time of day wallpaper from collections');
             this.tiles_ = this.tiles_.filter(tile => !isTimeOfDay(tile));
+            this.promotedTiles_ =
+                this.promotedTiles_.filter(tile => !isTimeOfDay(tile));
         }
         // Delay assigning `this.splitCollections_` until the correct number of
         // tiles are assigned.
@@ -22426,7 +24596,7 @@ class WallpaperCollectionsElement extends WithPersonalizationStore {
         }, {});
     }
     getLoadingPlaceholderAnimationDelay_(index) {
-        return getLoadingPlaceholderAnimationDelay(index);
+        return getLoadingPlaceholderAnimationDelay$1(index);
     }
     /**
      * Called each time a new collection finishes loading. |imageCounts| contains
@@ -22455,15 +24625,21 @@ class WallpaperCollectionsElement extends WithPersonalizationStore {
         });
         if (splitCollections.timeOfDay &&
             imageCounts[splitCollections.timeOfDay.id] !== undefined) {
-            const tileIndex = this.tiles_.findIndex(isTimeOfDay);
+            const timeOfDayContainer = isSeaPenEnabled() ? this.promotedTiles_ : this.tiles_;
+            const tileIndex = timeOfDayContainer.findIndex(isTimeOfDay);
             if (tileIndex < 0) {
                 console.warn('received time of day collection when not supported');
                 return;
             }
-            const tile = this.tiles_[tileIndex];
+            const tile = timeOfDayContainer[tileIndex];
             const newTile = getOnlineTile(splitCollections.timeOfDay, imageCounts[splitCollections.timeOfDay.id]);
             if (tile.type !== newTile.type || tile.count !== newTile.count) {
-                this.set(`tiles_.${tileIndex}`, newTile);
+                if (isSeaPenEnabled()) {
+                    this.set(`promotedTiles_.${tileIndex}`, newTile);
+                }
+                else {
+                    this.set(`tiles_.${tileIndex}`, newTile);
+                }
             }
         }
     }
@@ -22482,9 +24658,9 @@ class WallpaperCollectionsElement extends WithPersonalizationStore {
             return;
         }
         const tile = getSeaPenTile();
-        const index = this.tiles_.findIndex(tile => tile.id === kSeaPenId);
+        const index = this.promotedTiles_.findIndex(tile => tile.id === kSeaPenId);
         assert$1(index >= 0, `${kSeaPenId} not found`);
-        this.set(`tiles_.${index}`, tile);
+        this.set(`promotedTiles_.${index}`, tile);
     }
     /**
      * Called with updated local image list or local image thumbnail data when
@@ -22505,7 +24681,7 @@ class WallpaperCollectionsElement extends WithPersonalizationStore {
             return;
         }
         if (!(e instanceof WallpaperGridItemSelectedEvent) &&
-            !isSelectionEvent(e)) {
+            !isSelectionEvent$1(e)) {
             // While refactoring is in progress, may receive either a
             // `WallpaperGridItemSelectedEvent` or a mouse/keyboard selection event.
             // If not one of those two event types, ignore it and let it propagate.
@@ -22566,7 +24742,7 @@ class WallpaperCollectionsElement extends WithPersonalizationStore {
 }
 customElements.define(WallpaperCollectionsElement.is, WallpaperCollectionsElement);
 
-function getTemplate$d() {
+function getTemplate$f() {
     return html `<!--_html_template_start_--><style>:host{align-items:center;display:flex;flex-flow:column nowrap;height:100%;justify-content:center;width:100%}p{font:var(--cros-body-1-font);margin:24px 12px 0 12px;max-width:316px}:host-context(body.jelly-enabled) p{margin-top:0;position:relative;top:-12px}iron-icon[icon='personalization-illo:wallpaper_error']{--iron-icon-width:400px;--iron-icon-height:177px;top:-24px}:host-context(body.jelly-enabled) #wallpaperError,:host-context(body:not(.jelly-enabled)) #wallpaperErrorJelly{display:none}</style>
 <svg id="wallpaperError" width="380" height="140" viewBox="0 0 380 140" fill="none" xmlns="http://www.w3.org/2000/svg">
   <g clip-path="url(#clip0)">
@@ -22612,12 +24788,12 @@ class WallpaperErrorElement extends WallpaperErrorBase {
         return 'wallpaper-error';
     }
     static get template() {
-        return getTemplate$d();
+        return getTemplate$f();
     }
 }
 customElements.define(WallpaperErrorElement.is, WallpaperErrorElement);
 
-function getTemplate$c() {
+function getTemplate$e() {
     return html `<!--_html_template_start_--><style>#container{background-color:transparent;height:100%;pointer-events:auto;position:relative;width:100%}#container::backdrop{background:0 0;opacity:0}#exit{left:20px;position:absolute;top:20px}#confirm{position:absolute;right:20px;top:20px}#layoutButtons{backdrop-filter:blur(6px);background:linear-gradient(0deg,rgba(255,255,255,.08),rgba(255,255,255,.08)),rgba(32,33,36,.8);border-radius:16px;column-gap:8px;display:grid;grid-template-columns:1fr 1fr;left:50%;position:absolute;top:20px;transform:translateX(-50%)}#layoutButtons .fullscreen-button{backdrop-filter:none;background:0 0;padding:6px 24px;width:100%}#layoutButtons .fullscreen-button:hover{background:rgba(var(--google-blue-300-rgb),.08)}#layoutButtons .fullscreen-button[aria-pressed=true]{background:var(--cros-sys-primary-dark,--google-blue-300);color:var(--google-grey-900)}img{left:50%;position:absolute;top:50%;transform:translate(-50%,-50%)}.fullscreen-button{align-items:center;backdrop-filter:blur(6px);background:linear-gradient(0deg,rgba(255,255,255,.08),rgba(255,255,255,.08)),rgba(var(--google-grey-900-rgb),.8);border:none;border-radius:16px;color:var(--google-grey-200);display:flex;height:32px;justify-content:center;min-width:max-content;padding:6px 16px}.fullscreen-button:hover{background:linear-gradient(0deg,rgba(var(--google-blue-300-rgb),.08),rgba(var(--google-blue-300-rgb),.08)),rgba(var(--google-grey-900-rgb),.8)}.fullscreen-button iron-icon{flex:0 0 auto;--iron-icon-height:20px;--iron-icon-width:20px}.fullscreen-button span{margin-inline-start:8px}</style>
 <div id="container" hidden>
   <cr-button class="fullscreen-button" on-click="onClickExit_" id="exit" aria-label="$i18n{ariaLabelExitFullscreen}">
@@ -22677,7 +24853,7 @@ class WallpaperFullscreenElement extends WithPersonalizationStore {
         return 'wallpaper-fullscreen';
     }
     static get template() {
-        return getTemplate$c();
+        return getTemplate$e();
     }
     static get properties() {
         return {
@@ -22707,7 +24883,7 @@ class WallpaperFullscreenElement extends WithPersonalizationStore {
         this.$.container.addEventListener('fullscreenchange', this.onFullscreenChange_.bind(this));
         this.watch('visible_', state => state.wallpaper.fullscreen);
         this.watch('showLayoutOptions_', state => !!state.wallpaper.pendingSelected &&
-            (isFilePath(state.wallpaper.pendingSelected) ||
+            (isNonEmptyFilePath(state.wallpaper.pendingSelected) ||
                 isGooglePhotosPhoto(state.wallpaper.pendingSelected)));
         this.watch('currentSelected_', state => state.wallpaper.currentSelected);
         this.watch('pendingSelected_', state => state.wallpaper.pendingSelected);
@@ -22769,7 +24945,7 @@ class WallpaperFullscreenElement extends WithPersonalizationStore {
         await this.exitFullscreen();
     }
     async onClickLayout_(event) {
-        assert$1(isFilePath(this.pendingSelected_) ||
+        assert$1(isNonEmptyFilePath(this.pendingSelected_) ||
             isGooglePhotosPhoto(this.pendingSelected_), 'pendingSelected must be a local image or a Google Photos image to set layout');
         const layout = getWallpaperLayoutEnum(event.currentTarget.dataset['layout']);
         await selectWallpaper(this.pendingSelected_, getWallpaperProvider(), this.getStore(), layout);
@@ -22783,7 +24959,7 @@ class WallpaperFullscreenElement extends WithPersonalizationStore {
 }
 customElements.define(WallpaperFullscreenElement.is, WallpaperFullscreenElement);
 
-function getTemplate$b() {
+function getTemplate$d() {
     return html `<!--_html_template_start_--><style include="common wallpaper">wallpaper-grid-item[data-is-time-of-day-wallpaper]{--personalization-app-grid-item-border-radius:40px}wallpaper-grid-item[data-is-time-of-day-wallpaper]::part(border){border:unset}wallpaper-grid-item[data-is-time-of-day-wallpaper]::part(item){overflow:unset}wallpaper-grid-item[data-is-time-of-day-wallpaper]::part(icon){left:3px;top:3px}</style>
 <main id="main" tabindex="-1" aria-label$="[[getMainAriaLabel_(collectionId, collections_)]]">
   <iron-media-query query="(prefers-color-scheme: dark)" query-matches="{{isDarkModeActive}}">
@@ -22795,6 +24971,10 @@ function getTemplate$b() {
         </wallpaper-grid-item>
       </template>
     </iron-list>
+  </template>
+  <template is="dom-if" if="[[pendingTimeOfDayWallpaper_]]" restamp>
+    <time-of-day-wallpaper-dialog on-time-of-day-wallpaper-dialog-accept="onConfirmTimeOfDayDialog_" on-cancel="onCloseTimeOfDayDialog_">
+    </time-of-day-wallpaper-dialog>
   </template>
 </main>
 <!--_html_template_end_-->`;
@@ -22891,7 +25071,7 @@ class WallpaperImagesElement extends WithPersonalizationStore {
         return 'wallpaper-images';
     }
     static get template() {
-        return getTemplate$b();
+        return getTemplate$d();
     }
     static get properties() {
         return {
@@ -22934,6 +25114,12 @@ class WallpaperImagesElement extends WithPersonalizationStore {
                 computed: 'computeTiles_(images_, imagesLoading_, collectionId, isDarkModeActive)',
                 observer: 'onTilesChanged_',
             },
+            /**
+             * The pending ToD wallpaper to be set when the dialog is displayed.
+             */
+            pendingTimeOfDayWallpaper_: Object,
+            colorModeAutoScheduleEnabled_: Boolean,
+            showTimeOfDayWallpaperDialog_: Boolean,
         };
     }
     connectedCallback() {
@@ -22947,6 +25133,8 @@ class WallpaperImagesElement extends WithPersonalizationStore {
         this.watch('pendingSelectedUnitId_', state => isWallpaperImage(state.wallpaper.pendingSelected) ?
             state.wallpaper.pendingSelected.unitId :
             null);
+        this.watch('colorModeAutoScheduleEnabled_', state => state.theme.colorModeAutoScheduleEnabled);
+        this.watch('showTimeOfDayWallpaperDialog_', state => state.wallpaper.shouldShowTimeOfDayWallpaperDialog);
         this.updateFromStore();
     }
     /**
@@ -23017,7 +25205,7 @@ class WallpaperImagesElement extends WithPersonalizationStore {
             Array.isArray(tile.preview);
     }
     getLoadingPlaceholderAnimationDelay_(index) {
-        return getLoadingPlaceholderAnimationDelay(index);
+        return getLoadingPlaceholderAnimationDelay$1(index);
     }
     isTileSelected_(tile, selectedUnitId, pendingSelectedUnitId) {
         // Make sure that both are bigint (not undefined) and equal.
@@ -23029,14 +25217,36 @@ class WallpaperImagesElement extends WithPersonalizationStore {
     isTimeOfDayWallpaper_(tile) {
         return this.isImageTile_(tile) && !!tile.isTimeOfDayWallpaper;
     }
-    onImageSelected_(e) {
+    async onImageSelected_(e) {
         const unitId = e.model.item.unitId;
         assert$1(unitId && typeof unitId === 'bigint', 'unitId not found');
         const images = this.images_[this.collectionId];
         assert$1(isNonEmptyArray(images));
         const selectedImage = images.find(choice => choice.unitId === unitId);
         assert$1(selectedImage, 'could not find selected image');
+        if (await this.shouldShowTimeOfDayWallpaperDialog_(e.model.item)) {
+            this.pendingTimeOfDayWallpaper_ = selectedImage;
+            return;
+        }
         selectWallpaper(selectedImage, getWallpaperProvider(), this.getStore());
+    }
+    async shouldShowTimeOfDayWallpaperDialog_(tile) {
+        if (isTimeOfDayWallpaperForcedAutoScheduleEnabled()) {
+            await getShouldShowTimeOfDayWallpaperDialog(getWallpaperProvider(), this.getStore());
+        }
+        return this.isTimeOfDayWallpaper_(tile) &&
+            this.showTimeOfDayWallpaperDialog_ &&
+            !this.colorModeAutoScheduleEnabled_;
+    }
+    onCloseTimeOfDayDialog_() {
+        assert$1(this.pendingTimeOfDayWallpaper_, 'could not find the time of day wallpaper');
+        selectWallpaper(this.pendingTimeOfDayWallpaper_, getWallpaperProvider(), this.getStore());
+        this.pendingTimeOfDayWallpaper_ = null;
+    }
+    onConfirmTimeOfDayDialog_() {
+        setColorModeAutoSchedule(
+        /*enabled=*/ true, getThemeProvider(), this.getStore());
+        this.onCloseTimeOfDayDialog_();
     }
     getAriaLabel_(tile) {
         if (this.isLoadingTile_(tile)) {
@@ -23050,86 +25260,7 @@ class WallpaperImagesElement extends WithPersonalizationStore {
 }
 customElements.define(WallpaperImagesElement.is, WallpaperImagesElement);
 
-// Copyright 2021 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-let instance$1 = null;
-let initialLoadTimeout = null;
-const setTimeout$1 = window.setTimeout;
-const clearTimeout$1 = window.clearTimeout;
-/**
- * Set up the observer to listen for wallpaper changes.
- */
-function initWallpaperObserver(wallpaperProvider, target) {
-    const receiver = new WallpaperObserverReceiver(target);
-    wallpaperProvider.setWallpaperObserver(receiver.$.bindNewPipeAndPassRemote());
-    return receiver;
-}
-/**
- * @classdesc Implements interface |WallpaperObserver| generated from
- * |personalization_app.mojom|. See comments there for method descriptions.
- */
-class WallpaperObserver {
-    constructor() {
-        this.receiver_ = initWallpaperObserver(getWallpaperProvider(), this);
-    }
-    /**
-     * Create a new wallpaper observer instance if no instance currently running.
-     */
-    static initWallpaperObserverIfNeeded() {
-        if (!instance$1) {
-            instance$1 = new WallpaperObserver();
-            initialLoadTimeout = setTimeout$1(() => {
-                const store = PersonalizationStore.getInstance();
-                // If still loading the initial currently selected wallpaper image after
-                // 120 seconds, consider this an error and update the store.
-                store.dispatch(setSelectedImageAction(null));
-                initialLoadTimeout = null;
-            }, 120 * 1000);
-        }
-    }
-    onWallpaperPreviewEnded() {
-        const store = PersonalizationStore.getInstance();
-        store.dispatch(setFullscreenEnabledAction(false));
-    }
-    onAttributionChanged(attribution) {
-        const store = PersonalizationStore.getInstance();
-        store.dispatch(setAttributionAction(attribution));
-    }
-    onWallpaperChanged(currentWallpaper) {
-        // Ignore updates while in fullscreen preview mode. The attribution
-        // information is for the old (non-preview) wallpaper. This is because
-        // setting an image in preview mode updates the image but not the stored
-        // WallpaperInfo. The wallpaper app should treat the duration of preview
-        // mode as loading. Another onWallpaperChanged will fire when preview mode
-        // is canceled or confirmed.
-        const store = PersonalizationStore.getInstance();
-        if (store.data.wallpaper.fullscreen) {
-            return;
-        }
-        if (initialLoadTimeout) {
-            clearTimeout$1(initialLoadTimeout);
-            initialLoadTimeout = null;
-        }
-        store.dispatch(setSelectedImageAction(currentWallpaper));
-        if (currentWallpaper &&
-            (currentWallpaper.type == WallpaperType.kDailyGooglePhotos ||
-                currentWallpaper.type == WallpaperType.kDaily ||
-                currentWallpaper.type == WallpaperType.kDefault)) {
-            store.dispatch(setUpdatedDailyRefreshImageAction());
-        }
-        // Daily Refresh state should also get updated when wallpaper changes.
-        getDailyRefreshState(getWallpaperProvider(), store);
-    }
-    static shutdown() {
-        if (instance$1) {
-            instance$1.receiver_.$.close();
-            instance$1 = null;
-        }
-    }
-}
-
-function getTemplate$a() {
+function getTemplate$c() {
     return html `<!--_html_template_start_--><style include="common cros-button-style">#container{display:grid;grid-template-areas:'. label .' '. image .' '. .     .' '. theme .' '. .     .';grid-template-columns:20px minmax(0,1fr) 20px;grid-template-rows:auto minmax(158px,220px) 20px 1fr 24px;height:100%}#wallpaperLabel{align-items:center;background:0 0;border:none;display:flex;flex-flow:row nowrap;grid-area:label;height:44px;justify-content:space-between;margin-top:12px}#wallpaperLabel>cr-icon-button{--cr-icon-button-size:44px;margin-inline-end:-18px}#wallpaperLabel>h2{color:var(--cros-text-color-primary);display:inline-block;font:var(--personalization-app-label-font);margin:12px 0}#imageContainer,#imagePlaceholder{background-color:var(--personalization-app-grid-item-background-color);grid-area:image;justify-self:center;max-width:360px;min-width:252px}::slotted(personalization-theme){grid-area:theme}.photo-images-container{background-color:var(--personalization-app-grid-item-background-color);border-radius:12px;box-sizing:border-box;display:flex;flex-flow:row wrap;height:100%;justify-content:center;overflow:hidden;position:relative;width:100%}.photo-images-container img{flex:1 1 0;height:100%;object-fit:cover;width:100%}:host-context(body.jelly-enabled) #container{grid-template-rows:auto auto 16px auto 20px}:host-context(body.jelly-enabled) #imageContainer,:host-context(body.jelly-enabled) #imagePlaceholder{aspect-ratio:340/220;max-width:460px;min-width:278px}iron-icon[icon='personalization:managed']{--iron-icon-height:16px;--iron-icon-width:16px}</style>
 <div class="preview-container" id="container">
   <template is="dom-if" if="[[loading_]]">
@@ -23181,7 +25312,7 @@ class WallpaperPreviewElement extends WithPersonalizationStore {
         return 'wallpaper-preview';
     }
     static get template() {
-        return getTemplate$a();
+        return getTemplate$c();
     }
     static get properties() {
         return {
@@ -23212,7 +25343,6 @@ class WallpaperPreviewElement extends WithPersonalizationStore {
     }
     connectedCallback() {
         super.connectedCallback();
-        WallpaperObserver.initWallpaperObserverIfNeeded();
         this.watch('attribution_', state => state.wallpaper.attribution);
         this.watch('image_', state => state.wallpaper.currentSelected);
         this.watch('imageLoading_', state => state.wallpaper.loading.setImage > 0 ||
@@ -23243,7 +25373,7 @@ class WallpaperPreviewElement extends WithPersonalizationStore {
 }
 customElements.define(WallpaperPreviewElement.is, WallpaperPreviewElement);
 
-function getTemplate$9() {
+function getTemplate$b() {
     return html `<!--_html_template_start_--><style include="common cros-button-style">#dailyRefreshDialog::part(dialog){min-width:288px;width:288px}h3,p{margin:0}cr-button+cr-button{margin-inline-start:8px}</style>
 <cr-dialog id="dialog" show-on-attach>
   <h3 slot="title">$i18n{googlePhotosSharedAlbumDialogTitle}</h3>
@@ -23284,7 +25414,7 @@ class GooglePhotosSharedAlbumDialogElement extends PolymerElement {
         return 'google-photos-shared-album-dialog';
     }
     static get template() {
-        return getTemplate$9();
+        return getTemplate$b();
     }
     static get properties() {
         return {};
@@ -23302,8 +25432,34 @@ class GooglePhotosSharedAlbumDialogElement extends PolymerElement {
 }
 customElements.define(GooglePhotosSharedAlbumDialogElement.is, GooglePhotosSharedAlbumDialogElement);
 
-function getTemplate$8() {
-    return html `<!--_html_template_start_--><style include="wallpaper common cros-button-style">#container{border-bottom:1px solid var(--cros-separator-color);box-sizing:border-box;display:grid;grid-template-columns:224px 32px minmax(0,1fr);grid-template-rows:1fr 16px 34px 20px;height:100%;margin:0 8px}#container:not(.loading){grid-template-areas:'image . text' 'image . .' 'image . buttons' '.     . .'}#container.loading{grid-template-areas:'image . text' 'image . text' 'image . text' '.     . .'}:host-context(body.jelly-enabled) #container{border:none}#imageContainer,#imagePlaceholder{--animation-delay:1s;background-color:var(--personalization-app-grid-item-background-color);grid-area:image}#textContainer,#textPlaceholder{grid-area:text}#buttonContainer{display:flex;flex-flow:row wrap;gap:8px;grid-area:buttons;justify-content:flex-start}#descriptionOptions .text,#wallpaperOptions .text,.collection-options .text{margin-inline-start:8px}iron-icon{--iron-icon-height:20px;--iron-icon-width:20px}cr-button+cr-button{margin-inline-start:8px}#descriptionDialog h3[slot=title],#descriptionDialog p[slot=body]{margin:0;white-space:pre-wrap}#descriptionDialog h3[slot=title]{color:var(--cros-sys-on_secondary_container);font:var(--cros-title-1-font);padding-top:24px}#descriptionDialog p[slot=body]{color:var(--cros-sys-secondary);font:var(--cros-body-1-font)}#descriptionDialog div[slot=button-container]{height:36px;padding:8px 20px 20px 20px}#descriptionDialog div[slot=button-container] cr-button{border-radius:18px;font:var(--cros-button-2-font);height:100%}info-svg::part(path){fill:var(--text-color)}</style>
+function getTemplate$a() {
+    return html `<!--_html_template_start_--><style>:host{height:16px;width:16px}path{fill:#fff}</style>
+<svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path part="path" d="M7 12H9V8H7V12ZM8 0C3.584 0 0 3.584 0 8C0 12.416 3.584 16 8 16C12.416 16 16 12.416 16 8C16 3.584 12.416 0 8 0ZM8 14C4.6925 14 2 11.3075 2 8C2 4.6925 4.6925 2 8 2C11.3075 2 14 4.6925 14 8C14 11.3075 11.3075 14 8 14ZM7 6H9V4H7V6Z">
+  </path>
+</svg>
+<!--_html_template_end_-->`;
+}
+
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview A polymer component that displays the wavy message container
+ * in the ambient preview element.
+ */
+class InfoSvgElement extends PolymerElement {
+    static get is() {
+        return 'info-svg';
+    }
+    static get template() {
+        return getTemplate$a();
+    }
+}
+customElements.define(InfoSvgElement.is, InfoSvgElement);
+
+function getTemplate$9() {
+    return html `<!--_html_template_start_--><style include="wallpaper common cros-button-style">#container{border-bottom:1px solid var(--cros-separator-color);box-sizing:border-box;display:grid;grid-template-columns:224px 20px minmax(0,1fr);grid-template-rows:1fr 16px 34px 20px;height:100%;margin:0 10px}#container:not(.loading){grid-template-areas:'image . text' 'image . .' 'image . buttons' '.     . .'}#container.loading{grid-template-areas:'image . text' 'image . text' 'image . text' '.     . .'}:host-context(body.jelly-enabled) #container{border:none}#imageContainer,#imagePlaceholder{--animation-delay:1s;background-color:var(--personalization-app-grid-item-background-color);grid-area:image}#textContainer,#textPlaceholder{grid-area:text}#buttonContainer{display:flex;flex-flow:row wrap;gap:8px;grid-area:buttons;justify-content:flex-start}#descriptionOptions .text,#wallpaperOptions .text,.collection-options .text{margin-inline-start:8px}iron-icon{--iron-icon-height:20px;--iron-icon-width:20px}cr-button+cr-button{margin-inline-start:8px}#descriptionDialog h3[slot=title],#descriptionDialog p[slot=body]{margin:0;white-space:pre-wrap}#descriptionDialog h3[slot=title]{color:var(--cros-sys-on_secondary_container);font:var(--cros-title-1-font);padding-top:24px}#descriptionDialog p[slot=body]{color:var(--cros-sys-secondary);font:var(--cros-body-1-font)}#descriptionDialog div[slot=button-container]{height:36px;padding:8px 20px 20px 20px}#descriptionDialog div[slot=button-container] cr-button{border-radius:18px;font:var(--cros-button-2-font);height:100%}info-svg::part(path){fill:var(--text-color)}</style>
 <header id="container" class$="[[getContainerClass_(isLoading_, showImage_)]]">
   <template is="dom-if" if="[[showPlaceholders_(isLoading_, showImage_)]]">
     <div id="imagePlaceholder" class="placeholder"></div>
@@ -23353,7 +25509,7 @@ function getTemplate$8() {
       <template is="dom-if" if="[[showRefreshButton_]]">
         <div class="collection-options">
           <cr-button id="refreshWallpaper" class="secondary" aria-label="$i18n{ariaLabelRefresh}" on-click="onClickUpdateDailyRefreshWallpaper_">
-            <iron-icon icon="personalization:refresh"></iron-icon>
+            <iron-icon icon="personalization-shared:refresh"></iron-icon>
             <div class="text">$i18n{refresh}</div>
           </cr-button>
         </div>
@@ -23399,7 +25555,7 @@ class WallpaperSelectedElement extends WithPersonalizationStore {
         return 'wallpaper-selected';
     }
     static get template() {
-        return getTemplate$8();
+        return getTemplate$9();
     }
     static get properties() {
         return {
@@ -23495,7 +25651,6 @@ class WallpaperSelectedElement extends WithPersonalizationStore {
     }
     connectedCallback() {
         super.connectedCallback();
-        WallpaperObserver.initWallpaperObserverIfNeeded();
         this.watch('error_', state => state.error);
         this.watch('attribution_', state => state.wallpaper.attribution);
         this.watch('image_', state => state.wallpaper.currentSelected);
@@ -23757,14 +25912,14 @@ class WallpaperSelectedElement extends WithPersonalizationStore {
 }
 customElements.define(WallpaperSelectedElement.is, WallpaperSelectedElement);
 
-function getTemplate$7() {
-    return html `<!--_html_template_start_--><style include="common">#wallpaperContainer{display:grid;grid-template-areas:'leftspacertop    selected   rightspacertop   ' 'leftspacerbottom imagegrid  rightspacerbottom';grid-template-columns:minmax(16px,1fr) minmax(568px,920px) minmax(16px,1fr);grid-template-rows:172px minmax(0,1fr);height:100%;min-height:var(--personalization-app-subpage-container-min-height);position:relative;width:100%}wallpaper-subpage-top{background-color:var(--cros-bg-color);grid-area:selected;position:sticky;top:56px;z-index:1}google-photos-collection,local-images,sea-pen-collection,wallpaper-collections,wallpaper-images{grid-area:imagegrid;padding:12px 0 32px 0;background-color:var(--cros-bg-color)}div[class$=spacertop]{position:sticky;top:56px;z-index:1}:host-context(body.jelly-enabled) wallpaper-subpage-top{background-color:var(--cros-sys-app_base_shaded)}:host-context(body.jelly-enabled) wallpaper-collections,google-photos-collection,local-images,sea-pen-collection,wallpaper-images{background-color:var(--cros-bg-color)}</style>
+function getTemplate$8() {
+    return html `<!--_html_template_start_--><style include="common">#wallpaperContainer{display:grid;grid-template-areas:'leftspacertop    selected   rightspacertop   ' 'leftspacerbottom imagegrid  rightspacerbottom';grid-template-columns:minmax(10px,1fr) minmax(568px,920px) minmax(10px,1fr);grid-template-rows:172px minmax(0,1fr);height:100%;min-height:var(--personalization-app-subpage-container-min-height);position:relative;width:100%}wallpaper-selected{background-color:var(--cros-bg-color);grid-area:selected;position:sticky;top:56px;z-index:1}google-photos-collection,local-images,wallpaper-collections,wallpaper-images{grid-area:imagegrid;padding:10px 0;background-color:var(--cros-bg-color)}div[class$=spacertop]{position:sticky;top:56px;z-index:1}:host-context(body.jelly-enabled) wallpaper-selected{background-color:var(--cros-sys-app_base_shaded)}:host-context(body.jelly-enabled) wallpaper-collections,google-photos-collection,local-images,wallpaper-images{background-color:var(--cros-bg-color)}</style>
 <div id="wallpaperContainer">
   
   <div class="leftspacertop"></div>
   <div class="leftspacerbottom"></div>
-  <wallpaper-subpage-top path="[[path]]" collection-id="[[queryParams.id]]" google-photos-album-id="[[queryParams.googlePhotosAlbumId]]" is-google-photos-album-shared="[[isGooglePhotosAlbumShared_]]" template-id="[[queryParams.seaPenTemplateId]]">
-  </wallpaper-subpage-top>
+  <wallpaper-selected path="[[path]]" collection-id="[[queryParams.id]]" google-photos-album-id="[[queryParams.googlePhotosAlbumId]]" is-google-photos-album-shared="[[isGooglePhotosAlbumShared_]]">
+  </wallpaper-selected>
   
   <wallpaper-collections hidden="[[!shouldShowCollections_(path)]]">
   </wallpaper-collections>
@@ -23778,9 +25933,6 @@ function getTemplate$7() {
   <template is="dom-if" if="[[shouldShowLocalCollection_(path)]]" restamp>
     <local-images></local-images>
   </template>
-  <template is="dom-if" if="[[shouldShowSeaPenCollection_(path)]]">
-    <sea-pen-collection template-id="[[queryParams.seaPenTemplateId]]"></sea-pen-collection>
- </template>
   
   <div class="rightspacertop"></div>
   <div class="rightspacerbottom"></div>
@@ -23801,7 +25953,7 @@ class WallpaperSubpageElement extends WithPersonalizationStore {
         return 'wallpaper-subpage';
     }
     static get template() {
-        return getTemplate$7();
+        return getTemplate$8();
     }
     static get properties() {
         return {
@@ -23843,9 +25995,6 @@ class WallpaperSubpageElement extends WithPersonalizationStore {
     computeIsGooglePhotosAlbumShared_(queryParams) {
         return !!queryParams && queryParams.googlePhotosAlbumIsShared === 'true';
     }
-    shouldShowWallpaperSelected_(path) {
-        return !this.shouldShowSeaPenCollection_(path);
-    }
     shouldShowCollections_(path) {
         return path === Paths.COLLECTIONS;
     }
@@ -23859,23 +26008,950 @@ class WallpaperSubpageElement extends WithPersonalizationStore {
     shouldShowLocalCollection_(path) {
         return path === Paths.LOCAL_COLLECTION;
     }
-    shouldShowSeaPenCollection_(path) {
-        return this.isSeaPenEnabled_ && path === Paths.SEA_PEN_COLLECTION;
-    }
 }
 customElements.define(WallpaperSubpageElement.is, WallpaperSubpageElement);
 
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+var SPARKLE_SHADER_SOURCE = `#version 100
+precision mediump float;
+precision highp int;
+
+uniform vec4 u_top_left_background_color;
+uniform vec4 u_bottom_right_background_color;
+uniform vec4 u_sparkle_color;
+uniform vec2 u_resolution;
+uniform float u_time;
+uniform float u_pixel_density;
+
+uniform float u_grid_num;
+uniform float u_luma_matte_blend_factor;
+uniform float u_luma_matte_overall_brightness;
+uniform float u_inverse_luma;
+uniform float u_opacity;
+uniform vec3 u_noise_move;
+
+const float PI = 3.1415926535897932384626;
+const float PI_ROTATE_RIGHT = PI * 0.0078125;
+const float PI_ROTATE_LEFT = PI * -0.0078125;
+const float ONE_THIRD = 1. / 3.;
+
+vec4 get_uv_and_density_adjusted_uv(vec2 frag_coord,
+                                    vec2 resolution_pixels,
+                                    float pixel_density_divisor,
+                                    float aspect) {
+  vec2 uv = frag_coord / resolution_pixels;
+  vec2 density_adjusted_uv =
+      uv - mod(uv, pixel_density_divisor / resolution_pixels);
+
+  density_adjusted_uv.y = (1.0 - density_adjusted_uv.y) * aspect;
+  uv.y = (1.0 - uv.y) * aspect;
+
+  return vec4(uv, density_adjusted_uv);
+}
+
+float get_loudness(vec4 opposing_color) {
+  return 0.45 +
+         (2. * opposing_color.r + opposing_color.g + 0.5 * opposing_color.b) *
+             ONE_THIRD * 0.55;
+}
+
+highp float triangle_noise(highp vec2 n) {
+  n = fract(n * vec2(5.3987, 5.4421));
+  n += dot(n.yx, n.xy + vec2(21.5351, 14.3137));
+  float xy = n.x * n.y;
+  // compute in [0..2[ and remap to [-1.0..1.0[
+  return fract(xy * 95.4307) + fract(xy * 75.04961) - 1.0;
+}
+
+highp float sparkles(highp vec2 uv, highp float t) {
+  highp float n = triangle_noise(uv);
+  highp float s = 0.0;
+  for (highp float i = 0.0; i < 4.0; i += 1.0) {
+    highp float l = i * 0.01;
+    highp float h = l + 0.1;
+    highp float o = smoothstep(n - l, h, n);
+    o *= abs(sin(PI * o * (t + 0.55 * i)));
+    s += o;
+  }
+  return s;
+}
+
+vec2 circular_offset(float time, vec2 dist) {
+  float r = time * PI;
+  return dist * vec2(cos(r), sin(r));
+}
+
+mat2 rotate2d(float rad) {
+  return mat2(cos(rad), -sin(rad), sin(rad), cos(rad));
+}
+
+float soft_circle(vec2 uv, vec2 xy, float radius, float blur) {
+  float blur_half = blur / 2.0;
+  float d = distance(uv, xy);
+  return 1.0 - smoothstep(radius - blur_half, radius + blur_half, d);
+}
+
+float circle_grid(vec2 resolution,
+                  vec2 coord,
+                  float time,
+                  vec2 center,
+                  float rotation,
+                  float cell_diameter) {
+  coord =
+      rotate2d(rotation + cell_diameter * 10. * PI) * (center - coord) + center;
+  coord = mod(coord, cell_diameter) / resolution;
+
+  float normal_radius = cell_diameter / resolution.y * 0.5;
+  float radius = 0.65 * normal_radius;
+
+  return soft_circle(coord, vec2(normal_radius), radius, radius);
+}
+
+float turbulence(vec2 uv, float t) {
+  vec2 scale = vec2(1.5);
+
+  t = t * 10.0;
+
+  vec2 o1 = scale * 0.5 + circular_offset(t * 0.01, scale * vec2(0.55));
+  vec2 o2 = scale * 0.2 + circular_offset(t / -150.0, scale * vec2(0.45));
+  vec2 o3 = scale + circular_offset(t / 300.0, scale * vec2(0.35));
+
+  uv = uv * scale;
+
+  float g1 = circle_grid(scale, uv, t, o1, t * PI_ROTATE_RIGHT, 0.17);
+  float g2 = circle_grid(scale, uv, t, o2, t * PI_ROTATE_LEFT, 0.2);
+  float g3 = circle_grid(scale, uv, t, o3, t * PI_ROTATE_RIGHT, 0.275);
+
+  return smoothstep(0., 1., (g1 + g2 + g3) * 0.625);
+}
+
+vec2 distort(vec2 p,
+             float time,
+             float distort_amount_radial,
+             float distort_amount_xy) {
+  float angle = atan(p.y, p.x);
+  return p +
+         vec2(sin(angle * 8.0 + time * 0.003 + 1.641),
+              cos(angle * 5.0 + 2.14 + time * 0.00412)) *
+             distort_amount_radial +
+         vec2(sin(p.x * 0.01 + time * 0.00215 + 0.8123),
+              cos(p.y * 0.01 + time * 0.005931)) *
+             distort_amount_xy;
+}
+
+// Perceived luminosity, not absolute luminosity.
+float get_luminosity(vec3 c) {
+  return 0.3 * c.r + 0.59 * c.g + 0.11 * c.b;
+}
+
+// Creates a luminosity mask and clamp to the legal range.
+vec3 mask_luminosity(vec3 dest, float lum) {
+  dest.rgb *= vec3(lum);
+  // Clip back into the legal range
+  dest = clamp(dest, vec3(0.), vec3(1.0));
+  return dest;
+}
+
+// Return range [-1, 1].
+vec3 hash(vec3 p) {
+  p = fract(p * vec3(.3456, .1234, .9876));
+  p += dot(p, p.yxz + 43.21);
+  p = (p.xxy + p.yxx) * p.zyx;
+  return (fract(sin(p) * 4567.1234567) - .5) * 2.;
+}
+
+// Skew factors (non-uniform).
+const float SKEW = 0.3333333;    // 1/3
+const float UNSKEW = 0.1666667;  // 1/6
+
+// Return range roughly [-1,1].
+// It's because the hash function (that returns a random gradient vector)
+// returns different magnitude of vectors. Noise doesn't have to be in the
+// precise range thus skipped normalize.
+float simplex3d(vec3 p) {
+  // Skew the input coordinate, so that we get squashed cubical grid
+  vec3 s = floor(p + (p.x + p.y + p.z) * SKEW);
+
+  // Unskew back
+  vec3 u = s - (s.x + s.y + s.z) * UNSKEW;
+
+  // Unskewed coordinate that is relative to p, to compute the noise
+  // contribution based on the distance.
+  vec3 c0 = p - u;
+
+  // We have six simplices (in this case tetrahedron, since we are in 3D) that
+  // we could possibly in. Here, we are finding the correct tetrahedron (simplex
+  // shape), and traverse its four vertices (c0..3) when computing noise
+  // contribution. The way we find them is by comparing c0's x,y,z values. For
+  // example in 2D, we can find the triangle (simplex shape in 2D) that we are
+  // in by comparing x and y values. i.e. x>y lower, x<y, upper triangle. Same
+  // applies in 3D.
+  //
+  // Below indicates the offsets (or offset directions) when c0=(x0,y0,z0)
+  // x0>y0>z0: (1,0,0), (1,1,0), (1,1,1)
+  // x0>z0>y0: (1,0,0), (1,0,1), (1,1,1)
+  // z0>x0>y0: (0,0,1), (1,0,1), (1,1,1)
+  // z0>y0>x0: (0,0,1), (0,1,1), (1,1,1)
+  // y0>z0>x0: (0,1,0), (0,1,1), (1,1,1)
+  // y0>x0>z0: (0,1,0), (1,1,0), (1,1,1)
+  //
+  // The rule is:
+  // * For offset1, set 1 at the max component, otherwise 0.
+  // * For offset2, set 0 at the min component, otherwise 1.
+  // * For offset3, set 1 for all.
+  //
+  // Encode x0-y0, y0-z0, z0-x0 in a vec3
+  vec3 en = c0 - c0.yzx;
+  // Each represents whether x0>y0, y0>z0, z0>x0
+  en = step(vec3(0.), en);
+  // en.zxy encodes z0>x0, x0>y0, y0>x0
+  vec3 offset1 = en * (1. - en.zxy);       // find max
+  vec3 offset2 = 1. - en.zxy * (1. - en);  // 1-(find min)
+  vec3 offset3 = vec3(1.);
+
+  vec3 c1 = c0 - offset1 + UNSKEW;
+  vec3 c2 = c0 - offset2 + UNSKEW * 2.;
+  vec3 c3 = c0 - offset3 + UNSKEW * 3.;
+
+  // Kernel summation: dot(max(0, r^2-d^2))^4, noise contribution)
+  //
+  // First compute d^2, squared distance to the point.
+  vec4 w;  // w = max(0, r^2 - d^2))
+  w.x = dot(c0, c0);
+  w.y = dot(c1, c1);
+  w.z = dot(c2, c2);
+  w.w = dot(c3, c3);
+
+  // Noise contribution should decay to zero before they cross the simplex
+  // boundary. Usually r^2 is 0.5 or 0.6; 0.5 ensures continuity but 0.6
+  // increases the visual quality for the application where discontinuity isn't
+  // noticeable.
+  w = max(0.6 - w, 0.);
+
+  // Noise contribution from each point.
+  vec4 nc;
+  nc.x = dot(hash(s), c0);
+  nc.y = dot(hash(s + offset1), c1);
+  nc.z = dot(hash(s + offset2), c2);
+  nc.w = dot(hash(s + offset3), c3);
+
+  nc *= w * w * w * w;
+
+  // Add all the noise contributions.
+  // Should multiply by the possible max contribution to adjust the range in
+  // [-1,1].
+  return dot(vec4(32.), nc);
+}
+
+// Random rotations.
+// The way you create fractal noise is layering simplex noise with some
+// rotation. To make random cloud looking noise, the rotations should not align.
+// (Otherwise it creates patterned noise). Below rotations only rotate in one
+// axis.
+const mat3 rot1 = mat3(1.0, 0., 0., 0., 0.15, -0.98, 0., 0.98, 0.15);
+const mat3 rot2 = mat3(-0.95, 0., -0.3, 0., 1., 0., 0.3, 0., -0.95);
+const mat3 rot3 = mat3(1.0, 0., 0., 0., -0.44, -0.89, 0., 0.89, -0.44);
+
+// Octave = 4
+// Divide each coefficient by 3 to produce more grainy noise.
+float simplex3d_fractal(vec3 p) {
+  return 0.675 * simplex3d(p * rot1) + 0.225 * simplex3d(2.0 * p * rot2) +
+         0.075 * simplex3d(4.0 * p * rot3) + 0.025 * simplex3d(8.0 * p);
+}
+
+float saturate(float value) {
+  return clamp(value, 0.0, 1.0);
+}
+
+// Screen blend
+vec3 screen(vec3 dest, vec3 src) {
+  return dest + src - dest * src;
+}
+
+void main() {
+  float aspect = u_resolution.y / u_resolution.x;
+  vec4 compound_uv = get_uv_and_density_adjusted_uv(
+      gl_FragCoord.xy, u_resolution, u_pixel_density, aspect);
+  vec2 uv = compound_uv.xy;
+  vec2 density_adjusted_uv = compound_uv.zw;
+
+  vec2 gradient_direction = gl_FragCoord.xy / u_resolution;
+  float gradient =
+      saturate((1.0 - gradient_direction.y) * aspect + gradient_direction.x);
+  vec4 background_color = mix(u_top_left_background_color,
+                              u_bottom_right_background_color, gradient);
+
+  // apply noise
+  vec3 noise_p =
+      vec3(density_adjusted_uv + u_noise_move.xy, u_noise_move.z) * u_grid_num;
+  vec3 color = background_color.rgb;
+
+  // Add dither with triangle distribution to avoid color banding. Dither in the
+  // shader here as we are in gamma space.
+  float dither = triangle_noise(gl_FragCoord.xy * u_pixel_density) / 255.;
+
+  // The result color should be pre-multiplied, i.e. [R*A, G*A, B*A, A], thus
+  // need to multiply rgb with a to get the correct result.
+  color = (color + dither) * u_opacity;
+  vec4 noise = vec4(color, u_opacity);
+
+  float sparkle_luma = 1.0 - get_luminosity(vec3(simplex3d(noise_p)));
+  sparkle_luma = max(/* intensity= */ 1.75 * sparkle_luma - /* dim= */ 1.3, 0.);
+  float sparkle_alpha =
+      sparkles(gl_FragCoord.xy - mod(gl_FragCoord.xy, u_pixel_density * 0.8),
+               u_time / 1000.0);
+  vec4 sparkle =
+      vec4(mask_luminosity(u_sparkle_color.rgb * sparkle_alpha, sparkle_luma) *
+               u_sparkle_color.a,
+           u_sparkle_color.a);
+
+  vec3 effect = noise.rgb + sparkle.rgb;
+  gl_FragColor =
+      mix(background_color, vec4(effect, 1.0), smoothstep(0., 0.75, 0.3));
+}`;
+
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+const VERTEX_SHADER_SOURCE = `#version 100
+precision highp float;
+
+attribute vec2 a_position;
+
+void main() {
+  gl_Position = vec4(a_position, 0, 1);
+}
+`;
+function createShader(gl, type, source) {
+    const shader = gl.createShader(type);
+    if (shader == null) {
+        throw new Error('Failed to create WebGLShader');
+    }
+    gl.shaderSource(shader, source);
+    gl.compileShader(shader);
+    if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+        console.warn(gl.getShaderInfoLog(shader));
+        gl.deleteShader(shader);
+        throw new Error('Failed to compile shader');
+    }
+    return shader;
+}
+function linkProgram(gl, vertexShader, fragmentShader) {
+    const program = gl.createProgram();
+    if (program == null) {
+        throw new Error('Failed to create WebGLProgram');
+    }
+    gl.attachShader(program, vertexShader);
+    gl.attachShader(program, fragmentShader);
+    gl.linkProgram(program);
+    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+        console.warn(gl.getProgramInfoLog(program));
+        gl.deleteShader(vertexShader);
+        gl.deleteShader(fragmentShader);
+        gl.deleteProgram(program);
+        throw new Error('Failed to link program');
+    }
+    return program;
+}
+class DrawSurface {
+    constructor(gl, program) {
+        this.gl = null;
+        this.buffer = null;
+        this.positions = new Float32Array([-1, -1, 1, -1, -1, 1, -1, 1, 1, -1, 1, 1]);
+        this.gl = gl;
+        const buffer = this.buffer = gl.createBuffer();
+        if (!buffer) {
+            throw new Error('Failed to create WebGLBuffer for DrawSurface');
+        }
+        gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+        gl.bufferData(gl.ARRAY_BUFFER, this.positions, gl.STATIC_DRAW);
+        const location = gl.getAttribLocation(program, 'a_position');
+        gl.enableVertexAttribArray(location);
+        gl.vertexAttribPointer(location, 2, gl.FLOAT, false, 0, 0);
+    }
+    dispose() {
+        const { gl, buffer } = this;
+        if (gl != null && buffer != null) {
+            gl.deleteBuffer(buffer);
+        }
+        this.gl = null;
+        this.buffer = null;
+    }
+}
+/**
+ * Sparkle implements business logic related to rendering a sparkle surface
+ * effects. It abstracts canvas initialization, and manages coordinating state
+ * between the browser thread and the GPU.
+ */
+class Sparkle {
+    constructor() {
+        this.canvas = document.createElement('canvas');
+        /**
+         * An HTMLElement, ostensibly a <canvas>, within which the sparkle effect is
+         * rendered.
+         */
+        this.element = this.canvas;
+        this.gl = null;
+        this.instancing = null;
+        this.vertexShader = null;
+        this.fragmentShader = null;
+        this.program = null;
+        this.drawSurface = null;
+        this.rendering = false;
+        this.width = -1;
+        this.height = -1;
+        this.dpr = 1; // self.devicePixelRatio;
+        this.topLeftBackgroundColor = [1.0, 1.0, 1.0, 1.0];
+        this.bottomRightBackgroundColor = [1.0, 1.0, 1.0, 1.0];
+        this.sparkleColor = [1.0, 1.0, 1.0, 1.0];
+        this.noiseMove = [0., 0., 0.];
+        this.applyNoise = false;
+        this.gridNum = 1.2;
+        this.inverseLuma = -1.;
+        this.opacity = 1.;
+        this.then = performance.now();
+        this.needsUpdate = true;
+    }
+    get initialized() {
+        return this.gl != null;
+    }
+    /**
+     * Sets the top left color of the background as a 4-element array. The
+     * values in the array should be within [0,1].
+     */
+    setTopLeftBackgroundColor(color) {
+        this.topLeftBackgroundColor = color;
+        this.needsUpdate = true;
+    }
+    /**
+     * Sets the bottom right color of the background as a 4-element array. The
+     * values in the array should be within [0,1].
+     */
+    setBottomRightBackgroundColor(color) {
+        this.bottomRightBackgroundColor = color;
+        this.needsUpdate = true;
+    }
+    /**
+     * Sets the sparkle color.
+     */
+    setSparkleColor(color) {
+        this.sparkleColor = color;
+        this.needsUpdate = true;
+    }
+    /**
+     * Sets the number of grid for generating noise.
+     */
+    setGridCount(gridNumber) {
+        this.gridNum = gridNumber;
+        this.needsUpdate = true;
+    }
+    /**
+     * Sets blend and brightness factors of the luma matte.
+     *
+     * @param lumaMatteBlendFactor increases or decreases the amount of variance n
+     *     noise. Setting this a lower number removes variations. I.e. the
+     *     turbulence noise will look more blended. Expected input range is [0,
+     *     1]. more dimmed.
+     * @param lumaMatteOverallBrightness adds the overall brightness of the
+     *     turbulence noise. Expected input range is [0, 1].
+     *
+     * Example usage: You may want to apply a small number to
+     * [lumaMatteBlendFactor], such as 0.2, which makes the noise look softer.
+     * However it makes the overall noise look dim, so you want offset something
+     * like 0.3 for [lumaMatteOverallBrightness] to bring back its overall
+     * brightness.
+     */
+    setLumaMatteFactors(lumaMatteBlendFactor = 1.0, lumaMatteOverallBrightness = 0.) {
+        this.lumaMatteBlendFactor = lumaMatteBlendFactor;
+        this.lumaMatteOverallBrightness = lumaMatteOverallBrightness;
+        this.needsUpdate = true;
+    }
+    /**
+     * Sets whether to inverse the luminosity of the noise.
+     *
+     * By default noise will be used as a luma matte as is. This means that you
+     * will see color in the brighter area. If you want to invert it, meaning
+     * blend color onto the darker side, set to true.
+     */
+    setInverseNoiseLuminosity(inverse) {
+        this.inverseLuma = inverse ? -1. : 1.;
+        this.needsUpdate = true;
+    }
+    /**
+     * Sets the opacity to achieve fade in/ out of the animation.
+     *
+     * Expected value range is [1, 0].
+     */
+    setOpacity(opacity) {
+        this.opacity = opacity;
+        this.needsUpdate = true;
+    }
+    /**
+     * Applies the noise offset to start noise movement.
+     */
+    applyNoiseOffset() {
+        this.applyNoise = true;
+    }
+    /**
+     * Resets touch state and dimensions of the sparkle.
+     */
+    reset() {
+        this.width = -1;
+        this.height = -1;
+    }
+    /**
+     * Resizes the sparkle draw area to the specified width and height.
+     */
+    resize(width, height) {
+        if (width === this.width && height === this.height) {
+            return;
+        }
+        const { dpr } = this;
+        this.width = width;
+        this.height = height;
+        // NOTE: Setting these canvas props will clear it
+        this.canvas.width = width * dpr;
+        this.canvas.height = height * dpr;
+        const { gl } = this;
+        if (gl != null) {
+            gl.viewport(0, 0, width * dpr, height * dpr);
+        }
+    }
+    /**
+     * Starts the sparkle render loop.
+     */
+    startRendering() {
+        if (this.rendering) {
+            return;
+        }
+        this.rendering = true;
+        this.render();
+    }
+    /**
+     * Stops the sparkle render loop.
+     */
+    stopRendering() {
+        if (this.rendering === false) {
+            return;
+        }
+        this.rendering = false;
+    }
+    render() {
+        if (this.rendering === false) {
+            return;
+        }
+        const { gl, instancing, program, dpr } = this;
+        if (gl == null || instancing == null || program == null) {
+            this.stopRendering();
+            return;
+        }
+        gl.uniform1f(gl.getUniformLocation(program, 'u_time'), performance.now() - this.then);
+        gl.uniform2f(gl.getUniformLocation(program, 'u_resolution'), this.width * dpr, this.height * dpr);
+        const initialX = this.noiseMove[0];
+        const initialY = this.noiseMove[1];
+        const initialZ = this.noiseMove[2];
+        if (this.applyNoise) {
+            const NOISE_MOVE_OFFSET = 0.006;
+            this.noiseMove = [
+                initialX - NOISE_MOVE_OFFSET,
+                initialY,
+                initialZ + NOISE_MOVE_OFFSET,
+            ];
+        }
+        gl.uniform3f(gl.getUniformLocation(program, 'u_noise_move'), ...this.noiseMove);
+        if (this.needsUpdate) {
+            gl.uniform4f(gl.getUniformLocation(program, 'u_top_left_background_color'), ...this.topLeftBackgroundColor);
+            gl.uniform4f(gl.getUniformLocation(program, 'u_bottom_right_background_color'), ...this.bottomRightBackgroundColor);
+            gl.uniform4f(gl.getUniformLocation(program, 'u_sparkle_color'), ...this.sparkleColor);
+            gl.uniform1f(gl.getUniformLocation(program, 'u_grid_num'), this.gridNum);
+            gl.uniform1f(gl.getUniformLocation(program, 'u_luma_matte_blend_factor'), this.lumaMatteBlendFactor);
+            gl.uniform1f(gl.getUniformLocation(program, 'u_luma_matte_overall_brightness'), this.lumaMatteOverallBrightness);
+            gl.uniform1f(gl.getUniformLocation(program, 'u_inverse_luma'), this.inverseLuma);
+            gl.uniform1f(gl.getUniformLocation(program, 'u_opacity'), this.opacity);
+        }
+        this.needsUpdate = false;
+        instancing.drawArraysInstancedANGLE(gl.TRIANGLES, 0, 6, 10);
+        requestAnimationFrame(() => {
+            this.render();
+        });
+    }
+    /**
+     * Initialize the sparkle. This includes initializing the WebGL context that
+     * backs rendering of the sparkle.
+     */
+    initialize() {
+        if (this.initialized) {
+            return;
+        }
+        const gl = this.gl = this.canvas.getContext('webgl', { premultipliedAlpha: true, alpha: true });
+        if (gl == null) {
+            return;
+        }
+        this.instancing = gl.getExtension('ANGLE_instanced_arrays');
+        if (!this.instancing) {
+            throw new Error('Could not activate WebGL instancing extension');
+        }
+        this.vertexShader =
+            createShader(gl, gl.VERTEX_SHADER, VERTEX_SHADER_SOURCE);
+        this.fragmentShader =
+            createShader(gl, gl.FRAGMENT_SHADER, SPARKLE_SHADER_SOURCE);
+        const program = this.program =
+            linkProgram(gl, this.vertexShader, this.fragmentShader);
+        gl.clearColor(0, 0, 0, 0);
+        gl.enable(gl.BLEND);
+        gl.disable(gl.DEPTH_TEST);
+        gl.disable(gl.CULL_FACE);
+        gl.blendEquation(gl.FUNC_ADD);
+        gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
+        gl.useProgram(program);
+        gl.uniform1f(gl.getUniformLocation(program, 'u_pixel_density'), this.dpr);
+        this.drawSurface = new DrawSurface(gl, program);
+    }
+    /**
+     * Dispose of the sparkle's internal state. After invoking this method, the
+     * sparkle instance can no longer be used.
+     */
+    dispose() {
+        if (!this.initialized) {
+            return;
+        }
+        this.drawSurface?.dispose();
+        const gl = this.gl;
+        if (gl != null) {
+            gl.deleteProgram(this.program);
+            gl.deleteShader(this.vertexShader);
+            gl.deleteShader(this.fragmentShader);
+        }
+        this.drawSurface = null;
+        this.program = null;
+        this.vertexShader = null;
+        this.fragmentShader = null;
+        this.instancing = null;
+        this.gl = null;
+    }
+}
+
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+const rgbRe = /rgb[a]?\(\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*,?(\s*[0-9.e-]*)?\s*\)/i;
+const hexRe = /#([0-9a-f]{8,8})|([0-9a-f]{6,6})|([0-9a-f]{3,3})/i;
+const cache = {};
+function normalize(channels, maxValue = 255) {
+    return [
+        channels[0] / maxValue,
+        channels[1] / maxValue,
+        channels[2] / maxValue,
+        channels[3] / maxValue,
+    ];
+}
+/**
+ * Parses a CSS color string.
+ * Only supports rgb(...), rgba(...) and hex values.
+ * Alpha values are dropped from rgba(...).
+ */
+function parseCssColor(color) {
+    if (cache[color] == null) {
+        let match = color.match(rgbRe);
+        let parsedColor = [255, 255, 255, 255];
+        if (match != null) {
+            const [r, g, b, a] = match.slice(1, 5).map((value, index) => {
+                let parsedValue = Math.floor(Number(value));
+                if (index === 3) {
+                    parsedValue = parsedValue * 255;
+                }
+                return Number.isNaN(parsedValue) ? 255 : parsedValue;
+            });
+            parsedColor = [
+                r != null ? r : 255,
+                g != null ? g : 255,
+                b != null ? b : 255,
+                a != null ? a : 255,
+            ];
+        }
+        else {
+            match = color.match(hexRe);
+            if (match != null) {
+                const hexString = match[1] || match[2] || match[3];
+                const channelSize = hexString.length < 6 ? 1 : 2;
+                const channels = [];
+                for (let i = 0; i < hexString.length; i += channelSize) {
+                    const numberString = hexString.slice(i, i + channelSize);
+                    if (!/^[a-fA-F0-9]+$/.test(numberString)) {
+                        throw new Error('NaN');
+                    }
+                    // Needed to parse hexadecimal.
+                    // tslint:disable-next-line:ban
+                    let channel = parseInt(numberString, 16);
+                    if (channelSize === 1) {
+                        channel = (channel << 4) + channel;
+                    }
+                    if (Number.isNaN(channel)) {
+                        channel = 255;
+                    }
+                    channels.push(channel);
+                }
+                while (channels.length < 4) {
+                    channels.push(255);
+                }
+                parsedColor = channels;
+            }
+        }
+        cache[color] = normalize(parsedColor);
+    }
+    return cache[color].slice();
+}
+
+function getTemplate$7() {
+    return html `<!--_html_template_start_--><style>:host{display:block;contain:strict;position:relative;overflow:hidden}:host,canvas{height:100%;touch-action:none;user-select:none;width:100%;-webkit-tap-highlight-color:transparent;-webkit-user-select:none}</style>
+<iron-media-query query="(prefers-color-scheme: dark)" query-matches="{{isDarkModeActive}}">
+<slot></slot>
+</iron-media-query><!--_html_template_end_-->`;
+}
+
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview Polymer element that displays a sparkle effect.
+ */
+class SparklePlaceholderElement extends PolymerElement {
+    constructor() {
+        super(...arguments);
+        this.sparkleImpl = new Sparkle();
+    }
+    static get is() {
+        return 'sparkle-placeholder-element';
+    }
+    static get template() {
+        return getTemplate$7();
+    }
+    static get properties() {
+        return {
+            /**
+             * Whether dark mode is the active preferred color scheme.
+             */
+            isDarkModeActive: {
+                type: Boolean,
+                value: false,
+            },
+            index: {
+                type: Number,
+                observer: 'onIndexChanged_',
+            },
+        };
+    }
+    connectedCallback() {
+        super.connectedCallback();
+        try {
+            this.sparkleImpl.initialize();
+        }
+        catch (error) {
+            console.error(error);
+        }
+        this.initSparkle_();
+    }
+    disconnectedCallback() {
+        super.disconnectedCallback();
+        if (this.shadowRoot != null &&
+            this.sparkleImpl.element.parentNode === this.shadowRoot) {
+            this.sparkleImpl.stopRendering();
+        }
+    }
+    onIndexChanged_(index) {
+        setTimeout(() => {
+            this.sparkleImpl.applyNoiseOffset();
+        }, index * 500);
+    }
+    initSparkle_() {
+        const sparkleElement = this.sparkleImpl.element;
+        if (this.shadowRoot != null &&
+            sparkleElement.parentNode !== this.shadowRoot) {
+            this.shadowRoot.appendChild(sparkleElement);
+            this.sparkleImpl.startRendering();
+        }
+        if (this.isDarkModeActive) {
+            this.sparkleImpl.setTopLeftBackgroundColor(parseCssColor('#344477'));
+            this.sparkleImpl.setBottomRightBackgroundColor(parseCssColor('#002116'));
+        }
+        else {
+            this.sparkleImpl.setTopLeftBackgroundColor(parseCssColor('#B5C4FF'));
+            this.sparkleImpl.setBottomRightBackgroundColor(parseCssColor('#B3EFD4'));
+        }
+        this.sparkleImpl.setSparkleColor(parseCssColor('#FFFFFF'));
+        this.sparkleImpl.setInverseNoiseLuminosity(true);
+        this.sparkleImpl.setGridCount(1.7);
+        this.sparkleImpl.setLumaMatteFactors();
+        this.sparkleImpl.setOpacity(1.);
+        const rect = this.sparkleImpl.element.getBoundingClientRect();
+        this.sparkleImpl.resize(rect.width, rect.height);
+    }
+}
+customElements.define(SparklePlaceholderElement.is, SparklePlaceholderElement);
+
+const styleMod$1 = document.createElement('dom-module');
+styleMod$1.appendChild(html `
+  <template>
+    <style>
+wallpaper-grid-item.sea-pen-image{--wallpaper-grid-item-width:100%;height:100%}.sea-pen-image[aria-selected=true]::part(image){animation:none}.sea-pen-image[aria-selected=true]::part(icon){--cr-icon-button-size:20px;background-color:var(--cros-bg-color);border-bottom-right-radius:50%;left:-8px;padding:8px;top:-8px}.sea-pen-image[aria-selected=true]::part(item){border-radius:var(--personalization-app-grid-item-border-radius)}.sea-pen-image[aria-selected=true]::part(icon)::before{border-top-left-radius:50%;top:8px;box-shadow:0 -8px 0 0 var(--cros-bg-color);content:"";height:16px;left:36px;position:absolute;width:16px}.sea-pen-image[aria-selected=true]::part(icon)::after{border-top-left-radius:50%;box-shadow:-8px 0 0 0 var(--cros-bg-color);content:"";height:16px;left:8px;position:absolute;top:36px;width:16px}
+    </style>
+  </template>
+`.content);
+styleMod$1.register('sea-pen');
+
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+async function selectRecentSeaPenImage(image, provider, store) {
+    // Returns if the selected image is the current wallpaper.
+    if (isNonEmptyFilePath(image) && image.path === store.data.currentSelected) {
+        return;
+    }
+    // Batch these changes together to reduce polymer churn as multiple state
+    // fields change quickly.
+    store.beginBatchUpdate();
+    store.dispatch(beginSelectRecentSeaPenImageAction(image));
+    store.dispatch(beginLoadSelectedRecentSeaPenImageAction());
+    store.endBatchUpdate();
+    const { success } = await provider.selectRecentSeaPenImage(image);
+    store.beginBatchUpdate();
+    store.dispatch(endSelectRecentSeaPenImageAction(image, success));
+    if (!success) {
+        console.warn('Error setting wallpaper');
+    }
+    store.endBatchUpdate();
+}
+async function searchSeaPenThumbnails(query, provider, store) {
+    store.dispatch(beginSearchSeaPenThumbnailsAction(query));
+    const { images } = await provider.searchWallpaper(query);
+    if (!isNonEmptyArray(images)) {
+        console.warn('Failed to generate thumbnails.');
+    }
+    store.dispatch(setSeaPenThumbnailsAction(query, images));
+}
+async function selectSeaPenWallpaper(thumbnail, provider, store) {
+    // TODO(b/305965517) show loading state.
+    const { success } = await provider.selectSeaPenThumbnail(thumbnail.id);
+    // Re-fetches the recent Sea Pen image if setting sea pen wallpaper
+    // successfully, which means the file has been downloaded successfully.
+    if (success) {
+        await fetchRecentSeaPenData(provider, store);
+    }
+}
+async function deleteRecentSeaPenImage(image, provider, store) {
+    const { success } = await provider.deleteRecentSeaPenImage(image);
+    // Re-fetches the recent Sea Pen images if recent Sea Pen image is removed
+    // successfully.
+    if (success) {
+        fetchRecentSeaPenData(provider, store);
+    }
+}
+async function getRecentSeaPenImages(provider, store) {
+    store.dispatch(beginLoadRecentSeaPenImagesAction());
+    const { images } = await provider.getRecentSeaPenImages();
+    if (images == null) {
+        console.warn('Failed to fetch recent sea pen images');
+    }
+    store.dispatch(setRecentSeaPenImagesAction(images));
+}
+/**
+ * Gets list of recent Sea Pen images, then fetches image data for each recent
+ * Sea Pen image.
+ */
+async function fetchRecentSeaPenData(provider, store) {
+    // Do not restart loading local image list if a load is already in progress.
+    if (!store.data.loading.recentImages) {
+        await getRecentSeaPenImages(provider, store);
+    }
+    await getMissingRecentSeaPenImageData(provider, store);
+}
+/**
+ * Because data loading can happen asynchronously and is triggered
+ * on page load and on window focus, multiple "threads" can be fetching
+ * data simultaneously. Synchronize them with a task queue.
+ */
+const recentSeaPenImageDataToFetch = new Set();
+/**
+ * Get an sea pen data one at a time for every recent Sea Pen image that does
+ * not have the data yet.
+ */
+async function getMissingRecentSeaPenImageData(provider, store) {
+    if (!Array.isArray(store.data.recentImages)) {
+        console.warn('Cannot fetch thumbnails with invalid image list');
+        return;
+    }
+    // Set correct loading state for each image thumbnail. Do in a batch update to
+    // reduce number of times that polymer must re-render.
+    store.beginBatchUpdate();
+    for (const image of store.data.recentImages) {
+        if (store.data.recentImageData[image.path] ||
+            store.data.loading.recentImageData[image.path] ||
+            recentSeaPenImageDataToFetch.has(image.path)) {
+            // Do not re-load thumbnail if already present, or already loading.
+            continue;
+        }
+        recentSeaPenImageDataToFetch.add(image.path);
+        store.dispatch(beginLoadRecentSeaPenImageDataAction(image));
+    }
+    store.endBatchUpdate();
+    // There may be multiple async tasks triggered that pull off this queue.
+    while (recentSeaPenImageDataToFetch.size) {
+        await Promise.all(Array.from(recentSeaPenImageDataToFetch).map(async (path) => {
+            recentSeaPenImageDataToFetch.delete(path);
+            const { url } = await provider.getRecentSeaPenImageThumbnail({ path });
+            // TODO(b/312783231): add real API to get the image query info.
+            const queryInfo = 'query ' + Math.floor(Math.random() * 100 + 1).toString();
+            if (!url) {
+                console.warn('Failed to fetch recent Sea Pen image data', path);
+            }
+            store.dispatch(setRecentSeaPenImageDataAction({ path }, { url, queryInfo }));
+        }));
+    }
+}
+
 function getTemplate$6() {
-    return html `<!--_html_template_start_--><template is="dom-if" if="[[shouldShowWallpaperSelectedElement_(path, templateId)]]">
-  <wallpaper-selected path="[[path]]" collection-id="[[collectionId]]" google-photos-album-id="[[googlePhotosAlbumId]]" is-google-photos-album-shared="[[isGooglePhotosAlbumShared]]">
-  </wallpaper-selected>
+    return html `<!--_html_template_start_--><style include="common wallpaper sea-pen">:host{overflow:hidden}iron-list{width:100%}.thumbnail-item-container,.thumbnail-placeholder-container{box-sizing:border-box;height:240px;overflow:hidden;width:calc(100% / 2 - .5px)}.thumbnail-placeholder-container{padding:calc(var(--personalization-app-grid-item-spacing)/ 2)}.thumbnail-placeholder{background-color:var(--personalization-app-grid-item-background-color);border-radius:var(--personalization-app-grid-item-border-radius);height:100%}.feedback-icon-container{align-items:flex-end;bottom:10px;display:flex;justify-content:flex-end;height:48px;position:absolute;right:10px;width:88px;z-index:1}.feedback-icon-container-inner{align-items:flex-end;background-color:var(--cros-bg-color);border-top-left-radius:24px;bottom:0;display:flex;gap:16px;height:36px;justify-content:flex-end;position:absolute;right:0;width:76px}div[class^=feedback-icon-container-shadow]{height:12px;overflow:hidden;position:absolute;width:12px}div[class^=feedback-icon-container-shadow]::before{border-bottom-right-radius:100%;bottom:0;box-shadow:0 12px 0 12px var(--cros-bg-color);content:'';height:100%;position:absolute;right:0;width:100%}.feedback-icon-container-shadow-left{right:76px}.feedback-icon-container-shadow-top{bottom:36px}.thumb-icon-button{--cr-icon-button-size:24px;background-color:var(--cros-bg-color);margin-inline:0}</style>
+<h2 class="wallpaper-collections-heading">$i18n{seaPenWallpaperPoweredByGoogle}</h2>
+<template is="dom-if" if="[[thumbnailsLoading_]]" restamp>
+  <iron-list class="thumbnail-placeholder-list" items="[[getPlaceholders_(4)]]" grid>
+    <template>
+      <div class="thumbnail-placeholder-container">
+        <sparkle-placeholder-element class="thumbnail-placeholder" index="[[index]]">
+        </sparkle-placeholder-element>
+      </div>
+    </template>
+  </iron-list>
 </template>
-<template is="dom-if" if="[[shouldShowInputQuery_(path, templateId)]]">
-  <sea-pen-input-query></sea-pen-input-query>
+<template is="dom-if" if="[[shouldShowThumbnailPlaceholders_(thumbnailsLoading_, thumbnails_)]]">
+  <iron-list class="thumbnail-placeholder-list" items="[[getPlaceholders_(4)]]" grid>
+    <template>
+      <div class="thumbnail-placeholder-container">
+        <div class="thumbnail-placeholder"></div>
+      </div>
+    </template>
+  </iron-list>
 </template>
-<template is="dom-if" if="[[shouldShowTemplateQuery_(path, templateId)]]">
-  
-  <sea-pen-template-query></sea-pen-template-query>
+<template is="dom-if" if="[[shouldShowImageThumbnails_(thumbnailsLoading_, thumbnails_)]]">
+  <iron-list id="grid" items="[[thumbnails_]]" grid role="listbox">
+    <template>
+      <div class="thumbnail-item-container">
+        <div class="feedback-icon-container">
+          <div class="feedback-icon-container-inner">
+            <cr-icon-button class="thumb-icon-button" iron-icon="cr:thumbs-up" role="button" on-click="onClickThumbsUp_">
+            </cr-icon-button>
+            <cr-icon-button class="thumb-icon-button" iron-icon="cr:thumbs-down" role="button" on-click="onClickThumbsDown_">
+            </cr-icon-button>
+          </div>
+          <div class="feedback-icon-container-shadow-left"></div>
+          <div class="feedback-icon-container-shadow-top"></div>
+        </div>
+        <wallpaper-grid-item class="sea-pen-image" index="[[index]]" data-sea-pen-image aria-posinset$="[[getAriaIndex_(index)]]" on-wallpaper-grid-item-selected="onThumbnailSelected_" role="option" selected="[[isThumbnailSelected_(item, pendingSelected_)]]" src="[[item.image]]" tabindex$="[[tabIndex]]">
+        </wallpaper-grid-item>
+      </div>
+    </template>
+  </iron-list>
 </template>
 <!--_html_template_end_-->`;
 }
@@ -23884,135 +26960,38 @@ function getTemplate$6() {
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 /**
- * @fileoverview A polymer component that shows the top element of the wallpaper
- * subpage.
+ * @fileoverview a singleton getter for the SeaPen mojom interface used in
+ * the Personalization SWA. Also contains utility function for mocking out the
+ * implementation for testing.
  */
-class WallpaperSubpageTopElement extends WithPersonalizationStore {
-    static get is() {
-        return 'wallpaper-subpage-top';
-    }
-    static get template() {
-        return getTemplate$6();
-    }
-    static get properties() {
-        return {
-            /**
-             * The current collection id to display.
-             */
-            collectionId: String,
-            /**
-             * The current Google Photos Album id to display.
-             */
-            googlePhotosAlbumId: String,
-            /**
-             * Whether the Google Photos album is shared.
-             */
-            isGooglePhotosAlbumShared: {
-                type: Boolean,
-                value: false,
-            },
-            /**
-             * The current path of the page.
-             */
-            path: String,
-            /**
-             * The sea pen template id.
-             */
-            templateId: {
-                type: String,
-            },
-        };
-    }
-    shouldShowInputQuery_(path, templateId) {
-        return isSeaPenTextInputEnabled() && path === Paths.SEA_PEN_COLLECTION &&
-            !templateId;
-    }
-    shouldShowTemplateQuery_(path, templateId) {
-        return isSeaPenEnabled() && path === Paths.SEA_PEN_COLLECTION &&
-            !!templateId;
-    }
-    shouldShowWallpaperSelectedElement_(path, templateId) {
-        return !this.shouldShowInputQuery_(path, templateId) &&
-            !this.shouldShowTemplateQuery_(path, templateId);
-    }
+let seaPenProvider = null;
+function setSeaPenProviderForTesting(testProvider) {
+    seaPenProvider = testProvider;
 }
-customElements.define(WallpaperSubpageTopElement.is, WallpaperSubpageTopElement);
-
-function getTemplate$5() {
-    return html `<!--_html_template_start_--><style></style>
-<div>
-  <template is="dom-if" if="[[shouldShowTemplates_(tab_)]]">
-    <sea-pen-templates></sea-pen-templates>
-  </template>
-  <template is="dom-if" if="[[shouldShowImages_(tab_)]]">
-    <sea-pen-images></sea-pen-images>
-  </template>
-</div>
-<!--_html_template_end_-->`;
+/** Returns a singleton for the WallpaperProvider mojom interface. */
+function getSeaPenProvider() {
+    if (!seaPenProvider) {
+        seaPenProvider = SeaPenProvider.getRemote();
+    }
+    return seaPenProvider;
 }
 
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-/** Enumeration of supported tabs. */
-var SeaPenTab;
-(function (SeaPenTab) {
-    SeaPenTab["TEMPLATES"] = "templates";
-    SeaPenTab["IMAGE_RESULTS"] = "image_results";
-})(SeaPenTab || (SeaPenTab = {}));
-class SeaPenCollectionElement extends WithPersonalizationStore {
-    static get is() {
-        return 'sea-pen-collection';
-    }
-    static get template() {
-        return getTemplate$5();
-    }
-    static get properties() {
-        return {
-            templateId: {
-                type: String,
-                observer: 'onTemplateIdChanged_',
-            },
-            tab_: {
-                type: SeaPenTab,
-                value: SeaPenTab.TEMPLATES,
-            },
-        };
-    }
-    onTemplateIdChanged_() {
-        this.tab_ = this.templateId ? SeaPenTab.IMAGE_RESULTS : SeaPenTab.TEMPLATES;
-    }
-    shouldShowTemplates_() {
-        return this.tab_ === SeaPenTab.TEMPLATES;
-    }
-    shouldShowImages_() {
-        return this.tab_ == SeaPenTab.IMAGE_RESULTS;
-    }
+let instance$2 = null;
+function setSeaPenStore(store) {
+    instance$2 = store;
 }
-customElements.define(SeaPenCollectionElement.is, SeaPenCollectionElement);
-
-function getTemplate$4() {
-    return html `<!--_html_template_start_--><style include="common">:host{overflow:hidden}iron-list{width:100%}.thumbnail-item-container,.thumbnail-placeholder-container{box-sizing:border-box;height:250px;overflow:hidden;padding:calc(var(--personalization-app-grid-item-spacing)/ 2);width:calc(100% / 2 - .5px)}.thumbnail-placeholder{background-color:var(--personalization-app-grid-item-background-color);border-radius:var(--personalization-app-grid-item-border-radius);height:100%}img{border-radius:var(--personalization-app-grid-item-border-radius);height:100%;object-fit:cover;width:100%}</style>
-<template is="dom-if" if="[[shouldShowThumbnailPlaceholders_(thumbnailsLoading_, thumbnails_)]]">
-  <iron-list class="thumbnail-placeholder-list" items="[[getPlaceholders_(4)]]" grid>
-    <template>
-      <div class="thumbnail-placeholder-container">
-        <div class$="[[getThumbnailPlaceholderClass_(thumbnailsLoading_)]]"></div>
-      </div>
-    </template>
-  </iron-list>
-</template>
-<template is="dom-if" if="[[shouldShowImageThumbnails_(thumbnailsLoading_, thumbnails_)]]">
-  <iron-list id="grid" items="[[thumbnails_]]" as="image" grid role="list">
-    <template>
-      <div class="thumbnail-item-container" role="listitem">
-        <img is="cr-auto-img" auto-src="[[image.url.url]]">
-      </div>
-    </template>
-  </iron-list>
-</template>
-<!--_html_template_end_-->`;
+function getSeaPenStore() {
+    assert$1(instance$2, 'sea pen store instance must be set');
+    return instance$2;
 }
+// SeaPenStoreInterface implements all public methods/properties of
+// SeaPenStore, but concrete class types as used in makeStoreClientMixin also
+// check private properties. This cast bypasses this.
+const SeaPenStoreClientMixin = makeStoreClientMixin(getSeaPenStore);
+const WithSeaPenStore = I18nMixin(ListPropertyUpdateMixin(SeaPenStoreClientMixin(PolymerElement)));
 
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
@@ -24021,26 +27000,27 @@ function getTemplate$4() {
  * @fileoverview A polymer component that displays the result set of SeaPen
  * wallpapers.
  */
-class SeaPenImagesElement extends WithPersonalizationStore {
+class SeaPenImagesElement extends WithSeaPenStore {
     static get is() {
         return 'sea-pen-images';
     }
     static get template() {
-        return getTemplate$4();
+        return getTemplate$6();
     }
     static get properties() {
         return {
             templateId: String,
-            query_: String,
             thumbnails_: Object,
             thumbnailsLoading_: Boolean,
+            // The pending selected image. Not persisted in store as it is only
+            // temporarily available in this element.
+            pendingSelected_: Object,
         };
     }
     connectedCallback() {
         super.connectedCallback();
-        this.watch('query_', state => state.wallpaper.seaPen.query);
-        this.watch('thumbnails_', state => state.wallpaper.seaPen.thumbnails);
-        this.watch('thumbnailsLoading_', state => state.wallpaper.seaPen.thumbnailsLoading);
+        this.watch('thumbnails_', state => state.thumbnails);
+        this.watch('thumbnailsLoading_', state => state.loading.thumbnails);
         this.updateFromStore();
     }
     getThumbnailPlaceholderClass_(thumbnailsLoading) {
@@ -24051,16 +27031,54 @@ class SeaPenImagesElement extends WithPersonalizationStore {
     }
     shouldShowThumbnailPlaceholders_(thumbnailsLoading, thumbnails) {
         // Use placeholders before and during loading thumbnails.
-        return !thumbnails || thumbnailsLoading;
+        return !thumbnails && !thumbnailsLoading;
     }
     shouldShowImageThumbnails_(thumbnailsLoading, thumbnails) {
         return !thumbnailsLoading && isNonEmptyArray(thumbnails);
     }
     getPlaceholders_(x) {
-        return getZerosArray(x);
+        return new Array(x).fill(0);
+    }
+    onThumbnailSelected_(event) {
+        this.pendingSelected_ = event.model.item;
+        selectSeaPenWallpaper(event.model.item, getSeaPenProvider(), this.getStore());
+    }
+    getAriaIndex_(i) {
+        return i + 1;
+    }
+    isThumbnailSelected_(thumbnail, pendingSelected) {
+        return thumbnail === pendingSelected;
+    }
+    onClickThumbsUp_() {
+        // TODO(b/313667113): Implement thumbs up.
+    }
+    onClickThumbsDown_() {
+        // TODO(b/313667113): Implement thumbs down.
     }
 }
 customElements.define(SeaPenImagesElement.is, SeaPenImagesElement);
+
+const template = html`<iron-iconset-svg name="sea-pen" size="20">
+  <svg>
+    <defs>
+      <g id="photo-spark" width="24" height="24" viewBox="0 -960 960 960">
+        <path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h320v80H200v560h560v-320h80v320q0 33-23.5 56.5T760-120H200Zm40-160 120-160 90 120 120-160 150 200H240Zm460-200q0-92-64-156t-156-64q92 0 156-64t64-156q0 92 64 156t156 64q-92 0-156 64t-64 156Z"></path>
+      </g>
+      <g id="inspire" width="20" height="20" viewBox="0 0 20 20">
+        <style>
+          path {
+            fill: var(--cros-sys-on_primary_container);
+          }
+        </style>
+        <path d="M9.99967 18.3327C9.62467 18.3327 9.29481 18.2424 9.01009 18.0618C8.72537 17.8813 8.54134 17.6313 8.45801 17.3118H8.16634C7.83301 17.3118 7.54134 17.1868 7.29134 16.9368C7.04134 16.6868 6.91634 16.3952 6.91634 16.0618V13.0827C5.99967 12.4855 5.27745 11.7216 4.74967 10.791C4.2219 9.86046 3.95801 8.83268 3.95801 7.70768C3.95801 6.02713 4.54481 4.60004 5.71842 3.42643C6.89204 2.25282 8.31912 1.66602 9.99967 1.66602C11.6802 1.66602 13.1073 2.25282 14.2809 3.42643C15.4545 4.60004 16.0413 6.02713 16.0413 7.70768C16.0413 8.83268 15.7775 9.86046 15.2497 10.791C14.7219 11.7216 13.9997 12.4855 13.083 13.0827V16.0618C13.083 16.3952 12.958 16.6868 12.708 16.9368C12.458 17.1868 12.1663 17.3118 11.833 17.3118H11.5413C11.458 17.6313 11.274 17.8813 10.9893 18.0618C10.7045 18.2424 10.3747 18.3327 9.99967 18.3327ZM8.16634 16.0618H11.833V15.1452H8.16634V16.0618ZM8.16634 14.3118H11.833V13.4785H8.16634V14.3118ZM7.97884 12.2285H9.52051H10.4788H12.0205C12.8538 11.8396 13.524 11.2355 14.0309 10.416C14.5379 9.59657 14.7913 8.69379 14.7913 7.70768C14.7913 6.36046 14.3295 5.22504 13.4059 4.30143C12.4823 3.37782 11.3469 2.91602 9.99967 2.91602C8.65245 2.91602 7.51704 3.37782 6.59342 4.30143C5.66981 5.22504 5.20801 6.36046 5.20801 7.70768C5.20801 8.69379 5.46148 9.59657 5.96842 10.416C6.47537 11.2355 7.14551 11.8396 7.97884 12.2285Z"></path>
+        <path d="M11 10L10.0625 7.9375L8 7L10.0625 6.0625L11 4L11.9375 6.0625L14 7L11.9375 7.9375L11 10Z"></path>
+        <path d="M16 4L15.375 2.625L14 2L15.375 1.375L16 0L16.625 1.375L18 2L16.625 2.625L16 4Z"></path>
+      </g>
+    </defs>
+  </svg>
+</iron-iconset-svg>
+`;
+document.head.appendChild(template.content);
 
 const styleMod = document.createElement('dom-module');
 styleMod.appendChild(html `
@@ -24070,8 +27088,9 @@ styleMod.appendChild(html `
             var(--cr-fallback-color-surface-variant));--cr-input-border-bottom:1px solid var(--color-textfield-filled-underline,
                 var(--cr-fallback-color-outline));--cr-input-border-radius:8px 8px 0 0;--cr-input-error-color:var(--color-textfield-filled-error,
             var(--cr-fallback-color-error));--cr-input-focus-color:var(--color-textfield-filled-underline-focused,
-            var(--cr-fallback-color-primary));--cr-input-hover-background-color:var(--cr-hover-background-color);--cr-input-padding-bottom:10px;--cr-input-padding-end:10px;--cr-input-padding-start:10px;--cr-input-padding-top:10px;--cr-input-placeholder-color:var(--color-textfield-foreground-placeholder,
-                var(--cr-fallback-on-surface-subtle));isolation:isolate}:host-context([chrome-refresh-2023]):host([readonly]){--cr-input-border-radius:8px 8px}@media (prefers-color-scheme:dark){:host{--cr-input-background-color:rgba(0, 0, 0, .3);--cr-input-error-color:var(--google-red-300);--cr-input-focus-color:var(--google-blue-300)}}:host-context(html:not([chrome-refresh-2023])):host([focused_]:not([readonly]):not([invalid])) #label{color:var(--cr-input-focus-color)}:host-context([chrome-refresh-2023]) #label{color:var(--color-textfield-foreground-label,var(--cr-fallback-color-on-surface-subtle));font-size:11px;line-height:16px}#input-container{border-radius:var(--cr-input-border-radius,4px);overflow:hidden;position:relative;width:var(--cr-input-width,100%)}#inner-input-container{background-color:var(--cr-input-background-color);box-sizing:border-box;padding:0}:host-context([chrome-refresh-2023]) #inner-input-content ::slotted(*){--cr-icon-button-fill-color:var(--color-textfield-foreground-icon,
+            var(--cr-fallback-color-primary));--cr-input-hover-background-color:var(--cr-hover-background-color);--cr-input-label-color:var(--color-textfield-foreground-label,
+            var(--cr-fallback-color-on-surface-subtle));--cr-input-padding-bottom:10px;--cr-input-padding-end:10px;--cr-input-padding-start:10px;--cr-input-padding-top:10px;--cr-input-placeholder-color:var(--color-textfield-foreground-placeholder,
+                var(--cr-fallback-on-surface-subtle));isolation:isolate}:host-context([chrome-refresh-2023]):host([readonly]){--cr-input-border-radius:8px 8px}@media (prefers-color-scheme:dark){:host{--cr-input-background-color:rgba(0, 0, 0, .3);--cr-input-error-color:var(--google-red-300);--cr-input-focus-color:var(--google-blue-300)}}:host-context(html:not([chrome-refresh-2023])):host([focused_]:not([readonly]):not([invalid])) #label{color:var(--cr-input-focus-color)}:host-context([chrome-refresh-2023]) #label{color:var(--cr-input-label-color);font-size:11px;line-height:16px}:host-context([chrome-refresh-2023]):host([focused_]:not([readonly]):not([invalid])) #label{color:var(--cr-input-focus-label-color,var(--cr-input-label-color))}#input-container{border-radius:var(--cr-input-border-radius,4px);overflow:hidden;position:relative;width:var(--cr-input-width,100%)}:host-context([chrome-refresh-2023]):host([focused_]) #input-container{outline:var(--cr-input-focus-outline,none)}#inner-input-container{background-color:var(--cr-input-background-color);box-sizing:border-box;padding:0}:host-context([chrome-refresh-2023]) #inner-input-content ::slotted(*){--cr-icon-button-fill-color:var(--color-textfield-foreground-icon,
             var(--cr-fallback-color-on-surface-subtle));--cr-icon-button-icon-size:16px;--cr-icon-button-size:24px;--cr-icon-button-margin-start:0;--cr-icon-color:var(--color-textfield-foreground-icon,
             var(--cr-fallback-color-on-surface-subtle))}:host-context([chrome-refresh-2023]) #inner-input-content ::slotted([slot=inline-prefix]){--cr-icon-button-margin-start:-8px}:host-context([chrome-refresh-2023]) #inner-input-content ::slotted([slot=inline-suffix]){--cr-icon-button-margin-end:-4px}:host-context([chrome-refresh-2023]):host([invalid]) #inner-input-content ::slotted(*){--cr-icon-color:var(--cr-input-error-color);--cr-icon-button-fill-color:var(--cr-input-error-color)}#hover-layer{display:none}:host-context([chrome-refresh-2023]) #hover-layer{background-color:var(--cr-input-hover-background-color);inset:0;pointer-events:none;position:absolute;z-index:0}:host-context([chrome-refresh-2023]):host(:not([readonly]):not([disabled])) #input-container:hover #hover-layer{display:block}#input{-webkit-appearance:none;background-color:transparent;border:none;box-sizing:border-box;caret-color:var(--cr-input-focus-color);color:var(--cr-input-color);font-family:inherit;font-size:inherit;font-weight:inherit;line-height:inherit;min-height:var(--cr-input-min-height,auto);outline:0;padding-bottom:var(--cr-input-padding-bottom,6px);padding-inline-end:var(--cr-input-padding-end,8px);padding-inline-start:var(--cr-input-padding-start,8px);padding-top:var(--cr-input-padding-top,6px);text-align:inherit;text-overflow:ellipsis;width:100%}:host-context([chrome-refresh-2023]) #input{font-size:12px;line-height:16px;padding:0}:host-context([chrome-refresh-2023]) #inner-input-content{padding-bottom:var(--cr-input-padding-bottom);padding-inline-end:var(--cr-input-padding-end);padding-inline-start:var(--cr-input-padding-start);padding-top:var(--cr-input-padding-top)}#underline{border-bottom:2px solid var(--cr-input-focus-color);border-radius:var(--cr-input-underline-border-radius,0);bottom:0;box-sizing:border-box;display:var(--cr-input-underline-display);height:var(--cr-input-underline-height,0);left:0;margin:auto;opacity:0;position:absolute;right:0;transition:opacity 120ms ease-out,width 0s linear 180ms;width:0}:host([focused_]) #underline,:host([force-underline]) #underline,:host([invalid]) #underline{opacity:1;transition:opacity 120ms ease-in,width 180ms ease-out;width:100%}#underline-base{display:none}:host-context([chrome-refresh-2023]):host([readonly]) #underline{display:none}:host-context([chrome-refresh-2023]):host(:not([readonly])) #underline-base{border-bottom:var(--cr-input-border-bottom);bottom:0;display:block;left:0;position:absolute;right:0}:host-context([chrome-refresh-2023]):host([disabled]){color:var(--color-textfield-foreground-disabled,var(--cr-fallback-color-disabled-foreground));--cr-input-border-bottom:1px solid currentColor;--cr-input-placeholder-color:currentColor;--cr-input-color:currentColor;--cr-input-background-color:var(--color-textfield-background-disabled,
             var(--cr-fallback-color-disabled-background))}:host-context([chrome-refresh-2023]):host([disabled]) #inner-input-content ::slotted(*){--cr-icon-color:currentColor;--cr-icon-button-fill-color:currentColor}
@@ -24080,7 +27099,7 @@ styleMod.appendChild(html `
 `.content);
 styleMod.register('cr-input-style');
 
-function getTemplate$3() {
+function getTemplate$5() {
     return html `<!--_html_template_start_-->    <style include="cr-hidden-style cr-input-style cr-shared-style">:host([disabled]) :-webkit-any(#label,#error,#input-container){opacity:var(--cr-disabled-opacity);pointer-events:none}:host-context([chrome-refresh-2023]):host([disabled]) :is(#label,#error,#input-container){opacity:1}:host ::slotted(cr-button[slot=suffix]){margin-inline-start:var(--cr-button-edge-spacing)!important}:host([invalid]) #label{color:var(--cr-input-error-color)}#input{border-bottom:var(--cr-input-border-bottom,none);letter-spacing:var(--cr-input-letter-spacing)}:host-context([chrome-refresh-2023]) #input{border-bottom:none}:host-context([chrome-refresh-2023]) #input-container{border:var(--cr-input-border,none)}#input::placeholder{color:var(--cr-input-placeholder-color,var(--cr-secondary-text-color));letter-spacing:var(--cr-input-placeholder-letter-spacing)}:host([invalid]) #input{caret-color:var(--cr-input-error-color)}:host([readonly]) #input{opacity:var(--cr-input-readonly-opacity,.6)}:host([invalid]) #underline{border-color:var(--cr-input-error-color)}#error{color:var(--cr-input-error-color);display:var(--cr-input-error-display,block);font-size:var(--cr-form-field-label-font-size);height:var(--cr-form-field-label-height);line-height:var(--cr-form-field-label-line-height);margin:8px 0;visibility:hidden;white-space:var(--cr-input-error-white-space)}:host-context([chrome-refresh-2023]) #error{font-size:11px;line-height:16px;margin:4px 10px}:host([invalid]) #error{visibility:visible}#inner-input-content,#row-container{align-items:center;display:flex;justify-content:space-between;position:relative}:host-context([chrome-refresh-2023]) #inner-input-content{gap:4px;height:16px;z-index:1}#input[type=search]::-webkit-search-cancel-button{display:none}:host-context([dir=rtl]) #input[type=url]{text-align:right}#input[type=url]{direction:ltr}</style>
     <div id="label" class="cr-form-field-label" hidden="[[!label]]" aria-hidden="true">
       [[label]]
@@ -24123,7 +27142,7 @@ class CrInputElement extends PolymerElement {
         return 'cr-input';
     }
     static get template() {
-        return getTemplate$3();
+        return getTemplate$5();
     }
     static get properties() {
         return {
@@ -24349,51 +27368,66 @@ class CrInputElement extends PolymerElement {
 }
 customElements.define(CrInputElement.is, CrInputElement);
 
-function getTemplate$2() {
-    return html `<!--_html_template_start_--><cr-input type="text" placeholder="describe" value="{{textValue_}}">
-</cr-input>
-<cr-button id="searchButton" disabled$="[[thumbnailsLoading_]]" on-click="onClickInputQuerySearchButton_">
-  <div class="text">Search</div>
-</cr-button><!--_html_template_end_-->`;
+function getTemplate$4() {
+    return html `<!--_html_template_start_--><style include="wallpaper common cros-button-style">#container{align-items:center;display:flex;flex-direction:column;height:100%}#queryInput{margin-block-start:20px;text-align:center;--cr-input-error-display:none}#buttonContainer{margin-block-start:12px}</style>
+
+<div id="container">
+  <cr-input id="queryInput" maxlength="[[maxTextLength_]]" placeholder="Describe your wallpaper" type="text" value="{{textValue_}}">
+  </cr-input>
+  <div id="buttonContainer">
+    <cr-button id="searchButton" class="action-button" disabled$="[[thumbnailsLoading_]]" on-click="onClickInputQuerySearchButton_">
+      <iron-icon icon$="[[getSearchButtonIcon_(path)]]" slot="prefix-icon"></iron-icon>
+      [[getSearchButtonText_(path)]]
+    </cr-button>
+  </div>
+</div>
+<!--_html_template_end_-->`;
 }
 
-// Copyright 2023 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @fileoverview A polymer component that displays user input to search for
- * SeaPen wallpapers.
- */
-class SeaPenInputQueryElement extends WithPersonalizationStore {
-    static get is() {
-        return 'sea-pen-input-query';
-    }
-    static get template() {
-        return getTemplate$2();
-    }
-    static get properties() {
-        return {
-            textValue_: String,
-            query_: String,
-            thumbnailsLoading_: Boolean,
-        };
-    }
-    connectedCallback() {
-        super.connectedCallback();
-        this.watch('query_', state => state.wallpaper.seaPen.query);
-        this.watch('thumbnailsLoading_', state => state.wallpaper.seaPen.thumbnailsLoading);
-        this.updateFromStore();
-    }
-    onClickInputQuerySearchButton_() {
-        assert$1(this.textValue_, 'input query should not be empty.');
-        searchImageThumbnails(this.textValue_, this.getStore());
-        PersonalizationRouterElement.instance().selectSeaPenTemplate(QUERY);
-    }
-}
-customElements.define(SeaPenInputQueryElement.is, SeaPenInputQueryElement);
-
-function getTemplate$1() {
-    return html `<!--_html_template_start_--><div>This is template query.</div><!--_html_template_end_-->`;
+function getTemplate$3() {
+    return html `<!--_html_template_start_--><style include="common cros-button-style">.main{height:100%;margin-inline-start:8px}#placeholder{height:40px}#template{align-items:start;border-bottom-color:var(--cros-text-color-primary);color:var(--cros-text-color-primary);display:flex;font:var(--cros-display-6_regular-font);height:33%;justify-content:center;padding:2px 0}#template .unselected{border-bottom-color:var(--cros-text-color-disabled);color:var(--cros-text-color-disabled)}.chip-container{cursor:pointer;display:grid;grid-template-areas:'chip'}.template-text{padding:0 4px}.chip-text{border:2px solid transparent;border-radius:8px;bottom:2px;grid-area:chip;padding:0 4px;position:relative}.chip-text:hover{background-color:var(--cros-sys-hover_on_subtle)}.chip-text:focus{background-color:var(--cros-sys-ripple_primary);border:2px solid var(--cros-sys-focus_ring)}.underline{border-bottom:2px dotted;grid-area:chip;height:calc(100% + 1px);justify-self:center;width:calc(100% - 8px);z-index:-1}#options{display:flex;height:33%;justify-content:center}#optionSubcontainer{display:flex;gap:8px;overflow-x:auto;padding:4px}#searchButtons{height:33%;display:flex;justify-content:center}#searchButtons cr-button{margin:0 4px}cr-button[aria-pressed=false] iron-icon{display:none}cr-button[aria-pressed=true] iron-icon{--iron-icon-height:20px;--iron-icon-width:20px;display:block}cr-button{font:var(--cros-button-2-font)}#options cr-button.unselected-option{background-color:var(--cros-sys-system_on_base);color:var(--cros-sys-on_surface)}</style>
+<div class="main">
+  <div id="template">
+    <template is="dom-repeat" items="[[templateTokens_]]" as="token">
+      <template is="dom-if" if="[[isChip_(token)]]">
+        <div class$="chip-container [[getChipClassName_(token, selectedChip_)]]">
+          <div class="underline"></div>
+          <div class="chip-text" tabindex="0" on-click="onClickChip_" on-keypress="onClickChip_">
+            [[token.translation]]
+          </div>
+        </div>
+      </template>
+      <template is="dom-if" if="[[!isChip_(token)]]">
+        <div class$="template-text [[getTextClassName_(selectedChip_)]]">
+          [[token]]
+        </div>
+      </template>
+    </template>
+  </div>
+  <div id="options">
+    <div id="optionSubcontainer">
+      <template is="dom-repeat" items="[[options_]]" as="option">
+        <cr-button class$="[[getOptionClass_(option, selectedChip_.translation)]]" on-click="onClickOption_" aria-pressed$="[[isOptionSelected_(option, selectedChip_.translation)]]">
+          <iron-icon icon="personalization-shared:circle-checkmark" slot="prefix-icon">
+          </iron-icon>
+          [[option.translation]]
+        </cr-button>
+      </template>
+    </div>
+  </div>
+  <div id="searchButtons">
+    <cr-button id="inspire" on-click="onClickInspire_">
+      <iron-icon icon="sea-pen:inspire" slot="prefix-icon"></iron-icon>
+      $i18n{seaPenInspireMeButton}
+    </cr-button>
+    <cr-button id="searchButton" class="action-button" on-click="onClickSearchButton_">
+      <iron-icon icon="[[getSearchButtonIcon_(path)]]" slot="prefix-icon">
+      </iron-icon>
+      [[getSearchButtonText_(path)]]
+    </cr-button>
+  </div>
+</div>
+<!--_html_template_end_-->`;
 }
 
 // Copyright 2023 The Chromium Authors
@@ -24403,21 +27437,196 @@ function getTemplate$1() {
  * @fileoverview A polymer component that displays template query to search for
  * SeaPen wallpapers.
  */
-class SeaPenTemplateQueryElement extends WithPersonalizationStore {
+/**
+ * Returns a random number between [0, max).
+ */
+function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+}
+function isChip(word) {
+    return !!word && word.startsWith('<') && word.endsWith('>');
+}
+function toChip(word) {
+    return parseInt(word.slice(1, -1));
+}
+class SeaPenTemplateQueryElement extends WithSeaPenStore {
     static get is() {
         return 'sea-pen-template-query';
     }
     static get template() {
-        return getTemplate$1();
+        return getTemplate$3();
+    }
+    static get properties() {
+        return {
+            templateId: {
+                type: String,
+            },
+            path: String,
+            seaPenTemplate_: {
+                type: Object,
+                computed: 'computeSeaPenTemplate_(templateId)',
+                observer: 'onSeaPenTemplateChanged_',
+            },
+            // A map of chip to its selected option. By default, populated after
+            // `seaPenTemplate_` is constructed. Updated when the user selects the
+            // option on the UI.
+            selectedOptions_: {
+                type: Object,
+            },
+            // The tokens generated from `seaPenTemplate_` and `selectedOptions_`.
+            templateTokens_: {
+                type: Array,
+            },
+            // The selected chip token. Updated whenever the user clicks a chip in the
+            // UI.
+            selectedChip_: {
+                type: Object,
+            },
+            // `options_` is an array of possible values for the selected chip. Each
+            // "option" will be mapped to a clickable button that the user could
+            // select. The options are dependent on the `selectedChip_`.
+            options_: {
+                type: Array,
+            },
+        };
+    }
+    computeSeaPenTemplate_(templateId) {
+        const seaPenTemplates = getSeaPenTemplates();
+        const correctTemplate = seaPenTemplates.find((seaPenTemplate) => seaPenTemplate.id === templateId);
+        return correctTemplate;
+    }
+    isChip_(token) {
+        return typeof token?.translation === 'string';
+    }
+    onClickChip_(event) {
+        assert$1(this.isChip_(event.model.token), 'Token must be a chip');
+        this.selectedChip_ = event.model.token;
+        assert$1(this.seaPenTemplate_.options.has(this.selectedChip_.id), 'options must exist');
+        this.options_ = this.seaPenTemplate_.options.get(this.selectedChip_.id);
+    }
+    onClickOption_(event) {
+        const option = event.model.option;
+        // Notifies the selected chip's translation has changed to the UI.
+        this.set('selectedChip_.translation', option.translation);
+        this.selectedOptions_.set(this.selectedChip_.id, option);
+        this.templateTokens_ = this.computeTemplateTokens_(this.seaPenTemplate_, this.selectedOptions_);
+    }
+    // TODO(b/309679850): Query for actual images.
+    onClickInspire_() {
+        this.seaPenTemplate_.options.forEach((options, chip) => {
+            if (isNonEmptyArray(options)) {
+                const option = options[getRandomInt(options.length)];
+                this.selectedOptions_.set(chip, option);
+            }
+            else {
+                console.warn('empty options for', this.seaPenTemplate_.id);
+            }
+        });
+        if (this.selectedChip_) {
+            // The selected chip translation might have changed due to randomized
+            // option. Notifies the UI to update its value.
+            this.set(`selectedChip_.translation`, this.selectedOptions_.get(this.selectedChip_.id)?.translation);
+        }
+        this.templateTokens_ = this.computeTemplateTokens_(this.seaPenTemplate_, this.selectedOptions_);
+    }
+    onSeaPenTemplateChanged_(template) {
+        const selectedOptions = new Map();
+        template.options.forEach((options, chip) => {
+            if (isNonEmptyArray(options)) {
+                const option = options[0];
+                selectedOptions.set(chip, option);
+            }
+            else {
+                console.warn('empty options for', template.id);
+            }
+        });
+        this.selectedChip_ = null;
+        this.options_ = null;
+        this.selectedOptions_ = selectedOptions;
+        this.templateTokens_ = this.computeTemplateTokens_(this.seaPenTemplate_, this.selectedOptions_);
+    }
+    computeTemplateTokens_(template, selectedOptions) {
+        const strs = parseTemplateText(template.text);
+        const tokens = [];
+        strs.forEach(str => {
+            if (isChip(str)) {
+                const templateChip = toChip(str);
+                tokens.push({
+                    translation: selectedOptions.get(templateChip)?.translation || '',
+                    id: templateChip,
+                });
+            }
+            else if (str.trim().length > 0) {
+                tokens.push(str);
+            }
+        });
+        return tokens;
+    }
+    getChipClassName_(chip, selectedChip) {
+        assert$1(this.isChip_(chip), 'Token must be a chip');
+        // If there are no selected chips, then use the 'selected' styling on all
+        // chips.
+        return !selectedChip || chip.id === selectedChip.id ? 'selected' :
+            'unselected';
+    }
+    isOptionSelected_(option, selectedChipTranslation) {
+        return (option.translation === selectedChipTranslation).toString();
+    }
+    getOptionClass_(option, selectedChipTranslation) {
+        return this.isOptionSelected_(option, selectedChipTranslation) === 'true' ?
+            'action-button' :
+            'unselected-option';
+    }
+    getTextClassName_(selectedChip) {
+        // Use the 'unselected' styling only if a chip has been selected.
+        return selectedChip ? 'unselected' : '';
+    }
+    getTemplateRequest_() {
+        const optionMap = new Map();
+        this.selectedOptions_.forEach((option, chip) => {
+            optionMap.set(chip, option.value);
+        });
+        const id = parseInt(this.templateId, 10);
+        assert$1(!isNaN(id));
+        return {
+            templateQuery: {
+                id,
+                options: Object.fromEntries(optionMap),
+            },
+        };
+    }
+    onClickSearchButton_() {
+        searchSeaPenThumbnails(this.getTemplateRequest_(), getSeaPenProvider(), this.getStore());
+        SeaPenRouterElement.instance().goToRoute(SeaPenPaths.RESULTS, { seaPenTemplateId: this.templateId.toString() });
+    }
+    getSearchButtonText_(path) {
+        switch (path) {
+            case SeaPenPaths.RESULTS:
+                return this.i18n('seaPenRecreateButton');
+            case SeaPenPaths.ROOT:
+            default:
+                return this.i18n('seaPenCreateButton');
+        }
+    }
+    getSearchButtonIcon_(path) {
+        switch (path) {
+            case SeaPenPaths.RESULTS:
+                return 'personalization-shared:refresh';
+            case SeaPenPaths.ROOT:
+            default:
+                return 'sea-pen:photo-spark';
+        }
     }
 }
 customElements.define(SeaPenTemplateQueryElement.is, SeaPenTemplateQueryElement);
 
-function getTemplate() {
+function getTemplate$2() {
     return html `<!--_html_template_start_--><style include="wallpaper common">:host{overflow:hidden}iron-list{width:100%}</style>
+
+<h2 class="wallpaper-collections-heading">$i18n{seaPenTemplateHeading}</h2>
 <iron-list id="grid" items="[[seaPenTemplates_]]" as="template" grid aria-setsize$="[[seaPenTemplates_.length]]" role="listbox">
   <template>
-    <wallpaper-grid-item class="sea-pen-template" index="[[index]]" data-sea-pen aria-posinset$="[[getAriaIndex_(index)]]" on-wallpaper-grid-item-selected="onTemplateSelected_" primary-text="[[template.text]]" role="option" selected="[[isTemplateSelected_(template, selected_)]]" src="[[template.preview]]" tabindex$="[[tabIndex]]">
+    <wallpaper-grid-item class="sea-pen-template" index="[[index]]" data-sea-pen-image aria-posinset$="[[getAriaIndex_(index)]]" on-wallpaper-grid-item-selected="onTemplateSelected_" primary-text="[[template.title]]" role="option" src="[[template.preview]]" tabindex$="[[tabIndex]]">
     </wallpaper-grid-item>
   </template>
 </iron-list>
@@ -24430,41 +27639,453 @@ function getTemplate() {
 /**
  * @fileoverview A polymer component that displays the SeaPen templates.
  */
-class SeaPenTemplatesElement extends WithPersonalizationStore {
+class SeaPenTemplatesElement extends WithSeaPenStore {
     static get is() {
         return 'sea-pen-templates';
     }
     static get template() {
-        return getTemplate();
+        return getTemplate$2();
     }
     static get properties() {
         return {
             seaPenTemplates_: {
                 type: Array,
-                computed: 'computeSeaPenTemplates_()',
+                value() {
+                    return getSeaPenTemplates();
+                },
             },
             selected_: Object,
         };
     }
-    computeSeaPenTemplates_() {
-        return getSampleSeaPenTemplates();
-    }
     getAriaIndex_(i) {
         return i + 1;
-    }
-    isTemplateSelected_(template, selected) {
-        return selected && selected.id === template.id;
     }
     onTemplateSelected_(e) {
         assert$1(e.model.template, 'no template selected');
         this.selected_ = e.model.template;
         const template = this.seaPenTemplates_.find(template => template.id === this.selected_.id);
         if (template) {
-            PersonalizationRouterElement.instance().selectSeaPenTemplate(template.id);
+            SeaPenRouterElement.instance().selectSeaPenTemplate(template.id);
         }
     }
 }
 customElements.define(SeaPenTemplatesElement.is, SeaPenTemplatesElement);
+
+function getTemplate$1() {
+    return html `<!--_html_template_start_--><style>#seaPenContainer{display:grid;grid-template-areas:'leftspacertop    selected  rightspacertop' 'leftspacerbottom imagegrid rightspacerbottom';grid-template-columns:minmax(10px,1fr) minmax(568px,920px) minmax(10px,1fr);grid-template-rows:172px minmax(0,1fr);height:100%;min-height:var(--personalization-app-subpage-container-min-height);position:relative;width:100%}sea-pen-input-query,sea-pen-template-query{background-color:var(--cros-sys-app_base_shaded);grid-area:selected;position:sticky;top:56px;z-index:1}#seaPenBottomContainer{background-color:var(--cros-bg-color);grid-area:imagegrid;padding:10px 0}div[class$=spacertop]{background-color:var(--cros-sys-app_base_shaded);position:sticky;top:56px;z-index:1}.leftspacertop{grid-area:leftspacertop}.rightspacertop{grid-area:rightspacerbottom}div[class$=spacerbottom]{background-color:var(--cros-bg-color)}.leftspacerbottom{border-radius:12px 0 0 12px;grid-area:leftspacerbottom}.rightspacerbottom{border-radius:0 12px 12px 0;grid-area:rightspacerbottom}</style>
+
+<div id="seaPenContainer">
+  <iron-location path="{{path_}}" query="{{query_}}" dwell-time="200">
+  </iron-location>
+  <iron-query-params params-object="{{queryParams_}}" params-string="{{query_}}">
+  </iron-query-params>
+  
+  <div class="leftspacertop"></div>
+  <div class="leftspacerbottom"></div>
+  <template is="dom-if" if="[[shouldShowTextInputQuery_(relativePath_, queryParams_.seaPenTemplateId)]]">
+    <sea-pen-input-query path="[[relativePath_]]"></sea-pen-input-query>
+  </template>
+  <template is="dom-if" if="[[shouldShowTemplateQuery_(relativePath_, queryParams_.seaPenTemplateId)]]">
+    <sea-pen-template-query template-id="[[queryParams_.seaPenTemplateId]]" path="[[relativePath_]]">
+    </sea-pen-template-query>
+  </template>
+  <div id="seaPenBottomContainer">
+    <template is="dom-if" if="[[shouldShowSeaPenRoot_(relativePath_)]]" restamp>
+      <sea-pen-templates></sea-pen-templates>
+      <sea-pen-recent-wallpapers></sea-pen-recent-wallpapers>
+    </template>
+    <template is="dom-if" if="[[shouldShowSeaPenImages_(relativePath_)]]">
+      <sea-pen-images template-id="[[queryParams.seaPenTemplateId]]">
+      </sea-pen-images>
+    </template>
+  </div>
+  
+  <div class="rightspacertop"></div>
+  <div class="rightspacerbottom"></div>
+</div>
+<!--_html_template_end_-->`;
+}
+
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+var SeaPenPaths;
+(function (SeaPenPaths) {
+    SeaPenPaths["ROOT"] = "";
+    SeaPenPaths["RESULTS"] = "/results";
+})(SeaPenPaths || (SeaPenPaths = {}));
+let instance$1 = null;
+class SeaPenRouterElement extends PolymerElement {
+    static get is() {
+        return 'sea-pen-router';
+    }
+    static get template() {
+        return getTemplate$1();
+    }
+    static get properties() {
+        return {
+            basePath: String,
+            path_: String,
+            query_: String,
+            queryParams_: Object,
+            relativePath_: {
+                type: String,
+                computed: 'computeRelativePath_(path_, basePath)',
+            },
+        };
+    }
+    static instance() {
+        assert$1(instance$1, 'sea pen router does not exist');
+        return instance$1;
+    }
+    connectedCallback() {
+        assert$1(isSeaPenEnabled(), 'sea pen must be enabled');
+        super.connectedCallback();
+        instance$1 = this;
+    }
+    disconnectedCallback() {
+        super.disconnectedCallback();
+        instance$1 = null;
+    }
+    selectSeaPenTemplate(templateId) {
+        this.goToRoute(SeaPenPaths.ROOT, { seaPenTemplateId: templateId });
+    }
+    goToRoute(path, queryParams = {}) {
+        assert$1(typeof this.basePath === 'string', 'basePath must be set');
+        this.setProperties({ path_: this.basePath + path, queryParams_: queryParams });
+    }
+    /**
+     * Compute the relative path compared to the SeaPen base path.
+     * @param path the absolute path of the current route
+     * @param basePath the absolute path of the base seapen route
+     * @returns path relative to basePath, or null if path is not relative to
+     *     basePath
+     * @example
+     * computeRelativePath_('/wallpaper/sea_pen', '/wallpaper/sea_pen') => ''
+     * computeRelativePath_('/wallpaper/sea_pen/results', '/wallpaper/sea_pen') =>
+     *   '/results'
+     * computeRelativePath_('/wallpaper', '/wallpaper/sea_pen') => null
+     */
+    computeRelativePath_(path, basePath) {
+        if (typeof path !== 'string' || typeof basePath !== 'string') {
+            return null;
+        }
+        if (!path.startsWith(basePath)) {
+            return null;
+        }
+        return path.substring(basePath.length);
+    }
+    shouldShowTextInputQuery_(relativePath, templateId) {
+        return isSeaPenTextInputEnabled() &&
+            (relativePath === SeaPenPaths.ROOT ||
+                relativePath === SeaPenPaths.RESULTS) &&
+            (templateId === QUERY || !templateId);
+    }
+    shouldShowTemplateQuery_(relativePath, templateId) {
+        return (relativePath === SeaPenPaths.ROOT ||
+            relativePath === SeaPenPaths.RESULTS) &&
+            (!!templateId && templateId !== QUERY);
+    }
+    shouldShowSeaPenRoot_(relativePath) {
+        if (typeof relativePath !== 'string') {
+            return false;
+        }
+        return relativePath === SeaPenPaths.ROOT;
+    }
+    shouldShowSeaPenImages_(relativePath) {
+        if (typeof relativePath !== 'string') {
+            return false;
+        }
+        return relativePath === SeaPenPaths.RESULTS;
+    }
+}
+customElements.define(SeaPenRouterElement.is, SeaPenRouterElement);
+
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview A polymer component that displays user input to search for
+ * SeaPen wallpapers.
+ */
+class SeaPenInputQueryElement extends WithSeaPenStore {
+    static get is() {
+        return 'sea-pen-input-query';
+    }
+    static get template() {
+        return getTemplate$4();
+    }
+    static get properties() {
+        return {
+            path: String,
+            textValue_: String,
+            thumbnailsLoading_: Boolean,
+            maxTextLength_: {
+                type: Number,
+                value: Math.floor(MAXIMUM_SEARCH_WALLPAPER_TEXT_BYTES / 3),
+            },
+        };
+    }
+    connectedCallback() {
+        assert$1(isSeaPenTextInputEnabled(), 'sea pen text input must be enabled');
+        super.connectedCallback();
+        this.watch('thumbnailsLoading_', state => state.loading.thumbnails);
+        this.updateFromStore();
+    }
+    onClickInputQuerySearchButton_() {
+        assert$1(this.textValue_, 'input query should not be empty.');
+        const query = {
+            textQuery: this.textValue_,
+        };
+        searchSeaPenThumbnails(query, getSeaPenProvider(), this.getStore());
+        SeaPenRouterElement.instance().goToRoute(SeaPenPaths.RESULTS, { seaPenTemplateId: QUERY });
+    }
+    getSearchButtonText_(path) {
+        switch (path) {
+            case SeaPenPaths.RESULTS:
+                return this.i18n('seaPenRecreateButton');
+            case SeaPenPaths.ROOT:
+            default:
+                return this.i18n('seaPenCreateButton');
+        }
+    }
+    getSearchButtonIcon_(path) {
+        switch (path) {
+            case SeaPenPaths.RESULTS:
+                return 'personalization-shared:refresh';
+            case SeaPenPaths.ROOT:
+            default:
+                return 'sea-pen:photo-spark';
+        }
+    }
+}
+customElements.define(SeaPenInputQueryElement.is, SeaPenInputQueryElement);
+
+function getTemplate() {
+    return html `<!--_html_template_start_--><style include="wallpaper common sea-pen">:host{overflow:hidden}iron-list{width:100%}.recent-image-container{height:calc(var(--personalization-app-grid-item-height) + var(--personalization-app-grid-item-spacing));width:calc(100% / 3 - .34px)}@media(min-width:720px){.recent-image-container{width:calc(100% / 4 - .25px)}}.menu-icon-container{background-color:var(--cros-bg-color);border-top-left-radius:50%;bottom:0;padding:8px;position:absolute;right:0;z-index:2}.menu-icon-container::before{border-bottom-right-radius:50%;bottom:8px;box-shadow:0 8px 0 0 var(--cros-bg-color);content:"";height:16px;position:absolute;right:36px;width:16px}.menu-icon-container::after{border-bottom-right-radius:50%;bottom:36px;box-shadow:8px 0 0 0 var(--cros-bg-color);content:"";height:16px;position:absolute;right:8px;width:16px}.menu-icon-button{--cr-icon-button-size:20px;background-color:var(--cros-bg-color);margin-inline:0}</style>
+<template is="dom-if" if="[[shouldShowRecentlyUsedWallpapers_(recentImages_)]]">
+  <h2 class="wallpaper-collections-heading">$i18n{seaPenRecentWallpapersHeading}</h2>
+  <iron-list id="grid" items="[[recentImagesToDisplay_]]" as="image" grid aria-setsize$="[[recentImagesToDisplay_.length]]" role="listbox">
+    <template>
+      <div class="recent-image-container">
+        <wallpaper-grid-item class="sea-pen-image" index="[[index]]" data-sea-pen-image aria-posinset$="[[getAriaIndex_(index)]]" on-wallpaper-grid-item-selected="onRecentImageSelected_" role="option" selected="[[isRecentImageSelected_(image, currentSelected_, pendingSelected_)]]" src="[[getRecentImageUrl_(image, recentImageData_, recentImageDataLoading_)]]" tabindex$="[[tabIndex]]">
+        </wallpaper-grid-item>
+        <div class="menu-icon-container">
+          <cr-icon-button class="menu-icon-button" data-id$="[[index]]" iron-icon="cr:more-vert" role="button" on-click="onClickMenuIcon_">
+          </cr-icon-button>
+        </div>
+        <cr-action-menu class="action-menu-container">
+          <button data-id$="[[index]]" class="dropdown-item more-like-this-option" on-click="onClickMoreLikeThis_">
+            $i18n{seaPenCreateMore}
+          </button>
+          <button class="dropdown-item delete-wallpaper-option" on-click="onClickDeleteWallpaper_">
+            $i18n{seaPenDeleteWallpaper}
+          </button>
+          <button data-id$="[[index]]" class="dropdown-item wallpaper-info-option" on-click="onClickWallpaperInfo_">
+            $i18n{seaPenAbout}
+          </button>
+        </cr-action-menu>
+        <template is="dom-if" if="[[shouldShowWallpaperInfoDialog_(index, currentShowWallpaperInfoDialog_)]]" restamp>
+          <cr-dialog id="wallpaperInfoDialog" data-id$="[[index]]" on-close="onCloseDialog_" show-on-attach>
+            <div slot="body">
+              <h2>Wallpaper Info</h2>
+              <p>[[getWallpaperInfoMessage_(image, recentImageData_, recentImageDataLoading_)]]</p>
+            </div>
+            <div slot="button-container">
+              <cr-button id="wallpaperInfoCloseButton" class="action-button primary" on-click="onCloseDialog_">
+                Close
+              </cr-button>
+            </div>
+          </cr-dialog>
+        </template>
+      </div>
+    </template>
+  </iron-list>
+</template>
+<!--_html_template_end_-->`;
+}
+
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview A polymer component that displays the SeaPen recently used
+ * wallpapers.
+ */
+class SeaPenRecentWallpapersElement extends WithSeaPenStore {
+    static get is() {
+        return 'sea-pen-recent-wallpapers';
+    }
+    static get template() {
+        return getTemplate();
+    }
+    static get properties() {
+        return {
+            recentImages_: {
+                type: Array,
+                observer: 'onRecentImagesChanged_',
+            },
+            /** Mapping of recent Sea Pen image path to its data. */
+            recentImageData_: Object,
+            /**
+               Mapping of recent Sea Pen image path to data loading status (boolean).
+             */
+            recentImageDataLoading_: Object,
+            recentImagesToDisplay_: {
+                type: Array,
+                value: [],
+            },
+            currentShowWallpaperInfoDialog_: {
+                type: Number,
+                value: null,
+            },
+            currentSelected_: Object,
+            pendingSelected_: Object,
+        };
+    }
+    static get observers() {
+        return ['onRecentImageLoaded_(recentImageData_, recentImageDataLoading_)'];
+    }
+    connectedCallback() {
+        super.connectedCallback();
+        this.watch('recentImages_', state => state.recentImages);
+        this.watch('recentImageData_', state => state.recentImageData);
+        this.watch('recentImageDataLoading_', state => state.loading.recentImageData);
+        this.watch('currentSelected_', state => state.currentSelected);
+        this.watch('pendingSelected_', state => state.pendingSelected);
+        this.updateFromStore();
+        // TODO(b/304576846): also refetch sea pen data when adding and deleting
+        // image.
+        fetchRecentSeaPenData(getSeaPenProvider(), this.getStore());
+    }
+    /**
+     * Sets `recentImagesToDisplay` when a new set of recent Sea Pen images
+     * loads.
+     */
+    onRecentImagesChanged_(recentImages) {
+        this.recentImagesToDisplay_ = (recentImages || []).filter(image => {
+            if (this.recentImageDataLoading_[image.path] === false) {
+                const data = this.recentImageData_[image.path];
+                return data && data.queryInfo && data.url;
+            }
+            return true;
+        });
+    }
+    /**
+     * Called each time a new recent Sea Pen image data is loaded. Removes images
+     * from the list of displayed images if it has failed to load.
+     */
+    onRecentImageLoaded_(recentImageData, recentImageDataLoading) {
+        if (!recentImageData || !recentImageDataLoading) {
+            return;
+        }
+        // Iterate backwards in case we need to splice to remove from
+        // `recentImagesToDisplay` while iterating.
+        for (let i = this.recentImagesToDisplay_.length - 1; i >= 0; i--) {
+            const image = this.recentImagesToDisplay_[i];
+            const failed = image && recentImageDataLoading[image.path] === false &&
+                !isImageDataUrl(recentImageData[image.path].url);
+            if (failed) {
+                this.recentImagesToDisplay_.splice(i, 1);
+            }
+        }
+    }
+    isRecentImageLoading_(recentImage, recentImageDataLoading) {
+        if (!recentImage || !recentImageDataLoading) {
+            return true;
+        }
+        // If key is not present, then loading has not yet started. Still show a
+        // loading tile in this case.
+        return !recentImageDataLoading.hasOwnProperty(recentImage.path) ||
+            recentImageDataLoading[recentImage.path] === true;
+    }
+    getRecentImageUrl_(recentImage, recentImageData, recentImageDataLoading) {
+        if (!recentImage ||
+            this.isRecentImageLoading_(recentImage, recentImageDataLoading)) {
+            return null;
+        }
+        const data = recentImageData[recentImage.path];
+        if (!data || !isImageDataUrl(data.url)) {
+            return { url: '' };
+        }
+        return data.url;
+    }
+    getWallpaperInfoMessage_(recentImage, recentImageData, recentImageDataLoading) {
+        if (!recentImage ||
+            this.isRecentImageLoading_(recentImage, recentImageDataLoading)) {
+            return null;
+        }
+        return recentImageData[recentImage.path].queryInfo;
+    }
+    getAriaIndex_(i) {
+        return i + 1;
+    }
+    shouldShowRecentlyUsedWallpapers_(recentImages) {
+        return isNonEmptyArray(recentImages);
+    }
+    isRecentImageSelected_(image, currentSelected, pendingSelected) {
+        if (!isNonEmptyFilePath(image)) {
+            return false;
+        }
+        return (isNonEmptyFilePath(pendingSelected) &&
+            image.path === pendingSelected.path) ||
+            (!pendingSelected && image.path === currentSelected);
+    }
+    onRecentImageSelected_(event) {
+        assert$1(isNonEmptyFilePath(event.model.image), 'recent Sea Pen image is a file path');
+        selectRecentSeaPenImage(event.model.image, getSeaPenProvider(), this.getStore());
+    }
+    onClickMenuIcon_(e) {
+        const targetElement = e.currentTarget;
+        const menuIconContainerRect = targetElement.getBoundingClientRect();
+        const config = {
+            top: menuIconContainerRect.top -
+                8, // 8px is the padding of .menu-icon-container
+            left: menuIconContainerRect.left - menuIconContainerRect.width / 2,
+            height: menuIconContainerRect.height,
+            width: menuIconContainerRect.width,
+            anchorAlignmentX: AnchorAlignment.AFTER_END,
+            anchorAlignmentY: AnchorAlignment.BEFORE_START,
+        };
+        const id = targetElement.dataset['id'];
+        if (id !== undefined) {
+            const index = parseInt(id, 10);
+            const menuElement = this.shadowRoot.querySelectorAll('cr-action-menu')[index];
+            menuElement.showAtPosition(config);
+        }
+    }
+    onClickMoreLikeThis_() {
+        // TODO(b/304581483): make "More like this" button functional.
+    }
+    onClickDeleteWallpaper_(event) {
+        // TODO (b/315069374): confirm if currently set Sea Pen wallpaper can be
+        // removed.
+        assert$1(isNonEmptyFilePath(event.model.image), 'selected Sea Pen image is a file path');
+        deleteRecentSeaPenImage(event.model.image, getSeaPenProvider(), this.getStore());
+        this.closeAllActionMenus_();
+    }
+    onClickWallpaperInfo_(e) {
+        const eventTarget = e.currentTarget;
+        const id = eventTarget.dataset['id'];
+        if (id !== undefined) {
+            this.currentShowWallpaperInfoDialog_ = parseInt(id, 10);
+        }
+        this.closeAllActionMenus_();
+    }
+    closeAllActionMenus_() {
+        const menuElements = this.shadowRoot.querySelectorAll('cr-action-menu');
+        menuElements.forEach(menuElement => {
+            menuElement.close();
+        });
+    }
+    shouldShowWallpaperInfoDialog_(i, currentShowWallpaperInfoDialog) {
+        return currentShowWallpaperInfoDialog === i;
+    }
+    onCloseDialog_() {
+        this.currentShowWallpaperInfoDialog_ = null;
+    }
+}
+customElements.define(SeaPenRecentWallpapersElement.is, SeaPenRecentWallpapersElement);
 
 // Copyright 2021 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
@@ -24480,6 +28101,7 @@ window.addEventListener('online', reload);
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 class PageHandlerPendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -24488,6 +28110,9 @@ class PageHandlerPendingReceiver {
     }
 }
 class PageHandlerRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(PageHandlerPendingReceiver, handle);
@@ -24516,6 +28141,7 @@ class PageHandler {
     }
 }
 class PagePendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -24524,6 +28150,9 @@ class PagePendingReceiver {
     }
 }
 class PageRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(PagePendingReceiver, handle);
@@ -24541,6 +28170,11 @@ class PageRemote {
  * receiver can have any number of listeners added to it.
  */
 class PageCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    onColorProviderChanged;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(PageRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -24577,6 +28211,7 @@ mojo.internal.Struct(Page_OnColorProviderChanged_ParamsSpec.$, 'Page_OnColorProv
  */
 let instance = null;
 class BrowserProxy {
+    callbackRouter;
     constructor() {
         this.callbackRouter = new PageCallbackRouter();
         const pageHandlerRemote = PageHandler.getRemote();
@@ -24608,11 +28243,12 @@ let documentInstance = null;
 const COLOR_PROVIDER_CHANGED = 'color-provider-changed';
 // 
 class ColorChangeUpdater {
+    listenerId_ = null;
+    root_;
+    // 
+    eventTarget = new EventTarget();
     // 
     constructor(root) {
-        this.listenerId_ = null;
-        // 
-        this.eventTarget = new EventTarget();
         assert$1(documentInstance === null || root !== document);
         this.root_ = root;
     }
@@ -24689,6 +28325,66 @@ class ColorChangeUpdater {
     }
 }
 
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * An adapter class that implements all of the public methods/properties of
+ * SeaPenStore type. Used to delegate state and events between Personalization
+ * and SeaPen.
+ */
+class SeaPenStoreAdapter {
+    static initSeaPenStore() {
+        setSeaPenStore(new SeaPenStoreAdapter());
+    }
+    constructor() {
+        this.observers_ = new Set();
+        const personalizationStore = PersonalizationStore.getInstance();
+        assert$1(personalizationStore.isInitialized(), `${PersonalizationStore.name} must be initialized`);
+        this.priorState_ = this.data;
+        personalizationStore.addObserver(this);
+    }
+    get data() {
+        return PersonalizationStore.getInstance().data.wallpaper.seaPen;
+    }
+    init(_) {
+        assertNotReached(`${SeaPenStoreAdapter.name} must not be init directly`);
+    }
+    isInitialized() {
+        return PersonalizationStore.getInstance().isInitialized();
+    }
+    addObserver(observer) {
+        this.observers_.add(observer);
+    }
+    removeObserver(observer) {
+        this.observers_.delete(observer);
+    }
+    hasObserver(observer) {
+        return this.observers_.has(observer);
+    }
+    beginBatchUpdate() {
+        PersonalizationStore.getInstance().beginBatchUpdate();
+    }
+    endBatchUpdate() {
+        PersonalizationStore.getInstance().endBatchUpdate();
+    }
+    dispatchAsync(action) {
+        return PersonalizationStore.getInstance().dispatchAsync(action);
+    }
+    dispatch(action) {
+        return PersonalizationStore.getInstance().dispatch(action);
+    }
+    onStateChanged({ wallpaper: { seaPen } }) {
+        if (seaPen === this.priorState_) {
+            return;
+        }
+        this.priorState_ = seaPen;
+        for (const observer of this.observers_) {
+            observer.onStateChanged(seaPen);
+        }
+    }
+}
+
 // Copyright 2021 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
@@ -24698,6 +28394,7 @@ class ColorChangeUpdater {
  * page.
  */
 PersonalizationStore.getInstance().init(emptyState());
+SeaPenStoreAdapter.initSeaPenStore();
 const link = document.querySelector('link[rel=\'icon\']');
 if (link) {
     // |link| may be null in tests.
@@ -24719,5 +28416,5 @@ if (isPersonalizationJellyEnabled()) {
     ColorChangeUpdater.forDocument().start();
 }
 
-export { AcceptEvent, AlbumListElement, AlbumsSubpageElement, AmbientActionName, AmbientModeAlbumSpec, AmbientObserver, AmbientObserverCallbackRouter, AmbientObserverPendingReceiver, AmbientObserverReceiver, AmbientObserverRemote, AmbientObserver_OnAlbumsChanged_ParamsSpec, AmbientObserver_OnAmbientModeEnabledChanged_ParamsSpec, AmbientObserver_OnAmbientThemeChanged_ParamsSpec, AmbientObserver_OnAmbientUiVisibilityChanged_ParamsSpec, AmbientObserver_OnPreviewsFetched_ParamsSpec, AmbientObserver_OnScreenSaverDurationChanged_ParamsSpec, AmbientObserver_OnTemperatureUnitChanged_ParamsSpec, AmbientObserver_OnTopicSourceChanged_ParamsSpec, AmbientPreviewLargeElement, AmbientPreviewSmallElement, AmbientProvider, AmbientProviderCallbackRouter, AmbientProviderPendingReceiver, AmbientProviderReceiver, AmbientProviderRemote, AmbientProvider_FetchSettingsAndAlbums_ParamsSpec, AmbientProvider_HandleTimeOfDayBannerDismissed_ParamsSpec, AmbientProvider_IsAmbientModeEnabled_ParamsSpec, AmbientProvider_IsAmbientModeEnabled_ResponseParamsSpec, AmbientProvider_SetAlbumSelected_ParamsSpec, AmbientProvider_SetAmbientModeEnabled_ParamsSpec, AmbientProvider_SetAmbientObserver_ParamsSpec, AmbientProvider_SetAmbientTheme_ParamsSpec, AmbientProvider_SetPageViewed_ParamsSpec, AmbientProvider_SetScreenSaverDuration_ParamsSpec, AmbientProvider_SetTemperatureUnit_ParamsSpec, AmbientProvider_SetTopicSource_ParamsSpec, AmbientProvider_ShouldShowTimeOfDayBanner_ParamsSpec, AmbientProvider_ShouldShowTimeOfDayBanner_ResponseParamsSpec, AmbientProvider_StartScreenSaverPreview_ParamsSpec, AmbientSubpageElement, AmbientTheme, AmbientThemeItemElement, AmbientThemeListElement, AmbientThemeSpec, AmbientUiVisibility, AmbientUiVisibilitySpec, AmbientWeatherUnitElement, AmbientZeroStateElement, ArtAlbumDialogElement, AvatarCameraElement, AvatarListElement, BLUE_COLOR, BacklightColor, BacklightColorSpec, ColorIconElement, ColorScheme, ColorSchemeIconSvgElement, CurrentAttributionSpec, CurrentBacklightStateSpec, CurrentWallpaperSpec, DEFAULT_COLOR_SCHEME, DailyRefreshType, DefaultUserImageSpec, DeprecatedSourceInfoSpec, DynamicColorElement, FetchGooglePhotosAlbumsResponseSpec, FetchGooglePhotosPhotosResponseSpec, GREEN_COLOR, GetUserMediaProxy, GooglePhotosAlbumSpec, GooglePhotosAlbumsElement, GooglePhotosCollectionElement, GooglePhotosEnablementState, GooglePhotosEnablementStateSpec, GooglePhotosPhotoSpec, GooglePhotosPhotosByAlbumIdElement, GooglePhotosPhotosElement, GooglePhotosSharedAlbumDialogElement, GooglePhotosTab, GooglePhotosZeroStateElement, INDIGO_COLOR, InvalidImageSpec, KeyboardBacklightActionName, KeyboardBacklightElement, KeyboardBacklightObserver, KeyboardBacklightObserverCallbackRouter, KeyboardBacklightObserverPendingReceiver, KeyboardBacklightObserverReceiver, KeyboardBacklightObserverRemote, KeyboardBacklightObserver_OnBacklightStateChanged_ParamsSpec, KeyboardBacklightObserver_OnWallpaperColorChanged_ParamsSpec, KeyboardBacklightProvider, KeyboardBacklightProviderCallbackRouter, KeyboardBacklightProviderPendingReceiver, KeyboardBacklightProviderReceiver, KeyboardBacklightProviderRemote, KeyboardBacklightProvider_HandleNudgeShown_ParamsSpec, KeyboardBacklightProvider_SetBacklightColor_ParamsSpec, KeyboardBacklightProvider_SetBacklightZoneColor_ParamsSpec, KeyboardBacklightProvider_SetKeyboardBacklightObserver_ParamsSpec, KeyboardBacklightProvider_ShouldShowNudge_ParamsSpec, KeyboardBacklightProvider_ShouldShowNudge_ResponseParamsSpec, LocalImagesElement, OnlineImageType, OnlineImageTypeSpec, PURPLE_COLOR, Paths, PersonalizationActionName, PersonalizationBreadcrumbElement, PersonalizationMainElement, PersonalizationRouterElement, PersonalizationStore, PersonalizationThemeElement, PersonalizationToastElement, ProfileImageSpec, RED_COLOR, STATIC_COLOR_DARK_GREEN, STATIC_COLOR_GOOGLE_BLUE, STATIC_COLOR_LIGHT_PINK, STATIC_COLOR_LIGHT_PURPLE, SampleColorSchemeSpec, ScrollableTarget, SeaPenCollectionElement, SeaPenImagesElement, StaticColor, StaticColorSpec, TemperatureUnit, TemperatureUnitSpec, ThemeActionName, ThemeObserver, ThemeObserverCallbackRouter, ThemeObserverPendingReceiver, ThemeObserverReceiver, ThemeObserverRemote, ThemeObserver_OnColorModeAutoScheduleChanged_ParamsSpec, ThemeObserver_OnColorModeChanged_ParamsSpec, ThemeObserver_OnColorSchemeChanged_ParamsSpec, ThemeObserver_OnSampleColorSchemesChanged_ParamsSpec, ThemeObserver_OnStaticColorChanged_ParamsSpec, ThemeProvider, ThemeProviderCallbackRouter, ThemeProviderPendingReceiver, ThemeProviderReceiver, ThemeProviderRemote, ThemeProvider_GenerateSampleColorSchemes_ParamsSpec, ThemeProvider_GenerateSampleColorSchemes_ResponseParamsSpec, ThemeProvider_GetColorScheme_ParamsSpec, ThemeProvider_GetColorScheme_ResponseParamsSpec, ThemeProvider_GetStaticColor_ParamsSpec, ThemeProvider_GetStaticColor_ResponseParamsSpec, ThemeProvider_IsColorModeAutoScheduleEnabled_ParamsSpec, ThemeProvider_IsColorModeAutoScheduleEnabled_ResponseParamsSpec, ThemeProvider_IsDarkModeEnabled_ParamsSpec, ThemeProvider_IsDarkModeEnabled_ResponseParamsSpec, ThemeProvider_SetColorModeAutoScheduleEnabled_ParamsSpec, ThemeProvider_SetColorModePref_ParamsSpec, ThemeProvider_SetColorScheme_ParamsSpec, ThemeProvider_SetStaticColor_ParamsSpec, ThemeProvider_SetThemeObserver_ParamsSpec, TimeOfDayBannerElement, ToggleRowElement, TopicSource, TopicSourceItemElement, TopicSourceListElement, TopicSourceSpec, UserActionName, UserImageObserver, UserImageObserverCallbackRouter, UserImageObserverPendingReceiver, UserImageObserverReceiver, UserImageObserverRemote, UserImageObserver_OnCameraPresenceCheckDone_ParamsSpec, UserImageObserver_OnIsEnterpriseManagedChanged_ParamsSpec, UserImageObserver_OnUserImageChanged_ParamsSpec, UserImageObserver_OnUserProfileImageUpdated_ParamsSpec, UserImageSpec, UserInfoSpec, UserPreviewElement, UserProvider, UserProviderCallbackRouter, UserProviderPendingReceiver, UserProviderReceiver, UserProviderRemote, UserProvider_GetDefaultUserImages_ParamsSpec, UserProvider_GetDefaultUserImages_ResponseParamsSpec, UserProvider_GetUserInfo_ParamsSpec, UserProvider_GetUserInfo_ResponseParamsSpec, UserProvider_SelectCameraImage_ParamsSpec, UserProvider_SelectDefaultImage_ParamsSpec, UserProvider_SelectImageFromDisk_ParamsSpec, UserProvider_SelectLastExternalUserImage_ParamsSpec, UserProvider_SelectProfileImage_ParamsSpec, UserProvider_SetUserImageObserver_ParamsSpec, UserSubpageElement, WHITE_COLOR, WallpaperActionName, WallpaperCollectionSpec, WallpaperCollectionsElement, WallpaperErrorElement, WallpaperFullscreenElement, WallpaperGridItemElement, WallpaperImageSpec, WallpaperImagesElement, WallpaperLayout, WallpaperLayoutSpec, WallpaperObserver, WallpaperObserverCallbackRouter, WallpaperObserverPendingReceiver, WallpaperObserverReceiver, WallpaperObserverRemote, WallpaperObserver_OnAttributionChanged_ParamsSpec, WallpaperObserver_OnWallpaperChanged_ParamsSpec, WallpaperObserver_OnWallpaperPreviewEnded_ParamsSpec, WallpaperPreviewElement, WallpaperProvider, WallpaperProviderCallbackRouter, WallpaperProviderPendingReceiver, WallpaperProviderReceiver, WallpaperProviderRemote, WallpaperProvider_CancelPreviewWallpaper_ParamsSpec, WallpaperProvider_ConfirmPreviewWallpaper_ParamsSpec, WallpaperProvider_FetchCollections_ParamsSpec, WallpaperProvider_FetchCollections_ResponseParamsSpec, WallpaperProvider_FetchGooglePhotosAlbums_ParamsSpec, WallpaperProvider_FetchGooglePhotosAlbums_ResponseParamsSpec, WallpaperProvider_FetchGooglePhotosEnabled_ParamsSpec, WallpaperProvider_FetchGooglePhotosEnabled_ResponseParamsSpec, WallpaperProvider_FetchGooglePhotosPhotos_ParamsSpec, WallpaperProvider_FetchGooglePhotosPhotos_ResponseParamsSpec, WallpaperProvider_FetchGooglePhotosSharedAlbums_ParamsSpec, WallpaperProvider_FetchGooglePhotosSharedAlbums_ResponseParamsSpec, WallpaperProvider_FetchImagesForCollection_ParamsSpec, WallpaperProvider_FetchImagesForCollection_ResponseParamsSpec, WallpaperProvider_GetDailyRefreshCollectionId_ParamsSpec, WallpaperProvider_GetDailyRefreshCollectionId_ResponseParamsSpec, WallpaperProvider_GetDefaultImageThumbnail_ParamsSpec, WallpaperProvider_GetDefaultImageThumbnail_ResponseParamsSpec, WallpaperProvider_GetGooglePhotosDailyRefreshAlbumId_ParamsSpec, WallpaperProvider_GetGooglePhotosDailyRefreshAlbumId_ResponseParamsSpec, WallpaperProvider_GetLocalImageThumbnail_ParamsSpec, WallpaperProvider_GetLocalImageThumbnail_ResponseParamsSpec, WallpaperProvider_GetLocalImages_ParamsSpec, WallpaperProvider_GetLocalImages_ResponseParamsSpec, WallpaperProvider_IsInTabletMode_ParamsSpec, WallpaperProvider_IsInTabletMode_ResponseParamsSpec, WallpaperProvider_MakeOpaque_ParamsSpec, WallpaperProvider_MakeTransparent_ParamsSpec, WallpaperProvider_SelectDefaultImage_ParamsSpec, WallpaperProvider_SelectDefaultImage_ResponseParamsSpec, WallpaperProvider_SelectGooglePhotosAlbum_ParamsSpec, WallpaperProvider_SelectGooglePhotosAlbum_ResponseParamsSpec, WallpaperProvider_SelectGooglePhotosPhoto_ParamsSpec, WallpaperProvider_SelectGooglePhotosPhoto_ResponseParamsSpec, WallpaperProvider_SelectLocalImage_ParamsSpec, WallpaperProvider_SelectLocalImage_ResponseParamsSpec, WallpaperProvider_SelectWallpaper_ParamsSpec, WallpaperProvider_SelectWallpaper_ResponseParamsSpec, WallpaperProvider_SetCurrentWallpaperLayout_ParamsSpec, WallpaperProvider_SetDailyRefreshCollectionId_ParamsSpec, WallpaperProvider_SetDailyRefreshCollectionId_ResponseParamsSpec, WallpaperProvider_SetWallpaperObserver_ParamsSpec, WallpaperProvider_UpdateDailyRefreshWallpaper_ParamsSpec, WallpaperProvider_UpdateDailyRefreshWallpaper_ResponseParamsSpec, WallpaperSelectedElement, WallpaperSubpageElement, WallpaperSubpageTopElement, WallpaperType, WallpaperTypeSpec, YELLOW_COLOR, ZoneCustomizationElement, appendGooglePhotosAlbumAction, appendGooglePhotosAlbumsAction, appendGooglePhotosPhotosAction, appendGooglePhotosSharedAlbumsAction, beginLoadDefaultImageThubmnailAction, beginLoadGooglePhotosAlbumAction, beginLoadGooglePhotosAlbumsAction, beginLoadGooglePhotosEnabledAction, beginLoadGooglePhotosPhotosAction, beginLoadGooglePhotosSharedAlbumsAction, beginLoadImagesForCollectionsAction, beginLoadLocalImageDataAction, beginLoadLocalImagesAction, beginLoadSelectedImageAction, beginSearchImageThumbnailsAction, beginSelectImageAction, beginUpdateDailyRefreshImageAction, cancelPreviewWallpaper, clearDailyRefreshAction, confirmPreviewWallpaper, dismissErrorAction, emptyState, endSelectImageAction, fetchCollections, fetchGooglePhotosAlbum, fetchGooglePhotosAlbums, fetchGooglePhotosEnabled, fetchGooglePhotosPhotos, fetchGooglePhotosSharedAlbums, fetchLocalData, getCountText, getDefaultImageThumbnail, getImageTiles, getLocalImages, getNumberOfGridItemsPerRow, getThemeProvider, getWebcamUtils, initializeBackdropData, isDefaultImage, isFilePath, isGooglePhotosPhoto, isWallpaperImage, kDefaultImageSymbol, kMaximumLocalImagePreviews, reduce, selectGooglePhotosAlbum, selectWallpaper, setAlbumSelectedAction, setAlbumsAction, setAmbientModeEnabledAction, setAmbientProviderForTesting, setAmbientThemeAction, setAttributionAction, setCollectionsAction, setColorSchemeAction, setCurrentBacklightStateAction, setCurrentWallpaperLayout, setDailyRefreshCollectionId, setDailyRefreshCollectionIdAction, setDarkModeEnabledAction, setDefaultImageThumbnailAction, setFullscreenEnabledAction, setGooglePhotosDailyRefreshAlbumIdAction, setGooglePhotosEnabledAction, setImageThumbnailsAction, setImagesForCollectionAction, setKeyboardBacklightProviderForTesting, setLocalImageDataAction, setLocalImagesAction, setPreviewsAction, setScreenSaverDurationAction, setSelectedImageAction, setShouldShowNudgeAction, setStaticColorAction, setTemperatureUnitAction, setThemeProviderForTesting, setTopicSourceAction, setUpdatedDailyRefreshImageAction, setUserProviderForTesting, setWallpaperColorAction, setWallpaperProviderForTesting, setWebcamUtilsForTesting, staticColorIds, updateDailyRefreshWallpaper };
+export { AcceptEvent, AlbumListElement, AlbumsSubpageElement, AmbientActionName, AmbientModeAlbumSpec, AmbientObserver, AmbientObserverCallbackRouter, AmbientObserverPendingReceiver, AmbientObserverReceiver, AmbientObserverRemote, AmbientObserver_OnAlbumsChanged_ParamsSpec, AmbientObserver_OnAmbientModeEnabledChanged_ParamsSpec, AmbientObserver_OnAmbientThemeChanged_ParamsSpec, AmbientObserver_OnAmbientUiVisibilityChanged_ParamsSpec, AmbientObserver_OnPreviewsFetched_ParamsSpec, AmbientObserver_OnScreenSaverDurationChanged_ParamsSpec, AmbientObserver_OnTemperatureUnitChanged_ParamsSpec, AmbientObserver_OnTopicSourceChanged_ParamsSpec, AmbientPreviewLargeElement, AmbientPreviewSmallElement, AmbientProvider, AmbientProviderCallbackRouter, AmbientProviderPendingReceiver, AmbientProviderReceiver, AmbientProviderRemote, AmbientProvider_FetchSettingsAndAlbums_ParamsSpec, AmbientProvider_HandleTimeOfDayBannerDismissed_ParamsSpec, AmbientProvider_IsAmbientModeEnabled_ParamsSpec, AmbientProvider_IsAmbientModeEnabled_ResponseParamsSpec, AmbientProvider_SetAlbumSelected_ParamsSpec, AmbientProvider_SetAmbientModeEnabled_ParamsSpec, AmbientProvider_SetAmbientObserver_ParamsSpec, AmbientProvider_SetAmbientTheme_ParamsSpec, AmbientProvider_SetPageViewed_ParamsSpec, AmbientProvider_SetScreenSaverDuration_ParamsSpec, AmbientProvider_SetTemperatureUnit_ParamsSpec, AmbientProvider_SetTopicSource_ParamsSpec, AmbientProvider_ShouldShowTimeOfDayBanner_ParamsSpec, AmbientProvider_ShouldShowTimeOfDayBanner_ResponseParamsSpec, AmbientProvider_StartScreenSaverPreview_ParamsSpec, AmbientSubpageElement, AmbientTheme, AmbientThemeItemElement, AmbientThemeListElement, AmbientThemeSpec, AmbientUiVisibility, AmbientUiVisibilitySpec, AmbientWeatherUnitElement, AmbientZeroStateElement, ArtAlbumDialogElement, AvatarCameraElement, AvatarListElement, BLUE_COLOR, BacklightColor, BacklightColorSpec, ColorIconElement, ColorScheme, ColorSchemeIconSvgElement, CurrentAttributionSpec, CurrentBacklightStateSpec, CurrentWallpaperSpec, DEFAULT_COLOR_SCHEME, DailyRefreshType, DefaultUserImageSpec, DeprecatedSourceInfoSpec, DynamicColorElement, FetchGooglePhotosAlbumsResponseSpec, FetchGooglePhotosPhotosResponseSpec, GREEN_COLOR, GetUserMediaProxy, GooglePhotosAlbumSpec, GooglePhotosAlbumsElement, GooglePhotosCollectionElement, GooglePhotosEnablementState, GooglePhotosEnablementStateSpec, GooglePhotosPhotoSpec, GooglePhotosPhotosByAlbumIdElement, GooglePhotosPhotosElement, GooglePhotosSharedAlbumDialogElement, GooglePhotosTab, GooglePhotosZeroStateElement, INDIGO_COLOR, InvalidImageSpec, KeyboardBacklightActionName, KeyboardBacklightElement, KeyboardBacklightObserver, KeyboardBacklightObserverCallbackRouter, KeyboardBacklightObserverPendingReceiver, KeyboardBacklightObserverReceiver, KeyboardBacklightObserverRemote, KeyboardBacklightObserver_OnBacklightStateChanged_ParamsSpec, KeyboardBacklightObserver_OnWallpaperColorChanged_ParamsSpec, KeyboardBacklightProvider, KeyboardBacklightProviderCallbackRouter, KeyboardBacklightProviderPendingReceiver, KeyboardBacklightProviderReceiver, KeyboardBacklightProviderRemote, KeyboardBacklightProvider_HandleNudgeShown_ParamsSpec, KeyboardBacklightProvider_SetBacklightColor_ParamsSpec, KeyboardBacklightProvider_SetBacklightZoneColor_ParamsSpec, KeyboardBacklightProvider_SetKeyboardBacklightObserver_ParamsSpec, KeyboardBacklightProvider_ShouldShowNudge_ParamsSpec, KeyboardBacklightProvider_ShouldShowNudge_ResponseParamsSpec, LocalImagesElement, OnlineImageType, OnlineImageTypeSpec, PURPLE_COLOR, Paths, PersonalizationActionName, PersonalizationBreadcrumbElement, PersonalizationMainElement, PersonalizationRouterElement, PersonalizationStore, PersonalizationThemeElement, PersonalizationToastElement, ProfileImageSpec, RED_COLOR, STATIC_COLOR_DARK_GREEN, STATIC_COLOR_GOOGLE_BLUE, STATIC_COLOR_LIGHT_PINK, STATIC_COLOR_LIGHT_PURPLE, SampleColorSchemeSpec, ScrollableTarget, SeaPenActionName, SeaPenImagesElement, SeaPenInputQueryElement, SeaPenPaths, SeaPenRecentWallpapersElement, SeaPenRouterElement, SeaPenStoreAdapter, SeaPenTemplateQueryElement, SeaPenTemplatesElement, SparklePlaceholderElement, StaticColor, StaticColorSpec, TemperatureUnit, TemperatureUnitSpec, ThemeActionName, ThemeObserver, ThemeObserverCallbackRouter, ThemeObserverPendingReceiver, ThemeObserverReceiver, ThemeObserverRemote, ThemeObserver_OnColorModeAutoScheduleChanged_ParamsSpec, ThemeObserver_OnColorModeChanged_ParamsSpec, ThemeObserver_OnColorSchemeChanged_ParamsSpec, ThemeObserver_OnSampleColorSchemesChanged_ParamsSpec, ThemeObserver_OnStaticColorChanged_ParamsSpec, ThemeProvider, ThemeProviderCallbackRouter, ThemeProviderPendingReceiver, ThemeProviderReceiver, ThemeProviderRemote, ThemeProvider_GenerateSampleColorSchemes_ParamsSpec, ThemeProvider_GenerateSampleColorSchemes_ResponseParamsSpec, ThemeProvider_GetColorScheme_ParamsSpec, ThemeProvider_GetColorScheme_ResponseParamsSpec, ThemeProvider_GetStaticColor_ParamsSpec, ThemeProvider_GetStaticColor_ResponseParamsSpec, ThemeProvider_IsColorModeAutoScheduleEnabled_ParamsSpec, ThemeProvider_IsColorModeAutoScheduleEnabled_ResponseParamsSpec, ThemeProvider_IsDarkModeEnabled_ParamsSpec, ThemeProvider_IsDarkModeEnabled_ResponseParamsSpec, ThemeProvider_SetColorModeAutoScheduleEnabled_ParamsSpec, ThemeProvider_SetColorModePref_ParamsSpec, ThemeProvider_SetColorScheme_ParamsSpec, ThemeProvider_SetStaticColor_ParamsSpec, ThemeProvider_SetThemeObserver_ParamsSpec, TimeOfDayAcceptEvent, TimeOfDayBannerElement, TimeOfDayWallpaperDialogElement, ToggleRowElement, TopicSource, TopicSourceItemElement, TopicSourceListElement, TopicSourceSpec, UserActionName, UserImageObserver, UserImageObserverCallbackRouter, UserImageObserverPendingReceiver, UserImageObserverReceiver, UserImageObserverRemote, UserImageObserver_OnCameraPresenceCheckDone_ParamsSpec, UserImageObserver_OnIsEnterpriseManagedChanged_ParamsSpec, UserImageObserver_OnUserImageChanged_ParamsSpec, UserImageObserver_OnUserProfileImageUpdated_ParamsSpec, UserImageSpec, UserInfoSpec, UserPreviewElement, UserProvider, UserProviderCallbackRouter, UserProviderPendingReceiver, UserProviderReceiver, UserProviderRemote, UserProvider_GetDefaultUserImages_ParamsSpec, UserProvider_GetDefaultUserImages_ResponseParamsSpec, UserProvider_GetUserInfo_ParamsSpec, UserProvider_GetUserInfo_ResponseParamsSpec, UserProvider_SelectCameraImage_ParamsSpec, UserProvider_SelectDefaultImage_ParamsSpec, UserProvider_SelectImageFromDisk_ParamsSpec, UserProvider_SelectLastExternalUserImage_ParamsSpec, UserProvider_SelectProfileImage_ParamsSpec, UserProvider_SetUserImageObserver_ParamsSpec, UserSubpageElement, WHITE_COLOR, WallpaperActionName, WallpaperCollectionSpec, WallpaperCollectionsElement, WallpaperErrorElement, WallpaperFullscreenElement, WallpaperGridItemElement, WallpaperImageSpec, WallpaperImagesElement, WallpaperLayout, WallpaperLayoutSpec, WallpaperObserver, WallpaperObserverCallbackRouter, WallpaperObserverPendingReceiver, WallpaperObserverReceiver, WallpaperObserverRemote, WallpaperObserver_OnAttributionChanged_ParamsSpec, WallpaperObserver_OnWallpaperChanged_ParamsSpec, WallpaperObserver_OnWallpaperPreviewEnded_ParamsSpec, WallpaperPreviewElement, WallpaperProvider, WallpaperProviderCallbackRouter, WallpaperProviderPendingReceiver, WallpaperProviderReceiver, WallpaperProviderRemote, WallpaperProvider_CancelPreviewWallpaper_ParamsSpec, WallpaperProvider_ConfirmPreviewWallpaper_ParamsSpec, WallpaperProvider_FetchCollections_ParamsSpec, WallpaperProvider_FetchCollections_ResponseParamsSpec, WallpaperProvider_FetchGooglePhotosAlbums_ParamsSpec, WallpaperProvider_FetchGooglePhotosAlbums_ResponseParamsSpec, WallpaperProvider_FetchGooglePhotosEnabled_ParamsSpec, WallpaperProvider_FetchGooglePhotosEnabled_ResponseParamsSpec, WallpaperProvider_FetchGooglePhotosPhotos_ParamsSpec, WallpaperProvider_FetchGooglePhotosPhotos_ResponseParamsSpec, WallpaperProvider_FetchGooglePhotosSharedAlbums_ParamsSpec, WallpaperProvider_FetchGooglePhotosSharedAlbums_ResponseParamsSpec, WallpaperProvider_FetchImagesForCollection_ParamsSpec, WallpaperProvider_FetchImagesForCollection_ResponseParamsSpec, WallpaperProvider_GetDailyRefreshCollectionId_ParamsSpec, WallpaperProvider_GetDailyRefreshCollectionId_ResponseParamsSpec, WallpaperProvider_GetDefaultImageThumbnail_ParamsSpec, WallpaperProvider_GetDefaultImageThumbnail_ResponseParamsSpec, WallpaperProvider_GetGooglePhotosDailyRefreshAlbumId_ParamsSpec, WallpaperProvider_GetGooglePhotosDailyRefreshAlbumId_ResponseParamsSpec, WallpaperProvider_GetLocalImageThumbnail_ParamsSpec, WallpaperProvider_GetLocalImageThumbnail_ResponseParamsSpec, WallpaperProvider_GetLocalImages_ParamsSpec, WallpaperProvider_GetLocalImages_ResponseParamsSpec, WallpaperProvider_IsInTabletMode_ParamsSpec, WallpaperProvider_IsInTabletMode_ResponseParamsSpec, WallpaperProvider_MakeOpaque_ParamsSpec, WallpaperProvider_MakeTransparent_ParamsSpec, WallpaperProvider_SelectDefaultImage_ParamsSpec, WallpaperProvider_SelectDefaultImage_ResponseParamsSpec, WallpaperProvider_SelectGooglePhotosAlbum_ParamsSpec, WallpaperProvider_SelectGooglePhotosAlbum_ResponseParamsSpec, WallpaperProvider_SelectGooglePhotosPhoto_ParamsSpec, WallpaperProvider_SelectGooglePhotosPhoto_ResponseParamsSpec, WallpaperProvider_SelectLocalImage_ParamsSpec, WallpaperProvider_SelectLocalImage_ResponseParamsSpec, WallpaperProvider_SelectWallpaper_ParamsSpec, WallpaperProvider_SelectWallpaper_ResponseParamsSpec, WallpaperProvider_SetCurrentWallpaperLayout_ParamsSpec, WallpaperProvider_SetDailyRefreshCollectionId_ParamsSpec, WallpaperProvider_SetDailyRefreshCollectionId_ResponseParamsSpec, WallpaperProvider_SetWallpaperObserver_ParamsSpec, WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_ParamsSpec, WallpaperProvider_ShouldShowTimeOfDayWallpaperDialog_ResponseParamsSpec, WallpaperProvider_UpdateDailyRefreshWallpaper_ParamsSpec, WallpaperProvider_UpdateDailyRefreshWallpaper_ResponseParamsSpec, WallpaperSelectedElement, WallpaperSubpageElement, WallpaperType, WallpaperTypeSpec, YELLOW_COLOR, ZoneCustomizationElement, appendGooglePhotosAlbumAction, appendGooglePhotosAlbumsAction, appendGooglePhotosPhotosAction, appendGooglePhotosSharedAlbumsAction, beginLoadDefaultImageThubmnailAction, beginLoadGooglePhotosAlbumAction, beginLoadGooglePhotosAlbumsAction, beginLoadGooglePhotosEnabledAction, beginLoadGooglePhotosPhotosAction, beginLoadGooglePhotosSharedAlbumsAction, beginLoadImagesForCollectionsAction, beginLoadLocalImageDataAction, beginLoadLocalImagesAction, beginLoadRecentSeaPenImageDataAction, beginLoadRecentSeaPenImagesAction, beginLoadSelectedImageAction, beginLoadSelectedRecentSeaPenImageAction, beginSearchSeaPenThumbnailsAction, beginSelectImageAction, beginSelectRecentSeaPenImageAction, beginUpdateDailyRefreshImageAction, cancelPreviewWallpaper, clearDailyRefreshAction, confirmPreviewWallpaper, dismissErrorAction, emptyState, endSelectImageAction, endSelectRecentSeaPenImageAction, fetchCollections, fetchGooglePhotosAlbum, fetchGooglePhotosAlbums, fetchGooglePhotosEnabled, fetchGooglePhotosPhotos, fetchGooglePhotosSharedAlbums, fetchLocalData, getCountText, getDefaultImageThumbnail, getImageTiles, getLocalImages, getNumberOfGridItemsPerRow, getRecentSeaPenImages, getSeaPenStore, getThemeProvider, getWebcamUtils, initializeBackdropData, isDefaultImage, isGooglePhotosPhoto, isWallpaperImage, kDefaultImageSymbol, kMaximumLocalImagePreviews, reduce, searchSeaPenThumbnails, selectGooglePhotosAlbum, selectRecentSeaPenImage, selectWallpaper, setAlbumSelectedAction, setAlbumsAction, setAmbientModeEnabledAction, setAmbientProviderForTesting, setAmbientThemeAction, setAttributionAction, setCollectionsAction, setColorSchemeAction, setCurrentBacklightStateAction, setCurrentWallpaperLayout, setDailyRefreshCollectionId, setDailyRefreshCollectionIdAction, setDarkModeEnabledAction, setDefaultImageThumbnailAction, setFullscreenEnabledAction, setGooglePhotosDailyRefreshAlbumIdAction, setGooglePhotosEnabledAction, setImagesForCollectionAction, setKeyboardBacklightProviderForTesting, setLocalImageDataAction, setLocalImagesAction, setPreviewsAction, setRecentSeaPenImageDataAction, setRecentSeaPenImagesAction, setScreenSaverDurationAction, setSeaPenProviderForTesting, setSeaPenStore, setSeaPenThumbnailsAction, setSelectedImageAction, setSelectedRecentSeaPenImageAction, setShouldShowNudgeAction, setShouldShowTimeOfDayWallpaperDialog, setStaticColorAction, setTemperatureUnitAction, setThemeProviderForTesting, setTopicSourceAction, setUpdatedDailyRefreshImageAction, setUserProviderForTesting, setWallpaperColorAction, setWallpaperProviderForTesting, setWebcamUtilsForTesting, staticColorIds, updateDailyRefreshWallpaper };
 //# sourceMappingURL=personalization_app.rollup.js.map

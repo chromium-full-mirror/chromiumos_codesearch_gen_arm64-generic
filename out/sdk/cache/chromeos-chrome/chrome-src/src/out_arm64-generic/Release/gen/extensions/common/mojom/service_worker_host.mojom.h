@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "extensions/common/mojom/service_worker_host.mojom-features.h"
 #include "extensions/common/mojom/service_worker_host.mojom-shared.h"
 #include "extensions/common/mojom/service_worker_host.mojom-forward.h"
 #include "mojo/public/mojom/base/unguessable_token.mojom.h"
@@ -31,6 +32,7 @@
 #include "extensions/common/mojom/extra_response_data.mojom-forward.h"
 #include "extensions/common/mojom/frame.mojom-forward.h"
 #include "mojo/public/mojom/base/values.mojom.h"
+#include "extensions/common/mojom/message_port.mojom.h"
 #include "url/mojom/url.mojom.h"
 #include <string>
 #include <vector>
@@ -80,6 +82,9 @@ class ServiceWorkerHost
     kDidStopServiceWorkerContextMinVersion = 0,
     kRequestWorkerMinVersion = 0,
     kWorkerResponseAckMinVersion = 0,
+    kOpenChannelToExtensionMinVersion = 0,
+    kOpenChannelToNativeAppMinVersion = 0,
+    kOpenChannelToTabMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -98,6 +103,15 @@ class ServiceWorkerHost
     NOINLINE static uint32_t IPCStableHash();
   };
   struct WorkerResponseAck_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct OpenChannelToExtension_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct OpenChannelToNativeApp_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct OpenChannelToTab_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -119,6 +133,15 @@ class ServiceWorkerHost
 
   
   virtual void WorkerResponseAck(const ::base::Uuid& request_uuid) = 0;
+
+  
+  virtual void OpenChannelToExtension(::extensions::mojom::ExternalConnectionInfoPtr info, ::extensions::mojom::ChannelType channel_type, const std::string& channel_name, const ::extensions::PortId& port_id, ::mojo::PendingAssociatedRemote<::extensions::mojom::MessagePort> port, ::mojo::PendingAssociatedReceiver<::extensions::mojom::MessagePortHost> port_host) = 0;
+
+  
+  virtual void OpenChannelToNativeApp(const std::string& native_app_name, const ::extensions::PortId& port_id, ::mojo::PendingAssociatedRemote<::extensions::mojom::MessagePort> port, ::mojo::PendingAssociatedReceiver<::extensions::mojom::MessagePortHost> port_host) = 0;
+
+  
+  virtual void OpenChannelToTab(int32_t tab_id, int32_t frame_id, const std::optional<std::string>& document_id, ::extensions::mojom::ChannelType channel_type, const std::string& channel_name, const ::extensions::PortId& port_id, ::mojo::PendingAssociatedRemote<::extensions::mojom::MessagePort> port, ::mojo::PendingAssociatedReceiver<::extensions::mojom::MessagePortHost> port_host) = 0;
 };
 
 
@@ -139,6 +162,12 @@ class  ServiceWorkerHostProxy
   void RequestWorker(::extensions::mojom::RequestParamsPtr params, RequestWorkerCallback callback) final;
   
   void WorkerResponseAck(const ::base::Uuid& request_uuid) final;
+  
+  void OpenChannelToExtension(::extensions::mojom::ExternalConnectionInfoPtr info, ::extensions::mojom::ChannelType channel_type, const std::string& channel_name, const ::extensions::PortId& port_id, ::mojo::PendingAssociatedRemote<::extensions::mojom::MessagePort> port, ::mojo::PendingAssociatedReceiver<::extensions::mojom::MessagePortHost> port_host) final;
+  
+  void OpenChannelToNativeApp(const std::string& native_app_name, const ::extensions::PortId& port_id, ::mojo::PendingAssociatedRemote<::extensions::mojom::MessagePort> port, ::mojo::PendingAssociatedReceiver<::extensions::mojom::MessagePortHost> port_host) final;
+  
+  void OpenChannelToTab(int32_t tab_id, int32_t frame_id, const std::optional<std::string>& document_id, ::extensions::mojom::ChannelType channel_type, const std::string& channel_name, const ::extensions::PortId& port_id, ::mojo::PendingAssociatedRemote<::extensions::mojom::MessagePort> port, ::mojo::PendingAssociatedReceiver<::extensions::mojom::MessagePortHost> port_host) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

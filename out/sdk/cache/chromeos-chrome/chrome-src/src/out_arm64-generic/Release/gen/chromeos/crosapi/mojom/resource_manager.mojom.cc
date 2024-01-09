@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -45,20 +46,25 @@
 namespace crosapi::mojom {
 MemoryPressure::MemoryPressure()
     : level(),
-      reclaim_target_kb() {}
+      reclaim_target_kb(),
+      signal_origin() {}
 
 MemoryPressure::MemoryPressure(
     MemoryPressureLevel level_in,
     uint64_t reclaim_target_kb_in)
     : level(std::move(level_in)),
-      reclaim_target_kb(std::move(reclaim_target_kb_in)) {}
+      reclaim_target_kb(std::move(reclaim_target_kb_in)),
+      signal_origin() {}
+
+MemoryPressure::MemoryPressure(
+    MemoryPressureLevel level_in,
+    uint64_t reclaim_target_kb_in,
+    std::optional<::base::TimeTicks> signal_origin_in)
+    : level(std::move(level_in)),
+      reclaim_target_kb(std::move(reclaim_target_kb_in)),
+      signal_origin(std::move(signal_origin_in)) {}
 
 MemoryPressure::~MemoryPressure() = default;
-size_t MemoryPressure::Hash(size_t seed) const {
-  seed = mojo::internal::Hash(seed, this->level);
-  seed = mojo::internal::Hash(seed, this->reclaim_target_kb);
-  return seed;
-}
 
 void MemoryPressure::WriteIntoTrace(
     perfetto::TracedValue traced_context) const {
@@ -77,6 +83,15 @@ void MemoryPressure::WriteIntoTrace(
       "reclaim_target_kb"), this->reclaim_target_kb,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type uint64_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "signal_origin"), this->signal_origin,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::optional<::base::TimeTicks>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -240,14 +255,17 @@ void MemoryPressureObserverProxy::MemoryPressure(
                         "<value of type MemoryPressurePtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMemoryPressureObserver_MemoryPressure_Name, kFlags, 0, 0, nullptr);
@@ -326,10 +344,10 @@ bool MemoryPressureObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kMemoryPressureObserverValidationInfo[] = {
-    {&internal::MemoryPressureObserver_MemoryPressure_Params_Data::Validate,
+    { &internal::MemoryPressureObserver_MemoryPressure_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -450,14 +468,17 @@ void ResourceManagerProxy::AddMemoryPressureObserver(
                         "<value of type ::mojo::PendingRemote<MemoryPressureObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kResourceManager_AddMemoryPressureObserver_Name, kFlags, 0, 0, nullptr);
@@ -493,14 +514,17 @@ void ResourceManagerProxy::DEPRECATED_ReportBackgroundProcesses(
                         "<value of type const std::vector<int32_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kResourceManager_DEPRECATED_ReportBackgroundProcesses_Name, kFlags, 0, 0, nullptr);
@@ -543,14 +567,17 @@ void ResourceManagerProxy::ReportPageProcesses(
                         "<value of type std::vector<PageProcessPtr>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kResourceManager_ReportPageProcesses_Name, kFlags, 0, 0, nullptr);
@@ -691,14 +718,14 @@ bool ResourceManagerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kResourceManagerValidationInfo[] = {
-    {&internal::ResourceManager_AddMemoryPressureObserver_Params_Data::Validate,
+    { &internal::ResourceManager_AddMemoryPressureObserver_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ResourceManager_DEPRECATED_ReportBackgroundProcesses_Params_Data::Validate,
+    { &internal::ResourceManager_DEPRECATED_ReportBackgroundProcesses_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ResourceManager_ReportPageProcesses_Params_Data::Validate,
+    { &internal::ResourceManager_ReportPageProcesses_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -726,6 +753,8 @@ bool StructTraits<::crosapi::mojom::MemoryPressure::DataView, ::crosapi::mojom::
         success = false;
       if (success)
         result->reclaim_target_kb = input.reclaim_target_kb();
+      if (success && !input.ReadSignalOrigin(&result->signal_origin))
+        success = false;
   *output = std::move(result);
   return success;
 }

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/blob/data_element.mojom-features.h"
 #include "third_party/blink/public/mojom/blob/data_element.mojom-shared.h"
 #include "third_party/blink/public/mojom/blob/data_element.mojom-forward.h"
 #include "mojo/public/mojom/base/file.mojom.h"
@@ -102,7 +103,7 @@ class BLINK_COMMON_EXPORT BytesProvider
   virtual void RequestAsStream(::mojo::ScopedDataPipeProducerHandle pipe) = 0;
 
 
-  using RequestAsFileCallback = base::OnceCallback<void(absl::optional<::base::Time>)>;
+  using RequestAsFileCallback = base::OnceCallback<void(std::optional<::base::Time>)>;
   
   virtual void RequestAsFile(uint64_t source_offset, uint64_t source_size, ::base::File file, uint64_t file_offset, RequestAsFileCallback callback) = 0;
 };
@@ -201,25 +202,25 @@ class BLINK_COMMON_EXPORT DataElement {
   // Construct an instance holding |bytes|.
   static DataElementPtr
   NewBytes(
-      DataElementBytesPtr bytes) {
+      DataElementBytesPtr value) {
     auto result = DataElementPtr(absl::in_place);
-    result->set_bytes(std::move(bytes));
+    result->set_bytes(std::move(value));
     return result;
   }
   // Construct an instance holding |file|.
   static DataElementPtr
   NewFile(
-      DataElementFilePtr file) {
+      DataElementFilePtr value) {
     auto result = DataElementPtr(absl::in_place);
-    result->set_file(std::move(file));
+    result->set_file(std::move(value));
     return result;
   }
   // Construct an instance holding |blob|.
   static DataElementPtr
   NewBlob(
-      DataElementBlobPtr blob) {
+      DataElementBlobPtr value) {
     auto result = DataElementPtr(absl::in_place);
-    result->set_blob(std::move(blob));
+    result->set_blob(std::move(value));
     return result;
   }
 
@@ -365,7 +366,7 @@ class BLINK_COMMON_EXPORT DataElementBytes {
 
   DataElementBytes(
       uint64_t length,
-      absl::optional<std::vector<uint8_t>> embedded_data,
+      std::optional<std::vector<uint8_t>> embedded_data,
       ::mojo::PendingRemote<BytesProvider> data);
 
 DataElementBytes(const DataElementBytes&) = delete;
@@ -443,7 +444,7 @@ DataElementBytes& operator=(const DataElementBytes&) = delete;
   
   uint64_t length;
   
-  absl::optional<std::vector<uint8_t>> embedded_data;
+  std::optional<std::vector<uint8_t>> embedded_data;
   
   ::mojo::PendingRemote<BytesProvider> data;
 
@@ -510,7 +511,7 @@ class BLINK_COMMON_EXPORT DataElementFile {
       const ::base::FilePath& path,
       uint64_t offset,
       uint64_t length,
-      absl::optional<::base::Time> expected_modification_time);
+      std::optional<::base::Time> expected_modification_time);
 
 
   ~DataElementFile();
@@ -594,7 +595,7 @@ class BLINK_COMMON_EXPORT DataElementFile {
   
   uint64_t length;
   
-  absl::optional<::base::Time> expected_modification_time;
+  std::optional<::base::Time> expected_modification_time;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

@@ -30,13 +30,15 @@
   HostID.HostType = {};
   HostID.HostType.kExtensions = 0;
   HostID.HostType.kWebUi = 1;
+  HostID.HostType.kControlledFrameEmbedder = 2;
   HostID.HostType.MIN_VALUE = 0;
-  HostID.HostType.MAX_VALUE = 1;
+  HostID.HostType.MAX_VALUE = 2;
 
   HostID.HostType.isKnownEnumValue = function(value) {
     switch (value) {
     case 0:
     case 1:
+    case 2:
       return true;
     }
     return false;

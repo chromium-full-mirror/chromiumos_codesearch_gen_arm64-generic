@@ -44,6 +44,7 @@ export var GattResult;
     GattResult[GattResult["DESCRIPTOR_NOT_FOUND"] = 11] = "DESCRIPTOR_NOT_FOUND";
 })(GattResult || (GattResult = {}));
 export class DevicePendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -52,6 +53,9 @@ export class DevicePendingReceiver {
     }
 }
 export class DeviceRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(DevicePendingReceiver, handle);
@@ -114,6 +118,9 @@ export class DeviceRemote {
  * interface.
  */
 export class DeviceReceiver {
+    helper_internal_;
+    $;
+    onConnectionError;
     constructor(impl) {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(DeviceRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -151,6 +158,19 @@ export class Device {
  * receiver can have any number of listeners added to it.
  */
 export class DeviceCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    disconnect;
+    getInfo;
+    getServices;
+    getCharacteristics;
+    readValueForCharacteristic;
+    writeValueForCharacteristic;
+    getDescriptors;
+    readValueForDescriptor;
+    writeValueForDescriptor;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(DeviceRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);

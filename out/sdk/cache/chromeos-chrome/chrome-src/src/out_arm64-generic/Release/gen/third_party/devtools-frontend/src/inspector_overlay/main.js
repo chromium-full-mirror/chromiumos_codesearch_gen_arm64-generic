@@ -22,6 +22,9 @@ import { ScreenshotOverlay } from './tool_screenshot.js';
 import sourceOrderStyle from './tool_source_order.css'; // eslint-disable-line rulesdir/es_modules_import
 import { SourceOrderOverlay } from './tool_source_order.js';
 import { ViewportSizeOverlay } from './tool_viewport_size.js';
+// @ts-ignore Importing CSS is handled in Rollup.
+import wcoStyle from './tool_window_controls.css'; // eslint-disable-line rulesdir/es_modules_import
+import { WindowControlsOverlay } from './tool_window_controls.js';
 adoptStyleSheet(commonStyle);
 const gridStyleSheet = new CSSStyleSheet();
 gridStyleSheet.replaceSync(gridStyle);
@@ -32,6 +35,7 @@ const pausedOverlay = new PausedOverlay(window, pausedStyle);
 const screenshotOverlay = new ScreenshotOverlay(window, screenshotStyle);
 const sourceOrderOverlay = new SourceOrderOverlay(window, sourceOrderStyle);
 const viewportSizeOverlay = new ViewportSizeOverlay(window);
+const windowControlsOverlay = new WindowControlsOverlay(window, [wcoStyle]);
 // Key in this object is the name the backend refers to a particular overlay by.
 const overlays = {
     distances: distancesOverlay,
@@ -41,6 +45,7 @@ const overlays = {
     screenshot: screenshotOverlay,
     sourceOrder: sourceOrderOverlay,
     viewportSize: viewportSizeOverlay,
+    windowControlsOverlay: windowControlsOverlay,
 };
 let currentOverlay;
 let platformName;

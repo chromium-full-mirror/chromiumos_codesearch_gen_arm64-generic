@@ -1,4 +1,4 @@
-// Copyright 2023 The ChromiumOS Authors
+// Copyright 2024 The ChromiumOS Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -40,6 +40,15 @@
 
 namespace cryptohome {
 
+enum class SerializedKnowledgeFactorHashAlgorithm : int32_t {
+  PBKDF2_AES256_1234 = 1,
+  SHA256_TOP_HALF = 2,
+};
+
+}  // namespace cryptohome
+
+namespace cryptohome {
+
 enum class SerializedLockoutPolicy : int32_t {
   UNKNOWN = 0,
   NO_LOCKOUT = 1,
@@ -51,13 +60,26 @@ enum class SerializedLockoutPolicy : int32_t {
 
 namespace cryptohome {
 
-struct PasswordMetadata {};
+struct SerializedKnowledgeFactorHashInfo {
+  std::optional<::cryptohome::SerializedKnowledgeFactorHashAlgorithm> algorithm;
+  brillo::Blob salt;
+};
 
 }  // namespace cryptohome
 
 namespace cryptohome {
 
-struct PinMetadata {};
+struct PasswordMetadata {
+  std::optional<::cryptohome::SerializedKnowledgeFactorHashInfo> hash_info;
+};
+
+}  // namespace cryptohome
+
+namespace cryptohome {
+
+struct PinMetadata {
+  std::optional<::cryptohome::SerializedKnowledgeFactorHashInfo> hash_info;
+};
 
 }  // namespace cryptohome
 
@@ -116,9 +138,8 @@ struct CommonMetadata {
 namespace cryptohome {
 
 struct SerializedAuthFactor {
-  std::optional<brillo::SecureBlob> Serialize() const;
-  static std::optional<SerializedAuthFactor> Deserialize(
-      const brillo::SecureBlob&);
+  std::optional<brillo::Blob> Serialize() const;
+  static std::optional<SerializedAuthFactor> Deserialize(const brillo::Blob&);
 
   ::cryptohome::AuthBlockState auth_block_state;
   ::cryptohome::TypeSpecificMetadata metadata;

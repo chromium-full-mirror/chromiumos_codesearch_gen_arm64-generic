@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/crosapi/mojom/video_capture.mojom-features.h"
 #include "chromeos/crosapi/mojom/video_capture.mojom-shared.h"
 #include "chromeos/crosapi/mojom/video_capture.mojom-forward.h"
 #include "media/capture/mojom/image_capture.mojom-forward.h"
@@ -103,7 +104,7 @@ class VideoFrameHandler
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr base::Token Uuid_{ 6416137889429736605ULL,
                                       9523168532578706922ULL };
-  static constexpr uint32_t Version_ = 4;
+  static constexpr uint32_t Version_ = 13;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -118,7 +119,8 @@ class VideoFrameHandler
   enum MethodMinVersions : uint32_t {
     kOnCaptureConfigurationChangedMinVersion = 3,
     kOnNewBufferMinVersion = 0,
-    kOnFrameReadyInBufferMinVersion = 0,
+    kDEPRECATED_OnFrameReadyInBufferMinVersion = 0,
+    kOnFrameReadyInBufferMinVersion = 13,
     kOnBufferRetiredMinVersion = 0,
     kOnErrorMinVersion = 0,
     kOnFrameDroppedMinVersion = 0,
@@ -138,6 +140,9 @@ class VideoFrameHandler
     NOINLINE static uint32_t IPCStableHash();
   };
   struct OnNewBuffer_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct DEPRECATED_OnFrameReadyInBuffer_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct OnFrameReadyInBuffer_Sym {
@@ -183,7 +188,10 @@ class VideoFrameHandler
   virtual void OnNewBuffer(int32_t buffer_id, VideoBufferHandlePtr buffer_handle) = 0;
 
   
-  virtual void OnFrameReadyInBuffer(ReadyFrameInBufferPtr buffer, std::vector<ReadyFrameInBufferPtr> scaled_buffers) = 0;
+  virtual void DEPRECATED_OnFrameReadyInBuffer(ReadyFrameInBufferPtr buffer, std::vector<ReadyFrameInBufferPtr> scaled_buffers) = 0;
+
+  
+  virtual void OnFrameReadyInBuffer(ReadyFrameInBufferPtr buffer) = 0;
 
   
   virtual void OnBufferRetired(int32_t buffer_id) = 0;
@@ -404,7 +412,9 @@ class  VideoFrameHandlerProxy
   
   void OnNewBuffer(int32_t buffer_id, VideoBufferHandlePtr buffer_handle) final;
   
-  void OnFrameReadyInBuffer(ReadyFrameInBufferPtr buffer, std::vector<ReadyFrameInBufferPtr> scaled_buffers) final;
+  void DEPRECATED_OnFrameReadyInBuffer(ReadyFrameInBufferPtr buffer, std::vector<ReadyFrameInBufferPtr> scaled_buffers) final;
+  
+  void OnFrameReadyInBuffer(ReadyFrameInBufferPtr buffer) final;
   
   void OnBufferRetired(int32_t buffer_id) final;
   
@@ -691,17 +701,17 @@ class  GpuMemoryBufferPlatformHandle {
   // Construct an instance holding |shared_memory_handle|.
   static GpuMemoryBufferPlatformHandlePtr
   NewSharedMemoryHandle(
-      ::base::UnsafeSharedMemoryRegion shared_memory_handle) {
+      ::base::UnsafeSharedMemoryRegion value) {
     auto result = GpuMemoryBufferPlatformHandlePtr(absl::in_place);
-    result->set_shared_memory_handle(std::move(shared_memory_handle));
+    result->set_shared_memory_handle(std::move(value));
     return result;
   }
   // Construct an instance holding |native_pixmap_handle|.
   static GpuMemoryBufferPlatformHandlePtr
   NewNativePixmapHandle(
-      NativePixmapHandlePtr native_pixmap_handle) {
+      NativePixmapHandlePtr value) {
     auto result = GpuMemoryBufferPlatformHandlePtr(absl::in_place);
-    result->set_native_pixmap_handle(std::move(native_pixmap_handle));
+    result->set_native_pixmap_handle(std::move(value));
     return result;
   }
 
@@ -821,25 +831,25 @@ class  VideoBufferHandle {
   // Construct an instance holding |shared_buffer_handle|.
   static VideoBufferHandlePtr
   NewSharedBufferHandle(
-      ::mojo::ScopedSharedBufferHandle shared_buffer_handle) {
+      ::mojo::ScopedSharedBufferHandle value) {
     auto result = VideoBufferHandlePtr(absl::in_place);
-    result->set_shared_buffer_handle(std::move(shared_buffer_handle));
+    result->set_shared_buffer_handle(std::move(value));
     return result;
   }
   // Construct an instance holding |gpu_memory_buffer_handle|.
   static VideoBufferHandlePtr
   NewGpuMemoryBufferHandle(
-      GpuMemoryBufferHandlePtr gpu_memory_buffer_handle) {
+      GpuMemoryBufferHandlePtr value) {
     auto result = VideoBufferHandlePtr(absl::in_place);
-    result->set_gpu_memory_buffer_handle(std::move(gpu_memory_buffer_handle));
+    result->set_gpu_memory_buffer_handle(std::move(value));
     return result;
   }
   // Construct an instance holding |read_only_shmem_region|.
   static VideoBufferHandlePtr
   NewReadOnlyShmemRegion(
-      ::base::ReadOnlySharedMemoryRegion read_only_shmem_region) {
+      ::base::ReadOnlySharedMemoryRegion value) {
     auto result = VideoBufferHandlePtr(absl::in_place);
-    result->set_read_only_shmem_region(std::move(read_only_shmem_region));
+    result->set_read_only_shmem_region(std::move(value));
     return result;
   }
 

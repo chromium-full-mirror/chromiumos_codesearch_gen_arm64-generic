@@ -1,4 +1,4 @@
-// Copyright 2023 The ChromiumOS Authors
+// Copyright 2024 The ChromiumOS Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -33,9 +33,22 @@
 
 namespace cryptohome {
 
+inline bool operator==(const SerializedKnowledgeFactorHashInfo& lhs,
+                       const SerializedKnowledgeFactorHashInfo& rhs) {
+  return true && lhs.algorithm == rhs.algorithm && lhs.salt == rhs.salt;
+}
+inline bool operator!=(const SerializedKnowledgeFactorHashInfo& lhs,
+                       const SerializedKnowledgeFactorHashInfo& rhs) {
+  return !(lhs == rhs);
+}
+
+}  // namespace cryptohome
+
+namespace cryptohome {
+
 inline bool operator==(const PasswordMetadata& lhs,
                        const PasswordMetadata& rhs) {
-  return true;
+  return true && lhs.hash_info == rhs.hash_info;
 }
 inline bool operator!=(const PasswordMetadata& lhs,
                        const PasswordMetadata& rhs) {
@@ -47,7 +60,7 @@ inline bool operator!=(const PasswordMetadata& lhs,
 namespace cryptohome {
 
 inline bool operator==(const PinMetadata& lhs, const PinMetadata& rhs) {
-  return true;
+  return true && lhs.hash_info == rhs.hash_info;
 }
 inline bool operator!=(const PinMetadata& lhs, const PinMetadata& rhs) {
   return !(lhs == rhs);

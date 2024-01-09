@@ -105,6 +105,365 @@ std::ostream& operator<<(std::ostream& os, MessagingEndpointType value) {
 
 namespace internal {
 
+
+// static
+bool PortId_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 32, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const PortId_Data* object =
+      static_cast<const PortId_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->context_id, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->context_id, validation_context))
+    return false;
+
+
+  if (!::extensions::mojom::internal::SerializationFormat_Data
+        ::Validate(object->serialization_format, validation_context))
+    return false;
+
+  return true;
+}
+
+PortId_Data::PortId_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool MessagingEndpoint_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 32, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const MessagingEndpoint_Data* object =
+      static_cast<const MessagingEndpoint_Data*>(data);
+
+
+  if (!::extensions::mojom::internal::MessagingEndpointType_Data
+        ::Validate(object->type, validation_context))
+    return false;
+
+  constexpr const mojo::internal::ContainerValidateParams& extension_id_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->extension_id, validation_context,
+                                         &extension_id_validate_params)) {
+    return false;
+  }
+
+  constexpr const mojo::internal::ContainerValidateParams& native_app_name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->native_app_name, validation_context,
+                                         &native_app_name_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+MessagingEndpoint_Data::MessagingEndpoint_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool TabConnectionInfo_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 40, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const TabConnectionInfo_Data* object =
+      static_cast<const TabConnectionInfo_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->tab, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->tab, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->document_id, 3, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& document_id_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->document_id, validation_context,
+                                         &document_id_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->document_lifecycle, 4, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& document_lifecycle_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->document_lifecycle, validation_context,
+                                         &document_lifecycle_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+TabConnectionInfo_Data::TabConnectionInfo_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool ExternalConnectionInfo_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 48, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const ExternalConnectionInfo_Data* object =
+      static_cast<const ExternalConnectionInfo_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->source_endpoint, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->source_endpoint, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->target_id, 2, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& target_id_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->target_id, validation_context,
+                                         &target_id_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->source_url, 3, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->source_url, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidateStruct(object->source_origin, validation_context))
+    return false;
+
+  return true;
+}
+
+ExternalConnectionInfo_Data::ExternalConnectionInfo_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool Message_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Message_Data* object =
+      static_cast<const Message_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->data, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& data_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->data, validation_context,
+                                         &data_validate_params)) {
+    return false;
+  }
+
+
+  if (!::extensions::mojom::internal::SerializationFormat_Data
+        ::Validate(object->format, validation_context))
+    return false;
+
+  return true;
+}
+
+Message_Data::Message_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool MessagePort_DispatchDisconnect_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const MessagePort_DispatchDisconnect_Params_Data* object =
+      static_cast<const MessagePort_DispatchDisconnect_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->error, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& error_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->error, validation_context,
+                                         &error_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+MessagePort_DispatchDisconnect_Params_Data::MessagePort_DispatchDisconnect_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool MessagePort_DeliverMessage_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const MessagePort_DeliverMessage_Params_Data* object =
+      static_cast<const MessagePort_DeliverMessage_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->message, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->message, validation_context))
+    return false;
+
+  return true;
+}
+
+MessagePort_DeliverMessage_Params_Data::MessagePort_DeliverMessage_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool MessagePortHost_ClosePort_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const MessagePortHost_ClosePort_Params_Data* object =
+      static_cast<const MessagePortHost_ClosePort_Params_Data*>(data);
+
+  return true;
+}
+
+MessagePortHost_ClosePort_Params_Data::MessagePortHost_ClosePort_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool MessagePortHost_PostMessage_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const MessagePortHost_PostMessage_Params_Data* object =
+      static_cast<const MessagePortHost_PostMessage_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->message, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->message, validation_context))
+    return false;
+
+  return true;
+}
+
+MessagePortHost_PostMessage_Params_Data::MessagePortHost_PostMessage_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool MessagePortHost_ResponsePending_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const MessagePortHost_ResponsePending_Params_Data* object =
+      static_cast<const MessagePortHost_ResponsePending_Params_Data*>(data);
+
+  return true;
+}
+
+MessagePortHost_ResponsePending_Params_Data::MessagePortHost_ResponsePending_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
 }  // namespace internal
 }  // namespace mojom
 }  // namespace extensions

@@ -6,6 +6,8 @@
 
 #ifndef CHROME_BROWSER_UI_WEBUI_WEB_APP_INTERNALS_WEB_APP_INTERNALS_MOJOM_IMPORT_HEADERS_H_
 #define CHROME_BROWSER_UI_WEBUI_WEB_APP_INTERNALS_WEB_APP_INTERNALS_MOJOM_IMPORT_HEADERS_H_
+#include "mojo/public/mojom/base/file_path.mojom.h"
+#include "mojo/public/mojom/base/file_path.mojom-import-headers.h"
 #include "url/mojom/origin.mojom.h"
 #include "url/mojom/origin.mojom-import-headers.h"
 #include "url/mojom/url.mojom.h"

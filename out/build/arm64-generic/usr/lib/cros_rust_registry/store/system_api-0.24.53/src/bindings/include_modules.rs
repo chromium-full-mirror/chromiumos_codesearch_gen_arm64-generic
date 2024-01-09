@@ -18,6 +18,8 @@ pub mod client {
   pub use org_chromium_sessionmanagerinterface::*;
   pub mod org_chromium_spaced;
   pub use org_chromium_spaced::*;
+  pub mod org_chromium_swapmanagement;
+  pub use org_chromium_swapmanagement::*;
   pub mod org_chromium_userdataauth;
   pub use org_chromium_userdataauth::*;
   pub mod org_chromium_vm_concierge;

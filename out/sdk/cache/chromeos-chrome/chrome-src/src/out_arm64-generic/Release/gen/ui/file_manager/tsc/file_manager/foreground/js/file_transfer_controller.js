@@ -1,43 +1,35 @@
 // Copyright 2012 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-/**
- * @fileoverview
- * This file is checked via TS, so we suppress Closure checks.
- * @suppress {checkTypes}
- */
 import { assertNotReached } from 'chrome://resources/ash/common/assert.js';
 import { assert } from 'chrome://resources/js/assert.js';
 import { sanitizeInnerHtml } from 'chrome://resources/js/parse_html_subset.js';
-import { getDisallowedTransfers, grantAccess, startIOTask } from '../../common/js/api.js';
-import { getFocusedTreeItem, htmlEscape, isDirectoryTree, queryRequiredElement } from '../../common/js/dom_utils.js';
+import { getDirectory, getDisallowedTransfers, getFile, getParentEntry, grantAccess, startIOTask } from '../../common/js/api.js';
+import { getFocusedTreeItem, htmlEscape, isDirectoryTree, isDirectoryTreeItem, queryRequiredElement } from '../../common/js/dom_utils.js';
 import { convertURLsToEntries, entriesToURLs, getRootType, getTeamDriveName, isNonModifiable, isRecentRoot, isSameEntry, isSharedDriveEntry, isSiblingEntry, isTeamDriveRoot, isTrashEntry, isTrashRoot, unwrapEntry } from '../../common/js/entry_utils.js';
-import { FileType } from '../../common/js/file_type.js';
+import { getIcon, isEncrypted } from '../../common/js/file_type.js';
 import { getFileTypeForName } from '../../common/js/file_types_base.js';
 import { isDlpEnabled } from '../../common/js/flags.js';
 import { ProgressCenterItem, ProgressItemState } from '../../common/js/progress_center_common.js';
-import { getEnabledTrashVolumeURLs, isAllTrashEntries } from '../../common/js/trash.js';
-import { str, strf, util } from '../../common/js/util.js';
-import { VolumeManagerCommon } from '../../common/js/volume_manager_types.js';
-import '../../externs/background/file_operation_manager.js';
-import '../../externs/background/progress_center.js';
-import '../../externs/files_app_entry_interfaces.js';
-import '../../externs/ts/state.js';
-import '../../externs/volume_manager.js';
+import { str, strf } from '../../common/js/translations.js';
+import { getEnabledTrashVolumeURLs, isAllTrashEntries, TrashEntry } from '../../common/js/trash.js';
+import { FileErrorToDomError, visitURL } from '../../common/js/util.js';
+import { RootType, VolumeType } from '../../common/js/volume_manager_types.js';
+import { ProgressCenter } from '../../externs/background/progress_center.js';
+import { FileKey } from '../../externs/ts/state.js';
 import { getFileData, getStore } from '../../state/store.js';
-import '../../widgets/xf_tree.js';
+import { XfTree } from '../../widgets/xf_tree.js';
 import { XfTreeItem } from '../../widgets/xf_tree_item.js';
 import { isTreeItem } from '../../widgets/xf_tree_util.js';
-import '../elements/files_toast.js';
-import './directory_model.js';
-import { FileSelectionHandler } from './file_selection.js';
-import './metadata/metadata_model.js';
-import './ui/command.js';
-import { DirectoryItem } from './ui/directory_tree.js';
+import { FilesToast } from '../elements/files_toast.js';
+import { DirectoryModel } from './directory_model.js';
+import { EventType, FileSelectionHandler } from './file_selection.js';
+import { MetadataModel } from './metadata/metadata_model.js';
+import { Command } from './ui/command.js';
+import { DirectoryItem, DirectoryTree } from './ui/directory_tree.js';
 import { DragSelector } from './ui/drag_selector.js';
-import './ui/list.js';
-import './ui/list_container.js';
-import './ui/list_item.js';
+import { ListContainer } from './ui/list_container.js';
+import { ListItem } from './ui/list_item.js';
 import { TreeItem } from './ui/tree.js';
 /**
  * Global (placed in the window object) variable name to hold internal
@@ -91,8 +83,159 @@ const getClipboardData = (event) => {
     const isClipboardEvent = (event) => 'clipboardData' in event;
     return isClipboardEvent(event) ? event.clipboardData : null;
 };
+/**
+ * The type of a file operation error.
+ */
+export var FileOperationErrorType;
+(function (FileOperationErrorType) {
+    FileOperationErrorType[FileOperationErrorType["UNEXPECTED_SOURCE_FILE"] = 0] = "UNEXPECTED_SOURCE_FILE";
+    FileOperationErrorType[FileOperationErrorType["TARGET_EXISTS"] = 1] = "TARGET_EXISTS";
+    FileOperationErrorType[FileOperationErrorType["FILESYSTEM_ERROR"] = 2] = "FILESYSTEM_ERROR";
+})(FileOperationErrorType || (FileOperationErrorType = {}));
+/**
+ * Error class used to report problems with a copy operation.
+ * If the code is UNEXPECTED_SOURCE_FILE, data should be a path of the file.
+ * If the code is TARGET_EXISTS, data should be the existing Entry.
+ * If the code is FILESYSTEM_ERROR, data should be the FileError.
+ */
+class FileOperationError {
+    /**
+     * @param code Error type.
+     * @param data Additional data.
+     */
+    constructor(code, data) {
+        this.code = code;
+        this.data = data;
+    }
+}
+/**
+ * Resolves a path to either a DirectoryEntry or a FileEntry, regardless of
+ * whether the path is a directory or file.
+ *
+ * @param root The root of the filesystem to search.
+ * @param path The path to be resolved.
+ * @return Promise fulfilled with the resolved entry, or rejected with
+ *     FileError.
+ */
+export async function resolvePath(root, path) {
+    if (path === '' || path === '/') {
+        return root;
+    }
+    try {
+        return await getFile(root, path, { create: false });
+    }
+    catch (error) {
+        const errorHasName = error && typeof error === 'object' && 'name' in error;
+        if (errorHasName && error.name === FileErrorToDomError.TYPE_MISMATCH_ERR) {
+            // Bah. It's a directory, ask again.
+            return getDirectory(root, path, { create: false });
+        }
+        throw error;
+    }
+}
+/**
+ * Checks if an entry exists at |relativePath| in |dirEntry|.
+ * If exists, tries to deduplicate the path by inserting parenthesized number,
+ * such as " (1)", before the extension. If it still exists, tries the
+ * deduplication again by increasing the number.
+ * For example, suppose "file.txt" is given, "file.txt", "file (1).txt",
+ * "file (2).txt", ... will be tried.
+ *
+ * @param dirEntry The target directory entry.
+ * @param optSuccessCallback Callback run with the deduplicated path on success.
+ * @param optErrorCallback Callback run on error.
+ * @return  Promise fulfilled with available path.
+ */
+export async function deduplicatePath(dirEntry, relativePath) {
+    // Crack the path into three part. The parenthesized number (if exists)
+    // will be replaced by incremented number for retry. For example, suppose
+    // |relativePath| is "file (10).txt", the second check path will be
+    // "file (11).txt".
+    const match = /^(.*?)(?: \((\d+)\))?(\.[^.]*?)?$/.exec(relativePath);
+    const prefix = match[1];
+    const ext = match[3] || '';
+    // Check to see if the target exists.
+    async function customResolvePath(trialPath, copyNumber) {
+        try {
+            await resolvePath(dirEntry, trialPath);
+            const newTrialPath = prefix + ' (' + copyNumber + ')' + ext;
+            return await customResolvePath(newTrialPath, copyNumber + 1);
+        }
+        catch (error) {
+            // We expect to be unable to resolve the target file, since
+            // we're going to create it during the copy.  However, if the
+            // resolve fails with anything other than NOT_FOUND, that's
+            // trouble.
+            const errorHasName = error && typeof error === 'object' && 'name' in error;
+            if (errorHasName && error.name === FileErrorToDomError.NOT_FOUND_ERR) {
+                return trialPath;
+            }
+            throw error;
+        }
+    }
+    try {
+        return await customResolvePath(relativePath, 1);
+    }
+    catch (error) {
+        if (error instanceof Error) {
+            throw error;
+        }
+        throw new FileOperationError(FileOperationErrorType.FILESYSTEM_ERROR, error);
+    }
+}
+/**
+ * Filters the entry in the same directory
+ *
+ * @param sourceEntries Entries of the source files.
+ * @param targetEntry The destination entry of the target directory.
+ * @param isMove True if the operation is "move", otherwise (i.e. if the
+ *     operation is "copy") false.
+ * @return Promise fulfilled with the filtered entry. This is not rejected.
+ */
+async function filterSameDirectoryEntry(sourceEntries, targetEntry, isMove) {
+    if (!isMove) {
+        return sourceEntries;
+    }
+    // Check all file entries and keeps only those need sharing operation.
+    async function processEntry(entry) {
+        try {
+            const inParentEntry = await getParentEntry(entry);
+            return isSameEntry(inParentEntry, targetEntry) ? null : entry;
+        }
+        catch (error) {
+            console.warn(error.stack || error);
+            return null;
+        }
+    }
+    // Call processEntry for each item of sourceEntries.
+    const result = await Promise.all(sourceEntries.map(processEntry));
+    // Remove null entries.
+    return result.filter(entry => !!entry);
+}
+/**
+ * Writes file to destination dir. This function is called when an image is
+ * dragged from a web page. In this case there is no FileSystem Entry to copy
+ * or move, just the JS File object with attached Blob. This operation does
+ * not use EventRouter or queue the task since it is not possible to track
+ * progress of the FileWriter.write().
+ *
+ * @param file The file entry to be written.
+ * @param dir The destination directory to write to.
+ */
+export async function writeFile(file, dir) {
+    const name = await deduplicatePath(dir, file.name);
+    return new Promise((resolve, reject) => {
+        dir.getFile(name, { create: true, exclusive: true }, f => {
+            f.createWriter(writer => {
+                writer.onwriteend = () => resolve(f);
+                writer.onerror = reject;
+                writer.write(file);
+            }, reject);
+        }, reject);
+    });
+}
 export class FileTransferController {
-    constructor(document_, listContainer_, directoryTree, confirmationCallback_, progressCenter_, fileOperationManager_, 
+    constructor(document_, listContainer_, directoryTree, confirmationCallback_, progressCenter_, 
     /**
      * Note: We use synchronous `getCache` method under assumption that fields
      * we request are already cached. See constants.js, specifically
@@ -104,7 +247,6 @@ export class FileTransferController {
         this.listContainer_ = listContainer_;
         this.confirmationCallback_ = confirmationCallback_;
         this.progressCenter_ = progressCenter_;
-        this.fileOperationManager_ = fileOperationManager_;
         this.metadataModel_ = metadataModel_;
         this.directoryModel_ = directoryModel_;
         this.volumeManager_ = volumeManager_;
@@ -137,7 +279,7 @@ export class FileTransferController {
         this.dropLabel_ = null;
         this.navigateTimer_ = 0;
         // Register the events.
-        this.selectionHandler_.addEventListener(FileSelectionHandler.EventType.CHANGE_THROTTLED, this.onFileSelectionChangedThrottled_.bind(this));
+        this.selectionHandler_.addEventListener(EventType.CHANGE_THROTTLED, this.onFileSelectionChangedThrottled_.bind(this));
         this.attachDragSource_(this.listContainer_.table.list);
         this.attachFileListDropTarget_(this.listContainer_.table.list);
         this.attachDragSource_(this.listContainer_.grid);
@@ -225,8 +367,8 @@ export class FileTransferController {
             entries = entries.map(e => e.filesEntry);
         }
         const encrypted = this.metadataModel_.getCache(entries, ['contentMimeType'])
-            .some((metadata, i) => entries[i] ?
-            FileType.isEncrypted(entries[i], metadata.contentMimeType) :
+            .every((metadata, i) => entries[i] ?
+            isEncrypted(entries[i], metadata.contentMimeType) :
             false);
         const sourceURLs = entriesToURLs(entries);
         clipboardData.setData('fs/sources', sourceURLs.join('\n'));
@@ -342,7 +484,7 @@ export class FileTransferController {
             this.filesToast_.show(toastText, {
                 text: str('DLP_TOAST_BUTTON_LABEL'),
                 callback: () => {
-                    util.visitURL('https://support.google.com/chrome/a/?p=chromeos_datacontrols');
+                    visitURL('https://support.google.com/chrome/a/?p=chromeos_datacontrols');
                 },
             });
             return 'dlp-blocked';
@@ -368,10 +510,12 @@ export class FileTransferController {
     /**
      * Collects parameters of paste operation by the given command and the current
      * system clipboard.
+     * @param writeFileFunc Used for unittest.
      */
-    preparePaste(clipboardData, destinationEntry, effect) {
+    preparePaste(clipboardData, destinationEntry, effect, writeFileFunc = writeFile) {
         destinationEntry =
             destinationEntry || this.directoryModel_.getCurrentDirEntry();
+        assert(destinationEntry);
         // When FilesApp does drag and drop to itself, it uses fs/sources to
         // populate sourceURLs, and it will resolve sourceEntries later using
         // webkitResolveLocalFileSystemURL().
@@ -394,7 +538,7 @@ export class FileTransferController {
                     else {
                         // A File which does not resolve for webkitGetAsEntry() must be an
                         // image drag drop from the browser. Write it to destination dir.
-                        this.fileOperationManager_.writeFile(item.getAsFile(), destinationEntry);
+                        writeFileFunc(item.getAsFile(), destinationEntry);
                     }
                 }
             }
@@ -432,7 +576,7 @@ export class FileTransferController {
         (async () => {
             try {
                 const sourceEntries = await pastePlan.resolveEntries();
-                const entries = await this.fileOperationManager_.filterSameDirectoryEntry(sourceEntries, destinationEntry, toMove);
+                const entries = await filterSameDirectoryEntry(sourceEntries, destinationEntry, toMove);
                 if (entries.length > 0) {
                     if (isAllTrashEntries(entries, this.volumeManager_)) {
                         await startIOTask(chrome.fileManagerPrivate.IOTaskType.RESTORE_TO_DESTINATION, entries, { destinationFolder: destinationEntry });
@@ -491,7 +635,7 @@ export class FileTransferController {
             icon.style.backgroundSize = 'cover';
         }
         else {
-            icon.setAttribute('file-type-icon', FileType.getIcon(entry));
+            icon.setAttribute('file-type-icon', getIcon(entry));
         }
         return container;
     }
@@ -616,7 +760,7 @@ export class FileTransferController {
         // If mouse moves from one element to another the 'dragenter'
         // event for the new element comes before the 'dragleave' event for
         // the old one. In this case event.target !== this.lastEnteredTarget_
-        // and handler of the 'dragenter' event has already caried of
+        // and handler of the 'dragenter' event has already carried of
         // drop target. So event.target === this.lastEnteredTarget_
         // could only be if mouse goes out of listened element.
         if (event.target === this.lastEnteredTarget_) {
@@ -633,7 +777,8 @@ export class FileTransferController {
             return;
         }
         const destinationEntry = this.destinationEntry_ || this.directoryModel_.getCurrentDirEntry();
-        if (getRootType(destinationEntry) === VolumeManagerCommon.RootType.TRASH &&
+        assert(destinationEntry);
+        if (getRootType(destinationEntry) === RootType.TRASH &&
             this.canTrashSelection_(getRootType(destinationEntry), event.dataTransfer)) {
             event.preventDefault();
             const sourceURLs = (event?.dataTransfer?.getData('fs/sources') || '').split('\n');
@@ -666,7 +811,7 @@ export class FileTransferController {
      */
     changeToDropTargetDirectory_() {
         // Do custom action.
-        if (this.dropTarget_ instanceof DirectoryItem) {
+        if (isDirectoryTreeItem(this.dropTarget_)) {
             this.dropTarget_.doDropTargetAction();
         }
         if (!this.destinationEntry_) {
@@ -711,8 +856,7 @@ export class FileTransferController {
             domElement.classList.add('accepts');
         }
         // Change directory immediately if it's a fake entry for Crostini.
-        if (getRootType(destinationEntry) ===
-            VolumeManagerCommon.RootType.CROSTINI) {
+        if (getRootType(destinationEntry) === RootType.CROSTINI) {
             this.changeToDropTargetDirectory_();
             return;
         }
@@ -802,7 +946,7 @@ export class FileTransferController {
             return;
         }
         // When this value is false, we cannot copy between different sources.
-        const missingFileContents = volumeInfo.volumeType === VolumeManagerCommon.VolumeType.DRIVE &&
+        const missingFileContents = volumeInfo.volumeType === VolumeType.DRIVE &&
             this.volumeManager_.getDriveConnectionState().type ===
                 chrome.fileManagerPrivate.DriveConnectionStateType.OFFLINE;
         this.appendCutOrCopyInfo_(clipboardData, effectAllowed, volumeInfo, [entry], missingFileContents);
@@ -849,8 +993,8 @@ export class FileTransferController {
         }
         // Don't allow copy of encrypted files.
         if (this.metadataModel_.getCache(entries, ['contentMimeType'])
-            .some((metadata, i) => entries[i] ?
-            FileType.isEncrypted(entries[i], metadata.contentMimeType) :
+            .every((metadata, i) => entries[i] ?
+            isEncrypted(entries[i], metadata.contentMimeType) :
             false)) {
             return false;
         }
@@ -908,7 +1052,9 @@ export class FileTransferController {
             return;
         }
         // queryCommandEnabled returns true if event.defaultPrevented is true.
-        if (this.canPasteOrDrop_(getClipboardData(event), this.directoryModel_.getCurrentDirEntry())) {
+        const currentDirEntry = this.directoryModel_.getCurrentDirEntry();
+        if (currentDirEntry &&
+            this.canPasteOrDrop_(getClipboardData(event), currentDirEntry)) {
             event.preventDefault();
         }
     }
@@ -924,8 +1070,7 @@ export class FileTransferController {
             return false;
         }
         // Recent isn't read-only, but it doesn't support paste/drop.
-        if (destinationLocationInfo.rootType ===
-            VolumeManagerCommon.RootType.RECENT) {
+        if (destinationLocationInfo.rootType === RootType.RECENT) {
             return false;
         }
         if (destinationLocationInfo.volumeInfo &&
@@ -940,11 +1085,11 @@ export class FileTransferController {
         }
         // A drop on the Trash root should always perform a "Send to Trash"
         // operation.
-        if (destinationLocationInfo.rootType ===
-            VolumeManagerCommon.RootType.TRASH) {
+        if (destinationLocationInfo.rootType === RootType.TRASH) {
             return this.canTrashSelection_(getRootType(destinationLocationInfo), clipboardData);
         }
         const sourceUrls = (clipboardData.getData('fs/sources') || '').split('\n');
+        assert(destinationLocationInfo.volumeInfo);
         if (this.getSourceRootUrl_(clipboardData, this.getDragAndDropGlobalData_()) !==
             destinationLocationInfo.volumeInfo.fileSystem.root.toURL()) {
             // Copying between different sources requires all files to be available.
@@ -1086,8 +1231,7 @@ export class FileTransferController {
             return DropEffectType.NONE;
         }
         // Recent isn't read-only, but it doesn't support drop.
-        if (destinationLocationInfo.rootType ===
-            VolumeManagerCommon.RootType.RECENT) {
+        if (destinationLocationInfo.rootType === RootType.RECENT) {
             return DropEffectType.NONE;
         }
         if (destinationLocationInfo.isReadOnly) {
@@ -1095,8 +1239,7 @@ export class FileTransferController {
                 // The location is a fake entry that corresponds to special search.
                 return DropEffectType.NONE;
             }
-            if (destinationLocationInfo.rootType ==
-                VolumeManagerCommon.RootType.CROSTINI) {
+            if (destinationLocationInfo.rootType == RootType.CROSTINI) {
                 // The location is a the fake entry for crostini.  Start container.
                 return DropEffectType.NONE;
             }
@@ -1112,8 +1255,7 @@ export class FileTransferController {
         // Decryption of CSE files is not currently supported on ChromeOS. However,
         // moving such a file around Google Drive works fine.
         if (dragAndDropData && dragAndDropData.encrypted &&
-            destinationLocationInfo.rootType !==
-                VolumeManagerCommon.RootType.DRIVE) {
+            destinationLocationInfo.rootType !== RootType.DRIVE) {
             return DropEffectType.NONE;
         }
         const destinationMetadata = this.metadataModel_.getCache([destinationEntry], ['canAddChildren']);
@@ -1125,8 +1267,7 @@ export class FileTransferController {
         }
         // Files can be dragged onto the TrashRootEntry, but they must reside on a
         // volume that is trashable.
-        if (destinationLocationInfo.rootType ===
-            VolumeManagerCommon.RootType.TRASH) {
+        if (destinationLocationInfo.rootType === RootType.TRASH) {
             const effect = (this.canTrashSelection_(getRootType(destinationLocationInfo), event.dataTransfer)) ?
                 DropEffectType.MOVE :
                 DropEffectType.NONE;
@@ -1138,6 +1279,7 @@ export class FileTransferController {
             }
             // TODO(mtomasz): Use volumeId instead of comparing roots, as soon as
             // volumeId gets unique.
+            assert(destinationLocationInfo.volumeInfo);
             if (this.getSourceRootUrl_(event.dataTransfer, dragAndDropData) ===
                 destinationLocationInfo.volumeInfo.fileSystem.root.toURL() &&
                 !event.ctrlKey) {
@@ -1163,7 +1305,7 @@ export class FileTransferController {
         if (!rootType) {
             return false;
         }
-        if (rootType !== VolumeManagerCommon.RootType.TRASH) {
+        if (rootType !== RootType.TRASH) {
             return false;
         }
         if (!clipboardData) {

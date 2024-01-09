@@ -33,6 +33,10 @@ export class ExtraContainersElement extends ExtraContainersElementBase {
     }
     static get properties() {
         return {
+            prefs: {
+                type: Object,
+                notify: true,
+            },
             showCreateContainerDialog_: {
                 type: Boolean,
                 value: false,

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -1781,14 +1782,17 @@ void InputMethodProxy::OnFocusDeprecated(
                         "<value of type InputMethodSettingsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputMethod_OnFocusDeprecated_Name, kFlags, 0, 0, nullptr);
@@ -1837,14 +1841,17 @@ void InputMethodProxy::OnFocus(
                         "<value of type InputMethodSettingsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputMethod_OnFocus_Name, kFlags, 0, 0, nullptr);
@@ -1884,14 +1891,17 @@ void InputMethodProxy::OnBlur(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::ime::mojom::InputMethod::OnBlur");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputMethod_OnBlur_Name, kFlags, 0, 0, nullptr);
@@ -1921,14 +1931,17 @@ void InputMethodProxy::ProcessKeyEvent(
                         "<value of type PhysicalKeyEventPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputMethod_ProcessKeyEvent_Name, kFlags, 0, 0, nullptr);
@@ -1976,14 +1989,17 @@ void InputMethodProxy::OnSurroundingTextChanged(
                         "<value of type SelectionRangePtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputMethod_OnSurroundingTextChanged_Name, kFlags, 0, 0, nullptr);
@@ -2029,14 +2045,17 @@ void InputMethodProxy::OnCompositionCanceledBySystem(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::ime::mojom::InputMethod::OnCompositionCanceledBySystem");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputMethod_OnCompositionCanceledBySystem_Name, kFlags, 0, 0, nullptr);
@@ -2066,14 +2085,17 @@ void InputMethodProxy::OnCandidateSelected(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputMethod_OnCandidateSelected_Name, kFlags, 0, 0, nullptr);
@@ -2104,14 +2126,17 @@ void InputMethodProxy::OnQuickSettingsUpdated(
                         "<value of type InputMethodQuickSettingsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputMethod_OnQuickSettingsUpdated_Name, kFlags, 0, 0, nullptr);
@@ -2144,15 +2169,18 @@ bool InputMethodProxy::IsReadyForTesting(
 #else
   TRACE_EVENT0("mojom", "InputMethod::IsReadyForTesting");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputMethod_IsReadyForTesting_Name, kFlags, 0, 0, nullptr);
@@ -2189,14 +2217,17 @@ void InputMethodProxy::IsReadyForTesting(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::ime::mojom::InputMethod::IsReadyForTesting");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputMethod_IsReadyForTesting_Name, kFlags, 0, 0, nullptr);
@@ -2227,14 +2258,17 @@ void InputMethodProxy::OnAssistiveWindowChanged(
                         "<value of type const ::ash::ime::AssistiveWindow&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputMethod_OnAssistiveWindowChanged_Name, kFlags, 0, 0, nullptr);
@@ -2361,7 +2395,8 @@ void InputMethod_OnFocus_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputMethod_OnFocus_Name, kFlags, 0, 0, nullptr);
@@ -2486,7 +2521,8 @@ void InputMethod_ProcessKeyEvent_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputMethod_ProcessKeyEvent_Name, kFlags, 0, 0, nullptr);
@@ -2605,7 +2641,8 @@ void InputMethod_IsReadyForTesting_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kInputMethod_IsReadyForTesting_Name, kFlags, 0, 0, nullptr);
@@ -2981,28 +3018,28 @@ std::move(p_event), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kInputMethodValidationInfo[] = {
-    {&internal::InputMethod_OnFocusDeprecated_Params_Data::Validate,
+    { &internal::InputMethod_OnFocusDeprecated_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::InputMethod_OnBlur_Params_Data::Validate,
+    { &internal::InputMethod_OnBlur_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::InputMethod_ProcessKeyEvent_Params_Data::Validate,
+    { &internal::InputMethod_ProcessKeyEvent_Params_Data::Validate,
      &internal::InputMethod_ProcessKeyEvent_ResponseParams_Data::Validate},
-    {&internal::InputMethod_OnSurroundingTextChanged_Params_Data::Validate,
+    { &internal::InputMethod_OnSurroundingTextChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::InputMethod_OnCompositionCanceledBySystem_Params_Data::Validate,
+    { &internal::InputMethod_OnCompositionCanceledBySystem_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::InputMethod_OnCandidateSelected_Params_Data::Validate,
+    { &internal::InputMethod_OnCandidateSelected_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::InputMethod_OnFocus_Params_Data::Validate,
+    { &internal::InputMethod_OnFocus_Params_Data::Validate,
      &internal::InputMethod_OnFocus_ResponseParams_Data::Validate},
-    {&internal::InputMethod_OnQuickSettingsUpdated_Params_Data::Validate,
+    { &internal::InputMethod_OnQuickSettingsUpdated_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::InputMethod_IsReadyForTesting_Params_Data::Validate,
+    { &internal::InputMethod_IsReadyForTesting_Params_Data::Validate,
      &internal::InputMethod_IsReadyForTesting_ResponseParams_Data::Validate},
-    {&internal::InputMethod_OnAssistiveWindowChanged_Params_Data::Validate,
+    { &internal::InputMethod_OnAssistiveWindowChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 

@@ -70,11 +70,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, PushSubscription>::value,
     "PushSubscription inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&PushSubscription::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "PushSubscription is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -87,10 +82,10 @@ BLINK_BINDINGS_TRACE_EVENT("PushSubscription.endpoint.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-PushSubscription* blink_receiver = V8PushSubscription::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->endpoint();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+PushSubscription* blink_receiver = V8PushSubscription::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->endpoint();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -102,8 +97,9 @@ BLINK_BINDINGS_TRACE_EVENT("PushSubscription.expirationTime.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-PushSubscription* blink_receiver = V8PushSubscription::ToWrappableUnsafe(v8_receiver);
+PushSubscription* blink_receiver = V8PushSubscription::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->expirationTime();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint64_t>());
 }
@@ -116,8 +112,9 @@ BLINK_BINDINGS_TRACE_EVENT("PushSubscription.options.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-PushSubscription* blink_receiver = V8PushSubscription::ToWrappableUnsafe(v8_receiver);
+PushSubscription* blink_receiver = V8PushSubscription::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->options();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -148,7 +145,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-PushSubscription* blink_receiver = V8PushSubscription::ToWrappableUnsafe(v8_receiver);
+PushSubscription* blink_receiver = V8PushSubscription::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_name = NativeValueTraits<V8PushEncryptionKeyName>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -171,8 +168,9 @@ BLINK_BINDINGS_TRACE_EVENT("PushSubscription.toJSON");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-PushSubscription* blink_receiver = V8PushSubscription::ToWrappableUnsafe(v8_receiver);
+PushSubscription* blink_receiver = V8PushSubscription::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -203,7 +201,7 @@ return;
 
 
 
-PushSubscription* blink_receiver = V8PushSubscription::ToWrappableUnsafe(v8_receiver);
+PushSubscription* blink_receiver = V8PushSubscription::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

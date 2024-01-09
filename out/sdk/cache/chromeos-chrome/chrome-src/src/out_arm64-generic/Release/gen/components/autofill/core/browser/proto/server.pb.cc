@@ -194,9 +194,11 @@ PROTOBUF_CONSTEXPR AutofillUploadContents_Field::AutofillUploadContents_Field(
   , generation_type_(0)
 
   , properties_mask_(0u)
-  , generated_password_changed_(false)
   , vote_type_(0)
 
+  , generated_password_changed_(false)
+  , is_most_recent_single_username_candidate_(false)
+  , initial_value_changed_(false)
   , initial_value_hash_(0u)
   , single_username_vote_type_(0)
 {}
@@ -603,16 +605,18 @@ bool AutofillUploadContents_Field_SingleUsernameVoteType_IsValid(int value) {
     case 2:
     case 3:
     case 4:
+    case 5:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> AutofillUploadContents_Field_SingleUsernameVoteType_strings[5] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> AutofillUploadContents_Field_SingleUsernameVoteType_strings[6] = {};
 
 static const char AutofillUploadContents_Field_SingleUsernameVoteType_names[] =
   "DEFAULT"
+  "IN_FORM_OVERRULE"
   "STRONG"
   "STRONG_FORGOT_PASSWORD"
   "WEAK"
@@ -620,18 +624,20 @@ static const char AutofillUploadContents_Field_SingleUsernameVoteType_names[] =
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry AutofillUploadContents_Field_SingleUsernameVoteType_entries[] = {
   { {AutofillUploadContents_Field_SingleUsernameVoteType_names + 0, 7}, 0 },
-  { {AutofillUploadContents_Field_SingleUsernameVoteType_names + 7, 6}, 2 },
-  { {AutofillUploadContents_Field_SingleUsernameVoteType_names + 13, 22}, 4 },
-  { {AutofillUploadContents_Field_SingleUsernameVoteType_names + 35, 4}, 1 },
-  { {AutofillUploadContents_Field_SingleUsernameVoteType_names + 39, 20}, 3 },
+  { {AutofillUploadContents_Field_SingleUsernameVoteType_names + 7, 16}, 5 },
+  { {AutofillUploadContents_Field_SingleUsernameVoteType_names + 23, 6}, 2 },
+  { {AutofillUploadContents_Field_SingleUsernameVoteType_names + 29, 22}, 4 },
+  { {AutofillUploadContents_Field_SingleUsernameVoteType_names + 51, 4}, 1 },
+  { {AutofillUploadContents_Field_SingleUsernameVoteType_names + 55, 20}, 3 },
 };
 
 static const int AutofillUploadContents_Field_SingleUsernameVoteType_entries_by_number[] = {
   0, // 0 -> DEFAULT
-  3, // 1 -> WEAK
-  1, // 2 -> STRONG
-  4, // 3 -> WEAK_FORGOT_PASSWORD
-  2, // 4 -> STRONG_FORGOT_PASSWORD
+  4, // 1 -> WEAK
+  2, // 2 -> STRONG
+  5, // 3 -> WEAK_FORGOT_PASSWORD
+  3, // 4 -> STRONG_FORGOT_PASSWORD
+  1, // 5 -> IN_FORM_OVERRULE
 };
 
 const std::string& AutofillUploadContents_Field_SingleUsernameVoteType_Name(
@@ -640,12 +646,12 @@ const std::string& AutofillUploadContents_Field_SingleUsernameVoteType_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           AutofillUploadContents_Field_SingleUsernameVoteType_entries,
           AutofillUploadContents_Field_SingleUsernameVoteType_entries_by_number,
-          5, AutofillUploadContents_Field_SingleUsernameVoteType_strings);
+          6, AutofillUploadContents_Field_SingleUsernameVoteType_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       AutofillUploadContents_Field_SingleUsernameVoteType_entries,
       AutofillUploadContents_Field_SingleUsernameVoteType_entries_by_number,
-      5, value);
+      6, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      AutofillUploadContents_Field_SingleUsernameVoteType_strings[idx].get();
 }
@@ -653,7 +659,7 @@ bool AutofillUploadContents_Field_SingleUsernameVoteType_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, AutofillUploadContents_Field_SingleUsernameVoteType* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      AutofillUploadContents_Field_SingleUsernameVoteType_entries, 5, name, &int_value);
+      AutofillUploadContents_Field_SingleUsernameVoteType_entries, 6, name, &int_value);
   if (success) {
     *value = static_cast<AutofillUploadContents_Field_SingleUsernameVoteType>(int_value);
   }
@@ -665,6 +671,7 @@ constexpr AutofillUploadContents_Field_SingleUsernameVoteType AutofillUploadCont
 constexpr AutofillUploadContents_Field_SingleUsernameVoteType AutofillUploadContents_Field::STRONG;
 constexpr AutofillUploadContents_Field_SingleUsernameVoteType AutofillUploadContents_Field::WEAK_FORGOT_PASSWORD;
 constexpr AutofillUploadContents_Field_SingleUsernameVoteType AutofillUploadContents_Field::STRONG_FORGOT_PASSWORD;
+constexpr AutofillUploadContents_Field_SingleUsernameVoteType AutofillUploadContents_Field::IN_FORM_OVERRULE;
 constexpr AutofillUploadContents_Field_SingleUsernameVoteType AutofillUploadContents_Field::SingleUsernameVoteType_MIN;
 constexpr AutofillUploadContents_Field_SingleUsernameVoteType AutofillUploadContents_Field::SingleUsernameVoteType_MAX;
 constexpr int AutofillUploadContents_Field::SingleUsernameVoteType_ARRAYSIZE;
@@ -683,56 +690,60 @@ bool AutofillUploadContents_SubmissionIndicatorEvent_IsValid(int value) {
     case 9:
     case 10:
     case 11:
+    case 12:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> AutofillUploadContents_SubmissionIndicatorEvent_strings[12] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> AutofillUploadContents_SubmissionIndicatorEvent_strings[13] = {};
 
 static const char AutofillUploadContents_SubmissionIndicatorEvent_names[] =
   "CHANGE_PASSWORD_FORM_CLEARED"
+  "DEPRECATED_DOM_MUTATION_AFTER_XHR"
   "DEPRECATED_FILLED_FORM_ON_START_PROVISIONAL_LOAD"
   "DEPRECATED_FILLED_INPUT_ELEMENTS_ON_START_PROVISIONAL_LOAD"
   "DEPRECATED_MANUAL_SAVE"
-  "DOM_MUTATION_AFTER_XHR"
+  "DEPRECATED_PROVISIONALLY_SAVED_FORM_ON_START_PROVISIONAL_LOAD"
+  "DOM_MUTATION_AFTER_AUTOFILL"
   "FRAME_DETACHED"
   "HTML_FORM_SUBMISSION"
   "NONE"
   "PROBABLE_FORM_SUBMISSION"
-  "PROVISIONALLY_SAVED_FORM_ON_START_PROVISIONAL_LOAD"
   "SAME_DOCUMENT_NAVIGATION"
   "XHR_SUCCEEDED";
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry AutofillUploadContents_SubmissionIndicatorEvent_entries[] = {
   { {AutofillUploadContents_SubmissionIndicatorEvent_names + 0, 28}, 11 },
-  { {AutofillUploadContents_SubmissionIndicatorEvent_names + 28, 48}, 8 },
-  { {AutofillUploadContents_SubmissionIndicatorEvent_names + 76, 58}, 9 },
-  { {AutofillUploadContents_SubmissionIndicatorEvent_names + 134, 22}, 5 },
-  { {AutofillUploadContents_SubmissionIndicatorEvent_names + 156, 22}, 6 },
-  { {AutofillUploadContents_SubmissionIndicatorEvent_names + 178, 14}, 4 },
-  { {AutofillUploadContents_SubmissionIndicatorEvent_names + 192, 20}, 1 },
-  { {AutofillUploadContents_SubmissionIndicatorEvent_names + 212, 4}, 0 },
-  { {AutofillUploadContents_SubmissionIndicatorEvent_names + 216, 24}, 10 },
-  { {AutofillUploadContents_SubmissionIndicatorEvent_names + 240, 50}, 7 },
-  { {AutofillUploadContents_SubmissionIndicatorEvent_names + 290, 24}, 2 },
-  { {AutofillUploadContents_SubmissionIndicatorEvent_names + 314, 13}, 3 },
+  { {AutofillUploadContents_SubmissionIndicatorEvent_names + 28, 33}, 6 },
+  { {AutofillUploadContents_SubmissionIndicatorEvent_names + 61, 48}, 8 },
+  { {AutofillUploadContents_SubmissionIndicatorEvent_names + 109, 58}, 9 },
+  { {AutofillUploadContents_SubmissionIndicatorEvent_names + 167, 22}, 5 },
+  { {AutofillUploadContents_SubmissionIndicatorEvent_names + 189, 61}, 7 },
+  { {AutofillUploadContents_SubmissionIndicatorEvent_names + 250, 27}, 12 },
+  { {AutofillUploadContents_SubmissionIndicatorEvent_names + 277, 14}, 4 },
+  { {AutofillUploadContents_SubmissionIndicatorEvent_names + 291, 20}, 1 },
+  { {AutofillUploadContents_SubmissionIndicatorEvent_names + 311, 4}, 0 },
+  { {AutofillUploadContents_SubmissionIndicatorEvent_names + 315, 24}, 10 },
+  { {AutofillUploadContents_SubmissionIndicatorEvent_names + 339, 24}, 2 },
+  { {AutofillUploadContents_SubmissionIndicatorEvent_names + 363, 13}, 3 },
 };
 
 static const int AutofillUploadContents_SubmissionIndicatorEvent_entries_by_number[] = {
-  7, // 0 -> NONE
-  6, // 1 -> HTML_FORM_SUBMISSION
-  10, // 2 -> SAME_DOCUMENT_NAVIGATION
-  11, // 3 -> XHR_SUCCEEDED
-  5, // 4 -> FRAME_DETACHED
-  3, // 5 -> DEPRECATED_MANUAL_SAVE
-  4, // 6 -> DOM_MUTATION_AFTER_XHR
-  9, // 7 -> PROVISIONALLY_SAVED_FORM_ON_START_PROVISIONAL_LOAD
-  1, // 8 -> DEPRECATED_FILLED_FORM_ON_START_PROVISIONAL_LOAD
-  2, // 9 -> DEPRECATED_FILLED_INPUT_ELEMENTS_ON_START_PROVISIONAL_LOAD
-  8, // 10 -> PROBABLE_FORM_SUBMISSION
+  9, // 0 -> NONE
+  8, // 1 -> HTML_FORM_SUBMISSION
+  11, // 2 -> SAME_DOCUMENT_NAVIGATION
+  12, // 3 -> XHR_SUCCEEDED
+  7, // 4 -> FRAME_DETACHED
+  4, // 5 -> DEPRECATED_MANUAL_SAVE
+  1, // 6 -> DEPRECATED_DOM_MUTATION_AFTER_XHR
+  5, // 7 -> DEPRECATED_PROVISIONALLY_SAVED_FORM_ON_START_PROVISIONAL_LOAD
+  2, // 8 -> DEPRECATED_FILLED_FORM_ON_START_PROVISIONAL_LOAD
+  3, // 9 -> DEPRECATED_FILLED_INPUT_ELEMENTS_ON_START_PROVISIONAL_LOAD
+  10, // 10 -> PROBABLE_FORM_SUBMISSION
   0, // 11 -> CHANGE_PASSWORD_FORM_CLEARED
+  6, // 12 -> DOM_MUTATION_AFTER_AUTOFILL
 };
 
 const std::string& AutofillUploadContents_SubmissionIndicatorEvent_Name(
@@ -741,12 +752,12 @@ const std::string& AutofillUploadContents_SubmissionIndicatorEvent_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           AutofillUploadContents_SubmissionIndicatorEvent_entries,
           AutofillUploadContents_SubmissionIndicatorEvent_entries_by_number,
-          12, AutofillUploadContents_SubmissionIndicatorEvent_strings);
+          13, AutofillUploadContents_SubmissionIndicatorEvent_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       AutofillUploadContents_SubmissionIndicatorEvent_entries,
       AutofillUploadContents_SubmissionIndicatorEvent_entries_by_number,
-      12, value);
+      13, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      AutofillUploadContents_SubmissionIndicatorEvent_strings[idx].get();
 }
@@ -754,7 +765,7 @@ bool AutofillUploadContents_SubmissionIndicatorEvent_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, AutofillUploadContents_SubmissionIndicatorEvent* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      AutofillUploadContents_SubmissionIndicatorEvent_entries, 12, name, &int_value);
+      AutofillUploadContents_SubmissionIndicatorEvent_entries, 13, name, &int_value);
   if (success) {
     *value = static_cast<AutofillUploadContents_SubmissionIndicatorEvent>(int_value);
   }
@@ -767,12 +778,13 @@ constexpr AutofillUploadContents_SubmissionIndicatorEvent AutofillUploadContents
 constexpr AutofillUploadContents_SubmissionIndicatorEvent AutofillUploadContents::XHR_SUCCEEDED;
 constexpr AutofillUploadContents_SubmissionIndicatorEvent AutofillUploadContents::FRAME_DETACHED;
 constexpr AutofillUploadContents_SubmissionIndicatorEvent AutofillUploadContents::DEPRECATED_MANUAL_SAVE;
-constexpr AutofillUploadContents_SubmissionIndicatorEvent AutofillUploadContents::DOM_MUTATION_AFTER_XHR;
-constexpr AutofillUploadContents_SubmissionIndicatorEvent AutofillUploadContents::PROVISIONALLY_SAVED_FORM_ON_START_PROVISIONAL_LOAD;
+constexpr AutofillUploadContents_SubmissionIndicatorEvent AutofillUploadContents::DEPRECATED_DOM_MUTATION_AFTER_XHR;
+constexpr AutofillUploadContents_SubmissionIndicatorEvent AutofillUploadContents::DEPRECATED_PROVISIONALLY_SAVED_FORM_ON_START_PROVISIONAL_LOAD;
 constexpr AutofillUploadContents_SubmissionIndicatorEvent AutofillUploadContents::DEPRECATED_FILLED_FORM_ON_START_PROVISIONAL_LOAD;
 constexpr AutofillUploadContents_SubmissionIndicatorEvent AutofillUploadContents::DEPRECATED_FILLED_INPUT_ELEMENTS_ON_START_PROVISIONAL_LOAD;
 constexpr AutofillUploadContents_SubmissionIndicatorEvent AutofillUploadContents::PROBABLE_FORM_SUBMISSION;
 constexpr AutofillUploadContents_SubmissionIndicatorEvent AutofillUploadContents::CHANGE_PASSWORD_FORM_CLEARED;
+constexpr AutofillUploadContents_SubmissionIndicatorEvent AutofillUploadContents::DOM_MUTATION_AFTER_AUTOFILL;
 constexpr AutofillUploadContents_SubmissionIndicatorEvent AutofillUploadContents::SubmissionIndicatorEvent_MIN;
 constexpr AutofillUploadContents_SubmissionIndicatorEvent AutofillUploadContents::SubmissionIndicatorEvent_MAX;
 constexpr int AutofillUploadContents::SubmissionIndicatorEvent_ARRAYSIZE;
@@ -4375,15 +4387,21 @@ class AutofillUploadContents_Field::_Internal {
     (*has_bits)[0] |= 16u;
   }
   static void set_has_generated_password_changed(HasBits* has_bits) {
-    (*has_bits)[0] |= 512u;
-  }
-  static void set_has_vote_type(HasBits* has_bits) {
     (*has_bits)[0] |= 1024u;
   }
+  static void set_has_vote_type(HasBits* has_bits) {
+    (*has_bits)[0] |= 512u;
+  }
   static void set_has_initial_value_hash(HasBits* has_bits) {
-    (*has_bits)[0] |= 2048u;
+    (*has_bits)[0] |= 8192u;
   }
   static void set_has_single_username_vote_type(HasBits* has_bits) {
+    (*has_bits)[0] |= 16384u;
+  }
+  static void set_has_is_most_recent_single_username_candidate(HasBits* has_bits) {
+    (*has_bits)[0] |= 2048u;
+  }
+  static void set_has_initial_value_changed(HasBits* has_bits) {
     (*has_bits)[0] |= 4096u;
   }
   static bool MissingRequiredFields(const HasBits& has_bits) {
@@ -4545,7 +4563,7 @@ void AutofillUploadContents_Field::Clear() {
         reinterpret_cast<char*>(&generation_type_) -
         reinterpret_cast<char*>(&signature_)) + sizeof(generation_type_));
   }
-  if (cached_has_bits & 0x00001f00u) {
+  if (cached_has_bits & 0x00007f00u) {
     ::memset(&properties_mask_, 0, static_cast<size_t>(
         reinterpret_cast<char*>(&single_username_vote_type_) -
         reinterpret_cast<char*>(&properties_mask_)) + sizeof(single_username_vote_type_));
@@ -4718,6 +4736,24 @@ const char* AutofillUploadContents_Field::_InternalParse(const char* ptr, ::_pbi
         } else
           goto handle_unusual;
         continue;
+      // optional bool is_most_recent_single_username_candidate = 46;
+      case 46:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 112)) {
+          _Internal::set_has_is_most_recent_single_username_candidate(&has_bits);
+          is_most_recent_single_username_candidate_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional bool initial_value_changed = 47;
+      case 47:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 120)) {
+          _Internal::set_has_initial_value_changed(&has_bits);
+          initial_value_changed_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -4805,13 +4841,13 @@ uint8_t* AutofillUploadContents_Field::_InternalSerialize(
   }
 
   // optional bool generated_password_changed = 22;
-  if (cached_has_bits & 0x00000200u) {
+  if (cached_has_bits & 0x00000400u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(22, this->_internal_generated_password_changed(), target);
   }
 
   // optional .autofill.AutofillUploadContents.Field.VoteType vote_type = 23;
-  if (cached_has_bits & 0x00000400u) {
+  if (cached_has_bits & 0x00000200u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       23, this->_internal_vote_type(), target);
@@ -4833,16 +4869,28 @@ uint8_t* AutofillUploadContents_Field::_InternalSerialize(
   }
 
   // optional uint32 initial_value_hash = 40;
-  if (cached_has_bits & 0x00000800u) {
+  if (cached_has_bits & 0x00002000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteUInt32ToArray(40, this->_internal_initial_value_hash(), target);
   }
 
   // optional .autofill.AutofillUploadContents.Field.SingleUsernameVoteType single_username_vote_type = 41;
-  if (cached_has_bits & 0x00001000u) {
+  if (cached_has_bits & 0x00004000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       41, this->_internal_single_username_vote_type(), target);
+  }
+
+  // optional bool is_most_recent_single_username_candidate = 46;
+  if (cached_has_bits & 0x00000800u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(46, this->_internal_is_most_recent_single_username_candidate(), target);
+  }
+
+  // optional bool initial_value_changed = 47;
+  if (cached_has_bits & 0x00001000u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(47, this->_internal_initial_value_changed(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -4932,7 +4980,7 @@ size_t AutofillUploadContents_Field::ByteSizeLong() const {
       ::_pbi::WireFormatLite::EnumSize(this->_internal_generation_type());
   }
 
-  if (cached_has_bits & 0x00001f00u) {
+  if (cached_has_bits & 0x00007f00u) {
     // optional uint32 properties_mask = 20;
     if (cached_has_bits & 0x00000100u) {
       total_size += 2 +
@@ -4940,26 +4988,36 @@ size_t AutofillUploadContents_Field::ByteSizeLong() const {
           this->_internal_properties_mask());
     }
 
-    // optional bool generated_password_changed = 22;
-    if (cached_has_bits & 0x00000200u) {
-      total_size += 2 + 1;
-    }
-
     // optional .autofill.AutofillUploadContents.Field.VoteType vote_type = 23;
-    if (cached_has_bits & 0x00000400u) {
+    if (cached_has_bits & 0x00000200u) {
       total_size += 2 +
         ::_pbi::WireFormatLite::EnumSize(this->_internal_vote_type());
     }
 
-    // optional uint32 initial_value_hash = 40;
+    // optional bool generated_password_changed = 22;
+    if (cached_has_bits & 0x00000400u) {
+      total_size += 2 + 1;
+    }
+
+    // optional bool is_most_recent_single_username_candidate = 46;
     if (cached_has_bits & 0x00000800u) {
+      total_size += 2 + 1;
+    }
+
+    // optional bool initial_value_changed = 47;
+    if (cached_has_bits & 0x00001000u) {
+      total_size += 2 + 1;
+    }
+
+    // optional uint32 initial_value_hash = 40;
+    if (cached_has_bits & 0x00002000u) {
       total_size += 2 +
         ::_pbi::WireFormatLite::UInt32Size(
           this->_internal_initial_value_hash());
     }
 
     // optional .autofill.AutofillUploadContents.Field.SingleUsernameVoteType single_username_vote_type = 41;
-    if (cached_has_bits & 0x00001000u) {
+    if (cached_has_bits & 0x00004000u) {
       total_size += 2 +
         ::_pbi::WireFormatLite::EnumSize(this->_internal_single_username_vote_type());
     }
@@ -5015,20 +5073,26 @@ void AutofillUploadContents_Field::MergeFrom(const AutofillUploadContents_Field&
     }
     _has_bits_[0] |= cached_has_bits;
   }
-  if (cached_has_bits & 0x00001f00u) {
+  if (cached_has_bits & 0x00007f00u) {
     if (cached_has_bits & 0x00000100u) {
       properties_mask_ = from.properties_mask_;
     }
     if (cached_has_bits & 0x00000200u) {
-      generated_password_changed_ = from.generated_password_changed_;
-    }
-    if (cached_has_bits & 0x00000400u) {
       vote_type_ = from.vote_type_;
     }
+    if (cached_has_bits & 0x00000400u) {
+      generated_password_changed_ = from.generated_password_changed_;
+    }
     if (cached_has_bits & 0x00000800u) {
-      initial_value_hash_ = from.initial_value_hash_;
+      is_most_recent_single_username_candidate_ = from.is_most_recent_single_username_candidate_;
     }
     if (cached_has_bits & 0x00001000u) {
+      initial_value_changed_ = from.initial_value_changed_;
+    }
+    if (cached_has_bits & 0x00002000u) {
+      initial_value_hash_ = from.initial_value_hash_;
+    }
+    if (cached_has_bits & 0x00004000u) {
       single_username_vote_type_ = from.single_username_vote_type_;
     }
     _has_bits_[0] |= cached_has_bits;

@@ -411,8 +411,10 @@ class power_WakeSources(test.test):
 
     def cleanup(self):
         """cleanup."""
-        self._dr_utils.stop_resuspend_on_dark_resume(False)
-        self._dr_utils.teardown()
+        if hasattr(self, '_dr_utils'):
+            self._dr_utils.resume_ethernet_check_on_host()
+            self._dr_utils.stop_resuspend_on_dark_resume(False)
+            self._dr_utils.teardown()
 
     def initialize(self, host):
         """Initialize wake sources tests.
@@ -420,8 +422,6 @@ class power_WakeSources(test.test):
         @param host: Host on which the test will be run.
         """
         self._host = host
-        self._dr_utils = DarkResumeUtils(host)
-        self._dr_utils.stop_resuspend_on_dark_resume()
         self._ec = chrome_ec.ChromeEC(self._host.servo)
         self._faft_client = RPCProxy(host)
         self._faft_config = FAFTConfig(
@@ -440,6 +440,10 @@ class power_WakeSources(test.test):
         # Servo PD role change may cause Servo's USB devices reset
         # Ensure all USB devices have been connected before start
         self._wait_until_usb_count_match(usb_count)
+
+        self._dr_utils = DarkResumeUtils(host)
+        self._dr_utils.stop_resuspend_on_dark_resume()
+        self._dr_utils.pause_ethernet_check_on_host()
 
     def run_once(self):
         """Body of the test."""

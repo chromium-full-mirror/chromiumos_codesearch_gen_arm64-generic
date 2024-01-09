@@ -31,9 +31,9 @@ const UIStrings = {
      */
     error: 'Error',
     /**
-     *@description Title for the developer resources tab
+     *@description Title for the Developer resources tab
      */
-    developerResources: 'Developer Resources',
+    developerResources: 'Developer resources',
     /**
      *@description Text for a context menu entry
      */
@@ -111,11 +111,11 @@ export class DeveloperResourcesListView extends UI.Widget.VBox {
         const item = gridNode.item;
         contextMenu.clipboardSection().appendItem(i18nString(UIStrings.copyUrl), () => {
             Host.InspectorFrontendHost.InspectorFrontendHostInstance.copyText(item.url);
-        });
+        }, { jslogContext: 'copyURL' });
         if (item.initiator.initiatorUrl) {
             contextMenu.clipboardSection().appendItem(i18nString(UIStrings.copyInitiatorUrl), () => {
                 Host.InspectorFrontendHost.InspectorFrontendHostInstance.copyText(item.initiator.initiatorUrl);
-            });
+            }, { jslogContext: 'copyInitiatorURL' });
         }
     }
     update(items) {

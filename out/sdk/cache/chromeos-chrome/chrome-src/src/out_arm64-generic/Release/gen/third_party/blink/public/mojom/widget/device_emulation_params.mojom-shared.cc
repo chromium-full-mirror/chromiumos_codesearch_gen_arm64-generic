@@ -55,7 +55,7 @@ bool DeviceEmulationParams_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 72, validation_context)) {
+          data, 80, validation_context)) {
     return false;
   }
 
@@ -108,6 +108,11 @@ bool DeviceEmulationParams_Data::Validate(
                                          &window_segments_validate_params)) {
     return false;
   }
+
+
+  if (!::device::mojom::internal::DevicePostureType_Data
+        ::Validate(object->device_posture, validation_context))
+    return false;
 
   return true;
 }

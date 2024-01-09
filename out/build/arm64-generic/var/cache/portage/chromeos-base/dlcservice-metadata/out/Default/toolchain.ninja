@@ -34,10 +34,8 @@ rule copy
   description = COPY ${in} ${out}
 
 build obj/common-mk/gn_root/root.stamp: stamp obj/dlcservice/metadata/all.stamp
-subninja obj/common-mk/testrunner/testrunner.ninja
 build obj/dlcservice/metadata/_libdlcservice-metadata-install_config.stamp: stamp
-build obj/dlcservice/metadata/all.stamp: stamp obj/dlcservice/metadata/install_header.stamp obj/dlcservice/metadata/install_pkgconfig.stamp ./lib/libdlcservice-metadata.so ./metadata_tests
+build obj/dlcservice/metadata/all.stamp: stamp obj/dlcservice/metadata/install_header.stamp obj/dlcservice/metadata/install_pkgconfig.stamp ./lib/libdlcservice-metadata.so
 build obj/dlcservice/metadata/install_header.stamp: stamp
 build obj/dlcservice/metadata/install_pkgconfig.stamp: stamp
 subninja obj/dlcservice/metadata/libdlcservice-metadata.ninja
-subninja obj/dlcservice/metadata/metadata_tests.ninja

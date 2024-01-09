@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/mediastream/media_devices.mojom-features.h"
 #include "third_party/blink/public/mojom/mediastream/media_devices.mojom-shared.h"
 #include "third_party/blink/public/mojom/mediastream/media_devices.mojom-forward.h"
 #include "media/capture/mojom/video_capture_types.mojom.h"
@@ -157,7 +158,7 @@ class BLINK_COMMON_EXPORT MediaDevicesDispatcherHost
 
   using ProduceSubCaptureTargetIdCallback = base::OnceCallback<void(const std::string&)>;
   
-  virtual void ProduceSubCaptureTargetId(SubCaptureTargetType type, ProduceSubCaptureTargetIdCallback callback) = 0;
+  virtual void ProduceSubCaptureTargetId(::media::mojom::SubCaptureTargetType type, ProduceSubCaptureTargetIdCallback callback) = 0;
 };
 
 class MediaDevicesListenerProxy;
@@ -230,7 +231,7 @@ class BLINK_COMMON_EXPORT MediaDevicesDispatcherHostProxy
   
   void CloseFocusWindowOfOpportunity(const std::string& label) final;
   
-  void ProduceSubCaptureTargetId(SubCaptureTargetType type, ProduceSubCaptureTargetIdCallback callback) final;
+  void ProduceSubCaptureTargetId(::media::mojom::SubCaptureTargetType type, ProduceSubCaptureTargetIdCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -349,6 +350,11 @@ class BLINK_COMMON_EXPORT MediaDevicesDispatcherHostResponseValidator : public m
 
 
 
+
+
+
+
+
 class BLINK_COMMON_EXPORT MediaDeviceInfo {
  public:
   template <typename T>
@@ -378,7 +384,10 @@ class BLINK_COMMON_EXPORT MediaDeviceInfo {
   MediaDeviceInfo(
       const std::string& device_id,
       const std::string& label,
-      const std::string& group_id);
+      const std::string& group_id,
+      const ::media::VideoCaptureControlSupport& control_support,
+      FacingMode facing_mode,
+      std::optional<::media::mojom::CameraAvailability> availability);
 
 
   ~MediaDeviceInfo();
@@ -461,6 +470,12 @@ class BLINK_COMMON_EXPORT MediaDeviceInfo {
   std::string label;
   
   std::string group_id;
+  
+  ::media::VideoCaptureControlSupport control_support;
+  
+  FacingMode facing_mode;
+  
+  std::optional<::media::mojom::CameraAvailability> availability;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -490,11 +505,6 @@ template <typename T, MediaDeviceInfo::EnableIfSame<T>* = nullptr>
 bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
-
-
-
-
-
 
 
 
@@ -531,7 +541,8 @@ class BLINK_COMMON_EXPORT VideoInputDeviceCapabilities {
       const std::string& group_id,
       const ::media::VideoCaptureControlSupport& control_support,
       std::vector<::media::VideoCaptureFormat> formats,
-      FacingMode facing_mode);
+      FacingMode facing_mode,
+      std::optional<::media::mojom::CameraAvailability> availability);
 
 
   ~VideoInputDeviceCapabilities();
@@ -618,6 +629,8 @@ class BLINK_COMMON_EXPORT VideoInputDeviceCapabilities {
   std::vector<::media::VideoCaptureFormat> formats;
   
   FacingMode facing_mode;
+  
+  std::optional<::media::mojom::CameraAvailability> availability;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -811,7 +824,10 @@ MediaDeviceInfoPtr MediaDeviceInfo::Clone() const {
   return New(
       mojo::Clone(device_id),
       mojo::Clone(label),
-      mojo::Clone(group_id)
+      mojo::Clone(group_id),
+      mojo::Clone(control_support),
+      mojo::Clone(facing_mode),
+      mojo::Clone(availability)
   );
 }
 
@@ -822,6 +838,12 @@ bool MediaDeviceInfo::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->label, other_struct.label))
     return false;
   if (!mojo::Equals(this->group_id, other_struct.group_id))
+    return false;
+  if (!mojo::Equals(this->control_support, other_struct.control_support))
+    return false;
+  if (!mojo::Equals(this->facing_mode, other_struct.facing_mode))
+    return false;
+  if (!mojo::Equals(this->availability, other_struct.availability))
     return false;
   return true;
 }
@@ -840,6 +862,18 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.group_id < lhs.group_id)
     return false;
+  if (lhs.control_support < rhs.control_support)
+    return true;
+  if (rhs.control_support < lhs.control_support)
+    return false;
+  if (lhs.facing_mode < rhs.facing_mode)
+    return true;
+  if (rhs.facing_mode < lhs.facing_mode)
+    return false;
+  if (lhs.availability < rhs.availability)
+    return true;
+  if (rhs.availability < lhs.availability)
+    return false;
   return false;
 }
 template <typename StructPtrType>
@@ -849,7 +883,8 @@ VideoInputDeviceCapabilitiesPtr VideoInputDeviceCapabilities::Clone() const {
       mojo::Clone(group_id),
       mojo::Clone(control_support),
       mojo::Clone(formats),
-      mojo::Clone(facing_mode)
+      mojo::Clone(facing_mode),
+      mojo::Clone(availability)
   );
 }
 
@@ -864,6 +899,8 @@ bool VideoInputDeviceCapabilities::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->formats, other_struct.formats))
     return false;
   if (!mojo::Equals(this->facing_mode, other_struct.facing_mode))
+    return false;
+  if (!mojo::Equals(this->availability, other_struct.availability))
     return false;
   return true;
 }
@@ -889,6 +926,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.facing_mode < rhs.facing_mode)
     return true;
   if (rhs.facing_mode < lhs.facing_mode)
+    return false;
+  if (lhs.availability < rhs.availability)
+    return true;
+  if (rhs.availability < lhs.availability)
     return false;
   return false;
 }
@@ -984,6 +1025,21 @@ struct BLINK_COMMON_EXPORT StructTraits<::blink::mojom::MediaDeviceInfo::DataVie
     return input->group_id;
   }
 
+  static const decltype(::blink::mojom::MediaDeviceInfo::control_support)& control_support(
+      const ::blink::mojom::MediaDeviceInfoPtr& input) {
+    return input->control_support;
+  }
+
+  static decltype(::blink::mojom::MediaDeviceInfo::facing_mode) facing_mode(
+      const ::blink::mojom::MediaDeviceInfoPtr& input) {
+    return input->facing_mode;
+  }
+
+  static decltype(::blink::mojom::MediaDeviceInfo::availability) availability(
+      const ::blink::mojom::MediaDeviceInfoPtr& input) {
+    return input->availability;
+  }
+
   static bool Read(::blink::mojom::MediaDeviceInfo::DataView input, ::blink::mojom::MediaDeviceInfoPtr* output);
 };
 
@@ -1017,6 +1073,11 @@ struct BLINK_COMMON_EXPORT StructTraits<::blink::mojom::VideoInputDeviceCapabili
   static decltype(::blink::mojom::VideoInputDeviceCapabilities::facing_mode) facing_mode(
       const ::blink::mojom::VideoInputDeviceCapabilitiesPtr& input) {
     return input->facing_mode;
+  }
+
+  static decltype(::blink::mojom::VideoInputDeviceCapabilities::availability) availability(
+      const ::blink::mojom::VideoInputDeviceCapabilitiesPtr& input) {
+    return input->availability;
   }
 
   static bool Read(::blink::mojom::VideoInputDeviceCapabilities::DataView input, ::blink::mojom::VideoInputDeviceCapabilitiesPtr* output);

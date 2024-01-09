@@ -66,6 +66,7 @@
 #include "src/objects/turboshaft-types.h"
 #include "src/torque/runtime-support.h"
 #include "src/wasm/wasm-linkage.h"
+#include "src/codegen/code-stub-assembler-inl.h"
 // Required Builtins:
 #include "torque-generated/src/builtins/promise-race-tq-csa.h"
 #include "torque-generated/src/builtins/array-every-tq-csa.h"
@@ -181,7 +182,7 @@ TF_BUILTIN(PromiseRace, CodeStubAssembler) {
     ca_.Bind(&block5);
     tmp3 = UnsafeCast_NativeContext_0(state_, TNode<Context>{parameter0}, TNode<Object>{parameter0});
     tmp4 = False_0(state_);
-    tmp5 = ca_.CallStub<PromiseCapability>(Builtins::CallableFor(ca_.isolate(), Builtin::kNewPromiseCapability), parameter0, tmp0, tmp4);
+    tmp5 = ca_.CallBuiltin<PromiseCapability>(Builtin::kNewPromiseCapability, parameter0, tmp0, tmp4);
     tmp6 = FromConstexpr_intptr_constexpr_int31_0(state_, 8);
     tmp7 = CodeStubAssembler(state_).LoadReference<Object>(CodeStubAssembler::Reference{tmp5, tmp6});
     tmp8 = FromConstexpr_intptr_constexpr_int31_0(state_, 12);

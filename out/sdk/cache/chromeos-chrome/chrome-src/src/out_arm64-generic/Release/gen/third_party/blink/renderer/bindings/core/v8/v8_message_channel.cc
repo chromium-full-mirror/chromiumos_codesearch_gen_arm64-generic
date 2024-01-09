@@ -72,11 +72,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, MessageChannel>::value,
     "MessageChannel inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&MessageChannel::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "MessageChannel is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -89,8 +84,9 @@ BLINK_BINDINGS_TRACE_EVENT("MessageChannel.port1.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MessageChannel* blink_receiver = V8MessageChannel::ToWrappableUnsafe(v8_receiver);
+MessageChannel* blink_receiver = V8MessageChannel::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->port1();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -103,8 +99,9 @@ BLINK_BINDINGS_TRACE_EVENT("MessageChannel.port2.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MessageChannel* blink_receiver = V8MessageChannel::ToWrappableUnsafe(v8_receiver);
+MessageChannel* blink_receiver = V8MessageChannel::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->port2();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }

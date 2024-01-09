@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -48,8 +49,8 @@ struct ImageDetails {
   ~ImageDetails();
   ImageDetails(const ImageDetails&) = delete;
   ImageDetails& operator=(const ImageDetails&) = delete;
-  ImageDetails(ImageDetails&& rhs);
-  ImageDetails& operator=(ImageDetails&& rhs);
+  ImageDetails(ImageDetails&& rhs) noexcept;
+  ImageDetails& operator=(ImageDetails&& rhs) noexcept;
 
   // Populates a ImageDetails object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -62,15 +63,12 @@ struct ImageDetails {
   // Creates a deep copy of ImageDetails.
   ImageDetails Clone() const;
 
-  // Creates a ImageDetails object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ImageDetails> FromValueDeprecated(const base::Value& value);
-
   // Creates a ImageDetails object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<ImageDetails> FromValue(const base::Value::Dict& value);
+  static std::optional<ImageDetails> FromValue(const base::Value::Dict& value);
 
   // Creates a ImageDetails object from a base::Value, or nullopt on failure.
-  static absl::optional<ImageDetails> FromValue(const base::Value& value);
+  static std::optional<ImageDetails> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisImageDetails object.
@@ -83,7 +81,7 @@ struct ImageDetails {
   // image.  This value is ignored for PNG images.  As quality is decreased, the
   // resulting image will have more visual artifacts, and the number of bytes
   // needed to store it will decrease.
-  absl::optional<int> quality;
+  std::optional<int> quality;
 
 };
 
@@ -123,8 +121,8 @@ struct InjectDetails {
   ~InjectDetails();
   InjectDetails(const InjectDetails&) = delete;
   InjectDetails& operator=(const InjectDetails&) = delete;
-  InjectDetails(InjectDetails&& rhs);
-  InjectDetails& operator=(InjectDetails&& rhs);
+  InjectDetails(InjectDetails&& rhs) noexcept;
+  InjectDetails& operator=(InjectDetails&& rhs) noexcept;
 
   // Populates a InjectDetails object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -137,15 +135,12 @@ struct InjectDetails {
   // Creates a deep copy of InjectDetails.
   InjectDetails Clone() const;
 
-  // Creates a InjectDetails object from a base::Value, or NULL on failure.
-  static std::unique_ptr<InjectDetails> FromValueDeprecated(const base::Value& value);
-
   // Creates a InjectDetails object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<InjectDetails> FromValue(const base::Value::Dict& value);
+  static std::optional<InjectDetails> FromValue(const base::Value::Dict& value);
 
   // Creates a InjectDetails object from a base::Value, or nullopt on failure.
-  static absl::optional<InjectDetails> FromValue(const base::Value& value);
+  static std::optional<InjectDetails> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisInjectDetails object.
@@ -155,27 +150,27 @@ struct InjectDetails {
   // the <code>code</code> parameter. Incorrect use of it may open your extension
   // to <a href="https://en.wikipedia.org/wiki/Cross-site_scripting">cross site
   // scripting</a> attacks.
-  absl::optional<std::string> code;
+  std::optional<std::string> code;
 
   // JavaScript or CSS file to inject.
-  absl::optional<std::string> file;
+  std::optional<std::string> file;
 
   // If allFrames is <code>true</code>, implies that the JavaScript or CSS should
   // be injected into all frames of current page. By default, it's
   // <code>false</code> and is only injected into the top frame. If
   // <code>true</code> and <code>frameId</code> is set, then the code is inserted
   // in the selected frame and all of its child frames.
-  absl::optional<bool> all_frames;
+  std::optional<bool> all_frames;
 
   // The <a href='webNavigation#frame_ids'>frame</a> where the script or CSS
   // should be injected. Defaults to 0 (the top-level frame).
-  absl::optional<int> frame_id;
+  std::optional<int> frame_id;
 
   // If matchAboutBlank is true, then the code is also injected in about:blank and
   // about:srcdoc frames if your extension has access to its parent document. Code
   // cannot be inserted in top-level about:-frames. By default it is
   // <code>false</code>.
-  absl::optional<bool> match_about_blank;
+  std::optional<bool> match_about_blank;
 
   // The soonest that the JavaScript or CSS will be injected into the tab.
   // Defaults to "document_idle".
@@ -196,8 +191,8 @@ struct DeleteInjectionDetails {
   ~DeleteInjectionDetails();
   DeleteInjectionDetails(const DeleteInjectionDetails&) = delete;
   DeleteInjectionDetails& operator=(const DeleteInjectionDetails&) = delete;
-  DeleteInjectionDetails(DeleteInjectionDetails&& rhs);
-  DeleteInjectionDetails& operator=(DeleteInjectionDetails&& rhs);
+  DeleteInjectionDetails(DeleteInjectionDetails&& rhs) noexcept;
+  DeleteInjectionDetails& operator=(DeleteInjectionDetails&& rhs) noexcept;
 
   // Populates a DeleteInjectionDetails object from a base::Value& instance.
   // Returns whether |out| was successfully populated.
@@ -210,43 +205,39 @@ struct DeleteInjectionDetails {
   // Creates a deep copy of DeleteInjectionDetails.
   DeleteInjectionDetails Clone() const;
 
-  // Creates a DeleteInjectionDetails object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<DeleteInjectionDetails> FromValueDeprecated(const base::Value& value);
-
   // Creates a DeleteInjectionDetails object from a base::Value::Dict, or
   // nullopt on failure.
-  static absl::optional<DeleteInjectionDetails> FromValue(const base::Value::Dict& value);
+  static std::optional<DeleteInjectionDetails> FromValue(const base::Value::Dict& value);
 
   // Creates a DeleteInjectionDetails object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<DeleteInjectionDetails> FromValue(const base::Value& value);
+  static std::optional<DeleteInjectionDetails> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDeleteInjectionDetails object.
   base::Value::Dict ToValue() const;
 
   // CSS code to remove.
-  absl::optional<std::string> code;
+  std::optional<std::string> code;
 
   // CSS file to remove.
-  absl::optional<std::string> file;
+  std::optional<std::string> file;
 
   // If allFrames is <code>true</code>, implies that the CSS should be removed
   // from all frames of current page. By default, it's <code>false</code> and is
   // only removed from the top frame. If <code>true</code> and
   // <code>frameId</code> is set, then the code is removed from the selected frame
   // and all of its child frames.
-  absl::optional<bool> all_frames;
+  std::optional<bool> all_frames;
 
   // The <a href='webNavigation#frame_ids'>frame</a> from where the CSS should be
   // removed. Defaults to 0 (the top-level frame).
-  absl::optional<int> frame_id;
+  std::optional<int> frame_id;
 
   // If matchAboutBlank is true, then the code is also removed from about:blank
   // and about:srcdoc frames if your extension has access to its parent document.
   // By default it is <code>false</code>.
-  absl::optional<bool> match_about_blank;
+  std::optional<bool> match_about_blank;
 
   // The <a
   // href="https://www.w3.org/TR/css3-cascade/#cascading-origins">origin</a> of

@@ -43,6 +43,9 @@ class DlpInterface {
   virtual void CheckFilesTransfer(
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<std::vector<uint8_t>>> response,
       const std::vector<uint8_t>& in_request) = 0;
+  // Returns the content of the database.
+  virtual void GetDatabaseEntries(
+      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<std::vector<uint8_t>>> response) = 0;
 };
 
 // Interface adaptor for org::chromium::Dlp.
@@ -76,6 +79,10 @@ class DlpAdaptor {
         "CheckFilesTransfer",
         base::Unretained(interface_),
         &DlpInterface::CheckFilesTransfer);
+    itf->AddMethodHandler(
+        "GetDatabaseEntries",
+        base::Unretained(interface_),
+        &DlpInterface::GetDatabaseEntries);
   }
 
   static dbus::ObjectPath GetObjectPath() {
@@ -104,6 +111,9 @@ class DlpAdaptor {
         "    </method>\n"
         "    <method name=\"CheckFilesTransfer\">\n"
         "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
+        "      <arg name=\"response\" type=\"ay\" direction=\"out\"/>\n"
+        "    </method>\n"
+        "    <method name=\"GetDatabaseEntries\">\n"
         "      <arg name=\"response\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"
         "  </interface>\n";

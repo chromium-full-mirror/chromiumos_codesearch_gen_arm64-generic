@@ -71,6 +71,21 @@ class  PageHandler_HandleSearchEngineChoiceSelected_Params_Data {
 };
 static_assert(sizeof(PageHandler_HandleSearchEngineChoiceSelected_Params_Data) == 16,
               "Bad sizeof(PageHandler_HandleSearchEngineChoiceSelected_Params_Data)");
+class  PageHandler_HandleLearnMoreLinkClicked_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<PageHandler_HandleLearnMoreLinkClicked_Params_Data>;
+
+  PageHandler_HandleLearnMoreLinkClicked_Params_Data();
+  ~PageHandler_HandleLearnMoreLinkClicked_Params_Data() = delete;
+};
+static_assert(sizeof(PageHandler_HandleLearnMoreLinkClicked_Params_Data) == 8,
+              "Bad sizeof(PageHandler_HandleLearnMoreLinkClicked_Params_Data)");
 
 }  // namespace internal
 
@@ -131,6 +146,23 @@ class PageHandler_HandleSearchEngineChoiceSelected_ParamsDataView {
  private:
   internal::PageHandler_HandleSearchEngineChoiceSelected_Params_Data* data_ = nullptr;
 };
+
+
+class PageHandler_HandleLearnMoreLinkClicked_ParamsDataView {
+ public:
+  PageHandler_HandleLearnMoreLinkClicked_ParamsDataView() = default;
+
+  PageHandler_HandleLearnMoreLinkClicked_ParamsDataView(
+      internal::PageHandler_HandleLearnMoreLinkClicked_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::PageHandler_HandleLearnMoreLinkClicked_Params_Data* data_ = nullptr;
+};
+
+
 
 
 

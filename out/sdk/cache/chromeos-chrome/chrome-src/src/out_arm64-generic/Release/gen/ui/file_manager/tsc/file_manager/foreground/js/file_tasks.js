@@ -1,37 +1,33 @@
 // Copyright 2022 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-/**
- * @fileoverview
- * This file is checked via TS, so we suppress Closure checks.
- * @suppress {checkTypes}
- */
 import { assert } from 'chrome://resources/ash/common/assert.js';
 import { executeTask, getDirectory, getFileTasks } from '../../common/js/api.js';
 import { AsyncQueue } from '../../common/js/async_util.js';
 import { entriesToURLs, isFakeEntry } from '../../common/js/entry_utils.js';
 import { annotateTasks, getDefaultTask, INSTALL_LINUX_PACKAGE_TASK_DESCRIPTOR, isFilesAppId, parseActionId } from '../../common/js/file_tasks.js';
-import { FileType } from '../../common/js/file_type.js';
+import { getExtension } from '../../common/js/file_type.js';
 import { recordEnum, recordTime } from '../../common/js/metrics.js';
 import { ProgressCenterItem, ProgressItemState, ProgressItemType } from '../../common/js/progress_center_common.js';
+import { bytesToString, str, strf } from '../../common/js/translations.js';
 import { LEGACY_FILES_EXTENSION_ID } from '../../common/js/url_constants.js';
-import { str, strf, util } from '../../common/js/util.js';
-import { VolumeManagerCommon } from '../../common/js/volume_manager_types.js';
-import '../../externs/background/crostini.js';
-import '../../externs/background/progress_center.js';
-import '../../externs/ts/state.js';
-import '../../externs/volume_manager.js';
+import { descriptorEqual, extractFilePath, isTeleported, makeTaskID, splitExtension } from '../../common/js/util.js';
+import { RootType, RootTypesForUMA, VolumeError, VolumeType } from '../../common/js/volume_manager_types.js';
+import { Crostini } from '../../externs/background/crostini.js';
+import { ProgressCenter } from '../../externs/background/progress_center.js';
+import { FilesAppEntry } from '../../externs/files_app_entry_interfaces.js';
+import { FileTasks as StoreFileTasks } from '../../externs/ts/state.js';
 import { getStore } from '../../state/store.js';
-import { USER_CANCELLED } from '../../widgets/xf_password_dialog.js';
-import { constants } from './constants.js';
-import './directory_model.js';
-import { PastePlan } from './file_transfer_controller.js';
-import './metadata/metadata_item.js';
-import './metadata/metadata_model.js';
-import './task_controller.js';
-import './task_history.js';
-import './ui/default_task_dialog.js';
-import './ui/file_manager_ui.js';
+import { USER_CANCELLED, XfPasswordDialog } from '../../widgets/xf_password_dialog.js';
+import { DEFAULT_CROSTINI_VM } from './constants.js';
+import { DirectoryModel } from './directory_model.js';
+import { FileTransferController, PastePlan } from './file_transfer_controller.js';
+import { MetadataItem } from './metadata/metadata_item.js';
+import { MetadataModel } from './metadata/metadata_model.js';
+import { TaskController } from './task_controller.js';
+import { TaskHistory } from './task_history.js';
+import { DefaultTaskDialog } from './ui/default_task_dialog.js';
+import { FileManagerUI } from './ui/file_manager_ui.js';
 import { FilesConfirmDialog } from './ui/files_confirm_dialog.js';
 import { UMA_INDEX_KNOWN_EXTENSIONS } from './uma_enums.gen.js';
 /**
@@ -89,8 +85,8 @@ export class FileTasks {
         // Crostini tasks with non-Crostini entries.
         if (entries.length !== 1 ||
             !(isCrostiniEntry(entries[0], volumeManager) ||
-                crostini.canSharePath(constants.DEFAULT_CROSTINI_VM, entries[0], false /* persist */))) {
-            resultingTasks.tasks = resultingTasks.tasks.filter((task) => !util.descriptorEqual(task.descriptor, INSTALL_LINUX_PACKAGE_TASK_DESCRIPTOR));
+                crostini.canSharePath(DEFAULT_CROSTINI_VM, entries[0], false /* persist */))) {
+            resultingTasks.tasks = resultingTasks.tasks.filter((task) => !descriptorEqual(task.descriptor, INSTALL_LINUX_PACKAGE_TASK_DESCRIPTOR));
         }
         const tasks = annotateTasks(resultingTasks.tasks, entries);
         resultingTasks.tasks = tasks;
@@ -144,7 +140,7 @@ export class FileTasks {
      * @return A ViewFileType enum or 'other'.
      */
     static getViewFileType(entry) {
-        let extension = FileType.getExtension(entry).toLowerCase();
+        let extension = getExtension(entry).toLowerCase();
         if (UMA_INDEX_KNOWN_EXTENSIONS.indexOf(extension) < 0) {
             extension = 'other';
         }
@@ -162,7 +158,7 @@ export class FileTasks {
      */
     static recordViewingRootTypeUma_(volumeManager, rootType) {
         if (rootType !== null) {
-            FileTasks.recordEnumWithOnlineAndOffline_(volumeManager, 'ViewingRootType', rootType, VolumeManagerCommon.RootTypesForUMA);
+            FileTasks.recordEnumWithOnlineAndOffline_(volumeManager, 'ViewingRootType', rootType, RootTypesForUMA);
         }
     }
     /**
@@ -175,11 +171,11 @@ export class FileTasks {
     static recordZipMountTimeUma_(rootType, time) {
         let root;
         switch (rootType) {
-            case VolumeManagerCommon.RootType.MY_FILES:
-            case VolumeManagerCommon.RootType.DOWNLOADS:
+            case RootType.MY_FILES:
+            case RootType.DOWNLOADS:
                 root = 'MyFiles';
                 break;
-            case VolumeManagerCommon.RootType.DRIVE:
+            case RootType.DRIVE:
                 root = 'Drive';
                 break;
             default:
@@ -202,7 +198,7 @@ export class FileTasks {
         }
         let histogramName = 'OfficeFiles.FileHandler';
         switch (rootType) {
-            case VolumeManagerCommon.RootType.DRIVE:
+            case RootType.DRIVE:
                 histogramName += '.Drive';
                 break;
             default:
@@ -312,7 +308,7 @@ export class FileTasks {
             return;
         }
         const filename = this.entries_[0].name;
-        const extension = util.splitExtension(filename)[1] || null;
+        const extension = splitExtension(filename)[1] || null;
         try {
             await this.checkAvailability_();
         }
@@ -331,7 +327,7 @@ export class FileTasks {
                 case 'opened':
                     break;
                 case 'message_sent':
-                    util.isTeleported(window).then(teleported => {
+                    isTeleported().then(teleported => {
                         if (teleported) {
                             this.ui_.showOpenInOtherDesktopAlert(this.entries_);
                         }
@@ -397,7 +393,7 @@ export class FileTasks {
             const TaskResult = chrome.fileManagerPrivate.TaskResult;
             switch (result) {
                 case TaskResult.MESSAGE_SENT:
-                    util.isTeleported(window).then((teleported) => {
+                    isTeleported().then((teleported) => {
                         if (teleported) {
                             this.ui_.showOpenInOtherDesktopAlert(entries);
                         }
@@ -434,8 +430,7 @@ export class FileTasks {
         };
         const containsDriveEntries = this.entries_.some(entry => {
             const volumeInfo = this.volumeManager_.getVolumeInfo(entry);
-            return volumeInfo &&
-                volumeInfo.volumeType === VolumeManagerCommon.VolumeType.DRIVE;
+            return volumeInfo && volumeInfo.volumeType === VolumeType.DRIVE;
         });
         // Availability is not checked for non-Drive files, as availableOffline, nor
         // availableWhenMetered are not exposed for other types of volumes at this
@@ -481,7 +476,7 @@ export class FileTasks {
             }
         }
         const msg = strf(this.entries_.length === 1 ? 'CONFIRM_MOBILE_DATA_USE' :
-            'CONFIRM_MOBILE_DATA_USE_PLURAL', util.bytesToString(sizeToDownload));
+            'CONFIRM_MOBILE_DATA_USE_PLURAL', bytesToString(sizeToDownload));
         return new Promise((resolve, reject) => this.ui_.confirmDialog.show(msg, resolve, reject));
     }
     /**
@@ -503,7 +498,7 @@ export class FileTasks {
             return;
         }
         console.error('The specified task is not a valid internal task: ' +
-            util.makeTaskID(descriptor));
+            makeTaskID(descriptor));
     }
     /** Install a Linux Package in the Linux container.  */
     installLinuxPackageInternal_() {
@@ -523,7 +518,7 @@ export class FileTasks {
      * @param url URL of the archive file to mount.
      */
     async mountArchive_(url) {
-        const filename = util.extractFilePath(url)?.split('/').pop() || '';
+        const filename = extractFilePath(url)?.split('/').pop() || '';
         const item = new ProgressCenterItem();
         item.id = 'Mounting: ' + url;
         item.type = ProgressItemType.MOUNT_ARCHIVE;
@@ -550,7 +545,7 @@ export class FileTasks {
         }
         catch (error) {
             // If error is not about needing a password, propagate it.
-            if (error !== VolumeManagerCommon.VolumeError.NEED_PASSWORD) {
+            if (error !== VolumeError.NEED_PASSWORD) {
                 throw error;
             }
         }
@@ -578,7 +573,7 @@ export class FileTasks {
                 }
                 catch (error) {
                     // If error is not about needing a password, propagate it.
-                    if (error !== VolumeManagerCommon.VolumeError.NEED_PASSWORD) {
+                    if (error !== VolumeError.NEED_PASSWORD) {
                         throw error;
                     }
                 }
@@ -622,15 +617,14 @@ export class FileTasks {
         catch (error) {
             // No need to display an error message if user canceled mounting or
             // canceled the password prompt.
-            if (error === USER_CANCELLED ||
-                error === VolumeManagerCommon.VolumeError.CANCELLED) {
+            if (error === USER_CANCELLED || error === VolumeError.CANCELLED) {
                 return;
             }
-            const filename = util.extractFilePath(url)?.split('/').pop() || '';
+            const filename = extractFilePath(url)?.split('/').pop() || '';
             const item = new ProgressCenterItem();
             item.id = 'Cannot mount: ' + url;
             item.type = ProgressItemType.MOUNT_ARCHIVE;
-            const msgId = error === VolumeManagerCommon.VolumeError.INVALID_PATH ?
+            const msgId = error === VolumeError.INVALID_PATH ?
                 'ARCHIVE_MOUNT_INVALID_PATH' :
                 'ARCHIVE_MOUNT_FAILED';
             item.message = strf(msgId, filename);
@@ -670,17 +664,17 @@ export class FileTasks {
         let defaultIdx = 0;
         if (this.defaultTask_) {
             for (let j = 0; j < items.length; j++) {
-                if (util.descriptorEqual(items[j].task.descriptor, this.defaultTask_.descriptor)) {
+                if (descriptorEqual(items[j].task.descriptor, this.defaultTask_.descriptor)) {
                     defaultIdx = j;
                 }
             }
         }
-        taskDialog.showDefaultTaskDialog(title, message, items, defaultIdx, item => {
+        taskDialog.showDefaultTaskDialog(title, message, items, defaultIdx, (item) => {
             onSuccess(item.task);
         });
     }
     static async getPvmSharedDir_(volumeManager) {
-        const volumeInfo = volumeManager.getCurrentProfileVolumeInfo(VolumeManagerCommon.VolumeType.DOWNLOADS);
+        const volumeInfo = volumeManager.getCurrentProfileVolumeInfo(VolumeType.DOWNLOADS);
         if (!volumeInfo) {
             throw new Error(`Error getting PvmDefault dir`);
         }
@@ -698,15 +692,13 @@ export const TaskPickerType = {
 /** Office file extensions. */
 const OFFICE_EXTENSIONS = new Set(['.doc', '.docx', '.xls', 'xlsm', '.xlsx', '.ppt', '.pptx']);
 function hasOfficeExtension(entry) {
-    return OFFICE_EXTENSIONS.has(FileType.getExtension(entry));
+    return OFFICE_EXTENSIONS.has(getExtension(entry));
 }
 function isCrostiniEntry(entry, volumeManager) {
     const location = volumeManager.getLocationInfo(entry);
-    return !!location &&
-        location.rootType === VolumeManagerCommon.RootType.CROSTINI;
+    return !!location && location.rootType === RootType.CROSTINI;
 }
 function isMyFilesEntry(entry, volumeManager) {
     const location = volumeManager.getLocationInfo(entry);
-    return !!location &&
-        location.rootType === VolumeManagerCommon.RootType.DOWNLOADS;
+    return !!location && location.rootType === RootType.DOWNLOADS;
 }

@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/extensions/api/file_system_provider.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -36,41 +37,41 @@ namespace file_system_provider {
 
 const char* ToString(ProviderError enum_param) {
   switch (enum_param) {
-    case PROVIDER_ERROR_OK:
+    case ProviderError::kOk:
       return "OK";
-    case PROVIDER_ERROR_FAILED:
+    case ProviderError::kFailed:
       return "FAILED";
-    case PROVIDER_ERROR_IN_USE:
+    case ProviderError::kInUse:
       return "IN_USE";
-    case PROVIDER_ERROR_EXISTS:
+    case ProviderError::kExists:
       return "EXISTS";
-    case PROVIDER_ERROR_NOT_FOUND:
+    case ProviderError::kNotFound:
       return "NOT_FOUND";
-    case PROVIDER_ERROR_ACCESS_DENIED:
+    case ProviderError::kAccessDenied:
       return "ACCESS_DENIED";
-    case PROVIDER_ERROR_TOO_MANY_OPENED:
+    case ProviderError::kTooManyOpened:
       return "TOO_MANY_OPENED";
-    case PROVIDER_ERROR_NO_MEMORY:
+    case ProviderError::kNoMemory:
       return "NO_MEMORY";
-    case PROVIDER_ERROR_NO_SPACE:
+    case ProviderError::kNoSpace:
       return "NO_SPACE";
-    case PROVIDER_ERROR_NOT_A_DIRECTORY:
+    case ProviderError::kNotADirectory:
       return "NOT_A_DIRECTORY";
-    case PROVIDER_ERROR_INVALID_OPERATION:
+    case ProviderError::kInvalidOperation:
       return "INVALID_OPERATION";
-    case PROVIDER_ERROR_SECURITY:
+    case ProviderError::kSecurity:
       return "SECURITY";
-    case PROVIDER_ERROR_ABORT:
+    case ProviderError::kAbort:
       return "ABORT";
-    case PROVIDER_ERROR_NOT_A_FILE:
+    case ProviderError::kNotAFile:
       return "NOT_A_FILE";
-    case PROVIDER_ERROR_NOT_EMPTY:
+    case ProviderError::kNotEmpty:
       return "NOT_EMPTY";
-    case PROVIDER_ERROR_INVALID_URL:
+    case ProviderError::kInvalidUrl:
       return "INVALID_URL";
-    case PROVIDER_ERROR_IO:
+    case ProviderError::kIo:
       return "IO";
-    case PROVIDER_ERROR_NONE:
+    case ProviderError::kNone:
       return "";
   }
   NOTREACHED();
@@ -79,40 +80,40 @@ const char* ToString(ProviderError enum_param) {
 
 ProviderError ParseProviderError(base::StringPiece enum_string) {
   if (enum_string == "OK")
-    return PROVIDER_ERROR_OK;
+    return ProviderError::kOk;
   if (enum_string == "FAILED")
-    return PROVIDER_ERROR_FAILED;
+    return ProviderError::kFailed;
   if (enum_string == "IN_USE")
-    return PROVIDER_ERROR_IN_USE;
+    return ProviderError::kInUse;
   if (enum_string == "EXISTS")
-    return PROVIDER_ERROR_EXISTS;
+    return ProviderError::kExists;
   if (enum_string == "NOT_FOUND")
-    return PROVIDER_ERROR_NOT_FOUND;
+    return ProviderError::kNotFound;
   if (enum_string == "ACCESS_DENIED")
-    return PROVIDER_ERROR_ACCESS_DENIED;
+    return ProviderError::kAccessDenied;
   if (enum_string == "TOO_MANY_OPENED")
-    return PROVIDER_ERROR_TOO_MANY_OPENED;
+    return ProviderError::kTooManyOpened;
   if (enum_string == "NO_MEMORY")
-    return PROVIDER_ERROR_NO_MEMORY;
+    return ProviderError::kNoMemory;
   if (enum_string == "NO_SPACE")
-    return PROVIDER_ERROR_NO_SPACE;
+    return ProviderError::kNoSpace;
   if (enum_string == "NOT_A_DIRECTORY")
-    return PROVIDER_ERROR_NOT_A_DIRECTORY;
+    return ProviderError::kNotADirectory;
   if (enum_string == "INVALID_OPERATION")
-    return PROVIDER_ERROR_INVALID_OPERATION;
+    return ProviderError::kInvalidOperation;
   if (enum_string == "SECURITY")
-    return PROVIDER_ERROR_SECURITY;
+    return ProviderError::kSecurity;
   if (enum_string == "ABORT")
-    return PROVIDER_ERROR_ABORT;
+    return ProviderError::kAbort;
   if (enum_string == "NOT_A_FILE")
-    return PROVIDER_ERROR_NOT_A_FILE;
+    return ProviderError::kNotAFile;
   if (enum_string == "NOT_EMPTY")
-    return PROVIDER_ERROR_NOT_EMPTY;
+    return ProviderError::kNotEmpty;
   if (enum_string == "INVALID_URL")
-    return PROVIDER_ERROR_INVALID_URL;
+    return ProviderError::kInvalidUrl;
   if (enum_string == "IO")
-    return PROVIDER_ERROR_IO;
-  return PROVIDER_ERROR_NONE;
+    return ProviderError::kIo;
+  return ProviderError::kNone;
 }
 
 std::u16string GetProviderErrorParseError(base::StringPiece enum_string) {
@@ -122,11 +123,11 @@ std::u16string GetProviderErrorParseError(base::StringPiece enum_string) {
 
 const char* ToString(OpenFileMode enum_param) {
   switch (enum_param) {
-    case OPEN_FILE_MODE_READ:
+    case OpenFileMode::kRead:
       return "READ";
-    case OPEN_FILE_MODE_WRITE:
+    case OpenFileMode::kWrite:
       return "WRITE";
-    case OPEN_FILE_MODE_NONE:
+    case OpenFileMode::kNone:
       return "";
   }
   NOTREACHED();
@@ -135,10 +136,10 @@ const char* ToString(OpenFileMode enum_param) {
 
 OpenFileMode ParseOpenFileMode(base::StringPiece enum_string) {
   if (enum_string == "READ")
-    return OPEN_FILE_MODE_READ;
+    return OpenFileMode::kRead;
   if (enum_string == "WRITE")
-    return OPEN_FILE_MODE_WRITE;
-  return OPEN_FILE_MODE_NONE;
+    return OpenFileMode::kWrite;
+  return OpenFileMode::kNone;
 }
 
 std::u16string GetOpenFileModeParseError(base::StringPiece enum_string) {
@@ -148,11 +149,11 @@ std::u16string GetOpenFileModeParseError(base::StringPiece enum_string) {
 
 const char* ToString(ChangeType enum_param) {
   switch (enum_param) {
-    case CHANGE_TYPE_CHANGED:
+    case ChangeType::kChanged:
       return "CHANGED";
-    case CHANGE_TYPE_DELETED:
+    case ChangeType::kDeleted:
       return "DELETED";
-    case CHANGE_TYPE_NONE:
+    case ChangeType::kNone:
       return "";
   }
   NOTREACHED();
@@ -161,10 +162,10 @@ const char* ToString(ChangeType enum_param) {
 
 ChangeType ParseChangeType(base::StringPiece enum_string) {
   if (enum_string == "CHANGED")
-    return CHANGE_TYPE_CHANGED;
+    return ChangeType::kChanged;
   if (enum_string == "DELETED")
-    return CHANGE_TYPE_DELETED;
-  return CHANGE_TYPE_NONE;
+    return ChangeType::kDeleted;
+  return ChangeType::kNone;
 }
 
 std::u16string GetChangeTypeParseError(base::StringPiece enum_string) {
@@ -174,13 +175,13 @@ std::u16string GetChangeTypeParseError(base::StringPiece enum_string) {
 
 const char* ToString(CommonActionId enum_param) {
   switch (enum_param) {
-    case COMMON_ACTION_ID_SAVE_FOR_OFFLINE:
+    case CommonActionId::kSaveForOffline:
       return "SAVE_FOR_OFFLINE";
-    case COMMON_ACTION_ID_OFFLINE_NOT_NECESSARY:
+    case CommonActionId::kOfflineNotNecessary:
       return "OFFLINE_NOT_NECESSARY";
-    case COMMON_ACTION_ID_SHARE:
+    case CommonActionId::kShare:
       return "SHARE";
-    case COMMON_ACTION_ID_NONE:
+    case CommonActionId::kNone:
       return "";
   }
   NOTREACHED();
@@ -189,12 +190,12 @@ const char* ToString(CommonActionId enum_param) {
 
 CommonActionId ParseCommonActionId(base::StringPiece enum_string) {
   if (enum_string == "SAVE_FOR_OFFLINE")
-    return COMMON_ACTION_ID_SAVE_FOR_OFFLINE;
+    return CommonActionId::kSaveForOffline;
   if (enum_string == "OFFLINE_NOT_NECESSARY")
-    return COMMON_ACTION_ID_OFFLINE_NOT_NECESSARY;
+    return CommonActionId::kOfflineNotNecessary;
   if (enum_string == "SHARE")
-    return COMMON_ACTION_ID_SHARE;
-  return COMMON_ACTION_ID_NONE;
+    return CommonActionId::kShare;
+  return CommonActionId::kNone;
 }
 
 std::u16string GetCommonActionIdParseError(base::StringPiece enum_string) {
@@ -206,8 +207,8 @@ CloudIdentifier::CloudIdentifier()
  {}
 
 CloudIdentifier::~CloudIdentifier() = default;
-CloudIdentifier::CloudIdentifier(CloudIdentifier&& rhs) = default;
-CloudIdentifier& CloudIdentifier::operator=(CloudIdentifier&& rhs) = default;
+CloudIdentifier::CloudIdentifier(CloudIdentifier&& rhs) noexcept = default;
+CloudIdentifier& CloudIdentifier::operator=(CloudIdentifier&& rhs) noexcept = default;
 CloudIdentifier CloudIdentifier::Clone() const {
   CloudIdentifier out;
   out.provider_name = provider_name;
@@ -255,34 +256,21 @@ bool CloudIdentifier::Populate(
 }
 
 // static
-std::unique_ptr<CloudIdentifier> CloudIdentifier::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<CloudIdentifier>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<CloudIdentifier> CloudIdentifier::FromValue(const base::Value::Dict& value) {
+  CloudIdentifier out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<CloudIdentifier> CloudIdentifier::FromValue(const base::Value::Dict& value) {
+std::optional<CloudIdentifier> CloudIdentifier::FromValue(const base::Value& value) {
   CloudIdentifier out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<CloudIdentifier> CloudIdentifier::FromValue(const base::Value& value) {
-  CloudIdentifier out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -303,8 +291,8 @@ EntryMetadata::ModificationTime::ModificationTime()
  {}
 
 EntryMetadata::ModificationTime::~ModificationTime() = default;
-EntryMetadata::ModificationTime::ModificationTime(ModificationTime&& rhs) = default;
-EntryMetadata::ModificationTime& EntryMetadata::ModificationTime::operator=(ModificationTime&& rhs) = default;
+EntryMetadata::ModificationTime::ModificationTime(ModificationTime&& rhs) noexcept = default;
+EntryMetadata::ModificationTime& EntryMetadata::ModificationTime::operator=(ModificationTime&& rhs) noexcept = default;
 EntryMetadata::ModificationTime EntryMetadata::ModificationTime::Clone() const {
   ModificationTime out;
   return out;
@@ -327,21 +315,21 @@ bool EntryMetadata::ModificationTime::Populate(
 }
 
 // static
-absl::optional<EntryMetadata::ModificationTime> EntryMetadata::ModificationTime::FromValue(const base::Value::Dict& value) {
+std::optional<EntryMetadata::ModificationTime> EntryMetadata::ModificationTime::FromValue(const base::Value::Dict& value) {
   ModificationTime out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<EntryMetadata::ModificationTime> EntryMetadata::ModificationTime::FromValue(const base::Value& value) {
+std::optional<EntryMetadata::ModificationTime> EntryMetadata::ModificationTime::FromValue(const base::Value& value) {
   ModificationTime out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -360,8 +348,8 @@ EntryMetadata::EntryMetadata()
  {}
 
 EntryMetadata::~EntryMetadata() = default;
-EntryMetadata::EntryMetadata(EntryMetadata&& rhs) = default;
-EntryMetadata& EntryMetadata::operator=(EntryMetadata&& rhs) = default;
+EntryMetadata::EntryMetadata(EntryMetadata&& rhs) noexcept = default;
+EntryMetadata& EntryMetadata::operator=(EntryMetadata&& rhs) noexcept = default;
 EntryMetadata EntryMetadata::Clone() const {
   EntryMetadata out;
   out.is_directory = is_directory;
@@ -386,7 +374,7 @@ bool EntryMetadata::Populate(
     {
       auto temp = (*is_directory_value).GetIfBool();
       if (!temp.has_value()) {
-        out.is_directory = absl::nullopt;
+        out.is_directory = std::nullopt;
         return false;
       }
       out.is_directory = *temp;
@@ -398,7 +386,7 @@ bool EntryMetadata::Populate(
     {
       auto* temp = (*name_value).GetIfString();
       if (!temp) {
-        out.name = absl::nullopt;
+        out.name = std::nullopt;
         return false;
       }
       out.name = *temp;
@@ -410,7 +398,7 @@ bool EntryMetadata::Populate(
     {
       auto temp = (*size_value).GetIfDouble();
       if (!temp.has_value()) {
-        out.size = absl::nullopt;
+        out.size = std::nullopt;
         return false;
       }
       out.size = *temp;
@@ -437,7 +425,7 @@ bool EntryMetadata::Populate(
     {
       auto* temp = (*mime_type_value).GetIfString();
       if (!temp) {
-        out.mime_type = absl::nullopt;
+        out.mime_type = std::nullopt;
         return false;
       }
       out.mime_type = *temp;
@@ -449,7 +437,7 @@ bool EntryMetadata::Populate(
     {
       auto* temp = (*thumbnail_value).GetIfString();
       if (!temp) {
-        out.thumbnail = absl::nullopt;
+        out.thumbnail = std::nullopt;
         return false;
       }
       out.thumbnail = *temp;
@@ -484,34 +472,21 @@ bool EntryMetadata::Populate(
 }
 
 // static
-std::unique_ptr<EntryMetadata> EntryMetadata::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<EntryMetadata>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<EntryMetadata> EntryMetadata::FromValue(const base::Value::Dict& value) {
+  EntryMetadata out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<EntryMetadata> EntryMetadata::FromValue(const base::Value::Dict& value) {
+std::optional<EntryMetadata> EntryMetadata::FromValue(const base::Value& value) {
   EntryMetadata out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<EntryMetadata> EntryMetadata::FromValue(const base::Value& value) {
-  EntryMetadata out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -556,8 +531,8 @@ Watcher::Watcher()
 : recursive(false) {}
 
 Watcher::~Watcher() = default;
-Watcher::Watcher(Watcher&& rhs) = default;
-Watcher& Watcher::operator=(Watcher&& rhs) = default;
+Watcher::Watcher(Watcher&& rhs) noexcept = default;
+Watcher& Watcher::operator=(Watcher&& rhs) noexcept = default;
 Watcher Watcher::Clone() const {
   Watcher out;
   out.entry_path = entry_path;
@@ -598,7 +573,7 @@ bool Watcher::Populate(
     {
       auto* temp = (*last_tag_value).GetIfString();
       if (!temp) {
-        out.last_tag = absl::nullopt;
+        out.last_tag = std::nullopt;
         return false;
       }
       out.last_tag = *temp;
@@ -618,34 +593,21 @@ bool Watcher::Populate(
 }
 
 // static
-std::unique_ptr<Watcher> Watcher::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<Watcher>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<Watcher> Watcher::FromValue(const base::Value::Dict& value) {
+  Watcher out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Watcher> Watcher::FromValue(const base::Value::Dict& value) {
+std::optional<Watcher> Watcher::FromValue(const base::Value& value) {
   Watcher out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<Watcher> Watcher::FromValue(const base::Value& value) {
-  Watcher out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -671,8 +633,8 @@ OpenedFile::OpenedFile()
 mode() {}
 
 OpenedFile::~OpenedFile() = default;
-OpenedFile::OpenedFile(OpenedFile&& rhs) = default;
-OpenedFile& OpenedFile::operator=(OpenedFile&& rhs) = default;
+OpenedFile::OpenedFile(OpenedFile&& rhs) noexcept = default;
+OpenedFile& OpenedFile::operator=(OpenedFile&& rhs) noexcept = default;
 OpenedFile OpenedFile::Clone() const {
   OpenedFile out;
   out.open_request_id = open_request_id;
@@ -736,34 +698,21 @@ bool OpenedFile::Populate(
 }
 
 // static
-std::unique_ptr<OpenedFile> OpenedFile::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<OpenedFile>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<OpenedFile> OpenedFile::FromValue(const base::Value::Dict& value) {
+  OpenedFile out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<OpenedFile> OpenedFile::FromValue(const base::Value::Dict& value) {
+std::optional<OpenedFile> OpenedFile::FromValue(const base::Value& value) {
   OpenedFile out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<OpenedFile> OpenedFile::FromValue(const base::Value& value) {
-  OpenedFile out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -787,8 +736,8 @@ FileSystemInfo::FileSystemInfo()
 opened_files_limit(0) {}
 
 FileSystemInfo::~FileSystemInfo() = default;
-FileSystemInfo::FileSystemInfo(FileSystemInfo&& rhs) = default;
-FileSystemInfo& FileSystemInfo::operator=(FileSystemInfo&& rhs) = default;
+FileSystemInfo::FileSystemInfo(FileSystemInfo&& rhs) noexcept = default;
+FileSystemInfo& FileSystemInfo::operator=(FileSystemInfo&& rhs) noexcept = default;
 FileSystemInfo FileSystemInfo::Clone() const {
   FileSystemInfo out;
   out.file_system_id = file_system_id;
@@ -878,7 +827,7 @@ bool FileSystemInfo::Populate(
     {
       auto temp = (*supports_notify_tag_value).GetIfBool();
       if (!temp.has_value()) {
-        out.supports_notify_tag = absl::nullopt;
+        out.supports_notify_tag = std::nullopt;
         return false;
       }
       out.supports_notify_tag = *temp;
@@ -913,34 +862,21 @@ bool FileSystemInfo::Populate(
 }
 
 // static
-std::unique_ptr<FileSystemInfo> FileSystemInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<FileSystemInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<FileSystemInfo> FileSystemInfo::FromValue(const base::Value::Dict& value) {
+  FileSystemInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<FileSystemInfo> FileSystemInfo::FromValue(const base::Value::Dict& value) {
+std::optional<FileSystemInfo> FileSystemInfo::FromValue(const base::Value& value) {
   FileSystemInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<FileSystemInfo> FileSystemInfo::FromValue(const base::Value& value) {
-  FileSystemInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -973,8 +909,8 @@ MountOptions::MountOptions()
  {}
 
 MountOptions::~MountOptions() = default;
-MountOptions::MountOptions(MountOptions&& rhs) = default;
-MountOptions& MountOptions::operator=(MountOptions&& rhs) = default;
+MountOptions::MountOptions(MountOptions&& rhs) noexcept = default;
+MountOptions& MountOptions::operator=(MountOptions&& rhs) noexcept = default;
 MountOptions MountOptions::Clone() const {
   MountOptions out;
   out.file_system_id = file_system_id;
@@ -1018,7 +954,7 @@ bool MountOptions::Populate(
     {
       auto temp = (*writable_value).GetIfBool();
       if (!temp.has_value()) {
-        out.writable = absl::nullopt;
+        out.writable = std::nullopt;
         return false;
       }
       out.writable = *temp;
@@ -1030,7 +966,7 @@ bool MountOptions::Populate(
     {
       auto temp = (*opened_files_limit_value).GetIfInt();
       if (!temp.has_value()) {
-        out.opened_files_limit = absl::nullopt;
+        out.opened_files_limit = std::nullopt;
         return false;
       }
       out.opened_files_limit = *temp;
@@ -1042,7 +978,7 @@ bool MountOptions::Populate(
     {
       auto temp = (*supports_notify_tag_value).GetIfBool();
       if (!temp.has_value()) {
-        out.supports_notify_tag = absl::nullopt;
+        out.supports_notify_tag = std::nullopt;
         return false;
       }
       out.supports_notify_tag = *temp;
@@ -1054,7 +990,7 @@ bool MountOptions::Populate(
     {
       auto temp = (*persistent_value).GetIfBool();
       if (!temp.has_value()) {
-        out.persistent = absl::nullopt;
+        out.persistent = std::nullopt;
         return false;
       }
       out.persistent = *temp;
@@ -1074,34 +1010,21 @@ bool MountOptions::Populate(
 }
 
 // static
-std::unique_ptr<MountOptions> MountOptions::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<MountOptions>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<MountOptions> MountOptions::FromValue(const base::Value::Dict& value) {
+  MountOptions out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<MountOptions> MountOptions::FromValue(const base::Value::Dict& value) {
+std::optional<MountOptions> MountOptions::FromValue(const base::Value& value) {
   MountOptions out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<MountOptions> MountOptions::FromValue(const base::Value& value) {
-  MountOptions out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1138,8 +1061,8 @@ UnmountOptions::UnmountOptions()
  {}
 
 UnmountOptions::~UnmountOptions() = default;
-UnmountOptions::UnmountOptions(UnmountOptions&& rhs) = default;
-UnmountOptions& UnmountOptions::operator=(UnmountOptions&& rhs) = default;
+UnmountOptions::UnmountOptions(UnmountOptions&& rhs) noexcept = default;
+UnmountOptions& UnmountOptions::operator=(UnmountOptions&& rhs) noexcept = default;
 UnmountOptions UnmountOptions::Clone() const {
   UnmountOptions out;
   out.file_system_id = file_system_id;
@@ -1174,34 +1097,21 @@ bool UnmountOptions::Populate(
 }
 
 // static
-std::unique_ptr<UnmountOptions> UnmountOptions::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<UnmountOptions>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<UnmountOptions> UnmountOptions::FromValue(const base::Value::Dict& value) {
+  UnmountOptions out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<UnmountOptions> UnmountOptions::FromValue(const base::Value::Dict& value) {
+std::optional<UnmountOptions> UnmountOptions::FromValue(const base::Value& value) {
   UnmountOptions out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<UnmountOptions> UnmountOptions::FromValue(const base::Value& value) {
-  UnmountOptions out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1220,8 +1130,8 @@ UnmountRequestedOptions::UnmountRequestedOptions()
 : request_id(0) {}
 
 UnmountRequestedOptions::~UnmountRequestedOptions() = default;
-UnmountRequestedOptions::UnmountRequestedOptions(UnmountRequestedOptions&& rhs) = default;
-UnmountRequestedOptions& UnmountRequestedOptions::operator=(UnmountRequestedOptions&& rhs) = default;
+UnmountRequestedOptions::UnmountRequestedOptions(UnmountRequestedOptions&& rhs) noexcept = default;
+UnmountRequestedOptions& UnmountRequestedOptions::operator=(UnmountRequestedOptions&& rhs) noexcept = default;
 UnmountRequestedOptions UnmountRequestedOptions::Clone() const {
   UnmountRequestedOptions out;
   out.file_system_id = file_system_id;
@@ -1269,34 +1179,21 @@ bool UnmountRequestedOptions::Populate(
 }
 
 // static
-std::unique_ptr<UnmountRequestedOptions> UnmountRequestedOptions::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<UnmountRequestedOptions>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<UnmountRequestedOptions> UnmountRequestedOptions::FromValue(const base::Value::Dict& value) {
+  UnmountRequestedOptions out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<UnmountRequestedOptions> UnmountRequestedOptions::FromValue(const base::Value::Dict& value) {
+std::optional<UnmountRequestedOptions> UnmountRequestedOptions::FromValue(const base::Value& value) {
   UnmountRequestedOptions out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<UnmountRequestedOptions> UnmountRequestedOptions::FromValue(const base::Value& value) {
-  UnmountRequestedOptions out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1324,8 +1221,8 @@ thumbnail(false),
 cloud_identifier(false) {}
 
 GetMetadataRequestedOptions::~GetMetadataRequestedOptions() = default;
-GetMetadataRequestedOptions::GetMetadataRequestedOptions(GetMetadataRequestedOptions&& rhs) = default;
-GetMetadataRequestedOptions& GetMetadataRequestedOptions::operator=(GetMetadataRequestedOptions&& rhs) = default;
+GetMetadataRequestedOptions::GetMetadataRequestedOptions(GetMetadataRequestedOptions&& rhs) noexcept = default;
+GetMetadataRequestedOptions& GetMetadataRequestedOptions::operator=(GetMetadataRequestedOptions&& rhs) noexcept = default;
 GetMetadataRequestedOptions GetMetadataRequestedOptions::Clone() const {
   GetMetadataRequestedOptions out;
   out.file_system_id = file_system_id;
@@ -1477,34 +1374,21 @@ bool GetMetadataRequestedOptions::Populate(
 }
 
 // static
-std::unique_ptr<GetMetadataRequestedOptions> GetMetadataRequestedOptions::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<GetMetadataRequestedOptions>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<GetMetadataRequestedOptions> GetMetadataRequestedOptions::FromValue(const base::Value::Dict& value) {
+  GetMetadataRequestedOptions out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<GetMetadataRequestedOptions> GetMetadataRequestedOptions::FromValue(const base::Value::Dict& value) {
+std::optional<GetMetadataRequestedOptions> GetMetadataRequestedOptions::FromValue(const base::Value& value) {
   GetMetadataRequestedOptions out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<GetMetadataRequestedOptions> GetMetadataRequestedOptions::FromValue(const base::Value& value) {
-  GetMetadataRequestedOptions out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1541,8 +1425,8 @@ GetActionsRequestedOptions::GetActionsRequestedOptions()
 : request_id(0) {}
 
 GetActionsRequestedOptions::~GetActionsRequestedOptions() = default;
-GetActionsRequestedOptions::GetActionsRequestedOptions(GetActionsRequestedOptions&& rhs) = default;
-GetActionsRequestedOptions& GetActionsRequestedOptions::operator=(GetActionsRequestedOptions&& rhs) = default;
+GetActionsRequestedOptions::GetActionsRequestedOptions(GetActionsRequestedOptions&& rhs) noexcept = default;
+GetActionsRequestedOptions& GetActionsRequestedOptions::operator=(GetActionsRequestedOptions&& rhs) noexcept = default;
 GetActionsRequestedOptions GetActionsRequestedOptions::Clone() const {
   GetActionsRequestedOptions out;
   out.file_system_id = file_system_id;
@@ -1606,34 +1490,21 @@ bool GetActionsRequestedOptions::Populate(
 }
 
 // static
-std::unique_ptr<GetActionsRequestedOptions> GetActionsRequestedOptions::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<GetActionsRequestedOptions>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<GetActionsRequestedOptions> GetActionsRequestedOptions::FromValue(const base::Value::Dict& value) {
+  GetActionsRequestedOptions out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<GetActionsRequestedOptions> GetActionsRequestedOptions::FromValue(const base::Value::Dict& value) {
+std::optional<GetActionsRequestedOptions> GetActionsRequestedOptions::FromValue(const base::Value& value) {
   GetActionsRequestedOptions out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<GetActionsRequestedOptions> GetActionsRequestedOptions::FromValue(const base::Value& value) {
-  GetActionsRequestedOptions out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1662,8 +1533,8 @@ mime_type(false),
 thumbnail(false) {}
 
 ReadDirectoryRequestedOptions::~ReadDirectoryRequestedOptions() = default;
-ReadDirectoryRequestedOptions::ReadDirectoryRequestedOptions(ReadDirectoryRequestedOptions&& rhs) = default;
-ReadDirectoryRequestedOptions& ReadDirectoryRequestedOptions::operator=(ReadDirectoryRequestedOptions&& rhs) = default;
+ReadDirectoryRequestedOptions::ReadDirectoryRequestedOptions(ReadDirectoryRequestedOptions&& rhs) noexcept = default;
+ReadDirectoryRequestedOptions& ReadDirectoryRequestedOptions::operator=(ReadDirectoryRequestedOptions&& rhs) noexcept = default;
 ReadDirectoryRequestedOptions ReadDirectoryRequestedOptions::Clone() const {
   ReadDirectoryRequestedOptions out;
   out.file_system_id = file_system_id;
@@ -1802,34 +1673,21 @@ bool ReadDirectoryRequestedOptions::Populate(
 }
 
 // static
-std::unique_ptr<ReadDirectoryRequestedOptions> ReadDirectoryRequestedOptions::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ReadDirectoryRequestedOptions>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ReadDirectoryRequestedOptions> ReadDirectoryRequestedOptions::FromValue(const base::Value::Dict& value) {
+  ReadDirectoryRequestedOptions out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ReadDirectoryRequestedOptions> ReadDirectoryRequestedOptions::FromValue(const base::Value::Dict& value) {
+std::optional<ReadDirectoryRequestedOptions> ReadDirectoryRequestedOptions::FromValue(const base::Value& value) {
   ReadDirectoryRequestedOptions out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ReadDirectoryRequestedOptions> ReadDirectoryRequestedOptions::FromValue(const base::Value& value) {
-  ReadDirectoryRequestedOptions out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1865,8 +1723,8 @@ OpenFileRequestedOptions::OpenFileRequestedOptions()
 mode() {}
 
 OpenFileRequestedOptions::~OpenFileRequestedOptions() = default;
-OpenFileRequestedOptions::OpenFileRequestedOptions(OpenFileRequestedOptions&& rhs) = default;
-OpenFileRequestedOptions& OpenFileRequestedOptions::operator=(OpenFileRequestedOptions&& rhs) = default;
+OpenFileRequestedOptions::OpenFileRequestedOptions(OpenFileRequestedOptions&& rhs) noexcept = default;
+OpenFileRequestedOptions& OpenFileRequestedOptions::operator=(OpenFileRequestedOptions&& rhs) noexcept = default;
 OpenFileRequestedOptions OpenFileRequestedOptions::Clone() const {
   OpenFileRequestedOptions out;
   out.file_system_id = file_system_id;
@@ -1943,34 +1801,21 @@ bool OpenFileRequestedOptions::Populate(
 }
 
 // static
-std::unique_ptr<OpenFileRequestedOptions> OpenFileRequestedOptions::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<OpenFileRequestedOptions>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<OpenFileRequestedOptions> OpenFileRequestedOptions::FromValue(const base::Value::Dict& value) {
+  OpenFileRequestedOptions out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<OpenFileRequestedOptions> OpenFileRequestedOptions::FromValue(const base::Value::Dict& value) {
+std::optional<OpenFileRequestedOptions> OpenFileRequestedOptions::FromValue(const base::Value& value) {
   OpenFileRequestedOptions out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<OpenFileRequestedOptions> OpenFileRequestedOptions::FromValue(const base::Value& value) {
-  OpenFileRequestedOptions out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1996,8 +1841,8 @@ CloseFileRequestedOptions::CloseFileRequestedOptions()
 open_request_id(0) {}
 
 CloseFileRequestedOptions::~CloseFileRequestedOptions() = default;
-CloseFileRequestedOptions::CloseFileRequestedOptions(CloseFileRequestedOptions&& rhs) = default;
-CloseFileRequestedOptions& CloseFileRequestedOptions::operator=(CloseFileRequestedOptions&& rhs) = default;
+CloseFileRequestedOptions::CloseFileRequestedOptions(CloseFileRequestedOptions&& rhs) noexcept = default;
+CloseFileRequestedOptions& CloseFileRequestedOptions::operator=(CloseFileRequestedOptions&& rhs) noexcept = default;
 CloseFileRequestedOptions CloseFileRequestedOptions::Clone() const {
   CloseFileRequestedOptions out;
   out.file_system_id = file_system_id;
@@ -2058,34 +1903,21 @@ bool CloseFileRequestedOptions::Populate(
 }
 
 // static
-std::unique_ptr<CloseFileRequestedOptions> CloseFileRequestedOptions::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<CloseFileRequestedOptions>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<CloseFileRequestedOptions> CloseFileRequestedOptions::FromValue(const base::Value::Dict& value) {
+  CloseFileRequestedOptions out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<CloseFileRequestedOptions> CloseFileRequestedOptions::FromValue(const base::Value::Dict& value) {
+std::optional<CloseFileRequestedOptions> CloseFileRequestedOptions::FromValue(const base::Value& value) {
   CloseFileRequestedOptions out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<CloseFileRequestedOptions> CloseFileRequestedOptions::FromValue(const base::Value& value) {
-  CloseFileRequestedOptions out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2111,8 +1943,8 @@ offset(0.0),
 length(0.0) {}
 
 ReadFileRequestedOptions::~ReadFileRequestedOptions() = default;
-ReadFileRequestedOptions::ReadFileRequestedOptions(ReadFileRequestedOptions&& rhs) = default;
-ReadFileRequestedOptions& ReadFileRequestedOptions::operator=(ReadFileRequestedOptions&& rhs) = default;
+ReadFileRequestedOptions::ReadFileRequestedOptions(ReadFileRequestedOptions&& rhs) noexcept = default;
+ReadFileRequestedOptions& ReadFileRequestedOptions::operator=(ReadFileRequestedOptions&& rhs) noexcept = default;
 ReadFileRequestedOptions ReadFileRequestedOptions::Clone() const {
   ReadFileRequestedOptions out;
   out.file_system_id = file_system_id;
@@ -2199,34 +2031,21 @@ bool ReadFileRequestedOptions::Populate(
 }
 
 // static
-std::unique_ptr<ReadFileRequestedOptions> ReadFileRequestedOptions::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ReadFileRequestedOptions>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ReadFileRequestedOptions> ReadFileRequestedOptions::FromValue(const base::Value::Dict& value) {
+  ReadFileRequestedOptions out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ReadFileRequestedOptions> ReadFileRequestedOptions::FromValue(const base::Value::Dict& value) {
+std::optional<ReadFileRequestedOptions> ReadFileRequestedOptions::FromValue(const base::Value& value) {
   ReadFileRequestedOptions out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ReadFileRequestedOptions> ReadFileRequestedOptions::FromValue(const base::Value& value) {
-  ReadFileRequestedOptions out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2254,8 +2073,8 @@ CreateDirectoryRequestedOptions::CreateDirectoryRequestedOptions()
 recursive(false) {}
 
 CreateDirectoryRequestedOptions::~CreateDirectoryRequestedOptions() = default;
-CreateDirectoryRequestedOptions::CreateDirectoryRequestedOptions(CreateDirectoryRequestedOptions&& rhs) = default;
-CreateDirectoryRequestedOptions& CreateDirectoryRequestedOptions::operator=(CreateDirectoryRequestedOptions&& rhs) = default;
+CreateDirectoryRequestedOptions::CreateDirectoryRequestedOptions(CreateDirectoryRequestedOptions&& rhs) noexcept = default;
+CreateDirectoryRequestedOptions& CreateDirectoryRequestedOptions::operator=(CreateDirectoryRequestedOptions&& rhs) noexcept = default;
 CreateDirectoryRequestedOptions CreateDirectoryRequestedOptions::Clone() const {
   CreateDirectoryRequestedOptions out;
   out.file_system_id = file_system_id;
@@ -2329,34 +2148,21 @@ bool CreateDirectoryRequestedOptions::Populate(
 }
 
 // static
-std::unique_ptr<CreateDirectoryRequestedOptions> CreateDirectoryRequestedOptions::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<CreateDirectoryRequestedOptions>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<CreateDirectoryRequestedOptions> CreateDirectoryRequestedOptions::FromValue(const base::Value::Dict& value) {
+  CreateDirectoryRequestedOptions out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<CreateDirectoryRequestedOptions> CreateDirectoryRequestedOptions::FromValue(const base::Value::Dict& value) {
+std::optional<CreateDirectoryRequestedOptions> CreateDirectoryRequestedOptions::FromValue(const base::Value& value) {
   CreateDirectoryRequestedOptions out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<CreateDirectoryRequestedOptions> CreateDirectoryRequestedOptions::FromValue(const base::Value& value) {
-  CreateDirectoryRequestedOptions out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2382,8 +2188,8 @@ DeleteEntryRequestedOptions::DeleteEntryRequestedOptions()
 recursive(false) {}
 
 DeleteEntryRequestedOptions::~DeleteEntryRequestedOptions() = default;
-DeleteEntryRequestedOptions::DeleteEntryRequestedOptions(DeleteEntryRequestedOptions&& rhs) = default;
-DeleteEntryRequestedOptions& DeleteEntryRequestedOptions::operator=(DeleteEntryRequestedOptions&& rhs) = default;
+DeleteEntryRequestedOptions::DeleteEntryRequestedOptions(DeleteEntryRequestedOptions&& rhs) noexcept = default;
+DeleteEntryRequestedOptions& DeleteEntryRequestedOptions::operator=(DeleteEntryRequestedOptions&& rhs) noexcept = default;
 DeleteEntryRequestedOptions DeleteEntryRequestedOptions::Clone() const {
   DeleteEntryRequestedOptions out;
   out.file_system_id = file_system_id;
@@ -2457,34 +2263,21 @@ bool DeleteEntryRequestedOptions::Populate(
 }
 
 // static
-std::unique_ptr<DeleteEntryRequestedOptions> DeleteEntryRequestedOptions::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<DeleteEntryRequestedOptions>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<DeleteEntryRequestedOptions> DeleteEntryRequestedOptions::FromValue(const base::Value::Dict& value) {
+  DeleteEntryRequestedOptions out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<DeleteEntryRequestedOptions> DeleteEntryRequestedOptions::FromValue(const base::Value::Dict& value) {
+std::optional<DeleteEntryRequestedOptions> DeleteEntryRequestedOptions::FromValue(const base::Value& value) {
   DeleteEntryRequestedOptions out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<DeleteEntryRequestedOptions> DeleteEntryRequestedOptions::FromValue(const base::Value& value) {
-  DeleteEntryRequestedOptions out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2509,8 +2302,8 @@ CreateFileRequestedOptions::CreateFileRequestedOptions()
 : request_id(0) {}
 
 CreateFileRequestedOptions::~CreateFileRequestedOptions() = default;
-CreateFileRequestedOptions::CreateFileRequestedOptions(CreateFileRequestedOptions&& rhs) = default;
-CreateFileRequestedOptions& CreateFileRequestedOptions::operator=(CreateFileRequestedOptions&& rhs) = default;
+CreateFileRequestedOptions::CreateFileRequestedOptions(CreateFileRequestedOptions&& rhs) noexcept = default;
+CreateFileRequestedOptions& CreateFileRequestedOptions::operator=(CreateFileRequestedOptions&& rhs) noexcept = default;
 CreateFileRequestedOptions CreateFileRequestedOptions::Clone() const {
   CreateFileRequestedOptions out;
   out.file_system_id = file_system_id;
@@ -2571,34 +2364,21 @@ bool CreateFileRequestedOptions::Populate(
 }
 
 // static
-std::unique_ptr<CreateFileRequestedOptions> CreateFileRequestedOptions::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<CreateFileRequestedOptions>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<CreateFileRequestedOptions> CreateFileRequestedOptions::FromValue(const base::Value::Dict& value) {
+  CreateFileRequestedOptions out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<CreateFileRequestedOptions> CreateFileRequestedOptions::FromValue(const base::Value::Dict& value) {
+std::optional<CreateFileRequestedOptions> CreateFileRequestedOptions::FromValue(const base::Value& value) {
   CreateFileRequestedOptions out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<CreateFileRequestedOptions> CreateFileRequestedOptions::FromValue(const base::Value& value) {
-  CreateFileRequestedOptions out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2621,8 +2401,8 @@ CopyEntryRequestedOptions::CopyEntryRequestedOptions()
 : request_id(0) {}
 
 CopyEntryRequestedOptions::~CopyEntryRequestedOptions() = default;
-CopyEntryRequestedOptions::CopyEntryRequestedOptions(CopyEntryRequestedOptions&& rhs) = default;
-CopyEntryRequestedOptions& CopyEntryRequestedOptions::operator=(CopyEntryRequestedOptions&& rhs) = default;
+CopyEntryRequestedOptions::CopyEntryRequestedOptions(CopyEntryRequestedOptions&& rhs) noexcept = default;
+CopyEntryRequestedOptions& CopyEntryRequestedOptions::operator=(CopyEntryRequestedOptions&& rhs) noexcept = default;
 CopyEntryRequestedOptions CopyEntryRequestedOptions::Clone() const {
   CopyEntryRequestedOptions out;
   out.file_system_id = file_system_id;
@@ -2696,34 +2476,21 @@ bool CopyEntryRequestedOptions::Populate(
 }
 
 // static
-std::unique_ptr<CopyEntryRequestedOptions> CopyEntryRequestedOptions::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<CopyEntryRequestedOptions>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<CopyEntryRequestedOptions> CopyEntryRequestedOptions::FromValue(const base::Value::Dict& value) {
+  CopyEntryRequestedOptions out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<CopyEntryRequestedOptions> CopyEntryRequestedOptions::FromValue(const base::Value::Dict& value) {
+std::optional<CopyEntryRequestedOptions> CopyEntryRequestedOptions::FromValue(const base::Value& value) {
   CopyEntryRequestedOptions out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<CopyEntryRequestedOptions> CopyEntryRequestedOptions::FromValue(const base::Value& value) {
-  CopyEntryRequestedOptions out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2748,8 +2515,8 @@ MoveEntryRequestedOptions::MoveEntryRequestedOptions()
 : request_id(0) {}
 
 MoveEntryRequestedOptions::~MoveEntryRequestedOptions() = default;
-MoveEntryRequestedOptions::MoveEntryRequestedOptions(MoveEntryRequestedOptions&& rhs) = default;
-MoveEntryRequestedOptions& MoveEntryRequestedOptions::operator=(MoveEntryRequestedOptions&& rhs) = default;
+MoveEntryRequestedOptions::MoveEntryRequestedOptions(MoveEntryRequestedOptions&& rhs) noexcept = default;
+MoveEntryRequestedOptions& MoveEntryRequestedOptions::operator=(MoveEntryRequestedOptions&& rhs) noexcept = default;
 MoveEntryRequestedOptions MoveEntryRequestedOptions::Clone() const {
   MoveEntryRequestedOptions out;
   out.file_system_id = file_system_id;
@@ -2823,34 +2590,21 @@ bool MoveEntryRequestedOptions::Populate(
 }
 
 // static
-std::unique_ptr<MoveEntryRequestedOptions> MoveEntryRequestedOptions::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<MoveEntryRequestedOptions>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<MoveEntryRequestedOptions> MoveEntryRequestedOptions::FromValue(const base::Value::Dict& value) {
+  MoveEntryRequestedOptions out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<MoveEntryRequestedOptions> MoveEntryRequestedOptions::FromValue(const base::Value::Dict& value) {
+std::optional<MoveEntryRequestedOptions> MoveEntryRequestedOptions::FromValue(const base::Value& value) {
   MoveEntryRequestedOptions out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<MoveEntryRequestedOptions> MoveEntryRequestedOptions::FromValue(const base::Value& value) {
-  MoveEntryRequestedOptions out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2876,8 +2630,8 @@ TruncateRequestedOptions::TruncateRequestedOptions()
 length(0.0) {}
 
 TruncateRequestedOptions::~TruncateRequestedOptions() = default;
-TruncateRequestedOptions::TruncateRequestedOptions(TruncateRequestedOptions&& rhs) = default;
-TruncateRequestedOptions& TruncateRequestedOptions::operator=(TruncateRequestedOptions&& rhs) = default;
+TruncateRequestedOptions::TruncateRequestedOptions(TruncateRequestedOptions&& rhs) noexcept = default;
+TruncateRequestedOptions& TruncateRequestedOptions::operator=(TruncateRequestedOptions&& rhs) noexcept = default;
 TruncateRequestedOptions TruncateRequestedOptions::Clone() const {
   TruncateRequestedOptions out;
   out.file_system_id = file_system_id;
@@ -2951,34 +2705,21 @@ bool TruncateRequestedOptions::Populate(
 }
 
 // static
-std::unique_ptr<TruncateRequestedOptions> TruncateRequestedOptions::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<TruncateRequestedOptions>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<TruncateRequestedOptions> TruncateRequestedOptions::FromValue(const base::Value::Dict& value) {
+  TruncateRequestedOptions out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<TruncateRequestedOptions> TruncateRequestedOptions::FromValue(const base::Value::Dict& value) {
+std::optional<TruncateRequestedOptions> TruncateRequestedOptions::FromValue(const base::Value& value) {
   TruncateRequestedOptions out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<TruncateRequestedOptions> TruncateRequestedOptions::FromValue(const base::Value& value) {
-  TruncateRequestedOptions out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -3005,8 +2746,8 @@ open_request_id(0),
 offset(0.0) {}
 
 WriteFileRequestedOptions::~WriteFileRequestedOptions() = default;
-WriteFileRequestedOptions::WriteFileRequestedOptions(WriteFileRequestedOptions&& rhs) = default;
-WriteFileRequestedOptions& WriteFileRequestedOptions::operator=(WriteFileRequestedOptions&& rhs) = default;
+WriteFileRequestedOptions::WriteFileRequestedOptions(WriteFileRequestedOptions&& rhs) noexcept = default;
+WriteFileRequestedOptions& WriteFileRequestedOptions::operator=(WriteFileRequestedOptions&& rhs) noexcept = default;
 WriteFileRequestedOptions WriteFileRequestedOptions::Clone() const {
   WriteFileRequestedOptions out;
   out.file_system_id = file_system_id;
@@ -3094,34 +2835,21 @@ bool WriteFileRequestedOptions::Populate(
 }
 
 // static
-std::unique_ptr<WriteFileRequestedOptions> WriteFileRequestedOptions::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<WriteFileRequestedOptions>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<WriteFileRequestedOptions> WriteFileRequestedOptions::FromValue(const base::Value::Dict& value) {
+  WriteFileRequestedOptions out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<WriteFileRequestedOptions> WriteFileRequestedOptions::FromValue(const base::Value::Dict& value) {
+std::optional<WriteFileRequestedOptions> WriteFileRequestedOptions::FromValue(const base::Value& value) {
   WriteFileRequestedOptions out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<WriteFileRequestedOptions> WriteFileRequestedOptions::FromValue(const base::Value& value) {
-  WriteFileRequestedOptions out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -3149,8 +2877,8 @@ AbortRequestedOptions::AbortRequestedOptions()
 operation_request_id(0) {}
 
 AbortRequestedOptions::~AbortRequestedOptions() = default;
-AbortRequestedOptions::AbortRequestedOptions(AbortRequestedOptions&& rhs) = default;
-AbortRequestedOptions& AbortRequestedOptions::operator=(AbortRequestedOptions&& rhs) = default;
+AbortRequestedOptions::AbortRequestedOptions(AbortRequestedOptions&& rhs) noexcept = default;
+AbortRequestedOptions& AbortRequestedOptions::operator=(AbortRequestedOptions&& rhs) noexcept = default;
 AbortRequestedOptions AbortRequestedOptions::Clone() const {
   AbortRequestedOptions out;
   out.file_system_id = file_system_id;
@@ -3211,34 +2939,21 @@ bool AbortRequestedOptions::Populate(
 }
 
 // static
-std::unique_ptr<AbortRequestedOptions> AbortRequestedOptions::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<AbortRequestedOptions>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<AbortRequestedOptions> AbortRequestedOptions::FromValue(const base::Value::Dict& value) {
+  AbortRequestedOptions out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<AbortRequestedOptions> AbortRequestedOptions::FromValue(const base::Value::Dict& value) {
+std::optional<AbortRequestedOptions> AbortRequestedOptions::FromValue(const base::Value& value) {
   AbortRequestedOptions out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<AbortRequestedOptions> AbortRequestedOptions::FromValue(const base::Value& value) {
-  AbortRequestedOptions out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -3262,8 +2977,8 @@ AddWatcherRequestedOptions::AddWatcherRequestedOptions()
 recursive(false) {}
 
 AddWatcherRequestedOptions::~AddWatcherRequestedOptions() = default;
-AddWatcherRequestedOptions::AddWatcherRequestedOptions(AddWatcherRequestedOptions&& rhs) = default;
-AddWatcherRequestedOptions& AddWatcherRequestedOptions::operator=(AddWatcherRequestedOptions&& rhs) = default;
+AddWatcherRequestedOptions::AddWatcherRequestedOptions(AddWatcherRequestedOptions&& rhs) noexcept = default;
+AddWatcherRequestedOptions& AddWatcherRequestedOptions::operator=(AddWatcherRequestedOptions&& rhs) noexcept = default;
 AddWatcherRequestedOptions AddWatcherRequestedOptions::Clone() const {
   AddWatcherRequestedOptions out;
   out.file_system_id = file_system_id;
@@ -3337,34 +3052,21 @@ bool AddWatcherRequestedOptions::Populate(
 }
 
 // static
-std::unique_ptr<AddWatcherRequestedOptions> AddWatcherRequestedOptions::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<AddWatcherRequestedOptions>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<AddWatcherRequestedOptions> AddWatcherRequestedOptions::FromValue(const base::Value::Dict& value) {
+  AddWatcherRequestedOptions out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<AddWatcherRequestedOptions> AddWatcherRequestedOptions::FromValue(const base::Value::Dict& value) {
+std::optional<AddWatcherRequestedOptions> AddWatcherRequestedOptions::FromValue(const base::Value& value) {
   AddWatcherRequestedOptions out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<AddWatcherRequestedOptions> AddWatcherRequestedOptions::FromValue(const base::Value& value) {
-  AddWatcherRequestedOptions out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -3390,8 +3092,8 @@ RemoveWatcherRequestedOptions::RemoveWatcherRequestedOptions()
 recursive(false) {}
 
 RemoveWatcherRequestedOptions::~RemoveWatcherRequestedOptions() = default;
-RemoveWatcherRequestedOptions::RemoveWatcherRequestedOptions(RemoveWatcherRequestedOptions&& rhs) = default;
-RemoveWatcherRequestedOptions& RemoveWatcherRequestedOptions::operator=(RemoveWatcherRequestedOptions&& rhs) = default;
+RemoveWatcherRequestedOptions::RemoveWatcherRequestedOptions(RemoveWatcherRequestedOptions&& rhs) noexcept = default;
+RemoveWatcherRequestedOptions& RemoveWatcherRequestedOptions::operator=(RemoveWatcherRequestedOptions&& rhs) noexcept = default;
 RemoveWatcherRequestedOptions RemoveWatcherRequestedOptions::Clone() const {
   RemoveWatcherRequestedOptions out;
   out.file_system_id = file_system_id;
@@ -3465,34 +3167,21 @@ bool RemoveWatcherRequestedOptions::Populate(
 }
 
 // static
-std::unique_ptr<RemoveWatcherRequestedOptions> RemoveWatcherRequestedOptions::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<RemoveWatcherRequestedOptions>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<RemoveWatcherRequestedOptions> RemoveWatcherRequestedOptions::FromValue(const base::Value::Dict& value) {
+  RemoveWatcherRequestedOptions out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<RemoveWatcherRequestedOptions> RemoveWatcherRequestedOptions::FromValue(const base::Value::Dict& value) {
+std::optional<RemoveWatcherRequestedOptions> RemoveWatcherRequestedOptions::FromValue(const base::Value& value) {
   RemoveWatcherRequestedOptions out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<RemoveWatcherRequestedOptions> RemoveWatcherRequestedOptions::FromValue(const base::Value& value) {
-  RemoveWatcherRequestedOptions out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -3517,8 +3206,8 @@ Action::Action()
  {}
 
 Action::~Action() = default;
-Action::Action(Action&& rhs) = default;
-Action& Action::operator=(Action&& rhs) = default;
+Action::Action(Action&& rhs) noexcept = default;
+Action& Action::operator=(Action&& rhs) noexcept = default;
 Action Action::Clone() const {
   Action out;
   out.id = id;
@@ -3546,7 +3235,7 @@ bool Action::Populate(
     {
       auto* temp = (*title_value).GetIfString();
       if (!temp) {
-        out.title = absl::nullopt;
+        out.title = std::nullopt;
         return false;
       }
       out.title = *temp;
@@ -3566,34 +3255,21 @@ bool Action::Populate(
 }
 
 // static
-std::unique_ptr<Action> Action::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<Action>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<Action> Action::FromValue(const base::Value::Dict& value) {
+  Action out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Action> Action::FromValue(const base::Value::Dict& value) {
+std::optional<Action> Action::FromValue(const base::Value& value) {
   Action out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<Action> Action::FromValue(const base::Value& value) {
-  Action out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -3616,8 +3292,8 @@ ExecuteActionRequestedOptions::ExecuteActionRequestedOptions()
 : request_id(0) {}
 
 ExecuteActionRequestedOptions::~ExecuteActionRequestedOptions() = default;
-ExecuteActionRequestedOptions::ExecuteActionRequestedOptions(ExecuteActionRequestedOptions&& rhs) = default;
-ExecuteActionRequestedOptions& ExecuteActionRequestedOptions::operator=(ExecuteActionRequestedOptions&& rhs) = default;
+ExecuteActionRequestedOptions::ExecuteActionRequestedOptions(ExecuteActionRequestedOptions&& rhs) noexcept = default;
+ExecuteActionRequestedOptions& ExecuteActionRequestedOptions::operator=(ExecuteActionRequestedOptions&& rhs) noexcept = default;
 ExecuteActionRequestedOptions ExecuteActionRequestedOptions::Clone() const {
   ExecuteActionRequestedOptions out;
   out.file_system_id = file_system_id;
@@ -3694,34 +3370,21 @@ bool ExecuteActionRequestedOptions::Populate(
 }
 
 // static
-std::unique_ptr<ExecuteActionRequestedOptions> ExecuteActionRequestedOptions::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ExecuteActionRequestedOptions>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ExecuteActionRequestedOptions> ExecuteActionRequestedOptions::FromValue(const base::Value::Dict& value) {
+  ExecuteActionRequestedOptions out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ExecuteActionRequestedOptions> ExecuteActionRequestedOptions::FromValue(const base::Value::Dict& value) {
+std::optional<ExecuteActionRequestedOptions> ExecuteActionRequestedOptions::FromValue(const base::Value& value) {
   ExecuteActionRequestedOptions out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ExecuteActionRequestedOptions> ExecuteActionRequestedOptions::FromValue(const base::Value& value) {
-  ExecuteActionRequestedOptions out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -3746,8 +3409,8 @@ Change::Change()
 : change_type() {}
 
 Change::~Change() = default;
-Change::Change(Change&& rhs) = default;
-Change& Change::operator=(Change&& rhs) = default;
+Change::Change(Change&& rhs) noexcept = default;
+Change& Change::operator=(Change&& rhs) noexcept = default;
 Change Change::Clone() const {
   Change out;
   out.entry_path = entry_path;
@@ -3798,34 +3461,21 @@ bool Change::Populate(
 }
 
 // static
-std::unique_ptr<Change> Change::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<Change>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<Change> Change::FromValue(const base::Value::Dict& value) {
+  Change out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Change> Change::FromValue(const base::Value::Dict& value) {
+std::optional<Change> Change::FromValue(const base::Value& value) {
   Change out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<Change> Change::FromValue(const base::Value& value) {
-  Change out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -3847,8 +3497,8 @@ NotifyOptions::NotifyOptions()
 change_type() {}
 
 NotifyOptions::~NotifyOptions() = default;
-NotifyOptions::NotifyOptions(NotifyOptions&& rhs) = default;
-NotifyOptions& NotifyOptions::operator=(NotifyOptions&& rhs) = default;
+NotifyOptions::NotifyOptions(NotifyOptions&& rhs) noexcept = default;
+NotifyOptions& NotifyOptions::operator=(NotifyOptions&& rhs) noexcept = default;
 NotifyOptions NotifyOptions::Clone() const {
   NotifyOptions out;
   out.file_system_id = file_system_id;
@@ -3939,7 +3589,7 @@ bool NotifyOptions::Populate(
     {
       auto* temp = (*tag_value).GetIfString();
       if (!temp) {
-        out.tag = absl::nullopt;
+        out.tag = std::nullopt;
         return false;
       }
       out.tag = *temp;
@@ -3959,34 +3609,21 @@ bool NotifyOptions::Populate(
 }
 
 // static
-std::unique_ptr<NotifyOptions> NotifyOptions::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<NotifyOptions>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<NotifyOptions> NotifyOptions::FromValue(const base::Value::Dict& value) {
+  NotifyOptions out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<NotifyOptions> NotifyOptions::FromValue(const base::Value::Dict& value) {
+std::optional<NotifyOptions> NotifyOptions::FromValue(const base::Value& value) {
   NotifyOptions out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<NotifyOptions> NotifyOptions::FromValue(const base::Value& value) {
-  NotifyOptions out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -4019,8 +3656,8 @@ ConfigureRequestedOptions::ConfigureRequestedOptions()
 : request_id(0) {}
 
 ConfigureRequestedOptions::~ConfigureRequestedOptions() = default;
-ConfigureRequestedOptions::ConfigureRequestedOptions(ConfigureRequestedOptions&& rhs) = default;
-ConfigureRequestedOptions& ConfigureRequestedOptions::operator=(ConfigureRequestedOptions&& rhs) = default;
+ConfigureRequestedOptions::ConfigureRequestedOptions(ConfigureRequestedOptions&& rhs) noexcept = default;
+ConfigureRequestedOptions& ConfigureRequestedOptions::operator=(ConfigureRequestedOptions&& rhs) noexcept = default;
 ConfigureRequestedOptions ConfigureRequestedOptions::Clone() const {
   ConfigureRequestedOptions out;
   out.file_system_id = file_system_id;
@@ -4068,34 +3705,21 @@ bool ConfigureRequestedOptions::Populate(
 }
 
 // static
-std::unique_ptr<ConfigureRequestedOptions> ConfigureRequestedOptions::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ConfigureRequestedOptions>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ConfigureRequestedOptions> ConfigureRequestedOptions::FromValue(const base::Value::Dict& value) {
+  ConfigureRequestedOptions out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ConfigureRequestedOptions> ConfigureRequestedOptions::FromValue(const base::Value::Dict& value) {
+std::optional<ConfigureRequestedOptions> ConfigureRequestedOptions::FromValue(const base::Value& value) {
   ConfigureRequestedOptions out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ConfigureRequestedOptions> ConfigureRequestedOptions::FromValue(const base::Value& value) {
-  ConfigureRequestedOptions out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -4121,13 +3745,13 @@ namespace Mount {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -4136,15 +3760,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& options_value = args[0];
     {
       if (!options_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!MountOptions::Populate(options_value.GetDict(), params.options)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -4162,13 +3786,13 @@ namespace Unmount {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -4177,15 +3801,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& options_value = args[0];
     {
       if (!options_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!UnmountOptions::Populate(options_value.GetDict(), params.options)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -4214,13 +3838,13 @@ namespace Get {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -4230,13 +3854,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = file_system_id_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.file_system_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -4256,13 +3880,13 @@ namespace Notify {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -4271,15 +3895,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& options_value = args[0];
     {
       if (!options_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!NotifyOptions::Populate(options_value.GetDict(), params.options)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;

@@ -8,6 +8,7 @@
 #define SERVICES_CERT_VERIFIER_PUBLIC_MOJOM_CERT_VERIFIER_SERVICE_FACTORY_MOJOM_FEATURES_H_
 
 #include "base/feature_list.h"
+#include "mojo/public/cpp/bindings/runtime_features.h"
 
 
 

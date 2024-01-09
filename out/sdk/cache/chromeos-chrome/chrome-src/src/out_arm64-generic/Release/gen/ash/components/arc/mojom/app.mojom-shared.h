@@ -407,6 +407,11 @@ class InstallationResultDataView {
   bool success() const {
     return data_->success;
   }
+  bool is_launchable_app() const {
+    if (data_->header_.version < 62)
+      return bool{};
+    return data_->is_launchable_app;
+  }
  private:
   internal::InstallationResult_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -913,6 +918,11 @@ static_assert(
                     ? data_->locale_info.Get() : nullptr;
     return mojo::internal::Deserialize<::arc::mojom::PackageLocaleInfoDataView>(
         pointer, output, message_);
+  }
+  bool game_controls_opt_out() const {
+    if (data_->header_.version < 61)
+      return bool{};
+    return data_->game_controls_opt_out;
   }
  private:
   internal::ArcPackageInfo_Data* data_ = nullptr;
@@ -1586,6 +1596,7 @@ struct Serializer<::arc::mojom::InstallationResultDataView, MaybeConstUserType> 
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null package_name in InstallationResult struct");
     fragment->success = Traits::success(input);
+    fragment->is_launchable_app = Traits::is_launchable_app(input);
   }
 
   static bool Deserialize(::arc::mojom::internal::InstallationResult_Data* input,
@@ -1978,6 +1989,7 @@ struct Serializer<::arc::mojom::ArcPackageInfoDataView, MaybeConstUserType> {
         in_locale_info, locale_info_fragment);
     fragment->locale_info.Set(
         locale_info_fragment.is_null() ? nullptr : locale_info_fragment.data());
+    fragment->game_controls_opt_out = Traits::game_controls_opt_out(input);
   }
 
   static bool Deserialize(::arc::mojom::internal::ArcPackageInfo_Data* input,

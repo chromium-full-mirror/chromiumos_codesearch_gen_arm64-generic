@@ -17,6 +17,7 @@ class  SpeechRecognitionEventObserverInterceptorForTesting : public SpeechRecogn
   virtual SpeechRecognitionEventObserver* GetForwardingInterface() = 0;
   void OnStop() override;
   void OnResult(SpeechRecognitionResultEventPtr event) override;
+  void OnError(SpeechRecognitionErrorEventPtr event) override;
 };
 class  SpeechRecognitionEventObserverAsyncWaiter {
  public:
@@ -49,8 +50,8 @@ class  SpeechRecognitionAsyncWaiter {
       StartOptionsPtr options, SpeechRecognitionStartInfoPtr* out_info);
   SpeechRecognitionStartInfoPtr Start(StartOptionsPtr options);
   void Stop(
-      StopOptionsPtr options);
-  
+      StopOptionsPtr options, std::optional<std::string>* out_error);
+  std::optional<std::string> Stop(StopOptionsPtr options);
 
  private:
   SpeechRecognition* const proxy_;

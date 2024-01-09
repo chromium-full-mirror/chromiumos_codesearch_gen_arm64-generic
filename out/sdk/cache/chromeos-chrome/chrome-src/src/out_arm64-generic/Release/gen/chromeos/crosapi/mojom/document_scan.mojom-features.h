@@ -8,6 +8,7 @@
 #define CHROMEOS_CROSAPI_MOJOM_DOCUMENT_SCAN_MOJOM_FEATURES_H_
 
 #include "base/feature_list.h"
+#include "mojo/public/cpp/bindings/runtime_features.h"
 
 
 

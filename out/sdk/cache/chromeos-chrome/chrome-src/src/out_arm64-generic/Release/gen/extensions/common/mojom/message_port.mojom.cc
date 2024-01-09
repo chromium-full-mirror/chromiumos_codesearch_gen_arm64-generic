@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -43,12 +44,1064 @@
 
 
 namespace extensions::mojom {
+PortId::PortId()
+    : context_id(),
+      port_number(),
+      is_opener(),
+      serialization_format() {}
+
+PortId::PortId(
+    const ::base::UnguessableToken& context_id_in,
+    int32_t port_number_in,
+    bool is_opener_in,
+    SerializationFormat serialization_format_in)
+    : context_id(std::move(context_id_in)),
+      port_number(std::move(port_number_in)),
+      is_opener(std::move(is_opener_in)),
+      serialization_format(std::move(serialization_format_in)) {}
+
+PortId::~PortId() = default;
+
+void PortId::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "context_id"), this->context_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const ::base::UnguessableToken&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "port_number"), this->port_number,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type int32_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "is_opener"), this->is_opener,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "serialization_format"), this->serialization_format,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type SerializationFormat>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool PortId::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+MessagingEndpoint::MessagingEndpoint()
+    : type(),
+      extension_id(),
+      native_app_name() {}
+
+MessagingEndpoint::MessagingEndpoint(
+    MessagingEndpointType type_in,
+    const std::optional<std::string>& extension_id_in,
+    const std::optional<std::string>& native_app_name_in)
+    : type(std::move(type_in)),
+      extension_id(std::move(extension_id_in)),
+      native_app_name(std::move(native_app_name_in)) {}
+
+MessagingEndpoint::~MessagingEndpoint() = default;
+
+void MessagingEndpoint::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "type"), this->type,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type MessagingEndpointType>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "extension_id"), this->extension_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::optional<std::string>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "native_app_name"), this->native_app_name,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::optional<std::string>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool MessagingEndpoint::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+TabConnectionInfo::TabConnectionInfo()
+    : tab(),
+      frame_id(),
+      document_id(),
+      document_lifecycle() {}
+
+TabConnectionInfo::TabConnectionInfo(
+    ::base::Value::Dict tab_in,
+    int32_t frame_id_in,
+    const std::string& document_id_in,
+    const std::string& document_lifecycle_in)
+    : tab(std::move(tab_in)),
+      frame_id(std::move(frame_id_in)),
+      document_id(std::move(document_id_in)),
+      document_lifecycle(std::move(document_lifecycle_in)) {}
+
+TabConnectionInfo::~TabConnectionInfo() = default;
+
+void TabConnectionInfo::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "tab"), this->tab,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ::base::Value::Dict>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "frame_id"), this->frame_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type int32_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "document_id"), this->document_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "document_lifecycle"), this->document_lifecycle,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool TabConnectionInfo::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+ExternalConnectionInfo::ExternalConnectionInfo()
+    : source_endpoint(),
+      target_id(),
+      source_url(),
+      source_origin(),
+      guest_process_id(),
+      guest_render_frame_routing_id() {}
+
+ExternalConnectionInfo::ExternalConnectionInfo(
+    const ::extensions::MessagingEndpoint& source_endpoint_in,
+    const std::string& target_id_in,
+    const ::GURL& source_url_in,
+    const std::optional<::url::Origin>& source_origin_in,
+    int32_t guest_process_id_in,
+    int32_t guest_render_frame_routing_id_in)
+    : source_endpoint(std::move(source_endpoint_in)),
+      target_id(std::move(target_id_in)),
+      source_url(std::move(source_url_in)),
+      source_origin(std::move(source_origin_in)),
+      guest_process_id(std::move(guest_process_id_in)),
+      guest_render_frame_routing_id(std::move(guest_render_frame_routing_id_in)) {}
+
+ExternalConnectionInfo::~ExternalConnectionInfo() = default;
+
+void ExternalConnectionInfo::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "source_endpoint"), this->source_endpoint,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const ::extensions::MessagingEndpoint&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "target_id"), this->target_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "source_url"), this->source_url,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const ::GURL&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "source_origin"), this->source_origin,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::optional<::url::Origin>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "guest_process_id"), this->guest_process_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type int32_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "guest_render_frame_routing_id"), this->guest_render_frame_routing_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type int32_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool ExternalConnectionInfo::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+Message::Message()
+    : data(),
+      format(),
+      user_gesture(),
+      from_privileged_context() {}
+
+Message::Message(
+    const std::string& data_in,
+    SerializationFormat format_in,
+    bool user_gesture_in,
+    bool from_privileged_context_in)
+    : data(std::move(data_in)),
+      format(std::move(format_in)),
+      user_gesture(std::move(user_gesture_in)),
+      from_privileged_context(std::move(from_privileged_context_in)) {}
+
+Message::~Message() = default;
+
+void Message::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "data"), this->data,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "format"), this->format,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type SerializationFormat>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "user_gesture"), this->user_gesture,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "from_privileged_context"), this->from_privileged_context,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool Message::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+const char MessagePort::Name_[] = "extensions.mojom.MessagePort";
+
+MessagePort::IPCStableHashFunction MessagePort::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
+  switch (message.name()) {
+    case internal::kMessagePort_DispatchDisconnect_Name: {
+      return &MessagePort::DispatchDisconnect_Sym::IPCStableHash;
+    }
+    case internal::kMessagePort_DeliverMessage_Name: {
+      return &MessagePort::DeliverMessage_Sym::IPCStableHash;
+    }
+  }
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
+}
+
+
+const char* MessagePort::MessageToMethodName_(mojo::Message& message) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (!is_response) {
+    switch (message.name()) {
+      case internal::kMessagePort_DispatchDisconnect_Name:
+            return "Receive extensions::mojom::MessagePort::DispatchDisconnect";
+      case internal::kMessagePort_DeliverMessage_Name:
+            return "Receive extensions::mojom::MessagePort::DeliverMessage";
+    }
+  } else {
+    switch (message.name()) {
+      case internal::kMessagePort_DispatchDisconnect_Name:
+            return "Receive reply extensions::mojom::MessagePort::DispatchDisconnect";
+      case internal::kMessagePort_DeliverMessage_Name:
+            return "Receive reply extensions::mojom::MessagePort::DeliverMessage";
+    }
+  }
+  return "Receive unknown mojo message";
+#else
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (is_response) {
+    return "Receive mojo reply";
+  } else {
+    return "Receive mojo message";
+  }
+#endif // BUILDFLAG(MOJO_TRACE_ENABLED)
+}
+
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t MessagePort::DispatchDisconnect_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)extensions::mojom::MessagePort::DispatchDisconnect");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t MessagePort::DeliverMessage_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)extensions::mojom::MessagePort::DeliverMessage");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
+
+MessagePortProxy::MessagePortProxy(mojo::MessageReceiverWithResponder* receiver)
+    : receiver_(receiver) {
+}
+
+void MessagePortProxy::DispatchDisconnect(
+    const std::string& in_error) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send extensions::mojom::MessagePort::DispatchDisconnect", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("error"), in_error,
+                        "<value of type const std::string&>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kMessagePort_DispatchDisconnect_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::extensions::mojom::internal::MessagePort_DispatchDisconnect_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->error)::BaseType> error_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_error, error_fragment);
+  params->error.Set(
+      error_fragment.is_null() ? nullptr : error_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->error.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null error in MessagePort.DispatchDisconnect request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(MessagePort::Name_);
+  message.set_method_name("DispatchDisconnect");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void MessagePortProxy::DeliverMessage(
+    ::extensions::Message in_message) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send extensions::mojom::MessagePort::DeliverMessage", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("message"), in_message,
+                        "<value of type ::extensions::Message>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kMessagePort_DeliverMessage_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::extensions::mojom::internal::MessagePort_DeliverMessage_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->message)::BaseType> message_fragment(
+          params.message());
+  mojo::internal::Serialize<::extensions::mojom::MessageDataView>(
+      in_message, message_fragment);
+  params->message.Set(
+      message_fragment.is_null() ? nullptr : message_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->message.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null message in MessagePort.DeliverMessage request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(MessagePort::Name_);
+  message.set_method_name("DeliverMessage");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+// static
+bool MessagePortStubDispatch::Accept(
+    MessagePort* impl,
+    mojo::Message* message) {
+  switch (message->header()->name) {
+    case internal::kMessagePort_DispatchDisconnect_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::MessagePort_DispatchDisconnect_Params_Data* params =
+          reinterpret_cast<internal::MessagePort_DispatchDisconnect_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      std::string p_error{};
+      MessagePort_DispatchDisconnect_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadError(&p_error))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            MessagePort::Name_, 0, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->DispatchDisconnect(
+std::move(p_error));
+      return true;
+    }
+    case internal::kMessagePort_DeliverMessage_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::MessagePort_DeliverMessage_Params_Data* params =
+          reinterpret_cast<internal::MessagePort_DeliverMessage_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      ::extensions::Message p_message{};
+      MessagePort_DeliverMessage_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadMessage(&p_message))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            MessagePort::Name_, 1, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->DeliverMessage(
+std::move(p_message));
+      return true;
+    }
+  }
+  return false;
+}
+
+// static
+bool MessagePortStubDispatch::AcceptWithResponder(
+    MessagePort* impl,
+    mojo::Message* message,
+    std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+  [[maybe_unused]] const bool message_is_sync =
+      message->has_flag(mojo::Message::kFlagIsSync);
+  [[maybe_unused]] const uint64_t request_id = message->request_id();
+  switch (message->header()->name) {
+    case internal::kMessagePort_DispatchDisconnect_Name: {
+      break;
+    }
+    case internal::kMessagePort_DeliverMessage_Name: {
+      break;
+    }
+  }
+  return false;
+}
+namespace {
+}  // namespace
+static const mojo::internal::GenericValidationInfo kMessagePortValidationInfo[] = {
+    { &internal::MessagePort_DispatchDisconnect_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::MessagePort_DeliverMessage_Params_Data::Validate,
+     nullptr /* no response */},
+};
+
+bool MessagePortRequestValidator::Accept(mojo::Message* message) {
+  const char* name = ::extensions::mojom::MessagePort::Name_;
+  return mojo::internal::ValidateRequestGenericPacked(message, name, kMessagePortValidationInfo);
+}
+
+const char MessagePortHost::Name_[] = "extensions.mojom.MessagePortHost";
+
+MessagePortHost::IPCStableHashFunction MessagePortHost::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
+  switch (message.name()) {
+    case internal::kMessagePortHost_ClosePort_Name: {
+      return &MessagePortHost::ClosePort_Sym::IPCStableHash;
+    }
+    case internal::kMessagePortHost_PostMessage_Name: {
+      return &MessagePortHost::PostMessage_Sym::IPCStableHash;
+    }
+    case internal::kMessagePortHost_ResponsePending_Name: {
+      return &MessagePortHost::ResponsePending_Sym::IPCStableHash;
+    }
+  }
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
+}
+
+
+const char* MessagePortHost::MessageToMethodName_(mojo::Message& message) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (!is_response) {
+    switch (message.name()) {
+      case internal::kMessagePortHost_ClosePort_Name:
+            return "Receive extensions::mojom::MessagePortHost::ClosePort";
+      case internal::kMessagePortHost_PostMessage_Name:
+            return "Receive extensions::mojom::MessagePortHost::PostMessage";
+      case internal::kMessagePortHost_ResponsePending_Name:
+            return "Receive extensions::mojom::MessagePortHost::ResponsePending";
+    }
+  } else {
+    switch (message.name()) {
+      case internal::kMessagePortHost_ClosePort_Name:
+            return "Receive reply extensions::mojom::MessagePortHost::ClosePort";
+      case internal::kMessagePortHost_PostMessage_Name:
+            return "Receive reply extensions::mojom::MessagePortHost::PostMessage";
+      case internal::kMessagePortHost_ResponsePending_Name:
+            return "Receive reply extensions::mojom::MessagePortHost::ResponsePending";
+    }
+  }
+  return "Receive unknown mojo message";
+#else
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (is_response) {
+    return "Receive mojo reply";
+  } else {
+    return "Receive mojo message";
+  }
+#endif // BUILDFLAG(MOJO_TRACE_ENABLED)
+}
+
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t MessagePortHost::ClosePort_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)extensions::mojom::MessagePortHost::ClosePort");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t MessagePortHost::PostMessage_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)extensions::mojom::MessagePortHost::PostMessage");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t MessagePortHost::ResponsePending_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)extensions::mojom::MessagePortHost::ResponsePending");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
+
+MessagePortHostProxy::MessagePortHostProxy(mojo::MessageReceiverWithResponder* receiver)
+    : receiver_(receiver) {
+}
+
+void MessagePortHostProxy::ClosePort(
+    bool in_close_channel) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send extensions::mojom::MessagePortHost::ClosePort", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("close_channel"), in_close_channel,
+                        "<value of type bool>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kMessagePortHost_ClosePort_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::extensions::mojom::internal::MessagePortHost_ClosePort_Params_Data> params(
+          message);
+  params.Allocate();
+  params->close_channel = in_close_channel;
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(MessagePortHost::Name_);
+  message.set_method_name("ClosePort");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void MessagePortHostProxy::PostMessage(
+    ::extensions::Message in_message) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send extensions::mojom::MessagePortHost::PostMessage", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("message"), in_message,
+                        "<value of type ::extensions::Message>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kMessagePortHost_PostMessage_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::extensions::mojom::internal::MessagePortHost_PostMessage_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->message)::BaseType> message_fragment(
+          params.message());
+  mojo::internal::Serialize<::extensions::mojom::MessageDataView>(
+      in_message, message_fragment);
+  params->message.Set(
+      message_fragment.is_null() ? nullptr : message_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->message.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null message in MessagePortHost.PostMessage request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(MessagePortHost::Name_);
+  message.set_method_name("PostMessage");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void MessagePortHostProxy::ResponsePending(
+    ) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send extensions::mojom::MessagePortHost::ResponsePending");
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kMessagePortHost_ResponsePending_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::extensions::mojom::internal::MessagePortHost_ResponsePending_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(MessagePortHost::Name_);
+  message.set_method_name("ResponsePending");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+// static
+bool MessagePortHostStubDispatch::Accept(
+    MessagePortHost* impl,
+    mojo::Message* message) {
+  switch (message->header()->name) {
+    case internal::kMessagePortHost_ClosePort_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::MessagePortHost_ClosePort_Params_Data* params =
+          reinterpret_cast<internal::MessagePortHost_ClosePort_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      bool p_close_channel{};
+      MessagePortHost_ClosePort_ParamsDataView input_data_view(params, message);
+      
+      if (success)
+        p_close_channel = input_data_view.close_channel();
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            MessagePortHost::Name_, 0, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->ClosePort(
+std::move(p_close_channel));
+      return true;
+    }
+    case internal::kMessagePortHost_PostMessage_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::MessagePortHost_PostMessage_Params_Data* params =
+          reinterpret_cast<internal::MessagePortHost_PostMessage_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      ::extensions::Message p_message{};
+      MessagePortHost_PostMessage_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadMessage(&p_message))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            MessagePortHost::Name_, 1, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->PostMessage(
+std::move(p_message));
+      return true;
+    }
+    case internal::kMessagePortHost_ResponsePending_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::MessagePortHost_ResponsePending_Params_Data* params =
+          reinterpret_cast<internal::MessagePortHost_ResponsePending_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      MessagePortHost_ResponsePending_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            MessagePortHost::Name_, 2, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->ResponsePending();
+      return true;
+    }
+  }
+  return false;
+}
+
+// static
+bool MessagePortHostStubDispatch::AcceptWithResponder(
+    MessagePortHost* impl,
+    mojo::Message* message,
+    std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+  [[maybe_unused]] const bool message_is_sync =
+      message->has_flag(mojo::Message::kFlagIsSync);
+  [[maybe_unused]] const uint64_t request_id = message->request_id();
+  switch (message->header()->name) {
+    case internal::kMessagePortHost_ClosePort_Name: {
+      break;
+    }
+    case internal::kMessagePortHost_PostMessage_Name: {
+      break;
+    }
+    case internal::kMessagePortHost_ResponsePending_Name: {
+      break;
+    }
+  }
+  return false;
+}
+namespace {
+}  // namespace
+static const mojo::internal::GenericValidationInfo kMessagePortHostValidationInfo[] = {
+    { &internal::MessagePortHost_ClosePort_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::MessagePortHost_PostMessage_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::MessagePortHost_ResponsePending_Params_Data::Validate,
+     nullptr /* no response */},
+};
+
+bool MessagePortHostRequestValidator::Accept(mojo::Message* message) {
+  const char* name = ::extensions::mojom::MessagePortHost::Name_;
+  return mojo::internal::ValidateRequestGenericPacked(message, name, kMessagePortHostValidationInfo);
+}
+
 
 
 }  // extensions::mojom
 
 
 namespace mojo {
+
+
+// static
+bool StructTraits<::extensions::mojom::PortId::DataView, ::extensions::mojom::PortIdPtr>::Read(
+    ::extensions::mojom::PortId::DataView input,
+    ::extensions::mojom::PortIdPtr* output) {
+  bool success = true;
+  ::extensions::mojom::PortIdPtr result(::extensions::mojom::PortId::New());
+  
+      if (success && !input.ReadContextId(&result->context_id))
+        success = false;
+      if (success)
+        result->port_number = input.port_number();
+      if (success)
+        result->is_opener = input.is_opener();
+      if (success && !input.ReadSerializationFormat(&result->serialization_format))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::extensions::mojom::MessagingEndpoint::DataView, ::extensions::mojom::MessagingEndpointPtr>::Read(
+    ::extensions::mojom::MessagingEndpoint::DataView input,
+    ::extensions::mojom::MessagingEndpointPtr* output) {
+  bool success = true;
+  ::extensions::mojom::MessagingEndpointPtr result(::extensions::mojom::MessagingEndpoint::New());
+  
+      if (success && !input.ReadType(&result->type))
+        success = false;
+      if (success && !input.ReadExtensionId(&result->extension_id))
+        success = false;
+      if (success && !input.ReadNativeAppName(&result->native_app_name))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::extensions::mojom::TabConnectionInfo::DataView, ::extensions::mojom::TabConnectionInfoPtr>::Read(
+    ::extensions::mojom::TabConnectionInfo::DataView input,
+    ::extensions::mojom::TabConnectionInfoPtr* output) {
+  bool success = true;
+  ::extensions::mojom::TabConnectionInfoPtr result(::extensions::mojom::TabConnectionInfo::New());
+  
+      if (success && !input.ReadTab(&result->tab))
+        success = false;
+      if (success)
+        result->frame_id = input.frame_id();
+      if (success && !input.ReadDocumentId(&result->document_id))
+        success = false;
+      if (success && !input.ReadDocumentLifecycle(&result->document_lifecycle))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::extensions::mojom::ExternalConnectionInfo::DataView, ::extensions::mojom::ExternalConnectionInfoPtr>::Read(
+    ::extensions::mojom::ExternalConnectionInfo::DataView input,
+    ::extensions::mojom::ExternalConnectionInfoPtr* output) {
+  bool success = true;
+  ::extensions::mojom::ExternalConnectionInfoPtr result(::extensions::mojom::ExternalConnectionInfo::New());
+  
+      if (success && !input.ReadSourceEndpoint(&result->source_endpoint))
+        success = false;
+      if (success && !input.ReadTargetId(&result->target_id))
+        success = false;
+      if (success && !input.ReadSourceUrl(&result->source_url))
+        success = false;
+      if (success && !input.ReadSourceOrigin(&result->source_origin))
+        success = false;
+      if (success)
+        result->guest_process_id = input.guest_process_id();
+      if (success)
+        result->guest_render_frame_routing_id = input.guest_render_frame_routing_id();
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::extensions::mojom::Message::DataView, ::extensions::mojom::MessagePtr>::Read(
+    ::extensions::mojom::Message::DataView input,
+    ::extensions::mojom::MessagePtr* output) {
+  bool success = true;
+  ::extensions::mojom::MessagePtr result(::extensions::mojom::Message::New());
+  
+      if (success && !input.ReadData(&result->data))
+        success = false;
+      if (success && !input.ReadFormat(&result->format))
+        success = false;
+      if (success)
+        result->user_gesture = input.user_gesture();
+      if (success)
+        result->from_privileged_context = input.from_privileged_context();
+  *output = std::move(result);
+  return success;
+}
 
 }  // namespace mojo
 
@@ -58,6 +1111,37 @@ namespace mojo {
 
 
 namespace extensions::mojom {
+
+
+void MessagePortInterceptorForTesting::DispatchDisconnect(const std::string& error) {
+  GetForwardingInterface()->DispatchDisconnect(std::move(error));
+}
+void MessagePortInterceptorForTesting::DeliverMessage(::extensions::Message message) {
+  GetForwardingInterface()->DeliverMessage(std::move(message));
+}
+MessagePortAsyncWaiter::MessagePortAsyncWaiter(
+    MessagePort* proxy) : proxy_(proxy) {}
+
+MessagePortAsyncWaiter::~MessagePortAsyncWaiter() = default;
+
+
+
+
+void MessagePortHostInterceptorForTesting::ClosePort(bool close_channel) {
+  GetForwardingInterface()->ClosePort(std::move(close_channel));
+}
+void MessagePortHostInterceptorForTesting::PostMessage(::extensions::Message message) {
+  GetForwardingInterface()->PostMessage(std::move(message));
+}
+void MessagePortHostInterceptorForTesting::ResponsePending() {
+  GetForwardingInterface()->ResponsePending();
+}
+MessagePortHostAsyncWaiter::MessagePortHostAsyncWaiter(
+    MessagePortHost* proxy) : proxy_(proxy) {}
+
+MessagePortHostAsyncWaiter::~MessagePortHostAsyncWaiter() = default;
+
+
 
 
 

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "content/common/render_message_filter.mojom-features.h"
 #include "content/common/render_message_filter.mojom-shared.h"
 #include "content/common/render_message_filter.mojom-forward.h"
 #include "mojo/public/mojom/base/unguessable_token.mojom.h"
@@ -62,8 +63,7 @@ class CONTENT_EXPORT RenderMessageFilter
   static constexpr bool PassesAssociatedKinds_ = false;
   static inline constexpr uint32_t kSyncMethodOrdinals[] = {
     0, 
-    1, 
-    2
+    1
   };
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -76,7 +76,6 @@ class CONTENT_EXPORT RenderMessageFilter
   using RequestValidator_ = RenderMessageFilterRequestValidator;
   using ResponseValidator_ = RenderMessageFilterResponseValidator;
   enum MethodMinVersions : uint32_t {
-    kGenerateRoutingIDMinVersion = 0,
     kGenerateFrameRoutingIDMinVersion = 0,
     kHasGpuProcessMinVersion = 0,
   };
@@ -84,9 +83,6 @@ class CONTENT_EXPORT RenderMessageFilter
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
 // with not having this data in traces there.
 #if !BUILDFLAG(IS_FUCHSIA)
-  struct GenerateRoutingID_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
   struct GenerateFrameRoutingID_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
@@ -95,15 +91,6 @@ class CONTENT_EXPORT RenderMessageFilter
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~RenderMessageFilter() = default;
-
-  // Sync method. This signature is used by the client side; the service side
-  // should implement the signature with callback below.
-  
-  virtual bool GenerateRoutingID(int32_t* out_routing_id);
-
-  using GenerateRoutingIDCallback = base::OnceCallback<void(int32_t)>;
-  
-  virtual void GenerateRoutingID(GenerateRoutingIDCallback callback) = 0;
 
   // Sync method. This signature is used by the client side; the service side
   // should implement the signature with callback below.
@@ -132,10 +119,6 @@ class CONTENT_EXPORT RenderMessageFilterProxy
   using InterfaceType = RenderMessageFilter;
 
   explicit RenderMessageFilterProxy(mojo::MessageReceiverWithResponder* receiver);
-  
-  bool GenerateRoutingID(int32_t* out_routing_id) final;
-  
-  void GenerateRoutingID(GenerateRoutingIDCallback callback) final;
   
   bool GenerateFrameRoutingID(int32_t* out_routing_id, ::blink::LocalFrameToken* out_frame_token, ::base::UnguessableToken* out_devtools_frame_token, ::blink::DocumentToken* out_document_token) final;
   

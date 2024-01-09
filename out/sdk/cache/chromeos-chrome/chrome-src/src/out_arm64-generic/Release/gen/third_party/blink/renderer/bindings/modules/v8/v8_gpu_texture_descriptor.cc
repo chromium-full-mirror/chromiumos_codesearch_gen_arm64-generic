@@ -77,6 +77,13 @@ return dictionary;
 
 
 
+
+
+
+
+
+
+
 void GPUTextureDescriptor::setViewFormats(const Vector<V8GPUTextureFormat>& value) {
   member_view_formats_ = value;
 }
@@ -94,6 +101,7 @@ TraceIfNeeded<V8GPUTextureFormat>::Trace(visitor, member_format_);
 TraceIfNeeded<uint32_t>::Trace(visitor, member_mip_level_count_);
 TraceIfNeeded<uint32_t>::Trace(visitor, member_sample_count_);
 TraceIfNeeded<Member<V8UnionGPUExtent3DDictOrUnsignedLongEnforceRangeSequence>>::Trace(visitor, member_size_);
+TraceIfNeeded<V8GPUTextureViewDimension>::Trace(visitor, member_texture_binding_view_dimension_);
 TraceIfNeeded<uint32_t>::Trace(visitor, member_usage_);
 TraceIfNeeded<Vector<V8GPUTextureFormat>>::Trace(visitor, member_view_formats_);
 GPUObjectDescriptorBase::Trace(visitor);
@@ -149,11 +157,21 @@ if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].G
   return false;
 }
 }
+if (RuntimeEnabledFeatures::WebGPUDeveloperFeaturesEnabled()) {
+  if (hasTextureBindingViewDimension()) {
+  if (!ToV8Traits<V8GPUTextureViewDimension>::ToV8(script_state, member_texture_binding_view_dimension_).ToLocal(&v8_value)) {
+  return false;
+}
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).To(&was_property_created)) {
+  return false;
+}
+}
+}
 if (hasUsage()) {
   if (!ToV8Traits<IDLUnsignedLongEnforceRange>::ToV8(script_state, member_usage_).ToLocal(&v8_value)) {
   return false;
 }
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).To(&was_property_created)) {
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[6].Get(isolate), v8_value).To(&was_property_created)) {
   return false;
 }
 }
@@ -161,7 +179,7 @@ if (hasViewFormats()) {
   if (!ToV8Traits<IDLSequence<V8GPUTextureFormat>>::ToV8(script_state, member_view_formats_).ToLocal(&v8_value)) {
   return false;
 }
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[6].Get(isolate), v8_value).To(&was_property_created)) {
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[7].Get(isolate), v8_value).To(&was_property_created)) {
   return false;
 }
 }
@@ -202,12 +220,18 @@ exception_context_scope.ChangePropertyNameAsOptimizationHack("size");
 if (!bindings::GetDictionaryMemberFromV8Object<V8UnionGPUExtent3DDictOrUnsignedLongEnforceRangeSequence, is_required>(isolate, current_context, v8_dictionary, v8_own_member_names[4].Get(isolate), fallback_presence_var, member_size_, try_block, exception_state)) {
   return;
 }
+if (RuntimeEnabledFeatures::WebGPUDeveloperFeaturesEnabled()) {
+  exception_context_scope.ChangePropertyNameAsOptimizationHack("textureBindingViewDimension");
+if (!bindings::GetDictionaryMemberFromV8Object<V8GPUTextureViewDimension, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[5].Get(isolate), has_texture_binding_view_dimension_, member_texture_binding_view_dimension_, try_block, exception_state)) {
+  return;
+}
+}
 exception_context_scope.ChangePropertyNameAsOptimizationHack("usage");
-if (!bindings::GetDictionaryMemberFromV8Object<IDLUnsignedLongEnforceRange, is_required>(isolate, current_context, v8_dictionary, v8_own_member_names[5].Get(isolate), fallback_presence_var, member_usage_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<IDLUnsignedLongEnforceRange, is_required>(isolate, current_context, v8_dictionary, v8_own_member_names[6].Get(isolate), fallback_presence_var, member_usage_, try_block, exception_state)) {
   return;
 }
 exception_context_scope.ChangePropertyNameAsOptimizationHack("viewFormats");
-if (!bindings::GetDictionaryMemberFromV8Object<IDLSequence<V8GPUTextureFormat>, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[6].Get(isolate), fallback_presence_var, member_view_formats_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<IDLSequence<V8GPUTextureFormat>, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[7].Get(isolate), fallback_presence_var, member_view_formats_, try_block, exception_state)) {
   return;
 }
 }
@@ -219,6 +243,7 @@ const base::span<const v8::Eternal<v8::Name>> GPUTextureDescriptor::GetV8OwnMemb
 "mipLevelCount",
 "sampleCount",
 "size",
+"textureBindingViewDimension",
 "usage",
 "viewFormats",
 };

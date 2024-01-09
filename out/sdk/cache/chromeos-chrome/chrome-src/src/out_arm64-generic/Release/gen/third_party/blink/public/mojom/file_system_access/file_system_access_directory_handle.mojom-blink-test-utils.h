@@ -81,7 +81,7 @@ class PLATFORM_EXPORT FileSystemAccessDirectoryHandleAsyncWaiter {
       const WTF::String& basename, bool recurse, ::blink::mojom::blink::FileSystemAccessErrorPtr* out_result);
   ::blink::mojom::blink::FileSystemAccessErrorPtr RemoveEntry(const WTF::String& basename, bool recurse);
   void Resolve(
-      ::mojo::PendingRemote<::blink::mojom::blink::FileSystemAccessTransferToken> possible_child, ::blink::mojom::blink::FileSystemAccessErrorPtr* out_result, absl::optional<WTF::Vector<WTF::String>>* out_path);
+      ::mojo::PendingRemote<::blink::mojom::blink::FileSystemAccessTransferToken> possible_child, ::blink::mojom::blink::FileSystemAccessErrorPtr* out_result, std::optional<WTF::Vector<WTF::String>>* out_path);
   
   void GetUniqueId(
       ::blink::mojom::blink::FileSystemAccessErrorPtr* out_result, WTF::String* out_id);

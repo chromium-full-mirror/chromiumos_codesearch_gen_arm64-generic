@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -279,14 +280,17 @@ void CrosHealthdServiceFactoryProxy::GetDiagnosticsService(
                         "<value of type ::mojo::PendingReceiver<CrosHealthdDiagnosticsService>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdServiceFactory_GetDiagnosticsService_Name, kFlags, 0, 0, nullptr);
@@ -322,14 +326,17 @@ void CrosHealthdServiceFactoryProxy::GetEventService(
                         "<value of type ::mojo::PendingReceiver<CrosHealthdEventService>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdServiceFactory_GetEventService_Name, kFlags, 0, 0, nullptr);
@@ -365,14 +372,17 @@ void CrosHealthdServiceFactoryProxy::GetProbeService(
                         "<value of type ::mojo::PendingReceiver<CrosHealthdProbeService>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdServiceFactory_GetProbeService_Name, kFlags, 0, 0, nullptr);
@@ -408,14 +418,17 @@ void CrosHealthdServiceFactoryProxy::SendNetworkHealthService(
                         "<value of type ::mojo::PendingRemote<::chromeos::network_health::mojom::NetworkHealthService>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdServiceFactory_SendNetworkHealthService_Name, kFlags, 0, 0, nullptr);
@@ -451,14 +464,17 @@ void CrosHealthdServiceFactoryProxy::SendNetworkDiagnosticsRoutines(
                         "<value of type ::mojo::PendingRemote<::chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdServiceFactory_SendNetworkDiagnosticsRoutines_Name, kFlags, 0, 0, nullptr);
@@ -494,14 +510,17 @@ void CrosHealthdServiceFactoryProxy::GetSystemService(
                         "<value of type ::mojo::PendingReceiver<CrosHealthdSystemService>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdServiceFactory_GetSystemService_Name, kFlags, 0, 0, nullptr);
@@ -537,14 +556,17 @@ void CrosHealthdServiceFactoryProxy::SendChromiumDataCollector(
                         "<value of type ::mojo::PendingRemote<::ash::cros_healthd::internal::mojom::ChromiumDataCollector>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdServiceFactory_SendChromiumDataCollector_Name, kFlags, 0, 0, nullptr);
@@ -806,22 +828,22 @@ bool CrosHealthdServiceFactoryStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kCrosHealthdServiceFactoryValidationInfo[] = {
-    {&internal::CrosHealthdServiceFactory_GetDiagnosticsService_Params_Data::Validate,
+    { &internal::CrosHealthdServiceFactory_GetDiagnosticsService_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CrosHealthdServiceFactory_GetEventService_Params_Data::Validate,
+    { &internal::CrosHealthdServiceFactory_GetEventService_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CrosHealthdServiceFactory_GetProbeService_Params_Data::Validate,
+    { &internal::CrosHealthdServiceFactory_GetProbeService_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CrosHealthdServiceFactory_SendNetworkHealthService_Params_Data::Validate,
+    { &internal::CrosHealthdServiceFactory_SendNetworkHealthService_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CrosHealthdServiceFactory_SendNetworkDiagnosticsRoutines_Params_Data::Validate,
+    { &internal::CrosHealthdServiceFactory_SendNetworkDiagnosticsRoutines_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CrosHealthdServiceFactory_GetSystemService_Params_Data::Validate,
+    { &internal::CrosHealthdServiceFactory_GetSystemService_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CrosHealthdServiceFactory_SendChromiumDataCollector_Params_Data::Validate,
+    { &internal::CrosHealthdServiceFactory_SendChromiumDataCollector_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2638,14 +2660,17 @@ void CrosHealthdDiagnosticsServiceProxy::GetAvailableRoutines(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::GetAvailableRoutines");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_GetAvailableRoutines_Name, kFlags, 0, 0, nullptr);
@@ -2682,14 +2707,17 @@ void CrosHealthdDiagnosticsServiceProxy::GetRoutineUpdate(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_GetRoutineUpdate_Name, kFlags, 0, 0, nullptr);
@@ -2724,14 +2752,17 @@ void CrosHealthdDiagnosticsServiceProxy::RunUrandomRoutine(
                         "<value of type ::ash::cros_healthd::mojom::NullableUint32Ptr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunUrandomRoutine_Name, kFlags, 0, 0, nullptr);
@@ -2762,14 +2793,17 @@ void CrosHealthdDiagnosticsServiceProxy::RunBatteryCapacityRoutine(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBatteryCapacityRoutine");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunBatteryCapacityRoutine_Name, kFlags, 0, 0, nullptr);
@@ -2793,14 +2827,17 @@ void CrosHealthdDiagnosticsServiceProxy::RunBatteryHealthRoutine(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBatteryHealthRoutine");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunBatteryHealthRoutine_Name, kFlags, 0, 0, nullptr);
@@ -2831,14 +2868,17 @@ void CrosHealthdDiagnosticsServiceProxy::RunSmartctlCheckRoutine(
                         "<value of type ::ash::cros_healthd::mojom::NullableUint32Ptr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_Name, kFlags, 0, 0, nullptr);
@@ -2865,7 +2905,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunSmartctlCheckRoutine(
 }
 
 void CrosHealthdDiagnosticsServiceProxy::RunAcPowerRoutine(
-    ::ash::cros_healthd::mojom::AcPowerStatusEnum in_expected_status, const absl::optional<std::string>& in_expected_power_type, RunAcPowerRoutineCallback callback) {
+    ::ash::cros_healthd::mojom::AcPowerStatusEnum in_expected_status, const std::optional<std::string>& in_expected_power_type, RunAcPowerRoutineCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunAcPowerRoutine", "input_parameters",
@@ -2876,17 +2916,20 @@ void CrosHealthdDiagnosticsServiceProxy::RunAcPowerRoutine(
                         "<value of type ::ash::cros_healthd::mojom::AcPowerStatusEnum>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("expected_power_type"), in_expected_power_type,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunAcPowerRoutine_Name, kFlags, 0, 0, nullptr);
@@ -2926,14 +2969,17 @@ void CrosHealthdDiagnosticsServiceProxy::RunCpuCacheRoutine(
                         "<value of type ::ash::cros_healthd::mojom::NullableUint32Ptr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunCpuCacheRoutine_Name, kFlags, 0, 0, nullptr);
@@ -2971,14 +3017,17 @@ void CrosHealthdDiagnosticsServiceProxy::RunCpuStressRoutine(
                         "<value of type ::ash::cros_healthd::mojom::NullableUint32Ptr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunCpuStressRoutine_Name, kFlags, 0, 0, nullptr);
@@ -3016,14 +3065,17 @@ void CrosHealthdDiagnosticsServiceProxy::RunFloatingPointAccuracyRoutine(
                         "<value of type ::ash::cros_healthd::mojom::NullableUint32Ptr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_Name, kFlags, 0, 0, nullptr);
@@ -3061,14 +3113,17 @@ void CrosHealthdDiagnosticsServiceProxy::DEPRECATED_RunNvmeWearLevelRoutine(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_Name, kFlags, 0, 0, nullptr);
@@ -3100,14 +3155,17 @@ void CrosHealthdDiagnosticsServiceProxy::RunNvmeWearLevelRoutine(
                         "<value of type ::ash::cros_healthd::mojom::NullableUint32Ptr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_Name, kFlags, 0, 0, nullptr);
@@ -3145,14 +3203,17 @@ void CrosHealthdDiagnosticsServiceProxy::RunNvmeSelfTestRoutine(
                         "<value of type ::ash::cros_healthd::mojom::NvmeSelfTestTypeEnum>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunNvmeSelfTestRoutine_Name, kFlags, 0, 0, nullptr);
@@ -3191,14 +3252,17 @@ void CrosHealthdDiagnosticsServiceProxy::RunDiskReadRoutine(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunDiskReadRoutine_Name, kFlags, 0, 0, nullptr);
@@ -3233,14 +3297,17 @@ void CrosHealthdDiagnosticsServiceProxy::RunPrimeSearchRoutine(
                         "<value of type ::ash::cros_healthd::mojom::NullableUint32Ptr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunPrimeSearchRoutine_Name, kFlags, 0, 0, nullptr);
@@ -3281,14 +3348,17 @@ void CrosHealthdDiagnosticsServiceProxy::RunBatteryDischargeRoutine(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunBatteryDischargeRoutine_Name, kFlags, 0, 0, nullptr);
@@ -3324,14 +3394,17 @@ void CrosHealthdDiagnosticsServiceProxy::RunBatteryChargeRoutine(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunBatteryChargeRoutine_Name, kFlags, 0, 0, nullptr);
@@ -3353,7 +3426,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunBatteryChargeRoutine(
 }
 
 void CrosHealthdDiagnosticsServiceProxy::RunMemoryRoutine(
-    absl::optional<uint32_t> in_max_testing_mem_kib, RunMemoryRoutineCallback callback) {
+    std::optional<uint32_t> in_max_testing_mem_kib, RunMemoryRoutineCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunMemoryRoutine", "input_parameters",
@@ -3361,17 +3434,20 @@ void CrosHealthdDiagnosticsServiceProxy::RunMemoryRoutine(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("max_testing_mem_kib"), in_max_testing_mem_kib,
-                        "<value of type absl::optional<uint32_t>>");
+                        "<value of type std::optional<uint32_t>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunMemoryRoutine_Name, kFlags, 0, 0, nullptr);
@@ -3399,14 +3475,17 @@ void CrosHealthdDiagnosticsServiceProxy::RunLanConnectivityRoutine(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunLanConnectivityRoutine");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunLanConnectivityRoutine_Name, kFlags, 0, 0, nullptr);
@@ -3430,14 +3509,17 @@ void CrosHealthdDiagnosticsServiceProxy::RunSignalStrengthRoutine(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunSignalStrengthRoutine");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunSignalStrengthRoutine_Name, kFlags, 0, 0, nullptr);
@@ -3461,14 +3543,17 @@ void CrosHealthdDiagnosticsServiceProxy::RunGatewayCanBePingedRoutine(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunGatewayCanBePingedRoutine");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunGatewayCanBePingedRoutine_Name, kFlags, 0, 0, nullptr);
@@ -3492,14 +3577,17 @@ void CrosHealthdDiagnosticsServiceProxy::RunHasSecureWiFiConnectionRoutine(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunHasSecureWiFiConnectionRoutine");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunHasSecureWiFiConnectionRoutine_Name, kFlags, 0, 0, nullptr);
@@ -3523,14 +3611,17 @@ void CrosHealthdDiagnosticsServiceProxy::RunDnsResolverPresentRoutine(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunDnsResolverPresentRoutine");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunDnsResolverPresentRoutine_Name, kFlags, 0, 0, nullptr);
@@ -3554,14 +3645,17 @@ void CrosHealthdDiagnosticsServiceProxy::RunDnsLatencyRoutine(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunDnsLatencyRoutine");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunDnsLatencyRoutine_Name, kFlags, 0, 0, nullptr);
@@ -3585,14 +3679,17 @@ void CrosHealthdDiagnosticsServiceProxy::RunDnsResolutionRoutine(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunDnsResolutionRoutine");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunDnsResolutionRoutine_Name, kFlags, 0, 0, nullptr);
@@ -3616,14 +3713,17 @@ void CrosHealthdDiagnosticsServiceProxy::RunCaptivePortalRoutine(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunCaptivePortalRoutine");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunCaptivePortalRoutine_Name, kFlags, 0, 0, nullptr);
@@ -3647,14 +3747,17 @@ void CrosHealthdDiagnosticsServiceProxy::RunHttpFirewallRoutine(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunHttpFirewallRoutine");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunHttpFirewallRoutine_Name, kFlags, 0, 0, nullptr);
@@ -3678,14 +3781,17 @@ void CrosHealthdDiagnosticsServiceProxy::RunHttpsFirewallRoutine(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunHttpsFirewallRoutine");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunHttpsFirewallRoutine_Name, kFlags, 0, 0, nullptr);
@@ -3709,14 +3815,17 @@ void CrosHealthdDiagnosticsServiceProxy::RunHttpsLatencyRoutine(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunHttpsLatencyRoutine");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunHttpsLatencyRoutine_Name, kFlags, 0, 0, nullptr);
@@ -3736,7 +3845,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunHttpsLatencyRoutine(
 }
 
 void CrosHealthdDiagnosticsServiceProxy::RunVideoConferencingRoutine(
-    const absl::optional<std::string>& in_stun_server_hostname, RunVideoConferencingRoutineCallback callback) {
+    const std::optional<std::string>& in_stun_server_hostname, RunVideoConferencingRoutineCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunVideoConferencingRoutine", "input_parameters",
@@ -3744,17 +3853,20 @@ void CrosHealthdDiagnosticsServiceProxy::RunVideoConferencingRoutine(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("stun_server_hostname"), in_stun_server_hostname,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunVideoConferencingRoutine_Name, kFlags, 0, 0, nullptr);
@@ -3785,14 +3897,17 @@ void CrosHealthdDiagnosticsServiceProxy::RunArcHttpRoutine(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunArcHttpRoutine");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunArcHttpRoutine_Name, kFlags, 0, 0, nullptr);
@@ -3816,14 +3931,17 @@ void CrosHealthdDiagnosticsServiceProxy::RunArcPingRoutine(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunArcPingRoutine");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunArcPingRoutine_Name, kFlags, 0, 0, nullptr);
@@ -3847,14 +3965,17 @@ void CrosHealthdDiagnosticsServiceProxy::RunArcDnsResolutionRoutine(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunArcDnsResolutionRoutine");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunArcDnsResolutionRoutine_Name, kFlags, 0, 0, nullptr);
@@ -3878,14 +3999,17 @@ void CrosHealthdDiagnosticsServiceProxy::RunSensitiveSensorRoutine(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunSensitiveSensorRoutine");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_Name, kFlags, 0, 0, nullptr);
@@ -3909,14 +4033,17 @@ void CrosHealthdDiagnosticsServiceProxy::RunFingerprintRoutine(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunFingerprintRoutine");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunFingerprintRoutine_Name, kFlags, 0, 0, nullptr);
@@ -3940,14 +4067,17 @@ void CrosHealthdDiagnosticsServiceProxy::RunFingerprintAliveRoutine(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunFingerprintAliveRoutine");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_Name, kFlags, 0, 0, nullptr);
@@ -3978,14 +4108,17 @@ void CrosHealthdDiagnosticsServiceProxy::RunPrivacyScreenRoutine(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_Name, kFlags, 0, 0, nullptr);
@@ -4023,14 +4156,17 @@ void CrosHealthdDiagnosticsServiceProxy::DEPRECATED_RunLedLitUpRoutine(
                         "<value of type ::mojo::PendingRemote<::ash::cros_healthd::mojom::DEPRECATED_LedLitUpRoutineReplier>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_Name, kFlags, 0, 0, nullptr);
@@ -4064,14 +4200,17 @@ void CrosHealthdDiagnosticsServiceProxy::RunEmmcLifetimeRoutine(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunEmmcLifetimeRoutine");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_Name, kFlags, 0, 0, nullptr);
@@ -4108,14 +4247,17 @@ void CrosHealthdDiagnosticsServiceProxy::DEPRECATED_RunAudioSetVolumeRoutine(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_DEPRECATED_RunAudioSetVolumeRoutine_Name, kFlags, 0, 0, nullptr);
@@ -4155,14 +4297,17 @@ void CrosHealthdDiagnosticsServiceProxy::DEPRECATED_RunAudioSetGainRoutine(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_DEPRECATED_RunAudioSetGainRoutine_Name, kFlags, 0, 0, nullptr);
@@ -4189,14 +4334,17 @@ void CrosHealthdDiagnosticsServiceProxy::RunBluetoothPowerRoutine(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBluetoothPowerRoutine");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_Name, kFlags, 0, 0, nullptr);
@@ -4220,14 +4368,17 @@ void CrosHealthdDiagnosticsServiceProxy::RunBluetoothDiscoveryRoutine(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBluetoothDiscoveryRoutine");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_Name, kFlags, 0, 0, nullptr);
@@ -4258,14 +4409,17 @@ void CrosHealthdDiagnosticsServiceProxy::RunBluetoothScanningRoutine(
                         "<value of type ::ash::cros_healthd::mojom::NullableUint32Ptr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_Name, kFlags, 0, 0, nullptr);
@@ -4303,14 +4457,17 @@ void CrosHealthdDiagnosticsServiceProxy::RunBluetoothPairingRoutine(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_Name, kFlags, 0, 0, nullptr);
@@ -4352,14 +4509,17 @@ void CrosHealthdDiagnosticsServiceProxy::RunPowerButtonRoutine(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunPowerButtonRoutine_Name, kFlags, 0, 0, nullptr);
@@ -4384,14 +4544,17 @@ void CrosHealthdDiagnosticsServiceProxy::RunAudioDriverRoutine(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunAudioDriverRoutine");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunAudioDriverRoutine_Name, kFlags, 0, 0, nullptr);
@@ -4415,14 +4578,17 @@ void CrosHealthdDiagnosticsServiceProxy::RunUfsLifetimeRoutine(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunUfsLifetimeRoutine");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunUfsLifetimeRoutine_Name, kFlags, 0, 0, nullptr);
@@ -4446,14 +4612,17 @@ void CrosHealthdDiagnosticsServiceProxy::RunFanRoutine(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunFanRoutine");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunFanRoutine_Name, kFlags, 0, 0, nullptr);
@@ -4563,7 +4732,8 @@ void CrosHealthdDiagnosticsService_GetAvailableRoutines_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_GetAvailableRoutines_Name, kFlags, 0, 0, nullptr);
@@ -4693,7 +4863,8 @@ void CrosHealthdDiagnosticsService_GetRoutineUpdate_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_GetRoutineUpdate_Name, kFlags, 0, 0, nullptr);
@@ -4821,7 +4992,8 @@ void CrosHealthdDiagnosticsService_RunUrandomRoutine_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunUrandomRoutine_Name, kFlags, 0, 0, nullptr);
@@ -4949,7 +5121,8 @@ void CrosHealthdDiagnosticsService_RunBatteryCapacityRoutine_ProxyToResponder::R
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunBatteryCapacityRoutine_Name, kFlags, 0, 0, nullptr);
@@ -5077,7 +5250,8 @@ void CrosHealthdDiagnosticsService_RunBatteryHealthRoutine_ProxyToResponder::Run
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunBatteryHealthRoutine_Name, kFlags, 0, 0, nullptr);
@@ -5205,7 +5379,8 @@ void CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_ProxyToResponder::Run
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_Name, kFlags, 0, 0, nullptr);
@@ -5333,7 +5508,8 @@ void CrosHealthdDiagnosticsService_RunAcPowerRoutine_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunAcPowerRoutine_Name, kFlags, 0, 0, nullptr);
@@ -5461,7 +5637,8 @@ void CrosHealthdDiagnosticsService_RunCpuCacheRoutine_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunCpuCacheRoutine_Name, kFlags, 0, 0, nullptr);
@@ -5589,7 +5766,8 @@ void CrosHealthdDiagnosticsService_RunCpuStressRoutine_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunCpuStressRoutine_Name, kFlags, 0, 0, nullptr);
@@ -5717,7 +5895,8 @@ void CrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_ProxyToRespon
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_Name, kFlags, 0, 0, nullptr);
@@ -5845,7 +6024,8 @@ void CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ProxyToRes
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_Name, kFlags, 0, 0, nullptr);
@@ -5973,7 +6153,8 @@ void CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_ProxyToResponder::Run
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_Name, kFlags, 0, 0, nullptr);
@@ -6101,7 +6282,8 @@ void CrosHealthdDiagnosticsService_RunNvmeSelfTestRoutine_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunNvmeSelfTestRoutine_Name, kFlags, 0, 0, nullptr);
@@ -6229,7 +6411,8 @@ void CrosHealthdDiagnosticsService_RunDiskReadRoutine_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunDiskReadRoutine_Name, kFlags, 0, 0, nullptr);
@@ -6357,7 +6540,8 @@ void CrosHealthdDiagnosticsService_RunPrimeSearchRoutine_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunPrimeSearchRoutine_Name, kFlags, 0, 0, nullptr);
@@ -6485,7 +6669,8 @@ void CrosHealthdDiagnosticsService_RunBatteryDischargeRoutine_ProxyToResponder::
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunBatteryDischargeRoutine_Name, kFlags, 0, 0, nullptr);
@@ -6613,7 +6798,8 @@ void CrosHealthdDiagnosticsService_RunBatteryChargeRoutine_ProxyToResponder::Run
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunBatteryChargeRoutine_Name, kFlags, 0, 0, nullptr);
@@ -6741,7 +6927,8 @@ void CrosHealthdDiagnosticsService_RunMemoryRoutine_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunMemoryRoutine_Name, kFlags, 0, 0, nullptr);
@@ -6869,7 +7056,8 @@ void CrosHealthdDiagnosticsService_RunLanConnectivityRoutine_ProxyToResponder::R
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunLanConnectivityRoutine_Name, kFlags, 0, 0, nullptr);
@@ -6997,7 +7185,8 @@ void CrosHealthdDiagnosticsService_RunSignalStrengthRoutine_ProxyToResponder::Ru
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunSignalStrengthRoutine_Name, kFlags, 0, 0, nullptr);
@@ -7125,7 +7314,8 @@ void CrosHealthdDiagnosticsService_RunGatewayCanBePingedRoutine_ProxyToResponder
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunGatewayCanBePingedRoutine_Name, kFlags, 0, 0, nullptr);
@@ -7253,7 +7443,8 @@ void CrosHealthdDiagnosticsService_RunHasSecureWiFiConnectionRoutine_ProxyToResp
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunHasSecureWiFiConnectionRoutine_Name, kFlags, 0, 0, nullptr);
@@ -7381,7 +7572,8 @@ void CrosHealthdDiagnosticsService_RunDnsResolverPresentRoutine_ProxyToResponder
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunDnsResolverPresentRoutine_Name, kFlags, 0, 0, nullptr);
@@ -7509,7 +7701,8 @@ void CrosHealthdDiagnosticsService_RunDnsLatencyRoutine_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunDnsLatencyRoutine_Name, kFlags, 0, 0, nullptr);
@@ -7637,7 +7830,8 @@ void CrosHealthdDiagnosticsService_RunDnsResolutionRoutine_ProxyToResponder::Run
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunDnsResolutionRoutine_Name, kFlags, 0, 0, nullptr);
@@ -7765,7 +7959,8 @@ void CrosHealthdDiagnosticsService_RunCaptivePortalRoutine_ProxyToResponder::Run
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunCaptivePortalRoutine_Name, kFlags, 0, 0, nullptr);
@@ -7893,7 +8088,8 @@ void CrosHealthdDiagnosticsService_RunHttpFirewallRoutine_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunHttpFirewallRoutine_Name, kFlags, 0, 0, nullptr);
@@ -8021,7 +8217,8 @@ void CrosHealthdDiagnosticsService_RunHttpsFirewallRoutine_ProxyToResponder::Run
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunHttpsFirewallRoutine_Name, kFlags, 0, 0, nullptr);
@@ -8149,7 +8346,8 @@ void CrosHealthdDiagnosticsService_RunHttpsLatencyRoutine_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunHttpsLatencyRoutine_Name, kFlags, 0, 0, nullptr);
@@ -8277,7 +8475,8 @@ void CrosHealthdDiagnosticsService_RunVideoConferencingRoutine_ProxyToResponder:
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunVideoConferencingRoutine_Name, kFlags, 0, 0, nullptr);
@@ -8405,7 +8604,8 @@ void CrosHealthdDiagnosticsService_RunArcHttpRoutine_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunArcHttpRoutine_Name, kFlags, 0, 0, nullptr);
@@ -8533,7 +8733,8 @@ void CrosHealthdDiagnosticsService_RunArcPingRoutine_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunArcPingRoutine_Name, kFlags, 0, 0, nullptr);
@@ -8661,7 +8862,8 @@ void CrosHealthdDiagnosticsService_RunArcDnsResolutionRoutine_ProxyToResponder::
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunArcDnsResolutionRoutine_Name, kFlags, 0, 0, nullptr);
@@ -8789,7 +8991,8 @@ void CrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_ProxyToResponder::R
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_Name, kFlags, 0, 0, nullptr);
@@ -8917,7 +9120,8 @@ void CrosHealthdDiagnosticsService_RunFingerprintRoutine_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunFingerprintRoutine_Name, kFlags, 0, 0, nullptr);
@@ -9045,7 +9249,8 @@ void CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_ProxyToResponder::
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_Name, kFlags, 0, 0, nullptr);
@@ -9173,7 +9378,8 @@ void CrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_ProxyToResponder::Run
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_Name, kFlags, 0, 0, nullptr);
@@ -9301,7 +9507,8 @@ void CrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_ProxyToResponde
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_Name, kFlags, 0, 0, nullptr);
@@ -9429,7 +9636,8 @@ void CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_Name, kFlags, 0, 0, nullptr);
@@ -9557,7 +9765,8 @@ void CrosHealthdDiagnosticsService_DEPRECATED_RunAudioSetVolumeRoutine_ProxyToRe
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_DEPRECATED_RunAudioSetVolumeRoutine_Name, kFlags, 0, 0, nullptr);
@@ -9685,7 +9894,8 @@ void CrosHealthdDiagnosticsService_DEPRECATED_RunAudioSetGainRoutine_ProxyToResp
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_DEPRECATED_RunAudioSetGainRoutine_Name, kFlags, 0, 0, nullptr);
@@ -9813,7 +10023,8 @@ void CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_ProxyToResponder::Ru
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_Name, kFlags, 0, 0, nullptr);
@@ -9941,7 +10152,8 @@ void CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_ProxyToResponder
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_Name, kFlags, 0, 0, nullptr);
@@ -10069,7 +10281,8 @@ void CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_ProxyToResponder:
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_Name, kFlags, 0, 0, nullptr);
@@ -10197,7 +10410,8 @@ void CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_ProxyToResponder::
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_Name, kFlags, 0, 0, nullptr);
@@ -10325,7 +10539,8 @@ void CrosHealthdDiagnosticsService_RunPowerButtonRoutine_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunPowerButtonRoutine_Name, kFlags, 0, 0, nullptr);
@@ -10453,7 +10668,8 @@ void CrosHealthdDiagnosticsService_RunAudioDriverRoutine_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunAudioDriverRoutine_Name, kFlags, 0, 0, nullptr);
@@ -10581,7 +10797,8 @@ void CrosHealthdDiagnosticsService_RunUfsLifetimeRoutine_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunUfsLifetimeRoutine_Name, kFlags, 0, 0, nullptr);
@@ -10709,7 +10926,8 @@ void CrosHealthdDiagnosticsService_RunFanRoutine_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunFanRoutine_Name, kFlags, 0, 0, nullptr);
@@ -11090,7 +11308,7 @@ std::move(p_percentage_used_threshold), std::move(callback));
       
       bool success = true;
       ::ash::cros_healthd::mojom::AcPowerStatusEnum p_expected_status{};
-      absl::optional<std::string> p_expected_power_type{};
+      std::optional<std::string> p_expected_power_type{};
       CrosHealthdDiagnosticsService_RunAcPowerRoutine_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadExpectedStatus(&p_expected_status))
@@ -11428,7 +11646,7 @@ std::move(p_minimum_charge_percent_required), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      absl::optional<uint32_t> p_max_testing_mem_kib{};
+      std::optional<uint32_t> p_max_testing_mem_kib{};
       CrosHealthdDiagnosticsService_RunMemoryRoutine_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -11733,7 +11951,7 @@ std::move(p_max_testing_mem_kib), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      absl::optional<std::string> p_stun_server_hostname{};
+      std::optional<std::string> p_stun_server_hostname{};
       CrosHealthdDiagnosticsService_RunVideoConferencingRoutine_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadStunServerHostname(&p_stun_server_hostname))
@@ -12286,106 +12504,106 @@ std::move(p_timeout_seconds), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kCrosHealthdDiagnosticsServiceValidationInfo[] = {
-    {&internal::CrosHealthdDiagnosticsService_GetAvailableRoutines_Params_Data::Validate,
+    { &internal::CrosHealthdDiagnosticsService_GetAvailableRoutines_Params_Data::Validate,
      &internal::CrosHealthdDiagnosticsService_GetAvailableRoutines_ResponseParams_Data::Validate},
-    {&internal::CrosHealthdDiagnosticsService_GetRoutineUpdate_Params_Data::Validate,
+    { &internal::CrosHealthdDiagnosticsService_GetRoutineUpdate_Params_Data::Validate,
      &internal::CrosHealthdDiagnosticsService_GetRoutineUpdate_ResponseParams_Data::Validate},
-    {&internal::CrosHealthdDiagnosticsService_RunUrandomRoutine_Params_Data::Validate,
+    { &internal::CrosHealthdDiagnosticsService_RunUrandomRoutine_Params_Data::Validate,
      &internal::CrosHealthdDiagnosticsService_RunUrandomRoutine_ResponseParams_Data::Validate},
-    {&internal::CrosHealthdDiagnosticsService_RunBatteryCapacityRoutine_Params_Data::Validate,
+    { &internal::CrosHealthdDiagnosticsService_RunBatteryCapacityRoutine_Params_Data::Validate,
      &internal::CrosHealthdDiagnosticsService_RunBatteryCapacityRoutine_ResponseParams_Data::Validate},
-    {&internal::CrosHealthdDiagnosticsService_RunBatteryHealthRoutine_Params_Data::Validate,
+    { &internal::CrosHealthdDiagnosticsService_RunBatteryHealthRoutine_Params_Data::Validate,
      &internal::CrosHealthdDiagnosticsService_RunBatteryHealthRoutine_ResponseParams_Data::Validate},
-    {&internal::CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_Params_Data::Validate,
+    { &internal::CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_Params_Data::Validate,
      &internal::CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_ResponseParams_Data::Validate},
-    {&internal::CrosHealthdDiagnosticsService_RunAcPowerRoutine_Params_Data::Validate,
+    { &internal::CrosHealthdDiagnosticsService_RunAcPowerRoutine_Params_Data::Validate,
      &internal::CrosHealthdDiagnosticsService_RunAcPowerRoutine_ResponseParams_Data::Validate},
-    {&internal::CrosHealthdDiagnosticsService_RunCpuCacheRoutine_Params_Data::Validate,
+    { &internal::CrosHealthdDiagnosticsService_RunCpuCacheRoutine_Params_Data::Validate,
      &internal::CrosHealthdDiagnosticsService_RunCpuCacheRoutine_ResponseParams_Data::Validate},
-    {&internal::CrosHealthdDiagnosticsService_RunCpuStressRoutine_Params_Data::Validate,
+    { &internal::CrosHealthdDiagnosticsService_RunCpuStressRoutine_Params_Data::Validate,
      &internal::CrosHealthdDiagnosticsService_RunCpuStressRoutine_ResponseParams_Data::Validate},
-    {&internal::CrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_Params_Data::Validate,
+    { &internal::CrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_Params_Data::Validate,
      &internal::CrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_ResponseParams_Data::Validate},
-    {&internal::CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_Params_Data::Validate,
+    { &internal::CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_Params_Data::Validate,
      &internal::CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ResponseParams_Data::Validate},
-    {&internal::CrosHealthdDiagnosticsService_RunNvmeSelfTestRoutine_Params_Data::Validate,
+    { &internal::CrosHealthdDiagnosticsService_RunNvmeSelfTestRoutine_Params_Data::Validate,
      &internal::CrosHealthdDiagnosticsService_RunNvmeSelfTestRoutine_ResponseParams_Data::Validate},
-    {&internal::CrosHealthdDiagnosticsService_RunDiskReadRoutine_Params_Data::Validate,
+    { &internal::CrosHealthdDiagnosticsService_RunDiskReadRoutine_Params_Data::Validate,
      &internal::CrosHealthdDiagnosticsService_RunDiskReadRoutine_ResponseParams_Data::Validate},
-    {&internal::CrosHealthdDiagnosticsService_RunPrimeSearchRoutine_Params_Data::Validate,
+    { &internal::CrosHealthdDiagnosticsService_RunPrimeSearchRoutine_Params_Data::Validate,
      &internal::CrosHealthdDiagnosticsService_RunPrimeSearchRoutine_ResponseParams_Data::Validate},
-    {&internal::CrosHealthdDiagnosticsService_RunBatteryDischargeRoutine_Params_Data::Validate,
+    { &internal::CrosHealthdDiagnosticsService_RunBatteryDischargeRoutine_Params_Data::Validate,
      &internal::CrosHealthdDiagnosticsService_RunBatteryDischargeRoutine_ResponseParams_Data::Validate},
-    {&internal::CrosHealthdDiagnosticsService_RunBatteryChargeRoutine_Params_Data::Validate,
+    { &internal::CrosHealthdDiagnosticsService_RunBatteryChargeRoutine_Params_Data::Validate,
      &internal::CrosHealthdDiagnosticsService_RunBatteryChargeRoutine_ResponseParams_Data::Validate},
-    {&internal::CrosHealthdDiagnosticsService_RunMemoryRoutine_Params_Data::Validate,
+    { &internal::CrosHealthdDiagnosticsService_RunMemoryRoutine_Params_Data::Validate,
      &internal::CrosHealthdDiagnosticsService_RunMemoryRoutine_ResponseParams_Data::Validate},
-    {&internal::CrosHealthdDiagnosticsService_RunLanConnectivityRoutine_Params_Data::Validate,
+    { &internal::CrosHealthdDiagnosticsService_RunLanConnectivityRoutine_Params_Data::Validate,
      &internal::CrosHealthdDiagnosticsService_RunLanConnectivityRoutine_ResponseParams_Data::Validate},
-    {&internal::CrosHealthdDiagnosticsService_RunSignalStrengthRoutine_Params_Data::Validate,
+    { &internal::CrosHealthdDiagnosticsService_RunSignalStrengthRoutine_Params_Data::Validate,
      &internal::CrosHealthdDiagnosticsService_RunSignalStrengthRoutine_ResponseParams_Data::Validate},
-    {&internal::CrosHealthdDiagnosticsService_RunGatewayCanBePingedRoutine_Params_Data::Validate,
+    { &internal::CrosHealthdDiagnosticsService_RunGatewayCanBePingedRoutine_Params_Data::Validate,
      &internal::CrosHealthdDiagnosticsService_RunGatewayCanBePingedRoutine_ResponseParams_Data::Validate},
-    {&internal::CrosHealthdDiagnosticsService_RunHasSecureWiFiConnectionRoutine_Params_Data::Validate,
+    { &internal::CrosHealthdDiagnosticsService_RunHasSecureWiFiConnectionRoutine_Params_Data::Validate,
      &internal::CrosHealthdDiagnosticsService_RunHasSecureWiFiConnectionRoutine_ResponseParams_Data::Validate},
-    {&internal::CrosHealthdDiagnosticsService_RunDnsResolverPresentRoutine_Params_Data::Validate,
+    { &internal::CrosHealthdDiagnosticsService_RunDnsResolverPresentRoutine_Params_Data::Validate,
      &internal::CrosHealthdDiagnosticsService_RunDnsResolverPresentRoutine_ResponseParams_Data::Validate},
-    {&internal::CrosHealthdDiagnosticsService_RunDnsLatencyRoutine_Params_Data::Validate,
+    { &internal::CrosHealthdDiagnosticsService_RunDnsLatencyRoutine_Params_Data::Validate,
      &internal::CrosHealthdDiagnosticsService_RunDnsLatencyRoutine_ResponseParams_Data::Validate},
-    {&internal::CrosHealthdDiagnosticsService_RunDnsResolutionRoutine_Params_Data::Validate,
+    { &internal::CrosHealthdDiagnosticsService_RunDnsResolutionRoutine_Params_Data::Validate,
      &internal::CrosHealthdDiagnosticsService_RunDnsResolutionRoutine_ResponseParams_Data::Validate},
-    {&internal::CrosHealthdDiagnosticsService_RunCaptivePortalRoutine_Params_Data::Validate,
+    { &internal::CrosHealthdDiagnosticsService_RunCaptivePortalRoutine_Params_Data::Validate,
      &internal::CrosHealthdDiagnosticsService_RunCaptivePortalRoutine_ResponseParams_Data::Validate},
-    {&internal::CrosHealthdDiagnosticsService_RunHttpFirewallRoutine_Params_Data::Validate,
+    { &internal::CrosHealthdDiagnosticsService_RunHttpFirewallRoutine_Params_Data::Validate,
      &internal::CrosHealthdDiagnosticsService_RunHttpFirewallRoutine_ResponseParams_Data::Validate},
-    {&internal::CrosHealthdDiagnosticsService_RunHttpsFirewallRoutine_Params_Data::Validate,
+    { &internal::CrosHealthdDiagnosticsService_RunHttpsFirewallRoutine_Params_Data::Validate,
      &internal::CrosHealthdDiagnosticsService_RunHttpsFirewallRoutine_ResponseParams_Data::Validate},
-    {&internal::CrosHealthdDiagnosticsService_RunHttpsLatencyRoutine_Params_Data::Validate,
+    { &internal::CrosHealthdDiagnosticsService_RunHttpsLatencyRoutine_Params_Data::Validate,
      &internal::CrosHealthdDiagnosticsService_RunHttpsLatencyRoutine_ResponseParams_Data::Validate},
-    {&internal::CrosHealthdDiagnosticsService_RunVideoConferencingRoutine_Params_Data::Validate,
+    { &internal::CrosHealthdDiagnosticsService_RunVideoConferencingRoutine_Params_Data::Validate,
      &internal::CrosHealthdDiagnosticsService_RunVideoConferencingRoutine_ResponseParams_Data::Validate},
-    {&internal::CrosHealthdDiagnosticsService_RunArcHttpRoutine_Params_Data::Validate,
+    { &internal::CrosHealthdDiagnosticsService_RunArcHttpRoutine_Params_Data::Validate,
      &internal::CrosHealthdDiagnosticsService_RunArcHttpRoutine_ResponseParams_Data::Validate},
-    {&internal::CrosHealthdDiagnosticsService_RunArcPingRoutine_Params_Data::Validate,
+    { &internal::CrosHealthdDiagnosticsService_RunArcPingRoutine_Params_Data::Validate,
      &internal::CrosHealthdDiagnosticsService_RunArcPingRoutine_ResponseParams_Data::Validate},
-    {&internal::CrosHealthdDiagnosticsService_RunArcDnsResolutionRoutine_Params_Data::Validate,
+    { &internal::CrosHealthdDiagnosticsService_RunArcDnsResolutionRoutine_Params_Data::Validate,
      &internal::CrosHealthdDiagnosticsService_RunArcDnsResolutionRoutine_ResponseParams_Data::Validate},
-    {&internal::CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_Params_Data::Validate,
+    { &internal::CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_Params_Data::Validate,
      &internal::CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_ResponseParams_Data::Validate},
-    {&internal::CrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_Params_Data::Validate,
+    { &internal::CrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_Params_Data::Validate,
      &internal::CrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_ResponseParams_Data::Validate},
-    {&internal::CrosHealthdDiagnosticsService_RunFingerprintRoutine_Params_Data::Validate,
+    { &internal::CrosHealthdDiagnosticsService_RunFingerprintRoutine_Params_Data::Validate,
      &internal::CrosHealthdDiagnosticsService_RunFingerprintRoutine_ResponseParams_Data::Validate},
-    {&internal::CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_Params_Data::Validate,
+    { &internal::CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_Params_Data::Validate,
      &internal::CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_ResponseParams_Data::Validate},
-    {&internal::CrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_Params_Data::Validate,
+    { &internal::CrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_Params_Data::Validate,
      &internal::CrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_ResponseParams_Data::Validate},
-    {&internal::CrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_Params_Data::Validate,
+    { &internal::CrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_Params_Data::Validate,
      &internal::CrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_ResponseParams_Data::Validate},
-    {&internal::CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_Params_Data::Validate,
+    { &internal::CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_Params_Data::Validate,
      &internal::CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ResponseParams_Data::Validate},
-    {&internal::CrosHealthdDiagnosticsService_DEPRECATED_RunAudioSetVolumeRoutine_Params_Data::Validate,
+    { &internal::CrosHealthdDiagnosticsService_DEPRECATED_RunAudioSetVolumeRoutine_Params_Data::Validate,
      &internal::CrosHealthdDiagnosticsService_DEPRECATED_RunAudioSetVolumeRoutine_ResponseParams_Data::Validate},
-    {&internal::CrosHealthdDiagnosticsService_DEPRECATED_RunAudioSetGainRoutine_Params_Data::Validate,
+    { &internal::CrosHealthdDiagnosticsService_DEPRECATED_RunAudioSetGainRoutine_Params_Data::Validate,
      &internal::CrosHealthdDiagnosticsService_DEPRECATED_RunAudioSetGainRoutine_ResponseParams_Data::Validate},
-    {&internal::CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_Params_Data::Validate,
+    { &internal::CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_Params_Data::Validate,
      &internal::CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_ResponseParams_Data::Validate},
-    {&internal::CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_Params_Data::Validate,
+    { &internal::CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_Params_Data::Validate,
      &internal::CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_ResponseParams_Data::Validate},
-    {&internal::CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_Params_Data::Validate,
+    { &internal::CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_Params_Data::Validate,
      &internal::CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_ResponseParams_Data::Validate},
-    {&internal::CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_Params_Data::Validate,
+    { &internal::CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_Params_Data::Validate,
      &internal::CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_ResponseParams_Data::Validate},
-    {&internal::CrosHealthdDiagnosticsService_RunPowerButtonRoutine_Params_Data::Validate,
+    { &internal::CrosHealthdDiagnosticsService_RunPowerButtonRoutine_Params_Data::Validate,
      &internal::CrosHealthdDiagnosticsService_RunPowerButtonRoutine_ResponseParams_Data::Validate},
-    {&internal::CrosHealthdDiagnosticsService_RunAudioDriverRoutine_Params_Data::Validate,
+    { &internal::CrosHealthdDiagnosticsService_RunAudioDriverRoutine_Params_Data::Validate,
      &internal::CrosHealthdDiagnosticsService_RunAudioDriverRoutine_ResponseParams_Data::Validate},
-    {&internal::CrosHealthdDiagnosticsService_RunUfsLifetimeRoutine_Params_Data::Validate,
+    { &internal::CrosHealthdDiagnosticsService_RunUfsLifetimeRoutine_Params_Data::Validate,
      &internal::CrosHealthdDiagnosticsService_RunUfsLifetimeRoutine_ResponseParams_Data::Validate},
-    {&internal::CrosHealthdDiagnosticsService_RunFanRoutine_Params_Data::Validate,
+    { &internal::CrosHealthdDiagnosticsService_RunFanRoutine_Params_Data::Validate,
      &internal::CrosHealthdDiagnosticsService_RunFanRoutine_ResponseParams_Data::Validate},
 };
 
@@ -12645,14 +12863,17 @@ void CrosHealthdEventServiceProxy::DEPRECATED_AddBluetoothObserver(
                         "<value of type ::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdBluetoothObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdEventService_DEPRECATED_AddBluetoothObserver_Name, kFlags, 0, 0, nullptr);
@@ -12688,14 +12909,17 @@ void CrosHealthdEventServiceProxy::DEPRECATED_AddLidObserver(
                         "<value of type ::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdLidObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdEventService_DEPRECATED_AddLidObserver_Name, kFlags, 0, 0, nullptr);
@@ -12731,14 +12955,17 @@ void CrosHealthdEventServiceProxy::DEPRECATED_AddPowerObserver(
                         "<value of type ::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdPowerObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdEventService_DEPRECATED_AddPowerObserver_Name, kFlags, 0, 0, nullptr);
@@ -12774,14 +13001,17 @@ void CrosHealthdEventServiceProxy::AddNetworkObserver(
                         "<value of type ::mojo::PendingRemote<::chromeos::network_health::mojom::NetworkEventsObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdEventService_AddNetworkObserver_Name, kFlags, 0, 0, nullptr);
@@ -12817,14 +13047,17 @@ void CrosHealthdEventServiceProxy::DEPRECATED_AddAudioObserver(
                         "<value of type ::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdAudioObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdEventService_DEPRECATED_AddAudioObserver_Name, kFlags, 0, 0, nullptr);
@@ -12860,14 +13093,17 @@ void CrosHealthdEventServiceProxy::DEPRECATED_AddThunderboltObserver(
                         "<value of type ::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdThunderboltObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdEventService_DEPRECATED_AddThunderboltObserver_Name, kFlags, 0, 0, nullptr);
@@ -12903,14 +13139,17 @@ void CrosHealthdEventServiceProxy::DEPRECATED_AddUsbObserver(
                         "<value of type ::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdUsbObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdEventService_DEPRECATED_AddUsbObserver_Name, kFlags, 0, 0, nullptr);
@@ -12949,14 +13188,17 @@ void CrosHealthdEventServiceProxy::AddEventObserver(
                         "<value of type ::mojo::PendingRemote<::ash::cros_healthd::mojom::EventObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdEventService_AddEventObserver_Name, kFlags, 0, 0, nullptr);
@@ -12994,14 +13236,17 @@ void CrosHealthdEventServiceProxy::IsEventSupported(
                         "<value of type ::ash::cros_healthd::mojom::EventCategoryEnum>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdEventService_IsEventSupported_Name, kFlags, 0, 0, nullptr);
@@ -13113,7 +13358,8 @@ void CrosHealthdEventService_IsEventSupported_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdEventService_IsEventSupported_Name, kFlags, 0, 0, nullptr);
@@ -13453,26 +13699,26 @@ std::move(p_category), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kCrosHealthdEventServiceValidationInfo[] = {
-    {&internal::CrosHealthdEventService_DEPRECATED_AddBluetoothObserver_Params_Data::Validate,
+    { &internal::CrosHealthdEventService_DEPRECATED_AddBluetoothObserver_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CrosHealthdEventService_DEPRECATED_AddLidObserver_Params_Data::Validate,
+    { &internal::CrosHealthdEventService_DEPRECATED_AddLidObserver_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CrosHealthdEventService_DEPRECATED_AddPowerObserver_Params_Data::Validate,
+    { &internal::CrosHealthdEventService_DEPRECATED_AddPowerObserver_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CrosHealthdEventService_AddNetworkObserver_Params_Data::Validate,
+    { &internal::CrosHealthdEventService_AddNetworkObserver_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CrosHealthdEventService_DEPRECATED_AddAudioObserver_Params_Data::Validate,
+    { &internal::CrosHealthdEventService_DEPRECATED_AddAudioObserver_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CrosHealthdEventService_DEPRECATED_AddThunderboltObserver_Params_Data::Validate,
+    { &internal::CrosHealthdEventService_DEPRECATED_AddThunderboltObserver_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CrosHealthdEventService_DEPRECATED_AddUsbObserver_Params_Data::Validate,
+    { &internal::CrosHealthdEventService_DEPRECATED_AddUsbObserver_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CrosHealthdEventService_AddEventObserver_Params_Data::Validate,
+    { &internal::CrosHealthdEventService_AddEventObserver_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CrosHealthdEventService_IsEventSupported_Params_Data::Validate,
+    { &internal::CrosHealthdEventService_IsEventSupported_Params_Data::Validate,
      &internal::CrosHealthdEventService_IsEventSupported_ResponseParams_Data::Validate},
 };
 
@@ -13644,14 +13890,17 @@ void CrosHealthdProbeServiceProxy::ProbeProcessInfo(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdProbeService_ProbeProcessInfo_Name, kFlags, 0, 0, nullptr);
@@ -13683,14 +13932,17 @@ void CrosHealthdProbeServiceProxy::ProbeTelemetryInfo(
                         "<value of type const std::vector<::ash::cros_healthd::mojom::ProbeCategoryEnum>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdProbeService_ProbeTelemetryInfo_Name, kFlags, 0, 0, nullptr);
@@ -13723,7 +13975,7 @@ void CrosHealthdProbeServiceProxy::ProbeTelemetryInfo(
 }
 
 void CrosHealthdProbeServiceProxy::ProbeMultipleProcessInfo(
-    const absl::optional<std::vector<uint32_t>>& in_process_ids, bool in_ignore_single_process_error, ProbeMultipleProcessInfoCallback callback) {
+    const std::optional<std::vector<uint32_t>>& in_process_ids, bool in_ignore_single_process_error, ProbeMultipleProcessInfoCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::cros_healthd::mojom::CrosHealthdProbeService::ProbeMultipleProcessInfo", "input_parameters",
@@ -13731,20 +13983,23 @@ void CrosHealthdProbeServiceProxy::ProbeMultipleProcessInfo(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("process_ids"), in_process_ids,
-                        "<value of type const absl::optional<std::vector<uint32_t>>&>");
+                        "<value of type const std::optional<std::vector<uint32_t>>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("ignore_single_process_error"), in_ignore_single_process_error,
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdProbeService_ProbeMultipleProcessInfo_Name, kFlags, 0, 0, nullptr);
@@ -13864,7 +14119,8 @@ void CrosHealthdProbeService_ProbeProcessInfo_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdProbeService_ProbeProcessInfo_Name, kFlags, 0, 0, nullptr);
@@ -13990,7 +14246,8 @@ void CrosHealthdProbeService_ProbeTelemetryInfo_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdProbeService_ProbeTelemetryInfo_Name, kFlags, 0, 0, nullptr);
@@ -14118,7 +14375,8 @@ void CrosHealthdProbeService_ProbeMultipleProcessInfo_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdProbeService_ProbeMultipleProcessInfo_Name, kFlags, 0, 0, nullptr);
@@ -14248,7 +14506,7 @@ std::move(p_categories), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      absl::optional<std::vector<uint32_t>> p_process_ids{};
+      std::optional<std::vector<uint32_t>> p_process_ids{};
       bool p_ignore_single_process_error{};
       CrosHealthdProbeService_ProbeMultipleProcessInfo_ParamsDataView input_data_view(params, message);
       
@@ -14276,14 +14534,14 @@ std::move(p_ignore_single_process_error), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kCrosHealthdProbeServiceValidationInfo[] = {
-    {&internal::CrosHealthdProbeService_ProbeProcessInfo_Params_Data::Validate,
+    { &internal::CrosHealthdProbeService_ProbeProcessInfo_Params_Data::Validate,
      &internal::CrosHealthdProbeService_ProbeProcessInfo_ResponseParams_Data::Validate},
-    {&internal::CrosHealthdProbeService_ProbeTelemetryInfo_Params_Data::Validate,
+    { &internal::CrosHealthdProbeService_ProbeTelemetryInfo_Params_Data::Validate,
      &internal::CrosHealthdProbeService_ProbeTelemetryInfo_ResponseParams_Data::Validate},
-    {&internal::CrosHealthdProbeService_ProbeMultipleProcessInfo_Params_Data::Validate,
+    { &internal::CrosHealthdProbeService_ProbeMultipleProcessInfo_Params_Data::Validate,
      &internal::CrosHealthdProbeService_ProbeMultipleProcessInfo_ResponseParams_Data::Validate},
 };
 
@@ -14376,14 +14634,17 @@ void CrosHealthdSystemServiceProxy::GetServiceStatus(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdSystemService::GetServiceStatus");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdSystemService_GetServiceStatus_Name, kFlags, 0, 0, nullptr);
@@ -14493,7 +14754,8 @@ void CrosHealthdSystemService_GetServiceStatus_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCrosHealthdSystemService_GetServiceStatus_Name, kFlags, 0, 0, nullptr);
@@ -14579,10 +14841,10 @@ bool CrosHealthdSystemServiceStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kCrosHealthdSystemServiceValidationInfo[] = {
-    {&internal::CrosHealthdSystemService_GetServiceStatus_Params_Data::Validate,
+    { &internal::CrosHealthdSystemService_GetServiceStatus_Params_Data::Validate,
      &internal::CrosHealthdSystemService_GetServiceStatus_ResponseParams_Data::Validate},
 };
 
@@ -14742,14 +15004,17 @@ void WilcoEcServiceControllerProxy::AddEcObserver(
                         "<value of type ::mojo::PendingRemote<::ash::cros_healthd::mojom::WilcoEcObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWilcoEcServiceController_AddEcObserver_Name, kFlags, 0, 0, nullptr);
@@ -14785,14 +15050,17 @@ void WilcoEcServiceControllerProxy::GetEcTelemetry(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWilcoEcServiceController_GetEcTelemetry_Name, kFlags, 0, 0, nullptr);
@@ -14827,14 +15095,17 @@ void WilcoEcServiceControllerProxy::StartEcService(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::WilcoEcServiceController::StartEcService");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWilcoEcServiceController_StartEcService_Name, kFlags, 0, 0, nullptr);
@@ -14857,14 +15128,17 @@ void WilcoEcServiceControllerProxy::ShutdownEcService(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::WilcoEcServiceController::ShutdownEcService");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWilcoEcServiceController_ShutdownEcService_Name, kFlags, 0, 0, nullptr);
@@ -14973,7 +15247,8 @@ void WilcoEcServiceController_GetEcTelemetry_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWilcoEcServiceController_GetEcTelemetry_Name, kFlags, 0, 0, nullptr);
@@ -15144,16 +15419,16 @@ std::move(p_payload_string), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kWilcoEcServiceControllerValidationInfo[] = {
-    {&internal::WilcoEcServiceController_AddEcObserver_Params_Data::Validate,
+    { &internal::WilcoEcServiceController_AddEcObserver_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::WilcoEcServiceController_GetEcTelemetry_Params_Data::Validate,
+    { &internal::WilcoEcServiceController_GetEcTelemetry_Params_Data::Validate,
      &internal::WilcoEcServiceController_GetEcTelemetry_ResponseParams_Data::Validate},
-    {&internal::WilcoEcServiceController_StartEcService_Params_Data::Validate,
+    { &internal::WilcoEcServiceController_StartEcService_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::WilcoEcServiceController_ShutdownEcService_Params_Data::Validate,
+    { &internal::WilcoEcServiceController_ShutdownEcService_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -15246,7 +15521,7 @@ void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunBatteryHealthRoutine
 void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunSmartctlCheckRoutine(::ash::cros_healthd::mojom::NullableUint32Ptr percentage_used_threshold, RunSmartctlCheckRoutineCallback callback) {
   GetForwardingInterface()->RunSmartctlCheckRoutine(std::move(percentage_used_threshold), std::move(callback));
 }
-void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunAcPowerRoutine(::ash::cros_healthd::mojom::AcPowerStatusEnum expected_status, const absl::optional<std::string>& expected_power_type, RunAcPowerRoutineCallback callback) {
+void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunAcPowerRoutine(::ash::cros_healthd::mojom::AcPowerStatusEnum expected_status, const std::optional<std::string>& expected_power_type, RunAcPowerRoutineCallback callback) {
   GetForwardingInterface()->RunAcPowerRoutine(std::move(expected_status), std::move(expected_power_type), std::move(callback));
 }
 void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunCpuCacheRoutine(::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds, RunCpuCacheRoutineCallback callback) {
@@ -15279,7 +15554,7 @@ void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunBatteryDischargeRout
 void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunBatteryChargeRoutine(uint32_t length_seconds, uint32_t minimum_charge_percent_required, RunBatteryChargeRoutineCallback callback) {
   GetForwardingInterface()->RunBatteryChargeRoutine(std::move(length_seconds), std::move(minimum_charge_percent_required), std::move(callback));
 }
-void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunMemoryRoutine(absl::optional<uint32_t> max_testing_mem_kib, RunMemoryRoutineCallback callback) {
+void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunMemoryRoutine(std::optional<uint32_t> max_testing_mem_kib, RunMemoryRoutineCallback callback) {
   GetForwardingInterface()->RunMemoryRoutine(std::move(max_testing_mem_kib), std::move(callback));
 }
 void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunLanConnectivityRoutine(RunLanConnectivityRoutineCallback callback) {
@@ -15315,7 +15590,7 @@ void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunHttpsFirewallRoutine
 void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunHttpsLatencyRoutine(RunHttpsLatencyRoutineCallback callback) {
   GetForwardingInterface()->RunHttpsLatencyRoutine(std::move(callback));
 }
-void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunVideoConferencingRoutine(const absl::optional<std::string>& stun_server_hostname, RunVideoConferencingRoutineCallback callback) {
+void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunVideoConferencingRoutine(const std::optional<std::string>& stun_server_hostname, RunVideoConferencingRoutineCallback callback) {
   GetForwardingInterface()->RunVideoConferencingRoutine(std::move(stun_server_hostname), std::move(callback));
 }
 void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunArcHttpRoutine(RunArcHttpRoutineCallback callback) {
@@ -15519,7 +15794,7 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunSmartctlCheckRoutine(
 }
 
 void CrosHealthdDiagnosticsServiceAsyncWaiter::RunAcPowerRoutine(
-    ::ash::cros_healthd::mojom::AcPowerStatusEnum expected_status, const absl::optional<std::string>& expected_power_type, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
+    ::ash::cros_healthd::mojom::AcPowerStatusEnum expected_status, const std::optional<std::string>& expected_power_type, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
   base::RunLoop loop;
   proxy_->RunAcPowerRoutine(std::move(expected_status),std::move(expected_power_type),
       base::BindOnce(
@@ -15535,7 +15810,7 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunAcPowerRoutine(
 }
 
 ::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunAcPowerRoutine(
-    ::ash::cros_healthd::mojom::AcPowerStatusEnum expected_status, const absl::optional<std::string>& expected_power_type) {
+    ::ash::cros_healthd::mojom::AcPowerStatusEnum expected_status, const std::optional<std::string>& expected_power_type) {
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunAcPowerRoutine(std::move(expected_status),std::move(expected_power_type),&async_wait_result);
   return async_wait_result;
@@ -15772,7 +16047,7 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunBatteryChargeRoutine(
 }
 
 void CrosHealthdDiagnosticsServiceAsyncWaiter::RunMemoryRoutine(
-    absl::optional<uint32_t> max_testing_mem_kib, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
+    std::optional<uint32_t> max_testing_mem_kib, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
   base::RunLoop loop;
   proxy_->RunMemoryRoutine(std::move(max_testing_mem_kib),
       base::BindOnce(
@@ -15788,7 +16063,7 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunMemoryRoutine(
 }
 
 ::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunMemoryRoutine(
-    absl::optional<uint32_t> max_testing_mem_kib) {
+    std::optional<uint32_t> max_testing_mem_kib) {
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunMemoryRoutine(std::move(max_testing_mem_kib),&async_wait_result);
   return async_wait_result;
@@ -16048,7 +16323,7 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunHttpsLatencyRoutine(
 }
 
 void CrosHealthdDiagnosticsServiceAsyncWaiter::RunVideoConferencingRoutine(
-    const absl::optional<std::string>& stun_server_hostname, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
+    const std::optional<std::string>& stun_server_hostname, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
   base::RunLoop loop;
   proxy_->RunVideoConferencingRoutine(std::move(stun_server_hostname),
       base::BindOnce(
@@ -16064,7 +16339,7 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunVideoConferencingRoutine(
 }
 
 ::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunVideoConferencingRoutine(
-    const absl::optional<std::string>& stun_server_hostname) {
+    const std::optional<std::string>& stun_server_hostname) {
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunVideoConferencingRoutine(std::move(stun_server_hostname),&async_wait_result);
   return async_wait_result;
@@ -16574,7 +16849,7 @@ void CrosHealthdProbeServiceInterceptorForTesting::ProbeProcessInfo(uint32_t pro
 void CrosHealthdProbeServiceInterceptorForTesting::ProbeTelemetryInfo(const std::vector<::ash::cros_healthd::mojom::ProbeCategoryEnum>& categories, ProbeTelemetryInfoCallback callback) {
   GetForwardingInterface()->ProbeTelemetryInfo(std::move(categories), std::move(callback));
 }
-void CrosHealthdProbeServiceInterceptorForTesting::ProbeMultipleProcessInfo(const absl::optional<std::vector<uint32_t>>& process_ids, bool ignore_single_process_error, ProbeMultipleProcessInfoCallback callback) {
+void CrosHealthdProbeServiceInterceptorForTesting::ProbeMultipleProcessInfo(const std::optional<std::vector<uint32_t>>& process_ids, bool ignore_single_process_error, ProbeMultipleProcessInfoCallback callback) {
   GetForwardingInterface()->ProbeMultipleProcessInfo(std::move(process_ids), std::move(ignore_single_process_error), std::move(callback));
 }
 CrosHealthdProbeServiceAsyncWaiter::CrosHealthdProbeServiceAsyncWaiter(
@@ -16629,7 +16904,7 @@ void CrosHealthdProbeServiceAsyncWaiter::ProbeTelemetryInfo(
 }
 
 void CrosHealthdProbeServiceAsyncWaiter::ProbeMultipleProcessInfo(
-    const absl::optional<std::vector<uint32_t>>& process_ids, bool ignore_single_process_error, ::ash::cros_healthd::mojom::MultipleProcessResultPtr* out_multiple_process_info) {
+    const std::optional<std::vector<uint32_t>>& process_ids, bool ignore_single_process_error, ::ash::cros_healthd::mojom::MultipleProcessResultPtr* out_multiple_process_info) {
   base::RunLoop loop;
   proxy_->ProbeMultipleProcessInfo(std::move(process_ids),std::move(ignore_single_process_error),
       base::BindOnce(
@@ -16645,7 +16920,7 @@ void CrosHealthdProbeServiceAsyncWaiter::ProbeMultipleProcessInfo(
 }
 
 ::ash::cros_healthd::mojom::MultipleProcessResultPtr CrosHealthdProbeServiceAsyncWaiter::ProbeMultipleProcessInfo(
-    const absl::optional<std::vector<uint32_t>>& process_ids, bool ignore_single_process_error) {
+    const std::optional<std::vector<uint32_t>>& process_ids, bool ignore_single_process_error) {
   ::ash::cros_healthd::mojom::MultipleProcessResultPtr async_wait_result;
   ProbeMultipleProcessInfo(std::move(process_ids),std::move(ignore_single_process_error),&async_wait_result);
   return async_wait_result;

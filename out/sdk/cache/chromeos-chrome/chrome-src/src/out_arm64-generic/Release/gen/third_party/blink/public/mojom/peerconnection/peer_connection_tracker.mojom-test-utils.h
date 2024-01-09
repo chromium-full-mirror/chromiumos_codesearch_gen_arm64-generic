@@ -22,7 +22,6 @@ class BLINK_COMMON_EXPORT PeerConnectionManagerInterceptorForTesting : public Pe
   void StartEventLog(int32_t peer_connection_local_id, int32_t output_period_ms) override;
   void StopEventLog(int32_t peer_connection_local_id) override;
   void GetStandardStats() override;
-  void GetLegacyStats() override;
   void GetCurrentState() override;
 };
 class BLINK_COMMON_EXPORT PeerConnectionManagerAsyncWaiter {

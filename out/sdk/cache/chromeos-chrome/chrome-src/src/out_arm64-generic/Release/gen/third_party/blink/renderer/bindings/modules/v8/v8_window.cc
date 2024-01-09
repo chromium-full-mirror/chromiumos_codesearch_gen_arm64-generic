@@ -13,6 +13,7 @@
 #include "third_party/blink/public/mojom/origin_trial_feature/origin_trial_feature.mojom-shared.h"
 #include "third_party/blink/renderer/bindings/core/v8/binding_security.h"
 #include "third_party/blink/renderer/bindings/core/v8/generated_code_helper.h"
+#include "third_party/blink/renderer/bindings/core/v8/local_window_proxy.h"
 #include "third_party/blink/renderer/bindings/core/v8/native_value_traits_impl.h"
 #include "third_party/blink/renderer/bindings/core/v8/to_v8_traits.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_abort_controller.h"
@@ -97,9 +98,6 @@
 #include "third_party/blink/renderer/bindings/core/v8/v8_css_style_sheet.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_css_style_value.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_css_supports_rule.h"
-#include "third_party/blink/renderer/bindings/core/v8/v8_css_toggle.h"
-#include "third_party/blink/renderer/bindings/core/v8/v8_css_toggle_event.h"
-#include "third_party/blink/renderer/bindings/core/v8/v8_css_toggle_map.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_css_transform_component.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_css_transform_value.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_css_transition.h"
@@ -108,7 +106,7 @@
 #include "third_party/blink/renderer/bindings/core/v8/v8_css_unit_value.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_css_unparsed_value.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_css_variable_reference_value.h"
-#include "third_party/blink/renderer/bindings/core/v8/v8_css_view_transitions_rule.h"
+#include "third_party/blink/renderer/bindings/core/v8/v8_css_view_transition_rule.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_custom_element_registry.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_custom_event.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_custom_state_set.h"
@@ -223,7 +221,6 @@
 #include "third_party/blink/renderer/bindings/core/v8/v8_html_param_element.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_html_permission_element.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_html_picture_element.h"
-#include "third_party/blink/renderer/bindings/core/v8/v8_html_portal_element.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_html_pre_element.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_html_progress_element.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_html_quote_element.h"
@@ -286,6 +283,7 @@
 #include "third_party/blink/renderer/bindings/core/v8/v8_named_node_map.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_navigate_event.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_navigation.h"
+#include "third_party/blink/renderer/bindings/core/v8/v8_navigation_activation.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_navigation_current_entry_change_event.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_navigation_destination.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_navigation_history_entry.h"
@@ -326,8 +324,6 @@
 #include "third_party/blink/renderer/bindings/core/v8/v8_performance_timing.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_pointer_event.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_pop_state_event.h"
-#include "third_party/blink/renderer/bindings/core/v8/v8_portal_activate_event.h"
-#include "third_party/blink/renderer/bindings/core/v8/v8_portal_host.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_preference_manager.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_preference_object.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_processing_instruction.h"
@@ -664,8 +660,10 @@
 #include "third_party/blink/renderer/bindings/modules/v8/v8_gpu_device_lost_info.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_gpu_error.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_gpu_external_texture.h"
+#include "third_party/blink/renderer/bindings/modules/v8/v8_gpu_heap_property.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_gpu_internal_error.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_gpu_map_mode.h"
+#include "third_party/blink/renderer/bindings/modules/v8/v8_gpu_memory_heap_info.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_gpu_out_of_memory_error.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_gpu_pipeline_error.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_gpu_pipeline_layout.h"
@@ -873,6 +871,7 @@
 #include "third_party/blink/renderer/bindings/modules/v8/v8_speech_synthesis_error_event.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_speech_synthesis_event.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_speech_synthesis_utterance.h"
+#include "third_party/blink/renderer/bindings/modules/v8/v8_speech_synthesis_voice.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_stereo_panner_node.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_storage.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_storage_bucket.h"
@@ -921,6 +920,9 @@
 #include "third_party/blink/renderer/bindings/modules/v8/v8_wake_lock.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_wake_lock_sentinel.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_wave_shaper_node.h"
+#include "third_party/blink/renderer/bindings/modules/v8/v8_web_print_job.h"
+#include "third_party/blink/renderer/bindings/modules/v8/v8_web_printer.h"
+#include "third_party/blink/renderer/bindings/modules/v8/v8_web_printing_manager.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_web_transport.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_web_transport_bidirectional_stream.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_web_transport_datagram_duplex_stream.h"
@@ -1026,8 +1028,6 @@
 #include "third_party/blink/renderer/core/html/html_image_element.h"
 #include "third_party/blink/renderer/core/html/media/html_audio_element.h"
 #include "third_party/blink/renderer/core/html/media/html_video_element.h"
-#include "third_party/blink/renderer/core/html/portal/dom_window_portal_host.h"
-#include "third_party/blink/renderer/core/html/portal/portal_host.h"
 #include "third_party/blink/renderer/core/imagebitmap/image_bitmap.h"
 #include "third_party/blink/renderer/core/navigation_api/navigation_api.h"
 #include "third_party/blink/renderer/core/offscreencanvas/offscreen_canvas.h"
@@ -1037,6 +1037,7 @@
 #include "third_party/blink/renderer/core/timing/performance.h"
 #include "third_party/blink/renderer/core/trustedtypes/trusted_type_policy_factory.h"
 #include "third_party/blink/renderer/modules/app_banner/dom_window_installation.h"
+#include "third_party/blink/renderer/modules/awc/additional_windowing_controls.h"
 #include "third_party/blink/renderer/modules/cache_storage/cache_storage.h"
 #include "third_party/blink/renderer/modules/cache_storage/global_cache_storage.h"
 #include "third_party/blink/renderer/modules/canvas/imagebitmap/image_bitmap_factories.h"
@@ -1942,14 +1943,17 @@ return;
   // [CheckSecurity=ReturnValue]
 Frame* blink_frame = blink_receiver->GetFrame()->Parent();
 DCHECK(IsA<LocalFrame>(blink_frame));
-if (UNLIKELY(!blink_frame->IsAttached())) {
-  bindings::V8SetReturnValue(info, nullptr);
-return;
-}
-v8::Local<v8::Value> v8_value;
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
+if (UNLIKELY(!blink_frame->IsAttached() && To<LocalFrame>(blink_frame)->WindowProxyMaybeUninitialized(script_state->World())->ContextIfInitialized().IsEmpty())) {
+  // Don't wrap the return value if its frame is in the process of detaching and
+// has already invalidated its v8::Context, as it is not safe to
+// re-initialize the v8::Context in that state. Return null instead.
+bindings::V8SetReturnValue(info, nullptr);
+return;
+}
+v8::Local<v8::Value> v8_value;
 if (!ToV8Traits<IDLNullable<Element>>::ToV8(ToScriptState(To<LocalFrame>(blink_frame), script_state->World()),return_value).ToLocal(&v8_value)) {
   return;
 }
@@ -1968,7 +1972,7 @@ ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
 V8PerContextData* per_context_data = script_state->PerContextData();
 // [LogActivity], [LogAllWorlds]
-if (script_state->World().IsIsolatedWorld() && per_context_data && per_context_data->ActivityLogger()) { per_context_data->ActivityLogger()->LogGetter("Window.navigator"); }
+if (UNLIKELY(script_state->World().IsIsolatedWorld() && per_context_data && per_context_data->ActivityLogger())) { per_context_data->ActivityLogger()->LogGetter(script_state, "Window.navigator"); }
 
 
 
@@ -3237,25 +3241,6 @@ bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
 
 
-void PortalHostAttributeGetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
-  
-RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow_portalHost_Getter");
-BLINK_BINDINGS_TRACE_EVENT("Window.portalHost.get");
-v8::Isolate* isolate = info.GetIsolate();
-v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-ExecutionContext* current_execution_context = ExecutionContext::From(current_context);
-// [Measure], [MeasureAs]
-UseCounter::Count(current_execution_context, WebFeature::kV8Window_PortalHost_AttributeGetter);
-
-
-
-v8::Local<v8::Object> v8_receiver = info.This();
-LocalDOMWindow* blink_receiver = &UnsafeTo<LocalDOMWindow>(*V8Window::ToWrappableUnsafe(v8_receiver));
-auto&& return_value = DOMWindowPortalHost::portalHost(*blink_receiver);
-bindings::V8SetReturnValue(info, return_value, blink_receiver);
-}
-
-
 void PerformanceAttributeGetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
   
 RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow_performance_Getter");
@@ -3623,7 +3608,7 @@ ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
 V8PerContextData* per_context_data = script_state->PerContextData();
 // [LogActivity], [LogAllWorlds]
-if (script_state->World().IsIsolatedWorld() && per_context_data && per_context_data->ActivityLogger()) { per_context_data->ActivityLogger()->LogGetter("Window.sessionStorage"); }
+if (UNLIKELY(script_state->World().IsIsolatedWorld() && per_context_data && per_context_data->ActivityLogger())) { per_context_data->ActivityLogger()->LogGetter(script_state, "Window.sessionStorage"); }
 
 
 
@@ -3651,7 +3636,7 @@ ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
 V8PerContextData* per_context_data = script_state->PerContextData();
 // [LogActivity], [LogAllWorlds]
-if (script_state->World().IsIsolatedWorld() && per_context_data && per_context_data->ActivityLogger()) { per_context_data->ActivityLogger()->LogGetter("Window.localStorage"); }
+if (UNLIKELY(script_state->World().IsIsolatedWorld() && per_context_data && per_context_data->ActivityLogger())) { per_context_data->ActivityLogger()->LogGetter(script_state, "Window.localStorage"); }
 
 
 
@@ -5493,6 +5478,34 @@ LocalDOMWindow* blink_receiver = &UnsafeTo<LocalDOMWindow>(*V8Window::ToWrappabl
 blink_receiver->setOnsnapchanged(event_handler);
 }
 
+void OnsnapchangingAttributeGetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  
+RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow_onsnapchanging_Getter");
+BLINK_BINDINGS_TRACE_EVENT("Window.onsnapchanging.get");
+
+
+
+v8::Local<v8::Object> v8_receiver = info.This();
+LocalDOMWindow* blink_receiver = &UnsafeTo<LocalDOMWindow>(*V8Window::ToWrappableUnsafe(v8_receiver));
+auto&& return_value = blink_receiver->onsnapchanging();
+v8::Isolate* isolate = info.GetIsolate();
+bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
+}
+
+void OnsnapchangingAttributeSetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  
+RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow_onsnapchanging_Setter");
+BLINK_BINDINGS_TRACE_EVENT("Window.onsnapchanging.set");
+
+v8::Local<v8::Value> v8_property_value = info[0];
+EventListener* event_handler = JSEventHandler::CreateOrNull(
+    v8_property_value,
+    JSEventHandler::HandlerType::kEventHandler);
+v8::Local<v8::Object> v8_receiver = info.This();
+LocalDOMWindow* blink_receiver = &UnsafeTo<LocalDOMWindow>(*V8Window::ToWrappableUnsafe(v8_receiver));
+blink_receiver->setOnsnapchanging(event_handler);
+}
+
 void OnstalledAttributeGetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
   
 RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow_onstalled_Getter");
@@ -6725,6 +6738,34 @@ LocalDOMWindow* blink_receiver = &UnsafeTo<LocalDOMWindow>(*V8Window::ToWrappabl
 blink_receiver->setOnmessageerror(event_handler);
 }
 
+void OnmoveAttributeGetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  
+RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow_onmove_Getter");
+BLINK_BINDINGS_TRACE_EVENT("Window.onmove.get");
+
+
+
+v8::Local<v8::Object> v8_receiver = info.This();
+LocalDOMWindow* blink_receiver = &UnsafeTo<LocalDOMWindow>(*V8Window::ToWrappableUnsafe(v8_receiver));
+auto&& return_value = blink_receiver->onmove();
+v8::Isolate* isolate = info.GetIsolate();
+bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
+}
+
+void OnmoveAttributeSetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  
+RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow_onmove_Setter");
+BLINK_BINDINGS_TRACE_EVENT("Window.onmove.set");
+
+v8::Local<v8::Value> v8_property_value = info[0];
+EventListener* event_handler = JSEventHandler::CreateOrNull(
+    v8_property_value,
+    JSEventHandler::HandlerType::kEventHandler);
+v8::Local<v8::Object> v8_receiver = info.This();
+LocalDOMWindow* blink_receiver = &UnsafeTo<LocalDOMWindow>(*V8Window::ToWrappableUnsafe(v8_receiver));
+blink_receiver->setOnmove(event_handler);
+}
+
 void OnofflineAttributeGetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
   
 RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow_onoffline_Getter");
@@ -6863,34 +6904,6 @@ EventListener* event_handler = JSEventHandler::CreateOrNull(
 v8::Local<v8::Object> v8_receiver = info.This();
 LocalDOMWindow* blink_receiver = &UnsafeTo<LocalDOMWindow>(*V8Window::ToWrappableUnsafe(v8_receiver));
 blink_receiver->setOnpopstate(event_handler);
-}
-
-void OnportalactivateAttributeGetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
-  
-RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow_onportalactivate_Getter");
-BLINK_BINDINGS_TRACE_EVENT("Window.onportalactivate.get");
-
-
-
-v8::Local<v8::Object> v8_receiver = info.This();
-LocalDOMWindow* blink_receiver = &UnsafeTo<LocalDOMWindow>(*V8Window::ToWrappableUnsafe(v8_receiver));
-auto&& return_value = blink_receiver->onportalactivate();
-v8::Isolate* isolate = info.GetIsolate();
-bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
-}
-
-void OnportalactivateAttributeSetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
-  
-RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow_onportalactivate_Setter");
-BLINK_BINDINGS_TRACE_EVENT("Window.onportalactivate.set");
-
-v8::Local<v8::Value> v8_property_value = info[0];
-EventListener* event_handler = JSEventHandler::CreateOrNull(
-    v8_property_value,
-    JSEventHandler::HandlerType::kEventHandler);
-v8::Local<v8::Object> v8_receiver = info.This();
-LocalDOMWindow* blink_receiver = &UnsafeTo<LocalDOMWindow>(*V8Window::ToWrappableUnsafe(v8_receiver));
-blink_receiver->setOnportalactivate(event_handler);
 }
 
 void OnrejectionhandledAttributeGetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
@@ -7928,27 +7941,6 @@ BLINK_BINDINGS_TRACE_EVENT("Window.CSSSupportsRule");
 bindings::V8SetReturnValue(info, V8CSSSupportsRule::GetWrapperTypeInfo(), bindings::V8ReturnValue::kInterfaceObject);
 }
 
-void CSSToggleExposedConstructCallback(v8::Local<v8::Name> v8_property_name, const v8::PropertyCallbackInfo<v8::Value>& info) {
-  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow_CSSToggle_ConstructorGetterCallback");
-BLINK_BINDINGS_TRACE_EVENT("Window.CSSToggle");
-
-bindings::V8SetReturnValue(info, V8CSSToggle::GetWrapperTypeInfo(), bindings::V8ReturnValue::kInterfaceObject);
-}
-
-void CSSToggleEventExposedConstructCallback(v8::Local<v8::Name> v8_property_name, const v8::PropertyCallbackInfo<v8::Value>& info) {
-  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow_CSSToggleEvent_ConstructorGetterCallback");
-BLINK_BINDINGS_TRACE_EVENT("Window.CSSToggleEvent");
-
-bindings::V8SetReturnValue(info, V8CSSToggleEvent::GetWrapperTypeInfo(), bindings::V8ReturnValue::kInterfaceObject);
-}
-
-void CSSToggleMapExposedConstructCallback(v8::Local<v8::Name> v8_property_name, const v8::PropertyCallbackInfo<v8::Value>& info) {
-  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow_CSSToggleMap_ConstructorGetterCallback");
-BLINK_BINDINGS_TRACE_EVENT("Window.CSSToggleMap");
-
-bindings::V8SetReturnValue(info, V8CSSToggleMap::GetWrapperTypeInfo(), bindings::V8ReturnValue::kInterfaceObject);
-}
-
 void CSSTransformComponentExposedConstructCallback(v8::Local<v8::Name> v8_property_name, const v8::PropertyCallbackInfo<v8::Value>& info) {
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow_CSSTransformComponent_ConstructorGetterCallback");
 BLINK_BINDINGS_TRACE_EVENT("Window.CSSTransformComponent");
@@ -8005,11 +7997,11 @@ BLINK_BINDINGS_TRACE_EVENT("Window.CSSVariableReferenceValue");
 bindings::V8SetReturnValue(info, V8CSSVariableReferenceValue::GetWrapperTypeInfo(), bindings::V8ReturnValue::kInterfaceObject);
 }
 
-void CSSViewTransitionsRuleExposedConstructCallback(v8::Local<v8::Name> v8_property_name, const v8::PropertyCallbackInfo<v8::Value>& info) {
-  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow_CSSViewTransitionsRule_ConstructorGetterCallback");
-BLINK_BINDINGS_TRACE_EVENT("Window.CSSViewTransitionsRule");
+void CSSViewTransitionRuleExposedConstructCallback(v8::Local<v8::Name> v8_property_name, const v8::PropertyCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow_CSSViewTransitionRule_ConstructorGetterCallback");
+BLINK_BINDINGS_TRACE_EVENT("Window.CSSViewTransitionRule");
 
-bindings::V8SetReturnValue(info, V8CSSViewTransitionsRule::GetWrapperTypeInfo(), bindings::V8ReturnValue::kInterfaceObject);
+bindings::V8SetReturnValue(info, V8CSSViewTransitionRule::GetWrapperTypeInfo(), bindings::V8ReturnValue::kInterfaceObject);
 }
 
 void CacheExposedConstructCallback(v8::Local<v8::Name> v8_property_name, const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -8936,6 +8928,13 @@ BLINK_BINDINGS_TRACE_EVENT("Window.GPUExternalTexture");
 bindings::V8SetReturnValue(info, V8GPUExternalTexture::GetWrapperTypeInfo(), bindings::V8ReturnValue::kInterfaceObject);
 }
 
+void GPUHeapPropertyExposedConstructCallback(v8::Local<v8::Name> v8_property_name, const v8::PropertyCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow_GPUHeapProperty_ConstructorGetterCallback");
+BLINK_BINDINGS_TRACE_EVENT("Window.GPUHeapProperty");
+
+bindings::V8SetReturnValue(info, V8GPUHeapProperty::GetWrapperTypeInfo(), bindings::V8ReturnValue::kNamespaceObject);
+}
+
 void GPUInternalErrorExposedConstructCallback(v8::Local<v8::Name> v8_property_name, const v8::PropertyCallbackInfo<v8::Value>& info) {
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow_GPUInternalError_ConstructorGetterCallback");
 BLINK_BINDINGS_TRACE_EVENT("Window.GPUInternalError");
@@ -8948,6 +8947,13 @@ void GPUMapModeExposedConstructCallback(v8::Local<v8::Name> v8_property_name, co
 BLINK_BINDINGS_TRACE_EVENT("Window.GPUMapMode");
 
 bindings::V8SetReturnValue(info, V8GPUMapMode::GetWrapperTypeInfo(), bindings::V8ReturnValue::kNamespaceObject);
+}
+
+void GPUMemoryHeapInfoExposedConstructCallback(v8::Local<v8::Name> v8_property_name, const v8::PropertyCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow_GPUMemoryHeapInfo_ConstructorGetterCallback");
+BLINK_BINDINGS_TRACE_EVENT("Window.GPUMemoryHeapInfo");
+
+bindings::V8SetReturnValue(info, V8GPUMemoryHeapInfo::GetWrapperTypeInfo(), bindings::V8ReturnValue::kInterfaceObject);
 }
 
 void GPUOutOfMemoryErrorExposedConstructCallback(v8::Local<v8::Name> v8_property_name, const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -9592,13 +9598,6 @@ void HTMLPictureElementExposedConstructCallback(v8::Local<v8::Name> v8_property_
 BLINK_BINDINGS_TRACE_EVENT("Window.HTMLPictureElement");
 
 bindings::V8SetReturnValue(info, V8HTMLPictureElement::GetWrapperTypeInfo(), bindings::V8ReturnValue::kInterfaceObject);
-}
-
-void HTMLPortalElementExposedConstructCallback(v8::Local<v8::Name> v8_property_name, const v8::PropertyCallbackInfo<v8::Value>& info) {
-  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow_HTMLPortalElement_ConstructorGetterCallback");
-BLINK_BINDINGS_TRACE_EVENT("Window.HTMLPortalElement");
-
-bindings::V8SetReturnValue(info, V8HTMLPortalElement::GetWrapperTypeInfo(), bindings::V8ReturnValue::kInterfaceObject);
 }
 
 void HTMLPreElementExposedConstructCallback(v8::Local<v8::Name> v8_property_name, const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -10595,6 +10594,13 @@ BLINK_BINDINGS_TRACE_EVENT("Window.Navigation");
 bindings::V8SetReturnValue(info, V8Navigation::GetWrapperTypeInfo(), bindings::V8ReturnValue::kInterfaceObject);
 }
 
+void NavigationActivationExposedConstructCallback(v8::Local<v8::Name> v8_property_name, const v8::PropertyCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow_NavigationActivation_ConstructorGetterCallback");
+BLINK_BINDINGS_TRACE_EVENT("Window.NavigationActivation");
+
+bindings::V8SetReturnValue(info, V8NavigationActivation::GetWrapperTypeInfo(), bindings::V8ReturnValue::kInterfaceObject);
+}
+
 void NavigationCurrentEntryChangeEventExposedConstructCallback(v8::Local<v8::Name> v8_property_name, const v8::PropertyCallbackInfo<v8::Value>& info) {
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow_NavigationCurrentEntryChangeEvent_ConstructorGetterCallback");
 BLINK_BINDINGS_TRACE_EVENT("Window.NavigationCurrentEntryChangeEvent");
@@ -11083,20 +11089,6 @@ void PopStateEventExposedConstructCallback(v8::Local<v8::Name> v8_property_name,
 BLINK_BINDINGS_TRACE_EVENT("Window.PopStateEvent");
 
 bindings::V8SetReturnValue(info, V8PopStateEvent::GetWrapperTypeInfo(), bindings::V8ReturnValue::kInterfaceObject);
-}
-
-void PortalActivateEventExposedConstructCallback(v8::Local<v8::Name> v8_property_name, const v8::PropertyCallbackInfo<v8::Value>& info) {
-  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow_PortalActivateEvent_ConstructorGetterCallback");
-BLINK_BINDINGS_TRACE_EVENT("Window.PortalActivateEvent");
-
-bindings::V8SetReturnValue(info, V8PortalActivateEvent::GetWrapperTypeInfo(), bindings::V8ReturnValue::kInterfaceObject);
-}
-
-void PortalHostExposedConstructCallback(v8::Local<v8::Name> v8_property_name, const v8::PropertyCallbackInfo<v8::Value>& info) {
-  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow_PortalHost_ConstructorGetterCallback");
-BLINK_BINDINGS_TRACE_EVENT("Window.PortalHost");
-
-bindings::V8SetReturnValue(info, V8PortalHost::GetWrapperTypeInfo(), bindings::V8ReturnValue::kInterfaceObject);
 }
 
 void PreferenceManagerExposedConstructCallback(v8::Local<v8::Name> v8_property_name, const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -12422,6 +12414,13 @@ BLINK_BINDINGS_TRACE_EVENT("Window.SourceBufferList");
 bindings::V8SetReturnValue(info, V8SourceBufferList::GetWrapperTypeInfo(), bindings::V8ReturnValue::kInterfaceObject);
 }
 
+void SpeechSynthesisExposedConstructCallback(v8::Local<v8::Name> v8_property_name, const v8::PropertyCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow_SpeechSynthesis_ConstructorGetterCallback");
+BLINK_BINDINGS_TRACE_EVENT("Window.SpeechSynthesis");
+
+bindings::V8SetReturnValue(info, V8SpeechSynthesis::GetWrapperTypeInfo(), bindings::V8ReturnValue::kInterfaceObject);
+}
+
 void SpeechSynthesisErrorEventExposedConstructCallback(v8::Local<v8::Name> v8_property_name, const v8::PropertyCallbackInfo<v8::Value>& info) {
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow_SpeechSynthesisErrorEvent_ConstructorGetterCallback");
 BLINK_BINDINGS_TRACE_EVENT("Window.SpeechSynthesisErrorEvent");
@@ -12441,6 +12440,13 @@ void SpeechSynthesisUtteranceExposedConstructCallback(v8::Local<v8::Name> v8_pro
 BLINK_BINDINGS_TRACE_EVENT("Window.SpeechSynthesisUtterance");
 
 bindings::V8SetReturnValue(info, V8SpeechSynthesisUtterance::GetWrapperTypeInfo(), bindings::V8ReturnValue::kInterfaceObject);
+}
+
+void SpeechSynthesisVoiceExposedConstructCallback(v8::Local<v8::Name> v8_property_name, const v8::PropertyCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow_SpeechSynthesisVoice_ConstructorGetterCallback");
+BLINK_BINDINGS_TRACE_EVENT("Window.SpeechSynthesisVoice");
+
+bindings::V8SetReturnValue(info, V8SpeechSynthesisVoice::GetWrapperTypeInfo(), bindings::V8ReturnValue::kInterfaceObject);
 }
 
 void StaticRangeExposedConstructCallback(v8::Local<v8::Name> v8_property_name, const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -13232,6 +13238,27 @@ void WebGLVertexArrayObjectExposedConstructCallback(v8::Local<v8::Name> v8_prope
 BLINK_BINDINGS_TRACE_EVENT("Window.WebGLVertexArrayObject");
 
 bindings::V8SetReturnValue(info, V8WebGLVertexArrayObject::GetWrapperTypeInfo(), bindings::V8ReturnValue::kInterfaceObject);
+}
+
+void WebPrintJobExposedConstructCallback(v8::Local<v8::Name> v8_property_name, const v8::PropertyCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow_WebPrintJob_ConstructorGetterCallback");
+BLINK_BINDINGS_TRACE_EVENT("Window.WebPrintJob");
+
+bindings::V8SetReturnValue(info, V8WebPrintJob::GetWrapperTypeInfo(), bindings::V8ReturnValue::kInterfaceObject);
+}
+
+void WebPrinterExposedConstructCallback(v8::Local<v8::Name> v8_property_name, const v8::PropertyCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow_WebPrinter_ConstructorGetterCallback");
+BLINK_BINDINGS_TRACE_EVENT("Window.WebPrinter");
+
+bindings::V8SetReturnValue(info, V8WebPrinter::GetWrapperTypeInfo(), bindings::V8ReturnValue::kInterfaceObject);
+}
+
+void WebPrintingManagerExposedConstructCallback(v8::Local<v8::Name> v8_property_name, const v8::PropertyCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow_WebPrintingManager_ConstructorGetterCallback");
+BLINK_BINDINGS_TRACE_EVENT("Window.WebPrintingManager");
+
+bindings::V8SetReturnValue(info, V8WebPrintingManager::GetWrapperTypeInfo(), bindings::V8ReturnValue::kInterfaceObject);
 }
 
 void WebSocketExposedConstructCallback(v8::Local<v8::Name> v8_property_name, const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -14150,7 +14177,7 @@ ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_message;
 if (LIKELY(info[0]->IsString())) {
-  arg1_message.Init(info[0].As<v8::String>());
+  arg1_message.Init(isolate, info[0].As<v8::String>());
 } else {
   const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Window";
@@ -14465,7 +14492,7 @@ ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_message;
 if (LIKELY(info[0]->IsString())) {
-  arg1_message.Init(info[0].As<v8::String>());
+  arg1_message.Init(isolate, info[0].As<v8::String>());
 } else {
   if (info[0]->IsUndefined()) {
   arg1_message = "";
@@ -15084,7 +15111,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 LocalDOMWindow* blink_receiver = &UnsafeTo<LocalDOMWindow>(*V8Window::ToWrappableUnsafe(v8_receiver));
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_query;
 if (LIKELY(info[0]->IsString())) {
-  arg1_query.Init(info[0].As<v8::String>());
+  arg1_query.Init(isolate, info[0].As<v8::String>());
 } else {
   const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Window";
@@ -15103,50 +15130,68 @@ void MaximizeOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) 
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow_maximize");
 BLINK_BINDINGS_TRACE_EVENT("Window.maximize");
 
-
-
-
-
-
-
-
-v8::Local<v8::Object> v8_receiver = info.This();
-LocalDOMWindow* blink_receiver = &UnsafeTo<LocalDOMWindow>(*V8Window::ToWrappableUnsafe(v8_receiver));
+// Promise returning function: Convert a TypeError to a reject promise.
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Window";
 const char* const property_name = "maximize";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
-blink_receiver->maximize(exception_state);
+ExceptionToRejectPromiseScope reject_promise_scope(info, exception_state);
+if (!V8Window::HasInstance(isolate, v8_receiver)) {
+  exception_state.ThrowTypeError("Illegal invocation");
+return;
+}
+
+
+
+
+
+
+
+v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
+ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* script_state = receiver_script_state;
+LocalDOMWindow* blink_receiver = &UnsafeTo<LocalDOMWindow>(*V8Window::ToWrappableUnsafe(v8_receiver));
+auto&& return_value = AdditionalWindowingControls::maximize(script_state, *blink_receiver, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }
-
+bindings::V8SetReturnValue(info, return_value);
 }
 
 void MinimizeOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow_minimize");
 BLINK_BINDINGS_TRACE_EVENT("Window.minimize");
 
-
-
-
-
-
-
-
-v8::Local<v8::Object> v8_receiver = info.This();
-LocalDOMWindow* blink_receiver = &UnsafeTo<LocalDOMWindow>(*V8Window::ToWrappableUnsafe(v8_receiver));
+// Promise returning function: Convert a TypeError to a reject promise.
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Window";
 const char* const property_name = "minimize";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
-blink_receiver->minimize(exception_state);
+ExceptionToRejectPromiseScope reject_promise_scope(info, exception_state);
+if (!V8Window::HasInstance(isolate, v8_receiver)) {
+  exception_state.ThrowTypeError("Illegal invocation");
+return;
+}
+
+
+
+
+
+
+
+v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
+ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* script_state = receiver_script_state;
+LocalDOMWindow* blink_receiver = &UnsafeTo<LocalDOMWindow>(*V8Window::ToWrappableUnsafe(v8_receiver));
+auto&& return_value = AdditionalWindowingControls::minimize(script_state, *blink_receiver, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }
-
+bindings::V8SetReturnValue(info, return_value);
 }
 
 void MoveByOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
@@ -15293,7 +15338,7 @@ ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
 V8PerContextData* per_context_data = script_state->PerContextData();
 // [LogActivity], [LogAllWorlds]
-if (per_context_data && per_context_data->ActivityLogger()) { per_context_data->ActivityLogger()->LogMethod("Window.openDatabase", info); }
+if (UNLIKELY(per_context_data && per_context_data->ActivityLogger())) { per_context_data->ActivityLogger()->LogMethod(script_state, "Window.openDatabase", info); }
 
 
 
@@ -15513,7 +15558,7 @@ ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_message;
 if (LIKELY(info[0]->IsString())) {
-  arg1_message.Init(info[0].As<v8::String>());
+  arg1_message.Init(isolate, info[0].As<v8::String>());
 } else {
   if (info[0]->IsUndefined()) {
   arg1_message = "";
@@ -15530,7 +15575,7 @@ if (UNLIKELY(exception_state.HadException())) {
 }
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg2_default_value;
 if (LIKELY(info[1]->IsString())) {
-  arg2_default_value.Init(info[1].As<v8::String>());
+  arg2_default_value.Init(isolate, info[1].As<v8::String>());
 } else {
   if (info[1]->IsUndefined()) {
   arg2_default_value = "";
@@ -15811,7 +15856,10 @@ auto&& arg2_y = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 1, info[1], e
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }
-blink_receiver->resizeBy(arg1_x, arg2_y);
+blink_receiver->resizeBy(arg1_x, arg2_y, exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
 
 }
 
@@ -15849,7 +15897,10 @@ auto&& arg2_y = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 1, info[1], e
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }
-blink_receiver->resizeTo(arg1_x, arg2_y);
+blink_receiver->resizeTo(arg1_x, arg2_y, exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
 
 }
 
@@ -15857,25 +15908,34 @@ void RestoreOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow_restore");
 BLINK_BINDINGS_TRACE_EVENT("Window.restore");
 
-
-
-
-
-
-
-
-v8::Local<v8::Object> v8_receiver = info.This();
-LocalDOMWindow* blink_receiver = &UnsafeTo<LocalDOMWindow>(*V8Window::ToWrappableUnsafe(v8_receiver));
+// Promise returning function: Convert a TypeError to a reject promise.
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Window";
 const char* const property_name = "restore";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
-blink_receiver->restore(exception_state);
+ExceptionToRejectPromiseScope reject_promise_scope(info, exception_state);
+if (!V8Window::HasInstance(isolate, v8_receiver)) {
+  exception_state.ThrowTypeError("Illegal invocation");
+return;
+}
+
+
+
+
+
+
+
+v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
+ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* script_state = receiver_script_state;
+LocalDOMWindow* blink_receiver = &UnsafeTo<LocalDOMWindow>(*V8Window::ToWrappableUnsafe(v8_receiver));
+auto&& return_value = AdditionalWindowingControls::restore(script_state, *blink_receiver, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }
-
+bindings::V8SetReturnValue(info, return_value);
 }
 
 void ScrollOperationOverload1(const v8::FunctionCallbackInfo<v8::Value>& info) {
@@ -16256,15 +16316,22 @@ void SetResizableOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& in
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow_setResizable");
 BLINK_BINDINGS_TRACE_EVENT("Window.setResizable");
 
-
-
-
-
+// Promise returning function: Convert a TypeError to a reject promise.
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "Window";
 const char* const property_name = "setResizable";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+ExceptionToRejectPromiseScope reject_promise_scope(info, exception_state);
+if (!V8Window::HasInstance(isolate, v8_receiver)) {
+  exception_state.ThrowTypeError("Illegal invocation");
+return;
+}
+
+
+
+
 if (UNLIKELY(info.Length() < 1)) {
   exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
 return;
@@ -16272,17 +16339,19 @@ return;
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
+v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
+ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* script_state = receiver_script_state;
 LocalDOMWindow* blink_receiver = &UnsafeTo<LocalDOMWindow>(*V8Window::ToWrappableUnsafe(v8_receiver));
 auto&& arg1_resizable = NativeValueTraits<IDLBoolean>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }
-blink_receiver->setResizable(arg1_resizable, exception_state);
+auto&& return_value = AdditionalWindowingControls::setResizable(script_state, *blink_receiver, arg1_resizable, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }
-
+bindings::V8SetReturnValue(info, return_value);
 }
 
 void SetTimeoutOperationOverload1(const v8::FunctionCallbackInfo<v8::Value>& info) {
@@ -17080,7 +17149,8 @@ void CrossOriginNamedGetterCallback(v8::Local<v8::Name> v8_property_name, const 
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow_CrossOriginProperty_NamedPropertyGetter");
 
 if (v8_property_name->IsString()) {
-  const AtomicString& blink_property_name = ToCoreAtomicString(v8_property_name);
+  v8::Isolate* isolate = info.GetIsolate();
+const AtomicString& blink_property_name = ToCoreAtomicString(isolate, v8_property_name);
 for (const auto& attribute : kCrossOriginAttributeTable) {
   if (blink_property_name != attribute.name) {
   continue;
@@ -17089,8 +17159,7 @@ if (UNLIKELY(!attribute.get_value)) {
   // if(true) is used as part of a hint to the bindings generator. See
 // _make_throw_security_error for details.
 if (true) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kNamedPropertyGetter;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kNamedPropertyGetter;
 const char* const class_like_name = "Window";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, blink_property_name, ExceptionState::kForInterceptor);
 BindingSecurity::FailedAccessCheckFor(isolate, V8Window::GetWrapperTypeInfo(), info.Holder(), exception_state);
@@ -17106,7 +17175,6 @@ for (const auto& operation : kCrossOriginOperationTable) {
   continue;
 }
 v8::Local<v8::Function> function;
-v8::Isolate* isolate = info.GetIsolate();
 if (bindings::GetCrossOriginFunction(isolate, operation.callback, operation.func_length,V8Window::GetWrapperTypeInfo()).ToLocal(&function)) {
   bindings::V8SetReturnValue(info, function);
 }
@@ -17138,7 +17206,7 @@ if (true) {
   v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kNamedPropertyGetter;
 const char* const class_like_name = "Window";
-const AtomicString& blink_property_name = ToCoreAtomicString(v8_property_name);
+const AtomicString& blink_property_name = ToCoreAtomicString(isolate, v8_property_name);
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, blink_property_name, ExceptionState::kForInterceptor);
 BindingSecurity::FailedAccessCheckFor(isolate, V8Window::GetWrapperTypeInfo(), info.Holder(), exception_state);
 }
@@ -17148,7 +17216,8 @@ void CrossOriginNamedSetterCallback(v8::Local<v8::Name> v8_property_name, v8::Lo
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow_CrossOriginProperty_NamedPropertySetter");
 
 if (v8_property_name->IsString()) {
-  const AtomicString& blink_property_name = ToCoreAtomicString(v8_property_name);
+  v8::Isolate* isolate = info.GetIsolate();
+const AtomicString& blink_property_name = ToCoreAtomicString(isolate, v8_property_name);
 for (const auto& attribute : kCrossOriginAttributeTable) {
   if (blink_property_name == attribute.name && attribute.set_value) {
     attribute.set_value(v8_property_name, v8_property_value, info);
@@ -17164,7 +17233,7 @@ if (true) {
   v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kNamedPropertySetter;
 const char* const class_like_name = "Window";
-const AtomicString& blink_property_name = ToCoreAtomicString(v8_property_name);
+const AtomicString& blink_property_name = ToCoreAtomicString(isolate, v8_property_name);
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, blink_property_name, ExceptionState::kForInterceptor);
 BindingSecurity::FailedAccessCheckFor(isolate, V8Window::GetWrapperTypeInfo(), info.Holder(), exception_state);
 }
@@ -17179,7 +17248,7 @@ if (true) {
   v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kNamedPropertyDeleter;
 const char* const class_like_name = "Window";
-const AtomicString& blink_property_name = ToCoreAtomicString(v8_property_name);
+const AtomicString& blink_property_name = ToCoreAtomicString(isolate, v8_property_name);
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, blink_property_name, ExceptionState::kForInterceptor);
 BindingSecurity::FailedAccessCheckFor(isolate, V8Window::GetWrapperTypeInfo(), info.Holder(), exception_state);
 }
@@ -17194,7 +17263,7 @@ if (true) {
   v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kNamedPropertyDefiner;
 const char* const class_like_name = "Window";
-const AtomicString& blink_property_name = ToCoreAtomicString(v8_property_name);
+const AtomicString& blink_property_name = ToCoreAtomicString(isolate, v8_property_name);
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, blink_property_name, ExceptionState::kForInterceptor);
 BindingSecurity::FailedAccessCheckFor(isolate, V8Window::GetWrapperTypeInfo(), info.Holder(), exception_state);
 }
@@ -17204,7 +17273,8 @@ void CrossOriginNamedDescriptorCallback(v8::Local<v8::Name> v8_property_name, co
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow_CrossOriginProperty_NamedPropertyDescriptor");
 
 if (v8_property_name->IsString()) {
-  const AtomicString& blink_property_name = ToCoreAtomicString(v8_property_name);
+  v8::Isolate* isolate = info.GetIsolate();
+const AtomicString& blink_property_name = ToCoreAtomicString(isolate, v8_property_name);
 // 7.2.3.4 CrossOriginGetOwnPropertyHelper ( O, P )
 // https://html.spec.whatwg.org/C/#crossorigingetownpropertyhelper-(-o,-p-)
 for (const auto& attribute : kCrossOriginAttributeTable) {
@@ -17278,7 +17348,7 @@ if (true) {
   v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kNamedPropertyDescriptor;
 const char* const class_like_name = "Window";
-const AtomicString& blink_property_name = ToCoreAtomicString(v8_property_name);
+const AtomicString& blink_property_name = ToCoreAtomicString(isolate, v8_property_name);
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, blink_property_name, ExceptionState::kForInterceptor);
 BindingSecurity::FailedAccessCheckFor(isolate, V8Window::GetWrapperTypeInfo(), info.Holder(), exception_state);
 }
@@ -17288,7 +17358,8 @@ void CrossOriginNamedQueryCallback(v8::Local<v8::Name> v8_property_name, const v
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DOMWindow_CrossOriginProperty_NamedPropertyQuery");
 
 if (v8_property_name->IsString()) {
-  const AtomicString& blink_property_name = ToCoreAtomicString(v8_property_name);
+  v8::Isolate* isolate = info.GetIsolate();
+const AtomicString& blink_property_name = ToCoreAtomicString(isolate, v8_property_name);
 // 7.2.3.4 CrossOriginGetOwnPropertyHelper ( O, P )
 // https://html.spec.whatwg.org/C/#crossorigingetownpropertyhelper-(-o,-p-)
 for (const auto& attribute : kCrossOriginAttributeTable) {
@@ -17575,6 +17646,7 @@ v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_funct
 {"onbeforexrselect", OnbeforexrselectAttributeGetCallback, OnbeforexrselectAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kInstance), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"onabort", OnabortAttributeGetCallback, OnabortAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kInstance), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"onbeforeinput", OnbeforeinputAttributeGetCallback, OnbeforeinputAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kInstance), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
+{"onbeforematch", OnbeforematchAttributeGetCallback, OnbeforematchAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kInstance), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"onbeforetoggle", OnbeforetoggleAttributeGetCallback, OnbeforetoggleAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kInstance), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"onblur", OnblurAttributeGetCallback, OnblurAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kInstance), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"oncancel", OncancelAttributeGetCallback, OncancelAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kInstance), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
@@ -17583,6 +17655,7 @@ v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_funct
 {"onchange", OnchangeAttributeGetCallback, OnchangeAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kInstance), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"onclick", OnclickAttributeGetCallback, OnclickAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kInstance), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"onclose", OncloseAttributeGetCallback, OncloseAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kInstance), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
+{"oncontentvisibilityautostatechange", OncontentvisibilityautostatechangeAttributeGetCallback, OncontentvisibilityautostatechangeAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kInstance), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"oncontextlost", OncontextlostAttributeGetCallback, OncontextlostAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kInstance), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"oncontextmenu", OncontextmenuAttributeGetCallback, OncontextmenuAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kInstance), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"oncontextrestored", OncontextrestoredAttributeGetCallback, OncontextrestoredAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kInstance), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
@@ -17706,6 +17779,8 @@ IDLMemberInstaller::InstallConstants(isolate, world, instance_template, prototyp
 {"Animation", AnimationExposedConstructCallback}, 
 {"AnimationEffect", AnimationEffectExposedConstructCallback}, 
 {"AnimationEvent", AnimationEventExposedConstructCallback}, 
+{"AnimationPlaybackEvent", AnimationPlaybackEventExposedConstructCallback}, 
+{"AnimationTimeline", AnimationTimelineExposedConstructCallback}, 
 {"Attr", AttrExposedConstructCallback}, 
 {"AudioBuffer", AudioBufferExposedConstructCallback}, 
 {"AudioBufferSourceNode", AudioBufferSourceNodeExposedConstructCallback}, 
@@ -17728,9 +17803,11 @@ IDLMemberInstaller::InstallConstants(isolate, world, instance_template, prototyp
 {"Blob", BlobExposedConstructCallback}, 
 {"BlobEvent", BlobEventExposedConstructCallback}, 
 {"BroadcastChannel", BroadcastChannelExposedConstructCallback}, 
+{"BrowserCaptureMediaStreamTrack", BrowserCaptureMediaStreamTrackExposedConstructCallback}, 
 {"ByteLengthQueuingStrategy", ByteLengthQueuingStrategyExposedConstructCallback}, 
 {"CDATASection", CDATASectionExposedConstructCallback}, 
 {"CSS", CSSExposedConstructCallback}, 
+{"CSSAnimation", CSSAnimationExposedConstructCallback}, 
 {"CSSConditionRule", CSSConditionRuleExposedConstructCallback}, 
 {"CSSContainerRule", CSSContainerRuleExposedConstructCallback}, 
 {"CSSCounterStyleRule", CSSCounterStyleRuleExposedConstructCallback}, 
@@ -17768,6 +17845,7 @@ IDLMemberInstaller::InstallConstants(isolate, world, instance_template, prototyp
 {"CSSSkew", CSSSkewExposedConstructCallback}, 
 {"CSSSkewX", CSSSkewXExposedConstructCallback}, 
 {"CSSSkewY", CSSSkewYExposedConstructCallback}, 
+{"CSSStartingStyleRule", CSSStartingStyleRuleExposedConstructCallback}, 
 {"CSSStyleDeclaration", CSSStyleDeclarationExposedConstructCallback}, 
 {"CSSStyleRule", CSSStyleRuleExposedConstructCallback}, 
 {"CSSStyleSheet", CSSStyleSheetExposedConstructCallback}, 
@@ -17775,6 +17853,7 @@ IDLMemberInstaller::InstallConstants(isolate, world, instance_template, prototyp
 {"CSSSupportsRule", CSSSupportsRuleExposedConstructCallback}, 
 {"CSSTransformComponent", CSSTransformComponentExposedConstructCallback}, 
 {"CSSTransformValue", CSSTransformValueExposedConstructCallback}, 
+{"CSSTransition", CSSTransitionExposedConstructCallback}, 
 {"CSSTranslate", CSSTranslateExposedConstructCallback}, 
 {"CSSUnitValue", CSSUnitValueExposedConstructCallback}, 
 {"CSSUnparsedValue", CSSUnparsedValueExposedConstructCallback}, 
@@ -17792,6 +17871,7 @@ IDLMemberInstaller::InstallConstants(isolate, world, instance_template, prototyp
 {"CompositionEvent", CompositionEventExposedConstructCallback}, 
 {"CompressionStream", CompressionStreamExposedConstructCallback}, 
 {"ConstantSourceNode", ConstantSourceNodeExposedConstructCallback}, 
+{"ContentVisibilityAutoStateChangeEvent", ContentVisibilityAutoStateChangeEventExposedConstructCallback}, 
 {"ConvolverNode", ConvolverNodeExposedConstructCallback}, 
 {"CountQueuingStrategy", CountQueuingStrategyExposedConstructCallback}, 
 {"Crypto", CryptoExposedConstructCallback}, 
@@ -17818,8 +17898,10 @@ IDLMemberInstaller::InstallConstants(isolate, world, instance_template, prototyp
 {"DataTransferItemList", DataTransferItemListExposedConstructCallback}, 
 {"DecompressionStream", DecompressionStreamExposedConstructCallback}, 
 {"DelayNode", DelayNodeExposedConstructCallback}, 
+{"DelegatedInkTrailPresenter", DelegatedInkTrailPresenterExposedConstructCallback}, 
 {"Document", DocumentExposedConstructCallback}, 
 {"DocumentFragment", DocumentFragmentExposedConstructCallback}, 
+{"DocumentTimeline", DocumentTimelineExposedConstructCallback}, 
 {"DocumentType", DocumentTypeExposedConstructCallback}, 
 {"DragEvent", DragEventExposedConstructCallback}, 
 {"DynamicsCompressorNode", DynamicsCompressorNodeExposedConstructCallback}, 
@@ -17929,6 +18011,8 @@ IDLMemberInstaller::InstallConstants(isolate, world, instance_template, prototyp
 {"HTMLVideoElement", HTMLVideoElementExposedConstructCallback}, 
 {"HashChangeEvent", HashChangeEventExposedConstructCallback}, 
 {"Headers", HeadersExposedConstructCallback}, 
+{"Highlight", HighlightExposedConstructCallback}, 
+{"HighlightRegistry", HighlightRegistryExposedConstructCallback}, 
 {"History", HistoryExposedConstructCallback}, 
 {"IDBCursor", IDBCursorExposedConstructCallback}, 
 {"IDBCursorWithValue", IDBCursorWithValueExposedConstructCallback}, 
@@ -17949,6 +18033,7 @@ IDLMemberInstaller::InstallConstants(isolate, world, instance_template, prototyp
 {"ImageData", ImageDataExposedConstructCallback}, 
 {"ImageTrack", ImageTrackExposedConstructCallback}, 
 {"ImageTrackList", ImageTrackListExposedConstructCallback}, 
+{"Ink", InkExposedConstructCallback}, 
 {"InputDeviceCapabilities", InputDeviceCapabilitiesExposedConstructCallback}, 
 {"InputDeviceInfo", InputDeviceInfoExposedConstructCallback}, 
 {"InputEvent", InputEventExposedConstructCallback}, 
@@ -18381,14 +18466,6 @@ v8::Local<v8::FunctionTemplate> interface_function_template = interface_template
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
 IDLMemberInstaller::InstallAttributes(isolate, world, instance_template, prototype_template, interface_template, signature, kAttributeTable);
 }
-if (RuntimeEnabledFeatures::ContentVisibilityAutoStateChangeEventEnabled()) {
-  static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
-{"oncontentvisibilityautostatechange", OncontentvisibilityautostatechangeAttributeGetCallback, OncontentvisibilityautostatechangeAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kInstance), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
-};
-v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
-v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
-IDLMemberInstaller::InstallAttributes(isolate, world, instance_template, prototype_template, interface_template, signature, kAttributeTable);
-}
 if (RuntimeEnabledFeatures::OverscrollCustomizationEnabled()) {
   static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
 {"onoverscroll", OnoverscrollAttributeGetCallback, OnoverscrollAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kInstance), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
@@ -18405,9 +18482,25 @@ v8::Local<v8::FunctionTemplate> interface_function_template = interface_template
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
 IDLMemberInstaller::InstallAttributes(isolate, world, instance_template, prototype_template, interface_template, signature, kAttributeTable);
 }
-if (RuntimeEnabledFeatures::CSSScrollSnapEventsEnabled()) {
+if (RuntimeEnabledFeatures::CSSSnapChangedEventEnabled()) {
   static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
 {"onsnapchanged", OnsnapchangedAttributeGetCallback, OnsnapchangedAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kInstance), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
+};
+v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
+v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
+IDLMemberInstaller::InstallAttributes(isolate, world, instance_template, prototype_template, interface_template, signature, kAttributeTable);
+}
+if (RuntimeEnabledFeatures::CSSSnapChangingEventEnabled()) {
+  static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
+{"onsnapchanging", OnsnapchangingAttributeGetCallback, OnsnapchangingAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kInstance), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
+};
+v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
+v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
+IDLMemberInstaller::InstallAttributes(isolate, world, instance_template, prototype_template, interface_template, signature, kAttributeTable);
+}
+if (RuntimeEnabledFeatures::DesktopPWAsAdditionalWindowingControlsEnabled()) {
+  static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
+{"onmove", OnmoveAttributeGetCallback, OnmoveAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kInstance), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 };
 v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
@@ -18437,18 +18530,6 @@ if (RuntimeEnabledFeatures::AccessibilityObjectModelEnabled()) {
 {"AccessibleNode", AccessibleNodeExposedConstructCallback}, 
 {"AccessibleNodeList", AccessibleNodeListExposedConstructCallback}, 
 {"ComputedAccessibleNode", ComputedAccessibleNodeExposedConstructCallback}, 
-};
-v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
-v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
-IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_template, prototype_template, interface_template, signature, kExposedConstructTable);
-}
-if (RuntimeEnabledFeatures::WebAnimationsAPIEnabled()) {
-  static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
-{"AnimationPlaybackEvent", AnimationPlaybackEventExposedConstructCallback}, 
-{"AnimationTimeline", AnimationTimelineExposedConstructCallback}, 
-{"CSSAnimation", CSSAnimationExposedConstructCallback}, 
-{"CSSTransition", CSSTransitionExposedConstructCallback}, 
-{"DocumentTimeline", DocumentTimelineExposedConstructCallback}, 
 };
 v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
@@ -18503,15 +18584,6 @@ v8::Local<v8::FunctionTemplate> interface_function_template = interface_template
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
 IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_template, prototype_template, interface_template, signature, kExposedConstructTable);
 }
-if (RuntimeEnabledFeatures::RegionCaptureEnabled()) {
-  static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
-{"BrowserCaptureMediaStreamTrack", BrowserCaptureMediaStreamTrackExposedConstructCallback}, 
-{"CropTarget", CropTargetExposedConstructCallback}, 
-};
-v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
-v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
-IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_template, prototype_template, interface_template, signature, kExposedConstructTable);
-}
 if (RuntimeEnabledFeatures::CSSColorTypedOMEnabled()) {
   static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
 {"CSSColorValue", CSSColorValueExposedConstructCallback}, 
@@ -18540,27 +18612,9 @@ v8::Local<v8::FunctionTemplate> interface_function_template = interface_template
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
 IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_template, prototype_template, interface_template, signature, kExposedConstructTable);
 }
-if (RuntimeEnabledFeatures::CSSStartingStyleEnabled()) {
-  static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
-{"CSSStartingStyleRule", CSSStartingStyleRuleExposedConstructCallback}, 
-};
-v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
-v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
-IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_template, prototype_template, interface_template, signature, kExposedConstructTable);
-}
-if (RuntimeEnabledFeatures::CSSTogglesEnabled()) {
-  static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
-{"CSSToggle", CSSToggleExposedConstructCallback}, 
-{"CSSToggleEvent", CSSToggleEventExposedConstructCallback}, 
-{"CSSToggleMap", CSSToggleMapExposedConstructCallback}, 
-};
-v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
-v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
-IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_template, prototype_template, interface_template, signature, kExposedConstructTable);
-}
 if (RuntimeEnabledFeatures::ViewTransitionOnNavigationEnabled()) {
   static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
-{"CSSViewTransitionsRule", CSSViewTransitionsRuleExposedConstructCallback}, 
+{"CSSViewTransitionRule", CSSViewTransitionRuleExposedConstructCallback}, 
 };
 v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
@@ -18598,18 +18652,9 @@ v8::Local<v8::FunctionTemplate> interface_function_template = interface_template
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
 IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_template, prototype_template, interface_template, signature, kExposedConstructTable);
 }
-if (RuntimeEnabledFeatures::ContentVisibilityAutoStateChangeEventEnabled()) {
+if (RuntimeEnabledFeatures::RegionCaptureEnabled()) {
   static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
-{"ContentVisibilityAutoStateChangeEvent", ContentVisibilityAutoStateChangeEventExposedConstructCallback}, 
-};
-v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
-v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
-IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_template, prototype_template, interface_template, signature, kExposedConstructTable);
-}
-if (RuntimeEnabledFeatures::DelegatedInkTrailsEnabled()) {
-  static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
-{"DelegatedInkTrailPresenter", DelegatedInkTrailPresenterExposedConstructCallback}, 
-{"Ink", InkExposedConstructCallback}, 
+{"CropTarget", CropTargetExposedConstructCallback}, 
 };
 v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
@@ -18661,15 +18706,6 @@ IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_template, 
 if (RuntimeEnabledFeatures::HTMLSelectListElementEnabled()) {
   static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
 {"HTMLSelectListElement", HTMLSelectListElementExposedConstructCallback}, 
-};
-v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
-v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
-IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_template, prototype_template, interface_template, signature, kExposedConstructTable);
-}
-if (RuntimeEnabledFeatures::HighlightAPIEnabled()) {
-  static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
-{"Highlight", HighlightExposedConstructCallback}, 
-{"HighlightRegistry", HighlightRegistryExposedConstructCallback}, 
 };
 v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
@@ -18739,6 +18775,14 @@ IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_template, 
 if (RuntimeEnabledFeatures::MutationEventsEnabled()) {
   static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
 {"MutationEvent", MutationEventExposedConstructCallback}, 
+};
+v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
+v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
+IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_template, prototype_template, interface_template, signature, kExposedConstructTable);
+}
+if (RuntimeEnabledFeatures::NavigationActivationEnabled()) {
+  static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
+{"NavigationActivation", NavigationActivationExposedConstructCallback}, 
 };
 v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
@@ -18844,14 +18888,6 @@ v8::Local<v8::FunctionTemplate> interface_function_template = interface_template
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
 IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_template, prototype_template, interface_template, signature, kExposedConstructTable);
 }
-if (RuntimeEnabledFeatures::ElementCaptureEnabled()) {
-  static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
-{"RestrictionTarget", RestrictionTargetExposedConstructCallback}, 
-};
-v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
-v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
-IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_template, prototype_template, interface_template, signature, kExposedConstructTable);
-}
 if (RuntimeEnabledFeatures::ScrollTimelineEnabled()) {
   static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
 {"ScrollTimeline", ScrollTimelineExposedConstructCallback}, 
@@ -18879,9 +18915,11 @@ IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_template, 
 }
 if (RuntimeEnabledFeatures::ScriptedSpeechSynthesisEnabled()) {
   static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
+{"SpeechSynthesis", SpeechSynthesisExposedConstructCallback}, 
 {"SpeechSynthesisErrorEvent", SpeechSynthesisErrorEventExposedConstructCallback}, 
 {"SpeechSynthesisEvent", SpeechSynthesisEventExposedConstructCallback}, 
 {"SpeechSynthesisUtterance", SpeechSynthesisUtteranceExposedConstructCallback}, 
+{"SpeechSynthesisVoice", SpeechSynthesisVoiceExposedConstructCallback}, 
 };
 v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
@@ -18965,17 +19003,6 @@ v8::Local<v8::FunctionTemplate> interface_function_template = interface_template
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
 IDLMemberInstaller::InstallOperations(isolate, world, instance_template, prototype_template, interface_template, signature, kOperationTable);
 }
-if (RuntimeEnabledFeatures::DesktopPWAsAdditionalWindowingControlsEnabled()) {
-  static const IDLMemberInstaller::OperationConfig kOperationTable[] = {
-{"maximize", MaximizeOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kInstance), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
-{"minimize", MinimizeOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kInstance), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
-{"restore", RestoreOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kInstance), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
-{"setResizable", SetResizableOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kInstance), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
-};
-v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
-v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
-IDLMemberInstaller::InstallOperations(isolate, world, instance_template, prototype_template, interface_template, signature, kOperationTable);
-}
 if (RuntimeEnabledFeatures::FileSystemEnabled()) {
   static const IDLMemberInstaller::OperationConfig kOperationTable[] = {
 {"webkitRequestFileSystem", WebkitRequestFileSystemOperationCallback, 3, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kInstance), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
@@ -19001,16 +19028,6 @@ ExecutionContext* execution_context = ExecutionContext::From(script_state);
 if ((feature_selector.IsAll() && RuntimeEnabledFeatures::FencedFramesEnabled(execution_context)) || feature_selector.IsAnyOf(mojom::blink::OriginTrialFeature::kFencedFrames)) {
   static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
 {"fence", FenceAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kInstance), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
-};
-v8::Isolate* isolate = context->GetIsolate();
-v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
-v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
-IDLMemberInstaller::InstallAttributes(isolate, world, instance_object, prototype_object, interface_object, signature, kAttributeTable);
-}
-if ((feature_selector.IsAll() && RuntimeEnabledFeatures::PortalsEnabled(execution_context)) || feature_selector.IsAnyOf(mojom::blink::OriginTrialFeature::kPortals)) {
-  static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
-{"portalHost", PortalHostAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kInstance), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
-{"onportalactivate", OnportalactivateAttributeGetCallback, OnportalactivateAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kInstance), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 };
 v8::Isolate* isolate = context->GetIsolate();
 v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
@@ -19070,15 +19087,6 @@ IDLMemberInstaller::InstallAttributes(isolate, world, instance_object, prototype
 if (is_in_secure_context && (feature_selector.IsAll() && RuntimeEnabledFeatures::DocumentPictureInPictureAPIEnabled())) {
   static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
 {"documentPictureInPicture", DocumentPictureInPictureAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kInstance), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
-};
-v8::Isolate* isolate = context->GetIsolate();
-v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
-v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
-IDLMemberInstaller::InstallAttributes(isolate, world, instance_object, prototype_object, interface_object, signature, kAttributeTable);
-}
-if ((feature_selector.IsAll() && RuntimeEnabledFeatures::BeforeMatchEventEnabled(execution_context)) || feature_selector.IsAnyOf(mojom::blink::OriginTrialFeature::kBeforeMatchEvent)) {
-  static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
-{"onbeforematch", OnbeforematchAttributeGetCallback, OnbeforematchAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kInstance), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 };
 v8::Isolate* isolate = context->GetIsolate();
 v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
@@ -19165,6 +19173,7 @@ if (is_in_secure_context && feature_selector.IsAll()) {
 {"GPUValidationError", GPUValidationErrorExposedConstructCallback}, 
 {"GravitySensor", GravitySensorExposedConstructCallback}, 
 {"Gyroscope", GyroscopeExposedConstructCallback}, 
+{"IdleDetector", IdleDetectorExposedConstructCallback}, 
 {"ImageDecoder", ImageDecoderExposedConstructCallback}, 
 {"Keyboard", KeyboardExposedConstructCallback}, 
 {"KeyboardLayoutMap", KeyboardLayoutMapExposedConstructCallback}, 
@@ -19381,7 +19390,7 @@ v8::Local<v8::FunctionTemplate> interface_function_template = interface_template
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
 IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_object, prototype_object, interface_object, signature, kExposedConstructTable);
 }
-if (is_in_secure_context && (feature_selector.IsAll() && RuntimeEnabledFeatures::FetchLaterAPIEnabled())) {
+if (is_in_secure_context && ((feature_selector.IsAll() && RuntimeEnabledFeatures::FetchLaterAPIEnabled(execution_context)) || feature_selector.IsAnyOf(mojom::blink::OriginTrialFeature::kFetchLaterAPI))) {
   static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
 {"FetchLaterResult", FetchLaterResultExposedConstructCallback}, 
 };
@@ -19430,6 +19439,16 @@ v8::Local<v8::FunctionTemplate> interface_function_template = interface_template
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
 IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_object, prototype_object, interface_object, signature, kExposedConstructTable);
 }
+if (is_in_secure_context && (feature_selector.IsAll() && RuntimeEnabledFeatures::WebGPUDeveloperFeaturesEnabled())) {
+  static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
+{"GPUHeapProperty", GPUHeapPropertyExposedConstructCallback}, 
+{"GPUMemoryHeapInfo", GPUMemoryHeapInfoExposedConstructCallback}, 
+};
+v8::Isolate* isolate = context->GetIsolate();
+v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
+v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
+IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_object, prototype_object, interface_object, signature, kExposedConstructTable);
+}
 if (is_in_secure_context && (feature_selector.IsAll() && RuntimeEnabledFeatures::GamepadMultitouchEnabled())) {
   static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
 {"GamepadTouch", GamepadTouchExposedConstructCallback}, 
@@ -19445,17 +19464,6 @@ if (is_in_secure_context && (feature_selector.IsAll() && RuntimeEnabledFeatures:
 {"HIDConnectionEvent", HIDConnectionEventExposedConstructCallback}, 
 {"HIDDevice", HIDDeviceExposedConstructCallback}, 
 {"HIDInputReportEvent", HIDInputReportEventExposedConstructCallback}, 
-};
-v8::Isolate* isolate = context->GetIsolate();
-v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
-v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
-IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_object, prototype_object, interface_object, signature, kExposedConstructTable);
-}
-if ((feature_selector.IsAll() && RuntimeEnabledFeatures::PortalsEnabled(execution_context)) || feature_selector.IsAnyOf(mojom::blink::OriginTrialFeature::kPortals)) {
-  static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
-{"HTMLPortalElement", HTMLPortalElementExposedConstructCallback}, 
-{"PortalActivateEvent", PortalActivateEventExposedConstructCallback}, 
-{"PortalHost", PortalHostExposedConstructCallback}, 
 };
 v8::Isolate* isolate = context->GetIsolate();
 v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
@@ -19484,15 +19492,6 @@ IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_object, pr
 if (is_in_secure_context && (feature_selector.IsAll() && RuntimeEnabledFeatures::FedCmErrorEnabled())) {
   static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
 {"IdentityCredentialError", IdentityCredentialErrorExposedConstructCallback}, 
-};
-v8::Isolate* isolate = context->GetIsolate();
-v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
-v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
-IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_object, prototype_object, interface_object, signature, kExposedConstructTable);
-}
-if (is_in_secure_context && (feature_selector.IsAll() && RuntimeEnabledFeatures::IdleDetectionEnabled())) {
-  static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
-{"IdleDetector", IdleDetectorExposedConstructCallback}, 
 };
 v8::Isolate* isolate = context->GetIsolate();
 v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
@@ -19551,7 +19550,7 @@ v8::Local<v8::FunctionTemplate> interface_function_template = interface_template
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
 IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_object, prototype_object, interface_object, signature, kExposedConstructTable);
 }
-if (is_in_secure_context && ((feature_selector.IsAll() && RuntimeEnabledFeatures::FedCmIdpSigninStatusEnabled(execution_context)) || feature_selector.IsAnyOf(mojom::blink::OriginTrialFeature::kFedCmIdpSigninStatus))) {
+if (is_in_secure_context && (feature_selector.IsAll() && RuntimeEnabledFeatures::FedCmIdpSigninStatusEnabled())) {
   static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
 {"NavigatorLogin", NavigatorLoginExposedConstructCallback}, 
 };
@@ -19658,6 +19657,15 @@ IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_object, pr
 if (is_in_secure_context && (feature_selector.IsAll() && RuntimeEnabledFeatures::InteroperablePrivateAttributionEnabled())) {
   static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
 {"PrivateAttribution", PrivateAttributionExposedConstructCallback}, 
+};
+v8::Isolate* isolate = context->GetIsolate();
+v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
+v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
+IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_object, prototype_object, interface_object, signature, kExposedConstructTable);
+}
+if ((feature_selector.IsAll() && RuntimeEnabledFeatures::ElementCaptureEnabled(execution_context)) || feature_selector.IsAnyOf(mojom::blink::OriginTrialFeature::kElementCapture)) {
+  static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
+{"RestrictionTarget", RestrictionTargetExposedConstructCallback}, 
 };
 v8::Isolate* isolate = context->GetIsolate();
 v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
@@ -19803,6 +19811,17 @@ v8::Local<v8::FunctionTemplate> interface_function_template = interface_template
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
 IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_object, prototype_object, interface_object, signature, kExposedConstructTable);
 }
+if (is_in_isolated_context && is_in_secure_context && (feature_selector.IsAll() && RuntimeEnabledFeatures::WebPrintingEnabled())) {
+  static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
+{"WebPrintJob", WebPrintJobExposedConstructCallback}, 
+{"WebPrinter", WebPrinterExposedConstructCallback}, 
+{"WebPrintingManager", WebPrintingManagerExposedConstructCallback}, 
+};
+v8::Isolate* isolate = context->GetIsolate();
+v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
+v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
+IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_object, prototype_object, interface_object, signature, kExposedConstructTable);
+}
 if ((feature_selector.IsAll() && RuntimeEnabledFeatures::WebAppWindowControlsOverlayEnabled(execution_context)) || feature_selector.IsAnyOf(mojom::blink::OriginTrialFeature::kWebAppWindowControlsOverlay)) {
   static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
 {"WindowControlsOverlay", WindowControlsOverlayExposedConstructCallback}, 
@@ -19896,7 +19915,7 @@ v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_funct
 IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_object, prototype_object, interface_object, signature, kExposedConstructTable);
 }
 
-if (is_in_secure_context && (feature_selector.IsAll() && RuntimeEnabledFeatures::FetchLaterAPIEnabled())) {
+if (is_in_secure_context && ((feature_selector.IsAll() && RuntimeEnabledFeatures::FetchLaterAPIEnabled(execution_context)) || feature_selector.IsAnyOf(mojom::blink::OriginTrialFeature::kFetchLaterAPI))) {
   static const IDLMemberInstaller::OperationConfig kOperationTable[] = {
 {"fetchLater", FetchLaterOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kInstance), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 };
@@ -19926,6 +19945,18 @@ IDLMemberInstaller::InstallOperations(isolate, world, instance_object, prototype
 if (is_in_secure_context && feature_selector.IsAll()) {
   static const IDLMemberInstaller::OperationConfig kOperationTable[] = {
 {"getScreenDetails", GetScreenDetailsOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kInstance), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kDoNotCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+};
+v8::Isolate* isolate = context->GetIsolate();
+v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
+v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
+IDLMemberInstaller::InstallOperations(isolate, world, instance_object, prototype_object, interface_object, signature, kOperationTable);
+}
+if (is_in_secure_context && (feature_selector.IsAll() && RuntimeEnabledFeatures::DesktopPWAsAdditionalWindowingControlsEnabled())) {
+  static const IDLMemberInstaller::OperationConfig kOperationTable[] = {
+{"maximize", MaximizeOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kInstance), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kDoNotCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"minimize", MinimizeOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kInstance), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kDoNotCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"restore", RestoreOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kInstance), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kDoNotCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"setResizable", SetResizableOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kInstance), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kDoNotCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 };
 v8::Isolate* isolate = context->GetIsolate();
 v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
@@ -20071,6 +20102,8 @@ reinterpret_cast<intptr_t>(OnabortAttributeGetCallback),
 reinterpret_cast<intptr_t>(OnabortAttributeSetCallback),
 reinterpret_cast<intptr_t>(OnbeforeinputAttributeGetCallback),
 reinterpret_cast<intptr_t>(OnbeforeinputAttributeSetCallback),
+reinterpret_cast<intptr_t>(OnbeforematchAttributeGetCallback),
+reinterpret_cast<intptr_t>(OnbeforematchAttributeSetCallback),
 reinterpret_cast<intptr_t>(OnbeforetoggleAttributeGetCallback),
 reinterpret_cast<intptr_t>(OnbeforetoggleAttributeSetCallback),
 reinterpret_cast<intptr_t>(OnblurAttributeGetCallback),
@@ -20087,6 +20120,8 @@ reinterpret_cast<intptr_t>(OnclickAttributeGetCallback),
 reinterpret_cast<intptr_t>(OnclickAttributeSetCallback),
 reinterpret_cast<intptr_t>(OncloseAttributeGetCallback),
 reinterpret_cast<intptr_t>(OncloseAttributeSetCallback),
+reinterpret_cast<intptr_t>(OncontentvisibilityautostatechangeAttributeGetCallback),
+reinterpret_cast<intptr_t>(OncontentvisibilityautostatechangeAttributeSetCallback),
 reinterpret_cast<intptr_t>(OncontextlostAttributeGetCallback),
 reinterpret_cast<intptr_t>(OncontextlostAttributeSetCallback),
 reinterpret_cast<intptr_t>(OncontextmenuAttributeGetCallback),
@@ -20291,6 +20326,8 @@ reinterpret_cast<intptr_t>(AnalyserNodeExposedConstructCallback),
 reinterpret_cast<intptr_t>(AnimationExposedConstructCallback),
 reinterpret_cast<intptr_t>(AnimationEffectExposedConstructCallback),
 reinterpret_cast<intptr_t>(AnimationEventExposedConstructCallback),
+reinterpret_cast<intptr_t>(AnimationPlaybackEventExposedConstructCallback),
+reinterpret_cast<intptr_t>(AnimationTimelineExposedConstructCallback),
 reinterpret_cast<intptr_t>(AttrExposedConstructCallback),
 reinterpret_cast<intptr_t>(AudioBufferExposedConstructCallback),
 reinterpret_cast<intptr_t>(AudioBufferSourceNodeExposedConstructCallback),
@@ -20313,9 +20350,11 @@ reinterpret_cast<intptr_t>(BiquadFilterNodeExposedConstructCallback),
 reinterpret_cast<intptr_t>(BlobExposedConstructCallback),
 reinterpret_cast<intptr_t>(BlobEventExposedConstructCallback),
 reinterpret_cast<intptr_t>(BroadcastChannelExposedConstructCallback),
+reinterpret_cast<intptr_t>(BrowserCaptureMediaStreamTrackExposedConstructCallback),
 reinterpret_cast<intptr_t>(ByteLengthQueuingStrategyExposedConstructCallback),
 reinterpret_cast<intptr_t>(CDATASectionExposedConstructCallback),
 reinterpret_cast<intptr_t>(CSSExposedConstructCallback),
+reinterpret_cast<intptr_t>(CSSAnimationExposedConstructCallback),
 reinterpret_cast<intptr_t>(CSSConditionRuleExposedConstructCallback),
 reinterpret_cast<intptr_t>(CSSContainerRuleExposedConstructCallback),
 reinterpret_cast<intptr_t>(CSSCounterStyleRuleExposedConstructCallback),
@@ -20353,6 +20392,7 @@ reinterpret_cast<intptr_t>(CSSScaleExposedConstructCallback),
 reinterpret_cast<intptr_t>(CSSSkewExposedConstructCallback),
 reinterpret_cast<intptr_t>(CSSSkewXExposedConstructCallback),
 reinterpret_cast<intptr_t>(CSSSkewYExposedConstructCallback),
+reinterpret_cast<intptr_t>(CSSStartingStyleRuleExposedConstructCallback),
 reinterpret_cast<intptr_t>(CSSStyleDeclarationExposedConstructCallback),
 reinterpret_cast<intptr_t>(CSSStyleRuleExposedConstructCallback),
 reinterpret_cast<intptr_t>(CSSStyleSheetExposedConstructCallback),
@@ -20360,6 +20400,7 @@ reinterpret_cast<intptr_t>(CSSStyleValueExposedConstructCallback),
 reinterpret_cast<intptr_t>(CSSSupportsRuleExposedConstructCallback),
 reinterpret_cast<intptr_t>(CSSTransformComponentExposedConstructCallback),
 reinterpret_cast<intptr_t>(CSSTransformValueExposedConstructCallback),
+reinterpret_cast<intptr_t>(CSSTransitionExposedConstructCallback),
 reinterpret_cast<intptr_t>(CSSTranslateExposedConstructCallback),
 reinterpret_cast<intptr_t>(CSSUnitValueExposedConstructCallback),
 reinterpret_cast<intptr_t>(CSSUnparsedValueExposedConstructCallback),
@@ -20377,6 +20418,7 @@ reinterpret_cast<intptr_t>(CommentExposedConstructCallback),
 reinterpret_cast<intptr_t>(CompositionEventExposedConstructCallback),
 reinterpret_cast<intptr_t>(CompressionStreamExposedConstructCallback),
 reinterpret_cast<intptr_t>(ConstantSourceNodeExposedConstructCallback),
+reinterpret_cast<intptr_t>(ContentVisibilityAutoStateChangeEventExposedConstructCallback),
 reinterpret_cast<intptr_t>(ConvolverNodeExposedConstructCallback),
 reinterpret_cast<intptr_t>(CountQueuingStrategyExposedConstructCallback),
 reinterpret_cast<intptr_t>(CryptoExposedConstructCallback),
@@ -20403,8 +20445,10 @@ reinterpret_cast<intptr_t>(DataTransferItemExposedConstructCallback),
 reinterpret_cast<intptr_t>(DataTransferItemListExposedConstructCallback),
 reinterpret_cast<intptr_t>(DecompressionStreamExposedConstructCallback),
 reinterpret_cast<intptr_t>(DelayNodeExposedConstructCallback),
+reinterpret_cast<intptr_t>(DelegatedInkTrailPresenterExposedConstructCallback),
 reinterpret_cast<intptr_t>(DocumentExposedConstructCallback),
 reinterpret_cast<intptr_t>(DocumentFragmentExposedConstructCallback),
+reinterpret_cast<intptr_t>(DocumentTimelineExposedConstructCallback),
 reinterpret_cast<intptr_t>(DocumentTypeExposedConstructCallback),
 reinterpret_cast<intptr_t>(DragEventExposedConstructCallback),
 reinterpret_cast<intptr_t>(DynamicsCompressorNodeExposedConstructCallback),
@@ -20514,6 +20558,8 @@ reinterpret_cast<intptr_t>(HTMLUnknownElementExposedConstructCallback),
 reinterpret_cast<intptr_t>(HTMLVideoElementExposedConstructCallback),
 reinterpret_cast<intptr_t>(HashChangeEventExposedConstructCallback),
 reinterpret_cast<intptr_t>(HeadersExposedConstructCallback),
+reinterpret_cast<intptr_t>(HighlightExposedConstructCallback),
+reinterpret_cast<intptr_t>(HighlightRegistryExposedConstructCallback),
 reinterpret_cast<intptr_t>(HistoryExposedConstructCallback),
 reinterpret_cast<intptr_t>(IDBCursorExposedConstructCallback),
 reinterpret_cast<intptr_t>(IDBCursorWithValueExposedConstructCallback),
@@ -20534,6 +20580,7 @@ reinterpret_cast<intptr_t>(ImageCaptureExposedConstructCallback),
 reinterpret_cast<intptr_t>(ImageDataExposedConstructCallback),
 reinterpret_cast<intptr_t>(ImageTrackExposedConstructCallback),
 reinterpret_cast<intptr_t>(ImageTrackListExposedConstructCallback),
+reinterpret_cast<intptr_t>(InkExposedConstructCallback),
 reinterpret_cast<intptr_t>(InputDeviceCapabilitiesExposedConstructCallback),
 reinterpret_cast<intptr_t>(InputDeviceInfoExposedConstructCallback),
 reinterpret_cast<intptr_t>(InputEventExposedConstructCallback),
@@ -20995,15 +21042,6 @@ v8::Local<v8::FunctionTemplate> interface_function_template = interface_template
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
 IDLMemberInstaller::InstallAttributes(isolate, world, instance_object, prototype_object, interface_object, signature, kAttributeTable);
 }
-if (RuntimeEnabledFeatures::ContentVisibilityAutoStateChangeEventEnabled()) {
-  static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
-{"oncontentvisibilityautostatechange", OncontentvisibilityautostatechangeAttributeGetCallback, OncontentvisibilityautostatechangeAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kInstance), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
-};
-v8::Isolate* isolate = context->GetIsolate();
-v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
-v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
-IDLMemberInstaller::InstallAttributes(isolate, world, instance_object, prototype_object, interface_object, signature, kAttributeTable);
-}
 if (RuntimeEnabledFeatures::OverscrollCustomizationEnabled()) {
   static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
 {"onoverscroll", OnoverscrollAttributeGetCallback, OnoverscrollAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kInstance), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
@@ -21022,9 +21060,27 @@ v8::Local<v8::FunctionTemplate> interface_function_template = interface_template
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
 IDLMemberInstaller::InstallAttributes(isolate, world, instance_object, prototype_object, interface_object, signature, kAttributeTable);
 }
-if (RuntimeEnabledFeatures::CSSScrollSnapEventsEnabled()) {
+if (RuntimeEnabledFeatures::CSSSnapChangedEventEnabled()) {
   static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
 {"onsnapchanged", OnsnapchangedAttributeGetCallback, OnsnapchangedAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kInstance), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
+};
+v8::Isolate* isolate = context->GetIsolate();
+v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
+v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
+IDLMemberInstaller::InstallAttributes(isolate, world, instance_object, prototype_object, interface_object, signature, kAttributeTable);
+}
+if (RuntimeEnabledFeatures::CSSSnapChangingEventEnabled()) {
+  static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
+{"onsnapchanging", OnsnapchangingAttributeGetCallback, OnsnapchangingAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kInstance), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
+};
+v8::Isolate* isolate = context->GetIsolate();
+v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
+v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
+IDLMemberInstaller::InstallAttributes(isolate, world, instance_object, prototype_object, interface_object, signature, kAttributeTable);
+}
+if (RuntimeEnabledFeatures::DesktopPWAsAdditionalWindowingControlsEnabled()) {
+  static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
+{"onmove", OnmoveAttributeGetCallback, OnmoveAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kInstance), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 };
 v8::Isolate* isolate = context->GetIsolate();
 v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
@@ -21057,19 +21113,6 @@ if (RuntimeEnabledFeatures::AccessibilityObjectModelEnabled()) {
 {"AccessibleNode", AccessibleNodeExposedConstructCallback}, 
 {"AccessibleNodeList", AccessibleNodeListExposedConstructCallback}, 
 {"ComputedAccessibleNode", ComputedAccessibleNodeExposedConstructCallback}, 
-};
-v8::Isolate* isolate = context->GetIsolate();
-v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
-v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
-IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_object, prototype_object, interface_object, signature, kExposedConstructTable);
-}
-if (RuntimeEnabledFeatures::WebAnimationsAPIEnabled()) {
-  static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
-{"AnimationPlaybackEvent", AnimationPlaybackEventExposedConstructCallback}, 
-{"AnimationTimeline", AnimationTimelineExposedConstructCallback}, 
-{"CSSAnimation", CSSAnimationExposedConstructCallback}, 
-{"CSSTransition", CSSTransitionExposedConstructCallback}, 
-{"DocumentTimeline", DocumentTimelineExposedConstructCallback}, 
 };
 v8::Isolate* isolate = context->GetIsolate();
 v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
@@ -21130,16 +21173,6 @@ v8::Local<v8::FunctionTemplate> interface_function_template = interface_template
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
 IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_object, prototype_object, interface_object, signature, kExposedConstructTable);
 }
-if (RuntimeEnabledFeatures::RegionCaptureEnabled()) {
-  static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
-{"BrowserCaptureMediaStreamTrack", BrowserCaptureMediaStreamTrackExposedConstructCallback}, 
-{"CropTarget", CropTargetExposedConstructCallback}, 
-};
-v8::Isolate* isolate = context->GetIsolate();
-v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
-v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
-IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_object, prototype_object, interface_object, signature, kExposedConstructTable);
-}
 if (RuntimeEnabledFeatures::CSSColorTypedOMEnabled()) {
   static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
 {"CSSColorValue", CSSColorValueExposedConstructCallback}, 
@@ -21171,29 +21204,9 @@ v8::Local<v8::FunctionTemplate> interface_function_template = interface_template
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
 IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_object, prototype_object, interface_object, signature, kExposedConstructTable);
 }
-if (RuntimeEnabledFeatures::CSSStartingStyleEnabled()) {
-  static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
-{"CSSStartingStyleRule", CSSStartingStyleRuleExposedConstructCallback}, 
-};
-v8::Isolate* isolate = context->GetIsolate();
-v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
-v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
-IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_object, prototype_object, interface_object, signature, kExposedConstructTable);
-}
-if (RuntimeEnabledFeatures::CSSTogglesEnabled()) {
-  static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
-{"CSSToggle", CSSToggleExposedConstructCallback}, 
-{"CSSToggleEvent", CSSToggleEventExposedConstructCallback}, 
-{"CSSToggleMap", CSSToggleMapExposedConstructCallback}, 
-};
-v8::Isolate* isolate = context->GetIsolate();
-v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
-v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
-IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_object, prototype_object, interface_object, signature, kExposedConstructTable);
-}
 if (RuntimeEnabledFeatures::ViewTransitionOnNavigationEnabled()) {
   static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
-{"CSSViewTransitionsRule", CSSViewTransitionsRuleExposedConstructCallback}, 
+{"CSSViewTransitionRule", CSSViewTransitionRuleExposedConstructCallback}, 
 };
 v8::Isolate* isolate = context->GetIsolate();
 v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
@@ -21236,19 +21249,9 @@ v8::Local<v8::FunctionTemplate> interface_function_template = interface_template
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
 IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_object, prototype_object, interface_object, signature, kExposedConstructTable);
 }
-if (RuntimeEnabledFeatures::ContentVisibilityAutoStateChangeEventEnabled()) {
+if (RuntimeEnabledFeatures::RegionCaptureEnabled()) {
   static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
-{"ContentVisibilityAutoStateChangeEvent", ContentVisibilityAutoStateChangeEventExposedConstructCallback}, 
-};
-v8::Isolate* isolate = context->GetIsolate();
-v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
-v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
-IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_object, prototype_object, interface_object, signature, kExposedConstructTable);
-}
-if (RuntimeEnabledFeatures::DelegatedInkTrailsEnabled()) {
-  static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
-{"DelegatedInkTrailPresenter", DelegatedInkTrailPresenterExposedConstructCallback}, 
-{"Ink", InkExposedConstructCallback}, 
+{"CropTarget", CropTargetExposedConstructCallback}, 
 };
 v8::Isolate* isolate = context->GetIsolate();
 v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
@@ -21306,16 +21309,6 @@ IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_object, pr
 if (RuntimeEnabledFeatures::HTMLSelectListElementEnabled()) {
   static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
 {"HTMLSelectListElement", HTMLSelectListElementExposedConstructCallback}, 
-};
-v8::Isolate* isolate = context->GetIsolate();
-v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
-v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
-IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_object, prototype_object, interface_object, signature, kExposedConstructTable);
-}
-if (RuntimeEnabledFeatures::HighlightAPIEnabled()) {
-  static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
-{"Highlight", HighlightExposedConstructCallback}, 
-{"HighlightRegistry", HighlightRegistryExposedConstructCallback}, 
 };
 v8::Isolate* isolate = context->GetIsolate();
 v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
@@ -21393,6 +21386,15 @@ IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_object, pr
 if (RuntimeEnabledFeatures::MutationEventsEnabled()) {
   static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
 {"MutationEvent", MutationEventExposedConstructCallback}, 
+};
+v8::Isolate* isolate = context->GetIsolate();
+v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
+v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
+IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_object, prototype_object, interface_object, signature, kExposedConstructTable);
+}
+if (RuntimeEnabledFeatures::NavigationActivationEnabled()) {
+  static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
+{"NavigationActivation", NavigationActivationExposedConstructCallback}, 
 };
 v8::Isolate* isolate = context->GetIsolate();
 v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
@@ -21511,15 +21513,6 @@ v8::Local<v8::FunctionTemplate> interface_function_template = interface_template
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
 IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_object, prototype_object, interface_object, signature, kExposedConstructTable);
 }
-if (RuntimeEnabledFeatures::ElementCaptureEnabled()) {
-  static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
-{"RestrictionTarget", RestrictionTargetExposedConstructCallback}, 
-};
-v8::Isolate* isolate = context->GetIsolate();
-v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
-v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
-IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_object, prototype_object, interface_object, signature, kExposedConstructTable);
-}
 if (RuntimeEnabledFeatures::ScrollTimelineEnabled()) {
   static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
 {"ScrollTimeline", ScrollTimelineExposedConstructCallback}, 
@@ -21550,9 +21543,11 @@ IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_object, pr
 }
 if (RuntimeEnabledFeatures::ScriptedSpeechSynthesisEnabled()) {
   static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
+{"SpeechSynthesis", SpeechSynthesisExposedConstructCallback}, 
 {"SpeechSynthesisErrorEvent", SpeechSynthesisErrorEventExposedConstructCallback}, 
 {"SpeechSynthesisEvent", SpeechSynthesisEventExposedConstructCallback}, 
 {"SpeechSynthesisUtterance", SpeechSynthesisUtteranceExposedConstructCallback}, 
+{"SpeechSynthesisVoice", SpeechSynthesisVoiceExposedConstructCallback}, 
 };
 v8::Isolate* isolate = context->GetIsolate();
 v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
@@ -21640,18 +21635,6 @@ IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_object, pr
 if (RuntimeEnabledFeatures::AccessibilityObjectModelEnabled()) {
   static const IDLMemberInstaller::OperationConfig kOperationTable[] = {
 {"getComputedAccessibleNode", GetComputedAccessibleNodeOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kInstance), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kDoNotCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
-};
-v8::Isolate* isolate = context->GetIsolate();
-v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
-v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
-IDLMemberInstaller::InstallOperations(isolate, world, instance_object, prototype_object, interface_object, signature, kOperationTable);
-}
-if (RuntimeEnabledFeatures::DesktopPWAsAdditionalWindowingControlsEnabled()) {
-  static const IDLMemberInstaller::OperationConfig kOperationTable[] = {
-{"maximize", MaximizeOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kInstance), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
-{"minimize", MinimizeOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kInstance), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
-{"restore", RestoreOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kInstance), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
-{"setResizable", SetResizableOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kInstance), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 };
 v8::Isolate* isolate = context->GetIsolate();
 v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();

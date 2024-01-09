@@ -81,7 +81,7 @@ class BLINK_COMMON_EXPORT FileSystemAccessDirectoryHandleAsyncWaiter {
       const std::string& basename, bool recurse, ::blink::mojom::FileSystemAccessErrorPtr* out_result);
   ::blink::mojom::FileSystemAccessErrorPtr RemoveEntry(const std::string& basename, bool recurse);
   void Resolve(
-      ::mojo::PendingRemote<::blink::mojom::FileSystemAccessTransferToken> possible_child, ::blink::mojom::FileSystemAccessErrorPtr* out_result, absl::optional<std::vector<std::string>>* out_path);
+      ::mojo::PendingRemote<::blink::mojom::FileSystemAccessTransferToken> possible_child, ::blink::mojom::FileSystemAccessErrorPtr* out_result, std::optional<std::vector<std::string>>* out_path);
   
   void GetUniqueId(
       ::blink::mojom::FileSystemAccessErrorPtr* out_result, std::string* out_id);

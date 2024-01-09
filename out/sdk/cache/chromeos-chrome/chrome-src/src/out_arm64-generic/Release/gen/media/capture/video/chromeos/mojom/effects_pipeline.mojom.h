@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "media/capture/video/chromeos/mojom/effects_pipeline.mojom-features.h"
 #include "media/capture/video/chromeos/mojom/effects_pipeline.mojom-shared.h"
 #include "media/capture/video/chromeos/mojom/effects_pipeline.mojom-forward.h"
 #include "mojo/public/mojom/base/file_path.mojom.h"
@@ -105,7 +106,7 @@ class  EffectsConfig {
       bool replace_enabled,
       bool relight_enabled,
       SegmentationModel segmentation_model,
-      const absl::optional<::base::FilePath>& background_filepath);
+      const std::optional<::base::FilePath>& background_filepath);
 
   EffectsConfig(
       CameraEffect effect,
@@ -116,8 +117,8 @@ class  EffectsConfig {
       bool replace_enabled,
       bool relight_enabled,
       SegmentationModel segmentation_model,
-      const absl::optional<::base::FilePath>& background_filepath,
-      absl::optional<float> light_intensity);
+      const std::optional<::base::FilePath>& background_filepath,
+      std::optional<float> light_intensity);
 
 
   ~EffectsConfig();
@@ -211,9 +212,9 @@ class  EffectsConfig {
   
   SegmentationModel segmentation_model;
   
-  absl::optional<::base::FilePath> background_filepath;
+  std::optional<::base::FilePath> background_filepath;
   
-  absl::optional<float> light_intensity;
+  std::optional<float> light_intensity;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

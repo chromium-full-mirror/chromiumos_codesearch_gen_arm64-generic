@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -345,7 +346,7 @@ BundleMetadata::BundleMetadata()
 
 BundleMetadata::BundleMetadata(
     BundleFormatVersion version_in,
-    const absl::optional<::GURL>& primary_url_in,
+    const std::optional<::GURL>& primary_url_in,
     base::flat_map<::GURL, BundleResponseLocationPtr> requests_in)
     : version(std::move(version_in)),
       primary_url(std::move(primary_url_in)),
@@ -369,7 +370,7 @@ void BundleMetadata::WriteIntoTrace(
     dict.AddItem(
       "primary_url"), this->primary_url,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::GURL>&>"
+      "<value of type const std::optional<::GURL>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -579,7 +580,7 @@ WebBundleParserFactoryProxy::WebBundleParserFactoryProxy(mojo::MessageReceiverWi
 }
 
 void WebBundleParserFactoryProxy::GetParserForDataSource(
-    ::mojo::PendingReceiver<WebBundleParser> in_receiver, const absl::optional<::GURL>& in_base_url, ::mojo::PendingRemote<BundleDataSource> in_data_source) {
+    ::mojo::PendingReceiver<WebBundleParser> in_receiver, const std::optional<::GURL>& in_base_url, ::mojo::PendingRemote<BundleDataSource> in_data_source) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send web_package::mojom::WebBundleParserFactory::GetParserForDataSource", "input_parameters",
@@ -590,20 +591,23 @@ void WebBundleParserFactoryProxy::GetParserForDataSource(
                         "<value of type ::mojo::PendingReceiver<WebBundleParser>>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("base_url"), in_base_url,
-                        "<value of type const absl::optional<::GURL>&>");
+                        "<value of type const std::optional<::GURL>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("data_source"), in_data_source,
                         "<value of type ::mojo::PendingRemote<BundleDataSource>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebBundleParserFactory_GetParserForDataSource_Name, kFlags, 0, 0, nullptr);
@@ -655,14 +659,17 @@ void WebBundleParserFactoryProxy::BindFileDataSource(
                         "<value of type ::base::File>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebBundleParserFactory_BindFileDataSource_Name, kFlags, 0, 0, nullptr);
@@ -711,7 +718,7 @@ bool WebBundleParserFactoryStubDispatch::Accept(
       
       bool success = true;
       ::mojo::PendingReceiver<WebBundleParser> p_receiver{};
-      absl::optional<::GURL> p_base_url{};
+      std::optional<::GURL> p_base_url{};
       ::mojo::PendingRemote<BundleDataSource> p_data_source{};
       WebBundleParserFactory_GetParserForDataSource_ParamsDataView input_data_view(params, message);
       
@@ -794,12 +801,12 @@ bool WebBundleParserFactoryStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kWebBundleParserFactoryValidationInfo[] = {
-    {&internal::WebBundleParserFactory_GetParserForDataSource_Params_Data::Validate,
+    { &internal::WebBundleParserFactory_GetParserForDataSource_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::WebBundleParserFactory_BindFileDataSource_Params_Data::Validate,
+    { &internal::WebBundleParserFactory_BindFileDataSource_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -996,14 +1003,17 @@ void WebBundleParserProxy::ParseIntegrityBlock(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send web_package::mojom::WebBundleParser::ParseIntegrityBlock");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebBundleParser_ParseIntegrityBlock_Name, kFlags, 0, 0, nullptr);
@@ -1023,7 +1033,7 @@ void WebBundleParserProxy::ParseIntegrityBlock(
 }
 
 void WebBundleParserProxy::ParseMetadata(
-    absl::optional<uint64_t> in_offset, ParseMetadataCallback callback) {
+    std::optional<uint64_t> in_offset, ParseMetadataCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send web_package::mojom::WebBundleParser::ParseMetadata", "input_parameters",
@@ -1031,17 +1041,20 @@ void WebBundleParserProxy::ParseMetadata(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("offset"), in_offset,
-                        "<value of type absl::optional<uint64_t>>");
+                        "<value of type std::optional<uint64_t>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebBundleParser_ParseMetadata_Name, kFlags, 0, 0, nullptr);
@@ -1079,14 +1092,17 @@ void WebBundleParserProxy::ParseResponse(
                         "<value of type uint64_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebBundleParser_ParseResponse_Name, kFlags, 0, 0, nullptr);
@@ -1112,14 +1128,17 @@ void WebBundleParserProxy::Close(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send web_package::mojom::WebBundleParser::Close");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebBundleParser_Close_Name, kFlags, 0, 0, nullptr);
@@ -1236,7 +1255,8 @@ void WebBundleParser_ParseIntegrityBlock_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebBundleParser_ParseIntegrityBlock_Name, kFlags, 0, 0, nullptr);
@@ -1374,7 +1394,8 @@ void WebBundleParser_ParseMetadata_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebBundleParser_ParseMetadata_Name, kFlags, 0, 0, nullptr);
@@ -1512,7 +1533,8 @@ void WebBundleParser_ParseResponse_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebBundleParser_ParseResponse_Name, kFlags, 0, 0, nullptr);
@@ -1632,7 +1654,8 @@ void WebBundleParser_Close_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebBundleParser_Close_Name, kFlags, 0, 0, nullptr);
@@ -1721,7 +1744,7 @@ bool WebBundleParserStubDispatch::AcceptWithResponder(
                   message->mutable_payload());
       
       bool success = true;
-      absl::optional<uint64_t> p_offset{};
+      std::optional<uint64_t> p_offset{};
       WebBundleParser_ParseMetadata_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -1804,16 +1827,16 @@ std::move(p_response_length), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kWebBundleParserValidationInfo[] = {
-    {&internal::WebBundleParser_ParseIntegrityBlock_Params_Data::Validate,
+    { &internal::WebBundleParser_ParseIntegrityBlock_Params_Data::Validate,
      &internal::WebBundleParser_ParseIntegrityBlock_ResponseParams_Data::Validate},
-    {&internal::WebBundleParser_ParseMetadata_Params_Data::Validate,
+    { &internal::WebBundleParser_ParseMetadata_Params_Data::Validate,
      &internal::WebBundleParser_ParseMetadata_ResponseParams_Data::Validate},
-    {&internal::WebBundleParser_ParseResponse_Params_Data::Validate,
+    { &internal::WebBundleParser_ParseResponse_Params_Data::Validate,
      &internal::WebBundleParser_ParseResponse_ResponseParams_Data::Validate},
-    {&internal::WebBundleParser_Close_Params_Data::Validate,
+    { &internal::WebBundleParser_Close_Params_Data::Validate,
      &internal::WebBundleParser_Close_ResponseParams_Data::Validate},
 };
 
@@ -2024,14 +2047,17 @@ void BundleDataSourceProxy::Read(
                         "<value of type uint64_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBundleDataSource_Read_Name, kFlags, 0, 0, nullptr);
@@ -2057,14 +2083,17 @@ void BundleDataSourceProxy::Length(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send web_package::mojom::BundleDataSource::Length");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBundleDataSource_Length_Name, kFlags, 0, 0, nullptr);
@@ -2088,14 +2117,17 @@ void BundleDataSourceProxy::IsRandomAccessContext(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send web_package::mojom::BundleDataSource::IsRandomAccessContext");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBundleDataSource_IsRandomAccessContext_Name, kFlags, 0, 0, nullptr);
@@ -2119,14 +2151,17 @@ void BundleDataSourceProxy::Close(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send web_package::mojom::BundleDataSource::Close");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBundleDataSource_Close_Name, kFlags, 0, 0, nullptr);
@@ -2190,7 +2225,7 @@ class BundleDataSource_Read_ProxyToResponder : public ::mojo::internal::ProxyToR
 #endif
 
   void Run(
-      const absl::optional<std::vector<uint8_t>>& in_buffer);
+      const std::optional<std::vector<uint8_t>>& in_buffer);
 };
 
 bool BundleDataSource_Read_ForwardToCallback::Accept(
@@ -2203,7 +2238,7 @@ bool BundleDataSource_Read_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::vector<uint8_t>> p_buffer{};
+  std::optional<std::vector<uint8_t>> p_buffer{};
   BundleDataSource_Read_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadBuffer(&p_buffer))
@@ -2222,7 +2257,7 @@ std::move(p_buffer));
 }
 
 void BundleDataSource_Read_ProxyToResponder::Run(
-    const absl::optional<std::vector<uint8_t>>& in_buffer) {
+    const std::optional<std::vector<uint8_t>>& in_buffer) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply web_package::mojom::BundleDataSource::Read", "async_response_parameters",
@@ -2230,13 +2265,14 @@ void BundleDataSource_Read_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("buffer"), in_buffer,
-                        "<value of type const absl::optional<std::vector<uint8_t>>&>");
+                        "<value of type const std::optional<std::vector<uint8_t>>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBundleDataSource_Read_Name, kFlags, 0, 0, nullptr);
@@ -2362,7 +2398,8 @@ void BundleDataSource_Length_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBundleDataSource_Length_Name, kFlags, 0, 0, nullptr);
@@ -2480,7 +2517,8 @@ void BundleDataSource_IsRandomAccessContext_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBundleDataSource_IsRandomAccessContext_Name, kFlags, 0, 0, nullptr);
@@ -2587,7 +2625,8 @@ void BundleDataSource_Close_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kBundleDataSource_Close_Name, kFlags, 0, 0, nullptr);
@@ -2754,16 +2793,16 @@ std::move(p_length), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kBundleDataSourceValidationInfo[] = {
-    {&internal::BundleDataSource_Read_Params_Data::Validate,
+    { &internal::BundleDataSource_Read_Params_Data::Validate,
      &internal::BundleDataSource_Read_ResponseParams_Data::Validate},
-    {&internal::BundleDataSource_Length_Params_Data::Validate,
+    { &internal::BundleDataSource_Length_Params_Data::Validate,
      &internal::BundleDataSource_Length_ResponseParams_Data::Validate},
-    {&internal::BundleDataSource_IsRandomAccessContext_Params_Data::Validate,
+    { &internal::BundleDataSource_IsRandomAccessContext_Params_Data::Validate,
      &internal::BundleDataSource_IsRandomAccessContext_ResponseParams_Data::Validate},
-    {&internal::BundleDataSource_Close_Params_Data::Validate,
+    { &internal::BundleDataSource_Close_Params_Data::Validate,
      &internal::BundleDataSource_Close_ResponseParams_Data::Validate},
 };
 
@@ -2959,7 +2998,7 @@ bool StructTraits<::web_package::mojom::BundleResponse::DataView, ::web_package:
 namespace web_package::mojom {
 
 
-void WebBundleParserFactoryInterceptorForTesting::GetParserForDataSource(::mojo::PendingReceiver<WebBundleParser> receiver, const absl::optional<::GURL>& base_url, ::mojo::PendingRemote<BundleDataSource> data_source) {
+void WebBundleParserFactoryInterceptorForTesting::GetParserForDataSource(::mojo::PendingReceiver<WebBundleParser> receiver, const std::optional<::GURL>& base_url, ::mojo::PendingRemote<BundleDataSource> data_source) {
   GetForwardingInterface()->GetParserForDataSource(std::move(receiver), std::move(base_url), std::move(data_source));
 }
 void WebBundleParserFactoryInterceptorForTesting::BindFileDataSource(::mojo::PendingReceiver<BundleDataSource> data_source, ::base::File file) {
@@ -2976,7 +3015,7 @@ WebBundleParserFactoryAsyncWaiter::~WebBundleParserFactoryAsyncWaiter() = defaul
 void WebBundleParserInterceptorForTesting::ParseIntegrityBlock(ParseIntegrityBlockCallback callback) {
   GetForwardingInterface()->ParseIntegrityBlock(std::move(callback));
 }
-void WebBundleParserInterceptorForTesting::ParseMetadata(absl::optional<uint64_t> offset, ParseMetadataCallback callback) {
+void WebBundleParserInterceptorForTesting::ParseMetadata(std::optional<uint64_t> offset, ParseMetadataCallback callback) {
   GetForwardingInterface()->ParseMetadata(std::move(offset), std::move(callback));
 }
 void WebBundleParserInterceptorForTesting::ParseResponse(uint64_t response_offset, uint64_t response_length, ParseResponseCallback callback) {
@@ -3013,7 +3052,7 @@ void WebBundleParserAsyncWaiter::ParseIntegrityBlock(
 
 
 void WebBundleParserAsyncWaiter::ParseMetadata(
-    absl::optional<uint64_t> offset, BundleMetadataPtr* out_Result, BundleMetadataParseErrorPtr* out_error) {
+    std::optional<uint64_t> offset, BundleMetadataPtr* out_Result, BundleMetadataParseErrorPtr* out_error) {
   base::RunLoop loop;
   proxy_->ParseMetadata(std::move(offset),
       base::BindOnce(
@@ -3091,14 +3130,14 @@ BundleDataSourceAsyncWaiter::BundleDataSourceAsyncWaiter(
 BundleDataSourceAsyncWaiter::~BundleDataSourceAsyncWaiter() = default;
 
 void BundleDataSourceAsyncWaiter::Read(
-    uint64_t offset, uint64_t length, absl::optional<std::vector<uint8_t>>* out_buffer) {
+    uint64_t offset, uint64_t length, std::optional<std::vector<uint8_t>>* out_buffer) {
   base::RunLoop loop;
   proxy_->Read(std::move(offset),std::move(length),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<std::vector<uint8_t>>* out_buffer
+             std::optional<std::vector<uint8_t>>* out_buffer
 ,
-             const absl::optional<std::vector<uint8_t>>& buffer) {*out_buffer = std::move(buffer);
+             const std::optional<std::vector<uint8_t>>& buffer) {*out_buffer = std::move(buffer);
             loop->Quit();
           },
           &loop,
@@ -3106,9 +3145,9 @@ void BundleDataSourceAsyncWaiter::Read(
   loop.Run();
 }
 
-absl::optional<std::vector<uint8_t>> BundleDataSourceAsyncWaiter::Read(
+std::optional<std::vector<uint8_t>> BundleDataSourceAsyncWaiter::Read(
     uint64_t offset, uint64_t length) {
-  absl::optional<std::vector<uint8_t>> async_wait_result;
+  std::optional<std::vector<uint8_t>> async_wait_result;
   Read(std::move(offset),std::move(length),&async_wait_result);
   return async_wait_result;
 }

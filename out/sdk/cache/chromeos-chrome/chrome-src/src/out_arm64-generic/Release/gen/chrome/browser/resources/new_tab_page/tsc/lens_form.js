@@ -136,6 +136,7 @@ export class LensFormElement extends PolymerElement {
         if (this.useDirectUpload_) {
             this.uploadFileAction_ = DIRECT_UPLOAD_FILE_ACTION;
         }
+        this.startTime_ = Date.now().toString();
         let processedFile = { processedFile: file };
         if (this.useDirectUpload_) {
             processedFile = await processFile(file);
@@ -143,7 +144,6 @@ export class LensFormElement extends PolymerElement {
         const dataTransfer = new DataTransfer();
         dataTransfer.items.add(processedFile.processedFile);
         this.$.fileInput.files = dataTransfer.files;
-        this.startTime_ = Date.now().toString();
         const action = new URL(this.uploadFileAction_);
         action.searchParams.set('ep', UPLOAD_FILE_ENTRYPOINT);
         action.searchParams.set('hl', this.language_);

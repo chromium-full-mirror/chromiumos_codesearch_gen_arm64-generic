@@ -23,6 +23,7 @@
   },
   "files": [
     "preprocessed/ml/ml_calculator.ts",
+    "preprocessed/ml/ml_chart.ts",
     "preprocessed/ml/ml_table.ts",
     "preprocessed/ml/ml_ui.ts",
     "preprocessed/ml/ml_browser_proxy.ts",
@@ -32,6 +33,7 @@
     "preprocessed/omnibox_output.ts",
     "preprocessed/omnibox_util.ts",
     "preprocessed/ml/ml_calculator.html.ts",
+    "preprocessed/ml/ml_chart.html.ts",
     "preprocessed/ml/ml_table.html.ts",
     "preprocessed/ml/ml_ui.html.ts",
     "preprocessed/omnibox.mojom-webui.ts"

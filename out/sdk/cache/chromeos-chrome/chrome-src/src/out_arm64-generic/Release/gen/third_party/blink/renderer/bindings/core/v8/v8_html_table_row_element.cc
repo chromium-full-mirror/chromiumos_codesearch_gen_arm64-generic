@@ -75,11 +75,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, HTMLTableRowElement>::value,
     "HTMLTableRowElement inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&HTMLTableRowElement::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "HTMLTableRowElement is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -92,8 +87,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLTableRowElement.rowIndex.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLTableRowElement* blink_receiver = V8HTMLTableRowElement::ToWrappableUnsafe(v8_receiver);
+HTMLTableRowElement* blink_receiver = V8HTMLTableRowElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->rowIndex();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 }
@@ -106,8 +102,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLTableRowElement.sectionRowIndex.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLTableRowElement* blink_receiver = V8HTMLTableRowElement::ToWrappableUnsafe(v8_receiver);
+HTMLTableRowElement* blink_receiver = V8HTMLTableRowElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->sectionRowIndex();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 }
@@ -120,8 +117,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLTableRowElement.cells.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLTableRowElement* blink_receiver = V8HTMLTableRowElement::ToWrappableUnsafe(v8_receiver);
+HTMLTableRowElement* blink_receiver = V8HTMLTableRowElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->cells();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -134,10 +132,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLTableRowElement.align.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLTableRowElement* blink_receiver = V8HTMLTableRowElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->FastGetAttribute(html_names::kAlignAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLTableRowElement* blink_receiver = V8HTMLTableRowElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastGetAttribute(html_names::kAlignAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -158,10 +156,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLTableRowElement.ch.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLTableRowElement* blink_receiver = V8HTMLTableRowElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->FastGetAttribute(html_names::kCharAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLTableRowElement* blink_receiver = V8HTMLTableRowElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastGetAttribute(html_names::kCharAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -182,10 +180,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLTableRowElement.chOff.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLTableRowElement* blink_receiver = V8HTMLTableRowElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->FastGetAttribute(html_names::kCharoffAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLTableRowElement* blink_receiver = V8HTMLTableRowElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastGetAttribute(html_names::kCharoffAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -206,10 +204,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLTableRowElement.vAlign.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLTableRowElement* blink_receiver = V8HTMLTableRowElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->FastGetAttribute(html_names::kValignAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLTableRowElement* blink_receiver = V8HTMLTableRowElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastGetAttribute(html_names::kValignAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -230,10 +228,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLTableRowElement.bgColor.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLTableRowElement* blink_receiver = V8HTMLTableRowElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->FastGetAttribute(html_names::kBgcolorAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLTableRowElement* blink_receiver = V8HTMLTableRowElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastGetAttribute(html_names::kBgcolorAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -295,7 +293,7 @@ CEReactionsScope ce_reactions_scope;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLTableRowElement* blink_receiver = V8HTMLTableRowElement::ToWrappableUnsafe(v8_receiver);
+HTMLTableRowElement* blink_receiver = V8HTMLTableRowElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_index = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -327,7 +325,7 @@ CEReactionsScope ce_reactions_scope;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLTableRowElement* blink_receiver = V8HTMLTableRowElement::ToWrappableUnsafe(v8_receiver);
+HTMLTableRowElement* blink_receiver = V8HTMLTableRowElement::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLLong>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_index{-1};
 if (!info[0]->IsUndefined()) {
   arg1_index = NativeValueTraits<IDLLong>::ArgumentValue(isolate, 0, info[0], exception_state);

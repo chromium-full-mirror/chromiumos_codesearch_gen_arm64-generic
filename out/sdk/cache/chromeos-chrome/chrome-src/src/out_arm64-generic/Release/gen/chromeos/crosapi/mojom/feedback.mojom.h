@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/crosapi/mojom/feedback.mojom-features.h"
 #include "chromeos/crosapi/mojom/feedback.mojom-shared.h"
 #include "chromeos/crosapi/mojom/feedback.mojom-forward.h"
 #include "mojo/public/mojom/base/values.mojom.h"
@@ -196,7 +197,7 @@ class  FeedbackInfo {
       const std::string& description_placeholder_text,
       const std::string& category_tag,
       const std::string& extra_diagnostics,
-      absl::optional<::base::Value> autofill_metadata);
+      std::optional<::base::Value> autofill_metadata);
 
 FeedbackInfo(const FeedbackInfo&) = delete;
 FeedbackInfo& operator=(const FeedbackInfo&) = delete;
@@ -288,7 +289,7 @@ FeedbackInfo& operator=(const FeedbackInfo&) = delete;
   
   std::string extra_diagnostics;
   
-  absl::optional<::base::Value> autofill_metadata;
+  std::optional<::base::Value> autofill_metadata;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

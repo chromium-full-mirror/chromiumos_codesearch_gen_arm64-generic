@@ -702,6 +702,36 @@ bool FrameSinkVideoCaptureOverlay_SetBounds_Params_Data::Validate(
 FrameSinkVideoCaptureOverlay_SetBounds_Params_Data::FrameSinkVideoCaptureOverlay_SetBounds_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
+
+// static
+bool FrameSinkVideoCaptureOverlay_OnCapturedMouseEvent_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const FrameSinkVideoCaptureOverlay_OnCapturedMouseEvent_Params_Data* object =
+      static_cast<const FrameSinkVideoCaptureOverlay_OnCapturedMouseEvent_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->coordinates, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->coordinates, validation_context))
+    return false;
+
+  return true;
+}
+
+FrameSinkVideoCaptureOverlay_OnCapturedMouseEvent_Params_Data::FrameSinkVideoCaptureOverlay_OnCapturedMouseEvent_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
 }  // namespace internal
 }  // namespace mojom
 }  // namespace viz

@@ -25,6 +25,7 @@ describeWithEnvironment('TimelineHistoryManager', function () {
             },
             filmStripForPreview: null,
             traceParsedData: firstFileModels.traceParsedData,
+            startTime: null,
         });
         const secondFileModels = await TraceLoader.allModels(this, 'slow-interaction-keydown.json.gz');
         historyManager.addRecording({
@@ -34,6 +35,7 @@ describeWithEnvironment('TimelineHistoryManager', function () {
             },
             filmStripForPreview: null,
             traceParsedData: secondFileModels.traceParsedData,
+            startTime: null,
         });
         // Make sure the correct model tuples (legacy and new engine) are returned when
         // using the history manager to navigate between trace files..

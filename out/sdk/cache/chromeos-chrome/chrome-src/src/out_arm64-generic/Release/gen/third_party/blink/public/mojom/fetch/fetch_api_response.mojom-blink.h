@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/fetch/fetch_api_response.mojom-features.h"
 #include "third_party/blink/public/mojom/fetch/fetch_api_response.mojom-shared.h"
 #include "third_party/blink/public/mojom/fetch/fetch_api_response.mojom-blink-forward.h"
 #include "mojo/public/mojom/base/time.mojom-blink.h"
@@ -103,11 +104,11 @@ class PLATFORM_EXPORT FetchAPIResponse {
       const ::scoped_refptr<::blink::BlobDataHandle>& side_data_blob,
       const ::scoped_refptr<::blink::BlobDataHandle>& side_data_blob_for_cache_put,
       ::network::mojom::blink::ParsedHeadersPtr parsed_headers,
-      ::net::HttpResponseInfo::ConnectionInfo connection_info,
+      ::net::HttpConnectionInfo connection_info,
       const WTF::String& alpn_negotiated_protocol,
       bool was_fetched_via_spdy,
       bool has_range_requested,
-      const absl::optional<::net::AuthChallengeInfo>& auth_challenge_info,
+      const std::optional<::net::AuthChallengeInfo>& auth_challenge_info,
       bool request_include_credentials);
 
 FetchAPIResponse(const FetchAPIResponse&) = delete;
@@ -217,7 +218,7 @@ FetchAPIResponse& operator=(const FetchAPIResponse&) = delete;
   
   ::network::mojom::blink::ParsedHeadersPtr parsed_headers;
   
-  ::net::HttpResponseInfo::ConnectionInfo connection_info;
+  ::net::HttpConnectionInfo connection_info;
   
   WTF::String alpn_negotiated_protocol;
   
@@ -225,7 +226,7 @@ FetchAPIResponse& operator=(const FetchAPIResponse&) = delete;
   
   bool has_range_requested;
   
-  absl::optional<::net::AuthChallengeInfo> auth_challenge_info;
+  std::optional<::net::AuthChallengeInfo> auth_challenge_info;
   
   bool request_include_credentials;
 

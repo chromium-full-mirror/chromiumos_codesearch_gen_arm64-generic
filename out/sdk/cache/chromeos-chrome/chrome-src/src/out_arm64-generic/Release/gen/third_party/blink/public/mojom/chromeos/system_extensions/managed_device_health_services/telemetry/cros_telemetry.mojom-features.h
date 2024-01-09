@@ -8,6 +8,7 @@
 #define THIRD_PARTY_BLINK_PUBLIC_MOJOM_CHROMEOS_SYSTEM_EXTENSIONS_MANAGED_DEVICE_HEALTH_SERVICES_TELEMETRY_CROS_TELEMETRY_MOJOM_FEATURES_H_
 
 #include "base/feature_list.h"
+#include "mojo/public/cpp/bindings/runtime_features.h"
 #include "base/component_export.h"
 
 

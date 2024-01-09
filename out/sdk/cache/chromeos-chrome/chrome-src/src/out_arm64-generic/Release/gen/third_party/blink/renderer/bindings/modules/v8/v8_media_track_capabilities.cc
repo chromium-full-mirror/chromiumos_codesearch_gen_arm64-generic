@@ -263,6 +263,33 @@ has_exposure_mode_ = true;
 
 
 
+Vector<bool> MediaTrackCapabilities::getEyeGazeCorrectionOr(const Vector<bool>& fallback_value) const {
+  if (!hasEyeGazeCorrection()) {
+  return fallback_value;
+}
+return member_eye_gaze_correction_;
+}
+
+Vector<bool> MediaTrackCapabilities::getEyeGazeCorrectionOr(Vector<bool>&& fallback_value) const {
+  if (!hasEyeGazeCorrection()) {
+  return std::move(fallback_value);
+}
+return member_eye_gaze_correction_;
+}
+
+void MediaTrackCapabilities::setEyeGazeCorrection(const Vector<bool>& value) {
+  member_eye_gaze_correction_ = value;
+has_eye_gaze_correction_ = true;
+}
+
+void MediaTrackCapabilities::setEyeGazeCorrection(Vector<bool>&& value) {
+  member_eye_gaze_correction_ = std::move(value);
+has_eye_gaze_correction_ = true;
+}
+
+
+
+
 Vector<bool> MediaTrackCapabilities::getFaceFramingOr(const Vector<bool>& fallback_value) const {
   if (!hasFaceFraming()) {
   return fallback_value;
@@ -564,6 +591,7 @@ TraceIfNeeded<Vector<bool>>::Trace(visitor, member_echo_cancellation_);
 TraceIfNeeded<Member<MediaSettingsRange>>::Trace(visitor, member_exposure_compensation_);
 TraceIfNeeded<Vector<String>>::Trace(visitor, member_exposure_mode_);
 TraceIfNeeded<Member<MediaSettingsRange>>::Trace(visitor, member_exposure_time_);
+TraceIfNeeded<Vector<bool>>::Trace(visitor, member_eye_gaze_correction_);
 TraceIfNeeded<Vector<bool>>::Trace(visitor, member_face_framing_);
 TraceIfNeeded<Vector<String>>::Trace(visitor, member_facing_mode_);
 TraceIfNeeded<Member<MediaSettingsRange>>::Trace(visitor, member_focus_distance_);
@@ -704,11 +732,21 @@ if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[12].
 }
 }
 if (RuntimeEnabledFeatures::MediaCaptureCameraControlsEnabled()) {
+  if (hasEyeGazeCorrection()) {
+  if (!ToV8Traits<IDLSequence<IDLBoolean>>::ToV8(script_state, member_eye_gaze_correction_).ToLocal(&v8_value)) {
+  return false;
+}
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[13].Get(isolate), v8_value).To(&was_property_created)) {
+  return false;
+}
+}
+}
+if (RuntimeEnabledFeatures::MediaCaptureCameraControlsEnabled()) {
   if (hasFaceFraming()) {
   if (!ToV8Traits<IDLSequence<IDLBoolean>>::ToV8(script_state, member_face_framing_).ToLocal(&v8_value)) {
   return false;
 }
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[13].Get(isolate), v8_value).To(&was_property_created)) {
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[14].Get(isolate), v8_value).To(&was_property_created)) {
   return false;
 }
 }
@@ -717,7 +755,7 @@ if (hasFacingMode()) {
   if (!ToV8Traits<IDLSequence<IDLString>>::ToV8(script_state, member_facing_mode_).ToLocal(&v8_value)) {
   return false;
 }
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[14].Get(isolate), v8_value).To(&was_property_created)) {
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[15].Get(isolate), v8_value).To(&was_property_created)) {
   return false;
 }
 }
@@ -725,7 +763,7 @@ if (hasFocusDistance()) {
   if (!ToV8Traits<MediaSettingsRange>::ToV8(script_state, member_focus_distance_.Get()).ToLocal(&v8_value)) {
   return false;
 }
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[15].Get(isolate), v8_value).To(&was_property_created)) {
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[16].Get(isolate), v8_value).To(&was_property_created)) {
   return false;
 }
 }
@@ -733,7 +771,7 @@ if (hasFocusMode()) {
   if (!ToV8Traits<IDLSequence<IDLString>>::ToV8(script_state, member_focus_mode_).ToLocal(&v8_value)) {
   return false;
 }
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[16].Get(isolate), v8_value).To(&was_property_created)) {
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[17].Get(isolate), v8_value).To(&was_property_created)) {
   return false;
 }
 }
@@ -741,7 +779,7 @@ if (hasFrameRate()) {
   if (!ToV8Traits<DoubleRange>::ToV8(script_state, member_frame_rate_.Get()).ToLocal(&v8_value)) {
   return false;
 }
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[17].Get(isolate), v8_value).To(&was_property_created)) {
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[18].Get(isolate), v8_value).To(&was_property_created)) {
   return false;
 }
 }
@@ -749,7 +787,7 @@ if (hasGroupId()) {
   if (!ToV8Traits<IDLString>::ToV8(script_state, member_group_id_).ToLocal(&v8_value)) {
   return false;
 }
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[18].Get(isolate), v8_value).To(&was_property_created)) {
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[19].Get(isolate), v8_value).To(&was_property_created)) {
   return false;
 }
 }
@@ -757,7 +795,7 @@ if (hasHeight()) {
   if (!ToV8Traits<LongRange>::ToV8(script_state, member_height_.Get()).ToLocal(&v8_value)) {
   return false;
 }
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[19].Get(isolate), v8_value).To(&was_property_created)) {
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[20].Get(isolate), v8_value).To(&was_property_created)) {
   return false;
 }
 }
@@ -765,7 +803,7 @@ if (hasIso()) {
   if (!ToV8Traits<MediaSettingsRange>::ToV8(script_state, member_iso_.Get()).ToLocal(&v8_value)) {
   return false;
 }
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[20].Get(isolate), v8_value).To(&was_property_created)) {
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[21].Get(isolate), v8_value).To(&was_property_created)) {
   return false;
 }
 }
@@ -773,7 +811,7 @@ if (hasLatency()) {
   if (!ToV8Traits<DoubleRange>::ToV8(script_state, member_latency_.Get()).ToLocal(&v8_value)) {
   return false;
 }
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[21].Get(isolate), v8_value).To(&was_property_created)) {
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[22].Get(isolate), v8_value).To(&was_property_created)) {
   return false;
 }
 }
@@ -781,7 +819,7 @@ if (hasNoiseSuppression()) {
   if (!ToV8Traits<IDLSequence<IDLBoolean>>::ToV8(script_state, member_noise_suppression_).ToLocal(&v8_value)) {
   return false;
 }
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[22].Get(isolate), v8_value).To(&was_property_created)) {
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[23].Get(isolate), v8_value).To(&was_property_created)) {
   return false;
 }
 }
@@ -789,7 +827,7 @@ if (hasPan()) {
   if (!ToV8Traits<MediaSettingsRange>::ToV8(script_state, member_pan_.Get()).ToLocal(&v8_value)) {
   return false;
 }
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[23].Get(isolate), v8_value).To(&was_property_created)) {
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[24].Get(isolate), v8_value).To(&was_property_created)) {
   return false;
 }
 }
@@ -797,7 +835,7 @@ if (hasResizeMode()) {
   if (!ToV8Traits<IDLSequence<IDLString>>::ToV8(script_state, member_resize_mode_).ToLocal(&v8_value)) {
   return false;
 }
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[24].Get(isolate), v8_value).To(&was_property_created)) {
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[25].Get(isolate), v8_value).To(&was_property_created)) {
   return false;
 }
 }
@@ -805,7 +843,7 @@ if (hasSampleRate()) {
   if (!ToV8Traits<LongRange>::ToV8(script_state, member_sample_rate_.Get()).ToLocal(&v8_value)) {
   return false;
 }
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[25].Get(isolate), v8_value).To(&was_property_created)) {
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[26].Get(isolate), v8_value).To(&was_property_created)) {
   return false;
 }
 }
@@ -813,7 +851,7 @@ if (hasSampleSize()) {
   if (!ToV8Traits<LongRange>::ToV8(script_state, member_sample_size_.Get()).ToLocal(&v8_value)) {
   return false;
 }
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[26].Get(isolate), v8_value).To(&was_property_created)) {
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[27].Get(isolate), v8_value).To(&was_property_created)) {
   return false;
 }
 }
@@ -821,7 +859,7 @@ if (hasSaturation()) {
   if (!ToV8Traits<MediaSettingsRange>::ToV8(script_state, member_saturation_.Get()).ToLocal(&v8_value)) {
   return false;
 }
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[27].Get(isolate), v8_value).To(&was_property_created)) {
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[28].Get(isolate), v8_value).To(&was_property_created)) {
   return false;
 }
 }
@@ -829,7 +867,7 @@ if (hasSharpness()) {
   if (!ToV8Traits<MediaSettingsRange>::ToV8(script_state, member_sharpness_.Get()).ToLocal(&v8_value)) {
   return false;
 }
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[28].Get(isolate), v8_value).To(&was_property_created)) {
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[29].Get(isolate), v8_value).To(&was_property_created)) {
   return false;
 }
 }
@@ -837,7 +875,7 @@ if (hasTilt()) {
   if (!ToV8Traits<MediaSettingsRange>::ToV8(script_state, member_tilt_.Get()).ToLocal(&v8_value)) {
   return false;
 }
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[29].Get(isolate), v8_value).To(&was_property_created)) {
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[30].Get(isolate), v8_value).To(&was_property_created)) {
   return false;
 }
 }
@@ -845,7 +883,7 @@ if (hasTorch()) {
   if (!ToV8Traits<IDLBoolean>::ToV8(script_state, member_torch_).ToLocal(&v8_value)) {
   return false;
 }
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[30].Get(isolate), v8_value).To(&was_property_created)) {
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[31].Get(isolate), v8_value).To(&was_property_created)) {
   return false;
 }
 }
@@ -853,7 +891,7 @@ if (hasWhiteBalanceMode()) {
   if (!ToV8Traits<IDLSequence<IDLString>>::ToV8(script_state, member_white_balance_mode_).ToLocal(&v8_value)) {
   return false;
 }
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[31].Get(isolate), v8_value).To(&was_property_created)) {
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[32].Get(isolate), v8_value).To(&was_property_created)) {
   return false;
 }
 }
@@ -861,7 +899,7 @@ if (hasWidth()) {
   if (!ToV8Traits<LongRange>::ToV8(script_state, member_width_.Get()).ToLocal(&v8_value)) {
   return false;
 }
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[32].Get(isolate), v8_value).To(&was_property_created)) {
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[33].Get(isolate), v8_value).To(&was_property_created)) {
   return false;
 }
 }
@@ -869,7 +907,7 @@ if (hasZoom()) {
   if (!ToV8Traits<MediaSettingsRange>::ToV8(script_state, member_zoom_.Get()).ToLocal(&v8_value)) {
   return false;
 }
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[33].Get(isolate), v8_value).To(&was_property_created)) {
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[34].Get(isolate), v8_value).To(&was_property_created)) {
   return false;
 }
 }
@@ -941,89 +979,95 @@ if (!bindings::GetDictionaryMemberFromV8Object<MediaSettingsRange, is_optional>(
   return;
 }
 if (RuntimeEnabledFeatures::MediaCaptureCameraControlsEnabled()) {
+  exception_context_scope.ChangePropertyNameAsOptimizationHack("eyeGazeCorrection");
+if (!bindings::GetDictionaryMemberFromV8Object<IDLSequence<IDLBoolean>, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[13].Get(isolate), has_eye_gaze_correction_, member_eye_gaze_correction_, try_block, exception_state)) {
+  return;
+}
+}
+if (RuntimeEnabledFeatures::MediaCaptureCameraControlsEnabled()) {
   exception_context_scope.ChangePropertyNameAsOptimizationHack("faceFraming");
-if (!bindings::GetDictionaryMemberFromV8Object<IDLSequence<IDLBoolean>, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[13].Get(isolate), has_face_framing_, member_face_framing_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<IDLSequence<IDLBoolean>, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[14].Get(isolate), has_face_framing_, member_face_framing_, try_block, exception_state)) {
   return;
 }
 }
 exception_context_scope.ChangePropertyNameAsOptimizationHack("facingMode");
-if (!bindings::GetDictionaryMemberFromV8Object<IDLSequence<IDLString>, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[14].Get(isolate), has_facing_mode_, member_facing_mode_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<IDLSequence<IDLString>, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[15].Get(isolate), has_facing_mode_, member_facing_mode_, try_block, exception_state)) {
   return;
 }
 exception_context_scope.ChangePropertyNameAsOptimizationHack("focusDistance");
-if (!bindings::GetDictionaryMemberFromV8Object<MediaSettingsRange, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[15].Get(isolate), has_focus_distance_, member_focus_distance_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<MediaSettingsRange, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[16].Get(isolate), has_focus_distance_, member_focus_distance_, try_block, exception_state)) {
   return;
 }
 exception_context_scope.ChangePropertyNameAsOptimizationHack("focusMode");
-if (!bindings::GetDictionaryMemberFromV8Object<IDLSequence<IDLString>, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[16].Get(isolate), has_focus_mode_, member_focus_mode_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<IDLSequence<IDLString>, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[17].Get(isolate), has_focus_mode_, member_focus_mode_, try_block, exception_state)) {
   return;
 }
 exception_context_scope.ChangePropertyNameAsOptimizationHack("frameRate");
-if (!bindings::GetDictionaryMemberFromV8Object<DoubleRange, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[17].Get(isolate), has_frame_rate_, member_frame_rate_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<DoubleRange, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[18].Get(isolate), has_frame_rate_, member_frame_rate_, try_block, exception_state)) {
   return;
 }
 exception_context_scope.ChangePropertyNameAsOptimizationHack("groupId");
-if (!bindings::GetDictionaryMemberFromV8Object<IDLString, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[18].Get(isolate), has_group_id_, member_group_id_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<IDLString, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[19].Get(isolate), has_group_id_, member_group_id_, try_block, exception_state)) {
   return;
 }
 exception_context_scope.ChangePropertyNameAsOptimizationHack("height");
-if (!bindings::GetDictionaryMemberFromV8Object<LongRange, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[19].Get(isolate), has_height_, member_height_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<LongRange, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[20].Get(isolate), has_height_, member_height_, try_block, exception_state)) {
   return;
 }
 exception_context_scope.ChangePropertyNameAsOptimizationHack("iso");
-if (!bindings::GetDictionaryMemberFromV8Object<MediaSettingsRange, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[20].Get(isolate), has_iso_, member_iso_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<MediaSettingsRange, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[21].Get(isolate), has_iso_, member_iso_, try_block, exception_state)) {
   return;
 }
 exception_context_scope.ChangePropertyNameAsOptimizationHack("latency");
-if (!bindings::GetDictionaryMemberFromV8Object<DoubleRange, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[21].Get(isolate), has_latency_, member_latency_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<DoubleRange, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[22].Get(isolate), has_latency_, member_latency_, try_block, exception_state)) {
   return;
 }
 exception_context_scope.ChangePropertyNameAsOptimizationHack("noiseSuppression");
-if (!bindings::GetDictionaryMemberFromV8Object<IDLSequence<IDLBoolean>, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[22].Get(isolate), has_noise_suppression_, member_noise_suppression_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<IDLSequence<IDLBoolean>, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[23].Get(isolate), has_noise_suppression_, member_noise_suppression_, try_block, exception_state)) {
   return;
 }
 exception_context_scope.ChangePropertyNameAsOptimizationHack("pan");
-if (!bindings::GetDictionaryMemberFromV8Object<MediaSettingsRange, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[23].Get(isolate), has_pan_, member_pan_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<MediaSettingsRange, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[24].Get(isolate), has_pan_, member_pan_, try_block, exception_state)) {
   return;
 }
 exception_context_scope.ChangePropertyNameAsOptimizationHack("resizeMode");
-if (!bindings::GetDictionaryMemberFromV8Object<IDLSequence<IDLString>, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[24].Get(isolate), has_resize_mode_, member_resize_mode_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<IDLSequence<IDLString>, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[25].Get(isolate), has_resize_mode_, member_resize_mode_, try_block, exception_state)) {
   return;
 }
 exception_context_scope.ChangePropertyNameAsOptimizationHack("sampleRate");
-if (!bindings::GetDictionaryMemberFromV8Object<LongRange, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[25].Get(isolate), has_sample_rate_, member_sample_rate_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<LongRange, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[26].Get(isolate), has_sample_rate_, member_sample_rate_, try_block, exception_state)) {
   return;
 }
 exception_context_scope.ChangePropertyNameAsOptimizationHack("sampleSize");
-if (!bindings::GetDictionaryMemberFromV8Object<LongRange, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[26].Get(isolate), has_sample_size_, member_sample_size_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<LongRange, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[27].Get(isolate), has_sample_size_, member_sample_size_, try_block, exception_state)) {
   return;
 }
 exception_context_scope.ChangePropertyNameAsOptimizationHack("saturation");
-if (!bindings::GetDictionaryMemberFromV8Object<MediaSettingsRange, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[27].Get(isolate), has_saturation_, member_saturation_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<MediaSettingsRange, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[28].Get(isolate), has_saturation_, member_saturation_, try_block, exception_state)) {
   return;
 }
 exception_context_scope.ChangePropertyNameAsOptimizationHack("sharpness");
-if (!bindings::GetDictionaryMemberFromV8Object<MediaSettingsRange, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[28].Get(isolate), has_sharpness_, member_sharpness_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<MediaSettingsRange, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[29].Get(isolate), has_sharpness_, member_sharpness_, try_block, exception_state)) {
   return;
 }
 exception_context_scope.ChangePropertyNameAsOptimizationHack("tilt");
-if (!bindings::GetDictionaryMemberFromV8Object<MediaSettingsRange, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[29].Get(isolate), has_tilt_, member_tilt_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<MediaSettingsRange, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[30].Get(isolate), has_tilt_, member_tilt_, try_block, exception_state)) {
   return;
 }
 exception_context_scope.ChangePropertyNameAsOptimizationHack("torch");
-if (!bindings::GetDictionaryMemberFromV8Object<IDLBoolean, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[30].Get(isolate), has_torch_, member_torch_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<IDLBoolean, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[31].Get(isolate), has_torch_, member_torch_, try_block, exception_state)) {
   return;
 }
 exception_context_scope.ChangePropertyNameAsOptimizationHack("whiteBalanceMode");
-if (!bindings::GetDictionaryMemberFromV8Object<IDLSequence<IDLString>, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[31].Get(isolate), has_white_balance_mode_, member_white_balance_mode_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<IDLSequence<IDLString>, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[32].Get(isolate), has_white_balance_mode_, member_white_balance_mode_, try_block, exception_state)) {
   return;
 }
 exception_context_scope.ChangePropertyNameAsOptimizationHack("width");
-if (!bindings::GetDictionaryMemberFromV8Object<LongRange, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[32].Get(isolate), has_width_, member_width_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<LongRange, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[33].Get(isolate), has_width_, member_width_, try_block, exception_state)) {
   return;
 }
 exception_context_scope.ChangePropertyNameAsOptimizationHack("zoom");
-if (!bindings::GetDictionaryMemberFromV8Object<MediaSettingsRange, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[33].Get(isolate), has_zoom_, member_zoom_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<MediaSettingsRange, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[34].Get(isolate), has_zoom_, member_zoom_, try_block, exception_state)) {
   return;
 }
 }
@@ -1043,6 +1087,7 @@ const base::span<const v8::Eternal<v8::Name>> MediaTrackCapabilities::GetV8OwnMe
 "exposureCompensation",
 "exposureMode",
 "exposureTime",
+"eyeGazeCorrection",
 "faceFraming",
 "facingMode",
 "focusDistance",

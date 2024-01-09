@@ -27,6 +27,7 @@ namespace app_management::mojom {
 namespace internal {
 class Permission_Data;
 class RunOnOsLogin_Data;
+class Locale_Data;
 class App_Data;
 class ExtensionAppPermissionMessage_Data;
 class FileHandlingState_Data;
@@ -53,32 +54,6 @@ struct AppType_Data {
       case 12:
       case 13:
       case 14:
-      case 15:
-        return true;
-    }
-    return false;
-  }
-
-  static bool Validate(int32_t value,
-                       mojo::internal::ValidationContext* validation_context) {
-    if (kIsExtensible || IsKnownValue(value))
-      return true;
-
-    ReportValidationError(validation_context,
-                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
-    return false;
-  }
-};
-
-struct OptionalBool_Data {
- public:
-  static bool constexpr kIsExtensible = false;
-
-  static bool IsKnownValue(int32_t value) {
-    switch (value) {
-      case 0:
-      case 1:
-      case 2:
         return true;
     }
     return false;
@@ -417,6 +392,56 @@ struct RunOnOsLogin_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     RunOnOsLogin_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  Locale_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> locale_tag;
+  mojo::internal::Pointer<mojo::internal::String_Data> display_name;
+  mojo::internal::Pointer<mojo::internal::String_Data> native_display_name;
+
+ private:
+  friend class mojo::internal::MessageFragment<Locale_Data>;
+
+  Locale_Data();
+  ~Locale_Data() = delete;
+};
+static_assert(sizeof(Locale_Data) == 32,
+              "Bad sizeof(Locale_Data)");
+// Used by Locale::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct Locale_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  Locale_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~Locale_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<Locale_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    Locale_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  App_Data {
  public:
   static bool Validate(const void* data,
@@ -425,24 +450,26 @@ class  App_Data {
   mojo::internal::StructHeader header_;
   mojo::internal::Pointer<mojo::internal::String_Data> id;
   int32_t type;
-  int32_t is_pinned;
-  mojo::internal::Pointer<mojo::internal::String_Data> title;
-  mojo::internal::Pointer<mojo::internal::String_Data> description;
-  int32_t is_policy_pinned;
-  int32_t install_reason;
-  mojo::internal::Pointer<mojo::internal::String_Data> version;
-  mojo::internal::Pointer<mojo::internal::String_Data> size;
-  mojo::internal::Pointer<mojo::internal::Map_Data<int32_t, mojo::internal::Pointer<internal::Permission_Data>>> permissions;
-  int32_t install_source;
+  uint8_t is_pinned_$flag : 1;
+  uint8_t is_pinned_$value : 1;
+  uint8_t is_policy_pinned_$flag : 1;
+  uint8_t is_policy_pinned_$value : 1;
   uint8_t hide_more_settings : 1;
   uint8_t hide_pin_to_shelf : 1;
   uint8_t is_preferred_app : 1;
   uint8_t hide_window_mode : 1;
   uint8_t resize_locked : 1;
   uint8_t hide_resize_locked : 1;
-  uint8_t pad16_[3];
+  uint8_t pad11_[2];
+  mojo::internal::Pointer<mojo::internal::String_Data> title;
+  mojo::internal::Pointer<mojo::internal::String_Data> description;
+  mojo::internal::Pointer<mojo::internal::String_Data> version;
+  mojo::internal::Pointer<mojo::internal::String_Data> size;
+  mojo::internal::Pointer<mojo::internal::Map_Data<int32_t, mojo::internal::Pointer<internal::Permission_Data>>> permissions;
+  int32_t install_reason;
+  int32_t install_source;
   int32_t window_mode;
-  uint8_t pad17_[4];
+  uint8_t pad19_[4];
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<mojo::internal::String_Data>>> supported_links;
   mojo::internal::Pointer<internal::RunOnOsLogin_Data> run_on_os_login;
   mojo::internal::Pointer<internal::FileHandlingState_Data> file_handling_state;
@@ -451,6 +478,8 @@ class  App_Data {
   mojo::internal::Pointer<mojo::internal::String_Data> publisher_id;
   mojo::internal::Pointer<mojo::internal::String_Data> formatted_origin;
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<mojo::internal::String_Data>>> scope_extensions;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::Locale_Data>>> supported_locales;
+  mojo::internal::Pointer<internal::Locale_Data> selected_locale;
 
  private:
   friend class mojo::internal::MessageFragment<App_Data>;
@@ -458,7 +487,7 @@ class  App_Data {
   App_Data();
   ~App_Data() = delete;
 };
-static_assert(sizeof(App_Data) == 152,
+static_assert(sizeof(App_Data) == 160,
               "Bad sizeof(App_Data)");
 // Used by App::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

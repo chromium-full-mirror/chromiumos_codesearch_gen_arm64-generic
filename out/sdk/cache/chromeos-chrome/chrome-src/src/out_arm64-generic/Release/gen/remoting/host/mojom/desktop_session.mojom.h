@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "remoting/host/mojom/desktop_session.mojom-features.h"
 #include "remoting/host/mojom/desktop_session.mojom-shared.h"
 #include "remoting/host/mojom/desktop_session.mojom-forward.h"
 #include "mojo/public/mojom/base/byte_string.mojom.h"
@@ -259,12 +260,12 @@ class FileWriter
   virtual ~FileWriter() = default;
 
 
-  using WriteChunkCallback = base::OnceCallback<void(const absl::optional<::remoting::protocol::FileTransfer_Error>&)>;
+  using WriteChunkCallback = base::OnceCallback<void(const std::optional<::remoting::protocol::FileTransfer_Error>&)>;
   
   virtual void WriteChunk(const std::vector<uint8_t>& data, WriteChunkCallback callback) = 0;
 
 
-  using CloseFileCallback = base::OnceCallback<void(const absl::optional<::remoting::protocol::FileTransfer_Error>&)>;
+  using CloseFileCallback = base::OnceCallback<void(const std::optional<::remoting::protocol::FileTransfer_Error>&)>;
   
   virtual void CloseFile(CloseFileCallback callback) = 0;
 };
@@ -1433,17 +1434,17 @@ class  ReadChunkResult {
   // Construct an instance holding |data|.
   static ReadChunkResultPtr
   NewData(
-      std::vector<uint8_t> data) {
+      std::vector<uint8_t> value) {
     auto result = ReadChunkResultPtr(absl::in_place);
-    result->set_data(std::move(data));
+    result->set_data(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static ReadChunkResultPtr
   NewError(
-      const ::remoting::protocol::FileTransfer_Error& error) {
+      const ::remoting::protocol::FileTransfer_Error& value) {
     auto result = ReadChunkResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 
@@ -1563,17 +1564,17 @@ class  BeginFileReadResult {
   // Construct an instance holding |success|.
   static BeginFileReadResultPtr
   NewSuccess(
-      BeginFileReadSuccessPtr success) {
+      BeginFileReadSuccessPtr value) {
     auto result = BeginFileReadResultPtr(absl::in_place);
-    result->set_success(std::move(success));
+    result->set_success(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static BeginFileReadResultPtr
   NewError(
-      const ::remoting::protocol::FileTransfer_Error& error) {
+      const ::remoting::protocol::FileTransfer_Error& value) {
     auto result = BeginFileReadResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 
@@ -1693,17 +1694,17 @@ class  BeginFileWriteResult {
   // Construct an instance holding |success|.
   static BeginFileWriteResultPtr
   NewSuccess(
-      BeginFileWriteSuccessPtr success) {
+      BeginFileWriteSuccessPtr value) {
     auto result = BeginFileWriteResultPtr(absl::in_place);
-    result->set_success(std::move(success));
+    result->set_success(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static BeginFileWriteResultPtr
   NewError(
-      const ::remoting::protocol::FileTransfer_Error& error) {
+      const ::remoting::protocol::FileTransfer_Error& value) {
     auto result = BeginFileWriteResultPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 
@@ -1823,17 +1824,17 @@ class  CaptureResult {
   // Construct an instance holding |desktop_frame|.
   static CaptureResultPtr
   NewDesktopFrame(
-      ::remoting::mojom::DesktopFramePtr desktop_frame) {
+      ::remoting::mojom::DesktopFramePtr value) {
     auto result = CaptureResultPtr(absl::in_place);
-    result->set_desktop_frame(std::move(desktop_frame));
+    result->set_desktop_frame(std::move(value));
     return result;
   }
   // Construct an instance holding |capture_error|.
   static CaptureResultPtr
   NewCaptureError(
-      ::webrtc::DesktopCapturer::Result capture_error) {
+      ::webrtc::DesktopCapturer::Result value) {
     auto result = CaptureResultPtr(absl::in_place);
-    result->set_capture_error(std::move(capture_error));
+    result->set_capture_error(std::move(value));
     return result;
   }
 

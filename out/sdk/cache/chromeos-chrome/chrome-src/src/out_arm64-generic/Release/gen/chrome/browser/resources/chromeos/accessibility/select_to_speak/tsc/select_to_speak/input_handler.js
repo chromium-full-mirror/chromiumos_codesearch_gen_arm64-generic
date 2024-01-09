@@ -3,112 +3,82 @@
 // found in the LICENSE file.
 import { RectUtil } from '../common/rect_util.js';
 import { SelectToSpeakConstants } from './select_to_speak_constants.js';
-const SelectToSpeakState = chrome.accessibilityPrivate.SelectToSpeakState;
-const SyntheticMouseEventType = chrome.accessibilityPrivate.SyntheticMouseEventType;
-/**
- * Callbacks for InputHandler.
- * |canStartSelecting| returns true if the user can start selecting a region
- * with the mouse. |onSelectingStateChanged| is called when the user starts or
- * ends selecting with the mouse. |onSelectionChanged| is called when the
- * region selected with the mouse changes size. |onKeystrokeSelection| is called
- * when a keystroke is completed indicating that highlighted text is selected to
- * be used. |onRequestCancel| is called when the user has indicated that the
- * current selection or speech should be canceled. |onTextReceived| is called
- * when a copy-paste event results in text to be spoken.
- * @typedef {{
- *     canStartSelecting: function(): boolean,
- *     onSelectingStateChanged: function(boolean, number, number),
- *     onSelectionChanged: function({left: number, top: number, width: number,
- *                                   height: number}),
- *     onKeystrokeSelection: function(),
- *     onRequestCancel: function(),
- *     onTextReceived: function(string)
- * }}
- */
-let SelectToSpeakCallbacks;
 /**
  * Class to handle user-input, from mouse, keyboard, and copy-paste events.
  */
 export class InputHandler {
+    callbacks_;
+    didTrackMouse_;
+    isSearchKeyDown_;
+    isSelectionKeyDown_;
+    keysCurrentlyDown_;
+    keysPressedTogether_;
+    lastClearClipboardDataTime_;
+    lastReadClipboardDataTime_;
+    mouseStart_;
+    mouseEnd_;
+    trackingMouse_;
+    static kClipboardClearMaxDelayMs;
+    static kClipboardReadMaxDelayMs;
     /**
      * Please keep fields in alphabetical order.
-     * @param {!SelectToSpeakCallbacks} callbacks
      */
     constructor(callbacks) {
-        /** @private {!SelectToSpeakCallbacks} */
         this.callbacks_ = callbacks;
-        /** @private {boolean} */
         this.didTrackMouse_ = false;
-        /** @private {boolean} */
         this.isSearchKeyDown_ = false;
-        /** @private {boolean} */
         this.isSelectionKeyDown_ = false;
-        /** @private {!Set<number>} */
         this.keysCurrentlyDown_ = new Set();
         /**
          * All of the keys pressed since the last time 0 keys were pressed.
-         * @private {!Set<number>}
          */
         this.keysPressedTogether_ = new Set();
         /**
          * The timestamp at which the last clipboard data clear was requested.
          * Used to make sure we don't clear the clipboard on a user's request,
          * but only after the clipboard was used to read selected text.
-         * @private {Date}
          */
         this.lastClearClipboardDataTime_ = new Date(0);
         /**
          * The timestamp at which clipboard data read was requested by the user
          * doing a "read selection" keystroke on a Google Docs app. If a
-         * clipboard change event comes in within CLIPBOARD_READ_MAX_DELAY_MS,
+         * clipboard change event comes in within kClipboardReadMaxDelayMs,
          * Select-to-Speak will read that text out loud.
-         * @private {Date}
          */
         this.lastReadClipboardDataTime_ = new Date(0);
-        /** @private {{x: number, y: number}} */
         this.mouseStart_ = { x: 0, y: 0 };
-        /** @private {{x: number, y: number}} */
         this.mouseEnd_ = { x: 0, y: 0 };
-        /** @private {boolean} */
         this.trackingMouse_ = false;
     }
-    /** @private */
     clearClipboard_() {
         this.lastClearClipboardDataTime_ = new Date();
         document.execCommand('copy');
     }
-    /**
-     * @param {Event} evt
-     * @private
-     */
     onClipboardCopy_(evt) {
-        if (new Date() - this.lastClearClipboardDataTime_ <
-            InputHandler.CLIPBOARD_CLEAR_MAX_DELAY_MS) {
+        if (new Date().getTime() - this.lastClearClipboardDataTime_.getTime() <
+            InputHandler.kClipboardClearMaxDelayMs) {
             // onClipboardPaste has just completed reading the clipboard for speech.
             // This is used to clear the clipboard.
+            // @ts-ignore: TODO(b/270623046): clipboardData can be null.
             evt.clipboardData.setData('text/plain', '');
             evt.preventDefault();
             this.lastClearClipboardDataTime_ = new Date(0);
         }
     }
-    /** @private */
     onClipboardDataChanged_() {
-        if (new Date() - this.lastReadClipboardDataTime_ <
-            InputHandler.CLIPBOARD_READ_MAX_DELAY_MS) {
+        if (new Date().getTime() - this.lastReadClipboardDataTime_.getTime() <
+            InputHandler.kClipboardReadMaxDelayMs) {
             // The data has changed, and we are ready to read it.
             // Get it using a paste.
             document.execCommand('paste');
         }
     }
-    /**
-     * @param {Event} evt
-     * @private
-     */
     onClipboardPaste_(evt) {
-        if (new Date() - this.lastReadClipboardDataTime_ <
-            InputHandler.CLIPBOARD_READ_MAX_DELAY_MS) {
+        if (new Date().getTime() - this.lastReadClipboardDataTime_.getTime() <
+            InputHandler.kClipboardReadMaxDelayMs) {
             // Read the current clipboard data.
             evt.preventDefault();
+            // @ts-ignore: TODO(b/270623046): clipboardData can be null.
             this.callbacks_.onTextReceived(evt.clipboardData.getData('text/plain'));
             this.lastReadClipboardDataTime_ = new Date(0);
             // Clear the clipboard data by copying nothing (the current document).
@@ -128,15 +98,15 @@ export class InputHandler {
         document.addEventListener('paste', evt => this.onClipboardPaste_(evt));
         document.addEventListener('copy', evt => this.onClipboardCopy_(evt));
         chrome.accessibilityPrivate.onSelectToSpeakKeysPressedChanged.addListener((keysPressed) => {
-            this.onKeysPressedChanged_(new Set(keysPressed));
+            this.onKeysPressedChanged(new Set(keysPressed));
         });
         chrome.accessibilityPrivate.onSelectToSpeakMouseChanged.addListener((eventType, mouseX, mouseY) => {
-            this.onMouseEvent_(eventType, mouseX, mouseY);
+            this.onMouseEvent(eventType, mouseX, mouseY);
         });
     }
     /**
      * Change whether or not we are tracking the mouse.
-     * @param {boolean} tracking True if we should start tracking the mouse, false
+     * @param tracking True if we should start tracking the mouse, false
      *     otherwise.
      */
     setTrackingMouse(tracking) {
@@ -160,17 +130,18 @@ export class InputHandler {
      * holding down Search).
      * Visible for testing.
      *
-     * @param {!SyntheticMouseEventType} type The event type.
-     * @param {number} mouseX The mouse x coordinate in global screen
+     * @param type The event type.
+     * @param mouseX The mouse x coordinate in global screen
      *     coordinates.
-     * @param {number} mouseY The mouse y coordinate in global screen
+     * @param mouseY The mouse y coordinate in global screen
      *     coordinates.
+     * Visible for testing.
      */
-    onMouseEvent_(type, mouseX, mouseY) {
-        if (type === SyntheticMouseEventType.PRESS) {
+    onMouseEvent(type, mouseX, mouseY) {
+        if (type === chrome.accessibilityPrivate.SyntheticMouseEventType.PRESS) {
             this.onMouseDown_(mouseX, mouseY);
         }
-        else if (type === SyntheticMouseEventType.RELEASE) {
+        else if (type === chrome.accessibilityPrivate.SyntheticMouseEventType.RELEASE) {
             this.onMouseUp_(mouseX, mouseY);
         }
         else {
@@ -181,11 +152,10 @@ export class InputHandler {
      * Called when the mouse is pressed and the user is in a
      * mode where select-to-speak is capturing mouse events (for example
      * holding down Search).
-     * @param {number} mouseX The mouse x coordinate in global screen
+     * @param mouseX The mouse x coordinate in global screen
      *     coordinates.
-     * @param {number} mouseY The mouse y coordinate in global screen
+     * @param mouseY The mouse y coordinate in global screen
      *     coordinates.
-     * @private
      */
     onMouseDown_(mouseX, mouseY) {
         // If the user hasn't clicked 'search', or if they are currently
@@ -205,11 +175,10 @@ export class InputHandler {
      * Called when the mouse is moved or dragged and the user is in a
      * mode where select-to-speak is capturing mouse events (for example
      * holding down Search).
-     * @param {number} mouseX The mouse x coordinate in global screen
+     * @param mouseX The mouse x coordinate in global screen
      *     coordinates.
-     * @param {number} mouseY The mouse y coordinate in global screen
+     * @param mouseY The mouse y coordinate in global screen
      *     coordinates.
-     * @private
      */
     onMouseMove_(mouseX, mouseY) {
         if (!this.trackingMouse_) {
@@ -222,11 +191,10 @@ export class InputHandler {
      * Called when the mouse is released and the user is in a
      * mode where select-to-speak is capturing mouse events (for example
      * holding down Search).
-     * @param {number} mouseX The mouse x coordinate in global screen
+     * @param mouseX The mouse x coordinate in global screen
      *     coordinates.
-     * @param {number} mouseY The mouse y coordinate in global screen
+     * @param mouseY The mouse y coordinate in global screen
      *     coordinates.
-     * @private
      */
     onMouseUp_(mouseX, mouseY) {
         if (!this.trackingMouse_) {
@@ -245,9 +213,8 @@ export class InputHandler {
     }
     /**
      * Visible for testing.
-     * @param {!Set<number>} keysCurrentlyPressed
      */
-    onKeysPressedChanged_(keysCurrentlyPressed) {
+    onKeysPressedChanged(keysCurrentlyPressed) {
         if (keysCurrentlyPressed.size > this.keysCurrentlyDown_.size) {
             // If a key was pressed.
             for (const key of keysCurrentlyPressed) {
@@ -316,8 +283,8 @@ export class InputHandler {
 }
 // Number of milliseconds to wait after requesting a clipboard read
 // before clipboard change and paste events are ignored.
-InputHandler.CLIPBOARD_READ_MAX_DELAY_MS = 1000;
+InputHandler.kClipboardReadMaxDelayMs = 1000;
 // Number of milliseconds to wait after requesting a clipboard copy
 // before clipboard copy events are ignored, used to clear the clipboard
 // after reading data in a paste event.
-InputHandler.CLIPBOARD_CLEAR_MAX_DELAY_MS = 500;
+InputHandler.kClipboardClearMaxDelayMs = 500;

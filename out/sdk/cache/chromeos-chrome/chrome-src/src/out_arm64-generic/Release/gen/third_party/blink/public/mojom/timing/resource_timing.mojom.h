@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/timing/resource_timing.mojom-features.h"
 #include "third_party/blink/public/mojom/timing/resource_timing.mojom-shared.h"
 #include "third_party/blink/public/mojom/timing/resource_timing.mojom-forward.h"
 #include "mojo/public/mojom/base/time.mojom.h"
@@ -228,7 +229,7 @@ class BLINK_COMMON_EXPORT ResourceTimingInfo {
       ::base::TimeTicks start_time,
       const std::string& alpn_negotiated_protocol,
       const std::string& connection_info,
-      const absl::optional<::net::LoadTimingInfo>& timing,
+      const std::optional<::net::LoadTimingInfo>& timing,
       ::base::TimeTicks last_redirect_end_time,
       ::base::TimeTicks response_end,
       CacheState cache_state,
@@ -329,7 +330,7 @@ ResourceTimingInfo& operator=(const ResourceTimingInfo&) = delete;
   
   std::string connection_info;
   
-  absl::optional<::net::LoadTimingInfo> timing;
+  std::optional<::net::LoadTimingInfo> timing;
   
   ::base::TimeTicks last_redirect_end_time;
   

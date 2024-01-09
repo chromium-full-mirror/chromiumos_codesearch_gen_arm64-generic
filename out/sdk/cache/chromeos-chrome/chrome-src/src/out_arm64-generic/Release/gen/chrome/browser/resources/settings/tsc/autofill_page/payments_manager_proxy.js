@@ -41,6 +41,9 @@ export class PaymentsManagerImpl {
     logServerCardLinkClicked() {
         chrome.autofillPrivate.logServerCardLinkClicked();
     }
+    logServerIbanLinkClicked() {
+        chrome.autofillPrivate.logServerIbanLinkClicked();
+    }
     setCreditCardFidoAuthEnabledState(enabled) {
         chrome.autofillPrivate.setCreditCardFIDOAuthEnabledState(enabled);
     }
@@ -64,6 +67,9 @@ export class PaymentsManagerImpl {
         return chrome.autofillPrivate.getLocalCard(guid);
     }
     // 
+    bulkDeleteAllCvcs() {
+        chrome.autofillPrivate.bulkDeleteAllCvcs();
+    }
     static getInstance() {
         return instance || (instance = new PaymentsManagerImpl());
     }

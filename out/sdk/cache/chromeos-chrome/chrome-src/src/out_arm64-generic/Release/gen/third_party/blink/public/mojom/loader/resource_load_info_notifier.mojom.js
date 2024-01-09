@@ -141,6 +141,7 @@
     this.finalResponseUrl = null;
     this.head = null;
     this.requestDestination = 0;
+    this.isAdResource = false;
   };
   ResourceLoadInfoNotifier_NotifyResourceResponseReceived_Params.prototype.initFields_ = function(fields) {
     for(var field in fields) {
@@ -181,6 +182,7 @@
     if (err !== validator.validationError.NONE)
         return err;
 
+
     return validator.validationError.NONE;
   };
 
@@ -199,7 +201,8 @@
         decoder.decodeStructPointer(url_response_head$.URLResponseHead);
     val.requestDestination =
         decoder.decodeStruct(new codec.Enum(fetch_api$.RequestDestination));
-    decoder.skip(1);
+    packed = decoder.readUint8();
+    val.isAdResource = (packed >> 0) & 1 ? true : false;
     decoder.skip(1);
     decoder.skip(1);
     decoder.skip(1);
@@ -214,7 +217,9 @@
     encoder.encodeStructPointer(scheme_host_port$.SchemeHostPort, val.finalResponseUrl);
     encoder.encodeStructPointer(url_response_head$.URLResponseHead, val.head);
     encoder.encodeStruct(codec.Int32, val.requestDestination);
-    encoder.skip(1);
+    packed = 0;
+    packed |= (val.isAdResource & 1) << 0
+    encoder.writeUint8(packed);
     encoder.skip(1);
     encoder.skip(1);
     encoder.skip(1);
@@ -510,12 +515,13 @@
         .apply(this.ptr.getProxy(), arguments);
   };
 
-  ResourceLoadInfoNotifierProxy.prototype.notifyResourceResponseReceived = function(requestId, finalResponseUrl, head, requestDestination) {
+  ResourceLoadInfoNotifierProxy.prototype.notifyResourceResponseReceived = function(requestId, finalResponseUrl, head, requestDestination, isAdResource) {
     var params_ = new ResourceLoadInfoNotifier_NotifyResourceResponseReceived_Params();
     params_.requestId = requestId;
     params_.finalResponseUrl = finalResponseUrl;
     params_.head = head;
     params_.requestDestination = requestDestination;
+    params_.isAdResource = isAdResource;
     var builder = new codec.MessageV0Builder(
         kResourceLoadInfoNotifier_NotifyResourceResponseReceived_Name,
         codec.align(ResourceLoadInfoNotifier_NotifyResourceResponseReceived_Params.encodedSize));
@@ -592,8 +598,8 @@
   ResourceLoadInfoNotifierStub.prototype.notifyResourceRedirectReceived = function(redirectInfo, redirectResponse) {
     return this.delegate_ && this.delegate_.notifyResourceRedirectReceived && this.delegate_.notifyResourceRedirectReceived(redirectInfo, redirectResponse);
   }
-  ResourceLoadInfoNotifierStub.prototype.notifyResourceResponseReceived = function(requestId, finalResponseUrl, head, requestDestination) {
-    return this.delegate_ && this.delegate_.notifyResourceResponseReceived && this.delegate_.notifyResourceResponseReceived(requestId, finalResponseUrl, head, requestDestination);
+  ResourceLoadInfoNotifierStub.prototype.notifyResourceResponseReceived = function(requestId, finalResponseUrl, head, requestDestination, isAdResource) {
+    return this.delegate_ && this.delegate_.notifyResourceResponseReceived && this.delegate_.notifyResourceResponseReceived(requestId, finalResponseUrl, head, requestDestination, isAdResource);
   }
   ResourceLoadInfoNotifierStub.prototype.notifyResourceTransferSizeUpdated = function(requestId, transferSizeDiff) {
     return this.delegate_ && this.delegate_.notifyResourceTransferSizeUpdated && this.delegate_.notifyResourceTransferSizeUpdated(requestId, transferSizeDiff);
@@ -617,7 +623,7 @@
       return true;
     case kResourceLoadInfoNotifier_NotifyResourceResponseReceived_Name:
       var params = reader.decodeStruct(ResourceLoadInfoNotifier_NotifyResourceResponseReceived_Params);
-      this.notifyResourceResponseReceived(params.requestId, params.finalResponseUrl, params.head, params.requestDestination);
+      this.notifyResourceResponseReceived(params.requestId, params.finalResponseUrl, params.head, params.requestDestination, params.isAdResource);
       return true;
     case kResourceLoadInfoNotifier_NotifyResourceTransferSizeUpdated_Name:
       var params = reader.decodeStruct(ResourceLoadInfoNotifier_NotifyResourceTransferSizeUpdated_Params);

@@ -280,6 +280,18 @@ bool CSSOMKeywords::ValidKeywordForProperty(CSSPropertyID id,
       return false;
     }
   }
+  case CSSPropertyID::kPosition: {
+    switch (valueID) {
+    case CSSValueID::kStatic:
+    case CSSValueID::kRelative:
+    case CSSValueID::kAbsolute:
+    case CSSValueID::kFixed:
+    case CSSValueID::kSticky:
+      return true;
+    default:
+      return false;
+    }
+  }
   case CSSPropertyID::kTextOrientation: {
     switch (valueID) {
     case CSSValueID::kSideways:
@@ -1019,8 +1031,7 @@ bool CSSOMKeywords::ValidKeywordForProperty(CSSPropertyID id,
     case CSSValueID::kNormal:
     case CSSValueID::kInlineSize:
     case CSSValueID::kSize:
-    case CSSValueID::kSticky:
-    case CSSValueID::kSnap:
+    case CSSValueID::kScrollState:
       return true;
     default:
       return false;
@@ -1138,6 +1149,8 @@ bool CSSOMKeywords::ValidKeywordForProperty(CSSPropertyID id,
     case CSSValueID::kNone:
     case CSSValueID::kFlow:
     case CSSValueID::kMath:
+    case CSSValueID::kRuby:
+    case CSSValueID::kRubyText:
       return true;
     default:
       return false;
@@ -1381,6 +1394,28 @@ bool CSSOMKeywords::ValidKeywordForProperty(CSSPropertyID id,
   case CSSPropertyID::kInlineSize: {
     switch (valueID) {
     case CSSValueID::kAuto:
+      return true;
+    default:
+      return false;
+    }
+  }
+  case CSSPropertyID::kInsetArea: {
+    switch (valueID) {
+    case CSSValueID::kNone:
+    case CSSValueID::kTop:
+    case CSSValueID::kBottom:
+    case CSSValueID::kCenter:
+    case CSSValueID::kLeft:
+    case CSSValueID::kRight:
+    case CSSValueID::kXStart:
+    case CSSValueID::kXEnd:
+    case CSSValueID::kYStart:
+    case CSSValueID::kYEnd:
+    case CSSValueID::kStart:
+    case CSSValueID::kEnd:
+    case CSSValueID::kSelfStart:
+    case CSSValueID::kSelfEnd:
+    case CSSValueID::kAll:
       return true;
     default:
       return false;
@@ -1808,18 +1843,6 @@ bool CSSOMKeywords::ValidKeywordForProperty(CSSPropertyID id,
     case CSSValueID::kVisiblepainted:
     case CSSValueID::kBoundingBox:
     case CSSValueID::kAll:
-      return true;
-    default:
-      return false;
-    }
-  }
-  case CSSPropertyID::kPosition: {
-    switch (valueID) {
-    case CSSValueID::kStatic:
-    case CSSValueID::kRelative:
-    case CSSValueID::kAbsolute:
-    case CSSValueID::kFixed:
-    case CSSValueID::kSticky:
       return true;
     default:
       return false;
@@ -2328,38 +2351,6 @@ bool CSSOMKeywords::ValidKeywordForProperty(CSSPropertyID id,
     case CSSValueID::kNowrap:
     case CSSValueID::kBalance:
     case CSSValueID::kPretty:
-      return true;
-    default:
-      return false;
-    }
-  }
-  case CSSPropertyID::kToggleGroup: {
-    switch (valueID) {
-    case CSSValueID::kNone:
-      return true;
-    default:
-      return false;
-    }
-  }
-  case CSSPropertyID::kToggleRoot: {
-    switch (valueID) {
-    case CSSValueID::kNone:
-      return true;
-    default:
-      return false;
-    }
-  }
-  case CSSPropertyID::kToggleTrigger: {
-    switch (valueID) {
-    case CSSValueID::kNone:
-      return true;
-    default:
-      return false;
-    }
-  }
-  case CSSPropertyID::kToggleVisibility: {
-    switch (valueID) {
-    case CSSValueID::kNormal:
       return true;
     default:
       return false;

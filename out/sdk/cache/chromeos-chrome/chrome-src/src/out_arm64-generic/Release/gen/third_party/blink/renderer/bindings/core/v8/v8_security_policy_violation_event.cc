@@ -73,11 +73,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, SecurityPolicyViolationEvent>::value,
     "SecurityPolicyViolationEvent inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&SecurityPolicyViolationEvent::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "SecurityPolicyViolationEvent is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -96,7 +91,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8SecurityPolicyViolat
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SecurityPolicyViolationEvent* blink_receiver = V8SecurityPolicyViolationEvent::ToWrappableUnsafe(v8_receiver);
+SecurityPolicyViolationEvent* blink_receiver = V8SecurityPolicyViolationEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->documentURI();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
@@ -109,10 +104,10 @@ BLINK_BINDINGS_TRACE_EVENT("SecurityPolicyViolationEvent.referrer.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SecurityPolicyViolationEvent* blink_receiver = V8SecurityPolicyViolationEvent::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->referrer();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SecurityPolicyViolationEvent* blink_receiver = V8SecurityPolicyViolationEvent::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->referrer();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -130,7 +125,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8SecurityPolicyViolat
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SecurityPolicyViolationEvent* blink_receiver = V8SecurityPolicyViolationEvent::ToWrappableUnsafe(v8_receiver);
+SecurityPolicyViolationEvent* blink_receiver = V8SecurityPolicyViolationEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->blockedURI();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
@@ -143,10 +138,10 @@ BLINK_BINDINGS_TRACE_EVENT("SecurityPolicyViolationEvent.violatedDirective.get")
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SecurityPolicyViolationEvent* blink_receiver = V8SecurityPolicyViolationEvent::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->violatedDirective();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SecurityPolicyViolationEvent* blink_receiver = V8SecurityPolicyViolationEvent::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->violatedDirective();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -158,10 +153,10 @@ BLINK_BINDINGS_TRACE_EVENT("SecurityPolicyViolationEvent.effectiveDirective.get"
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SecurityPolicyViolationEvent* blink_receiver = V8SecurityPolicyViolationEvent::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->effectiveDirective();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SecurityPolicyViolationEvent* blink_receiver = V8SecurityPolicyViolationEvent::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->effectiveDirective();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -173,10 +168,10 @@ BLINK_BINDINGS_TRACE_EVENT("SecurityPolicyViolationEvent.originalPolicy.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SecurityPolicyViolationEvent* blink_receiver = V8SecurityPolicyViolationEvent::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->originalPolicy();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SecurityPolicyViolationEvent* blink_receiver = V8SecurityPolicyViolationEvent::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->originalPolicy();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -188,10 +183,10 @@ BLINK_BINDINGS_TRACE_EVENT("SecurityPolicyViolationEvent.disposition.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SecurityPolicyViolationEvent* blink_receiver = V8SecurityPolicyViolationEvent::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->disposition();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SecurityPolicyViolationEvent* blink_receiver = V8SecurityPolicyViolationEvent::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->disposition();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -203,10 +198,10 @@ BLINK_BINDINGS_TRACE_EVENT("SecurityPolicyViolationEvent.sourceFile.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SecurityPolicyViolationEvent* blink_receiver = V8SecurityPolicyViolationEvent::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->sourceFile();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SecurityPolicyViolationEvent* blink_receiver = V8SecurityPolicyViolationEvent::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->sourceFile();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -224,7 +219,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8SecurityPolicyViolat
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SecurityPolicyViolationEvent* blink_receiver = V8SecurityPolicyViolationEvent::ToWrappableUnsafe(v8_receiver);
+SecurityPolicyViolationEvent* blink_receiver = V8SecurityPolicyViolationEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->statusCode();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint16_t>());
 }
@@ -237,8 +232,9 @@ BLINK_BINDINGS_TRACE_EVENT("SecurityPolicyViolationEvent.lineNumber.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SecurityPolicyViolationEvent* blink_receiver = V8SecurityPolicyViolationEvent::ToWrappableUnsafe(v8_receiver);
+SecurityPolicyViolationEvent* blink_receiver = V8SecurityPolicyViolationEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->lineNumber();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 }
@@ -251,8 +247,9 @@ BLINK_BINDINGS_TRACE_EVENT("SecurityPolicyViolationEvent.columnNumber.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SecurityPolicyViolationEvent* blink_receiver = V8SecurityPolicyViolationEvent::ToWrappableUnsafe(v8_receiver);
+SecurityPolicyViolationEvent* blink_receiver = V8SecurityPolicyViolationEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->columnNumber();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 }
@@ -265,10 +262,10 @@ BLINK_BINDINGS_TRACE_EVENT("SecurityPolicyViolationEvent.sample.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SecurityPolicyViolationEvent* blink_receiver = V8SecurityPolicyViolationEvent::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->sample();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SecurityPolicyViolationEvent* blink_receiver = V8SecurityPolicyViolationEvent::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->sample();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -280,8 +277,9 @@ BLINK_BINDINGS_TRACE_EVENT("SecurityPolicyViolationEvent.isTrusted.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SecurityPolicyViolationEvent* blink_receiver = V8SecurityPolicyViolationEvent::ToWrappableUnsafe(v8_receiver);
+SecurityPolicyViolationEvent* blink_receiver = V8SecurityPolicyViolationEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isTrusted();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }

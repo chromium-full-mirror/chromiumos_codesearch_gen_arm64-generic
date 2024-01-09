@@ -64,8 +64,6 @@ class EditCommandDataView;
 
 class SelectAroundCaretResultDataView;
 
-class ScrollResultDataDataView;
-
 
 enum class SelectionGranularity : int32_t;
 
@@ -131,9 +129,6 @@ using EditCommandPtr = mojo::InlinedStructPtr<EditCommand>;
 
 class SelectAroundCaretResult;
 using SelectAroundCaretResultPtr = mojo::InlinedStructPtr<SelectAroundCaretResult>;
-
-class ScrollResultData;
-using ScrollResultDataPtr = mojo::StructPtr<ScrollResultData>;
 
 class WidgetInputHandlerHost;
 

@@ -162,8 +162,10 @@ enum class PermissionName : int32_t {
   DISPLAY_CAPTURE = 22,
   
   TOP_LEVEL_STORAGE_ACCESS = 23,
+  
+  CAPTURED_SURFACE_CONTROL = 24,
   kMinValue = 0,
-  kMaxValue = 23,
+  kMaxValue = 24,
 };
 
 COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) std::ostream& operator<<(std::ostream& os, PermissionName value);

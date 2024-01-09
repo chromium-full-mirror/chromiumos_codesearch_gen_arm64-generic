@@ -404,6 +404,8 @@ NOINLINE static const char* LaunchSourceToStringHelper(LaunchSource value) {
       return "kFromUrlHandler";
     case LaunchSource::kFromSysTrayCalendar:
       return "kFromSysTrayCalendar";
+    case LaunchSource::kFromInstaller:
+      return "kFromInstaller";
     default:
       return nullptr;
   }
@@ -541,7 +543,100 @@ std::ostream& operator<<(std::ostream& os, TriState value) {
   return os << TriStateToString(value);
 }
 
+NOINLINE static const char* ControllerRegistrationResultToStringHelper(ControllerRegistrationResult value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case ControllerRegistrationResult::kSuccess:
+      return "kSuccess";
+    case ControllerRegistrationResult::kFailed:
+      return "kFailed";
+    default:
+      return nullptr;
+  }
+}
+
+std::string ControllerRegistrationResultToString(ControllerRegistrationResult value) {
+  const char *str = ControllerRegistrationResultToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown ControllerRegistrationResult value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, ControllerRegistrationResult value) {
+  return os << ControllerRegistrationResultToString(value);
+}
+
+NOINLINE static const char* InstallAppParams_SurfaceToStringHelper(InstallAppParams_Surface value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case InstallAppParams_Surface::kUnknown:
+      return "kUnknown";
+    case InstallAppParams_Surface::kAppInstallNavigationThrottle:
+      return "kAppInstallNavigationThrottle";
+    default:
+      return nullptr;
+  }
+}
+
+std::string InstallAppParams_SurfaceToString(InstallAppParams_Surface value) {
+  const char *str = InstallAppParams_SurfaceToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown InstallAppParams_Surface value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, InstallAppParams_Surface value) {
+  return os << InstallAppParams_SurfaceToString(value);
+}
+
 namespace internal {
+// static
+bool IconUpdateVersion_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context,
+    bool inlined) {
+  if (!data) {
+    DCHECK(!inlined);
+    return true;
+  }
+
+  // If it is inlined, the alignment is already enforced by its enclosing
+  // object. We don't have to validate that.
+  DCHECK(!inlined || mojo::internal::IsAligned(data));
+
+  if (!inlined &&
+      !mojo::internal::ValidateNonInlinedUnionHeaderAndClaimMemory(
+          data, validation_context)) {
+    return false;
+  }
+
+  const IconUpdateVersion_Data* object = static_cast<const IconUpdateVersion_Data*>(data);
+
+  if (inlined && object->is_null())
+    return true;
+
+  switch (object->tag) {
+
+    case IconUpdateVersion_Tag::kRawIconUpdated: {
+
+      return true;
+    }
+    case IconUpdateVersion_Tag::kTimeline: {
+
+      return true;
+    }
+    default: {
+
+      ReportValidationError(
+          validation_context,
+          mojo::internal::VALIDATION_ERROR_UNKNOWN_UNION_TAG,
+          "unknown tag in IconUpdateVersion");
+      return false;
+    }
+  }
+}
 // static
 bool PermissionValue_Data::Validate(
     const void* data,
@@ -609,6 +704,8 @@ bool App_Data::Validate(
     { 18, 176 },
     { 19, 184 },
     { 20, 192 },
+    { 21, 208 },
+    { 22, 216 },
   };
   if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
           data, kVersionSizes, validation_context)) {
@@ -815,12 +912,19 @@ bool App_Data::Validate(
                                          &policy_ids_validate_params)) {
     return false;
   }
+  if (object->header_.version < 22)
+    return true;
+
+
+  if (!::crosapi::mojom::internal::OptionalBool_Data
+        ::Validate(object->allow_close, validation_context))
+    return false;
 
   return true;
 }
 
 App_Data::App_Data()
-    : header_({sizeof(*this), 20}) {}
+    : header_({sizeof(*this), 22}) {}
 
 
 // static
@@ -832,6 +936,7 @@ bool IconKey_Data::Validate(
   static constexpr mojo::internal::StructVersionSize kVersionSizes[] = {
     { 0, 24 },
     { 22, 24 },
+    { 23, 40 },
   };
   if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
           data, kVersionSizes, validation_context)) {
@@ -842,12 +947,17 @@ bool IconKey_Data::Validate(
   // the message comes from an older version.
   [[maybe_unused]] const IconKey_Data* object =
       static_cast<const IconKey_Data*>(data);
+  if (object->header_.version < 23)
+    return true;
+
+  if (!mojo::internal::ValidateInlinedUnion(object->update_version, validation_context))
+    return false;
 
   return true;
 }
 
 IconKey_Data::IconKey_Data()
-    : header_({sizeof(*this), 22}) {}
+    : header_({sizeof(*this), 23}) {}
 
 
 // static
@@ -1524,7 +1634,66 @@ PreferredApp_Data::PreferredApp_Data()
 
 
 // static
-bool Shortcut_Data::Validate(
+bool AppShortcut_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  static constexpr mojo::internal::StructVersionSize kVersionSizes[] = {
+    { 0, 40 },
+    { 1, 48 },
+  };
+  if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
+          data, kVersionSizes, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const AppShortcut_Data* object =
+      static_cast<const AppShortcut_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->host_app_id, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& host_app_id_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->host_app_id, validation_context,
+                                         &host_app_id_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->local_id, 2, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& local_id_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->local_id, validation_context,
+                                         &local_id_validate_params)) {
+    return false;
+  }
+
+  constexpr const mojo::internal::ContainerValidateParams& name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->name, validation_context,
+                                         &name_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidateStruct(object->icon_key, validation_context))
+    return false;
+
+  return true;
+}
+
+AppShortcut_Data::AppShortcut_Data()
+    : header_({sizeof(*this), 1}) {}
+
+
+// static
+bool REMOVED_01_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -1536,8 +1705,8 @@ bool Shortcut_Data::Validate(
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const Shortcut_Data* object =
-      static_cast<const Shortcut_Data*>(data);
+  [[maybe_unused]] const REMOVED_01_Data* object =
+      static_cast<const REMOVED_01_Data*>(data);
 
   if (!mojo::internal::ValidatePointerNonNullable(
           object->shortcut_id, 1, validation_context)) {
@@ -1564,7 +1733,65 @@ bool Shortcut_Data::Validate(
   return true;
 }
 
-Shortcut_Data::Shortcut_Data()
+REMOVED_01_Data::REMOVED_01_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool InstallAppParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const InstallAppParams_Data* object =
+      static_cast<const InstallAppParams_Data*>(data);
+
+
+  if (!::crosapi::mojom::internal::InstallAppParams_Surface_Data
+        ::Validate(object->surface, validation_context))
+    return false;
+
+  constexpr const mojo::internal::ContainerValidateParams& package_id_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->package_id, validation_context,
+                                         &package_id_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+InstallAppParams_Data::InstallAppParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool AppInstallResult_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const AppInstallResult_Data* object =
+      static_cast<const AppInstallResult_Data*>(data);
+
+  return true;
+}
+
+AppInstallResult_Data::AppInstallResult_Data()
     : header_({sizeof(*this), 0}) {}
 
 }  // namespace internal
@@ -1717,6 +1944,26 @@ namespace perfetto {
 void TraceFormatTraits<::crosapi::mojom::TriState>::WriteIntoTrace(
    perfetto::TracedValue context, ::crosapi::mojom::TriState value) {
   return std::move(context).WriteString(::crosapi::mojom::TriStateToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::crosapi::mojom::ControllerRegistrationResult>::WriteIntoTrace(
+   perfetto::TracedValue context, ::crosapi::mojom::ControllerRegistrationResult value) {
+  return std::move(context).WriteString(::crosapi::mojom::ControllerRegistrationResultToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::crosapi::mojom::InstallAppParams_Surface>::WriteIntoTrace(
+   perfetto::TracedValue context, ::crosapi::mojom::InstallAppParams_Surface value) {
+  return std::move(context).WriteString(::crosapi::mojom::InstallAppParams_SurfaceToString(value));
 }
 
 } // namespace perfetto

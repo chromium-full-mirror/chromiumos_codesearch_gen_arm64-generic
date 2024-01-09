@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -54,12 +55,13 @@ DeviceEmulationParams::DeviceEmulationParams()
       viewport_scale(),
       screen_orientation_type(),
       screen_orientation_angle(),
-      window_segments() {}
+      window_segments(),
+      device_posture() {}
 
 DeviceEmulationParams::DeviceEmulationParams(
     EmulatedScreenType screen_type_in,
     const ::gfx::Size& screen_size_in,
-    const absl::optional<::gfx::Point>& view_position_in,
+    const std::optional<::gfx::Point>& view_position_in,
     const ::gfx::Size& view_size_in,
     float device_scale_factor_in,
     float scale_in,
@@ -67,7 +69,8 @@ DeviceEmulationParams::DeviceEmulationParams(
     float viewport_scale_in,
     ::display::mojom::ScreenOrientation screen_orientation_type_in,
     uint32_t screen_orientation_angle_in,
-    std::vector<::gfx::Rect> window_segments_in)
+    std::vector<::gfx::Rect> window_segments_in,
+    ::device::mojom::DevicePostureType device_posture_in)
     : screen_type(std::move(screen_type_in)),
       screen_size(std::move(screen_size_in)),
       view_position(std::move(view_position_in)),
@@ -78,7 +81,8 @@ DeviceEmulationParams::DeviceEmulationParams(
       viewport_scale(std::move(viewport_scale_in)),
       screen_orientation_type(std::move(screen_orientation_type_in)),
       screen_orientation_angle(std::move(screen_orientation_angle_in)),
-      window_segments(std::move(window_segments_in)) {}
+      window_segments(std::move(window_segments_in)),
+      device_posture(std::move(device_posture_in)) {}
 
 DeviceEmulationParams::~DeviceEmulationParams() = default;
 
@@ -107,7 +111,7 @@ void DeviceEmulationParams::WriteIntoTrace(
     dict.AddItem(
       "view_position"), this->view_position,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::gfx::Point>&>"
+      "<value of type const std::optional<::gfx::Point>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -184,6 +188,15 @@ void DeviceEmulationParams::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "device_posture"), this->device_posture,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ::device::mojom::DevicePostureType>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
 }
 
 bool DeviceEmulationParams::Validate(
@@ -227,6 +240,8 @@ bool StructTraits<::blink::mojom::DeviceEmulationParams::DataView, ::blink::mojo
       if (success)
         result->screen_orientation_angle = input.screen_orientation_angle();
       if (success && !input.ReadWindowSegments(&result->window_segments))
+        success = false;
+      if (success && !input.ReadDevicePosture(&result->device_posture))
         success = false;
   *output = std::move(result);
   return success;

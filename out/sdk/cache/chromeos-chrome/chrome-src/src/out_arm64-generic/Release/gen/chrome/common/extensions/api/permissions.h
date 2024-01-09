@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -32,8 +33,8 @@ struct Permissions {
   ~Permissions();
   Permissions(const Permissions&) = delete;
   Permissions& operator=(const Permissions&) = delete;
-  Permissions(Permissions&& rhs);
-  Permissions& operator=(Permissions&& rhs);
+  Permissions(Permissions&& rhs) noexcept;
+  Permissions& operator=(Permissions&& rhs) noexcept;
 
   // Populates a Permissions object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -46,28 +47,25 @@ struct Permissions {
   // Creates a deep copy of Permissions.
   Permissions Clone() const;
 
-  // Creates a Permissions object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Permissions> FromValueDeprecated(const base::Value& value);
-
   // Creates a Permissions object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<Permissions> FromValue(const base::Value::Dict& value);
+  static std::optional<Permissions> FromValue(const base::Value::Dict& value);
 
   // Creates a Permissions object from a base::Value, or nullopt on failure.
-  static absl::optional<Permissions> FromValue(const base::Value& value);
+  static std::optional<Permissions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisPermissions object.
   base::Value::Dict ToValue() const;
 
   // List of named permissions (does not include hosts or origins).
-  absl::optional<std::vector<std::string>> permissions;
+  std::optional<std::vector<std::string>> permissions;
 
   // The list of host permissions, including those specified in the
   // <code>optional_permissions</code> or <code>permissions</code> keys in the
   // manifest, and those associated with <a href='content_scripts'>Content
   // Scripts</a>.
-  absl::optional<std::vector<std::string>> origins;
+  std::optional<std::vector<std::string>> origins;
 
 };
 
@@ -93,11 +91,11 @@ base::Value::List Create(const Permissions& permissions);
 namespace Contains {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   Permissions permissions;
@@ -120,11 +118,11 @@ base::Value::List Create(bool result);
 namespace Request {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   Permissions permissions;
@@ -145,11 +143,11 @@ base::Value::List Create(bool granted);
 namespace Remove {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   Permissions permissions;

@@ -141,6 +141,23 @@ class  PageHandler_ToggleProjectorTray_Params_Data {
 };
 static_assert(sizeof(PageHandler_ToggleProjectorTray_Params_Data) == 16,
               "Bad sizeof(PageHandler_ToggleProjectorTray_Params_Data)");
+class  PageHandler_SetActiveDirectoryManaged_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t managed : 1;
+  uint8_t padfinal_[7];
+
+ private:
+  friend class mojo::internal::MessageFragment<PageHandler_SetActiveDirectoryManaged_Params_Data>;
+
+  PageHandler_SetActiveDirectoryManaged_Params_Data();
+  ~PageHandler_SetActiveDirectoryManaged_Params_Data() = delete;
+};
+static_assert(sizeof(PageHandler_SetActiveDirectoryManaged_Params_Data) == 16,
+              "Bad sizeof(PageHandler_SetActiveDirectoryManaged_Params_Data)");
 class  PageHandler_TriggerPrivacyIndicators_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -291,6 +308,24 @@ class PageHandler_ToggleProjectorTray_ParamsDataView {
 };
 
 
+class PageHandler_SetActiveDirectoryManaged_ParamsDataView {
+ public:
+  PageHandler_SetActiveDirectoryManaged_ParamsDataView() = default;
+
+  PageHandler_SetActiveDirectoryManaged_ParamsDataView(
+      internal::PageHandler_SetActiveDirectoryManaged_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  bool managed() const {
+    return data_->managed;
+  }
+ private:
+  internal::PageHandler_SetActiveDirectoryManaged_Params_Data* data_ = nullptr;
+};
+
+
 class PageHandler_TriggerPrivacyIndicators_ParamsDataView {
  public:
   PageHandler_TriggerPrivacyIndicators_ParamsDataView() = default;
@@ -331,6 +366,8 @@ class PageHandler_TriggerPrivacyIndicators_ParamsDataView {
   internal::PageHandler_TriggerPrivacyIndicators_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
+
+
 
 
 

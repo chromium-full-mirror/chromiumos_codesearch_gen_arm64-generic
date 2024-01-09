@@ -16,8 +16,8 @@ namespace blink::mojom {
 
 class BLINK_COMMON_EXPORT SharedStorageWorkletHostInterceptorForTesting : public SharedStorageWorkletHost {
   virtual SharedStorageWorkletHost* GetForwardingInterface() = 0;
-  void SelectURL(const std::string& name, std::vector<SharedStorageUrlWithMetadataPtr> urls_with_metadata, ::blink::CloneableMessage serialized_data, bool keep_alive_after_operation, const absl::optional<std::string>& context_id, SelectURLCallback callback) override;
-  void Run(const std::string& name, ::blink::CloneableMessage serialized_data, bool keep_alive_after_operation, const absl::optional<std::string>& context_id, RunCallback callback) override;
+  void SelectURL(const std::string& name, std::vector<SharedStorageUrlWithMetadataPtr> urls_with_metadata, ::blink::CloneableMessage serialized_data, bool keep_alive_after_operation, const std::optional<std::string>& context_id, const std::optional<::url::Origin>& aggregation_coordinator_origin, SelectURLCallback callback) override;
+  void Run(const std::string& name, ::blink::CloneableMessage serialized_data, bool keep_alive_after_operation, const std::optional<std::string>& context_id, const std::optional<::url::Origin>& aggregation_coordinator_origin, RunCallback callback) override;
 };
 class BLINK_COMMON_EXPORT SharedStorageWorkletHostAsyncWaiter {
  public:
@@ -28,10 +28,10 @@ class BLINK_COMMON_EXPORT SharedStorageWorkletHostAsyncWaiter {
 
   ~SharedStorageWorkletHostAsyncWaiter();
   void SelectURL(
-      const std::string& name, std::vector<SharedStorageUrlWithMetadataPtr> urls_with_metadata, ::blink::CloneableMessage serialized_data, bool keep_alive_after_operation, const absl::optional<std::string>& context_id, bool* out_success, std::string* out_error_message, absl::optional<::blink::FencedFrame::RedactedFencedFrameConfig>* out_config);
+      const std::string& name, std::vector<SharedStorageUrlWithMetadataPtr> urls_with_metadata, ::blink::CloneableMessage serialized_data, bool keep_alive_after_operation, const std::optional<std::string>& context_id, const std::optional<::url::Origin>& aggregation_coordinator_origin, bool* out_success, std::string* out_error_message, std::optional<::blink::FencedFrame::RedactedFencedFrameConfig>* out_config);
   
   void Run(
-      const std::string& name, ::blink::CloneableMessage serialized_data, bool keep_alive_after_operation, const absl::optional<std::string>& context_id, bool* out_success, std::string* out_error_message);
+      const std::string& name, ::blink::CloneableMessage serialized_data, bool keep_alive_after_operation, const std::optional<std::string>& context_id, const std::optional<::url::Origin>& aggregation_coordinator_origin, bool* out_success, std::string* out_error_message);
   
 
  private:

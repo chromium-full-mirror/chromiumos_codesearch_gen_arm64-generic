@@ -81,11 +81,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, IDBRequest>::value,
     "IDBRequest does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&IDBRequest::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "IDBRequest is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -99,7 +94,7 @@ BLINK_BINDINGS_TRACE_EVENT("IDBRequest.result.get");
 
 v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-IDBRequest* blink_receiver = V8IDBRequest::ToWrappableUnsafe(v8_receiver);
+IDBRequest* blink_receiver = V8IDBRequest::ToWrappableUnsafe(isolate, v8_receiver);
 // [CachedAttribute]
 static const V8PrivateProperty::SymbolKey kPrivatePropertyCachedAttribute;
 auto&& v8_private_cached_attribute =
@@ -140,9 +135,9 @@ BLINK_BINDINGS_TRACE_EVENT("IDBRequest.error.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-IDBRequest* blink_receiver = V8IDBRequest::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+IDBRequest* blink_receiver = V8IDBRequest::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeGet;
 const char* const class_like_name = "IDBRequest";
 const char* const property_name = "error";
@@ -167,7 +162,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-IDBRequest* blink_receiver = V8IDBRequest::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+IDBRequest* blink_receiver = V8IDBRequest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->source(script_state);
 if (!ToV8Traits<V8UnionIDBCursorOrIDBIndexOrIDBObjectStore>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -183,8 +179,9 @@ BLINK_BINDINGS_TRACE_EVENT("IDBRequest.transaction.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-IDBRequest* blink_receiver = V8IDBRequest::ToWrappableUnsafe(v8_receiver);
+IDBRequest* blink_receiver = V8IDBRequest::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->transaction();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -197,10 +194,10 @@ BLINK_BINDINGS_TRACE_EVENT("IDBRequest.readyState.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-IDBRequest* blink_receiver = V8IDBRequest::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->readyState();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+IDBRequest* blink_receiver = V8IDBRequest::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->readyState();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -212,10 +209,10 @@ BLINK_BINDINGS_TRACE_EVENT("IDBRequest.onsuccess.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-IDBRequest* blink_receiver = V8IDBRequest::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onsuccess();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+IDBRequest* blink_receiver = V8IDBRequest::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onsuccess();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -228,8 +225,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-IDBRequest* blink_receiver = V8IDBRequest::ToWrappableUnsafe(v8_receiver);
+IDBRequest* blink_receiver = V8IDBRequest::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnsuccess(event_handler);
 }
 
@@ -240,10 +238,10 @@ BLINK_BINDINGS_TRACE_EVENT("IDBRequest.onerror.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-IDBRequest* blink_receiver = V8IDBRequest::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onerror();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+IDBRequest* blink_receiver = V8IDBRequest::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onerror();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -256,8 +254,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-IDBRequest* blink_receiver = V8IDBRequest::ToWrappableUnsafe(v8_receiver);
+IDBRequest* blink_receiver = V8IDBRequest::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnerror(event_handler);
 }
 

@@ -67,7 +67,7 @@ UseCounter::Count(current_execution_context, WebFeature::kSVGClassName);
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->className();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -80,8 +80,9 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.ownerSVGElement.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->ownerSVGElement();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -94,8 +95,9 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.viewportElement.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->viewportElement();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -108,10 +110,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.onbeforexrselect.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = GlobalEventHandlersXR::onbeforexrselect(*blink_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = GlobalEventHandlersXR::onbeforexrselect(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -124,8 +126,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 GlobalEventHandlersXR::setOnbeforexrselect(*blink_receiver, event_handler);
 }
 
@@ -136,10 +139,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.onabort.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onabort();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onabort();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -152,8 +155,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnabort(event_handler);
 }
 
@@ -164,10 +168,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.onbeforeinput.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onbeforeinput();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onbeforeinput();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -180,8 +184,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnbeforeinput(event_handler);
 }
 
@@ -192,10 +197,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.onbeforematch.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onbeforematch();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onbeforematch();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -208,8 +213,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnbeforematch(event_handler);
 }
 
@@ -220,10 +226,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.onbeforetoggle.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onbeforetoggle();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onbeforetoggle();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -236,8 +242,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnbeforetoggle(event_handler);
 }
 
@@ -248,10 +255,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.onblur.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onblur();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onblur();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -264,8 +271,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnblur(event_handler);
 }
 
@@ -276,10 +284,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.oncancel.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->oncancel();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->oncancel();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -292,8 +300,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOncancel(event_handler);
 }
 
@@ -304,10 +313,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.oncanplay.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->oncanplay();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->oncanplay();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -320,8 +329,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOncanplay(event_handler);
 }
 
@@ -332,10 +342,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.oncanplaythrough.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->oncanplaythrough();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->oncanplaythrough();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -348,8 +358,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOncanplaythrough(event_handler);
 }
 
@@ -360,10 +371,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.onchange.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onchange();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onchange();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -376,8 +387,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnchange(event_handler);
 }
 
@@ -388,10 +400,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.onclick.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onclick();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onclick();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -404,8 +416,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnclick(event_handler);
 }
 
@@ -416,10 +429,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.onclose.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onclose();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onclose();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -432,8 +445,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnclose(event_handler);
 }
 
@@ -444,10 +458,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.oncontentvisibilityautostatechange.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->oncontentvisibilityautostatechange();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->oncontentvisibilityautostatechange();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -460,8 +474,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOncontentvisibilityautostatechange(event_handler);
 }
 
@@ -472,10 +487,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.oncontextlost.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->oncontextlost();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->oncontextlost();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -488,8 +503,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOncontextlost(event_handler);
 }
 
@@ -500,10 +516,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.oncontextmenu.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->oncontextmenu();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->oncontextmenu();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -516,8 +532,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOncontextmenu(event_handler);
 }
 
@@ -528,10 +545,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.oncontextrestored.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->oncontextrestored();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->oncontextrestored();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -544,8 +561,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOncontextrestored(event_handler);
 }
 
@@ -556,10 +574,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.oncuechange.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->oncuechange();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->oncuechange();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -572,8 +590,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOncuechange(event_handler);
 }
 
@@ -584,10 +603,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.ondblclick.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->ondblclick();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->ondblclick();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -600,8 +619,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOndblclick(event_handler);
 }
 
@@ -612,10 +632,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.ondrag.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->ondrag();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->ondrag();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -628,8 +648,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOndrag(event_handler);
 }
 
@@ -640,10 +661,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.ondragend.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->ondragend();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->ondragend();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -656,8 +677,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOndragend(event_handler);
 }
 
@@ -668,10 +690,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.ondragenter.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->ondragenter();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->ondragenter();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -684,8 +706,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOndragenter(event_handler);
 }
 
@@ -696,10 +719,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.ondragleave.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->ondragleave();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->ondragleave();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -712,8 +735,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOndragleave(event_handler);
 }
 
@@ -724,10 +748,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.ondragover.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->ondragover();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->ondragover();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -740,8 +764,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOndragover(event_handler);
 }
 
@@ -752,10 +777,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.ondragstart.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->ondragstart();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->ondragstart();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -768,8 +793,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOndragstart(event_handler);
 }
 
@@ -780,10 +806,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.ondrop.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->ondrop();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->ondrop();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -796,8 +822,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOndrop(event_handler);
 }
 
@@ -808,10 +835,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.ondurationchange.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->ondurationchange();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->ondurationchange();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -824,8 +851,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOndurationchange(event_handler);
 }
 
@@ -836,10 +864,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.onemptied.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onemptied();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onemptied();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -852,8 +880,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnemptied(event_handler);
 }
 
@@ -864,10 +893,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.onended.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onended();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onended();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -880,8 +909,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnended(event_handler);
 }
 
@@ -892,10 +922,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.onerror.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onerror();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onerror();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -908,8 +938,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kOnErrorEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnerror(event_handler);
 }
 
@@ -920,10 +951,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.onfocus.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onfocus();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onfocus();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -936,8 +967,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnfocus(event_handler);
 }
 
@@ -948,10 +980,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.onformdata.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onformdata();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onformdata();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -964,8 +996,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnformdata(event_handler);
 }
 
@@ -976,10 +1009,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.oninput.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->oninput();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->oninput();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -992,8 +1025,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOninput(event_handler);
 }
 
@@ -1004,10 +1038,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.oninvalid.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->oninvalid();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->oninvalid();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -1020,8 +1054,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOninvalid(event_handler);
 }
 
@@ -1032,10 +1067,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.onkeydown.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onkeydown();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onkeydown();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -1048,8 +1083,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnkeydown(event_handler);
 }
 
@@ -1060,10 +1096,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.onkeypress.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onkeypress();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onkeypress();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -1076,8 +1112,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnkeypress(event_handler);
 }
 
@@ -1088,10 +1125,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.onkeyup.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onkeyup();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onkeyup();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -1104,8 +1141,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnkeyup(event_handler);
 }
 
@@ -1116,10 +1154,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.onload.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onload();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onload();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -1132,8 +1170,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnload(event_handler);
 }
 
@@ -1144,10 +1183,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.onloadeddata.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onloadeddata();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onloadeddata();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -1160,8 +1199,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnloadeddata(event_handler);
 }
 
@@ -1172,10 +1212,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.onloadedmetadata.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onloadedmetadata();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onloadedmetadata();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -1188,8 +1228,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnloadedmetadata(event_handler);
 }
 
@@ -1200,10 +1241,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.onloadstart.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onloadstart();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onloadstart();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -1216,8 +1257,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnloadstart(event_handler);
 }
 
@@ -1228,10 +1270,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.onmousedown.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onmousedown();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onmousedown();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -1244,8 +1286,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnmousedown(event_handler);
 }
 
@@ -1262,7 +1305,7 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.onmouseenter.get");
 
 
 
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->onmouseenter();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
@@ -1282,7 +1325,7 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnmouseenter(event_handler);
 }
 
@@ -1299,7 +1342,7 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.onmouseleave.get");
 
 
 
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->onmouseleave();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
@@ -1319,7 +1362,7 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnmouseleave(event_handler);
 }
 
@@ -1330,10 +1373,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.onmousemove.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onmousemove();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onmousemove();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -1346,8 +1389,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnmousemove(event_handler);
 }
 
@@ -1358,10 +1402,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.onmouseout.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onmouseout();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onmouseout();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -1374,8 +1418,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnmouseout(event_handler);
 }
 
@@ -1386,10 +1431,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.onmouseover.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onmouseover();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onmouseover();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -1402,8 +1447,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnmouseover(event_handler);
 }
 
@@ -1414,10 +1460,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.onmouseup.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onmouseup();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onmouseup();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -1430,8 +1476,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnmouseup(event_handler);
 }
 
@@ -1442,10 +1489,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.onmousewheel.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onmousewheel();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onmousewheel();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -1458,8 +1505,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnmousewheel(event_handler);
 }
 
@@ -1470,10 +1518,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.onoverscroll.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onoverscroll();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onoverscroll();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -1486,8 +1534,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnoverscroll(event_handler);
 }
 
@@ -1498,10 +1547,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.onpause.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onpause();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onpause();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -1514,8 +1563,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnpause(event_handler);
 }
 
@@ -1526,10 +1576,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.onplay.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onplay();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onplay();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -1542,8 +1592,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnplay(event_handler);
 }
 
@@ -1554,10 +1605,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.onplaying.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onplaying();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onplaying();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -1570,8 +1621,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnplaying(event_handler);
 }
 
@@ -1582,10 +1634,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.onprogress.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onprogress();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onprogress();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -1598,8 +1650,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnprogress(event_handler);
 }
 
@@ -1610,10 +1663,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.onratechange.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onratechange();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onratechange();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -1626,8 +1679,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnratechange(event_handler);
 }
 
@@ -1638,10 +1692,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.onreset.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onreset();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onreset();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -1654,8 +1708,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnreset(event_handler);
 }
 
@@ -1666,10 +1721,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.onresize.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onresize();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onresize();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -1682,8 +1737,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnresize(event_handler);
 }
 
@@ -1694,10 +1750,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.onscroll.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onscroll();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onscroll();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -1710,8 +1766,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnscroll(event_handler);
 }
 
@@ -1722,10 +1779,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.onscrollend.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onscrollend();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onscrollend();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -1738,8 +1795,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnscrollend(event_handler);
 }
 
@@ -1750,10 +1808,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.onsecuritypolicyviolation.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onsecuritypolicyviolation();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onsecuritypolicyviolation();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -1766,8 +1824,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnsecuritypolicyviolation(event_handler);
 }
 
@@ -1778,10 +1837,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.onseeked.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onseeked();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onseeked();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -1794,8 +1853,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnseeked(event_handler);
 }
 
@@ -1806,10 +1866,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.onseeking.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onseeking();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onseeking();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -1822,8 +1882,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnseeking(event_handler);
 }
 
@@ -1834,10 +1895,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.onselect.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onselect();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onselect();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -1850,8 +1911,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnselect(event_handler);
 }
 
@@ -1862,10 +1924,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.onslotchange.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onslotchange();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onslotchange();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -1878,8 +1940,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnslotchange(event_handler);
 }
 
@@ -1890,10 +1953,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.onsnapchanged.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onsnapchanged();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onsnapchanged();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -1906,9 +1969,39 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnsnapchanged(event_handler);
+}
+
+void OnsnapchangingAttributeGetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  
+RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_SVGElement_onsnapchanging_Getter");
+BLINK_BINDINGS_TRACE_EVENT("SVGElement.onsnapchanging.get");
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onsnapchanging();
+bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
+}
+
+void OnsnapchangingAttributeSetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  
+RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_SVGElement_onsnapchanging_Setter");
+BLINK_BINDINGS_TRACE_EVENT("SVGElement.onsnapchanging.set");
+
+v8::Local<v8::Value> v8_property_value = info[0];
+EventListener* event_handler = JSEventHandler::CreateOrNull(
+    v8_property_value,
+    JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+blink_receiver->setOnsnapchanging(event_handler);
 }
 
 void OnstalledAttributeGetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
@@ -1918,10 +2011,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.onstalled.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onstalled();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onstalled();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -1934,8 +2027,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnstalled(event_handler);
 }
 
@@ -1946,10 +2040,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.onsubmit.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onsubmit();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onsubmit();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -1962,8 +2056,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnsubmit(event_handler);
 }
 
@@ -1974,10 +2069,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.onsuspend.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onsuspend();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onsuspend();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -1990,8 +2085,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnsuspend(event_handler);
 }
 
@@ -2002,10 +2098,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.ontimeupdate.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->ontimeupdate();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->ontimeupdate();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -2018,8 +2114,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOntimeupdate(event_handler);
 }
 
@@ -2030,10 +2127,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.ontoggle.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->ontoggle();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->ontoggle();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -2046,8 +2143,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOntoggle(event_handler);
 }
 
@@ -2058,10 +2156,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.onvolumechange.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onvolumechange();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onvolumechange();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -2074,8 +2172,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnvolumechange(event_handler);
 }
 
@@ -2086,10 +2185,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.onwaiting.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onwaiting();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onwaiting();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -2102,8 +2201,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnwaiting(event_handler);
 }
 
@@ -2114,10 +2214,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.onwebkitanimationend.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onwebkitanimationend();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onwebkitanimationend();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -2130,8 +2230,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnwebkitanimationend(event_handler);
 }
 
@@ -2142,10 +2243,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.onwebkitanimationiteration.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onwebkitanimationiteration();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onwebkitanimationiteration();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -2158,8 +2259,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnwebkitanimationiteration(event_handler);
 }
 
@@ -2170,10 +2272,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.onwebkitanimationstart.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onwebkitanimationstart();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onwebkitanimationstart();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -2186,8 +2288,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnwebkitanimationstart(event_handler);
 }
 
@@ -2198,10 +2301,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.onwebkittransitionend.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onwebkittransitionend();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onwebkittransitionend();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -2214,8 +2317,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnwebkittransitionend(event_handler);
 }
 
@@ -2226,10 +2330,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.onwheel.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onwheel();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onwheel();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -2242,8 +2346,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnwheel(event_handler);
 }
 
@@ -2254,10 +2359,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.onauxclick.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onauxclick();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onauxclick();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -2270,8 +2375,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnauxclick(event_handler);
 }
 
@@ -2282,10 +2388,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.ongotpointercapture.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->ongotpointercapture();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->ongotpointercapture();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -2298,8 +2404,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOngotpointercapture(event_handler);
 }
 
@@ -2310,10 +2417,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.onlostpointercapture.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onlostpointercapture();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onlostpointercapture();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -2326,8 +2433,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnlostpointercapture(event_handler);
 }
 
@@ -2338,10 +2446,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.onpointerdown.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onpointerdown();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onpointerdown();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -2354,8 +2462,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnpointerdown(event_handler);
 }
 
@@ -2366,10 +2475,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.onpointermove.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onpointermove();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onpointermove();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -2382,8 +2491,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnpointermove(event_handler);
 }
 
@@ -2394,10 +2504,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.onpointerrawupdate.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onpointerrawupdate();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onpointerrawupdate();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -2410,8 +2520,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnpointerrawupdate(event_handler);
 }
 
@@ -2422,10 +2533,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.onpointerup.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onpointerup();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onpointerup();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -2438,8 +2549,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnpointerup(event_handler);
 }
 
@@ -2450,10 +2562,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.onpointercancel.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onpointercancel();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onpointercancel();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -2466,8 +2578,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnpointercancel(event_handler);
 }
 
@@ -2478,10 +2591,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.onpointerover.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onpointerover();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onpointerover();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -2494,8 +2607,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnpointerover(event_handler);
 }
 
@@ -2506,10 +2620,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.onpointerout.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onpointerout();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onpointerout();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -2522,8 +2636,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnpointerout(event_handler);
 }
 
@@ -2534,10 +2649,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.onpointerenter.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onpointerenter();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onpointerenter();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -2550,8 +2665,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnpointerenter(event_handler);
 }
 
@@ -2562,10 +2678,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.onpointerleave.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onpointerleave();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onpointerleave();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -2578,8 +2694,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnpointerleave(event_handler);
 }
 
@@ -2590,10 +2707,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.ontouchcancel.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->ontouchcancel();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->ontouchcancel();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -2606,8 +2723,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOntouchcancel(event_handler);
 }
 
@@ -2618,10 +2736,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.ontouchend.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->ontouchend();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->ontouchend();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -2634,8 +2752,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOntouchend(event_handler);
 }
 
@@ -2646,10 +2765,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.ontouchmove.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->ontouchmove();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->ontouchmove();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -2662,8 +2781,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOntouchmove(event_handler);
 }
 
@@ -2674,10 +2794,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.ontouchstart.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->ontouchstart();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->ontouchstart();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -2690,8 +2810,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOntouchstart(event_handler);
 }
 
@@ -2702,10 +2823,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.onselectstart.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onselectstart();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onselectstart();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -2718,8 +2839,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnselectstart(event_handler);
 }
 
@@ -2730,10 +2852,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.onselectionchange.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onselectionchange();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onselectionchange();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -2746,8 +2868,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnselectionchange(event_handler);
 }
 
@@ -2758,10 +2881,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.onanimationend.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onanimationend();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onanimationend();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -2774,8 +2897,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnanimationend(event_handler);
 }
 
@@ -2786,10 +2910,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.onanimationiteration.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onanimationiteration();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onanimationiteration();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -2802,8 +2926,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnanimationiteration(event_handler);
 }
 
@@ -2814,10 +2939,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.onanimationstart.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onanimationstart();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onanimationstart();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -2830,8 +2955,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnanimationstart(event_handler);
 }
 
@@ -2842,10 +2968,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.ontransitionrun.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->ontransitionrun();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->ontransitionrun();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -2858,8 +2984,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOntransitionrun(event_handler);
 }
 
@@ -2870,10 +2997,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.ontransitionstart.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->ontransitionstart();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->ontransitionstart();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -2886,8 +3013,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOntransitionstart(event_handler);
 }
 
@@ -2898,10 +3026,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.ontransitionend.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->ontransitionend();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->ontransitionend();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -2914,8 +3042,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOntransitionend(event_handler);
 }
 
@@ -2926,10 +3055,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.ontransitioncancel.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->ontransitioncancel();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->ontransitioncancel();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -2942,8 +3071,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOntransitioncancel(event_handler);
 }
 
@@ -2954,10 +3084,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.oncopy.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->oncopy();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->oncopy();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -2970,8 +3100,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOncopy(event_handler);
 }
 
@@ -2982,10 +3113,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.oncut.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->oncut();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->oncut();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -2998,8 +3129,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOncut(event_handler);
 }
 
@@ -3010,10 +3142,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.onpaste.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onpaste();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onpaste();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -3026,8 +3158,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnpaste(event_handler);
 }
 
@@ -3038,8 +3171,9 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.dataset.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->dataset();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::kMainWorld);
 }
@@ -3052,8 +3186,9 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.dataset.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->dataset();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -3066,10 +3201,10 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.nonce.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->nonce();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->nonce();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -3089,7 +3224,7 @@ ExceptionState exception_state(isolate, exception_context_type, class_like_name,
 CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLString>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -3106,8 +3241,9 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.autofocus.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->FastHasAttribute(svg_names::kAutofocusAttr);
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -3129,8 +3265,9 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.tabIndex.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->tabIndex();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 }
@@ -3151,7 +3288,7 @@ ExceptionState exception_state(isolate, exception_context_type, class_like_name,
 CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLLong>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -3174,7 +3311,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8SVGElement_Focusgrou
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->FastGetAttribute(svg_names::kFocusgroupAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
@@ -3201,8 +3338,9 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.style.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->style();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::kMainWorld);
 }
@@ -3250,8 +3388,9 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.style.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->style();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -3305,7 +3444,7 @@ UseCounter::Count(current_execution_context, WebFeature::kCSSTypedOMStylePropert
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->attributeStyleMap();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -3322,8 +3461,9 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.blur");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->blur();
 
 }
@@ -3339,14 +3479,14 @@ BLINK_BINDINGS_TRACE_EVENT("SVGElement.focus");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(v8_receiver);
+SVGElement* blink_receiver = V8SVGElement::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<FocusOptions>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_options;
 if (info[0]->IsUndefined()) {
   arg1_options = FocusOptions::Create();
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "SVGElement";
 const char* const property_name = "focus";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -3398,6 +3538,7 @@ v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_funct
 {"onbeforexrselect", OnbeforexrselectAttributeGetCallback, OnbeforexrselectAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"onabort", OnabortAttributeGetCallback, OnabortAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"onbeforeinput", OnbeforeinputAttributeGetCallback, OnbeforeinputAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
+{"onbeforematch", OnbeforematchAttributeGetCallback, OnbeforematchAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"onbeforetoggle", OnbeforetoggleAttributeGetCallback, OnbeforetoggleAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"onblur", OnblurAttributeGetCallback, OnblurAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"oncancel", OncancelAttributeGetCallback, OncancelAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
@@ -3406,6 +3547,7 @@ v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_funct
 {"onchange", OnchangeAttributeGetCallback, OnchangeAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"onclick", OnclickAttributeGetCallback, OnclickAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"onclose", OncloseAttributeGetCallback, OncloseAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
+{"oncontentvisibilityautostatechange", OncontentvisibilityautostatechangeAttributeGetCallback, OncontentvisibilityautostatechangeAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"oncontextlost", OncontextlostAttributeGetCallback, OncontextlostAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"oncontextmenu", OncontextmenuAttributeGetCallback, OncontextmenuAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"oncontextrestored", OncontextrestoredAttributeGetCallback, OncontextrestoredAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
@@ -3521,14 +3663,6 @@ IDLMemberInstaller::InstallOperations(isolate, world, instance_template, prototy
 void V8SVGElement::Impl::InstallContextIndependentProperties(v8::Isolate* isolate, const DOMWrapperWorld& world, v8::Local<v8::Template> instance_template, v8::Local<v8::Template> prototype_template, v8::Local<v8::Template> interface_template) {
   using bindings::IDLMemberInstaller;
 
-if (RuntimeEnabledFeatures::ContentVisibilityAutoStateChangeEventEnabled()) {
-  static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
-{"oncontentvisibilityautostatechange", OncontentvisibilityautostatechangeAttributeGetCallback, OncontentvisibilityautostatechangeAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
-};
-v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
-v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
-IDLMemberInstaller::InstallAttributes(isolate, world, instance_template, prototype_template, interface_template, signature, kAttributeTable);
-}
 if (RuntimeEnabledFeatures::OverscrollCustomizationEnabled()) {
   static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
 {"onoverscroll", OnoverscrollAttributeGetCallback, OnoverscrollAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
@@ -3545,9 +3679,17 @@ v8::Local<v8::FunctionTemplate> interface_function_template = interface_template
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
 IDLMemberInstaller::InstallAttributes(isolate, world, instance_template, prototype_template, interface_template, signature, kAttributeTable);
 }
-if (RuntimeEnabledFeatures::CSSScrollSnapEventsEnabled()) {
+if (RuntimeEnabledFeatures::CSSSnapChangedEventEnabled()) {
   static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
 {"onsnapchanged", OnsnapchangedAttributeGetCallback, OnsnapchangedAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
+};
+v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
+v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
+IDLMemberInstaller::InstallAttributes(isolate, world, instance_template, prototype_template, interface_template, signature, kAttributeTable);
+}
+if (RuntimeEnabledFeatures::CSSSnapChangingEventEnabled()) {
+  static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
+{"onsnapchanging", OnsnapchangingAttributeGetCallback, OnsnapchangingAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 };
 v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
@@ -3566,15 +3708,6 @@ void V8SVGElement::Impl::InstallContextDependentProperties(v8::Local<v8::Context
 
 ScriptState* script_state = ScriptState::From(context);
 ExecutionContext* execution_context = ExecutionContext::From(script_state);
-if ((feature_selector.IsAll() && RuntimeEnabledFeatures::BeforeMatchEventEnabled(execution_context)) || feature_selector.IsAnyOf(mojom::blink::OriginTrialFeature::kBeforeMatchEvent)) {
-  static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
-{"onbeforematch", OnbeforematchAttributeGetCallback, OnbeforematchAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
-};
-v8::Isolate* isolate = context->GetIsolate();
-v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
-v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
-IDLMemberInstaller::InstallAttributes(isolate, world, instance_object, prototype_object, interface_object, signature, kAttributeTable);
-}
 if ((feature_selector.IsAll() && RuntimeEnabledFeatures::TouchEventFeatureDetectionEnabled(execution_context)) || feature_selector.IsAnyOf(mojom::blink::OriginTrialFeature::kTouchEventFeatureDetection)) {
   static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
 {"ontouchcancel", OntouchcancelAttributeGetCallback, OntouchcancelAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},

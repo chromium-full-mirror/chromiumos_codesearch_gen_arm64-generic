@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -269,14 +270,17 @@ void LoginScreenStorageProxy::Store(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLoginScreenStorage_Store_Name, kFlags, 0, 0, nullptr);
@@ -342,14 +346,17 @@ void LoginScreenStorageProxy::Retrieve(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLoginScreenStorage_Retrieve_Name, kFlags, 0, 0, nullptr);
@@ -424,7 +431,7 @@ class LoginScreenStorage_Store_ProxyToResponder : public ::mojo::internal::Proxy
 #endif
 
   void Run(
-      const absl::optional<std::string>& in_error_message);
+      const std::optional<std::string>& in_error_message);
 };
 
 bool LoginScreenStorage_Store_ForwardToCallback::Accept(
@@ -437,7 +444,7 @@ bool LoginScreenStorage_Store_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::string> p_error_message{};
+  std::optional<std::string> p_error_message{};
   LoginScreenStorage_Store_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadErrorMessage(&p_error_message))
@@ -456,7 +463,7 @@ std::move(p_error_message));
 }
 
 void LoginScreenStorage_Store_ProxyToResponder::Run(
-    const absl::optional<std::string>& in_error_message) {
+    const std::optional<std::string>& in_error_message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply crosapi::mojom::LoginScreenStorage::Store", "async_response_parameters",
@@ -464,13 +471,14 @@ void LoginScreenStorage_Store_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("error_message"), in_error_message,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLoginScreenStorage_Store_Name, kFlags, 0, 0, nullptr);
@@ -594,7 +602,8 @@ void LoginScreenStorage_Retrieve_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kLoginScreenStorage_Retrieve_Name, kFlags, 0, 0, nullptr);
@@ -722,12 +731,12 @@ std::move(p_key), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kLoginScreenStorageValidationInfo[] = {
-    {&internal::LoginScreenStorage_Store_Params_Data::Validate,
+    { &internal::LoginScreenStorage_Store_Params_Data::Validate,
      &internal::LoginScreenStorage_Store_ResponseParams_Data::Validate},
-    {&internal::LoginScreenStorage_Retrieve_Params_Data::Validate,
+    { &internal::LoginScreenStorage_Retrieve_Params_Data::Validate,
      &internal::LoginScreenStorage_Retrieve_ResponseParams_Data::Validate},
 };
 
@@ -816,14 +825,14 @@ LoginScreenStorageAsyncWaiter::LoginScreenStorageAsyncWaiter(
 LoginScreenStorageAsyncWaiter::~LoginScreenStorageAsyncWaiter() = default;
 
 void LoginScreenStorageAsyncWaiter::Store(
-    const std::vector<std::string>& keys, LoginScreenStorageMetadataPtr metadata, const std::string& data, absl::optional<std::string>* out_error_message) {
+    const std::vector<std::string>& keys, LoginScreenStorageMetadataPtr metadata, const std::string& data, std::optional<std::string>* out_error_message) {
   base::RunLoop loop;
   proxy_->Store(std::move(keys),std::move(metadata),std::move(data),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<std::string>* out_error_message
+             std::optional<std::string>* out_error_message
 ,
-             const absl::optional<std::string>& error_message) {*out_error_message = std::move(error_message);
+             const std::optional<std::string>& error_message) {*out_error_message = std::move(error_message);
             loop->Quit();
           },
           &loop,
@@ -831,9 +840,9 @@ void LoginScreenStorageAsyncWaiter::Store(
   loop.Run();
 }
 
-absl::optional<std::string> LoginScreenStorageAsyncWaiter::Store(
+std::optional<std::string> LoginScreenStorageAsyncWaiter::Store(
     const std::vector<std::string>& keys, LoginScreenStorageMetadataPtr metadata, const std::string& data) {
-  absl::optional<std::string> async_wait_result;
+  std::optional<std::string> async_wait_result;
   Store(std::move(keys),std::move(metadata),std::move(data),&async_wait_result);
   return async_wait_result;
 }

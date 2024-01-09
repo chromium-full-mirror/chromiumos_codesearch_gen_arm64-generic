@@ -18,6 +18,7 @@
 #include "third_party/blink/renderer/bindings/modules/v8/v8_credential.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_credential_creation_options.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_credential_request_options.h"
+#include "third_party/blink/renderer/bindings/modules/v8/v8_identity_request_options.h"
 #include "third_party/blink/renderer/core/execution_context/execution_context.h"
 #include "third_party/blink/renderer/core/frame/web_feature.h"
 #include "third_party/blink/renderer/modules/credentialmanagement/credential.h"
@@ -74,11 +75,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, CredentialsContainer>::value,
     "CredentialsContainer inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&CredentialsContainer::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "CredentialsContainer is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -111,7 +107,7 @@ UseCounter::Count(current_execution_context, WebFeature::kCredentialManagerCreat
 
 
 
-CredentialsContainer* blink_receiver = V8CredentialsContainer::ToWrappableUnsafe(v8_receiver);
+CredentialsContainer* blink_receiver = V8CredentialsContainer::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -158,7 +154,7 @@ UseCounter::Count(current_execution_context, WebFeature::kCredentialManagerGet);
 
 
 
-CredentialsContainer* blink_receiver = V8CredentialsContainer::ToWrappableUnsafe(v8_receiver);
+CredentialsContainer* blink_receiver = V8CredentialsContainer::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -205,11 +201,53 @@ UseCounter::Count(current_execution_context, WebFeature::kCredentialManagerPreve
 
 
 
-CredentialsContainer* blink_receiver = V8CredentialsContainer::ToWrappableUnsafe(v8_receiver);
+CredentialsContainer* blink_receiver = V8CredentialsContainer::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
 auto&& return_value = blink_receiver->preventSilentAccess(script_state);
+bindings::V8SetReturnValue(info, return_value);
+}
+
+void RequestIdentityOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_CredentialsContainer_requestIdentity");
+BLINK_BINDINGS_TRACE_EVENT("CredentialsContainer.requestIdentity");
+
+// Promise returning function: Convert a TypeError to a reject promise.
+v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "CredentialsContainer";
+const char* const property_name = "requestIdentity";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+ExceptionToRejectPromiseScope reject_promise_scope(info, exception_state);
+if (!V8CredentialsContainer::HasInstance(isolate, v8_receiver)) {
+  exception_state.ThrowTypeError("Illegal invocation");
+return;
+}
+
+
+
+
+if (UNLIKELY(info.Length() < 1)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
+return;
+}
+
+
+
+CredentialsContainer* blink_receiver = V8CredentialsContainer::ToWrappableUnsafe(isolate, v8_receiver);
+v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
+ScriptState* receiver_script_state = ScriptState::From(receiver_context);
+ScriptState* script_state = receiver_script_state;
+auto&& arg1_options = NativeValueTraits<IdentityRequestOptions>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+auto&& return_value = blink_receiver->requestIdentity(script_state, arg1_options, exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
 bindings::V8SetReturnValue(info, return_value);
 }
 
@@ -244,7 +282,7 @@ return;
 
 
 
-CredentialsContainer* blink_receiver = V8CredentialsContainer::ToWrappableUnsafe(v8_receiver);
+CredentialsContainer* blink_receiver = V8CredentialsContainer::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -279,6 +317,7 @@ bindings::SetupIDLInterfaceTemplate(isolate, wrapper_type_info, instance_object_
 v8::Local<v8::Template> instance_template = instance_object_template;
 v8::Local<v8::Template> prototype_template = prototype_object_template;
 InstallUnconditionalProperties(isolate, world, instance_template, prototype_template, interface_template);
+InstallContextIndependentProperties(isolate, world, instance_template, prototype_template, interface_template);
 }
 
 void V8CredentialsContainer::InstallUnconditionalProperties(v8::Isolate* isolate, const DOMWrapperWorld& world, v8::Local<v8::Template> instance_template, v8::Local<v8::Template> prototype_template, v8::Local<v8::Template> interface_template) {
@@ -304,6 +343,24 @@ IDLMemberInstaller::InstallOperations(isolate, world, instance_template, prototy
 
 }
 
+void V8CredentialsContainer::InstallContextIndependentProperties(v8::Isolate* isolate, const DOMWrapperWorld& world, v8::Local<v8::Template> instance_template, v8::Local<v8::Template> prototype_template, v8::Local<v8::Template> interface_template) {
+  using bindings::IDLMemberInstaller;
+
+
+
+
+
+if (RuntimeEnabledFeatures::WebIdentityDigitalCredentialsEnabled()) {
+  static const IDLMemberInstaller::OperationConfig kOperationTable[] = {
+{"requestIdentity", RequestIdentityOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kDoNotCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+};
+v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
+v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
+IDLMemberInstaller::InstallOperations(isolate, world, instance_template, prototype_template, interface_template, signature, kOperationTable);
+}
+
+
+}
 
 
 

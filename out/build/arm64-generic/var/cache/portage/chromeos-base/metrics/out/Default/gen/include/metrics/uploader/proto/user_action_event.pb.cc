@@ -4,43 +4,46 @@
 #include "user_action_event.pb.h"
 
 #include <algorithm>
-
-#include <google/protobuf/io/coded_stream.h>
-#include <google/protobuf/extension_set.h>
-#include <google/protobuf/wire_format_lite.h>
-#include <google/protobuf/io/zero_copy_stream_impl_lite.h>
+#include "google/protobuf/io/coded_stream.h"
+#include "google/protobuf/extension_set.h"
+#include "google/protobuf/wire_format_lite.h"
+#include "google/protobuf/io/zero_copy_stream_impl_lite.h"
 // @@protoc_insertion_point(includes)
-#include <google/protobuf/port_def.inc>
 
+// Must be included last.
+#include "google/protobuf/port_def.inc"
 PROTOBUF_PRAGMA_INIT_SEG
-
 namespace _pb = ::PROTOBUF_NAMESPACE_ID;
-namespace _pbi = _pb::internal;
-
+namespace _pbi = ::PROTOBUF_NAMESPACE_ID::internal;
 namespace metrics {
+template <typename>
 PROTOBUF_CONSTEXPR UserActionEventProto::UserActionEventProto(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.name_hash_)*/uint64_t{0u}
-  , /*decltype(_impl_.time_)*/int64_t{0}} {}
+  , /*decltype(_impl_.name_hash_)*/ ::uint64_t{0u}
+
+  , /*decltype(_impl_.time_)*/ ::int64_t{0}
+} {}
 struct UserActionEventProtoDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR UserActionEventProtoDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR UserActionEventProtoDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~UserActionEventProtoDefaultTypeInternal() {}
   union {
     UserActionEventProto _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 UserActionEventProtoDefaultTypeInternal _UserActionEventProto_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 UserActionEventProtoDefaultTypeInternal _UserActionEventProto_default_instance_;
 }  // namespace metrics
 namespace metrics {
-
 // ===================================================================
 
 class UserActionEventProto::_Internal {
  public:
   using HasBits = decltype(std::declval<UserActionEventProto>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(UserActionEventProto, _impl_._has_bits_);
   static void set_has_name_hash(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -49,37 +52,27 @@ class UserActionEventProto::_Internal {
   }
 };
 
-UserActionEventProto::UserActionEventProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+UserActionEventProto::UserActionEventProto(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:metrics.UserActionEventProto)
 }
 UserActionEventProto::UserActionEventProto(const UserActionEventProto& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
-  UserActionEventProto* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_._has_bits_){from._impl_._has_bits_}
-    , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.name_hash_){}
-    , decltype(_impl_.time_){}};
-
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&_impl_.name_hash_, &from._impl_.name_hash_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.time_) -
-    reinterpret_cast<char*>(&_impl_.name_hash_)) + sizeof(_impl_.time_));
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(), _impl_(from._impl_) {
+  _internal_metadata_.MergeFrom<std::string>(
+      from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:metrics.UserActionEventProto)
 }
 
-inline void UserActionEventProto::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void UserActionEventProto::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.name_hash_){uint64_t{0u}}
-    , decltype(_impl_.time_){int64_t{0}}
+    , decltype(_impl_.name_hash_) { ::uint64_t{0u} }
+
+    , decltype(_impl_.time_) { ::int64_t{0} }
+
   };
 }
 
@@ -93,7 +86,7 @@ UserActionEventProto::~UserActionEventProto() {
 }
 
 inline void UserActionEventProto::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void UserActionEventProto::SetCachedSize(int size) const {
@@ -102,13 +95,13 @@ void UserActionEventProto::SetCachedSize(int size) const {
 
 void UserActionEventProto::Clear() {
 // @@protoc_insertion_point(message_clear_start:metrics.UserActionEventProto)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
-    ::memset(&_impl_.name_hash_, 0, static_cast<size_t>(
+    ::memset(&_impl_.name_hash_, 0, static_cast<::size_t>(
         reinterpret_cast<char*>(&_impl_.time_) -
         reinterpret_cast<char*>(&_impl_.name_hash_)) + sizeof(_impl_.time_));
   }
@@ -120,26 +113,28 @@ const char* UserActionEventProto::_InternalParse(const char* ptr, ::_pbi::ParseC
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional fixed64 name_hash = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 9)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 9)) {
           _Internal::set_has_name_hash(&has_bits);
-          _impl_.name_hash_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<uint64_t>(ptr);
-          ptr += sizeof(uint64_t);
-        } else
+          _impl_.name_hash_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<::uint64_t>(ptr);
+          ptr += sizeof(::uint64_t);
+        } else {
           goto handle_unusual;
+        }
         continue;
       // optional int64 time = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _Internal::set_has_time(&has_bits);
           _impl_.time_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -165,23 +160,25 @@ failure:
 #undef CHK_
 }
 
-uint8_t* UserActionEventProto::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* UserActionEventProto::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:metrics.UserActionEventProto)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional fixed64 name_hash = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteFixed64ToArray(1, this->_internal_name_hash(), target);
+    target = ::_pbi::WireFormatLite::WriteFixed64ToArray(
+        1, this->_internal_name_hash(), target);
   }
 
   // optional int64 time = 2;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt64ToArray(2, this->_internal_time(), target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(
+        2, this->_internal_time(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -192,11 +189,11 @@ uint8_t* UserActionEventProto::_InternalSerialize(
   return target;
 }
 
-size_t UserActionEventProto::ByteSizeLong() const {
+::size_t UserActionEventProto::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:metrics.UserActionEventProto)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -204,12 +201,13 @@ size_t UserActionEventProto::ByteSizeLong() const {
   if (cached_has_bits & 0x00000003u) {
     // optional fixed64 name_hash = 1;
     if (cached_has_bits & 0x00000001u) {
-      total_size += 1 + 8;
+      total_size += 9;
     }
 
     // optional int64 time = 2;
     if (cached_has_bits & 0x00000002u) {
-      total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_time());
+      total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(
+          this->_internal_time());
     }
 
   }
@@ -230,8 +228,8 @@ void UserActionEventProto::CheckTypeAndMergeFrom(
 void UserActionEventProto::MergeFrom(const UserActionEventProto& from) {
   UserActionEventProto* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:metrics.UserActionEventProto)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
@@ -274,7 +272,6 @@ std::string UserActionEventProto::GetTypeName() const {
   return "metrics.UserActionEventProto";
 }
 
-
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace metrics
 PROTOBUF_NAMESPACE_OPEN
@@ -283,6 +280,5 @@ Arena::CreateMaybeMessage< ::metrics::UserActionEventProto >(Arena* arena) {
   return Arena::CreateMessageInternal< ::metrics::UserActionEventProto >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
-
 // @@protoc_insertion_point(global_scope)
-#include <google/protobuf/port_undef.inc>
+#include "google/protobuf/port_undef.inc"

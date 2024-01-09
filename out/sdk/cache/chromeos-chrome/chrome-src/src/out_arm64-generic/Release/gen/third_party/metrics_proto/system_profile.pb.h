@@ -692,11 +692,12 @@ enum SystemProfileProto_ComponentId : int {
   SystemProfileProto_ComponentId_SODA_IT_IT = 59,
   SystemProfileProto_ComponentId_SODA_JA_JP = 60,
   SystemProfileProto_ComponentId_THIRD_PARTY_MODULE_LIST = 61,
-  SystemProfileProto_ComponentId_TRUST_TOKEN_KEY_COMMITMENTS = 62
+  SystemProfileProto_ComponentId_TRUST_TOKEN_KEY_COMMITMENTS = 62,
+  SystemProfileProto_ComponentId_THIRD_PARTY_COOKIE_DEPRECATION_METADATA = 63
 };
 bool SystemProfileProto_ComponentId_IsValid(int value);
 constexpr SystemProfileProto_ComponentId SystemProfileProto_ComponentId_ComponentId_MIN = SystemProfileProto_ComponentId_UNKNOWN;
-constexpr SystemProfileProto_ComponentId SystemProfileProto_ComponentId_ComponentId_MAX = SystemProfileProto_ComponentId_TRUST_TOKEN_KEY_COMMITMENTS;
+constexpr SystemProfileProto_ComponentId SystemProfileProto_ComponentId_ComponentId_MAX = SystemProfileProto_ComponentId_THIRD_PARTY_COOKIE_DEPRECATION_METADATA;
 constexpr int SystemProfileProto_ComponentId_ComponentId_ARRAYSIZE = SystemProfileProto_ComponentId_ComponentId_MAX + 1;
 
 const std::string& SystemProfileProto_ComponentId_Name(SystemProfileProto_ComponentId value);
@@ -6692,6 +6693,8 @@ class SystemProfileProto_DemoModeDimensions final :
   enum : int {
     kCustomizationFacetFieldNumber = 3,
     kCountryFieldNumber = 1,
+    kAppVersionFieldNumber = 4,
+    kResourcesVersionFieldNumber = 5,
     kRetailerFieldNumber = 2,
   };
   // repeated .metrics.SystemProfileProto.DemoModeDimensions.CustomizationFacet customization_facet = 3 [packed = true];
@@ -6729,6 +6732,42 @@ class SystemProfileProto_DemoModeDimensions final :
   std::string* _internal_mutable_country();
   public:
 
+  // optional string app_version = 4;
+  bool has_app_version() const;
+  private:
+  bool _internal_has_app_version() const;
+  public:
+  void clear_app_version();
+  const std::string& app_version() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_app_version(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_app_version();
+  PROTOBUF_NODISCARD std::string* release_app_version();
+  void set_allocated_app_version(std::string* app_version);
+  private:
+  const std::string& _internal_app_version() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_app_version(const std::string& value);
+  std::string* _internal_mutable_app_version();
+  public:
+
+  // optional string resources_version = 5;
+  bool has_resources_version() const;
+  private:
+  bool _internal_has_resources_version() const;
+  public:
+  void clear_resources_version();
+  const std::string& resources_version() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_resources_version(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_resources_version();
+  PROTOBUF_NODISCARD std::string* release_resources_version();
+  void set_allocated_resources_version(std::string* resources_version);
+  private:
+  const std::string& _internal_resources_version() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_resources_version(const std::string& value);
+  std::string* _internal_mutable_resources_version();
+  public:
+
   // optional .metrics.SystemProfileProto.DemoModeDimensions.Retailer retailer = 2;
   bool has_retailer() const;
   private:
@@ -6759,6 +6798,8 @@ class SystemProfileProto_DemoModeDimensions final :
   ::PROTOBUF_NAMESPACE_ID::RepeatedField<int> customization_facet_;
   mutable std::atomic<int> _customization_facet_cached_byte_size_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr country_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr app_version_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr resources_version_;
   ::metrics::SystemProfileProto_DemoModeDimensions_Retailer* retailer_;
   friend struct ::TableStruct_system_5fprofile_2eproto;
 };
@@ -7132,6 +7173,8 @@ class SystemProfileProto final :
     SystemProfileProto_ComponentId_THIRD_PARTY_MODULE_LIST;
   static constexpr ComponentId TRUST_TOKEN_KEY_COMMITMENTS =
     SystemProfileProto_ComponentId_TRUST_TOKEN_KEY_COMMITMENTS;
+  static constexpr ComponentId THIRD_PARTY_COOKIE_DEPRECATION_METADATA =
+    SystemProfileProto_ComponentId_THIRD_PARTY_COOKIE_DEPRECATION_METADATA;
   static inline bool ComponentId_IsValid(int value) {
     return SystemProfileProto_ComponentId_IsValid(value);
   }
@@ -14253,7 +14296,7 @@ inline void SystemProfileProto_DemoModeDimensions::set_allocated_country(std::st
 
 // optional .metrics.SystemProfileProto.DemoModeDimensions.Retailer retailer = 2;
 inline bool SystemProfileProto_DemoModeDimensions::_internal_has_retailer() const {
-  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  bool value = (_has_bits_[0] & 0x00000008u) != 0;
   PROTOBUF_ASSUME(!value || retailer_ != nullptr);
   return value;
 }
@@ -14262,7 +14305,7 @@ inline bool SystemProfileProto_DemoModeDimensions::has_retailer() const {
 }
 inline void SystemProfileProto_DemoModeDimensions::clear_retailer() {
   if (retailer_ != nullptr) retailer_->Clear();
-  _has_bits_[0] &= ~0x00000002u;
+  _has_bits_[0] &= ~0x00000008u;
 }
 inline const ::metrics::SystemProfileProto_DemoModeDimensions_Retailer& SystemProfileProto_DemoModeDimensions::_internal_retailer() const {
   const ::metrics::SystemProfileProto_DemoModeDimensions_Retailer* p = retailer_;
@@ -14280,14 +14323,14 @@ inline void SystemProfileProto_DemoModeDimensions::unsafe_arena_set_allocated_re
   }
   retailer_ = retailer;
   if (retailer) {
-    _has_bits_[0] |= 0x00000002u;
+    _has_bits_[0] |= 0x00000008u;
   } else {
-    _has_bits_[0] &= ~0x00000002u;
+    _has_bits_[0] &= ~0x00000008u;
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:metrics.SystemProfileProto.DemoModeDimensions.retailer)
 }
 inline ::metrics::SystemProfileProto_DemoModeDimensions_Retailer* SystemProfileProto_DemoModeDimensions::release_retailer() {
-  _has_bits_[0] &= ~0x00000002u;
+  _has_bits_[0] &= ~0x00000008u;
   ::metrics::SystemProfileProto_DemoModeDimensions_Retailer* temp = retailer_;
   retailer_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -14303,13 +14346,13 @@ inline ::metrics::SystemProfileProto_DemoModeDimensions_Retailer* SystemProfileP
 }
 inline ::metrics::SystemProfileProto_DemoModeDimensions_Retailer* SystemProfileProto_DemoModeDimensions::unsafe_arena_release_retailer() {
   // @@protoc_insertion_point(field_release:metrics.SystemProfileProto.DemoModeDimensions.retailer)
-  _has_bits_[0] &= ~0x00000002u;
+  _has_bits_[0] &= ~0x00000008u;
   ::metrics::SystemProfileProto_DemoModeDimensions_Retailer* temp = retailer_;
   retailer_ = nullptr;
   return temp;
 }
 inline ::metrics::SystemProfileProto_DemoModeDimensions_Retailer* SystemProfileProto_DemoModeDimensions::_internal_mutable_retailer() {
-  _has_bits_[0] |= 0x00000002u;
+  _has_bits_[0] |= 0x00000008u;
   if (retailer_ == nullptr) {
     auto* p = CreateMaybeMessage<::metrics::SystemProfileProto_DemoModeDimensions_Retailer>(GetArenaForAllocation());
     retailer_ = p;
@@ -14333,9 +14376,9 @@ inline void SystemProfileProto_DemoModeDimensions::set_allocated_retailer(::metr
       retailer = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, retailer, submessage_arena);
     }
-    _has_bits_[0] |= 0x00000002u;
+    _has_bits_[0] |= 0x00000008u;
   } else {
-    _has_bits_[0] &= ~0x00000002u;
+    _has_bits_[0] &= ~0x00000008u;
   }
   retailer_ = retailer;
   // @@protoc_insertion_point(field_set_allocated:metrics.SystemProfileProto.DemoModeDimensions.retailer)
@@ -14384,6 +14427,142 @@ inline ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>*
 SystemProfileProto_DemoModeDimensions::mutable_customization_facet() {
   // @@protoc_insertion_point(field_mutable_list:metrics.SystemProfileProto.DemoModeDimensions.customization_facet)
   return _internal_mutable_customization_facet();
+}
+
+// optional string app_version = 4;
+inline bool SystemProfileProto_DemoModeDimensions::_internal_has_app_version() const {
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  return value;
+}
+inline bool SystemProfileProto_DemoModeDimensions::has_app_version() const {
+  return _internal_has_app_version();
+}
+inline void SystemProfileProto_DemoModeDimensions::clear_app_version() {
+  app_version_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline const std::string& SystemProfileProto_DemoModeDimensions::app_version() const {
+  // @@protoc_insertion_point(field_get:metrics.SystemProfileProto.DemoModeDimensions.app_version)
+  return _internal_app_version();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void SystemProfileProto_DemoModeDimensions::set_app_version(ArgT0&& arg0, ArgT... args) {
+ _has_bits_[0] |= 0x00000002u;
+ app_version_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:metrics.SystemProfileProto.DemoModeDimensions.app_version)
+}
+inline std::string* SystemProfileProto_DemoModeDimensions::mutable_app_version() {
+  std::string* _s = _internal_mutable_app_version();
+  // @@protoc_insertion_point(field_mutable:metrics.SystemProfileProto.DemoModeDimensions.app_version)
+  return _s;
+}
+inline const std::string& SystemProfileProto_DemoModeDimensions::_internal_app_version() const {
+  return app_version_.Get();
+}
+inline void SystemProfileProto_DemoModeDimensions::_internal_set_app_version(const std::string& value) {
+  _has_bits_[0] |= 0x00000002u;
+  app_version_.Set(value, GetArenaForAllocation());
+}
+inline std::string* SystemProfileProto_DemoModeDimensions::_internal_mutable_app_version() {
+  _has_bits_[0] |= 0x00000002u;
+  return app_version_.Mutable(GetArenaForAllocation());
+}
+inline std::string* SystemProfileProto_DemoModeDimensions::release_app_version() {
+  // @@protoc_insertion_point(field_release:metrics.SystemProfileProto.DemoModeDimensions.app_version)
+  if (!_internal_has_app_version()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000002u;
+  auto* p = app_version_.Release();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (app_version_.IsDefault()) {
+    app_version_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void SystemProfileProto_DemoModeDimensions::set_allocated_app_version(std::string* app_version) {
+  if (app_version != nullptr) {
+    _has_bits_[0] |= 0x00000002u;
+  } else {
+    _has_bits_[0] &= ~0x00000002u;
+  }
+  app_version_.SetAllocated(app_version, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (app_version_.IsDefault()) {
+    app_version_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:metrics.SystemProfileProto.DemoModeDimensions.app_version)
+}
+
+// optional string resources_version = 5;
+inline bool SystemProfileProto_DemoModeDimensions::_internal_has_resources_version() const {
+  bool value = (_has_bits_[0] & 0x00000004u) != 0;
+  return value;
+}
+inline bool SystemProfileProto_DemoModeDimensions::has_resources_version() const {
+  return _internal_has_resources_version();
+}
+inline void SystemProfileProto_DemoModeDimensions::clear_resources_version() {
+  resources_version_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline const std::string& SystemProfileProto_DemoModeDimensions::resources_version() const {
+  // @@protoc_insertion_point(field_get:metrics.SystemProfileProto.DemoModeDimensions.resources_version)
+  return _internal_resources_version();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void SystemProfileProto_DemoModeDimensions::set_resources_version(ArgT0&& arg0, ArgT... args) {
+ _has_bits_[0] |= 0x00000004u;
+ resources_version_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:metrics.SystemProfileProto.DemoModeDimensions.resources_version)
+}
+inline std::string* SystemProfileProto_DemoModeDimensions::mutable_resources_version() {
+  std::string* _s = _internal_mutable_resources_version();
+  // @@protoc_insertion_point(field_mutable:metrics.SystemProfileProto.DemoModeDimensions.resources_version)
+  return _s;
+}
+inline const std::string& SystemProfileProto_DemoModeDimensions::_internal_resources_version() const {
+  return resources_version_.Get();
+}
+inline void SystemProfileProto_DemoModeDimensions::_internal_set_resources_version(const std::string& value) {
+  _has_bits_[0] |= 0x00000004u;
+  resources_version_.Set(value, GetArenaForAllocation());
+}
+inline std::string* SystemProfileProto_DemoModeDimensions::_internal_mutable_resources_version() {
+  _has_bits_[0] |= 0x00000004u;
+  return resources_version_.Mutable(GetArenaForAllocation());
+}
+inline std::string* SystemProfileProto_DemoModeDimensions::release_resources_version() {
+  // @@protoc_insertion_point(field_release:metrics.SystemProfileProto.DemoModeDimensions.resources_version)
+  if (!_internal_has_resources_version()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000004u;
+  auto* p = resources_version_.Release();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (resources_version_.IsDefault()) {
+    resources_version_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void SystemProfileProto_DemoModeDimensions::set_allocated_resources_version(std::string* resources_version) {
+  if (resources_version != nullptr) {
+    _has_bits_[0] |= 0x00000004u;
+  } else {
+    _has_bits_[0] &= ~0x00000004u;
+  }
+  resources_version_.SetAllocated(resources_version, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (resources_version_.IsDefault()) {
+    resources_version_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:metrics.SystemProfileProto.DemoModeDimensions.resources_version)
 }
 
 // -------------------------------------------------------------------

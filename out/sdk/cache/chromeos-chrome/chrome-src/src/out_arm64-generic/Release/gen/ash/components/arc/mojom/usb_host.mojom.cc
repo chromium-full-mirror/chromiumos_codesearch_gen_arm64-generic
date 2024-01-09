@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -191,7 +192,7 @@ UsbHostHostProxy::UsbHostHostProxy(mojo::MessageReceiverWithResponder* receiver)
 }
 
 void UsbHostHostProxy::OpenDevice(
-    const std::string& in_guid, const absl::optional<std::string>& in_pkg_name, OpenDeviceCallback callback) {
+    const std::string& in_guid, const std::optional<std::string>& in_pkg_name, OpenDeviceCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send arc::mojom::UsbHostHost::OpenDevice", "input_parameters",
@@ -202,17 +203,20 @@ void UsbHostHostProxy::OpenDevice(
                         "<value of type const std::string&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("pkg_name"), in_pkg_name,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUsbHostHost_OpenDevice_Name, kFlags, 0, 0, nullptr);
@@ -261,14 +265,17 @@ void UsbHostHostProxy::GetDeviceInfo(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUsbHostHost_GetDeviceInfo_Name, kFlags, 0, 0, nullptr);
@@ -316,14 +323,17 @@ void UsbHostHostProxy::RequestPermission(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUsbHostHost_RequestPermission_Name, kFlags, 0, 0, nullptr);
@@ -456,7 +466,8 @@ void UsbHostHost_OpenDevice_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUsbHostHost_OpenDevice_Name, kFlags, 0, 0, nullptr);
@@ -582,7 +593,8 @@ void UsbHostHost_GetDeviceInfo_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUsbHostHost_GetDeviceInfo_Name, kFlags, 0, 0, nullptr);
@@ -721,7 +733,8 @@ void UsbHostHost_RequestPermission_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUsbHostHost_RequestPermission_Name, kFlags, 0, 0, nullptr);
@@ -784,7 +797,7 @@ bool UsbHostHostStubDispatch::AcceptWithResponder(
       
       bool success = true;
       std::string p_guid{};
-      absl::optional<std::string> p_pkg_name{};
+      std::optional<std::string> p_pkg_name{};
       UsbHostHost_OpenDevice_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadGuid(&p_guid))
@@ -877,15 +890,15 @@ std::move(p_interactive), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kUsbHostHostValidationInfo[] = {
     {nullptr, nullptr},  // nonexistent
-    {&internal::UsbHostHost_GetDeviceInfo_Params_Data::Validate,
+    { &internal::UsbHostHost_GetDeviceInfo_Params_Data::Validate,
      &internal::UsbHostHost_GetDeviceInfo_ResponseParams_Data::Validate},
-    {&internal::UsbHostHost_RequestPermission_Params_Data::Validate,
+    { &internal::UsbHostHost_RequestPermission_Params_Data::Validate,
      &internal::UsbHostHost_RequestPermission_ResponseParams_Data::Validate},
-    {&internal::UsbHostHost_OpenDevice_Params_Data::Validate,
+    { &internal::UsbHostHost_OpenDevice_Params_Data::Validate,
      &internal::UsbHostHost_OpenDevice_ResponseParams_Data::Validate},
 };
 
@@ -1025,14 +1038,17 @@ void UsbHostInstanceProxy::Init(
                         "<value of type ::mojo::PendingRemote<UsbHostHost>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUsbHostInstance_Init_Name, kFlags, 0, 0, nullptr);
@@ -1058,7 +1074,7 @@ void UsbHostInstanceProxy::Init(
 }
 
 void UsbHostInstanceProxy::OnDeviceAdded(
-    const std::string& in_guid, const absl::optional<std::vector<std::string>>& in_event_receiver_packages) {
+    const std::string& in_guid, const std::optional<std::vector<std::string>>& in_event_receiver_packages) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send arc::mojom::UsbHostInstance::OnDeviceAdded", "input_parameters",
@@ -1069,17 +1085,20 @@ void UsbHostInstanceProxy::OnDeviceAdded(
                         "<value of type const std::string&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("event_receiver_packages"), in_event_receiver_packages,
-                        "<value of type const absl::optional<std::vector<std::string>>&>");
+                        "<value of type const std::optional<std::vector<std::string>>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUsbHostInstance_OnDeviceAdded_Name, kFlags, 0, 0, nullptr);
@@ -1118,7 +1137,7 @@ void UsbHostInstanceProxy::OnDeviceAdded(
 }
 
 void UsbHostInstanceProxy::OnDeviceRemoved(
-    const std::string& in_guid, const absl::optional<std::vector<std::string>>& in_event_receiver_packages) {
+    const std::string& in_guid, const std::optional<std::vector<std::string>>& in_event_receiver_packages) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send arc::mojom::UsbHostInstance::OnDeviceRemoved", "input_parameters",
@@ -1129,17 +1148,20 @@ void UsbHostInstanceProxy::OnDeviceRemoved(
                         "<value of type const std::string&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("event_receiver_packages"), in_event_receiver_packages,
-                        "<value of type const absl::optional<std::vector<std::string>>&>");
+                        "<value of type const std::optional<std::vector<std::string>>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUsbHostInstance_OnDeviceRemoved_Name, kFlags, 0, 0, nullptr);
@@ -1257,7 +1279,8 @@ void UsbHostInstance_Init_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUsbHostInstance_Init_Name, kFlags, 0, 0, nullptr);
@@ -1300,7 +1323,7 @@ bool UsbHostInstanceStubDispatch::Accept(
       
       bool success = true;
       std::string p_guid{};
-      absl::optional<std::vector<std::string>> p_event_receiver_packages{};
+      std::optional<std::vector<std::string>> p_event_receiver_packages{};
       UsbHostInstance_OnDeviceAdded_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadGuid(&p_guid))
@@ -1330,7 +1353,7 @@ std::move(p_event_receiver_packages));
       
       bool success = true;
       std::string p_guid{};
-      absl::optional<std::vector<std::string>> p_event_receiver_packages{};
+      std::optional<std::vector<std::string>> p_event_receiver_packages{};
       UsbHostInstance_OnDeviceRemoved_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadGuid(&p_guid))
@@ -1404,14 +1427,14 @@ std::move(p_host_remote), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kUsbHostInstanceValidationInfo[] = {
-    {&internal::UsbHostInstance_Init_Params_Data::Validate,
+    { &internal::UsbHostInstance_Init_Params_Data::Validate,
      &internal::UsbHostInstance_Init_ResponseParams_Data::Validate},
-    {&internal::UsbHostInstance_OnDeviceAdded_Params_Data::Validate,
+    { &internal::UsbHostInstance_OnDeviceAdded_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::UsbHostInstance_OnDeviceRemoved_Params_Data::Validate,
+    { &internal::UsbHostInstance_OnDeviceRemoved_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1441,7 +1464,7 @@ namespace mojo {
 namespace arc::mojom {
 
 
-void UsbHostHostInterceptorForTesting::OpenDevice(const std::string& guid, const absl::optional<std::string>& pkg_name, OpenDeviceCallback callback) {
+void UsbHostHostInterceptorForTesting::OpenDevice(const std::string& guid, const std::optional<std::string>& pkg_name, OpenDeviceCallback callback) {
   GetForwardingInterface()->OpenDevice(std::move(guid), std::move(pkg_name), std::move(callback));
 }
 void UsbHostHostInterceptorForTesting::GetDeviceInfo(const std::string& guid, GetDeviceInfoCallback callback) {
@@ -1456,7 +1479,7 @@ UsbHostHostAsyncWaiter::UsbHostHostAsyncWaiter(
 UsbHostHostAsyncWaiter::~UsbHostHostAsyncWaiter() = default;
 
 void UsbHostHostAsyncWaiter::OpenDevice(
-    const std::string& guid, const absl::optional<std::string>& pkg_name, ::mojo::ScopedHandle* out_usb_fd) {
+    const std::string& guid, const std::optional<std::string>& pkg_name, ::mojo::ScopedHandle* out_usb_fd) {
   base::RunLoop loop;
   proxy_->OpenDevice(std::move(guid),std::move(pkg_name),
       base::BindOnce(
@@ -1472,7 +1495,7 @@ void UsbHostHostAsyncWaiter::OpenDevice(
 }
 
 ::mojo::ScopedHandle UsbHostHostAsyncWaiter::OpenDevice(
-    const std::string& guid, const absl::optional<std::string>& pkg_name) {
+    const std::string& guid, const std::optional<std::string>& pkg_name) {
   ::mojo::ScopedHandle async_wait_result;
   OpenDevice(std::move(guid),std::move(pkg_name),&async_wait_result);
   return async_wait_result;
@@ -1529,10 +1552,10 @@ bool UsbHostHostAsyncWaiter::RequestPermission(
 void UsbHostInstanceInterceptorForTesting::Init(::mojo::PendingRemote<UsbHostHost> host_remote, InitCallback callback) {
   GetForwardingInterface()->Init(std::move(host_remote), std::move(callback));
 }
-void UsbHostInstanceInterceptorForTesting::OnDeviceAdded(const std::string& guid, const absl::optional<std::vector<std::string>>& event_receiver_packages) {
+void UsbHostInstanceInterceptorForTesting::OnDeviceAdded(const std::string& guid, const std::optional<std::vector<std::string>>& event_receiver_packages) {
   GetForwardingInterface()->OnDeviceAdded(std::move(guid), std::move(event_receiver_packages));
 }
-void UsbHostInstanceInterceptorForTesting::OnDeviceRemoved(const std::string& guid, const absl::optional<std::vector<std::string>>& event_receiver_packages) {
+void UsbHostInstanceInterceptorForTesting::OnDeviceRemoved(const std::string& guid, const std::optional<std::vector<std::string>>& event_receiver_packages) {
   GetForwardingInterface()->OnDeviceRemoved(std::move(guid), std::move(event_receiver_packages));
 }
 UsbHostInstanceAsyncWaiter::UsbHostInstanceAsyncWaiter(

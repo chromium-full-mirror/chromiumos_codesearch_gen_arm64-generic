@@ -42,6 +42,7 @@
 #include "services/network/public/mojom/network_context.mojom-shared.h"
 #include "services/network/public/mojom/ip_address_space.mojom-shared.h"
 #include "services/network/public/mojom/network_interface.mojom-shared.h"
+#include "services/network/public/mojom/proxy_config.mojom-shared.h"
 #include "services/network/public/mojom/network_interface_change_listener.mojom-shared.h"
 #include "services/network/public/mojom/network_param.mojom-shared.h"
 #include "services/network/public/mojom/network_quality_estimator_manager.mojom-shared.h"
@@ -53,6 +54,7 @@
 #include "services/network/public/mojom/url_loader_network_service_observer.mojom-shared.h"
 #include "services/network/public/mojom/url_response_head.mojom-shared.h"
 #include "services/network/public/mojom/client_security_state.mojom-shared.h"
+#include "services/network/public/mojom/cookie_encryption_provider.mojom-shared.h"
 #include "url/mojom/origin.mojom-shared.h"
 #include "url/mojom/url.mojom-shared.h"
 #include "services/network/public/mojom/ct_log_info.mojom-shared.h"
@@ -351,6 +353,16 @@ class NetworkServiceParamsDataView {
             &data_->system_dns_resolver, &result, message_);
     DCHECK(ret);
     return result;
+  }
+  template <typename UserType>
+  [[nodiscard]] bool ReadIpProtectionProxyBypassPolicy(UserType* output) const {
+    auto data_value = data_->ip_protection_proxy_bypass_policy;
+    return mojo::internal::Deserialize<::network::mojom::IpProtectionProxyBypassPolicy>(
+        data_value, output);
+  }
+  ::network::mojom::IpProtectionProxyBypassPolicy ip_protection_proxy_bypass_policy() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::network::mojom::IpProtectionProxyBypassPolicy>(data_->ip_protection_proxy_bypass_policy));
   }
  private:
   internal::NetworkServiceParams_Data* data_ = nullptr;
@@ -677,6 +689,8 @@ struct Serializer<::network::mojom::NetworkServiceParamsDataView, MaybeConstUser
     decltype(Traits::system_dns_resolver(input)) in_system_dns_resolver = Traits::system_dns_resolver(input);
     mojo::internal::Serialize<mojo::InterfacePtrDataView<::network::mojom::SystemDnsResolverInterfaceBase>>(
         in_system_dns_resolver, &fragment->system_dns_resolver, &fragment.message());
+    mojo::internal::Serialize<::network::mojom::IpProtectionProxyBypassPolicy>(
+        Traits::ip_protection_proxy_bypass_policy(input), &fragment->ip_protection_proxy_bypass_policy);
   }
 
   static bool Deserialize(::network::mojom::internal::NetworkServiceParams_Data* input,

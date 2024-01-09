@@ -3,7 +3,7 @@ export function getTemplate() {
     return html `<!--_html_template_start_--><style include="settings-shared"></style>
 
 <settings-card header-text="[[getHeaderText_()]]">
-  <cr-link-row id="languagesRow" label="$i18n{languagesPageTitle}" sub-label="[[getLanguageDisplayName_(
+  <cr-link-row id="languagesRow" start-icon="[[rowIcons_.languages]]" label="$i18n{languagesPageTitle}" sub-label="[[getLanguageDisplayName_(
           languages.prospectiveUILanguage, languageHelper)]]" on-click="onLanguagesV2Click_" role-description="$i18n{subpageArrowRoleDescription}">
   </cr-link-row>
   <template is="dom-if" if="[[!isRevampWayfindingEnabled_]]">

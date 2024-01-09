@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "sys-apps", "name": "fwupd", "version": "1.9.6", "revision": 279, "fullname": "sys-apps/fwupd", "fullnamerev": "sys-apps/fwupd-1.9.6-r279", "license_names": ["LGPL-2.1+"], "license_text_scanned": [], "homepages": ["https://fwupd.org"], "skip": false, "tainted": false, "ebuild_path": null}

@@ -15,6 +15,10 @@ class LauncherInternalsElement extends PolymerElement {
     static get properties() {
         return { query: String, keywords: [String] };
     }
+    query;
+    keywords;
+    listenerIds;
+    router;
     constructor() {
         super();
         this.query = '';

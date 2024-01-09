@@ -74,11 +74,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, CookieChangeEvent>::value,
     "CookieChangeEvent inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&CookieChangeEvent::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "CookieChangeEvent is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -116,7 +111,7 @@ v8::Local<v8::Value> v8_return_value;
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-CookieChangeEvent* blink_receiver = V8CookieChangeEvent::ToWrappableUnsafe(v8_receiver);
+CookieChangeEvent* blink_receiver = V8CookieChangeEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->changed();
 if (!ToV8Traits<IDLArray<CookieListItem>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -159,7 +154,7 @@ v8::Local<v8::Value> v8_return_value;
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-CookieChangeEvent* blink_receiver = V8CookieChangeEvent::ToWrappableUnsafe(v8_receiver);
+CookieChangeEvent* blink_receiver = V8CookieChangeEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->deleted();
 if (!ToV8Traits<IDLArray<CookieListItem>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -177,8 +172,9 @@ BLINK_BINDINGS_TRACE_EVENT("CookieChangeEvent.isTrusted.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-CookieChangeEvent* blink_receiver = V8CookieChangeEvent::ToWrappableUnsafe(v8_receiver);
+CookieChangeEvent* blink_receiver = V8CookieChangeEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isTrusted();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }

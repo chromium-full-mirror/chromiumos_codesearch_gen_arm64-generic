@@ -134,6 +134,16 @@ class MediaUrlParamsDataView {
   bool is_hls() const {
     return data_->is_hls;
   }
+  inline void GetHeadersDataView(
+      mojo::MapDataView<mojo::StringDataView, mojo::StringDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadHeaders(UserType* output) {
+    
+    auto* pointer = data_->headers.Get();
+    return mojo::internal::Deserialize<mojo::MapDataView<mojo::StringDataView, mojo::StringDataView>>(
+        pointer, output, message_);
+  }
  private:
   internal::MediaUrlParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -201,6 +211,20 @@ struct Serializer<::media::mojom::MediaUrlParamsDataView, MaybeConstUserType> {
     fragment->has_storage_access = Traits::has_storage_access(input);
     fragment->allow_credentials = Traits::allow_credentials(input);
     fragment->is_hls = Traits::is_hls(input);
+    decltype(Traits::headers(input)) in_headers = Traits::headers(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->headers)::BaseType>
+        headers_fragment(fragment.message());
+    constexpr const mojo::internal::ContainerValidateParams& headers_validate_params =
+        mojo::internal::GetMapValidator<*&mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>(), *&mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>()>();
+    mojo::internal::Serialize<mojo::MapDataView<mojo::StringDataView, mojo::StringDataView>>(
+        in_headers, headers_fragment, &headers_validate_params);
+    fragment->headers.Set(
+        headers_fragment.is_null() ? nullptr : headers_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->headers.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null headers in MediaUrlParams struct");
   }
 
   static bool Deserialize(::media::mojom::internal::MediaUrlParams_Data* input,
@@ -235,6 +259,11 @@ inline void MediaUrlParamsDataView::GetTopFrameOriginDataView(
     ::url::mojom::OriginDataView* output) {
   auto pointer = data_->top_frame_origin.Get();
   *output = ::url::mojom::OriginDataView(pointer, message_);
+}
+inline void MediaUrlParamsDataView::GetHeadersDataView(
+    mojo::MapDataView<mojo::StringDataView, mojo::StringDataView>* output) {
+  auto pointer = data_->headers.Get();
+  *output = mojo::MapDataView<mojo::StringDataView, mojo::StringDataView>(pointer, message_);
 }
 
 

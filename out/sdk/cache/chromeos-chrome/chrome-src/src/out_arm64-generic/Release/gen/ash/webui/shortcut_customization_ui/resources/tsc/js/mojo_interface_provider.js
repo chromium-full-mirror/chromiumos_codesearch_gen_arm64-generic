@@ -99,6 +99,12 @@ export class ShortcutProviderWrapper {
     recordMainCategoryNavigation(category) {
         this.remote.recordMainCategoryNavigation(category);
     }
+    recordEditDialogCompletedActions(completed_actions) {
+        this.remote.recordEditDialogCompletedActions(completed_actions);
+    }
+    recordAddOrEditSubactions(isAdd, subactions) {
+        this.remote.recordAddOrEditSubactions(isAdd, subactions);
+    }
 }
 export function getShortcutProvider() {
     if (!shortcutProvider) {

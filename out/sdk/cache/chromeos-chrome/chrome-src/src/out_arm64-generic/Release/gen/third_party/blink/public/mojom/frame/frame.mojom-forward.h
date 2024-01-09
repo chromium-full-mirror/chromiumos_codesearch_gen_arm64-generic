@@ -46,6 +46,8 @@ enum class ViewTransitionSameOriginOptIn : int32_t;
 
 enum class FrameOwnerElementType : int32_t;
 
+enum class NavigationApiEntryRestoreReason : int32_t;
+
 constexpr uint16_t kMaxTitleChars = 4096U;
 class SavableSubframe;
 using SavableSubframePtr = mojo::StructPtr<SavableSubframe>;

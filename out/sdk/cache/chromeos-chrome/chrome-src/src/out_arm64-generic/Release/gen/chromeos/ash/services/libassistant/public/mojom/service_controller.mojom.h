@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/ash/services/libassistant/public/mojom/service_controller.mojom-features.h"
 #include "chromeos/ash/services/libassistant/public/mojom/service_controller.mojom-shared.h"
 #include "chromeos/ash/services/libassistant/public/mojom/service_controller.mojom-forward.h"
 #include "chromeos/ash/services/libassistant/public/mojom/settings_controller.mojom.h"
@@ -320,8 +321,8 @@ class  BootupConfig {
   BootupConfig();
 
   BootupConfig(
-      const absl::optional<std::string>& s3_server_uri_override,
-      const absl::optional<std::string>& device_id_override,
+      const std::optional<std::string>& s3_server_uri_override,
+      const std::optional<std::string>& device_id_override,
       std::vector<::ash::libassistant::mojom::AuthenticationTokenPtr> authentication_tokens,
       const std::string& locale,
       bool spoken_feedback_enabled,
@@ -406,9 +407,9 @@ BootupConfig& operator=(const BootupConfig&) = delete;
   }
 
   
-  absl::optional<std::string> s3_server_uri_override;
+  std::optional<std::string> s3_server_uri_override;
   
-  absl::optional<std::string> device_id_override;
+  std::optional<std::string> device_id_override;
   
   std::vector<::ash::libassistant::mojom::AuthenticationTokenPtr> authentication_tokens;
   

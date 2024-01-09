@@ -88,6 +88,7 @@ export var DisableReason;
     DisableReason[DisableReason["kRestart"] = 7] = "kRestart";
 })(DisableReason || (DisableReason = {}));
 export class CrosHotspotConfigPendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -96,6 +97,9 @@ export class CrosHotspotConfigPendingReceiver {
     }
 }
 export class CrosHotspotConfigRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(CrosHotspotConfigPendingReceiver, handle);
@@ -134,6 +138,9 @@ export class CrosHotspotConfigRemote {
  * interface.
  */
 export class CrosHotspotConfigReceiver {
+    helper_internal_;
+    $;
+    onConnectionError;
     constructor(impl) {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(CrosHotspotConfigRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -168,6 +175,16 @@ export class CrosHotspotConfig {
  * receiver can have any number of listeners added to it.
  */
 export class CrosHotspotConfigCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    addObserver;
+    observeEnabledStateChanges;
+    getHotspotInfo;
+    setHotspotConfig;
+    enableHotspot;
+    disableHotspot;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(CrosHotspotConfigRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -201,6 +218,7 @@ export class CrosHotspotConfigCallbackRouter {
     }
 }
 export class CrosHotspotConfigObserverPendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -209,6 +227,9 @@ export class CrosHotspotConfigObserverPendingReceiver {
     }
 }
 export class CrosHotspotConfigObserverRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(CrosHotspotConfigObserverPendingReceiver, handle);
@@ -226,6 +247,9 @@ export class CrosHotspotConfigObserverRemote {
  * interface.
  */
 export class CrosHotspotConfigObserverReceiver {
+    helper_internal_;
+    $;
+    onConnectionError;
     constructor(impl) {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(CrosHotspotConfigObserverRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -255,6 +279,11 @@ export class CrosHotspotConfigObserver {
  * receiver can have any number of listeners added to it.
  */
 export class CrosHotspotConfigObserverCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    onHotspotInfoChanged;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(CrosHotspotConfigObserverRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -273,6 +302,7 @@ export class CrosHotspotConfigObserverCallbackRouter {
     }
 }
 export class HotspotEnabledStateObserverPendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -281,6 +311,9 @@ export class HotspotEnabledStateObserverPendingReceiver {
     }
 }
 export class HotspotEnabledStateObserverRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(HotspotEnabledStateObserverPendingReceiver, handle);
@@ -303,6 +336,9 @@ export class HotspotEnabledStateObserverRemote {
  * interface.
  */
 export class HotspotEnabledStateObserverReceiver {
+    helper_internal_;
+    $;
+    onConnectionError;
     constructor(impl) {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(HotspotEnabledStateObserverRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -333,6 +369,12 @@ export class HotspotEnabledStateObserver {
  * receiver can have any number of listeners added to it.
  */
 export class HotspotEnabledStateObserverCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    onHotspotTurnedOn;
+    onHotspotTurnedOff;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(HotspotEnabledStateObserverRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);

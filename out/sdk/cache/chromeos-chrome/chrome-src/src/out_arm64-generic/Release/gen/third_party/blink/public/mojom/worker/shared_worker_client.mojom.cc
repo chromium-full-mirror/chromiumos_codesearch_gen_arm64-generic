@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -174,14 +175,17 @@ void SharedWorkerClientProxy::OnCreated(
                         "<value of type ::blink::mojom::SharedWorkerCreationContextType>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSharedWorkerClient_OnCreated_Name, kFlags, 0, 0, nullptr);
@@ -213,14 +217,17 @@ void SharedWorkerClientProxy::OnConnected(
                         "<value of type const std::vector<::blink::mojom::WebFeature>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSharedWorkerClient_OnConnected_Name, kFlags, 0, 0, nullptr);
@@ -263,14 +270,17 @@ void SharedWorkerClientProxy::OnScriptLoadFailed(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSharedWorkerClient_OnScriptLoadFailed_Name, kFlags, 0, 0, nullptr);
@@ -311,14 +321,17 @@ void SharedWorkerClientProxy::OnFeatureUsed(
                         "<value of type ::blink::mojom::WebFeature>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSharedWorkerClient_OnFeatureUsed_Name, kFlags, 0, 0, nullptr);
@@ -475,16 +488,16 @@ bool SharedWorkerClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSharedWorkerClientValidationInfo[] = {
-    {&internal::SharedWorkerClient_OnCreated_Params_Data::Validate,
+    { &internal::SharedWorkerClient_OnCreated_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SharedWorkerClient_OnConnected_Params_Data::Validate,
+    { &internal::SharedWorkerClient_OnConnected_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SharedWorkerClient_OnScriptLoadFailed_Params_Data::Validate,
+    { &internal::SharedWorkerClient_OnScriptLoadFailed_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SharedWorkerClient_OnFeatureUsed_Params_Data::Validate,
+    { &internal::SharedWorkerClient_OnFeatureUsed_Params_Data::Validate,
      nullptr /* no response */},
 };
 

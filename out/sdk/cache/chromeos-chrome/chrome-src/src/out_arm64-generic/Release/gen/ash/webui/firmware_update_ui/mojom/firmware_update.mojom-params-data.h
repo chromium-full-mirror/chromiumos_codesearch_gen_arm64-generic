@@ -38,6 +38,22 @@ class  UpdateObserver_OnUpdateListChanged_Params_Data {
 };
 static_assert(sizeof(UpdateObserver_OnUpdateListChanged_Params_Data) == 16,
               "Bad sizeof(UpdateObserver_OnUpdateListChanged_Params_Data)");
+class  DeviceRequestObserver_OnDeviceRequest_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<internal::DeviceRequest_Data> request;
+
+ private:
+  friend class mojo::internal::MessageFragment<DeviceRequestObserver_OnDeviceRequest_Params_Data>;
+
+  DeviceRequestObserver_OnDeviceRequest_Params_Data();
+  ~DeviceRequestObserver_OnDeviceRequest_Params_Data() = delete;
+};
+static_assert(sizeof(DeviceRequestObserver_OnDeviceRequest_Params_Data) == 16,
+              "Bad sizeof(DeviceRequestObserver_OnDeviceRequest_Params_Data)");
 class  UpdateProgressObserver_OnStatusChanged_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -150,7 +166,7 @@ class  InstallController_BeginUpdate_Params_Data {
 };
 static_assert(sizeof(InstallController_BeginUpdate_Params_Data) == 24,
               "Bad sizeof(InstallController_BeginUpdate_Params_Data)");
-class  InstallController_AddObserver_Params_Data {
+class  InstallController_AddDeviceRequestObserver_Params_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
@@ -159,13 +175,29 @@ class  InstallController_AddObserver_Params_Data {
   mojo::internal::Interface_Data observer;
 
  private:
-  friend class mojo::internal::MessageFragment<InstallController_AddObserver_Params_Data>;
+  friend class mojo::internal::MessageFragment<InstallController_AddDeviceRequestObserver_Params_Data>;
 
-  InstallController_AddObserver_Params_Data();
-  ~InstallController_AddObserver_Params_Data() = delete;
+  InstallController_AddDeviceRequestObserver_Params_Data();
+  ~InstallController_AddDeviceRequestObserver_Params_Data() = delete;
 };
-static_assert(sizeof(InstallController_AddObserver_Params_Data) == 16,
-              "Bad sizeof(InstallController_AddObserver_Params_Data)");
+static_assert(sizeof(InstallController_AddDeviceRequestObserver_Params_Data) == 16,
+              "Bad sizeof(InstallController_AddDeviceRequestObserver_Params_Data)");
+class  InstallController_AddUpdateProgressObserver_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Interface_Data observer;
+
+ private:
+  friend class mojo::internal::MessageFragment<InstallController_AddUpdateProgressObserver_Params_Data>;
+
+  InstallController_AddUpdateProgressObserver_Params_Data();
+  ~InstallController_AddUpdateProgressObserver_Params_Data() = delete;
+};
+static_assert(sizeof(InstallController_AddUpdateProgressObserver_Params_Data) == 16,
+              "Bad sizeof(InstallController_AddUpdateProgressObserver_Params_Data)");
 
 }  // namespace internal
 
@@ -192,6 +224,32 @@ class UpdateObserver_OnUpdateListChanged_ParamsDataView {
   }
  private:
   internal::UpdateObserver_OnUpdateListChanged_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class DeviceRequestObserver_OnDeviceRequest_ParamsDataView {
+ public:
+  DeviceRequestObserver_OnDeviceRequest_ParamsDataView() = default;
+
+  DeviceRequestObserver_OnDeviceRequest_ParamsDataView(
+      internal::DeviceRequestObserver_OnDeviceRequest_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetRequestDataView(
+      DeviceRequestDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadRequest(UserType* output) {
+    
+    auto* pointer = data_->request.Get();
+    return mojo::internal::Deserialize<::ash::firmware_update::mojom::DeviceRequestDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::DeviceRequestObserver_OnDeviceRequest_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -385,12 +443,37 @@ class InstallController_BeginUpdate_ParamsDataView {
 };
 
 
-class InstallController_AddObserver_ParamsDataView {
+class InstallController_AddDeviceRequestObserver_ParamsDataView {
  public:
-  InstallController_AddObserver_ParamsDataView() = default;
+  InstallController_AddDeviceRequestObserver_ParamsDataView() = default;
 
-  InstallController_AddObserver_ParamsDataView(
-      internal::InstallController_AddObserver_Params_Data* data,
+  InstallController_AddDeviceRequestObserver_ParamsDataView(
+      internal::InstallController_AddDeviceRequestObserver_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  UserType TakeObserver() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfacePtrDataView<::ash::firmware_update::mojom::DeviceRequestObserverInterfaceBase>>(
+            &data_->observer, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+ private:
+  internal::InstallController_AddDeviceRequestObserver_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class InstallController_AddUpdateProgressObserver_ParamsDataView {
+ public:
+  InstallController_AddUpdateProgressObserver_ParamsDataView() = default;
+
+  InstallController_AddUpdateProgressObserver_ParamsDataView(
+      internal::InstallController_AddUpdateProgressObserver_Params_Data* data,
       mojo::Message* message)
       : data_(data), message_(message) {}
 
@@ -405,7 +488,7 @@ class InstallController_AddObserver_ParamsDataView {
     return result;
   }
  private:
-  internal::InstallController_AddObserver_Params_Data* data_ = nullptr;
+  internal::InstallController_AddUpdateProgressObserver_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -413,6 +496,13 @@ inline void UpdateObserver_OnUpdateListChanged_ParamsDataView::GetFirmwareUpdate
     mojo::ArrayDataView<FirmwareUpdateDataView>* output) {
   auto pointer = data_->firmware_updates.Get();
   *output = mojo::ArrayDataView<FirmwareUpdateDataView>(pointer, message_);
+}
+
+
+inline void DeviceRequestObserver_OnDeviceRequest_ParamsDataView::GetRequestDataView(
+    DeviceRequestDataView* output) {
+  auto pointer = data_->request.Get();
+  *output = DeviceRequestDataView(pointer, message_);
 }
 
 
@@ -453,6 +543,8 @@ inline void InstallController_BeginUpdate_ParamsDataView::GetFilepathDataView(
   auto pointer = data_->filepath.Get();
   *output = ::mojo_base::mojom::FilePathDataView(pointer, message_);
 }
+
+
 
 
 

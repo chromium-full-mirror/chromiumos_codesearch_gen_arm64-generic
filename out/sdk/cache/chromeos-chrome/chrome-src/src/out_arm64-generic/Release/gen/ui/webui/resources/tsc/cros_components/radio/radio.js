@@ -60,5 +60,11 @@ export class Radio extends LitElement {
       <md-radio ?disabled=${this.disabled} ?checked=${this.checkedInternal} touch-target="wrapper"></md-radio>
     `;
     }
+    updated(changedProperties) {
+        if (changedProperties.has('disabled')) {
+            // Work around for b/315384008.
+            this.renderRoot.querySelector('md-radio')?.requestUpdate();
+        }
+    }
 }
 customElements.define('cros-radio', Radio);

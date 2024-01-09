@@ -17,10 +17,10 @@ class TorqueGeneratedHeapNumber : public P {
   using Super = P;
   using TorqueGeneratedClass = TorqueGeneratedHeapNumber<D,P>;
 
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/heap-number.tq?l=10&c=20
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/heap-number.tq?l=8&c=3
   inline double value() const;
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/heap-number.tq?l=10&c=20
-  inline void set_value(double value, RelaxedStoreTag);
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/heap-number.tq?l=8&c=3
+  inline void set_value(double value);
 
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/heap-number.tq?l=5&c=1
   V8_INLINE static Tagged<D> cast(Tagged<Object> object);
@@ -36,7 +36,7 @@ class TorqueGeneratedHeapNumber : public P {
   V8_EXPORT_PRIVATE void HeapNumberVerify(Isolate* isolate);
 #endif  // VERIFY_HEAP
 
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/heap-number.tq?l=10&c=20
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/heap-number.tq?l=8&c=3
   static constexpr int kValueOffset = P::kHeaderSize;
   static constexpr int kValueOffsetEnd = kValueOffset + kDoubleSize - 1;
   static constexpr int kStartOfWeakFieldsOffset = kValueOffsetEnd + 1;

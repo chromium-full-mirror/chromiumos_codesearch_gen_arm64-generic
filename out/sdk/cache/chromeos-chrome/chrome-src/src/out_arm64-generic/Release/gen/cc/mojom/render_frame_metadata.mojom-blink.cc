@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -94,14 +95,14 @@ RenderFrameMetadata::RenderFrameMetadata()
 
 RenderFrameMetadata::RenderFrameMetadata(
     const ::SkColor4f& root_background_color_in,
-    const absl::optional<::gfx::PointF>& root_scroll_offset_in,
+    const std::optional<::gfx::PointF>& root_scroll_offset_in,
     bool is_scroll_offset_at_top_in,
     const ::viz::Selection<::gfx::SelectionBound>& selection_in,
     bool is_mobile_optimized_in,
     DelegatedInkBrowserMetadataPtr delegated_ink_metadata_in,
     float device_scale_factor_in,
     const ::gfx::Size& viewport_size_in_pixels_in,
-    const absl::optional<::viz::LocalSurfaceId>& local_surface_id_in,
+    const std::optional<::viz::LocalSurfaceId>& local_surface_id_in,
     float page_scale_factor_in,
     float external_page_scale_factor_in,
     float top_controls_height_in,
@@ -140,7 +141,7 @@ void RenderFrameMetadata::WriteIntoTrace(
     dict.AddItem(
       "root_scroll_offset"), this->root_scroll_offset,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::gfx::PointF>&>"
+      "<value of type const std::optional<::gfx::PointF>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -203,7 +204,7 @@ void RenderFrameMetadata::WriteIntoTrace(
     dict.AddItem(
       "local_surface_id"), this->local_surface_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::viz::LocalSurfaceId>&>"
+      "<value of type const std::optional<::viz::LocalSurfaceId>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -331,14 +332,17 @@ void RenderFrameMetadataObserverProxy::ReportAllFrameSubmissionsForTesting(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRenderFrameMetadataObserver_ReportAllFrameSubmissionsForTesting_Name, kFlags, 0, 0, nullptr);
@@ -407,10 +411,10 @@ bool RenderFrameMetadataObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kRenderFrameMetadataObserverValidationInfo[] = {
-    {&internal::RenderFrameMetadataObserver_ReportAllFrameSubmissionsForTesting_Params_Data::Validate,
+    { &internal::RenderFrameMetadataObserver_ReportAllFrameSubmissionsForTesting_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -513,14 +517,17 @@ void RenderFrameMetadataObserverClientProxy::OnRenderFrameMetadataChanged(
                         "<value of type const ::cc::RenderFrameMetadata&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRenderFrameMetadataObserverClient_OnRenderFrameMetadataChanged_Name, kFlags, 0, 0, nullptr);
@@ -562,14 +569,17 @@ void RenderFrameMetadataObserverClientProxy::OnFrameSubmissionForTesting(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRenderFrameMetadataObserverClient_OnFrameSubmissionForTesting_Name, kFlags, 0, 0, nullptr);
@@ -671,12 +681,12 @@ bool RenderFrameMetadataObserverClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kRenderFrameMetadataObserverClientValidationInfo[] = {
-    {&internal::RenderFrameMetadataObserverClient_OnRenderFrameMetadataChanged_Params_Data::Validate,
+    { &internal::RenderFrameMetadataObserverClient_OnRenderFrameMetadataChanged_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RenderFrameMetadataObserverClient_OnFrameSubmissionForTesting_Params_Data::Validate,
+    { &internal::RenderFrameMetadataObserverClient_OnFrameSubmissionForTesting_Params_Data::Validate,
      nullptr /* no response */},
 };
 

@@ -69,11 +69,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, ScriptProcessorNode>::value,
     "ScriptProcessorNode does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&ScriptProcessorNode::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "ScriptProcessorNode is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -86,10 +81,10 @@ BLINK_BINDINGS_TRACE_EVENT("ScriptProcessorNode.onaudioprocess.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-ScriptProcessorNode* blink_receiver = V8ScriptProcessorNode::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onaudioprocess();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+ScriptProcessorNode* blink_receiver = V8ScriptProcessorNode::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onaudioprocess();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -102,8 +97,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ScriptProcessorNode* blink_receiver = V8ScriptProcessorNode::ToWrappableUnsafe(v8_receiver);
+ScriptProcessorNode* blink_receiver = V8ScriptProcessorNode::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnaudioprocess(event_handler);
 }
 
@@ -114,8 +110,9 @@ BLINK_BINDINGS_TRACE_EVENT("ScriptProcessorNode.bufferSize.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-ScriptProcessorNode* blink_receiver = V8ScriptProcessorNode::ToWrappableUnsafe(v8_receiver);
+ScriptProcessorNode* blink_receiver = V8ScriptProcessorNode::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->bufferSize();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 }

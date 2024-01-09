@@ -71,11 +71,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, StyleSheet>::value,
     "StyleSheet inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&StyleSheet::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "StyleSheet is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -88,10 +83,10 @@ BLINK_BINDINGS_TRACE_EVENT("StyleSheet.type.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-StyleSheet* blink_receiver = V8StyleSheet::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->type();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+StyleSheet* blink_receiver = V8StyleSheet::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->type();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -103,10 +98,10 @@ BLINK_BINDINGS_TRACE_EVENT("StyleSheet.href.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-StyleSheet* blink_receiver = V8StyleSheet::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->href();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+StyleSheet* blink_receiver = V8StyleSheet::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->href();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
 }
 
@@ -118,8 +113,9 @@ BLINK_BINDINGS_TRACE_EVENT("StyleSheet.ownerNode.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-StyleSheet* blink_receiver = V8StyleSheet::ToWrappableUnsafe(v8_receiver);
+StyleSheet* blink_receiver = V8StyleSheet::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->ownerNode();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -132,8 +128,9 @@ BLINK_BINDINGS_TRACE_EVENT("StyleSheet.parentStyleSheet.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-StyleSheet* blink_receiver = V8StyleSheet::ToWrappableUnsafe(v8_receiver);
+StyleSheet* blink_receiver = V8StyleSheet::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->parentStyleSheet();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -146,10 +143,10 @@ BLINK_BINDINGS_TRACE_EVENT("StyleSheet.title.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-StyleSheet* blink_receiver = V8StyleSheet::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->title();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+StyleSheet* blink_receiver = V8StyleSheet::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->title();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
 }
 
@@ -161,8 +158,9 @@ BLINK_BINDINGS_TRACE_EVENT("StyleSheet.media.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-StyleSheet* blink_receiver = V8StyleSheet::ToWrappableUnsafe(v8_receiver);
+StyleSheet* blink_receiver = V8StyleSheet::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->media();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -210,8 +208,9 @@ BLINK_BINDINGS_TRACE_EVENT("StyleSheet.disabled.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-StyleSheet* blink_receiver = V8StyleSheet::ToWrappableUnsafe(v8_receiver);
+StyleSheet* blink_receiver = V8StyleSheet::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->disabled();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -223,9 +222,9 @@ BLINK_BINDINGS_TRACE_EVENT("StyleSheet.disabled.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-StyleSheet* blink_receiver = V8StyleSheet::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+StyleSheet* blink_receiver = V8StyleSheet::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "StyleSheet";

@@ -2,17 +2,20 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import '../../strings.m.js';
-import { ColorChangeUpdater } from 'chrome://resources/cr_components/color_change_listener/colors_css_updater.js';
+// 
+import './jelly_colors.js';
+// 
 import { assert } from 'chrome://resources/js/assert.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
-import { $, getRequiredElement } from 'chrome://resources/js/util_ts.js';
+import { OpenWindowProxyImpl } from 'chrome://resources/js/open_window_proxy.js';
+import { $, getRequiredElement } from 'chrome://resources/js/util.js';
+import { FeedbackBrowserProxyImpl } from './feedback_browser_proxy.js';
 import { FEEDBACK_LANDING_PAGE, FEEDBACK_LANDING_PAGE_TECHSTOP, FEEDBACK_LEGAL_HELP_URL, FEEDBACK_PRIVACY_POLICY_URL, FEEDBACK_TERM_OF_SERVICE_URL, openUrlInAppWindow } from './feedback_util.js';
 import { domainQuestions, questionnaireBegin, questionnaireNotification } from './questionnaire.js';
 import { takeScreenshot } from './take_screenshot.js';
 const formOpenTime = new Date().getTime();
-const dialogArgs = chrome.getVariableValue('dialogArguments');
 /**
- * The object will be manipulated by feedbackHelper
+ * The object will be manipulated by sendReport().
  */
 let feedbackInfo = {
     assistantDebugInfoAllowed: false,
@@ -31,65 +34,30 @@ let feedbackInfo = {
     sendHistograms: undefined,
     systemInformation: [],
     useSystemWindowFrame: false,
+    isOffensiveOrUnsafe: undefined,
+    aiMetadata: undefined,
 };
-class FeedbackHelper {
-    getSystemInformation() {
-        return new Promise(resolve => chrome.feedbackPrivate.getSystemInformation(resolve));
+async function sendFeedbackReport(useSystemInfo) {
+    const ID = Math.round(Date.now() / 1000);
+    const FLOW = feedbackInfo.flow;
+    const result = await FeedbackBrowserProxyImpl.getInstance().sendFeedback(feedbackInfo, useSystemInfo, formOpenTime);
+    if (result.status === chrome.feedbackPrivate.Status.SUCCESS) {
+        if (FLOW !== chrome.feedbackPrivate.FeedbackFlow.LOGIN &&
+            result.landingPageType !==
+                chrome.feedbackPrivate.LandingPageType.NO_LANDING_PAGE) {
+            const landingPage = result.landingPageType ===
+                chrome.feedbackPrivate.LandingPageType.NORMAL ?
+                FEEDBACK_LANDING_PAGE :
+                FEEDBACK_LANDING_PAGE_TECHSTOP;
+            OpenWindowProxyImpl.getInstance().openUrl(landingPage);
+        }
     }
-    getUserEmail() {
-        return new Promise(resolve => chrome.feedbackPrivate.getUserEmail(resolve));
+    else {
+        console.warn('Feedback: Report for request with ID ' + ID + ' will be sent later.');
     }
-    sendFeedbackReport(useSystemInfo) {
-        const ID = Math.round(Date.now() / 1000);
-        const FLOW = feedbackInfo.flow;
-        chrome.feedbackPrivate
-            .sendFeedback(feedbackInfo, useSystemInfo, formOpenTime)
-            .then(result => {
-            if (result.status === chrome.feedbackPrivate.Status.SUCCESS) {
-                if (FLOW !== chrome.feedbackPrivate.FeedbackFlow.LOGIN &&
-                    result.landingPageType !==
-                        chrome.feedbackPrivate.LandingPageType.NO_LANDING_PAGE) {
-                    const landingPage = result.landingPageType ===
-                        chrome.feedbackPrivate.LandingPageType.NORMAL ?
-                        FEEDBACK_LANDING_PAGE :
-                        FEEDBACK_LANDING_PAGE_TECHSTOP;
-                    window.open(landingPage, '_blank');
-                }
-            }
-            else {
-                console.warn('Feedback: Report for request with ID ' + ID +
-                    ' will be sent later.');
-            }
-            scheduleWindowClose();
-        });
-    }
-    // Send a message to show the WebDialog
-    showDialog() {
-        chrome.send('showDialog');
-    }
-    // Send a message to close the WebDialog
-    closeDialog() {
-        chrome.send('dialogClose');
-    }
-    // 
-    showAssistantLogsInfo() {
-        chrome.send('showAssistantLogsInfo');
-    }
-    showBluetoothLogsInfo() {
-        chrome.send('showBluetoothLogsInfo');
-    }
-    // 
-    showSystemInfo() {
-        chrome.send('showSystemInfo');
-    }
-    showMetrics() {
-        chrome.send('showMetrics');
-    }
-    showAutofillMetadataInfo() {
-        chrome.send('showAutofillMetadataInfo', [feedbackInfo.autofillMetadata]);
-    }
+    scheduleWindowClose();
 }
-const feedbackHelper = new FeedbackHelper();
+let browserProxy;
 const MAX_ATTACH_FILE_SIZE = 3 * 1024 * 1024;
 const MAX_SCREENSHOT_WIDTH = 100;
 let attachedFileBlob = null;
@@ -168,20 +136,6 @@ const thunderboltRegEx = buildWordMatcher([
     'TB4',
 ]);
 /**
- * Regular expression to check for Audio-related keywords.
- */
-const audioRegEx = buildWordMatcher([
-    'audio',
-    'sound',
-    'mic',
-    'speaker',
-    'headphone',
-    'headset',
-    'recording',
-    'volume',
-    'earbud',
-]);
-/**
  * Regular expression to check for all strings indicating that a user can't
  * connect to a HID or Audio device. This is also a likely indication of a
  * Bluetooth related issue.
@@ -225,7 +179,7 @@ function onFileSelected(fileSelectedEvent) {
     // 
     // This is needed on CrOS. Otherwise, the feedback window will stay behind
     // the Chrome window.
-    feedbackHelper.showDialog();
+    browserProxy.showDialog();
     // 
     const file = fileSelectedEvent.target.files[0];
     if (!file) {
@@ -329,9 +283,6 @@ function checkForShowQuestionnaire(inputEvent) {
     if (displayRegEx.test(matchedText)) {
         toAppend.push(...domainQuestions['display']);
     }
-    if (audioRegEx.test(matchedText)) {
-        toAppend.push(...domainQuestions['audio']);
-    }
     if (thunderboltRegEx.test(matchedText)) {
         toAppend.push(...domainQuestions['thunderbolt']);
     }
@@ -416,6 +367,13 @@ function sendReport() {
             value: String(consentCheckboxValue),
         },
     ];
+    if (feedbackInfo.flow === chrome.feedbackPrivate.FeedbackFlow.AI) {
+        feedbackInfo.isOffensiveOrUnsafe =
+            getRequiredElement('offensive-checkbox').checked;
+        if (!getRequiredElement('log-id-checkbox').checked) {
+            feedbackInfo.aiMetadata = undefined;
+        }
+    }
     feedbackInfo.description = textarea.value;
     feedbackInfo.pageUrl =
         getRequiredElement('page-url-text').value;
@@ -470,7 +428,7 @@ function sendReport() {
     }
     feedbackInfo.productId = productId;
     // Request sending the report, show the landing page (if allowed)
-    feedbackHelper.sendFeedbackReport(useSystemInfo);
+    sendFeedbackReport(useSystemInfo);
     return true;
 }
 /**
@@ -509,7 +467,7 @@ function resizeAppWindow() {
  */
 function scheduleWindowClose() {
     setTimeout(function () {
-        feedbackHelper.closeDialog();
+        browserProxy.closeDialog();
     }, 100);
 }
 /**
@@ -524,7 +482,10 @@ function scheduleWindowClose() {
  * .) Screenshot taken         -> . Show Feedback window.
  */
 function initialize() {
-    // apply received feedback info object.
+    /**
+     * Apply updates based on the received `FeedbackInfo` object.
+     * @return A promise signaling that all UI updates have finished.
+     */
     function applyData(feedbackInfo) {
         if (feedbackInfo.includeBluetoothLogs) {
             assert(feedbackInfo.flow ===
@@ -560,47 +521,59 @@ function initialize() {
             getRequiredElement('page-url-text').value =
                 feedbackInfo.pageUrl;
         }
-        takeScreenshot(function (screenshotCanvas) {
+        const isAiFlow = feedbackInfo.flow === chrome.feedbackPrivate.FeedbackFlow.AI;
+        if (isAiFlow) {
+            getRequiredElement('free-form-text').textContent =
+                loadTimeData.getString('freeFormTextAi');
+            getRequiredElement('offensive-container').hidden = false;
+            getRequiredElement('log-id-container').hidden = false;
+        }
+        const whenScreenshotUpdated = takeScreenshot().then(function (screenshotCanvas) {
             // We've taken our screenshot, show the feedback page without any
             // further delay.
             window.requestAnimationFrame(function () {
                 resizeAppWindow();
             });
-            feedbackHelper.showDialog();
+            browserProxy.showDialog();
             // Allow feedback to be sent even if the screenshot failed.
             if (!screenshotCanvas) {
                 const checkbox = getRequiredElement('screenshot-checkbox');
                 checkbox.disabled = true;
                 checkbox.checked = false;
-                return;
+                return Promise.resolve();
             }
-            screenshotCanvas.toBlob(function (blob) {
-                const image = getRequiredElement('screenshot-image');
-                image.src = URL.createObjectURL(blob);
-                // Only set the alt text when the src url is available, otherwise we'd
-                // get a broken image picture instead. crbug.com/773985.
-                image.alt = 'screenshot';
-                image.classList.toggle('wide-screen', image.width > MAX_SCREENSHOT_WIDTH);
-                feedbackInfo.screenshot = blob;
+            return new Promise(function (resolve) {
+                screenshotCanvas.toBlob(function (blob) {
+                    const image = getRequiredElement('screenshot-image');
+                    image.src = URL.createObjectURL(blob);
+                    // Only set the alt text when the src url is available, otherwise we'd
+                    // get a broken image picture instead. crbug.com/773985.
+                    image.alt = 'screenshot';
+                    image.classList.toggle('wide-screen', image.width > MAX_SCREENSHOT_WIDTH);
+                    feedbackInfo.screenshot = blob;
+                    resolve();
+                });
             });
         });
-        feedbackHelper.getUserEmail().then(function (email) {
-            // Never add an empty option.
-            if (!email) {
-                return;
-            }
-            const optionElement = document.createElement('option');
-            optionElement.value = email;
-            optionElement.text = email;
-            optionElement.selected = true;
-            // Make sure the "Report anonymously" option comes last.
-            getRequiredElement('user-email-drop-down')
-                .insertBefore(optionElement, getRequiredElement('anonymous-user-option'));
-            // Now we can unhide the user email section:
-            getRequiredElement('user-email').hidden = false;
-            // Only show email consent checkbox when an email address exists.
-            getRequiredElement('consent-container').hidden = false;
-        });
+        const whenEmailUpdated = isAiFlow ?
+            Promise.resolve() :
+            browserProxy.getUserEmail().then(function (email) {
+                // Never add an empty option.
+                if (!email) {
+                    return;
+                }
+                const optionElement = document.createElement('option');
+                optionElement.value = email;
+                optionElement.text = email;
+                optionElement.selected = true;
+                // Make sure the "Report anonymously" option comes last.
+                getRequiredElement('user-email-drop-down')
+                    .insertBefore(optionElement, getRequiredElement('anonymous-user-option'));
+                // Now we can unhide the user email section:
+                getRequiredElement('user-email').hidden = false;
+                // Only show email consent checkbox when an email address exists.
+                getRequiredElement('consent-container').hidden = false;
+            });
         // An extension called us with an attached file.
         if (feedbackInfo.attachedFile) {
             getRequiredElement('attached-filename-text').textContent =
@@ -628,7 +601,7 @@ function initialize() {
             // Opens a new window showing the full anonymized autofill metadata.
             autofillMetadataUrlElement.onclick = function (e) {
                 e.preventDefault();
-                feedbackHelper.showAutofillMetadataInfo();
+                browserProxy.showAutofillMetadataInfo(feedbackInfo.autofillMetadata);
             };
             autofillMetadataUrlElement.onauxclick = function (e) {
                 e.preventDefault();
@@ -640,7 +613,7 @@ function initialize() {
             // information.
             sysInfoUrlElement.onclick = function (e) {
                 e.preventDefault();
-                feedbackHelper.showSystemInfo();
+                browserProxy.showSystemInfo();
             };
             sysInfoUrlElement.onauxclick = function (e) {
                 e.preventDefault();
@@ -650,7 +623,7 @@ function initialize() {
         if (histogramUrlElement) {
             histogramUrlElement.onclick = function (e) {
                 e.preventDefault();
-                feedbackHelper.showMetrics();
+                browserProxy.showMetrics();
             };
             histogramUrlElement.onauxclick = function (e) {
                 e.preventDefault();
@@ -678,7 +651,7 @@ function initialize() {
             if (bluetoothLogsInfoLinkElement) {
                 bluetoothLogsInfoLinkElement.onclick = function (e) {
                     e.preventDefault();
-                    feedbackHelper.showBluetoothLogsInfo();
+                    browserProxy.showBluetoothLogsInfo();
                     bluetoothLogsInfoLinkElement.onauxclick = function (e) {
                         e.preventDefault();
                     };
@@ -688,7 +661,7 @@ function initialize() {
             if (assistantLogsInfoLinkElement) {
                 assistantLogsInfoLinkElement.onclick = function (e) {
                     e.preventDefault();
-                    feedbackHelper.showAssistantLogsInfo();
+                    browserProxy.showAssistantLogsInfo();
                     assistantLogsInfoLinkElement.onauxclick = function (e) {
                         e.preventDefault();
                     };
@@ -698,17 +671,22 @@ function initialize() {
         }
         // Make sure our focus starts on the description field.
         getRequiredElement('description-text').focus();
+        return Promise.all([whenScreenshotUpdated, whenEmailUpdated])
+            .then(() => { });
     }
-    window.addEventListener('DOMContentLoaded', function () {
+    window.addEventListener('DOMContentLoaded', async function () {
+        if (window.whenTestSetupDoneResolver) {
+            // Hook for tests to perform setup steps before any other code runs.
+            await window.whenTestSetupDoneResolver.promise;
+        }
+        // Initialize `browserProxy` only after tests had a chance to do setup
+        // steps, one of which is to replace the prod proxy with a test version.
+        browserProxy = FeedbackBrowserProxyImpl.getInstance();
+        const dialogArgs = browserProxy.getDialogArguments();
         if (dialogArgs) {
             feedbackInfo = JSON.parse(dialogArgs);
         }
-        applyData(feedbackInfo);
-        if (loadTimeData.getBoolean('isJellyEnabledForOsFeedback')) {
-            document.body.classList.add('jelly-enabled');
-            ColorChangeUpdater.forDocument().start();
-        }
-        Object.assign(window, { feedbackInfo, feedbackHelper });
+        await applyData(feedbackInfo);
         // Setup our event handlers.
         getRequiredElement('attach-file').addEventListener('change', onFileSelected);
         getRequiredElement('attach-file').addEventListener('click', onOpenFileDialog);
@@ -719,6 +697,8 @@ function initialize() {
         getRequiredElement('performance-info-checkbox')
             .addEventListener('change', performanceFeedbackChanged);
         // 
+        // Dispatch event used by tests.
+        document.documentElement.dispatchEvent(new CustomEvent('ready-for-testing'));
     });
 }
 initialize();

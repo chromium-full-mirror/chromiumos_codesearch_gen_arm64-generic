@@ -2,8 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-import {DialogType} from '../common/js/dialog_type.js';
 import {FilesAppState} from '../common/js/files_app_state.js';
+import {DialogType} from '../externs/ts/state.js';
 import {ActionsController} from '../foreground/js/actions_controller.js';
 import {FileFilter} from '../foreground/js/directory_contents.js';
 import {DirectoryModel} from '../foreground/js/directory_model.js';
@@ -18,10 +18,8 @@ import {TaskController} from '../foreground/js/task_controller.js';
 import {FileManagerUI} from '../foreground/js/ui/file_manager_ui.js';
 
 import {Crostini} from './background/crostini.js';
-import {FileOperationManager} from './background/file_operation_manager.js';
 import {ProgressCenter} from './background/progress_center.js';
 import {FilesAppEntry} from './files_app_entry_interfaces.js';
-import {VolumeManager} from './volume_manager.js';
 
 
 /**
@@ -48,10 +46,7 @@ export class CommandHandlerDeps {
     /** @type {FileFilter} */
     this.fileFilter;
 
-    /** @type {FileOperationManager} */
-    this.fileOperationManager;
-
-    /** @type {FileTransferController} */
+    /** @type {?FileTransferController} */
     this.fileTransferController;
 
     /** @type {FileSelectionHandler} */
@@ -75,7 +70,7 @@ export class CommandHandlerDeps {
     /** @type {FileManagerUI} */
     this.ui;
 
-    /** @type {!VolumeManager} */
+    /** @type {!import('./volume_manager.js').VolumeManager} */
     this.volumeManager;
 
     /** @type {MetadataModel} */
@@ -93,7 +88,7 @@ export class CommandHandlerDeps {
 
   // @ts-ignore: error TS2355: A function whose declared type is neither 'void'
   // nor 'any' must return a value.
-  /** @return {DirectoryEntry|FilesAppEntry} */
+  /** @return {DirectoryEntry|FilesAppEntry|null|undefined} */
   getCurrentDirectoryEntry() {}
 
   // @ts-ignore: error TS2355: A function whose declared type is neither 'void'

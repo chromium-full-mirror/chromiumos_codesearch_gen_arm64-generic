@@ -80,11 +80,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, HTMLTextAreaElement>::value,
     "HTMLTextAreaElement inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&HTMLTextAreaElement::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "HTMLTextAreaElement is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -97,10 +92,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLTextAreaElement.autocomplete.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->IDLExposedAutofillValue();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->IDLExposedAutofillValue();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -120,7 +115,7 @@ ExceptionState exception_state(isolate, exception_context_type, class_like_name,
 CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(v8_receiver);
+HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLString>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -137,8 +132,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLTextAreaElement.cols.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(v8_receiver);
+HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->cols();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -159,7 +155,7 @@ ExceptionState exception_state(isolate, exception_context_type, class_like_name,
 CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(v8_receiver);
+HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLUnsignedLong>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -176,10 +172,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLTextAreaElement.dirName.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->FastGetAttribute(html_names::kDirnameAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastGetAttribute(html_names::kDirnameAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -200,8 +196,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLTextAreaElement.disabled.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(v8_receiver);
+HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->FastHasAttribute(html_names::kDisabledAttr);
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -223,8 +220,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLTextAreaElement.form.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(v8_receiver);
+HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->formOwner();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -237,8 +235,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLTextAreaElement.maxLength.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(v8_receiver);
+HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->maxLength();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 }
@@ -259,7 +258,7 @@ ExceptionState exception_state(isolate, exception_context_type, class_like_name,
 CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(v8_receiver);
+HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLLong>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -279,8 +278,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLTextAreaElement.minLength.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(v8_receiver);
+HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->minLength();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 }
@@ -301,7 +301,7 @@ ExceptionState exception_state(isolate, exception_context_type, class_like_name,
 CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(v8_receiver);
+HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLLong>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -321,10 +321,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLTextAreaElement.name.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->GetNameAttribute();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->GetNameAttribute();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -345,10 +345,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLTextAreaElement.placeholder.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->FastGetAttribute(html_names::kPlaceholderAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastGetAttribute(html_names::kPlaceholderAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -369,8 +369,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLTextAreaElement.readOnly.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(v8_receiver);
+HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->FastHasAttribute(html_names::kReadonlyAttr);
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -392,8 +393,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLTextAreaElement.required.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(v8_receiver);
+HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->FastHasAttribute(html_names::kRequiredAttr);
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -415,8 +417,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLTextAreaElement.rows.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(v8_receiver);
+HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->rows();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -437,7 +440,7 @@ ExceptionState exception_state(isolate, exception_context_type, class_like_name,
 CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(v8_receiver);
+HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLUnsignedLong>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -454,10 +457,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLTextAreaElement.wrap.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->FastGetAttribute(html_names::kWrapAttr);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->FastGetAttribute(html_names::kWrapAttr);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -478,10 +481,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLTextAreaElement.type.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->type();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->type();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -493,10 +496,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLTextAreaElement.defaultValue.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->defaultValue();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->defaultValue();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -516,7 +519,7 @@ ExceptionState exception_state(isolate, exception_context_type, class_like_name,
 CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(v8_receiver);
+HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLString>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -533,10 +536,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLTextAreaElement.value.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->valueForBinding();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->valueForBinding();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -556,7 +559,7 @@ ExceptionState exception_state(isolate, exception_context_type, class_like_name,
 CEReactionsScope ce_reactions_scope;
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(v8_receiver);
+HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLStringLegacyNullToEmptyString>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -573,8 +576,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLTextAreaElement.textLength.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(v8_receiver);
+HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->textLength();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -587,8 +591,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLTextAreaElement.willValidate.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(v8_receiver);
+HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->willValidate();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -601,8 +606,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLTextAreaElement.validity.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(v8_receiver);
+HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->validity();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -615,10 +621,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLTextAreaElement.validationMessage.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->validationMessage();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->validationMessage();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -630,8 +636,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLTextAreaElement.labels.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(v8_receiver);
+HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->labels();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -644,8 +651,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLTextAreaElement.selectionStart.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(v8_receiver);
+HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->selectionStart();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -657,9 +665,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLTextAreaElement.selectionStart.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "HTMLTextAreaElement";
@@ -680,8 +688,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLTextAreaElement.selectionEnd.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(v8_receiver);
+HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->selectionEnd();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -693,9 +702,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLTextAreaElement.selectionEnd.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "HTMLTextAreaElement";
@@ -716,10 +725,10 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLTextAreaElement.selectionDirection.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->selectionDirection();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->selectionDirection();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -730,9 +739,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLTextAreaElement.selectionDirection.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "HTMLTextAreaElement";
@@ -781,8 +790,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLTextAreaElement.checkValidity");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(v8_receiver);
+HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->checkValidity();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -798,8 +808,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLTextAreaElement.reportValidity");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(v8_receiver);
+HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->reportValidity();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -815,8 +826,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLTextAreaElement.select");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(v8_receiver);
+HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->select();
 
 }
@@ -829,9 +841,9 @@ BLINK_BINDINGS_TRACE_EVENT("HTMLTextAreaElement.setCustomValidity");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 if (UNLIKELY(info.Length() < 1)) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "HTMLTextAreaElement";
 const char* const property_name = "setCustomValidity";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -842,13 +854,12 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(v8_receiver);
+HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_error;
 if (LIKELY(info[0]->IsString())) {
-  arg1_error.Init(info[0].As<v8::String>());
+  arg1_error.Init(isolate, info[0].As<v8::String>());
 } else {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "HTMLTextAreaElement";
 const char* const property_name = "setCustomValidity";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -879,7 +890,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(v8_receiver);
+HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_replacement = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -909,7 +920,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(v8_receiver);
+HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_replacement = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -988,9 +999,9 @@ return;
 
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
-v8::Local<v8::Object> v8_receiver = info.This();
-HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+HTMLTextAreaElement* blink_receiver = V8HTMLTextAreaElement::ToWrappableUnsafe(isolate, v8_receiver);
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "HTMLTextAreaElement";
 const char* const property_name = "setSelectionRange";

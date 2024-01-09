@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/bluetooth/web_bluetooth.mojom-features.h"
 #include "third_party/blink/public/mojom/bluetooth/web_bluetooth.mojom-shared.h"
 #include "third_party/blink/public/mojom/bluetooth/web_bluetooth.mojom-blink-forward.h"
 #include "device/bluetooth/public/mojom/uuid.mojom-blink.h"
@@ -40,42 +41,6 @@
 #include "third_party/blink/public/platform/web_common.h"
 
 
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::WebBluetoothResult>
-    : EnumHashTraits<::blink::mojom::WebBluetoothResult, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::WebBluetoothGATTQueryQuantity>
-    : EnumHashTraits<::blink::mojom::WebBluetoothGATTQueryQuantity, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
-
-
-namespace WTF {
-template <>
-struct HashTraits<::blink::mojom::WebBluetoothWriteType>
-    : EnumHashTraits<::blink::mojom::WebBluetoothWriteType, -1000000, -1000001> {
-  static_assert(true,
-                "-1000000 is a reserved enum value");
-  static_assert(true,
-                "-1000001 is a reserved enum value");
-};
-}  // namespace WTF
 
 
 namespace blink::mojom::blink {
@@ -215,17 +180,17 @@ class BLINK_PLATFORM_EXPORT WebBluetoothService
   virtual void RemoteServerDisconnect(const ::blink::WebBluetoothDeviceId& device_id) = 0;
 
 
-  using RemoteServerGetPrimaryServicesCallback = base::OnceCallback<void(WebBluetoothResult, absl::optional<WTF::Vector<WebBluetoothRemoteGATTServicePtr>>)>;
+  using RemoteServerGetPrimaryServicesCallback = base::OnceCallback<void(WebBluetoothResult, std::optional<WTF::Vector<WebBluetoothRemoteGATTServicePtr>>)>;
   
   virtual void RemoteServerGetPrimaryServices(const ::blink::WebBluetoothDeviceId& device_id, WebBluetoothGATTQueryQuantity quantity, const ::WTF::String& services_uuid, RemoteServerGetPrimaryServicesCallback callback) = 0;
 
 
-  using RemoteServiceGetCharacteristicsCallback = base::OnceCallback<void(WebBluetoothResult, absl::optional<WTF::Vector<WebBluetoothRemoteGATTCharacteristicPtr>>)>;
+  using RemoteServiceGetCharacteristicsCallback = base::OnceCallback<void(WebBluetoothResult, std::optional<WTF::Vector<WebBluetoothRemoteGATTCharacteristicPtr>>)>;
   
   virtual void RemoteServiceGetCharacteristics(const WTF::String& service_instance_id, WebBluetoothGATTQueryQuantity quantity, const ::WTF::String& characteristics_uuid, RemoteServiceGetCharacteristicsCallback callback) = 0;
 
 
-  using RemoteCharacteristicReadValueCallback = base::OnceCallback<void(WebBluetoothResult, const absl::optional<WTF::Vector<uint8_t>>&)>;
+  using RemoteCharacteristicReadValueCallback = base::OnceCallback<void(WebBluetoothResult, const std::optional<WTF::Vector<uint8_t>>&)>;
   
   virtual void RemoteCharacteristicReadValue(const WTF::String& characteristic_instance_id, RemoteCharacteristicReadValueCallback callback) = 0;
 
@@ -245,12 +210,12 @@ class BLINK_PLATFORM_EXPORT WebBluetoothService
   virtual void RemoteCharacteristicStopNotifications(const WTF::String& characteristic_instance_id, RemoteCharacteristicStopNotificationsCallback callback) = 0;
 
 
-  using RemoteCharacteristicGetDescriptorsCallback = base::OnceCallback<void(WebBluetoothResult, absl::optional<WTF::Vector<WebBluetoothRemoteGATTDescriptorPtr>>)>;
+  using RemoteCharacteristicGetDescriptorsCallback = base::OnceCallback<void(WebBluetoothResult, std::optional<WTF::Vector<WebBluetoothRemoteGATTDescriptorPtr>>)>;
   
   virtual void RemoteCharacteristicGetDescriptors(const WTF::String& characteristics_instance_id, WebBluetoothGATTQueryQuantity quantity, const ::WTF::String& descriptor_uuid, RemoteCharacteristicGetDescriptorsCallback callback) = 0;
 
 
-  using RemoteDescriptorReadValueCallback = base::OnceCallback<void(WebBluetoothResult, const absl::optional<WTF::Vector<uint8_t>>&)>;
+  using RemoteDescriptorReadValueCallback = base::OnceCallback<void(WebBluetoothResult, const std::optional<WTF::Vector<uint8_t>>&)>;
   
   virtual void RemoteDescriptorReadValue(const WTF::String& descriptor_instance_id, RemoteDescriptorReadValueCallback callback) = 0;
 
@@ -1008,10 +973,10 @@ class BLINK_PLATFORM_EXPORT WebBluetoothLeScanFilter {
   WebBluetoothLeScanFilter();
 
   WebBluetoothLeScanFilter(
-      absl::optional<WTF::Vector<::WTF::String>> services,
+      std::optional<WTF::Vector<::WTF::String>> services,
       const WTF::String& name,
       const WTF::String& name_prefix,
-      absl::optional<WTF::HashMap<WebBluetoothCompanyPtr, WTF::Vector<WebBluetoothDataFilterPtr>>> manufacturer_data);
+      std::optional<WTF::HashMap<WebBluetoothCompanyPtr, WTF::Vector<WebBluetoothDataFilterPtr>>> manufacturer_data);
 
 WebBluetoothLeScanFilter(const WebBluetoothLeScanFilter&) = delete;
 WebBluetoothLeScanFilter& operator=(const WebBluetoothLeScanFilter&) = delete;
@@ -1091,13 +1056,13 @@ WebBluetoothLeScanFilter& operator=(const WebBluetoothLeScanFilter&) = delete;
   }
 
   
-  absl::optional<WTF::Vector<::WTF::String>> services;
+  std::optional<WTF::Vector<::WTF::String>> services;
   
   WTF::String name;
   
   WTF::String name_prefix;
   
-  absl::optional<WTF::HashMap<WebBluetoothCompanyPtr, WTF::Vector<WebBluetoothDataFilterPtr>>> manufacturer_data;
+  std::optional<WTF::HashMap<WebBluetoothCompanyPtr, WTF::Vector<WebBluetoothDataFilterPtr>>> manufacturer_data;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1161,8 +1126,8 @@ class BLINK_PLATFORM_EXPORT WebBluetoothRequestDeviceOptions {
   WebBluetoothRequestDeviceOptions();
 
   WebBluetoothRequestDeviceOptions(
-      absl::optional<WTF::Vector<WebBluetoothLeScanFilterPtr>> filters,
-      absl::optional<WTF::Vector<WebBluetoothLeScanFilterPtr>> exclusion_filters,
+      std::optional<WTF::Vector<WebBluetoothLeScanFilterPtr>> filters,
+      std::optional<WTF::Vector<WebBluetoothLeScanFilterPtr>> exclusion_filters,
       WTF::Vector<::WTF::String> optional_services,
       WTF::Vector<uint16_t> optional_manufacturer_data,
       bool accept_all_devices);
@@ -1245,9 +1210,9 @@ WebBluetoothRequestDeviceOptions& operator=(const WebBluetoothRequestDeviceOptio
   }
 
   
-  absl::optional<WTF::Vector<WebBluetoothLeScanFilterPtr>> filters;
+  std::optional<WTF::Vector<WebBluetoothLeScanFilterPtr>> filters;
   
-  absl::optional<WTF::Vector<WebBluetoothLeScanFilterPtr>> exclusion_filters;
+  std::optional<WTF::Vector<WebBluetoothLeScanFilterPtr>> exclusion_filters;
   
   WTF::Vector<::WTF::String> optional_services;
   
@@ -1315,7 +1280,7 @@ class BLINK_PLATFORM_EXPORT WebBluetoothRequestLEScanOptions {
   WebBluetoothRequestLEScanOptions();
 
   WebBluetoothRequestLEScanOptions(
-      absl::optional<WTF::Vector<WebBluetoothLeScanFilterPtr>> filters,
+      std::optional<WTF::Vector<WebBluetoothLeScanFilterPtr>> filters,
       bool keep_repeated_devices,
       bool accept_all_advertisements);
 
@@ -1397,7 +1362,7 @@ WebBluetoothRequestLEScanOptions& operator=(const WebBluetoothRequestLEScanOptio
   }
 
   
-  absl::optional<WTF::Vector<WebBluetoothLeScanFilterPtr>> filters;
+  std::optional<WTF::Vector<WebBluetoothLeScanFilterPtr>> filters;
   
   bool keep_repeated_devices;
   

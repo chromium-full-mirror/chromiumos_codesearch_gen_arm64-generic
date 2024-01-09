@@ -75,11 +75,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, DocumentPartRoot>::value,
     "DocumentPartRoot inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&DocumentPartRoot::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "DocumentPartRoot is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -92,8 +87,9 @@ BLINK_BINDINGS_TRACE_EVENT("DocumentPartRoot.rootContainer.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DocumentPartRoot* blink_receiver = V8DocumentPartRoot::ToWrappableUnsafe(v8_receiver);
+DocumentPartRoot* blink_receiver = V8DocumentPartRoot::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->rootContainer();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -123,7 +119,7 @@ const char* const property_name = "clone";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
-DocumentPartRoot* blink_receiver = V8DocumentPartRoot::ToWrappableUnsafe(v8_receiver);
+DocumentPartRoot* blink_receiver = V8DocumentPartRoot::ToWrappableUnsafe(isolate, v8_receiver);
 if (non_undefined_argument_length <= 0) {
   return_value = blink_receiver->clone(exception_state);
 break;
@@ -164,7 +160,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DocumentPartRoot* blink_receiver = V8DocumentPartRoot::ToWrappableUnsafe(v8_receiver);
+DocumentPartRoot* blink_receiver = V8DocumentPartRoot::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_index = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -194,7 +190,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DocumentPartRoot* blink_receiver = V8DocumentPartRoot::ToWrappableUnsafe(v8_receiver);
+DocumentPartRoot* blink_receiver = V8DocumentPartRoot::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_index = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -219,7 +215,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-DocumentPartRoot* blink_receiver = V8DocumentPartRoot::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+DocumentPartRoot* blink_receiver = V8DocumentPartRoot::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getParts();
 if (!ToV8Traits<IDLSequence<Part>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;

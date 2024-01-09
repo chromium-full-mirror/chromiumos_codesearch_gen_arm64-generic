@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -117,14 +118,17 @@ void RemoterFactoryProxy::Create(
                         "<value of type ::mojo::PendingReceiver<Remoter>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoterFactory_Create_Name, kFlags, 0, 0, nullptr);
@@ -212,10 +216,10 @@ bool RemoterFactoryStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kRemoterFactoryValidationInfo[] = {
-    {&internal::RemoterFactory_Create_Params_Data::Validate,
+    { &internal::RemoterFactory_Create_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -331,14 +335,17 @@ void RemotingDataStreamSenderProxy::SendFrame(
                         "<value of type ::media::mojom::DecoderBufferPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemotingDataStreamSender_SendFrame_Name, kFlags, 0, 0, nullptr);
@@ -373,14 +380,17 @@ void RemotingDataStreamSenderProxy::CancelInFlightData(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send media::mojom::RemotingDataStreamSender::CancelInFlightData");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemotingDataStreamSender_CancelInFlightData_Name, kFlags, 0, 0, nullptr);
@@ -478,7 +488,8 @@ void RemotingDataStreamSender_SendFrame_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemotingDataStreamSender_SendFrame_Name, kFlags, 0, 0, nullptr);
@@ -582,12 +593,12 @@ std::move(p_frame), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kRemotingDataStreamSenderValidationInfo[] = {
-    {&internal::RemotingDataStreamSender_SendFrame_Params_Data::Validate,
+    { &internal::RemotingDataStreamSender_SendFrame_Params_Data::Validate,
      &internal::RemotingDataStreamSender_SendFrame_ResponseParams_Data::Validate},
-    {&internal::RemotingDataStreamSender_CancelInFlightData_Params_Data::Validate,
+    { &internal::RemotingDataStreamSender_CancelInFlightData_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -780,14 +791,17 @@ void RemoterProxy::Start(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send media::mojom::Remoter::Start");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoter_Start_Name, kFlags, 0, 0, nullptr);
@@ -810,14 +824,17 @@ void RemoterProxy::StartWithPermissionAlreadyGranted(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send media::mojom::Remoter::StartWithPermissionAlreadyGranted");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoter_StartWithPermissionAlreadyGranted_Name, kFlags, 0, 0, nullptr);
@@ -856,14 +873,17 @@ void RemoterProxy::StartDataStreams(
                         "<value of type ::mojo::PendingReceiver<RemotingDataStreamSender>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoter_StartDataStreams_Name, kFlags, 0, 0, nullptr);
@@ -901,14 +921,17 @@ void RemoterProxy::Stop(
                         "<value of type ::media::mojom::RemotingStopReason>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoter_Stop_Name, kFlags, 0, 0, nullptr);
@@ -940,14 +963,17 @@ void RemoterProxy::SendMessageToSink(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoter_SendMessageToSink_Name, kFlags, 0, 0, nullptr);
@@ -983,14 +1009,17 @@ void RemoterProxy::EstimateTransmissionCapacity(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send media::mojom::Remoter::EstimateTransmissionCapacity");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoter_EstimateTransmissionCapacity_Name, kFlags, 0, 0, nullptr);
@@ -1100,7 +1129,8 @@ void Remoter_EstimateTransmissionCapacity_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemoter_EstimateTransmissionCapacity_Name, kFlags, 0, 0, nullptr);
@@ -1329,20 +1359,20 @@ bool RemoterStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kRemoterValidationInfo[] = {
-    {&internal::Remoter_Start_Params_Data::Validate,
+    { &internal::Remoter_Start_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Remoter_StartWithPermissionAlreadyGranted_Params_Data::Validate,
+    { &internal::Remoter_StartWithPermissionAlreadyGranted_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Remoter_StartDataStreams_Params_Data::Validate,
+    { &internal::Remoter_StartDataStreams_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Remoter_Stop_Params_Data::Validate,
+    { &internal::Remoter_Stop_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Remoter_SendMessageToSink_Params_Data::Validate,
+    { &internal::Remoter_SendMessageToSink_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Remoter_EstimateTransmissionCapacity_Params_Data::Validate,
+    { &internal::Remoter_EstimateTransmissionCapacity_Params_Data::Validate,
      &internal::Remoter_EstimateTransmissionCapacity_ResponseParams_Data::Validate},
 };
 
@@ -1526,14 +1556,17 @@ void RemotingSourceProxy::OnSinkAvailable(
                         "<value of type ::media::mojom::RemotingSinkMetadataPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemotingSource_OnSinkAvailable_Name, kFlags, 0, 0, nullptr);
@@ -1567,14 +1600,17 @@ void RemotingSourceProxy::OnSinkGone(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send media::mojom::RemotingSource::OnSinkGone");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemotingSource_OnSinkGone_Name, kFlags, 0, 0, nullptr);
@@ -1597,14 +1633,17 @@ void RemotingSourceProxy::OnStarted(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send media::mojom::RemotingSource::OnStarted");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemotingSource_OnStarted_Name, kFlags, 0, 0, nullptr);
@@ -1634,14 +1673,17 @@ void RemotingSourceProxy::OnStartFailed(
                         "<value of type ::media::mojom::RemotingStartFailReason>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemotingSource_OnStartFailed_Name, kFlags, 0, 0, nullptr);
@@ -1673,14 +1715,17 @@ void RemotingSourceProxy::OnMessageFromSink(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemotingSource_OnMessageFromSink_Name, kFlags, 0, 0, nullptr);
@@ -1723,14 +1768,17 @@ void RemotingSourceProxy::OnStopped(
                         "<value of type ::media::mojom::RemotingStopReason>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemotingSource_OnStopped_Name, kFlags, 0, 0, nullptr);
@@ -1937,20 +1985,20 @@ bool RemotingSourceStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kRemotingSourceValidationInfo[] = {
-    {&internal::RemotingSource_OnSinkAvailable_Params_Data::Validate,
+    { &internal::RemotingSource_OnSinkAvailable_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RemotingSource_OnSinkGone_Params_Data::Validate,
+    { &internal::RemotingSource_OnSinkGone_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RemotingSource_OnStarted_Params_Data::Validate,
+    { &internal::RemotingSource_OnStarted_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RemotingSource_OnStartFailed_Params_Data::Validate,
+    { &internal::RemotingSource_OnStartFailed_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RemotingSource_OnMessageFromSink_Params_Data::Validate,
+    { &internal::RemotingSource_OnMessageFromSink_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RemotingSource_OnStopped_Params_Data::Validate,
+    { &internal::RemotingSource_OnStopped_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2110,14 +2158,17 @@ void RemoteeProxy::OnRemotingSinkReady(
                         "<value of type ::mojo::PendingRemote<RemotingSink>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemotee_OnRemotingSinkReady_Name, kFlags, 0, 0, nullptr);
@@ -2153,14 +2204,17 @@ void RemoteeProxy::SendMessageToSource(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemotee_SendMessageToSource_Name, kFlags, 0, 0, nullptr);
@@ -2206,14 +2260,17 @@ void RemoteeProxy::StartDataStreams(
                         "<value of type ::mojo::PendingRemote<RemotingDataStreamReceiver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemotee_StartDataStreams_Name, kFlags, 0, 0, nullptr);
@@ -2250,14 +2307,17 @@ void RemoteeProxy::OnFlushUntil(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemotee_OnFlushUntil_Name, kFlags, 0, 0, nullptr);
@@ -2289,14 +2349,17 @@ void RemoteeProxy::OnVideoNaturalSizeChange(
                         "<value of type const ::gfx::Size&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemotee_OnVideoNaturalSizeChange_Name, kFlags, 0, 0, nullptr);
@@ -2505,18 +2568,18 @@ bool RemoteeStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kRemoteeValidationInfo[] = {
-    {&internal::Remotee_OnRemotingSinkReady_Params_Data::Validate,
+    { &internal::Remotee_OnRemotingSinkReady_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Remotee_SendMessageToSource_Params_Data::Validate,
+    { &internal::Remotee_SendMessageToSource_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Remotee_StartDataStreams_Params_Data::Validate,
+    { &internal::Remotee_StartDataStreams_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Remotee_OnFlushUntil_Params_Data::Validate,
+    { &internal::Remotee_OnFlushUntil_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Remotee_OnVideoNaturalSizeChange_Params_Data::Validate,
+    { &internal::Remotee_OnVideoNaturalSizeChange_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2596,14 +2659,17 @@ void RemotingSinkProxy::OnMessageFromSource(
                         "<value of type const std::vector<uint8_t>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemotingSink_OnMessageFromSource_Name, kFlags, 0, 0, nullptr);
@@ -2684,10 +2750,10 @@ bool RemotingSinkStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kRemotingSinkValidationInfo[] = {
-    {&internal::RemotingSink_OnMessageFromSource_Params_Data::Validate,
+    { &internal::RemotingSink_OnMessageFromSource_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2807,14 +2873,17 @@ void RemotingDataStreamReceiverProxy::InitializeDataPipe(
                         "<value of type ::mojo::ScopedDataPipeConsumerHandle>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemotingDataStreamReceiver_InitializeDataPipe_Name, kFlags, 0, 0, nullptr);
@@ -2853,14 +2922,17 @@ void RemotingDataStreamReceiverProxy::ReceiveFrame(
                         "<value of type ::media::mojom::DecoderBufferPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemotingDataStreamReceiver_ReceiveFrame_Name, kFlags, 0, 0, nullptr);
@@ -2902,14 +2974,17 @@ void RemotingDataStreamReceiverProxy::FlushUntil(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kRemotingDataStreamReceiver_FlushUntil_Name, kFlags, 0, 0, nullptr);
@@ -3040,14 +3115,14 @@ bool RemotingDataStreamReceiverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kRemotingDataStreamReceiverValidationInfo[] = {
-    {&internal::RemotingDataStreamReceiver_InitializeDataPipe_Params_Data::Validate,
+    { &internal::RemotingDataStreamReceiver_InitializeDataPipe_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RemotingDataStreamReceiver_ReceiveFrame_Params_Data::Validate,
+    { &internal::RemotingDataStreamReceiver_ReceiveFrame_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::RemotingDataStreamReceiver_FlushUntil_Params_Data::Validate,
+    { &internal::RemotingDataStreamReceiver_FlushUntil_Params_Data::Validate,
      nullptr /* no response */},
 };
 

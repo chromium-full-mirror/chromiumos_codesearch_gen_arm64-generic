@@ -26,8 +26,6 @@ namespace blink::mojom {
 
 enum class MediaDeviceType : int32_t;
 
-enum class SubCaptureTargetType : int32_t;
-
 enum class FacingMode : int32_t;
 class MediaDevicesDispatcherHostInterfaceBase;
 class MediaDevicesListenerInterfaceBase;
@@ -39,12 +37,11 @@ class MediaDevicesListenerInterfaceBase;
 namespace blink::mojom::blink {
 // Aliases for definition in the parent namespace.
 using MediaDeviceType = MediaDeviceType;
-using SubCaptureTargetType = SubCaptureTargetType;
 using FacingMode = FacingMode;
 using MediaDevicesDispatcherHostInterfaceBase = MediaDevicesDispatcherHostInterfaceBase;
 using MediaDevicesListenerInterfaceBase = MediaDevicesListenerInterfaceBase;
 class MediaDeviceInfo;
-using MediaDeviceInfoPtr = mojo::InlinedStructPtr<MediaDeviceInfo>;
+using MediaDeviceInfoPtr = mojo::StructPtr<MediaDeviceInfo>;
 
 class VideoInputDeviceCapabilities;
 using VideoInputDeviceCapabilitiesPtr = mojo::StructPtr<VideoInputDeviceCapabilities>;

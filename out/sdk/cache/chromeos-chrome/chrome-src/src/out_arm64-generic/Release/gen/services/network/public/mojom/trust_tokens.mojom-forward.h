@@ -41,8 +41,6 @@ class TrustTokenOperationResultDataView;
 class StoredTrustTokensForIssuerDataView;
 
 
-enum class TrustTokenMajorVersion : int32_t;
-
 enum class TrustTokenProtocolVersion : int32_t;
 
 enum class TrustTokenOperationStatus : int32_t;

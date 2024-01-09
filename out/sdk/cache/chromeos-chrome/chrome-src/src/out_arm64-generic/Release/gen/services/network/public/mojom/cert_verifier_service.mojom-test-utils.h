@@ -51,6 +51,24 @@ class  CertVerifierServiceAsyncWaiter {
 };
 
 
+class  CertVerifierServiceUpdaterInterceptorForTesting : public CertVerifierServiceUpdater {
+  virtual CertVerifierServiceUpdater* GetForwardingInterface() = 0;
+  void UpdateAdditionalCertificates(AdditionalCertificatesPtr certificates) override;
+};
+class  CertVerifierServiceUpdaterAsyncWaiter {
+ public:
+  explicit CertVerifierServiceUpdaterAsyncWaiter(CertVerifierServiceUpdater* proxy);
+
+  CertVerifierServiceUpdaterAsyncWaiter(const CertVerifierServiceUpdaterAsyncWaiter&) = delete;
+  CertVerifierServiceUpdaterAsyncWaiter& operator=(const CertVerifierServiceUpdaterAsyncWaiter&) = delete;
+
+  ~CertVerifierServiceUpdaterAsyncWaiter();
+
+ private:
+  CertVerifierServiceUpdater* const proxy_;
+};
+
+
 class  CertVerifierServiceClientInterceptorForTesting : public CertVerifierServiceClient {
   virtual CertVerifierServiceClient* GetForwardingInterface() = 0;
   void OnCertVerifierChanged() override;

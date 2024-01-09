@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -67,7 +68,6 @@ RendererPreferences::RendererPreferences()
       webrtc_udp_min_port(0U),
       webrtc_udp_max_port(0U),
       webrtc_local_ips_allowed_urls(),
-      webrtc_allow_legacy_tls_protocols(false),
       user_agent_override(),
       accept_languages(),
       send_subresource_notification(false),
@@ -91,7 +91,7 @@ RendererPreferences::RendererPreferences(
     uint32_t inactive_selection_bg_color_in,
     uint32_t inactive_selection_fg_color_in,
     bool browser_handles_all_top_level_requests_in,
-    absl::optional<::base::TimeDelta> caret_blink_interval_in,
+    std::optional<::base::TimeDelta> caret_blink_interval_in,
     bool use_custom_colors_in,
     bool enable_referrers_in,
     bool allow_cross_origin_auth_prompt_in,
@@ -101,7 +101,6 @@ RendererPreferences::RendererPreferences(
     uint16_t webrtc_udp_min_port_in,
     uint16_t webrtc_udp_max_port_in,
     std::vector<std::string> webrtc_local_ips_allowed_urls_in,
-    bool webrtc_allow_legacy_tls_protocols_in,
     const ::blink::UserAgentOverride& user_agent_override_in,
     const std::string& accept_languages_in,
     bool send_subresource_notification_in,
@@ -133,7 +132,6 @@ RendererPreferences::RendererPreferences(
       webrtc_udp_min_port(std::move(webrtc_udp_min_port_in)),
       webrtc_udp_max_port(std::move(webrtc_udp_max_port_in)),
       webrtc_local_ips_allowed_urls(std::move(webrtc_local_ips_allowed_urls_in)),
-      webrtc_allow_legacy_tls_protocols(std::move(webrtc_allow_legacy_tls_protocols_in)),
       user_agent_override(std::move(user_agent_override_in)),
       accept_languages(std::move(accept_languages_in)),
       send_subresource_notification(std::move(send_subresource_notification_in)),
@@ -269,7 +267,7 @@ void RendererPreferences::WriteIntoTrace(
     dict.AddItem(
       "caret_blink_interval"), this->caret_blink_interval,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::base::TimeDelta>>"
+      "<value of type std::optional<::base::TimeDelta>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -351,15 +349,6 @@ void RendererPreferences::WriteIntoTrace(
       "webrtc_local_ips_allowed_urls"), this->webrtc_local_ips_allowed_urls,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type const std::vector<std::string>&>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "webrtc_allow_legacy_tls_protocols"), this->webrtc_allow_legacy_tls_protocols,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type bool>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -504,8 +493,6 @@ bool StructTraits<::blink::mojom::RendererPreferences::DataView, ::blink::mojom:
         result->webrtc_udp_max_port = input.webrtc_udp_max_port();
       if (success && !input.ReadWebrtcLocalIpsAllowedUrls(&result->webrtc_local_ips_allowed_urls))
         success = false;
-      if (success)
-        result->webrtc_allow_legacy_tls_protocols = input.webrtc_allow_legacy_tls_protocols();
       if (success && !input.ReadUserAgentOverride(&result->user_agent_override))
         success = false;
       if (success && !input.ReadAcceptLanguages(&result->accept_languages))

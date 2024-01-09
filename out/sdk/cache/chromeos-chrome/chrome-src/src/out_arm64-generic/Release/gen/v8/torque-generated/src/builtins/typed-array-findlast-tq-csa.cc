@@ -66,6 +66,7 @@
 #include "src/objects/turboshaft-types.h"
 #include "src/torque/runtime-support.h"
 #include "src/wasm/wasm-linkage.h"
+#include "src/codegen/code-stub-assembler-inl.h"
 // Required Builtins:
 #include "torque-generated/src/builtins/typed-array-findlast-tq-csa.h"
 #include "torque-generated/src/builtins/array-every-tq-csa.h"
@@ -171,7 +172,7 @@ TNode<Object> FindLastAllElements_0(compiler::CodeAssemblerState* state_, TNode<
   if (block13.is_used()) {
     ca_.Bind(&block13, &phi_bb13_6);
     tmp10 = (TNode<JSTypedArray>{tmp0});
-tmp11 = TORQUE_CAST(CodeStubAssembler(state_).CallBuiltinPointer(Builtins::CallableFor(ca_.isolate(),ExampleBuiltinForTorqueFunctionPointerType(1)).descriptor(), tmp2, TNode<Object>(), tmp10, tmp4));
+tmp11 = TORQUE_CAST(CodeStubAssembler(state_).CallBuiltinPointer(Builtins::CallInterfaceDescriptorFor(ExampleBuiltinForTorqueFunctionPointerType(1)), tmp2, TNode<Object>(), tmp10, tmp4));
     ca_.Goto(&block5, tmp10, tmp11);
   }
 

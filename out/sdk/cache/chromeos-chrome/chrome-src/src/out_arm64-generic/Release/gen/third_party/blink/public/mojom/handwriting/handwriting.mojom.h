@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/handwriting/handwriting.mojom-features.h"
 #include "third_party/blink/public/mojom/handwriting/handwriting.mojom-shared.h"
 #include "third_party/blink/public/mojom/handwriting/handwriting.mojom-forward.h"
 #include "mojo/public/mojom/base/time.mojom.h"
@@ -84,7 +85,7 @@ class BLINK_COMMON_EXPORT HandwritingRecognizer
   virtual ~HandwritingRecognizer() = default;
 
 
-  using GetPredictionCallback = base::OnceCallback<void(absl::optional<std::vector<HandwritingPredictionPtr>>)>;
+  using GetPredictionCallback = base::OnceCallback<void(std::optional<std::vector<HandwritingPredictionPtr>>)>;
   
   virtual void GetPrediction(std::vector<HandwritingStrokePtr> strokes, HandwritingHintsPtr hints, GetPredictionCallback callback) = 0;
 };
@@ -460,7 +461,7 @@ class BLINK_COMMON_EXPORT HandwritingHints {
   HandwritingHints(
       const std::string& recognition_type,
       const std::string& input_type,
-      const absl::optional<std::string>& text_context,
+      const std::optional<std::string>& text_context,
       uint32_t alternatives);
 
 
@@ -543,7 +544,7 @@ class BLINK_COMMON_EXPORT HandwritingHints {
   
   std::string input_type;
   
-  absl::optional<std::string> text_context;
+  std::optional<std::string> text_context;
   
   uint32_t alternatives;
 
@@ -613,7 +614,7 @@ class BLINK_COMMON_EXPORT HandwritingPoint {
 
   HandwritingPoint(
       const ::gfx::PointF& location,
-      absl::optional<::base::TimeDelta> t);
+      std::optional<::base::TimeDelta> t);
 
 
   ~HandwritingPoint();
@@ -693,7 +694,7 @@ class BLINK_COMMON_EXPORT HandwritingPoint {
   
   ::gfx::PointF location;
   
-  absl::optional<::base::TimeDelta> t;
+  std::optional<::base::TimeDelta> t;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

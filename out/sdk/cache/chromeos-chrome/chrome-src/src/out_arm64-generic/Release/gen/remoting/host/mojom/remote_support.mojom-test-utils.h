@@ -20,7 +20,7 @@ class  SupportHostObserverInterceptorForTesting : public SupportHostObserver {
   void OnHostStateReceivedAccessCode(const std::string& access_code, ::base::TimeDelta lifetime) override;
   void OnHostStateConnecting() override;
   void OnHostStateConnected(const std::string& remote_username) override;
-  void OnHostStateDisconnected(const absl::optional<std::string>& disconnect_reason) override;
+  void OnHostStateDisconnected(const std::optional<std::string>& disconnect_reason) override;
   void OnNatPolicyChanged(NatPolicyStatePtr nat_policy_state) override;
   void OnHostStateError(int64_t error_code) override;
   void OnPolicyError() override;

@@ -78,11 +78,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, RTCTrackEvent>::value,
     "RTCTrackEvent inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&RTCTrackEvent::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "RTCTrackEvent is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -95,8 +90,9 @@ BLINK_BINDINGS_TRACE_EVENT("RTCTrackEvent.receiver.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCTrackEvent* blink_receiver = V8RTCTrackEvent::ToWrappableUnsafe(v8_receiver);
+RTCTrackEvent* blink_receiver = V8RTCTrackEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->receiver();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -109,8 +105,9 @@ BLINK_BINDINGS_TRACE_EVENT("RTCTrackEvent.track.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCTrackEvent* blink_receiver = V8RTCTrackEvent::ToWrappableUnsafe(v8_receiver);
+RTCTrackEvent* blink_receiver = V8RTCTrackEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->track();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -144,7 +141,7 @@ v8::Local<v8::Value> v8_return_value;
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-RTCTrackEvent* blink_receiver = V8RTCTrackEvent::ToWrappableUnsafe(v8_receiver);
+RTCTrackEvent* blink_receiver = V8RTCTrackEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->streams();
 if (!ToV8Traits<IDLArray<MediaStream>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -162,8 +159,9 @@ BLINK_BINDINGS_TRACE_EVENT("RTCTrackEvent.transceiver.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCTrackEvent* blink_receiver = V8RTCTrackEvent::ToWrappableUnsafe(v8_receiver);
+RTCTrackEvent* blink_receiver = V8RTCTrackEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->transceiver();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -176,8 +174,9 @@ BLINK_BINDINGS_TRACE_EVENT("RTCTrackEvent.isTrusted.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-RTCTrackEvent* blink_receiver = V8RTCTrackEvent::ToWrappableUnsafe(v8_receiver);
+RTCTrackEvent* blink_receiver = V8RTCTrackEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isTrusted();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }

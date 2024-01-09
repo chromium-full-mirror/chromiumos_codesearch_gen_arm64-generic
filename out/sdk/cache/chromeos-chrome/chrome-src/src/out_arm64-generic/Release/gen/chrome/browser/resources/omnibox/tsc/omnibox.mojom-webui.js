@@ -13,6 +13,7 @@ export var AutocompleteControllerType;
     AutocompleteControllerType[AutocompleteControllerType["kMlDisabledDebug"] = 2] = "kMlDisabledDebug";
 })(AutocompleteControllerType || (AutocompleteControllerType = {}));
 export class OmniboxPageHandlerPendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -21,6 +22,9 @@ export class OmniboxPageHandlerPendingReceiver {
     }
 }
 export class OmniboxPageHandlerRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(OmniboxPageHandlerPendingReceiver, handle);
@@ -60,6 +64,9 @@ export class OmniboxPageHandlerRemote {
  * interface.
  */
 export class OmniboxPageHandlerReceiver {
+    helper_internal_;
+    $;
+    onConnectionError;
     constructor(impl) {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(OmniboxPageHandlerRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -92,6 +99,14 @@ export class OmniboxPageHandler {
  * receiver can have any number of listeners added to it.
  */
 export class OmniboxPageHandlerCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    setClientPage;
+    startOmniboxQuery;
+    getMlModelVersion;
+    startMl;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(OmniboxPageHandlerRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -119,6 +134,7 @@ export class OmniboxPageHandlerCallbackRouter {
     }
 }
 export class OmniboxPagePendingReceiver {
+    handle;
     constructor(handle) {
         this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
     }
@@ -127,6 +143,9 @@ export class OmniboxPagePendingReceiver {
     }
 }
 export class OmniboxPageRemote {
+    proxy;
+    $;
+    onConnectionError;
     constructor(handle) {
         this.proxy =
             new mojo.internal.interfaceSupport.InterfaceRemoteBase(OmniboxPagePendingReceiver, handle);
@@ -167,6 +186,9 @@ export class OmniboxPageRemote {
  * interface.
  */
 export class OmniboxPageReceiver {
+    helper_internal_;
+    $;
+    onConnectionError;
     constructor(impl) {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(OmniboxPageRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
@@ -199,6 +221,14 @@ export class OmniboxPage {
  * receiver can have any number of listeners added to it.
  */
 export class OmniboxPageCallbackRouter {
+    helper_internal_;
+    $;
+    router_;
+    handleNewAutocompleteQuery;
+    handleNewAutocompleteResponse;
+    handleNewMlResponse;
+    handleAnswerImageData;
+    onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(OmniboxPageRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);

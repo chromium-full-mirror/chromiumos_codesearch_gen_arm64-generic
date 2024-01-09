@@ -130,14 +130,6 @@ goog.provide('blink.mojom.ClipboardSequenceNumberTokenSpec');
 blink.mojom.ClipboardSequenceNumberTokenSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
-goog.provide('blink.mojom.PortalTokenSpec');
-/**
- * @const { {$:!mojo.internal.MojomType}}
- * @export
- */
-blink.mojom.PortalTokenSpec =
-    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
-
 goog.provide('blink.mojom.V8ContextTokenSpec');
 /**
  * @const { {$:!mojo.internal.MojomType}}
@@ -587,35 +579,6 @@ goog.provide('blink.mojom.ClipboardSequenceNumberToken');
 
 /** @record */
 blink.mojom.ClipboardSequenceNumberToken = class {
-  constructor() {
-    /** @export { !mojoBase.mojom.UnguessableToken } */
-    this.value;
-  }
-};
-
-
-
-mojo.internal.Struct(
-    blink.mojom.PortalTokenSpec.$,
-    'PortalToken',
-    [
-      mojo.internal.StructField(
-        'value', 0,
-        0,
-        mojoBase.mojom.UnguessableTokenSpec.$,
-        null,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-    ],
-    [[0, 16],]);
-
-
-
-goog.provide('blink.mojom.PortalToken');
-
-/** @record */
-blink.mojom.PortalToken = class {
   constructor() {
     /** @export { !mojoBase.mojom.UnguessableToken } */
     this.value;

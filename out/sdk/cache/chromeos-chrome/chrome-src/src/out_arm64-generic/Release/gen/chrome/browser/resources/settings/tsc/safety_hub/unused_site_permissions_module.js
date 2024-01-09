@@ -4,6 +4,7 @@
 import 'chrome://resources/cr_elements/cr_button/cr_button.js';
 import 'chrome://resources/cr_elements/cr_icon_button/cr_icon_button.js';
 import 'chrome://resources/cr_elements/cr_toast/cr_toast.js';
+import 'chrome://resources/polymer/v3_0/paper-tooltip/paper-tooltip.js';
 import '../i18n_setup.js';
 import '../icons.html.js';
 import './safety_hub_module.js';
@@ -12,12 +13,14 @@ import { WebUiListenerMixin } from 'chrome://resources/cr_elements/web_ui_listen
 import { assert, assertNotReached } from 'chrome://resources/js/assert.js';
 import { EventTracker } from 'chrome://resources/js/event_tracker.js';
 import { PluralStringProxyImpl } from 'chrome://resources/js/plural_string_proxy.js';
-import { isUndoKeyboardEvent } from 'chrome://resources/js/util_ts.js';
+import { isUndoKeyboardEvent } from 'chrome://resources/js/util.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { MetricsBrowserProxyImpl, SafetyCheckUnusedSitePermissionsModuleInteractions } from '../metrics_browser_proxy.js';
 import { routes } from '../route.js';
 import { RouteObserverMixin, Router } from '../router.js';
 import { SiteSettingsMixin } from '../site_settings/site_settings_mixin.js';
 import { getLocalizationStringForContentType } from '../site_settings_page/site_settings_page_util.js';
+import { TooltipMixin } from '../tooltip_mixin.js';
 import { SafetyHubBrowserProxyImpl, SafetyHubEvent } from './safety_hub_browser_proxy.js';
 import { getTemplate } from './unused_site_permissions_module.html.js';
 /** Actions the user can perform to review their unused site permissions. */
@@ -26,12 +29,13 @@ var Action;
     Action[Action["ALLOW_AGAIN"] = 0] = "ALLOW_AGAIN";
     Action[Action["GOT_IT"] = 1] = "GOT_IT";
 })(Action || (Action = {}));
-const SettingsSafetyHubUnusedSitePermissionsModuleElementBase = I18nMixin(RouteObserverMixin(WebUiListenerMixin(SiteSettingsMixin(PolymerElement))));
+const SettingsSafetyHubUnusedSitePermissionsModuleElementBase = TooltipMixin(I18nMixin(RouteObserverMixin(WebUiListenerMixin(SiteSettingsMixin(PolymerElement)))));
 export class SettingsSafetyHubUnusedSitePermissionsModuleElement extends SettingsSafetyHubUnusedSitePermissionsModuleElementBase {
     constructor() {
         super(...arguments);
         this.eventTracker_ = new EventTracker();
         this.browserProxy_ = SafetyHubBrowserProxyImpl.getInstance();
+        this.metricsBrowserProxy_ = MetricsBrowserProxyImpl.getInstance();
     }
     static get is() {
         return 'settings-safety-hub-unused-site-permissions';
@@ -103,6 +107,10 @@ export class SettingsSafetyHubUnusedSitePermissionsModuleElement extends Setting
             this.eventTracker_.removeAll();
             return;
         }
+        if (this.sites_ !== null) {
+            this.metricsBrowserProxy_
+                .recordSafetyHubUnusedSitePermissionsModuleListCountHistogram(this.sites_.length);
+        }
         this.eventTracker_.add(document, 'keydown', (e) => this.onKeyDown_(e));
     }
     /**
@@ -135,21 +143,20 @@ export class SettingsSafetyHubUnusedSitePermissionsModuleElement extends Setting
         this.lastUnusedSitePermissionsAllowedAgain_ = item;
         this.showUndoToast_(this.i18n('safetyCheckUnusedSitePermissionsToastLabel', item.origin));
         this.$.module.animateHide(item.origin, this.browserProxy_.allowPermissionsAgainForUnusedSite.bind(this.browserProxy_, item.origin));
+        this.metricsBrowserProxy_
+            .recordSafetyHubUnusedSitePermissionsModuleInteractionsHistogram(SafetyCheckUnusedSitePermissionsModuleInteractions.ALLOW_AGAIN);
     }
     async onGotItClick_(e) {
         e.stopPropagation();
         assert(this.sites_ !== null);
         this.lastUserAction_ = Action.GOT_IT;
         this.lastUnusedSitePermissionsListAcknowledged_ = this.sites_;
-        // Pre-emptively set the header to the completion state, as that is the
-        // state we expect at the end of the animation. In the corner case that
-        // another site was added to the list at exactly the same time as the
-        // animation runs, the callback will still re-render the header correctly.
-        this.setHeaderToCompletionState_();
         this.$.module.animateHide(
         /* all origins */ null, this.browserProxy_.acknowledgeRevokedUnusedSitePermissionsList.bind(this.browserProxy_));
         const toastText = await PluralStringProxyImpl.getInstance().getPluralString('safetyCheckUnusedSitePermissionsToastBulkLabel', this.sites_.length);
         this.showUndoToast_(toastText);
+        this.metricsBrowserProxy_
+            .recordSafetyHubUnusedSitePermissionsModuleInteractionsHistogram(SafetyCheckUnusedSitePermissionsModuleInteractions.ACKNOWLEDGE_ALL);
     }
     onMoreActionClick_(e) {
         e.stopPropagation();
@@ -160,6 +167,8 @@ export class SettingsSafetyHubUnusedSitePermissionsModuleElement extends Setting
         this.$.headerActionMenu.close();
         Router.getInstance().navigateTo(routes.SITE_SETTINGS, /* dynamicParams= */ undefined, 
         /* removeSearch= */ true);
+        this.metricsBrowserProxy_
+            .recordSafetyHubUnusedSitePermissionsModuleInteractionsHistogram(SafetyCheckUnusedSitePermissionsModuleInteractions.GO_TO_SETTINGS);
     }
     /* Repopulate the list when unused site permission list is updated. */
     onUnusedSitePermissionListChanged_(sites) {
@@ -207,11 +216,17 @@ export class SettingsSafetyHubUnusedSitePermissionsModuleElement extends Setting
                 assert(this.lastUnusedSitePermissionsAllowedAgain_ !== null);
                 this.browserProxy_.undoAllowPermissionsAgainForUnusedSite(this.lastUnusedSitePermissionsAllowedAgain_);
                 this.lastUnusedSitePermissionsAllowedAgain_ = null;
+                this.metricsBrowserProxy_
+                    .recordSafetyHubUnusedSitePermissionsModuleInteractionsHistogram(SafetyCheckUnusedSitePermissionsModuleInteractions
+                    .UNDO_ALLOW_AGAIN);
                 break;
             case Action.GOT_IT:
                 assert(this.lastUnusedSitePermissionsListAcknowledged_ !== null);
                 this.browserProxy_.undoAcknowledgeRevokedUnusedSitePermissionsList(this.lastUnusedSitePermissionsListAcknowledged_);
                 this.lastUnusedSitePermissionsListAcknowledged_ = null;
+                this.metricsBrowserProxy_
+                    .recordSafetyHubUnusedSitePermissionsModuleInteractionsHistogram(SafetyCheckUnusedSitePermissionsModuleInteractions
+                    .UNDO_ACKNOWLEDGE_ALL);
                 break;
             default:
                 assertNotReached();
@@ -232,6 +247,15 @@ export class SettingsSafetyHubUnusedSitePermissionsModuleElement extends Setting
     showUndoToast_(text) {
         this.toastText_ = text;
         this.$.undoToast.show();
+    }
+    // TODO(crbug.com/1443466): Move common functionality between
+    // unused_site_permissions_module.ts and notification_permissions_module.ts to
+    // a util class.
+    showUndoTooltip_(e) {
+        e.stopPropagation();
+        const tooltip = this.shadowRoot.querySelector('paper-tooltip');
+        assert(tooltip);
+        this.showTooltipAtTarget(tooltip, e.target);
     }
 }
 customElements.define(SettingsSafetyHubUnusedSitePermissionsModuleElement.is, SettingsSafetyHubUnusedSitePermissionsModuleElement);

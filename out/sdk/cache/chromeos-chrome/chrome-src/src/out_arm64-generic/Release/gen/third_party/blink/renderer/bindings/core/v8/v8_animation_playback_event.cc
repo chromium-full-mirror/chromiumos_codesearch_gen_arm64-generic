@@ -35,7 +35,7 @@ namespace blink {
 
 bool V8AnimationPlaybackEvent::IsExposed(ExecutionContext* execution_context) {
   
-return execution_context->IsWindow() && RuntimeEnabledFeatures::WebAnimationsAPIEnabled();
+return execution_context->IsWindow();
 }
 
 // Construction of WrapperTypeInfo may require non-trivial initialization due
@@ -73,11 +73,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, AnimationPlaybackEvent>::value,
     "AnimationPlaybackEvent inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&AnimationPlaybackEvent::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "AnimationPlaybackEvent is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -95,7 +90,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-AnimationPlaybackEvent* blink_receiver = V8AnimationPlaybackEvent::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+AnimationPlaybackEvent* blink_receiver = V8AnimationPlaybackEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->currentTime();
 if (!ToV8Traits<IDLNullable<V8UnionCSSNumericValueOrDouble>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -116,7 +112,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-AnimationPlaybackEvent* blink_receiver = V8AnimationPlaybackEvent::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+AnimationPlaybackEvent* blink_receiver = V8AnimationPlaybackEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->timelineTime();
 if (!ToV8Traits<IDLNullable<V8UnionCSSNumericValueOrDouble>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -132,8 +129,9 @@ BLINK_BINDINGS_TRACE_EVENT("AnimationPlaybackEvent.isTrusted.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-AnimationPlaybackEvent* blink_receiver = V8AnimationPlaybackEvent::ToWrappableUnsafe(v8_receiver);
+AnimationPlaybackEvent* blink_receiver = V8AnimationPlaybackEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isTrusted();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }

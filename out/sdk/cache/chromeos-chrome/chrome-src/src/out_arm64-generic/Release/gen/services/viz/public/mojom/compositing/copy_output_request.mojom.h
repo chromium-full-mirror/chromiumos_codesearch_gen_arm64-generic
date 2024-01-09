@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/viz/public/mojom/compositing/copy_output_request.mojom-features.h"
 #include "services/viz/public/mojom/compositing/copy_output_request.mojom-shared.h"
 #include "services/viz/public/mojom/compositing/copy_output_request.mojom-forward.h"
 #include "gpu/ipc/common/mailbox.mojom-forward.h"
@@ -187,9 +188,9 @@ class  CopyOutputRequest {
       ::viz::mojom::CopyOutputResultDestination result_destination,
       const ::gfx::Vector2d& scale_from,
       const ::gfx::Vector2d& scale_to,
-      const absl::optional<::base::UnguessableToken>& source,
-      const absl::optional<::gfx::Rect>& area,
-      const absl::optional<::gfx::Rect>& result_selection,
+      const std::optional<::base::UnguessableToken>& source,
+      const std::optional<::gfx::Rect>& area,
+      const std::optional<::gfx::Rect>& result_selection,
       ::mojo::PendingRemote<CopyOutputResultSender> result_sender);
 
 CopyOutputRequest(const CopyOutputRequest&) = delete;
@@ -273,11 +274,11 @@ CopyOutputRequest& operator=(const CopyOutputRequest&) = delete;
   
   ::gfx::Vector2d scale_to;
   
-  absl::optional<::base::UnguessableToken> source;
+  std::optional<::base::UnguessableToken> source;
   
-  absl::optional<::gfx::Rect> area;
+  std::optional<::gfx::Rect> area;
   
-  absl::optional<::gfx::Rect> result_selection;
+  std::optional<::gfx::Rect> result_selection;
   
   ::mojo::PendingRemote<CopyOutputResultSender> result_sender;
 

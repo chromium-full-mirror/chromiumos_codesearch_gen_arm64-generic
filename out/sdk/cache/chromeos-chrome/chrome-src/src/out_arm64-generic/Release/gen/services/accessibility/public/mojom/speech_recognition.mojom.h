@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,8 +23,10 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/accessibility/public/mojom/speech_recognition.mojom-features.h"
 #include "services/accessibility/public/mojom/speech_recognition.mojom-shared.h"
 #include "services/accessibility/public/mojom/speech_recognition.mojom-forward.h"
+#include "services/accessibility/public/mojom/assistive_technology_type.mojom-forward.h"
 #include <string>
 #include <vector>
 
@@ -69,6 +71,7 @@ class SpeechRecognitionEventObserver
   enum MethodMinVersions : uint32_t {
     kOnStopMinVersion = 0,
     kOnResultMinVersion = 0,
+    kOnErrorMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -80,6 +83,9 @@ class SpeechRecognitionEventObserver
   struct OnResult_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
+  struct OnError_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~SpeechRecognitionEventObserver() = default;
 
@@ -88,6 +94,9 @@ class SpeechRecognitionEventObserver
 
   
   virtual void OnResult(SpeechRecognitionResultEventPtr event) = 0;
+
+  
+  virtual void OnError(SpeechRecognitionErrorEventPtr event) = 0;
 };
 
 class SpeechRecognitionProxy;
@@ -142,7 +151,7 @@ class SpeechRecognition
   virtual void Start(StartOptionsPtr options, StartCallback callback) = 0;
 
 
-  using StopCallback = base::OnceCallback<void()>;
+  using StopCallback = base::OnceCallback<void(const std::optional<std::string>&)>;
   
   virtual void Stop(StopOptionsPtr options, StopCallback callback) = 0;
 };
@@ -159,6 +168,8 @@ class  SpeechRecognitionEventObserverProxy
   void OnStop() final;
   
   void OnResult(SpeechRecognitionResultEventPtr event) final;
+  
+  void OnError(SpeechRecognitionErrorEventPtr event) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -423,6 +434,147 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+class  SpeechRecognitionErrorEvent {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<SpeechRecognitionErrorEvent, T>::value>;
+  using DataView = SpeechRecognitionErrorEventDataView;
+  using Data_ = internal::SpeechRecognitionErrorEvent_Data;
+
+  template <typename... Args>
+  static SpeechRecognitionErrorEventPtr New(Args&&... args) {
+    return SpeechRecognitionErrorEventPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static SpeechRecognitionErrorEventPtr From(const U& u) {
+    return mojo::TypeConverter<SpeechRecognitionErrorEventPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, SpeechRecognitionErrorEvent>::Convert(*this);
+  }
+
+
+  SpeechRecognitionErrorEvent();
+
+  explicit SpeechRecognitionErrorEvent(
+      const std::string& message);
+
+
+  ~SpeechRecognitionErrorEvent();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = SpeechRecognitionErrorEventPtr>
+  SpeechRecognitionErrorEventPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, SpeechRecognitionErrorEvent::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, SpeechRecognitionErrorEvent::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, SpeechRecognitionErrorEvent::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        SpeechRecognitionErrorEvent::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        SpeechRecognitionErrorEvent::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::SpeechRecognitionErrorEvent_UnserializedMessageContext<
+            UserType, SpeechRecognitionErrorEvent::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<SpeechRecognitionErrorEvent::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return SpeechRecognitionErrorEvent::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::SpeechRecognitionErrorEvent_UnserializedMessageContext<
+            UserType, SpeechRecognitionErrorEvent::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<SpeechRecognitionErrorEvent::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  std::string message;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, SpeechRecognitionErrorEvent::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, SpeechRecognitionErrorEvent::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, SpeechRecognitionErrorEvent::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, SpeechRecognitionErrorEvent::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
 class  StartOptions {
  public:
   template <typename T>
@@ -450,9 +602,9 @@ class  StartOptions {
   StartOptions();
 
   StartOptions(
-      absl::optional<int32_t> client_id,
-      const absl::optional<std::string>& locale,
-      absl::optional<bool> interim_results);
+      ::ax::mojom::AssistiveTechnologyType type,
+      const std::optional<std::string>& locale,
+      std::optional<bool> interim_results);
 
 
   ~StartOptions();
@@ -530,11 +682,11 @@ class  StartOptions {
   }
 
   
-  absl::optional<int32_t> client_id;
+  ::ax::mojom::AssistiveTechnologyType type;
   
-  absl::optional<std::string> locale;
+  std::optional<std::string> locale;
   
-  absl::optional<bool> interim_results;
+  std::optional<bool> interim_results;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -596,7 +748,7 @@ class  StopOptions {
   StopOptions();
 
   explicit StopOptions(
-      absl::optional<int32_t> client_id);
+      ::ax::mojom::AssistiveTechnologyType type);
 
 
   ~StopOptions();
@@ -618,6 +770,7 @@ class  StopOptions {
 
   template <typename T, StopOptions::EnableIfSame<T>* = nullptr>
   bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  size_t Hash(size_t seed) const;
   template <typename UserType>
   static std::vector<uint8_t> Serialize(UserType* input) {
     return mojo::internal::SerializeImpl<
@@ -674,7 +827,7 @@ class  StopOptions {
   }
 
   
-  absl::optional<int32_t> client_id;
+  ::ax::mojom::AssistiveTechnologyType type;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -706,6 +859,137 @@ bool operator>=(const T& lhs, const T& rhs) {
 }
 
 
+
+
+
+
+class  ObserverOrError {
+ public:
+  using DataView = ObserverOrErrorDataView;
+  using Data_ = internal::ObserverOrError_Data;
+  using Tag = Data_::ObserverOrError_Tag;
+
+  template <typename... Args>
+  static ObserverOrErrorPtr New(Args&&... args) {
+    static_assert(
+        sizeof...(args) < 0,
+        "Do not use Union::New(); to create a union of a given subtype, use "
+        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
+        "an empty union, mark the field or parameter as nullable in the mojom "
+        "definition.");
+    return nullptr;
+  }
+  // Construct an instance holding |observer|.
+  static ObserverOrErrorPtr
+  NewObserver(
+      ::mojo::PendingReceiver<SpeechRecognitionEventObserver> value) {
+    auto result = ObserverOrErrorPtr(absl::in_place);
+    result->set_observer(std::move(value));
+    return result;
+  }
+  // Construct an instance holding |error|.
+  static ObserverOrErrorPtr
+  NewError(
+      const std::string& value) {
+    auto result = ObserverOrErrorPtr(absl::in_place);
+    result->set_error(std::move(value));
+    return result;
+  }
+
+  template <typename U>
+  static ObserverOrErrorPtr From(const U& u) {
+    return mojo::TypeConverter<ObserverOrErrorPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, ObserverOrError>::Convert(*this);
+  }
+
+  ObserverOrError();
+  ~ObserverOrError();
+  // Delete the copy constructor and copy assignment operators because `data_`
+  // contains raw pointers that must not be copied.
+  ObserverOrError(const ObserverOrError& other) = delete;
+  ObserverOrError& operator=(const ObserverOrError& other) = delete;
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename UnionPtrType = ObserverOrErrorPtr>
+  ObserverOrErrorPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T,
+            typename std::enable_if<std::is_same<
+                T, ObserverOrError>::value>::type* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T,
+            typename std::enable_if<std::is_same<
+                T, ObserverOrError>::value>::type* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  Tag which() const {
+    return tag_;
+  }
+
+
+  
+  bool is_observer() const { return tag_ == Tag::kObserver; }
+
+  
+  ::mojo::PendingReceiver<SpeechRecognitionEventObserver>& get_observer() const {
+    CHECK(tag_ == Tag::kObserver);
+    return *(data_.observer);
+  }
+
+  
+  void set_observer(
+      ::mojo::PendingReceiver<SpeechRecognitionEventObserver> observer);
+  
+  bool is_error() const { return tag_ == Tag::kError; }
+
+  
+  std::string& get_error() const {
+    CHECK(tag_ == Tag::kError);
+    return *(data_.error);
+  }
+
+  
+  void set_error(
+      const std::string& error);
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        ObserverOrError::DataView>(input);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    return mojo::internal::DeserializeImpl<ObserverOrError::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+ private:
+  union Union_ {
+    Union_() = default;
+    ~Union_() = default;
+    ::mojo::PendingReceiver<SpeechRecognitionEventObserver>* observer;
+    std::string* error;
+  };
+
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  void DestroyActive();
+  Tag tag_;
+  Union_ data_;
+};
 
 
 
@@ -743,7 +1027,7 @@ class  SpeechRecognitionStartInfo {
 
   SpeechRecognitionStartInfo(
       SpeechRecognitionType type,
-      ::mojo::PendingReceiver<SpeechRecognitionEventObserver> observer);
+      ObserverOrErrorPtr observer_or_error);
 
 SpeechRecognitionStartInfo(const SpeechRecognitionStartInfo&) = delete;
 SpeechRecognitionStartInfo& operator=(const SpeechRecognitionStartInfo&) = delete;
@@ -820,7 +1104,7 @@ SpeechRecognitionStartInfo& operator=(const SpeechRecognitionStartInfo&) = delet
   
   SpeechRecognitionType type;
   
-  ::mojo::PendingReceiver<SpeechRecognitionEventObserver> observer;
+  ObserverOrErrorPtr observer_or_error;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -851,6 +1135,35 @@ bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
 
+template <typename UnionPtrType>
+ObserverOrErrorPtr ObserverOrError::Clone() const {
+  switch (tag_) {
+    case Tag::kObserver:
+      return NewObserver(
+          mojo::Clone(*data_.observer));
+    case Tag::kError:
+      return NewError(
+          mojo::Clone(*data_.error));
+  }
+  return nullptr;
+}
+
+template <typename T,
+          typename std::enable_if<std::is_same<
+              T, ObserverOrError>::value>::type*>
+bool ObserverOrError::Equals(const T& other) const {
+  if (tag_ != other.which())
+    return false;
+
+  switch (tag_) {
+    case Tag::kObserver:
+      return mojo::Equals(*(data_.observer), *(other.data_.observer));
+    case Tag::kError:
+      return mojo::Equals(*(data_.error), *(other.data_.error));
+  }
+
+  return false;
+}
 template <typename StructPtrType>
 SpeechRecognitionResultEventPtr SpeechRecognitionResultEvent::Clone() const {
   return New(
@@ -881,9 +1194,31 @@ bool operator<(const T& lhs, const T& rhs) {
   return false;
 }
 template <typename StructPtrType>
+SpeechRecognitionErrorEventPtr SpeechRecognitionErrorEvent::Clone() const {
+  return New(
+      mojo::Clone(message)
+  );
+}
+
+template <typename T, SpeechRecognitionErrorEvent::EnableIfSame<T>*>
+bool SpeechRecognitionErrorEvent::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->message, other_struct.message))
+    return false;
+  return true;
+}
+
+template <typename T, SpeechRecognitionErrorEvent::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.message < rhs.message)
+    return true;
+  if (rhs.message < lhs.message)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
 StartOptionsPtr StartOptions::Clone() const {
   return New(
-      mojo::Clone(client_id),
+      mojo::Clone(type),
       mojo::Clone(locale),
       mojo::Clone(interim_results)
   );
@@ -891,7 +1226,7 @@ StartOptionsPtr StartOptions::Clone() const {
 
 template <typename T, StartOptions::EnableIfSame<T>*>
 bool StartOptions::Equals(const T& other_struct) const {
-  if (!mojo::Equals(this->client_id, other_struct.client_id))
+  if (!mojo::Equals(this->type, other_struct.type))
     return false;
   if (!mojo::Equals(this->locale, other_struct.locale))
     return false;
@@ -902,9 +1237,9 @@ bool StartOptions::Equals(const T& other_struct) const {
 
 template <typename T, StartOptions::EnableIfSame<T>*>
 bool operator<(const T& lhs, const T& rhs) {
-  if (lhs.client_id < rhs.client_id)
+  if (lhs.type < rhs.type)
     return true;
-  if (rhs.client_id < lhs.client_id)
+  if (rhs.type < lhs.type)
     return false;
   if (lhs.locale < rhs.locale)
     return true;
@@ -919,22 +1254,22 @@ bool operator<(const T& lhs, const T& rhs) {
 template <typename StructPtrType>
 StopOptionsPtr StopOptions::Clone() const {
   return New(
-      mojo::Clone(client_id)
+      mojo::Clone(type)
   );
 }
 
 template <typename T, StopOptions::EnableIfSame<T>*>
 bool StopOptions::Equals(const T& other_struct) const {
-  if (!mojo::Equals(this->client_id, other_struct.client_id))
+  if (!mojo::Equals(this->type, other_struct.type))
     return false;
   return true;
 }
 
 template <typename T, StopOptions::EnableIfSame<T>*>
 bool operator<(const T& lhs, const T& rhs) {
-  if (lhs.client_id < rhs.client_id)
+  if (lhs.type < rhs.type)
     return true;
-  if (rhs.client_id < lhs.client_id)
+  if (rhs.type < lhs.type)
     return false;
   return false;
 }
@@ -942,7 +1277,7 @@ template <typename StructPtrType>
 SpeechRecognitionStartInfoPtr SpeechRecognitionStartInfo::Clone() const {
   return New(
       mojo::Clone(type),
-      mojo::Clone(observer)
+      mojo::Clone(observer_or_error)
   );
 }
 
@@ -950,7 +1285,7 @@ template <typename T, SpeechRecognitionStartInfo::EnableIfSame<T>*>
 bool SpeechRecognitionStartInfo::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->type, other_struct.type))
     return false;
-  if (!mojo::Equals(this->observer, other_struct.observer))
+  if (!mojo::Equals(this->observer_or_error, other_struct.observer_or_error))
     return false;
   return true;
 }
@@ -961,9 +1296,9 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.type < lhs.type)
     return false;
-  if (lhs.observer < rhs.observer)
+  if (lhs.observer_or_error < rhs.observer_or_error)
     return true;
-  if (rhs.observer < lhs.observer)
+  if (rhs.observer_or_error < lhs.observer_or_error)
     return false;
   return false;
 }
@@ -995,14 +1330,29 @@ struct  StructTraits<::ax::mojom::SpeechRecognitionResultEvent::DataView,
 
 
 template <>
+struct  StructTraits<::ax::mojom::SpeechRecognitionErrorEvent::DataView,
+                                         ::ax::mojom::SpeechRecognitionErrorEventPtr> {
+  static bool IsNull(const ::ax::mojom::SpeechRecognitionErrorEventPtr& input) { return !input; }
+  static void SetToNull(::ax::mojom::SpeechRecognitionErrorEventPtr* output) { output->reset(); }
+
+  static const decltype(::ax::mojom::SpeechRecognitionErrorEvent::message)& message(
+      const ::ax::mojom::SpeechRecognitionErrorEventPtr& input) {
+    return input->message;
+  }
+
+  static bool Read(::ax::mojom::SpeechRecognitionErrorEvent::DataView input, ::ax::mojom::SpeechRecognitionErrorEventPtr* output);
+};
+
+
+template <>
 struct  StructTraits<::ax::mojom::StartOptions::DataView,
                                          ::ax::mojom::StartOptionsPtr> {
   static bool IsNull(const ::ax::mojom::StartOptionsPtr& input) { return !input; }
   static void SetToNull(::ax::mojom::StartOptionsPtr* output) { output->reset(); }
 
-  static decltype(::ax::mojom::StartOptions::client_id) client_id(
+  static decltype(::ax::mojom::StartOptions::type) type(
       const ::ax::mojom::StartOptionsPtr& input) {
-    return input->client_id;
+    return input->type;
   }
 
   static const decltype(::ax::mojom::StartOptions::locale)& locale(
@@ -1025,9 +1375,9 @@ struct  StructTraits<::ax::mojom::StopOptions::DataView,
   static bool IsNull(const ::ax::mojom::StopOptionsPtr& input) { return !input; }
   static void SetToNull(::ax::mojom::StopOptionsPtr* output) { output->reset(); }
 
-  static decltype(::ax::mojom::StopOptions::client_id) client_id(
+  static decltype(::ax::mojom::StopOptions::type) type(
       const ::ax::mojom::StopOptionsPtr& input) {
-    return input->client_id;
+    return input->type;
   }
 
   static bool Read(::ax::mojom::StopOptions::DataView input, ::ax::mojom::StopOptionsPtr* output);
@@ -1045,12 +1395,34 @@ struct  StructTraits<::ax::mojom::SpeechRecognitionStartInfo::DataView,
     return input->type;
   }
 
-  static  decltype(::ax::mojom::SpeechRecognitionStartInfo::observer)& observer(
+  static  decltype(::ax::mojom::SpeechRecognitionStartInfo::observer_or_error)& observer_or_error(
        ::ax::mojom::SpeechRecognitionStartInfoPtr& input) {
-    return input->observer;
+    return input->observer_or_error;
   }
 
   static bool Read(::ax::mojom::SpeechRecognitionStartInfo::DataView input, ::ax::mojom::SpeechRecognitionStartInfoPtr* output);
+};
+
+
+template <>
+struct  UnionTraits<::ax::mojom::ObserverOrError::DataView,
+                                        ::ax::mojom::ObserverOrErrorPtr> {
+  static bool IsNull(const ::ax::mojom::ObserverOrErrorPtr& input) { return !input; }
+  static void SetToNull(::ax::mojom::ObserverOrErrorPtr* output) { output->reset(); }
+
+  static ::ax::mojom::ObserverOrError::Tag GetTag(const ::ax::mojom::ObserverOrErrorPtr& input) {
+    return input->which();
+  }
+
+  static  ::mojo::PendingReceiver<::ax::mojom::SpeechRecognitionEventObserver>& observer( ::ax::mojom::ObserverOrErrorPtr& input) {
+    return input->get_observer();
+  }
+
+  static const std::string& error(const ::ax::mojom::ObserverOrErrorPtr& input) {
+    return input->get_error();
+  }
+
+  static bool Read(::ax::mojom::ObserverOrError::DataView input, ::ax::mojom::ObserverOrErrorPtr* output);
 };
 
 }  // namespace mojo

@@ -127,16 +127,17 @@
   RequestContextType.SCRIPT = 24;
   RequestContextType.SERVICE_WORKER = 25;
   RequestContextType.SHARED_WORKER = 26;
-  RequestContextType.SUBRESOURCE = 27;
-  RequestContextType.SUBRESOURCE_WEBBUNDLE = 28;
-  RequestContextType.STYLE = 29;
-  RequestContextType.TRACK = 30;
-  RequestContextType.VIDEO = 31;
-  RequestContextType.WORKER = 32;
-  RequestContextType.XML_HTTP_REQUEST = 33;
-  RequestContextType.XSLT = 34;
+  RequestContextType.SPECULATION_RULES = 27;
+  RequestContextType.SUBRESOURCE = 28;
+  RequestContextType.SUBRESOURCE_WEBBUNDLE = 29;
+  RequestContextType.STYLE = 30;
+  RequestContextType.TRACK = 31;
+  RequestContextType.VIDEO = 32;
+  RequestContextType.WORKER = 33;
+  RequestContextType.XML_HTTP_REQUEST = 34;
+  RequestContextType.XSLT = 35;
   RequestContextType.MIN_VALUE = 0;
-  RequestContextType.MAX_VALUE = 34;
+  RequestContextType.MAX_VALUE = 35;
 
   RequestContextType.isKnownEnumValue = function(value) {
     switch (value) {
@@ -175,6 +176,7 @@
     case 32:
     case 33:
     case 34:
+    case 35:
       return true;
     }
     return false;

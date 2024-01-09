@@ -80,13 +80,13 @@ class BLINK_PLATFORM_EXPORT HidConnectionAsyncWaiter {
 
   ~HidConnectionAsyncWaiter();
   void Read(
-      bool* out_success, uint8_t* out_report_id, absl::optional<WTF::Vector<uint8_t>>* out_buffer);
+      bool* out_success, uint8_t* out_report_id, std::optional<WTF::Vector<uint8_t>>* out_buffer);
   
   void Write(
       uint8_t report_id, const WTF::Vector<uint8_t>& buffer, bool* out_success);
   bool Write(uint8_t report_id, const WTF::Vector<uint8_t>& buffer);
   void GetFeatureReport(
-      uint8_t report_id, bool* out_success, absl::optional<WTF::Vector<uint8_t>>* out_buffer);
+      uint8_t report_id, bool* out_success, std::optional<WTF::Vector<uint8_t>>* out_buffer);
   
   void SendFeatureReport(
       uint8_t report_id, const WTF::Vector<uint8_t>& buffer, bool* out_success);

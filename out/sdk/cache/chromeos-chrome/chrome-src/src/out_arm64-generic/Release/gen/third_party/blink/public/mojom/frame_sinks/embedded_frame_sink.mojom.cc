@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -114,14 +115,17 @@ void SurfaceEmbedderProxy::SetLocalSurfaceId(
                         "<value of type const ::viz::LocalSurfaceId&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSurfaceEmbedder_SetLocalSurfaceId_Name, kFlags, 0, 0, nullptr);
@@ -200,10 +204,10 @@ bool SurfaceEmbedderStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSurfaceEmbedderValidationInfo[] = {
-    {&internal::SurfaceEmbedder_SetLocalSurfaceId_Params_Data::Validate,
+    { &internal::SurfaceEmbedder_SetLocalSurfaceId_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -283,14 +287,17 @@ void EmbeddedFrameSinkClientProxy::BindSurfaceEmbedder(
                         "<value of type ::mojo::PendingReceiver<SurfaceEmbedder>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEmbeddedFrameSinkClient_BindSurfaceEmbedder_Name, kFlags, 0, 0, nullptr);
@@ -366,10 +373,10 @@ bool EmbeddedFrameSinkClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kEmbeddedFrameSinkClientValidationInfo[] = {
-    {&internal::EmbeddedFrameSinkClient_BindSurfaceEmbedder_Params_Data::Validate,
+    { &internal::EmbeddedFrameSinkClient_BindSurfaceEmbedder_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -595,14 +602,17 @@ void EmbeddedFrameSinkProviderProxy::RegisterEmbeddedFrameSink(
                         "<value of type ::mojo::PendingRemote<EmbeddedFrameSinkClient>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEmbeddedFrameSinkProvider_RegisterEmbeddedFrameSink_Name, kFlags, 0, 0, nullptr);
@@ -666,14 +676,17 @@ void EmbeddedFrameSinkProviderProxy::RegisterEmbeddedFrameSinkBundle(
                         "<value of type ::mojo::PendingRemote<::viz::mojom::FrameSinkBundleClient>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEmbeddedFrameSinkProvider_RegisterEmbeddedFrameSinkBundle_Name, kFlags, 0, 0, nullptr);
@@ -732,14 +745,17 @@ void EmbeddedFrameSinkProviderProxy::CreateCompositorFrameSink(
                         "<value of type ::mojo::PendingReceiver<::viz::mojom::CompositorFrameSink>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEmbeddedFrameSinkProvider_CreateCompositorFrameSink_Name, kFlags, 0, 0, nullptr);
@@ -801,14 +817,17 @@ void EmbeddedFrameSinkProviderProxy::CreateBundledCompositorFrameSink(
                         "<value of type ::mojo::PendingReceiver<::viz::mojom::CompositorFrameSink>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEmbeddedFrameSinkProvider_CreateBundledCompositorFrameSink_Name, kFlags, 0, 0, nullptr);
@@ -884,14 +903,17 @@ void EmbeddedFrameSinkProviderProxy::CreateSimpleCompositorFrameSink(
                         "<value of type ::mojo::PendingReceiver<::viz::mojom::CompositorFrameSink>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEmbeddedFrameSinkProvider_CreateSimpleCompositorFrameSink_Name, kFlags, 0, 0, nullptr);
@@ -964,14 +986,17 @@ void EmbeddedFrameSinkProviderProxy::ConnectToEmbedder(
                         "<value of type ::mojo::PendingReceiver<SurfaceEmbedder>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEmbeddedFrameSinkProvider_ConnectToEmbedder_Name, kFlags, 0, 0, nullptr);
@@ -1018,14 +1043,17 @@ void EmbeddedFrameSinkProviderProxy::RegisterFrameSinkHierarchy(
                         "<value of type const ::viz::FrameSinkId&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEmbeddedFrameSinkProvider_RegisterFrameSinkHierarchy_Name, kFlags, 0, 0, nullptr);
@@ -1066,14 +1094,17 @@ void EmbeddedFrameSinkProviderProxy::UnregisterFrameSinkHierarchy(
                         "<value of type const ::viz::FrameSinkId&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEmbeddedFrameSinkProvider_UnregisterFrameSinkHierarchy_Name, kFlags, 0, 0, nullptr);
@@ -1433,24 +1464,24 @@ bool EmbeddedFrameSinkProviderStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kEmbeddedFrameSinkProviderValidationInfo[] = {
-    {&internal::EmbeddedFrameSinkProvider_RegisterEmbeddedFrameSink_Params_Data::Validate,
+    { &internal::EmbeddedFrameSinkProvider_RegisterEmbeddedFrameSink_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::EmbeddedFrameSinkProvider_RegisterEmbeddedFrameSinkBundle_Params_Data::Validate,
+    { &internal::EmbeddedFrameSinkProvider_RegisterEmbeddedFrameSinkBundle_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::EmbeddedFrameSinkProvider_CreateCompositorFrameSink_Params_Data::Validate,
+    { &internal::EmbeddedFrameSinkProvider_CreateCompositorFrameSink_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::EmbeddedFrameSinkProvider_CreateBundledCompositorFrameSink_Params_Data::Validate,
+    { &internal::EmbeddedFrameSinkProvider_CreateBundledCompositorFrameSink_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::EmbeddedFrameSinkProvider_CreateSimpleCompositorFrameSink_Params_Data::Validate,
+    { &internal::EmbeddedFrameSinkProvider_CreateSimpleCompositorFrameSink_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::EmbeddedFrameSinkProvider_ConnectToEmbedder_Params_Data::Validate,
+    { &internal::EmbeddedFrameSinkProvider_ConnectToEmbedder_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::EmbeddedFrameSinkProvider_RegisterFrameSinkHierarchy_Params_Data::Validate,
+    { &internal::EmbeddedFrameSinkProvider_RegisterFrameSinkHierarchy_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::EmbeddedFrameSinkProvider_UnregisterFrameSinkHierarchy_Params_Data::Validate,
+    { &internal::EmbeddedFrameSinkProvider_UnregisterFrameSinkHierarchy_Params_Data::Validate,
      nullptr /* no response */},
 };
 

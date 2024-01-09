@@ -65,11 +65,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, WebGLLoseContext>::value,
     "WebGLLoseContext inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&WebGLLoseContext::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "WebGLLoseContext is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -86,8 +81,9 @@ BLINK_BINDINGS_TRACE_EVENT("WebGLLoseContext.loseContext");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGLLoseContext* blink_receiver = V8WebGLLoseContext::ToWrappableUnsafe(v8_receiver);
+WebGLLoseContext* blink_receiver = V8WebGLLoseContext::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->loseContext();
 
 }
@@ -103,8 +99,9 @@ BLINK_BINDINGS_TRACE_EVENT("WebGLLoseContext.restoreContext");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WebGLLoseContext* blink_receiver = V8WebGLLoseContext::ToWrappableUnsafe(v8_receiver);
+WebGLLoseContext* blink_receiver = V8WebGLLoseContext::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->restoreContext();
 
 }

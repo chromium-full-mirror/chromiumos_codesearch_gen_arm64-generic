@@ -9,7 +9,7 @@
 
 G_BEGIN_DECLS
 
-/* enumerations from "../libmbim-1.29.900/src/libmbim-glib/mbim-errors.h" */
+/* enumerations from "../libmbim-1.31.2/src/libmbim-glib/mbim-errors.h" */
 GQuark mbim_core_error_quark    (void);
 GType  mbim_core_error_get_type (void) G_GNUC_CONST;
 #define MBIM_CORE_ERROR (mbim_core_error_quark ())

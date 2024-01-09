@@ -33,6 +33,8 @@
 
 
 namespace ash::settings::mojom {
+class DisplaySettingsValueDataView;
+
 
 
 }  // ash::settings::mojom
@@ -40,11 +42,52 @@ namespace ash::settings::mojom {
 namespace mojo {
 namespace internal {
 
+template <>
+struct MojomTypeTraits<::ash::settings::mojom::DisplaySettingsValueDataView> {
+  using Data = ::ash::settings::mojom::internal::DisplaySettingsValue_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
 }  // namespace internal
 }  // namespace mojo
 
 
 namespace ash::settings::mojom {
+
+
+enum class DisplaySettingsType : int32_t {
+  
+  kResolution = 0,
+  
+  kRefreshRate = 1,
+  
+  kScaling = 2,
+  
+  kOrientation = 3,
+  
+  kOverscan = 4,
+  
+  kNightLight = 5,
+  
+  kNightLightSchedule = 6,
+  
+  kDisplayPage = 7,
+  
+  kMirrorMode = 8,
+  
+  kUnifiedMode = 9,
+  
+  kPrimaryDisplay = 10,
+  kMinValue = 0,
+  kMaxValue = 10,
+};
+
+ std::ostream& operator<<(std::ostream& os, DisplaySettingsType value);
+inline bool IsKnownEnumValue(DisplaySettingsType value) {
+  return internal::DisplaySettingsType_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
 // Interface base classes. They are used for type safety check.
 class TabletModeObserverInterfaceBase {};
 
@@ -56,6 +99,16 @@ using TabletModeObserverAssociatedPtrInfoDataView =
     mojo::AssociatedInterfacePtrInfoDataView<TabletModeObserverInterfaceBase>;
 using TabletModeObserverAssociatedRequestDataView =
     mojo::AssociatedInterfaceRequestDataView<TabletModeObserverInterfaceBase>;
+class DisplayConfigurationObserverInterfaceBase {};
+
+using DisplayConfigurationObserverPtrDataView =
+    mojo::InterfacePtrDataView<DisplayConfigurationObserverInterfaceBase>;
+using DisplayConfigurationObserverRequestDataView =
+    mojo::InterfaceRequestDataView<DisplayConfigurationObserverInterfaceBase>;
+using DisplayConfigurationObserverAssociatedPtrInfoDataView =
+    mojo::AssociatedInterfacePtrInfoDataView<DisplayConfigurationObserverInterfaceBase>;
+using DisplayConfigurationObserverAssociatedRequestDataView =
+    mojo::AssociatedInterfaceRequestDataView<DisplayConfigurationObserverInterfaceBase>;
 class DisplaySettingsProviderInterfaceBase {};
 
 using DisplaySettingsProviderPtrDataView =
@@ -68,13 +121,101 @@ using DisplaySettingsProviderAssociatedRequestDataView =
     mojo::AssociatedInterfaceRequestDataView<DisplaySettingsProviderInterfaceBase>;
 
 
+class DisplaySettingsValueDataView {
+ public:
+  DisplaySettingsValueDataView() = default;
+
+  DisplaySettingsValueDataView(
+      internal::DisplaySettingsValue_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  std::optional<bool> is_internal_display() const {
+
+    return data_->is_internal_display_$flag
+        ? absl::make_optional(!!data_->is_internal_display_$value)
+        : absl::nullopt;
+  }
+  std::optional<int64_t> display_id() const {
+
+    return data_->display_id_$flag
+        ? absl::make_optional(data_->display_id_$value)
+        : absl::nullopt;
+  }
+ private:
+  internal::DisplaySettingsValue_Data* data_ = nullptr;
+};
+
+
 }  // ash::settings::mojom
 
 namespace std {
 
+template <>
+struct hash<::ash::settings::mojom::DisplaySettingsType>
+    : public mojo::internal::EnumHashImpl<::ash::settings::mojom::DisplaySettingsType> {};
+
 }  // namespace std
 
 namespace mojo {
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::settings::mojom::DisplaySettingsType, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::ash::settings::mojom::DisplaySettingsType, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::ash::settings::mojom::DisplaySettingsType>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::settings::mojom::DisplaySettingsValueDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::settings::mojom::DisplaySettingsValueDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::settings::mojom::internal::DisplaySettingsValue_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    fragment->is_internal_display_$flag = Traits::is_internal_display(input).has_value();
+    if (Traits::is_internal_display(input).has_value()) {
+      fragment->is_internal_display_$value = Traits::is_internal_display(input).value();
+    }
+    fragment->display_id_$flag = Traits::display_id(input).has_value();
+    if (Traits::display_id(input).has_value()) {
+      fragment->display_id_$value = Traits::display_id(input).value();
+    }
+  }
+
+  static bool Deserialize(::ash::settings::mojom::internal::DisplaySettingsValue_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::settings::mojom::DisplaySettingsValueDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
 
 }  // namespace mojo
 
@@ -82,9 +223,20 @@ namespace mojo {
 namespace ash::settings::mojom {
 
 
+
+
 }  // ash::settings::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::ash::settings::mojom::DisplaySettingsType> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::settings::mojom::DisplaySettingsType value);
+};
+
+} // namespace perfetto
 
 #endif  // CHROME_BROWSER_UI_WEBUI_ASH_SETTINGS_PAGES_DEVICE_DISPLAY_SETTINGS_DISPLAY_SETTINGS_PROVIDER_MOJOM_SHARED_H_

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -108,15 +109,15 @@ TextInputState::TextInputState(
     ::ui::TextInputMode mode_in,
     ::ui::TextInputAction action_in,
     uint32_t flags_in,
-    const absl::optional<::std::u16string>& value_in,
+    const std::optional<::std::u16string>& value_in,
     const ::gfx::Range& selection_in,
-    const absl::optional<::gfx::Range>& composition_in,
+    const std::optional<::gfx::Range>& composition_in,
     bool can_compose_inline_in,
     bool show_ime_if_needed_in,
     bool always_hide_ime_in,
     bool reply_to_request_in,
-    const absl::optional<::gfx::Rect>& edit_context_control_bounds_in,
-    const absl::optional<::gfx::Rect>& edit_context_selection_bounds_in,
+    const std::optional<::gfx::Rect>& edit_context_control_bounds_in,
+    const std::optional<::gfx::Rect>& edit_context_selection_bounds_in,
     ::ui::mojom::VirtualKeyboardPolicy vk_policy_in,
     ::ui::mojom::VirtualKeyboardVisibilityRequest last_vk_visibility_request_in,
     std::vector<ImeTextSpanInfoPtr> ime_text_spans_info_in)
@@ -192,7 +193,7 @@ void TextInputState::WriteIntoTrace(
     dict.AddItem(
       "value"), this->value,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::std::u16string>&>"
+      "<value of type const std::optional<::std::u16string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -210,7 +211,7 @@ void TextInputState::WriteIntoTrace(
     dict.AddItem(
       "composition"), this->composition,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::gfx::Range>&>"
+      "<value of type const std::optional<::gfx::Range>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -255,7 +256,7 @@ void TextInputState::WriteIntoTrace(
     dict.AddItem(
       "edit_context_control_bounds"), this->edit_context_control_bounds,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::gfx::Rect>&>"
+      "<value of type const std::optional<::gfx::Rect>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -264,7 +265,7 @@ void TextInputState::WriteIntoTrace(
     dict.AddItem(
       "edit_context_selection_bounds"), this->edit_context_selection_bounds,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::gfx::Rect>&>"
+      "<value of type const std::optional<::gfx::Rect>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

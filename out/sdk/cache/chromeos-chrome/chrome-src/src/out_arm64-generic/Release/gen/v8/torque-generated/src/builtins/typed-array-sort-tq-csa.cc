@@ -66,6 +66,7 @@
 #include "src/objects/turboshaft-types.h"
 #include "src/torque/runtime-support.h"
 #include "src/wasm/wasm-linkage.h"
+#include "src/codegen/code-stub-assembler-inl.h"
 // Required Builtins:
 #include "torque-generated/src/builtins/typed-array-sort-tq-csa.h"
 #include "torque-generated/src/builtins/array-join-tq-csa.h"
@@ -718,7 +719,7 @@ TF_BUILTIN(TypedArrayMergeSort, CodeStubAssembler) {
   TNode<Object> tmp7;
   if (block5.is_used()) {
     ca_.Bind(&block5);
-    tmp7 = ca_.CallStub<Object>(Builtins::CallableFor(ca_.isolate(), Builtin::kTypedArrayMergeSort), parameter0, parameter4, parameter2, tmp3, parameter1, parameter5, parameter6);
+    tmp7 = ca_.CallBuiltin<Object>(Builtin::kTypedArrayMergeSort, parameter0, parameter4, parameter2, tmp3, parameter1, parameter5, parameter6);
     ca_.Goto(&block6);
   }
 
@@ -736,7 +737,7 @@ TF_BUILTIN(TypedArrayMergeSort, CodeStubAssembler) {
   TNode<Object> tmp11;
   if (block7.is_used()) {
     ca_.Bind(&block7);
-    tmp11 = ca_.CallStub<Object>(Builtins::CallableFor(ca_.isolate(), Builtin::kTypedArrayMergeSort), parameter0, parameter4, tmp3, parameter3, parameter1, parameter5, parameter6);
+    tmp11 = ca_.CallBuiltin<Object>(Builtin::kTypedArrayMergeSort, parameter0, parameter4, tmp3, parameter3, parameter1, parameter5, parameter6);
     ca_.Goto(&block8);
   }
 
@@ -887,7 +888,7 @@ TNode<JSTypedArray> TypedArraySortCommon_0(compiler::CodeAssemblerState* state_,
   TNode<BoolT> tmp26;
   if (block12.is_used()) {
     ca_.Bind(&block12, &phi_bb12_10);
-tmp19 = TORQUE_CAST(CodeStubAssembler(state_).CallBuiltinPointer(Builtins::CallableFor(ca_.isolate(),ExampleBuiltinForTorqueFunctionPointerType(1)).descriptor(), tmp10, TNode<Object>(), p_array, phi_bb12_10));
+tmp19 = TORQUE_CAST(CodeStubAssembler(state_).CallBuiltinPointer(Builtins::CallInterfaceDescriptorFor(ExampleBuiltinForTorqueFunctionPointerType(1)), tmp10, TNode<Object>(), p_array, phi_bb12_10));
     std::tie(tmp20, tmp21, tmp22) = FieldSliceFixedArrayObjects_0(state_, TNode<FixedArray>{tmp14}).Flatten();
     tmp23 = Convert_intptr_uintptr_0(state_, TNode<UintPtrT>{phi_bb12_10});
     tmp24 = Convert_uintptr_intptr_0(state_, TNode<IntPtrT>{tmp23});
@@ -966,7 +967,7 @@ tmp19 = TORQUE_CAST(CodeStubAssembler(state_).CallBuiltinPointer(Builtins::Calla
   if (block13.is_used()) {
     ca_.Bind(&block13, &phi_bb13_10);
     tmp44 = FromConstexpr_uintptr_constexpr_IntegerLiteral_0(state_, IntegerLiteral(false, 0x0ull));
-    tmp45 = ca_.CallStub<Object>(Builtins::CallableFor(ca_.isolate(), Builtin::kTypedArrayMergeSort), p_context, tmp16, tmp44, p_len, tmp14, p_array, tmp7);
+    tmp45 = ca_.CallBuiltin<Object>(Builtin::kTypedArrayMergeSort, p_context, tmp16, tmp44, p_len, tmp14, p_array, tmp7);
     if ((p_isSort)) {
       ca_.Goto(&block33);
     } else {
@@ -1079,7 +1080,7 @@ tmp19 = TORQUE_CAST(CodeStubAssembler(state_).CallBuiltinPointer(Builtins::Calla
     std::tie(tmp61, tmp62) = NewReference_Object_0(state_, TNode<Object>{tmp52}, TNode<IntPtrT>{tmp60}).Flatten();
     tmp63 = CodeStubAssembler(state_).LoadReference<Object>(CodeStubAssembler::Reference{tmp61, tmp62});
     tmp64 = UnsafeCast_Numeric_0(state_, TNode<Context>{p_context}, TNode<Object>{tmp63});
-tmp65 = TORQUE_CAST(CodeStubAssembler(state_).CallBuiltinPointer(Builtins::CallableFor(ca_.isolate(),ExampleBuiltinForTorqueFunctionPointerType(2)).descriptor(), tmp11, p_context, p_array, phi_bb58_17, tmp64));
+tmp65 = TORQUE_CAST(CodeStubAssembler(state_).CallBuiltinPointer(Builtins::CallInterfaceDescriptorFor(ExampleBuiltinForTorqueFunctionPointerType(2)), tmp11, p_context, p_array, phi_bb58_17, tmp64));
     tmp66 = FromConstexpr_uintptr_constexpr_int31_0(state_, 1);
     tmp67 = CodeStubAssembler(state_).UintPtrAdd(TNode<UintPtrT>{phi_bb58_11}, TNode<UintPtrT>{tmp66});
     ca_.Goto(&block52, phi_bb58_10, tmp67);

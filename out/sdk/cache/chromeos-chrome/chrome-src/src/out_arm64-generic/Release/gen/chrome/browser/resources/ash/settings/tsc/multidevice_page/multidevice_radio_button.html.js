@@ -5,6 +5,7 @@ export function getTemplate() {
 <div role="presentation" class="disc-wrapper" id="button" tabindex$="[[buttonTabIndex_]]" on-keydown="onInputKeydown_">
   <div class="disc-border"></div>
   <div class="disc"></div>
+  <div id="overlay"></div>
 </div>
 
 <div id="labelWrapper" role="presentation">
@@ -15,6 +16,5 @@ export function getTemplate() {
   <cr-policy-indicator indicator-type="userPolicy" icon-aria-label="[[label]]" on-click="onIndicatorClick_">
   </cr-policy-indicator>
 </template>
-
 <!--_html_template_end_-->`;
 }

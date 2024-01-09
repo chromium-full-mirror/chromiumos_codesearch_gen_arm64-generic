@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/proxy_resolver/public/mojom/proxy_resolver.mojom-features.h"
 #include "services/proxy_resolver/public/mojom/proxy_resolver.mojom-shared.h"
 #include "services/proxy_resolver/public/mojom/proxy_resolver.mojom-forward.h"
 #include "sandbox/policy/mojom/sandbox.mojom-forward.h"
@@ -659,7 +660,7 @@ class  ProxyInfo {
   ProxyInfo();
 
   explicit ProxyInfo(
-      std::vector<::net::ProxyServer> proxy_servers);
+      std::vector<::net::ProxyChain> proxy_chains);
 
 
   ~ProxyInfo();
@@ -737,7 +738,7 @@ class  ProxyInfo {
   }
 
   
-  std::vector<::net::ProxyServer> proxy_servers;
+  std::vector<::net::ProxyChain> proxy_chains;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -771,22 +772,22 @@ bool operator>=(const T& lhs, const T& rhs) {
 template <typename StructPtrType>
 ProxyInfoPtr ProxyInfo::Clone() const {
   return New(
-      mojo::Clone(proxy_servers)
+      mojo::Clone(proxy_chains)
   );
 }
 
 template <typename T, ProxyInfo::EnableIfSame<T>*>
 bool ProxyInfo::Equals(const T& other_struct) const {
-  if (!mojo::Equals(this->proxy_servers, other_struct.proxy_servers))
+  if (!mojo::Equals(this->proxy_chains, other_struct.proxy_chains))
     return false;
   return true;
 }
 
 template <typename T, ProxyInfo::EnableIfSame<T>*>
 bool operator<(const T& lhs, const T& rhs) {
-  if (lhs.proxy_servers < rhs.proxy_servers)
+  if (lhs.proxy_chains < rhs.proxy_chains)
     return true;
-  if (rhs.proxy_servers < lhs.proxy_servers)
+  if (rhs.proxy_chains < lhs.proxy_chains)
     return false;
   return false;
 }
@@ -803,9 +804,9 @@ struct  StructTraits<::proxy_resolver::mojom::ProxyInfo::DataView,
   static bool IsNull(const ::proxy_resolver::mojom::ProxyInfoPtr& input) { return !input; }
   static void SetToNull(::proxy_resolver::mojom::ProxyInfoPtr* output) { output->reset(); }
 
-  static const decltype(::proxy_resolver::mojom::ProxyInfo::proxy_servers)& proxy_servers(
+  static const decltype(::proxy_resolver::mojom::ProxyInfo::proxy_chains)& proxy_chains(
       const ::proxy_resolver::mojom::ProxyInfoPtr& input) {
-    return input->proxy_servers;
+    return input->proxy_chains;
   }
 
   static bool Read(::proxy_resolver::mojom::ProxyInfo::DataView input, ::proxy_resolver::mojom::ProxyInfoPtr* output);

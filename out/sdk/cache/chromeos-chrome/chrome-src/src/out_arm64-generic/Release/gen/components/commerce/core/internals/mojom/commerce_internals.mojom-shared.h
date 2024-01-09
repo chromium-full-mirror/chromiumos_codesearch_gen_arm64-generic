@@ -187,16 +187,6 @@ class ShoppingListEligibleDetailDataView {
     return mojo::internal::Deserialize<::commerce::mojom::EligibleEntryDataView>(
         pointer, output, message_);
   }
-  inline void GetIsWebAndAppActivityEnabledDataView(
-      EligibleEntryDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadIsWebAndAppActivityEnabled(UserType* output) {
-    
-    auto* pointer = data_->is_web_and_app_activity_enabled.Get();
-    return mojo::internal::Deserialize<::commerce::mojom::EligibleEntryDataView>(
-        pointer, output, message_);
-  }
   inline void GetIsSubjectToParentalControlsDataView(
       EligibleEntryDataView* output);
 
@@ -338,18 +328,6 @@ struct Serializer<::commerce::mojom::ShoppingListEligibleDetailDataView, MaybeCo
         fragment->is_anonymized_url_data_collection_enabled.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null is_anonymized_url_data_collection_enabled in ShoppingListEligibleDetail struct");
-    decltype(Traits::is_web_and_app_activity_enabled(input)) in_is_web_and_app_activity_enabled = Traits::is_web_and_app_activity_enabled(input);
-    mojo::internal::MessageFragment<
-        typename decltype(fragment->is_web_and_app_activity_enabled)::BaseType> is_web_and_app_activity_enabled_fragment(
-            fragment.message());
-    mojo::internal::Serialize<::commerce::mojom::EligibleEntryDataView>(
-        in_is_web_and_app_activity_enabled, is_web_and_app_activity_enabled_fragment);
-    fragment->is_web_and_app_activity_enabled.Set(
-        is_web_and_app_activity_enabled_fragment.is_null() ? nullptr : is_web_and_app_activity_enabled_fragment.data());
-    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-        fragment->is_web_and_app_activity_enabled.is_null(),
-        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-        "null is_web_and_app_activity_enabled in ShoppingListEligibleDetail struct");
     decltype(Traits::is_subject_to_parental_controls(input)) in_is_subject_to_parental_controls = Traits::is_subject_to_parental_controls(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->is_subject_to_parental_controls)::BaseType> is_subject_to_parental_controls_fragment(
@@ -412,11 +390,6 @@ inline void ShoppingListEligibleDetailDataView::GetIsSyncingBookmarksDataView(
 inline void ShoppingListEligibleDetailDataView::GetIsAnonymizedUrlDataCollectionEnabledDataView(
     EligibleEntryDataView* output) {
   auto pointer = data_->is_anonymized_url_data_collection_enabled.Get();
-  *output = EligibleEntryDataView(pointer, message_);
-}
-inline void ShoppingListEligibleDetailDataView::GetIsWebAndAppActivityEnabledDataView(
-    EligibleEntryDataView* output) {
-  auto pointer = data_->is_web_and_app_activity_enabled.Get();
   *output = EligibleEntryDataView(pointer, message_);
 }
 inline void ShoppingListEligibleDetailDataView::GetIsSubjectToParentalControlsDataView(

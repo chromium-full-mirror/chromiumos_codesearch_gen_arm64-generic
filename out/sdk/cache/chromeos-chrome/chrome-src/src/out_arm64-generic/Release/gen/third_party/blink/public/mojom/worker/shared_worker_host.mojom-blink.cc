@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -195,14 +196,17 @@ void SharedWorkerHostProxy::OnConnected(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSharedWorkerHost_OnConnected_Name, kFlags, 0, 0, nullptr);
@@ -226,14 +230,17 @@ void SharedWorkerHostProxy::OnContextClosed(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::SharedWorkerHost::OnContextClosed");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSharedWorkerHost_OnContextClosed_Name, kFlags, 0, 0, nullptr);
@@ -266,14 +273,17 @@ void SharedWorkerHostProxy::OnReadyForInspection(
                         "<value of type ::mojo::PendingReceiver<::blink::mojom::blink::DevToolsAgentHost>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSharedWorkerHost_OnReadyForInspection_Name, kFlags, 0, 0, nullptr);
@@ -315,14 +325,17 @@ void SharedWorkerHostProxy::OnScriptLoadFailed(
                         "<value of type const WTF::String&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSharedWorkerHost_OnScriptLoadFailed_Name, kFlags, 0, 0, nullptr);
@@ -363,14 +376,17 @@ void SharedWorkerHostProxy::OnFeatureUsed(
                         "<value of type ::blink::mojom::blink::WebFeature>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSharedWorkerHost_OnFeatureUsed_Name, kFlags, 0, 0, nullptr);
@@ -560,18 +576,18 @@ bool SharedWorkerHostStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSharedWorkerHostValidationInfo[] = {
-    {&internal::SharedWorkerHost_OnConnected_Params_Data::Validate,
+    { &internal::SharedWorkerHost_OnConnected_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SharedWorkerHost_OnContextClosed_Params_Data::Validate,
+    { &internal::SharedWorkerHost_OnContextClosed_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SharedWorkerHost_OnReadyForInspection_Params_Data::Validate,
+    { &internal::SharedWorkerHost_OnReadyForInspection_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SharedWorkerHost_OnScriptLoadFailed_Params_Data::Validate,
+    { &internal::SharedWorkerHost_OnScriptLoadFailed_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SharedWorkerHost_OnFeatureUsed_Params_Data::Validate,
+    { &internal::SharedWorkerHost_OnFeatureUsed_Params_Data::Validate,
      nullptr /* no response */},
 };
 

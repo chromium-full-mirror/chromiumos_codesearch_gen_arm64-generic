@@ -80,6 +80,15 @@ has_extensions_ = true;
 DCHECK(member_extensions_);
 }
 
+bool hasHints() const {
+  return true;
+}
+const Vector<String>& hints() const {
+  return member_hints_;
+}
+void setHints(const Vector<String>& value);
+void setHints(Vector<String>&& value);
+
 bool hasRpId() const {
   return has_rp_id_;
 }
@@ -145,6 +154,7 @@ bool has_user_verification_ = false;
 HeapVector<Member<PublicKeyCredentialDescriptor>> member_allow_credentials_;
 Member<V8UnionArrayBufferOrArrayBufferView> member_challenge_;
 Member<AuthenticationExtensionsClientInputs> member_extensions_;
+Vector<String> member_hints_;
 String member_rp_id_;
 uint32_t member_timeout_;
 String member_user_verification_;

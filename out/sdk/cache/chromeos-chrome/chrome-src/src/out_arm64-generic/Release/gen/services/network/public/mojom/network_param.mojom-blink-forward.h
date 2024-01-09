@@ -53,6 +53,9 @@ using HostPortPairPtr = mojo::InlinedStructPtr<HostPortPair>;
 class ProxyServer;
 using ProxyServerPtr = mojo::StructPtr<ProxyServer>;
 
+class ProxyChain;
+using ProxyChainPtr = mojo::StructPtr<ProxyChain>;
+
 class ResolveErrorInfo;
 using ResolveErrorInfoPtr = mojo::InlinedStructPtr<ResolveErrorInfo>;
 

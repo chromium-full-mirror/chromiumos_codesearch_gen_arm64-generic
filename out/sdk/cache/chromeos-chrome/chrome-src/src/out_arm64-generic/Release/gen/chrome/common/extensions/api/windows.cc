@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/extensions/api/windows.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -45,17 +46,17 @@ const int WINDOW_ID_CURRENT = -2;
 
 const char* ToString(WindowType enum_param) {
   switch (enum_param) {
-    case WINDOW_TYPE_NORMAL:
+    case WindowType::kNormal:
       return "normal";
-    case WINDOW_TYPE_POPUP:
+    case WindowType::kPopup:
       return "popup";
-    case WINDOW_TYPE_PANEL:
+    case WindowType::kPanel:
       return "panel";
-    case WINDOW_TYPE_APP:
+    case WindowType::kApp:
       return "app";
-    case WINDOW_TYPE_DEVTOOLS:
+    case WindowType::kDevtools:
       return "devtools";
-    case WINDOW_TYPE_NONE:
+    case WindowType::kNone:
       return "";
   }
   NOTREACHED();
@@ -64,16 +65,16 @@ const char* ToString(WindowType enum_param) {
 
 WindowType ParseWindowType(base::StringPiece enum_string) {
   if (enum_string == "normal")
-    return WINDOW_TYPE_NORMAL;
+    return WindowType::kNormal;
   if (enum_string == "popup")
-    return WINDOW_TYPE_POPUP;
+    return WindowType::kPopup;
   if (enum_string == "panel")
-    return WINDOW_TYPE_PANEL;
+    return WindowType::kPanel;
   if (enum_string == "app")
-    return WINDOW_TYPE_APP;
+    return WindowType::kApp;
   if (enum_string == "devtools")
-    return WINDOW_TYPE_DEVTOOLS;
-  return WINDOW_TYPE_NONE;
+    return WindowType::kDevtools;
+  return WindowType::kNone;
 }
 
 std::u16string GetWindowTypeParseError(base::StringPiece enum_string) {
@@ -83,17 +84,17 @@ std::u16string GetWindowTypeParseError(base::StringPiece enum_string) {
 
 const char* ToString(WindowState enum_param) {
   switch (enum_param) {
-    case WINDOW_STATE_NORMAL:
+    case WindowState::kNormal:
       return "normal";
-    case WINDOW_STATE_MINIMIZED:
+    case WindowState::kMinimized:
       return "minimized";
-    case WINDOW_STATE_MAXIMIZED:
+    case WindowState::kMaximized:
       return "maximized";
-    case WINDOW_STATE_FULLSCREEN:
+    case WindowState::kFullscreen:
       return "fullscreen";
-    case WINDOW_STATE_LOCKED_FULLSCREEN:
+    case WindowState::kLockedFullscreen:
       return "locked-fullscreen";
-    case WINDOW_STATE_NONE:
+    case WindowState::kNone:
       return "";
   }
   NOTREACHED();
@@ -102,16 +103,16 @@ const char* ToString(WindowState enum_param) {
 
 WindowState ParseWindowState(base::StringPiece enum_string) {
   if (enum_string == "normal")
-    return WINDOW_STATE_NORMAL;
+    return WindowState::kNormal;
   if (enum_string == "minimized")
-    return WINDOW_STATE_MINIMIZED;
+    return WindowState::kMinimized;
   if (enum_string == "maximized")
-    return WINDOW_STATE_MAXIMIZED;
+    return WindowState::kMaximized;
   if (enum_string == "fullscreen")
-    return WINDOW_STATE_FULLSCREEN;
+    return WindowState::kFullscreen;
   if (enum_string == "locked-fullscreen")
-    return WINDOW_STATE_LOCKED_FULLSCREEN;
-  return WINDOW_STATE_NONE;
+    return WindowState::kLockedFullscreen;
+  return WindowState::kNone;
 }
 
 std::u16string GetWindowStateParseError(base::StringPiece enum_string) {
@@ -127,8 +128,8 @@ state(),
 always_on_top(false) {}
 
 Window::~Window() = default;
-Window::Window(Window&& rhs) = default;
-Window& Window::operator=(Window&& rhs) = default;
+Window::Window(Window&& rhs) noexcept = default;
+Window& Window::operator=(Window&& rhs) noexcept = default;
 Window Window::Clone() const {
   Window out;
   out.id = id;
@@ -162,7 +163,7 @@ bool Window::Populate(
     {
       auto temp = (*id_value).GetIfInt();
       if (!temp.has_value()) {
-        out.id = absl::nullopt;
+        out.id = std::nullopt;
         return false;
       }
       out.id = *temp;
@@ -186,7 +187,7 @@ bool Window::Populate(
     {
       auto temp = (*top_value).GetIfInt();
       if (!temp.has_value()) {
-        out.top = absl::nullopt;
+        out.top = std::nullopt;
         return false;
       }
       out.top = *temp;
@@ -198,7 +199,7 @@ bool Window::Populate(
     {
       auto temp = (*left_value).GetIfInt();
       if (!temp.has_value()) {
-        out.left = absl::nullopt;
+        out.left = std::nullopt;
         return false;
       }
       out.left = *temp;
@@ -210,7 +211,7 @@ bool Window::Populate(
     {
       auto temp = (*width_value).GetIfInt();
       if (!temp.has_value()) {
-        out.width = absl::nullopt;
+        out.width = std::nullopt;
         return false;
       }
       out.width = *temp;
@@ -222,7 +223,7 @@ bool Window::Populate(
     {
       auto temp = (*height_value).GetIfInt();
       if (!temp.has_value()) {
-        out.height = absl::nullopt;
+        out.height = std::nullopt;
         return false;
       }
       out.height = *temp;
@@ -304,7 +305,7 @@ bool Window::Populate(
     {
       auto* temp = (*session_id_value).GetIfString();
       if (!temp) {
-        out.session_id = absl::nullopt;
+        out.session_id = std::nullopt;
         return false;
       }
       out.session_id = *temp;
@@ -324,34 +325,21 @@ bool Window::Populate(
 }
 
 // static
-std::unique_ptr<Window> Window::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<Window>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<Window> Window::FromValue(const base::Value::Dict& value) {
+  Window out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Window> Window::FromValue(const base::Value::Dict& value) {
+std::optional<Window> Window::FromValue(const base::Value& value) {
   Window out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<Window> Window::FromValue(const base::Value& value) {
-  Window out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -408,13 +396,13 @@ base::Value::Dict Window::ToValue() const {
 
 const char* ToString(CreateType enum_param) {
   switch (enum_param) {
-    case CREATE_TYPE_NORMAL:
+    case CreateType::kNormal:
       return "normal";
-    case CREATE_TYPE_POPUP:
+    case CreateType::kPopup:
       return "popup";
-    case CREATE_TYPE_PANEL:
+    case CreateType::kPanel:
       return "panel";
-    case CREATE_TYPE_NONE:
+    case CreateType::kNone:
       return "";
   }
   NOTREACHED();
@@ -423,12 +411,12 @@ const char* ToString(CreateType enum_param) {
 
 CreateType ParseCreateType(base::StringPiece enum_string) {
   if (enum_string == "normal")
-    return CREATE_TYPE_NORMAL;
+    return CreateType::kNormal;
   if (enum_string == "popup")
-    return CREATE_TYPE_POPUP;
+    return CreateType::kPopup;
   if (enum_string == "panel")
-    return CREATE_TYPE_PANEL;
-  return CREATE_TYPE_NONE;
+    return CreateType::kPanel;
+  return CreateType::kNone;
 }
 
 std::u16string GetCreateTypeParseError(base::StringPiece enum_string) {
@@ -440,8 +428,8 @@ QueryOptions::QueryOptions()
  {}
 
 QueryOptions::~QueryOptions() = default;
-QueryOptions::QueryOptions(QueryOptions&& rhs) = default;
-QueryOptions& QueryOptions::operator=(QueryOptions&& rhs) = default;
+QueryOptions::QueryOptions(QueryOptions&& rhs) noexcept = default;
+QueryOptions& QueryOptions::operator=(QueryOptions&& rhs) noexcept = default;
 QueryOptions QueryOptions::Clone() const {
   QueryOptions out;
   out.populate = populate;
@@ -457,7 +445,7 @@ bool QueryOptions::Populate(
     {
       auto temp = (*populate_value).GetIfBool();
       if (!temp.has_value()) {
-        out.populate = absl::nullopt;
+        out.populate = std::nullopt;
         return false;
       }
       out.populate = *temp;
@@ -501,34 +489,21 @@ bool QueryOptions::Populate(
 }
 
 // static
-std::unique_ptr<QueryOptions> QueryOptions::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<QueryOptions>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<QueryOptions> QueryOptions::FromValue(const base::Value::Dict& value) {
+  QueryOptions out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<QueryOptions> QueryOptions::FromValue(const base::Value::Dict& value) {
+std::optional<QueryOptions> QueryOptions::FromValue(const base::Value& value) {
   QueryOptions out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<QueryOptions> QueryOptions::FromValue(const base::Value& value) {
-  QueryOptions out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -564,13 +539,13 @@ namespace Get {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() < 1 || args.size() > 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -580,13 +555,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = window_id_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.window_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -594,12 +569,12 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& query_options_value = args[1];
     {
       if (!query_options_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         QueryOptions temp;
         if (!QueryOptions::Populate(query_options_value.GetDict(), temp))
-          return absl::nullopt;
+          return std::nullopt;
         params.query_options = std::move(temp);
       }
     }
@@ -622,13 +597,13 @@ namespace GetCurrent {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() > 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -637,12 +612,12 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& query_options_value = args[0];
     {
       if (!query_options_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         QueryOptions temp;
         if (!QueryOptions::Populate(query_options_value.GetDict(), temp))
-          return absl::nullopt;
+          return std::nullopt;
         params.query_options = std::move(temp);
       }
     }
@@ -665,13 +640,13 @@ namespace GetLastFocused {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() > 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -680,12 +655,12 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& query_options_value = args[0];
     {
       if (!query_options_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         QueryOptions temp;
         if (!QueryOptions::Populate(query_options_value.GetDict(), temp))
-          return absl::nullopt;
+          return std::nullopt;
         params.query_options = std::move(temp);
       }
     }
@@ -708,13 +683,13 @@ namespace GetAll {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() > 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -723,12 +698,12 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& query_options_value = args[0];
     {
       if (!query_options_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         QueryOptions temp;
         if (!QueryOptions::Populate(query_options_value.GetDict(), temp))
-          return absl::nullopt;
+          return std::nullopt;
         params.query_options = std::move(temp);
       }
     }
@@ -753,8 +728,8 @@ Params::CreateData::Url::Url()
  {}
 
 Params::CreateData::Url::~Url() = default;
-Params::CreateData::Url::Url(Url&& rhs) = default;
-Params::CreateData::Url& Params::CreateData::Url::operator=(Url&& rhs) = default;
+Params::CreateData::Url::Url(Url&& rhs) noexcept = default;
+Params::CreateData::Url& Params::CreateData::Url::operator=(Url&& rhs) noexcept = default;
 Params::CreateData::Url Params::CreateData::Url::Clone() const {
   Url out;
   out.as_string = as_string;
@@ -769,7 +744,7 @@ bool Params::CreateData::Url::Populate(
     {
       auto* temp = value.GetIfString();
       if (!temp) {
-        out.as_string = absl::nullopt;
+        out.as_string = std::nullopt;
         return false;
       }
       out.as_string = *temp;
@@ -793,11 +768,11 @@ bool Params::CreateData::Url::Populate(
 }
 
 // static
-absl::optional<Params::CreateData::Url> Params::CreateData::Url::FromValue(const base::Value& value) {
+std::optional<Params::CreateData::Url> Params::CreateData::Url::FromValue(const base::Value& value) {
   Url out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -809,8 +784,8 @@ Params::CreateData::CreateData()
 state() {}
 
 Params::CreateData::~CreateData() = default;
-Params::CreateData::CreateData(CreateData&& rhs) = default;
-Params::CreateData& Params::CreateData::operator=(CreateData&& rhs) = default;
+Params::CreateData::CreateData(CreateData&& rhs) noexcept = default;
+Params::CreateData& Params::CreateData::operator=(CreateData&& rhs) noexcept = default;
 Params::CreateData Params::CreateData::Clone() const {
   CreateData out;
   if (url) {
@@ -849,7 +824,7 @@ bool Params::CreateData::Populate(
     {
       auto temp = (*tab_id_value).GetIfInt();
       if (!temp.has_value()) {
-        out.tab_id = absl::nullopt;
+        out.tab_id = std::nullopt;
         return false;
       }
       out.tab_id = *temp;
@@ -861,7 +836,7 @@ bool Params::CreateData::Populate(
     {
       auto temp = (*left_value).GetIfInt();
       if (!temp.has_value()) {
-        out.left = absl::nullopt;
+        out.left = std::nullopt;
         return false;
       }
       out.left = *temp;
@@ -873,7 +848,7 @@ bool Params::CreateData::Populate(
     {
       auto temp = (*top_value).GetIfInt();
       if (!temp.has_value()) {
-        out.top = absl::nullopt;
+        out.top = std::nullopt;
         return false;
       }
       out.top = *temp;
@@ -885,7 +860,7 @@ bool Params::CreateData::Populate(
     {
       auto temp = (*width_value).GetIfInt();
       if (!temp.has_value()) {
-        out.width = absl::nullopt;
+        out.width = std::nullopt;
         return false;
       }
       out.width = *temp;
@@ -897,7 +872,7 @@ bool Params::CreateData::Populate(
     {
       auto temp = (*height_value).GetIfInt();
       if (!temp.has_value()) {
-        out.height = absl::nullopt;
+        out.height = std::nullopt;
         return false;
       }
       out.height = *temp;
@@ -909,7 +884,7 @@ bool Params::CreateData::Populate(
     {
       auto temp = (*focused_value).GetIfBool();
       if (!temp.has_value()) {
-        out.focused = absl::nullopt;
+        out.focused = std::nullopt;
         return false;
       }
       out.focused = *temp;
@@ -921,7 +896,7 @@ bool Params::CreateData::Populate(
     {
       auto temp = (*incognito_value).GetIfBool();
       if (!temp.has_value()) {
-        out.incognito = absl::nullopt;
+        out.incognito = std::nullopt;
         return false;
       }
       out.incognito = *temp;
@@ -965,7 +940,7 @@ bool Params::CreateData::Populate(
     {
       auto temp = (*set_self_as_opener_value).GetIfBool();
       if (!temp.has_value()) {
-        out.set_self_as_opener = absl::nullopt;
+        out.set_self_as_opener = std::nullopt;
         return false;
       }
       out.set_self_as_opener = *temp;
@@ -985,21 +960,21 @@ bool Params::CreateData::Populate(
 }
 
 // static
-absl::optional<Params::CreateData> Params::CreateData::FromValue(const base::Value::Dict& value) {
+std::optional<Params::CreateData> Params::CreateData::FromValue(const base::Value::Dict& value) {
   CreateData out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Params::CreateData> Params::CreateData::FromValue(const base::Value& value) {
+std::optional<Params::CreateData> Params::CreateData::FromValue(const base::Value& value) {
   CreateData out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1007,13 +982,13 @@ absl::optional<Params::CreateData> Params::CreateData::FromValue(const base::Val
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() > 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1022,12 +997,12 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& create_data_value = args[0];
     {
       if (!create_data_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         CreateData temp;
         if (!CreateData::Populate(create_data_value.GetDict(), temp))
-          return absl::nullopt;
+          return std::nullopt;
         params.create_data = std::move(temp);
       }
     }
@@ -1052,8 +1027,8 @@ Params::UpdateInfo::UpdateInfo()
 : state() {}
 
 Params::UpdateInfo::~UpdateInfo() = default;
-Params::UpdateInfo::UpdateInfo(UpdateInfo&& rhs) = default;
-Params::UpdateInfo& Params::UpdateInfo::operator=(UpdateInfo&& rhs) = default;
+Params::UpdateInfo::UpdateInfo(UpdateInfo&& rhs) noexcept = default;
+Params::UpdateInfo& Params::UpdateInfo::operator=(UpdateInfo&& rhs) noexcept = default;
 Params::UpdateInfo Params::UpdateInfo::Clone() const {
   UpdateInfo out;
   out.left = left;
@@ -1075,7 +1050,7 @@ bool Params::UpdateInfo::Populate(
     {
       auto temp = (*left_value).GetIfInt();
       if (!temp.has_value()) {
-        out.left = absl::nullopt;
+        out.left = std::nullopt;
         return false;
       }
       out.left = *temp;
@@ -1087,7 +1062,7 @@ bool Params::UpdateInfo::Populate(
     {
       auto temp = (*top_value).GetIfInt();
       if (!temp.has_value()) {
-        out.top = absl::nullopt;
+        out.top = std::nullopt;
         return false;
       }
       out.top = *temp;
@@ -1099,7 +1074,7 @@ bool Params::UpdateInfo::Populate(
     {
       auto temp = (*width_value).GetIfInt();
       if (!temp.has_value()) {
-        out.width = absl::nullopt;
+        out.width = std::nullopt;
         return false;
       }
       out.width = *temp;
@@ -1111,7 +1086,7 @@ bool Params::UpdateInfo::Populate(
     {
       auto temp = (*height_value).GetIfInt();
       if (!temp.has_value()) {
-        out.height = absl::nullopt;
+        out.height = std::nullopt;
         return false;
       }
       out.height = *temp;
@@ -1123,7 +1098,7 @@ bool Params::UpdateInfo::Populate(
     {
       auto temp = (*focused_value).GetIfBool();
       if (!temp.has_value()) {
-        out.focused = absl::nullopt;
+        out.focused = std::nullopt;
         return false;
       }
       out.focused = *temp;
@@ -1135,7 +1110,7 @@ bool Params::UpdateInfo::Populate(
     {
       auto temp = (*draw_attention_value).GetIfBool();
       if (!temp.has_value()) {
-        out.draw_attention = absl::nullopt;
+        out.draw_attention = std::nullopt;
         return false;
       }
       out.draw_attention = *temp;
@@ -1171,21 +1146,21 @@ bool Params::UpdateInfo::Populate(
 }
 
 // static
-absl::optional<Params::UpdateInfo> Params::UpdateInfo::FromValue(const base::Value::Dict& value) {
+std::optional<Params::UpdateInfo> Params::UpdateInfo::FromValue(const base::Value::Dict& value) {
   UpdateInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<Params::UpdateInfo> Params::UpdateInfo::FromValue(const base::Value& value) {
+std::optional<Params::UpdateInfo> Params::UpdateInfo::FromValue(const base::Value& value) {
   UpdateInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1193,13 +1168,13 @@ absl::optional<Params::UpdateInfo> Params::UpdateInfo::FromValue(const base::Val
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1209,13 +1184,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = window_id_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.window_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -1223,15 +1198,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& update_info_value = args[1];
     {
       if (!update_info_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!UpdateInfo::Populate(update_info_value.GetDict(), params.update_info)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1251,13 +1226,13 @@ namespace Remove {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1267,13 +1242,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = window_id_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.window_id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;

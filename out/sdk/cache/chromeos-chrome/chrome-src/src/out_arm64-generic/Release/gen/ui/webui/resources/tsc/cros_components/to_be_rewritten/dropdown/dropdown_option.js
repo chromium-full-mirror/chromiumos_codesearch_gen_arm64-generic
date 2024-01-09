@@ -1,0 +1,67 @@
+/**
+ * @license
+ * Copyright 2023 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+import { MenuItem } from '../menu/menu_item';
+/**
+ * A chromeOS compliant dropdown-option to use within dropdown.
+ */
+export class DropdownOption extends MenuItem {
+    constructor() {
+        super(...arguments);
+        this.internalValue = null;
+    }
+    /** @nocollapse */
+    static { this.properties = {
+        ...MenuItem.properties,
+        value: { type: String, reflect: true },
+    }; }
+    /**
+     * The value of the dropdown option. If unsupplied defaults to `headline`.
+     * @export
+     */
+    get value() {
+        if (this.internalValue !== null) {
+            return this.internalValue;
+        }
+        return this.headline;
+    }
+    set value(value) {
+        this.internalValue = value;
+    }
+    // When extending a lit element, it seems that getters and setters get
+    // clobbered. To avoid this we specifically reimplement typeaheadText and
+    // selected getters/setters below to ensure they function correctly on
+    // cros-dropdown-option. These should be identical to the functions they
+    // override in cros-menu-item.
+    get typeaheadText() {
+        return this.renderRoot?.querySelector('md-menu-item')?.typeaheadText ?? '';
+    }
+    set typeaheadText(text) {
+        const item = this.renderRoot?.querySelector('md-menu-item');
+        if (!item) {
+            this.missedPropertySets.typeaheadText = text;
+        }
+        else {
+            item.typeaheadText = text;
+        }
+    }
+    get selected() {
+        return this.renderRoot?.querySelector('md-menu-item')?.selected ?? false;
+    }
+    set selected(selected) {
+        const item = this.renderRoot?.querySelector('md-menu-item');
+        if (!item) {
+            this.missedPropertySets.selected = selected;
+        }
+        else {
+            item.selected = selected;
+        }
+    }
+    // SelectOption implementation:
+    get displayText() {
+        return this.headline;
+    }
+}
+customElements.define('cros-dropdown-option', DropdownOption);

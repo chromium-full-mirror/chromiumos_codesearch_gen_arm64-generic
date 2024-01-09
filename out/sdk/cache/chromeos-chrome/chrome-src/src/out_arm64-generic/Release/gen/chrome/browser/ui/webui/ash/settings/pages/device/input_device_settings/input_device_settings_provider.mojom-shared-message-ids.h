@@ -38,6 +38,7 @@ constexpr uint32_t kInputDeviceSettingsProvider_StartObserving_Name = 12;
 constexpr uint32_t kInputDeviceSettingsProvider_StopObserving_Name = 13;
 constexpr uint32_t kInputDeviceSettingsProvider_GetActionsForMouseButtonCustomization_Name = 14;
 constexpr uint32_t kInputDeviceSettingsProvider_GetActionsForGraphicsTabletButtonCustomization_Name = 15;
+constexpr uint32_t kInputDeviceSettingsProvider_HasLauncherButton_Name = 16;
 
 }  // namespace internal
 

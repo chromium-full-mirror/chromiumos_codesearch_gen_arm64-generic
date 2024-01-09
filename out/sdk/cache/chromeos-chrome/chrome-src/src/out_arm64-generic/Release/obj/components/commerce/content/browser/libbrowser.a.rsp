@@ -1,1 +1,1 @@
-obj/components/commerce/content/browser/browser/commerce_internals_ui.o obj/components/commerce/content/browser/browser/commerce_tab_helper.o obj/components/commerce/content/browser/browser/web_contents_wrapper.o
+obj/components/commerce/content/browser/browser/commerce_internals_ui.o obj/components/commerce/content/browser/browser/commerce_tab_helper.o obj/components/commerce/content/browser/browser/web_contents_wrapper.o obj/components/commerce/content/browser/browser/web_extractor_impl.o

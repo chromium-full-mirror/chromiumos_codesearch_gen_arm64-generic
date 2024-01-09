@@ -1,8 +1,0 @@
-{
-  "deps": [
-
-  ],
-  "sources": [
-    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/ash/webui/guest_os_installer/mojom/guest_os_installer.mojom"
-  ]
-}

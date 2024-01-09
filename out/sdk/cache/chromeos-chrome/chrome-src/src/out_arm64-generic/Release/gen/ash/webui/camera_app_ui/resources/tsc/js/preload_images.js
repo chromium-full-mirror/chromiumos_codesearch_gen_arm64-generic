@@ -393,4 +393,4 @@ export const preloadedImages = new Map([["barcode_chevron_down.svg", svg `<svg w
 `], ["settings_resolution.svg", svg `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M10 13V16H7V13H10ZM16 13V16H13V13H16ZM7 10V13H4V10H7ZM13 10V13H10V10H13ZM10 7V10H7V7H10ZM16 7V10H13V7H16ZM7 4V7H4V4H7ZM13 4V7H10V4H13Z"/>
 </svg>
-`]]);
+`], ["wifi.svg", svg `<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.555 16.729a.706.706 0 0 1-1.113 0L2.157 7.495a.734.734 0 0 1 .155-1.055C3.505 5.611 6.268 4 10 4c3.733 0 6.495 1.611 7.688 2.441.344.24.416.724.155 1.055l-7.288 9.233ZM5.468 8.463 4.61 7.378C5.858 6.713 7.721 6 10 6c2.279 0 4.143.713 5.389 1.377l-.857 1.086A11.335 11.335 0 0 0 9.998 7.5a11.33 11.33 0 0 0-4.531.963Z"/></svg>`]]);

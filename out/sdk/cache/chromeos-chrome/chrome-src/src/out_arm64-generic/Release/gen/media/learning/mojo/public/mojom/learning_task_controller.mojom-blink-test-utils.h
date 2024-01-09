@@ -16,10 +16,10 @@ namespace media::learning::mojom::blink {
 
 class BLINK_PLATFORM_EXPORT LearningTaskControllerInterceptorForTesting : public LearningTaskController {
   virtual LearningTaskController* GetForwardingInterface() = 0;
-  void BeginObservation(const ::base::UnguessableToken& id, const WTF::Vector<::media::learning::FeatureValue>& features, const absl::optional<::media::learning::TargetValue>& default_target) override;
+  void BeginObservation(const ::base::UnguessableToken& id, const WTF::Vector<::media::learning::FeatureValue>& features, const std::optional<::media::learning::TargetValue>& default_target) override;
   void CompleteObservation(const ::base::UnguessableToken& id, const ::media::learning::ObservationCompletion& completion) override;
   void CancelObservation(const ::base::UnguessableToken& id) override;
-  void UpdateDefaultTarget(const ::base::UnguessableToken& id, const absl::optional<::media::learning::TargetValue>& default_target) override;
+  void UpdateDefaultTarget(const ::base::UnguessableToken& id, const std::optional<::media::learning::TargetValue>& default_target) override;
   void PredictDistribution(const WTF::Vector<::media::learning::FeatureValue>& features, PredictDistributionCallback callback) override;
 };
 class BLINK_PLATFORM_EXPORT LearningTaskControllerAsyncWaiter {
@@ -31,8 +31,8 @@ class BLINK_PLATFORM_EXPORT LearningTaskControllerAsyncWaiter {
 
   ~LearningTaskControllerAsyncWaiter();
   void PredictDistribution(
-      const WTF::Vector<::media::learning::FeatureValue>& features, absl::optional<::media::learning::TargetHistogram>* out_predicted);
-  absl::optional<::media::learning::TargetHistogram> PredictDistribution(const WTF::Vector<::media::learning::FeatureValue>& features);
+      const WTF::Vector<::media::learning::FeatureValue>& features, std::optional<::media::learning::TargetHistogram>* out_predicted);
+  std::optional<::media::learning::TargetHistogram> PredictDistribution(const WTF::Vector<::media::learning::FeatureValue>& features);
 
  private:
   LearningTaskController* const proxy_;

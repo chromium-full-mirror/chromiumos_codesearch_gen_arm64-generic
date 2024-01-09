@@ -82,6 +82,12 @@ NOINLINE static const char* TriggerRegistrationErrorToStringHelper(TriggerRegist
       return "kAggregatableSourceRegistrationTimeWrongType";
     case TriggerRegistrationError::kAggregatableSourceRegistrationTimeUnknownValue:
       return "kAggregatableSourceRegistrationTimeUnknownValue";
+    case TriggerRegistrationError::kFiltersUsingReservedKey:
+      return "kFiltersUsingReservedKey";
+    case TriggerRegistrationError::kTriggerContextIdInvalidValue:
+      return "kTriggerContextIdInvalidValue";
+    case TriggerRegistrationError::kTriggerContextIdInvalidSourceRegistrationTimeConfig:
+      return "kTriggerContextIdInvalidSourceRegistrationTimeConfig";
     default:
       return nullptr;
   }

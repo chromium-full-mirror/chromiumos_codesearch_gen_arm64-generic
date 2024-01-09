@@ -34,7 +34,5 @@ rule copy
   description = COPY ${in} ${out}
 
 build obj/common-mk/gn_root/root.stamp: stamp obj/libpasswordprovider/all.stamp
-subninja obj/common-mk/testrunner/testrunner.ninja
-build obj/libpasswordprovider/all.stamp: stamp ./lib/libpasswordprovider.so ./password_provider_test
+build obj/libpasswordprovider/all.stamp: stamp ./lib/libpasswordprovider.so
 subninja obj/libpasswordprovider/libpasswordprovider.ninja
-subninja obj/libpasswordprovider/password_provider_test.ninja

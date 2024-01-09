@@ -34,11 +34,9 @@ rule copy
   description = COPY ${in} ${out}
 
 build obj/common-mk/gn_root/root.stamp: stamp obj/mems_setup/all.stamp
-subninja obj/common-mk/testrunner/testrunner.ninja
 build obj/mems_setup/_mems_remove-install_config.stamp: stamp
 build obj/mems_setup/_mems_setup-install_config.stamp: stamp
-build obj/mems_setup/all.stamp: stamp ./mems_remove ./mems_setup ./mems_setup_testrunner
+build obj/mems_setup/all.stamp: stamp ./mems_remove ./mems_setup
 subninja obj/mems_setup/libmems_setup.ninja
 subninja obj/mems_setup/mems_remove.ninja
 subninja obj/mems_setup/mems_setup.ninja
-subninja obj/mems_setup/mems_setup_testrunner.ninja

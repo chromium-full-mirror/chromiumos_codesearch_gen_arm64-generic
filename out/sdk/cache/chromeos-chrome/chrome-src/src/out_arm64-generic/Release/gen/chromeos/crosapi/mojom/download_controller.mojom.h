@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/crosapi/mojom/download_controller.mojom-features.h"
 #include "chromeos/crosapi/mojom/download_controller.mojom-shared.h"
 #include "chromeos/crosapi/mojom/download_controller.mojom-forward.h"
 #include "mojo/public/mojom/base/file_path.mojom.h"
@@ -367,8 +368,8 @@ class  DownloadItem {
       DownloadState state,
       const ::base::FilePath& target_file_path,
       bool is_from_incognito_profile,
-      const absl::optional<std::string>& guid,
-      const absl::optional<::base::FilePath>& full_path,
+      const std::optional<std::string>& guid,
+      const std::optional<::base::FilePath>& full_path,
       bool has_is_paused,
       bool is_paused,
       bool has_open_when_complete,
@@ -382,8 +383,8 @@ class  DownloadItem {
       DownloadState state,
       const ::base::FilePath& target_file_path,
       bool is_from_incognito_profile,
-      const absl::optional<std::string>& guid,
-      const absl::optional<::base::FilePath>& full_path,
+      const std::optional<std::string>& guid,
+      const std::optional<::base::FilePath>& full_path,
       bool has_is_paused,
       bool is_paused,
       bool has_open_when_complete,
@@ -392,14 +393,14 @@ class  DownloadItem {
       int64_t received_bytes,
       bool has_total_bytes,
       int64_t total_bytes,
-      absl::optional<::base::Time> start_time);
+      std::optional<::base::Time> start_time);
 
   DownloadItem(
       DownloadState state,
       const ::base::FilePath& target_file_path,
       bool is_from_incognito_profile,
-      const absl::optional<std::string>& guid,
-      const absl::optional<::base::FilePath>& full_path,
+      const std::optional<std::string>& guid,
+      const std::optional<::base::FilePath>& full_path,
       bool has_is_paused,
       bool is_paused,
       bool has_open_when_complete,
@@ -408,7 +409,7 @@ class  DownloadItem {
       int64_t received_bytes,
       bool has_total_bytes,
       int64_t total_bytes,
-      absl::optional<::base::Time> start_time,
+      std::optional<::base::Time> start_time,
       bool has_is_dangerous,
       bool is_dangerous,
       bool has_is_insecure,
@@ -418,8 +419,8 @@ class  DownloadItem {
       DownloadState state,
       const ::base::FilePath& target_file_path,
       bool is_from_incognito_profile,
-      const absl::optional<std::string>& guid,
-      const absl::optional<::base::FilePath>& full_path,
+      const std::optional<std::string>& guid,
+      const std::optional<::base::FilePath>& full_path,
       bool has_is_paused,
       bool is_paused,
       bool has_open_when_complete,
@@ -428,7 +429,7 @@ class  DownloadItem {
       int64_t received_bytes,
       bool has_total_bytes,
       int64_t total_bytes,
-      absl::optional<::base::Time> start_time,
+      std::optional<::base::Time> start_time,
       bool has_is_dangerous,
       bool is_dangerous,
       bool has_is_insecure,
@@ -518,9 +519,9 @@ class  DownloadItem {
   
   bool is_from_incognito_profile;
   
-  absl::optional<std::string> guid;
+  std::optional<std::string> guid;
   
-  absl::optional<::base::FilePath> full_path;
+  std::optional<::base::FilePath> full_path;
   
   bool has_is_paused;
   
@@ -538,7 +539,7 @@ class  DownloadItem {
   
   int64_t total_bytes;
   
-  absl::optional<::base::Time> start_time;
+  std::optional<::base::Time> start_time;
   
   bool has_is_dangerous;
   

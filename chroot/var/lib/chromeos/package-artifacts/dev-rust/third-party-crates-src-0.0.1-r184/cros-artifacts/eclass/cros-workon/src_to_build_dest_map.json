@@ -1,9 +1,0 @@
-{
-  "version": 1.0,
-  "mapping": [
-    {
-      "src_path": "src/third_party/rust_crates",
-      "build_dest_path": "/var/tmp/portage/dev-rust/third-party-crates-src-0.0.1-r184/work/third-party-crates-src-0.0.1"
-    }
-  ]
-}

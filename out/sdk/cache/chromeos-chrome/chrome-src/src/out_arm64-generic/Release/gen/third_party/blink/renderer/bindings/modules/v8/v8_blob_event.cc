@@ -72,11 +72,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, BlobEvent>::value,
     "BlobEvent inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&BlobEvent::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "BlobEvent is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -89,8 +84,9 @@ BLINK_BINDINGS_TRACE_EVENT("BlobEvent.data.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-BlobEvent* blink_receiver = V8BlobEvent::ToWrappableUnsafe(v8_receiver);
+BlobEvent* blink_receiver = V8BlobEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->data();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -103,8 +99,9 @@ BLINK_BINDINGS_TRACE_EVENT("BlobEvent.timecode.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-BlobEvent* blink_receiver = V8BlobEvent::ToWrappableUnsafe(v8_receiver);
+BlobEvent* blink_receiver = V8BlobEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->timecode();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -117,8 +114,9 @@ BLINK_BINDINGS_TRACE_EVENT("BlobEvent.isTrusted.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-BlobEvent* blink_receiver = V8BlobEvent::ToWrappableUnsafe(v8_receiver);
+BlobEvent* blink_receiver = V8BlobEvent::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->isTrusted();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }

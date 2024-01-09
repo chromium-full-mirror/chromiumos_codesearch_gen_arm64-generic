@@ -13,7 +13,7 @@ export function getTemplate() {
   <ntp-logo id="logo" single-colored$="[[singleColoredLogo_]]" dark="[[theme_.isDark]]" background-color="[[backgroundColor_]]" hidden$="[[!logoEnabled_]]">
   </ntp-logo>
   <div id="realboxContainer">
-    <ntp-realbox id="realbox" is-dark="[[theme_.isDark]]" single-colored-icons="[[theme_.themeRealboxIcons]]" on-open-lens-search="onOpenLensSearch_" on-open-voice-search="onOpenVoiceSearch_" shown$="[[realboxShown_]]">
+    <ntp-realbox id="realbox" is-dark="[[theme_.isDark]]" color-source-is-baseline="[[colorSourceIsBaseline]]" on-open-lens-search="onOpenLensSearch_" on-open-voice-search="onOpenVoiceSearch_" shown$="[[realboxShown_]]">
     </ntp-realbox>
     <template is="dom-if" if="[[showLensUploadDialog_]]" restamp>
       <ntp-lens-upload-dialog id="lensUploadDialog" on-close-lens-search="onCloseLensSearch_">

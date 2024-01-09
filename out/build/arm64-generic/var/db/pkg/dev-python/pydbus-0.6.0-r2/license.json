@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-python", "name": "pydbus", "version": "0.6.0", "revision": 2, "fullname": "dev-python/pydbus", "fullnamerev": "dev-python/pydbus-0.6.0-r2", "license_names": ["LGPL-2.1"], "license_text_scanned": [], "homepages": ["https://github.com/LEW21/pydbus"], "skip": false, "tainted": false, "ebuild_path": null}

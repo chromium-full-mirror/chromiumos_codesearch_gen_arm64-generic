@@ -5,7 +5,7 @@ import 'chrome://resources/cr_components/localized_link/localized_link.js';
 import { getSubAppsOfSelectedApp } from 'chrome://resources/cr_components/app_management/util.js';
 import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
-import { AppManagementStoreMixin } from './store_mixin.js';
+import { AppManagementStoreMixin } from '../../common/app_management/store_mixin.js';
 import { getTemplate } from './sub_apps_item.html.js';
 const AppManagementSubAppsItemElementBase = AppManagementStoreMixin(I18nMixin(PolymerElement));
 export class AppManagementSubAppsItemElement extends AppManagementSubAppsItemElementBase {

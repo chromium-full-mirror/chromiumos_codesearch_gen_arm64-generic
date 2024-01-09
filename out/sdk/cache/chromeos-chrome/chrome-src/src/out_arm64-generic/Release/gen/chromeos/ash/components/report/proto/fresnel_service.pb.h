@@ -136,11 +136,12 @@ enum MarketSegment : int {
   MARKET_SEGMENT_CONSUMER = 2,
   MARKET_SEGMENT_ENTERPRISE_ENROLLED_BUT_UNKNOWN = 3,
   MARKET_SEGMENT_ENTERPRISE = 4,
-  MARKET_SEGMENT_EDUCATION = 5
+  MARKET_SEGMENT_EDUCATION = 5,
+  MARKET_SEGMENT_ENTERPRISE_DEMO = 6
 };
 bool MarketSegment_IsValid(int value);
 constexpr MarketSegment MarketSegment_MIN = MARKET_SEGMENT_UNSPECIFIED;
-constexpr MarketSegment MarketSegment_MAX = MARKET_SEGMENT_EDUCATION;
+constexpr MarketSegment MarketSegment_MAX = MARKET_SEGMENT_ENTERPRISE_DEMO;
 constexpr int MarketSegment_ARRAYSIZE = MarketSegment_MAX + 1;
 
 const std::string& MarketSegment_Name(MarketSegment value);

@@ -57,7 +57,7 @@ bool TransferableResource_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 88, validation_context)) {
+          data, 80, validation_context)) {
     return false;
   }
 
@@ -106,11 +106,8 @@ bool TransferableResource_Data::Validate(
   if (!mojo::internal::ValidateStruct(object->color_space, validation_context))
     return false;
 
-  if (!mojo::internal::ValidateStruct(object->color_space_when_sampled, validation_context))
-    return false;
-
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->hdr_metadata, 12, validation_context)) {
+          object->hdr_metadata, 11, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->hdr_metadata, validation_context))

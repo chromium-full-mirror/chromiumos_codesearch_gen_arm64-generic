@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -64,7 +65,7 @@ TransferableMessage::TransferableMessage(
     WTF::Vector<::blink::mojom::blink::SerializedStaticBitmapImagePtr> image_bitmap_contents_array_in,
     ::blink::mojom::blink::UserActivationSnapshotPtr user_activation_in,
     ::blink::mojom::blink::DelegatedCapability delegated_capability_in,
-    absl::optional<::blink::scheduler::TaskAttributionId> parent_task_id_in)
+    std::optional<::blink::scheduler::TaskAttributionId> parent_task_id_in)
     : message(std::move(message_in)),
       ports(std::move(ports_in)),
       stream_channels(std::move(stream_channels_in)),
@@ -146,7 +147,7 @@ void TransferableMessage::WriteIntoTrace(
     dict.AddItem(
       "parent_task_id"), this->parent_task_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::blink::scheduler::TaskAttributionId>>"
+      "<value of type std::optional<::blink::scheduler::TaskAttributionId>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

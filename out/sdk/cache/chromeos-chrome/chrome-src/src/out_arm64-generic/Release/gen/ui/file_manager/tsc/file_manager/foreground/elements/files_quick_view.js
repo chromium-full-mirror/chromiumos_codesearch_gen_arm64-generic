@@ -5,7 +5,6 @@ import 'chrome://resources/cr_elements/cr_button/cr_button.js';
 import 'chrome://resources/polymer/v3_0/iron-icon/iron-icon.js';
 import './files_metadata_box.js';
 import './files_safe_media.js';
-import './icons.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { toSandboxedURL } from '../../common/js/url_constants.js';
 import { getTemplate } from './files_quick_view.html.js';

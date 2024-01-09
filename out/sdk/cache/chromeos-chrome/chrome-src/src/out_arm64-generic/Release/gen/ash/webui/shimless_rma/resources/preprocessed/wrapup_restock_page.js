@@ -5,16 +5,17 @@
 import 'chrome://resources/cr_elements/icons.html.js';
 import 'chrome://resources/polymer/v3_0/iron-icon/iron-icon.js';
 import 'chrome://resources/cr_elements/cr_button/cr_button.js';
-import './shimless_rma_shared_css.js';
+import './shimless_rma_shared.css.js';
 import './base_page.js';
-import './icons.js';
+import './icons.html.js';
 
 import {I18nBehavior, I18nBehaviorInterface} from 'chrome://resources/ash/common/i18n_behavior.js';
-import {html, mixinBehaviors, PolymerElement} from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import {mixinBehaviors, PolymerElement} from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 
 import {getShimlessRmaService} from './mojo_interface_provider.js';
-import {ShimlessRmaServiceInterface, StateResult} from './shimless_rma_types.js';
+import {ShimlessRmaServiceInterface, StateResult} from './shimless_rma.mojom-webui.js';
 import {enableNextButton, executeThenTransitionState, focusPageTitle} from './shimless_rma_util.js';
+import {getTemplate} from './wrapup_restock_page.html.js';
 
 /**
  * @fileoverview
@@ -37,42 +38,7 @@ export class WrapupRestockPage extends WrapupRestockPageBase {
   }
 
   static get template() {
-    return html`<!--_html_template_start_-->
-<style include="cr-shared-style shimless-rma-shared">
-  #navigationButtonWrapper {
-    bottom: var(--header-footer-height);
-    position: absolute;
-  }
-
-  #continue {
-    margin-inline-end: 8px;
-  }
-</style>
-
-<base-page>
-  <div slot="left-pane">
-    <h1 tabindex="-1">[[i18n('restockTitleText')]]</h1>
-    <div class="instructions">[[i18n('restockInstructionsText')]]</div>
-    <div id="navigationButtonWrapper">
-      <cr-button id="continue" class="action-button"
-          on-click="onRestockContinueButtonClicked_"
-          disabled="[[allButtonsDisabled]]">
-        [[i18n('restockContinueButtonText')]]
-      </cr-button>
-      <cr-button id="shutdown" on-click="onShutdownButtonClicked_"
-          disabled="[[allButtonsDisabled]]">
-        [[i18n('restockShutdownButtonText')]]
-      </cr-button>
-    </div>
-  </div>
-  <div slot="right-pane">
-    <div class="illustration-wrapper" aria-hidden="true">
-      <img class="illustration" src="illustrations/repair_start.svg"
-          alt="[[i18n('repairStartAltText')]]">
-    </div>
-  </div>
-</base-page>
-<!--_html_template_end_-->`;
+    return getTemplate();
   }
 
   static get properties() {
@@ -88,7 +54,7 @@ export class WrapupRestockPage extends WrapupRestockPageBase {
   constructor() {
     super();
     /** @private {ShimlessRmaServiceInterface} */
-    this.shimlessRmaService_ = getShimlessRmaService();
+    this.shimlessRmaService = getShimlessRmaService();
   }
 
   /** @override */
@@ -99,16 +65,15 @@ export class WrapupRestockPage extends WrapupRestockPageBase {
   }
 
   /** @protected */
-  onShutdownButtonClicked_() {
+  onShutdownButtonClicked() {
     executeThenTransitionState(
-        this, () => this.shimlessRmaService_.shutdownForRestock());
+        this, () => this.shimlessRmaService.shutdownForRestock());
   }
 
   /** @protected */
-  onRestockContinueButtonClicked_() {
+  onRestockContinueButtonClicked() {
     executeThenTransitionState(
-        this,
-        () => this.shimlessRmaService_.continueFinalizationAfterRestock());
+        this, () => this.shimlessRmaService.continueFinalizationAfterRestock());
   }
 }
 

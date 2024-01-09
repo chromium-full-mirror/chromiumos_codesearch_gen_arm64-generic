@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -295,14 +296,17 @@ void SpeechSynthesisVoiceListObserverProxy::OnSetVoiceList(
                         "<value of type std::vector<SpeechSynthesisVoicePtr>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSpeechSynthesisVoiceListObserver_OnSetVoiceList_Name, kFlags, 0, 0, nullptr);
@@ -383,10 +387,10 @@ bool SpeechSynthesisVoiceListObserverStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSpeechSynthesisVoiceListObserverValidationInfo[] = {
-    {&internal::SpeechSynthesisVoiceListObserver_OnSetVoiceList_Params_Data::Validate,
+    { &internal::SpeechSynthesisVoiceListObserver_OnSetVoiceList_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -579,14 +583,17 @@ void SpeechSynthesisClientProxy::OnStartedSpeaking(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::SpeechSynthesisClient::OnStartedSpeaking");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSpeechSynthesisClient_OnStartedSpeaking_Name, kFlags, 0, 0, nullptr);
@@ -616,14 +623,17 @@ void SpeechSynthesisClientProxy::OnFinishedSpeaking(
                         "<value of type SpeechSynthesisErrorCode>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSpeechSynthesisClient_OnFinishedSpeaking_Name, kFlags, 0, 0, nullptr);
@@ -648,14 +658,17 @@ void SpeechSynthesisClientProxy::OnPausedSpeaking(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::SpeechSynthesisClient::OnPausedSpeaking");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSpeechSynthesisClient_OnPausedSpeaking_Name, kFlags, 0, 0, nullptr);
@@ -678,14 +691,17 @@ void SpeechSynthesisClientProxy::OnResumedSpeaking(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::SpeechSynthesisClient::OnResumedSpeaking");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSpeechSynthesisClient_OnResumedSpeaking_Name, kFlags, 0, 0, nullptr);
@@ -718,14 +734,17 @@ void SpeechSynthesisClientProxy::OnEncounteredWordBoundary(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSpeechSynthesisClient_OnEncounteredWordBoundary_Name, kFlags, 0, 0, nullptr);
@@ -760,14 +779,17 @@ void SpeechSynthesisClientProxy::OnEncounteredSentenceBoundary(
                         "<value of type uint32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSpeechSynthesisClient_OnEncounteredSentenceBoundary_Name, kFlags, 0, 0, nullptr);
@@ -792,14 +814,17 @@ void SpeechSynthesisClientProxy::OnEncounteredSpeakingError(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::SpeechSynthesisClient::OnEncounteredSpeakingError");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSpeechSynthesisClient_OnEncounteredSpeakingError_Name, kFlags, 0, 0, nullptr);
@@ -1033,22 +1058,22 @@ bool SpeechSynthesisClientStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSpeechSynthesisClientValidationInfo[] = {
-    {&internal::SpeechSynthesisClient_OnStartedSpeaking_Params_Data::Validate,
+    { &internal::SpeechSynthesisClient_OnStartedSpeaking_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SpeechSynthesisClient_OnFinishedSpeaking_Params_Data::Validate,
+    { &internal::SpeechSynthesisClient_OnFinishedSpeaking_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SpeechSynthesisClient_OnPausedSpeaking_Params_Data::Validate,
+    { &internal::SpeechSynthesisClient_OnPausedSpeaking_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SpeechSynthesisClient_OnResumedSpeaking_Params_Data::Validate,
+    { &internal::SpeechSynthesisClient_OnResumedSpeaking_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SpeechSynthesisClient_OnEncounteredWordBoundary_Params_Data::Validate,
+    { &internal::SpeechSynthesisClient_OnEncounteredWordBoundary_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SpeechSynthesisClient_OnEncounteredSentenceBoundary_Params_Data::Validate,
+    { &internal::SpeechSynthesisClient_OnEncounteredSentenceBoundary_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SpeechSynthesisClient_OnEncounteredSpeakingError_Params_Data::Validate,
+    { &internal::SpeechSynthesisClient_OnEncounteredSpeakingError_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1208,14 +1233,17 @@ void SpeechSynthesisProxy::AddVoiceListObserver(
                         "<value of type ::mojo::PendingRemote<SpeechSynthesisVoiceListObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSpeechSynthesis_AddVoiceListObserver_Name, kFlags, 0, 0, nullptr);
@@ -1254,14 +1282,17 @@ void SpeechSynthesisProxy::Speak(
                         "<value of type ::mojo::PendingRemote<SpeechSynthesisClient>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSpeechSynthesis_Speak_Name, kFlags, 0, 0, nullptr);
@@ -1301,14 +1332,17 @@ void SpeechSynthesisProxy::Pause(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::SpeechSynthesis::Pause");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSpeechSynthesis_Pause_Name, kFlags, 0, 0, nullptr);
@@ -1331,14 +1365,17 @@ void SpeechSynthesisProxy::Resume(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::SpeechSynthesis::Resume");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSpeechSynthesis_Resume_Name, kFlags, 0, 0, nullptr);
@@ -1361,14 +1398,17 @@ void SpeechSynthesisProxy::Cancel(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send blink::mojom::SpeechSynthesis::Cancel");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSpeechSynthesis_Cancel_Name, kFlags, 0, 0, nullptr);
@@ -1548,18 +1588,18 @@ bool SpeechSynthesisStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSpeechSynthesisValidationInfo[] = {
-    {&internal::SpeechSynthesis_AddVoiceListObserver_Params_Data::Validate,
+    { &internal::SpeechSynthesis_AddVoiceListObserver_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SpeechSynthesis_Speak_Params_Data::Validate,
+    { &internal::SpeechSynthesis_Speak_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SpeechSynthesis_Pause_Params_Data::Validate,
+    { &internal::SpeechSynthesis_Pause_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SpeechSynthesis_Resume_Params_Data::Validate,
+    { &internal::SpeechSynthesis_Resume_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::SpeechSynthesis_Cancel_Params_Data::Validate,
+    { &internal::SpeechSynthesis_Cancel_Params_Data::Validate,
      nullptr /* no response */},
 };
 

@@ -91,12 +91,12 @@ bool GaiaPasswordReuse_PasswordReuseDetected_SafeBrowsingStatus_ReportingPopulat
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, GaiaPasswordReuse_PasswordReuseDetected_SafeBrowsingStatus_ReportingPopulation* value);
 enum GaiaPasswordReuse_PasswordReuseLookup_LookupResult : int {
   GaiaPasswordReuse_PasswordReuseLookup_LookupResult_UNSPECIFIED = 0,
-  GaiaPasswordReuse_PasswordReuseLookup_LookupResult_WHITELIST_HIT = 1,
+  GaiaPasswordReuse_PasswordReuseLookup_LookupResult_ALLOWLIST_HIT = 1,
   GaiaPasswordReuse_PasswordReuseLookup_LookupResult_CACHE_HIT = 2,
   GaiaPasswordReuse_PasswordReuseLookup_LookupResult_REQUEST_SUCCESS = 3,
   GaiaPasswordReuse_PasswordReuseLookup_LookupResult_REQUEST_FAILURE = 4,
   GaiaPasswordReuse_PasswordReuseLookup_LookupResult_URL_UNSUPPORTED = 5,
-  GaiaPasswordReuse_PasswordReuseLookup_LookupResult_ENTERPRISE_WHITELIST_HIT = 6,
+  GaiaPasswordReuse_PasswordReuseLookup_LookupResult_ENTERPRISE_ALLOWLIST_HIT = 6,
   GaiaPasswordReuse_PasswordReuseLookup_LookupResult_TURNED_OFF_BY_POLICY = 7
 };
 bool GaiaPasswordReuse_PasswordReuseLookup_LookupResult_IsValid(int value);
@@ -599,8 +599,8 @@ class GaiaPasswordReuse_PasswordReuseLookup final :
   typedef GaiaPasswordReuse_PasswordReuseLookup_LookupResult LookupResult;
   static constexpr LookupResult UNSPECIFIED =
     GaiaPasswordReuse_PasswordReuseLookup_LookupResult_UNSPECIFIED;
-  static constexpr LookupResult WHITELIST_HIT =
-    GaiaPasswordReuse_PasswordReuseLookup_LookupResult_WHITELIST_HIT;
+  static constexpr LookupResult ALLOWLIST_HIT =
+    GaiaPasswordReuse_PasswordReuseLookup_LookupResult_ALLOWLIST_HIT;
   static constexpr LookupResult CACHE_HIT =
     GaiaPasswordReuse_PasswordReuseLookup_LookupResult_CACHE_HIT;
   static constexpr LookupResult REQUEST_SUCCESS =
@@ -609,8 +609,8 @@ class GaiaPasswordReuse_PasswordReuseLookup final :
     GaiaPasswordReuse_PasswordReuseLookup_LookupResult_REQUEST_FAILURE;
   static constexpr LookupResult URL_UNSUPPORTED =
     GaiaPasswordReuse_PasswordReuseLookup_LookupResult_URL_UNSUPPORTED;
-  static constexpr LookupResult ENTERPRISE_WHITELIST_HIT =
-    GaiaPasswordReuse_PasswordReuseLookup_LookupResult_ENTERPRISE_WHITELIST_HIT;
+  static constexpr LookupResult ENTERPRISE_ALLOWLIST_HIT =
+    GaiaPasswordReuse_PasswordReuseLookup_LookupResult_ENTERPRISE_ALLOWLIST_HIT;
   static constexpr LookupResult TURNED_OFF_BY_POLICY =
     GaiaPasswordReuse_PasswordReuseLookup_LookupResult_TURNED_OFF_BY_POLICY;
   static inline bool LookupResult_IsValid(int value) {

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -779,14 +780,17 @@ void EditorClientProxy::GetPresetTextQueries(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::orca::mojom::EditorClient::GetPresetTextQueries");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEditorClient_GetPresetTextQueries_Name, kFlags, 0, 0, nullptr);
@@ -806,7 +810,7 @@ void EditorClientProxy::GetPresetTextQueries(
 }
 
 void EditorClientProxy::RequestPresetRewrite(
-    const std::string& in_text_query_id, const absl::optional<std::string>& in_text_override, RequestPresetRewriteCallback callback) {
+    const std::string& in_text_query_id, const std::optional<std::string>& in_text_override, RequestPresetRewriteCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::orca::mojom::EditorClient::RequestPresetRewrite", "input_parameters",
@@ -817,17 +821,20 @@ void EditorClientProxy::RequestPresetRewrite(
                         "<value of type const std::string&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("text_override"), in_text_override,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEditorClient_RequestPresetRewrite_Name, kFlags, 0, 0, nullptr);
@@ -865,7 +872,7 @@ void EditorClientProxy::RequestPresetRewrite(
 }
 
 void EditorClientProxy::RequestFreeformRewrite(
-    const std::string& in_input, const absl::optional<std::string>& in_text_override, RequestFreeformRewriteCallback callback) {
+    const std::string& in_input, const std::optional<std::string>& in_text_override, RequestFreeformRewriteCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::orca::mojom::EditorClient::RequestFreeformRewrite", "input_parameters",
@@ -876,17 +883,20 @@ void EditorClientProxy::RequestFreeformRewrite(
                         "<value of type const std::string&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("text_override"), in_text_override,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEditorClient_RequestFreeformRewrite_Name, kFlags, 0, 0, nullptr);
@@ -935,14 +945,17 @@ void EditorClientProxy::RequestFreeformWrite(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEditorClient_RequestFreeformWrite_Name, kFlags, 0, 0, nullptr);
@@ -984,14 +997,17 @@ void EditorClientProxy::InsertText(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEditorClient_InsertText_Name, kFlags, 0, 0, nullptr);
@@ -1025,14 +1041,17 @@ void EditorClientProxy::ApproveConsent(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::orca::mojom::EditorClient::ApproveConsent");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEditorClient_ApproveConsent_Name, kFlags, 0, 0, nullptr);
@@ -1055,14 +1074,17 @@ void EditorClientProxy::DeclineConsent(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::orca::mojom::EditorClient::DeclineConsent");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEditorClient_DeclineConsent_Name, kFlags, 0, 0, nullptr);
@@ -1085,14 +1107,17 @@ void EditorClientProxy::DismissConsent(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::orca::mojom::EditorClient::DismissConsent");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEditorClient_DismissConsent_Name, kFlags, 0, 0, nullptr);
@@ -1122,14 +1147,17 @@ void EditorClientProxy::OpenUrlInNewWindow(
                         "<value of type const ::GURL&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEditorClient_OpenUrlInNewWindow_Name, kFlags, 0, 0, nullptr);
@@ -1163,14 +1191,17 @@ void EditorClientProxy::ShowUI(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::orca::mojom::EditorClient::ShowUI");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEditorClient_ShowUI_Name, kFlags, 0, 0, nullptr);
@@ -1193,14 +1224,17 @@ void EditorClientProxy::CloseUI(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::orca::mojom::EditorClient::CloseUI");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEditorClient_CloseUI_Name, kFlags, 0, 0, nullptr);
@@ -1230,14 +1264,17 @@ void EditorClientProxy::AppendText(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEditorClient_AppendText_Name, kFlags, 0, 0, nullptr);
@@ -1278,14 +1315,17 @@ void EditorClientProxy::PreviewFeedback(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEditorClient_PreviewFeedback_Name, kFlags, 0, 0, nullptr);
@@ -1330,14 +1370,17 @@ void EditorClientProxy::SubmitFeedback(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEditorClient_SubmitFeedback_Name, kFlags, 0, 0, nullptr);
@@ -1468,7 +1511,8 @@ void EditorClient_GetPresetTextQueries_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEditorClient_GetPresetTextQueries_Name, kFlags, 0, 0, nullptr);
@@ -1598,7 +1642,8 @@ void EditorClient_RequestPresetRewrite_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEditorClient_RequestPresetRewrite_Name, kFlags, 0, 0, nullptr);
@@ -1724,7 +1769,8 @@ void EditorClient_RequestFreeformRewrite_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEditorClient_RequestFreeformRewrite_Name, kFlags, 0, 0, nullptr);
@@ -1850,7 +1896,8 @@ void EditorClient_RequestFreeformWrite_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEditorClient_RequestFreeformWrite_Name, kFlags, 0, 0, nullptr);
@@ -1976,7 +2023,8 @@ void EditorClient_PreviewFeedback_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEditorClient_PreviewFeedback_Name, kFlags, 0, 0, nullptr);
@@ -2300,7 +2348,7 @@ bool EditorClientStubDispatch::AcceptWithResponder(
       
       bool success = true;
       std::string p_text_query_id{};
-      absl::optional<std::string> p_text_override{};
+      std::optional<std::string> p_text_override{};
       EditorClient_RequestPresetRewrite_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadTextQueryId(&p_text_query_id))
@@ -2333,7 +2381,7 @@ std::move(p_text_override), std::move(callback));
       
       bool success = true;
       std::string p_input{};
-      absl::optional<std::string> p_text_override{};
+      std::optional<std::string> p_text_override{};
       EditorClient_RequestFreeformRewrite_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadInput(&p_input))
@@ -2445,36 +2493,36 @@ std::move(p_result_id), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kEditorClientValidationInfo[] = {
-    {&internal::EditorClient_GetPresetTextQueries_Params_Data::Validate,
+    { &internal::EditorClient_GetPresetTextQueries_Params_Data::Validate,
      &internal::EditorClient_GetPresetTextQueries_ResponseParams_Data::Validate},
-    {&internal::EditorClient_RequestPresetRewrite_Params_Data::Validate,
+    { &internal::EditorClient_RequestPresetRewrite_Params_Data::Validate,
      &internal::EditorClient_RequestPresetRewrite_ResponseParams_Data::Validate},
-    {&internal::EditorClient_RequestFreeformRewrite_Params_Data::Validate,
+    { &internal::EditorClient_RequestFreeformRewrite_Params_Data::Validate,
      &internal::EditorClient_RequestFreeformRewrite_ResponseParams_Data::Validate},
-    {&internal::EditorClient_RequestFreeformWrite_Params_Data::Validate,
+    { &internal::EditorClient_RequestFreeformWrite_Params_Data::Validate,
      &internal::EditorClient_RequestFreeformWrite_ResponseParams_Data::Validate},
-    {&internal::EditorClient_InsertText_Params_Data::Validate,
+    { &internal::EditorClient_InsertText_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::EditorClient_ApproveConsent_Params_Data::Validate,
+    { &internal::EditorClient_ApproveConsent_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::EditorClient_DeclineConsent_Params_Data::Validate,
+    { &internal::EditorClient_DeclineConsent_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::EditorClient_DismissConsent_Params_Data::Validate,
+    { &internal::EditorClient_DismissConsent_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::EditorClient_OpenUrlInNewWindow_Params_Data::Validate,
+    { &internal::EditorClient_OpenUrlInNewWindow_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::EditorClient_ShowUI_Params_Data::Validate,
+    { &internal::EditorClient_ShowUI_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::EditorClient_CloseUI_Params_Data::Validate,
+    { &internal::EditorClient_CloseUI_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::EditorClient_AppendText_Params_Data::Validate,
+    { &internal::EditorClient_AppendText_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::EditorClient_PreviewFeedback_Params_Data::Validate,
+    { &internal::EditorClient_PreviewFeedback_Params_Data::Validate,
      &internal::EditorClient_PreviewFeedback_ResponseParams_Data::Validate},
-    {&internal::EditorClient_SubmitFeedback_Params_Data::Validate,
+    { &internal::EditorClient_SubmitFeedback_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2558,14 +2606,17 @@ void EditorClientConnectorProxy::BindEditorClient(
                         "<value of type ::mojo::PendingReceiver<EditorClient>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEditorClientConnector_BindEditorClient_Name, kFlags, 0, 0, nullptr);
@@ -2641,10 +2692,10 @@ bool EditorClientConnectorStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kEditorClientConnectorValidationInfo[] = {
-    {&internal::EditorClientConnector_BindEditorClient_Params_Data::Validate,
+    { &internal::EditorClientConnector_BindEditorClient_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -2724,14 +2775,17 @@ void EditorEventSinkProxy::OnContextUpdated(
                         "<value of type ContextPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kEditorEventSink_OnContextUpdated_Name, kFlags, 0, 0, nullptr);
@@ -2810,10 +2864,10 @@ bool EditorEventSinkStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kEditorEventSinkValidationInfo[] = {
-    {&internal::EditorEventSink_OnContextUpdated_Params_Data::Validate,
+    { &internal::EditorEventSink_OnContextUpdated_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -3013,14 +3067,17 @@ void TextActuatorProxy::InsertText(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTextActuator_InsertText_Name, kFlags, 0, 0, nullptr);
@@ -3054,14 +3111,17 @@ void TextActuatorProxy::ApproveConsent(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::orca::mojom::TextActuator::ApproveConsent");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTextActuator_ApproveConsent_Name, kFlags, 0, 0, nullptr);
@@ -3084,14 +3144,17 @@ void TextActuatorProxy::DeclineConsent(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::orca::mojom::TextActuator::DeclineConsent");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTextActuator_DeclineConsent_Name, kFlags, 0, 0, nullptr);
@@ -3121,14 +3184,17 @@ void TextActuatorProxy::OpenUrlInNewWindow(
                         "<value of type const ::GURL&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTextActuator_OpenUrlInNewWindow_Name, kFlags, 0, 0, nullptr);
@@ -3162,14 +3228,17 @@ void TextActuatorProxy::ShowUI(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::orca::mojom::TextActuator::ShowUI");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTextActuator_ShowUI_Name, kFlags, 0, 0, nullptr);
@@ -3192,14 +3261,17 @@ void TextActuatorProxy::CloseUI(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send ash::orca::mojom::TextActuator::CloseUI");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTextActuator_CloseUI_Name, kFlags, 0, 0, nullptr);
@@ -3229,14 +3301,17 @@ void TextActuatorProxy::SubmitFeedback(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTextActuator_SubmitFeedback_Name, kFlags, 0, 0, nullptr);
@@ -3473,22 +3548,22 @@ bool TextActuatorStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kTextActuatorValidationInfo[] = {
-    {&internal::TextActuator_InsertText_Params_Data::Validate,
+    { &internal::TextActuator_InsertText_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::TextActuator_ApproveConsent_Params_Data::Validate,
+    { &internal::TextActuator_ApproveConsent_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::TextActuator_DeclineConsent_Params_Data::Validate,
+    { &internal::TextActuator_DeclineConsent_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::TextActuator_OpenUrlInNewWindow_Params_Data::Validate,
+    { &internal::TextActuator_OpenUrlInNewWindow_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::TextActuator_ShowUI_Params_Data::Validate,
+    { &internal::TextActuator_ShowUI_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::TextActuator_CloseUI_Params_Data::Validate,
+    { &internal::TextActuator_CloseUI_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::TextActuator_SubmitFeedback_Params_Data::Validate,
+    { &internal::TextActuator_SubmitFeedback_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -3584,14 +3659,17 @@ void TextQueryProviderProxy::Process(
                         "<value of type TextQueryRequestPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTextQueryProvider_Process_Name, kFlags, 0, 0, nullptr);
@@ -3712,7 +3790,8 @@ void TextQueryProvider_Process_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTextQueryProvider_Process_Name, kFlags, 0, 0, nullptr);
@@ -3800,10 +3879,10 @@ std::move(p_request), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kTextQueryProviderValidationInfo[] = {
-    {&internal::TextQueryProvider_Process_Params_Data::Validate,
+    { &internal::TextQueryProvider_Process_Params_Data::Validate,
      &internal::TextQueryProvider_Process_ResponseParams_Data::Validate},
 };
 
@@ -3896,14 +3975,17 @@ void OrcaServiceProxy::BindEditor(
                         "<value of type ::mojo::PendingAssociatedReceiver<EditorEventSink>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kOrcaService_BindEditor_Name, kFlags, 0, 0, nullptr);
@@ -4015,10 +4097,10 @@ bool OrcaServiceStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kOrcaServiceValidationInfo[] = {
-    {&internal::OrcaService_BindEditor_Params_Data::Validate,
+    { &internal::OrcaService_BindEditor_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -4180,10 +4262,10 @@ namespace ash::orca::mojom {
 void EditorClientInterceptorForTesting::GetPresetTextQueries(GetPresetTextQueriesCallback callback) {
   GetForwardingInterface()->GetPresetTextQueries(std::move(callback));
 }
-void EditorClientInterceptorForTesting::RequestPresetRewrite(const std::string& text_query_id, const absl::optional<std::string>& text_override, RequestPresetRewriteCallback callback) {
+void EditorClientInterceptorForTesting::RequestPresetRewrite(const std::string& text_query_id, const std::optional<std::string>& text_override, RequestPresetRewriteCallback callback) {
   GetForwardingInterface()->RequestPresetRewrite(std::move(text_query_id), std::move(text_override), std::move(callback));
 }
-void EditorClientInterceptorForTesting::RequestFreeformRewrite(const std::string& input, const absl::optional<std::string>& text_override, RequestFreeformRewriteCallback callback) {
+void EditorClientInterceptorForTesting::RequestFreeformRewrite(const std::string& input, const std::optional<std::string>& text_override, RequestFreeformRewriteCallback callback) {
   GetForwardingInterface()->RequestFreeformRewrite(std::move(input), std::move(text_override), std::move(callback));
 }
 void EditorClientInterceptorForTesting::RequestFreeformWrite(const std::string& input, RequestFreeformWriteCallback callback) {
@@ -4248,7 +4330,7 @@ std::vector<PresetTextQueryPtr> EditorClientAsyncWaiter::GetPresetTextQueries(
 }
 
 void EditorClientAsyncWaiter::RequestPresetRewrite(
-    const std::string& text_query_id, const absl::optional<std::string>& text_override, TextQueryResponsePtr* out_response) {
+    const std::string& text_query_id, const std::optional<std::string>& text_override, TextQueryResponsePtr* out_response) {
   base::RunLoop loop;
   proxy_->RequestPresetRewrite(std::move(text_query_id),std::move(text_override),
       base::BindOnce(
@@ -4264,14 +4346,14 @@ void EditorClientAsyncWaiter::RequestPresetRewrite(
 }
 
 TextQueryResponsePtr EditorClientAsyncWaiter::RequestPresetRewrite(
-    const std::string& text_query_id, const absl::optional<std::string>& text_override) {
+    const std::string& text_query_id, const std::optional<std::string>& text_override) {
   TextQueryResponsePtr async_wait_result;
   RequestPresetRewrite(std::move(text_query_id),std::move(text_override),&async_wait_result);
   return async_wait_result;
 }
 
 void EditorClientAsyncWaiter::RequestFreeformRewrite(
-    const std::string& input, const absl::optional<std::string>& text_override, TextQueryResponsePtr* out_response) {
+    const std::string& input, const std::optional<std::string>& text_override, TextQueryResponsePtr* out_response) {
   base::RunLoop loop;
   proxy_->RequestFreeformRewrite(std::move(input),std::move(text_override),
       base::BindOnce(
@@ -4287,7 +4369,7 @@ void EditorClientAsyncWaiter::RequestFreeformRewrite(
 }
 
 TextQueryResponsePtr EditorClientAsyncWaiter::RequestFreeformRewrite(
-    const std::string& input, const absl::optional<std::string>& text_override) {
+    const std::string& input, const std::optional<std::string>& text_override) {
   TextQueryResponsePtr async_wait_result;
   RequestFreeformRewrite(std::move(input),std::move(text_override),&async_wait_result);
   return async_wait_result;

@@ -114,20 +114,22 @@ inline bool IsKnownEnumValue(SpeculationEagerness value) {
 }
 
 
-enum class SpeculationInjectionWorld : int32_t {
+enum class SpeculationInjectionType : int32_t {
   
   kNone = 0,
   
-  kMain = 1,
+  kMainWorldScript = 1,
   
-  kIsolated = 2,
+  kIsolatedWorldScript = 2,
+  
+  kAutoSpeculationRules = 3,
   kMinValue = 0,
-  kMaxValue = 2,
+  kMaxValue = 3,
 };
 
-COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) std::ostream& operator<<(std::ostream& os, SpeculationInjectionWorld value);
-inline bool IsKnownEnumValue(SpeculationInjectionWorld value) {
-  return internal::SpeculationInjectionWorld_Data::IsKnownValue(
+COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) std::ostream& operator<<(std::ostream& os, SpeculationInjectionType value);
+inline bool IsKnownEnumValue(SpeculationInjectionType value) {
+  return internal::SpeculationInjectionType_Data::IsKnownValue(
       static_cast<int32_t>(value));
 }
 // Interface base classes. They are used for type safety check.
@@ -227,14 +229,14 @@ static_assert(
         pointer, output, message_);
   }
   template <typename UserType>
-  [[nodiscard]] bool ReadInjectionWorld(UserType* output) const {
-    auto data_value = data_->injection_world;
-    return mojo::internal::Deserialize<::blink::mojom::SpeculationInjectionWorld>(
+  [[nodiscard]] bool ReadInjectionType(UserType* output) const {
+    auto data_value = data_->injection_type;
+    return mojo::internal::Deserialize<::blink::mojom::SpeculationInjectionType>(
         data_value, output);
   }
-  SpeculationInjectionWorld injection_world() const {
+  SpeculationInjectionType injection_type() const {
     return ::mojo::internal::ToKnownEnumValueHelper(
-          static_cast<::blink::mojom::SpeculationInjectionWorld>(data_->injection_world));
+          static_cast<::blink::mojom::SpeculationInjectionType>(data_->injection_type));
   }
  private:
   internal::SpeculationCandidate_Data* data_ = nullptr;
@@ -259,8 +261,8 @@ struct hash<::blink::mojom::SpeculationEagerness>
     : public mojo::internal::EnumHashImpl<::blink::mojom::SpeculationEagerness> {};
 
 template <>
-struct hash<::blink::mojom::SpeculationInjectionWorld>
-    : public mojo::internal::EnumHashImpl<::blink::mojom::SpeculationInjectionWorld> {};
+struct hash<::blink::mojom::SpeculationInjectionType>
+    : public mojo::internal::EnumHashImpl<::blink::mojom::SpeculationInjectionType> {};
 
 }  // namespace std
 
@@ -330,9 +332,9 @@ struct Serializer<::blink::mojom::SpeculationEagerness, MaybeConstUserType> {
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::blink::mojom::SpeculationInjectionWorld, MaybeConstUserType> {
+struct Serializer<::blink::mojom::SpeculationInjectionType, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = EnumTraits<::blink::mojom::SpeculationInjectionWorld, UserType>;
+  using Traits = EnumTraits<::blink::mojom::SpeculationInjectionType, UserType>;
 
   static void Serialize(UserType input, int32_t* output) {
     *output = static_cast<int32_t>(Traits::ToMojom(input));
@@ -340,7 +342,7 @@ struct Serializer<::blink::mojom::SpeculationInjectionWorld, MaybeConstUserType>
 
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
-        static_cast<::blink::mojom::SpeculationInjectionWorld>(input)), output);
+        static_cast<::blink::mojom::SpeculationInjectionType>(input)), output);
   }
 };
 
@@ -399,8 +401,8 @@ struct Serializer<::blink::mojom::SpeculationCandidateDataView, MaybeConstUserTy
         in_no_vary_search_hint, no_vary_search_hint_fragment);
     fragment->no_vary_search_hint.Set(
         no_vary_search_hint_fragment.is_null() ? nullptr : no_vary_search_hint_fragment.data());
-    mojo::internal::Serialize<::blink::mojom::SpeculationInjectionWorld>(
-        Traits::injection_world(input), &fragment->injection_world);
+    mojo::internal::Serialize<::blink::mojom::SpeculationInjectionType>(
+        Traits::injection_type(input), &fragment->injection_type);
   }
 
   static bool Deserialize(::blink::mojom::internal::SpeculationCandidate_Data* input,
@@ -474,8 +476,8 @@ struct COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) TraceFormatTraits<::bl
 namespace perfetto {
 
 template <>
-struct COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) TraceFormatTraits<::blink::mojom::SpeculationInjectionWorld> {
- static void WriteIntoTrace(perfetto::TracedValue context, ::blink::mojom::SpeculationInjectionWorld value);
+struct COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) TraceFormatTraits<::blink::mojom::SpeculationInjectionType> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::blink::mojom::SpeculationInjectionType value);
 };
 
 } // namespace perfetto

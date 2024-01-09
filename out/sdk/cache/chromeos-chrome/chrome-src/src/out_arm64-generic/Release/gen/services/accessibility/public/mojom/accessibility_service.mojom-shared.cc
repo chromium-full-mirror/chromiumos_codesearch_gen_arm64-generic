@@ -177,7 +177,7 @@ bool AccessibilityServiceClient_BindAutomation_Params_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 24, validation_context)) {
+          data, 16, validation_context)) {
     return false;
   }
 
@@ -195,8 +195,31 @@ bool AccessibilityServiceClient_BindAutomation_Params_Data::Validate(
     return false;
   }
 
+  return true;
+}
+
+AccessibilityServiceClient_BindAutomation_Params_Data::AccessibilityServiceClient_BindAutomation_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool AccessibilityServiceClient_BindAutomationClient_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const AccessibilityServiceClient_BindAutomationClient_Params_Data* object =
+      static_cast<const AccessibilityServiceClient_BindAutomationClient_Params_Data*>(data);
+
   if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
-          object->automation_client, 2, validation_context)) {
+          object->automation_client, 1, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateHandleOrInterface(object->automation_client,
@@ -207,7 +230,7 @@ bool AccessibilityServiceClient_BindAutomation_Params_Data::Validate(
   return true;
 }
 
-AccessibilityServiceClient_BindAutomation_Params_Data::AccessibilityServiceClient_BindAutomation_Params_Data()
+AccessibilityServiceClient_BindAutomationClient_Params_Data::AccessibilityServiceClient_BindAutomationClient_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -304,6 +327,38 @@ bool AccessibilityServiceClient_BindTts_Params_Data::Validate(
 }
 
 AccessibilityServiceClient_BindTts_Params_Data::AccessibilityServiceClient_BindTts_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool AccessibilityServiceClient_BindUserInput_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const AccessibilityServiceClient_BindUserInput_Params_Data* object =
+      static_cast<const AccessibilityServiceClient_BindUserInput_Params_Data*>(data);
+
+  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
+          object->user_input_receiver, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateHandleOrInterface(object->user_input_receiver,
+                                                 validation_context)) {
+    return false;
+  }
+
+  return true;
+}
+
+AccessibilityServiceClient_BindUserInput_Params_Data::AccessibilityServiceClient_BindUserInput_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 

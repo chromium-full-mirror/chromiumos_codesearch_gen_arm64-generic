@@ -255,7 +255,6 @@ PROTOBUF_CONSTEXPR KeyInfo::KeyInfo(
   , user_customer_id_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , obfuscated_gaia_id_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , profile_id_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , device_trust_signals_(nullptr)
   , flow_type_(0)
 {}
 struct KeyInfoDefaultTypeInternal {
@@ -5620,7 +5619,7 @@ class KeyInfo::_Internal {
  public:
   using HasBits = decltype(std::declval<KeyInfo>()._has_bits_);
   static void set_has_flow_type(HasBits* has_bits) {
-    (*has_bits)[0] |= 8192u;
+    (*has_bits)[0] |= 4096u;
   }
   static void set_has_domain(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
@@ -5643,10 +5642,6 @@ class KeyInfo::_Internal {
   static void set_has_signing_scheme(HasBits* has_bits) {
     (*has_bits)[0] |= 64u;
   }
-  static const ::attestation::DeviceTrustSignals& device_trust_signals(const KeyInfo* msg);
-  static void set_has_device_trust_signals(HasBits* has_bits) {
-    (*has_bits)[0] |= 4096u;
-  }
   static void set_has_device_trust_signals_json(HasBits* has_bits) {
     (*has_bits)[0] |= 128u;
   }
@@ -5664,10 +5659,6 @@ class KeyInfo::_Internal {
   }
 };
 
-const ::attestation::DeviceTrustSignals&
-KeyInfo::_Internal::device_trust_signals(const KeyInfo* msg) {
-  return *msg->device_trust_signals_;
-}
 KeyInfo::KeyInfo(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
@@ -5774,11 +5765,6 @@ KeyInfo::KeyInfo(const KeyInfo& from)
     profile_id_.Set(from._internal_profile_id(), 
       GetArenaForAllocation());
   }
-  if (from._internal_has_device_trust_signals()) {
-    device_trust_signals_ = new ::attestation::DeviceTrustSignals(*from.device_trust_signals_);
-  } else {
-    device_trust_signals_ = nullptr;
-  }
   flow_type_ = from.flow_type_;
   // @@protoc_insertion_point(copy_constructor:attestation.KeyInfo)
 }
@@ -5832,10 +5818,7 @@ profile_id_.InitDefault();
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   profile_id_.Set("", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&device_trust_signals_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&flow_type_) -
-    reinterpret_cast<char*>(&device_trust_signals_)) + sizeof(flow_type_));
+flow_type_ = 0;
 }
 
 KeyInfo::~KeyInfo() {
@@ -5861,7 +5844,6 @@ inline void KeyInfo::SharedDtor() {
   user_customer_id_.Destroy();
   obfuscated_gaia_id_.Destroy();
   profile_id_.Destroy();
-  if (this != internal_default_instance()) delete device_trust_signals_;
 }
 
 void KeyInfo::SetCachedSize(int size) const {
@@ -5901,7 +5883,7 @@ void KeyInfo::Clear() {
       device_trust_signals_json_.ClearNonDefaultToEmpty();
     }
   }
-  if (cached_has_bits & 0x00001f00u) {
+  if (cached_has_bits & 0x00000f00u) {
     if (cached_has_bits & 0x00000100u) {
       dm_token_.ClearNonDefaultToEmpty();
     }
@@ -5913,10 +5895,6 @@ void KeyInfo::Clear() {
     }
     if (cached_has_bits & 0x00000800u) {
       profile_id_.ClearNonDefaultToEmpty();
-    }
-    if (cached_has_bits & 0x00001000u) {
-      GOOGLE_DCHECK(device_trust_signals_ != nullptr);
-      device_trust_signals_->Clear();
     }
   }
   flow_type_ = 0;
@@ -6007,14 +5985,6 @@ const char* KeyInfo::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) 
         } else
           goto handle_unusual;
         continue;
-      // optional .attestation.DeviceTrustSignals device_trust_signals = 9 [deprecated = true];
-      case 9:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 74)) {
-          ptr = ctx->ParseMessage(_internal_mutable_device_trust_signals(), ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
       // optional string device_trust_signals_json = 10;
       case 10:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 82)) {
@@ -6092,7 +6062,7 @@ uint8_t* KeyInfo::_InternalSerialize(
 
   cached_has_bits = _has_bits_[0];
   // optional .attestation.VerifiedAccessFlow flow_type = 1;
-  if (cached_has_bits & 0x00002000u) {
+  if (cached_has_bits & 0x00001000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       1, this->_internal_flow_type(), target);
@@ -6138,13 +6108,6 @@ uint8_t* KeyInfo::_InternalSerialize(
   if (cached_has_bits & 0x00000040u) {
     target = stream->WriteStringMaybeAliased(
         8, this->_internal_signing_scheme(), target);
-  }
-
-  // optional .attestation.DeviceTrustSignals device_trust_signals = 9 [deprecated = true];
-  if (cached_has_bits & 0x00001000u) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(9, _Internal::device_trust_signals(this),
-        _Internal::device_trust_signals(this).GetCachedSize(), target, stream);
   }
 
   // optional string device_trust_signals_json = 10;
@@ -6252,7 +6215,7 @@ size_t KeyInfo::ByteSizeLong() const {
     }
 
   }
-  if (cached_has_bits & 0x00003f00u) {
+  if (cached_has_bits & 0x00001f00u) {
     // optional string dm_token = 11;
     if (cached_has_bits & 0x00000100u) {
       total_size += 1 +
@@ -6281,15 +6244,8 @@ size_t KeyInfo::ByteSizeLong() const {
           this->_internal_profile_id());
     }
 
-    // optional .attestation.DeviceTrustSignals device_trust_signals = 9 [deprecated = true];
-    if (cached_has_bits & 0x00001000u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *device_trust_signals_);
-    }
-
     // optional .attestation.VerifiedAccessFlow flow_type = 1;
-    if (cached_has_bits & 0x00002000u) {
+    if (cached_has_bits & 0x00001000u) {
       total_size += 1 +
         ::_pbi::WireFormatLite::EnumSize(this->_internal_flow_type());
     }
@@ -6342,7 +6298,7 @@ void KeyInfo::MergeFrom(const KeyInfo& from) {
       _internal_set_device_trust_signals_json(from._internal_device_trust_signals_json());
     }
   }
-  if (cached_has_bits & 0x00003f00u) {
+  if (cached_has_bits & 0x00001f00u) {
     if (cached_has_bits & 0x00000100u) {
       _internal_set_dm_token(from._internal_dm_token());
     }
@@ -6356,9 +6312,6 @@ void KeyInfo::MergeFrom(const KeyInfo& from) {
       _internal_set_profile_id(from._internal_profile_id());
     }
     if (cached_has_bits & 0x00001000u) {
-      _internal_mutable_device_trust_signals()->::attestation::DeviceTrustSignals::MergeFrom(from._internal_device_trust_signals());
-    }
-    if (cached_has_bits & 0x00002000u) {
       flow_type_ = from.flow_type_;
     }
     _has_bits_[0] |= cached_has_bits;
@@ -6431,12 +6384,7 @@ void KeyInfo::InternalSwap(KeyInfo* other) {
       &profile_id_, lhs_arena,
       &other->profile_id_, rhs_arena
   );
-  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(KeyInfo, flow_type_)
-      + sizeof(KeyInfo::flow_type_)
-      - PROTOBUF_FIELD_OFFSET(KeyInfo, device_trust_signals_)>(
-          reinterpret_cast<char*>(&device_trust_signals_),
-          reinterpret_cast<char*>(&other->device_trust_signals_));
+  swap(flow_type_, other->flow_type_);
 }
 
 std::string KeyInfo::GetTypeName() const {

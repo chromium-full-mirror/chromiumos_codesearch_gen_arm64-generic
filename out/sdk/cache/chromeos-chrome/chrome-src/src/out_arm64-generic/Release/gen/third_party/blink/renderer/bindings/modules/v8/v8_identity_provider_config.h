@@ -14,7 +14,6 @@
 #include "base/containers/span.h"
 #include "third_party/blink/renderer/modules/modules_export.h"
 #include "third_party/blink/renderer/platform/bindings/dictionary_base.h"
-#include "third_party/blink/renderer/platform/heap/collection_support/heap_vector.h"
 #include "third_party/blink/renderer/platform/heap/member.h"
 #include "third_party/blink/renderer/platform/wtf/text/wtf_string.h"
 
@@ -80,78 +79,6 @@ has_holder_ = true;
 DCHECK(member_holder_);
 }
 
-bool hasHostedDomain() const {
-  return has_hosted_domain_;
-}
-const String& hostedDomain() const {
-  DCHECK(hasHostedDomain());
-return member_hosted_domain_;
-}
-String getHostedDomainOr(const String& fallback_value) const;
-String getHostedDomainOr(String&& fallback_value) const;
-void setHostedDomain(const String& value);
-void setHostedDomain(String&& value);
-
-bool hasLoginHint() const {
-  return has_login_hint_;
-}
-const String& loginHint() const {
-  DCHECK(hasLoginHint());
-return member_login_hint_;
-}
-String getLoginHintOr(const String& fallback_value) const;
-String getLoginHintOr(String&& fallback_value) const;
-void setLoginHint(const String& value);
-void setLoginHint(String&& value);
-
-bool hasNonce() const {
-  return has_nonce_;
-}
-const String& nonce() const {
-  DCHECK(hasNonce());
-return member_nonce_;
-}
-String getNonceOr(const String& fallback_value) const;
-String getNonceOr(String&& fallback_value) const;
-void setNonce(const String& value);
-void setNonce(String&& value);
-
-bool hasParams() const {
-  return has_params_;
-}
-const Vector<std::pair<String, String>>& params() const {
-  DCHECK(hasParams());
-return member_params_;
-}
-Vector<std::pair<String, String>> getParamsOr(const Vector<std::pair<String, String>>& fallback_value) const;
-Vector<std::pair<String, String>> getParamsOr(Vector<std::pair<String, String>>&& fallback_value) const;
-void setParams(const Vector<std::pair<String, String>>& value);
-void setParams(Vector<std::pair<String, String>>&& value);
-
-bool hasResponseType() const {
-  return has_response_type_;
-}
-const Vector<String>& responseType() const {
-  DCHECK(hasResponseType());
-return member_response_type_;
-}
-Vector<String> getResponseTypeOr(const Vector<String>& fallback_value) const;
-Vector<String> getResponseTypeOr(Vector<String>&& fallback_value) const;
-void setResponseType(const Vector<String>& value);
-void setResponseType(Vector<String>&& value);
-
-bool hasScope() const {
-  return has_scope_;
-}
-const Vector<String>& scope() const {
-  DCHECK(hasScope());
-return member_scope_;
-}
-Vector<String> getScopeOr(const Vector<String>& fallback_value) const;
-Vector<String> getScopeOr(Vector<String>&& fallback_value) const;
-void setScope(const Vector<String>& value);
-void setScope(Vector<String>&& value);
-
 
 
 
@@ -170,22 +97,10 @@ static const base::span<const v8::Eternal<v8::Name>> GetV8OwnMemberNames(v8::Iso
 bool has_client_id_ = false;
 bool has_config_url_ = false;
 bool has_holder_ = false;
-bool has_hosted_domain_ = false;
-bool has_login_hint_ = false;
-bool has_nonce_ = false;
-bool has_params_ = false;
-bool has_response_type_ = false;
-bool has_scope_ = false;
 
 String member_client_id_;
 String member_config_url_;
 Member<DigitalCredentialProvider> member_holder_;
-String member_hosted_domain_;
-String member_login_hint_;
-String member_nonce_;
-Vector<std::pair<String, String>> member_params_;
-Vector<String> member_response_type_;
-Vector<String> member_scope_;
 
 
   

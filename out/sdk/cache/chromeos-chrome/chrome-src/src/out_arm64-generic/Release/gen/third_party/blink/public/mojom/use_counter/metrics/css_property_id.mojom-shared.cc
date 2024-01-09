@@ -1270,14 +1270,6 @@ NOINLINE static const char* CSSSampleIdToStringHelper(CSSSampleId value) {
       return "kObjectViewBox";
     case CSSSampleId::kObjectOverflow:
       return "kObjectOverflow";
-    case CSSSampleId::kToggleGroup:
-      return "kToggleGroup";
-    case CSSSampleId::kToggleRoot:
-      return "kToggleRoot";
-    case CSSSampleId::kToggleTrigger:
-      return "kToggleTrigger";
-    case CSSSampleId::kToggle:
-      return "kToggle";
     case CSSSampleId::kAnchorName:
       return "kAnchorName";
     case CSSSampleId::kPositionFallback:
@@ -1302,8 +1294,6 @@ NOINLINE static const char* CSSSampleIdToStringHelper(CSSSampleId value) {
       return "kViewTimelineInset";
     case CSSSampleId::kViewTimelineName:
       return "kViewTimelineName";
-    case CSSSampleId::kToggleVisibility:
-      return "kToggleVisibility";
     case CSSSampleId::kInitialLetter:
       return "kInitialLetter";
     case CSSSampleId::kHyphenateLimitChars:
@@ -1372,8 +1362,8 @@ NOINLINE static const char* CSSSampleIdToStringHelper(CSSSampleId value) {
       return "kTransitionBehavior";
     case CSSSampleId::kTextAutospace:
       return "kTextAutospace";
-    case CSSSampleId::kNavigationTrigger:
-      return "kNavigationTrigger";
+    case CSSSampleId::kNavigation:
+      return "kNavigation";
     case CSSSampleId::kDynamicRangeLimit:
       return "kDynamicRangeLimit";
     case CSSSampleId::kFieldSizing:
@@ -1394,6 +1384,12 @@ NOINLINE static const char* CSSSampleIdToStringHelper(CSSSampleId value) {
       return "kMaskRepeat";
     case CSSSampleId::kMaskComposite:
       return "kMaskComposite";
+    case CSSSampleId::kMaskPosition:
+      return "kMaskPosition";
+    case CSSSampleId::kMaskMode:
+      return "kMaskMode";
+    case CSSSampleId::kInsetArea:
+      return "kInsetArea";
     default:
       return nullptr;
   }

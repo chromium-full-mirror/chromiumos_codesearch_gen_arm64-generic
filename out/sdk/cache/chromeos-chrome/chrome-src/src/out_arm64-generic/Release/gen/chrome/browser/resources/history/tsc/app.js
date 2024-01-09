@@ -20,7 +20,7 @@ import { assert } from 'chrome://resources/js/assert.js';
 import { EventTracker } from 'chrome://resources/js/event_tracker.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { getTrustedScriptURL } from 'chrome://resources/js/static_types.js';
-import { hasKeyModifiers } from 'chrome://resources/js/util_ts.js';
+import { hasKeyModifiers } from 'chrome://resources/js/util.js';
 import { IronA11yAnnouncer } from 'chrome://resources/polymer/v3_0/iron-a11y-announcer/iron-a11y-announcer.js';
 import { IronScrollTargetBehavior } from 'chrome://resources/polymer/v3_0/iron-scroll-target-behavior/iron-scroll-target-behavior.js';
 import { mixinBehaviors, PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
@@ -141,7 +141,7 @@ export class HistoryAppElement extends HistoryAppElementBase {
                 value: () => loadTimeData.getBoolean('isHistoryClustersVisible'),
             },
             historyClustersPath_: {
-                type: Boolean,
+                type: String,
                 value: () => loadTimeData.getBoolean('renameJourneys') ? 'grouped' : 'journeys',
             },
             showHistoryClusters_: {
@@ -171,7 +171,7 @@ export class HistoryAppElement extends HistoryAppElementBase {
     }
     constructor() {
         super();
-        this.browserService_ = null;
+        this.browserService_ = BrowserServiceImpl.getInstance();
         this.eventTracker_ = new EventTracker();
         this.isUserSignedIn_ = loadTimeData.getBoolean('isUserSignedIn');
         this.historyClustersViewStartTime_ = null;
@@ -189,7 +189,6 @@ export class HistoryAppElement extends HistoryAppElementBase {
         this.addWebUiListener('sign-in-state-changed', (signedIn) => this.onSignInStateChanged_(signedIn));
         this.addWebUiListener('has-other-forms-changed', (hasOtherForms) => this.onHasOtherFormsChanged_(hasOtherForms));
         this.addWebUiListener('foreign-sessions-changed', (sessionList) => this.setForeignSessions_(sessionList));
-        this.browserService_ = BrowserServiceImpl.getInstance();
         this.shadowRoot.querySelector('history-query-manager').initialize();
         this.browserService_.getForeignSessions().then(sessionList => this.setForeignSessions_(sessionList));
     }
@@ -201,6 +200,11 @@ export class HistoryAppElement extends HistoryAppElementBase {
         this.addEventListener('history-close-drawer', this.closeDrawer_);
         this.addEventListener('history-view-changed', this.historyViewChanged_);
         this.addEventListener('unselect-all', this.unselectAll);
+        // If there are url params, the router updates the selectedTab/Page and
+        // sets queryState params. Setting the tab manually overrides this.
+        if (!window.location.search) {
+            this.selectedTab_ = this.getDefaultSelectedTab_();
+        }
     }
     disconnectedCallback() {
         super.disconnectedCallback();
@@ -208,6 +212,16 @@ export class HistoryAppElement extends HistoryAppElementBase {
     }
     fire_(eventName, detail) {
         this.dispatchEvent(new CustomEvent(eventName, { bubbles: true, composed: true, detail }));
+    }
+    /**
+     * Returns the tab that should be opened based on url params and then
+     * preferences
+     */
+    getDefaultSelectedTab_() {
+        if (window.location.pathname === '/' + this.historyClustersPath_) {
+            return TABBED_PAGES.indexOf(Page.HISTORY_CLUSTERS);
+        }
+        return loadTimeData.getInteger('lastSelectedTab');
     }
     computeShowHistoryClusters_() {
         return this.historyClustersEnabled_ && this.historyClustersVisible_;
@@ -217,9 +231,6 @@ export class HistoryAppElement extends HistoryAppElementBase {
             this.showHistoryClusters_;
     }
     onFirstRender_() {
-        setTimeout(() => {
-            this.browserService_.recordTime('History.ResultsRenderedTime', window.performance.now());
-        });
         // Focus the search field on load. Done here to ensure the history page
         // is rendered before we try to take focus.
         const searchField = this.$.toolbar.searchField;
@@ -390,6 +401,7 @@ export class HistoryAppElement extends HistoryAppElementBase {
         // Change in the currently selected tab requires change in the currently
         // selected page.
         this.selectedPage_ = TABBED_PAGES[this.selectedTab_];
+        this.browserService_.setLastSelectedTab(this.selectedTab_);
     }
     maybeUpdateSelectedHistoryTab_() {
         // Change in the currently selected page may require change in the currently

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chromeos/ash/services/nearby/public/mojom/nearby_presence.mojom-features.h"
 #include "chromeos/ash/services/nearby/public/mojom/nearby_presence.mojom-shared.h"
 #include "chromeos/ash/services/nearby/public/mojom/nearby_presence.mojom-forward.h"
 #include "mojo/public/mojom/base/absl_status.mojom-forward.h"
@@ -1051,7 +1052,7 @@ class  PresenceDevice {
   PresenceDevice(
       const std::string& endpoint_id,
       std::vector<ActionType> actions,
-      const absl::optional<std::string>& stable_device_id,
+      const std::optional<std::string>& stable_device_id,
       MetadataPtr metadata);
 
 PresenceDevice(const PresenceDevice&) = delete;
@@ -1136,7 +1137,7 @@ PresenceDevice& operator=(const PresenceDevice&) = delete;
   
   std::vector<ActionType> actions;
   
-  absl::optional<std::string> stable_device_id;
+  std::optional<std::string> stable_device_id;
   
   MetadataPtr metadata;
 

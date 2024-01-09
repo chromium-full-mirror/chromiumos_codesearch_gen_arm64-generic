@@ -10,8 +10,6 @@
 #include "mojo/public/cpp/bindings/lib/bindings_internal.h"
 #include "mojo/public/cpp/bindings/lib/map_data_internal.h"
 #include "mojo/public/cpp/bindings/lib/buffer.h"
-#include "mojo/public/mojom/base/file.mojom-shared-internal.h"
-#include "sandbox/policy/mojom/sandbox.mojom-shared-internal.h"
 #include "mojo/public/cpp/bindings/lib/native_enum_data.h"
 #include "mojo/public/interfaces/bindings/native_struct.mojom-shared-internal.h"
 
@@ -26,8 +24,31 @@ class ValidationContext;
 
 namespace on_device_model::mojom {
 namespace internal {
-class ModelAssets_Data;
-class LoadModelResult_Data;
+class InputOptions_Data;
+
+struct ResponseStatus_Data {
+ public:
+  static bool constexpr kIsExtensible = false;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
 
 struct PerformanceClass_Data {
  public:
@@ -41,6 +62,33 @@ struct PerformanceClass_Data {
       case 3:
       case 4:
       case 5:
+      case 6:
+      case 7:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
+struct LoadModelResult_Data {
+ public:
+  static bool constexpr kIsExtensible = false;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
         return true;
     }
     return false;
@@ -58,90 +106,44 @@ struct PerformanceClass_Data {
 };
 
 #pragma pack(push, 1)
-
-
-class  LoadModelResult_Data {
- public:
-  // Used to identify Mojom Union Data Classes.
-  typedef void MojomUnionDataType;
-
-  LoadModelResult_Data() = default;
-  // Do nothing in the destructor since it won't be called when it is a
-  // non-inlined union.
-  ~LoadModelResult_Data() = default;
-
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context,
-                       bool inlined);
-
-  bool is_null() const { return size == 0; }
-
-  void set_null() {
-    size = 0U;
-    tag = static_cast<LoadModelResult_Tag>(0);
-    data.unknown = 0U;
-  }
-
-  // TODO(crbug.com/1148486): SHOUTY_CASE values are being deprecated per C++ code style
-  // guidelines (https://google.github.io/styleguide/cppguide.html#Enumerator_Names),
-  // please use kCamelCase values instead.  Cleanup NULL_VALUE, BOOL_VALUE, INT_VALUE, etc.
-  // generation once codebase is transitioned to kNullValue, kBoolValue, kIntValue, etc.
-  enum class LoadModelResult_Tag : uint32_t {
-
-    
-    kModel,
-    
-    kError,
-  };
-
-  // A note on layout:
-  // "Each non-static data member is allocated as if it were the sole member of
-  // a struct." - Section 9.5.2 ISO/IEC 14882:2011 (The C++ Spec)
-  union MOJO_ALIGNAS(8) Union_ {
-    Union_() : unknown(0) {}
-    mojo::internal::Interface_Data f_model;
-    mojo::internal::Pointer<mojo::internal::String_Data> f_error;
-    uint64_t unknown;
-  };
-
-  uint32_t size;
-  LoadModelResult_Tag tag;
-  Union_ data;
-};
-static_assert(sizeof(LoadModelResult_Data) == mojo::internal::kUnionDataSize,
-              "Bad sizeof(LoadModelResult_Data)");
-class  ModelAssets_Data {
+class  InputOptions_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::mojo_base::mojom::internal::File_Data> sp_model;
-  mojo::internal::Pointer<::mojo_base::mojom::internal::File_Data> model;
-  mojo::internal::Pointer<::mojo_base::mojom::internal::File_Data> weights;
+  mojo::internal::Pointer<mojo::internal::String_Data> text;
+  uint8_t max_tokens_$flag : 1;
+  uint8_t token_offset_$flag : 1;
+  uint8_t ignore_context : 1;
+  uint8_t max_output_tokens_$flag : 1;
+  uint8_t pad4_[3];
+  uint32_t max_tokens_$value;
+  uint32_t token_offset_$value;
+  uint32_t max_output_tokens_$value;
 
  private:
-  friend class mojo::internal::MessageFragment<ModelAssets_Data>;
+  friend class mojo::internal::MessageFragment<InputOptions_Data>;
 
-  ModelAssets_Data();
-  ~ModelAssets_Data() = delete;
+  InputOptions_Data();
+  ~InputOptions_Data() = delete;
 };
-static_assert(sizeof(ModelAssets_Data) == 32,
-              "Bad sizeof(ModelAssets_Data)");
-// Used by ModelAssets::WrapAsMessage to lazily serialize the struct.
+static_assert(sizeof(InputOptions_Data) == 32,
+              "Bad sizeof(InputOptions_Data)");
+// Used by InputOptions::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>
-struct ModelAssets_UnserializedMessageContext
+struct InputOptions_UnserializedMessageContext
     : public mojo::internal::UnserializedMessageContext {
  public:
   static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
 
-  ModelAssets_UnserializedMessageContext(
+  InputOptions_UnserializedMessageContext(
     uint32_t message_name,
     uint32_t message_flags,
     UserType input)
       : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
       , user_data_(std::move(input)) {}
-  ~ModelAssets_UnserializedMessageContext() override = default;
+  ~InputOptions_UnserializedMessageContext() override = default;
 
   UserType TakeData() {
     return std::move(user_data_);
@@ -150,7 +152,7 @@ struct ModelAssets_UnserializedMessageContext
  private:
   // mojo::internal::UnserializedMessageContext:
   void Serialize(mojo::Message& message) override {
-    mojo::internal::MessageFragment<ModelAssets_Data> fragment(message);
+    mojo::internal::MessageFragment<InputOptions_Data> fragment(message);
     mojo::internal::Serialize<DataView>(user_data_, fragment);
   }
 
@@ -159,7 +161,7 @@ struct ModelAssets_UnserializedMessageContext
 
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
-    ModelAssets_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+    InputOptions_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 
 #pragma pack(pop)
 

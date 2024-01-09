@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -59,9 +60,9 @@ CopyOutputRequest::CopyOutputRequest(
     ::viz::mojom::blink::CopyOutputResultDestination result_destination_in,
     const ::gfx::Vector2d& scale_from_in,
     const ::gfx::Vector2d& scale_to_in,
-    const absl::optional<::base::UnguessableToken>& source_in,
-    const absl::optional<::gfx::Rect>& area_in,
-    const absl::optional<::gfx::Rect>& result_selection_in,
+    const std::optional<::base::UnguessableToken>& source_in,
+    const std::optional<::gfx::Rect>& area_in,
+    const std::optional<::gfx::Rect>& result_selection_in,
     ::mojo::PendingRemote<CopyOutputResultSender> result_sender_in)
     : result_format(std::move(result_format_in)),
       result_destination(std::move(result_destination_in)),
@@ -117,7 +118,7 @@ void CopyOutputRequest::WriteIntoTrace(
     dict.AddItem(
       "source"), this->source,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::base::UnguessableToken>&>"
+      "<value of type const std::optional<::base::UnguessableToken>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -126,7 +127,7 @@ void CopyOutputRequest::WriteIntoTrace(
     dict.AddItem(
       "area"), this->area,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::gfx::Rect>&>"
+      "<value of type const std::optional<::gfx::Rect>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -135,7 +136,7 @@ void CopyOutputRequest::WriteIntoTrace(
     dict.AddItem(
       "result_selection"), this->result_selection,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::gfx::Rect>&>"
+      "<value of type const std::optional<::gfx::Rect>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -227,14 +228,17 @@ void CopyOutputResultSenderProxy::SendResult(
                         "<value of type ::viz::mojom::blink::CopyOutputResultPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kCopyOutputResultSender_SendResult_Name, kFlags, 0, 0, nullptr);
@@ -313,10 +317,10 @@ bool CopyOutputResultSenderStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kCopyOutputResultSenderValidationInfo[] = {
-    {&internal::CopyOutputResultSender_SendResult_Params_Data::Validate,
+    { &internal::CopyOutputResultSender_SendResult_Params_Data::Validate,
      nullptr /* no response */},
 };
 

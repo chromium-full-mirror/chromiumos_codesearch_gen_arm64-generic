@@ -67,11 +67,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, EXTDisjointTimerQueryWebGL2>::value,
     "EXTDisjointTimerQueryWebGL2 inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&EXTDisjointTimerQueryWebGL2::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "EXTDisjointTimerQueryWebGL2 is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -102,7 +97,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-EXTDisjointTimerQueryWebGL2* blink_receiver = V8EXTDisjointTimerQueryWebGL2::ToWrappableUnsafe(v8_receiver);
+EXTDisjointTimerQueryWebGL2* blink_receiver = V8EXTDisjointTimerQueryWebGL2::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_query = NativeValueTraits<WebGLQuery>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

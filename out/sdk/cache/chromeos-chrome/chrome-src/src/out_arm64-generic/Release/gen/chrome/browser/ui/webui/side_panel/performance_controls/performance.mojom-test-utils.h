@@ -66,6 +66,110 @@ class  PerformancePageAsyncWaiter {
 };
 
 
+class  BatterySaverCardHandlerFactoryInterceptorForTesting : public BatterySaverCardHandlerFactory {
+  virtual BatterySaverCardHandlerFactory* GetForwardingInterface() = 0;
+  void CreateBatterySaverCardHandler(::mojo::PendingRemote<BatterySaverCard> page, ::mojo::PendingReceiver<BatterySaverCardHandler> handler) override;
+};
+class  BatterySaverCardHandlerFactoryAsyncWaiter {
+ public:
+  explicit BatterySaverCardHandlerFactoryAsyncWaiter(BatterySaverCardHandlerFactory* proxy);
+
+  BatterySaverCardHandlerFactoryAsyncWaiter(const BatterySaverCardHandlerFactoryAsyncWaiter&) = delete;
+  BatterySaverCardHandlerFactoryAsyncWaiter& operator=(const BatterySaverCardHandlerFactoryAsyncWaiter&) = delete;
+
+  ~BatterySaverCardHandlerFactoryAsyncWaiter();
+
+ private:
+  BatterySaverCardHandlerFactory* const proxy_;
+};
+
+
+class  BatterySaverCardHandlerInterceptorForTesting : public BatterySaverCardHandler {
+  virtual BatterySaverCardHandler* GetForwardingInterface() = 0;
+};
+class  BatterySaverCardHandlerAsyncWaiter {
+ public:
+  explicit BatterySaverCardHandlerAsyncWaiter(BatterySaverCardHandler* proxy);
+
+  BatterySaverCardHandlerAsyncWaiter(const BatterySaverCardHandlerAsyncWaiter&) = delete;
+  BatterySaverCardHandlerAsyncWaiter& operator=(const BatterySaverCardHandlerAsyncWaiter&) = delete;
+
+  ~BatterySaverCardHandlerAsyncWaiter();
+
+ private:
+  BatterySaverCardHandler* const proxy_;
+};
+
+
+class  BatterySaverCardInterceptorForTesting : public BatterySaverCard {
+  virtual BatterySaverCard* GetForwardingInterface() = 0;
+};
+class  BatterySaverCardAsyncWaiter {
+ public:
+  explicit BatterySaverCardAsyncWaiter(BatterySaverCard* proxy);
+
+  BatterySaverCardAsyncWaiter(const BatterySaverCardAsyncWaiter&) = delete;
+  BatterySaverCardAsyncWaiter& operator=(const BatterySaverCardAsyncWaiter&) = delete;
+
+  ~BatterySaverCardAsyncWaiter();
+
+ private:
+  BatterySaverCard* const proxy_;
+};
+
+
+class  MemorySaverCardHandlerFactoryInterceptorForTesting : public MemorySaverCardHandlerFactory {
+  virtual MemorySaverCardHandlerFactory* GetForwardingInterface() = 0;
+  void CreateMemorySaverCardHandler(::mojo::PendingRemote<MemorySaverCard> page, ::mojo::PendingReceiver<MemorySaverCardHandler> handler) override;
+};
+class  MemorySaverCardHandlerFactoryAsyncWaiter {
+ public:
+  explicit MemorySaverCardHandlerFactoryAsyncWaiter(MemorySaverCardHandlerFactory* proxy);
+
+  MemorySaverCardHandlerFactoryAsyncWaiter(const MemorySaverCardHandlerFactoryAsyncWaiter&) = delete;
+  MemorySaverCardHandlerFactoryAsyncWaiter& operator=(const MemorySaverCardHandlerFactoryAsyncWaiter&) = delete;
+
+  ~MemorySaverCardHandlerFactoryAsyncWaiter();
+
+ private:
+  MemorySaverCardHandlerFactory* const proxy_;
+};
+
+
+class  MemorySaverCardHandlerInterceptorForTesting : public MemorySaverCardHandler {
+  virtual MemorySaverCardHandler* GetForwardingInterface() = 0;
+};
+class  MemorySaverCardHandlerAsyncWaiter {
+ public:
+  explicit MemorySaverCardHandlerAsyncWaiter(MemorySaverCardHandler* proxy);
+
+  MemorySaverCardHandlerAsyncWaiter(const MemorySaverCardHandlerAsyncWaiter&) = delete;
+  MemorySaverCardHandlerAsyncWaiter& operator=(const MemorySaverCardHandlerAsyncWaiter&) = delete;
+
+  ~MemorySaverCardHandlerAsyncWaiter();
+
+ private:
+  MemorySaverCardHandler* const proxy_;
+};
+
+
+class  MemorySaverCardInterceptorForTesting : public MemorySaverCard {
+  virtual MemorySaverCard* GetForwardingInterface() = 0;
+};
+class  MemorySaverCardAsyncWaiter {
+ public:
+  explicit MemorySaverCardAsyncWaiter(MemorySaverCard* proxy);
+
+  MemorySaverCardAsyncWaiter(const MemorySaverCardAsyncWaiter&) = delete;
+  MemorySaverCardAsyncWaiter& operator=(const MemorySaverCardAsyncWaiter&) = delete;
+
+  ~MemorySaverCardAsyncWaiter();
+
+ private:
+  MemorySaverCard* const proxy_;
+};
+
+
 
 
 }  // side_panel::mojom

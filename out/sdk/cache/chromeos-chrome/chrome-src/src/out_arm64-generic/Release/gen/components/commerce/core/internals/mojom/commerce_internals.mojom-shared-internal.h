@@ -90,7 +90,6 @@ class  ShoppingListEligibleDetail_Data {
   mojo::internal::Pointer<internal::EligibleEntry_Data> is_signed_in;
   mojo::internal::Pointer<internal::EligibleEntry_Data> is_syncing_bookmarks;
   mojo::internal::Pointer<internal::EligibleEntry_Data> is_anonymized_url_data_collection_enabled;
-  mojo::internal::Pointer<internal::EligibleEntry_Data> is_web_and_app_activity_enabled;
   mojo::internal::Pointer<internal::EligibleEntry_Data> is_subject_to_parental_controls;
 
  private:
@@ -99,7 +98,7 @@ class  ShoppingListEligibleDetail_Data {
   ShoppingListEligibleDetail_Data();
   ~ShoppingListEligibleDetail_Data() = delete;
 };
-static_assert(sizeof(ShoppingListEligibleDetail_Data) == 72,
+static_assert(sizeof(ShoppingListEligibleDetail_Data) == 64,
               "Bad sizeof(ShoppingListEligibleDetail_Data)");
 // Used by ShoppingListEligibleDetail::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

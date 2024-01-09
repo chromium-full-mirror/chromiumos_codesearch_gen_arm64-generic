@@ -16,14 +16,14 @@
 #include "third_party/blink/renderer/bindings/core/v8/to_v8_traits.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_dom_rect.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_edit_context_init.h"
-#include "third_party/blink/renderer/bindings/core/v8/v8_element.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_event_handler_non_null.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_event_target.h"
+#include "third_party/blink/renderer/bindings/core/v8/v8_html_element.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_set_return_value_for_core.h"
-#include "third_party/blink/renderer/core/dom/element.h"
 #include "third_party/blink/renderer/core/editing/ime/edit_context.h"
 #include "third_party/blink/renderer/core/execution_context/execution_context.h"
 #include "third_party/blink/renderer/core/geometry/dom_rect.h"
+#include "third_party/blink/renderer/core/html/html_element.h"
 #include "third_party/blink/renderer/platform/bindings/exception_messages.h"
 #include "third_party/blink/renderer/platform/bindings/idl_member_installer.h"
 #include "third_party/blink/renderer/platform/bindings/runtime_call_stats.h"
@@ -75,11 +75,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, EditContext>::value,
     "EditContext does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&EditContext::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "EditContext is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -92,10 +87,10 @@ BLINK_BINDINGS_TRACE_EVENT("EditContext.text.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-EditContext* blink_receiver = V8EditContext::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->text();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+EditContext* blink_receiver = V8EditContext::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->text();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -107,8 +102,9 @@ BLINK_BINDINGS_TRACE_EVENT("EditContext.selectionStart.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-EditContext* blink_receiver = V8EditContext::ToWrappableUnsafe(v8_receiver);
+EditContext* blink_receiver = V8EditContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->selectionStart();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -121,8 +117,9 @@ BLINK_BINDINGS_TRACE_EVENT("EditContext.selectionEnd.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-EditContext* blink_receiver = V8EditContext::ToWrappableUnsafe(v8_receiver);
+EditContext* blink_receiver = V8EditContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->selectionEnd();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -135,8 +132,9 @@ BLINK_BINDINGS_TRACE_EVENT("EditContext.characterBoundsRangeStart.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-EditContext* blink_receiver = V8EditContext::ToWrappableUnsafe(v8_receiver);
+EditContext* blink_receiver = V8EditContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->characterBoundsRangeStart();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint32_t>());
 }
@@ -149,10 +147,10 @@ BLINK_BINDINGS_TRACE_EVENT("EditContext.ontextupdate.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-EditContext* blink_receiver = V8EditContext::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->ontextupdate();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+EditContext* blink_receiver = V8EditContext::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->ontextupdate();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -165,8 +163,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-EditContext* blink_receiver = V8EditContext::ToWrappableUnsafe(v8_receiver);
+EditContext* blink_receiver = V8EditContext::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOntextupdate(event_handler);
 }
 
@@ -177,10 +176,10 @@ BLINK_BINDINGS_TRACE_EVENT("EditContext.ontextformatupdate.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-EditContext* blink_receiver = V8EditContext::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->ontextformatupdate();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+EditContext* blink_receiver = V8EditContext::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->ontextformatupdate();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -193,8 +192,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-EditContext* blink_receiver = V8EditContext::ToWrappableUnsafe(v8_receiver);
+EditContext* blink_receiver = V8EditContext::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOntextformatupdate(event_handler);
 }
 
@@ -205,10 +205,10 @@ BLINK_BINDINGS_TRACE_EVENT("EditContext.oncharacterboundsupdate.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-EditContext* blink_receiver = V8EditContext::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->oncharacterboundsupdate();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+EditContext* blink_receiver = V8EditContext::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->oncharacterboundsupdate();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -221,8 +221,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-EditContext* blink_receiver = V8EditContext::ToWrappableUnsafe(v8_receiver);
+EditContext* blink_receiver = V8EditContext::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOncharacterboundsupdate(event_handler);
 }
 
@@ -233,10 +234,10 @@ BLINK_BINDINGS_TRACE_EVENT("EditContext.oncompositionstart.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-EditContext* blink_receiver = V8EditContext::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->oncompositionstart();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+EditContext* blink_receiver = V8EditContext::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->oncompositionstart();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -249,8 +250,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-EditContext* blink_receiver = V8EditContext::ToWrappableUnsafe(v8_receiver);
+EditContext* blink_receiver = V8EditContext::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOncompositionstart(event_handler);
 }
 
@@ -261,10 +263,10 @@ BLINK_BINDINGS_TRACE_EVENT("EditContext.oncompositionend.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-EditContext* blink_receiver = V8EditContext::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->oncompositionend();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+EditContext* blink_receiver = V8EditContext::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->oncompositionend();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -277,8 +279,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-EditContext* blink_receiver = V8EditContext::ToWrappableUnsafe(v8_receiver);
+EditContext* blink_receiver = V8EditContext::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOncompositionend(event_handler);
 }
 
@@ -338,9 +341,10 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-EditContext* blink_receiver = V8EditContext::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+EditContext* blink_receiver = V8EditContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->attachedElements();
-if (!ToV8Traits<IDLSequence<Element>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
+if (!ToV8Traits<IDLSequence<HTMLElement>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
 }
 bindings::V8SetReturnValue(info, v8_return_value);
@@ -362,7 +366,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-EditContext* blink_receiver = V8EditContext::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+EditContext* blink_receiver = V8EditContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->characterBounds();
 if (!ToV8Traits<IDLSequence<DOMRect>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -391,7 +396,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-EditContext* blink_receiver = V8EditContext::ToWrappableUnsafe(v8_receiver);
+EditContext* blink_receiver = V8EditContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_range_start = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -425,7 +430,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-EditContext* blink_receiver = V8EditContext::ToWrappableUnsafe(v8_receiver);
+EditContext* blink_receiver = V8EditContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_control_bounds = NativeValueTraits<DOMRect>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -455,7 +460,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-EditContext* blink_receiver = V8EditContext::ToWrappableUnsafe(v8_receiver);
+EditContext* blink_receiver = V8EditContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_start = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -492,7 +497,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-EditContext* blink_receiver = V8EditContext::ToWrappableUnsafe(v8_receiver);
+EditContext* blink_receiver = V8EditContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_selection_bounds = NativeValueTraits<DOMRect>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -522,7 +527,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-EditContext* blink_receiver = V8EditContext::ToWrappableUnsafe(v8_receiver);
+EditContext* blink_receiver = V8EditContext::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_start = NativeValueTraits<IDLUnsignedLong>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;

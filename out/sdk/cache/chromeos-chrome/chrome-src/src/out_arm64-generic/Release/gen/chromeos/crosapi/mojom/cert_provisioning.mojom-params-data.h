@@ -100,6 +100,22 @@ class  CertProvisioning_UpdateOneProcess_Params_Data {
 };
 static_assert(sizeof(CertProvisioning_UpdateOneProcess_Params_Data) == 16,
               "Bad sizeof(CertProvisioning_UpdateOneProcess_Params_Data)");
+class  CertProvisioning_ResetOneProcess_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> cert_profile_id;
+
+ private:
+  friend class mojo::internal::MessageFragment<CertProvisioning_ResetOneProcess_Params_Data>;
+
+  CertProvisioning_ResetOneProcess_Params_Data();
+  ~CertProvisioning_ResetOneProcess_Params_Data() = delete;
+};
+static_assert(sizeof(CertProvisioning_ResetOneProcess_Params_Data) == 16,
+              "Bad sizeof(CertProvisioning_ResetOneProcess_Params_Data)");
 
 }  // namespace internal
 
@@ -211,6 +227,32 @@ class CertProvisioning_UpdateOneProcess_ParamsDataView {
 };
 
 
+class CertProvisioning_ResetOneProcess_ParamsDataView {
+ public:
+  CertProvisioning_ResetOneProcess_ParamsDataView() = default;
+
+  CertProvisioning_ResetOneProcess_ParamsDataView(
+      internal::CertProvisioning_ResetOneProcess_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetCertProfileIdDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadCertProfileId(UserType* output) {
+    
+    auto* pointer = data_->cert_profile_id.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::CertProvisioning_ResetOneProcess_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 
 
 
@@ -224,6 +266,13 @@ inline void CertProvisioning_GetStatus_ResponseParamsDataView::GetResultDataView
 
 
 inline void CertProvisioning_UpdateOneProcess_ParamsDataView::GetCertProfileIdDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->cert_profile_id.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
+inline void CertProvisioning_ResetOneProcess_ParamsDataView::GetCertProfileIdDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->cert_profile_id.Get();
   *output = mojo::StringDataView(pointer, message_);

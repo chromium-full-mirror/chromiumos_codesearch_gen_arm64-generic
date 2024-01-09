@@ -17,7 +17,7 @@ import { FindShortcutMixin } from '//resources/cr_elements/find_shortcut_mixin.j
 import { I18nMixin } from '//resources/cr_elements/i18n_mixin.js';
 import { assert } from '//resources/js/assert.js';
 import { focusWithoutInk } from '//resources/js/focus_without_ink.js';
-import { listenOnce } from '//resources/js/util_ts.js';
+import { listenOnce } from '//resources/js/util.js';
 import { IronResizableBehavior } from '//resources/polymer/v3_0/iron-resizable-behavior/iron-resizable-behavior.js';
 import { afterNextRender, mixinBehaviors, PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { EventTracker } from 'chrome://resources/js/event_tracker.js';

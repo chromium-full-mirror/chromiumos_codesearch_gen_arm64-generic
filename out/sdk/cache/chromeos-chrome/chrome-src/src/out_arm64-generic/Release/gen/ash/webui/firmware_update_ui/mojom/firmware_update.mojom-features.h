@@ -8,6 +8,7 @@
 #define ASH_WEBUI_FIRMWARE_UPDATE_UI_MOJOM_FIRMWARE_UPDATE_MOJOM_FEATURES_H_
 
 #include "base/feature_list.h"
+#include "mojo/public/cpp/bindings/runtime_features.h"
 
 
 

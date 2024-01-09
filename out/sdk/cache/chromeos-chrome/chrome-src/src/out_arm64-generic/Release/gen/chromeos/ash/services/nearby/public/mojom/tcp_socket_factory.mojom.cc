@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -178,14 +179,17 @@ void TcpSocketFactoryProxy::CreateTCPServerSocket(
                         "<value of type ::mojo::PendingReceiver<::network::mojom::TCPServerSocket>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTcpSocketFactory_CreateTCPServerSocket_Name, kFlags, 0, 0, nullptr);
@@ -245,7 +249,7 @@ void TcpSocketFactoryProxy::CreateTCPServerSocket(
 }
 
 void TcpSocketFactoryProxy::CreateTCPConnectedSocket(
-    ::base::TimeDelta in_timeout, const absl::optional<::net::IPEndPoint>& in_local_addr, const ::net::AddressList& in_remote_addr_list, ::network::mojom::TCPConnectedSocketOptionsPtr in_tcp_connected_socket_options, const ::net::MutableNetworkTrafficAnnotationTag& in_traffic_annotation, ::mojo::PendingReceiver<::network::mojom::TCPConnectedSocket> in_socket, ::mojo::PendingRemote<::network::mojom::SocketObserver> in_observer, CreateTCPConnectedSocketCallback callback) {
+    ::base::TimeDelta in_timeout, const std::optional<::net::IPEndPoint>& in_local_addr, const ::net::AddressList& in_remote_addr_list, ::network::mojom::TCPConnectedSocketOptionsPtr in_tcp_connected_socket_options, const ::net::MutableNetworkTrafficAnnotationTag& in_traffic_annotation, ::mojo::PendingReceiver<::network::mojom::TCPConnectedSocket> in_socket, ::mojo::PendingRemote<::network::mojom::SocketObserver> in_observer, CreateTCPConnectedSocketCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send sharing::mojom::TcpSocketFactory::CreateTCPConnectedSocket", "input_parameters",
@@ -256,7 +260,7 @@ void TcpSocketFactoryProxy::CreateTCPConnectedSocket(
                         "<value of type ::base::TimeDelta>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("local_addr"), in_local_addr,
-                        "<value of type const absl::optional<::net::IPEndPoint>&>");
+                        "<value of type const std::optional<::net::IPEndPoint>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("remote_addr_list"), in_remote_addr_list,
                         "<value of type const ::net::AddressList&>");
@@ -274,14 +278,17 @@ void TcpSocketFactoryProxy::CreateTCPConnectedSocket(
                         "<value of type ::mojo::PendingRemote<::network::mojom::SocketObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTcpSocketFactory_CreateTCPConnectedSocket_Name, kFlags, 0, 0, nullptr);
@@ -400,7 +407,7 @@ class TcpSocketFactory_CreateTCPServerSocket_ProxyToResponder : public ::mojo::i
 #endif
 
   void Run(
-      int32_t in_result, const absl::optional<::net::IPEndPoint>& in_local_addr_out);
+      int32_t in_result, const std::optional<::net::IPEndPoint>& in_local_addr_out);
 };
 
 bool TcpSocketFactory_CreateTCPServerSocket_ForwardToCallback::Accept(
@@ -414,7 +421,7 @@ bool TcpSocketFactory_CreateTCPServerSocket_ForwardToCallback::Accept(
   
   bool success = true;
   int32_t p_result{};
-  absl::optional<::net::IPEndPoint> p_local_addr_out{};
+  std::optional<::net::IPEndPoint> p_local_addr_out{};
   TcpSocketFactory_CreateTCPServerSocket_ResponseParamsDataView input_data_view(params, message);
   
   if (success)
@@ -436,7 +443,7 @@ std::move(p_local_addr_out));
 }
 
 void TcpSocketFactory_CreateTCPServerSocket_ProxyToResponder::Run(
-    int32_t in_result, const absl::optional<::net::IPEndPoint>& in_local_addr_out) {
+    int32_t in_result, const std::optional<::net::IPEndPoint>& in_local_addr_out) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply sharing::mojom::TcpSocketFactory::CreateTCPServerSocket", "async_response_parameters",
@@ -447,13 +454,14 @@ void TcpSocketFactory_CreateTCPServerSocket_ProxyToResponder::Run(
                         "<value of type int32_t>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("local_addr_out"), in_local_addr_out,
-                        "<value of type const absl::optional<::net::IPEndPoint>&>");
+                        "<value of type const std::optional<::net::IPEndPoint>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTcpSocketFactory_CreateTCPServerSocket_Name, kFlags, 0, 0, nullptr);
@@ -532,7 +540,7 @@ class TcpSocketFactory_CreateTCPConnectedSocket_ProxyToResponder : public ::mojo
 #endif
 
   void Run(
-      int32_t in_result, const absl::optional<::net::IPEndPoint>& in_local_addr, const absl::optional<::net::IPEndPoint>& in_peer_addr, ::mojo::ScopedDataPipeConsumerHandle in_receive_stream, ::mojo::ScopedDataPipeProducerHandle in_send_stream);
+      int32_t in_result, const std::optional<::net::IPEndPoint>& in_local_addr, const std::optional<::net::IPEndPoint>& in_peer_addr, ::mojo::ScopedDataPipeConsumerHandle in_receive_stream, ::mojo::ScopedDataPipeProducerHandle in_send_stream);
 };
 
 bool TcpSocketFactory_CreateTCPConnectedSocket_ForwardToCallback::Accept(
@@ -546,8 +554,8 @@ bool TcpSocketFactory_CreateTCPConnectedSocket_ForwardToCallback::Accept(
   
   bool success = true;
   int32_t p_result{};
-  absl::optional<::net::IPEndPoint> p_local_addr{};
-  absl::optional<::net::IPEndPoint> p_peer_addr{};
+  std::optional<::net::IPEndPoint> p_local_addr{};
+  std::optional<::net::IPEndPoint> p_peer_addr{};
   ::mojo::ScopedDataPipeConsumerHandle p_receive_stream{};
   ::mojo::ScopedDataPipeProducerHandle p_send_stream{};
   TcpSocketFactory_CreateTCPConnectedSocket_ResponseParamsDataView input_data_view(params, message);
@@ -580,7 +588,7 @@ std::move(p_send_stream));
 }
 
 void TcpSocketFactory_CreateTCPConnectedSocket_ProxyToResponder::Run(
-    int32_t in_result, const absl::optional<::net::IPEndPoint>& in_local_addr, const absl::optional<::net::IPEndPoint>& in_peer_addr, ::mojo::ScopedDataPipeConsumerHandle in_receive_stream, ::mojo::ScopedDataPipeProducerHandle in_send_stream) {
+    int32_t in_result, const std::optional<::net::IPEndPoint>& in_local_addr, const std::optional<::net::IPEndPoint>& in_peer_addr, ::mojo::ScopedDataPipeConsumerHandle in_receive_stream, ::mojo::ScopedDataPipeProducerHandle in_send_stream) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply sharing::mojom::TcpSocketFactory::CreateTCPConnectedSocket", "async_response_parameters",
@@ -591,10 +599,10 @@ void TcpSocketFactory_CreateTCPConnectedSocket_ProxyToResponder::Run(
                         "<value of type int32_t>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("local_addr"), in_local_addr,
-                        "<value of type const absl::optional<::net::IPEndPoint>&>");
+                        "<value of type const std::optional<::net::IPEndPoint>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("peer_addr"), in_peer_addr,
-                        "<value of type const absl::optional<::net::IPEndPoint>&>");
+                        "<value of type const std::optional<::net::IPEndPoint>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("receive_stream"), in_receive_stream,
                         "<value of type ::mojo::ScopedDataPipeConsumerHandle>");
@@ -606,7 +614,8 @@ void TcpSocketFactory_CreateTCPConnectedSocket_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kTcpSocketFactory_CreateTCPConnectedSocket_Name, kFlags, 0, 0, nullptr);
@@ -731,7 +740,7 @@ std::move(p_socket), std::move(callback));
       
       bool success = true;
       ::base::TimeDelta p_timeout{};
-      absl::optional<::net::IPEndPoint> p_local_addr{};
+      std::optional<::net::IPEndPoint> p_local_addr{};
       ::net::AddressList p_remote_addr_list{};
       ::network::mojom::TCPConnectedSocketOptionsPtr p_tcp_connected_socket_options{};
       ::net::MutableNetworkTrafficAnnotationTag p_traffic_annotation{};
@@ -782,12 +791,12 @@ std::move(p_observer), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kTcpSocketFactoryValidationInfo[] = {
-    {&internal::TcpSocketFactory_CreateTCPServerSocket_Params_Data::Validate,
+    { &internal::TcpSocketFactory_CreateTCPServerSocket_Params_Data::Validate,
      &internal::TcpSocketFactory_CreateTCPServerSocket_ResponseParams_Data::Validate},
-    {&internal::TcpSocketFactory_CreateTCPConnectedSocket_Params_Data::Validate,
+    { &internal::TcpSocketFactory_CreateTCPConnectedSocket_Params_Data::Validate,
      &internal::TcpSocketFactory_CreateTCPConnectedSocket_ResponseParams_Data::Validate},
 };
 
@@ -820,7 +829,7 @@ namespace sharing::mojom {
 void TcpSocketFactoryInterceptorForTesting::CreateTCPServerSocket(const ::net::IPAddress& local_addr, const ::ash::nearby::TcpServerSocketPort& port, uint32_t backlog, const ::net::MutableNetworkTrafficAnnotationTag& traffic_annotation, ::mojo::PendingReceiver<::network::mojom::TCPServerSocket> socket, CreateTCPServerSocketCallback callback) {
   GetForwardingInterface()->CreateTCPServerSocket(std::move(local_addr), std::move(port), std::move(backlog), std::move(traffic_annotation), std::move(socket), std::move(callback));
 }
-void TcpSocketFactoryInterceptorForTesting::CreateTCPConnectedSocket(::base::TimeDelta timeout, const absl::optional<::net::IPEndPoint>& local_addr, const ::net::AddressList& remote_addr_list, ::network::mojom::TCPConnectedSocketOptionsPtr tcp_connected_socket_options, const ::net::MutableNetworkTrafficAnnotationTag& traffic_annotation, ::mojo::PendingReceiver<::network::mojom::TCPConnectedSocket> socket, ::mojo::PendingRemote<::network::mojom::SocketObserver> observer, CreateTCPConnectedSocketCallback callback) {
+void TcpSocketFactoryInterceptorForTesting::CreateTCPConnectedSocket(::base::TimeDelta timeout, const std::optional<::net::IPEndPoint>& local_addr, const ::net::AddressList& remote_addr_list, ::network::mojom::TCPConnectedSocketOptionsPtr tcp_connected_socket_options, const ::net::MutableNetworkTrafficAnnotationTag& traffic_annotation, ::mojo::PendingReceiver<::network::mojom::TCPConnectedSocket> socket, ::mojo::PendingRemote<::network::mojom::SocketObserver> observer, CreateTCPConnectedSocketCallback callback) {
   GetForwardingInterface()->CreateTCPConnectedSocket(std::move(timeout), std::move(local_addr), std::move(remote_addr_list), std::move(tcp_connected_socket_options), std::move(traffic_annotation), std::move(socket), std::move(observer), std::move(callback));
 }
 TcpSocketFactoryAsyncWaiter::TcpSocketFactoryAsyncWaiter(
@@ -829,17 +838,17 @@ TcpSocketFactoryAsyncWaiter::TcpSocketFactoryAsyncWaiter(
 TcpSocketFactoryAsyncWaiter::~TcpSocketFactoryAsyncWaiter() = default;
 
 void TcpSocketFactoryAsyncWaiter::CreateTCPServerSocket(
-    const ::net::IPAddress& local_addr, const ::ash::nearby::TcpServerSocketPort& port, uint32_t backlog, const ::net::MutableNetworkTrafficAnnotationTag& traffic_annotation, ::mojo::PendingReceiver<::network::mojom::TCPServerSocket> socket, int32_t* out_result, absl::optional<::net::IPEndPoint>* out_local_addr_out) {
+    const ::net::IPAddress& local_addr, const ::ash::nearby::TcpServerSocketPort& port, uint32_t backlog, const ::net::MutableNetworkTrafficAnnotationTag& traffic_annotation, ::mojo::PendingReceiver<::network::mojom::TCPServerSocket> socket, int32_t* out_result, std::optional<::net::IPEndPoint>* out_local_addr_out) {
   base::RunLoop loop;
   proxy_->CreateTCPServerSocket(std::move(local_addr),std::move(port),std::move(backlog),std::move(traffic_annotation),std::move(socket),
       base::BindOnce(
           [](base::RunLoop* loop,
              int32_t* out_result
 ,
-             absl::optional<::net::IPEndPoint>* out_local_addr_out
+             std::optional<::net::IPEndPoint>* out_local_addr_out
 ,
              int32_t result,
-             const absl::optional<::net::IPEndPoint>& local_addr_out) {*out_result = std::move(result);*out_local_addr_out = std::move(local_addr_out);
+             const std::optional<::net::IPEndPoint>& local_addr_out) {*out_result = std::move(result);*out_local_addr_out = std::move(local_addr_out);
             loop->Quit();
           },
           &loop,
@@ -851,24 +860,24 @@ void TcpSocketFactoryAsyncWaiter::CreateTCPServerSocket(
 
 
 void TcpSocketFactoryAsyncWaiter::CreateTCPConnectedSocket(
-    ::base::TimeDelta timeout, const absl::optional<::net::IPEndPoint>& local_addr, const ::net::AddressList& remote_addr_list, ::network::mojom::TCPConnectedSocketOptionsPtr tcp_connected_socket_options, const ::net::MutableNetworkTrafficAnnotationTag& traffic_annotation, ::mojo::PendingReceiver<::network::mojom::TCPConnectedSocket> socket, ::mojo::PendingRemote<::network::mojom::SocketObserver> observer, int32_t* out_result, absl::optional<::net::IPEndPoint>* out_local_addr, absl::optional<::net::IPEndPoint>* out_peer_addr, ::mojo::ScopedDataPipeConsumerHandle* out_receive_stream, ::mojo::ScopedDataPipeProducerHandle* out_send_stream) {
+    ::base::TimeDelta timeout, const std::optional<::net::IPEndPoint>& local_addr, const ::net::AddressList& remote_addr_list, ::network::mojom::TCPConnectedSocketOptionsPtr tcp_connected_socket_options, const ::net::MutableNetworkTrafficAnnotationTag& traffic_annotation, ::mojo::PendingReceiver<::network::mojom::TCPConnectedSocket> socket, ::mojo::PendingRemote<::network::mojom::SocketObserver> observer, int32_t* out_result, std::optional<::net::IPEndPoint>* out_local_addr, std::optional<::net::IPEndPoint>* out_peer_addr, ::mojo::ScopedDataPipeConsumerHandle* out_receive_stream, ::mojo::ScopedDataPipeProducerHandle* out_send_stream) {
   base::RunLoop loop;
   proxy_->CreateTCPConnectedSocket(std::move(timeout),std::move(local_addr),std::move(remote_addr_list),std::move(tcp_connected_socket_options),std::move(traffic_annotation),std::move(socket),std::move(observer),
       base::BindOnce(
           [](base::RunLoop* loop,
              int32_t* out_result
 ,
-             absl::optional<::net::IPEndPoint>* out_local_addr
+             std::optional<::net::IPEndPoint>* out_local_addr
 ,
-             absl::optional<::net::IPEndPoint>* out_peer_addr
+             std::optional<::net::IPEndPoint>* out_peer_addr
 ,
              ::mojo::ScopedDataPipeConsumerHandle* out_receive_stream
 ,
              ::mojo::ScopedDataPipeProducerHandle* out_send_stream
 ,
              int32_t result,
-             const absl::optional<::net::IPEndPoint>& local_addr,
-             const absl::optional<::net::IPEndPoint>& peer_addr,
+             const std::optional<::net::IPEndPoint>& local_addr,
+             const std::optional<::net::IPEndPoint>& peer_addr,
              ::mojo::ScopedDataPipeConsumerHandle receive_stream,
              ::mojo::ScopedDataPipeProducerHandle send_stream) {*out_result = std::move(result);*out_local_addr = std::move(local_addr);*out_peer_addr = std::move(peer_addr);*out_receive_stream = std::move(receive_stream);*out_send_stream = std::move(send_stream);
             loop->Quit();

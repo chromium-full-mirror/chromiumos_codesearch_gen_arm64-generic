@@ -4,155 +4,211 @@
 #include "printscanmgr_service.pb.h"
 
 #include <algorithm>
-
-#include <google/protobuf/io/coded_stream.h>
-#include <google/protobuf/extension_set.h>
-#include <google/protobuf/wire_format_lite.h>
-#include <google/protobuf/io/zero_copy_stream_impl_lite.h>
+#include "google/protobuf/io/coded_stream.h"
+#include "google/protobuf/extension_set.h"
+#include "google/protobuf/wire_format_lite.h"
+#include "google/protobuf/io/zero_copy_stream_impl_lite.h"
 // @@protoc_insertion_point(includes)
-#include <google/protobuf/port_def.inc>
 
+// Must be included last.
+#include "google/protobuf/port_def.inc"
 PROTOBUF_PRAGMA_INIT_SEG
-
 namespace _pb = ::PROTOBUF_NAMESPACE_ID;
-namespace _pbi = _pb::internal;
-
+namespace _pbi = ::PROTOBUF_NAMESPACE_ID::internal;
 namespace printscanmgr {
+template <typename>
 PROTOBUF_CONSTEXPR CupsAddAutoConfiguredPrinterRequest::CupsAddAutoConfiguredPrinterRequest(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.uri_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+    /*decltype(_impl_.name_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.uri_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.language_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct CupsAddAutoConfiguredPrinterRequestDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR CupsAddAutoConfiguredPrinterRequestDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR CupsAddAutoConfiguredPrinterRequestDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~CupsAddAutoConfiguredPrinterRequestDefaultTypeInternal() {}
   union {
     CupsAddAutoConfiguredPrinterRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CupsAddAutoConfiguredPrinterRequestDefaultTypeInternal _CupsAddAutoConfiguredPrinterRequest_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CupsAddAutoConfiguredPrinterRequestDefaultTypeInternal _CupsAddAutoConfiguredPrinterRequest_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR CupsAddAutoConfiguredPrinterResponse::CupsAddAutoConfiguredPrinterResponse(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.result_)*/0
+    /*decltype(_impl_.result_)*/ 0
+
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct CupsAddAutoConfiguredPrinterResponseDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR CupsAddAutoConfiguredPrinterResponseDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR CupsAddAutoConfiguredPrinterResponseDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~CupsAddAutoConfiguredPrinterResponseDefaultTypeInternal() {}
   union {
     CupsAddAutoConfiguredPrinterResponse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CupsAddAutoConfiguredPrinterResponseDefaultTypeInternal _CupsAddAutoConfiguredPrinterResponse_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CupsAddAutoConfiguredPrinterResponseDefaultTypeInternal _CupsAddAutoConfiguredPrinterResponse_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR CupsAddManuallyConfiguredPrinterRequest::CupsAddManuallyConfiguredPrinterRequest(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.uri_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.ppd_contents_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+    /*decltype(_impl_.name_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.uri_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.ppd_contents_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.language_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct CupsAddManuallyConfiguredPrinterRequestDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR CupsAddManuallyConfiguredPrinterRequestDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR CupsAddManuallyConfiguredPrinterRequestDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~CupsAddManuallyConfiguredPrinterRequestDefaultTypeInternal() {}
   union {
     CupsAddManuallyConfiguredPrinterRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CupsAddManuallyConfiguredPrinterRequestDefaultTypeInternal _CupsAddManuallyConfiguredPrinterRequest_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CupsAddManuallyConfiguredPrinterRequestDefaultTypeInternal _CupsAddManuallyConfiguredPrinterRequest_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR CupsAddManuallyConfiguredPrinterResponse::CupsAddManuallyConfiguredPrinterResponse(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.result_)*/0
+    /*decltype(_impl_.result_)*/ 0
+
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct CupsAddManuallyConfiguredPrinterResponseDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR CupsAddManuallyConfiguredPrinterResponseDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR CupsAddManuallyConfiguredPrinterResponseDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~CupsAddManuallyConfiguredPrinterResponseDefaultTypeInternal() {}
   union {
     CupsAddManuallyConfiguredPrinterResponse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CupsAddManuallyConfiguredPrinterResponseDefaultTypeInternal _CupsAddManuallyConfiguredPrinterResponse_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CupsAddManuallyConfiguredPrinterResponseDefaultTypeInternal _CupsAddManuallyConfiguredPrinterResponse_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR CupsRemovePrinterRequest::CupsRemovePrinterRequest(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+    /*decltype(_impl_.name_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct CupsRemovePrinterRequestDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR CupsRemovePrinterRequestDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR CupsRemovePrinterRequestDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~CupsRemovePrinterRequestDefaultTypeInternal() {}
   union {
     CupsRemovePrinterRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CupsRemovePrinterRequestDefaultTypeInternal _CupsRemovePrinterRequest_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CupsRemovePrinterRequestDefaultTypeInternal _CupsRemovePrinterRequest_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR CupsRemovePrinterResponse::CupsRemovePrinterResponse(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.result_)*/false
+    /*decltype(_impl_.result_)*/ false
+
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct CupsRemovePrinterResponseDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR CupsRemovePrinterResponseDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR CupsRemovePrinterResponseDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~CupsRemovePrinterResponseDefaultTypeInternal() {}
   union {
     CupsRemovePrinterResponse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CupsRemovePrinterResponseDefaultTypeInternal _CupsRemovePrinterResponse_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CupsRemovePrinterResponseDefaultTypeInternal _CupsRemovePrinterResponse_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR CupsRetrievePpdRequest::CupsRetrievePpdRequest(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+    /*decltype(_impl_.name_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct CupsRetrievePpdRequestDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR CupsRetrievePpdRequestDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR CupsRetrievePpdRequestDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~CupsRetrievePpdRequestDefaultTypeInternal() {}
   union {
     CupsRetrievePpdRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CupsRetrievePpdRequestDefaultTypeInternal _CupsRetrievePpdRequest_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CupsRetrievePpdRequestDefaultTypeInternal _CupsRetrievePpdRequest_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR CupsRetrievePpdResponse::CupsRetrievePpdResponse(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.ppd_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+    /*decltype(_impl_.ppd_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct CupsRetrievePpdResponseDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR CupsRetrievePpdResponseDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR CupsRetrievePpdResponseDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~CupsRetrievePpdResponseDefaultTypeInternal() {}
   union {
     CupsRetrievePpdResponse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CupsRetrievePpdResponseDefaultTypeInternal _CupsRetrievePpdResponse_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CupsRetrievePpdResponseDefaultTypeInternal _CupsRetrievePpdResponse_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR PrintscanDebugSetCategoriesRequest::PrintscanDebugSetCategoriesRequest(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.categories_)*/{}
-  , /*decltype(_impl_._categories_cached_byte_size_)*/{0}
-  , /*decltype(_impl_.disable_logging_)*/false
+    /*decltype(_impl_.categories_)*/ {}
+  , /*decltype(_impl_._categories_cached_byte_size_)*/ { 0 }
+
+  , /*decltype(_impl_.disable_logging_)*/ false
+
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct PrintscanDebugSetCategoriesRequestDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR PrintscanDebugSetCategoriesRequestDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR PrintscanDebugSetCategoriesRequestDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~PrintscanDebugSetCategoriesRequestDefaultTypeInternal() {}
   union {
     PrintscanDebugSetCategoriesRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PrintscanDebugSetCategoriesRequestDefaultTypeInternal _PrintscanDebugSetCategoriesRequest_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PrintscanDebugSetCategoriesRequestDefaultTypeInternal _PrintscanDebugSetCategoriesRequest_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR PrintscanDebugSetCategoriesResponse::PrintscanDebugSetCategoriesResponse(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.result_)*/false
+    /*decltype(_impl_.result_)*/ false
+
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct PrintscanDebugSetCategoriesResponseDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR PrintscanDebugSetCategoriesResponseDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR PrintscanDebugSetCategoriesResponseDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~PrintscanDebugSetCategoriesResponseDefaultTypeInternal() {}
   union {
     PrintscanDebugSetCategoriesResponse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PrintscanDebugSetCategoriesResponseDefaultTypeInternal _PrintscanDebugSetCategoriesResponse_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PrintscanDebugSetCategoriesResponseDefaultTypeInternal _PrintscanDebugSetCategoriesResponse_default_instance_;
 }  // namespace printscanmgr
 namespace printscanmgr {
 bool PrintscanDebugSetCategoriesRequest_DebugLogCategory_IsValid(int value) {
@@ -165,43 +221,43 @@ bool PrintscanDebugSetCategoriesRequest_DebugLogCategory_IsValid(int value) {
       return false;
   }
 }
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string>
+    PrintscanDebugSetCategoriesRequest_DebugLogCategory_strings[3] = {};
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> PrintscanDebugSetCategoriesRequest_DebugLogCategory_strings[3] = {};
+static const char PrintscanDebugSetCategoriesRequest_DebugLogCategory_names[] = {
+    "DEBUG_LOG_CATEGORY_PRINTING"
+    "DEBUG_LOG_CATEGORY_SCANNING"
+    "DEBUG_LOG_CATEGORY_UNSPECIFIED"
+};
 
-static const char PrintscanDebugSetCategoriesRequest_DebugLogCategory_names[] =
-  "DEBUG_LOG_CATEGORY_PRINTING"
-  "DEBUG_LOG_CATEGORY_SCANNING"
-  "DEBUG_LOG_CATEGORY_UNSPECIFIED";
-
-static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry PrintscanDebugSetCategoriesRequest_DebugLogCategory_entries[] = {
-  { {PrintscanDebugSetCategoriesRequest_DebugLogCategory_names + 0, 27}, 1 },
-  { {PrintscanDebugSetCategoriesRequest_DebugLogCategory_names + 27, 27}, 2 },
-  { {PrintscanDebugSetCategoriesRequest_DebugLogCategory_names + 54, 30}, 0 },
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry PrintscanDebugSetCategoriesRequest_DebugLogCategory_entries[] =
+    {
+        {{&PrintscanDebugSetCategoriesRequest_DebugLogCategory_names[0], 27}, 1},
+        {{&PrintscanDebugSetCategoriesRequest_DebugLogCategory_names[27], 27}, 2},
+        {{&PrintscanDebugSetCategoriesRequest_DebugLogCategory_names[54], 30}, 0},
 };
 
 static const int PrintscanDebugSetCategoriesRequest_DebugLogCategory_entries_by_number[] = {
-  2, // 0 -> DEBUG_LOG_CATEGORY_UNSPECIFIED
-  0, // 1 -> DEBUG_LOG_CATEGORY_PRINTING
-  1, // 2 -> DEBUG_LOG_CATEGORY_SCANNING
+    2,  // 0 -> DEBUG_LOG_CATEGORY_UNSPECIFIED
+    0,  // 1 -> DEBUG_LOG_CATEGORY_PRINTING
+    1,  // 2 -> DEBUG_LOG_CATEGORY_SCANNING
 };
 
-const std::string& PrintscanDebugSetCategoriesRequest_DebugLogCategory_Name(
-    PrintscanDebugSetCategoriesRequest_DebugLogCategory value) {
-  static const bool dummy =
+const std::string& PrintscanDebugSetCategoriesRequest_DebugLogCategory_Name(PrintscanDebugSetCategoriesRequest_DebugLogCategory value) {
+  static const bool kDummy =
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
-          PrintscanDebugSetCategoriesRequest_DebugLogCategory_entries,
-          PrintscanDebugSetCategoriesRequest_DebugLogCategory_entries_by_number,
+          PrintscanDebugSetCategoriesRequest_DebugLogCategory_entries, PrintscanDebugSetCategoriesRequest_DebugLogCategory_entries_by_number,
           3, PrintscanDebugSetCategoriesRequest_DebugLogCategory_strings);
-  (void) dummy;
+  (void)kDummy;
+
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
-      PrintscanDebugSetCategoriesRequest_DebugLogCategory_entries,
-      PrintscanDebugSetCategoriesRequest_DebugLogCategory_entries_by_number,
-      3, value);
-  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
-                     PrintscanDebugSetCategoriesRequest_DebugLogCategory_strings[idx].get();
+      PrintscanDebugSetCategoriesRequest_DebugLogCategory_entries, PrintscanDebugSetCategoriesRequest_DebugLogCategory_entries_by_number, 3,
+      value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString()
+                   : PrintscanDebugSetCategoriesRequest_DebugLogCategory_strings[idx].get();
 }
-bool PrintscanDebugSetCategoriesRequest_DebugLogCategory_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, PrintscanDebugSetCategoriesRequest_DebugLogCategory* value) {
+
+bool PrintscanDebugSetCategoriesRequest_DebugLogCategory_Parse(absl::string_view name, PrintscanDebugSetCategoriesRequest_DebugLogCategory* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
       PrintscanDebugSetCategoriesRequest_DebugLogCategory_entries, 3, name, &int_value);
@@ -210,14 +266,18 @@ bool PrintscanDebugSetCategoriesRequest_DebugLogCategory_Parse(
   }
   return success;
 }
-#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+#if (__cplusplus < 201703) && \
+  (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+
 constexpr PrintscanDebugSetCategoriesRequest_DebugLogCategory PrintscanDebugSetCategoriesRequest::DEBUG_LOG_CATEGORY_UNSPECIFIED;
 constexpr PrintscanDebugSetCategoriesRequest_DebugLogCategory PrintscanDebugSetCategoriesRequest::DEBUG_LOG_CATEGORY_PRINTING;
 constexpr PrintscanDebugSetCategoriesRequest_DebugLogCategory PrintscanDebugSetCategoriesRequest::DEBUG_LOG_CATEGORY_SCANNING;
 constexpr PrintscanDebugSetCategoriesRequest_DebugLogCategory PrintscanDebugSetCategoriesRequest::DebugLogCategory_MIN;
 constexpr PrintscanDebugSetCategoriesRequest_DebugLogCategory PrintscanDebugSetCategoriesRequest::DebugLogCategory_MAX;
 constexpr int PrintscanDebugSetCategoriesRequest::DebugLogCategory_ARRAYSIZE;
-#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+
+#endif  // (__cplusplus < 201703) &&
+        // (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 bool AddPrinterResult_IsValid(int value) {
   switch (value) {
     case 0:
@@ -241,82 +301,82 @@ bool AddPrinterResult_IsValid(int value) {
       return false;
   }
 }
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string>
+    AddPrinterResult_strings[16] = {};
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> AddPrinterResult_strings[16] = {};
+static const char AddPrinterResult_names[] = {
+    "ADD_PRINTER_RESULT_CUPS_AUTOCONF_FAILURE"
+    "ADD_PRINTER_RESULT_CUPS_BAD_URI"
+    "ADD_PRINTER_RESULT_CUPS_FATAL"
+    "ADD_PRINTER_RESULT_CUPS_INVALID_PPD"
+    "ADD_PRINTER_RESULT_CUPS_IO_ERROR"
+    "ADD_PRINTER_RESULT_CUPS_LPADMIN_FAILURE"
+    "ADD_PRINTER_RESULT_CUPS_MEMORY_ALLOC_ERROR"
+    "ADD_PRINTER_RESULT_CUPS_PRINTER_NOT_AUTOCONF"
+    "ADD_PRINTER_RESULT_CUPS_PRINTER_UNREACHABLE"
+    "ADD_PRINTER_RESULT_CUPS_PRINTER_WRONG_RESPONSE"
+    "ADD_PRINTER_RESULT_DBUS_ENCODING_FAILURE"
+    "ADD_PRINTER_RESULT_DBUS_GENERIC"
+    "ADD_PRINTER_RESULT_DBUS_NO_REPLY"
+    "ADD_PRINTER_RESULT_DBUS_TIMEOUT"
+    "ADD_PRINTER_RESULT_SUCCESS"
+    "ADD_PRINTER_RESULT_UNSPECIFIED"
+};
 
-static const char AddPrinterResult_names[] =
-  "ADD_PRINTER_RESULT_CUPS_AUTOCONF_FAILURE"
-  "ADD_PRINTER_RESULT_CUPS_BAD_URI"
-  "ADD_PRINTER_RESULT_CUPS_FATAL"
-  "ADD_PRINTER_RESULT_CUPS_INVALID_PPD"
-  "ADD_PRINTER_RESULT_CUPS_IO_ERROR"
-  "ADD_PRINTER_RESULT_CUPS_LPADMIN_FAILURE"
-  "ADD_PRINTER_RESULT_CUPS_MEMORY_ALLOC_ERROR"
-  "ADD_PRINTER_RESULT_CUPS_PRINTER_NOT_AUTOCONF"
-  "ADD_PRINTER_RESULT_CUPS_PRINTER_UNREACHABLE"
-  "ADD_PRINTER_RESULT_CUPS_PRINTER_WRONG_RESPONSE"
-  "ADD_PRINTER_RESULT_DBUS_ENCODING_FAILURE"
-  "ADD_PRINTER_RESULT_DBUS_GENERIC"
-  "ADD_PRINTER_RESULT_DBUS_NO_REPLY"
-  "ADD_PRINTER_RESULT_DBUS_TIMEOUT"
-  "ADD_PRINTER_RESULT_SUCCESS"
-  "ADD_PRINTER_RESULT_UNSPECIFIED";
-
-static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry AddPrinterResult_entries[] = {
-  { {AddPrinterResult_names + 0, 40}, 5 },
-  { {AddPrinterResult_names + 40, 31}, 6 },
-  { {AddPrinterResult_names + 71, 29}, 2 },
-  { {AddPrinterResult_names + 100, 35}, 3 },
-  { {AddPrinterResult_names + 135, 32}, 7 },
-  { {AddPrinterResult_names + 167, 39}, 4 },
-  { {AddPrinterResult_names + 206, 42}, 8 },
-  { {AddPrinterResult_names + 248, 44}, 11 },
-  { {AddPrinterResult_names + 292, 43}, 9 },
-  { {AddPrinterResult_names + 335, 46}, 10 },
-  { {AddPrinterResult_names + 381, 40}, 15 },
-  { {AddPrinterResult_names + 421, 31}, 12 },
-  { {AddPrinterResult_names + 452, 32}, 13 },
-  { {AddPrinterResult_names + 484, 31}, 14 },
-  { {AddPrinterResult_names + 515, 26}, 1 },
-  { {AddPrinterResult_names + 541, 30}, 0 },
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry AddPrinterResult_entries[] =
+    {
+        {{&AddPrinterResult_names[0], 40}, 5},
+        {{&AddPrinterResult_names[40], 31}, 6},
+        {{&AddPrinterResult_names[71], 29}, 2},
+        {{&AddPrinterResult_names[100], 35}, 3},
+        {{&AddPrinterResult_names[135], 32}, 7},
+        {{&AddPrinterResult_names[167], 39}, 4},
+        {{&AddPrinterResult_names[206], 42}, 8},
+        {{&AddPrinterResult_names[248], 44}, 11},
+        {{&AddPrinterResult_names[292], 43}, 9},
+        {{&AddPrinterResult_names[335], 46}, 10},
+        {{&AddPrinterResult_names[381], 40}, 15},
+        {{&AddPrinterResult_names[421], 31}, 12},
+        {{&AddPrinterResult_names[452], 32}, 13},
+        {{&AddPrinterResult_names[484], 31}, 14},
+        {{&AddPrinterResult_names[515], 26}, 1},
+        {{&AddPrinterResult_names[541], 30}, 0},
 };
 
 static const int AddPrinterResult_entries_by_number[] = {
-  15, // 0 -> ADD_PRINTER_RESULT_UNSPECIFIED
-  14, // 1 -> ADD_PRINTER_RESULT_SUCCESS
-  2, // 2 -> ADD_PRINTER_RESULT_CUPS_FATAL
-  3, // 3 -> ADD_PRINTER_RESULT_CUPS_INVALID_PPD
-  5, // 4 -> ADD_PRINTER_RESULT_CUPS_LPADMIN_FAILURE
-  0, // 5 -> ADD_PRINTER_RESULT_CUPS_AUTOCONF_FAILURE
-  1, // 6 -> ADD_PRINTER_RESULT_CUPS_BAD_URI
-  4, // 7 -> ADD_PRINTER_RESULT_CUPS_IO_ERROR
-  6, // 8 -> ADD_PRINTER_RESULT_CUPS_MEMORY_ALLOC_ERROR
-  8, // 9 -> ADD_PRINTER_RESULT_CUPS_PRINTER_UNREACHABLE
-  9, // 10 -> ADD_PRINTER_RESULT_CUPS_PRINTER_WRONG_RESPONSE
-  7, // 11 -> ADD_PRINTER_RESULT_CUPS_PRINTER_NOT_AUTOCONF
-  11, // 12 -> ADD_PRINTER_RESULT_DBUS_GENERIC
-  12, // 13 -> ADD_PRINTER_RESULT_DBUS_NO_REPLY
-  13, // 14 -> ADD_PRINTER_RESULT_DBUS_TIMEOUT
-  10, // 15 -> ADD_PRINTER_RESULT_DBUS_ENCODING_FAILURE
+    15,  // 0 -> ADD_PRINTER_RESULT_UNSPECIFIED
+    14,  // 1 -> ADD_PRINTER_RESULT_SUCCESS
+    2,  // 2 -> ADD_PRINTER_RESULT_CUPS_FATAL
+    3,  // 3 -> ADD_PRINTER_RESULT_CUPS_INVALID_PPD
+    5,  // 4 -> ADD_PRINTER_RESULT_CUPS_LPADMIN_FAILURE
+    0,  // 5 -> ADD_PRINTER_RESULT_CUPS_AUTOCONF_FAILURE
+    1,  // 6 -> ADD_PRINTER_RESULT_CUPS_BAD_URI
+    4,  // 7 -> ADD_PRINTER_RESULT_CUPS_IO_ERROR
+    6,  // 8 -> ADD_PRINTER_RESULT_CUPS_MEMORY_ALLOC_ERROR
+    8,  // 9 -> ADD_PRINTER_RESULT_CUPS_PRINTER_UNREACHABLE
+    9,  // 10 -> ADD_PRINTER_RESULT_CUPS_PRINTER_WRONG_RESPONSE
+    7,  // 11 -> ADD_PRINTER_RESULT_CUPS_PRINTER_NOT_AUTOCONF
+    11,  // 12 -> ADD_PRINTER_RESULT_DBUS_GENERIC
+    12,  // 13 -> ADD_PRINTER_RESULT_DBUS_NO_REPLY
+    13,  // 14 -> ADD_PRINTER_RESULT_DBUS_TIMEOUT
+    10,  // 15 -> ADD_PRINTER_RESULT_DBUS_ENCODING_FAILURE
 };
 
-const std::string& AddPrinterResult_Name(
-    AddPrinterResult value) {
-  static const bool dummy =
+const std::string& AddPrinterResult_Name(AddPrinterResult value) {
+  static const bool kDummy =
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
-          AddPrinterResult_entries,
-          AddPrinterResult_entries_by_number,
+          AddPrinterResult_entries, AddPrinterResult_entries_by_number,
           16, AddPrinterResult_strings);
-  (void) dummy;
+  (void)kDummy;
+
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
-      AddPrinterResult_entries,
-      AddPrinterResult_entries_by_number,
-      16, value);
-  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
-                     AddPrinterResult_strings[idx].get();
+      AddPrinterResult_entries, AddPrinterResult_entries_by_number, 16,
+      value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString()
+                   : AddPrinterResult_strings[idx].get();
 }
-bool AddPrinterResult_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, AddPrinterResult* value) {
+
+bool AddPrinterResult_Parse(absl::string_view name, AddPrinterResult* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
       AddPrinterResult_entries, 16, name, &int_value);
@@ -325,64 +385,77 @@ bool AddPrinterResult_Parse(
   }
   return success;
 }
-
 // ===================================================================
 
 class CupsAddAutoConfiguredPrinterRequest::_Internal {
  public:
 };
 
-CupsAddAutoConfiguredPrinterRequest::CupsAddAutoConfiguredPrinterRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+CupsAddAutoConfiguredPrinterRequest::CupsAddAutoConfiguredPrinterRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:printscanmgr.CupsAddAutoConfiguredPrinterRequest)
 }
 CupsAddAutoConfiguredPrinterRequest::CupsAddAutoConfiguredPrinterRequest(const CupsAddAutoConfiguredPrinterRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
   CupsAddAutoConfiguredPrinterRequest* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.name_){}
-    , decltype(_impl_.uri_){}
+      decltype(_impl_.name_) {}
+
+    , decltype(_impl_.uri_) {}
+
+    , decltype(_impl_.language_) {}
+
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _impl_.name_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.name_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.name_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_name().empty()) {
-    _this->_impl_.name_.Set(from._internal_name(), 
-      _this->GetArenaForAllocation());
+    _this->_impl_.name_.Set(from._internal_name(), _this->GetArenaForAllocation());
   }
   _impl_.uri_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.uri_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.uri_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_uri().empty()) {
-    _this->_impl_.uri_.Set(from._internal_uri(), 
-      _this->GetArenaForAllocation());
+    _this->_impl_.uri_.Set(from._internal_uri(), _this->GetArenaForAllocation());
+  }
+  _impl_.language_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.language_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_language().empty()) {
+    _this->_impl_.language_.Set(from._internal_language(), _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:printscanmgr.CupsAddAutoConfiguredPrinterRequest)
 }
 
-inline void CupsAddAutoConfiguredPrinterRequest::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void CupsAddAutoConfiguredPrinterRequest::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.name_){}
-    , decltype(_impl_.uri_){}
+      decltype(_impl_.name_) {}
+
+    , decltype(_impl_.uri_) {}
+
+    , decltype(_impl_.language_) {}
+
     , /*decltype(_impl_._cached_size_)*/{}
   };
   _impl_.name_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.name_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.name_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   _impl_.uri_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.uri_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.uri_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.language_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.language_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 CupsAddAutoConfiguredPrinterRequest::~CupsAddAutoConfiguredPrinterRequest() {
@@ -395,9 +468,10 @@ CupsAddAutoConfiguredPrinterRequest::~CupsAddAutoConfiguredPrinterRequest() {
 }
 
 inline void CupsAddAutoConfiguredPrinterRequest::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.name_.Destroy();
   _impl_.uri_.Destroy();
+  _impl_.language_.Destroy();
 }
 
 void CupsAddAutoConfiguredPrinterRequest::SetCachedSize(int size) const {
@@ -406,40 +480,54 @@ void CupsAddAutoConfiguredPrinterRequest::SetCachedSize(int size) const {
 
 void CupsAddAutoConfiguredPrinterRequest::Clear() {
 // @@protoc_insertion_point(message_clear_start:printscanmgr.CupsAddAutoConfiguredPrinterRequest)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   _impl_.name_.ClearToEmpty();
   _impl_.uri_.ClearToEmpty();
+  _impl_.language_.ClearToEmpty();
   _internal_metadata_.Clear<std::string>();
 }
 
 const char* CupsAddAutoConfiguredPrinterRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string name = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_name();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
           CHK_(::_pbi::VerifyUTF8(str, nullptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // string uri = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_uri();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
           CHK_(::_pbi::VerifyUTF8(str, nullptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
+        continue;
+      // string language = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 26)) {
+          auto str = _internal_mutable_language();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
+        } else {
+          goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -464,30 +552,34 @@ failure:
 #undef CHK_
 }
 
-uint8_t* CupsAddAutoConfiguredPrinterRequest::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* CupsAddAutoConfiguredPrinterRequest::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:printscanmgr.CupsAddAutoConfiguredPrinterRequest)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // string name = 1;
   if (!this->_internal_name().empty()) {
+    const std::string& _s = this->_internal_name();
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_name().data(), static_cast<int>(this->_internal_name().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "printscanmgr.CupsAddAutoConfiguredPrinterRequest.name");
-    target = stream->WriteStringMaybeAliased(
-        1, this->_internal_name(), target);
+        _s.data(), static_cast<int>(_s.length()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE, "printscanmgr.CupsAddAutoConfiguredPrinterRequest.name");
+    target = stream->WriteStringMaybeAliased(1, _s, target);
   }
 
   // string uri = 2;
   if (!this->_internal_uri().empty()) {
+    const std::string& _s = this->_internal_uri();
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_uri().data(), static_cast<int>(this->_internal_uri().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "printscanmgr.CupsAddAutoConfiguredPrinterRequest.uri");
-    target = stream->WriteStringMaybeAliased(
-        2, this->_internal_uri(), target);
+        _s.data(), static_cast<int>(_s.length()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE, "printscanmgr.CupsAddAutoConfiguredPrinterRequest.uri");
+    target = stream->WriteStringMaybeAliased(2, _s, target);
+  }
+
+  // string language = 3;
+  if (!this->_internal_language().empty()) {
+    const std::string& _s = this->_internal_language();
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+        _s.data(), static_cast<int>(_s.length()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE, "printscanmgr.CupsAddAutoConfiguredPrinterRequest.language");
+    target = stream->WriteStringMaybeAliased(3, _s, target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -498,26 +590,30 @@ uint8_t* CupsAddAutoConfiguredPrinterRequest::_InternalSerialize(
   return target;
 }
 
-size_t CupsAddAutoConfiguredPrinterRequest::ByteSizeLong() const {
+::size_t CupsAddAutoConfiguredPrinterRequest::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:printscanmgr.CupsAddAutoConfiguredPrinterRequest)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // string name = 1;
   if (!this->_internal_name().empty()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_name());
+    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                    this->_internal_name());
   }
 
   // string uri = 2;
   if (!this->_internal_uri().empty()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_uri());
+    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                    this->_internal_uri());
+  }
+
+  // string language = 3;
+  if (!this->_internal_language().empty()) {
+    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                    this->_internal_language());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -537,8 +633,8 @@ void CupsAddAutoConfiguredPrinterRequest::CheckTypeAndMergeFrom(
 void CupsAddAutoConfiguredPrinterRequest::MergeFrom(const CupsAddAutoConfiguredPrinterRequest& from) {
   CupsAddAutoConfiguredPrinterRequest* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:printscanmgr.CupsAddAutoConfiguredPrinterRequest)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_name().empty()) {
@@ -546,6 +642,9 @@ void CupsAddAutoConfiguredPrinterRequest::MergeFrom(const CupsAddAutoConfiguredP
   }
   if (!from._internal_uri().empty()) {
     _this->_internal_set_uri(from._internal_uri());
+  }
+  if (!from._internal_language().empty()) {
+    _this->_internal_set_language(from._internal_language());
   }
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -566,20 +665,17 @@ void CupsAddAutoConfiguredPrinterRequest::InternalSwap(CupsAddAutoConfiguredPrin
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.name_, lhs_arena,
-      &other->_impl_.name_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.uri_, lhs_arena,
-      &other->_impl_.uri_, rhs_arena
-  );
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.name_, lhs_arena,
+                                       &other->_impl_.name_, rhs_arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.uri_, lhs_arena,
+                                       &other->_impl_.uri_, rhs_arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.language_, lhs_arena,
+                                       &other->_impl_.language_, rhs_arena);
 }
 
 std::string CupsAddAutoConfiguredPrinterRequest::GetTypeName() const {
   return "printscanmgr.CupsAddAutoConfiguredPrinterRequest";
 }
-
 
 // ===================================================================
 
@@ -587,30 +683,23 @@ class CupsAddAutoConfiguredPrinterResponse::_Internal {
  public:
 };
 
-CupsAddAutoConfiguredPrinterResponse::CupsAddAutoConfiguredPrinterResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+CupsAddAutoConfiguredPrinterResponse::CupsAddAutoConfiguredPrinterResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:printscanmgr.CupsAddAutoConfiguredPrinterResponse)
 }
 CupsAddAutoConfiguredPrinterResponse::CupsAddAutoConfiguredPrinterResponse(const CupsAddAutoConfiguredPrinterResponse& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
-  CupsAddAutoConfiguredPrinterResponse* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_.result_){}
-    , /*decltype(_impl_._cached_size_)*/{}};
-
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  _this->_impl_.result_ = from._impl_.result_;
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(), _impl_(from._impl_) {
+  _internal_metadata_.MergeFrom<std::string>(
+      from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:printscanmgr.CupsAddAutoConfiguredPrinterResponse)
 }
 
-inline void CupsAddAutoConfiguredPrinterResponse::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void CupsAddAutoConfiguredPrinterResponse::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.result_){0}
+      decltype(_impl_.result_) { 0 }
+
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -625,7 +714,7 @@ CupsAddAutoConfiguredPrinterResponse::~CupsAddAutoConfiguredPrinterResponse() {
 }
 
 inline void CupsAddAutoConfiguredPrinterResponse::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void CupsAddAutoConfiguredPrinterResponse::SetCachedSize(int size) const {
@@ -634,7 +723,7 @@ void CupsAddAutoConfiguredPrinterResponse::SetCachedSize(int size) const {
 
 void CupsAddAutoConfiguredPrinterResponse::Clear() {
 // @@protoc_insertion_point(message_clear_start:printscanmgr.CupsAddAutoConfiguredPrinterResponse)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -645,17 +734,18 @@ void CupsAddAutoConfiguredPrinterResponse::Clear() {
 const char* CupsAddAutoConfiguredPrinterResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .printscanmgr.AddPrinterResult result = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
+          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
           _internal_set_result(static_cast<::printscanmgr::AddPrinterResult>(val));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -680,17 +770,17 @@ failure:
 #undef CHK_
 }
 
-uint8_t* CupsAddAutoConfiguredPrinterResponse::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* CupsAddAutoConfiguredPrinterResponse::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:printscanmgr.CupsAddAutoConfiguredPrinterResponse)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // .printscanmgr.AddPrinterResult result = 2;
   if (this->_internal_result() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      2, this->_internal_result(), target);
+        2, this->_internal_result(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -701,18 +791,18 @@ uint8_t* CupsAddAutoConfiguredPrinterResponse::_InternalSerialize(
   return target;
 }
 
-size_t CupsAddAutoConfiguredPrinterResponse::ByteSizeLong() const {
+::size_t CupsAddAutoConfiguredPrinterResponse::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:printscanmgr.CupsAddAutoConfiguredPrinterResponse)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // .printscanmgr.AddPrinterResult result = 2;
   if (this->_internal_result() != 0) {
     total_size += 1 +
-      ::_pbi::WireFormatLite::EnumSize(this->_internal_result());
+                  ::_pbi::WireFormatLite::EnumSize(this->_internal_result());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -732,8 +822,8 @@ void CupsAddAutoConfiguredPrinterResponse::CheckTypeAndMergeFrom(
 void CupsAddAutoConfiguredPrinterResponse::MergeFrom(const CupsAddAutoConfiguredPrinterResponse& from) {
   CupsAddAutoConfiguredPrinterResponse* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:printscanmgr.CupsAddAutoConfiguredPrinterResponse)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_result() != 0) {
@@ -763,78 +853,92 @@ std::string CupsAddAutoConfiguredPrinterResponse::GetTypeName() const {
   return "printscanmgr.CupsAddAutoConfiguredPrinterResponse";
 }
 
-
 // ===================================================================
 
 class CupsAddManuallyConfiguredPrinterRequest::_Internal {
  public:
 };
 
-CupsAddManuallyConfiguredPrinterRequest::CupsAddManuallyConfiguredPrinterRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+CupsAddManuallyConfiguredPrinterRequest::CupsAddManuallyConfiguredPrinterRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:printscanmgr.CupsAddManuallyConfiguredPrinterRequest)
 }
 CupsAddManuallyConfiguredPrinterRequest::CupsAddManuallyConfiguredPrinterRequest(const CupsAddManuallyConfiguredPrinterRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
   CupsAddManuallyConfiguredPrinterRequest* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.name_){}
-    , decltype(_impl_.uri_){}
-    , decltype(_impl_.ppd_contents_){}
+      decltype(_impl_.name_) {}
+
+    , decltype(_impl_.uri_) {}
+
+    , decltype(_impl_.ppd_contents_) {}
+
+    , decltype(_impl_.language_) {}
+
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _impl_.name_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.name_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.name_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_name().empty()) {
-    _this->_impl_.name_.Set(from._internal_name(), 
-      _this->GetArenaForAllocation());
+    _this->_impl_.name_.Set(from._internal_name(), _this->GetArenaForAllocation());
   }
   _impl_.uri_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.uri_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.uri_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_uri().empty()) {
-    _this->_impl_.uri_.Set(from._internal_uri(), 
-      _this->GetArenaForAllocation());
+    _this->_impl_.uri_.Set(from._internal_uri(), _this->GetArenaForAllocation());
   }
   _impl_.ppd_contents_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.ppd_contents_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.ppd_contents_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_ppd_contents().empty()) {
-    _this->_impl_.ppd_contents_.Set(from._internal_ppd_contents(), 
-      _this->GetArenaForAllocation());
+    _this->_impl_.ppd_contents_.Set(from._internal_ppd_contents(), _this->GetArenaForAllocation());
+  }
+  _impl_.language_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.language_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_language().empty()) {
+    _this->_impl_.language_.Set(from._internal_language(), _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:printscanmgr.CupsAddManuallyConfiguredPrinterRequest)
 }
 
-inline void CupsAddManuallyConfiguredPrinterRequest::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void CupsAddManuallyConfiguredPrinterRequest::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.name_){}
-    , decltype(_impl_.uri_){}
-    , decltype(_impl_.ppd_contents_){}
+      decltype(_impl_.name_) {}
+
+    , decltype(_impl_.uri_) {}
+
+    , decltype(_impl_.ppd_contents_) {}
+
+    , decltype(_impl_.language_) {}
+
     , /*decltype(_impl_._cached_size_)*/{}
   };
   _impl_.name_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.name_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.name_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   _impl_.uri_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.uri_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.uri_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   _impl_.ppd_contents_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.ppd_contents_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.ppd_contents_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.language_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.language_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 CupsAddManuallyConfiguredPrinterRequest::~CupsAddManuallyConfiguredPrinterRequest() {
@@ -847,10 +951,11 @@ CupsAddManuallyConfiguredPrinterRequest::~CupsAddManuallyConfiguredPrinterReques
 }
 
 inline void CupsAddManuallyConfiguredPrinterRequest::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.name_.Destroy();
   _impl_.uri_.Destroy();
   _impl_.ppd_contents_.Destroy();
+  _impl_.language_.Destroy();
 }
 
 void CupsAddManuallyConfiguredPrinterRequest::SetCachedSize(int size) const {
@@ -859,50 +964,65 @@ void CupsAddManuallyConfiguredPrinterRequest::SetCachedSize(int size) const {
 
 void CupsAddManuallyConfiguredPrinterRequest::Clear() {
 // @@protoc_insertion_point(message_clear_start:printscanmgr.CupsAddManuallyConfiguredPrinterRequest)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   _impl_.name_.ClearToEmpty();
   _impl_.uri_.ClearToEmpty();
   _impl_.ppd_contents_.ClearToEmpty();
+  _impl_.language_.ClearToEmpty();
   _internal_metadata_.Clear<std::string>();
 }
 
 const char* CupsAddManuallyConfiguredPrinterRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string name = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_name();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
           CHK_(::_pbi::VerifyUTF8(str, nullptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // string uri = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_uri();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
           CHK_(::_pbi::VerifyUTF8(str, nullptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // bytes ppd_contents = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 26)) {
           auto str = _internal_mutable_ppd_contents();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
+        continue;
+      // string language = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 34)) {
+          auto str = _internal_mutable_language();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
+        } else {
+          goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -927,36 +1047,40 @@ failure:
 #undef CHK_
 }
 
-uint8_t* CupsAddManuallyConfiguredPrinterRequest::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* CupsAddManuallyConfiguredPrinterRequest::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:printscanmgr.CupsAddManuallyConfiguredPrinterRequest)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // string name = 1;
   if (!this->_internal_name().empty()) {
+    const std::string& _s = this->_internal_name();
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_name().data(), static_cast<int>(this->_internal_name().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "printscanmgr.CupsAddManuallyConfiguredPrinterRequest.name");
-    target = stream->WriteStringMaybeAliased(
-        1, this->_internal_name(), target);
+        _s.data(), static_cast<int>(_s.length()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE, "printscanmgr.CupsAddManuallyConfiguredPrinterRequest.name");
+    target = stream->WriteStringMaybeAliased(1, _s, target);
   }
 
   // string uri = 2;
   if (!this->_internal_uri().empty()) {
+    const std::string& _s = this->_internal_uri();
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_uri().data(), static_cast<int>(this->_internal_uri().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "printscanmgr.CupsAddManuallyConfiguredPrinterRequest.uri");
-    target = stream->WriteStringMaybeAliased(
-        2, this->_internal_uri(), target);
+        _s.data(), static_cast<int>(_s.length()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE, "printscanmgr.CupsAddManuallyConfiguredPrinterRequest.uri");
+    target = stream->WriteStringMaybeAliased(2, _s, target);
   }
 
   // bytes ppd_contents = 3;
   if (!this->_internal_ppd_contents().empty()) {
-    target = stream->WriteBytesMaybeAliased(
-        3, this->_internal_ppd_contents(), target);
+    const std::string& _s = this->_internal_ppd_contents();
+    target = stream->WriteBytesMaybeAliased(3, _s, target);
+  }
+
+  // string language = 4;
+  if (!this->_internal_language().empty()) {
+    const std::string& _s = this->_internal_language();
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+        _s.data(), static_cast<int>(_s.length()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE, "printscanmgr.CupsAddManuallyConfiguredPrinterRequest.language");
+    target = stream->WriteStringMaybeAliased(4, _s, target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -967,33 +1091,36 @@ uint8_t* CupsAddManuallyConfiguredPrinterRequest::_InternalSerialize(
   return target;
 }
 
-size_t CupsAddManuallyConfiguredPrinterRequest::ByteSizeLong() const {
+::size_t CupsAddManuallyConfiguredPrinterRequest::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:printscanmgr.CupsAddManuallyConfiguredPrinterRequest)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // string name = 1;
   if (!this->_internal_name().empty()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_name());
+    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                    this->_internal_name());
   }
 
   // string uri = 2;
   if (!this->_internal_uri().empty()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_uri());
+    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                    this->_internal_uri());
   }
 
   // bytes ppd_contents = 3;
   if (!this->_internal_ppd_contents().empty()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-        this->_internal_ppd_contents());
+    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+                                    this->_internal_ppd_contents());
+  }
+
+  // string language = 4;
+  if (!this->_internal_language().empty()) {
+    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                    this->_internal_language());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1013,8 +1140,8 @@ void CupsAddManuallyConfiguredPrinterRequest::CheckTypeAndMergeFrom(
 void CupsAddManuallyConfiguredPrinterRequest::MergeFrom(const CupsAddManuallyConfiguredPrinterRequest& from) {
   CupsAddManuallyConfiguredPrinterRequest* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:printscanmgr.CupsAddManuallyConfiguredPrinterRequest)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_name().empty()) {
@@ -1025,6 +1152,9 @@ void CupsAddManuallyConfiguredPrinterRequest::MergeFrom(const CupsAddManuallyCon
   }
   if (!from._internal_ppd_contents().empty()) {
     _this->_internal_set_ppd_contents(from._internal_ppd_contents());
+  }
+  if (!from._internal_language().empty()) {
+    _this->_internal_set_language(from._internal_language());
   }
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -1045,24 +1175,19 @@ void CupsAddManuallyConfiguredPrinterRequest::InternalSwap(CupsAddManuallyConfig
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.name_, lhs_arena,
-      &other->_impl_.name_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.uri_, lhs_arena,
-      &other->_impl_.uri_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.ppd_contents_, lhs_arena,
-      &other->_impl_.ppd_contents_, rhs_arena
-  );
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.name_, lhs_arena,
+                                       &other->_impl_.name_, rhs_arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.uri_, lhs_arena,
+                                       &other->_impl_.uri_, rhs_arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.ppd_contents_, lhs_arena,
+                                       &other->_impl_.ppd_contents_, rhs_arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.language_, lhs_arena,
+                                       &other->_impl_.language_, rhs_arena);
 }
 
 std::string CupsAddManuallyConfiguredPrinterRequest::GetTypeName() const {
   return "printscanmgr.CupsAddManuallyConfiguredPrinterRequest";
 }
-
 
 // ===================================================================
 
@@ -1070,30 +1195,23 @@ class CupsAddManuallyConfiguredPrinterResponse::_Internal {
  public:
 };
 
-CupsAddManuallyConfiguredPrinterResponse::CupsAddManuallyConfiguredPrinterResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+CupsAddManuallyConfiguredPrinterResponse::CupsAddManuallyConfiguredPrinterResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:printscanmgr.CupsAddManuallyConfiguredPrinterResponse)
 }
 CupsAddManuallyConfiguredPrinterResponse::CupsAddManuallyConfiguredPrinterResponse(const CupsAddManuallyConfiguredPrinterResponse& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
-  CupsAddManuallyConfiguredPrinterResponse* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_.result_){}
-    , /*decltype(_impl_._cached_size_)*/{}};
-
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  _this->_impl_.result_ = from._impl_.result_;
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(), _impl_(from._impl_) {
+  _internal_metadata_.MergeFrom<std::string>(
+      from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:printscanmgr.CupsAddManuallyConfiguredPrinterResponse)
 }
 
-inline void CupsAddManuallyConfiguredPrinterResponse::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void CupsAddManuallyConfiguredPrinterResponse::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.result_){0}
+      decltype(_impl_.result_) { 0 }
+
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -1108,7 +1226,7 @@ CupsAddManuallyConfiguredPrinterResponse::~CupsAddManuallyConfiguredPrinterRespo
 }
 
 inline void CupsAddManuallyConfiguredPrinterResponse::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void CupsAddManuallyConfiguredPrinterResponse::SetCachedSize(int size) const {
@@ -1117,7 +1235,7 @@ void CupsAddManuallyConfiguredPrinterResponse::SetCachedSize(int size) const {
 
 void CupsAddManuallyConfiguredPrinterResponse::Clear() {
 // @@protoc_insertion_point(message_clear_start:printscanmgr.CupsAddManuallyConfiguredPrinterResponse)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -1128,17 +1246,18 @@ void CupsAddManuallyConfiguredPrinterResponse::Clear() {
 const char* CupsAddManuallyConfiguredPrinterResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .printscanmgr.AddPrinterResult result = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
+          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
           _internal_set_result(static_cast<::printscanmgr::AddPrinterResult>(val));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -1163,17 +1282,17 @@ failure:
 #undef CHK_
 }
 
-uint8_t* CupsAddManuallyConfiguredPrinterResponse::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* CupsAddManuallyConfiguredPrinterResponse::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:printscanmgr.CupsAddManuallyConfiguredPrinterResponse)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // .printscanmgr.AddPrinterResult result = 2;
   if (this->_internal_result() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      2, this->_internal_result(), target);
+        2, this->_internal_result(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1184,18 +1303,18 @@ uint8_t* CupsAddManuallyConfiguredPrinterResponse::_InternalSerialize(
   return target;
 }
 
-size_t CupsAddManuallyConfiguredPrinterResponse::ByteSizeLong() const {
+::size_t CupsAddManuallyConfiguredPrinterResponse::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:printscanmgr.CupsAddManuallyConfiguredPrinterResponse)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // .printscanmgr.AddPrinterResult result = 2;
   if (this->_internal_result() != 0) {
     total_size += 1 +
-      ::_pbi::WireFormatLite::EnumSize(this->_internal_result());
+                  ::_pbi::WireFormatLite::EnumSize(this->_internal_result());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1215,8 +1334,8 @@ void CupsAddManuallyConfiguredPrinterResponse::CheckTypeAndMergeFrom(
 void CupsAddManuallyConfiguredPrinterResponse::MergeFrom(const CupsAddManuallyConfiguredPrinterResponse& from) {
   CupsAddManuallyConfiguredPrinterResponse* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:printscanmgr.CupsAddManuallyConfiguredPrinterResponse)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_result() != 0) {
@@ -1246,50 +1365,47 @@ std::string CupsAddManuallyConfiguredPrinterResponse::GetTypeName() const {
   return "printscanmgr.CupsAddManuallyConfiguredPrinterResponse";
 }
 
-
 // ===================================================================
 
 class CupsRemovePrinterRequest::_Internal {
  public:
 };
 
-CupsRemovePrinterRequest::CupsRemovePrinterRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+CupsRemovePrinterRequest::CupsRemovePrinterRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:printscanmgr.CupsRemovePrinterRequest)
 }
 CupsRemovePrinterRequest::CupsRemovePrinterRequest(const CupsRemovePrinterRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
   CupsRemovePrinterRequest* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.name_){}
+      decltype(_impl_.name_) {}
+
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _impl_.name_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.name_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.name_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_name().empty()) {
-    _this->_impl_.name_.Set(from._internal_name(), 
-      _this->GetArenaForAllocation());
+    _this->_impl_.name_.Set(from._internal_name(), _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:printscanmgr.CupsRemovePrinterRequest)
 }
 
-inline void CupsRemovePrinterRequest::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void CupsRemovePrinterRequest::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.name_){}
+      decltype(_impl_.name_) {}
+
     , /*decltype(_impl_._cached_size_)*/{}
   };
   _impl_.name_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.name_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.name_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 CupsRemovePrinterRequest::~CupsRemovePrinterRequest() {
@@ -1302,7 +1418,7 @@ CupsRemovePrinterRequest::~CupsRemovePrinterRequest() {
 }
 
 inline void CupsRemovePrinterRequest::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.name_.Destroy();
 }
 
@@ -1312,7 +1428,7 @@ void CupsRemovePrinterRequest::SetCachedSize(int size) const {
 
 void CupsRemovePrinterRequest::Clear() {
 // @@protoc_insertion_point(message_clear_start:printscanmgr.CupsRemovePrinterRequest)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -1323,18 +1439,19 @@ void CupsRemovePrinterRequest::Clear() {
 const char* CupsRemovePrinterRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string name = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_name();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
           CHK_(::_pbi::VerifyUTF8(str, nullptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -1359,20 +1476,18 @@ failure:
 #undef CHK_
 }
 
-uint8_t* CupsRemovePrinterRequest::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* CupsRemovePrinterRequest::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:printscanmgr.CupsRemovePrinterRequest)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // string name = 1;
   if (!this->_internal_name().empty()) {
+    const std::string& _s = this->_internal_name();
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_name().data(), static_cast<int>(this->_internal_name().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "printscanmgr.CupsRemovePrinterRequest.name");
-    target = stream->WriteStringMaybeAliased(
-        1, this->_internal_name(), target);
+        _s.data(), static_cast<int>(_s.length()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE, "printscanmgr.CupsRemovePrinterRequest.name");
+    target = stream->WriteStringMaybeAliased(1, _s, target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1383,19 +1498,18 @@ uint8_t* CupsRemovePrinterRequest::_InternalSerialize(
   return target;
 }
 
-size_t CupsRemovePrinterRequest::ByteSizeLong() const {
+::size_t CupsRemovePrinterRequest::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:printscanmgr.CupsRemovePrinterRequest)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // string name = 1;
   if (!this->_internal_name().empty()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_name());
+    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                    this->_internal_name());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1415,8 +1529,8 @@ void CupsRemovePrinterRequest::CheckTypeAndMergeFrom(
 void CupsRemovePrinterRequest::MergeFrom(const CupsRemovePrinterRequest& from) {
   CupsRemovePrinterRequest* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:printscanmgr.CupsRemovePrinterRequest)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_name().empty()) {
@@ -1441,16 +1555,13 @@ void CupsRemovePrinterRequest::InternalSwap(CupsRemovePrinterRequest* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.name_, lhs_arena,
-      &other->_impl_.name_, rhs_arena
-  );
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.name_, lhs_arena,
+                                       &other->_impl_.name_, rhs_arena);
 }
 
 std::string CupsRemovePrinterRequest::GetTypeName() const {
   return "printscanmgr.CupsRemovePrinterRequest";
 }
-
 
 // ===================================================================
 
@@ -1458,30 +1569,23 @@ class CupsRemovePrinterResponse::_Internal {
  public:
 };
 
-CupsRemovePrinterResponse::CupsRemovePrinterResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+CupsRemovePrinterResponse::CupsRemovePrinterResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:printscanmgr.CupsRemovePrinterResponse)
 }
 CupsRemovePrinterResponse::CupsRemovePrinterResponse(const CupsRemovePrinterResponse& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
-  CupsRemovePrinterResponse* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_.result_){}
-    , /*decltype(_impl_._cached_size_)*/{}};
-
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  _this->_impl_.result_ = from._impl_.result_;
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(), _impl_(from._impl_) {
+  _internal_metadata_.MergeFrom<std::string>(
+      from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:printscanmgr.CupsRemovePrinterResponse)
 }
 
-inline void CupsRemovePrinterResponse::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void CupsRemovePrinterResponse::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.result_){false}
+      decltype(_impl_.result_) { false }
+
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -1496,7 +1600,7 @@ CupsRemovePrinterResponse::~CupsRemovePrinterResponse() {
 }
 
 inline void CupsRemovePrinterResponse::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void CupsRemovePrinterResponse::SetCachedSize(int size) const {
@@ -1505,7 +1609,7 @@ void CupsRemovePrinterResponse::SetCachedSize(int size) const {
 
 void CupsRemovePrinterResponse::Clear() {
 // @@protoc_insertion_point(message_clear_start:printscanmgr.CupsRemovePrinterResponse)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -1516,16 +1620,17 @@ void CupsRemovePrinterResponse::Clear() {
 const char* CupsRemovePrinterResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // bool result = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _impl_.result_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -1550,16 +1655,17 @@ failure:
 #undef CHK_
 }
 
-uint8_t* CupsRemovePrinterResponse::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* CupsRemovePrinterResponse::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:printscanmgr.CupsRemovePrinterResponse)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // bool result = 1;
   if (this->_internal_result() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(1, this->_internal_result(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        1, this->_internal_result(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1570,17 +1676,17 @@ uint8_t* CupsRemovePrinterResponse::_InternalSerialize(
   return target;
 }
 
-size_t CupsRemovePrinterResponse::ByteSizeLong() const {
+::size_t CupsRemovePrinterResponse::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:printscanmgr.CupsRemovePrinterResponse)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // bool result = 1;
   if (this->_internal_result() != 0) {
-    total_size += 1 + 1;
+    total_size += 2;
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1600,8 +1706,8 @@ void CupsRemovePrinterResponse::CheckTypeAndMergeFrom(
 void CupsRemovePrinterResponse::MergeFrom(const CupsRemovePrinterResponse& from) {
   CupsRemovePrinterResponse* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:printscanmgr.CupsRemovePrinterResponse)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_result() != 0) {
@@ -1624,6 +1730,7 @@ bool CupsRemovePrinterResponse::IsInitialized() const {
 void CupsRemovePrinterResponse::InternalSwap(CupsRemovePrinterResponse* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+
   swap(_impl_.result_, other->_impl_.result_);
 }
 
@@ -1631,50 +1738,47 @@ std::string CupsRemovePrinterResponse::GetTypeName() const {
   return "printscanmgr.CupsRemovePrinterResponse";
 }
 
-
 // ===================================================================
 
 class CupsRetrievePpdRequest::_Internal {
  public:
 };
 
-CupsRetrievePpdRequest::CupsRetrievePpdRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+CupsRetrievePpdRequest::CupsRetrievePpdRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:printscanmgr.CupsRetrievePpdRequest)
 }
 CupsRetrievePpdRequest::CupsRetrievePpdRequest(const CupsRetrievePpdRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
   CupsRetrievePpdRequest* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.name_){}
+      decltype(_impl_.name_) {}
+
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _impl_.name_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.name_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.name_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_name().empty()) {
-    _this->_impl_.name_.Set(from._internal_name(), 
-      _this->GetArenaForAllocation());
+    _this->_impl_.name_.Set(from._internal_name(), _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:printscanmgr.CupsRetrievePpdRequest)
 }
 
-inline void CupsRetrievePpdRequest::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void CupsRetrievePpdRequest::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.name_){}
+      decltype(_impl_.name_) {}
+
     , /*decltype(_impl_._cached_size_)*/{}
   };
   _impl_.name_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.name_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.name_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 CupsRetrievePpdRequest::~CupsRetrievePpdRequest() {
@@ -1687,7 +1791,7 @@ CupsRetrievePpdRequest::~CupsRetrievePpdRequest() {
 }
 
 inline void CupsRetrievePpdRequest::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.name_.Destroy();
 }
 
@@ -1697,7 +1801,7 @@ void CupsRetrievePpdRequest::SetCachedSize(int size) const {
 
 void CupsRetrievePpdRequest::Clear() {
 // @@protoc_insertion_point(message_clear_start:printscanmgr.CupsRetrievePpdRequest)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -1708,18 +1812,19 @@ void CupsRetrievePpdRequest::Clear() {
 const char* CupsRetrievePpdRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string name = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_name();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
           CHK_(::_pbi::VerifyUTF8(str, nullptr));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -1744,20 +1849,18 @@ failure:
 #undef CHK_
 }
 
-uint8_t* CupsRetrievePpdRequest::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* CupsRetrievePpdRequest::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:printscanmgr.CupsRetrievePpdRequest)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // string name = 1;
   if (!this->_internal_name().empty()) {
+    const std::string& _s = this->_internal_name();
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_name().data(), static_cast<int>(this->_internal_name().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "printscanmgr.CupsRetrievePpdRequest.name");
-    target = stream->WriteStringMaybeAliased(
-        1, this->_internal_name(), target);
+        _s.data(), static_cast<int>(_s.length()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE, "printscanmgr.CupsRetrievePpdRequest.name");
+    target = stream->WriteStringMaybeAliased(1, _s, target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1768,19 +1871,18 @@ uint8_t* CupsRetrievePpdRequest::_InternalSerialize(
   return target;
 }
 
-size_t CupsRetrievePpdRequest::ByteSizeLong() const {
+::size_t CupsRetrievePpdRequest::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:printscanmgr.CupsRetrievePpdRequest)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // string name = 1;
   if (!this->_internal_name().empty()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_name());
+    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                    this->_internal_name());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1800,8 +1902,8 @@ void CupsRetrievePpdRequest::CheckTypeAndMergeFrom(
 void CupsRetrievePpdRequest::MergeFrom(const CupsRetrievePpdRequest& from) {
   CupsRetrievePpdRequest* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:printscanmgr.CupsRetrievePpdRequest)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_name().empty()) {
@@ -1826,16 +1928,13 @@ void CupsRetrievePpdRequest::InternalSwap(CupsRetrievePpdRequest* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.name_, lhs_arena,
-      &other->_impl_.name_, rhs_arena
-  );
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.name_, lhs_arena,
+                                       &other->_impl_.name_, rhs_arena);
 }
 
 std::string CupsRetrievePpdRequest::GetTypeName() const {
   return "printscanmgr.CupsRetrievePpdRequest";
 }
-
 
 // ===================================================================
 
@@ -1843,43 +1942,41 @@ class CupsRetrievePpdResponse::_Internal {
  public:
 };
 
-CupsRetrievePpdResponse::CupsRetrievePpdResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+CupsRetrievePpdResponse::CupsRetrievePpdResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:printscanmgr.CupsRetrievePpdResponse)
 }
 CupsRetrievePpdResponse::CupsRetrievePpdResponse(const CupsRetrievePpdResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
   CupsRetrievePpdResponse* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.ppd_){}
+      decltype(_impl_.ppd_) {}
+
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _impl_.ppd_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.ppd_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.ppd_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_ppd().empty()) {
-    _this->_impl_.ppd_.Set(from._internal_ppd(), 
-      _this->GetArenaForAllocation());
+    _this->_impl_.ppd_.Set(from._internal_ppd(), _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:printscanmgr.CupsRetrievePpdResponse)
 }
 
-inline void CupsRetrievePpdResponse::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void CupsRetrievePpdResponse::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.ppd_){}
+      decltype(_impl_.ppd_) {}
+
     , /*decltype(_impl_._cached_size_)*/{}
   };
   _impl_.ppd_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.ppd_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.ppd_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 CupsRetrievePpdResponse::~CupsRetrievePpdResponse() {
@@ -1892,7 +1989,7 @@ CupsRetrievePpdResponse::~CupsRetrievePpdResponse() {
 }
 
 inline void CupsRetrievePpdResponse::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.ppd_.Destroy();
 }
 
@@ -1902,7 +1999,7 @@ void CupsRetrievePpdResponse::SetCachedSize(int size) const {
 
 void CupsRetrievePpdResponse::Clear() {
 // @@protoc_insertion_point(message_clear_start:printscanmgr.CupsRetrievePpdResponse)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -1913,17 +2010,18 @@ void CupsRetrievePpdResponse::Clear() {
 const char* CupsRetrievePpdResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // bytes ppd = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_ppd();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -1948,16 +2046,16 @@ failure:
 #undef CHK_
 }
 
-uint8_t* CupsRetrievePpdResponse::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* CupsRetrievePpdResponse::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:printscanmgr.CupsRetrievePpdResponse)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // bytes ppd = 1;
   if (!this->_internal_ppd().empty()) {
-    target = stream->WriteBytesMaybeAliased(
-        1, this->_internal_ppd(), target);
+    const std::string& _s = this->_internal_ppd();
+    target = stream->WriteBytesMaybeAliased(1, _s, target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1968,19 +2066,18 @@ uint8_t* CupsRetrievePpdResponse::_InternalSerialize(
   return target;
 }
 
-size_t CupsRetrievePpdResponse::ByteSizeLong() const {
+::size_t CupsRetrievePpdResponse::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:printscanmgr.CupsRetrievePpdResponse)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // bytes ppd = 1;
   if (!this->_internal_ppd().empty()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-        this->_internal_ppd());
+    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+                                    this->_internal_ppd());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -2000,8 +2097,8 @@ void CupsRetrievePpdResponse::CheckTypeAndMergeFrom(
 void CupsRetrievePpdResponse::MergeFrom(const CupsRetrievePpdResponse& from) {
   CupsRetrievePpdResponse* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:printscanmgr.CupsRetrievePpdResponse)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_ppd().empty()) {
@@ -2026,16 +2123,13 @@ void CupsRetrievePpdResponse::InternalSwap(CupsRetrievePpdResponse* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.ppd_, lhs_arena,
-      &other->_impl_.ppd_, rhs_arena
-  );
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.ppd_, lhs_arena,
+                                       &other->_impl_.ppd_, rhs_arena);
 }
 
 std::string CupsRetrievePpdResponse::GetTypeName() const {
   return "printscanmgr.CupsRetrievePpdResponse";
 }
-
 
 // ===================================================================
 
@@ -2043,19 +2137,20 @@ class PrintscanDebugSetCategoriesRequest::_Internal {
  public:
 };
 
-PrintscanDebugSetCategoriesRequest::PrintscanDebugSetCategoriesRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+PrintscanDebugSetCategoriesRequest::PrintscanDebugSetCategoriesRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:printscanmgr.PrintscanDebugSetCategoriesRequest)
 }
 PrintscanDebugSetCategoriesRequest::PrintscanDebugSetCategoriesRequest(const PrintscanDebugSetCategoriesRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
   PrintscanDebugSetCategoriesRequest* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.categories_){from._impl_.categories_}
-    , /*decltype(_impl_._categories_cached_byte_size_)*/{0}
-    , decltype(_impl_.disable_logging_){}
+      decltype(_impl_.categories_) { from._internal_categories() }
+    , /*decltype(_impl_._categories_cached_byte_size_)*/ { 0 }
+
+    , decltype(_impl_.disable_logging_) {}
+
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
@@ -2063,14 +2158,14 @@ PrintscanDebugSetCategoriesRequest::PrintscanDebugSetCategoriesRequest(const Pri
   // @@protoc_insertion_point(copy_constructor:printscanmgr.PrintscanDebugSetCategoriesRequest)
 }
 
-inline void PrintscanDebugSetCategoriesRequest::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void PrintscanDebugSetCategoriesRequest::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.categories_){arena}
-    , /*decltype(_impl_._categories_cached_byte_size_)*/{0}
-    , decltype(_impl_.disable_logging_){false}
+      decltype(_impl_.categories_) { arena }
+    , /*decltype(_impl_._categories_cached_byte_size_)*/ { 0 }
+
+    , decltype(_impl_.disable_logging_) { false }
+
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -2085,8 +2180,8 @@ PrintscanDebugSetCategoriesRequest::~PrintscanDebugSetCategoriesRequest() {
 }
 
 inline void PrintscanDebugSetCategoriesRequest::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.categories_.~RepeatedField();
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+  _internal_mutable_categories()->~RepeatedField();
 }
 
 void PrintscanDebugSetCategoriesRequest::SetCachedSize(int size) const {
@@ -2095,11 +2190,11 @@ void PrintscanDebugSetCategoriesRequest::SetCachedSize(int size) const {
 
 void PrintscanDebugSetCategoriesRequest::Clear() {
 // @@protoc_insertion_point(message_clear_start:printscanmgr.PrintscanDebugSetCategoriesRequest)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.categories_.Clear();
+  _internal_mutable_categories()->Clear();
   _impl_.disable_logging_ = false;
   _internal_metadata_.Clear<std::string>();
 }
@@ -2107,28 +2202,30 @@ void PrintscanDebugSetCategoriesRequest::Clear() {
 const char* PrintscanDebugSetCategoriesRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // repeated .printscanmgr.PrintscanDebugSetCategoriesRequest.DebugLogCategory categories = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedEnumParser(_internal_mutable_categories(), ptr, ctx);
           CHK_(ptr);
-        } else if (static_cast<uint8_t>(tag) == 8) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        } else if (static_cast<::uint8_t>(tag) == 8) {
+          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
           _internal_add_categories(static_cast<::printscanmgr::PrintscanDebugSetCategoriesRequest_DebugLogCategory>(val));
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       // bool disable_logging = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
           _impl_.disable_logging_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -2153,25 +2250,26 @@ failure:
 #undef CHK_
 }
 
-uint8_t* PrintscanDebugSetCategoriesRequest::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* PrintscanDebugSetCategoriesRequest::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:printscanmgr.PrintscanDebugSetCategoriesRequest)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // repeated .printscanmgr.PrintscanDebugSetCategoriesRequest.DebugLogCategory categories = 1;
   {
-    int byte_size = _impl_._categories_cached_byte_size_.load(std::memory_order_relaxed);
+    int byte_size = _impl_._categories_cached_byte_size_.Get();
     if (byte_size > 0) {
-      target = stream->WriteEnumPacked(
-          1, _impl_.categories_, byte_size, target);
+      target = stream->WriteEnumPacked(1, _internal_categories(),
+                                       byte_size, target);
     }
   }
 
   // bool disable_logging = 2;
   if (this->_internal_disable_logging() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(2, this->_internal_disable_logging(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        2, this->_internal_disable_logging(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -2182,34 +2280,35 @@ uint8_t* PrintscanDebugSetCategoriesRequest::_InternalSerialize(
   return target;
 }
 
-size_t PrintscanDebugSetCategoriesRequest::ByteSizeLong() const {
+::size_t PrintscanDebugSetCategoriesRequest::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:printscanmgr.PrintscanDebugSetCategoriesRequest)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // repeated .printscanmgr.PrintscanDebugSetCategoriesRequest.DebugLogCategory categories = 1;
   {
-    size_t data_size = 0;
-    unsigned int count = static_cast<unsigned int>(this->_internal_categories_size());for (unsigned int i = 0; i < count; i++) {
+    std::size_t data_size = 0;
+    auto count = static_cast<std::size_t>(this->_internal_categories_size());
+
+    for (std::size_t i = 0; i < count; ++i) {
       data_size += ::_pbi::WireFormatLite::EnumSize(
-        this->_internal_categories(static_cast<int>(i)));
+          this->_internal_categories(static_cast<int>(i)));
     }
-    if (data_size > 0) {
-      total_size += 1 +
-        ::_pbi::WireFormatLite::Int32Size(static_cast<int32_t>(data_size));
-    }
-    int cached_size = ::_pbi::ToCachedSize(data_size);
-    _impl_._categories_cached_byte_size_.store(cached_size,
-                                    std::memory_order_relaxed);
     total_size += data_size;
+    if (data_size > 0) {
+      total_size += 1;
+      total_size += ::_pbi::WireFormatLite::Int32Size(
+          static_cast<int32_t>(data_size));
+    }
+    _impl_._categories_cached_byte_size_.Set(::_pbi::ToCachedSize(data_size));
   }
 
   // bool disable_logging = 2;
   if (this->_internal_disable_logging() != 0) {
-    total_size += 1 + 1;
+    total_size += 2;
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -2229,11 +2328,11 @@ void PrintscanDebugSetCategoriesRequest::CheckTypeAndMergeFrom(
 void PrintscanDebugSetCategoriesRequest::MergeFrom(const PrintscanDebugSetCategoriesRequest& from) {
   PrintscanDebugSetCategoriesRequest* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:printscanmgr.PrintscanDebugSetCategoriesRequest)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  _this->_impl_.categories_.MergeFrom(from._impl_.categories_);
+  _this->_internal_mutable_categories()->MergeFrom(from._internal_categories());
   if (from._internal_disable_logging() != 0) {
     _this->_internal_set_disable_logging(from._internal_disable_logging());
   }
@@ -2254,7 +2353,9 @@ bool PrintscanDebugSetCategoriesRequest::IsInitialized() const {
 void PrintscanDebugSetCategoriesRequest::InternalSwap(PrintscanDebugSetCategoriesRequest* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  _impl_.categories_.InternalSwap(&other->_impl_.categories_);
+  _internal_mutable_categories()->InternalSwap(
+      other->_internal_mutable_categories());
+
   swap(_impl_.disable_logging_, other->_impl_.disable_logging_);
 }
 
@@ -2262,37 +2363,29 @@ std::string PrintscanDebugSetCategoriesRequest::GetTypeName() const {
   return "printscanmgr.PrintscanDebugSetCategoriesRequest";
 }
 
-
 // ===================================================================
 
 class PrintscanDebugSetCategoriesResponse::_Internal {
  public:
 };
 
-PrintscanDebugSetCategoriesResponse::PrintscanDebugSetCategoriesResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+PrintscanDebugSetCategoriesResponse::PrintscanDebugSetCategoriesResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:printscanmgr.PrintscanDebugSetCategoriesResponse)
 }
 PrintscanDebugSetCategoriesResponse::PrintscanDebugSetCategoriesResponse(const PrintscanDebugSetCategoriesResponse& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
-  PrintscanDebugSetCategoriesResponse* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_.result_){}
-    , /*decltype(_impl_._cached_size_)*/{}};
-
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  _this->_impl_.result_ = from._impl_.result_;
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(), _impl_(from._impl_) {
+  _internal_metadata_.MergeFrom<std::string>(
+      from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:printscanmgr.PrintscanDebugSetCategoriesResponse)
 }
 
-inline void PrintscanDebugSetCategoriesResponse::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void PrintscanDebugSetCategoriesResponse::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.result_){false}
+      decltype(_impl_.result_) { false }
+
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -2307,7 +2400,7 @@ PrintscanDebugSetCategoriesResponse::~PrintscanDebugSetCategoriesResponse() {
 }
 
 inline void PrintscanDebugSetCategoriesResponse::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void PrintscanDebugSetCategoriesResponse::SetCachedSize(int size) const {
@@ -2316,7 +2409,7 @@ void PrintscanDebugSetCategoriesResponse::SetCachedSize(int size) const {
 
 void PrintscanDebugSetCategoriesResponse::Clear() {
 // @@protoc_insertion_point(message_clear_start:printscanmgr.PrintscanDebugSetCategoriesResponse)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -2327,16 +2420,17 @@ void PrintscanDebugSetCategoriesResponse::Clear() {
 const char* PrintscanDebugSetCategoriesResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // bool result = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
           _impl_.result_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -2361,16 +2455,17 @@ failure:
 #undef CHK_
 }
 
-uint8_t* PrintscanDebugSetCategoriesResponse::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* PrintscanDebugSetCategoriesResponse::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:printscanmgr.PrintscanDebugSetCategoriesResponse)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // bool result = 1;
   if (this->_internal_result() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(1, this->_internal_result(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        1, this->_internal_result(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -2381,17 +2476,17 @@ uint8_t* PrintscanDebugSetCategoriesResponse::_InternalSerialize(
   return target;
 }
 
-size_t PrintscanDebugSetCategoriesResponse::ByteSizeLong() const {
+::size_t PrintscanDebugSetCategoriesResponse::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:printscanmgr.PrintscanDebugSetCategoriesResponse)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // bool result = 1;
   if (this->_internal_result() != 0) {
-    total_size += 1 + 1;
+    total_size += 2;
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -2411,8 +2506,8 @@ void PrintscanDebugSetCategoriesResponse::CheckTypeAndMergeFrom(
 void PrintscanDebugSetCategoriesResponse::MergeFrom(const PrintscanDebugSetCategoriesResponse& from) {
   PrintscanDebugSetCategoriesResponse* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:printscanmgr.PrintscanDebugSetCategoriesResponse)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_result() != 0) {
@@ -2435,13 +2530,13 @@ bool PrintscanDebugSetCategoriesResponse::IsInitialized() const {
 void PrintscanDebugSetCategoriesResponse::InternalSwap(PrintscanDebugSetCategoriesResponse* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+
   swap(_impl_.result_, other->_impl_.result_);
 }
 
 std::string PrintscanDebugSetCategoriesResponse::GetTypeName() const {
   return "printscanmgr.PrintscanDebugSetCategoriesResponse";
 }
-
 
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace printscanmgr
@@ -2487,6 +2582,5 @@ Arena::CreateMaybeMessage< ::printscanmgr::PrintscanDebugSetCategoriesResponse >
   return Arena::CreateMessageInternal< ::printscanmgr::PrintscanDebugSetCategoriesResponse >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
-
 // @@protoc_insertion_point(global_scope)
-#include <google/protobuf/port_undef.inc>
+#include "google/protobuf/port_undef.inc"

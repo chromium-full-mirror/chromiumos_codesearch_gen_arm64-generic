@@ -28,7 +28,6 @@ class MockTpmUtility : public TpmUtility {
   MOCK_METHOD0(InitializeTpm, TPM_RC());
   MOCK_METHOD0(CheckState, TPM_RC());
   MOCK_METHOD1(AllocatePCR, TPM_RC(const std::string&));
-  MOCK_METHOD0(PrepareForPinWeaver, TPM_RC());
   MOCK_METHOD0(PrepareForOwnership, TPM_RC());
   MOCK_METHOD3(TakeOwnership,
                TPM_RC(const std::string&,
@@ -42,9 +41,7 @@ class MockTpmUtility : public TpmUtility {
   MOCK_METHOD1(GetAlertsData, TPM_RC(TpmAlertsData*));
   MOCK_METHOD3(ExtendPCR,
                TPM_RC(int, const std::string&, AuthorizationDelegate*));
-  MOCK_METHOD2(ExtendPCRForCSME, TPM_RC(int, const std::string&));
   MOCK_METHOD2(ReadPCR, TPM_RC(int, std::string*));
-  MOCK_METHOD2(ReadPCRFromCSME, TPM_RC(int, std::string*));
   MOCK_METHOD6(AsymmetricEncrypt,
                TPM_RC(TPM_HANDLE,
                       TPM_ALG_ID,
@@ -379,6 +376,8 @@ class MockTpmUtility : public TpmUtility {
                       const brillo::Blob&,
                       brillo::Blob*,
                       brillo::Blob*));
+  MOCK_METHOD1(U2fGetFipsStatus, TPM_RC(bool*));
+  MOCK_METHOD0(ActivateFips, TPM_RC());
   MOCK_METHOD1(GetRsuDeviceId, TPM_RC(std::string*));
   MOCK_METHOD1(GetRoVerificationStatus, TPM_RC(ap_ro_status*));
   MOCK_METHOD(bool, IsGsc, (), (override));
@@ -387,14 +386,12 @@ class MockTpmUtility : public TpmUtility {
               (const std::string& command),
               (override));
   MOCK_METHOD(TPM_RC, CreateSaltingKey, (TPM_HANDLE*, TPM2B_NAME*), (override));
-  MOCK_METHOD(TPM_RC,
-              GetTi50Stats,
-              (uint32_t*, uint32_t*, uint32_t*, uint32_t*),
-              (override));
+  MOCK_METHOD(TPM_RC, GetTi50Stats, (Ti50Stats*), (override));
   MOCK_METHOD(TPM_RC,
               GetRwVersion,
               (uint32_t*, uint32_t*, uint32_t*),
               (override));
+  MOCK_METHOD(TPM_RC, GetConsoleLogs, (std::string*), (override));
 };
 
 }  // namespace trunks

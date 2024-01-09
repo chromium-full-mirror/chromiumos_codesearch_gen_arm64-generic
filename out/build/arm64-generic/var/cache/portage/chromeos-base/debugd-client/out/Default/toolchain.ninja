@@ -46,7 +46,7 @@ build gen/include/debugd/dbus-proxies.h gen/include/debugd/dbus-proxy-mocks.h: _
 
 build obj/debugd/client/libdebugd-client-headers.stamp: stamp gen/include/debugd/dbus-proxies.h gen/include/debugd/dbus-proxy-mocks.h
 rule __debugd_client_libdebugd-client-test.pc___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/generate-pc.py --output /build/arm64-generic/var/cache/portage/chromeos-base/debugd-client/out/Default/obj/debugd/client/libdebugd-client-test.pc --name=libdebugd-client-test --description=debugd\$ client\$ interface\$ mock\$ library --version=9999 --cflags=-I/usr/include/debugd-client-test
+  command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/generate-pc.py --output /build/arm64-generic/var/cache/portage/chromeos-base/debugd-client/out/Default/obj/debugd/client/libdebugd-client-test.pc --name=libdebugd-client-test --description=debugd\$ client\$ interface\$ mock\$ library --version=0.0.1 --cflags=-I/usr/include/debugd-client-test
   description = ACTION //debugd/client:libdebugd-client-test.pc(//common-mk/toolchain:toolchain)
   restat = 1
 
@@ -54,7 +54,7 @@ build obj/debugd/client/libdebugd-client-test.pc: __debugd_client_libdebugd-clie
 
 build obj/debugd/client/libdebugd-client-test.pc.stamp: stamp obj/debugd/client/libdebugd-client-test.pc
 rule __debugd_client_libdebugd-client.pc___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/generate-pc.py --output /build/arm64-generic/var/cache/portage/chromeos-base/debugd-client/out/Default/obj/debugd/client/libdebugd-client.pc --name=libdebugd-client --description=debugd\$ client\$ interface\$ library --version=9999 --cflags=-I/usr/include/debugd-client
+  command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/generate-pc.py --output /build/arm64-generic/var/cache/portage/chromeos-base/debugd-client/out/Default/obj/debugd/client/libdebugd-client.pc --name=libdebugd-client --description=debugd\$ client\$ interface\$ library --version=0.0.1 --cflags=-I/usr/include/debugd-client
   description = ACTION //debugd/client:libdebugd-client.pc(//common-mk/toolchain:toolchain)
   restat = 1
 

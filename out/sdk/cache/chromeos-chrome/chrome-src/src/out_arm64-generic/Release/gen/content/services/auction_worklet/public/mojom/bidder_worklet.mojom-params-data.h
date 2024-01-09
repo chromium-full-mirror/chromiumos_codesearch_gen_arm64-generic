@@ -1083,13 +1083,13 @@ static_assert(
   bool browser_signal_made_highest_scoring_other_bid() const {
     return data_->browser_signal_made_highest_scoring_other_bid;
   }
-  absl::optional<double> browser_signal_ad_cost() const {
+  std::optional<double> browser_signal_ad_cost() const {
 
     return data_->browser_signal_ad_cost_$flag
         ? absl::make_optional(data_->browser_signal_ad_cost_$value)
         : absl::nullopt;
   }
-  absl::optional<uint16_t> browser_signal_modeling_signals() const {
+  std::optional<uint16_t> browser_signal_modeling_signals() const {
 
     return data_->browser_signal_modeling_signals_$flag
         ? absl::make_optional(data_->browser_signal_modeling_signals_$value)
@@ -1131,7 +1131,7 @@ static_assert(
     return mojo::internal::Deserialize<::url::mojom::OriginDataView>(
         pointer, output, message_);
   }
-  absl::optional<uint32_t> bidding_signals_data_version() const {
+  std::optional<uint32_t> bidding_signals_data_version() const {
 
     return data_->bidding_signals_data_version_$flag
         ? absl::make_optional(data_->bidding_signals_data_version_$value)

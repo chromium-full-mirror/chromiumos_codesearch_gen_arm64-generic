@@ -3,6 +3,7 @@
 #define WEBGPU_ABSL_FORMAT_H_
 
 #include "dawn/native/dawn_platform.h"
+#include "dawn/native/Forward.h"
 
 #include "absl/strings/str_format.h"
 
@@ -18,7 +19,15 @@ namespace dawn::native {
                           const absl::FormatConversionSpec& spec,
                           absl::FormatSink* s);
     absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
+        AbslFormatConvert(const UnpackedPtr<BufferDescriptor>& value,
+                          const absl::FormatConversionSpec& spec,
+                          absl::FormatSink* s);
+    absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
         AbslFormatConvert(const CommandBufferDescriptor* value,
+                          const absl::FormatConversionSpec& spec,
+                          absl::FormatSink* s);
+    absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
+        AbslFormatConvert(const UnpackedPtr<CommandBufferDescriptor>& value,
                           const absl::FormatConversionSpec& spec,
                           absl::FormatSink* s);
     absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
@@ -26,7 +35,15 @@ namespace dawn::native {
                           const absl::FormatConversionSpec& spec,
                           absl::FormatSink* s);
     absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
+        AbslFormatConvert(const UnpackedPtr<CommandEncoderDescriptor>& value,
+                          const absl::FormatConversionSpec& spec,
+                          absl::FormatSink* s);
+    absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
         AbslFormatConvert(const PipelineLayoutDescriptor* value,
+                          const absl::FormatConversionSpec& spec,
+                          absl::FormatSink* s);
+    absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
+        AbslFormatConvert(const UnpackedPtr<PipelineLayoutDescriptor>& value,
                           const absl::FormatConversionSpec& spec,
                           absl::FormatSink* s);
     absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
@@ -34,7 +51,15 @@ namespace dawn::native {
                           const absl::FormatConversionSpec& spec,
                           absl::FormatSink* s);
     absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
+        AbslFormatConvert(const UnpackedPtr<QuerySetDescriptor>& value,
+                          const absl::FormatConversionSpec& spec,
+                          absl::FormatSink* s);
+    absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
         AbslFormatConvert(const QueueDescriptor* value,
+                          const absl::FormatConversionSpec& spec,
+                          absl::FormatSink* s);
+    absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
+        AbslFormatConvert(const UnpackedPtr<QueueDescriptor>& value,
                           const absl::FormatConversionSpec& spec,
                           absl::FormatSink* s);
     absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
@@ -42,7 +67,15 @@ namespace dawn::native {
                           const absl::FormatConversionSpec& spec,
                           absl::FormatSink* s);
     absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
+        AbslFormatConvert(const UnpackedPtr<RenderBundleDescriptor>& value,
+                          const absl::FormatConversionSpec& spec,
+                          absl::FormatSink* s);
+    absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
         AbslFormatConvert(const RenderBundleEncoderDescriptor* value,
+                          const absl::FormatConversionSpec& spec,
+                          absl::FormatSink* s);
+    absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
+        AbslFormatConvert(const UnpackedPtr<RenderBundleEncoderDescriptor>& value,
                           const absl::FormatConversionSpec& spec,
                           absl::FormatSink* s);
     absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
@@ -50,7 +83,15 @@ namespace dawn::native {
                           const absl::FormatConversionSpec& spec,
                           absl::FormatSink* s);
     absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
+        AbslFormatConvert(const UnpackedPtr<SamplerDescriptor>& value,
+                          const absl::FormatConversionSpec& spec,
+                          absl::FormatSink* s);
+    absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
         AbslFormatConvert(const ShaderModuleDescriptor* value,
+                          const absl::FormatConversionSpec& spec,
+                          absl::FormatSink* s);
+    absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
+        AbslFormatConvert(const UnpackedPtr<ShaderModuleDescriptor>& value,
                           const absl::FormatConversionSpec& spec,
                           absl::FormatSink* s);
     absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
@@ -58,7 +99,15 @@ namespace dawn::native {
                           const absl::FormatConversionSpec& spec,
                           absl::FormatSink* s);
     absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
+        AbslFormatConvert(const UnpackedPtr<SharedFenceDescriptor>& value,
+                          const absl::FormatConversionSpec& spec,
+                          absl::FormatSink* s);
+    absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
         AbslFormatConvert(const SharedTextureMemoryDescriptor* value,
+                          const absl::FormatConversionSpec& spec,
+                          absl::FormatSink* s);
+    absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
+        AbslFormatConvert(const UnpackedPtr<SharedTextureMemoryDescriptor>& value,
                           const absl::FormatConversionSpec& spec,
                           absl::FormatSink* s);
     absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
@@ -66,7 +115,15 @@ namespace dawn::native {
                           const absl::FormatConversionSpec& spec,
                           absl::FormatSink* s);
     absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
+        AbslFormatConvert(const UnpackedPtr<SurfaceDescriptor>& value,
+                          const absl::FormatConversionSpec& spec,
+                          absl::FormatSink* s);
+    absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
         AbslFormatConvert(const SwapChainDescriptor* value,
+                          const absl::FormatConversionSpec& spec,
+                          absl::FormatSink* s);
+    absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
+        AbslFormatConvert(const UnpackedPtr<SwapChainDescriptor>& value,
                           const absl::FormatConversionSpec& spec,
                           absl::FormatSink* s);
     absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
@@ -74,7 +131,15 @@ namespace dawn::native {
                           const absl::FormatConversionSpec& spec,
                           absl::FormatSink* s);
     absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
+        AbslFormatConvert(const UnpackedPtr<TextureViewDescriptor>& value,
+                          const absl::FormatConversionSpec& spec,
+                          absl::FormatSink* s);
+    absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
         AbslFormatConvert(const BindGroupDescriptor* value,
+                          const absl::FormatConversionSpec& spec,
+                          absl::FormatSink* s);
+    absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
+        AbslFormatConvert(const UnpackedPtr<BindGroupDescriptor>& value,
                           const absl::FormatConversionSpec& spec,
                           absl::FormatSink* s);
     absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
@@ -82,7 +147,15 @@ namespace dawn::native {
                           const absl::FormatConversionSpec& spec,
                           absl::FormatSink* s);
     absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
+        AbslFormatConvert(const UnpackedPtr<ComputePassDescriptor>& value,
+                          const absl::FormatConversionSpec& spec,
+                          absl::FormatSink* s);
+    absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
         AbslFormatConvert(const ExternalTextureDescriptor* value,
+                          const absl::FormatConversionSpec& spec,
+                          absl::FormatSink* s);
+    absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
+        AbslFormatConvert(const UnpackedPtr<ExternalTextureDescriptor>& value,
                           const absl::FormatConversionSpec& spec,
                           absl::FormatSink* s);
     absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
@@ -90,7 +163,15 @@ namespace dawn::native {
                           const absl::FormatConversionSpec& spec,
                           absl::FormatSink* s);
     absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
+        AbslFormatConvert(const UnpackedPtr<TextureDescriptor>& value,
+                          const absl::FormatConversionSpec& spec,
+                          absl::FormatSink* s);
+    absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
         AbslFormatConvert(const BindGroupLayoutDescriptor* value,
+                          const absl::FormatConversionSpec& spec,
+                          absl::FormatSink* s);
+    absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
+        AbslFormatConvert(const UnpackedPtr<BindGroupLayoutDescriptor>& value,
                           const absl::FormatConversionSpec& spec,
                           absl::FormatSink* s);
     absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
@@ -98,7 +179,15 @@ namespace dawn::native {
                           const absl::FormatConversionSpec& spec,
                           absl::FormatSink* s);
     absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
+        AbslFormatConvert(const UnpackedPtr<ComputePipelineDescriptor>& value,
+                          const absl::FormatConversionSpec& spec,
+                          absl::FormatSink* s);
+    absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
         AbslFormatConvert(const DeviceDescriptor* value,
+                          const absl::FormatConversionSpec& spec,
+                          absl::FormatSink* s);
+    absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
+        AbslFormatConvert(const UnpackedPtr<DeviceDescriptor>& value,
                           const absl::FormatConversionSpec& spec,
                           absl::FormatSink* s);
     absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
@@ -106,7 +195,15 @@ namespace dawn::native {
                           const absl::FormatConversionSpec& spec,
                           absl::FormatSink* s);
     absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
+        AbslFormatConvert(const UnpackedPtr<RenderPassDescriptor>& value,
+                          const absl::FormatConversionSpec& spec,
+                          absl::FormatSink* s);
+    absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
         AbslFormatConvert(const RenderPipelineDescriptor* value,
+                          const absl::FormatConversionSpec& spec,
+                          absl::FormatSink* s);
+    absl::FormatConvertResult<absl::FormatConversionCharSet::kString>
+        AbslFormatConvert(const UnpackedPtr<RenderPipelineDescriptor>& value,
                           const absl::FormatConversionSpec& spec,
                           absl::FormatSink* s);
 
@@ -140,6 +237,10 @@ namespace wgpu {
     // Enums
     //
 
+        absl::FormatConvertResult<absl::FormatConversionCharSet::kString|absl::FormatConversionCharSet::kIntegral>
+        AbslFormatConvert(WGSLFeatureName value,
+                          const absl::FormatConversionSpec& spec,
+                          absl::FormatSink* s);
         absl::FormatConvertResult<absl::FormatConversionCharSet::kString|absl::FormatConversionCharSet::kIntegral>
         AbslFormatConvert(AdapterType value,
                           const absl::FormatConversionSpec& spec,
@@ -339,6 +440,10 @@ namespace wgpu {
                           absl::FormatSink* s);
         absl::FormatConvertResult<absl::FormatConversionCharSet::kString|absl::FormatConversionCharSet::kIntegral>
         AbslFormatConvert(ColorWriteMask value,
+                          const absl::FormatConversionSpec& spec,
+                          absl::FormatSink* s);
+        absl::FormatConvertResult<absl::FormatConversionCharSet::kString|absl::FormatConversionCharSet::kIntegral>
+        AbslFormatConvert(HeapProperty value,
                           const absl::FormatConversionSpec& spec,
                           absl::FormatSink* s);
         absl::FormatConvertResult<absl::FormatConversionCharSet::kString|absl::FormatConversionCharSet::kIntegral>

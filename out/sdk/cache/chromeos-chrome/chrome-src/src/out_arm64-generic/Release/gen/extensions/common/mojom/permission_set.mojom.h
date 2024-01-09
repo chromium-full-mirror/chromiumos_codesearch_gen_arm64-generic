@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "extensions/common/mojom/permission_set.mojom-features.h"
 #include "extensions/common/mojom/permission_set.mojom-shared.h"
 #include "extensions/common/mojom/permission_set.mojom-forward.h"
 #include "extensions/common/mojom/api_permission_id.mojom.h"
@@ -80,7 +81,7 @@ class  APIPermission {
 
   APIPermission(
       ::extensions::mojom::APIPermissionID id,
-      absl::optional<::base::Value> value);
+      std::optional<::base::Value> value);
 
 APIPermission(const APIPermission&) = delete;
 APIPermission& operator=(const APIPermission&) = delete;
@@ -162,7 +163,7 @@ APIPermission& operator=(const APIPermission&) = delete;
   
   ::extensions::mojom::APIPermissionID id;
   
-  absl::optional<::base::Value> value;
+  std::optional<::base::Value> value;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -367,7 +368,7 @@ class  ManifestPermission {
 
   ManifestPermission(
       const std::string& id,
-      absl::optional<::base::Value> value);
+      std::optional<::base::Value> value);
 
 ManifestPermission(const ManifestPermission&) = delete;
 ManifestPermission& operator=(const ManifestPermission&) = delete;
@@ -449,7 +450,7 @@ ManifestPermission& operator=(const ManifestPermission&) = delete;
   
   std::string id;
   
-  absl::optional<::base::Value> value;
+  std::optional<::base::Value> value;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

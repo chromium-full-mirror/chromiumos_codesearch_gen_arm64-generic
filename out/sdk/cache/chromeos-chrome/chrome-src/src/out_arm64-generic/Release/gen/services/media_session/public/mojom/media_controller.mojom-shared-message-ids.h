@@ -38,6 +38,7 @@ constexpr uint32_t kMediaController_Raise_Name = 17;
 constexpr uint32_t kMediaController_SetMute_Name = 18;
 constexpr uint32_t kMediaController_RequestMediaRemoting_Name = 19;
 constexpr uint32_t kMediaController_EnterAutoPictureInPicture_Name = 20;
+constexpr uint32_t kMediaController_SkipAd_Name = 21;
 constexpr uint32_t kMediaControllerObserver_MediaSessionInfoChanged_Name = 0;
 constexpr uint32_t kMediaControllerObserver_MediaSessionMetadataChanged_Name = 1;
 constexpr uint32_t kMediaControllerObserver_MediaSessionActionsChanged_Name = 2;

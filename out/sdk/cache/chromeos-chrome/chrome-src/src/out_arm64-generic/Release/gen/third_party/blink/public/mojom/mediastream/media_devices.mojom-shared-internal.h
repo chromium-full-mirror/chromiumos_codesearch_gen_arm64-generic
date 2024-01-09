@@ -59,30 +59,6 @@ struct MediaDeviceType_Data {
   }
 };
 
-struct SubCaptureTargetType_Data {
- public:
-  static bool constexpr kIsExtensible = false;
-
-  static bool IsKnownValue(int32_t value) {
-    switch (value) {
-      case 0:
-      case 1:
-        return true;
-    }
-    return false;
-  }
-
-  static bool Validate(int32_t value,
-                       mojo::internal::ValidationContext* validation_context) {
-    if (kIsExtensible || IsKnownValue(value))
-      return true;
-
-    ReportValidationError(validation_context,
-                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
-    return false;
-  }
-};
-
 struct FacingMode_Data {
  public:
   static bool constexpr kIsExtensible = false;
@@ -120,6 +96,12 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) MediaDeviceInfo_Data {
   mojo::internal::Pointer<mojo::internal::String_Data> device_id;
   mojo::internal::Pointer<mojo::internal::String_Data> label;
   mojo::internal::Pointer<mojo::internal::String_Data> group_id;
+  mojo::internal::Pointer<::media::mojom::internal::VideoCaptureControlSupport_Data> control_support;
+  int32_t facing_mode;
+  uint8_t availability_$flag : 1;
+  uint8_t pad5_[3];
+  int32_t availability_$value;
+  uint8_t padfinal_[4];
 
  private:
   friend class mojo::internal::MessageFragment<MediaDeviceInfo_Data>;
@@ -127,7 +109,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) MediaDeviceInfo_Data {
   MediaDeviceInfo_Data();
   ~MediaDeviceInfo_Data() = delete;
 };
-static_assert(sizeof(MediaDeviceInfo_Data) == 32,
+static_assert(sizeof(MediaDeviceInfo_Data) == 56,
               "Bad sizeof(MediaDeviceInfo_Data)");
 // Used by MediaDeviceInfo::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>
@@ -172,6 +154,9 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) VideoInputDeviceCapabil
   mojo::internal::Pointer<::media::mojom::internal::VideoCaptureControlSupport_Data> control_support;
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<::media::mojom::internal::VideoCaptureFormat_Data>>> formats;
   int32_t facing_mode;
+  uint8_t availability_$flag : 1;
+  uint8_t pad5_[3];
+  int32_t availability_$value;
   uint8_t padfinal_[4];
 
  private:
@@ -180,7 +165,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) VideoInputDeviceCapabil
   VideoInputDeviceCapabilities_Data();
   ~VideoInputDeviceCapabilities_Data() = delete;
 };
-static_assert(sizeof(VideoInputDeviceCapabilities_Data) == 48,
+static_assert(sizeof(VideoInputDeviceCapabilities_Data) == 56,
               "Bad sizeof(VideoInputDeviceCapabilities_Data)");
 // Used by VideoInputDeviceCapabilities::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

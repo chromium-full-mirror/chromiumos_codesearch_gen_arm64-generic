@@ -1,14 +1,9 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_--><style include="settings-shared">cr-radio-group{display:flex;flex-flow:column wrap}.indented{margin-inline-start:var(--cr-section-padding)}.doubly-indented{padding-inline-start:var(--cr-section-indent-padding)}.left-float-graphic{float:left;height:200px;margin-inline-end:10px;width:200px}:host-context(body.jelly-enabled) #smartPrivacyIllo{display:none}:host-context(body:not(.jelly-enabled)) #smartPrivacyIlloJelly{display:none}.large-icon{--iron-icon-fill-color:var(--cros-icon-color-prominent);--iron-icon-stroke-color:var(--cros-icon-color-prominent);--iron-icon-height:32px;--iron-icon-width:32px;margin-bottom:10px}.banner{display:inline-block;margin:0 0 10px 0;padding:0 10px 10px 10px}</style>
+    return html `<!--_html_template_start_--><style include="settings-shared">cr-radio-group{display:flex;flex-flow:column wrap}.indented{margin-inline-start:var(--cr-section-padding)}.doubly-indented{padding-inline-start:var(--cr-section-indent-padding)}.left-float-graphic{float:left;height:200px;margin-inline-end:10px;width:200px}.large-icon{--iron-icon-fill-color:var(--cros-icon-color-prominent);--iron-icon-stroke-color:var(--cros-icon-color-prominent);--iron-icon-height:32px;--iron-icon-width:32px;margin-bottom:10px}.banner{display:inline-block;margin:0 0 10px 0;padding:0 10px 10px 10px}</style>
 
-<iron-media-query query="(prefers-color-scheme: dark)" query-matches="{{isDarkModeActive_}}">
-</iron-media-query>
 <div class="banner">
-  
-  <img id="smartPrivacyIllo" class="left-float-graphic" src="[[getImageSource_(isDarkModeActive_)]]" alt="" aria-hidden="true">
-
-  <iron-icon id="smartPrivacyIlloJelly" icon="os-settings-illo:smart-privacy" class="left-float-graphic">
+  <iron-icon id="smartPrivacyIllo" icon="os-settings-illo:smart-privacy" class="left-float-graphic">
   </iron-icon>
 
   <div>

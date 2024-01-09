@@ -24,9 +24,11 @@
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
 #include "services/network/public/mojom/cookie_access_observer.mojom-shared-internal.h"
+#include "url/mojom/origin.mojom-shared.h"
 #include "url/mojom/url.mojom-shared.h"
 #include "services/network/public/mojom/site_for_cookies.mojom-shared.h"
 #include "services/network/public/mojom/cookie_manager.mojom-shared.h"
+#include "services/network/public/mojom/cookie_setting_overrides.mojom-shared.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
 #include "mojo/public/cpp/system/data_pipe.h"
 
@@ -116,6 +118,16 @@ class CookieAccessDetailsDataView {
     return mojo::internal::Deserialize<::url::mojom::UrlDataView>(
         pointer, output, message_);
   }
+  inline void GetTopFrameOriginDataView(
+      ::url::mojom::OriginDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadTopFrameOrigin(UserType* output) {
+    
+    auto* pointer = data_->top_frame_origin.Get();
+    return mojo::internal::Deserialize<::url::mojom::OriginDataView>(
+        pointer, output, message_);
+  }
   inline void GetSiteForCookiesDataView(
       ::network::mojom::SiteForCookiesDataView* output);
 
@@ -158,6 +170,19 @@ static_assert(
   }
   uint32_t count() const {
     return data_->count;
+  }
+  bool is_ad_tagged() const {
+    return data_->is_ad_tagged;
+  }
+  inline void GetCookieSettingOverridesDataView(
+      ::network::mojom::CookieSettingOverridesDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadCookieSettingOverrides(UserType* output) {
+    
+    auto* pointer = data_->cookie_setting_overrides.Get();
+    return mojo::internal::Deserialize<::network::mojom::CookieSettingOverridesDataView>(
+        pointer, output, message_);
   }
  private:
   internal::CookieAccessDetails_Data* data_ = nullptr;
@@ -225,6 +250,18 @@ struct Serializer<::network::mojom::CookieAccessDetailsDataView, MaybeConstUserT
         fragment->url.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null url in CookieAccessDetails struct");
+    decltype(Traits::top_frame_origin(input)) in_top_frame_origin = Traits::top_frame_origin(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->top_frame_origin)::BaseType> top_frame_origin_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::url::mojom::OriginDataView>(
+        in_top_frame_origin, top_frame_origin_fragment);
+    fragment->top_frame_origin.Set(
+        top_frame_origin_fragment.is_null() ? nullptr : top_frame_origin_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->top_frame_origin.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null top_frame_origin in CookieAccessDetails struct");
     decltype(Traits::site_for_cookies(input)) in_site_for_cookies = Traits::site_for_cookies(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->site_for_cookies)::BaseType> site_for_cookies_fragment(
@@ -260,6 +297,19 @@ struct Serializer<::network::mojom::CookieAccessDetailsDataView, MaybeConstUserT
     fragment->devtools_request_id.Set(
         devtools_request_id_fragment.is_null() ? nullptr : devtools_request_id_fragment.data());
     fragment->count = Traits::count(input);
+    fragment->is_ad_tagged = Traits::is_ad_tagged(input);
+    decltype(Traits::cookie_setting_overrides(input)) in_cookie_setting_overrides = Traits::cookie_setting_overrides(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->cookie_setting_overrides)::BaseType> cookie_setting_overrides_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::network::mojom::CookieSettingOverridesDataView>(
+        in_cookie_setting_overrides, cookie_setting_overrides_fragment);
+    fragment->cookie_setting_overrides.Set(
+        cookie_setting_overrides_fragment.is_null() ? nullptr : cookie_setting_overrides_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->cookie_setting_overrides.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null cookie_setting_overrides in CookieAccessDetails struct");
   }
 
   static bool Deserialize(::network::mojom::internal::CookieAccessDetails_Data* input,
@@ -285,6 +335,11 @@ inline void CookieAccessDetailsDataView::GetUrlDataView(
   auto pointer = data_->url.Get();
   *output = ::url::mojom::UrlDataView(pointer, message_);
 }
+inline void CookieAccessDetailsDataView::GetTopFrameOriginDataView(
+    ::url::mojom::OriginDataView* output) {
+  auto pointer = data_->top_frame_origin.Get();
+  *output = ::url::mojom::OriginDataView(pointer, message_);
+}
 inline void CookieAccessDetailsDataView::GetSiteForCookiesDataView(
     ::network::mojom::SiteForCookiesDataView* output) {
   auto pointer = data_->site_for_cookies.Get();
@@ -299,6 +354,11 @@ inline void CookieAccessDetailsDataView::GetDevtoolsRequestIdDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->devtools_request_id.Get();
   *output = mojo::StringDataView(pointer, message_);
+}
+inline void CookieAccessDetailsDataView::GetCookieSettingOverridesDataView(
+    ::network::mojom::CookieSettingOverridesDataView* output) {
+  auto pointer = data_->cookie_setting_overrides.Get();
+  *output = ::network::mojom::CookieSettingOverridesDataView(pointer, message_);
 }
 
 

@@ -9,11 +9,11 @@ import { addWebUiListener, sendWithPromise } from 'chrome://resources/js/cr.js';
  * synthetic data to assist in testing.
  */
 export class BrowserBridge extends EventTarget {
+    clientInfo_ = null;
+    gpuInfo_ = null;
+    logMessages_ = [];
     constructor() {
         super();
-        this.clientInfo_ = null;
-        this.gpuInfo_ = null;
-        this.logMessages_ = [];
         this.clientInfo_ = null;
         this.gpuInfo_ = null;
         this.logMessages_ = [];

@@ -1,0 +1,62 @@
+{
+  "extends": "../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/tsconfig_base.json",
+  "compilerOptions": {
+    "rootDir": "stage_ts",
+    "outDir": ".",
+    "allowJs": true,
+    "composite": true,
+    "declaration": true,
+    "tsBuildInfoFile": "tsconfig_build_ts.tsbuildinfo",
+    "paths": {
+      "//resources/cr_components/color_change_listener/*": [
+        "./../../../ui/webui/resources/tsc/cr_components/color_change_listener/*"
+      ],
+      "chrome://resources/cr_components/color_change_listener/*": [
+        "./../../../ui/webui/resources/tsc/cr_components/color_change_listener/*"
+      ],
+      "//resources/mojo/*": [
+        "./../../../ui/webui/resources/tsc/mojo/*"
+      ],
+      "chrome://resources/mojo/*": [
+        "./../../../ui/webui/resources/tsc/mojo/*"
+      ],
+      "/tools/typescript/definitions/*": [
+        "./../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/*"
+      ],
+      "//system_apps/*": [
+        "./../system_apps/public/js/*"
+      ]
+    }
+  },
+  "files": [
+    "stage_ts/receiver.ts",
+    "stage_ts/app_context_test_support.js",
+    "stage_ts/error_reporter.js",
+    "stage_ts/launch.js",
+    "stage_ts/message_types.js",
+    "stage_ts/mojo_api_bootstrap.js",
+    "stage_ts/mojo_api_bootstrap_untrusted.js",
+    "stage_ts/piex_module_loader.js",
+    "stage_ts/piex_module.js",
+    "stage_ts/extra_types.d.ts",
+    "stage_ts/media_app.d.ts",
+    "stage_ts/app_context_test_support.d.ts",
+    "stage_ts/error_reporter.d.ts",
+    "stage_ts/launch.d.ts",
+    "stage_ts/message_types.d.ts",
+    "stage_ts/mojo_api_bootstrap.d.ts",
+    "stage_ts/mojo_api_bootstrap_untrusted.d.ts",
+    "stage_ts/piex_module_loader.d.ts"
+  ],
+  "references": [
+    {
+      "path": "../system_apps/public/js/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../ui/webui/resources/cr_components/color_change_listener/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../ui/webui/resources/mojo/tsconfig_build_ts.json"
+    }
+  ]
+}

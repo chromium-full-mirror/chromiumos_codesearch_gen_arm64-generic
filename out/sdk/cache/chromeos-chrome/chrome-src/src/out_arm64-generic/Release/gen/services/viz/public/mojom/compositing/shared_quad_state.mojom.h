@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/viz/public/mojom/compositing/shared_quad_state.mojom-features.h"
 #include "services/viz/public/mojom/compositing/shared_quad_state.mojom-shared.h"
 #include "services/viz/public/mojom/compositing/shared_quad_state.mojom-forward.h"
 #include "ui/gfx/geometry/mojom/geometry.mojom.h"
@@ -79,8 +80,8 @@ class  SharedQuadState {
       const ::gfx::Transform& quad_to_target_transform,
       const ::gfx::Rect& quad_layer_rect,
       const ::gfx::Rect& visible_quad_layer_rect,
-      const absl::optional<::gfx::MaskFilterInfo>& mask_filter_info,
-      const absl::optional<::gfx::Rect>& clip_rect,
+      const std::optional<::gfx::MaskFilterInfo>& mask_filter_info,
+      const std::optional<::gfx::Rect>& clip_rect,
       bool are_contents_opaque,
       float opacity,
       uint32_t blend_mode,
@@ -170,9 +171,9 @@ class  SharedQuadState {
   
   ::gfx::Rect visible_quad_layer_rect;
   
-  absl::optional<::gfx::MaskFilterInfo> mask_filter_info;
+  std::optional<::gfx::MaskFilterInfo> mask_filter_info;
   
-  absl::optional<::gfx::Rect> clip_rect;
+  std::optional<::gfx::Rect> clip_rect;
   
   bool are_contents_opaque;
   

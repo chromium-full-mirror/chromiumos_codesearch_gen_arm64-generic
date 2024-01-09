@@ -37,11 +37,22 @@ using UnsignedInt64AsBase10 = String;
 using UnsignedInt128AsBase16 = String;
 using SignedInt64AsBase10 = String;
 class AttributionReportingFilterDataEntry;
+class AttributionReportingFilterConfig;
+class AttributionReportingFilterPair;
 class AttributionReportingAggregationKeysEntry;
 class AttributionReportingEventReportWindows;
+class AttributionReportingTriggerSpec;
 using AttributionReportingTriggerDataMatching = String;
 class AttributionReportingSourceRegistration;
 using AttributionReportingSourceRegistrationResult = String;
+using AttributionReportingSourceRegistrationTimeConfig = String;
+class AttributionReportingAggregatableValueEntry;
+class AttributionReportingEventTriggerData;
+class AttributionReportingAggregatableTriggerData;
+class AttributionReportingAggregatableDedupKey;
+class AttributionReportingTriggerRegistration;
+using AttributionReportingEventLevelResult = String;
+using AttributionReportingAggregatableResult = String;
 
 // ------------- Forward and enum declarations.
 
@@ -122,6 +133,50 @@ CORE_EXPORT extern const char DestinationBothLimitsReached[];
 CORE_EXPORT extern const char ReportingOriginsPerSiteLimitReached[];
 CORE_EXPORT extern const char ExceedsMaxChannelCapacity[];
 } // namespace AttributionReportingSourceRegistrationResultEnum
+
+namespace AttributionReportingSourceRegistrationTimeConfigEnum {
+CORE_EXPORT extern const char Include[];
+CORE_EXPORT extern const char Exclude[];
+} // namespace AttributionReportingSourceRegistrationTimeConfigEnum
+
+namespace AttributionReportingEventLevelResultEnum {
+CORE_EXPORT extern const char Success[];
+CORE_EXPORT extern const char SuccessDroppedLowerPriority[];
+CORE_EXPORT extern const char InternalError[];
+CORE_EXPORT extern const char NoCapacityForAttributionDestination[];
+CORE_EXPORT extern const char NoMatchingSources[];
+CORE_EXPORT extern const char Deduplicated[];
+CORE_EXPORT extern const char ExcessiveAttributions[];
+CORE_EXPORT extern const char PriorityTooLow[];
+CORE_EXPORT extern const char NeverAttributedSource[];
+CORE_EXPORT extern const char ExcessiveReportingOrigins[];
+CORE_EXPORT extern const char NoMatchingSourceFilterData[];
+CORE_EXPORT extern const char ProhibitedByBrowserPolicy[];
+CORE_EXPORT extern const char NoMatchingConfigurations[];
+CORE_EXPORT extern const char ExcessiveReports[];
+CORE_EXPORT extern const char FalselyAttributedSource[];
+CORE_EXPORT extern const char ReportWindowPassed[];
+CORE_EXPORT extern const char NotRegistered[];
+CORE_EXPORT extern const char ReportWindowNotStarted[];
+CORE_EXPORT extern const char NoMatchingTriggerData[];
+} // namespace AttributionReportingEventLevelResultEnum
+
+namespace AttributionReportingAggregatableResultEnum {
+CORE_EXPORT extern const char Success[];
+CORE_EXPORT extern const char InternalError[];
+CORE_EXPORT extern const char NoCapacityForAttributionDestination[];
+CORE_EXPORT extern const char NoMatchingSources[];
+CORE_EXPORT extern const char ExcessiveAttributions[];
+CORE_EXPORT extern const char ExcessiveReportingOrigins[];
+CORE_EXPORT extern const char NoHistograms[];
+CORE_EXPORT extern const char InsufficientBudget[];
+CORE_EXPORT extern const char NoMatchingSourceFilterData[];
+CORE_EXPORT extern const char NotRegistered[];
+CORE_EXPORT extern const char ProhibitedByBrowserPolicy[];
+CORE_EXPORT extern const char Deduplicated[];
+CORE_EXPORT extern const char ReportWindowPassed[];
+CORE_EXPORT extern const char ExcessiveReports[];
+} // namespace AttributionReportingAggregatableResultEnum
 
 // ------------- Type and builder declarations.
 
@@ -1216,6 +1271,145 @@ private:
 };
 
 
+class CORE_EXPORT AttributionReportingFilterConfig : public ::crdtp::ProtocolObject<AttributionReportingFilterConfig> {
+public:
+    ~AttributionReportingFilterConfig() override { }
+
+    protocol::Array<protocol::Storage::AttributionReportingFilterDataEntry>* getFilterValues() { return m_filterValues.get(); }
+    void setFilterValues(std::unique_ptr<protocol::Array<protocol::Storage::AttributionReportingFilterDataEntry>> value) { m_filterValues = std::move(value); }
+
+    bool hasLookbackWindow() { return m_lookbackWindow.has_value(); }
+    int getLookbackWindow(int defaultValue) const {
+       return m_lookbackWindow.value_or(defaultValue);
+    }
+    void setLookbackWindow(int value) { m_lookbackWindow = value; }
+
+    template<int STATE>
+    class AttributionReportingFilterConfigBuilder {
+    public:
+        enum {
+            NoFieldsSet = 0,
+            FilterValuesSet = 1 << 1,
+            AllFieldsSet = (FilterValuesSet | 0)};
+
+
+        AttributionReportingFilterConfigBuilder<STATE | FilterValuesSet>& setFilterValues(std::unique_ptr<protocol::Array<protocol::Storage::AttributionReportingFilterDataEntry>> value)
+        {
+            static_assert(!(STATE & FilterValuesSet), "property filterValues should not be set yet");
+            m_result->setFilterValues(std::move(value));
+            return castState<FilterValuesSet>();
+        }
+
+        AttributionReportingFilterConfigBuilder<STATE>& setLookbackWindow(int value)
+        {
+            m_result->setLookbackWindow(value);
+            return *this;
+        }
+
+        std::unique_ptr<AttributionReportingFilterConfig> build()
+        {
+            static_assert(STATE == AllFieldsSet, "state should be AllFieldsSet");
+            return std::move(m_result);
+        }
+
+    private:
+        friend class AttributionReportingFilterConfig;
+        AttributionReportingFilterConfigBuilder() : m_result(new AttributionReportingFilterConfig()) { }
+
+        template<int STEP> AttributionReportingFilterConfigBuilder<STATE | STEP>& castState()
+        {
+            return *reinterpret_cast<AttributionReportingFilterConfigBuilder<STATE | STEP>*>(this);
+        }
+
+        std::unique_ptr<protocol::Storage::AttributionReportingFilterConfig> m_result;
+    };
+
+    static AttributionReportingFilterConfigBuilder<0> create()
+    {
+        return AttributionReportingFilterConfigBuilder<0>();
+    }
+
+private:
+    DECLARE_SERIALIZATION_SUPPORT();
+
+    AttributionReportingFilterConfig()
+    {
+    }
+
+    std::unique_ptr<protocol::Array<protocol::Storage::AttributionReportingFilterDataEntry>> m_filterValues;
+    Maybe<int> m_lookbackWindow;
+};
+
+
+class CORE_EXPORT AttributionReportingFilterPair : public ::crdtp::ProtocolObject<AttributionReportingFilterPair> {
+public:
+    ~AttributionReportingFilterPair() override { }
+
+    protocol::Array<protocol::Storage::AttributionReportingFilterConfig>* getFilters() { return m_filters.get(); }
+    void setFilters(std::unique_ptr<protocol::Array<protocol::Storage::AttributionReportingFilterConfig>> value) { m_filters = std::move(value); }
+
+    protocol::Array<protocol::Storage::AttributionReportingFilterConfig>* getNotFilters() { return m_notFilters.get(); }
+    void setNotFilters(std::unique_ptr<protocol::Array<protocol::Storage::AttributionReportingFilterConfig>> value) { m_notFilters = std::move(value); }
+
+    template<int STATE>
+    class AttributionReportingFilterPairBuilder {
+    public:
+        enum {
+            NoFieldsSet = 0,
+            FiltersSet = 1 << 1,
+            NotFiltersSet = 1 << 2,
+            AllFieldsSet = (FiltersSet | NotFiltersSet | 0)};
+
+
+        AttributionReportingFilterPairBuilder<STATE | FiltersSet>& setFilters(std::unique_ptr<protocol::Array<protocol::Storage::AttributionReportingFilterConfig>> value)
+        {
+            static_assert(!(STATE & FiltersSet), "property filters should not be set yet");
+            m_result->setFilters(std::move(value));
+            return castState<FiltersSet>();
+        }
+
+        AttributionReportingFilterPairBuilder<STATE | NotFiltersSet>& setNotFilters(std::unique_ptr<protocol::Array<protocol::Storage::AttributionReportingFilterConfig>> value)
+        {
+            static_assert(!(STATE & NotFiltersSet), "property notFilters should not be set yet");
+            m_result->setNotFilters(std::move(value));
+            return castState<NotFiltersSet>();
+        }
+
+        std::unique_ptr<AttributionReportingFilterPair> build()
+        {
+            static_assert(STATE == AllFieldsSet, "state should be AllFieldsSet");
+            return std::move(m_result);
+        }
+
+    private:
+        friend class AttributionReportingFilterPair;
+        AttributionReportingFilterPairBuilder() : m_result(new AttributionReportingFilterPair()) { }
+
+        template<int STEP> AttributionReportingFilterPairBuilder<STATE | STEP>& castState()
+        {
+            return *reinterpret_cast<AttributionReportingFilterPairBuilder<STATE | STEP>*>(this);
+        }
+
+        std::unique_ptr<protocol::Storage::AttributionReportingFilterPair> m_result;
+    };
+
+    static AttributionReportingFilterPairBuilder<0> create()
+    {
+        return AttributionReportingFilterPairBuilder<0>();
+    }
+
+private:
+    DECLARE_SERIALIZATION_SUPPORT();
+
+    AttributionReportingFilterPair()
+    {
+    }
+
+    std::unique_ptr<protocol::Array<protocol::Storage::AttributionReportingFilterConfig>> m_filters;
+    std::unique_ptr<protocol::Array<protocol::Storage::AttributionReportingFilterConfig>> m_notFilters;
+};
+
+
 class CORE_EXPORT AttributionReportingAggregationKeysEntry : public ::crdtp::ProtocolObject<AttributionReportingAggregationKeysEntry> {
 public:
     ~AttributionReportingAggregationKeysEntry() override { }
@@ -1355,6 +1549,75 @@ private:
 };
 
 
+class CORE_EXPORT AttributionReportingTriggerSpec : public ::crdtp::ProtocolObject<AttributionReportingTriggerSpec> {
+public:
+    ~AttributionReportingTriggerSpec() override { }
+
+    protocol::Array<double>* getTriggerData() { return m_triggerData.get(); }
+    void setTriggerData(std::unique_ptr<protocol::Array<double>> value) { m_triggerData = std::move(value); }
+
+    protocol::Storage::AttributionReportingEventReportWindows* getEventReportWindows() { return m_eventReportWindows.get(); }
+    void setEventReportWindows(std::unique_ptr<protocol::Storage::AttributionReportingEventReportWindows> value) { m_eventReportWindows = std::move(value); }
+
+    template<int STATE>
+    class AttributionReportingTriggerSpecBuilder {
+    public:
+        enum {
+            NoFieldsSet = 0,
+            TriggerDataSet = 1 << 1,
+            EventReportWindowsSet = 1 << 2,
+            AllFieldsSet = (TriggerDataSet | EventReportWindowsSet | 0)};
+
+
+        AttributionReportingTriggerSpecBuilder<STATE | TriggerDataSet>& setTriggerData(std::unique_ptr<protocol::Array<double>> value)
+        {
+            static_assert(!(STATE & TriggerDataSet), "property triggerData should not be set yet");
+            m_result->setTriggerData(std::move(value));
+            return castState<TriggerDataSet>();
+        }
+
+        AttributionReportingTriggerSpecBuilder<STATE | EventReportWindowsSet>& setEventReportWindows(std::unique_ptr<protocol::Storage::AttributionReportingEventReportWindows> value)
+        {
+            static_assert(!(STATE & EventReportWindowsSet), "property eventReportWindows should not be set yet");
+            m_result->setEventReportWindows(std::move(value));
+            return castState<EventReportWindowsSet>();
+        }
+
+        std::unique_ptr<AttributionReportingTriggerSpec> build()
+        {
+            static_assert(STATE == AllFieldsSet, "state should be AllFieldsSet");
+            return std::move(m_result);
+        }
+
+    private:
+        friend class AttributionReportingTriggerSpec;
+        AttributionReportingTriggerSpecBuilder() : m_result(new AttributionReportingTriggerSpec()) { }
+
+        template<int STEP> AttributionReportingTriggerSpecBuilder<STATE | STEP>& castState()
+        {
+            return *reinterpret_cast<AttributionReportingTriggerSpecBuilder<STATE | STEP>*>(this);
+        }
+
+        std::unique_ptr<protocol::Storage::AttributionReportingTriggerSpec> m_result;
+    };
+
+    static AttributionReportingTriggerSpecBuilder<0> create()
+    {
+        return AttributionReportingTriggerSpecBuilder<0>();
+    }
+
+private:
+    DECLARE_SERIALIZATION_SUPPORT();
+
+    AttributionReportingTriggerSpec()
+    {
+    }
+
+    std::unique_ptr<protocol::Array<double>> m_triggerData;
+    std::unique_ptr<protocol::Storage::AttributionReportingEventReportWindows> m_eventReportWindows;
+};
+
+
 class CORE_EXPORT AttributionReportingSourceRegistration : public ::crdtp::ProtocolObject<AttributionReportingSourceRegistration> {
 public:
     ~AttributionReportingSourceRegistration() override { }
@@ -1365,8 +1628,8 @@ public:
     int getExpiry() { return m_expiry; }
     void setExpiry(int value) { m_expiry = value; }
 
-    protocol::Storage::AttributionReportingEventReportWindows* getEventReportWindows() { return m_eventReportWindows.get(); }
-    void setEventReportWindows(std::unique_ptr<protocol::Storage::AttributionReportingEventReportWindows> value) { m_eventReportWindows = std::move(value); }
+    protocol::Array<protocol::Storage::AttributionReportingTriggerSpec>* getTriggerSpecs() { return m_triggerSpecs.get(); }
+    void setTriggerSpecs(std::unique_ptr<protocol::Array<protocol::Storage::AttributionReportingTriggerSpec>> value) { m_triggerSpecs = std::move(value); }
 
     int getAggregatableReportWindow() { return m_aggregatableReportWindow; }
     void setAggregatableReportWindow(int value) { m_aggregatableReportWindow = value; }
@@ -1411,7 +1674,7 @@ public:
             NoFieldsSet = 0,
             TimeSet = 1 << 1,
             ExpirySet = 1 << 2,
-            EventReportWindowsSet = 1 << 3,
+            TriggerSpecsSet = 1 << 3,
             AggregatableReportWindowSet = 1 << 4,
             TypeSet = 1 << 5,
             SourceOriginSet = 1 << 6,
@@ -1422,7 +1685,7 @@ public:
             FilterDataSet = 1 << 11,
             AggregationKeysSet = 1 << 12,
             TriggerDataMatchingSet = 1 << 13,
-            AllFieldsSet = (TimeSet | ExpirySet | EventReportWindowsSet | AggregatableReportWindowSet | TypeSet | SourceOriginSet | ReportingOriginSet | DestinationSitesSet | EventIdSet | PrioritySet | FilterDataSet | AggregationKeysSet | TriggerDataMatchingSet | 0)};
+            AllFieldsSet = (TimeSet | ExpirySet | TriggerSpecsSet | AggregatableReportWindowSet | TypeSet | SourceOriginSet | ReportingOriginSet | DestinationSitesSet | EventIdSet | PrioritySet | FilterDataSet | AggregationKeysSet | TriggerDataMatchingSet | 0)};
 
 
         AttributionReportingSourceRegistrationBuilder<STATE | TimeSet>& setTime(double value)
@@ -1439,11 +1702,11 @@ public:
             return castState<ExpirySet>();
         }
 
-        AttributionReportingSourceRegistrationBuilder<STATE | EventReportWindowsSet>& setEventReportWindows(std::unique_ptr<protocol::Storage::AttributionReportingEventReportWindows> value)
+        AttributionReportingSourceRegistrationBuilder<STATE | TriggerSpecsSet>& setTriggerSpecs(std::unique_ptr<protocol::Array<protocol::Storage::AttributionReportingTriggerSpec>> value)
         {
-            static_assert(!(STATE & EventReportWindowsSet), "property eventReportWindows should not be set yet");
-            m_result->setEventReportWindows(std::move(value));
-            return castState<EventReportWindowsSet>();
+            static_assert(!(STATE & TriggerSpecsSet), "property triggerSpecs should not be set yet");
+            m_result->setTriggerSpecs(std::move(value));
+            return castState<TriggerSpecsSet>();
         }
 
         AttributionReportingSourceRegistrationBuilder<STATE | AggregatableReportWindowSet>& setAggregatableReportWindow(int value)
@@ -1557,7 +1820,7 @@ private:
 
     double m_time;
     int m_expiry;
-    std::unique_ptr<protocol::Storage::AttributionReportingEventReportWindows> m_eventReportWindows;
+    std::unique_ptr<protocol::Array<protocol::Storage::AttributionReportingTriggerSpec>> m_triggerSpecs;
     int m_aggregatableReportWindow;
     String m_type;
     String m_sourceOrigin;
@@ -1569,6 +1832,490 @@ private:
     std::unique_ptr<protocol::Array<protocol::Storage::AttributionReportingAggregationKeysEntry>> m_aggregationKeys;
     Maybe<String> m_debugKey;
     String m_triggerDataMatching;
+};
+
+
+class CORE_EXPORT AttributionReportingAggregatableValueEntry : public ::crdtp::ProtocolObject<AttributionReportingAggregatableValueEntry> {
+public:
+    ~AttributionReportingAggregatableValueEntry() override { }
+
+    String getKey() { return m_key; }
+    void setKey(const String& value) { m_key = value; }
+
+    double getValue() { return m_value; }
+    void setValue(double value) { m_value = value; }
+
+    template<int STATE>
+    class AttributionReportingAggregatableValueEntryBuilder {
+    public:
+        enum {
+            NoFieldsSet = 0,
+            KeySet = 1 << 1,
+            ValueSet = 1 << 2,
+            AllFieldsSet = (KeySet | ValueSet | 0)};
+
+
+        AttributionReportingAggregatableValueEntryBuilder<STATE | KeySet>& setKey(const String& value)
+        {
+            static_assert(!(STATE & KeySet), "property key should not be set yet");
+            m_result->setKey(value);
+            return castState<KeySet>();
+        }
+
+        AttributionReportingAggregatableValueEntryBuilder<STATE | ValueSet>& setValue(double value)
+        {
+            static_assert(!(STATE & ValueSet), "property value should not be set yet");
+            m_result->setValue(value);
+            return castState<ValueSet>();
+        }
+
+        std::unique_ptr<AttributionReportingAggregatableValueEntry> build()
+        {
+            static_assert(STATE == AllFieldsSet, "state should be AllFieldsSet");
+            return std::move(m_result);
+        }
+
+    private:
+        friend class AttributionReportingAggregatableValueEntry;
+        AttributionReportingAggregatableValueEntryBuilder() : m_result(new AttributionReportingAggregatableValueEntry()) { }
+
+        template<int STEP> AttributionReportingAggregatableValueEntryBuilder<STATE | STEP>& castState()
+        {
+            return *reinterpret_cast<AttributionReportingAggregatableValueEntryBuilder<STATE | STEP>*>(this);
+        }
+
+        std::unique_ptr<protocol::Storage::AttributionReportingAggregatableValueEntry> m_result;
+    };
+
+    static AttributionReportingAggregatableValueEntryBuilder<0> create()
+    {
+        return AttributionReportingAggregatableValueEntryBuilder<0>();
+    }
+
+private:
+    DECLARE_SERIALIZATION_SUPPORT();
+
+    AttributionReportingAggregatableValueEntry()
+    {
+          m_value = 0;
+    }
+
+    String m_key;
+    double m_value;
+};
+
+
+class CORE_EXPORT AttributionReportingEventTriggerData : public ::crdtp::ProtocolObject<AttributionReportingEventTriggerData> {
+public:
+    ~AttributionReportingEventTriggerData() override { }
+
+    String getData() { return m_data; }
+    void setData(const String& value) { m_data = value; }
+
+    String getPriority() { return m_priority; }
+    void setPriority(const String& value) { m_priority = value; }
+
+    bool hasDedupKey() { return m_dedupKey.has_value(); }
+    String getDedupKey(const String& defaultValue) const {
+       return m_dedupKey.value_or(defaultValue);
+    }
+    void setDedupKey(const String& value) { m_dedupKey = value; }
+
+    protocol::Storage::AttributionReportingFilterPair* getFilters() { return m_filters.get(); }
+    void setFilters(std::unique_ptr<protocol::Storage::AttributionReportingFilterPair> value) { m_filters = std::move(value); }
+
+    template<int STATE>
+    class AttributionReportingEventTriggerDataBuilder {
+    public:
+        enum {
+            NoFieldsSet = 0,
+            DataSet = 1 << 1,
+            PrioritySet = 1 << 2,
+            FiltersSet = 1 << 3,
+            AllFieldsSet = (DataSet | PrioritySet | FiltersSet | 0)};
+
+
+        AttributionReportingEventTriggerDataBuilder<STATE | DataSet>& setData(const String& value)
+        {
+            static_assert(!(STATE & DataSet), "property data should not be set yet");
+            m_result->setData(value);
+            return castState<DataSet>();
+        }
+
+        AttributionReportingEventTriggerDataBuilder<STATE | PrioritySet>& setPriority(const String& value)
+        {
+            static_assert(!(STATE & PrioritySet), "property priority should not be set yet");
+            m_result->setPriority(value);
+            return castState<PrioritySet>();
+        }
+
+        AttributionReportingEventTriggerDataBuilder<STATE>& setDedupKey(const String& value)
+        {
+            m_result->setDedupKey(value);
+            return *this;
+        }
+
+        AttributionReportingEventTriggerDataBuilder<STATE | FiltersSet>& setFilters(std::unique_ptr<protocol::Storage::AttributionReportingFilterPair> value)
+        {
+            static_assert(!(STATE & FiltersSet), "property filters should not be set yet");
+            m_result->setFilters(std::move(value));
+            return castState<FiltersSet>();
+        }
+
+        std::unique_ptr<AttributionReportingEventTriggerData> build()
+        {
+            static_assert(STATE == AllFieldsSet, "state should be AllFieldsSet");
+            return std::move(m_result);
+        }
+
+    private:
+        friend class AttributionReportingEventTriggerData;
+        AttributionReportingEventTriggerDataBuilder() : m_result(new AttributionReportingEventTriggerData()) { }
+
+        template<int STEP> AttributionReportingEventTriggerDataBuilder<STATE | STEP>& castState()
+        {
+            return *reinterpret_cast<AttributionReportingEventTriggerDataBuilder<STATE | STEP>*>(this);
+        }
+
+        std::unique_ptr<protocol::Storage::AttributionReportingEventTriggerData> m_result;
+    };
+
+    static AttributionReportingEventTriggerDataBuilder<0> create()
+    {
+        return AttributionReportingEventTriggerDataBuilder<0>();
+    }
+
+private:
+    DECLARE_SERIALIZATION_SUPPORT();
+
+    AttributionReportingEventTriggerData()
+    {
+    }
+
+    String m_data;
+    String m_priority;
+    Maybe<String> m_dedupKey;
+    std::unique_ptr<protocol::Storage::AttributionReportingFilterPair> m_filters;
+};
+
+
+class CORE_EXPORT AttributionReportingAggregatableTriggerData : public ::crdtp::ProtocolObject<AttributionReportingAggregatableTriggerData> {
+public:
+    ~AttributionReportingAggregatableTriggerData() override { }
+
+    String getKeyPiece() { return m_keyPiece; }
+    void setKeyPiece(const String& value) { m_keyPiece = value; }
+
+    protocol::Array<String>* getSourceKeys() { return m_sourceKeys.get(); }
+    void setSourceKeys(std::unique_ptr<protocol::Array<String>> value) { m_sourceKeys = std::move(value); }
+
+    protocol::Storage::AttributionReportingFilterPair* getFilters() { return m_filters.get(); }
+    void setFilters(std::unique_ptr<protocol::Storage::AttributionReportingFilterPair> value) { m_filters = std::move(value); }
+
+    template<int STATE>
+    class AttributionReportingAggregatableTriggerDataBuilder {
+    public:
+        enum {
+            NoFieldsSet = 0,
+            KeyPieceSet = 1 << 1,
+            SourceKeysSet = 1 << 2,
+            FiltersSet = 1 << 3,
+            AllFieldsSet = (KeyPieceSet | SourceKeysSet | FiltersSet | 0)};
+
+
+        AttributionReportingAggregatableTriggerDataBuilder<STATE | KeyPieceSet>& setKeyPiece(const String& value)
+        {
+            static_assert(!(STATE & KeyPieceSet), "property keyPiece should not be set yet");
+            m_result->setKeyPiece(value);
+            return castState<KeyPieceSet>();
+        }
+
+        AttributionReportingAggregatableTriggerDataBuilder<STATE | SourceKeysSet>& setSourceKeys(std::unique_ptr<protocol::Array<String>> value)
+        {
+            static_assert(!(STATE & SourceKeysSet), "property sourceKeys should not be set yet");
+            m_result->setSourceKeys(std::move(value));
+            return castState<SourceKeysSet>();
+        }
+
+        AttributionReportingAggregatableTriggerDataBuilder<STATE | FiltersSet>& setFilters(std::unique_ptr<protocol::Storage::AttributionReportingFilterPair> value)
+        {
+            static_assert(!(STATE & FiltersSet), "property filters should not be set yet");
+            m_result->setFilters(std::move(value));
+            return castState<FiltersSet>();
+        }
+
+        std::unique_ptr<AttributionReportingAggregatableTriggerData> build()
+        {
+            static_assert(STATE == AllFieldsSet, "state should be AllFieldsSet");
+            return std::move(m_result);
+        }
+
+    private:
+        friend class AttributionReportingAggregatableTriggerData;
+        AttributionReportingAggregatableTriggerDataBuilder() : m_result(new AttributionReportingAggregatableTriggerData()) { }
+
+        template<int STEP> AttributionReportingAggregatableTriggerDataBuilder<STATE | STEP>& castState()
+        {
+            return *reinterpret_cast<AttributionReportingAggregatableTriggerDataBuilder<STATE | STEP>*>(this);
+        }
+
+        std::unique_ptr<protocol::Storage::AttributionReportingAggregatableTriggerData> m_result;
+    };
+
+    static AttributionReportingAggregatableTriggerDataBuilder<0> create()
+    {
+        return AttributionReportingAggregatableTriggerDataBuilder<0>();
+    }
+
+private:
+    DECLARE_SERIALIZATION_SUPPORT();
+
+    AttributionReportingAggregatableTriggerData()
+    {
+    }
+
+    String m_keyPiece;
+    std::unique_ptr<protocol::Array<String>> m_sourceKeys;
+    std::unique_ptr<protocol::Storage::AttributionReportingFilterPair> m_filters;
+};
+
+
+class CORE_EXPORT AttributionReportingAggregatableDedupKey : public ::crdtp::ProtocolObject<AttributionReportingAggregatableDedupKey> {
+public:
+    ~AttributionReportingAggregatableDedupKey() override { }
+
+    bool hasDedupKey() { return m_dedupKey.has_value(); }
+    String getDedupKey(const String& defaultValue) const {
+       return m_dedupKey.value_or(defaultValue);
+    }
+    void setDedupKey(const String& value) { m_dedupKey = value; }
+
+    protocol::Storage::AttributionReportingFilterPair* getFilters() { return m_filters.get(); }
+    void setFilters(std::unique_ptr<protocol::Storage::AttributionReportingFilterPair> value) { m_filters = std::move(value); }
+
+    template<int STATE>
+    class AttributionReportingAggregatableDedupKeyBuilder {
+    public:
+        enum {
+            NoFieldsSet = 0,
+            FiltersSet = 1 << 1,
+            AllFieldsSet = (FiltersSet | 0)};
+
+
+        AttributionReportingAggregatableDedupKeyBuilder<STATE>& setDedupKey(const String& value)
+        {
+            m_result->setDedupKey(value);
+            return *this;
+        }
+
+        AttributionReportingAggregatableDedupKeyBuilder<STATE | FiltersSet>& setFilters(std::unique_ptr<protocol::Storage::AttributionReportingFilterPair> value)
+        {
+            static_assert(!(STATE & FiltersSet), "property filters should not be set yet");
+            m_result->setFilters(std::move(value));
+            return castState<FiltersSet>();
+        }
+
+        std::unique_ptr<AttributionReportingAggregatableDedupKey> build()
+        {
+            static_assert(STATE == AllFieldsSet, "state should be AllFieldsSet");
+            return std::move(m_result);
+        }
+
+    private:
+        friend class AttributionReportingAggregatableDedupKey;
+        AttributionReportingAggregatableDedupKeyBuilder() : m_result(new AttributionReportingAggregatableDedupKey()) { }
+
+        template<int STEP> AttributionReportingAggregatableDedupKeyBuilder<STATE | STEP>& castState()
+        {
+            return *reinterpret_cast<AttributionReportingAggregatableDedupKeyBuilder<STATE | STEP>*>(this);
+        }
+
+        std::unique_ptr<protocol::Storage::AttributionReportingAggregatableDedupKey> m_result;
+    };
+
+    static AttributionReportingAggregatableDedupKeyBuilder<0> create()
+    {
+        return AttributionReportingAggregatableDedupKeyBuilder<0>();
+    }
+
+private:
+    DECLARE_SERIALIZATION_SUPPORT();
+
+    AttributionReportingAggregatableDedupKey()
+    {
+    }
+
+    Maybe<String> m_dedupKey;
+    std::unique_ptr<protocol::Storage::AttributionReportingFilterPair> m_filters;
+};
+
+
+class CORE_EXPORT AttributionReportingTriggerRegistration : public ::crdtp::ProtocolObject<AttributionReportingTriggerRegistration> {
+public:
+    ~AttributionReportingTriggerRegistration() override { }
+
+    protocol::Storage::AttributionReportingFilterPair* getFilters() { return m_filters.get(); }
+    void setFilters(std::unique_ptr<protocol::Storage::AttributionReportingFilterPair> value) { m_filters = std::move(value); }
+
+    bool hasDebugKey() { return m_debugKey.has_value(); }
+    String getDebugKey(const String& defaultValue) const {
+       return m_debugKey.value_or(defaultValue);
+    }
+    void setDebugKey(const String& value) { m_debugKey = value; }
+
+    protocol::Array<protocol::Storage::AttributionReportingAggregatableDedupKey>* getAggregatableDedupKeys() { return m_aggregatableDedupKeys.get(); }
+    void setAggregatableDedupKeys(std::unique_ptr<protocol::Array<protocol::Storage::AttributionReportingAggregatableDedupKey>> value) { m_aggregatableDedupKeys = std::move(value); }
+
+    protocol::Array<protocol::Storage::AttributionReportingEventTriggerData>* getEventTriggerData() { return m_eventTriggerData.get(); }
+    void setEventTriggerData(std::unique_ptr<protocol::Array<protocol::Storage::AttributionReportingEventTriggerData>> value) { m_eventTriggerData = std::move(value); }
+
+    protocol::Array<protocol::Storage::AttributionReportingAggregatableTriggerData>* getAggregatableTriggerData() { return m_aggregatableTriggerData.get(); }
+    void setAggregatableTriggerData(std::unique_ptr<protocol::Array<protocol::Storage::AttributionReportingAggregatableTriggerData>> value) { m_aggregatableTriggerData = std::move(value); }
+
+    protocol::Array<protocol::Storage::AttributionReportingAggregatableValueEntry>* getAggregatableValues() { return m_aggregatableValues.get(); }
+    void setAggregatableValues(std::unique_ptr<protocol::Array<protocol::Storage::AttributionReportingAggregatableValueEntry>> value) { m_aggregatableValues = std::move(value); }
+
+    bool getDebugReporting() { return m_debugReporting; }
+    void setDebugReporting(bool value) { m_debugReporting = value; }
+
+    bool hasAggregationCoordinatorOrigin() { return m_aggregationCoordinatorOrigin.has_value(); }
+    String getAggregationCoordinatorOrigin(const String& defaultValue) const {
+       return m_aggregationCoordinatorOrigin.value_or(defaultValue);
+    }
+    void setAggregationCoordinatorOrigin(const String& value) { m_aggregationCoordinatorOrigin = value; }
+
+    String getSourceRegistrationTimeConfig() { return m_sourceRegistrationTimeConfig; }
+    void setSourceRegistrationTimeConfig(const String& value) { m_sourceRegistrationTimeConfig = value; }
+
+    bool hasTriggerContextId() { return m_triggerContextId.has_value(); }
+    String getTriggerContextId(const String& defaultValue) const {
+       return m_triggerContextId.value_or(defaultValue);
+    }
+    void setTriggerContextId(const String& value) { m_triggerContextId = value; }
+
+    template<int STATE>
+    class AttributionReportingTriggerRegistrationBuilder {
+    public:
+        enum {
+            NoFieldsSet = 0,
+            FiltersSet = 1 << 1,
+            AggregatableDedupKeysSet = 1 << 2,
+            EventTriggerDataSet = 1 << 3,
+            AggregatableTriggerDataSet = 1 << 4,
+            AggregatableValuesSet = 1 << 5,
+            DebugReportingSet = 1 << 6,
+            SourceRegistrationTimeConfigSet = 1 << 7,
+            AllFieldsSet = (FiltersSet | AggregatableDedupKeysSet | EventTriggerDataSet | AggregatableTriggerDataSet | AggregatableValuesSet | DebugReportingSet | SourceRegistrationTimeConfigSet | 0)};
+
+
+        AttributionReportingTriggerRegistrationBuilder<STATE | FiltersSet>& setFilters(std::unique_ptr<protocol::Storage::AttributionReportingFilterPair> value)
+        {
+            static_assert(!(STATE & FiltersSet), "property filters should not be set yet");
+            m_result->setFilters(std::move(value));
+            return castState<FiltersSet>();
+        }
+
+        AttributionReportingTriggerRegistrationBuilder<STATE>& setDebugKey(const String& value)
+        {
+            m_result->setDebugKey(value);
+            return *this;
+        }
+
+        AttributionReportingTriggerRegistrationBuilder<STATE | AggregatableDedupKeysSet>& setAggregatableDedupKeys(std::unique_ptr<protocol::Array<protocol::Storage::AttributionReportingAggregatableDedupKey>> value)
+        {
+            static_assert(!(STATE & AggregatableDedupKeysSet), "property aggregatableDedupKeys should not be set yet");
+            m_result->setAggregatableDedupKeys(std::move(value));
+            return castState<AggregatableDedupKeysSet>();
+        }
+
+        AttributionReportingTriggerRegistrationBuilder<STATE | EventTriggerDataSet>& setEventTriggerData(std::unique_ptr<protocol::Array<protocol::Storage::AttributionReportingEventTriggerData>> value)
+        {
+            static_assert(!(STATE & EventTriggerDataSet), "property eventTriggerData should not be set yet");
+            m_result->setEventTriggerData(std::move(value));
+            return castState<EventTriggerDataSet>();
+        }
+
+        AttributionReportingTriggerRegistrationBuilder<STATE | AggregatableTriggerDataSet>& setAggregatableTriggerData(std::unique_ptr<protocol::Array<protocol::Storage::AttributionReportingAggregatableTriggerData>> value)
+        {
+            static_assert(!(STATE & AggregatableTriggerDataSet), "property aggregatableTriggerData should not be set yet");
+            m_result->setAggregatableTriggerData(std::move(value));
+            return castState<AggregatableTriggerDataSet>();
+        }
+
+        AttributionReportingTriggerRegistrationBuilder<STATE | AggregatableValuesSet>& setAggregatableValues(std::unique_ptr<protocol::Array<protocol::Storage::AttributionReportingAggregatableValueEntry>> value)
+        {
+            static_assert(!(STATE & AggregatableValuesSet), "property aggregatableValues should not be set yet");
+            m_result->setAggregatableValues(std::move(value));
+            return castState<AggregatableValuesSet>();
+        }
+
+        AttributionReportingTriggerRegistrationBuilder<STATE | DebugReportingSet>& setDebugReporting(bool value)
+        {
+            static_assert(!(STATE & DebugReportingSet), "property debugReporting should not be set yet");
+            m_result->setDebugReporting(value);
+            return castState<DebugReportingSet>();
+        }
+
+        AttributionReportingTriggerRegistrationBuilder<STATE>& setAggregationCoordinatorOrigin(const String& value)
+        {
+            m_result->setAggregationCoordinatorOrigin(value);
+            return *this;
+        }
+
+        AttributionReportingTriggerRegistrationBuilder<STATE | SourceRegistrationTimeConfigSet>& setSourceRegistrationTimeConfig(const String& value)
+        {
+            static_assert(!(STATE & SourceRegistrationTimeConfigSet), "property sourceRegistrationTimeConfig should not be set yet");
+            m_result->setSourceRegistrationTimeConfig(value);
+            return castState<SourceRegistrationTimeConfigSet>();
+        }
+
+        AttributionReportingTriggerRegistrationBuilder<STATE>& setTriggerContextId(const String& value)
+        {
+            m_result->setTriggerContextId(value);
+            return *this;
+        }
+
+        std::unique_ptr<AttributionReportingTriggerRegistration> build()
+        {
+            static_assert(STATE == AllFieldsSet, "state should be AllFieldsSet");
+            return std::move(m_result);
+        }
+
+    private:
+        friend class AttributionReportingTriggerRegistration;
+        AttributionReportingTriggerRegistrationBuilder() : m_result(new AttributionReportingTriggerRegistration()) { }
+
+        template<int STEP> AttributionReportingTriggerRegistrationBuilder<STATE | STEP>& castState()
+        {
+            return *reinterpret_cast<AttributionReportingTriggerRegistrationBuilder<STATE | STEP>*>(this);
+        }
+
+        std::unique_ptr<protocol::Storage::AttributionReportingTriggerRegistration> m_result;
+    };
+
+    static AttributionReportingTriggerRegistrationBuilder<0> create()
+    {
+        return AttributionReportingTriggerRegistrationBuilder<0>();
+    }
+
+private:
+    DECLARE_SERIALIZATION_SUPPORT();
+
+    AttributionReportingTriggerRegistration()
+    {
+          m_debugReporting = false;
+    }
+
+    std::unique_ptr<protocol::Storage::AttributionReportingFilterPair> m_filters;
+    Maybe<String> m_debugKey;
+    std::unique_ptr<protocol::Array<protocol::Storage::AttributionReportingAggregatableDedupKey>> m_aggregatableDedupKeys;
+    std::unique_ptr<protocol::Array<protocol::Storage::AttributionReportingEventTriggerData>> m_eventTriggerData;
+    std::unique_ptr<protocol::Array<protocol::Storage::AttributionReportingAggregatableTriggerData>> m_aggregatableTriggerData;
+    std::unique_ptr<protocol::Array<protocol::Storage::AttributionReportingAggregatableValueEntry>> m_aggregatableValues;
+    bool m_debugReporting;
+    Maybe<String> m_aggregationCoordinatorOrigin;
+    String m_sourceRegistrationTimeConfig;
+    Maybe<String> m_triggerContextId;
 };
 
 
@@ -1631,6 +2378,7 @@ public:
     void storageBucketCreatedOrUpdated(std::unique_ptr<protocol::Storage::StorageBucketInfo> bucketInfo);
     void storageBucketDeleted(const String& bucketId);
     void attributionReportingSourceRegistered(std::unique_ptr<protocol::Storage::AttributionReportingSourceRegistration> registration, const String& result);
+    void attributionReportingTriggerRegistered(std::unique_ptr<protocol::Storage::AttributionReportingTriggerRegistration> registration, const String& eventLevel, const String& aggregatable);
 
   void flush();
   void sendRawNotification(std::unique_ptr<Serializable>);

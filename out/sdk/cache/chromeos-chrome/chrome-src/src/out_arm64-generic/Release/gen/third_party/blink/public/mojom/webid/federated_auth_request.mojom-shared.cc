@@ -75,30 +75,30 @@ std::ostream& operator<<(std::ostream& os, RequestUserInfoStatus value) {
   return os << RequestUserInfoStatusToString(value);
 }
 
-NOINLINE static const char* LogoutRpsStatusToStringHelper(LogoutRpsStatus value) {
+NOINLINE static const char* DisconnectStatusToStringHelper(DisconnectStatus value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
-    case LogoutRpsStatus::kSuccess:
+    case DisconnectStatus::kSuccess:
       return "kSuccess";
-    case LogoutRpsStatus::kErrorTooManyRequests:
+    case DisconnectStatus::kErrorTooManyRequests:
       return "kErrorTooManyRequests";
-    case LogoutRpsStatus::kError:
+    case DisconnectStatus::kError:
       return "kError";
     default:
       return nullptr;
   }
 }
 
-std::string LogoutRpsStatusToString(LogoutRpsStatus value) {
-  const char *str = LogoutRpsStatusToStringHelper(value);
+std::string DisconnectStatusToString(DisconnectStatus value) {
+  const char *str = DisconnectStatusToStringHelper(value);
   if (!str) {
-    return base::StringPrintf("Unknown LogoutRpsStatus value: %i", static_cast<int32_t>(value));
+    return base::StringPrintf("Unknown DisconnectStatus value: %i", static_cast<int32_t>(value));
   }
   return str;
 }
 
-std::ostream& operator<<(std::ostream& os, LogoutRpsStatus value) {
-  return os << LogoutRpsStatusToString(value);
+std::ostream& operator<<(std::ostream& os, DisconnectStatus value) {
+  return os << DisconnectStatusToString(value);
 }
 
 NOINLINE static const char* IdpSigninStatusToStringHelper(IdpSigninStatus value) {
@@ -238,54 +238,13 @@ bool IdentityProvider_Data::Validate(
 
 
 // static
-bool LogoutRpsRequest_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 24, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const LogoutRpsRequest_Data* object =
-      static_cast<const LogoutRpsRequest_Data*>(data);
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->url, 1, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateStruct(object->url, validation_context))
-    return false;
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->account_id, 2, validation_context)) {
-    return false;
-  }
-  constexpr const mojo::internal::ContainerValidateParams& account_id_validate_params =
-      mojo::internal::GetArrayValidator<0, false, nullptr>();
-  if (!mojo::internal::ValidateContainer(object->account_id, validation_context,
-                                         &account_id_validate_params)) {
-    return false;
-  }
-
-  return true;
-}
-
-LogoutRpsRequest_Data::LogoutRpsRequest_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
 bool DigitalCredentialProvider_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 24, validation_context)) {
+          data, 48, validation_context)) {
     return false;
   }
 
@@ -294,10 +253,6 @@ bool DigitalCredentialProvider_Data::Validate(
   [[maybe_unused]] const DigitalCredentialProvider_Data* object =
       static_cast<const DigitalCredentialProvider_Data*>(data);
 
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->params, 1, validation_context)) {
-    return false;
-  }
   constexpr const mojo::internal::ContainerValidateParams& params_validate_params =
       mojo::internal::GetMapValidator<*&mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>(), *&mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>()>();
   if (!mojo::internal::ValidateContainer(object->params, validation_context,
@@ -305,12 +260,29 @@ bool DigitalCredentialProvider_Data::Validate(
     return false;
   }
 
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->selector, 2, validation_context)) {
-    return false;
-  }
   if (!mojo::internal::ValidateStruct(object->selector, validation_context))
     return false;
+
+  constexpr const mojo::internal::ContainerValidateParams& protocol_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->protocol, validation_context,
+                                         &protocol_validate_params)) {
+    return false;
+  }
+
+  constexpr const mojo::internal::ContainerValidateParams& request_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->request, validation_context,
+                                         &request_validate_params)) {
+    return false;
+  }
+
+  constexpr const mojo::internal::ContainerValidateParams& publicKey_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->publicKey, validation_context,
+                                         &publicKey_validate_params)) {
+    return false;
+  }
 
   return true;
 }
@@ -419,7 +391,7 @@ bool IdentityProviderConfig_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 72, validation_context)) {
+          data, 32, validation_context)) {
     return false;
   }
 
@@ -436,7 +408,7 @@ bool IdentityProviderConfig_Data::Validate(
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->client_id, 2, validation_context)) {
+          object->client_id, 3, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& client_id_validate_params =
@@ -446,8 +418,38 @@ bool IdentityProviderConfig_Data::Validate(
     return false;
   }
 
+  return true;
+}
+
+IdentityProviderConfig_Data::IdentityProviderConfig_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool IdentityProviderRequestOptions_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 64, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const IdentityProviderRequestOptions_Data* object =
+      static_cast<const IdentityProviderRequestOptions_Data*>(data);
+
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->nonce, 3, validation_context)) {
+          object->config, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->config, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->nonce, 2, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& nonce_validate_params =
@@ -458,7 +460,7 @@ bool IdentityProviderConfig_Data::Validate(
   }
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->login_hint, 4, validation_context)) {
+          object->login_hint, 3, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& login_hint_validate_params =
@@ -469,18 +471,18 @@ bool IdentityProviderConfig_Data::Validate(
   }
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->hosted_domain, 5, validation_context)) {
+          object->domain_hint, 4, validation_context)) {
     return false;
   }
-  constexpr const mojo::internal::ContainerValidateParams& hosted_domain_validate_params =
+  constexpr const mojo::internal::ContainerValidateParams& domain_hint_validate_params =
       mojo::internal::GetArrayValidator<0, false, nullptr>();
-  if (!mojo::internal::ValidateContainer(object->hosted_domain, validation_context,
-                                         &hosted_domain_validate_params)) {
+  if (!mojo::internal::ValidateContainer(object->domain_hint, validation_context,
+                                         &domain_hint_validate_params)) {
     return false;
   }
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->scope, 6, validation_context)) {
+          object->scope, 5, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& scope_validate_params =
@@ -491,7 +493,7 @@ bool IdentityProviderConfig_Data::Validate(
   }
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->responseType, 7, validation_context)) {
+          object->responseType, 6, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& responseType_validate_params =
@@ -502,7 +504,7 @@ bool IdentityProviderConfig_Data::Validate(
   }
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->params, 8, validation_context)) {
+          object->params, 7, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& params_validate_params =
@@ -515,7 +517,48 @@ bool IdentityProviderConfig_Data::Validate(
   return true;
 }
 
-IdentityProviderConfig_Data::IdentityProviderConfig_Data()
+IdentityProviderRequestOptions_Data::IdentityProviderRequestOptions_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool IdentityCredentialDisconnectOptions_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const IdentityCredentialDisconnectOptions_Data* object =
+      static_cast<const IdentityCredentialDisconnectOptions_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->config, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->config, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->account_hint, 2, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& account_hint_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->account_hint, validation_context,
+                                         &account_hint_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+IdentityCredentialDisconnectOptions_Data::IdentityCredentialDisconnectOptions_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -893,68 +936,6 @@ FederatedAuthRequest_ResolveTokenRequest_ResponseParams_Data::FederatedAuthReque
 
 
 // static
-bool FederatedAuthRequest_LogoutRps_Params_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const FederatedAuthRequest_LogoutRps_Params_Data* object =
-      static_cast<const FederatedAuthRequest_LogoutRps_Params_Data*>(data);
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->rp_logout_requests, 1, validation_context)) {
-    return false;
-  }
-  constexpr const mojo::internal::ContainerValidateParams& rp_logout_requests_validate_params =
-      mojo::internal::GetArrayValidator<0, false, nullptr>();
-  if (!mojo::internal::ValidateContainer(object->rp_logout_requests, validation_context,
-                                         &rp_logout_requests_validate_params)) {
-    return false;
-  }
-
-  return true;
-}
-
-FederatedAuthRequest_LogoutRps_Params_Data::FederatedAuthRequest_LogoutRps_Params_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool FederatedAuthRequest_LogoutRps_ResponseParams_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const FederatedAuthRequest_LogoutRps_ResponseParams_Data* object =
-      static_cast<const FederatedAuthRequest_LogoutRps_ResponseParams_Data*>(data);
-
-
-  if (!::blink::mojom::internal::LogoutRpsStatus_Data
-        ::Validate(object->status, validation_context))
-    return false;
-
-  return true;
-}
-
-FederatedAuthRequest_LogoutRps_ResponseParams_Data::FederatedAuthRequest_LogoutRps_ResponseParams_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
 bool FederatedAuthRequest_SetIdpSigninStatus_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -1163,6 +1144,64 @@ bool FederatedAuthRequest_PreventSilentAccess_ResponseParams_Data::Validate(
 FederatedAuthRequest_PreventSilentAccess_ResponseParams_Data::FederatedAuthRequest_PreventSilentAccess_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
+
+// static
+bool FederatedAuthRequest_Disconnect_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const FederatedAuthRequest_Disconnect_Params_Data* object =
+      static_cast<const FederatedAuthRequest_Disconnect_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->options, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->options, validation_context))
+    return false;
+
+  return true;
+}
+
+FederatedAuthRequest_Disconnect_Params_Data::FederatedAuthRequest_Disconnect_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool FederatedAuthRequest_Disconnect_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const FederatedAuthRequest_Disconnect_ResponseParams_Data* object =
+      static_cast<const FederatedAuthRequest_Disconnect_ResponseParams_Data*>(data);
+
+
+  if (!::blink::mojom::internal::DisconnectStatus_Data
+        ::Validate(object->status, validation_context))
+    return false;
+
+  return true;
+}
+
+FederatedAuthRequest_Disconnect_ResponseParams_Data::FederatedAuthRequest_Disconnect_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
 }  // namespace internal
 }  // namespace mojom
 }  // namespace blink
@@ -1190,9 +1229,9 @@ void TraceFormatTraits<::blink::mojom::RequestUserInfoStatus>::WriteIntoTrace(
 namespace perfetto {
 
 // static
-void TraceFormatTraits<::blink::mojom::LogoutRpsStatus>::WriteIntoTrace(
-   perfetto::TracedValue context, ::blink::mojom::LogoutRpsStatus value) {
-  return std::move(context).WriteString(::blink::mojom::LogoutRpsStatusToString(value));
+void TraceFormatTraits<::blink::mojom::DisconnectStatus>::WriteIntoTrace(
+   perfetto::TracedValue context, ::blink::mojom::DisconnectStatus value) {
+  return std::move(context).WriteString(::blink::mojom::DisconnectStatusToString(value));
 }
 
 } // namespace perfetto

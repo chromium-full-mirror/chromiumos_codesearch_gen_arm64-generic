@@ -7,10 +7,10 @@
 
 #include <cstddef>
 
+#include "build/build_config.h"
 #include "base/allocator/partition_allocator/src/partition_alloc/allocation_guard.h"
 #include "base/allocator/partition_allocator/src/partition_alloc/partition_alloc_base/compiler_specific.h"
 #include "base/allocator/partition_allocator/src/partition_alloc/partition_alloc_base/component_export.h"
-#include "build/build_config.h"
 
 #if BUILDFLAG(IS_WIN)
 #include "base/allocator/partition_allocator/src/partition_alloc/partition_alloc_base/win/windows_types.h"

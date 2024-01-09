@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -60,7 +61,7 @@ SnapshotSource::SnapshotSource(
 SnapshotSource::SnapshotSource(
     uint64_t id_in,
     const std::string& title_in,
-    const absl::optional<std::string>& window_unique_id_in)
+    const std::optional<std::string>& window_unique_id_in)
     : id(std::move(id_in)),
       title(std::move(title_in)),
       window_unique_id(std::move(window_unique_id_in)),
@@ -69,7 +70,7 @@ SnapshotSource::SnapshotSource(
 SnapshotSource::SnapshotSource(
     uint64_t id_in,
     const std::string& title_in,
-    const absl::optional<std::string>& window_unique_id_in,
+    const std::optional<std::string>& window_unique_id_in,
     int64_t display_id_in)
     : id(std::move(id_in)),
       title(std::move(title_in)),
@@ -103,7 +104,7 @@ void SnapshotSource::WriteIntoTrace(
     dict.AddItem(
       "window_unique_id"), this->window_unique_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -283,15 +284,18 @@ bool SnapshotCapturerProxy::ListSources(
 #else
   TRACE_EVENT0("mojom", "SnapshotCapturer::ListSources");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSnapshotCapturer_ListSources_Name, kFlags, 0, 0, nullptr);
@@ -328,14 +332,17 @@ void SnapshotCapturerProxy::ListSources(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::SnapshotCapturer::ListSources");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSnapshotCapturer_ListSources_Name, kFlags, 0, 0, nullptr);
@@ -367,15 +374,18 @@ bool SnapshotCapturerProxy::TakeSnapshot(
 #else
   TRACE_EVENT0("mojom", "SnapshotCapturer::TakeSnapshot");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSnapshotCapturer_TakeSnapshot_Name, kFlags, 0, 0, nullptr);
@@ -423,14 +433,17 @@ void SnapshotCapturerProxy::TakeSnapshot(
                         "<value of type uint64_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSnapshotCapturer_TakeSnapshot_Name, kFlags, 0, 0, nullptr);
@@ -541,7 +554,8 @@ void SnapshotCapturer_ListSources_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSnapshotCapturer_ListSources_Name, kFlags, 0, 0, nullptr);
@@ -703,7 +717,8 @@ void SnapshotCapturer_TakeSnapshot_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSnapshotCapturer_TakeSnapshot_Name, kFlags, 0, 0, nullptr);
@@ -847,12 +862,12 @@ std::move(p_id), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSnapshotCapturerValidationInfo[] = {
-    {&internal::SnapshotCapturer_ListSources_Params_Data::Validate,
+    { &internal::SnapshotCapturer_ListSources_Params_Data::Validate,
      &internal::SnapshotCapturer_ListSources_ResponseParams_Data::Validate},
-    {&internal::SnapshotCapturer_TakeSnapshot_Params_Data::Validate,
+    { &internal::SnapshotCapturer_TakeSnapshot_Params_Data::Validate,
      &internal::SnapshotCapturer_TakeSnapshot_ResponseParams_Data::Validate},
 };
 
@@ -1160,15 +1175,18 @@ bool ScreenManagerProxy::DeprecatedTakeScreenSnapshot(
 #else
   TRACE_EVENT0("mojom", "ScreenManager::DeprecatedTakeScreenSnapshot");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kScreenManager_DeprecatedTakeScreenSnapshot_Name, kFlags, 0, 0, nullptr);
@@ -1205,14 +1223,17 @@ void ScreenManagerProxy::DeprecatedTakeScreenSnapshot(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::ScreenManager::DeprecatedTakeScreenSnapshot");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kScreenManager_DeprecatedTakeScreenSnapshot_Name, kFlags, 0, 0, nullptr);
@@ -1237,15 +1258,18 @@ bool ScreenManagerProxy::DeprecatedListWindows(
 #else
   TRACE_EVENT0("mojom", "ScreenManager::DeprecatedListWindows");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kScreenManager_DeprecatedListWindows_Name, kFlags, 0, 0, nullptr);
@@ -1282,14 +1306,17 @@ void ScreenManagerProxy::DeprecatedListWindows(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::ScreenManager::DeprecatedListWindows");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kScreenManager_DeprecatedListWindows_Name, kFlags, 0, 0, nullptr);
@@ -1321,15 +1348,18 @@ bool ScreenManagerProxy::DeprecatedTakeWindowSnapshot(
 #else
   TRACE_EVENT0("mojom", "ScreenManager::DeprecatedTakeWindowSnapshot");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kScreenManager_DeprecatedTakeWindowSnapshot_Name, kFlags, 0, 0, nullptr);
@@ -1377,14 +1407,17 @@ void ScreenManagerProxy::DeprecatedTakeWindowSnapshot(
                         "<value of type uint64_t>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kScreenManager_DeprecatedTakeWindowSnapshot_Name, kFlags, 0, 0, nullptr);
@@ -1416,14 +1449,17 @@ void ScreenManagerProxy::GetScreenCapturer(
                         "<value of type ::mojo::PendingReceiver<SnapshotCapturer>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kScreenManager_GetScreenCapturer_Name, kFlags, 0, 0, nullptr);
@@ -1459,14 +1495,17 @@ void ScreenManagerProxy::GetWindowCapturer(
                         "<value of type ::mojo::PendingReceiver<SnapshotCapturer>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kScreenManager_GetWindowCapturer_Name, kFlags, 0, 0, nullptr);
@@ -1505,14 +1544,17 @@ void ScreenManagerProxy::GetScreenVideoCapturer(
                         "<value of type uint64_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kScreenManager_GetScreenVideoCapturer_Name, kFlags, 0, 0, nullptr);
@@ -1552,14 +1594,17 @@ void ScreenManagerProxy::GetWindowVideoCapturer(
                         "<value of type uint64_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kScreenManager_GetWindowVideoCapturer_Name, kFlags, 0, 0, nullptr);
@@ -1675,7 +1720,8 @@ void ScreenManager_DeprecatedTakeScreenSnapshot_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kScreenManager_DeprecatedTakeScreenSnapshot_Name, kFlags, 0, 0, nullptr);
@@ -1828,7 +1874,8 @@ void ScreenManager_DeprecatedListWindows_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kScreenManager_DeprecatedListWindows_Name, kFlags, 0, 0, nullptr);
@@ -1990,7 +2037,8 @@ void ScreenManager_DeprecatedTakeWindowSnapshot_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kScreenManager_DeprecatedTakeWindowSnapshot_Name, kFlags, 0, 0, nullptr);
@@ -2298,22 +2346,22 @@ std::move(p_id), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kScreenManagerValidationInfo[] = {
-    {&internal::ScreenManager_DeprecatedTakeScreenSnapshot_Params_Data::Validate,
+    { &internal::ScreenManager_DeprecatedTakeScreenSnapshot_Params_Data::Validate,
      &internal::ScreenManager_DeprecatedTakeScreenSnapshot_ResponseParams_Data::Validate},
-    {&internal::ScreenManager_DeprecatedListWindows_Params_Data::Validate,
+    { &internal::ScreenManager_DeprecatedListWindows_Params_Data::Validate,
      &internal::ScreenManager_DeprecatedListWindows_ResponseParams_Data::Validate},
-    {&internal::ScreenManager_DeprecatedTakeWindowSnapshot_Params_Data::Validate,
+    { &internal::ScreenManager_DeprecatedTakeWindowSnapshot_Params_Data::Validate,
      &internal::ScreenManager_DeprecatedTakeWindowSnapshot_ResponseParams_Data::Validate},
-    {&internal::ScreenManager_GetScreenCapturer_Params_Data::Validate,
+    { &internal::ScreenManager_GetScreenCapturer_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ScreenManager_GetWindowCapturer_Params_Data::Validate,
+    { &internal::ScreenManager_GetWindowCapturer_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ScreenManager_GetScreenVideoCapturer_Params_Data::Validate,
+    { &internal::ScreenManager_GetScreenVideoCapturer_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::ScreenManager_GetWindowVideoCapturer_Params_Data::Validate,
+    { &internal::ScreenManager_GetWindowVideoCapturer_Params_Data::Validate,
      nullptr /* no response */},
 };
 

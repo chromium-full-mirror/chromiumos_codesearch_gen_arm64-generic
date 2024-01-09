@@ -79,11 +79,6 @@ static_assert(
     std::is_base_of<ActiveScriptWrappableBase, MediaStreamTrack>::value,
     "MediaStreamTrack does not inherit from ActiveScriptWrappable<> despite "
     "the IDL has [ActiveScriptWrappable] extended attribute.");
-static_assert(
-    !std::is_same<decltype(&MediaStreamTrack::HasPendingActivity),
-                  decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "MediaStreamTrack is not overriding hasPendingActivity() despite "
-    "the IDL has [ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -96,10 +91,10 @@ BLINK_BINDINGS_TRACE_EVENT("MediaStreamTrack.kind.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MediaStreamTrack* blink_receiver = V8MediaStreamTrack::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->kind();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MediaStreamTrack* blink_receiver = V8MediaStreamTrack::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->kind();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -111,10 +106,10 @@ BLINK_BINDINGS_TRACE_EVENT("MediaStreamTrack.id.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MediaStreamTrack* blink_receiver = V8MediaStreamTrack::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->id();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MediaStreamTrack* blink_receiver = V8MediaStreamTrack::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->id();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -126,10 +121,10 @@ BLINK_BINDINGS_TRACE_EVENT("MediaStreamTrack.label.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MediaStreamTrack* blink_receiver = V8MediaStreamTrack::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->label();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MediaStreamTrack* blink_receiver = V8MediaStreamTrack::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->label();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -141,8 +136,9 @@ BLINK_BINDINGS_TRACE_EVENT("MediaStreamTrack.enabled.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MediaStreamTrack* blink_receiver = V8MediaStreamTrack::ToWrappableUnsafe(v8_receiver);
+MediaStreamTrack* blink_receiver = V8MediaStreamTrack::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->enabled();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -154,9 +150,9 @@ BLINK_BINDINGS_TRACE_EVENT("MediaStreamTrack.enabled.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MediaStreamTrack* blink_receiver = V8MediaStreamTrack::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MediaStreamTrack* blink_receiver = V8MediaStreamTrack::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "MediaStreamTrack";
@@ -177,8 +173,9 @@ BLINK_BINDINGS_TRACE_EVENT("MediaStreamTrack.muted.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MediaStreamTrack* blink_receiver = V8MediaStreamTrack::ToWrappableUnsafe(v8_receiver);
+MediaStreamTrack* blink_receiver = V8MediaStreamTrack::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->muted();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -191,10 +188,10 @@ BLINK_BINDINGS_TRACE_EVENT("MediaStreamTrack.onmute.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MediaStreamTrack* blink_receiver = V8MediaStreamTrack::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onmute();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MediaStreamTrack* blink_receiver = V8MediaStreamTrack::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onmute();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -207,8 +204,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MediaStreamTrack* blink_receiver = V8MediaStreamTrack::ToWrappableUnsafe(v8_receiver);
+MediaStreamTrack* blink_receiver = V8MediaStreamTrack::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnmute(event_handler);
 }
 
@@ -219,10 +217,10 @@ BLINK_BINDINGS_TRACE_EVENT("MediaStreamTrack.onunmute.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MediaStreamTrack* blink_receiver = V8MediaStreamTrack::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onunmute();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MediaStreamTrack* blink_receiver = V8MediaStreamTrack::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onunmute();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -235,8 +233,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MediaStreamTrack* blink_receiver = V8MediaStreamTrack::ToWrappableUnsafe(v8_receiver);
+MediaStreamTrack* blink_receiver = V8MediaStreamTrack::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnunmute(event_handler);
 }
 
@@ -247,10 +246,10 @@ BLINK_BINDINGS_TRACE_EVENT("MediaStreamTrack.readyState.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MediaStreamTrack* blink_receiver = V8MediaStreamTrack::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->readyState();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MediaStreamTrack* blink_receiver = V8MediaStreamTrack::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->readyState();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -262,10 +261,10 @@ BLINK_BINDINGS_TRACE_EVENT("MediaStreamTrack.onended.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MediaStreamTrack* blink_receiver = V8MediaStreamTrack::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onended();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MediaStreamTrack* blink_receiver = V8MediaStreamTrack::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onended();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -278,8 +277,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MediaStreamTrack* blink_receiver = V8MediaStreamTrack::ToWrappableUnsafe(v8_receiver);
+MediaStreamTrack* blink_receiver = V8MediaStreamTrack::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnended(event_handler);
 }
 
@@ -290,10 +290,10 @@ BLINK_BINDINGS_TRACE_EVENT("MediaStreamTrack.oncapturehandlechange.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MediaStreamTrack* blink_receiver = V8MediaStreamTrack::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->oncapturehandlechange();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MediaStreamTrack* blink_receiver = V8MediaStreamTrack::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->oncapturehandlechange();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -306,8 +306,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MediaStreamTrack* blink_receiver = V8MediaStreamTrack::ToWrappableUnsafe(v8_receiver);
+MediaStreamTrack* blink_receiver = V8MediaStreamTrack::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOncapturehandlechange(event_handler);
 }
 
@@ -318,10 +319,10 @@ BLINK_BINDINGS_TRACE_EVENT("MediaStreamTrack.onconfigurationchange.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-MediaStreamTrack* blink_receiver = V8MediaStreamTrack::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onconfigurationchange();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+MediaStreamTrack* blink_receiver = V8MediaStreamTrack::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onconfigurationchange();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -334,8 +335,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MediaStreamTrack* blink_receiver = V8MediaStreamTrack::ToWrappableUnsafe(v8_receiver);
+MediaStreamTrack* blink_receiver = V8MediaStreamTrack::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnconfigurationchange(event_handler);
 }
 
@@ -352,15 +354,8 @@ UseCounter::Count(current_execution_context, WebFeature::kV8MediaStreamTrack_Sta
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MediaStreamTrack* blink_receiver = V8MediaStreamTrack::ToWrappableUnsafe(v8_receiver);
-const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeGet;
-const char* const class_like_name = "MediaStreamTrack";
-const char* const property_name = "stats";
-ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
-auto&& return_value = blink_receiver->stats(exception_state);
-if (UNLIKELY(exception_state.HadException())) {
-  return;
-}
+MediaStreamTrack* blink_receiver = V8MediaStreamTrack::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->stats();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
 
@@ -378,7 +373,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8MediaStreamTrack_Con
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MediaStreamTrack* blink_receiver = V8MediaStreamTrack::ToWrappableUnsafe(v8_receiver);
+MediaStreamTrack* blink_receiver = V8MediaStreamTrack::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = MediaStreamTrackContentHint::contentHint(*blink_receiver);
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
@@ -396,7 +391,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8MediaStreamTrack_Con
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-MediaStreamTrack* blink_receiver = V8MediaStreamTrack::ToWrappableUnsafe(v8_receiver);
+MediaStreamTrack* blink_receiver = V8MediaStreamTrack::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "MediaStreamTrack";
@@ -437,7 +432,7 @@ UseCounter::Count(current_execution_context, WebFeature::kV8MediaStreamTrack_App
 
 
 
-MediaStreamTrack* blink_receiver = V8MediaStreamTrack::ToWrappableUnsafe(v8_receiver);
+MediaStreamTrack* blink_receiver = V8MediaStreamTrack::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -470,8 +465,9 @@ BLINK_BINDINGS_TRACE_EVENT("MediaStreamTrack.clone");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MediaStreamTrack* blink_receiver = V8MediaStreamTrack::ToWrappableUnsafe(v8_receiver);
+MediaStreamTrack* blink_receiver = V8MediaStreamTrack::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
 ExecutionContext* execution_context = receiver_execution_context;
@@ -495,7 +491,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-MediaStreamTrack* blink_receiver = V8MediaStreamTrack::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+MediaStreamTrack* blink_receiver = V8MediaStreamTrack::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getCapabilities();
 if (!ToV8Traits<MediaTrackCapabilities>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -524,7 +521,7 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-MediaStreamTrack* blink_receiver = V8MediaStreamTrack::ToWrappableUnsafe(v8_receiver);
+MediaStreamTrack* blink_receiver = V8MediaStreamTrack::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getCaptureHandle();
 if (!ToV8Traits<IDLNullable<CaptureHandle>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -548,7 +545,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-MediaStreamTrack* blink_receiver = V8MediaStreamTrack::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+MediaStreamTrack* blink_receiver = V8MediaStreamTrack::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getConstraints();
 if (!ToV8Traits<MediaTrackConstraints>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -572,7 +570,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-MediaStreamTrack* blink_receiver = V8MediaStreamTrack::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+MediaStreamTrack* blink_receiver = V8MediaStreamTrack::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getSettings();
 if (!ToV8Traits<MediaTrackSettings>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -591,8 +590,9 @@ BLINK_BINDINGS_TRACE_EVENT("MediaStreamTrack.stop");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-MediaStreamTrack* blink_receiver = V8MediaStreamTrack::ToWrappableUnsafe(v8_receiver);
+MediaStreamTrack* blink_receiver = V8MediaStreamTrack::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
 ExecutionContext* execution_context = receiver_execution_context;

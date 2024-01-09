@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "app-vim", "name": "gentoo-syntax", "version": "20210911", "revision": 0, "fullname": "app-vim/gentoo-syntax", "fullnamerev": "app-vim/gentoo-syntax-20210911", "license_names": ["vim"], "license_text_scanned": [], "homepages": ["https://github.com/gentoo/gentoo-syntax"], "skip": false, "tainted": false, "ebuild_path": null}

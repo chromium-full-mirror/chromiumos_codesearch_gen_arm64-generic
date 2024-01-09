@@ -2053,62 +2053,6 @@
     encoder.encodeStruct(codec.Int32, val.wordStartAdjust);
     encoder.encodeStruct(codec.Int32, val.wordEndAdjust);
   };
-  function ScrollResultData(values) {
-    this.initDefaults_();
-    this.initFields_(values);
-  }
-
-
-  ScrollResultData.prototype.initDefaults_ = function() {
-    this.rootScrollOffset = null;
-  };
-  ScrollResultData.prototype.initFields_ = function(fields) {
-    for(var field in fields) {
-        if (this.hasOwnProperty(field))
-          this[field] = fields[field];
-    }
-  };
-
-  ScrollResultData.validate = function(messageValidator, offset) {
-    var err;
-    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-    var kVersionSizes = [
-      {version: 0, numBytes: 16}
-    ];
-    err = messageValidator.validateStructVersion(offset, kVersionSizes);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-
-    // validate ScrollResultData.rootScrollOffset
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 0, geometry$.PointF, true);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-    return validator.validationError.NONE;
-  };
-
-  ScrollResultData.encodedSize = codec.kStructHeaderSize + 8;
-
-  ScrollResultData.decode = function(decoder) {
-    var packed;
-    var val = new ScrollResultData();
-    var numberOfBytes = decoder.readUint32();
-    var version = decoder.readUint32();
-    val.rootScrollOffset =
-        decoder.decodeStructPointer(geometry$.PointF);
-    return val;
-  };
-
-  ScrollResultData.encode = function(encoder, val) {
-    var packed;
-    encoder.writeUint32(ScrollResultData.encodedSize);
-    encoder.writeUint32(0);
-    encoder.encodeStructPointer(geometry$.PointF, val.rootScrollOffset);
-  };
   function WidgetInputHandlerHost_SetTouchActionFromMain_Params(values) {
     this.initDefaults_();
     this.initFields_(values);
@@ -2519,6 +2463,73 @@
     encoder.writeUint32(0);
     packed = 0;
     packed |= (val.capture & 1) << 0
+    encoder.writeUint8(packed);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+  };
+  function WidgetInputHandlerHost_SetAutoscrollSelectionActiveInMainFrame_Params(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  WidgetInputHandlerHost_SetAutoscrollSelectionActiveInMainFrame_Params.prototype.initDefaults_ = function() {
+    this.autoscrollSelection = false;
+  };
+  WidgetInputHandlerHost_SetAutoscrollSelectionActiveInMainFrame_Params.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  WidgetInputHandlerHost_SetAutoscrollSelectionActiveInMainFrame_Params.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 16}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    return validator.validationError.NONE;
+  };
+
+  WidgetInputHandlerHost_SetAutoscrollSelectionActiveInMainFrame_Params.encodedSize = codec.kStructHeaderSize + 8;
+
+  WidgetInputHandlerHost_SetAutoscrollSelectionActiveInMainFrame_Params.decode = function(decoder) {
+    var packed;
+    var val = new WidgetInputHandlerHost_SetAutoscrollSelectionActiveInMainFrame_Params();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    packed = decoder.readUint8();
+    val.autoscrollSelection = (packed >> 0) & 1 ? true : false;
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    return val;
+  };
+
+  WidgetInputHandlerHost_SetAutoscrollSelectionActiveInMainFrame_Params.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(WidgetInputHandlerHost_SetAutoscrollSelectionActiveInMainFrame_Params.encodedSize);
+    encoder.writeUint32(0);
+    packed = 0;
+    packed |= (val.autoscrollSelection & 1) << 0
     encoder.writeUint8(packed);
     encoder.skip(1);
     encoder.skip(1);
@@ -5244,7 +5255,6 @@
     this.updatedLatency = null;
     this.overscroll = null;
     this.touchAction = null;
-    this.scrollResultData = null;
   };
   WidgetInputHandler_DispatchEvent_ResponseParams.prototype.initFields_ = function(fields) {
     for(var field in fields) {
@@ -5260,7 +5270,7 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 48}
+      {version: 0, numBytes: 40}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
@@ -5296,16 +5306,10 @@
     if (err !== validator.validationError.NONE)
         return err;
 
-
-    // validate WidgetInputHandler_DispatchEvent_ResponseParams.scrollResultData
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 32, ScrollResultData, true);
-    if (err !== validator.validationError.NONE)
-        return err;
-
     return validator.validationError.NONE;
   };
 
-  WidgetInputHandler_DispatchEvent_ResponseParams.encodedSize = codec.kStructHeaderSize + 40;
+  WidgetInputHandler_DispatchEvent_ResponseParams.encodedSize = codec.kStructHeaderSize + 32;
 
   WidgetInputHandler_DispatchEvent_ResponseParams.decode = function(decoder) {
     var packed;
@@ -5322,8 +5326,6 @@
         decoder.decodeStructPointer(DidOverscrollParams);
     val.touchAction =
         decoder.decodeStructPointer(TouchActionOptional);
-    val.scrollResultData =
-        decoder.decodeStructPointer(ScrollResultData);
     return val;
   };
 
@@ -5336,7 +5338,6 @@
     encoder.encodeStructPointer(latency_info$.LatencyInfo, val.updatedLatency);
     encoder.encodeStructPointer(DidOverscrollParams, val.overscroll);
     encoder.encodeStructPointer(TouchActionOptional, val.touchAction);
-    encoder.encodeStructPointer(ScrollResultData, val.scrollResultData);
   };
   function WidgetInputHandler_DispatchNonBlockingEvent_Params(values) {
     this.initDefaults_();
@@ -5644,7 +5645,8 @@
   var kWidgetInputHandlerHost_ImeCancelComposition_Name = 4;
   var kWidgetInputHandlerHost_ImeCompositionRangeChanged_Name = 5;
   var kWidgetInputHandlerHost_SetMouseCapture_Name = 6;
-  var kWidgetInputHandlerHost_RequestMouseLock_Name = 7;
+  var kWidgetInputHandlerHost_SetAutoscrollSelectionActiveInMainFrame_Name = 7;
+  var kWidgetInputHandlerHost_RequestMouseLock_Name = 8;
 
   function WidgetInputHandlerHostPtr(handleOrPtrInfo) {
     this.ptr = new bindings.InterfacePtrController(WidgetInputHandlerHost,
@@ -5769,6 +5771,21 @@
     var message = builder.finish();
     this.receiver_.accept(message);
   };
+  WidgetInputHandlerHostPtr.prototype.setAutoscrollSelectionActiveInMainFrame = function() {
+    return WidgetInputHandlerHostProxy.prototype.setAutoscrollSelectionActiveInMainFrame
+        .apply(this.ptr.getProxy(), arguments);
+  };
+
+  WidgetInputHandlerHostProxy.prototype.setAutoscrollSelectionActiveInMainFrame = function(autoscrollSelection) {
+    var params_ = new WidgetInputHandlerHost_SetAutoscrollSelectionActiveInMainFrame_Params();
+    params_.autoscrollSelection = autoscrollSelection;
+    var builder = new codec.MessageV0Builder(
+        kWidgetInputHandlerHost_SetAutoscrollSelectionActiveInMainFrame_Name,
+        codec.align(WidgetInputHandlerHost_SetAutoscrollSelectionActiveInMainFrame_Params.encodedSize));
+    builder.encodeStruct(WidgetInputHandlerHost_SetAutoscrollSelectionActiveInMainFrame_Params, params_);
+    var message = builder.finish();
+    this.receiver_.accept(message);
+  };
   WidgetInputHandlerHostPtr.prototype.requestMouseLock = function() {
     return WidgetInputHandlerHostProxy.prototype.requestMouseLock
         .apply(this.ptr.getProxy(), arguments);
@@ -5820,6 +5837,9 @@
   WidgetInputHandlerHostStub.prototype.setMouseCapture = function(capture) {
     return this.delegate_ && this.delegate_.setMouseCapture && this.delegate_.setMouseCapture(capture);
   }
+  WidgetInputHandlerHostStub.prototype.setAutoscrollSelectionActiveInMainFrame = function(autoscrollSelection) {
+    return this.delegate_ && this.delegate_.setAutoscrollSelectionActiveInMainFrame && this.delegate_.setAutoscrollSelectionActiveInMainFrame(autoscrollSelection);
+  }
   WidgetInputHandlerHostStub.prototype.requestMouseLock = function(fromUserGesture, unadjustedMovement) {
     return this.delegate_ && this.delegate_.requestMouseLock && this.delegate_.requestMouseLock(fromUserGesture, unadjustedMovement);
   }
@@ -5854,6 +5874,10 @@
     case kWidgetInputHandlerHost_SetMouseCapture_Name:
       var params = reader.decodeStruct(WidgetInputHandlerHost_SetMouseCapture_Params);
       this.setMouseCapture(params.capture);
+      return true;
+    case kWidgetInputHandlerHost_SetAutoscrollSelectionActiveInMainFrame_Name:
+      var params = reader.decodeStruct(WidgetInputHandlerHost_SetAutoscrollSelectionActiveInMainFrame_Params);
+      this.setAutoscrollSelectionActiveInMainFrame(params.autoscrollSelection);
       return true;
     default:
       return false;
@@ -5917,6 +5941,10 @@
       case kWidgetInputHandlerHost_SetMouseCapture_Name:
         if (!message.expectsResponse() && !message.isResponse())
           paramsClass = WidgetInputHandlerHost_SetMouseCapture_Params;
+      break;
+      case kWidgetInputHandlerHost_SetAutoscrollSelectionActiveInMainFrame_Name:
+        if (!message.expectsResponse() && !message.isResponse())
+          paramsClass = WidgetInputHandlerHost_SetAutoscrollSelectionActiveInMainFrame_Params;
       break;
       case kWidgetInputHandlerHost_RequestMouseLock_Name:
         if (message.expectsResponse())
@@ -7346,7 +7374,6 @@
         responseParams.state = response.state;
         responseParams.overscroll = response.overscroll;
         responseParams.touchAction = response.touchAction;
-        responseParams.scrollResultData = response.scrollResultData;
         var builder = new codec.MessageV1Builder(
             kWidgetInputHandler_DispatchEvent_Name,
             codec.align(WidgetInputHandler_DispatchEvent_ResponseParams.encodedSize),
@@ -7503,7 +7530,6 @@
   exports.TouchActionOptional = TouchActionOptional;
   exports.EditCommand = EditCommand;
   exports.SelectAroundCaretResult = SelectAroundCaretResult;
-  exports.ScrollResultData = ScrollResultData;
   exports.WidgetInputHandlerHost = WidgetInputHandlerHost;
   exports.WidgetInputHandlerHostPtr = WidgetInputHandlerHostPtr;
   exports.WidgetInputHandlerHostAssociatedPtr = WidgetInputHandlerHostAssociatedPtr;

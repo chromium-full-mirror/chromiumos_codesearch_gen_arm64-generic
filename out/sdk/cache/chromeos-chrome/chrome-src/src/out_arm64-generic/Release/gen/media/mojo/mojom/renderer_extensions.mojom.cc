@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -134,14 +135,17 @@ void MediaPlayerRendererClientExtensionProxy::OnVideoSizeChange(
                         "<value of type const ::gfx::Size&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaPlayerRendererClientExtension_OnVideoSizeChange_Name, kFlags, 0, 0, nullptr);
@@ -182,14 +186,17 @@ void MediaPlayerRendererClientExtensionProxy::OnDurationChange(
                         "<value of type ::base::TimeDelta>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaPlayerRendererClientExtension_OnDurationChange_Name, kFlags, 0, 0, nullptr);
@@ -297,12 +304,12 @@ bool MediaPlayerRendererClientExtensionStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kMediaPlayerRendererClientExtensionValidationInfo[] = {
-    {&internal::MediaPlayerRendererClientExtension_OnVideoSizeChange_Params_Data::Validate,
+    { &internal::MediaPlayerRendererClientExtension_OnVideoSizeChange_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::MediaPlayerRendererClientExtension_OnDurationChange_Params_Data::Validate,
+    { &internal::MediaPlayerRendererClientExtension_OnDurationChange_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -391,14 +398,17 @@ void MediaPlayerRendererExtensionProxy::InitiateScopedSurfaceRequest(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send media::mojom::MediaPlayerRendererExtension::InitiateScopedSurfaceRequest");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaPlayerRendererExtension_InitiateScopedSurfaceRequest_Name, kFlags, 0, 0, nullptr);
@@ -508,7 +518,8 @@ void MediaPlayerRendererExtension_InitiateScopedSurfaceRequest_ProxyToResponder:
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaPlayerRendererExtension_InitiateScopedSurfaceRequest_Name, kFlags, 0, 0, nullptr);
@@ -594,10 +605,10 @@ bool MediaPlayerRendererExtensionStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kMediaPlayerRendererExtensionValidationInfo[] = {
-    {&internal::MediaPlayerRendererExtension_InitiateScopedSurfaceRequest_Params_Data::Validate,
+    { &internal::MediaPlayerRendererExtension_InitiateScopedSurfaceRequest_Params_Data::Validate,
      &internal::MediaPlayerRendererExtension_InitiateScopedSurfaceRequest_ResponseParams_Data::Validate},
 };
 
@@ -681,14 +692,17 @@ void FlingingRendererClientExtensionProxy::OnRemotePlayStateChange(
                         "<value of type ::media::MediaStatus::State>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kFlingingRendererClientExtension_OnRemotePlayStateChange_Name, kFlags, 0, 0, nullptr);
@@ -758,10 +772,10 @@ bool FlingingRendererClientExtensionStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kFlingingRendererClientExtensionValidationInfo[] = {
-    {&internal::FlingingRendererClientExtension_OnRemotePlayStateChange_Params_Data::Validate,
+    { &internal::FlingingRendererClientExtension_OnRemotePlayStateChange_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -813,8 +827,8 @@ bool MediaFoundationRendererObserverStubDispatch::AcceptWithResponder(
     std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
   return false;
 }
-
-
+namespace {
+}  // namespace
 
 bool MediaFoundationRendererObserverRequestValidator::Accept(mojo::Message* message) {
   const char* name = ::media::mojom::MediaFoundationRendererObserver::Name_;
@@ -892,14 +906,17 @@ void MediaFoundationRendererNotifierProxy::MediaFoundationRendererCreated(
                         "<value of type ::mojo::PendingReceiver<MediaFoundationRendererObserver>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kMediaFoundationRendererNotifier_MediaFoundationRendererCreated_Name, kFlags, 0, 0, nullptr);
@@ -975,10 +992,10 @@ bool MediaFoundationRendererNotifierStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kMediaFoundationRendererNotifierValidationInfo[] = {
-    {&internal::MediaFoundationRendererNotifier_MediaFoundationRendererCreated_Params_Data::Validate,
+    { &internal::MediaFoundationRendererNotifier_MediaFoundationRendererCreated_Params_Data::Validate,
      nullptr /* no response */},
 };
 

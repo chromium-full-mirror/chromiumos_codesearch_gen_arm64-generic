@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -50,8 +51,8 @@ struct PrinterInfo {
   ~PrinterInfo();
   PrinterInfo(const PrinterInfo&) = delete;
   PrinterInfo& operator=(const PrinterInfo&) = delete;
-  PrinterInfo(PrinterInfo&& rhs);
-  PrinterInfo& operator=(PrinterInfo&& rhs);
+  PrinterInfo(PrinterInfo&& rhs) noexcept;
+  PrinterInfo& operator=(PrinterInfo&& rhs) noexcept;
 
   // Populates a PrinterInfo object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -64,15 +65,12 @@ struct PrinterInfo {
   // Creates a deep copy of PrinterInfo.
   PrinterInfo Clone() const;
 
-  // Creates a PrinterInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<PrinterInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a PrinterInfo object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<PrinterInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<PrinterInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a PrinterInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<PrinterInfo> FromValue(const base::Value& value);
+  static std::optional<PrinterInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisPrinterInfo object.
@@ -85,7 +83,7 @@ struct PrinterInfo {
   std::string name;
 
   // Printer's human readable description.
-  absl::optional<std::string> description;
+  std::optional<std::string> description;
 
 };
 
@@ -94,8 +92,8 @@ struct PrintJob {
   ~PrintJob();
   PrintJob(const PrintJob&) = delete;
   PrintJob& operator=(const PrintJob&) = delete;
-  PrintJob(PrintJob&& rhs);
-  PrintJob& operator=(PrintJob&& rhs);
+  PrintJob(PrintJob&& rhs) noexcept;
+  PrintJob& operator=(PrintJob&& rhs) noexcept;
 
   // Populates a PrintJob object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -108,14 +106,11 @@ struct PrintJob {
   // Creates a deep copy of PrintJob.
   PrintJob Clone() const;
 
-  // Creates a PrintJob object from a base::Value, or NULL on failure.
-  static std::unique_ptr<PrintJob> FromValueDeprecated(const base::Value& value);
-
   // Creates a PrintJob object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<PrintJob> FromValue(const base::Value::Dict& value);
+  static std::optional<PrintJob> FromValue(const base::Value::Dict& value);
 
   // Creates a PrintJob object from a base::Value, or nullopt on failure.
-  static absl::optional<PrintJob> FromValue(const base::Value& value);
+  static std::optional<PrintJob> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisPrintJob object.
@@ -132,8 +127,8 @@ struct PrintJob {
     ~Ticket();
     Ticket(const Ticket&) = delete;
     Ticket& operator=(const Ticket&) = delete;
-    Ticket(Ticket&& rhs);
-    Ticket& operator=(Ticket&& rhs);
+    Ticket(Ticket&& rhs) noexcept;
+    Ticket& operator=(Ticket&& rhs) noexcept;
 
     // Populates a Ticket object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -147,10 +142,10 @@ struct PrintJob {
     Ticket Clone() const;
 
     // Creates a Ticket object from a base::Value::Dict, or nullopt on failure.
-    static absl::optional<Ticket> FromValue(const base::Value::Dict& value);
+    static std::optional<Ticket> FromValue(const base::Value::Dict& value);
 
     // Creates a Ticket object from a base::Value, or nullopt on failure.
-    static absl::optional<Ticket> FromValue(const base::Value& value);
+    static std::optional<Ticket> FromValue(const base::Value& value);
 
     // Returns a new base::Value::Dict representing the serialized form of
     // thisTicket object.
@@ -165,8 +160,8 @@ struct PrintJob {
     ~Document();
     Document(const Document&) = delete;
     Document& operator=(const Document&) = delete;
-    Document(Document&& rhs);
-    Document& operator=(Document&& rhs);
+    Document(Document&& rhs) noexcept;
+    Document& operator=(Document&& rhs) noexcept;
 
     // Populates a Document object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -180,10 +175,10 @@ struct PrintJob {
     Document Clone() const;
 
     // Creates a Document object from a base::Value::Dict, or nullopt on failure.
-    static absl::optional<Document> FromValue(const base::Value::Dict& value);
+    static std::optional<Document> FromValue(const base::Value::Dict& value);
 
     // Creates a Document object from a base::Value, or nullopt on failure.
-    static absl::optional<Document> FromValue(const base::Value& value);
+    static std::optional<Document> FromValue(const base::Value& value);
 
     // Returns a new base::Value::Dict representing the serialized form of
     // thisDocument object.

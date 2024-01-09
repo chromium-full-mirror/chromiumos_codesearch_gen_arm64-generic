@@ -69,11 +69,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, WorkletAnimationEffect>::value,
     "WorkletAnimationEffect inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&WorkletAnimationEffect::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "WorkletAnimationEffect is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -86,8 +81,9 @@ BLINK_BINDINGS_TRACE_EVENT("WorkletAnimationEffect.localTime.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-WorkletAnimationEffect* blink_receiver = V8WorkletAnimationEffect::ToWrappableUnsafe(v8_receiver);
+WorkletAnimationEffect* blink_receiver = V8WorkletAnimationEffect::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->localTime();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -109,7 +105,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-WorkletAnimationEffect* blink_receiver = V8WorkletAnimationEffect::ToWrappableUnsafe(v8_receiver);
+WorkletAnimationEffect* blink_receiver = V8WorkletAnimationEffect::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 auto&& arg1_value = NativeValueTraits<IDLNullable<IDLDouble>>::NativeValue(isolate, v8_property_value, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
@@ -135,7 +131,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-WorkletAnimationEffect* blink_receiver = V8WorkletAnimationEffect::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+WorkletAnimationEffect* blink_receiver = V8WorkletAnimationEffect::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getComputedTiming();
 if (!ToV8Traits<ComputedEffectTiming>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -159,7 +156,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-WorkletAnimationEffect* blink_receiver = V8WorkletAnimationEffect::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+WorkletAnimationEffect* blink_receiver = V8WorkletAnimationEffect::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->getTiming();
 if (!ToV8Traits<EffectTiming>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;

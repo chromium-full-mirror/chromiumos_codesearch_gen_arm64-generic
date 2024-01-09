@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -298,14 +299,17 @@ void UsbDeviceManagerProxy::EnumerateDevicesAndSetClient(
                         "<value of type ::mojo::PendingAssociatedRemote<::device::mojom::UsbDeviceManagerClient>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUsbDeviceManager_EnumerateDevicesAndSetClient_Name, kFlags, 0, 0, nullptr);
@@ -342,14 +346,17 @@ void UsbDeviceManagerProxy::GetDevices(
                         "<value of type ::device::mojom::UsbEnumerationOptionsPtr>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUsbDeviceManager_GetDevices_Name, kFlags, 0, 0, nullptr);
@@ -396,14 +403,17 @@ void UsbDeviceManagerProxy::GetDevice(
                         "<value of type ::mojo::PendingRemote<::device::mojom::UsbDeviceClient>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUsbDeviceManager_GetDevice_Name, kFlags, 0, 0, nullptr);
@@ -471,14 +481,17 @@ void UsbDeviceManagerProxy::GetSecurityKeyDevice(
                         "<value of type ::mojo::PendingRemote<::device::mojom::UsbDeviceClient>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUsbDeviceManager_GetSecurityKeyDevice_Name, kFlags, 0, 0, nullptr);
@@ -527,14 +540,17 @@ void UsbDeviceManagerProxy::CheckAccess(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUsbDeviceManager_CheckAccess_Name, kFlags, 0, 0, nullptr);
@@ -582,14 +598,17 @@ void UsbDeviceManagerProxy::OpenFileDescriptor(
                         "<value of type ::mojo::PlatformHandle>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUsbDeviceManager_OpenFileDescriptor_Name, kFlags, 0, 0, nullptr);
@@ -638,14 +657,17 @@ void UsbDeviceManagerProxy::SetClient(
                         "<value of type ::mojo::PendingAssociatedRemote<::device::mojom::UsbDeviceManagerClient>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUsbDeviceManager_SetClient_Name, kFlags, 0, 0, nullptr);
@@ -760,7 +782,8 @@ void UsbDeviceManager_EnumerateDevicesAndSetClient_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUsbDeviceManager_EnumerateDevicesAndSetClient_Name, kFlags, 0, 0, nullptr);
@@ -890,7 +913,8 @@ void UsbDeviceManager_GetDevices_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUsbDeviceManager_GetDevices_Name, kFlags, 0, 0, nullptr);
@@ -1020,7 +1044,8 @@ void UsbDeviceManager_CheckAccess_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUsbDeviceManager_CheckAccess_Name, kFlags, 0, 0, nullptr);
@@ -1138,7 +1163,8 @@ void UsbDeviceManager_OpenFileDescriptor_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kUsbDeviceManager_OpenFileDescriptor_Name, kFlags, 0, 0, nullptr);
@@ -1447,22 +1473,22 @@ std::move(p_lifeline_fd), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kUsbDeviceManagerValidationInfo[] = {
-    {&internal::UsbDeviceManager_EnumerateDevicesAndSetClient_Params_Data::Validate,
+    { &internal::UsbDeviceManager_EnumerateDevicesAndSetClient_Params_Data::Validate,
      &internal::UsbDeviceManager_EnumerateDevicesAndSetClient_ResponseParams_Data::Validate},
-    {&internal::UsbDeviceManager_GetDevices_Params_Data::Validate,
+    { &internal::UsbDeviceManager_GetDevices_Params_Data::Validate,
      &internal::UsbDeviceManager_GetDevices_ResponseParams_Data::Validate},
-    {&internal::UsbDeviceManager_GetDevice_Params_Data::Validate,
+    { &internal::UsbDeviceManager_GetDevice_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::UsbDeviceManager_GetSecurityKeyDevice_Params_Data::Validate,
+    { &internal::UsbDeviceManager_GetSecurityKeyDevice_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::UsbDeviceManager_CheckAccess_Params_Data::Validate,
+    { &internal::UsbDeviceManager_CheckAccess_Params_Data::Validate,
      &internal::UsbDeviceManager_CheckAccess_ResponseParams_Data::Validate},
-    {&internal::UsbDeviceManager_OpenFileDescriptor_Params_Data::Validate,
+    { &internal::UsbDeviceManager_OpenFileDescriptor_Params_Data::Validate,
      &internal::UsbDeviceManager_OpenFileDescriptor_ResponseParams_Data::Validate},
-    {&internal::UsbDeviceManager_SetClient_Params_Data::Validate,
+    { &internal::UsbDeviceManager_SetClient_Params_Data::Validate,
      nullptr /* no response */},
 };
 

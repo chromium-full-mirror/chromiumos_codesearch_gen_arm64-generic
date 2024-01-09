@@ -68,8 +68,14 @@ return dictionary;
 
 
 
+
+
+
+
+
 void MLContextOptions::Trace(Visitor* visitor) const {
   TraceIfNeeded<V8MLDevicePreference>::Trace(visitor, member_device_preference_);
+TraceIfNeeded<V8MLDeviceType>::Trace(visitor, member_device_type_);
 TraceIfNeeded<V8MLModelFormat>::Trace(visitor, member_model_format_);
 TraceIfNeeded<uint32_t>::Trace(visitor, member_num_threads_);
 TraceIfNeeded<V8MLPowerPreference>::Trace(visitor, member_power_preference_);
@@ -90,11 +96,19 @@ if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].G
   return false;
 }
 }
+if (hasDeviceType()) {
+  if (!ToV8Traits<V8MLDeviceType>::ToV8(script_state, member_device_type_).ToLocal(&v8_value)) {
+  return false;
+}
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).To(&was_property_created)) {
+  return false;
+}
+}
 if (hasModelFormat()) {
   if (!ToV8Traits<V8MLModelFormat>::ToV8(script_state, member_model_format_).ToLocal(&v8_value)) {
   return false;
 }
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).To(&was_property_created)) {
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).To(&was_property_created)) {
   return false;
 }
 }
@@ -102,7 +116,7 @@ if (hasNumThreads()) {
   if (!ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_num_threads_).ToLocal(&v8_value)) {
   return false;
 }
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).To(&was_property_created)) {
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).To(&was_property_created)) {
   return false;
 }
 }
@@ -110,7 +124,7 @@ if (hasPowerPreference()) {
   if (!ToV8Traits<V8MLPowerPreference>::ToV8(script_state, member_power_preference_).ToLocal(&v8_value)) {
   return false;
 }
-if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).To(&was_property_created)) {
+if (!v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).To(&was_property_created)) {
   return false;
 }
 }
@@ -129,16 +143,20 @@ v8::TryCatch try_block(isolate);
 if (!bindings::GetDictionaryMemberFromV8Object<V8MLDevicePreference, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[0].Get(isolate), fallback_presence_var, member_device_preference_, try_block, exception_state)) {
   return;
 }
+exception_context_scope.ChangePropertyNameAsOptimizationHack("deviceType");
+if (!bindings::GetDictionaryMemberFromV8Object<V8MLDeviceType, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[1].Get(isolate), fallback_presence_var, member_device_type_, try_block, exception_state)) {
+  return;
+}
 exception_context_scope.ChangePropertyNameAsOptimizationHack("modelFormat");
-if (!bindings::GetDictionaryMemberFromV8Object<V8MLModelFormat, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[1].Get(isolate), fallback_presence_var, member_model_format_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<V8MLModelFormat, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[2].Get(isolate), fallback_presence_var, member_model_format_, try_block, exception_state)) {
   return;
 }
 exception_context_scope.ChangePropertyNameAsOptimizationHack("numThreads");
-if (!bindings::GetDictionaryMemberFromV8Object<IDLUnsignedLong, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[2].Get(isolate), fallback_presence_var, member_num_threads_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<IDLUnsignedLong, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[3].Get(isolate), fallback_presence_var, member_num_threads_, try_block, exception_state)) {
   return;
 }
 exception_context_scope.ChangePropertyNameAsOptimizationHack("powerPreference");
-if (!bindings::GetDictionaryMemberFromV8Object<V8MLPowerPreference, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[3].Get(isolate), fallback_presence_var, member_power_preference_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<V8MLPowerPreference, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[4].Get(isolate), fallback_presence_var, member_power_preference_, try_block, exception_state)) {
   return;
 }
 }
@@ -146,6 +164,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<V8MLPowerPreference, is_optional>
 const base::span<const v8::Eternal<v8::Name>> MLContextOptions::GetV8OwnMemberNames(v8::Isolate* isolate) {
   static const char* const kOwnMemberNames[] = {
 "devicePreference",
+"deviceType",
 "modelFormat",
 "numThreads",
 "powerPreference",

@@ -4,27 +4,24 @@
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { getTemplate } from './results_table.html.js';
 export class LauncherResultsTableElement extends PolymerElement {
-    constructor() {
-        super(...arguments);
-        // Current results keyed by result id.
-        this.results = new Map();
-        // Extra header cells, keyed by their text content. These are placed into the
-        // header row in insertion order.
-        this.headerCells = new Map();
-        // The result property used to sort the table. 'Display score' is the default
-        // key, and this will change whenever the user clicks on a new header to sort
-        // by.
-        this.sortKey = 'Display score';
-        // The IDs of results that are currently selected. This is used to persist
-        // formatting when the table is sorted.
-        this.selectedIds = new Set();
-    }
     static get is() {
         return 'launcher-results-table';
     }
     static get template() {
         return getTemplate();
     }
+    // Current results keyed by result id.
+    results = new Map();
+    // Extra header cells, keyed by their text content. These are placed into the
+    // header row in insertion order.
+    headerCells = new Map();
+    // The result property used to sort the table. 'Display score' is the default
+    // key, and this will change whenever the user clicks on a new header to sort
+    // by.
+    sortKey = 'Display score';
+    // The IDs of results that are currently selected. This is used to persist
+    // formatting when the table is sorted.
+    selectedIds = new Set();
     connectedCallback() {
         super.connectedCallback();
         this.$.displayScoreHeader.addEventListener('click', () => this.sortTable('Display score', /*resultsChanged=*/ false));

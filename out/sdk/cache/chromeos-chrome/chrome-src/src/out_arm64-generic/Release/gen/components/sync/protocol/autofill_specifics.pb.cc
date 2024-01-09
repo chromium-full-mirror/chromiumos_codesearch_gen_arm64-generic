@@ -65,6 +65,13 @@ PROTOBUF_CONSTEXPR AutofillProfileSpecifics::AutofillProfileSpecifics(
   , address_home_between_streets_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , address_home_admin_level_2_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , address_home_street_location_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , address_home_overflow_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , address_home_between_streets_1_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , address_home_between_streets_2_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , address_home_between_streets_or_landmark_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , address_home_overflow_and_landmark_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , address_home_apt_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , address_home_apt_type_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , use_count_(int64_t{0})
   , use_date_(int64_t{0})
   , validity_state_bitfield_(int64_t{0})
@@ -105,6 +112,20 @@ PROTOBUF_CONSTEXPR AutofillProfileSpecifics::AutofillProfileSpecifics(
   , address_home_admin_level_2_status_(0)
 
   , address_home_street_location_status_(0)
+
+  , address_home_overflow_status_(0)
+
+  , address_home_between_streets_1_status_(0)
+
+  , address_home_between_streets_2_status_(0)
+
+  , address_home_between_streets_or_landmark_status_(0)
+
+  , address_home_overflow_and_landmark_status_(0)
+
+  , address_home_apt_status_(0)
+
+  , address_home_apt_type_status_(0)
 {}
 struct AutofillProfileSpecificsDefaultTypeInternal {
   PROTOBUF_CONSTEXPR AutofillProfileSpecificsDefaultTypeInternal()
@@ -146,6 +167,58 @@ struct CloudTokenDataDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CloudTokenDataDefaultTypeInternal _CloudTokenData_default_instance_;
+PROTOBUF_CONSTEXPR CardBenefit_FlatRateBenefit::CardBenefit_FlatRateBenefit(
+    ::_pbi::ConstantInitialized){}
+struct CardBenefit_FlatRateBenefitDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR CardBenefit_FlatRateBenefitDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~CardBenefit_FlatRateBenefitDefaultTypeInternal() {}
+  union {
+    CardBenefit_FlatRateBenefit _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CardBenefit_FlatRateBenefitDefaultTypeInternal _CardBenefit_FlatRateBenefit_default_instance_;
+PROTOBUF_CONSTEXPR CardBenefit_CategoryBenefit::CardBenefit_CategoryBenefit(
+    ::_pbi::ConstantInitialized)
+  : category_benefit_type_(0)
+{}
+struct CardBenefit_CategoryBenefitDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR CardBenefit_CategoryBenefitDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~CardBenefit_CategoryBenefitDefaultTypeInternal() {}
+  union {
+    CardBenefit_CategoryBenefit _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CardBenefit_CategoryBenefitDefaultTypeInternal _CardBenefit_CategoryBenefit_default_instance_;
+PROTOBUF_CONSTEXPR CardBenefit_MerchantBenefit::CardBenefit_MerchantBenefit(
+    ::_pbi::ConstantInitialized)
+  : merchant_domain_(){}
+struct CardBenefit_MerchantBenefitDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR CardBenefit_MerchantBenefitDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~CardBenefit_MerchantBenefitDefaultTypeInternal() {}
+  union {
+    CardBenefit_MerchantBenefit _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CardBenefit_MerchantBenefitDefaultTypeInternal _CardBenefit_MerchantBenefit_default_instance_;
+PROTOBUF_CONSTEXPR CardBenefit::CardBenefit(
+    ::_pbi::ConstantInitialized)
+  : benefit_description_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , benefit_id_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , start_time_unix_epoch_milliseconds_(int64_t{0})
+  , end_time_unix_epoch_milliseconds_(int64_t{0})
+  , _oneof_case_{}{}
+struct CardBenefitDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR CardBenefitDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~CardBenefitDefaultTypeInternal() {}
+  union {
+    CardBenefit _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CardBenefitDefaultTypeInternal _CardBenefit_default_instance_;
 PROTOBUF_CONSTEXPR CardIssuer::CardIssuer(
     ::_pbi::ConstantInitialized)
   : issuer_id_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
@@ -162,7 +235,8 @@ struct CardIssuerDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CardIssuerDefaultTypeInternal _CardIssuer_default_instance_;
 PROTOBUF_CONSTEXPR WalletMaskedCreditCard::WalletMaskedCreditCard(
     ::_pbi::ConstantInitialized)
-  : id_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  : card_benefit_()
+  , id_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , name_on_card_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , last_four_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , billing_address_id_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
@@ -170,6 +244,7 @@ PROTOBUF_CONSTEXPR WalletMaskedCreditCard::WalletMaskedCreditCard(
   , nickname_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , card_art_url_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , product_description_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , product_terms_url_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , cloud_token_data_(nullptr)
   , card_issuer_(nullptr)
   , status_(0)
@@ -261,6 +336,22 @@ struct PaymentInstrumentDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PaymentInstrumentDefaultTypeInternal _PaymentInstrument_default_instance_;
+PROTOBUF_CONSTEXPR WalletMaskedIban::WalletMaskedIban(
+    ::_pbi::ConstantInitialized)
+  : instrument_id_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , prefix_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , suffix_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , nickname_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , length_(0){}
+struct WalletMaskedIbanDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR WalletMaskedIbanDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~WalletMaskedIbanDefaultTypeInternal() {}
+  union {
+    WalletMaskedIban _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 WalletMaskedIbanDefaultTypeInternal _WalletMaskedIban_default_instance_;
 PROTOBUF_CONSTEXPR BankAccountDetails::BankAccountDetails(
     ::_pbi::ConstantInitialized)
   : bank_name_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
@@ -283,6 +374,7 @@ PROTOBUF_CONSTEXPR AutofillWalletSpecifics::AutofillWalletSpecifics(
   , customer_data_(nullptr)
   , cloud_token_data_(nullptr)
   , payment_instrument_(nullptr)
+  , masked_iban_(nullptr)
   , type_(0)
 {}
 struct AutofillWalletSpecificsDefaultTypeInternal {
@@ -391,6 +483,89 @@ constexpr AutofillProfileSpecifics_VerificationStatus AutofillProfileSpecifics::
 constexpr AutofillProfileSpecifics_VerificationStatus AutofillProfileSpecifics::VerificationStatus_MIN;
 constexpr AutofillProfileSpecifics_VerificationStatus AutofillProfileSpecifics::VerificationStatus_MAX;
 constexpr int AutofillProfileSpecifics::VerificationStatus_ARRAYSIZE;
+#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+bool CardBenefit_CategoryBenefitType_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+    case 5:
+    case 6:
+      return true;
+    default:
+      return false;
+  }
+}
+
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> CardBenefit_CategoryBenefitType_strings[7] = {};
+
+static const char CardBenefit_CategoryBenefitType_names[] =
+  "CATEGORY_BENEFIT_TYPE_UNKNOWN"
+  "DINING"
+  "ENTERTAINMENT"
+  "FLIGHTS"
+  "GROCERY_STORES"
+  "STREAMING"
+  "SUBSCRIPTION";
+
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry CardBenefit_CategoryBenefitType_entries[] = {
+  { {CardBenefit_CategoryBenefitType_names + 0, 29}, 0 },
+  { {CardBenefit_CategoryBenefitType_names + 29, 6}, 3 },
+  { {CardBenefit_CategoryBenefitType_names + 35, 13}, 4 },
+  { {CardBenefit_CategoryBenefitType_names + 48, 7}, 2 },
+  { {CardBenefit_CategoryBenefitType_names + 55, 14}, 6 },
+  { {CardBenefit_CategoryBenefitType_names + 69, 9}, 5 },
+  { {CardBenefit_CategoryBenefitType_names + 78, 12}, 1 },
+};
+
+static const int CardBenefit_CategoryBenefitType_entries_by_number[] = {
+  0, // 0 -> CATEGORY_BENEFIT_TYPE_UNKNOWN
+  6, // 1 -> SUBSCRIPTION
+  3, // 2 -> FLIGHTS
+  1, // 3 -> DINING
+  2, // 4 -> ENTERTAINMENT
+  5, // 5 -> STREAMING
+  4, // 6 -> GROCERY_STORES
+};
+
+const std::string& CardBenefit_CategoryBenefitType_Name(
+    CardBenefit_CategoryBenefitType value) {
+  static const bool dummy =
+      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
+          CardBenefit_CategoryBenefitType_entries,
+          CardBenefit_CategoryBenefitType_entries_by_number,
+          7, CardBenefit_CategoryBenefitType_strings);
+  (void) dummy;
+  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
+      CardBenefit_CategoryBenefitType_entries,
+      CardBenefit_CategoryBenefitType_entries_by_number,
+      7, value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
+                     CardBenefit_CategoryBenefitType_strings[idx].get();
+}
+bool CardBenefit_CategoryBenefitType_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, CardBenefit_CategoryBenefitType* value) {
+  int int_value;
+  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
+      CardBenefit_CategoryBenefitType_entries, 7, name, &int_value);
+  if (success) {
+    *value = static_cast<CardBenefit_CategoryBenefitType>(int_value);
+  }
+  return success;
+}
+#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+constexpr CardBenefit_CategoryBenefitType CardBenefit::CATEGORY_BENEFIT_TYPE_UNKNOWN;
+constexpr CardBenefit_CategoryBenefitType CardBenefit::SUBSCRIPTION;
+constexpr CardBenefit_CategoryBenefitType CardBenefit::FLIGHTS;
+constexpr CardBenefit_CategoryBenefitType CardBenefit::DINING;
+constexpr CardBenefit_CategoryBenefitType CardBenefit::ENTERTAINMENT;
+constexpr CardBenefit_CategoryBenefitType CardBenefit::STREAMING;
+constexpr CardBenefit_CategoryBenefitType CardBenefit::GROCERY_STORES;
+constexpr CardBenefit_CategoryBenefitType CardBenefit::CategoryBenefitType_MIN;
+constexpr CardBenefit_CategoryBenefitType CardBenefit::CategoryBenefitType_MAX;
+constexpr int CardBenefit::CategoryBenefitType_ARRAYSIZE;
 #endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 bool CardIssuer_Issuer_IsValid(int value) {
   switch (value) {
@@ -896,18 +1071,20 @@ bool AutofillWalletSpecifics_WalletInfoType_IsValid(int value) {
     case 3:
     case 4:
     case 5:
+    case 6:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> AutofillWalletSpecifics_WalletInfoType_strings[6] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> AutofillWalletSpecifics_WalletInfoType_strings[7] = {};
 
 static const char AutofillWalletSpecifics_WalletInfoType_names[] =
   "CREDIT_CARD_CLOUD_TOKEN_DATA"
   "CUSTOMER_DATA"
   "MASKED_CREDIT_CARD"
+  "MASKED_IBAN"
   "PAYMENT_INSTRUMENT"
   "POSTAL_ADDRESS"
   "UNKNOWN";
@@ -916,18 +1093,20 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry AutofillWalletSpecific
   { {AutofillWalletSpecifics_WalletInfoType_names + 0, 28}, 4 },
   { {AutofillWalletSpecifics_WalletInfoType_names + 28, 13}, 3 },
   { {AutofillWalletSpecifics_WalletInfoType_names + 41, 18}, 1 },
-  { {AutofillWalletSpecifics_WalletInfoType_names + 59, 18}, 5 },
-  { {AutofillWalletSpecifics_WalletInfoType_names + 77, 14}, 2 },
-  { {AutofillWalletSpecifics_WalletInfoType_names + 91, 7}, 0 },
+  { {AutofillWalletSpecifics_WalletInfoType_names + 59, 11}, 6 },
+  { {AutofillWalletSpecifics_WalletInfoType_names + 70, 18}, 5 },
+  { {AutofillWalletSpecifics_WalletInfoType_names + 88, 14}, 2 },
+  { {AutofillWalletSpecifics_WalletInfoType_names + 102, 7}, 0 },
 };
 
 static const int AutofillWalletSpecifics_WalletInfoType_entries_by_number[] = {
-  5, // 0 -> UNKNOWN
+  6, // 0 -> UNKNOWN
   2, // 1 -> MASKED_CREDIT_CARD
-  4, // 2 -> POSTAL_ADDRESS
+  5, // 2 -> POSTAL_ADDRESS
   1, // 3 -> CUSTOMER_DATA
   0, // 4 -> CREDIT_CARD_CLOUD_TOKEN_DATA
-  3, // 5 -> PAYMENT_INSTRUMENT
+  4, // 5 -> PAYMENT_INSTRUMENT
+  3, // 6 -> MASKED_IBAN
 };
 
 const std::string& AutofillWalletSpecifics_WalletInfoType_Name(
@@ -936,12 +1115,12 @@ const std::string& AutofillWalletSpecifics_WalletInfoType_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           AutofillWalletSpecifics_WalletInfoType_entries,
           AutofillWalletSpecifics_WalletInfoType_entries_by_number,
-          6, AutofillWalletSpecifics_WalletInfoType_strings);
+          7, AutofillWalletSpecifics_WalletInfoType_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       AutofillWalletSpecifics_WalletInfoType_entries,
       AutofillWalletSpecifics_WalletInfoType_entries_by_number,
-      6, value);
+      7, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      AutofillWalletSpecifics_WalletInfoType_strings[idx].get();
 }
@@ -949,7 +1128,7 @@ bool AutofillWalletSpecifics_WalletInfoType_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, AutofillWalletSpecifics_WalletInfoType* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      AutofillWalletSpecifics_WalletInfoType_entries, 6, name, &int_value);
+      AutofillWalletSpecifics_WalletInfoType_entries, 7, name, &int_value);
   if (success) {
     *value = static_cast<AutofillWalletSpecifics_WalletInfoType>(int_value);
   }
@@ -962,6 +1141,7 @@ constexpr AutofillWalletSpecifics_WalletInfoType AutofillWalletSpecifics::POSTAL
 constexpr AutofillWalletSpecifics_WalletInfoType AutofillWalletSpecifics::CUSTOMER_DATA;
 constexpr AutofillWalletSpecifics_WalletInfoType AutofillWalletSpecifics::CREDIT_CARD_CLOUD_TOKEN_DATA;
 constexpr AutofillWalletSpecifics_WalletInfoType AutofillWalletSpecifics::PAYMENT_INSTRUMENT;
+constexpr AutofillWalletSpecifics_WalletInfoType AutofillWalletSpecifics::MASKED_IBAN;
 constexpr AutofillWalletSpecifics_WalletInfoType AutofillWalletSpecifics::WalletInfoType_MIN;
 constexpr AutofillWalletSpecifics_WalletInfoType AutofillWalletSpecifics::WalletInfoType_MAX;
 constexpr int AutofillWalletSpecifics::WalletInfoType_ARRAYSIZE;
@@ -971,29 +1151,33 @@ bool WalletMetadataSpecifics_Type_IsValid(int value) {
     case 0:
     case 1:
     case 2:
+    case 3:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> WalletMetadataSpecifics_Type_strings[3] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> WalletMetadataSpecifics_Type_strings[4] = {};
 
 static const char WalletMetadataSpecifics_Type_names[] =
   "ADDRESS"
   "CARD"
+  "IBAN"
   "UNKNOWN";
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry WalletMetadataSpecifics_Type_entries[] = {
   { {WalletMetadataSpecifics_Type_names + 0, 7}, 2 },
   { {WalletMetadataSpecifics_Type_names + 7, 4}, 1 },
-  { {WalletMetadataSpecifics_Type_names + 11, 7}, 0 },
+  { {WalletMetadataSpecifics_Type_names + 11, 4}, 3 },
+  { {WalletMetadataSpecifics_Type_names + 15, 7}, 0 },
 };
 
 static const int WalletMetadataSpecifics_Type_entries_by_number[] = {
-  2, // 0 -> UNKNOWN
+  3, // 0 -> UNKNOWN
   1, // 1 -> CARD
   0, // 2 -> ADDRESS
+  2, // 3 -> IBAN
 };
 
 const std::string& WalletMetadataSpecifics_Type_Name(
@@ -1002,12 +1186,12 @@ const std::string& WalletMetadataSpecifics_Type_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           WalletMetadataSpecifics_Type_entries,
           WalletMetadataSpecifics_Type_entries_by_number,
-          3, WalletMetadataSpecifics_Type_strings);
+          4, WalletMetadataSpecifics_Type_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       WalletMetadataSpecifics_Type_entries,
       WalletMetadataSpecifics_Type_entries_by_number,
-      3, value);
+      4, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      WalletMetadataSpecifics_Type_strings[idx].get();
 }
@@ -1015,7 +1199,7 @@ bool WalletMetadataSpecifics_Type_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, WalletMetadataSpecifics_Type* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      WalletMetadataSpecifics_Type_entries, 3, name, &int_value);
+      WalletMetadataSpecifics_Type_entries, 4, name, &int_value);
   if (success) {
     *value = static_cast<WalletMetadataSpecifics_Type>(int_value);
   }
@@ -1025,6 +1209,7 @@ bool WalletMetadataSpecifics_Type_Parse(
 constexpr WalletMetadataSpecifics_Type WalletMetadataSpecifics::UNKNOWN;
 constexpr WalletMetadataSpecifics_Type WalletMetadataSpecifics::CARD;
 constexpr WalletMetadataSpecifics_Type WalletMetadataSpecifics::ADDRESS;
+constexpr WalletMetadataSpecifics_Type WalletMetadataSpecifics::IBAN;
 constexpr WalletMetadataSpecifics_Type WalletMetadataSpecifics::Type_MIN;
 constexpr WalletMetadataSpecifics_Type WalletMetadataSpecifics::Type_MAX;
 constexpr int WalletMetadataSpecifics::Type_ARRAYSIZE;
@@ -1042,10 +1227,10 @@ class AutofillProfileSpecifics::_Internal {
     (*has_bits)[0] |= 1024u;
   }
   static void set_has_use_count(HasBits* has_bits) {
-    (*has_bits)[0] |= 33554432u;
+    (*has_bits)[1] |= 1u;
   }
   static void set_has_use_date(HasBits* has_bits) {
-    (*has_bits)[0] |= 67108864u;
+    (*has_bits)[1] |= 2u;
   }
   static void set_has_profile_label(HasBits* has_bits) {
     (*has_bits)[0] |= 1048576u;
@@ -1070,12 +1255,6 @@ class AutofillProfileSpecifics::_Internal {
   }
   static void set_has_address_home_country(HasBits* has_bits) {
     (*has_bits)[0] |= 128u;
-  }
-  static void set_has_address_home_landmark(HasBits* has_bits) {
-    (*has_bits)[0] |= 2097152u;
-  }
-  static void set_has_address_home_between_streets(HasBits* has_bits) {
-    (*has_bits)[0] |= 4194304u;
   }
   static void set_has_address_home_admin_level_2(HasBits* has_bits) {
     (*has_bits)[0] |= 8388608u;
@@ -1104,71 +1283,119 @@ class AutofillProfileSpecifics::_Internal {
   static void set_has_address_home_subpremise_name(HasBits* has_bits) {
     (*has_bits)[0] |= 131072u;
   }
+  static void set_has_address_home_apt(HasBits* has_bits) {
+    (*has_bits)[0] |= 1073741824u;
+  }
   static void set_has_address_home_apt_num(HasBits* has_bits) {
     (*has_bits)[0] |= 262144u;
+  }
+  static void set_has_address_home_apt_type(HasBits* has_bits) {
+    (*has_bits)[0] |= 2147483648u;
   }
   static void set_has_address_home_floor(HasBits* has_bits) {
     (*has_bits)[0] |= 524288u;
   }
-  static void set_has_address_home_city_status(HasBits* has_bits) {
+  static void set_has_address_home_landmark(HasBits* has_bits) {
+    (*has_bits)[0] |= 2097152u;
+  }
+  static void set_has_address_home_between_streets(HasBits* has_bits) {
+    (*has_bits)[0] |= 4194304u;
+  }
+  static void set_has_address_home_between_streets_1(HasBits* has_bits) {
+    (*has_bits)[0] |= 67108864u;
+  }
+  static void set_has_address_home_between_streets_2(HasBits* has_bits) {
+    (*has_bits)[0] |= 134217728u;
+  }
+  static void set_has_address_home_overflow(HasBits* has_bits) {
+    (*has_bits)[0] |= 33554432u;
+  }
+  static void set_has_address_home_between_streets_or_landmark(HasBits* has_bits) {
+    (*has_bits)[0] |= 268435456u;
+  }
+  static void set_has_address_home_overflow_and_landmark(HasBits* has_bits) {
     (*has_bits)[0] |= 536870912u;
   }
-  static void set_has_address_home_state_status(HasBits* has_bits) {
-    (*has_bits)[0] |= 1073741824u;
-  }
-  static void set_has_address_home_zip_status(HasBits* has_bits) {
-    (*has_bits)[0] |= 2147483648u;
-  }
-  static void set_has_address_home_country_status(HasBits* has_bits) {
-    (*has_bits)[1] |= 1u;
-  }
-  static void set_has_address_home_landmark_status(HasBits* has_bits) {
-    (*has_bits)[1] |= 8192u;
-  }
-  static void set_has_address_home_between_streets_status(HasBits* has_bits) {
-    (*has_bits)[1] |= 16384u;
-  }
-  static void set_has_address_home_admin_level_2_status(HasBits* has_bits) {
-    (*has_bits)[1] |= 32768u;
-  }
-  static void set_has_address_home_street_address_status(HasBits* has_bits) {
-    (*has_bits)[1] |= 2u;
-  }
-  static void set_has_address_home_sorting_code_status(HasBits* has_bits) {
-    (*has_bits)[1] |= 4u;
-  }
-  static void set_has_address_home_dependent_locality_status(HasBits* has_bits) {
-    (*has_bits)[1] |= 8u;
-  }
-  static void set_has_address_home_language_code_status(HasBits* has_bits) {
+  static void set_has_address_home_city_status(HasBits* has_bits) {
     (*has_bits)[1] |= 16u;
   }
-  static void set_has_address_home_thoroughfare_name_status(HasBits* has_bits) {
+  static void set_has_address_home_state_status(HasBits* has_bits) {
     (*has_bits)[1] |= 32u;
   }
-  static void set_has_address_home_thoroughfare_number_status(HasBits* has_bits) {
+  static void set_has_address_home_zip_status(HasBits* has_bits) {
     (*has_bits)[1] |= 64u;
   }
-  static void set_has_address_home_street_location_status(HasBits* has_bits) {
-    (*has_bits)[1] |= 65536u;
-  }
-  static void set_has_address_home_subpremise_name_status(HasBits* has_bits) {
+  static void set_has_address_home_country_status(HasBits* has_bits) {
     (*has_bits)[1] |= 128u;
   }
-  static void set_has_address_home_apt_num_status(HasBits* has_bits) {
+  static void set_has_address_home_landmark_status(HasBits* has_bits) {
+    (*has_bits)[1] |= 1048576u;
+  }
+  static void set_has_address_home_between_streets_status(HasBits* has_bits) {
+    (*has_bits)[1] |= 2097152u;
+  }
+  static void set_has_address_home_between_streets_1_status(HasBits* has_bits) {
+    (*has_bits)[1] |= 33554432u;
+  }
+  static void set_has_address_home_between_streets_2_status(HasBits* has_bits) {
+    (*has_bits)[1] |= 67108864u;
+  }
+  static void set_has_address_home_admin_level_2_status(HasBits* has_bits) {
+    (*has_bits)[1] |= 4194304u;
+  }
+  static void set_has_address_home_overflow_status(HasBits* has_bits) {
+    (*has_bits)[1] |= 16777216u;
+  }
+  static void set_has_address_home_between_streets_or_landmark_status(HasBits* has_bits) {
+    (*has_bits)[1] |= 134217728u;
+  }
+  static void set_has_address_home_overflow_and_landmark_status(HasBits* has_bits) {
+    (*has_bits)[1] |= 268435456u;
+  }
+  static void set_has_address_home_street_address_status(HasBits* has_bits) {
     (*has_bits)[1] |= 256u;
   }
-  static void set_has_address_home_floor_status(HasBits* has_bits) {
+  static void set_has_address_home_sorting_code_status(HasBits* has_bits) {
     (*has_bits)[1] |= 512u;
   }
-  static void set_has_birthdate_day(HasBits* has_bits) {
+  static void set_has_address_home_dependent_locality_status(HasBits* has_bits) {
     (*has_bits)[1] |= 1024u;
   }
-  static void set_has_birthdate_month(HasBits* has_bits) {
+  static void set_has_address_home_language_code_status(HasBits* has_bits) {
     (*has_bits)[1] |= 2048u;
   }
-  static void set_has_birthdate_year(HasBits* has_bits) {
+  static void set_has_address_home_thoroughfare_name_status(HasBits* has_bits) {
     (*has_bits)[1] |= 4096u;
+  }
+  static void set_has_address_home_thoroughfare_number_status(HasBits* has_bits) {
+    (*has_bits)[1] |= 8192u;
+  }
+  static void set_has_address_home_street_location_status(HasBits* has_bits) {
+    (*has_bits)[1] |= 8388608u;
+  }
+  static void set_has_address_home_subpremise_name_status(HasBits* has_bits) {
+    (*has_bits)[1] |= 16384u;
+  }
+  static void set_has_address_home_apt_status(HasBits* has_bits) {
+    (*has_bits)[1] |= 536870912u;
+  }
+  static void set_has_address_home_apt_num_status(HasBits* has_bits) {
+    (*has_bits)[1] |= 32768u;
+  }
+  static void set_has_address_home_apt_type_status(HasBits* has_bits) {
+    (*has_bits)[1] |= 1073741824u;
+  }
+  static void set_has_address_home_floor_status(HasBits* has_bits) {
+    (*has_bits)[1] |= 65536u;
+  }
+  static void set_has_birthdate_day(HasBits* has_bits) {
+    (*has_bits)[1] |= 131072u;
+  }
+  static void set_has_birthdate_month(HasBits* has_bits) {
+    (*has_bits)[1] |= 262144u;
+  }
+  static void set_has_birthdate_year(HasBits* has_bits) {
+    (*has_bits)[1] |= 524288u;
   }
   static void set_has_deprecated_label(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
@@ -1177,10 +1404,10 @@ class AutofillProfileSpecifics::_Internal {
     (*has_bits)[0] |= 256u;
   }
   static void set_has_validity_state_bitfield(HasBits* has_bits) {
-    (*has_bits)[0] |= 134217728u;
+    (*has_bits)[1] |= 4u;
   }
   static void set_has_is_client_validity_states_updated(HasBits* has_bits) {
-    (*has_bits)[0] |= 268435456u;
+    (*has_bits)[1] |= 8u;
   }
 };
 
@@ -1434,9 +1661,65 @@ AutofillProfileSpecifics::AutofillProfileSpecifics(const AutofillProfileSpecific
     address_home_street_location_.Set(from._internal_address_home_street_location(), 
       GetArenaForAllocation());
   }
+  address_home_overflow_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    address_home_overflow_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_address_home_overflow()) {
+    address_home_overflow_.Set(from._internal_address_home_overflow(), 
+      GetArenaForAllocation());
+  }
+  address_home_between_streets_1_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    address_home_between_streets_1_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_address_home_between_streets_1()) {
+    address_home_between_streets_1_.Set(from._internal_address_home_between_streets_1(), 
+      GetArenaForAllocation());
+  }
+  address_home_between_streets_2_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    address_home_between_streets_2_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_address_home_between_streets_2()) {
+    address_home_between_streets_2_.Set(from._internal_address_home_between_streets_2(), 
+      GetArenaForAllocation());
+  }
+  address_home_between_streets_or_landmark_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    address_home_between_streets_or_landmark_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_address_home_between_streets_or_landmark()) {
+    address_home_between_streets_or_landmark_.Set(from._internal_address_home_between_streets_or_landmark(), 
+      GetArenaForAllocation());
+  }
+  address_home_overflow_and_landmark_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    address_home_overflow_and_landmark_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_address_home_overflow_and_landmark()) {
+    address_home_overflow_and_landmark_.Set(from._internal_address_home_overflow_and_landmark(), 
+      GetArenaForAllocation());
+  }
+  address_home_apt_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    address_home_apt_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_address_home_apt()) {
+    address_home_apt_.Set(from._internal_address_home_apt(), 
+      GetArenaForAllocation());
+  }
+  address_home_apt_type_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    address_home_apt_type_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_address_home_apt_type()) {
+    address_home_apt_type_.Set(from._internal_address_home_apt_type(), 
+      GetArenaForAllocation());
+  }
   ::memcpy(&use_count_, &from.use_count_,
-    static_cast<size_t>(reinterpret_cast<char*>(&address_home_street_location_status_) -
-    reinterpret_cast<char*>(&use_count_)) + sizeof(address_home_street_location_status_));
+    static_cast<size_t>(reinterpret_cast<char*>(&address_home_apt_type_status_) -
+    reinterpret_cast<char*>(&use_count_)) + sizeof(address_home_apt_type_status_));
   // @@protoc_insertion_point(copy_constructor:sync_pb.AutofillProfileSpecifics)
 }
 
@@ -1541,10 +1824,38 @@ address_home_street_location_.InitDefault();
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   address_home_street_location_.Set("", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+address_home_overflow_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  address_home_overflow_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+address_home_between_streets_1_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  address_home_between_streets_1_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+address_home_between_streets_2_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  address_home_between_streets_2_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+address_home_between_streets_or_landmark_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  address_home_between_streets_or_landmark_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+address_home_overflow_and_landmark_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  address_home_overflow_and_landmark_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+address_home_apt_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  address_home_apt_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+address_home_apt_type_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  address_home_apt_type_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&use_count_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&address_home_street_location_status_) -
-    reinterpret_cast<char*>(&use_count_)) + sizeof(address_home_street_location_status_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&address_home_apt_type_status_) -
+    reinterpret_cast<char*>(&use_count_)) + sizeof(address_home_apt_type_status_));
 }
 
 AutofillProfileSpecifics::~AutofillProfileSpecifics() {
@@ -1583,6 +1894,13 @@ inline void AutofillProfileSpecifics::SharedDtor() {
   address_home_between_streets_.Destroy();
   address_home_admin_level_2_.Destroy();
   address_home_street_location_.Destroy();
+  address_home_overflow_.Destroy();
+  address_home_between_streets_1_.Destroy();
+  address_home_between_streets_2_.Destroy();
+  address_home_between_streets_or_landmark_.Destroy();
+  address_home_overflow_and_landmark_.Destroy();
+  address_home_apt_.Destroy();
+  address_home_apt_type_.Destroy();
 }
 
 void AutofillProfileSpecifics::SetCachedSize(int size) const {
@@ -1694,26 +2012,53 @@ void AutofillProfileSpecifics::Clear() {
       address_home_admin_level_2_.ClearNonDefaultToEmpty();
     }
   }
-  if (cached_has_bits & 0x01000000u) {
-    address_home_street_location_.ClearNonDefaultToEmpty();
-  }
-  if (cached_has_bits & 0xfe000000u) {
-    ::memset(&use_count_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&address_home_zip_status_) -
-        reinterpret_cast<char*>(&use_count_)) + sizeof(address_home_zip_status_));
+  if (cached_has_bits & 0xff000000u) {
+    if (cached_has_bits & 0x01000000u) {
+      address_home_street_location_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x02000000u) {
+      address_home_overflow_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x04000000u) {
+      address_home_between_streets_1_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x08000000u) {
+      address_home_between_streets_2_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x10000000u) {
+      address_home_between_streets_or_landmark_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x20000000u) {
+      address_home_overflow_and_landmark_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x40000000u) {
+      address_home_apt_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x80000000u) {
+      address_home_apt_type_.ClearNonDefaultToEmpty();
+    }
   }
   cached_has_bits = _has_bits_[1];
   if (cached_has_bits & 0x000000ffu) {
-    ::memset(&address_home_country_status_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&address_home_subpremise_name_status_) -
-        reinterpret_cast<char*>(&address_home_country_status_)) + sizeof(address_home_subpremise_name_status_));
+    ::memset(&use_count_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&address_home_country_status_) -
+        reinterpret_cast<char*>(&use_count_)) + sizeof(address_home_country_status_));
   }
   if (cached_has_bits & 0x0000ff00u) {
-    ::memset(&address_home_apt_num_status_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&address_home_admin_level_2_status_) -
-        reinterpret_cast<char*>(&address_home_apt_num_status_)) + sizeof(address_home_admin_level_2_status_));
+    ::memset(&address_home_street_address_status_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&address_home_apt_num_status_) -
+        reinterpret_cast<char*>(&address_home_street_address_status_)) + sizeof(address_home_apt_num_status_));
   }
-  address_home_street_location_status_ = 0;
+  if (cached_has_bits & 0x00ff0000u) {
+    ::memset(&address_home_floor_status_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&address_home_street_location_status_) -
+        reinterpret_cast<char*>(&address_home_floor_status_)) + sizeof(address_home_street_location_status_));
+  }
+  if (cached_has_bits & 0x7f000000u) {
+    ::memset(&address_home_overflow_status_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&address_home_apt_type_status_) -
+        reinterpret_cast<char*>(&address_home_overflow_status_)) + sizeof(address_home_apt_type_status_));
+  }
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
@@ -2576,6 +2921,160 @@ const char* AutofillProfileSpecifics::_InternalParse(const char* ptr, ::_pbi::Pa
         } else
           goto handle_unusual;
         continue;
+      // optional string address_home_overflow = 75;
+      case 75:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 90)) {
+          auto str = _internal_mutable_address_home_overflow();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_overflow_status = 76;
+      case 76:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 96)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          if (PROTOBUF_PREDICT_TRUE(::sync_pb::AutofillProfileSpecifics_VerificationStatus_IsValid(val))) {
+            _internal_set_address_home_overflow_status(static_cast<::sync_pb::AutofillProfileSpecifics_VerificationStatus>(val));
+          } else {
+            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(76, val, mutable_unknown_fields());
+          }
+        } else
+          goto handle_unusual;
+        continue;
+      // optional string address_home_between_streets_1 = 77;
+      case 77:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 106)) {
+          auto str = _internal_mutable_address_home_between_streets_1();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_between_streets_1_status = 78;
+      case 78:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 112)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          if (PROTOBUF_PREDICT_TRUE(::sync_pb::AutofillProfileSpecifics_VerificationStatus_IsValid(val))) {
+            _internal_set_address_home_between_streets_1_status(static_cast<::sync_pb::AutofillProfileSpecifics_VerificationStatus>(val));
+          } else {
+            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(78, val, mutable_unknown_fields());
+          }
+        } else
+          goto handle_unusual;
+        continue;
+      // optional string address_home_between_streets_2 = 79;
+      case 79:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 122)) {
+          auto str = _internal_mutable_address_home_between_streets_2();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_between_streets_2_status = 80;
+      case 80:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 128)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          if (PROTOBUF_PREDICT_TRUE(::sync_pb::AutofillProfileSpecifics_VerificationStatus_IsValid(val))) {
+            _internal_set_address_home_between_streets_2_status(static_cast<::sync_pb::AutofillProfileSpecifics_VerificationStatus>(val));
+          } else {
+            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(80, val, mutable_unknown_fields());
+          }
+        } else
+          goto handle_unusual;
+        continue;
+      // optional string address_home_between_streets_or_landmark = 81;
+      case 81:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 138)) {
+          auto str = _internal_mutable_address_home_between_streets_or_landmark();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_between_streets_or_landmark_status = 82;
+      case 82:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 144)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          if (PROTOBUF_PREDICT_TRUE(::sync_pb::AutofillProfileSpecifics_VerificationStatus_IsValid(val))) {
+            _internal_set_address_home_between_streets_or_landmark_status(static_cast<::sync_pb::AutofillProfileSpecifics_VerificationStatus>(val));
+          } else {
+            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(82, val, mutable_unknown_fields());
+          }
+        } else
+          goto handle_unusual;
+        continue;
+      // optional string address_home_overflow_and_landmark = 83;
+      case 83:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 154)) {
+          auto str = _internal_mutable_address_home_overflow_and_landmark();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_overflow_and_landmark_status = 84;
+      case 84:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 160)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          if (PROTOBUF_PREDICT_TRUE(::sync_pb::AutofillProfileSpecifics_VerificationStatus_IsValid(val))) {
+            _internal_set_address_home_overflow_and_landmark_status(static_cast<::sync_pb::AutofillProfileSpecifics_VerificationStatus>(val));
+          } else {
+            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(84, val, mutable_unknown_fields());
+          }
+        } else
+          goto handle_unusual;
+        continue;
+      // optional string address_home_apt = 85;
+      case 85:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 170)) {
+          auto str = _internal_mutable_address_home_apt();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_apt_status = 86;
+      case 86:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 176)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          if (PROTOBUF_PREDICT_TRUE(::sync_pb::AutofillProfileSpecifics_VerificationStatus_IsValid(val))) {
+            _internal_set_address_home_apt_status(static_cast<::sync_pb::AutofillProfileSpecifics_VerificationStatus>(val));
+          } else {
+            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(86, val, mutable_unknown_fields());
+          }
+        } else
+          goto handle_unusual;
+        continue;
+      // optional string address_home_apt_type = 87;
+      case 87:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 186)) {
+          auto str = _internal_mutable_address_home_apt_type();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_apt_type_status = 88;
+      case 88:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 192)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          if (PROTOBUF_PREDICT_TRUE(::sync_pb::AutofillProfileSpecifics_VerificationStatus_IsValid(val))) {
+            _internal_set_address_home_apt_type_status(static_cast<::sync_pb::AutofillProfileSpecifics_VerificationStatus>(val));
+          } else {
+            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(88, val, mutable_unknown_fields());
+          }
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -2732,26 +3231,27 @@ uint8_t* AutofillProfileSpecifics::_InternalSerialize(
     target = stream->WriteString(21, s, target);
   }
 
+  cached_has_bits = _has_bits_[1];
   // optional int64 use_count = 22;
-  if (cached_has_bits & 0x02000000u) {
+  if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteInt64ToArray(22, this->_internal_use_count(), target);
   }
 
   // optional int64 use_date = 23;
-  if (cached_has_bits & 0x04000000u) {
+  if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteInt64ToArray(23, this->_internal_use_date(), target);
   }
 
   // optional int64 validity_state_bitfield = 24 [deprecated = true];
-  if (cached_has_bits & 0x08000000u) {
+  if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteInt64ToArray(24, this->_internal_validity_state_bitfield(), target);
   }
 
   // optional bool is_client_validity_states_updated = 25 [deprecated = true];
-  if (cached_has_bits & 0x10000000u) {
+  if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(25, this->_internal_is_client_validity_states_updated(), target);
   }
@@ -2836,6 +3336,7 @@ uint8_t* AutofillProfileSpecifics::_InternalSerialize(
         37, this->_internal_name_full_status(i), target);
   }
 
+  cached_has_bits = _has_bits_[0];
   // optional string address_home_thoroughfare_name = 38;
   if (cached_has_bits & 0x00008000u) {
     target = stream->WriteStringMaybeAliased(
@@ -2854,79 +3355,79 @@ uint8_t* AutofillProfileSpecifics::_InternalSerialize(
         42, this->_internal_address_home_subpremise_name(), target);
   }
 
+  cached_has_bits = _has_bits_[1];
   // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_city_status = 43;
-  if (cached_has_bits & 0x20000000u) {
+  if (cached_has_bits & 0x00000010u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       43, this->_internal_address_home_city_status(), target);
   }
 
   // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_state_status = 44;
-  if (cached_has_bits & 0x40000000u) {
+  if (cached_has_bits & 0x00000020u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       44, this->_internal_address_home_state_status(), target);
   }
 
   // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_zip_status = 45;
-  if (cached_has_bits & 0x80000000u) {
+  if (cached_has_bits & 0x00000040u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       45, this->_internal_address_home_zip_status(), target);
   }
 
-  cached_has_bits = _has_bits_[1];
   // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_country_status = 46;
-  if (cached_has_bits & 0x00000001u) {
+  if (cached_has_bits & 0x00000080u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       46, this->_internal_address_home_country_status(), target);
   }
 
   // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_street_address_status = 47;
-  if (cached_has_bits & 0x00000002u) {
+  if (cached_has_bits & 0x00000100u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       47, this->_internal_address_home_street_address_status(), target);
   }
 
   // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_sorting_code_status = 48;
-  if (cached_has_bits & 0x00000004u) {
+  if (cached_has_bits & 0x00000200u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       48, this->_internal_address_home_sorting_code_status(), target);
   }
 
   // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_dependent_locality_status = 49;
-  if (cached_has_bits & 0x00000008u) {
+  if (cached_has_bits & 0x00000400u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       49, this->_internal_address_home_dependent_locality_status(), target);
   }
 
   // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_language_code_status = 50;
-  if (cached_has_bits & 0x00000010u) {
+  if (cached_has_bits & 0x00000800u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       50, this->_internal_address_home_language_code_status(), target);
   }
 
   // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_thoroughfare_name_status = 51;
-  if (cached_has_bits & 0x00000020u) {
+  if (cached_has_bits & 0x00001000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       51, this->_internal_address_home_thoroughfare_name_status(), target);
   }
 
   // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_thoroughfare_number_status = 52;
-  if (cached_has_bits & 0x00000040u) {
+  if (cached_has_bits & 0x00002000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       52, this->_internal_address_home_thoroughfare_number_status(), target);
   }
 
   // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_subpremise_name_status = 55;
-  if (cached_has_bits & 0x00000080u) {
+  if (cached_has_bits & 0x00004000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       55, this->_internal_address_home_subpremise_name_status(), target);
@@ -2947,14 +3448,14 @@ uint8_t* AutofillProfileSpecifics::_InternalSerialize(
 
   cached_has_bits = _has_bits_[1];
   // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_apt_num_status = 58;
-  if (cached_has_bits & 0x00000100u) {
+  if (cached_has_bits & 0x00008000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       58, this->_internal_address_home_apt_num_status(), target);
   }
 
   // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_floor_status = 59;
-  if (cached_has_bits & 0x00000200u) {
+  if (cached_has_bits & 0x00010000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       59, this->_internal_address_home_floor_status(), target);
@@ -2982,19 +3483,19 @@ uint8_t* AutofillProfileSpecifics::_InternalSerialize(
 
   cached_has_bits = _has_bits_[1];
   // optional int32 birthdate_day = 64;
-  if (cached_has_bits & 0x00000400u) {
+  if (cached_has_bits & 0x00020000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(64, this->_internal_birthdate_day(), target);
   }
 
   // optional int32 birthdate_month = 65;
-  if (cached_has_bits & 0x00000800u) {
+  if (cached_has_bits & 0x00040000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(65, this->_internal_birthdate_month(), target);
   }
 
   // optional int32 birthdate_year = 66;
-  if (cached_has_bits & 0x00001000u) {
+  if (cached_has_bits & 0x00080000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(66, this->_internal_birthdate_year(), target);
   }
@@ -3008,7 +3509,7 @@ uint8_t* AutofillProfileSpecifics::_InternalSerialize(
 
   cached_has_bits = _has_bits_[1];
   // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_landmark_status = 68;
-  if (cached_has_bits & 0x00002000u) {
+  if (cached_has_bits & 0x00100000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       68, this->_internal_address_home_landmark_status(), target);
@@ -3023,7 +3524,7 @@ uint8_t* AutofillProfileSpecifics::_InternalSerialize(
 
   cached_has_bits = _has_bits_[1];
   // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_between_streets_status = 70;
-  if (cached_has_bits & 0x00004000u) {
+  if (cached_has_bits & 0x00200000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       70, this->_internal_address_home_between_streets_status(), target);
@@ -3038,7 +3539,7 @@ uint8_t* AutofillProfileSpecifics::_InternalSerialize(
 
   cached_has_bits = _has_bits_[1];
   // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_admin_level_2_status = 72;
-  if (cached_has_bits & 0x00008000u) {
+  if (cached_has_bits & 0x00400000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       72, this->_internal_address_home_admin_level_2_status(), target);
@@ -3053,10 +3554,115 @@ uint8_t* AutofillProfileSpecifics::_InternalSerialize(
 
   cached_has_bits = _has_bits_[1];
   // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_street_location_status = 74;
-  if (cached_has_bits & 0x00010000u) {
+  if (cached_has_bits & 0x00800000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       74, this->_internal_address_home_street_location_status(), target);
+  }
+
+  cached_has_bits = _has_bits_[0];
+  // optional string address_home_overflow = 75;
+  if (cached_has_bits & 0x02000000u) {
+    target = stream->WriteStringMaybeAliased(
+        75, this->_internal_address_home_overflow(), target);
+  }
+
+  cached_has_bits = _has_bits_[1];
+  // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_overflow_status = 76;
+  if (cached_has_bits & 0x01000000u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      76, this->_internal_address_home_overflow_status(), target);
+  }
+
+  cached_has_bits = _has_bits_[0];
+  // optional string address_home_between_streets_1 = 77;
+  if (cached_has_bits & 0x04000000u) {
+    target = stream->WriteStringMaybeAliased(
+        77, this->_internal_address_home_between_streets_1(), target);
+  }
+
+  cached_has_bits = _has_bits_[1];
+  // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_between_streets_1_status = 78;
+  if (cached_has_bits & 0x02000000u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      78, this->_internal_address_home_between_streets_1_status(), target);
+  }
+
+  cached_has_bits = _has_bits_[0];
+  // optional string address_home_between_streets_2 = 79;
+  if (cached_has_bits & 0x08000000u) {
+    target = stream->WriteStringMaybeAliased(
+        79, this->_internal_address_home_between_streets_2(), target);
+  }
+
+  cached_has_bits = _has_bits_[1];
+  // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_between_streets_2_status = 80;
+  if (cached_has_bits & 0x04000000u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      80, this->_internal_address_home_between_streets_2_status(), target);
+  }
+
+  cached_has_bits = _has_bits_[0];
+  // optional string address_home_between_streets_or_landmark = 81;
+  if (cached_has_bits & 0x10000000u) {
+    target = stream->WriteStringMaybeAliased(
+        81, this->_internal_address_home_between_streets_or_landmark(), target);
+  }
+
+  cached_has_bits = _has_bits_[1];
+  // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_between_streets_or_landmark_status = 82;
+  if (cached_has_bits & 0x08000000u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      82, this->_internal_address_home_between_streets_or_landmark_status(), target);
+  }
+
+  cached_has_bits = _has_bits_[0];
+  // optional string address_home_overflow_and_landmark = 83;
+  if (cached_has_bits & 0x20000000u) {
+    target = stream->WriteStringMaybeAliased(
+        83, this->_internal_address_home_overflow_and_landmark(), target);
+  }
+
+  cached_has_bits = _has_bits_[1];
+  // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_overflow_and_landmark_status = 84;
+  if (cached_has_bits & 0x10000000u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      84, this->_internal_address_home_overflow_and_landmark_status(), target);
+  }
+
+  cached_has_bits = _has_bits_[0];
+  // optional string address_home_apt = 85;
+  if (cached_has_bits & 0x40000000u) {
+    target = stream->WriteStringMaybeAliased(
+        85, this->_internal_address_home_apt(), target);
+  }
+
+  cached_has_bits = _has_bits_[1];
+  // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_apt_status = 86;
+  if (cached_has_bits & 0x20000000u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      86, this->_internal_address_home_apt_status(), target);
+  }
+
+  cached_has_bits = _has_bits_[0];
+  // optional string address_home_apt_type = 87;
+  if (cached_has_bits & 0x80000000u) {
+    target = stream->WriteStringMaybeAliased(
+        87, this->_internal_address_home_apt_type(), target);
+  }
+
+  cached_has_bits = _has_bits_[1];
+  // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_apt_type_status = 88;
+  if (cached_has_bits & 0x40000000u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      88, this->_internal_address_home_apt_type_status(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -3436,161 +4042,256 @@ size_t AutofillProfileSpecifics::ByteSizeLong() const {
           this->_internal_address_home_street_location());
     }
 
-    // optional int64 use_count = 22;
+    // optional string address_home_overflow = 75;
     if (cached_has_bits & 0x02000000u) {
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_address_home_overflow());
+    }
+
+    // optional string address_home_between_streets_1 = 77;
+    if (cached_has_bits & 0x04000000u) {
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_address_home_between_streets_1());
+    }
+
+    // optional string address_home_between_streets_2 = 79;
+    if (cached_has_bits & 0x08000000u) {
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_address_home_between_streets_2());
+    }
+
+    // optional string address_home_between_streets_or_landmark = 81;
+    if (cached_has_bits & 0x10000000u) {
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_address_home_between_streets_or_landmark());
+    }
+
+    // optional string address_home_overflow_and_landmark = 83;
+    if (cached_has_bits & 0x20000000u) {
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_address_home_overflow_and_landmark());
+    }
+
+    // optional string address_home_apt = 85;
+    if (cached_has_bits & 0x40000000u) {
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_address_home_apt());
+    }
+
+    // optional string address_home_apt_type = 87;
+    if (cached_has_bits & 0x80000000u) {
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_address_home_apt_type());
+    }
+
+  }
+  cached_has_bits = _has_bits_[1];
+  if (cached_has_bits & 0x000000ffu) {
+    // optional int64 use_count = 22;
+    if (cached_has_bits & 0x00000001u) {
       total_size += 2 +
         ::_pbi::WireFormatLite::Int64Size(
           this->_internal_use_count());
     }
 
     // optional int64 use_date = 23;
-    if (cached_has_bits & 0x04000000u) {
+    if (cached_has_bits & 0x00000002u) {
       total_size += 2 +
         ::_pbi::WireFormatLite::Int64Size(
           this->_internal_use_date());
     }
 
     // optional int64 validity_state_bitfield = 24 [deprecated = true];
-    if (cached_has_bits & 0x08000000u) {
+    if (cached_has_bits & 0x00000004u) {
       total_size += 2 +
         ::_pbi::WireFormatLite::Int64Size(
           this->_internal_validity_state_bitfield());
     }
 
     // optional bool is_client_validity_states_updated = 25 [deprecated = true];
-    if (cached_has_bits & 0x10000000u) {
+    if (cached_has_bits & 0x00000008u) {
       total_size += 2 + 1;
     }
 
     // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_city_status = 43;
-    if (cached_has_bits & 0x20000000u) {
+    if (cached_has_bits & 0x00000010u) {
       total_size += 2 +
         ::_pbi::WireFormatLite::EnumSize(this->_internal_address_home_city_status());
     }
 
     // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_state_status = 44;
-    if (cached_has_bits & 0x40000000u) {
+    if (cached_has_bits & 0x00000020u) {
       total_size += 2 +
         ::_pbi::WireFormatLite::EnumSize(this->_internal_address_home_state_status());
     }
 
     // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_zip_status = 45;
-    if (cached_has_bits & 0x80000000u) {
+    if (cached_has_bits & 0x00000040u) {
       total_size += 2 +
         ::_pbi::WireFormatLite::EnumSize(this->_internal_address_home_zip_status());
     }
 
-  }
-  cached_has_bits = _has_bits_[1];
-  if (cached_has_bits & 0x000000ffu) {
     // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_country_status = 46;
-    if (cached_has_bits & 0x00000001u) {
+    if (cached_has_bits & 0x00000080u) {
       total_size += 2 +
         ::_pbi::WireFormatLite::EnumSize(this->_internal_address_home_country_status());
     }
 
+  }
+  if (cached_has_bits & 0x0000ff00u) {
     // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_street_address_status = 47;
-    if (cached_has_bits & 0x00000002u) {
+    if (cached_has_bits & 0x00000100u) {
       total_size += 2 +
         ::_pbi::WireFormatLite::EnumSize(this->_internal_address_home_street_address_status());
     }
 
     // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_sorting_code_status = 48;
-    if (cached_has_bits & 0x00000004u) {
+    if (cached_has_bits & 0x00000200u) {
       total_size += 2 +
         ::_pbi::WireFormatLite::EnumSize(this->_internal_address_home_sorting_code_status());
     }
 
     // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_dependent_locality_status = 49;
-    if (cached_has_bits & 0x00000008u) {
+    if (cached_has_bits & 0x00000400u) {
       total_size += 2 +
         ::_pbi::WireFormatLite::EnumSize(this->_internal_address_home_dependent_locality_status());
     }
 
     // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_language_code_status = 50;
-    if (cached_has_bits & 0x00000010u) {
+    if (cached_has_bits & 0x00000800u) {
       total_size += 2 +
         ::_pbi::WireFormatLite::EnumSize(this->_internal_address_home_language_code_status());
     }
 
     // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_thoroughfare_name_status = 51;
-    if (cached_has_bits & 0x00000020u) {
+    if (cached_has_bits & 0x00001000u) {
       total_size += 2 +
         ::_pbi::WireFormatLite::EnumSize(this->_internal_address_home_thoroughfare_name_status());
     }
 
     // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_thoroughfare_number_status = 52;
-    if (cached_has_bits & 0x00000040u) {
+    if (cached_has_bits & 0x00002000u) {
       total_size += 2 +
         ::_pbi::WireFormatLite::EnumSize(this->_internal_address_home_thoroughfare_number_status());
     }
 
     // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_subpremise_name_status = 55;
-    if (cached_has_bits & 0x00000080u) {
+    if (cached_has_bits & 0x00004000u) {
       total_size += 2 +
         ::_pbi::WireFormatLite::EnumSize(this->_internal_address_home_subpremise_name_status());
     }
 
-  }
-  if (cached_has_bits & 0x0000ff00u) {
     // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_apt_num_status = 58;
-    if (cached_has_bits & 0x00000100u) {
+    if (cached_has_bits & 0x00008000u) {
       total_size += 2 +
         ::_pbi::WireFormatLite::EnumSize(this->_internal_address_home_apt_num_status());
     }
 
+  }
+  if (cached_has_bits & 0x00ff0000u) {
     // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_floor_status = 59;
-    if (cached_has_bits & 0x00000200u) {
+    if (cached_has_bits & 0x00010000u) {
       total_size += 2 +
         ::_pbi::WireFormatLite::EnumSize(this->_internal_address_home_floor_status());
     }
 
     // optional int32 birthdate_day = 64;
-    if (cached_has_bits & 0x00000400u) {
+    if (cached_has_bits & 0x00020000u) {
       total_size += 2 +
         ::_pbi::WireFormatLite::Int32Size(
           this->_internal_birthdate_day());
     }
 
     // optional int32 birthdate_month = 65;
-    if (cached_has_bits & 0x00000800u) {
+    if (cached_has_bits & 0x00040000u) {
       total_size += 2 +
         ::_pbi::WireFormatLite::Int32Size(
           this->_internal_birthdate_month());
     }
 
     // optional int32 birthdate_year = 66;
-    if (cached_has_bits & 0x00001000u) {
+    if (cached_has_bits & 0x00080000u) {
       total_size += 2 +
         ::_pbi::WireFormatLite::Int32Size(
           this->_internal_birthdate_year());
     }
 
     // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_landmark_status = 68;
-    if (cached_has_bits & 0x00002000u) {
+    if (cached_has_bits & 0x00100000u) {
       total_size += 2 +
         ::_pbi::WireFormatLite::EnumSize(this->_internal_address_home_landmark_status());
     }
 
     // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_between_streets_status = 70;
-    if (cached_has_bits & 0x00004000u) {
+    if (cached_has_bits & 0x00200000u) {
       total_size += 2 +
         ::_pbi::WireFormatLite::EnumSize(this->_internal_address_home_between_streets_status());
     }
 
     // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_admin_level_2_status = 72;
-    if (cached_has_bits & 0x00008000u) {
+    if (cached_has_bits & 0x00400000u) {
       total_size += 2 +
         ::_pbi::WireFormatLite::EnumSize(this->_internal_address_home_admin_level_2_status());
     }
 
-  }
-  // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_street_location_status = 74;
-  if (cached_has_bits & 0x00010000u) {
-    total_size += 2 +
-      ::_pbi::WireFormatLite::EnumSize(this->_internal_address_home_street_location_status());
-  }
+    // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_street_location_status = 74;
+    if (cached_has_bits & 0x00800000u) {
+      total_size += 2 +
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_address_home_street_location_status());
+    }
 
+  }
+  if (cached_has_bits & 0x7f000000u) {
+    // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_overflow_status = 76;
+    if (cached_has_bits & 0x01000000u) {
+      total_size += 2 +
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_address_home_overflow_status());
+    }
+
+    // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_between_streets_1_status = 78;
+    if (cached_has_bits & 0x02000000u) {
+      total_size += 2 +
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_address_home_between_streets_1_status());
+    }
+
+    // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_between_streets_2_status = 80;
+    if (cached_has_bits & 0x04000000u) {
+      total_size += 2 +
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_address_home_between_streets_2_status());
+    }
+
+    // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_between_streets_or_landmark_status = 82;
+    if (cached_has_bits & 0x08000000u) {
+      total_size += 2 +
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_address_home_between_streets_or_landmark_status());
+    }
+
+    // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_overflow_and_landmark_status = 84;
+    if (cached_has_bits & 0x10000000u) {
+      total_size += 2 +
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_address_home_overflow_and_landmark_status());
+    }
+
+    // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_apt_status = 86;
+    if (cached_has_bits & 0x20000000u) {
+      total_size += 2 +
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_address_home_apt_status());
+    }
+
+    // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_apt_type_status = 88;
+    if (cached_has_bits & 0x40000000u) {
+      total_size += 2 +
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_address_home_apt_type_status());
+    }
+
+  }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -3715,85 +4416,132 @@ void AutofillProfileSpecifics::MergeFrom(const AutofillProfileSpecifics& from) {
       _internal_set_address_home_street_location(from._internal_address_home_street_location());
     }
     if (cached_has_bits & 0x02000000u) {
-      use_count_ = from.use_count_;
+      _internal_set_address_home_overflow(from._internal_address_home_overflow());
     }
     if (cached_has_bits & 0x04000000u) {
-      use_date_ = from.use_date_;
+      _internal_set_address_home_between_streets_1(from._internal_address_home_between_streets_1());
     }
     if (cached_has_bits & 0x08000000u) {
-      validity_state_bitfield_ = from.validity_state_bitfield_;
+      _internal_set_address_home_between_streets_2(from._internal_address_home_between_streets_2());
     }
     if (cached_has_bits & 0x10000000u) {
-      is_client_validity_states_updated_ = from.is_client_validity_states_updated_;
+      _internal_set_address_home_between_streets_or_landmark(from._internal_address_home_between_streets_or_landmark());
     }
     if (cached_has_bits & 0x20000000u) {
-      address_home_city_status_ = from.address_home_city_status_;
+      _internal_set_address_home_overflow_and_landmark(from._internal_address_home_overflow_and_landmark());
     }
     if (cached_has_bits & 0x40000000u) {
-      address_home_state_status_ = from.address_home_state_status_;
+      _internal_set_address_home_apt(from._internal_address_home_apt());
     }
     if (cached_has_bits & 0x80000000u) {
-      address_home_zip_status_ = from.address_home_zip_status_;
+      _internal_set_address_home_apt_type(from._internal_address_home_apt_type());
     }
-    _has_bits_[0] |= cached_has_bits;
   }
   cached_has_bits = from._has_bits_[1];
   if (cached_has_bits & 0x000000ffu) {
     if (cached_has_bits & 0x00000001u) {
-      address_home_country_status_ = from.address_home_country_status_;
+      use_count_ = from.use_count_;
     }
     if (cached_has_bits & 0x00000002u) {
-      address_home_street_address_status_ = from.address_home_street_address_status_;
+      use_date_ = from.use_date_;
     }
     if (cached_has_bits & 0x00000004u) {
-      address_home_sorting_code_status_ = from.address_home_sorting_code_status_;
+      validity_state_bitfield_ = from.validity_state_bitfield_;
     }
     if (cached_has_bits & 0x00000008u) {
-      address_home_dependent_locality_status_ = from.address_home_dependent_locality_status_;
+      is_client_validity_states_updated_ = from.is_client_validity_states_updated_;
     }
     if (cached_has_bits & 0x00000010u) {
-      address_home_language_code_status_ = from.address_home_language_code_status_;
+      address_home_city_status_ = from.address_home_city_status_;
     }
     if (cached_has_bits & 0x00000020u) {
-      address_home_thoroughfare_name_status_ = from.address_home_thoroughfare_name_status_;
+      address_home_state_status_ = from.address_home_state_status_;
     }
     if (cached_has_bits & 0x00000040u) {
-      address_home_thoroughfare_number_status_ = from.address_home_thoroughfare_number_status_;
+      address_home_zip_status_ = from.address_home_zip_status_;
     }
     if (cached_has_bits & 0x00000080u) {
-      address_home_subpremise_name_status_ = from.address_home_subpremise_name_status_;
+      address_home_country_status_ = from.address_home_country_status_;
     }
     _has_bits_[1] |= cached_has_bits;
   }
   if (cached_has_bits & 0x0000ff00u) {
     if (cached_has_bits & 0x00000100u) {
-      address_home_apt_num_status_ = from.address_home_apt_num_status_;
+      address_home_street_address_status_ = from.address_home_street_address_status_;
     }
     if (cached_has_bits & 0x00000200u) {
-      address_home_floor_status_ = from.address_home_floor_status_;
+      address_home_sorting_code_status_ = from.address_home_sorting_code_status_;
     }
     if (cached_has_bits & 0x00000400u) {
-      birthdate_day_ = from.birthdate_day_;
+      address_home_dependent_locality_status_ = from.address_home_dependent_locality_status_;
     }
     if (cached_has_bits & 0x00000800u) {
-      birthdate_month_ = from.birthdate_month_;
+      address_home_language_code_status_ = from.address_home_language_code_status_;
     }
     if (cached_has_bits & 0x00001000u) {
-      birthdate_year_ = from.birthdate_year_;
+      address_home_thoroughfare_name_status_ = from.address_home_thoroughfare_name_status_;
     }
     if (cached_has_bits & 0x00002000u) {
-      address_home_landmark_status_ = from.address_home_landmark_status_;
+      address_home_thoroughfare_number_status_ = from.address_home_thoroughfare_number_status_;
     }
     if (cached_has_bits & 0x00004000u) {
-      address_home_between_streets_status_ = from.address_home_between_streets_status_;
+      address_home_subpremise_name_status_ = from.address_home_subpremise_name_status_;
     }
     if (cached_has_bits & 0x00008000u) {
-      address_home_admin_level_2_status_ = from.address_home_admin_level_2_status_;
+      address_home_apt_num_status_ = from.address_home_apt_num_status_;
     }
     _has_bits_[1] |= cached_has_bits;
   }
-  if (cached_has_bits & 0x00010000u) {
-    _internal_set_address_home_street_location_status(from._internal_address_home_street_location_status());
+  if (cached_has_bits & 0x00ff0000u) {
+    if (cached_has_bits & 0x00010000u) {
+      address_home_floor_status_ = from.address_home_floor_status_;
+    }
+    if (cached_has_bits & 0x00020000u) {
+      birthdate_day_ = from.birthdate_day_;
+    }
+    if (cached_has_bits & 0x00040000u) {
+      birthdate_month_ = from.birthdate_month_;
+    }
+    if (cached_has_bits & 0x00080000u) {
+      birthdate_year_ = from.birthdate_year_;
+    }
+    if (cached_has_bits & 0x00100000u) {
+      address_home_landmark_status_ = from.address_home_landmark_status_;
+    }
+    if (cached_has_bits & 0x00200000u) {
+      address_home_between_streets_status_ = from.address_home_between_streets_status_;
+    }
+    if (cached_has_bits & 0x00400000u) {
+      address_home_admin_level_2_status_ = from.address_home_admin_level_2_status_;
+    }
+    if (cached_has_bits & 0x00800000u) {
+      address_home_street_location_status_ = from.address_home_street_location_status_;
+    }
+    _has_bits_[1] |= cached_has_bits;
+  }
+  if (cached_has_bits & 0x7f000000u) {
+    if (cached_has_bits & 0x01000000u) {
+      address_home_overflow_status_ = from.address_home_overflow_status_;
+    }
+    if (cached_has_bits & 0x02000000u) {
+      address_home_between_streets_1_status_ = from.address_home_between_streets_1_status_;
+    }
+    if (cached_has_bits & 0x04000000u) {
+      address_home_between_streets_2_status_ = from.address_home_between_streets_2_status_;
+    }
+    if (cached_has_bits & 0x08000000u) {
+      address_home_between_streets_or_landmark_status_ = from.address_home_between_streets_or_landmark_status_;
+    }
+    if (cached_has_bits & 0x10000000u) {
+      address_home_overflow_and_landmark_status_ = from.address_home_overflow_and_landmark_status_;
+    }
+    if (cached_has_bits & 0x20000000u) {
+      address_home_apt_status_ = from.address_home_apt_status_;
+    }
+    if (cached_has_bits & 0x40000000u) {
+      address_home_apt_type_status_ = from.address_home_apt_type_status_;
+    }
+    _has_bits_[1] |= cached_has_bits;
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -3936,9 +4684,37 @@ void AutofillProfileSpecifics::InternalSwap(AutofillProfileSpecifics* other) {
       &address_home_street_location_, lhs_arena,
       &other->address_home_street_location_, rhs_arena
   );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &address_home_overflow_, lhs_arena,
+      &other->address_home_overflow_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &address_home_between_streets_1_, lhs_arena,
+      &other->address_home_between_streets_1_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &address_home_between_streets_2_, lhs_arena,
+      &other->address_home_between_streets_2_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &address_home_between_streets_or_landmark_, lhs_arena,
+      &other->address_home_between_streets_or_landmark_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &address_home_overflow_and_landmark_, lhs_arena,
+      &other->address_home_overflow_and_landmark_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &address_home_apt_, lhs_arena,
+      &other->address_home_apt_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &address_home_apt_type_, lhs_arena,
+      &other->address_home_apt_type_, rhs_arena
+  );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(AutofillProfileSpecifics, address_home_street_location_status_)
-      + sizeof(AutofillProfileSpecifics::address_home_street_location_status_)
+      PROTOBUF_FIELD_OFFSET(AutofillProfileSpecifics, address_home_apt_type_status_)
+      + sizeof(AutofillProfileSpecifics::address_home_apt_type_status_)
       - PROTOBUF_FIELD_OFFSET(AutofillProfileSpecifics, use_count_)>(
           reinterpret_cast<char*>(&use_count_),
           reinterpret_cast<char*>(&other->use_count_));
@@ -4663,6 +5439,1033 @@ std::string CloudTokenData::GetTypeName() const {
 
 // ===================================================================
 
+class CardBenefit_FlatRateBenefit::_Internal {
+ public:
+};
+
+CardBenefit_FlatRateBenefit::CardBenefit_FlatRateBenefit(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:sync_pb.CardBenefit.FlatRateBenefit)
+}
+CardBenefit_FlatRateBenefit::CardBenefit_FlatRateBenefit(const CardBenefit_FlatRateBenefit& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  // @@protoc_insertion_point(copy_constructor:sync_pb.CardBenefit.FlatRateBenefit)
+}
+
+inline void CardBenefit_FlatRateBenefit::SharedCtor() {
+}
+
+CardBenefit_FlatRateBenefit::~CardBenefit_FlatRateBenefit() {
+  // @@protoc_insertion_point(destructor:sync_pb.CardBenefit.FlatRateBenefit)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void CardBenefit_FlatRateBenefit::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void CardBenefit_FlatRateBenefit::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void CardBenefit_FlatRateBenefit::Clear() {
+// @@protoc_insertion_point(message_clear_start:sync_pb.CardBenefit.FlatRateBenefit)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* CardBenefit_FlatRateBenefit::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* CardBenefit_FlatRateBenefit::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:sync_pb.CardBenefit.FlatRateBenefit)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:sync_pb.CardBenefit.FlatRateBenefit)
+  return target;
+}
+
+size_t CardBenefit_FlatRateBenefit::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:sync_pb.CardBenefit.FlatRateBenefit)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void CardBenefit_FlatRateBenefit::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const CardBenefit_FlatRateBenefit*>(
+      &from));
+}
+
+void CardBenefit_FlatRateBenefit::MergeFrom(const CardBenefit_FlatRateBenefit& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:sync_pb.CardBenefit.FlatRateBenefit)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void CardBenefit_FlatRateBenefit::CopyFrom(const CardBenefit_FlatRateBenefit& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:sync_pb.CardBenefit.FlatRateBenefit)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool CardBenefit_FlatRateBenefit::IsInitialized() const {
+  return true;
+}
+
+void CardBenefit_FlatRateBenefit::InternalSwap(CardBenefit_FlatRateBenefit* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+}
+
+std::string CardBenefit_FlatRateBenefit::GetTypeName() const {
+  return "sync_pb.CardBenefit.FlatRateBenefit";
+}
+
+
+// ===================================================================
+
+class CardBenefit_CategoryBenefit::_Internal {
+ public:
+  using HasBits = decltype(std::declval<CardBenefit_CategoryBenefit>()._has_bits_);
+  static void set_has_category_benefit_type(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+};
+
+CardBenefit_CategoryBenefit::CardBenefit_CategoryBenefit(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:sync_pb.CardBenefit.CategoryBenefit)
+}
+CardBenefit_CategoryBenefit::CardBenefit_CategoryBenefit(const CardBenefit_CategoryBenefit& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      _has_bits_(from._has_bits_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  category_benefit_type_ = from.category_benefit_type_;
+  // @@protoc_insertion_point(copy_constructor:sync_pb.CardBenefit.CategoryBenefit)
+}
+
+inline void CardBenefit_CategoryBenefit::SharedCtor() {
+category_benefit_type_ = 0;
+}
+
+CardBenefit_CategoryBenefit::~CardBenefit_CategoryBenefit() {
+  // @@protoc_insertion_point(destructor:sync_pb.CardBenefit.CategoryBenefit)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void CardBenefit_CategoryBenefit::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void CardBenefit_CategoryBenefit::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void CardBenefit_CategoryBenefit::Clear() {
+// @@protoc_insertion_point(message_clear_start:sync_pb.CardBenefit.CategoryBenefit)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  category_benefit_type_ = 0;
+  _has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* CardBenefit_CategoryBenefit::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional .sync_pb.CardBenefit.CategoryBenefitType category_benefit_type = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          if (PROTOBUF_PREDICT_TRUE(::sync_pb::CardBenefit_CategoryBenefitType_IsValid(val))) {
+            _internal_set_category_benefit_type(static_cast<::sync_pb::CardBenefit_CategoryBenefitType>(val));
+          } else {
+            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(1, val, mutable_unknown_fields());
+          }
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* CardBenefit_CategoryBenefit::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:sync_pb.CardBenefit.CategoryBenefit)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // optional .sync_pb.CardBenefit.CategoryBenefitType category_benefit_type = 1;
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      1, this->_internal_category_benefit_type(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:sync_pb.CardBenefit.CategoryBenefit)
+  return target;
+}
+
+size_t CardBenefit_CategoryBenefit::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:sync_pb.CardBenefit.CategoryBenefit)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // optional .sync_pb.CardBenefit.CategoryBenefitType category_benefit_type = 1;
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    total_size += 1 +
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_category_benefit_type());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void CardBenefit_CategoryBenefit::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const CardBenefit_CategoryBenefit*>(
+      &from));
+}
+
+void CardBenefit_CategoryBenefit::MergeFrom(const CardBenefit_CategoryBenefit& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:sync_pb.CardBenefit.CategoryBenefit)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_has_category_benefit_type()) {
+    _internal_set_category_benefit_type(from._internal_category_benefit_type());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void CardBenefit_CategoryBenefit::CopyFrom(const CardBenefit_CategoryBenefit& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:sync_pb.CardBenefit.CategoryBenefit)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool CardBenefit_CategoryBenefit::IsInitialized() const {
+  return true;
+}
+
+void CardBenefit_CategoryBenefit::InternalSwap(CardBenefit_CategoryBenefit* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(category_benefit_type_, other->category_benefit_type_);
+}
+
+std::string CardBenefit_CategoryBenefit::GetTypeName() const {
+  return "sync_pb.CardBenefit.CategoryBenefit";
+}
+
+
+// ===================================================================
+
+class CardBenefit_MerchantBenefit::_Internal {
+ public:
+};
+
+CardBenefit_MerchantBenefit::CardBenefit_MerchantBenefit(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
+  merchant_domain_(arena) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:sync_pb.CardBenefit.MerchantBenefit)
+}
+CardBenefit_MerchantBenefit::CardBenefit_MerchantBenefit(const CardBenefit_MerchantBenefit& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      merchant_domain_(from.merchant_domain_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  // @@protoc_insertion_point(copy_constructor:sync_pb.CardBenefit.MerchantBenefit)
+}
+
+inline void CardBenefit_MerchantBenefit::SharedCtor() {
+}
+
+CardBenefit_MerchantBenefit::~CardBenefit_MerchantBenefit() {
+  // @@protoc_insertion_point(destructor:sync_pb.CardBenefit.MerchantBenefit)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void CardBenefit_MerchantBenefit::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void CardBenefit_MerchantBenefit::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void CardBenefit_MerchantBenefit::Clear() {
+// @@protoc_insertion_point(message_clear_start:sync_pb.CardBenefit.MerchantBenefit)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  merchant_domain_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* CardBenefit_MerchantBenefit::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // repeated string merchant_domain = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            auto str = _internal_add_merchant_domain();
+            ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* CardBenefit_MerchantBenefit::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:sync_pb.CardBenefit.MerchantBenefit)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // repeated string merchant_domain = 1;
+  for (int i = 0, n = this->_internal_merchant_domain_size(); i < n; i++) {
+    const auto& s = this->_internal_merchant_domain(i);
+    target = stream->WriteString(1, s, target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:sync_pb.CardBenefit.MerchantBenefit)
+  return target;
+}
+
+size_t CardBenefit_MerchantBenefit::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:sync_pb.CardBenefit.MerchantBenefit)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // repeated string merchant_domain = 1;
+  total_size += 1 *
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(merchant_domain_.size());
+  for (int i = 0, n = merchant_domain_.size(); i < n; i++) {
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+      merchant_domain_.Get(i));
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void CardBenefit_MerchantBenefit::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const CardBenefit_MerchantBenefit*>(
+      &from));
+}
+
+void CardBenefit_MerchantBenefit::MergeFrom(const CardBenefit_MerchantBenefit& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:sync_pb.CardBenefit.MerchantBenefit)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  merchant_domain_.MergeFrom(from.merchant_domain_);
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void CardBenefit_MerchantBenefit::CopyFrom(const CardBenefit_MerchantBenefit& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:sync_pb.CardBenefit.MerchantBenefit)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool CardBenefit_MerchantBenefit::IsInitialized() const {
+  return true;
+}
+
+void CardBenefit_MerchantBenefit::InternalSwap(CardBenefit_MerchantBenefit* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  merchant_domain_.InternalSwap(&other->merchant_domain_);
+}
+
+std::string CardBenefit_MerchantBenefit::GetTypeName() const {
+  return "sync_pb.CardBenefit.MerchantBenefit";
+}
+
+
+// ===================================================================
+
+class CardBenefit::_Internal {
+ public:
+  using HasBits = decltype(std::declval<CardBenefit>()._has_bits_);
+  static void set_has_benefit_id(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
+  static void set_has_benefit_description(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+  static void set_has_start_time_unix_epoch_milliseconds(HasBits* has_bits) {
+    (*has_bits)[0] |= 4u;
+  }
+  static void set_has_end_time_unix_epoch_milliseconds(HasBits* has_bits) {
+    (*has_bits)[0] |= 8u;
+  }
+  static const ::sync_pb::CardBenefit_FlatRateBenefit& flat_rate_benefit(const CardBenefit* msg);
+  static const ::sync_pb::CardBenefit_CategoryBenefit& category_benefit(const CardBenefit* msg);
+  static const ::sync_pb::CardBenefit_MerchantBenefit& merchant_benefit(const CardBenefit* msg);
+};
+
+const ::sync_pb::CardBenefit_FlatRateBenefit&
+CardBenefit::_Internal::flat_rate_benefit(const CardBenefit* msg) {
+  return *msg->DomainSpecificBenefit_.flat_rate_benefit_;
+}
+const ::sync_pb::CardBenefit_CategoryBenefit&
+CardBenefit::_Internal::category_benefit(const CardBenefit* msg) {
+  return *msg->DomainSpecificBenefit_.category_benefit_;
+}
+const ::sync_pb::CardBenefit_MerchantBenefit&
+CardBenefit::_Internal::merchant_benefit(const CardBenefit* msg) {
+  return *msg->DomainSpecificBenefit_.merchant_benefit_;
+}
+void CardBenefit::set_allocated_flat_rate_benefit(::sync_pb::CardBenefit_FlatRateBenefit* flat_rate_benefit) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  clear_DomainSpecificBenefit();
+  if (flat_rate_benefit) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(flat_rate_benefit);
+    if (message_arena != submessage_arena) {
+      flat_rate_benefit = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, flat_rate_benefit, submessage_arena);
+    }
+    set_has_flat_rate_benefit();
+    DomainSpecificBenefit_.flat_rate_benefit_ = flat_rate_benefit;
+  }
+  // @@protoc_insertion_point(field_set_allocated:sync_pb.CardBenefit.flat_rate_benefit)
+}
+void CardBenefit::set_allocated_category_benefit(::sync_pb::CardBenefit_CategoryBenefit* category_benefit) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  clear_DomainSpecificBenefit();
+  if (category_benefit) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(category_benefit);
+    if (message_arena != submessage_arena) {
+      category_benefit = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, category_benefit, submessage_arena);
+    }
+    set_has_category_benefit();
+    DomainSpecificBenefit_.category_benefit_ = category_benefit;
+  }
+  // @@protoc_insertion_point(field_set_allocated:sync_pb.CardBenefit.category_benefit)
+}
+void CardBenefit::set_allocated_merchant_benefit(::sync_pb::CardBenefit_MerchantBenefit* merchant_benefit) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  clear_DomainSpecificBenefit();
+  if (merchant_benefit) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(merchant_benefit);
+    if (message_arena != submessage_arena) {
+      merchant_benefit = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, merchant_benefit, submessage_arena);
+    }
+    set_has_merchant_benefit();
+    DomainSpecificBenefit_.merchant_benefit_ = merchant_benefit;
+  }
+  // @@protoc_insertion_point(field_set_allocated:sync_pb.CardBenefit.merchant_benefit)
+}
+CardBenefit::CardBenefit(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:sync_pb.CardBenefit)
+}
+CardBenefit::CardBenefit(const CardBenefit& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      _has_bits_(from._has_bits_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  benefit_description_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    benefit_description_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_benefit_description()) {
+    benefit_description_.Set(from._internal_benefit_description(), 
+      GetArenaForAllocation());
+  }
+  benefit_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    benefit_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_benefit_id()) {
+    benefit_id_.Set(from._internal_benefit_id(), 
+      GetArenaForAllocation());
+  }
+  ::memcpy(&start_time_unix_epoch_milliseconds_, &from.start_time_unix_epoch_milliseconds_,
+    static_cast<size_t>(reinterpret_cast<char*>(&end_time_unix_epoch_milliseconds_) -
+    reinterpret_cast<char*>(&start_time_unix_epoch_milliseconds_)) + sizeof(end_time_unix_epoch_milliseconds_));
+  clear_has_DomainSpecificBenefit();
+  switch (from.DomainSpecificBenefit_case()) {
+    case kFlatRateBenefit: {
+      _internal_mutable_flat_rate_benefit()->::sync_pb::CardBenefit_FlatRateBenefit::MergeFrom(from._internal_flat_rate_benefit());
+      break;
+    }
+    case kCategoryBenefit: {
+      _internal_mutable_category_benefit()->::sync_pb::CardBenefit_CategoryBenefit::MergeFrom(from._internal_category_benefit());
+      break;
+    }
+    case kMerchantBenefit: {
+      _internal_mutable_merchant_benefit()->::sync_pb::CardBenefit_MerchantBenefit::MergeFrom(from._internal_merchant_benefit());
+      break;
+    }
+    case DOMAINSPECIFICBENEFIT_NOT_SET: {
+      break;
+    }
+  }
+  // @@protoc_insertion_point(copy_constructor:sync_pb.CardBenefit)
+}
+
+inline void CardBenefit::SharedCtor() {
+benefit_description_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  benefit_description_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+benefit_id_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  benefit_id_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&start_time_unix_epoch_milliseconds_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&end_time_unix_epoch_milliseconds_) -
+    reinterpret_cast<char*>(&start_time_unix_epoch_milliseconds_)) + sizeof(end_time_unix_epoch_milliseconds_));
+clear_has_DomainSpecificBenefit();
+}
+
+CardBenefit::~CardBenefit() {
+  // @@protoc_insertion_point(destructor:sync_pb.CardBenefit)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void CardBenefit::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  benefit_description_.Destroy();
+  benefit_id_.Destroy();
+  if (has_DomainSpecificBenefit()) {
+    clear_DomainSpecificBenefit();
+  }
+}
+
+void CardBenefit::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void CardBenefit::clear_DomainSpecificBenefit() {
+// @@protoc_insertion_point(one_of_clear_start:sync_pb.CardBenefit)
+  switch (DomainSpecificBenefit_case()) {
+    case kFlatRateBenefit: {
+      if (GetArenaForAllocation() == nullptr) {
+        delete DomainSpecificBenefit_.flat_rate_benefit_;
+      }
+      break;
+    }
+    case kCategoryBenefit: {
+      if (GetArenaForAllocation() == nullptr) {
+        delete DomainSpecificBenefit_.category_benefit_;
+      }
+      break;
+    }
+    case kMerchantBenefit: {
+      if (GetArenaForAllocation() == nullptr) {
+        delete DomainSpecificBenefit_.merchant_benefit_;
+      }
+      break;
+    }
+    case DOMAINSPECIFICBENEFIT_NOT_SET: {
+      break;
+    }
+  }
+  _oneof_case_[0] = DOMAINSPECIFICBENEFIT_NOT_SET;
+}
+
+
+void CardBenefit::Clear() {
+// @@protoc_insertion_point(message_clear_start:sync_pb.CardBenefit)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      benefit_description_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x00000002u) {
+      benefit_id_.ClearNonDefaultToEmpty();
+    }
+  }
+  if (cached_has_bits & 0x0000000cu) {
+    ::memset(&start_time_unix_epoch_milliseconds_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&end_time_unix_epoch_milliseconds_) -
+        reinterpret_cast<char*>(&start_time_unix_epoch_milliseconds_)) + sizeof(end_time_unix_epoch_milliseconds_));
+  }
+  clear_DomainSpecificBenefit();
+  _has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* CardBenefit::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional string benefit_description = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_benefit_description();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional int64 start_time_unix_epoch_milliseconds = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          _Internal::set_has_start_time_unix_epoch_milliseconds(&has_bits);
+          start_time_unix_epoch_milliseconds_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional int64 end_time_unix_epoch_milliseconds = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+          _Internal::set_has_end_time_unix_epoch_milliseconds(&has_bits);
+          end_time_unix_epoch_milliseconds_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .sync_pb.CardBenefit.FlatRateBenefit flat_rate_benefit = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+          ptr = ctx->ParseMessage(_internal_mutable_flat_rate_benefit(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .sync_pb.CardBenefit.CategoryBenefit category_benefit = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
+          ptr = ctx->ParseMessage(_internal_mutable_category_benefit(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .sync_pb.CardBenefit.MerchantBenefit merchant_benefit = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 50)) {
+          ptr = ctx->ParseMessage(_internal_mutable_merchant_benefit(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional string benefit_id = 7;
+      case 7:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 58)) {
+          auto str = _internal_mutable_benefit_id();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* CardBenefit::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:sync_pb.CardBenefit)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // optional string benefit_description = 1;
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_benefit_description(), target);
+  }
+
+  // optional int64 start_time_unix_epoch_milliseconds = 2;
+  if (cached_has_bits & 0x00000004u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(2, this->_internal_start_time_unix_epoch_milliseconds(), target);
+  }
+
+  // optional int64 end_time_unix_epoch_milliseconds = 3;
+  if (cached_has_bits & 0x00000008u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(3, this->_internal_end_time_unix_epoch_milliseconds(), target);
+  }
+
+  switch (DomainSpecificBenefit_case()) {
+    case kFlatRateBenefit: {
+      target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(4, _Internal::flat_rate_benefit(this),
+          _Internal::flat_rate_benefit(this).GetCachedSize(), target, stream);
+      break;
+    }
+    case kCategoryBenefit: {
+      target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(5, _Internal::category_benefit(this),
+          _Internal::category_benefit(this).GetCachedSize(), target, stream);
+      break;
+    }
+    case kMerchantBenefit: {
+      target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(6, _Internal::merchant_benefit(this),
+          _Internal::merchant_benefit(this).GetCachedSize(), target, stream);
+      break;
+    }
+    default: ;
+  }
+  // optional string benefit_id = 7;
+  if (cached_has_bits & 0x00000002u) {
+    target = stream->WriteStringMaybeAliased(
+        7, this->_internal_benefit_id(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:sync_pb.CardBenefit)
+  return target;
+}
+
+size_t CardBenefit::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:sync_pb.CardBenefit)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x0000000fu) {
+    // optional string benefit_description = 1;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_benefit_description());
+    }
+
+    // optional string benefit_id = 7;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_benefit_id());
+    }
+
+    // optional int64 start_time_unix_epoch_milliseconds = 2;
+    if (cached_has_bits & 0x00000004u) {
+      total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_start_time_unix_epoch_milliseconds());
+    }
+
+    // optional int64 end_time_unix_epoch_milliseconds = 3;
+    if (cached_has_bits & 0x00000008u) {
+      total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_end_time_unix_epoch_milliseconds());
+    }
+
+  }
+  switch (DomainSpecificBenefit_case()) {
+    // .sync_pb.CardBenefit.FlatRateBenefit flat_rate_benefit = 4;
+    case kFlatRateBenefit: {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *DomainSpecificBenefit_.flat_rate_benefit_);
+      break;
+    }
+    // .sync_pb.CardBenefit.CategoryBenefit category_benefit = 5;
+    case kCategoryBenefit: {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *DomainSpecificBenefit_.category_benefit_);
+      break;
+    }
+    // .sync_pb.CardBenefit.MerchantBenefit merchant_benefit = 6;
+    case kMerchantBenefit: {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *DomainSpecificBenefit_.merchant_benefit_);
+      break;
+    }
+    case DOMAINSPECIFICBENEFIT_NOT_SET: {
+      break;
+    }
+  }
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void CardBenefit::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const CardBenefit*>(
+      &from));
+}
+
+void CardBenefit::MergeFrom(const CardBenefit& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:sync_pb.CardBenefit)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = from._has_bits_[0];
+  if (cached_has_bits & 0x0000000fu) {
+    if (cached_has_bits & 0x00000001u) {
+      _internal_set_benefit_description(from._internal_benefit_description());
+    }
+    if (cached_has_bits & 0x00000002u) {
+      _internal_set_benefit_id(from._internal_benefit_id());
+    }
+    if (cached_has_bits & 0x00000004u) {
+      start_time_unix_epoch_milliseconds_ = from.start_time_unix_epoch_milliseconds_;
+    }
+    if (cached_has_bits & 0x00000008u) {
+      end_time_unix_epoch_milliseconds_ = from.end_time_unix_epoch_milliseconds_;
+    }
+    _has_bits_[0] |= cached_has_bits;
+  }
+  switch (from.DomainSpecificBenefit_case()) {
+    case kFlatRateBenefit: {
+      _internal_mutable_flat_rate_benefit()->::sync_pb::CardBenefit_FlatRateBenefit::MergeFrom(from._internal_flat_rate_benefit());
+      break;
+    }
+    case kCategoryBenefit: {
+      _internal_mutable_category_benefit()->::sync_pb::CardBenefit_CategoryBenefit::MergeFrom(from._internal_category_benefit());
+      break;
+    }
+    case kMerchantBenefit: {
+      _internal_mutable_merchant_benefit()->::sync_pb::CardBenefit_MerchantBenefit::MergeFrom(from._internal_merchant_benefit());
+      break;
+    }
+    case DOMAINSPECIFICBENEFIT_NOT_SET: {
+      break;
+    }
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void CardBenefit::CopyFrom(const CardBenefit& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:sync_pb.CardBenefit)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool CardBenefit::IsInitialized() const {
+  return true;
+}
+
+void CardBenefit::InternalSwap(CardBenefit* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &benefit_description_, lhs_arena,
+      &other->benefit_description_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &benefit_id_, lhs_arena,
+      &other->benefit_id_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(CardBenefit, end_time_unix_epoch_milliseconds_)
+      + sizeof(CardBenefit::end_time_unix_epoch_milliseconds_)
+      - PROTOBUF_FIELD_OFFSET(CardBenefit, start_time_unix_epoch_milliseconds_)>(
+          reinterpret_cast<char*>(&start_time_unix_epoch_milliseconds_),
+          reinterpret_cast<char*>(&other->start_time_unix_epoch_milliseconds_));
+  swap(DomainSpecificBenefit_, other->DomainSpecificBenefit_);
+  swap(_oneof_case_[0], other->_oneof_case_[0]);
+}
+
+std::string CardBenefit::GetTypeName() const {
+  return "sync_pb.CardBenefit";
+}
+
+
+// ===================================================================
+
 class CardIssuer::_Internal {
  public:
   using HasBits = decltype(std::declval<CardIssuer>()._has_bits_);
@@ -4913,22 +6716,22 @@ class WalletMaskedCreditCard::_Internal {
     (*has_bits)[0] |= 1u;
   }
   static void set_has_status(HasBits* has_bits) {
-    (*has_bits)[0] |= 1024u;
+    (*has_bits)[0] |= 2048u;
   }
   static void set_has_name_on_card(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
   static void set_has_type(HasBits* has_bits) {
-    (*has_bits)[0] |= 2048u;
+    (*has_bits)[0] |= 4096u;
   }
   static void set_has_last_four(HasBits* has_bits) {
     (*has_bits)[0] |= 4u;
   }
   static void set_has_exp_month(HasBits* has_bits) {
-    (*has_bits)[0] |= 4096u;
+    (*has_bits)[0] |= 8192u;
   }
   static void set_has_exp_year(HasBits* has_bits) {
-    (*has_bits)[0] |= 8192u;
+    (*has_bits)[0] |= 16384u;
   }
   static void set_has_billing_address_id(HasBits* has_bits) {
     (*has_bits)[0] |= 8u;
@@ -4938,20 +6741,20 @@ class WalletMaskedCreditCard::_Internal {
   }
   static const ::sync_pb::CloudTokenData& cloud_token_data(const WalletMaskedCreditCard* msg);
   static void set_has_cloud_token_data(HasBits* has_bits) {
-    (*has_bits)[0] |= 256u;
+    (*has_bits)[0] |= 512u;
   }
   static void set_has_nickname(HasBits* has_bits) {
     (*has_bits)[0] |= 32u;
   }
   static const ::sync_pb::CardIssuer& card_issuer(const WalletMaskedCreditCard* msg);
   static void set_has_card_issuer(HasBits* has_bits) {
-    (*has_bits)[0] |= 512u;
+    (*has_bits)[0] |= 1024u;
   }
   static void set_has_instrument_id(HasBits* has_bits) {
-    (*has_bits)[0] |= 16384u;
+    (*has_bits)[0] |= 32768u;
   }
   static void set_has_virtual_card_enrollment_state(HasBits* has_bits) {
-    (*has_bits)[0] |= 32768u;
+    (*has_bits)[0] |= 65536u;
   }
   static void set_has_card_art_url(HasBits* has_bits) {
     (*has_bits)[0] |= 64u;
@@ -4960,7 +6763,10 @@ class WalletMaskedCreditCard::_Internal {
     (*has_bits)[0] |= 128u;
   }
   static void set_has_virtual_card_enrollment_type(HasBits* has_bits) {
-    (*has_bits)[0] |= 65536u;
+    (*has_bits)[0] |= 131072u;
+  }
+  static void set_has_product_terms_url(HasBits* has_bits) {
+    (*has_bits)[0] |= 256u;
   }
 };
 
@@ -4974,13 +6780,15 @@ WalletMaskedCreditCard::_Internal::card_issuer(const WalletMaskedCreditCard* msg
 }
 WalletMaskedCreditCard::WalletMaskedCreditCard(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
+  card_benefit_(arena) {
   SharedCtor();
   // @@protoc_insertion_point(arena_constructor:sync_pb.WalletMaskedCreditCard)
 }
 WalletMaskedCreditCard::WalletMaskedCreditCard(const WalletMaskedCreditCard& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+      _has_bits_(from._has_bits_),
+      card_benefit_(from.card_benefit_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   id_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
@@ -5046,6 +6854,14 @@ WalletMaskedCreditCard::WalletMaskedCreditCard(const WalletMaskedCreditCard& fro
     product_description_.Set(from._internal_product_description(), 
       GetArenaForAllocation());
   }
+  product_terms_url_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    product_terms_url_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_product_terms_url()) {
+    product_terms_url_.Set(from._internal_product_terms_url(), 
+      GetArenaForAllocation());
+  }
   if (from._internal_has_cloud_token_data()) {
     cloud_token_data_ = new ::sync_pb::CloudTokenData(*from.cloud_token_data_);
   } else {
@@ -5095,6 +6911,10 @@ product_description_.InitDefault();
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   product_description_.Set("", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+product_terms_url_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  product_terms_url_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&cloud_token_data_) - reinterpret_cast<char*>(this)),
     0, static_cast<size_t>(reinterpret_cast<char*>(&virtual_card_enrollment_type_) -
@@ -5120,6 +6940,7 @@ inline void WalletMaskedCreditCard::SharedDtor() {
   nickname_.Destroy();
   card_art_url_.Destroy();
   product_description_.Destroy();
+  product_terms_url_.Destroy();
   if (this != internal_default_instance()) delete cloud_token_data_;
   if (this != internal_default_instance()) delete card_issuer_;
 }
@@ -5134,6 +6955,7 @@ void WalletMaskedCreditCard::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  card_benefit_.Clear();
   cached_has_bits = _has_bits_[0];
   if (cached_has_bits & 0x000000ffu) {
     if (cached_has_bits & 0x00000001u) {
@@ -5161,22 +6983,29 @@ void WalletMaskedCreditCard::Clear() {
       product_description_.ClearNonDefaultToEmpty();
     }
   }
-  if (cached_has_bits & 0x00000300u) {
+  if (cached_has_bits & 0x00000700u) {
     if (cached_has_bits & 0x00000100u) {
+      product_terms_url_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x00000200u) {
       GOOGLE_DCHECK(cloud_token_data_ != nullptr);
       cloud_token_data_->Clear();
     }
-    if (cached_has_bits & 0x00000200u) {
+    if (cached_has_bits & 0x00000400u) {
       GOOGLE_DCHECK(card_issuer_ != nullptr);
       card_issuer_->Clear();
     }
   }
-  if (cached_has_bits & 0x0000fc00u) {
+  if (cached_has_bits & 0x0000f800u) {
     ::memset(&status_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&virtual_card_enrollment_state_) -
-        reinterpret_cast<char*>(&status_)) + sizeof(virtual_card_enrollment_state_));
+        reinterpret_cast<char*>(&instrument_id_) -
+        reinterpret_cast<char*>(&status_)) + sizeof(instrument_id_));
   }
-  virtual_card_enrollment_type_ = 0;
+  if (cached_has_bits & 0x00030000u) {
+    ::memset(&virtual_card_enrollment_state_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&virtual_card_enrollment_type_) -
+        reinterpret_cast<char*>(&virtual_card_enrollment_state_)) + sizeof(virtual_card_enrollment_type_));
+  }
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
@@ -5355,6 +7184,28 @@ const char* WalletMaskedCreditCard::_InternalParse(const char* ptr, ::_pbi::Pars
         } else
           goto handle_unusual;
         continue;
+      // repeated .sync_pb.CardBenefit card_benefit = 20;
+      case 20:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 162)) {
+          ptr -= 2;
+          do {
+            ptr += 2;
+            ptr = ctx->ParseMessage(_internal_add_card_benefit(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<162>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // optional string product_terms_url = 21;
+      case 21:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 170)) {
+          auto str = _internal_mutable_product_terms_url();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -5393,7 +7244,7 @@ uint8_t* WalletMaskedCreditCard::_InternalSerialize(
   }
 
   // optional .sync_pb.WalletMaskedCreditCard.WalletCardStatus status = 2;
-  if (cached_has_bits & 0x00000400u) {
+  if (cached_has_bits & 0x00000800u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       2, this->_internal_status(), target);
@@ -5406,7 +7257,7 @@ uint8_t* WalletMaskedCreditCard::_InternalSerialize(
   }
 
   // optional .sync_pb.WalletMaskedCreditCard.WalletCardType type = 4;
-  if (cached_has_bits & 0x00000800u) {
+  if (cached_has_bits & 0x00001000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       4, this->_internal_type(), target);
@@ -5419,13 +7270,13 @@ uint8_t* WalletMaskedCreditCard::_InternalSerialize(
   }
 
   // optional int32 exp_month = 6;
-  if (cached_has_bits & 0x00001000u) {
+  if (cached_has_bits & 0x00002000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(6, this->_internal_exp_month(), target);
   }
 
   // optional int32 exp_year = 7;
-  if (cached_has_bits & 0x00002000u) {
+  if (cached_has_bits & 0x00004000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(7, this->_internal_exp_year(), target);
   }
@@ -5443,7 +7294,7 @@ uint8_t* WalletMaskedCreditCard::_InternalSerialize(
   }
 
   // optional .sync_pb.CloudTokenData cloud_token_data = 11;
-  if (cached_has_bits & 0x00000100u) {
+  if (cached_has_bits & 0x00000200u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(11, _Internal::cloud_token_data(this),
         _Internal::cloud_token_data(this).GetCachedSize(), target, stream);
@@ -5456,20 +7307,20 @@ uint8_t* WalletMaskedCreditCard::_InternalSerialize(
   }
 
   // optional .sync_pb.CardIssuer card_issuer = 13;
-  if (cached_has_bits & 0x00000200u) {
+  if (cached_has_bits & 0x00000400u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(13, _Internal::card_issuer(this),
         _Internal::card_issuer(this).GetCachedSize(), target, stream);
   }
 
   // optional int64 instrument_id = 15;
-  if (cached_has_bits & 0x00004000u) {
+  if (cached_has_bits & 0x00008000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteInt64ToArray(15, this->_internal_instrument_id(), target);
   }
 
   // optional .sync_pb.WalletMaskedCreditCard.VirtualCardEnrollmentState virtual_card_enrollment_state = 16;
-  if (cached_has_bits & 0x00008000u) {
+  if (cached_has_bits & 0x00010000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       16, this->_internal_virtual_card_enrollment_state(), target);
@@ -5488,10 +7339,24 @@ uint8_t* WalletMaskedCreditCard::_InternalSerialize(
   }
 
   // optional .sync_pb.WalletMaskedCreditCard.VirtualCardEnrollmentType virtual_card_enrollment_type = 19;
-  if (cached_has_bits & 0x00010000u) {
+  if (cached_has_bits & 0x00020000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       19, this->_internal_virtual_card_enrollment_type(), target);
+  }
+
+  // repeated .sync_pb.CardBenefit card_benefit = 20;
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_card_benefit_size()); i < n; i++) {
+    const auto& repfield = this->_internal_card_benefit(i);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(20, repfield, repfield.GetCachedSize(), target, stream);
+  }
+
+  // optional string product_terms_url = 21;
+  if (cached_has_bits & 0x00000100u) {
+    target = stream->WriteStringMaybeAliased(
+        21, this->_internal_product_terms_url(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -5509,6 +7374,13 @@ size_t WalletMaskedCreditCard::ByteSizeLong() const {
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
+
+  // repeated .sync_pb.CardBenefit card_benefit = 20;
+  total_size += 2UL * this->_internal_card_benefit_size();
+  for (const auto& msg : this->card_benefit_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
 
   cached_has_bits = _has_bits_[0];
   if (cached_has_bits & 0x000000ffu) {
@@ -5570,60 +7442,69 @@ size_t WalletMaskedCreditCard::ByteSizeLong() const {
 
   }
   if (cached_has_bits & 0x0000ff00u) {
-    // optional .sync_pb.CloudTokenData cloud_token_data = 11;
+    // optional string product_terms_url = 21;
     if (cached_has_bits & 0x00000100u) {
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_product_terms_url());
+    }
+
+    // optional .sync_pb.CloudTokenData cloud_token_data = 11;
+    if (cached_has_bits & 0x00000200u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *cloud_token_data_);
     }
 
     // optional .sync_pb.CardIssuer card_issuer = 13;
-    if (cached_has_bits & 0x00000200u) {
+    if (cached_has_bits & 0x00000400u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *card_issuer_);
     }
 
     // optional .sync_pb.WalletMaskedCreditCard.WalletCardStatus status = 2;
-    if (cached_has_bits & 0x00000400u) {
+    if (cached_has_bits & 0x00000800u) {
       total_size += 1 +
         ::_pbi::WireFormatLite::EnumSize(this->_internal_status());
     }
 
     // optional .sync_pb.WalletMaskedCreditCard.WalletCardType type = 4;
-    if (cached_has_bits & 0x00000800u) {
+    if (cached_has_bits & 0x00001000u) {
       total_size += 1 +
         ::_pbi::WireFormatLite::EnumSize(this->_internal_type());
     }
 
     // optional int32 exp_month = 6;
-    if (cached_has_bits & 0x00001000u) {
+    if (cached_has_bits & 0x00002000u) {
       total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_exp_month());
     }
 
     // optional int32 exp_year = 7;
-    if (cached_has_bits & 0x00002000u) {
+    if (cached_has_bits & 0x00004000u) {
       total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_exp_year());
     }
 
     // optional int64 instrument_id = 15;
-    if (cached_has_bits & 0x00004000u) {
+    if (cached_has_bits & 0x00008000u) {
       total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_instrument_id());
     }
 
+  }
+  if (cached_has_bits & 0x00030000u) {
     // optional .sync_pb.WalletMaskedCreditCard.VirtualCardEnrollmentState virtual_card_enrollment_state = 16;
-    if (cached_has_bits & 0x00008000u) {
+    if (cached_has_bits & 0x00010000u) {
       total_size += 2 +
         ::_pbi::WireFormatLite::EnumSize(this->_internal_virtual_card_enrollment_state());
     }
 
-  }
-  // optional .sync_pb.WalletMaskedCreditCard.VirtualCardEnrollmentType virtual_card_enrollment_type = 19;
-  if (cached_has_bits & 0x00010000u) {
-    total_size += 2 +
-      ::_pbi::WireFormatLite::EnumSize(this->_internal_virtual_card_enrollment_type());
-  }
+    // optional .sync_pb.WalletMaskedCreditCard.VirtualCardEnrollmentType virtual_card_enrollment_type = 19;
+    if (cached_has_bits & 0x00020000u) {
+      total_size += 2 +
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_virtual_card_enrollment_type());
+    }
 
+  }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -5644,6 +7525,7 @@ void WalletMaskedCreditCard::MergeFrom(const WalletMaskedCreditCard& from) {
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
+  card_benefit_.MergeFrom(from.card_benefit_);
   cached_has_bits = from._has_bits_[0];
   if (cached_has_bits & 0x000000ffu) {
     if (cached_has_bits & 0x00000001u) {
@@ -5673,33 +7555,39 @@ void WalletMaskedCreditCard::MergeFrom(const WalletMaskedCreditCard& from) {
   }
   if (cached_has_bits & 0x0000ff00u) {
     if (cached_has_bits & 0x00000100u) {
-      _internal_mutable_cloud_token_data()->::sync_pb::CloudTokenData::MergeFrom(from._internal_cloud_token_data());
+      _internal_set_product_terms_url(from._internal_product_terms_url());
     }
     if (cached_has_bits & 0x00000200u) {
-      _internal_mutable_card_issuer()->::sync_pb::CardIssuer::MergeFrom(from._internal_card_issuer());
+      _internal_mutable_cloud_token_data()->::sync_pb::CloudTokenData::MergeFrom(from._internal_cloud_token_data());
     }
     if (cached_has_bits & 0x00000400u) {
-      status_ = from.status_;
+      _internal_mutable_card_issuer()->::sync_pb::CardIssuer::MergeFrom(from._internal_card_issuer());
     }
     if (cached_has_bits & 0x00000800u) {
-      type_ = from.type_;
+      status_ = from.status_;
     }
     if (cached_has_bits & 0x00001000u) {
-      exp_month_ = from.exp_month_;
+      type_ = from.type_;
     }
     if (cached_has_bits & 0x00002000u) {
-      exp_year_ = from.exp_year_;
+      exp_month_ = from.exp_month_;
     }
     if (cached_has_bits & 0x00004000u) {
-      instrument_id_ = from.instrument_id_;
+      exp_year_ = from.exp_year_;
     }
     if (cached_has_bits & 0x00008000u) {
-      virtual_card_enrollment_state_ = from.virtual_card_enrollment_state_;
+      instrument_id_ = from.instrument_id_;
     }
     _has_bits_[0] |= cached_has_bits;
   }
-  if (cached_has_bits & 0x00010000u) {
-    _internal_set_virtual_card_enrollment_type(from._internal_virtual_card_enrollment_type());
+  if (cached_has_bits & 0x00030000u) {
+    if (cached_has_bits & 0x00010000u) {
+      virtual_card_enrollment_state_ = from.virtual_card_enrollment_state_;
+    }
+    if (cached_has_bits & 0x00020000u) {
+      virtual_card_enrollment_type_ = from.virtual_card_enrollment_type_;
+    }
+    _has_bits_[0] |= cached_has_bits;
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -5721,6 +7609,7 @@ void WalletMaskedCreditCard::InternalSwap(WalletMaskedCreditCard* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
+  card_benefit_.InternalSwap(&other->card_benefit_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &id_, lhs_arena,
       &other->id_, rhs_arena
@@ -5752,6 +7641,10 @@ void WalletMaskedCreditCard::InternalSwap(WalletMaskedCreditCard* other) {
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &product_description_, lhs_arena,
       &other->product_description_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &product_terms_url_, lhs_arena,
+      &other->product_terms_url_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(WalletMaskedCreditCard, virtual_card_enrollment_type_)
@@ -7587,6 +9480,389 @@ std::string PaymentInstrument::GetTypeName() const {
 
 // ===================================================================
 
+class WalletMaskedIban::_Internal {
+ public:
+  using HasBits = decltype(std::declval<WalletMaskedIban>()._has_bits_);
+  static void set_has_instrument_id(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+  static void set_has_prefix(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
+  static void set_has_suffix(HasBits* has_bits) {
+    (*has_bits)[0] |= 4u;
+  }
+  static void set_has_length(HasBits* has_bits) {
+    (*has_bits)[0] |= 16u;
+  }
+  static void set_has_nickname(HasBits* has_bits) {
+    (*has_bits)[0] |= 8u;
+  }
+};
+
+WalletMaskedIban::WalletMaskedIban(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:sync_pb.WalletMaskedIban)
+}
+WalletMaskedIban::WalletMaskedIban(const WalletMaskedIban& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      _has_bits_(from._has_bits_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  instrument_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    instrument_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_instrument_id()) {
+    instrument_id_.Set(from._internal_instrument_id(), 
+      GetArenaForAllocation());
+  }
+  prefix_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    prefix_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_prefix()) {
+    prefix_.Set(from._internal_prefix(), 
+      GetArenaForAllocation());
+  }
+  suffix_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    suffix_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_suffix()) {
+    suffix_.Set(from._internal_suffix(), 
+      GetArenaForAllocation());
+  }
+  nickname_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    nickname_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_nickname()) {
+    nickname_.Set(from._internal_nickname(), 
+      GetArenaForAllocation());
+  }
+  length_ = from.length_;
+  // @@protoc_insertion_point(copy_constructor:sync_pb.WalletMaskedIban)
+}
+
+inline void WalletMaskedIban::SharedCtor() {
+instrument_id_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  instrument_id_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+prefix_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  prefix_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+suffix_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  suffix_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+nickname_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  nickname_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+length_ = 0;
+}
+
+WalletMaskedIban::~WalletMaskedIban() {
+  // @@protoc_insertion_point(destructor:sync_pb.WalletMaskedIban)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void WalletMaskedIban::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  instrument_id_.Destroy();
+  prefix_.Destroy();
+  suffix_.Destroy();
+  nickname_.Destroy();
+}
+
+void WalletMaskedIban::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void WalletMaskedIban::Clear() {
+// @@protoc_insertion_point(message_clear_start:sync_pb.WalletMaskedIban)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x0000000fu) {
+    if (cached_has_bits & 0x00000001u) {
+      instrument_id_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x00000002u) {
+      prefix_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x00000004u) {
+      suffix_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x00000008u) {
+      nickname_.ClearNonDefaultToEmpty();
+    }
+  }
+  length_ = 0;
+  _has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* WalletMaskedIban::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional string instrument_id = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_instrument_id();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional string prefix = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          auto str = _internal_mutable_prefix();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional string suffix = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          auto str = _internal_mutable_suffix();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional int32 length = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+          _Internal::set_has_length(&has_bits);
+          length_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional string nickname = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
+          auto str = _internal_mutable_nickname();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* WalletMaskedIban::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:sync_pb.WalletMaskedIban)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // optional string instrument_id = 1;
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_instrument_id(), target);
+  }
+
+  // optional string prefix = 2;
+  if (cached_has_bits & 0x00000002u) {
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_prefix(), target);
+  }
+
+  // optional string suffix = 3;
+  if (cached_has_bits & 0x00000004u) {
+    target = stream->WriteStringMaybeAliased(
+        3, this->_internal_suffix(), target);
+  }
+
+  // optional int32 length = 4;
+  if (cached_has_bits & 0x00000010u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(4, this->_internal_length(), target);
+  }
+
+  // optional string nickname = 5;
+  if (cached_has_bits & 0x00000008u) {
+    target = stream->WriteStringMaybeAliased(
+        5, this->_internal_nickname(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:sync_pb.WalletMaskedIban)
+  return target;
+}
+
+size_t WalletMaskedIban::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:sync_pb.WalletMaskedIban)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x0000001fu) {
+    // optional string instrument_id = 1;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_instrument_id());
+    }
+
+    // optional string prefix = 2;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_prefix());
+    }
+
+    // optional string suffix = 3;
+    if (cached_has_bits & 0x00000004u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_suffix());
+    }
+
+    // optional string nickname = 5;
+    if (cached_has_bits & 0x00000008u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_nickname());
+    }
+
+    // optional int32 length = 4;
+    if (cached_has_bits & 0x00000010u) {
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_length());
+    }
+
+  }
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void WalletMaskedIban::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const WalletMaskedIban*>(
+      &from));
+}
+
+void WalletMaskedIban::MergeFrom(const WalletMaskedIban& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:sync_pb.WalletMaskedIban)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = from._has_bits_[0];
+  if (cached_has_bits & 0x0000001fu) {
+    if (cached_has_bits & 0x00000001u) {
+      _internal_set_instrument_id(from._internal_instrument_id());
+    }
+    if (cached_has_bits & 0x00000002u) {
+      _internal_set_prefix(from._internal_prefix());
+    }
+    if (cached_has_bits & 0x00000004u) {
+      _internal_set_suffix(from._internal_suffix());
+    }
+    if (cached_has_bits & 0x00000008u) {
+      _internal_set_nickname(from._internal_nickname());
+    }
+    if (cached_has_bits & 0x00000010u) {
+      length_ = from.length_;
+    }
+    _has_bits_[0] |= cached_has_bits;
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void WalletMaskedIban::CopyFrom(const WalletMaskedIban& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:sync_pb.WalletMaskedIban)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool WalletMaskedIban::IsInitialized() const {
+  return true;
+}
+
+void WalletMaskedIban::InternalSwap(WalletMaskedIban* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &instrument_id_, lhs_arena,
+      &other->instrument_id_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &prefix_, lhs_arena,
+      &other->prefix_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &suffix_, lhs_arena,
+      &other->suffix_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &nickname_, lhs_arena,
+      &other->nickname_, rhs_arena
+  );
+  swap(length_, other->length_);
+}
+
+std::string WalletMaskedIban::GetTypeName() const {
+  return "sync_pb.WalletMaskedIban";
+}
+
+
+// ===================================================================
+
 class BankAccountDetails::_Internal {
  public:
   using HasBits = decltype(std::declval<BankAccountDetails>()._has_bits_);
@@ -7884,7 +10160,7 @@ class AutofillWalletSpecifics::_Internal {
  public:
   using HasBits = decltype(std::declval<AutofillWalletSpecifics>()._has_bits_);
   static void set_has_type(HasBits* has_bits) {
-    (*has_bits)[0] |= 32u;
+    (*has_bits)[0] |= 64u;
   }
   static const ::sync_pb::WalletMaskedCreditCard& masked_card(const AutofillWalletSpecifics* msg);
   static void set_has_masked_card(HasBits* has_bits) {
@@ -7905,6 +10181,10 @@ class AutofillWalletSpecifics::_Internal {
   static const ::sync_pb::PaymentInstrument& payment_instrument(const AutofillWalletSpecifics* msg);
   static void set_has_payment_instrument(HasBits* has_bits) {
     (*has_bits)[0] |= 16u;
+  }
+  static const ::sync_pb::WalletMaskedIban& masked_iban(const AutofillWalletSpecifics* msg);
+  static void set_has_masked_iban(HasBits* has_bits) {
+    (*has_bits)[0] |= 32u;
   }
 };
 
@@ -7927,6 +10207,10 @@ AutofillWalletSpecifics::_Internal::cloud_token_data(const AutofillWalletSpecifi
 const ::sync_pb::PaymentInstrument&
 AutofillWalletSpecifics::_Internal::payment_instrument(const AutofillWalletSpecifics* msg) {
   return *msg->payment_instrument_;
+}
+const ::sync_pb::WalletMaskedIban&
+AutofillWalletSpecifics::_Internal::masked_iban(const AutofillWalletSpecifics* msg) {
+  return *msg->masked_iban_;
 }
 AutofillWalletSpecifics::AutofillWalletSpecifics(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
@@ -7963,6 +10247,11 @@ AutofillWalletSpecifics::AutofillWalletSpecifics(const AutofillWalletSpecifics& 
   } else {
     payment_instrument_ = nullptr;
   }
+  if (from._internal_has_masked_iban()) {
+    masked_iban_ = new ::sync_pb::WalletMaskedIban(*from.masked_iban_);
+  } else {
+    masked_iban_ = nullptr;
+  }
   type_ = from.type_;
   // @@protoc_insertion_point(copy_constructor:sync_pb.AutofillWalletSpecifics)
 }
@@ -7990,6 +10279,7 @@ inline void AutofillWalletSpecifics::SharedDtor() {
   if (this != internal_default_instance()) delete customer_data_;
   if (this != internal_default_instance()) delete cloud_token_data_;
   if (this != internal_default_instance()) delete payment_instrument_;
+  if (this != internal_default_instance()) delete masked_iban_;
 }
 
 void AutofillWalletSpecifics::SetCachedSize(int size) const {
@@ -8003,7 +10293,7 @@ void AutofillWalletSpecifics::Clear() {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x0000001fu) {
+  if (cached_has_bits & 0x0000003fu) {
     if (cached_has_bits & 0x00000001u) {
       GOOGLE_DCHECK(masked_card_ != nullptr);
       masked_card_->Clear();
@@ -8023,6 +10313,10 @@ void AutofillWalletSpecifics::Clear() {
     if (cached_has_bits & 0x00000010u) {
       GOOGLE_DCHECK(payment_instrument_ != nullptr);
       payment_instrument_->Clear();
+    }
+    if (cached_has_bits & 0x00000020u) {
+      GOOGLE_DCHECK(masked_iban_ != nullptr);
+      masked_iban_->Clear();
     }
   }
   type_ = 0;
@@ -8090,6 +10384,14 @@ const char* AutofillWalletSpecifics::_InternalParse(const char* ptr, ::_pbi::Par
         } else
           goto handle_unusual;
         continue;
+      // optional .sync_pb.WalletMaskedIban masked_iban = 7;
+      case 7:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 58)) {
+          ptr = ctx->ParseMessage(_internal_mutable_masked_iban(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -8122,7 +10424,7 @@ uint8_t* AutofillWalletSpecifics::_InternalSerialize(
 
   cached_has_bits = _has_bits_[0];
   // optional .sync_pb.AutofillWalletSpecifics.WalletInfoType type = 1;
-  if (cached_has_bits & 0x00000020u) {
+  if (cached_has_bits & 0x00000040u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       1, this->_internal_type(), target);
@@ -8163,6 +10465,13 @@ uint8_t* AutofillWalletSpecifics::_InternalSerialize(
         _Internal::payment_instrument(this).GetCachedSize(), target, stream);
   }
 
+  // optional .sync_pb.WalletMaskedIban masked_iban = 7;
+  if (cached_has_bits & 0x00000020u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(7, _Internal::masked_iban(this),
+        _Internal::masked_iban(this).GetCachedSize(), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -8180,7 +10489,7 @@ size_t AutofillWalletSpecifics::ByteSizeLong() const {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x0000003fu) {
+  if (cached_has_bits & 0x0000007fu) {
     // optional .sync_pb.WalletMaskedCreditCard masked_card = 2;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
@@ -8216,8 +10525,15 @@ size_t AutofillWalletSpecifics::ByteSizeLong() const {
           *payment_instrument_);
     }
 
-    // optional .sync_pb.AutofillWalletSpecifics.WalletInfoType type = 1;
+    // optional .sync_pb.WalletMaskedIban masked_iban = 7;
     if (cached_has_bits & 0x00000020u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *masked_iban_);
+    }
+
+    // optional .sync_pb.AutofillWalletSpecifics.WalletInfoType type = 1;
+    if (cached_has_bits & 0x00000040u) {
       total_size += 1 +
         ::_pbi::WireFormatLite::EnumSize(this->_internal_type());
     }
@@ -8244,7 +10560,7 @@ void AutofillWalletSpecifics::MergeFrom(const AutofillWalletSpecifics& from) {
   (void) cached_has_bits;
 
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x0000003fu) {
+  if (cached_has_bits & 0x0000007fu) {
     if (cached_has_bits & 0x00000001u) {
       _internal_mutable_masked_card()->::sync_pb::WalletMaskedCreditCard::MergeFrom(from._internal_masked_card());
     }
@@ -8261,6 +10577,9 @@ void AutofillWalletSpecifics::MergeFrom(const AutofillWalletSpecifics& from) {
       _internal_mutable_payment_instrument()->::sync_pb::PaymentInstrument::MergeFrom(from._internal_payment_instrument());
     }
     if (cached_has_bits & 0x00000020u) {
+      _internal_mutable_masked_iban()->::sync_pb::WalletMaskedIban::MergeFrom(from._internal_masked_iban());
+    }
+    if (cached_has_bits & 0x00000040u) {
       type_ = from.type_;
     }
     _has_bits_[0] |= cached_has_bits;
@@ -8696,6 +11015,22 @@ template<> PROTOBUF_NOINLINE ::sync_pb::CloudTokenData*
 Arena::CreateMaybeMessage< ::sync_pb::CloudTokenData >(Arena* arena) {
   return Arena::CreateMessageInternal< ::sync_pb::CloudTokenData >(arena);
 }
+template<> PROTOBUF_NOINLINE ::sync_pb::CardBenefit_FlatRateBenefit*
+Arena::CreateMaybeMessage< ::sync_pb::CardBenefit_FlatRateBenefit >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::sync_pb::CardBenefit_FlatRateBenefit >(arena);
+}
+template<> PROTOBUF_NOINLINE ::sync_pb::CardBenefit_CategoryBenefit*
+Arena::CreateMaybeMessage< ::sync_pb::CardBenefit_CategoryBenefit >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::sync_pb::CardBenefit_CategoryBenefit >(arena);
+}
+template<> PROTOBUF_NOINLINE ::sync_pb::CardBenefit_MerchantBenefit*
+Arena::CreateMaybeMessage< ::sync_pb::CardBenefit_MerchantBenefit >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::sync_pb::CardBenefit_MerchantBenefit >(arena);
+}
+template<> PROTOBUF_NOINLINE ::sync_pb::CardBenefit*
+Arena::CreateMaybeMessage< ::sync_pb::CardBenefit >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::sync_pb::CardBenefit >(arena);
+}
 template<> PROTOBUF_NOINLINE ::sync_pb::CardIssuer*
 Arena::CreateMaybeMessage< ::sync_pb::CardIssuer >(Arena* arena) {
   return Arena::CreateMessageInternal< ::sync_pb::CardIssuer >(arena);
@@ -8719,6 +11054,10 @@ Arena::CreateMaybeMessage< ::sync_pb::WalletCreditCardCloudTokenData >(Arena* ar
 template<> PROTOBUF_NOINLINE ::sync_pb::PaymentInstrument*
 Arena::CreateMaybeMessage< ::sync_pb::PaymentInstrument >(Arena* arena) {
   return Arena::CreateMessageInternal< ::sync_pb::PaymentInstrument >(arena);
+}
+template<> PROTOBUF_NOINLINE ::sync_pb::WalletMaskedIban*
+Arena::CreateMaybeMessage< ::sync_pb::WalletMaskedIban >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::sync_pb::WalletMaskedIban >(arena);
 }
 template<> PROTOBUF_NOINLINE ::sync_pb::BankAccountDetails*
 Arena::CreateMaybeMessage< ::sync_pb::BankAccountDetails >(Arena* arena) {

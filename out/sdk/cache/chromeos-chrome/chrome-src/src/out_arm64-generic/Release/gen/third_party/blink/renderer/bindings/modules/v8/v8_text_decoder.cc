@@ -73,11 +73,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, TextDecoder>::value,
     "TextDecoder inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&TextDecoder::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "TextDecoder is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -90,10 +85,10 @@ BLINK_BINDINGS_TRACE_EVENT("TextDecoder.encoding.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-TextDecoder* blink_receiver = V8TextDecoder::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->encoding();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+TextDecoder* blink_receiver = V8TextDecoder::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->encoding();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -105,8 +100,9 @@ BLINK_BINDINGS_TRACE_EVENT("TextDecoder.fatal.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-TextDecoder* blink_receiver = V8TextDecoder::ToWrappableUnsafe(v8_receiver);
+TextDecoder* blink_receiver = V8TextDecoder::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->fatal();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -119,8 +115,9 @@ BLINK_BINDINGS_TRACE_EVENT("TextDecoder.ignoreBOM.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-TextDecoder* blink_receiver = V8TextDecoder::ToWrappableUnsafe(v8_receiver);
+TextDecoder* blink_receiver = V8TextDecoder::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->ignoreBOM();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -200,7 +197,7 @@ ExceptionState exception_state(isolate, exception_context_type, class_like_name,
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
 v8::Local<v8::Object> v8_receiver = info.This();
-TextDecoder* blink_receiver = V8TextDecoder::ToWrappableUnsafe(v8_receiver);
+TextDecoder* blink_receiver = V8TextDecoder::ToWrappableUnsafe(isolate, v8_receiver);
 if (non_undefined_argument_length <= 0) {
   return_value = blink_receiver->decode(exception_state);
 break;

@@ -32,10 +32,7 @@ build libimageloader_static: phony ./libimageloader_static.a
 build protos: phony ./libprotos.a
 build protos_gen: phony obj/imageloader/protos_gen.stamp
 build root: phony obj/common-mk/gn_root/root.stamp
-build testrunner: phony ./libtestrunner.a
 build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
-build common-mk/testrunner$:testrunner: phony ./libtestrunner.a
-build common-mk/testrunner: phony ./libtestrunner.a
 build imageloader$:_imageloader-install_config: phony obj/imageloader/_imageloader-install_config.stamp
 build imageloader$:_libimageloader-manifest-install_config: phony obj/imageloader/_libimageloader-manifest-install_config.stamp
 build imageloader$:all: phony obj/imageloader/all.stamp
@@ -51,11 +48,9 @@ build imageloader$:libimageloader-manifest: phony ./lib/libimageloader-manifest.
 build imageloader$:libimageloader_static: phony ./libimageloader_static.a
 build imageloader$:protos: phony ./libprotos.a
 build imageloader$:protos_gen: phony obj/imageloader/protos_gen.stamp
-build imageloader$:run_tests: phony ./run_tests
 
 build all: phony $
     obj/common-mk/gn_root/root.stamp $
-    ./libtestrunner.a $
     obj/imageloader/_imageloader-install_config.stamp $
     obj/imageloader/_libimageloader-manifest-install_config.stamp $
     obj/imageloader/all.stamp $
@@ -70,7 +65,6 @@ build all: phony $
     ./lib/libimageloader-manifest.so $
     ./libimageloader_static.a $
     ./libprotos.a $
-    obj/imageloader/protos_gen.stamp $
-    ./run_tests
+    obj/imageloader/protos_gen.stamp
 
 default all

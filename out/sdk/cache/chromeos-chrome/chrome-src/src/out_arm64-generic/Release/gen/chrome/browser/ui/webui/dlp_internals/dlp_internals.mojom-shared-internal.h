@@ -29,6 +29,9 @@ class DataTransferEndpoint_Data;
 class ContentRestrictionInfo_Data;
 class RenderFrameHostInfo_Data;
 class WebContentsInfo_Data;
+class EventDestination_Data;
+class DlpEvent_Data;
+class FileDatabaseEntry_Data;
 
 struct EndpointType_Data {
  public:
@@ -98,6 +101,117 @@ struct Level_Data {
       case 2:
       case 3:
       case 4:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
+struct EventDestination_Component_Data {
+ public:
+  static bool constexpr kIsExtensible = false;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+      case 3:
+      case 4:
+      case 5:
+      case 6:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
+struct DlpEvent_Restriction_Data {
+ public:
+  static bool constexpr kIsExtensible = false;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+      case 3:
+      case 4:
+      case 5:
+      case 6:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
+struct DlpEvent_Mode_Data {
+ public:
+  static bool constexpr kIsExtensible = false;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+      case 3:
+      case 4:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
+struct DlpEvent_UserType_Data {
+ public:
+  static bool constexpr kIsExtensible = false;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+      case 3:
         return true;
     }
     return false;
@@ -314,6 +428,172 @@ struct WebContentsInfo_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     WebContentsInfo_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  EventDestination_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> url_pattern;
+  uint8_t component_$flag : 1;
+  uint8_t pad1_[3];
+  int32_t component_$value;
+
+ private:
+  friend class mojo::internal::MessageFragment<EventDestination_Data>;
+
+  EventDestination_Data();
+  ~EventDestination_Data() = delete;
+};
+static_assert(sizeof(EventDestination_Data) == 24,
+              "Bad sizeof(EventDestination_Data)");
+// Used by EventDestination::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct EventDestination_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  EventDestination_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~EventDestination_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<EventDestination_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    EventDestination_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  DlpEvent_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> source_pattern;
+  mojo::internal::Pointer<internal::EventDestination_Data> destination;
+  uint8_t restriction_$flag : 1;
+  uint8_t mode_$flag : 1;
+  uint8_t timestamp_micro_$flag : 1;
+  uint8_t user_type_$flag : 1;
+  uint8_t pad5_[3];
+  int32_t restriction_$value;
+  int32_t mode_$value;
+  int32_t user_type_$value;
+  int64_t timestamp_micro_$value;
+  mojo::internal::Pointer<mojo::internal::String_Data> content_name;
+  mojo::internal::Pointer<mojo::internal::String_Data> triggered_rule_name;
+  mojo::internal::Pointer<mojo::internal::String_Data> triggered_rule_id;
+
+ private:
+  friend class mojo::internal::MessageFragment<DlpEvent_Data>;
+
+  DlpEvent_Data();
+  ~DlpEvent_Data() = delete;
+};
+static_assert(sizeof(DlpEvent_Data) == 72,
+              "Bad sizeof(DlpEvent_Data)");
+// Used by DlpEvent::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct DlpEvent_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  DlpEvent_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~DlpEvent_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<DlpEvent_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    DlpEvent_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  FileDatabaseEntry_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t inode_$flag : 1;
+  uint8_t crtime_$flag : 1;
+  uint8_t pad1_[7];
+  uint64_t inode_$value;
+  uint64_t crtime_$value;
+  mojo::internal::Pointer<mojo::internal::String_Data> source_url;
+  mojo::internal::Pointer<mojo::internal::String_Data> referrer_url;
+
+ private:
+  friend class mojo::internal::MessageFragment<FileDatabaseEntry_Data>;
+
+  FileDatabaseEntry_Data();
+  ~FileDatabaseEntry_Data() = delete;
+};
+static_assert(sizeof(FileDatabaseEntry_Data) == 48,
+              "Bad sizeof(FileDatabaseEntry_Data)");
+// Used by FileDatabaseEntry::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct FileDatabaseEntry_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  FileDatabaseEntry_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~FileDatabaseEntry_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<FileDatabaseEntry_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    FileDatabaseEntry_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 
 #pragma pack(pop)
 

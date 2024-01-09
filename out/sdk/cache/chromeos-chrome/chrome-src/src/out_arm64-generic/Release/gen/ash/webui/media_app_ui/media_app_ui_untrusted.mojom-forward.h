@@ -23,9 +23,9 @@
 namespace ash::media_app_ui::mojom {
 class UntrustedPageHandlerFactory;
 
-class UntrustedPageHandler;
+class OcrUntrustedPageHandler;
 
-class UntrustedPage;
+class OcrUntrustedPage;
 
 
 

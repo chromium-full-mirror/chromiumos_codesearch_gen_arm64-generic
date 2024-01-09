@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -150,14 +151,17 @@ void ScreenOrientationProxy::LockOrientation(
                         "<value of type ::device::mojom::ScreenOrientationLockType>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kScreenOrientation_LockOrientation_Name, kFlags, 0, 0, nullptr);
@@ -183,14 +187,17 @@ void ScreenOrientationProxy::UnlockOrientation(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send device::mojom::ScreenOrientation::UnlockOrientation");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kScreenOrientation_UnlockOrientation_Name, kFlags, 0, 0, nullptr);
@@ -299,7 +306,8 @@ void ScreenOrientation_LockOrientation_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kScreenOrientation_LockOrientation_Name, kFlags, 0, 0, nullptr);
@@ -405,12 +413,12 @@ std::move(p_orientation), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kScreenOrientationValidationInfo[] = {
-    {&internal::ScreenOrientation_LockOrientation_Params_Data::Validate,
+    { &internal::ScreenOrientation_LockOrientation_Params_Data::Validate,
      &internal::ScreenOrientation_LockOrientation_ResponseParams_Data::Validate},
-    {&internal::ScreenOrientation_UnlockOrientation_Params_Data::Validate,
+    { &internal::ScreenOrientation_UnlockOrientation_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -503,14 +511,17 @@ void ScreenOrientationListenerProxy::IsAutoRotateEnabledByUser(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send device::mojom::ScreenOrientationListener::IsAutoRotateEnabledByUser");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kScreenOrientationListener_IsAutoRotateEnabledByUser_Name, kFlags, 0, 0, nullptr);
@@ -620,7 +631,8 @@ void ScreenOrientationListener_IsAutoRotateEnabledByUser_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kScreenOrientationListener_IsAutoRotateEnabledByUser_Name, kFlags, 0, 0, nullptr);
@@ -696,10 +708,10 @@ bool ScreenOrientationListenerStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kScreenOrientationListenerValidationInfo[] = {
-    {&internal::ScreenOrientationListener_IsAutoRotateEnabledByUser_Params_Data::Validate,
+    { &internal::ScreenOrientationListener_IsAutoRotateEnabledByUser_Params_Data::Validate,
      &internal::ScreenOrientationListener_IsAutoRotateEnabledByUser_ResponseParams_Data::Validate},
 };
 

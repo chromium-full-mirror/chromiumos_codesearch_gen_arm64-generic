@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "extensions/common/api/idle.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -36,13 +37,13 @@ namespace idle {
 
 const char* ToString(IdleState enum_param) {
   switch (enum_param) {
-    case IDLE_STATE_ACTIVE:
+    case IdleState::kActive:
       return "active";
-    case IDLE_STATE_IDLE:
+    case IdleState::kIdle:
       return "idle";
-    case IDLE_STATE_LOCKED:
+    case IdleState::kLocked:
       return "locked";
-    case IDLE_STATE_NONE:
+    case IdleState::kNone:
       return "";
   }
   NOTREACHED();
@@ -51,12 +52,12 @@ const char* ToString(IdleState enum_param) {
 
 IdleState ParseIdleState(base::StringPiece enum_string) {
   if (enum_string == "active")
-    return IDLE_STATE_ACTIVE;
+    return IdleState::kActive;
   if (enum_string == "idle")
-    return IDLE_STATE_IDLE;
+    return IdleState::kIdle;
   if (enum_string == "locked")
-    return IDLE_STATE_LOCKED;
-  return IDLE_STATE_NONE;
+    return IdleState::kLocked;
+  return IdleState::kNone;
 }
 
 std::u16string GetIdleStateParseError(base::StringPiece enum_string) {
@@ -73,13 +74,13 @@ namespace QueryState {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -89,13 +90,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = detection_interval_in_seconds_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.detection_interval_in_seconds = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -115,13 +116,13 @@ namespace SetDetectionInterval {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -131,13 +132,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = interval_in_seconds_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.interval_in_seconds = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;

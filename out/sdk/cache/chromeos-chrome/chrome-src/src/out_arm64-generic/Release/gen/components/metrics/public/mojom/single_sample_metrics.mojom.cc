@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -129,14 +130,17 @@ void SingleSampleMetricsProviderProxy::AcquireSingleSampleMetric(
                         "<value of type ::mojo::PendingReceiver<SingleSampleMetric>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSingleSampleMetricsProvider_AcquireSingleSampleMetric_Name, kFlags, 0, 0, nullptr);
@@ -247,10 +251,10 @@ bool SingleSampleMetricsProviderStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSingleSampleMetricsProviderValidationInfo[] = {
-    {&internal::SingleSampleMetricsProvider_AcquireSingleSampleMetric_Params_Data::Validate,
+    { &internal::SingleSampleMetricsProvider_AcquireSingleSampleMetric_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -330,14 +334,17 @@ void SingleSampleMetricProxy::SetSample(
                         "<value of type int32_t>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kSingleSampleMetric_SetSample_Name, kFlags, 0, 0, nullptr);
@@ -406,10 +413,10 @@ bool SingleSampleMetricStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kSingleSampleMetricValidationInfo[] = {
-    {&internal::SingleSampleMetric_SetSample_Params_Data::Validate,
+    { &internal::SingleSampleMetric_SetSample_Params_Data::Validate,
      nullptr /* no response */},
 };
 

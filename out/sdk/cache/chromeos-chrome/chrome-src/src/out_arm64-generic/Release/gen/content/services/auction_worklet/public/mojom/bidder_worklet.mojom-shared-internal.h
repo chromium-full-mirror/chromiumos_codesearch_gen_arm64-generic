@@ -251,10 +251,12 @@ class COMPONENT_EXPORT(MOJOM_SHARED_CONTENT_EXPORT) BidderWorkletNonSharedParams
 
   mojo::internal::StructHeader header_;
   mojo::internal::Pointer<mojo::internal::String_Data> name;
+  int32_t trusted_bidding_signals_slot_size_mode;
   uint8_t enable_bidding_signals_prioritization : 1;
-  uint8_t pad1_[3];
-  int32_t execution_mode;
+  uint8_t pad2_[3];
   mojo::internal::Pointer<mojo::internal::Map_Data<mojo::internal::Pointer<mojo::internal::String_Data>, double>> priority_vector;
+  int32_t execution_mode;
+  uint8_t pad4_[4];
   mojo::internal::Pointer<::url::mojom::internal::Url_Data> update_url;
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<mojo::internal::String_Data>>> trusted_bidding_signals_keys;
   mojo::internal::Pointer<mojo::internal::String_Data> user_bidding_signals;
@@ -268,7 +270,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_CONTENT_EXPORT) BidderWorkletNonSharedParams
   BidderWorkletNonSharedParams_Data();
   ~BidderWorkletNonSharedParams_Data() = delete;
 };
-static_assert(sizeof(BidderWorkletNonSharedParams_Data) == 80,
+static_assert(sizeof(BidderWorkletNonSharedParams_Data) == 88,
               "Bad sizeof(BidderWorkletNonSharedParams_Data)");
 // Used by BidderWorkletNonSharedParams::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>
@@ -311,6 +313,8 @@ class COMPONENT_EXPORT(MOJOM_SHARED_CONTENT_EXPORT) BiddingBrowserSignals_Data {
   int32_t join_count;
   int32_t bid_count;
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::PreviousWin_Data>>> prev_wins;
+  uint8_t for_debugging_only_in_cooldown_or_lockout : 1;
+  uint8_t padfinal_[7];
 
  private:
   friend class mojo::internal::MessageFragment<BiddingBrowserSignals_Data>;
@@ -318,7 +322,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_CONTENT_EXPORT) BiddingBrowserSignals_Data {
   BiddingBrowserSignals_Data();
   ~BiddingBrowserSignals_Data() = delete;
 };
-static_assert(sizeof(BiddingBrowserSignals_Data) == 24,
+static_assert(sizeof(BiddingBrowserSignals_Data) == 32,
               "Bad sizeof(BiddingBrowserSignals_Data)");
 // Used by BiddingBrowserSignals::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

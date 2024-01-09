@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chrome/browser/ui/webui/ash/settings/pages/apps/mojom/app_notification_handler.mojom-features.h"
 #include "chrome/browser/ui/webui/ash/settings/pages/apps/mojom/app_notification_handler.mojom-shared.h"
 #include "chrome/browser/ui/webui/ash/settings/pages/apps/mojom/app_notification_handler.mojom-forward.h"
 #include "ui/webui/resources/cr_components/app_management/app_management.mojom.h"
@@ -349,7 +350,7 @@ class  App {
 
   App(
       const std::string& id,
-      const absl::optional<std::string>& title,
+      const std::optional<std::string>& title,
       ::apps::Readiness readiness,
       ::apps::PermissionPtr notification_permission);
 
@@ -433,7 +434,7 @@ App& operator=(const App&) = delete;
   
   std::string id;
   
-  absl::optional<std::string> title;
+  std::optional<std::string> title;
   
   ::apps::Readiness readiness;
   

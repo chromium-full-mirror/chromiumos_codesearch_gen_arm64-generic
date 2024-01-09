@@ -74,12 +74,6 @@ bool WebOriginTrials::isTrialEnabled(const WebDocument* web_document, const WebS
           return false;
         }
         break;
-      case mojom::blink::OriginTrialFeature::kBeforeMatchEvent:
-        if (!RuntimeEnabledFeatures::BeforeMatchEventEnabled(
-                document->GetExecutionContext())) {
-          return false;
-        }
-        break;
       case mojom::blink::OriginTrialFeature::kCacheStorageCodeCacheHint:
         if (!RuntimeEnabledFeatures::CacheStorageCodeCacheHintEnabled(
                 document->GetExecutionContext())) {
@@ -146,20 +140,14 @@ bool WebOriginTrials::isTrialEnabled(const WebDocument* web_document, const WebS
           return false;
         }
         break;
-      case mojom::blink::OriginTrialFeature::kEarlyHintsPreloadForNavigationOptIn:
-        if (!RuntimeEnabledFeatures::EarlyHintsPreloadForNavigationOptInEnabled(
-                document->GetExecutionContext())) {
-          return false;
-        }
-        break;
       case mojom::blink::OriginTrialFeature::kEditContext:
         if (!RuntimeEnabledFeatures::EditContextEnabled(
                 document->GetExecutionContext())) {
           return false;
         }
         break;
-      case mojom::blink::OriginTrialFeature::kFedCmIdpSigninStatus:
-        if (!RuntimeEnabledFeatures::FedCmIdpSigninStatusEnabled(
+      case mojom::blink::OriginTrialFeature::kElementCapture:
+        if (!RuntimeEnabledFeatures::ElementCaptureEnabled(
                 document->GetExecutionContext())) {
           return false;
         }
@@ -172,6 +160,12 @@ bool WebOriginTrials::isTrialEnabled(const WebDocument* web_document, const WebS
         break;
       case mojom::blink::OriginTrialFeature::kFencedFramesAPIChanges:
         if (!RuntimeEnabledFeatures::FencedFramesAPIChangesEnabled(
+                document->GetExecutionContext())) {
+          return false;
+        }
+        break;
+      case mojom::blink::OriginTrialFeature::kFetchLaterAPI:
+        if (!RuntimeEnabledFeatures::FetchLaterAPIEnabled(
                 document->GetExecutionContext())) {
           return false;
         }
@@ -208,12 +202,6 @@ bool WebOriginTrials::isTrialEnabled(const WebDocument* web_document, const WebS
         break;
       case mojom::blink::OriginTrialFeature::kHrefTranslate:
         if (!RuntimeEnabledFeatures::HrefTranslateEnabled(
-                document->GetExecutionContext())) {
-          return false;
-        }
-        break;
-      case mojom::blink::OriginTrialFeature::kHTMLPopoverAttribute:
-        if (!RuntimeEnabledFeatures::HTMLPopoverAttributeEnabled(
                 document->GetExecutionContext())) {
           return false;
         }
@@ -398,12 +386,6 @@ bool WebOriginTrials::isTrialEnabled(const WebDocument* web_document, const WebS
           return false;
         }
         break;
-      case mojom::blink::OriginTrialFeature::kPortals:
-        if (!RuntimeEnabledFeatures::PortalsEnabled(
-                document->GetExecutionContext())) {
-          return false;
-        }
-        break;
       case mojom::blink::OriginTrialFeature::kPrivacySandboxAdsAPIs:
         if (!RuntimeEnabledFeatures::PrivacySandboxAdsAPIsEnabled(
                 document->GetExecutionContext())) {
@@ -412,6 +394,12 @@ bool WebOriginTrials::isTrialEnabled(const WebDocument* web_document, const WebS
         break;
       case mojom::blink::OriginTrialFeature::kPrivateNetworkAccessNonSecureContextsAllowed:
         if (!RuntimeEnabledFeatures::PrivateNetworkAccessNonSecureContextsAllowedEnabled(
+                document->GetExecutionContext())) {
+          return false;
+        }
+        break;
+      case mojom::blink::OriginTrialFeature::kPrivateNetworkAccessPermissionPrompt:
+        if (!RuntimeEnabledFeatures::PrivateNetworkAccessPermissionPromptEnabled(
                 document->GetExecutionContext())) {
           return false;
         }
@@ -500,12 +488,6 @@ bool WebOriginTrials::isTrialEnabled(const WebDocument* web_document, const WebS
           return false;
         }
         break;
-      case mojom::blink::OriginTrialFeature::kSpeculationRules:
-        if (!RuntimeEnabledFeatures::SpeculationRulesEnabled(
-                document->GetExecutionContext())) {
-          return false;
-        }
-        break;
       case mojom::blink::OriginTrialFeature::kSpeculationRulesDocumentRules:
         if (!RuntimeEnabledFeatures::SpeculationRulesDocumentRulesEnabled(
                 document->GetExecutionContext())) {
@@ -542,14 +524,14 @@ bool WebOriginTrials::isTrialEnabled(const WebDocument* web_document, const WebS
           return false;
         }
         break;
-      case mojom::blink::OriginTrialFeature::kSpeculationRulesPrefetchProxy:
-        if (!RuntimeEnabledFeatures::SpeculationRulesPrefetchProxyEnabled(
+      case mojom::blink::OriginTrialFeature::kSpeculationRulesRelativeToDocument:
+        if (!RuntimeEnabledFeatures::SpeculationRulesRelativeToDocumentEnabled(
                 document->GetExecutionContext())) {
           return false;
         }
         break;
-      case mojom::blink::OriginTrialFeature::kSpeculationRulesRelativeToDocument:
-        if (!RuntimeEnabledFeatures::SpeculationRulesRelativeToDocumentEnabled(
+      case mojom::blink::OriginTrialFeature::kStorageAccessAPIBeyondCookies:
+        if (!RuntimeEnabledFeatures::StorageAccessAPIBeyondCookiesEnabled(
                 document->GetExecutionContext())) {
           return false;
         }
@@ -578,12 +560,6 @@ bool WebOriginTrials::isTrialEnabled(const WebDocument* web_document, const WebS
           return false;
         }
         break;
-      case mojom::blink::OriginTrialFeature::kTopicsXHR:
-        if (!RuntimeEnabledFeatures::TopicsXHREnabled(
-                document->GetExecutionContext())) {
-          return false;
-        }
-        break;
       case mojom::blink::OriginTrialFeature::kTouchEventFeatureDetection:
         if (!RuntimeEnabledFeatures::TouchEventFeatureDetectionEnabled(
                 document->GetExecutionContext())) {
@@ -592,6 +568,12 @@ bool WebOriginTrials::isTrialEnabled(const WebDocument* web_document, const WebS
         break;
       case mojom::blink::OriginTrialFeature::kTpcd:
         if (!RuntimeEnabledFeatures::TpcdEnabled(
+                document->GetExecutionContext())) {
+          return false;
+        }
+        break;
+      case mojom::blink::OriginTrialFeature::kTpcd1p:
+        if (!RuntimeEnabledFeatures::Tpcd1pEnabled(
                 document->GetExecutionContext())) {
           return false;
         }
@@ -616,6 +598,12 @@ bool WebOriginTrials::isTrialEnabled(const WebDocument* web_document, const WebS
         break;
       case mojom::blink::OriginTrialFeature::kWebAppLaunchQueue:
         if (!RuntimeEnabledFeatures::WebAppLaunchQueueEnabled(
+                document->GetExecutionContext())) {
+          return false;
+        }
+        break;
+      case mojom::blink::OriginTrialFeature::kWebAppScopeExtensions:
+        if (!RuntimeEnabledFeatures::WebAppScopeExtensionsEnabled(
                 document->GetExecutionContext())) {
           return false;
         }
@@ -652,12 +640,6 @@ bool WebOriginTrials::isTrialEnabled(const WebDocument* web_document, const WebS
         break;
       case mojom::blink::OriginTrialFeature::kWebAssemblyJSStringBuiltins:
         if (!RuntimeEnabledFeatures::WebAssemblyJSStringBuiltinsEnabled(
-                document->GetExecutionContext())) {
-          return false;
-        }
-        break;
-      case mojom::blink::OriginTrialFeature::kWebEnvironmentIntegrity:
-        if (!RuntimeEnabledFeatures::WebEnvironmentIntegrityEnabled(
                 document->GetExecutionContext())) {
           return false;
         }

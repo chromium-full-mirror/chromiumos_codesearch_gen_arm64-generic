@@ -29,17 +29,10 @@ async function activateContextMenuOnBodyCell(cellText) {
         },
     });
 }
-async function waitForFirstBodyCellText(cellText) {
-    await (0, helper_js_1.waitForFunction)(async () => {
-        const dataGrid = await (0, datagrid_helpers_js_1.getDataGrid)();
-        const firstBodyCell = await (0, helper_js_1.$)('tbody td', dataGrid);
-        const text = firstBodyCell && await firstBodyCell.evaluate(cell => cell.innerText);
-        return text === cellText;
-    });
-}
 (0, mocha_extensions_js_1.describe)('data grid controller', () => {
     (0, shared_js_1.preloadForCodeCoverage)('data_grid_controller/basic.html');
-    (0, mocha_extensions_js_1.it)('lets the user right click on a header to show the context menu', async () => {
+    // Flaky
+    mocha_extensions_js_1.it.skip('[crbug.com/1502498] lets the user right click on a header to show the context menu', async () => {
         await (0, shared_js_1.loadComponentDocExample)('data_grid_controller/basic.html');
         await activateContextMenuOnColumnHeader('Key');
         const contextMenu = await (0, helper_js_1.$)('.soft-context-menu');
@@ -56,13 +49,15 @@ async function waitForFirstBodyCellText(cellText) {
         await (0, helper_js_1.waitForFunction)(async () => {
             const hiddenCells = await (0, helper_js_1.$$)('tbody td.hidden', dataGrid);
             return hiddenCells.length === 3;
+        }, undefined, '3 hidden cells in the data-grid');
+        await (0, helper_js_1.waitForFunction)(async () => {
+            const renderedText = await (0, datagrid_helpers_js_1.getInnerTextOfDataGridCells)(dataGrid, 3);
+            return JSON.stringify([
+                ['Bravo'],
+                ['Alpha'],
+                ['Charlie'],
+            ]) === JSON.stringify(renderedText);
         });
-        const renderedText = await (0, datagrid_helpers_js_1.getInnerTextOfDataGridCells)(dataGrid, 3);
-        chai_1.assert.deepEqual([
-            ['Bravo'],
-            ['Alpha'],
-            ['Charlie'],
-        ], renderedText);
     });
     (0, mocha_extensions_js_1.it)('lists sortable columns in a sub-menu and lets the user click to sort', async () => {
         await (0, shared_js_1.loadComponentDocExample)('data_grid_controller/basic.html');
@@ -75,14 +70,15 @@ async function waitForFirstBodyCellText(cellText) {
         await sortBy.hover();
         const keyColumnSort = await (0, helper_js_1.waitFor)('[aria-label="Key"]');
         await keyColumnSort.click();
-        await waitForFirstBodyCellText('Alpha');
         const dataGrid = await (0, datagrid_helpers_js_1.getDataGrid)();
-        const renderedText = await (0, datagrid_helpers_js_1.getInnerTextOfDataGridCells)(dataGrid, 3);
-        chai_1.assert.deepEqual([
-            ['Alpha', 'Letter A'],
-            ['Bravo', 'Letter B'],
-            ['Charlie', 'Letter C'],
-        ], renderedText);
+        await (0, helper_js_1.waitForFunction)(async () => {
+            const renderedText = await (0, datagrid_helpers_js_1.getInnerTextOfDataGridCells)(dataGrid, 3);
+            return JSON.stringify([
+                ['Alpha', 'Letter A'],
+                ['Bravo', 'Letter B'],
+                ['Charlie', 'Letter C'],
+            ]) === JSON.stringify(renderedText);
+        });
     });
     (0, mocha_extensions_js_1.it)('lets the user click on a column header to sort it', async () => {
         await (0, shared_js_1.loadComponentDocExample)('data_grid_controller/basic.html');
@@ -91,13 +87,14 @@ async function waitForFirstBodyCellText(cellText) {
         await (0, datagrid_helpers_js_1.getInnerTextOfDataGridCells)(dataGrid, 3);
         // Sort and wait for the first row to be as expected.
         await (0, helper_js_1.click)('th[data-grid-header-cell="key"]');
-        await waitForFirstBodyCellText('Alpha');
-        const renderedText = await (0, datagrid_helpers_js_1.getInnerTextOfDataGridCells)(dataGrid, 3);
-        chai_1.assert.deepEqual([
-            ['Alpha', 'Letter A'],
-            ['Bravo', 'Letter B'],
-            ['Charlie', 'Letter C'],
-        ], renderedText);
+        await (0, helper_js_1.waitForFunction)(async () => {
+            const renderedText = await (0, datagrid_helpers_js_1.getInnerTextOfDataGridCells)(dataGrid, 3);
+            return JSON.stringify([
+                ['Alpha', 'Letter A'],
+                ['Bravo', 'Letter B'],
+                ['Charlie', 'Letter C'],
+            ]) === JSON.stringify(renderedText);
+        });
     });
     (0, mocha_extensions_js_1.it)('lists sort by and header options when right clicking on a body row', async () => {
         await (0, shared_js_1.loadComponentDocExample)('data_grid_controller/basic.html');

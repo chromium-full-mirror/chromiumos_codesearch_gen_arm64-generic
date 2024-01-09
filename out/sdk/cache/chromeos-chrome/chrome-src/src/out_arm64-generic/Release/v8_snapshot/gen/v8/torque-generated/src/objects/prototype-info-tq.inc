@@ -51,13 +51,13 @@ class TorqueGeneratedPrototypeInfo : public P {
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/prototype-info.tq?l=26&c=3
   inline void set_bit_field(int value);
 
-  // Torque type: (class Undefined | Weak<class Map>)
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/prototype-info.tq?l=29&c=3
-  inline MaybeObject object_create_map() const;
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/prototype-info.tq?l=29&c=3
-  inline MaybeObject object_create_map(PtrComprCageBase cage_base) const;
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/prototype-info.tq?l=29&c=3
-  inline void set_object_create_map(MaybeObject value, WriteBarrierMode mode = UPDATE_WRITE_BARRIER);
+  // Torque type: (class Undefined | class WeakArrayList)
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/prototype-info.tq?l=31&c=3
+  inline Tagged<HeapObject> derived_maps() const;
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/prototype-info.tq?l=31&c=3
+  inline Tagged<HeapObject> derived_maps(PtrComprCageBase cage_base) const;
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/prototype-info.tq?l=31&c=3
+  inline void set_derived_maps(Tagged<HeapObject> value, WriteBarrierMode mode = UPDATE_WRITE_BARRIER);
 
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/prototype-info.tq?l=9&c=1
   V8_INLINE static Tagged<D> cast(Tagged<Object> object);
@@ -89,14 +89,14 @@ class TorqueGeneratedPrototypeInfo : public P {
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/prototype-info.tq?l=26&c=3
   static constexpr int kBitFieldOffset = kRegistrySlotOffsetEnd + 1;
   static constexpr int kBitFieldOffsetEnd = kBitFieldOffset + kTaggedSize - 1;
-  static constexpr int kEndOfStrongFieldsOffset = kBitFieldOffsetEnd + 1;
-  static constexpr int kStartOfWeakFieldsOffset = kBitFieldOffsetEnd + 1;
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/prototype-info.tq?l=29&c=3
-  static constexpr int kObjectCreateMapOffset = kBitFieldOffsetEnd + 1;
-  static constexpr int kObjectCreateMapOffsetEnd = kObjectCreateMapOffset + kTaggedSize - 1;
-  static constexpr int kEndOfWeakFieldsOffset = kObjectCreateMapOffsetEnd + 1;
-  static constexpr int kHeaderSize = kObjectCreateMapOffsetEnd + 1;
-  static constexpr int kSize = kObjectCreateMapOffsetEnd + 1;
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/prototype-info.tq?l=31&c=3
+  static constexpr int kDerivedMapsOffset = kBitFieldOffsetEnd + 1;
+  static constexpr int kDerivedMapsOffsetEnd = kDerivedMapsOffset + kTaggedSize - 1;
+  static constexpr int kEndOfStrongFieldsOffset = kDerivedMapsOffsetEnd + 1;
+  static constexpr int kStartOfWeakFieldsOffset = kDerivedMapsOffsetEnd + 1;
+  static constexpr int kEndOfWeakFieldsOffset = kDerivedMapsOffsetEnd + 1;
+  static constexpr int kHeaderSize = kDerivedMapsOffsetEnd + 1;
+  static constexpr int kSize = kDerivedMapsOffsetEnd + 1;
 
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/prototype-info.tq?l=9&c=1
   V8_INLINE static constexpr int32_t SizeFor() {

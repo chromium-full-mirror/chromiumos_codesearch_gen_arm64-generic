@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "ash/components/arc/mojom/keymint.mojom-features.h"
 #include "ash/components/arc/mojom/keymint.mojom-shared.h"
 #include "ash/components/arc/mojom/keymint.mojom-forward.h"
 #include <string>
@@ -806,121 +807,121 @@ class  KeyParameterValue {
   // Construct an instance holding |invalid|.
   static KeyParameterValuePtr
   NewInvalid(
-      uint32_t invalid) {
+      uint32_t value) {
     auto result = KeyParameterValuePtr(absl::in_place);
-    result->set_invalid(std::move(invalid));
+    result->set_invalid(std::move(value));
     return result;
   }
   // Construct an instance holding |algorithm|.
   static KeyParameterValuePtr
   NewAlgorithm(
-      Algorithm algorithm) {
+      Algorithm value) {
     auto result = KeyParameterValuePtr(absl::in_place);
-    result->set_algorithm(std::move(algorithm));
+    result->set_algorithm(std::move(value));
     return result;
   }
   // Construct an instance holding |block_mode|.
   static KeyParameterValuePtr
   NewBlockMode(
-      BlockMode block_mode) {
+      BlockMode value) {
     auto result = KeyParameterValuePtr(absl::in_place);
-    result->set_block_mode(std::move(block_mode));
+    result->set_block_mode(std::move(value));
     return result;
   }
   // Construct an instance holding |padding_mode|.
   static KeyParameterValuePtr
   NewPaddingMode(
-      PaddingMode padding_mode) {
+      PaddingMode value) {
     auto result = KeyParameterValuePtr(absl::in_place);
-    result->set_padding_mode(std::move(padding_mode));
+    result->set_padding_mode(std::move(value));
     return result;
   }
   // Construct an instance holding |digest|.
   static KeyParameterValuePtr
   NewDigest(
-      Digest digest) {
+      Digest value) {
     auto result = KeyParameterValuePtr(absl::in_place);
-    result->set_digest(std::move(digest));
+    result->set_digest(std::move(value));
     return result;
   }
   // Construct an instance holding |ec_curve|.
   static KeyParameterValuePtr
   NewEcCurve(
-      EcCurve ec_curve) {
+      EcCurve value) {
     auto result = KeyParameterValuePtr(absl::in_place);
-    result->set_ec_curve(std::move(ec_curve));
+    result->set_ec_curve(std::move(value));
     return result;
   }
   // Construct an instance holding |origin|.
   static KeyParameterValuePtr
   NewOrigin(
-      KeyOrigin origin) {
+      KeyOrigin value) {
     auto result = KeyParameterValuePtr(absl::in_place);
-    result->set_origin(std::move(origin));
+    result->set_origin(std::move(value));
     return result;
   }
   // Construct an instance holding |key_purpose|.
   static KeyParameterValuePtr
   NewKeyPurpose(
-      KeyPurpose key_purpose) {
+      KeyPurpose value) {
     auto result = KeyParameterValuePtr(absl::in_place);
-    result->set_key_purpose(std::move(key_purpose));
+    result->set_key_purpose(std::move(value));
     return result;
   }
   // Construct an instance holding |hardware_authenticator_type|.
   static KeyParameterValuePtr
   NewHardwareAuthenticatorType(
-      HardwareAuthenticatorType hardware_authenticator_type) {
+      HardwareAuthenticatorType value) {
     auto result = KeyParameterValuePtr(absl::in_place);
-    result->set_hardware_authenticator_type(std::move(hardware_authenticator_type));
+    result->set_hardware_authenticator_type(std::move(value));
     return result;
   }
   // Construct an instance holding |security_level|.
   static KeyParameterValuePtr
   NewSecurityLevel(
-      SecurityLevel security_level) {
+      SecurityLevel value) {
     auto result = KeyParameterValuePtr(absl::in_place);
-    result->set_security_level(std::move(security_level));
+    result->set_security_level(std::move(value));
     return result;
   }
   // Construct an instance holding |bool_value|.
   static KeyParameterValuePtr
   NewBoolValue(
-      bool bool_value) {
+      bool value) {
     auto result = KeyParameterValuePtr(absl::in_place);
-    result->set_bool_value(std::move(bool_value));
+    result->set_bool_value(std::move(value));
     return result;
   }
   // Construct an instance holding |integer|.
   static KeyParameterValuePtr
   NewInteger(
-      uint32_t integer) {
+      uint32_t value) {
     auto result = KeyParameterValuePtr(absl::in_place);
-    result->set_integer(std::move(integer));
+    result->set_integer(std::move(value));
     return result;
   }
   // Construct an instance holding |long_integer|.
   static KeyParameterValuePtr
   NewLongInteger(
-      uint64_t long_integer) {
+      uint64_t value) {
     auto result = KeyParameterValuePtr(absl::in_place);
-    result->set_long_integer(std::move(long_integer));
+    result->set_long_integer(std::move(value));
     return result;
   }
   // Construct an instance holding |date_time|.
   static KeyParameterValuePtr
   NewDateTime(
-      uint64_t date_time) {
+      uint64_t value) {
     auto result = KeyParameterValuePtr(absl::in_place);
-    result->set_date_time(std::move(date_time));
+    result->set_date_time(std::move(value));
     return result;
   }
   // Construct an instance holding |blob|.
   static KeyParameterValuePtr
   NewBlob(
-      std::vector<uint8_t> blob) {
+      std::vector<uint8_t> value) {
     auto result = KeyParameterValuePtr(absl::in_place);
-    result->set_blob(std::move(blob));
+    result->set_blob(std::move(value));
     return result;
   }
 
@@ -1209,17 +1210,17 @@ class  KeyCharacteristicsArrayOrError {
   // Construct an instance holding |key_characteristics|.
   static KeyCharacteristicsArrayOrErrorPtr
   NewKeyCharacteristics(
-      std::vector<KeyCharacteristicsPtr> key_characteristics) {
+      std::vector<KeyCharacteristicsPtr> value) {
     auto result = KeyCharacteristicsArrayOrErrorPtr(absl::in_place);
-    result->set_key_characteristics(std::move(key_characteristics));
+    result->set_key_characteristics(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static KeyCharacteristicsArrayOrErrorPtr
   NewError(
-      int32_t error) {
+      int32_t value) {
     auto result = KeyCharacteristicsArrayOrErrorPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 
@@ -1339,17 +1340,17 @@ class  BeginResultOrError {
   // Construct an instance holding |begin_result|.
   static BeginResultOrErrorPtr
   NewBeginResult(
-      BeginResultPtr begin_result) {
+      BeginResultPtr value) {
     auto result = BeginResultOrErrorPtr(absl::in_place);
-    result->set_begin_result(std::move(begin_result));
+    result->set_begin_result(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static BeginResultOrErrorPtr
   NewError(
-      int32_t error) {
+      int32_t value) {
     auto result = BeginResultOrErrorPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 
@@ -1469,17 +1470,17 @@ class  KeyCreationResultOrError {
   // Construct an instance holding |key_creation_result|.
   static KeyCreationResultOrErrorPtr
   NewKeyCreationResult(
-      KeyCreationResultPtr key_creation_result) {
+      KeyCreationResultPtr value) {
     auto result = KeyCreationResultOrErrorPtr(absl::in_place);
-    result->set_key_creation_result(std::move(key_creation_result));
+    result->set_key_creation_result(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static KeyCreationResultOrErrorPtr
   NewError(
-      int32_t error) {
+      int32_t value) {
     auto result = KeyCreationResultOrErrorPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 
@@ -1599,17 +1600,17 @@ class  ByteArrayOrError {
   // Construct an instance holding |output|.
   static ByteArrayOrErrorPtr
   NewOutput(
-      std::vector<uint8_t> output) {
+      std::vector<uint8_t> value) {
     auto result = ByteArrayOrErrorPtr(absl::in_place);
-    result->set_output(std::move(output));
+    result->set_output(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static ByteArrayOrErrorPtr
   NewError(
-      int32_t error) {
+      int32_t value) {
     auto result = ByteArrayOrErrorPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 
@@ -1729,17 +1730,17 @@ class  SharedSecretParametersOrError {
   // Construct an instance holding |secret_parameters|.
   static SharedSecretParametersOrErrorPtr
   NewSecretParameters(
-      SharedSecretParametersPtr secret_parameters) {
+      SharedSecretParametersPtr value) {
     auto result = SharedSecretParametersOrErrorPtr(absl::in_place);
-    result->set_secret_parameters(std::move(secret_parameters));
+    result->set_secret_parameters(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static SharedSecretParametersOrErrorPtr
   NewError(
-      int32_t error) {
+      int32_t value) {
     auto result = SharedSecretParametersOrErrorPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 
@@ -1859,17 +1860,17 @@ class  TimeStampTokenOrError {
   // Construct an instance holding |timestamp_token|.
   static TimeStampTokenOrErrorPtr
   NewTimestampToken(
-      TimeStampTokenPtr timestamp_token) {
+      TimeStampTokenPtr value) {
     auto result = TimeStampTokenOrErrorPtr(absl::in_place);
-    result->set_timestamp_token(std::move(timestamp_token));
+    result->set_timestamp_token(std::move(value));
     return result;
   }
   // Construct an instance holding |error|.
   static TimeStampTokenOrErrorPtr
   NewError(
-      int32_t error) {
+      int32_t value) {
     auto result = TimeStampTokenOrErrorPtr(absl::in_place);
-    result->set_error(std::move(error));
+    result->set_error(std::move(value));
     return result;
   }
 
@@ -4369,11 +4370,11 @@ class  FinishRequest {
 
   FinishRequest(
       uint64_t op_handle,
-      absl::optional<std::vector<uint8_t>> input,
-      absl::optional<std::vector<uint8_t>> signature,
+      std::optional<std::vector<uint8_t>> input,
+      std::optional<std::vector<uint8_t>> signature,
       HardwareAuthTokenPtr auth_token,
       TimeStampTokenPtr timestamp_token,
-      absl::optional<std::vector<uint8_t>> confirmation_token);
+      std::optional<std::vector<uint8_t>> confirmation_token);
 
 FinishRequest(const FinishRequest&) = delete;
 FinishRequest& operator=(const FinishRequest&) = delete;
@@ -4455,15 +4456,15 @@ FinishRequest& operator=(const FinishRequest&) = delete;
   
   uint64_t op_handle;
   
-  absl::optional<std::vector<uint8_t>> input;
+  std::optional<std::vector<uint8_t>> input;
   
-  absl::optional<std::vector<uint8_t>> signature;
+  std::optional<std::vector<uint8_t>> signature;
   
   HardwareAuthTokenPtr auth_token;
   
   TimeStampTokenPtr timestamp_token;
   
-  absl::optional<std::vector<uint8_t>> confirmation_token;
+  std::optional<std::vector<uint8_t>> confirmation_token;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

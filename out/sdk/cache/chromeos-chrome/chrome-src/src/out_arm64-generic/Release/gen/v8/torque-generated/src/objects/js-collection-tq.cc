@@ -20,7 +20,7 @@ void TorqueGeneratedJSCollection<JSCollection, JSObject>::JSCollectionVerify(Iso
 
 
 #endif  // VERIFY_HEAP
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=10&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=12&c=1
 bool IsJSSet_NonInline(Tagged<HeapObject> o) {
   return IsJSSet(o);
 }
@@ -34,7 +34,7 @@ void TorqueGeneratedJSSet<JSSet, JSCollection>::JSSetVerify(Isolate* isolate) {
 
 
 #endif  // VERIFY_HEAP
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=11&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=13&c=1
 bool IsJSMap_NonInline(Tagged<HeapObject> o) {
   return IsJSMap(o);
 }
@@ -48,7 +48,7 @@ void TorqueGeneratedJSMap<JSMap, JSCollection>::JSMapVerify(Isolate* isolate) {
 
 
 #endif  // VERIFY_HEAP
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=13&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=15&c=1
 bool IsJSWeakCollection_NonInline(Tagged<HeapObject> o) {
   return IsJSWeakCollection(o);
 }
@@ -62,7 +62,7 @@ void TorqueGeneratedJSWeakCollection<JSWeakCollection, JSObject>::JSWeakCollecti
 
 
 #endif  // VERIFY_HEAP
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=18&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=20&c=1
 bool IsJSWeakSet_NonInline(Tagged<HeapObject> o) {
   return IsJSWeakSet(o);
 }
@@ -76,7 +76,7 @@ void TorqueGeneratedJSWeakSet<JSWeakSet, JSWeakCollection>::JSWeakSetVerify(Isol
 
 
 #endif  // VERIFY_HEAP
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=19&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/js-collection.tq?l=21&c=1
 bool IsJSWeakMap_NonInline(Tagged<HeapObject> o) {
   return IsJSWeakMap(o);
 }

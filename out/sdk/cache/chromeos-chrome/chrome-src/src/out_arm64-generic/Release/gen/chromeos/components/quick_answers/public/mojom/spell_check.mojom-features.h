@@ -8,6 +8,7 @@
 #define CHROMEOS_COMPONENTS_QUICK_ANSWERS_PUBLIC_MOJOM_SPELL_CHECK_MOJOM_FEATURES_H_
 
 #include "base/feature_list.h"
+#include "mojo/public/cpp/bindings/runtime_features.h"
 
 
 

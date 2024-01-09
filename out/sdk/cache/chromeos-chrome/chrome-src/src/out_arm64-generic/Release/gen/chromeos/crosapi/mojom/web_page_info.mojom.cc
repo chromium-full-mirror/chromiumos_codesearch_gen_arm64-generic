@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -195,14 +196,17 @@ void WebPageInfoProviderProxy::RequestCurrentWebPageInfo(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send crosapi::mojom::WebPageInfoProvider::RequestCurrentWebPageInfo");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebPageInfoProvider_RequestCurrentWebPageInfo_Name, kFlags, 0, 0, nullptr);
@@ -312,7 +316,8 @@ void WebPageInfoProvider_RequestCurrentWebPageInfo_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebPageInfoProvider_RequestCurrentWebPageInfo_Name, kFlags, 0, 0, nullptr);
@@ -394,10 +399,10 @@ bool WebPageInfoProviderStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kWebPageInfoProviderValidationInfo[] = {
-    {&internal::WebPageInfoProvider_RequestCurrentWebPageInfo_Params_Data::Validate,
+    { &internal::WebPageInfoProvider_RequestCurrentWebPageInfo_Params_Data::Validate,
      &internal::WebPageInfoProvider_RequestCurrentWebPageInfo_ResponseParams_Data::Validate},
 };
 
@@ -482,14 +487,17 @@ void WebPageInfoFactoryProxy::RegisterWebPageInfoProvider(
                         "<value of type ::mojo::PendingRemote<WebPageInfoProvider>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebPageInfoFactory_RegisterWebPageInfoProvider_Name, kFlags, 0, 0, nullptr);
@@ -565,10 +573,10 @@ bool WebPageInfoFactoryStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kWebPageInfoFactoryValidationInfo[] = {
-    {&internal::WebPageInfoFactory_RegisterWebPageInfoProvider_Params_Data::Validate,
+    { &internal::WebPageInfoFactory_RegisterWebPageInfoProvider_Params_Data::Validate,
      nullptr /* no response */},
 };
 

@@ -12,6 +12,7 @@ import { describeWithMockConnection, } from '../../helpers/MockConnection.js';
 import { createTarget } from '../../helpers/EnvironmentHelpers.js';
 import { assertNotNullOrUndefined } from '../../../../../front_end/core/platform/platform.js';
 import { createFileSystemFileForPersistenceTests } from '../../helpers/PersistenceHelpers.js';
+import { createContentProviderUISourceCode, createFileSystemUISourceCode } from '../../helpers/UISourceCodeHelpers.js';
 describeWithMockConnection('PersistenceImpl', () => {
     const FILE_SYSTEM_BREAK_ID = 'BREAK_ID';
     const FILE_SYSTEM_SCRIPT_ID = 'FILE_SYSTEM_SCRIPT';
@@ -130,8 +131,38 @@ describeWithMockConnection('PersistenceImpl', () => {
         });
         await persistence.removeBinding(binding);
         await moveResponse;
-        assertBreakLocationUiSourceCodes([fileSystemUiSourceCode, networkUiSourceCode]);
+        assertBreakLocationUiSourceCodes([networkUiSourceCode, fileSystemUiSourceCode]);
         project.dispose();
+    });
+    // Replaces web test: http/tests/devtools/persistence/automapping-bind-committed-network-sourcecode.js
+    it('it marks the filesystem UISourceCode dirty when the network UISourceCode was committed before the binding was established', async () => {
+        const url = 'https://example.com/script.js';
+        const origContent = 'window.foo = () => "foo";\n';
+        const { uiSourceCode: networkUISourceCode } = createContentProviderUISourceCode({
+            url,
+            content: origContent,
+            mimeType: 'text/javascript',
+            projectType: Workspace.Workspace.projectTypes.Network,
+            metadata: new Workspace.UISourceCode.UISourceCodeMetadata(null, origContent.length),
+        });
+        // Modify the content of the network UISourceCode.
+        const content = origContent.replace(/foo/g, 'bar');
+        networkUISourceCode.addRevision(content);
+        // Add a filesystem version of 'script.js' with the original content.
+        const mappingPromise = Persistence.Persistence.PersistenceImpl.instance().once(Persistence.Persistence.Events.BindingCreated);
+        const localUrl = 'file:///var/www/script.js';
+        const { uiSourceCode } = createFileSystemUISourceCode({
+            url: localUrl,
+            mimeType: 'text/javascript',
+            content: origContent,
+            autoMapping: true,
+            metadata: new Workspace.UISourceCode.UISourceCodeMetadata(null, origContent.length),
+        });
+        const { network, fileSystem } = await mappingPromise;
+        assert.strictEqual(network, networkUISourceCode);
+        assert.strictEqual(fileSystem, uiSourceCode);
+        assert.isTrue(fileSystem.isDirty());
+        assert.strictEqual(fileSystem.workingCopy(), content);
     });
 });
 //# sourceMappingURL=PersistenceImpl_test.js.map

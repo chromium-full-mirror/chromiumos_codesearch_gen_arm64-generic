@@ -48,10 +48,10 @@ class  PrefsAsyncWaiter {
 
   ~PrefsAsyncWaiter();
   void GetPref(
-      PrefPath path, absl::optional<::base::Value>* out_value);
-  absl::optional<::base::Value> GetPref(PrefPath path);
+      PrefPath path, std::optional<::base::Value>* out_value);
+  std::optional<::base::Value> GetPref(PrefPath path);
   void GetExtensionPrefWithControl(
-      PrefPath path, absl::optional<::base::Value>* out_value, PrefControlState* out_control);
+      PrefPath path, std::optional<::base::Value>* out_value, PrefControlState* out_control);
   
   void SetPref(
       PrefPath path, ::base::Value value);

@@ -290,7 +290,41 @@ Record.push_back(SA->getInterrupt());
     Record.AddIdentifierRef(SA->getBuiltinName());
     break;
   }
+  case attr::ArmLocallyStreaming: {
+    const auto *SA = cast<ArmLocallyStreamingAttr>(A);
+    Record.push_back(SA->isInherited());
+    Record.push_back(A->isImplicit());
+    Record.push_back(A->isPackExpansion());
+    break;
+  }
   case attr::ArmMveStrictPolymorphism: {
+    Record.push_back(A->isImplicit());
+    Record.push_back(A->isPackExpansion());
+    break;
+  }
+  case attr::ArmNewZA: {
+    const auto *SA = cast<ArmNewZAAttr>(A);
+    Record.push_back(SA->isInherited());
+    Record.push_back(A->isImplicit());
+    Record.push_back(A->isPackExpansion());
+    break;
+  }
+  case attr::ArmPreservesZA: {
+    Record.push_back(A->isImplicit());
+    Record.push_back(A->isPackExpansion());
+    break;
+  }
+  case attr::ArmSharedZA: {
+    Record.push_back(A->isImplicit());
+    Record.push_back(A->isPackExpansion());
+    break;
+  }
+  case attr::ArmStreaming: {
+    Record.push_back(A->isImplicit());
+    Record.push_back(A->isPackExpansion());
+    break;
+  }
+  case attr::ArmStreamingCompatible: {
     Record.push_back(A->isImplicit());
     Record.push_back(A->isPackExpansion());
     break;
@@ -372,6 +406,13 @@ Record.push_back(SA->getInterrupt());
     Record.push_back(SA->getStrict());
     Record.AddString(SA->getReplacement());
     Record.push_back(SA->getPriority());
+    break;
+  }
+  case attr::AvailableOnlyInDefaultEvalMethod: {
+    const auto *SA = cast<AvailableOnlyInDefaultEvalMethodAttr>(A);
+    Record.push_back(SA->isInherited());
+    Record.push_back(A->isImplicit());
+    Record.push_back(A->isPackExpansion());
     break;
   }
   case attr::BPFPreserveAccessIndex: {

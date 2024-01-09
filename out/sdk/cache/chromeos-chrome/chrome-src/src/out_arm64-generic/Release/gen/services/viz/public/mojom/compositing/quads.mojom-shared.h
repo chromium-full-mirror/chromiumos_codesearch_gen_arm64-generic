@@ -515,6 +515,9 @@ class TextureQuadStateDataView {
   bool is_video_frame() const {
     return data_->is_video_frame;
   }
+  bool force_rgbx() const {
+    return data_->force_rgbx;
+  }
   template <typename UserType>
   [[nodiscard]] bool ReadProtectedVideoType(UserType* output) const {
     auto data_value = data_->protected_video_type;
@@ -1473,6 +1476,7 @@ struct Serializer<::viz::mojom::TextureQuadStateDataView, MaybeConstUserType> {
     fragment->secure_output_only = Traits::secure_output_only(input);
     fragment->is_stream_video = Traits::is_stream_video(input);
     fragment->is_video_frame = Traits::is_video_frame(input);
+    fragment->force_rgbx = Traits::force_rgbx(input);
     mojo::internal::Serialize<::viz::mojom::ProtectedVideoState>(
         Traits::protected_video_type(input), &fragment->protected_video_type);
     decltype(Traits::hdr_metadata(input)) in_hdr_metadata = Traits::hdr_metadata(input);

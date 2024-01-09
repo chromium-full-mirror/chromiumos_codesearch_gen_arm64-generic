@@ -77,11 +77,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, PresentationConnection>::value,
     "PresentationConnection inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&PresentationConnection::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "PresentationConnection is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -94,10 +89,10 @@ BLINK_BINDINGS_TRACE_EVENT("PresentationConnection.id.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-PresentationConnection* blink_receiver = V8PresentationConnection::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->id();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+PresentationConnection* blink_receiver = V8PresentationConnection::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->id();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -109,10 +104,10 @@ BLINK_BINDINGS_TRACE_EVENT("PresentationConnection.url.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-PresentationConnection* blink_receiver = V8PresentationConnection::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->url();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+PresentationConnection* blink_receiver = V8PresentationConnection::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->url();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -124,10 +119,10 @@ BLINK_BINDINGS_TRACE_EVENT("PresentationConnection.state.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-PresentationConnection* blink_receiver = V8PresentationConnection::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->state();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+PresentationConnection* blink_receiver = V8PresentationConnection::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->state();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -139,10 +134,10 @@ BLINK_BINDINGS_TRACE_EVENT("PresentationConnection.onconnect.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-PresentationConnection* blink_receiver = V8PresentationConnection::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onconnect();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+PresentationConnection* blink_receiver = V8PresentationConnection::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onconnect();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -155,8 +150,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-PresentationConnection* blink_receiver = V8PresentationConnection::ToWrappableUnsafe(v8_receiver);
+PresentationConnection* blink_receiver = V8PresentationConnection::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnconnect(event_handler);
 }
 
@@ -167,10 +163,10 @@ BLINK_BINDINGS_TRACE_EVENT("PresentationConnection.onclose.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-PresentationConnection* blink_receiver = V8PresentationConnection::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onclose();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+PresentationConnection* blink_receiver = V8PresentationConnection::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onclose();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -183,8 +179,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-PresentationConnection* blink_receiver = V8PresentationConnection::ToWrappableUnsafe(v8_receiver);
+PresentationConnection* blink_receiver = V8PresentationConnection::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnclose(event_handler);
 }
 
@@ -195,10 +192,10 @@ BLINK_BINDINGS_TRACE_EVENT("PresentationConnection.onterminate.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-PresentationConnection* blink_receiver = V8PresentationConnection::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onterminate();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+PresentationConnection* blink_receiver = V8PresentationConnection::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onterminate();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -211,8 +208,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-PresentationConnection* blink_receiver = V8PresentationConnection::ToWrappableUnsafe(v8_receiver);
+PresentationConnection* blink_receiver = V8PresentationConnection::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnterminate(event_handler);
 }
 
@@ -223,10 +221,10 @@ BLINK_BINDINGS_TRACE_EVENT("PresentationConnection.binaryType.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-PresentationConnection* blink_receiver = V8PresentationConnection::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->binaryType();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+PresentationConnection* blink_receiver = V8PresentationConnection::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->binaryType();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -237,9 +235,9 @@ BLINK_BINDINGS_TRACE_EVENT("PresentationConnection.binaryType.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-PresentationConnection* blink_receiver = V8PresentationConnection::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+PresentationConnection* blink_receiver = V8PresentationConnection::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "PresentationConnection";
@@ -273,10 +271,10 @@ BLINK_BINDINGS_TRACE_EVENT("PresentationConnection.onmessage.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-PresentationConnection* blink_receiver = V8PresentationConnection::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->onmessage();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+PresentationConnection* blink_receiver = V8PresentationConnection::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->onmessage();
 bindings::V8SetReturnValue(info, return_value, isolate, blink_receiver);
 }
 
@@ -289,8 +287,9 @@ v8::Local<v8::Value> v8_property_value = info[0];
 EventListener* event_handler = JSEventHandler::CreateOrNull(
     v8_property_value,
     JSEventHandler::HandlerType::kEventHandler);
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-PresentationConnection* blink_receiver = V8PresentationConnection::ToWrappableUnsafe(v8_receiver);
+PresentationConnection* blink_receiver = V8PresentationConnection::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->setOnmessage(event_handler);
 }
 
@@ -311,7 +310,7 @@ UseCounter::Count(current_execution_context, WebFeature::kPresentationConnection
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-PresentationConnection* blink_receiver = V8PresentationConnection::ToWrappableUnsafe(v8_receiver);
+PresentationConnection* blink_receiver = V8PresentationConnection::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->close();
 
 }
@@ -338,7 +337,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-PresentationConnection* blink_receiver = V8PresentationConnection::ToWrappableUnsafe(v8_receiver);
+PresentationConnection* blink_receiver = V8PresentationConnection::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_message = NativeValueTraits<IDLString>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -372,7 +371,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-PresentationConnection* blink_receiver = V8PresentationConnection::ToWrappableUnsafe(v8_receiver);
+PresentationConnection* blink_receiver = V8PresentationConnection::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_data = NativeValueTraits<Blob>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -406,7 +405,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-PresentationConnection* blink_receiver = V8PresentationConnection::ToWrappableUnsafe(v8_receiver);
+PresentationConnection* blink_receiver = V8PresentationConnection::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_data = NativeValueTraits<DOMArrayBuffer>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -440,7 +439,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-PresentationConnection* blink_receiver = V8PresentationConnection::ToWrappableUnsafe(v8_receiver);
+PresentationConnection* blink_receiver = V8PresentationConnection::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& arg1_data = NativeValueTraits<NotShared<DOMArrayBufferView>>::ArgumentValue(isolate, 0, info[0], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
@@ -502,7 +501,7 @@ UseCounter::Count(current_execution_context, WebFeature::kPresentationConnection
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-PresentationConnection* blink_receiver = V8PresentationConnection::ToWrappableUnsafe(v8_receiver);
+PresentationConnection* blink_receiver = V8PresentationConnection::ToWrappableUnsafe(isolate, v8_receiver);
 blink_receiver->terminate();
 
 }

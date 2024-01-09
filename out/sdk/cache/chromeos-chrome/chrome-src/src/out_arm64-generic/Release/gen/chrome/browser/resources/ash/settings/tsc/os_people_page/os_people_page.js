@@ -23,16 +23,17 @@ import './additional_accounts_settings_card.js';
 import { ProfileInfoBrowserProxyImpl } from '/shared/settings/people_page/profile_info_browser_proxy.js';
 import { SyncBrowserProxyImpl } from '/shared/settings/people_page/sync_browser_proxy.js';
 import { convertImageSequenceToPng } from 'chrome://resources/ash/common/cr_picture/png.js';
+import { assert } from 'chrome://resources/js/assert.js';
 import { sendWithPromise } from 'chrome://resources/js/cr.js';
 import { getImage } from 'chrome://resources/js/icon.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { afterNextRender, flush, PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { DeepLinkingMixin } from '../common/deep_linking_mixin.js';
 import { isAccountManagerEnabled, isRevampWayfindingEnabled } from '../common/load_time_booleans.js';
-import { DeepLinkingMixin } from '../deep_linking_mixin.js';
+import { RouteOriginMixin } from '../common/route_origin_mixin.js';
 import { LockStateMixin } from '../lock_state_mixin.js';
 import { Section } from '../mojom-webui/routes.mojom-webui.js';
 import { Setting } from '../mojom-webui/setting.mojom-webui.js';
-import { RouteOriginMixin } from '../route_origin_mixin.js';
 import { Router, routes } from '../router.js';
 import { AccountManagerBrowserProxyImpl } from './account_manager_browser_proxy.js';
 import { getTemplate } from './os_people_page.html.js';
@@ -59,6 +60,18 @@ export class OsSettingsPeoplePageElement extends OsSettingsPeoplePageElementBase
              * The current sync status, supplied by SyncBrowserProxy.
              */
             syncStatus: Object,
+            accounts_: {
+                type: Array,
+                value() {
+                    return [];
+                },
+            },
+            deviceAccount_: {
+                type: Object,
+                value() {
+                    return null;
+                },
+            },
             authTokenInfo_: {
                 type: Object,
                 observer: 'onAuthTokenChanged_',
@@ -190,6 +203,8 @@ export class OsSettingsPeoplePageElement extends OsSettingsPeoplePageElementBase
             this.showDeepLinkElement(deepLinkElement);
         });
     }
+    // TODO(b/302374851) The manual deep linking below can be removed once the
+    // Revamp feature is fully launched.
     beforeDeepLinkAttempt(settingId) {
         switch (settingId) {
             // Manually show the deep links for settings nested within elements.
@@ -271,22 +286,23 @@ export class OsSettingsPeoplePageElement extends OsSettingsPeoplePageElementBase
      */
     async updateAccounts_() {
         const accounts = await AccountManagerBrowserProxyImpl.getInstance().getAccounts();
+        this.accounts_ = accounts;
         // The user might not have any GAIA accounts (e.g. guest mode or Active
         // Directory). In these cases the profile row is hidden, so there's nothing
         // to do.
         if (accounts.length === 0) {
             return;
         }
-        this.profileName_ = accounts[0].fullName;
-        this.profileEmail_ = accounts[0].email;
-        this.profileIconUrl_ = accounts[0].pic;
-        await this.setProfileLabel(accounts);
-    }
-    async setProfileLabel(accounts) {
+        // First account is always the device account.
+        assert(accounts[0].isDeviceAccount, 'The device account should always be first.');
+        this.deviceAccount_ = accounts[0];
+        this.profileName_ = this.deviceAccount_.fullName;
+        this.profileEmail_ = this.deviceAccount_.email;
+        this.profileIconUrl_ = this.deviceAccount_.pic;
         // Template: "$1 Google accounts" with correct plural of "account".
-        const labelTemplate = await sendWithPromise('getPluralString', 'profileLabel', accounts.length);
+        const labelTemplate = await sendWithPromise('getPluralString', 'profileLabel', this.accounts_.length);
         // Final output: "X Google accounts"
-        this.profileLabel_ = loadTimeData.substituteString(labelTemplate, accounts[0].email, accounts.length);
+        this.profileLabel_ = loadTimeData.substituteString(labelTemplate, this.profileEmail_, this.accounts_.length);
     }
     /**
      * Handler for when the sync state is pushed from the browser.

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/file/file_utilities.mojom-features.h"
 #include "third_party/blink/public/mojom/file/file_utilities.mojom-shared.h"
 #include "third_party/blink/public/mojom/file/file_utilities.mojom-forward.h"
 #include "mojo/public/mojom/base/file_info.mojom.h"
@@ -89,9 +90,9 @@ class BLINK_COMMON_EXPORT FileUtilitiesHost
   // Sync method. This signature is used by the client side; the service side
   // should implement the signature with callback below.
   
-  virtual bool GetFileInfo(const ::base::FilePath& path, absl::optional<::base::File::Info>* out_result);
+  virtual bool GetFileInfo(const ::base::FilePath& path, std::optional<::base::File::Info>* out_result);
 
-  using GetFileInfoCallback = base::OnceCallback<void(const absl::optional<::base::File::Info>&)>;
+  using GetFileInfoCallback = base::OnceCallback<void(const std::optional<::base::File::Info>&)>;
   
   virtual void GetFileInfo(const ::base::FilePath& path, GetFileInfoCallback callback) = 0;
 };
@@ -105,7 +106,7 @@ class BLINK_COMMON_EXPORT FileUtilitiesHostProxy
 
   explicit FileUtilitiesHostProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  bool GetFileInfo(const ::base::FilePath& path, absl::optional<::base::File::Info>* out_result) final;
+  bool GetFileInfo(const ::base::FilePath& path, std::optional<::base::File::Info>* out_result) final;
   
   void GetFileInfo(const ::base::FilePath& path, GetFileInfoCallback callback) final;
 

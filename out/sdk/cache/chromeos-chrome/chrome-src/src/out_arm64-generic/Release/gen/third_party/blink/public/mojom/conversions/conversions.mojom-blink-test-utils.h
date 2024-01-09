@@ -18,6 +18,7 @@ class PLATFORM_EXPORT AttributionHostInterceptorForTesting : public AttributionH
   virtual AttributionHost* GetForwardingInterface() = 0;
   void RegisterDataHost(::mojo::PendingReceiver<::blink::mojom::blink::AttributionDataHost> data_host, ::attribution_reporting::mojom::blink::RegistrationEligibility registration_eligibility) override;
   void RegisterNavigationDataHost(::mojo::PendingReceiver<::blink::mojom::blink::AttributionDataHost> data_host, const ::blink::AttributionSrcToken& attribution_src_token) override;
+  void NotifyNavigationWithBackgroundRegistrationsWillStart(const ::blink::AttributionSrcToken& attribution_src_token, uint32_t expected_registrations) override;
 };
 class PLATFORM_EXPORT AttributionHostAsyncWaiter {
  public:

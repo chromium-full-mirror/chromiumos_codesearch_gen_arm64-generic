@@ -209,11 +209,12 @@ enum AutofillUploadContents_Field_SingleUsernameVoteType : int {
   AutofillUploadContents_Field_SingleUsernameVoteType_WEAK = 1,
   AutofillUploadContents_Field_SingleUsernameVoteType_STRONG = 2,
   AutofillUploadContents_Field_SingleUsernameVoteType_WEAK_FORGOT_PASSWORD = 3,
-  AutofillUploadContents_Field_SingleUsernameVoteType_STRONG_FORGOT_PASSWORD = 4
+  AutofillUploadContents_Field_SingleUsernameVoteType_STRONG_FORGOT_PASSWORD = 4,
+  AutofillUploadContents_Field_SingleUsernameVoteType_IN_FORM_OVERRULE = 5
 };
 bool AutofillUploadContents_Field_SingleUsernameVoteType_IsValid(int value);
 constexpr AutofillUploadContents_Field_SingleUsernameVoteType AutofillUploadContents_Field_SingleUsernameVoteType_SingleUsernameVoteType_MIN = AutofillUploadContents_Field_SingleUsernameVoteType_DEFAULT;
-constexpr AutofillUploadContents_Field_SingleUsernameVoteType AutofillUploadContents_Field_SingleUsernameVoteType_SingleUsernameVoteType_MAX = AutofillUploadContents_Field_SingleUsernameVoteType_STRONG_FORGOT_PASSWORD;
+constexpr AutofillUploadContents_Field_SingleUsernameVoteType AutofillUploadContents_Field_SingleUsernameVoteType_SingleUsernameVoteType_MAX = AutofillUploadContents_Field_SingleUsernameVoteType_IN_FORM_OVERRULE;
 constexpr int AutofillUploadContents_Field_SingleUsernameVoteType_SingleUsernameVoteType_ARRAYSIZE = AutofillUploadContents_Field_SingleUsernameVoteType_SingleUsernameVoteType_MAX + 1;
 
 const std::string& AutofillUploadContents_Field_SingleUsernameVoteType_Name(AutofillUploadContents_Field_SingleUsernameVoteType value);
@@ -233,16 +234,17 @@ enum AutofillUploadContents_SubmissionIndicatorEvent : int {
   AutofillUploadContents_SubmissionIndicatorEvent_XHR_SUCCEEDED = 3,
   AutofillUploadContents_SubmissionIndicatorEvent_FRAME_DETACHED = 4,
   AutofillUploadContents_SubmissionIndicatorEvent_DEPRECATED_MANUAL_SAVE = 5,
-  AutofillUploadContents_SubmissionIndicatorEvent_DOM_MUTATION_AFTER_XHR = 6,
-  AutofillUploadContents_SubmissionIndicatorEvent_PROVISIONALLY_SAVED_FORM_ON_START_PROVISIONAL_LOAD = 7,
+  AutofillUploadContents_SubmissionIndicatorEvent_DEPRECATED_DOM_MUTATION_AFTER_XHR = 6,
+  AutofillUploadContents_SubmissionIndicatorEvent_DEPRECATED_PROVISIONALLY_SAVED_FORM_ON_START_PROVISIONAL_LOAD = 7,
   AutofillUploadContents_SubmissionIndicatorEvent_DEPRECATED_FILLED_FORM_ON_START_PROVISIONAL_LOAD = 8,
   AutofillUploadContents_SubmissionIndicatorEvent_DEPRECATED_FILLED_INPUT_ELEMENTS_ON_START_PROVISIONAL_LOAD = 9,
   AutofillUploadContents_SubmissionIndicatorEvent_PROBABLE_FORM_SUBMISSION = 10,
-  AutofillUploadContents_SubmissionIndicatorEvent_CHANGE_PASSWORD_FORM_CLEARED = 11
+  AutofillUploadContents_SubmissionIndicatorEvent_CHANGE_PASSWORD_FORM_CLEARED = 11,
+  AutofillUploadContents_SubmissionIndicatorEvent_DOM_MUTATION_AFTER_AUTOFILL = 12
 };
 bool AutofillUploadContents_SubmissionIndicatorEvent_IsValid(int value);
 constexpr AutofillUploadContents_SubmissionIndicatorEvent AutofillUploadContents_SubmissionIndicatorEvent_SubmissionIndicatorEvent_MIN = AutofillUploadContents_SubmissionIndicatorEvent_NONE;
-constexpr AutofillUploadContents_SubmissionIndicatorEvent AutofillUploadContents_SubmissionIndicatorEvent_SubmissionIndicatorEvent_MAX = AutofillUploadContents_SubmissionIndicatorEvent_CHANGE_PASSWORD_FORM_CLEARED;
+constexpr AutofillUploadContents_SubmissionIndicatorEvent AutofillUploadContents_SubmissionIndicatorEvent_SubmissionIndicatorEvent_MAX = AutofillUploadContents_SubmissionIndicatorEvent_DOM_MUTATION_AFTER_AUTOFILL;
 constexpr int AutofillUploadContents_SubmissionIndicatorEvent_SubmissionIndicatorEvent_ARRAYSIZE = AutofillUploadContents_SubmissionIndicatorEvent_SubmissionIndicatorEvent_MAX + 1;
 
 const std::string& AutofillUploadContents_SubmissionIndicatorEvent_Name(AutofillUploadContents_SubmissionIndicatorEvent value);
@@ -2678,6 +2680,8 @@ class AutofillUploadContents_Field final :
     AutofillUploadContents_Field_SingleUsernameVoteType_WEAK_FORGOT_PASSWORD;
   static constexpr SingleUsernameVoteType STRONG_FORGOT_PASSWORD =
     AutofillUploadContents_Field_SingleUsernameVoteType_STRONG_FORGOT_PASSWORD;
+  static constexpr SingleUsernameVoteType IN_FORM_OVERRULE =
+    AutofillUploadContents_Field_SingleUsernameVoteType_IN_FORM_OVERRULE;
   static inline bool SingleUsernameVoteType_IsValid(int value) {
     return AutofillUploadContents_Field_SingleUsernameVoteType_IsValid(value);
   }
@@ -2713,8 +2717,10 @@ class AutofillUploadContents_Field final :
     kSignatureFieldNumber = 6,
     kGenerationTypeFieldNumber = 17,
     kPropertiesMaskFieldNumber = 20,
-    kGeneratedPasswordChangedFieldNumber = 22,
     kVoteTypeFieldNumber = 23,
+    kGeneratedPasswordChangedFieldNumber = 22,
+    kIsMostRecentSingleUsernameCandidateFieldNumber = 46,
+    kInitialValueChangedFieldNumber = 47,
     kInitialValueHashFieldNumber = 40,
     kSingleUsernameVoteTypeFieldNumber = 41,
   };
@@ -2905,6 +2911,19 @@ class AutofillUploadContents_Field final :
   void _internal_set_properties_mask(uint32_t value);
   public:
 
+  // optional .autofill.AutofillUploadContents.Field.VoteType vote_type = 23;
+  bool has_vote_type() const;
+  private:
+  bool _internal_has_vote_type() const;
+  public:
+  void clear_vote_type();
+  ::autofill::AutofillUploadContents_Field_VoteType vote_type() const;
+  void set_vote_type(::autofill::AutofillUploadContents_Field_VoteType value);
+  private:
+  ::autofill::AutofillUploadContents_Field_VoteType _internal_vote_type() const;
+  void _internal_set_vote_type(::autofill::AutofillUploadContents_Field_VoteType value);
+  public:
+
   // optional bool generated_password_changed = 22;
   bool has_generated_password_changed() const;
   private:
@@ -2918,17 +2937,30 @@ class AutofillUploadContents_Field final :
   void _internal_set_generated_password_changed(bool value);
   public:
 
-  // optional .autofill.AutofillUploadContents.Field.VoteType vote_type = 23;
-  bool has_vote_type() const;
+  // optional bool is_most_recent_single_username_candidate = 46;
+  bool has_is_most_recent_single_username_candidate() const;
   private:
-  bool _internal_has_vote_type() const;
+  bool _internal_has_is_most_recent_single_username_candidate() const;
   public:
-  void clear_vote_type();
-  ::autofill::AutofillUploadContents_Field_VoteType vote_type() const;
-  void set_vote_type(::autofill::AutofillUploadContents_Field_VoteType value);
+  void clear_is_most_recent_single_username_candidate();
+  bool is_most_recent_single_username_candidate() const;
+  void set_is_most_recent_single_username_candidate(bool value);
   private:
-  ::autofill::AutofillUploadContents_Field_VoteType _internal_vote_type() const;
-  void _internal_set_vote_type(::autofill::AutofillUploadContents_Field_VoteType value);
+  bool _internal_is_most_recent_single_username_candidate() const;
+  void _internal_set_is_most_recent_single_username_candidate(bool value);
+  public:
+
+  // optional bool initial_value_changed = 47;
+  bool has_initial_value_changed() const;
+  private:
+  bool _internal_has_initial_value_changed() const;
+  public:
+  void clear_initial_value_changed();
+  bool initial_value_changed() const;
+  void set_initial_value_changed(bool value);
+  private:
+  bool _internal_initial_value_changed() const;
+  void _internal_set_initial_value_changed(bool value);
   public:
 
   // optional uint32 initial_value_hash = 40;
@@ -2977,8 +3009,10 @@ class AutofillUploadContents_Field final :
   uint32_t signature_;
   int generation_type_;
   uint32_t properties_mask_;
-  bool generated_password_changed_;
   int vote_type_;
+  bool generated_password_changed_;
+  bool is_most_recent_single_username_candidate_;
+  bool initial_value_changed_;
   uint32_t initial_value_hash_;
   int single_username_vote_type_;
   friend struct ::TableStruct_server_2eproto;
@@ -3452,10 +3486,10 @@ class AutofillUploadContents final :
     AutofillUploadContents_SubmissionIndicatorEvent_FRAME_DETACHED;
   static constexpr SubmissionIndicatorEvent DEPRECATED_MANUAL_SAVE =
     AutofillUploadContents_SubmissionIndicatorEvent_DEPRECATED_MANUAL_SAVE;
-  static constexpr SubmissionIndicatorEvent DOM_MUTATION_AFTER_XHR =
-    AutofillUploadContents_SubmissionIndicatorEvent_DOM_MUTATION_AFTER_XHR;
-  static constexpr SubmissionIndicatorEvent PROVISIONALLY_SAVED_FORM_ON_START_PROVISIONAL_LOAD =
-    AutofillUploadContents_SubmissionIndicatorEvent_PROVISIONALLY_SAVED_FORM_ON_START_PROVISIONAL_LOAD;
+  static constexpr SubmissionIndicatorEvent DEPRECATED_DOM_MUTATION_AFTER_XHR =
+    AutofillUploadContents_SubmissionIndicatorEvent_DEPRECATED_DOM_MUTATION_AFTER_XHR;
+  static constexpr SubmissionIndicatorEvent DEPRECATED_PROVISIONALLY_SAVED_FORM_ON_START_PROVISIONAL_LOAD =
+    AutofillUploadContents_SubmissionIndicatorEvent_DEPRECATED_PROVISIONALLY_SAVED_FORM_ON_START_PROVISIONAL_LOAD;
   static constexpr SubmissionIndicatorEvent DEPRECATED_FILLED_FORM_ON_START_PROVISIONAL_LOAD =
     AutofillUploadContents_SubmissionIndicatorEvent_DEPRECATED_FILLED_FORM_ON_START_PROVISIONAL_LOAD;
   static constexpr SubmissionIndicatorEvent DEPRECATED_FILLED_INPUT_ELEMENTS_ON_START_PROVISIONAL_LOAD =
@@ -3464,6 +3498,8 @@ class AutofillUploadContents final :
     AutofillUploadContents_SubmissionIndicatorEvent_PROBABLE_FORM_SUBMISSION;
   static constexpr SubmissionIndicatorEvent CHANGE_PASSWORD_FORM_CLEARED =
     AutofillUploadContents_SubmissionIndicatorEvent_CHANGE_PASSWORD_FORM_CLEARED;
+  static constexpr SubmissionIndicatorEvent DOM_MUTATION_AFTER_AUTOFILL =
+    AutofillUploadContents_SubmissionIndicatorEvent_DOM_MUTATION_AFTER_AUTOFILL;
   static inline bool SubmissionIndicatorEvent_IsValid(int value) {
     return AutofillUploadContents_SubmissionIndicatorEvent_IsValid(value);
   }
@@ -7442,7 +7478,7 @@ inline void AutofillUploadContents_Field::set_allocated_id(std::string* id) {
 
 // optional bool generated_password_changed = 22;
 inline bool AutofillUploadContents_Field::_internal_has_generated_password_changed() const {
-  bool value = (_has_bits_[0] & 0x00000200u) != 0;
+  bool value = (_has_bits_[0] & 0x00000400u) != 0;
   return value;
 }
 inline bool AutofillUploadContents_Field::has_generated_password_changed() const {
@@ -7450,7 +7486,7 @@ inline bool AutofillUploadContents_Field::has_generated_password_changed() const
 }
 inline void AutofillUploadContents_Field::clear_generated_password_changed() {
   generated_password_changed_ = false;
-  _has_bits_[0] &= ~0x00000200u;
+  _has_bits_[0] &= ~0x00000400u;
 }
 inline bool AutofillUploadContents_Field::_internal_generated_password_changed() const {
   return generated_password_changed_;
@@ -7460,7 +7496,7 @@ inline bool AutofillUploadContents_Field::generated_password_changed() const {
   return _internal_generated_password_changed();
 }
 inline void AutofillUploadContents_Field::_internal_set_generated_password_changed(bool value) {
-  _has_bits_[0] |= 0x00000200u;
+  _has_bits_[0] |= 0x00000400u;
   generated_password_changed_ = value;
 }
 inline void AutofillUploadContents_Field::set_generated_password_changed(bool value) {
@@ -7470,7 +7506,7 @@ inline void AutofillUploadContents_Field::set_generated_password_changed(bool va
 
 // optional .autofill.AutofillUploadContents.Field.VoteType vote_type = 23;
 inline bool AutofillUploadContents_Field::_internal_has_vote_type() const {
-  bool value = (_has_bits_[0] & 0x00000400u) != 0;
+  bool value = (_has_bits_[0] & 0x00000200u) != 0;
   return value;
 }
 inline bool AutofillUploadContents_Field::has_vote_type() const {
@@ -7478,7 +7514,7 @@ inline bool AutofillUploadContents_Field::has_vote_type() const {
 }
 inline void AutofillUploadContents_Field::clear_vote_type() {
   vote_type_ = 0;
-  _has_bits_[0] &= ~0x00000400u;
+  _has_bits_[0] &= ~0x00000200u;
 }
 inline ::autofill::AutofillUploadContents_Field_VoteType AutofillUploadContents_Field::_internal_vote_type() const {
   return static_cast< ::autofill::AutofillUploadContents_Field_VoteType >(vote_type_);
@@ -7489,7 +7525,7 @@ inline ::autofill::AutofillUploadContents_Field_VoteType AutofillUploadContents_
 }
 inline void AutofillUploadContents_Field::_internal_set_vote_type(::autofill::AutofillUploadContents_Field_VoteType value) {
   assert(::autofill::AutofillUploadContents_Field_VoteType_IsValid(value));
-  _has_bits_[0] |= 0x00000400u;
+  _has_bits_[0] |= 0x00000200u;
   vote_type_ = value;
 }
 inline void AutofillUploadContents_Field::set_vote_type(::autofill::AutofillUploadContents_Field_VoteType value) {
@@ -7539,7 +7575,7 @@ AutofillUploadContents_Field::autofill_type_validities() const {
 
 // optional uint32 initial_value_hash = 40;
 inline bool AutofillUploadContents_Field::_internal_has_initial_value_hash() const {
-  bool value = (_has_bits_[0] & 0x00000800u) != 0;
+  bool value = (_has_bits_[0] & 0x00002000u) != 0;
   return value;
 }
 inline bool AutofillUploadContents_Field::has_initial_value_hash() const {
@@ -7547,7 +7583,7 @@ inline bool AutofillUploadContents_Field::has_initial_value_hash() const {
 }
 inline void AutofillUploadContents_Field::clear_initial_value_hash() {
   initial_value_hash_ = 0u;
-  _has_bits_[0] &= ~0x00000800u;
+  _has_bits_[0] &= ~0x00002000u;
 }
 inline uint32_t AutofillUploadContents_Field::_internal_initial_value_hash() const {
   return initial_value_hash_;
@@ -7557,7 +7593,7 @@ inline uint32_t AutofillUploadContents_Field::initial_value_hash() const {
   return _internal_initial_value_hash();
 }
 inline void AutofillUploadContents_Field::_internal_set_initial_value_hash(uint32_t value) {
-  _has_bits_[0] |= 0x00000800u;
+  _has_bits_[0] |= 0x00002000u;
   initial_value_hash_ = value;
 }
 inline void AutofillUploadContents_Field::set_initial_value_hash(uint32_t value) {
@@ -7567,7 +7603,7 @@ inline void AutofillUploadContents_Field::set_initial_value_hash(uint32_t value)
 
 // optional .autofill.AutofillUploadContents.Field.SingleUsernameVoteType single_username_vote_type = 41;
 inline bool AutofillUploadContents_Field::_internal_has_single_username_vote_type() const {
-  bool value = (_has_bits_[0] & 0x00001000u) != 0;
+  bool value = (_has_bits_[0] & 0x00004000u) != 0;
   return value;
 }
 inline bool AutofillUploadContents_Field::has_single_username_vote_type() const {
@@ -7575,7 +7611,7 @@ inline bool AutofillUploadContents_Field::has_single_username_vote_type() const 
 }
 inline void AutofillUploadContents_Field::clear_single_username_vote_type() {
   single_username_vote_type_ = 0;
-  _has_bits_[0] &= ~0x00001000u;
+  _has_bits_[0] &= ~0x00004000u;
 }
 inline ::autofill::AutofillUploadContents_Field_SingleUsernameVoteType AutofillUploadContents_Field::_internal_single_username_vote_type() const {
   return static_cast< ::autofill::AutofillUploadContents_Field_SingleUsernameVoteType >(single_username_vote_type_);
@@ -7586,12 +7622,68 @@ inline ::autofill::AutofillUploadContents_Field_SingleUsernameVoteType AutofillU
 }
 inline void AutofillUploadContents_Field::_internal_set_single_username_vote_type(::autofill::AutofillUploadContents_Field_SingleUsernameVoteType value) {
   assert(::autofill::AutofillUploadContents_Field_SingleUsernameVoteType_IsValid(value));
-  _has_bits_[0] |= 0x00001000u;
+  _has_bits_[0] |= 0x00004000u;
   single_username_vote_type_ = value;
 }
 inline void AutofillUploadContents_Field::set_single_username_vote_type(::autofill::AutofillUploadContents_Field_SingleUsernameVoteType value) {
   _internal_set_single_username_vote_type(value);
   // @@protoc_insertion_point(field_set:autofill.AutofillUploadContents.Field.single_username_vote_type)
+}
+
+// optional bool is_most_recent_single_username_candidate = 46;
+inline bool AutofillUploadContents_Field::_internal_has_is_most_recent_single_username_candidate() const {
+  bool value = (_has_bits_[0] & 0x00000800u) != 0;
+  return value;
+}
+inline bool AutofillUploadContents_Field::has_is_most_recent_single_username_candidate() const {
+  return _internal_has_is_most_recent_single_username_candidate();
+}
+inline void AutofillUploadContents_Field::clear_is_most_recent_single_username_candidate() {
+  is_most_recent_single_username_candidate_ = false;
+  _has_bits_[0] &= ~0x00000800u;
+}
+inline bool AutofillUploadContents_Field::_internal_is_most_recent_single_username_candidate() const {
+  return is_most_recent_single_username_candidate_;
+}
+inline bool AutofillUploadContents_Field::is_most_recent_single_username_candidate() const {
+  // @@protoc_insertion_point(field_get:autofill.AutofillUploadContents.Field.is_most_recent_single_username_candidate)
+  return _internal_is_most_recent_single_username_candidate();
+}
+inline void AutofillUploadContents_Field::_internal_set_is_most_recent_single_username_candidate(bool value) {
+  _has_bits_[0] |= 0x00000800u;
+  is_most_recent_single_username_candidate_ = value;
+}
+inline void AutofillUploadContents_Field::set_is_most_recent_single_username_candidate(bool value) {
+  _internal_set_is_most_recent_single_username_candidate(value);
+  // @@protoc_insertion_point(field_set:autofill.AutofillUploadContents.Field.is_most_recent_single_username_candidate)
+}
+
+// optional bool initial_value_changed = 47;
+inline bool AutofillUploadContents_Field::_internal_has_initial_value_changed() const {
+  bool value = (_has_bits_[0] & 0x00001000u) != 0;
+  return value;
+}
+inline bool AutofillUploadContents_Field::has_initial_value_changed() const {
+  return _internal_has_initial_value_changed();
+}
+inline void AutofillUploadContents_Field::clear_initial_value_changed() {
+  initial_value_changed_ = false;
+  _has_bits_[0] &= ~0x00001000u;
+}
+inline bool AutofillUploadContents_Field::_internal_initial_value_changed() const {
+  return initial_value_changed_;
+}
+inline bool AutofillUploadContents_Field::initial_value_changed() const {
+  // @@protoc_insertion_point(field_get:autofill.AutofillUploadContents.Field.initial_value_changed)
+  return _internal_initial_value_changed();
+}
+inline void AutofillUploadContents_Field::_internal_set_initial_value_changed(bool value) {
+  _has_bits_[0] |= 0x00001000u;
+  initial_value_changed_ = value;
+}
+inline void AutofillUploadContents_Field::set_initial_value_changed(bool value) {
+  _internal_set_initial_value_changed(value);
+  // @@protoc_insertion_point(field_set:autofill.AutofillUploadContents.Field.initial_value_changed)
 }
 
 // -------------------------------------------------------------------

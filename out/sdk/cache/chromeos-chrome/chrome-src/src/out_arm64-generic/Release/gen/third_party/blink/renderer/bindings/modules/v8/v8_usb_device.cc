@@ -75,11 +75,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, USBDevice>::value,
     "USBDevice inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&USBDevice::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "USBDevice is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -92,8 +87,9 @@ BLINK_BINDINGS_TRACE_EVENT("USBDevice.usbVersionMajor.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-USBDevice* blink_receiver = V8USBDevice::ToWrappableUnsafe(v8_receiver);
+USBDevice* blink_receiver = V8USBDevice::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->usbVersionMajor();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint8_t>());
 }
@@ -106,8 +102,9 @@ BLINK_BINDINGS_TRACE_EVENT("USBDevice.usbVersionMinor.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-USBDevice* blink_receiver = V8USBDevice::ToWrappableUnsafe(v8_receiver);
+USBDevice* blink_receiver = V8USBDevice::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->usbVersionMinor();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint8_t>());
 }
@@ -120,8 +117,9 @@ BLINK_BINDINGS_TRACE_EVENT("USBDevice.usbVersionSubminor.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-USBDevice* blink_receiver = V8USBDevice::ToWrappableUnsafe(v8_receiver);
+USBDevice* blink_receiver = V8USBDevice::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->usbVersionSubminor();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint8_t>());
 }
@@ -134,8 +132,9 @@ BLINK_BINDINGS_TRACE_EVENT("USBDevice.deviceClass.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-USBDevice* blink_receiver = V8USBDevice::ToWrappableUnsafe(v8_receiver);
+USBDevice* blink_receiver = V8USBDevice::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->deviceClass();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint8_t>());
 }
@@ -148,8 +147,9 @@ BLINK_BINDINGS_TRACE_EVENT("USBDevice.deviceSubclass.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-USBDevice* blink_receiver = V8USBDevice::ToWrappableUnsafe(v8_receiver);
+USBDevice* blink_receiver = V8USBDevice::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->deviceSubclass();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint8_t>());
 }
@@ -162,8 +162,9 @@ BLINK_BINDINGS_TRACE_EVENT("USBDevice.deviceProtocol.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-USBDevice* blink_receiver = V8USBDevice::ToWrappableUnsafe(v8_receiver);
+USBDevice* blink_receiver = V8USBDevice::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->deviceProtocol();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint8_t>());
 }
@@ -176,8 +177,9 @@ BLINK_BINDINGS_TRACE_EVENT("USBDevice.vendorId.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-USBDevice* blink_receiver = V8USBDevice::ToWrappableUnsafe(v8_receiver);
+USBDevice* blink_receiver = V8USBDevice::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->vendorId();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint16_t>());
 }
@@ -190,8 +192,9 @@ BLINK_BINDINGS_TRACE_EVENT("USBDevice.productId.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-USBDevice* blink_receiver = V8USBDevice::ToWrappableUnsafe(v8_receiver);
+USBDevice* blink_receiver = V8USBDevice::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->productId();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint16_t>());
 }
@@ -204,8 +207,9 @@ BLINK_BINDINGS_TRACE_EVENT("USBDevice.deviceVersionMajor.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-USBDevice* blink_receiver = V8USBDevice::ToWrappableUnsafe(v8_receiver);
+USBDevice* blink_receiver = V8USBDevice::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->deviceVersionMajor();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint8_t>());
 }
@@ -218,8 +222,9 @@ BLINK_BINDINGS_TRACE_EVENT("USBDevice.deviceVersionMinor.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-USBDevice* blink_receiver = V8USBDevice::ToWrappableUnsafe(v8_receiver);
+USBDevice* blink_receiver = V8USBDevice::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->deviceVersionMinor();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint8_t>());
 }
@@ -232,8 +237,9 @@ BLINK_BINDINGS_TRACE_EVENT("USBDevice.deviceVersionSubminor.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-USBDevice* blink_receiver = V8USBDevice::ToWrappableUnsafe(v8_receiver);
+USBDevice* blink_receiver = V8USBDevice::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->deviceVersionSubminor();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<uint8_t>());
 }
@@ -246,10 +252,10 @@ BLINK_BINDINGS_TRACE_EVENT("USBDevice.manufacturerName.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-USBDevice* blink_receiver = V8USBDevice::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->manufacturerName();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+USBDevice* blink_receiver = V8USBDevice::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->manufacturerName();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
 }
 
@@ -261,10 +267,10 @@ BLINK_BINDINGS_TRACE_EVENT("USBDevice.productName.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-USBDevice* blink_receiver = V8USBDevice::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->productName();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+USBDevice* blink_receiver = V8USBDevice::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->productName();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
 }
 
@@ -276,10 +282,10 @@ BLINK_BINDINGS_TRACE_EVENT("USBDevice.serialNumber.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-USBDevice* blink_receiver = V8USBDevice::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->serialNumber();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+USBDevice* blink_receiver = V8USBDevice::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->serialNumber();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNullable);
 }
 
@@ -291,8 +297,9 @@ BLINK_BINDINGS_TRACE_EVENT("USBDevice.configuration.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-USBDevice* blink_receiver = V8USBDevice::ToWrappableUnsafe(v8_receiver);
+USBDevice* blink_receiver = V8USBDevice::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->configuration();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -310,7 +317,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-USBDevice* blink_receiver = V8USBDevice::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+USBDevice* blink_receiver = V8USBDevice::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->configurations();
 if (!ToV8Traits<IDLArray<USBConfiguration>>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -326,8 +334,9 @@ BLINK_BINDINGS_TRACE_EVENT("USBDevice.opened.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-USBDevice* blink_receiver = V8USBDevice::ToWrappableUnsafe(v8_receiver);
+USBDevice* blink_receiver = V8USBDevice::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->opened();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
 }
@@ -364,7 +373,7 @@ return;
 
 
 
-USBDevice* blink_receiver = V8USBDevice::ToWrappableUnsafe(v8_receiver);
+USBDevice* blink_receiver = V8USBDevice::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -410,7 +419,7 @@ return;
 
 
 
-USBDevice* blink_receiver = V8USBDevice::ToWrappableUnsafe(v8_receiver);
+USBDevice* blink_receiver = V8USBDevice::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -456,7 +465,7 @@ UseCounter::Count(current_execution_context, WebFeature::kUsbDeviceClose);
 
 
 
-USBDevice* blink_receiver = V8USBDevice::ToWrappableUnsafe(v8_receiver);
+USBDevice* blink_receiver = V8USBDevice::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -498,7 +507,7 @@ return;
 
 
 
-USBDevice* blink_receiver = V8USBDevice::ToWrappableUnsafe(v8_receiver);
+USBDevice* blink_receiver = V8USBDevice::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -551,7 +560,7 @@ return;
 ScriptPromise return_value;
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
-USBDevice* blink_receiver = V8USBDevice::ToWrappableUnsafe(v8_receiver);
+USBDevice* blink_receiver = V8USBDevice::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -602,7 +611,7 @@ UseCounter::Count(current_execution_context, WebFeature::kUsbDeviceForget);
 
 
 
-USBDevice* blink_receiver = V8USBDevice::ToWrappableUnsafe(v8_receiver);
+USBDevice* blink_receiver = V8USBDevice::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -644,7 +653,7 @@ return;
 
 
 
-USBDevice* blink_receiver = V8USBDevice::ToWrappableUnsafe(v8_receiver);
+USBDevice* blink_receiver = V8USBDevice::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -694,7 +703,7 @@ return;
 
 
 
-USBDevice* blink_receiver = V8USBDevice::ToWrappableUnsafe(v8_receiver);
+USBDevice* blink_receiver = V8USBDevice::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -744,7 +753,7 @@ UseCounter::Count(current_execution_context, WebFeature::kUsbDeviceOpen);
 
 
 
-USBDevice* blink_receiver = V8USBDevice::ToWrappableUnsafe(v8_receiver);
+USBDevice* blink_receiver = V8USBDevice::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -786,7 +795,7 @@ return;
 
 
 
-USBDevice* blink_receiver = V8USBDevice::ToWrappableUnsafe(v8_receiver);
+USBDevice* blink_receiver = V8USBDevice::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -828,7 +837,7 @@ UseCounter::Count(current_execution_context, WebFeature::kUsbDeviceReset);
 
 
 
-USBDevice* blink_receiver = V8USBDevice::ToWrappableUnsafe(v8_receiver);
+USBDevice* blink_receiver = V8USBDevice::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -870,7 +879,7 @@ return;
 
 
 
-USBDevice* blink_receiver = V8USBDevice::ToWrappableUnsafe(v8_receiver);
+USBDevice* blink_receiver = V8USBDevice::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -920,7 +929,7 @@ return;
 
 
 
-USBDevice* blink_receiver = V8USBDevice::ToWrappableUnsafe(v8_receiver);
+USBDevice* blink_receiver = V8USBDevice::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -966,7 +975,7 @@ return;
 
 
 
-USBDevice* blink_receiver = V8USBDevice::ToWrappableUnsafe(v8_receiver);
+USBDevice* blink_receiver = V8USBDevice::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
@@ -1016,7 +1025,7 @@ return;
 
 
 
-USBDevice* blink_receiver = V8USBDevice::ToWrappableUnsafe(v8_receiver);
+USBDevice* blink_receiver = V8USBDevice::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;

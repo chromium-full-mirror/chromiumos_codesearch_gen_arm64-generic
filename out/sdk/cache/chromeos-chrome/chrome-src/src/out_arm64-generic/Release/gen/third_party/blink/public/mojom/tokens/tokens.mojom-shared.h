@@ -62,8 +62,6 @@ class AttributionSrcTokenDataView;
 
 class ClipboardSequenceNumberTokenDataView;
 
-class PortalTokenDataView;
-
 class V8ContextTokenDataView;
 
 class FrameTokenDataView;
@@ -172,13 +170,6 @@ struct MojomTypeTraits<::blink::mojom::AttributionSrcTokenDataView> {
 template <>
 struct MojomTypeTraits<::blink::mojom::ClipboardSequenceNumberTokenDataView> {
   using Data = ::blink::mojom::internal::ClipboardSequenceNumberToken_Data;
-  using DataAsArrayElement = Pointer<Data>;
-  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
-};
-
-template <>
-struct MojomTypeTraits<::blink::mojom::PortalTokenDataView> {
-  using Data = ::blink::mojom::internal::PortalToken_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -592,32 +583,6 @@ class ClipboardSequenceNumberTokenDataView {
   }
  private:
   internal::ClipboardSequenceNumberToken_Data* data_ = nullptr;
-  mojo::Message* message_ = nullptr;
-};
-
-
-class PortalTokenDataView {
- public:
-  PortalTokenDataView() = default;
-
-  PortalTokenDataView(
-      internal::PortalToken_Data* data,
-      mojo::Message* message)
-      : data_(data), message_(message) {}
-
-  bool is_null() const { return !data_; }
-  inline void GetValueDataView(
-      ::mojo_base::mojom::UnguessableTokenDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadValue(UserType* output) {
-    
-    auto* pointer = data_->value.Get();
-    return mojo::internal::Deserialize<::mojo_base::mojom::UnguessableTokenDataView>(
-        pointer, output, message_);
-  }
- private:
-  internal::PortalToken_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -1606,47 +1571,6 @@ struct Serializer<::blink::mojom::ClipboardSequenceNumberTokenDataView, MaybeCon
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::blink::mojom::PortalTokenDataView, MaybeConstUserType> {
-  using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::blink::mojom::PortalTokenDataView, UserType>;
-
-  static void Serialize(
-      MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::blink::mojom::internal::PortalToken_Data>& fragment) {
-    if (CallIsNullIfExists<Traits>(input))
-      return;
-    fragment.Allocate();
-    decltype(Traits::value(input)) in_value = Traits::value(input);
-    mojo::internal::MessageFragment<
-        typename decltype(fragment->value)::BaseType> value_fragment(
-            fragment.message());
-    mojo::internal::Serialize<::mojo_base::mojom::UnguessableTokenDataView>(
-        in_value, value_fragment);
-    fragment->value.Set(
-        value_fragment.is_null() ? nullptr : value_fragment.data());
-    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-        fragment->value.is_null(),
-        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-        "null value in PortalToken struct");
-  }
-
-  static bool Deserialize(::blink::mojom::internal::PortalToken_Data* input,
-                          UserType* output,
-                          Message* message) {
-    if (!input)
-      return CallSetToNullIfExists<Traits>(output);
-
-    ::blink::mojom::PortalTokenDataView data_view(input, message);
-    return Traits::Read(data_view, output);
-  }
-};
-
-}  // namespace internal
-
-
-namespace internal {
-
-template <typename MaybeConstUserType>
 struct Serializer<::blink::mojom::V8ContextTokenDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = StructTraits<::blink::mojom::V8ContextTokenDataView, UserType>;
@@ -2338,13 +2262,6 @@ inline void AttributionSrcTokenDataView::GetValueDataView(
 
 
 inline void ClipboardSequenceNumberTokenDataView::GetValueDataView(
-    ::mojo_base::mojom::UnguessableTokenDataView* output) {
-  auto pointer = data_->value.Get();
-  *output = ::mojo_base::mojom::UnguessableTokenDataView(pointer, message_);
-}
-
-
-inline void PortalTokenDataView::GetValueDataView(
     ::mojo_base::mojom::UnguessableTokenDataView* output) {
   auto pointer = data_->value.Get();
   *output = ::mojo_base::mojom::UnguessableTokenDataView(pointer, message_);

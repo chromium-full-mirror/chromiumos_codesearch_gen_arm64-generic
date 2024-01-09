@@ -248,8 +248,10 @@ enum class WallpaperType : int32_t {
   kOnceGooglePhotos = 11,
   
   kOobe = 12,
+  
+  kSeaPen = 13,
   kMinValue = 0,
-  kMaxValue = 12,
+  kMaxValue = 13,
 };
 
  std::ostream& operator<<(std::ostream& os, WallpaperType value);

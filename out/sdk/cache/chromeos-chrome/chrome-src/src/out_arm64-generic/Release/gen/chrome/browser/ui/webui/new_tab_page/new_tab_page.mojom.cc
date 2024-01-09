@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -196,13 +197,13 @@ BackgroundImage::BackgroundImage()
 
 BackgroundImage::BackgroundImage(
     const ::GURL& url_in,
-    const absl::optional<::GURL>& url_2x_in,
-    const absl::optional<::GURL>& attribution_url_in,
-    const absl::optional<std::string>& size_in,
-    const absl::optional<std::string>& repeat_x_in,
-    const absl::optional<std::string>& repeat_y_in,
-    const absl::optional<std::string>& position_x_in,
-    const absl::optional<std::string>& position_y_in,
+    const std::optional<::GURL>& url_2x_in,
+    const std::optional<::GURL>& attribution_url_in,
+    const std::optional<std::string>& size_in,
+    const std::optional<std::string>& repeat_x_in,
+    const std::optional<std::string>& repeat_y_in,
+    const std::optional<std::string>& position_x_in,
+    const std::optional<std::string>& position_y_in,
     NtpBackgroundImageSource image_source_in)
     : url(std::move(url_in)),
       url_2x(std::move(url_2x_in)),
@@ -232,7 +233,7 @@ void BackgroundImage::WriteIntoTrace(
     dict.AddItem(
       "url_2x"), this->url_2x,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::GURL>&>"
+      "<value of type const std::optional<::GURL>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -241,7 +242,7 @@ void BackgroundImage::WriteIntoTrace(
     dict.AddItem(
       "attribution_url"), this->attribution_url,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::GURL>&>"
+      "<value of type const std::optional<::GURL>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -250,7 +251,7 @@ void BackgroundImage::WriteIntoTrace(
     dict.AddItem(
       "size"), this->size,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -259,7 +260,7 @@ void BackgroundImage::WriteIntoTrace(
     dict.AddItem(
       "repeat_x"), this->repeat_x,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -268,7 +269,7 @@ void BackgroundImage::WriteIntoTrace(
     dict.AddItem(
       "repeat_y"), this->repeat_y,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -277,7 +278,7 @@ void BackgroundImage::WriteIntoTrace(
     dict.AddItem(
       "position_x"), this->position_x,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -286,7 +287,7 @@ void BackgroundImage::WriteIntoTrace(
     dict.AddItem(
       "position_y"), this->position_y,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -310,6 +311,7 @@ bool BackgroundImage::Validate(
 Theme::Theme()
     : text_color(),
       background_color(),
+      is_baseline(),
       is_custom_background(),
       daily_refresh_enabled(),
       is_dark(),
@@ -325,19 +327,21 @@ Theme::Theme()
 Theme::Theme(
     ::SkColor text_color_in,
     ::SkColor background_color_in,
+    bool is_baseline_in,
     bool is_custom_background_in,
     bool daily_refresh_enabled_in,
     bool is_dark_in,
     bool theme_realbox_icons_in,
-    absl::optional<::SkColor> logo_color_in,
-    const absl::optional<std::string>& background_image_collection_id_in,
+    std::optional<::SkColor> logo_color_in,
+    const std::optional<std::string>& background_image_collection_id_in,
     BackgroundImagePtr background_image_in,
-    const absl::optional<std::string>& background_image_attribution_1_in,
-    const absl::optional<std::string>& background_image_attribution_2_in,
-    const absl::optional<::GURL>& background_image_attribution_url_in,
+    const std::optional<std::string>& background_image_attribution_1_in,
+    const std::optional<std::string>& background_image_attribution_2_in,
+    const std::optional<::GURL>& background_image_attribution_url_in,
     ::most_visited::mojom::MostVisitedThemePtr most_visited_in)
     : text_color(std::move(text_color_in)),
       background_color(std::move(background_color_in)),
+      is_baseline(std::move(is_baseline_in)),
       is_custom_background(std::move(is_custom_background_in)),
       daily_refresh_enabled(std::move(daily_refresh_enabled_in)),
       is_dark(std::move(is_dark_in)),
@@ -369,6 +373,15 @@ void Theme::WriteIntoTrace(
       "background_color"), this->background_color,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type ::SkColor>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "is_baseline"), this->is_baseline,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -413,7 +426,7 @@ void Theme::WriteIntoTrace(
     dict.AddItem(
       "logo_color"), this->logo_color,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<::SkColor>>"
+      "<value of type std::optional<::SkColor>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -422,7 +435,7 @@ void Theme::WriteIntoTrace(
     dict.AddItem(
       "background_image_collection_id"), this->background_image_collection_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -440,7 +453,7 @@ void Theme::WriteIntoTrace(
     dict.AddItem(
       "background_image_attribution_1"), this->background_image_attribution_1,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -449,7 +462,7 @@ void Theme::WriteIntoTrace(
     dict.AddItem(
       "background_image_attribution_2"), this->background_image_attribution_2,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -458,7 +471,7 @@ void Theme::WriteIntoTrace(
     dict.AddItem(
       "background_image_attribution_url"), this->background_image_attribution_url,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::GURL>&>"
+      "<value of type const std::optional<::GURL>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -555,13 +568,13 @@ ImageDoodle::ImageDoodle()
 
 ImageDoodle::ImageDoodle(
     const ::GURL& image_url_in,
-    const absl::optional<::GURL>& animation_url_in,
+    const std::optional<::GURL>& animation_url_in,
     uint32_t width_in,
     uint32_t height_in,
     ::SkColor background_color_in,
     DoodleShareButtonPtr share_button_in,
     const ::GURL& image_impression_log_url_in,
-    const absl::optional<::GURL>& animation_impression_log_url_in)
+    const std::optional<::GURL>& animation_impression_log_url_in)
     : image_url(std::move(image_url_in)),
       animation_url(std::move(animation_url_in)),
       width(std::move(width_in)),
@@ -589,7 +602,7 @@ void ImageDoodle::WriteIntoTrace(
     dict.AddItem(
       "animation_url"), this->animation_url,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::GURL>&>"
+      "<value of type const std::optional<::GURL>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -643,7 +656,7 @@ void ImageDoodle::WriteIntoTrace(
     dict.AddItem(
       "animation_impression_log_url"), this->animation_impression_log_url,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::GURL>&>"
+      "<value of type const std::optional<::GURL>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -664,7 +677,7 @@ AllModeImageDoodle::AllModeImageDoodle()
 AllModeImageDoodle::AllModeImageDoodle(
     ImageDoodlePtr light_in,
     ImageDoodlePtr dark_in,
-    const absl::optional<::GURL>& on_click_url_in,
+    const std::optional<::GURL>& on_click_url_in,
     const ::GURL& share_url_in)
     : light(std::move(light_in)),
       dark(std::move(dark_in)),
@@ -698,7 +711,7 @@ void AllModeImageDoodle::WriteIntoTrace(
     dict.AddItem(
       "on_click_url"), this->on_click_url,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::GURL>&>"
+      "<value of type const std::optional<::GURL>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -941,8 +954,8 @@ Promo::Promo()
       middle_slot_parts() {}
 
 Promo::Promo(
-    const absl::optional<std::string>& id_in,
-    const absl::optional<::GURL>& log_url_in,
+    const std::optional<std::string>& id_in,
+    const std::optional<::GURL>& log_url_in,
     std::vector<PromoPartPtr> middle_slot_parts_in)
     : id(std::move(id_in)),
       log_url(std::move(log_url_in)),
@@ -957,7 +970,7 @@ void Promo::WriteIntoTrace(
     dict.AddItem(
       "id"), this->id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -966,7 +979,7 @@ void Promo::WriteIntoTrace(
     dict.AddItem(
       "log_url"), this->log_url,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<::GURL>&>"
+      "<value of type const std::optional<::GURL>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1172,14 +1185,17 @@ void PageHandlerFactoryProxy::CreatePageHandler(
                         "<value of type ::mojo::PendingReceiver<PageHandler>>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandlerFactory_CreatePageHandler_Name, kFlags, 0, 0, nullptr);
@@ -1267,10 +1283,10 @@ bool PageHandlerFactoryStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPageHandlerFactoryValidationInfo[] = {
-    {&internal::PageHandlerFactory_CreatePageHandler_Params_Data::Validate,
+    { &internal::PageHandlerFactory_CreatePageHandler_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1344,6 +1360,9 @@ PageHandler::IPCStableHashFunction PageHandler::MessageToMethodInfo_(mojo::Messa
     case internal::kPageHandler_OnModulesLoadedWithData_Name: {
       return &PageHandler::OnModulesLoadedWithData_Sym::IPCStableHash;
     }
+    case internal::kPageHandler_OnModuleUsed_Name: {
+      return &PageHandler::OnModuleUsed_Sym::IPCStableHash;
+    }
     case internal::kPageHandler_GetModulesIdNames_Name: {
       return &PageHandler::GetModulesIdNames_Sym::IPCStableHash;
     }
@@ -1371,8 +1390,8 @@ PageHandler::IPCStableHashFunction PageHandler::MessageToMethodInfo_(mojo::Messa
     case internal::kPageHandler_IncrementCustomizeChromeButtonOpenCount_Name: {
       return &PageHandler::IncrementCustomizeChromeButtonOpenCount_Sym::IPCStableHash;
     }
-    case internal::kPageHandler_MaybeShowCustomizeChromeFeaturePromo_Name: {
-      return &PageHandler::MaybeShowCustomizeChromeFeaturePromo_Sym::IPCStableHash;
+    case internal::kPageHandler_MaybeShowFeaturePromo_Name: {
+      return &PageHandler::MaybeShowFeaturePromo_Sym::IPCStableHash;
     }
     case internal::kPageHandler_OnOneGoogleBarRendered_Name: {
       return &PageHandler::OnOneGoogleBarRendered_Sym::IPCStableHash;
@@ -1449,6 +1468,8 @@ const char* PageHandler::MessageToMethodName_(mojo::Message& message) {
             return "Receive new_tab_page::mojom::PageHandler::UpdateDisabledModules";
       case internal::kPageHandler_OnModulesLoadedWithData_Name:
             return "Receive new_tab_page::mojom::PageHandler::OnModulesLoadedWithData";
+      case internal::kPageHandler_OnModuleUsed_Name:
+            return "Receive new_tab_page::mojom::PageHandler::OnModuleUsed";
       case internal::kPageHandler_GetModulesIdNames_Name:
             return "Receive new_tab_page::mojom::PageHandler::GetModulesIdNames";
       case internal::kPageHandler_SetModulesOrder_Name:
@@ -1467,8 +1488,8 @@ const char* PageHandler::MessageToMethodName_(mojo::Message& message) {
             return "Receive new_tab_page::mojom::PageHandler::SetCustomizeChromeSidePanelVisible";
       case internal::kPageHandler_IncrementCustomizeChromeButtonOpenCount_Name:
             return "Receive new_tab_page::mojom::PageHandler::IncrementCustomizeChromeButtonOpenCount";
-      case internal::kPageHandler_MaybeShowCustomizeChromeFeaturePromo_Name:
-            return "Receive new_tab_page::mojom::PageHandler::MaybeShowCustomizeChromeFeaturePromo";
+      case internal::kPageHandler_MaybeShowFeaturePromo_Name:
+            return "Receive new_tab_page::mojom::PageHandler::MaybeShowFeaturePromo";
       case internal::kPageHandler_OnOneGoogleBarRendered_Name:
             return "Receive new_tab_page::mojom::PageHandler::OnOneGoogleBarRendered";
       case internal::kPageHandler_OnPromoRendered_Name:
@@ -1528,6 +1549,8 @@ const char* PageHandler::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply new_tab_page::mojom::PageHandler::UpdateDisabledModules";
       case internal::kPageHandler_OnModulesLoadedWithData_Name:
             return "Receive reply new_tab_page::mojom::PageHandler::OnModulesLoadedWithData";
+      case internal::kPageHandler_OnModuleUsed_Name:
+            return "Receive reply new_tab_page::mojom::PageHandler::OnModuleUsed";
       case internal::kPageHandler_GetModulesIdNames_Name:
             return "Receive reply new_tab_page::mojom::PageHandler::GetModulesIdNames";
       case internal::kPageHandler_SetModulesOrder_Name:
@@ -1546,8 +1569,8 @@ const char* PageHandler::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply new_tab_page::mojom::PageHandler::SetCustomizeChromeSidePanelVisible";
       case internal::kPageHandler_IncrementCustomizeChromeButtonOpenCount_Name:
             return "Receive reply new_tab_page::mojom::PageHandler::IncrementCustomizeChromeButtonOpenCount";
-      case internal::kPageHandler_MaybeShowCustomizeChromeFeaturePromo_Name:
-            return "Receive reply new_tab_page::mojom::PageHandler::MaybeShowCustomizeChromeFeaturePromo";
+      case internal::kPageHandler_MaybeShowFeaturePromo_Name:
+            return "Receive reply new_tab_page::mojom::PageHandler::MaybeShowFeaturePromo";
       case internal::kPageHandler_OnOneGoogleBarRendered_Name:
             return "Receive reply new_tab_page::mojom::PageHandler::OnOneGoogleBarRendered";
       case internal::kPageHandler_OnPromoRendered_Name:
@@ -1838,6 +1861,19 @@ uint32_t PageHandler::OnModulesLoadedWithData_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t PageHandler::OnModuleUsed_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)new_tab_page::mojom::PageHandler::OnModuleUsed");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 uint32_t PageHandler::GetModulesIdNames_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
@@ -1955,7 +1991,7 @@ uint32_t PageHandler::IncrementCustomizeChromeButtonOpenCount_Sym::IPCStableHash
   base::debug::Alias(&hash);
   return hash;
 }
-uint32_t PageHandler::MaybeShowCustomizeChromeFeaturePromo_Sym::IPCStableHash() {
+uint32_t PageHandler::MaybeShowFeaturePromo_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
   // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
@@ -1963,7 +1999,7 @@ uint32_t PageHandler::MaybeShowCustomizeChromeFeaturePromo_Sym::IPCStableHash() 
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)new_tab_page::mojom::PageHandler::MaybeShowCustomizeChromeFeaturePromo");
+          "(Impl)new_tab_page::mojom::PageHandler::MaybeShowFeaturePromo");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -2233,14 +2269,17 @@ void PageHandlerProxy::SetBackgroundImage(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_SetBackgroundImage_Name, kFlags, 0, 0, nullptr);
@@ -2336,14 +2375,17 @@ void PageHandlerProxy::SetDailyRefreshCollectionId(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_SetDailyRefreshCollectionId_Name, kFlags, 0, 0, nullptr);
@@ -2377,14 +2419,17 @@ void PageHandlerProxy::SetNoBackgroundImage(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send new_tab_page::mojom::PageHandler::SetNoBackgroundImage");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_SetNoBackgroundImage_Name, kFlags, 0, 0, nullptr);
@@ -2407,14 +2452,17 @@ void PageHandlerProxy::RevertBackgroundChanges(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send new_tab_page::mojom::PageHandler::RevertBackgroundChanges");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_RevertBackgroundChanges_Name, kFlags, 0, 0, nullptr);
@@ -2437,14 +2485,17 @@ void PageHandlerProxy::ConfirmBackgroundChanges(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send new_tab_page::mojom::PageHandler::ConfirmBackgroundChanges");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_ConfirmBackgroundChanges_Name, kFlags, 0, 0, nullptr);
@@ -2477,14 +2528,17 @@ void PageHandlerProxy::SetMostVisitedSettings(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_SetMostVisitedSettings_Name, kFlags, 0, 0, nullptr);
@@ -2509,14 +2563,17 @@ void PageHandlerProxy::GetMostVisitedSettings(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send new_tab_page::mojom::PageHandler::GetMostVisitedSettings");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetMostVisitedSettings_Name, kFlags, 0, 0, nullptr);
@@ -2540,14 +2597,17 @@ void PageHandlerProxy::GetBackgroundCollections(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send new_tab_page::mojom::PageHandler::GetBackgroundCollections");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetBackgroundCollections_Name, kFlags, 0, 0, nullptr);
@@ -2578,14 +2638,17 @@ void PageHandlerProxy::GetBackgroundImages(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetBackgroundImages_Name, kFlags, 0, 0, nullptr);
@@ -2620,14 +2683,17 @@ void PageHandlerProxy::GetDoodle(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send new_tab_page::mojom::PageHandler::GetDoodle");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetDoodle_Name, kFlags, 0, 0, nullptr);
@@ -2651,14 +2717,17 @@ void PageHandlerProxy::ChooseLocalCustomBackground(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send new_tab_page::mojom::PageHandler::ChooseLocalCustomBackground");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_ChooseLocalCustomBackground_Name, kFlags, 0, 0, nullptr);
@@ -2682,14 +2751,17 @@ void PageHandlerProxy::UpdatePromoData(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send new_tab_page::mojom::PageHandler::UpdatePromoData");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_UpdatePromoData_Name, kFlags, 0, 0, nullptr);
@@ -2719,14 +2791,17 @@ void PageHandlerProxy::BlocklistPromo(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_BlocklistPromo_Name, kFlags, 0, 0, nullptr);
@@ -2767,14 +2842,17 @@ void PageHandlerProxy::UndoBlocklistPromo(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_UndoBlocklistPromo_Name, kFlags, 0, 0, nullptr);
@@ -2815,14 +2893,17 @@ void PageHandlerProxy::OnDismissModule(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_OnDismissModule_Name, kFlags, 0, 0, nullptr);
@@ -2863,14 +2944,17 @@ void PageHandlerProxy::OnRestoreModule(
                         "<value of type const std::string&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_OnRestoreModule_Name, kFlags, 0, 0, nullptr);
@@ -2911,14 +2995,17 @@ void PageHandlerProxy::SetModulesVisible(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_SetModulesVisible_Name, kFlags, 0, 0, nullptr);
@@ -2952,14 +3039,17 @@ void PageHandlerProxy::SetModuleDisabled(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_SetModuleDisabled_Name, kFlags, 0, 0, nullptr);
@@ -2994,14 +3084,17 @@ void PageHandlerProxy::UpdateDisabledModules(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send new_tab_page::mojom::PageHandler::UpdateDisabledModules");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_UpdateDisabledModules_Name, kFlags, 0, 0, nullptr);
@@ -3031,14 +3124,17 @@ void PageHandlerProxy::OnModulesLoadedWithData(
                         "<value of type const std::vector<std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_OnModulesLoadedWithData_Name, kFlags, 0, 0, nullptr);
@@ -3069,19 +3165,73 @@ void PageHandlerProxy::OnModulesLoadedWithData(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
+void PageHandlerProxy::OnModuleUsed(
+    const std::string& in_module_id) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send new_tab_page::mojom::PageHandler::OnModuleUsed", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("module_id"), in_module_id,
+                        "<value of type const std::string&>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kPageHandler_OnModuleUsed_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::new_tab_page::mojom::internal::PageHandler_OnModuleUsed_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->module_id)::BaseType> module_id_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_module_id, module_id_fragment);
+  params->module_id.Set(
+      module_id_fragment.is_null() ? nullptr : module_id_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->module_id.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null module_id in PageHandler.OnModuleUsed request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(PageHandler::Name_);
+  message.set_method_name("OnModuleUsed");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
 void PageHandlerProxy::GetModulesIdNames(
     GetModulesIdNamesCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send new_tab_page::mojom::PageHandler::GetModulesIdNames");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetModulesIdNames_Name, kFlags, 0, 0, nullptr);
@@ -3112,14 +3262,17 @@ void PageHandlerProxy::SetModulesOrder(
                         "<value of type const std::vector<std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_SetModulesOrder_Name, kFlags, 0, 0, nullptr);
@@ -3155,14 +3308,17 @@ void PageHandlerProxy::GetModulesOrder(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send new_tab_page::mojom::PageHandler::GetModulesOrder");
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetModulesOrder_Name, kFlags, 0, 0, nullptr);
@@ -3186,14 +3342,17 @@ void PageHandlerProxy::IncrementModulesShownCount(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send new_tab_page::mojom::PageHandler::IncrementModulesShownCount");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_IncrementModulesShownCount_Name, kFlags, 0, 0, nullptr);
@@ -3223,14 +3382,17 @@ void PageHandlerProxy::SetModulesFreVisible(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_SetModulesFreVisible_Name, kFlags, 0, 0, nullptr);
@@ -3254,14 +3416,17 @@ void PageHandlerProxy::UpdateModulesFreVisibility(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send new_tab_page::mojom::PageHandler::UpdateModulesFreVisibility");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_UpdateModulesFreVisibility_Name, kFlags, 0, 0, nullptr);
@@ -3291,14 +3456,17 @@ void PageHandlerProxy::LogModulesFreOptInStatus(
                         "<value of type OptInStatus>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_LogModulesFreOptInStatus_Name, kFlags, 0, 0, nullptr);
@@ -3333,14 +3501,17 @@ void PageHandlerProxy::SetCustomizeChromeSidePanelVisible(
                         "<value of type CustomizeChromeSection>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_SetCustomizeChromeSidePanelVisible_Name, kFlags, 0, 0, nullptr);
@@ -3366,14 +3537,17 @@ void PageHandlerProxy::IncrementCustomizeChromeButtonOpenCount(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send new_tab_page::mojom::PageHandler::IncrementCustomizeChromeButtonOpenCount");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_IncrementCustomizeChromeButtonOpenCount_Name, kFlags, 0, 0, nullptr);
@@ -3391,30 +3565,42 @@ void PageHandlerProxy::IncrementCustomizeChromeButtonOpenCount(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
-void PageHandlerProxy::MaybeShowCustomizeChromeFeaturePromo(
-    ) {
+void PageHandlerProxy::MaybeShowFeaturePromo(
+    IphFeature in_iph_feature) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send new_tab_page::mojom::PageHandler::MaybeShowCustomizeChromeFeaturePromo");
+  TRACE_EVENT1(
+    "mojom", "Send new_tab_page::mojom::PageHandler::MaybeShowFeaturePromo", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("iph_feature"), in_iph_feature,
+                        "<value of type IphFeature>");
+   });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
-      internal::kPageHandler_MaybeShowCustomizeChromeFeaturePromo_Name, kFlags, 0, 0, nullptr);
+      internal::kPageHandler_MaybeShowFeaturePromo_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::new_tab_page::mojom::internal::PageHandler_MaybeShowCustomizeChromeFeaturePromo_Params_Data> params(
+      ::new_tab_page::mojom::internal::PageHandler_MaybeShowFeaturePromo_Params_Data> params(
           message);
   params.Allocate();
+  mojo::internal::Serialize<::new_tab_page::mojom::IphFeature>(
+      in_iph_feature, &params->iph_feature);
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(PageHandler::Name_);
-  message.set_method_name("MaybeShowCustomizeChromeFeaturePromo");
+  message.set_method_name("MaybeShowFeaturePromo");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
@@ -3433,14 +3619,17 @@ void PageHandlerProxy::OnOneGoogleBarRendered(
                         "<value of type double>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_OnOneGoogleBarRendered_Name, kFlags, 0, 0, nullptr);
@@ -3460,7 +3649,7 @@ void PageHandlerProxy::OnOneGoogleBarRendered(
 }
 
 void PageHandlerProxy::OnPromoRendered(
-    double in_time, const absl::optional<::GURL>& in_log_url) {
+    double in_time, const std::optional<::GURL>& in_log_url) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send new_tab_page::mojom::PageHandler::OnPromoRendered", "input_parameters",
@@ -3471,17 +3660,20 @@ void PageHandlerProxy::OnPromoRendered(
                         "<value of type double>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("log_url"), in_log_url,
-                        "<value of type const absl::optional<::GURL>&>");
+                        "<value of type const std::optional<::GURL>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_OnPromoRendered_Name, kFlags, 0, 0, nullptr);
@@ -3519,14 +3711,17 @@ void PageHandlerProxy::OnCustomizeDialogAction(
                         "<value of type CustomizeDialogAction>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_OnCustomizeDialogAction_Name, kFlags, 0, 0, nullptr);
@@ -3547,7 +3742,7 @@ void PageHandlerProxy::OnCustomizeDialogAction(
 }
 
 void PageHandlerProxy::OnDoodleImageClicked(
-    DoodleImageType in_type, const absl::optional<::GURL>& in_log_url) {
+    DoodleImageType in_type, const std::optional<::GURL>& in_log_url) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send new_tab_page::mojom::PageHandler::OnDoodleImageClicked", "input_parameters",
@@ -3558,17 +3753,20 @@ void PageHandlerProxy::OnDoodleImageClicked(
                         "<value of type DoodleImageType>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("log_url"), in_log_url,
-                        "<value of type const absl::optional<::GURL>&>");
+                        "<value of type const std::optional<::GURL>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_OnDoodleImageClicked_Name, kFlags, 0, 0, nullptr);
@@ -3613,14 +3811,17 @@ void PageHandlerProxy::OnDoodleImageRendered(
                         "<value of type const ::GURL&>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_OnDoodleImageRendered_Name, kFlags, 0, 0, nullptr);
@@ -3654,7 +3855,7 @@ void PageHandlerProxy::OnDoodleImageRendered(
 }
 
 void PageHandlerProxy::OnDoodleShared(
-    DoodleShareChannel in_channel, const std::string& in_doodle_id, const absl::optional<std::string>& in_share_id) {
+    DoodleShareChannel in_channel, const std::string& in_doodle_id, const std::optional<std::string>& in_share_id) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send new_tab_page::mojom::PageHandler::OnDoodleShared", "input_parameters",
@@ -3668,17 +3869,20 @@ void PageHandlerProxy::OnDoodleShared(
                         "<value of type const std::string&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("share_id"), in_share_id,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_OnDoodleShared_Name, kFlags, 0, 0, nullptr);
@@ -3721,14 +3925,17 @@ void PageHandlerProxy::OnPromoLinkClicked(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send new_tab_page::mojom::PageHandler::OnPromoLinkClicked");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_OnPromoLinkClicked_Name, kFlags, 0, 0, nullptr);
@@ -3758,14 +3965,17 @@ void PageHandlerProxy::OnAppRendered(
                         "<value of type double>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_OnAppRendered_Name, kFlags, 0, 0, nullptr);
@@ -3882,7 +4092,8 @@ void PageHandler_GetMostVisitedSettings_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetMostVisitedSettings_Name, kFlags, 0, 0, nullptr);
@@ -4001,7 +4212,8 @@ void PageHandler_GetBackgroundCollections_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetBackgroundCollections_Name, kFlags, 0, 0, nullptr);
@@ -4131,7 +4343,8 @@ void PageHandler_GetBackgroundImages_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetBackgroundImages_Name, kFlags, 0, 0, nullptr);
@@ -4261,7 +4474,8 @@ void PageHandler_GetDoodle_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetDoodle_Name, kFlags, 0, 0, nullptr);
@@ -4385,7 +4599,8 @@ void PageHandler_ChooseLocalCustomBackground_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_ChooseLocalCustomBackground_Name, kFlags, 0, 0, nullptr);
@@ -4479,7 +4694,7 @@ bool PageHandler_GetModulesIdNames_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        PageHandler::Name_, 20, true);
+        PageHandler::Name_, 21, true);
     return false;
   }
   if (!callback_.is_null())
@@ -4503,7 +4718,8 @@ void PageHandler_GetModulesIdNames_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetModulesIdNames_Name, kFlags, 0, 0, nullptr);
@@ -4609,7 +4825,7 @@ bool PageHandler_GetModulesOrder_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        PageHandler::Name_, 22, true);
+        PageHandler::Name_, 23, true);
     return false;
   }
   if (!callback_.is_null())
@@ -4633,7 +4849,8 @@ void PageHandler_GetModulesOrder_ProxyToResponder::Run(
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_GetModulesOrder_Name, kFlags, 0, 0, nullptr);
@@ -4717,7 +4934,7 @@ class PageHandler_OnDoodleImageRendered_ProxyToResponder : public ::mojo::intern
 #endif
 
   void Run(
-      const absl::optional<std::string>& in_image_click_params, const absl::optional<::GURL>& in_interaction_log_url, const absl::optional<std::string>& in_share_id);
+      const std::optional<std::string>& in_image_click_params, const std::optional<::GURL>& in_interaction_log_url, const std::optional<std::string>& in_share_id);
 };
 
 bool PageHandler_OnDoodleImageRendered_ForwardToCallback::Accept(
@@ -4730,9 +4947,9 @@ bool PageHandler_OnDoodleImageRendered_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::string> p_image_click_params{};
-  absl::optional<::GURL> p_interaction_log_url{};
-  absl::optional<std::string> p_share_id{};
+  std::optional<std::string> p_image_click_params{};
+  std::optional<::GURL> p_interaction_log_url{};
+  std::optional<std::string> p_share_id{};
   PageHandler_OnDoodleImageRendered_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadImageClickParams(&p_image_click_params))
@@ -4745,7 +4962,7 @@ bool PageHandler_OnDoodleImageRendered_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        PageHandler::Name_, 34, true);
+        PageHandler::Name_, 35, true);
     return false;
   }
   if (!callback_.is_null())
@@ -4757,7 +4974,7 @@ std::move(p_share_id));
 }
 
 void PageHandler_OnDoodleImageRendered_ProxyToResponder::Run(
-    const absl::optional<std::string>& in_image_click_params, const absl::optional<::GURL>& in_interaction_log_url, const absl::optional<std::string>& in_share_id) {
+    const std::optional<std::string>& in_image_click_params, const std::optional<::GURL>& in_interaction_log_url, const std::optional<std::string>& in_share_id) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply new_tab_page::mojom::PageHandler::OnDoodleImageRendered", "async_response_parameters",
@@ -4765,19 +4982,20 @@ void PageHandler_OnDoodleImageRendered_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("image_click_params"), in_image_click_params,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("interaction_log_url"), in_interaction_log_url,
-                        "<value of type const absl::optional<::GURL>&>");
+                        "<value of type const std::optional<::GURL>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("share_id"), in_share_id,
-                        "<value of type const absl::optional<std::string>&>");
+                        "<value of type const std::optional<std::string>&>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPageHandler_OnDoodleImageRendered_Name, kFlags, 0, 0, nullptr);
@@ -5242,6 +5460,32 @@ std::move(p_disabled));
 std::move(p_module_ids));
       return true;
     }
+    case internal::kPageHandler_OnModuleUsed_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::PageHandler_OnModuleUsed_Params_Data* params =
+          reinterpret_cast<internal::PageHandler_OnModuleUsed_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      std::string p_module_id{};
+      PageHandler_OnModuleUsed_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadModuleId(&p_module_id))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            PageHandler::Name_, 20, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->OnModuleUsed(
+std::move(p_module_id));
+      return true;
+    }
     case internal::kPageHandler_GetModulesIdNames_Name: {
       break;
     }
@@ -5262,7 +5506,7 @@ std::move(p_module_ids));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            PageHandler::Name_, 21, false);
+            PageHandler::Name_, 22, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -5288,7 +5532,7 @@ std::move(p_module_ids));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            PageHandler::Name_, 23, false);
+            PageHandler::Name_, 24, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -5313,7 +5557,7 @@ std::move(p_module_ids));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            PageHandler::Name_, 24, false);
+            PageHandler::Name_, 25, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -5336,7 +5580,7 @@ std::move(p_visible));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            PageHandler::Name_, 25, false);
+            PageHandler::Name_, 26, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -5361,7 +5605,7 @@ std::move(p_visible));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            PageHandler::Name_, 26, false);
+            PageHandler::Name_, 27, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -5390,7 +5634,7 @@ std::move(p_opt_in_status));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            PageHandler::Name_, 27, false);
+            PageHandler::Name_, 28, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -5414,7 +5658,7 @@ std::move(p_section));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            PageHandler::Name_, 28, false);
+            PageHandler::Name_, 29, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -5422,26 +5666,30 @@ std::move(p_section));
       impl->IncrementCustomizeChromeButtonOpenCount();
       return true;
     }
-    case internal::kPageHandler_MaybeShowCustomizeChromeFeaturePromo_Name: {
+    case internal::kPageHandler_MaybeShowFeaturePromo_Name: {
 
       DCHECK(message->is_serialized());
-      internal::PageHandler_MaybeShowCustomizeChromeFeaturePromo_Params_Data* params =
-          reinterpret_cast<internal::PageHandler_MaybeShowCustomizeChromeFeaturePromo_Params_Data*>(
+      internal::PageHandler_MaybeShowFeaturePromo_Params_Data* params =
+          reinterpret_cast<internal::PageHandler_MaybeShowFeaturePromo_Params_Data*>(
               message->mutable_payload());
       
       bool success = true;
-      PageHandler_MaybeShowCustomizeChromeFeaturePromo_ParamsDataView input_data_view(params, message);
+      IphFeature p_iph_feature{};
+      PageHandler_MaybeShowFeaturePromo_ParamsDataView input_data_view(params, message);
       
+      if (success && !input_data_view.ReadIphFeature(&p_iph_feature))
+        success = false;
       if (!success) {
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            PageHandler::Name_, 29, false);
+            PageHandler::Name_, 30, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->MaybeShowCustomizeChromeFeaturePromo();
+      impl->MaybeShowFeaturePromo(
+std::move(p_iph_feature));
       return true;
     }
     case internal::kPageHandler_OnOneGoogleBarRendered_Name: {
@@ -5461,7 +5709,7 @@ std::move(p_section));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            PageHandler::Name_, 30, false);
+            PageHandler::Name_, 31, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -5479,7 +5727,7 @@ std::move(p_time));
       
       bool success = true;
       double p_time{};
-      absl::optional<::GURL> p_log_url{};
+      std::optional<::GURL> p_log_url{};
       PageHandler_OnPromoRendered_ParamsDataView input_data_view(params, message);
       
       if (success)
@@ -5490,7 +5738,7 @@ std::move(p_time));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            PageHandler::Name_, 31, false);
+            PageHandler::Name_, 32, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -5517,7 +5765,7 @@ std::move(p_log_url));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            PageHandler::Name_, 32, false);
+            PageHandler::Name_, 33, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -5535,7 +5783,7 @@ std::move(p_action));
       
       bool success = true;
       DoodleImageType p_type{};
-      absl::optional<::GURL> p_log_url{};
+      std::optional<::GURL> p_log_url{};
       PageHandler_OnDoodleImageClicked_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadType(&p_type))
@@ -5546,7 +5794,7 @@ std::move(p_action));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            PageHandler::Name_, 33, false);
+            PageHandler::Name_, 34, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -5569,7 +5817,7 @@ std::move(p_log_url));
       bool success = true;
       DoodleShareChannel p_channel{};
       std::string p_doodle_id{};
-      absl::optional<std::string> p_share_id{};
+      std::optional<std::string> p_share_id{};
       PageHandler_OnDoodleShared_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadChannel(&p_channel))
@@ -5582,7 +5830,7 @@ std::move(p_log_url));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            PageHandler::Name_, 35, false);
+            PageHandler::Name_, 36, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -5607,7 +5855,7 @@ std::move(p_share_id));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            PageHandler::Name_, 36, false);
+            PageHandler::Name_, 37, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -5632,7 +5880,7 @@ std::move(p_share_id));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            PageHandler::Name_, 37, false);
+            PageHandler::Name_, 38, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -5828,6 +6076,9 @@ std::move(p_collection_id), std::move(callback));
     case internal::kPageHandler_OnModulesLoadedWithData_Name: {
       break;
     }
+    case internal::kPageHandler_OnModuleUsed_Name: {
+      break;
+    }
     case internal::kPageHandler_GetModulesIdNames_Name: {
 
       internal::PageHandler_GetModulesIdNames_Params_Data* params =
@@ -5842,7 +6093,7 @@ std::move(p_collection_id), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            PageHandler::Name_, 20, false);
+            PageHandler::Name_, 21, false);
         return false;
       }
       PageHandler::GetModulesIdNamesCallback callback =
@@ -5870,7 +6121,7 @@ std::move(p_collection_id), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            PageHandler::Name_, 22, false);
+            PageHandler::Name_, 23, false);
         return false;
       }
       PageHandler::GetModulesOrderCallback callback =
@@ -5899,7 +6150,7 @@ std::move(p_collection_id), std::move(callback));
     case internal::kPageHandler_IncrementCustomizeChromeButtonOpenCount_Name: {
       break;
     }
-    case internal::kPageHandler_MaybeShowCustomizeChromeFeaturePromo_Name: {
+    case internal::kPageHandler_MaybeShowFeaturePromo_Name: {
       break;
     }
     case internal::kPageHandler_OnOneGoogleBarRendered_Name: {
@@ -5937,7 +6188,7 @@ std::move(p_collection_id), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            PageHandler::Name_, 34, false);
+            PageHandler::Name_, 35, false);
         return false;
       }
       PageHandler::OnDoodleImageRenderedCallback callback =
@@ -5963,84 +6214,86 @@ std::move(p_log_url), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPageHandlerValidationInfo[] = {
-    {&internal::PageHandler_SetBackgroundImage_Params_Data::Validate,
+    { &internal::PageHandler_SetBackgroundImage_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_SetDailyRefreshCollectionId_Params_Data::Validate,
+    { &internal::PageHandler_SetDailyRefreshCollectionId_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_SetNoBackgroundImage_Params_Data::Validate,
+    { &internal::PageHandler_SetNoBackgroundImage_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_RevertBackgroundChanges_Params_Data::Validate,
+    { &internal::PageHandler_RevertBackgroundChanges_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_ConfirmBackgroundChanges_Params_Data::Validate,
+    { &internal::PageHandler_ConfirmBackgroundChanges_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_SetMostVisitedSettings_Params_Data::Validate,
+    { &internal::PageHandler_SetMostVisitedSettings_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_GetMostVisitedSettings_Params_Data::Validate,
+    { &internal::PageHandler_GetMostVisitedSettings_Params_Data::Validate,
      &internal::PageHandler_GetMostVisitedSettings_ResponseParams_Data::Validate},
-    {&internal::PageHandler_GetBackgroundCollections_Params_Data::Validate,
+    { &internal::PageHandler_GetBackgroundCollections_Params_Data::Validate,
      &internal::PageHandler_GetBackgroundCollections_ResponseParams_Data::Validate},
-    {&internal::PageHandler_GetBackgroundImages_Params_Data::Validate,
+    { &internal::PageHandler_GetBackgroundImages_Params_Data::Validate,
      &internal::PageHandler_GetBackgroundImages_ResponseParams_Data::Validate},
-    {&internal::PageHandler_GetDoodle_Params_Data::Validate,
+    { &internal::PageHandler_GetDoodle_Params_Data::Validate,
      &internal::PageHandler_GetDoodle_ResponseParams_Data::Validate},
-    {&internal::PageHandler_ChooseLocalCustomBackground_Params_Data::Validate,
+    { &internal::PageHandler_ChooseLocalCustomBackground_Params_Data::Validate,
      &internal::PageHandler_ChooseLocalCustomBackground_ResponseParams_Data::Validate},
-    {&internal::PageHandler_UpdatePromoData_Params_Data::Validate,
+    { &internal::PageHandler_UpdatePromoData_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_BlocklistPromo_Params_Data::Validate,
+    { &internal::PageHandler_BlocklistPromo_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_UndoBlocklistPromo_Params_Data::Validate,
+    { &internal::PageHandler_UndoBlocklistPromo_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_OnDismissModule_Params_Data::Validate,
+    { &internal::PageHandler_OnDismissModule_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_OnRestoreModule_Params_Data::Validate,
+    { &internal::PageHandler_OnRestoreModule_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_SetModulesVisible_Params_Data::Validate,
+    { &internal::PageHandler_SetModulesVisible_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_SetModuleDisabled_Params_Data::Validate,
+    { &internal::PageHandler_SetModuleDisabled_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_UpdateDisabledModules_Params_Data::Validate,
+    { &internal::PageHandler_UpdateDisabledModules_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_OnModulesLoadedWithData_Params_Data::Validate,
+    { &internal::PageHandler_OnModulesLoadedWithData_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_GetModulesIdNames_Params_Data::Validate,
+    { &internal::PageHandler_OnModuleUsed_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::PageHandler_GetModulesIdNames_Params_Data::Validate,
      &internal::PageHandler_GetModulesIdNames_ResponseParams_Data::Validate},
-    {&internal::PageHandler_SetModulesOrder_Params_Data::Validate,
+    { &internal::PageHandler_SetModulesOrder_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_GetModulesOrder_Params_Data::Validate,
+    { &internal::PageHandler_GetModulesOrder_Params_Data::Validate,
      &internal::PageHandler_GetModulesOrder_ResponseParams_Data::Validate},
-    {&internal::PageHandler_IncrementModulesShownCount_Params_Data::Validate,
+    { &internal::PageHandler_IncrementModulesShownCount_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_SetModulesFreVisible_Params_Data::Validate,
+    { &internal::PageHandler_SetModulesFreVisible_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_UpdateModulesFreVisibility_Params_Data::Validate,
+    { &internal::PageHandler_UpdateModulesFreVisibility_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_LogModulesFreOptInStatus_Params_Data::Validate,
+    { &internal::PageHandler_LogModulesFreOptInStatus_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_SetCustomizeChromeSidePanelVisible_Params_Data::Validate,
+    { &internal::PageHandler_SetCustomizeChromeSidePanelVisible_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_IncrementCustomizeChromeButtonOpenCount_Params_Data::Validate,
+    { &internal::PageHandler_IncrementCustomizeChromeButtonOpenCount_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_MaybeShowCustomizeChromeFeaturePromo_Params_Data::Validate,
+    { &internal::PageHandler_MaybeShowFeaturePromo_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_OnOneGoogleBarRendered_Params_Data::Validate,
+    { &internal::PageHandler_OnOneGoogleBarRendered_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_OnPromoRendered_Params_Data::Validate,
+    { &internal::PageHandler_OnPromoRendered_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_OnCustomizeDialogAction_Params_Data::Validate,
+    { &internal::PageHandler_OnCustomizeDialogAction_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_OnDoodleImageClicked_Params_Data::Validate,
+    { &internal::PageHandler_OnDoodleImageClicked_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_OnDoodleImageRendered_Params_Data::Validate,
+    { &internal::PageHandler_OnDoodleImageRendered_Params_Data::Validate,
      &internal::PageHandler_OnDoodleImageRendered_ResponseParams_Data::Validate},
-    {&internal::PageHandler_OnDoodleShared_Params_Data::Validate,
+    { &internal::PageHandler_OnDoodleShared_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_OnPromoLinkClicked_Params_Data::Validate,
+    { &internal::PageHandler_OnPromoLinkClicked_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::PageHandler_OnAppRendered_Params_Data::Validate,
+    { &internal::PageHandler_OnAppRendered_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -6224,14 +6477,17 @@ void PageProxy::SetCustomizeChromeSidePanelVisibility(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPage_SetCustomizeChromeSidePanelVisibility_Name, kFlags, 0, 0, nullptr);
@@ -6262,14 +6518,17 @@ void PageProxy::SetTheme(
                         "<value of type ThemePtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPage_SetTheme_Name, kFlags, 0, 0, nullptr);
@@ -6313,14 +6572,17 @@ void PageProxy::SetDisabledModules(
                         "<value of type const std::vector<std::string>&>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPage_SetDisabledModules_Name, kFlags, 0, 0, nullptr);
@@ -6364,14 +6626,17 @@ void PageProxy::SetModulesFreVisibility(
                         "<value of type bool>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPage_SetModulesFreVisibility_Name, kFlags, 0, 0, nullptr);
@@ -6402,14 +6667,17 @@ void PageProxy::SetPromo(
                         "<value of type PromoPtr>");
    });
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPage_SetPromo_Name, kFlags, 0, 0, nullptr);
@@ -6439,14 +6707,17 @@ void PageProxy::ShowWebstoreToast(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT0("mojom", "Send new_tab_page::mojom::Page::ShowWebstoreToast");
 #endif
+
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kPage_ShowWebstoreToast_Name, kFlags, 0, 0, nullptr);
@@ -6659,20 +6930,20 @@ bool PageStubDispatch::AcceptWithResponder(
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kPageValidationInfo[] = {
-    {&internal::Page_SetCustomizeChromeSidePanelVisibility_Params_Data::Validate,
+    { &internal::Page_SetCustomizeChromeSidePanelVisibility_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Page_SetTheme_Params_Data::Validate,
+    { &internal::Page_SetTheme_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Page_SetDisabledModules_Params_Data::Validate,
+    { &internal::Page_SetDisabledModules_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Page_SetModulesFreVisibility_Params_Data::Validate,
+    { &internal::Page_SetModulesFreVisibility_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Page_SetPromo_Params_Data::Validate,
+    { &internal::Page_SetPromo_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::Page_ShowWebstoreToast_Params_Data::Validate,
+    { &internal::Page_ShowWebstoreToast_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -6772,6 +7043,8 @@ bool StructTraits<::new_tab_page::mojom::Theme::DataView, ::new_tab_page::mojom:
         success = false;
       if (success && !input.ReadBackgroundColor(&result->background_color))
         success = false;
+      if (success)
+        result->is_baseline = input.is_baseline();
       if (success)
         result->is_custom_background = input.is_custom_background();
       if (success)
@@ -7105,6 +7378,9 @@ void PageHandlerInterceptorForTesting::UpdateDisabledModules() {
 void PageHandlerInterceptorForTesting::OnModulesLoadedWithData(const std::vector<std::string>& module_ids) {
   GetForwardingInterface()->OnModulesLoadedWithData(std::move(module_ids));
 }
+void PageHandlerInterceptorForTesting::OnModuleUsed(const std::string& module_id) {
+  GetForwardingInterface()->OnModuleUsed(std::move(module_id));
+}
 void PageHandlerInterceptorForTesting::GetModulesIdNames(GetModulesIdNamesCallback callback) {
   GetForwardingInterface()->GetModulesIdNames(std::move(callback));
 }
@@ -7132,25 +7408,25 @@ void PageHandlerInterceptorForTesting::SetCustomizeChromeSidePanelVisible(bool v
 void PageHandlerInterceptorForTesting::IncrementCustomizeChromeButtonOpenCount() {
   GetForwardingInterface()->IncrementCustomizeChromeButtonOpenCount();
 }
-void PageHandlerInterceptorForTesting::MaybeShowCustomizeChromeFeaturePromo() {
-  GetForwardingInterface()->MaybeShowCustomizeChromeFeaturePromo();
+void PageHandlerInterceptorForTesting::MaybeShowFeaturePromo(IphFeature iph_feature) {
+  GetForwardingInterface()->MaybeShowFeaturePromo(std::move(iph_feature));
 }
 void PageHandlerInterceptorForTesting::OnOneGoogleBarRendered(double time) {
   GetForwardingInterface()->OnOneGoogleBarRendered(std::move(time));
 }
-void PageHandlerInterceptorForTesting::OnPromoRendered(double time, const absl::optional<::GURL>& log_url) {
+void PageHandlerInterceptorForTesting::OnPromoRendered(double time, const std::optional<::GURL>& log_url) {
   GetForwardingInterface()->OnPromoRendered(std::move(time), std::move(log_url));
 }
 void PageHandlerInterceptorForTesting::OnCustomizeDialogAction(CustomizeDialogAction action) {
   GetForwardingInterface()->OnCustomizeDialogAction(std::move(action));
 }
-void PageHandlerInterceptorForTesting::OnDoodleImageClicked(DoodleImageType type, const absl::optional<::GURL>& log_url) {
+void PageHandlerInterceptorForTesting::OnDoodleImageClicked(DoodleImageType type, const std::optional<::GURL>& log_url) {
   GetForwardingInterface()->OnDoodleImageClicked(std::move(type), std::move(log_url));
 }
 void PageHandlerInterceptorForTesting::OnDoodleImageRendered(DoodleImageType type, double time, const ::GURL& log_url, OnDoodleImageRenderedCallback callback) {
   GetForwardingInterface()->OnDoodleImageRendered(std::move(type), std::move(time), std::move(log_url), std::move(callback));
 }
-void PageHandlerInterceptorForTesting::OnDoodleShared(DoodleShareChannel channel, const std::string& doodle_id, const absl::optional<std::string>& share_id) {
+void PageHandlerInterceptorForTesting::OnDoodleShared(DoodleShareChannel channel, const std::string& doodle_id, const std::optional<std::string>& share_id) {
   GetForwardingInterface()->OnDoodleShared(std::move(channel), std::move(doodle_id), std::move(share_id));
 }
 void PageHandlerInterceptorForTesting::OnPromoLinkClicked() {
@@ -7325,20 +7601,20 @@ std::vector<std::string> PageHandlerAsyncWaiter::GetModulesOrder(
 }
 
 void PageHandlerAsyncWaiter::OnDoodleImageRendered(
-    DoodleImageType type, double time, const ::GURL& log_url, absl::optional<std::string>* out_image_click_params, absl::optional<::GURL>* out_interaction_log_url, absl::optional<std::string>* out_share_id) {
+    DoodleImageType type, double time, const ::GURL& log_url, std::optional<std::string>* out_image_click_params, std::optional<::GURL>* out_interaction_log_url, std::optional<std::string>* out_share_id) {
   base::RunLoop loop;
   proxy_->OnDoodleImageRendered(std::move(type),std::move(time),std::move(log_url),
       base::BindOnce(
           [](base::RunLoop* loop,
-             absl::optional<std::string>* out_image_click_params
+             std::optional<std::string>* out_image_click_params
 ,
-             absl::optional<::GURL>* out_interaction_log_url
+             std::optional<::GURL>* out_interaction_log_url
 ,
-             absl::optional<std::string>* out_share_id
+             std::optional<std::string>* out_share_id
 ,
-             const absl::optional<std::string>& image_click_params,
-             const absl::optional<::GURL>& interaction_log_url,
-             const absl::optional<std::string>& share_id) {*out_image_click_params = std::move(image_click_params);*out_interaction_log_url = std::move(interaction_log_url);*out_share_id = std::move(share_id);
+             const std::optional<std::string>& image_click_params,
+             const std::optional<::GURL>& interaction_log_url,
+             const std::optional<std::string>& share_id) {*out_image_click_params = std::move(image_click_params);*out_interaction_log_url = std::move(interaction_log_url);*out_share_id = std::move(share_id);
             loop->Quit();
           },
           &loop,

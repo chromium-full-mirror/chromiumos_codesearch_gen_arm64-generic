@@ -1,6 +1,7 @@
 {
   "deps": [
     "../../../../../gpu/ipc/common/gmb_interface.build_metadata",
+    "../../../../../components/ml/webnn/features.build_metadata",
     "../../../../../gpu/ipc/common/interfaces.build_metadata",
     "../../../../../gpu/ipc/common/surface_handle.build_metadata",
     "../../../../../media/mojo/mojom/mojom.build_metadata",

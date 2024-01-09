@@ -4,65 +4,73 @@
 #include "trunks_interface.pb.h"
 
 #include <algorithm>
-
-#include <google/protobuf/io/coded_stream.h>
-#include <google/protobuf/extension_set.h>
-#include <google/protobuf/wire_format_lite.h>
-#include <google/protobuf/io/zero_copy_stream_impl_lite.h>
+#include "google/protobuf/io/coded_stream.h"
+#include "google/protobuf/extension_set.h"
+#include "google/protobuf/wire_format_lite.h"
+#include "google/protobuf/io/zero_copy_stream_impl_lite.h"
 // @@protoc_insertion_point(includes)
-#include <google/protobuf/port_def.inc>
 
+// Must be included last.
+#include "google/protobuf/port_def.inc"
 PROTOBUF_PRAGMA_INIT_SEG
-
 namespace _pb = ::PROTOBUF_NAMESPACE_ID;
-namespace _pbi = _pb::internal;
-
+namespace _pbi = ::PROTOBUF_NAMESPACE_ID::internal;
 namespace trunks {
+template <typename>
 PROTOBUF_CONSTEXPR SendCommandRequest::SendCommandRequest(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.command_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}} {}
+  , /*decltype(_impl_.command_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+} {}
 struct SendCommandRequestDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR SendCommandRequestDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR SendCommandRequestDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~SendCommandRequestDefaultTypeInternal() {}
   union {
     SendCommandRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SendCommandRequestDefaultTypeInternal _SendCommandRequest_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SendCommandRequestDefaultTypeInternal _SendCommandRequest_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR SendCommandResponse::SendCommandResponse(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.response_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}} {}
+  , /*decltype(_impl_.response_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+} {}
 struct SendCommandResponseDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR SendCommandResponseDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR SendCommandResponseDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~SendCommandResponseDefaultTypeInternal() {}
   union {
     SendCommandResponse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SendCommandResponseDefaultTypeInternal _SendCommandResponse_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SendCommandResponseDefaultTypeInternal _SendCommandResponse_default_instance_;
 }  // namespace trunks
 namespace trunks {
-
 // ===================================================================
 
 class SendCommandRequest::_Internal {
  public:
   using HasBits = decltype(std::declval<SendCommandRequest>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(SendCommandRequest, _impl_._has_bits_);
   static void set_has_command(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
 };
 
-SendCommandRequest::SendCommandRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+SendCommandRequest::SendCommandRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:trunks.SendCommandRequest)
 }
 SendCommandRequest::SendCommandRequest(const SendCommandRequest& from)
@@ -71,33 +79,32 @@ SendCommandRequest::SendCommandRequest(const SendCommandRequest& from)
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.command_){}};
+    , decltype(_impl_.command_) {}
+  };
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _impl_.command_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.command_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_command()) {
-    _this->_impl_.command_.Set(from._internal_command(), 
-      _this->GetArenaForAllocation());
+        _impl_.command_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_impl_.command_.Set(from._internal_command(), _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:trunks.SendCommandRequest)
 }
 
-inline void SendCommandRequest::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void SendCommandRequest::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.command_){}
+    , decltype(_impl_.command_) {}
+
   };
   _impl_.command_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.command_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.command_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 SendCommandRequest::~SendCommandRequest() {
@@ -110,7 +117,7 @@ SendCommandRequest::~SendCommandRequest() {
 }
 
 inline void SendCommandRequest::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.command_.Destroy();
 }
 
@@ -120,7 +127,7 @@ void SendCommandRequest::SetCachedSize(int size) const {
 
 void SendCommandRequest::Clear() {
 // @@protoc_insertion_point(message_clear_start:trunks.SendCommandRequest)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -136,17 +143,18 @@ const char* SendCommandRequest::_InternalParse(const char* ptr, ::_pbi::ParseCon
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional bytes command = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_command();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -172,17 +180,17 @@ failure:
 #undef CHK_
 }
 
-uint8_t* SendCommandRequest::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* SendCommandRequest::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:trunks.SendCommandRequest)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional bytes command = 1;
   if (cached_has_bits & 0x00000001u) {
-    target = stream->WriteBytesMaybeAliased(
-        1, this->_internal_command(), target);
+    const std::string& _s = this->_internal_command();
+    target = stream->WriteBytesMaybeAliased(1, _s, target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -193,20 +201,19 @@ uint8_t* SendCommandRequest::_InternalSerialize(
   return target;
 }
 
-size_t SendCommandRequest::ByteSizeLong() const {
+::size_t SendCommandRequest::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:trunks.SendCommandRequest)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // optional bytes command = 1;
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-        this->_internal_command());
+    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+                                    this->_internal_command());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -226,11 +233,11 @@ void SendCommandRequest::CheckTypeAndMergeFrom(
 void SendCommandRequest::MergeFrom(const SendCommandRequest& from) {
   SendCommandRequest* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:trunks.SendCommandRequest)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_has_command()) {
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_internal_set_command(from._internal_command());
   }
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
@@ -253,31 +260,29 @@ void SendCommandRequest::InternalSwap(SendCommandRequest* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.command_, lhs_arena,
-      &other->_impl_.command_, rhs_arena
-  );
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.command_, lhs_arena,
+                                       &other->_impl_.command_, rhs_arena);
 }
 
 std::string SendCommandRequest::GetTypeName() const {
   return "trunks.SendCommandRequest";
 }
 
-
 // ===================================================================
 
 class SendCommandResponse::_Internal {
  public:
   using HasBits = decltype(std::declval<SendCommandResponse>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(SendCommandResponse, _impl_._has_bits_);
   static void set_has_response(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
 };
 
-SendCommandResponse::SendCommandResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+SendCommandResponse::SendCommandResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:trunks.SendCommandResponse)
 }
 SendCommandResponse::SendCommandResponse(const SendCommandResponse& from)
@@ -286,33 +291,32 @@ SendCommandResponse::SendCommandResponse(const SendCommandResponse& from)
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.response_){}};
+    , decltype(_impl_.response_) {}
+  };
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _impl_.response_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.response_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_response()) {
-    _this->_impl_.response_.Set(from._internal_response(), 
-      _this->GetArenaForAllocation());
+        _impl_.response_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_impl_.response_.Set(from._internal_response(), _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:trunks.SendCommandResponse)
 }
 
-inline void SendCommandResponse::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
+inline void SendCommandResponse::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
-  (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.response_){}
+    , decltype(_impl_.response_) {}
+
   };
   _impl_.response_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.response_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.response_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 SendCommandResponse::~SendCommandResponse() {
@@ -325,7 +329,7 @@ SendCommandResponse::~SendCommandResponse() {
 }
 
 inline void SendCommandResponse::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.response_.Destroy();
 }
 
@@ -335,7 +339,7 @@ void SendCommandResponse::SetCachedSize(int size) const {
 
 void SendCommandResponse::Clear() {
 // @@protoc_insertion_point(message_clear_start:trunks.SendCommandResponse)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -351,17 +355,18 @@ const char* SendCommandResponse::_InternalParse(const char* ptr, ::_pbi::ParseCo
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
+    ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional bytes response = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_response();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
+        } else {
           goto handle_unusual;
+        }
         continue;
       default:
         goto handle_unusual;
@@ -387,17 +392,17 @@ failure:
 #undef CHK_
 }
 
-uint8_t* SendCommandResponse::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::uint8_t* SendCommandResponse::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:trunks.SendCommandResponse)
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional bytes response = 1;
   if (cached_has_bits & 0x00000001u) {
-    target = stream->WriteBytesMaybeAliased(
-        1, this->_internal_response(), target);
+    const std::string& _s = this->_internal_response();
+    target = stream->WriteBytesMaybeAliased(1, _s, target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -408,20 +413,19 @@ uint8_t* SendCommandResponse::_InternalSerialize(
   return target;
 }
 
-size_t SendCommandResponse::ByteSizeLong() const {
+::size_t SendCommandResponse::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:trunks.SendCommandResponse)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // optional bytes response = 1;
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-        this->_internal_response());
+    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+                                    this->_internal_response());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -441,11 +445,11 @@ void SendCommandResponse::CheckTypeAndMergeFrom(
 void SendCommandResponse::MergeFrom(const SendCommandResponse& from) {
   SendCommandResponse* const _this = this;
   // @@protoc_insertion_point(class_specific_merge_from_start:trunks.SendCommandResponse)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_has_response()) {
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
     _this->_internal_set_response(from._internal_response());
   }
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
@@ -468,16 +472,13 @@ void SendCommandResponse::InternalSwap(SendCommandResponse* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.response_, lhs_arena,
-      &other->_impl_.response_, rhs_arena
-  );
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.response_, lhs_arena,
+                                       &other->_impl_.response_, rhs_arena);
 }
 
 std::string SendCommandResponse::GetTypeName() const {
   return "trunks.SendCommandResponse";
 }
-
 
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace trunks
@@ -491,6 +492,5 @@ Arena::CreateMaybeMessage< ::trunks::SendCommandResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::trunks::SendCommandResponse >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
-
 // @@protoc_insertion_point(global_scope)
-#include <google/protobuf/port_undef.inc>
+#include "google/protobuf/port_undef.inc"

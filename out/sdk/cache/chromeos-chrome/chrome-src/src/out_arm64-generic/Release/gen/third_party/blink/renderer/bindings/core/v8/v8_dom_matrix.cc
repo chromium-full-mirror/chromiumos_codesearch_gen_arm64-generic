@@ -71,11 +71,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, DOMMatrix>::value,
     "DOMMatrix inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&DOMMatrix::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "DOMMatrix is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -88,8 +83,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrix.a.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(v8_receiver);
+DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->a();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -101,9 +97,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrix.a.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "DOMMatrix";
@@ -124,8 +120,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrix.b.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(v8_receiver);
+DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->b();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -137,9 +134,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrix.b.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "DOMMatrix";
@@ -160,8 +157,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrix.c.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(v8_receiver);
+DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->c();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -173,9 +171,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrix.c.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "DOMMatrix";
@@ -196,8 +194,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrix.d.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(v8_receiver);
+DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->d();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -209,9 +208,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrix.d.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "DOMMatrix";
@@ -232,8 +231,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrix.e.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(v8_receiver);
+DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->e();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -245,9 +245,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrix.e.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "DOMMatrix";
@@ -268,8 +268,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrix.f.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(v8_receiver);
+DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->f();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -281,9 +282,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrix.f.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "DOMMatrix";
@@ -304,8 +305,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrix.m11.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(v8_receiver);
+DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->m11();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -317,9 +319,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrix.m11.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "DOMMatrix";
@@ -340,8 +342,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrix.m12.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(v8_receiver);
+DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->m12();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -353,9 +356,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrix.m12.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "DOMMatrix";
@@ -376,8 +379,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrix.m13.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(v8_receiver);
+DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->m13();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -389,9 +393,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrix.m13.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "DOMMatrix";
@@ -412,8 +416,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrix.m14.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(v8_receiver);
+DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->m14();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -425,9 +430,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrix.m14.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "DOMMatrix";
@@ -448,8 +453,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrix.m21.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(v8_receiver);
+DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->m21();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -461,9 +467,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrix.m21.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "DOMMatrix";
@@ -484,8 +490,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrix.m22.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(v8_receiver);
+DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->m22();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -497,9 +504,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrix.m22.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "DOMMatrix";
@@ -520,8 +527,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrix.m23.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(v8_receiver);
+DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->m23();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -533,9 +541,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrix.m23.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "DOMMatrix";
@@ -556,8 +564,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrix.m24.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(v8_receiver);
+DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->m24();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -569,9 +578,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrix.m24.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "DOMMatrix";
@@ -592,8 +601,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrix.m31.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(v8_receiver);
+DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->m31();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -605,9 +615,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrix.m31.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "DOMMatrix";
@@ -628,8 +638,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrix.m32.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(v8_receiver);
+DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->m32();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -641,9 +652,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrix.m32.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "DOMMatrix";
@@ -664,8 +675,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrix.m33.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(v8_receiver);
+DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->m33();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -677,9 +689,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrix.m33.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "DOMMatrix";
@@ -700,8 +712,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrix.m34.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(v8_receiver);
+DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->m34();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -713,9 +726,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrix.m34.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "DOMMatrix";
@@ -736,8 +749,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrix.m41.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(v8_receiver);
+DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->m41();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -749,9 +763,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrix.m41.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "DOMMatrix";
@@ -772,8 +786,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrix.m42.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(v8_receiver);
+DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->m42();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -785,9 +800,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrix.m42.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "DOMMatrix";
@@ -808,8 +823,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrix.m43.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(v8_receiver);
+DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->m43();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -821,9 +837,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrix.m43.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "DOMMatrix";
@@ -844,8 +860,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrix.m44.get");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(v8_receiver);
+DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->m44();
 bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<double>());
 }
@@ -857,9 +874,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrix.m44.set");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(v8_receiver);
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Value> v8_property_value = info[0];
 const ExceptionContextType exception_context_type = ExceptionContextType::kAttributeSet;
 const char* const class_like_name = "DOMMatrix";
@@ -927,8 +944,9 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrix.invertSelf");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(v8_receiver);
+DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->invertSelf();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -944,10 +962,10 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrix.multiplySelf");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(v8_receiver);
-decltype(NativeValueTraits<DOMMatrixInit>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_other;
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(isolate, v8_receiver);
+decltype(NativeValueTraits<DOMMatrixInit>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_other;
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "DOMMatrix";
 const char* const property_name = "multiplySelf";
@@ -978,10 +996,10 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrix.preMultiplySelf");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(v8_receiver);
-decltype(NativeValueTraits<DOMMatrixInit>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_other;
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(isolate, v8_receiver);
+decltype(NativeValueTraits<DOMMatrixInit>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_other;
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "DOMMatrix";
 const char* const property_name = "preMultiplySelf";
@@ -1012,10 +1030,10 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrix.rotateAxisAngleSelf");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(v8_receiver);
-decltype(NativeValueTraits<IDLUnrestrictedDouble>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_x{0};
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(isolate, v8_receiver);
+decltype(NativeValueTraits<IDLUnrestrictedDouble>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_x{0};
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "DOMMatrix";
 const char* const property_name = "rotateAxisAngleSelf";
@@ -1062,10 +1080,10 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrix.rotateFromVectorSelf");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(v8_receiver);
-decltype(NativeValueTraits<IDLUnrestrictedDouble>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_x{0};
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(isolate, v8_receiver);
+decltype(NativeValueTraits<IDLUnrestrictedDouble>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_x{0};
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "DOMMatrix";
 const char* const property_name = "rotateFromVectorSelf";
@@ -1099,12 +1117,12 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrix.rotateSelf");
 
 
 DOMMatrix* return_value;
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(v8_receiver);
+DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(isolate, v8_receiver);
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
 decltype(NativeValueTraits<IDLUnrestrictedDouble>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_rot_x{0};
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "DOMMatrix";
 const char* const property_name = "rotateSelf";
@@ -1147,10 +1165,10 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrix.scale3dSelf");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(v8_receiver);
-decltype(NativeValueTraits<IDLUnrestrictedDouble>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_scale{1};
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(isolate, v8_receiver);
+decltype(NativeValueTraits<IDLUnrestrictedDouble>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_scale{1};
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "DOMMatrix";
 const char* const property_name = "scale3dSelf";
@@ -1198,12 +1216,12 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrix.scaleSelf");
 
 
 DOMMatrix* return_value;
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(v8_receiver);
+DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(isolate, v8_receiver);
 do {  // Dummy loop for use of 'break'.
   const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
 decltype(NativeValueTraits<IDLUnrestrictedDouble>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_scale_x{1};
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "DOMMatrix";
 const char* const property_name = "scaleSelf";
@@ -1276,7 +1294,7 @@ return;
 
 
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(v8_receiver);
+DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ExecutionContext* receiver_execution_context = ExecutionContext::From(receiver_context);
 ExecutionContext* execution_context = receiver_execution_context;
@@ -1302,12 +1320,12 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrix.skewXSelf");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(v8_receiver);
+DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLUnrestrictedDouble>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_sx{0};
 if (!info[0]->IsUndefined()) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "DOMMatrix";
 const char* const property_name = "skewXSelf";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -1331,12 +1349,12 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrix.skewYSelf");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(v8_receiver);
+DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(isolate, v8_receiver);
 decltype(NativeValueTraits<IDLUnrestrictedDouble>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_sy{0};
 if (!info[0]->IsUndefined()) {
-  v8::Isolate* isolate = info.GetIsolate();
-const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "DOMMatrix";
 const char* const property_name = "skewYSelf";
 ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
@@ -1360,10 +1378,10 @@ BLINK_BINDINGS_TRACE_EVENT("DOMMatrix.translateSelf");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(v8_receiver);
-decltype(NativeValueTraits<IDLUnrestrictedDouble>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_tx{0};
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+DOMMatrix* blink_receiver = V8DOMMatrix::ToWrappableUnsafe(isolate, v8_receiver);
+decltype(NativeValueTraits<IDLUnrestrictedDouble>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg1_tx{0};
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "DOMMatrix";
 const char* const property_name = "translateSelf";

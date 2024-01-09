@@ -123,7 +123,7 @@ class  OemCryptoServiceAsyncWaiter {
       uint32_t session, OemCryptoResult* out_result, uint32_t* out_nonce);
   
   void GenerateSignature(
-      uint32_t session, const std::vector<uint8_t>& message, OemCryptoResult* out_result, absl::optional<std::vector<uint8_t>>* out_signature);
+      uint32_t session, const std::vector<uint8_t>& message, OemCryptoResult* out_result, std::optional<std::vector<uint8_t>>* out_signature);
   
   void LoadKeysV11OrV12(
       uint32_t session, const std::vector<uint8_t>& message, const std::vector<uint8_t>& signature, bool has_enc_mac_keys, uint32_t enc_mac_keys_iv_offset, uint32_t enc_mac_keys_offset, std::vector<OemCryptoKeyObjectV14Ptr> key_array, uint32_t pst_offset, uint32_t pst_length, OemCryptoResult* out_result);
@@ -132,22 +132,22 @@ class  OemCryptoServiceAsyncWaiter {
       uint32_t session, const std::vector<uint8_t>& message, const std::vector<uint8_t>& signature, std::vector<OemCryptoKeyRefreshObjectV14Ptr> key_array, OemCryptoResult* out_result);
   OemCryptoResult RefreshKeysV14(uint32_t session, const std::vector<uint8_t>& message, const std::vector<uint8_t>& signature, std::vector<OemCryptoKeyRefreshObjectV14Ptr> key_array);
   void QueryKeyControl(
-      uint32_t session, const std::vector<uint8_t>& key_id, OemCryptoResult* out_result, absl::optional<std::vector<uint8_t>>* out_key_control_block);
+      uint32_t session, const std::vector<uint8_t>& key_id, OemCryptoResult* out_result, std::optional<std::vector<uint8_t>>* out_key_control_block);
   
   void SelectKeyV13(
       uint32_t session, const std::vector<uint8_t>& key_id, OemCryptoResult* out_result);
   OemCryptoResult SelectKeyV13(uint32_t session, const std::vector<uint8_t>& key_id);
   void DecryptCencV15(
-      uint32_t session, const std::vector<uint8_t>& data, bool is_encrypted, const std::vector<uint8_t>& iv, uint32_t block_offset, OemCryptoSecureBufferPtr secure_buffer, OemCryptoCencEncryptPatternDescPtr pattern, OemCryptoResult* out_result, absl::optional<std::vector<uint8_t>>* out_decrypted_data);
+      uint32_t session, const std::vector<uint8_t>& data, bool is_encrypted, const std::vector<uint8_t>& iv, uint32_t block_offset, OemCryptoSecureBufferPtr secure_buffer, OemCryptoCencEncryptPatternDescPtr pattern, OemCryptoResult* out_result, std::optional<std::vector<uint8_t>>* out_decrypted_data);
   
   void GenericEncrypt(
-      uint32_t session, const std::vector<uint8_t>& data, const std::vector<uint8_t>& iv, OemCryptoAlgorithm algorithm, OemCryptoResult* out_result, absl::optional<std::vector<uint8_t>>* out_encrypted_data);
+      uint32_t session, const std::vector<uint8_t>& data, const std::vector<uint8_t>& iv, OemCryptoAlgorithm algorithm, OemCryptoResult* out_result, std::optional<std::vector<uint8_t>>* out_encrypted_data);
   
   void GenericDecrypt(
-      uint32_t session, const std::vector<uint8_t>& data, const std::vector<uint8_t>& iv, OemCryptoAlgorithm algorithm, OemCryptoResult* out_result, absl::optional<std::vector<uint8_t>>* out_decrypted_data);
+      uint32_t session, const std::vector<uint8_t>& data, const std::vector<uint8_t>& iv, OemCryptoAlgorithm algorithm, OemCryptoResult* out_result, std::optional<std::vector<uint8_t>>* out_decrypted_data);
   
   void GenericSign(
-      uint32_t session, const std::vector<uint8_t>& data, OemCryptoAlgorithm algorithm, OemCryptoResult* out_result, absl::optional<std::vector<uint8_t>>* out_signature);
+      uint32_t session, const std::vector<uint8_t>& data, OemCryptoAlgorithm algorithm, OemCryptoResult* out_result, std::optional<std::vector<uint8_t>>* out_signature);
   
   void GenericVerify(
       uint32_t session, const std::vector<uint8_t>& data, OemCryptoAlgorithm algorithm, const std::vector<uint8_t>& signature, OemCryptoResult* out_result);
@@ -162,13 +162,13 @@ class  OemCryptoServiceAsyncWaiter {
       OemCryptoResult* out_result);
   OemCryptoResult IsRootKeyCertificateValid();
   void GetDeviceId(
-      OemCryptoResult* out_result, absl::optional<std::vector<uint8_t>>* out_device_id);
+      OemCryptoResult* out_result, std::optional<std::vector<uint8_t>>* out_device_id);
   
   void GetKeyData(
-      OemCryptoResult* out_result, absl::optional<std::vector<uint8_t>>* out_key_data);
+      OemCryptoResult* out_result, std::optional<std::vector<uint8_t>>* out_key_data);
   
   void GetRandom(
-      uint32_t length, OemCryptoResult* out_result, absl::optional<std::vector<uint8_t>>* out_data);
+      uint32_t length, OemCryptoResult* out_result, std::optional<std::vector<uint8_t>>* out_data);
   
   void GetNumberOfOpenSessions(
       OemCryptoResult* out_result, uint32_t* out_num);
@@ -177,13 +177,13 @@ class  OemCryptoServiceAsyncWaiter {
       OemCryptoResult* out_result, uint32_t* out_max);
   
   void RewrapDeviceRsaKey(
-      uint32_t session, const std::vector<uint8_t>& message, const std::vector<uint8_t>& signature, uint32_t nonce_offset, uint32_t enc_rsa_key_offset, uint32_t enc_rsa_key_length, uint32_t enc_rsa_key_iv_offset, OemCryptoResult* out_result, absl::optional<std::vector<uint8_t>>* out_wrapped_key);
+      uint32_t session, const std::vector<uint8_t>& message, const std::vector<uint8_t>& signature, uint32_t nonce_offset, uint32_t enc_rsa_key_offset, uint32_t enc_rsa_key_length, uint32_t enc_rsa_key_iv_offset, OemCryptoResult* out_result, std::optional<std::vector<uint8_t>>* out_wrapped_key);
   
   void LoadDeviceRsaKey(
       uint32_t session, const std::vector<uint8_t>& wrapped_rsa_key, OemCryptoResult* out_result);
   OemCryptoResult LoadDeviceRsaKey(uint32_t session, const std::vector<uint8_t>& wrapped_rsa_key);
   void GenerateRsaSignature(
-      uint32_t session, const std::vector<uint8_t>& message, OemCryptoRsaPaddingScheme padding_scheme, OemCryptoResult* out_result, absl::optional<std::vector<uint8_t>>* out_signature);
+      uint32_t session, const std::vector<uint8_t>& message, OemCryptoRsaPaddingScheme padding_scheme, OemCryptoResult* out_result, std::optional<std::vector<uint8_t>>* out_signature);
   
   void DeriveKeysFromSessionKey(
       uint32_t session, const std::vector<uint8_t>& enc_session_key, const std::vector<uint8_t>& mac_key_context, const std::vector<uint8_t>& enc_key_context, OemCryptoResult* out_result);
@@ -231,7 +231,7 @@ class  OemCryptoServiceAsyncWaiter {
       OemCryptoResult* out_result);
   OemCryptoResult RemoveSrm();
   void CreateUsageTableHeader(
-      uint32_t avail_header_length, OemCryptoResult* out_result, absl::optional<std::vector<uint8_t>>* out_header);
+      uint32_t avail_header_length, OemCryptoResult* out_result, std::optional<std::vector<uint8_t>>* out_header);
   
   void LoadUsageTableHeader(
       const std::vector<uint8_t>& buffer, OemCryptoResult* out_result);
@@ -243,13 +243,13 @@ class  OemCryptoServiceAsyncWaiter {
       uint32_t session, uint32_t index, const std::vector<uint8_t>& buffer, OemCryptoResult* out_result);
   OemCryptoResult LoadUsageEntry(uint32_t session, uint32_t index, const std::vector<uint8_t>& buffer);
   void UpdateUsageEntry(
-      uint32_t session, uint32_t avail_header_length, uint32_t avail_entry_length, OemCryptoResult* out_result, absl::optional<std::vector<uint8_t>>* out_header, absl::optional<std::vector<uint8_t>>* out_entry);
+      uint32_t session, uint32_t avail_header_length, uint32_t avail_entry_length, OemCryptoResult* out_result, std::optional<std::vector<uint8_t>>* out_header, std::optional<std::vector<uint8_t>>* out_entry);
   
   void DeactivateUsageEntry(
       uint32_t session, const std::vector<uint8_t>& pst, OemCryptoResult* out_result);
   OemCryptoResult DeactivateUsageEntry(uint32_t session, const std::vector<uint8_t>& pst);
   void ShrinkUsageTableHeader(
-      uint32_t new_entry_count, uint32_t avail_header_length, OemCryptoResult* out_result, absl::optional<std::vector<uint8_t>>* out_header);
+      uint32_t new_entry_count, uint32_t avail_header_length, OemCryptoResult* out_result, std::optional<std::vector<uint8_t>>* out_header);
   
   void MoveEntry(
       uint32_t session, uint32_t new_index, OemCryptoResult* out_result);
@@ -291,7 +291,7 @@ class  OemCryptoServiceAsyncWaiter {
       uint32_t session, const std::vector<uint8_t>& message, std::vector<OemCryptoEntitledContentKeyObjectPtr> key_array, OemCryptoResult* out_result);
   OemCryptoResult LoadEntitledContentKeys(uint32_t session, const std::vector<uint8_t>& message, std::vector<OemCryptoEntitledContentKeyObjectPtr> key_array);
   void GetOemPublicCertificate(
-      OemCryptoResult* out_result, absl::optional<std::vector<uint8_t>>* out_public_cert);
+      OemCryptoResult* out_result, std::optional<std::vector<uint8_t>>* out_public_cert);
   
   void MaximumUsageTableHeaderSize(
       uint32_t* out_size);
@@ -303,13 +303,13 @@ class  OemCryptoServiceAsyncWaiter {
       uint32_t* out_version);
   uint32_t MinorApiVersion();
   void PrepAndSignLicenseRequest(
-      uint32_t session, const std::vector<uint8_t>& message, uint32_t core_message_size, uint32_t avail_signature_size, OemCryptoResult* out_result, uint32_t* out_core_message_size, absl::optional<std::vector<uint8_t>>* out_message, absl::optional<std::vector<uint8_t>>* out_signature);
+      uint32_t session, const std::vector<uint8_t>& message, uint32_t core_message_size, uint32_t avail_signature_size, OemCryptoResult* out_result, uint32_t* out_core_message_size, std::optional<std::vector<uint8_t>>* out_message, std::optional<std::vector<uint8_t>>* out_signature);
   
   void PrepAndSignRenewalRequest(
-      uint32_t session, const std::vector<uint8_t>& message, uint32_t core_message_size, uint32_t avail_signature_size, OemCryptoResult* out_result, uint32_t* out_core_message_size, absl::optional<std::vector<uint8_t>>* out_message, absl::optional<std::vector<uint8_t>>* out_signature);
+      uint32_t session, const std::vector<uint8_t>& message, uint32_t core_message_size, uint32_t avail_signature_size, OemCryptoResult* out_result, uint32_t* out_core_message_size, std::optional<std::vector<uint8_t>>* out_message, std::optional<std::vector<uint8_t>>* out_signature);
   
   void PrepAndSignProvisioningRequest(
-      uint32_t session, const std::vector<uint8_t>& message, uint32_t core_message_size, uint32_t avail_signature_size, OemCryptoResult* out_result, uint32_t* out_core_message_size, absl::optional<std::vector<uint8_t>>* out_message, absl::optional<std::vector<uint8_t>>* out_signature);
+      uint32_t session, const std::vector<uint8_t>& message, uint32_t core_message_size, uint32_t avail_signature_size, OemCryptoResult* out_result, uint32_t* out_core_message_size, std::optional<std::vector<uint8_t>>* out_message, std::optional<std::vector<uint8_t>>* out_signature);
   
   void LoadLicense(
       uint32_t session, const std::vector<uint8_t>& message, uint32_t core_message_length, const std::vector<uint8_t>& signature, OemCryptoResult* out_result);
@@ -318,7 +318,7 @@ class  OemCryptoServiceAsyncWaiter {
       uint32_t session, const std::vector<uint8_t>& message, uint32_t core_message_length, const std::vector<uint8_t>& signature, OemCryptoResult* out_result);
   OemCryptoResult LoadRenewal(uint32_t session, const std::vector<uint8_t>& message, uint32_t core_message_length, const std::vector<uint8_t>& signature);
   void LoadProvisioning(
-      uint32_t session, const std::vector<uint8_t>& message, uint32_t core_message_length, const std::vector<uint8_t>& signature, uint32_t avail_wrapped_private_key_size, OemCryptoResult* out_result, absl::optional<std::vector<uint8_t>>* out_wrapped_private_key);
+      uint32_t session, const std::vector<uint8_t>& message, uint32_t core_message_length, const std::vector<uint8_t>& signature, uint32_t avail_wrapped_private_key_size, OemCryptoResult* out_result, std::optional<std::vector<uint8_t>>* out_wrapped_private_key);
   
   void LoadOemPrivateKey(
       uint32_t session, OemCryptoResult* out_result);
@@ -327,7 +327,7 @@ class  OemCryptoServiceAsyncWaiter {
       uint32_t session, OemCryptoPrivateKey key_type, const std::vector<uint8_t>& wrapped_private_key, OemCryptoResult* out_result);
   OemCryptoResult LoadDrmPrivateKey(uint32_t session, OemCryptoPrivateKey key_type, const std::vector<uint8_t>& wrapped_private_key);
   void DecryptCenc(
-      uint32_t session, const std::vector<uint8_t>& data, const std::vector<uint8_t>& iv, std::vector<SubSampleDescriptionPtr> sub_samples, OemCryptoCencEncryptPatternDescPtr pattern, OemCryptoSecureBufferPtr secure_buffer, OemCryptoResult* out_result, absl::optional<std::vector<uint8_t>>* out_decrypted_data);
+      uint32_t session, const std::vector<uint8_t>& data, const std::vector<uint8_t>& iv, std::vector<SubSampleDescriptionPtr> sub_samples, OemCryptoCencEncryptPatternDescPtr pattern, OemCryptoSecureBufferPtr secure_buffer, OemCryptoResult* out_result, std::optional<std::vector<uint8_t>>* out_decrypted_data);
   
   void CopyBuffer(
       uint32_t session, const std::vector<uint8_t>& data, OemCryptoSecureBufferPtr out_buffer, uint8_t subsample_flags, OemCryptoResult* out_result);

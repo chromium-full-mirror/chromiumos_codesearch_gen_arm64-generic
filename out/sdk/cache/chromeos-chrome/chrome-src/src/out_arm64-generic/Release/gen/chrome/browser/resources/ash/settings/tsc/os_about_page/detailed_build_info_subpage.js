@@ -15,6 +15,7 @@ import './channel_switcher_dialog.js';
 import './consumer_auto_update_toggle_dialog.js';
 import './edit_hostname_dialog.js';
 import { PrefsMixin } from 'chrome://resources/cr_components/settings_prefs/prefs_mixin.js';
+import { getInstance as getAnnouncerInstance } from 'chrome://resources/cr_elements/cr_a11y_announcer/cr_a11y_announcer.js';
 import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
 import { CrPolicyIndicatorType } from 'chrome://resources/cr_elements/policy/cr_policy_indicator_mixin.js';
 import { WebUiListenerMixin } from 'chrome://resources/cr_elements/web_ui_listener_mixin.js';
@@ -22,9 +23,9 @@ import { focusWithoutInk } from 'chrome://resources/js/focus_without_ink.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { castExists } from '../assert_extras.js';
-import { DeepLinkingMixin } from '../deep_linking_mixin.js';
+import { DeepLinkingMixin } from '../common/deep_linking_mixin.js';
+import { RouteObserverMixin } from '../common/route_observer_mixin.js';
 import { Setting } from '../mojom-webui/setting.mojom-webui.js';
-import { RouteObserverMixin } from '../route_observer_mixin.js';
 import { routes } from '../router.js';
 import { AboutPageBrowserProxyImpl, browserChannelToI18nId } from './about_page_browser_proxy.js';
 import { getTemplate } from './detailed_build_info_subpage.html.js';
@@ -270,6 +271,7 @@ class SettingsDetailedBuildInfoSubpageElement extends SettingsDetailedBuildInfoS
             entries.push(this.i18n(key) + ': ' + String(buildInfo[key]));
         }
         navigator.clipboard.writeText(entries.join('\n'));
+        getAnnouncerInstance().announce(this.i18n('aboutBuildDetailsCopiedToClipboardA11yLabel'));
     }
     onConsumerAutoUpdateToggled_(_event) {
         if (!this.isConsumerAutoUpdateTogglingAllowed_) {

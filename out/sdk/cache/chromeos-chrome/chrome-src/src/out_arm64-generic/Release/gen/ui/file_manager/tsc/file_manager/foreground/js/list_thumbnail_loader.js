@@ -1,83 +1,56 @@
 // Copyright 2015 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import { assert } from 'chrome://resources/ash/common/assert.js';
-import { NativeEventTarget as EventTarget } from 'chrome://resources/ash/common/event_target.js';
+import { assert } from 'chrome://resources/js/assert.js';
+import { FilesEventTarget } from '../../common/js/files_event_target.js';
 import { LruCache } from '../../common/js/lru_cache.js';
-import { VolumeManagerCommon } from '../../common/js/volume_manager_types.js';
-import { VolumeManager } from '../../externs/volume_manager.js';
-import { DirectoryModel } from './directory_model.js';
-// @ts-ignore: error TS6133: 'FileListModel' is declared but its value is never
-// read.
-import { FileListModel } from './file_list_model.js';
-import { ThumbnailModel } from './metadata/thumbnail_model.js';
-import { ThumbnailLoader } from './thumbnail_loader.js';
+import { isNullOrUndefined } from '../../common/js/util.js';
+import { Source, VolumeType } from '../../common/js/volume_manager_types.js';
+import { FillMode, LoaderType, LoadTarget, ThumbnailLoader } from './thumbnail_loader.js';
 /**
  * A thumbnail loader for list style UI.
  *
- * ListThumbnailLoader is a thubmanil loader designed for list style ui. List
+ * ListThumbnailLoader is a thumbnail loader designed for list style ui. List
  * thumbnail loader loads thumbnail in a viewport of the UI. ListThumbnailLoader
  * is responsible to return dataUrls of thumbnails and fetch them with proper
  * priority.
  */
-export class ListThumbnailLoader extends EventTarget {
+export class ListThumbnailLoader extends FilesEventTarget {
     /**
-     * @param {!DirectoryModel} directoryModel A directory model.
-     * @param {!ThumbnailModel} thumbnailModel Thumbnail metadata model.
-     * @param {!VolumeManager} volumeManager Volume manager.
-     * @param {Function=} opt_thumbnailLoaderConstructor A constructor of
-     *     thumbnail loader. This argument is used for testing.
+     * @param directoryModel A directory model.
+     * @param thumbnailModel Thumbnail metadata model.
+     * @param volumeManager Volume manager.
+     * @param opt_thumbnailLoaderConstructor A constructor of thumbnail loader.
+     *     This argument is used for testing.
      */
-    constructor(directoryModel, thumbnailModel, volumeManager, opt_thumbnailLoaderConstructor) {
+    constructor(directoryModel_, thumbnailModel_, volumeManager_, thumbnailLoaderConstructor, cacheSize) {
         super();
-        /**
-         * @private @type {!DirectoryModel}
-         */
-        this.directoryModel_ = directoryModel;
-        /**
-         * @private @type {!ThumbnailModel}
-         */
-        this.thumbnailModel_ = thumbnailModel;
-        /**
-         * @private @type {!VolumeManager}
-         */
-        this.volumeManager_ = volumeManager;
-        /**
-         * Constructor of thumbnail loader.
-         * @private @type {!Function}
-         */
-        this.thumbnailLoaderConstructor_ =
-            opt_thumbnailLoaderConstructor || ThumbnailLoader;
-        /**
-         * @private @type {!Record<string, !ListThumbnailLoader.Task>}
-         */
+        this.directoryModel_ = directoryModel_;
+        this.thumbnailModel_ = thumbnailModel_;
+        this.volumeManager_ = volumeManager_;
         this.active_ = {};
-        /**
-         * @private @type {LruCache<!ListThumbnailLoader.ThumbnailData>}
-         */
-        this.cache_ = new LruCache(ListThumbnailLoader.CACHE_SIZE);
-        /**
-         * @private @type {number}
-         */
         this.beginIndex_ = 0;
-        /**
-         * @private @type {number}
-         */
         this.endIndex_ = 0;
-        /**
-         * Cursor.
-         * @private @type {number}
-         */
         this.cursor_ = 0;
         /**
          * Current volume type.
-         * @private @type {?ListThumbnailLoader.VolumeType}
          */
         this.currentVolumeType_ = null;
         /**
-         * @private @type {!FileListModel}
+         * Number of maximum active tasks for testing.
          */
-        this.dataModel_ = assert(this.directoryModel_.getFileList());
+        this.numOfMaxActiveTasksForTest_ = 2;
+        /**
+         * Constructor of thumbnail loader.
+         */
+        this.thumbnailLoaderConstructor_ =
+            thumbnailLoaderConstructor || ThumbnailLoader;
+        this.dataModel_ = this.directoryModel_.getFileList();
+        /**
+         * Cache size. Cache size must be larger than sum of high priority range
+         * size and number of prefetch tasks.
+         */
+        this.cache_ = new LruCache(cacheSize ?? 500);
         this.directoryModel_.addEventListener('scan-completed', this.onScanCompleted_.bind(this));
         this.dataModel_.addEventListener('splice', this.onSplice_.bind(this));
         this.dataModel_.addEventListener('sorted', this.onSorted_.bind(this));
@@ -86,14 +59,13 @@ export class ListThumbnailLoader extends EventTarget {
     /**
      * Gets number of prefetch requests. This number changes based on current
      * volume type.
-     * @return {number} Number of prefetch requests.
-     * @private
+     * @return Number of prefetch requests.
      */
     getNumOfPrefetch_() {
-        switch ( /** @type {?ListThumbnailLoader.VolumeType} */(this.currentVolumeType_)) {
-            case VolumeManagerCommon.VolumeType.MTP:
+        switch (this.currentVolumeType_) {
+            case VolumeType.MTP:
                 return 0;
-            case ListThumbnailLoader.TEST_VOLUME_TYPE:
+            case TEST_VOLUME_TYPE:
                 return 1;
             default:
                 return 20;
@@ -102,15 +74,14 @@ export class ListThumbnailLoader extends EventTarget {
     /**
      * Gets maximum number of active thumbnail fetch tasks. This number changes
      * based on current volume type.
-     * @return {number} Maximum number of active thumbnail fetch tasks.
-     * @private
+     * @return Maximum number of active thumbnail fetch tasks.
      */
     getNumOfMaxActiveTasks_() {
-        switch ( /** @type {?ListThumbnailLoader.VolumeType} */(this.currentVolumeType_)) {
-            case VolumeManagerCommon.VolumeType.MTP:
+        switch (this.currentVolumeType_) {
+            case VolumeType.MTP:
                 return 1;
-            case ListThumbnailLoader.TEST_VOLUME_TYPE:
-                return ListThumbnailLoader.numOfMaxActiveTasksForTest;
+            case TEST_VOLUME_TYPE:
+                return this.numOfMaxActiveTasksForTest_;
             default:
                 return 10;
         }
@@ -121,47 +92,36 @@ export class ListThumbnailLoader extends EventTarget {
      * IO for directory scan. i.e. modification events during directory scan is
      * ignored. We need to check thumbnail loadings after directory scan is
      * completed.
-     *
-     * @param {!Event} event Event
      */
-    // @ts-ignore: error TS6133: 'event' is declared but its value is never read.
-    onScanCompleted_(event) {
+    onScanCompleted_(_event) {
         this.cursor_ = this.beginIndex_;
         this.continue_();
     }
     /**
      * An event handler for splice event of data model. When list is changed,
      * start to rescan items.
-     *
-     * @param {!Event} event Event
      */
-    // @ts-ignore: error TS6133: 'event' is declared but its value is never read.
-    onSplice_(event) {
+    onSplice_(_event) {
         this.cursor_ = this.beginIndex_;
         this.continue_();
     }
     /**
      * An event handler for sorted event of data model. When list is sorted, start
      * to rescan items.
-     *
-     * @param {!Event} event Event
      */
-    // @ts-ignore: error TS6133: 'event' is declared but its value is never read.
-    onSorted_(event) {
+    onSorted_(_event) {
         this.cursor_ = this.beginIndex_;
         this.continue_();
     }
     /**
      * An event handler for change event of data model.
-     *
-     * @param {!Event} event Event
      */
     onChange_(event) {
         // Mark the thumbnail in cache as invalid.
-        // @ts-ignore: error TS2339: Property 'index' does not exist on type
-        // 'Event'.
-        const entry = this.dataModel_.item(event.index);
-        const cachedThumbnail = this.cache_.peek(entry.toURL());
+        const entry = isNullOrUndefined(event.detail.index) ?
+            null :
+            this.dataModel_.item(event.detail.index);
+        const cachedThumbnail = this.cache_.peek(entry?.toURL() || '');
         if (cachedThumbnail) {
             cachedThumbnail.outdated = true;
         }
@@ -171,8 +131,8 @@ export class ListThumbnailLoader extends EventTarget {
     /**
      * Sets high priority range in the list.
      *
-     * @param {number} beginIndex Begin index of the range, inclusive.
-     * @param {number} endIndex End index of the range, exclusive.
+     * @param beginIndex Begin index of the range, inclusive.
+     * @param endIndex End index of the range, exclusive.
      */
     setHighPriorityRange(beginIndex, endIndex) {
         if (!(beginIndex < endIndex)) {
@@ -187,10 +147,8 @@ export class ListThumbnailLoader extends EventTarget {
      * Returns a thumbnail of an entry if it is in cache. This method returns
      * thumbnail even if the thumbnail is outdated.
      *
-     * @return {?ListThumbnailLoader.ThumbnailData} If the thumbnail is not in
-     *     cache, this returns null.
+     * @return If the thumbnail is not in cache, this returns null.
      */
-    // @ts-ignore: error TS7006: Parameter 'entry' implicitly has an 'any' type.
     getThumbnailFromCache(entry) {
         // Since we want to evict cache based on high priority range, we use peek
         // here instead of get.
@@ -205,9 +163,9 @@ export class ListThumbnailLoader extends EventTarget {
             !(this.cursor_ < this.dataModel_.length)) {
             return;
         }
-        const entry = /** @type {Entry} */ (this.dataModel_.item(this.cursor_));
+        const entry = this.dataModel_.item(this.cursor_);
         // Check volume type for optimizing the parameters.
-        const volumeInfo = this.volumeManager_.getVolumeInfo(assert(entry));
+        const volumeInfo = this.volumeManager_.getVolumeInfo(entry);
         this.currentVolumeType_ = volumeInfo ? volumeInfo.volumeType : null;
         // If tasks are running full or all items are scanned, do nothing.
         if (!(Object.keys(this.active_).length < this.getNumOfMaxActiveTasks_()) ||
@@ -217,8 +175,6 @@ export class ListThumbnailLoader extends EventTarget {
         // If the entry is a directory, already in cache as valid or fetching, skip.
         const thumbnail = this.cache_.get(entry.toURL());
         if (entry.isDirectory || (thumbnail && !thumbnail.outdated) ||
-            // @ts-ignore: error TS7053: Element implicitly has an 'any' type
-            // because expression of type 'string' can't be used to index type '{}'.
             this.active_[entry.toURL()]) {
             this.cursor_++;
             this.continue_();
@@ -231,18 +187,14 @@ export class ListThumbnailLoader extends EventTarget {
     /**
      * Enqueues a thumbnail fetch task for an entry.
      *
-     * @param {number} index Index of an entry in current data model.
-     * @param {!Entry} entry An entry.
+     * @param index Index of an entry in current data model.
+     * @param entry An entry.
      */
     enqueue_(index, entry) {
-        const task = new ListThumbnailLoader.Task(entry, this.volumeManager_, this.thumbnailModel_, this.thumbnailLoaderConstructor_);
+        const task = new ListThumbnailLoaderTask(entry, this.volumeManager_, this.thumbnailModel_, this.thumbnailLoaderConstructor_);
         const url = entry.toURL();
-        // @ts-ignore: error TS7053: Element implicitly has an 'any' type because
-        // expression of type 'string' can't be used to index type '{}'.
         this.active_[url] = task;
         task.fetch().then(thumbnail => {
-            // @ts-ignore: error TS7053: Element implicitly has an 'any' type because
-            // expression of type 'string' can't be used to index type '{}'.
             delete this.active_[url];
             this.cache_.put(url, thumbnail);
             this.dispatchThumbnailLoaded_(index, thumbnail);
@@ -252,8 +204,8 @@ export class ListThumbnailLoader extends EventTarget {
     /**
      * Dispatches thumbnail loaded event.
      *
-     * @param {number} index Index of an original image in the data model.
-     * @param {!ListThumbnailLoader.ThumbnailData} thumbnail Thumbnail.
+     * @param index Index of an original image in the data model.
+     * @param thumbnail Thumbnail.
      */
     dispatchThumbnailLoaded_(index, thumbnail) {
         // Update index if it's already invalid, i.e. index may be invalid if some
@@ -269,140 +221,86 @@ export class ListThumbnailLoader extends EventTarget {
             }
         }
         if (index > -1) {
-            this.dispatchEvent(new ListThumbnailLoader.ThumbnailLoadedEvent(index, thumbnail));
+            this.dispatchEvent(new CustomEvent('thumbnailLoaded', {
+                detail: {
+                    index,
+                    fileUrl: thumbnail.fileUrl,
+                    dataUrl: thumbnail.dataUrl,
+                    width: thumbnail.width,
+                    height: thumbnail.height,
+                },
+            }));
         }
+    }
+    set numOfMaxActiveTasksForTest(num) {
+        this.numOfMaxActiveTasksForTest_ = num;
     }
 }
 /**
- * Cache size. Cache size must be larger than sum of high priority range size
- * and number of prefetch tasks.
- * @const @type {number}
- */
-ListThumbnailLoader.CACHE_SIZE = 500;
-/**
  * Volume type for testing.
- * @const @type {string}
  */
-ListThumbnailLoader.TEST_VOLUME_TYPE = 'test_volume_type';
-/**
- * Number of maximum active tasks for testing.
- * @type {number}
- */
-ListThumbnailLoader.numOfMaxActiveTasksForTest = 2;
-/**
- * @typedef {(VolumeManagerCommon.VolumeType|string)}
- */
-ListThumbnailLoader.VolumeType;
-/**
- * Thumbnail loaded event.
- */
-ListThumbnailLoader.ThumbnailLoadedEvent =
-    class ThumbnailLoadedEvent extends Event {
-        /**
-         * @param {number} index Index of an original image in the current data
-         *     model.
-         * @param {!ListThumbnailLoader.ThumbnailData} thumbnail Thumbnail.
-         */
-        constructor(index, thumbnail) {
-            super('thumbnailLoaded');
-            /** @type {number} */
-            this.index = index;
-            /** @type {string}*/
-            this.fileUrl = thumbnail.fileUrl;
-            /** @type {?string} */
-            this.dataUrl = thumbnail.dataUrl;
-            /** @type {?number} */
-            this.width = thumbnail.width;
-            /** @type {?number}*/
-            this.height = thumbnail.height;
-        }
-    };
+export const TEST_VOLUME_TYPE = 'test_volume_type';
 /**
  * A class to represent thumbnail data.
  */
-ListThumbnailLoader.ThumbnailData = class {
+class ThumbnailData {
     /**
-     * @param {string} fileUrl File url of an original image.
-     * @param {?string} dataUrl Data url of thumbnail.
-     * @param {?number} width Width of thumbnail.
-     * @param {?number} height Height of thumbnail.
+     * @param fileUrl File url of an original image.
+     * @param dataUrl Data url of thumbnail.
+     * @param width Width of thumbnail.
+     * @param height Height of thumbnail.
      */
     constructor(fileUrl, dataUrl, width, height) {
-        /**
-         * @const @type {string}
-         */
         this.fileUrl = fileUrl;
-        /**
-         * @const @type {?string}
-         */
         this.dataUrl = dataUrl;
-        /**
-         * @const @type {?number}
-         */
         this.width = width;
-        /**
-         * @const @type {?number}
-         */
         this.height = height;
-        /**
-         * @type {boolean}
-         */
         this.outdated = false;
     }
-};
+}
 /**
  * A task to load thumbnail.
  */
-ListThumbnailLoader.Task = class {
+export class ListThumbnailLoaderTask {
     /**
      *
-     * @param {!Entry} entry An entry.
-     * @param {!VolumeManager} volumeManager Volume manager.
-     * @param {!ThumbnailModel} thumbnailModel Metadata cache.
-     * @param {!Function} thumbnailLoaderConstructor A constructor of thumbnail
-     *     loader.
+     * @param entry An entry.
+     * @param volumeManager Volume manager.
+     * @param thumbnailModel Metadata cache.
+     * @param thumbnailLoaderConstructor A constructor of thumbnail loader.
      */
-    constructor(entry, volumeManager, thumbnailModel, thumbnailLoaderConstructor) {
-        this.entry_ = entry;
-        this.volumeManager_ = volumeManager;
-        this.thumbnailModel_ = thumbnailModel;
-        this.thumbnailLoaderConstructor_ = thumbnailLoaderConstructor;
+    constructor(entry_, volumeManager_, thumbnailModel_, thumbnailLoaderConstructor_) {
+        this.entry_ = entry_;
+        this.volumeManager_ = volumeManager_;
+        this.thumbnailModel_ = thumbnailModel_;
+        this.thumbnailLoaderConstructor_ = thumbnailLoaderConstructor_;
     }
     /**
      * Fetches thumbnail.
      *
-     * @return {!Promise<!ListThumbnailLoader.ThumbnailData>} A promise which is
-     *     resolved when thumbnail data is fetched with either a success or an
-     *     error.
+     * @return A promise which is resolved when thumbnail data is fetched with
+     *     either a success or an error.
      */
-    fetch() {
+    async fetch() {
         let ioError = false;
         return this.thumbnailModel_.get([this.entry_])
             .then(metadatas => {
+            assert(metadatas[0]);
             // When it failed to read exif header with an IO error, do not
             // generate thumbnail at this time since it may success in the second
             // try. If it failed to read at 0 byte, it would be an IO error.
-            // @ts-ignore: error TS7053: Element implicitly has an 'any' type
-            // because expression of type '0' can't be used to index type
-            // 'Object'.
             if (metadatas[0].thumbnail.urlError &&
-                // @ts-ignore: error TS7053: Element implicitly has an 'any' type
-                // because expression of type '0' can't be used to index type
-                // 'Object'.
                 metadatas[0].thumbnail.urlError.errorDescription ===
                     'Error: Unexpected EOF @0') {
                 ioError = true;
                 return Promise.reject();
             }
-            // @ts-ignore: error TS7053: Element implicitly has an 'any' type
-            // because expression of type '0' can't be used to index type
-            // 'Object'.
             return metadatas[0];
         })
             .then(metadata => {
             const loadTargets = [
-                ThumbnailLoader.LoadTarget.CONTENT_METADATA,
-                ThumbnailLoader.LoadTarget.EXTERNAL_METADATA,
+                LoadTarget.CONTENT_METADATA,
+                LoadTarget.EXTERNAL_METADATA,
             ];
             // If the file is on a network filesystem, don't generate thumbnails
             // from file entry, as it could cause very high network traffic.
@@ -410,40 +308,37 @@ ListThumbnailLoader.Task = class {
             // thumbnails of Drive files from file entry only if cached locally.
             const volumeInfo = this.volumeManager_.getVolumeInfo(this.entry_);
             if (volumeInfo &&
-                (volumeInfo.source !== VolumeManagerCommon.Source.NETWORK ||
-                    volumeInfo.volumeType ===
-                        VolumeManagerCommon.VolumeType.DRIVE)) {
-                loadTargets.push(ThumbnailLoader.LoadTarget.FILE_ENTRY);
+                (volumeInfo.source !== Source.NETWORK ||
+                    volumeInfo.volumeType === VolumeType.DRIVE)) {
+                loadTargets.push(LoadTarget.FILE_ENTRY);
             }
-            // @ts-ignore: error TS2351: This expression is not constructable.
             return new this
-                .thumbnailLoaderConstructor_(this.entry_, ThumbnailLoader.LoaderType.IMAGE, metadata, undefined /* opt_mediaType */, loadTargets)
-                .loadAsDataUrl(ThumbnailLoader.FillMode.OVER_FILL);
+                .thumbnailLoaderConstructor_(this.entry_, LoaderType.IMAGE, metadata, undefined /* mediaType */, loadTargets)
+                .loadAsDataUrl(FillMode.OVER_FILL);
         })
             .then(result => {
-            return new ListThumbnailLoader.ThumbnailData(this.entry_.toURL(), result.data, result.width, result.height);
+            return new ThumbnailData(this.entry_.toURL(), result.data ?? null, result.width ?? null, result.height ?? null);
         })
             .catch(() => {
             // If an error happens during generating of a thumbnail, then return
             // an empty object, so we don't retry the thumbnail over and over
             // again.
-            const thumbnailData = new ListThumbnailLoader.ThumbnailData(this.entry_.toURL(), null, null, null);
+            const thumbnailData = new ThumbnailData(this.entry_.toURL(), null, null, null);
             if (ioError) {
                 // If fetching a thumbnail from EXIF fails due to an IO error, then
                 // try to refetch it in the future, but not earlier than in 3
                 // second.
                 setTimeout(() => {
                     thumbnailData.outdated = true;
-                }, ListThumbnailLoader.Task.EXIF_IO_ERROR_DELAY);
+                }, EXIF_IO_ERROR_DELAY);
             }
             return thumbnailData;
         });
     }
-};
+}
 /**
  * Minimum delay of milliseconds before another retry for fetching a
  * thumbnmail from EXIF after failing with an IO error. In milliseconds.
  *
- * @type {number}
  */
-ListThumbnailLoader.Task.EXIF_IO_ERROR_DELAY = 3000;
+const EXIF_IO_ERROR_DELAY = 3000;

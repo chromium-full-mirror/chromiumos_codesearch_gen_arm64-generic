@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/media/renderer_audio_input_stream_factory.mojom-features.h"
 #include "third_party/blink/public/mojom/media/renderer_audio_input_stream_factory.mojom-shared.h"
 #include "third_party/blink/public/mojom/media/renderer_audio_input_stream_factory.mojom-blink-forward.h"
 #include "media/mojo/mojom/audio_data_pipe.mojom-blink-forward.h"
@@ -142,7 +143,7 @@ class PLATFORM_EXPORT RendererAudioInputStreamFactoryClient
   virtual ~RendererAudioInputStreamFactoryClient() = default;
 
   
-  virtual void StreamCreated(::mojo::PendingRemote<::media::mojom::blink::AudioInputStream> stream, ::mojo::PendingReceiver<::media::mojom::blink::AudioInputStreamClient> client_request, ::media::mojom::blink::ReadOnlyAudioDataPipePtr data_pipe, bool initially_muted, const absl::optional<::base::UnguessableToken>& stream_id) = 0;
+  virtual void StreamCreated(::mojo::PendingRemote<::media::mojom::blink::AudioInputStream> stream, ::mojo::PendingReceiver<::media::mojom::blink::AudioInputStreamClient> client_request, ::media::mojom::blink::ReadOnlyAudioDataPipePtr data_pipe, bool initially_muted, const std::optional<::base::UnguessableToken>& stream_id) = 0;
 };
 
 
@@ -171,7 +172,7 @@ class PLATFORM_EXPORT RendererAudioInputStreamFactoryClientProxy
 
   explicit RendererAudioInputStreamFactoryClientProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void StreamCreated(::mojo::PendingRemote<::media::mojom::blink::AudioInputStream> stream, ::mojo::PendingReceiver<::media::mojom::blink::AudioInputStreamClient> client_request, ::media::mojom::blink::ReadOnlyAudioDataPipePtr data_pipe, bool initially_muted, const absl::optional<::base::UnguessableToken>& stream_id) final;
+  void StreamCreated(::mojo::PendingRemote<::media::mojom::blink::AudioInputStream> stream, ::mojo::PendingReceiver<::media::mojom::blink::AudioInputStreamClient> client_request, ::media::mojom::blink::ReadOnlyAudioDataPipePtr data_pipe, bool initially_muted, const std::optional<::base::UnguessableToken>& stream_id) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

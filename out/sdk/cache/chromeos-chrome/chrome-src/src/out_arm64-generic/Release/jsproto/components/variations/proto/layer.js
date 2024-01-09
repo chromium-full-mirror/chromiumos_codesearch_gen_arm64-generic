@@ -279,7 +279,8 @@ proto.variations.Layer.serializeBinaryToWriter = function(message, writer) {
  */
 proto.variations.Layer.EntropyMode = {
   DEFAULT: 0,
-  LOW: 1
+  LOW: 1,
+  LIMITED: 2
 };
 
 

@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -104,6 +105,218 @@ void Operand::WriteIntoTrace(
 }
 
 bool Operand::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+ArgMinMax::ArgMinMax()
+    : kind(),
+      input_operand_id(),
+      output_operand_id(),
+      axes(),
+      keep_dimensions(false),
+      select_last_index(false) {}
+
+ArgMinMax::ArgMinMax(
+    ArgMinMax::Kind kind_in,
+    uint64_t input_operand_id_in,
+    uint64_t output_operand_id_in,
+    WTF::Vector<uint32_t> axes_in,
+    bool keep_dimensions_in,
+    bool select_last_index_in)
+    : kind(std::move(kind_in)),
+      input_operand_id(std::move(input_operand_id_in)),
+      output_operand_id(std::move(output_operand_id_in)),
+      axes(std::move(axes_in)),
+      keep_dimensions(std::move(keep_dimensions_in)),
+      select_last_index(std::move(select_last_index_in)) {}
+
+ArgMinMax::~ArgMinMax() = default;
+
+void ArgMinMax::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "kind"), this->kind,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ArgMinMax::Kind>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "input_operand_id"), this->input_operand_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint64_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "output_operand_id"), this->output_operand_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint64_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "axes"), this->axes,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const WTF::Vector<uint32_t>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "keep_dimensions"), this->keep_dimensions,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "select_last_index"), this->select_last_index,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool ArgMinMax::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+BatchNormalization::BatchNormalization()
+    : input_operand_id(),
+      mean_operand_id(),
+      variance_operand_id(),
+      output_operand_id(),
+      scale_operand_id(),
+      bias_operand_id(),
+      axis(1U),
+      epsilon(1e-5f),
+      activation() {}
+
+BatchNormalization::BatchNormalization(
+    uint64_t input_operand_id_in,
+    uint64_t mean_operand_id_in,
+    uint64_t variance_operand_id_in,
+    uint64_t output_operand_id_in,
+    std::optional<uint64_t> scale_operand_id_in,
+    std::optional<uint64_t> bias_operand_id_in,
+    uint32_t axis_in,
+    float epsilon_in,
+    ActivationPtr activation_in)
+    : input_operand_id(std::move(input_operand_id_in)),
+      mean_operand_id(std::move(mean_operand_id_in)),
+      variance_operand_id(std::move(variance_operand_id_in)),
+      output_operand_id(std::move(output_operand_id_in)),
+      scale_operand_id(std::move(scale_operand_id_in)),
+      bias_operand_id(std::move(bias_operand_id_in)),
+      axis(std::move(axis_in)),
+      epsilon(std::move(epsilon_in)),
+      activation(std::move(activation_in)) {}
+
+BatchNormalization::~BatchNormalization() = default;
+
+void BatchNormalization::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "input_operand_id"), this->input_operand_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint64_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "mean_operand_id"), this->mean_operand_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint64_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "variance_operand_id"), this->variance_operand_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint64_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "output_operand_id"), this->output_operand_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint64_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "scale_operand_id"), this->scale_operand_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::optional<uint64_t>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "bias_operand_id"), this->bias_operand_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::optional<uint64_t>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "axis"), this->axis,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint32_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "epsilon"), this->epsilon,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type float>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "activation"), this->activation,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ActivationPtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool BatchNormalization::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
@@ -322,7 +535,8 @@ bool Padding2d::Validate(
   return Data_::Validate(data, validation_context);
 }
 Conv2d::Conv2d()
-    : input_operand_id(),
+    : type(),
+      input_operand_id(),
       filter_operand_id(),
       output_operand_id(),
       padding(),
@@ -334,6 +548,7 @@ Conv2d::Conv2d()
       activation() {}
 
 Conv2d::Conv2d(
+    Conv2d::Type type_in,
     uint64_t input_operand_id_in,
     uint64_t filter_operand_id_in,
     uint64_t output_operand_id_in,
@@ -342,9 +557,10 @@ Conv2d::Conv2d(
     Size2dPtr dilations_in,
     uint32_t groups_in,
     InputOperandLayout input_layout_in,
-    absl::optional<uint64_t> bias_operand_id_in,
+    std::optional<uint64_t> bias_operand_id_in,
     ActivationPtr activation_in)
-    : input_operand_id(std::move(input_operand_id_in)),
+    : type(std::move(type_in)),
+      input_operand_id(std::move(input_operand_id_in)),
       filter_operand_id(std::move(filter_operand_id_in)),
       output_operand_id(std::move(output_operand_id_in)),
       padding(std::move(padding_in)),
@@ -360,6 +576,15 @@ Conv2d::~Conv2d() = default;
 void Conv2d::WriteIntoTrace(
     perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "type"), this->type,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type Conv2d::Type>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "input_operand_id"), this->input_operand_id,
@@ -436,7 +661,7 @@ void Conv2d::WriteIntoTrace(
     dict.AddItem(
       "bias_operand_id"), this->bias_operand_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<uint64_t>>"
+      "<value of type std::optional<uint64_t>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -528,6 +753,109 @@ bool ElementWiseBinary::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+ElementWiseUnary::ElementWiseUnary()
+    : kind(),
+      input_operand_id(),
+      output_operand_id() {}
+
+ElementWiseUnary::ElementWiseUnary(
+    ElementWiseUnary::Kind kind_in,
+    uint64_t input_operand_id_in,
+    uint64_t output_operand_id_in)
+    : kind(std::move(kind_in)),
+      input_operand_id(std::move(input_operand_id_in)),
+      output_operand_id(std::move(output_operand_id_in)) {}
+
+ElementWiseUnary::~ElementWiseUnary() = default;
+size_t ElementWiseUnary::Hash(size_t seed) const {
+  seed = mojo::internal::WTFHash(seed, this->kind);
+  seed = mojo::internal::WTFHash(seed, this->input_operand_id);
+  seed = mojo::internal::WTFHash(seed, this->output_operand_id);
+  return seed;
+}
+
+void ElementWiseUnary::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "kind"), this->kind,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ElementWiseUnary::Kind>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "input_operand_id"), this->input_operand_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint64_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "output_operand_id"), this->output_operand_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint64_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool ElementWiseUnary::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+Expand::Expand()
+    : input_operand_id(),
+      output_operand_id() {}
+
+Expand::Expand(
+    uint64_t input_operand_id_in,
+    uint64_t output_operand_id_in)
+    : input_operand_id(std::move(input_operand_id_in)),
+      output_operand_id(std::move(output_operand_id_in)) {}
+
+Expand::~Expand() = default;
+size_t Expand::Hash(size_t seed) const {
+  seed = mojo::internal::WTFHash(seed, this->input_operand_id);
+  seed = mojo::internal::WTFHash(seed, this->output_operand_id);
+  return seed;
+}
+
+void Expand::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "input_operand_id"), this->input_operand_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint64_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "output_operand_id"), this->output_operand_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint64_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool Expand::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 ConstantPadding::ConstantPadding()
     : value(0) {}
 
@@ -611,6 +939,152 @@ bool SymmetricPadding::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+InstanceNormalization::InstanceNormalization()
+    : input_operand_id(),
+      output_operand_id(),
+      scale_operand_id(),
+      bias_operand_id(),
+      epsilon(1e-5f),
+      layout() {}
+
+InstanceNormalization::InstanceNormalization(
+    uint64_t input_operand_id_in,
+    uint64_t output_operand_id_in,
+    std::optional<uint64_t> scale_operand_id_in,
+    std::optional<uint64_t> bias_operand_id_in,
+    float epsilon_in,
+    InputOperandLayout layout_in)
+    : input_operand_id(std::move(input_operand_id_in)),
+      output_operand_id(std::move(output_operand_id_in)),
+      scale_operand_id(std::move(scale_operand_id_in)),
+      bias_operand_id(std::move(bias_operand_id_in)),
+      epsilon(std::move(epsilon_in)),
+      layout(std::move(layout_in)) {}
+
+InstanceNormalization::~InstanceNormalization() = default;
+
+void InstanceNormalization::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "input_operand_id"), this->input_operand_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint64_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "output_operand_id"), this->output_operand_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint64_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "scale_operand_id"), this->scale_operand_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::optional<uint64_t>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "bias_operand_id"), this->bias_operand_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::optional<uint64_t>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "epsilon"), this->epsilon,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type float>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "layout"), this->layout,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type InputOperandLayout>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool InstanceNormalization::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+Matmul::Matmul()
+    : a_operand_id(),
+      b_operand_id(),
+      output_operand_id() {}
+
+Matmul::Matmul(
+    uint64_t a_operand_id_in,
+    uint64_t b_operand_id_in,
+    uint64_t output_operand_id_in)
+    : a_operand_id(std::move(a_operand_id_in)),
+      b_operand_id(std::move(b_operand_id_in)),
+      output_operand_id(std::move(output_operand_id_in)) {}
+
+Matmul::~Matmul() = default;
+size_t Matmul::Hash(size_t seed) const {
+  seed = mojo::internal::WTFHash(seed, this->a_operand_id);
+  seed = mojo::internal::WTFHash(seed, this->b_operand_id);
+  seed = mojo::internal::WTFHash(seed, this->output_operand_id);
+  return seed;
+}
+
+void Matmul::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "a_operand_id"), this->a_operand_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint64_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "b_operand_id"), this->b_operand_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint64_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "output_operand_id"), this->output_operand_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint64_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool Matmul::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 Pad::Pad()
     : input_operand_id(),
       output_operand_id(),
@@ -683,6 +1157,82 @@ void Pad::WriteIntoTrace(
 }
 
 bool Pad::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+Reduce::Reduce()
+    : kind(),
+      input_operand_id(),
+      output_operand_id(),
+      axes(),
+      keep_dimensions(false) {}
+
+Reduce::Reduce(
+    Reduce::Kind kind_in,
+    uint64_t input_operand_id_in,
+    uint64_t output_operand_id_in,
+    WTF::Vector<uint32_t> axes_in,
+    bool keep_dimensions_in)
+    : kind(std::move(kind_in)),
+      input_operand_id(std::move(input_operand_id_in)),
+      output_operand_id(std::move(output_operand_id_in)),
+      axes(std::move(axes_in)),
+      keep_dimensions(std::move(keep_dimensions_in)) {}
+
+Reduce::~Reduce() = default;
+
+void Reduce::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "kind"), this->kind,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type Reduce::Kind>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "input_operand_id"), this->input_operand_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint64_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "output_operand_id"), this->output_operand_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint64_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "axes"), this->axes,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const WTF::Vector<uint32_t>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "keep_dimensions"), this->keep_dimensions,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool Reduce::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
@@ -907,6 +1457,135 @@ bool Slice::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+Elu::Elu()
+    : input_operand_id(),
+      output_operand_id(),
+      alpha(1.0f) {}
+
+Elu::Elu(
+    uint64_t input_operand_id_in,
+    uint64_t output_operand_id_in,
+    float alpha_in)
+    : input_operand_id(std::move(input_operand_id_in)),
+      output_operand_id(std::move(output_operand_id_in)),
+      alpha(std::move(alpha_in)) {}
+
+Elu::~Elu() = default;
+size_t Elu::Hash(size_t seed) const {
+  seed = mojo::internal::WTFHash(seed, this->input_operand_id);
+  seed = mojo::internal::WTFHash(seed, this->output_operand_id);
+  seed = mojo::internal::WTFHash(seed, this->alpha);
+  return seed;
+}
+
+void Elu::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "input_operand_id"), this->input_operand_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint64_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "output_operand_id"), this->output_operand_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint64_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "alpha"), this->alpha,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type float>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool Elu::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+Gather::Gather()
+    : input_operand_id(),
+      indices_operand_id(),
+      output_operand_id(),
+      axis(0U) {}
+
+Gather::Gather(
+    uint64_t input_operand_id_in,
+    uint64_t indices_operand_id_in,
+    uint64_t output_operand_id_in,
+    uint32_t axis_in)
+    : input_operand_id(std::move(input_operand_id_in)),
+      indices_operand_id(std::move(indices_operand_id_in)),
+      output_operand_id(std::move(output_operand_id_in)),
+      axis(std::move(axis_in)) {}
+
+Gather::~Gather() = default;
+size_t Gather::Hash(size_t seed) const {
+  seed = mojo::internal::WTFHash(seed, this->input_operand_id);
+  seed = mojo::internal::WTFHash(seed, this->indices_operand_id);
+  seed = mojo::internal::WTFHash(seed, this->output_operand_id);
+  seed = mojo::internal::WTFHash(seed, this->axis);
+  return seed;
+}
+
+void Gather::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "input_operand_id"), this->input_operand_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint64_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "indices_operand_id"), this->indices_operand_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint64_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "output_operand_id"), this->output_operand_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint64_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "axis"), this->axis,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint32_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool Gather::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 Gemm::Gemm()
     : a_operand_id(),
       b_operand_id(),
@@ -921,7 +1600,7 @@ Gemm::Gemm(
     uint64_t a_operand_id_in,
     uint64_t b_operand_id_in,
     uint64_t output_operand_id_in,
-    absl::optional<uint64_t> c_operand_id_in,
+    std::optional<uint64_t> c_operand_id_in,
     float alpha_in,
     float beta_in,
     bool a_transpose_in,
@@ -971,7 +1650,7 @@ void Gemm::WriteIntoTrace(
     dict.AddItem(
       "c_operand_id"), this->c_operand_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<uint64_t>>"
+      "<value of type std::optional<uint64_t>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1015,6 +1694,223 @@ void Gemm::WriteIntoTrace(
 }
 
 bool Gemm::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+LayerNormalization::LayerNormalization()
+    : input_operand_id(),
+      output_operand_id(),
+      scale_operand_id(),
+      bias_operand_id(),
+      axes(),
+      epsilon(1e-5f) {}
+
+LayerNormalization::LayerNormalization(
+    uint64_t input_operand_id_in,
+    uint64_t output_operand_id_in,
+    std::optional<uint64_t> scale_operand_id_in,
+    std::optional<uint64_t> bias_operand_id_in,
+    WTF::Vector<uint32_t> axes_in,
+    float epsilon_in)
+    : input_operand_id(std::move(input_operand_id_in)),
+      output_operand_id(std::move(output_operand_id_in)),
+      scale_operand_id(std::move(scale_operand_id_in)),
+      bias_operand_id(std::move(bias_operand_id_in)),
+      axes(std::move(axes_in)),
+      epsilon(std::move(epsilon_in)) {}
+
+LayerNormalization::~LayerNormalization() = default;
+
+void LayerNormalization::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "input_operand_id"), this->input_operand_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint64_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "output_operand_id"), this->output_operand_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint64_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "scale_operand_id"), this->scale_operand_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::optional<uint64_t>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "bias_operand_id"), this->bias_operand_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::optional<uint64_t>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "axes"), this->axes,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const WTF::Vector<uint32_t>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "epsilon"), this->epsilon,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type float>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool LayerNormalization::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+LeakyRelu::LeakyRelu()
+    : input_operand_id(),
+      output_operand_id(),
+      alpha(0.01f) {}
+
+LeakyRelu::LeakyRelu(
+    uint64_t input_operand_id_in,
+    uint64_t output_operand_id_in,
+    float alpha_in)
+    : input_operand_id(std::move(input_operand_id_in)),
+      output_operand_id(std::move(output_operand_id_in)),
+      alpha(std::move(alpha_in)) {}
+
+LeakyRelu::~LeakyRelu() = default;
+size_t LeakyRelu::Hash(size_t seed) const {
+  seed = mojo::internal::WTFHash(seed, this->input_operand_id);
+  seed = mojo::internal::WTFHash(seed, this->output_operand_id);
+  seed = mojo::internal::WTFHash(seed, this->alpha);
+  return seed;
+}
+
+void LeakyRelu::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "input_operand_id"), this->input_operand_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint64_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "output_operand_id"), this->output_operand_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint64_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "alpha"), this->alpha,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type float>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool LeakyRelu::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+Linear::Linear()
+    : input_operand_id(),
+      output_operand_id(),
+      alpha(1.0f),
+      beta(0) {}
+
+Linear::Linear(
+    uint64_t input_operand_id_in,
+    uint64_t output_operand_id_in,
+    float alpha_in,
+    float beta_in)
+    : input_operand_id(std::move(input_operand_id_in)),
+      output_operand_id(std::move(output_operand_id_in)),
+      alpha(std::move(alpha_in)),
+      beta(std::move(beta_in)) {}
+
+Linear::~Linear() = default;
+size_t Linear::Hash(size_t seed) const {
+  seed = mojo::internal::WTFHash(seed, this->input_operand_id);
+  seed = mojo::internal::WTFHash(seed, this->output_operand_id);
+  seed = mojo::internal::WTFHash(seed, this->alpha);
+  seed = mojo::internal::WTFHash(seed, this->beta);
+  return seed;
+}
+
+void Linear::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "input_operand_id"), this->input_operand_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint64_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "output_operand_id"), this->output_operand_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint64_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "alpha"), this->alpha,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type float>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "beta"), this->beta,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type float>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool Linear::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
@@ -1257,6 +2153,64 @@ bool Softmax::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+Softplus::Softplus()
+    : input_operand_id(),
+      output_operand_id(),
+      steepness(1.0f) {}
+
+Softplus::Softplus(
+    uint64_t input_operand_id_in,
+    uint64_t output_operand_id_in,
+    float steepness_in)
+    : input_operand_id(std::move(input_operand_id_in)),
+      output_operand_id(std::move(output_operand_id_in)),
+      steepness(std::move(steepness_in)) {}
+
+Softplus::~Softplus() = default;
+size_t Softplus::Hash(size_t seed) const {
+  seed = mojo::internal::WTFHash(seed, this->input_operand_id);
+  seed = mojo::internal::WTFHash(seed, this->output_operand_id);
+  seed = mojo::internal::WTFHash(seed, this->steepness);
+  return seed;
+}
+
+void Softplus::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "input_operand_id"), this->input_operand_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint64_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "output_operand_id"), this->output_operand_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint64_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "steepness"), this->steepness,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type float>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool Softplus::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 Split::Split()
     : input_operand_id(),
       output_operand_ids(),
@@ -1409,23 +2363,23 @@ bool Transpose::Validate(
 Resample2d::Resample2d()
     : input_operand_id(),
       output_operand_id(),
-      mode() {}
+      mode(),
+      scales(),
+      axes() {}
 
 Resample2d::Resample2d(
     uint64_t input_operand_id_in,
     uint64_t output_operand_id_in,
-    Resample2d::InterpolationMode mode_in)
+    Resample2d::InterpolationMode mode_in,
+    std::optional<WTF::Vector<float>> scales_in,
+    WTF::Vector<uint32_t> axes_in)
     : input_operand_id(std::move(input_operand_id_in)),
       output_operand_id(std::move(output_operand_id_in)),
-      mode(std::move(mode_in)) {}
+      mode(std::move(mode_in)),
+      scales(std::move(scales_in)),
+      axes(std::move(axes_in)) {}
 
 Resample2d::~Resample2d() = default;
-size_t Resample2d::Hash(size_t seed) const {
-  seed = mojo::internal::WTFHash(seed, this->input_operand_id);
-  seed = mojo::internal::WTFHash(seed, this->output_operand_id);
-  seed = mojo::internal::WTFHash(seed, this->mode);
-  return seed;
-}
 
 void Resample2d::WriteIntoTrace(
     perfetto::TracedValue traced_context) const {
@@ -1457,9 +2411,98 @@ void Resample2d::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "scales"), this->scales,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::optional<WTF::Vector<float>>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "axes"), this->axes,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const WTF::Vector<uint32_t>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
 }
 
 bool Resample2d::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+Where::Where()
+    : condition_operand_id(),
+      true_value_operand_id(),
+      false_value_operand_id(),
+      output_operand_id() {}
+
+Where::Where(
+    uint64_t condition_operand_id_in,
+    uint64_t true_value_operand_id_in,
+    uint64_t false_value_operand_id_in,
+    uint64_t output_operand_id_in)
+    : condition_operand_id(std::move(condition_operand_id_in)),
+      true_value_operand_id(std::move(true_value_operand_id_in)),
+      false_value_operand_id(std::move(false_value_operand_id_in)),
+      output_operand_id(std::move(output_operand_id_in)) {}
+
+Where::~Where() = default;
+size_t Where::Hash(size_t seed) const {
+  seed = mojo::internal::WTFHash(seed, this->condition_operand_id);
+  seed = mojo::internal::WTFHash(seed, this->true_value_operand_id);
+  seed = mojo::internal::WTFHash(seed, this->false_value_operand_id);
+  seed = mojo::internal::WTFHash(seed, this->output_operand_id);
+  return seed;
+}
+
+void Where::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "condition_operand_id"), this->condition_operand_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint64_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "true_value_operand_id"), this->true_value_operand_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint64_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "false_value_operand_id"), this->false_value_operand_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint64_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "output_operand_id"), this->output_operand_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint64_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool Where::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
@@ -1658,6 +2701,39 @@ void Activation::set_clamp(
         std::move(clamp));
   }
 }
+void Activation::set_elu(
+    EluPtr elu) {
+  if (tag_ == Tag::kElu) {
+    *(data_.elu) = std::move(elu);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kElu;
+    data_.elu = new EluPtr(
+        std::move(elu));
+  }
+}
+void Activation::set_leaky_relu(
+    LeakyReluPtr leaky_relu) {
+  if (tag_ == Tag::kLeakyRelu) {
+    *(data_.leaky_relu) = std::move(leaky_relu);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kLeakyRelu;
+    data_.leaky_relu = new LeakyReluPtr(
+        std::move(leaky_relu));
+  }
+}
+void Activation::set_linear(
+    LinearPtr linear) {
+  if (tag_ == Tag::kLinear) {
+    *(data_.linear) = std::move(linear);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kLinear;
+    data_.linear = new LinearPtr(
+        std::move(linear));
+  }
+}
 void Activation::set_relu(
     ReluPtr relu) {
   if (tag_ == Tag::kRelu) {
@@ -1691,6 +2767,17 @@ void Activation::set_softmax(
         std::move(softmax));
   }
 }
+void Activation::set_softplus(
+    SoftplusPtr softplus) {
+  if (tag_ == Tag::kSoftplus) {
+    *(data_.softplus) = std::move(softplus);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kSoftplus;
+    data_.softplus = new SoftplusPtr(
+        std::move(softplus));
+  }
+}
 void Activation::set_tanh(
     TanhPtr tanh) {
   if (tag_ == Tag::kTanh) {
@@ -1710,6 +2797,18 @@ void Activation::DestroyActive() {
 
       delete data_.clamp;
       break;
+    case Tag::kElu:
+
+      delete data_.elu;
+      break;
+    case Tag::kLeakyRelu:
+
+      delete data_.leaky_relu;
+      break;
+    case Tag::kLinear:
+
+      delete data_.linear;
+      break;
     case Tag::kRelu:
 
       delete data_.relu;
@@ -1721,6 +2820,10 @@ void Activation::DestroyActive() {
     case Tag::kSoftmax:
 
       delete data_.softmax;
+      break;
+    case Tag::kSoftplus:
+
+      delete data_.softplus;
       break;
     case Tag::kTanh:
 
@@ -1734,12 +2837,20 @@ size_t Activation::Hash(size_t seed) const {
 
     case Tag::kClamp:
       return mojo::internal::WTFHash(seed, data_.clamp);
+    case Tag::kElu:
+      return mojo::internal::WTFHash(seed, data_.elu);
+    case Tag::kLeakyRelu:
+      return mojo::internal::WTFHash(seed, data_.leaky_relu);
+    case Tag::kLinear:
+      return mojo::internal::WTFHash(seed, data_.linear);
     case Tag::kRelu:
       return mojo::internal::WTFHash(seed, data_.relu);
     case Tag::kSigmoid:
       return mojo::internal::WTFHash(seed, data_.sigmoid);
     case Tag::kSoftmax:
       return mojo::internal::WTFHash(seed, data_.softmax);
+    case Tag::kSoftplus:
+      return mojo::internal::WTFHash(seed, data_.softplus);
     case Tag::kTanh:
       return mojo::internal::WTFHash(seed, data_.tanh);
     default:
@@ -1753,8 +2864,8 @@ bool Activation::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context, false);
 }
-Operation::Operation() : tag_(Tag::kClamp) {
-  data_.clamp = new ClampPtr;
+Operation::Operation() : tag_(Tag::kArgMinMax) {
+  data_.arg_min_max = new ArgMinMaxPtr;
 }
 
 Operation::~Operation() {
@@ -1762,6 +2873,28 @@ Operation::~Operation() {
 }
 
 
+void Operation::set_arg_min_max(
+    ArgMinMaxPtr arg_min_max) {
+  if (tag_ == Tag::kArgMinMax) {
+    *(data_.arg_min_max) = std::move(arg_min_max);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kArgMinMax;
+    data_.arg_min_max = new ArgMinMaxPtr(
+        std::move(arg_min_max));
+  }
+}
+void Operation::set_batch_normalization(
+    BatchNormalizationPtr batch_normalization) {
+  if (tag_ == Tag::kBatchNormalization) {
+    *(data_.batch_normalization) = std::move(batch_normalization);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kBatchNormalization;
+    data_.batch_normalization = new BatchNormalizationPtr(
+        std::move(batch_normalization));
+  }
+}
 void Operation::set_clamp(
     ClampPtr clamp) {
   if (tag_ == Tag::kClamp) {
@@ -1806,6 +2939,50 @@ void Operation::set_element_wise_binary(
         std::move(element_wise_binary));
   }
 }
+void Operation::set_elu(
+    EluPtr elu) {
+  if (tag_ == Tag::kElu) {
+    *(data_.elu) = std::move(elu);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kElu;
+    data_.elu = new EluPtr(
+        std::move(elu));
+  }
+}
+void Operation::set_element_wise_unary(
+    ElementWiseUnaryPtr element_wise_unary) {
+  if (tag_ == Tag::kElementWiseUnary) {
+    *(data_.element_wise_unary) = std::move(element_wise_unary);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kElementWiseUnary;
+    data_.element_wise_unary = new ElementWiseUnaryPtr(
+        std::move(element_wise_unary));
+  }
+}
+void Operation::set_expand(
+    ExpandPtr expand) {
+  if (tag_ == Tag::kExpand) {
+    *(data_.expand) = std::move(expand);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kExpand;
+    data_.expand = new ExpandPtr(
+        std::move(expand));
+  }
+}
+void Operation::set_gather(
+    GatherPtr gather) {
+  if (tag_ == Tag::kGather) {
+    *(data_.gather) = std::move(gather);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kGather;
+    data_.gather = new GatherPtr(
+        std::move(gather));
+  }
+}
 void Operation::set_gemm(
     GemmPtr gemm) {
   if (tag_ == Tag::kGemm) {
@@ -1815,6 +2992,61 @@ void Operation::set_gemm(
     tag_ = Tag::kGemm;
     data_.gemm = new GemmPtr(
         std::move(gemm));
+  }
+}
+void Operation::set_layer_normalization(
+    LayerNormalizationPtr layer_normalization) {
+  if (tag_ == Tag::kLayerNormalization) {
+    *(data_.layer_normalization) = std::move(layer_normalization);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kLayerNormalization;
+    data_.layer_normalization = new LayerNormalizationPtr(
+        std::move(layer_normalization));
+  }
+}
+void Operation::set_instance_normalization(
+    InstanceNormalizationPtr instance_normalization) {
+  if (tag_ == Tag::kInstanceNormalization) {
+    *(data_.instance_normalization) = std::move(instance_normalization);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kInstanceNormalization;
+    data_.instance_normalization = new InstanceNormalizationPtr(
+        std::move(instance_normalization));
+  }
+}
+void Operation::set_leaky_relu(
+    LeakyReluPtr leaky_relu) {
+  if (tag_ == Tag::kLeakyRelu) {
+    *(data_.leaky_relu) = std::move(leaky_relu);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kLeakyRelu;
+    data_.leaky_relu = new LeakyReluPtr(
+        std::move(leaky_relu));
+  }
+}
+void Operation::set_linear(
+    LinearPtr linear) {
+  if (tag_ == Tag::kLinear) {
+    *(data_.linear) = std::move(linear);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kLinear;
+    data_.linear = new LinearPtr(
+        std::move(linear));
+  }
+}
+void Operation::set_matmul(
+    MatmulPtr matmul) {
+  if (tag_ == Tag::kMatmul) {
+    *(data_.matmul) = std::move(matmul);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kMatmul;
+    data_.matmul = new MatmulPtr(
+        std::move(matmul));
   }
 }
 void Operation::set_pad(
@@ -1848,6 +3080,17 @@ void Operation::set_prelu(
     tag_ = Tag::kPrelu;
     data_.prelu = new PreluPtr(
         std::move(prelu));
+  }
+}
+void Operation::set_reduce(
+    ReducePtr reduce) {
+  if (tag_ == Tag::kReduce) {
+    *(data_.reduce) = std::move(reduce);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kReduce;
+    data_.reduce = new ReducePtr(
+        std::move(reduce));
   }
 }
 void Operation::set_relu(
@@ -1916,6 +3159,17 @@ void Operation::set_softmax(
         std::move(softmax));
   }
 }
+void Operation::set_softplus(
+    SoftplusPtr softplus) {
+  if (tag_ == Tag::kSoftplus) {
+    *(data_.softplus) = std::move(softplus);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kSoftplus;
+    data_.softplus = new SoftplusPtr(
+        std::move(softplus));
+  }
+}
 void Operation::set_split(
     SplitPtr split) {
   if (tag_ == Tag::kSplit) {
@@ -1949,10 +3203,29 @@ void Operation::set_transpose(
         std::move(transpose));
   }
 }
+void Operation::set_where(
+    WherePtr where) {
+  if (tag_ == Tag::kWhere) {
+    *(data_.where) = std::move(where);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kWhere;
+    data_.where = new WherePtr(
+        std::move(where));
+  }
+}
 
 void Operation::DestroyActive() {
   switch (tag_) {
 
+    case Tag::kArgMinMax:
+
+      delete data_.arg_min_max;
+      break;
+    case Tag::kBatchNormalization:
+
+      delete data_.batch_normalization;
+      break;
     case Tag::kClamp:
 
       delete data_.clamp;
@@ -1969,9 +3242,45 @@ void Operation::DestroyActive() {
 
       delete data_.element_wise_binary;
       break;
+    case Tag::kElu:
+
+      delete data_.elu;
+      break;
+    case Tag::kElementWiseUnary:
+
+      delete data_.element_wise_unary;
+      break;
+    case Tag::kExpand:
+
+      delete data_.expand;
+      break;
+    case Tag::kGather:
+
+      delete data_.gather;
+      break;
     case Tag::kGemm:
 
       delete data_.gemm;
+      break;
+    case Tag::kLayerNormalization:
+
+      delete data_.layer_normalization;
+      break;
+    case Tag::kInstanceNormalization:
+
+      delete data_.instance_normalization;
+      break;
+    case Tag::kLeakyRelu:
+
+      delete data_.leaky_relu;
+      break;
+    case Tag::kLinear:
+
+      delete data_.linear;
+      break;
+    case Tag::kMatmul:
+
+      delete data_.matmul;
       break;
     case Tag::kPad:
 
@@ -1984,6 +3293,10 @@ void Operation::DestroyActive() {
     case Tag::kPrelu:
 
       delete data_.prelu;
+      break;
+    case Tag::kReduce:
+
+      delete data_.reduce;
       break;
     case Tag::kRelu:
 
@@ -2009,6 +3322,10 @@ void Operation::DestroyActive() {
 
       delete data_.softmax;
       break;
+    case Tag::kSoftplus:
+
+      delete data_.softplus;
+      break;
     case Tag::kSplit:
 
       delete data_.split;
@@ -2020,6 +3337,10 @@ void Operation::DestroyActive() {
     case Tag::kTranspose:
 
       delete data_.transpose;
+      break;
+    case Tag::kWhere:
+
+      delete data_.where;
       break;
   }
 }
@@ -2083,7 +3404,7 @@ uint32_t WebNNGraph::Compute_Sym::IPCStableHash() {
   return hash;
 }
 # endif // !BUILDFLAG(IS_FUCHSIA)
-bool WebNNGraph::Compute(WTF::HashMap<WTF::String, ::mojo_base::BigBuffer> named_inputs, ComputeResult* out_result, absl::optional<WTF::HashMap<WTF::String, ::mojo_base::BigBuffer>>* out_named_outputs) {
+bool WebNNGraph::Compute(WTF::HashMap<WTF::String, ::mojo_base::BigBuffer> named_inputs, ComputeResult* out_result, std::optional<WTF::HashMap<WTF::String, ::mojo_base::BigBuffer>>* out_named_outputs) {
   NOTREACHED();
   return false;
 }
@@ -2091,7 +3412,7 @@ class WebNNGraph_Compute_HandleSyncResponse
     : public mojo::MessageReceiver {
  public:
   WebNNGraph_Compute_HandleSyncResponse(
-      bool* result, ComputeResult* out_result, absl::optional<WTF::HashMap<WTF::String, ::mojo_base::BigBuffer>>* out_named_outputs)
+      bool* result, ComputeResult* out_result, std::optional<WTF::HashMap<WTF::String, ::mojo_base::BigBuffer>>* out_named_outputs)
       : result_(result), out_result_(out_result), out_named_outputs_(out_named_outputs) {
     DCHECK(!*result_);
   }
@@ -2103,7 +3424,7 @@ class WebNNGraph_Compute_HandleSyncResponse
  private:
   bool* result_;
   ComputeResult* out_result_;
-  absl::optional<WTF::HashMap<WTF::String, ::mojo_base::BigBuffer>>* out_named_outputs_;};
+  std::optional<WTF::HashMap<WTF::String, ::mojo_base::BigBuffer>>* out_named_outputs_;};
 
 class WebNNGraph_Compute_ForwardToCallback
     : public mojo::MessageReceiver {
@@ -2125,7 +3446,7 @@ WebNNGraphProxy::WebNNGraphProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
 }
 bool WebNNGraphProxy::Compute(
-    WTF::HashMap<WTF::String, ::mojo_base::BigBuffer> param_named_inputs, ComputeResult* out_param_result, absl::optional<WTF::HashMap<WTF::String, ::mojo_base::BigBuffer>>* out_param_named_outputs) {
+    WTF::HashMap<WTF::String, ::mojo_base::BigBuffer> param_named_inputs, ComputeResult* out_param_result, std::optional<WTF::HashMap<WTF::String, ::mojo_base::BigBuffer>>* out_param_named_outputs) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT_BEGIN1(
     "mojom", "Call webnn::mojom::WebNNGraph::Compute (sync)", "input_parameters",
@@ -2138,15 +3459,18 @@ bool WebNNGraphProxy::Compute(
 #else
   TRACE_EVENT0("mojom", "WebNNGraph::Compute");
 #endif
+  
   const bool kExpectsResponse = true;
   const bool kIsSync = true;
   const bool kAllowInterrupt =
       true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebNNGraph_Compute_Name, kFlags, 0, 0, nullptr);
@@ -2188,7 +3512,7 @@ bool WebNNGraphProxy::Compute(
                         "<value of type ComputeResult>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("named_outputs"), out_param_named_outputs,
-                        "<value of type absl::optional<WTF::HashMap<WTF::String, ::mojo_base::BigBuffer>>>");
+                        "<value of type std::optional<WTF::HashMap<WTF::String, ::mojo_base::BigBuffer>>>");
    });
 #endif
   return result;
@@ -2206,14 +3530,17 @@ void WebNNGraphProxy::Compute(
                         "<value of type WTF::HashMap<WTF::String, ::mojo_base::BigBuffer>>");
    });
 #endif
+
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
   
   const uint32_t kFlags =
       ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
       ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebNNGraph_Compute_Name, kFlags, 0, 0, nullptr);
@@ -2290,7 +3617,7 @@ class WebNNGraph_Compute_ProxyToResponder : public ::mojo::internal::ProxyToResp
 #endif
 
   void Run(
-      ComputeResult in_result, absl::optional<WTF::HashMap<WTF::String, ::mojo_base::BigBuffer>> in_named_outputs);
+      ComputeResult in_result, std::optional<WTF::HashMap<WTF::String, ::mojo_base::BigBuffer>> in_named_outputs);
 };
 
 bool WebNNGraph_Compute_ForwardToCallback::Accept(
@@ -2304,7 +3631,7 @@ bool WebNNGraph_Compute_ForwardToCallback::Accept(
   
   bool success = true;
   ComputeResult p_result{};
-  absl::optional<WTF::HashMap<WTF::String, ::mojo_base::BigBuffer>> p_named_outputs{};
+  std::optional<WTF::HashMap<WTF::String, ::mojo_base::BigBuffer>> p_named_outputs{};
   WebNNGraph_Compute_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -2326,7 +3653,7 @@ std::move(p_named_outputs));
 }
 
 void WebNNGraph_Compute_ProxyToResponder::Run(
-    ComputeResult in_result, absl::optional<WTF::HashMap<WTF::String, ::mojo_base::BigBuffer>> in_named_outputs) {
+    ComputeResult in_result, std::optional<WTF::HashMap<WTF::String, ::mojo_base::BigBuffer>> in_named_outputs) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply webnn::mojom::WebNNGraph::Compute", "async_response_parameters",
@@ -2337,13 +3664,14 @@ void WebNNGraph_Compute_ProxyToResponder::Run(
                         "<value of type ComputeResult>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("named_outputs"), in_named_outputs,
-                        "<value of type absl::optional<WTF::HashMap<WTF::String, ::mojo_base::BigBuffer>>>");
+                        "<value of type std::optional<WTF::HashMap<WTF::String, ::mojo_base::BigBuffer>>>");
    });
 #endif
   
   const uint32_t kFlags = mojo::Message::kFlagIsResponse |
       ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
       internal::kWebNNGraph_Compute_Name, kFlags, 0, 0, nullptr);
@@ -2389,7 +3717,7 @@ bool WebNNGraph_Compute_HandleSyncResponse::Accept(
   
   bool success = true;
   ComputeResult p_result{};
-  absl::optional<WTF::HashMap<WTF::String, ::mojo_base::BigBuffer>> p_named_outputs{};
+  std::optional<WTF::HashMap<WTF::String, ::mojo_base::BigBuffer>> p_named_outputs{};
   WebNNGraph_Compute_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -2462,10 +3790,10 @@ std::move(p_named_inputs), std::move(callback));
   }
   return false;
 }
-
-
+namespace {
+}  // namespace
 static const mojo::internal::GenericValidationInfo kWebNNGraphValidationInfo[] = {
-    {&internal::WebNNGraph_Compute_Params_Data::Validate,
+    { &internal::WebNNGraph_Compute_Params_Data::Validate,
      &internal::WebNNGraph_Compute_ResponseParams_Data::Validate},
 };
 
@@ -2500,6 +3828,62 @@ bool StructTraits<::webnn::mojom::blink::Operand::DataView, ::webnn::mojom::blin
       if (success && !input.ReadDimensions(&result->dimensions))
         success = false;
       if (success && !input.ReadName(&result->name))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::webnn::mojom::blink::ArgMinMax::DataView, ::webnn::mojom::blink::ArgMinMaxPtr>::Read(
+    ::webnn::mojom::blink::ArgMinMax::DataView input,
+    ::webnn::mojom::blink::ArgMinMaxPtr* output) {
+  bool success = true;
+  ::webnn::mojom::blink::ArgMinMaxPtr result(::webnn::mojom::blink::ArgMinMax::New());
+  
+      if (success && !input.ReadKind(&result->kind))
+        success = false;
+      if (success)
+        result->input_operand_id = input.input_operand_id();
+      if (success)
+        result->output_operand_id = input.output_operand_id();
+      if (success && !input.ReadAxes(&result->axes))
+        success = false;
+      if (success)
+        result->keep_dimensions = input.keep_dimensions();
+      if (success)
+        result->select_last_index = input.select_last_index();
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::webnn::mojom::blink::BatchNormalization::DataView, ::webnn::mojom::blink::BatchNormalizationPtr>::Read(
+    ::webnn::mojom::blink::BatchNormalization::DataView input,
+    ::webnn::mojom::blink::BatchNormalizationPtr* output) {
+  bool success = true;
+  ::webnn::mojom::blink::BatchNormalizationPtr result(::webnn::mojom::blink::BatchNormalization::New());
+  
+      if (success)
+        result->input_operand_id = input.input_operand_id();
+      if (success)
+        result->mean_operand_id = input.mean_operand_id();
+      if (success)
+        result->variance_operand_id = input.variance_operand_id();
+      if (success)
+        result->output_operand_id = input.output_operand_id();
+      if (success) {
+        result->scale_operand_id = input.scale_operand_id();
+      }
+      if (success) {
+        result->bias_operand_id = input.bias_operand_id();
+      }
+      if (success)
+        result->axis = input.axis();
+      if (success)
+        result->epsilon = input.epsilon();
+      if (success && !input.ReadActivation(&result->activation))
         success = false;
   *output = std::move(result);
   return success;
@@ -2583,6 +3967,8 @@ bool StructTraits<::webnn::mojom::blink::Conv2d::DataView, ::webnn::mojom::blink
   bool success = true;
   ::webnn::mojom::blink::Conv2dPtr result(::webnn::mojom::blink::Conv2d::New());
   
+      if (success && !input.ReadType(&result->type))
+        success = false;
       if (success)
         result->input_operand_id = input.input_operand_id();
       if (success)
@@ -2624,6 +4010,40 @@ bool StructTraits<::webnn::mojom::blink::ElementWiseBinary::DataView, ::webnn::m
         result->rhs_operand = input.rhs_operand();
       if (success)
         result->output_operand = input.output_operand();
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::webnn::mojom::blink::ElementWiseUnary::DataView, ::webnn::mojom::blink::ElementWiseUnaryPtr>::Read(
+    ::webnn::mojom::blink::ElementWiseUnary::DataView input,
+    ::webnn::mojom::blink::ElementWiseUnaryPtr* output) {
+  bool success = true;
+  ::webnn::mojom::blink::ElementWiseUnaryPtr result(::webnn::mojom::blink::ElementWiseUnary::New());
+  
+      if (success && !input.ReadKind(&result->kind))
+        success = false;
+      if (success)
+        result->input_operand_id = input.input_operand_id();
+      if (success)
+        result->output_operand_id = input.output_operand_id();
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::webnn::mojom::blink::Expand::DataView, ::webnn::mojom::blink::ExpandPtr>::Read(
+    ::webnn::mojom::blink::Expand::DataView input,
+    ::webnn::mojom::blink::ExpandPtr* output) {
+  bool success = true;
+  ::webnn::mojom::blink::ExpandPtr result(::webnn::mojom::blink::Expand::New());
+  
+      if (success)
+        result->input_operand_id = input.input_operand_id();
+      if (success)
+        result->output_operand_id = input.output_operand_id();
   *output = std::move(result);
   return success;
 }
@@ -2680,6 +4100,50 @@ bool StructTraits<::webnn::mojom::blink::SymmetricPadding::DataView, ::webnn::mo
 
 
 // static
+bool StructTraits<::webnn::mojom::blink::InstanceNormalization::DataView, ::webnn::mojom::blink::InstanceNormalizationPtr>::Read(
+    ::webnn::mojom::blink::InstanceNormalization::DataView input,
+    ::webnn::mojom::blink::InstanceNormalizationPtr* output) {
+  bool success = true;
+  ::webnn::mojom::blink::InstanceNormalizationPtr result(::webnn::mojom::blink::InstanceNormalization::New());
+  
+      if (success)
+        result->input_operand_id = input.input_operand_id();
+      if (success)
+        result->output_operand_id = input.output_operand_id();
+      if (success) {
+        result->scale_operand_id = input.scale_operand_id();
+      }
+      if (success) {
+        result->bias_operand_id = input.bias_operand_id();
+      }
+      if (success)
+        result->epsilon = input.epsilon();
+      if (success && !input.ReadLayout(&result->layout))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::webnn::mojom::blink::Matmul::DataView, ::webnn::mojom::blink::MatmulPtr>::Read(
+    ::webnn::mojom::blink::Matmul::DataView input,
+    ::webnn::mojom::blink::MatmulPtr* output) {
+  bool success = true;
+  ::webnn::mojom::blink::MatmulPtr result(::webnn::mojom::blink::Matmul::New());
+  
+      if (success)
+        result->a_operand_id = input.a_operand_id();
+      if (success)
+        result->b_operand_id = input.b_operand_id();
+      if (success)
+        result->output_operand_id = input.output_operand_id();
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
 bool StructTraits<::webnn::mojom::blink::Pad::DataView, ::webnn::mojom::blink::PadPtr>::Read(
     ::webnn::mojom::blink::Pad::DataView input,
     ::webnn::mojom::blink::PadPtr* output) {
@@ -2696,6 +4160,28 @@ bool StructTraits<::webnn::mojom::blink::Pad::DataView, ::webnn::mojom::blink::P
         success = false;
       if (success && !input.ReadMode(&result->mode))
         success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::webnn::mojom::blink::Reduce::DataView, ::webnn::mojom::blink::ReducePtr>::Read(
+    ::webnn::mojom::blink::Reduce::DataView input,
+    ::webnn::mojom::blink::ReducePtr* output) {
+  bool success = true;
+  ::webnn::mojom::blink::ReducePtr result(::webnn::mojom::blink::Reduce::New());
+  
+      if (success && !input.ReadKind(&result->kind))
+        success = false;
+      if (success)
+        result->input_operand_id = input.input_operand_id();
+      if (success)
+        result->output_operand_id = input.output_operand_id();
+      if (success && !input.ReadAxes(&result->axes))
+        success = false;
+      if (success)
+        result->keep_dimensions = input.keep_dimensions();
   *output = std::move(result);
   return success;
 }
@@ -2764,6 +4250,44 @@ bool StructTraits<::webnn::mojom::blink::Slice::DataView, ::webnn::mojom::blink:
 
 
 // static
+bool StructTraits<::webnn::mojom::blink::Elu::DataView, ::webnn::mojom::blink::EluPtr>::Read(
+    ::webnn::mojom::blink::Elu::DataView input,
+    ::webnn::mojom::blink::EluPtr* output) {
+  bool success = true;
+  ::webnn::mojom::blink::EluPtr result(::webnn::mojom::blink::Elu::New());
+  
+      if (success)
+        result->input_operand_id = input.input_operand_id();
+      if (success)
+        result->output_operand_id = input.output_operand_id();
+      if (success)
+        result->alpha = input.alpha();
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::webnn::mojom::blink::Gather::DataView, ::webnn::mojom::blink::GatherPtr>::Read(
+    ::webnn::mojom::blink::Gather::DataView input,
+    ::webnn::mojom::blink::GatherPtr* output) {
+  bool success = true;
+  ::webnn::mojom::blink::GatherPtr result(::webnn::mojom::blink::Gather::New());
+  
+      if (success)
+        result->input_operand_id = input.input_operand_id();
+      if (success)
+        result->indices_operand_id = input.indices_operand_id();
+      if (success)
+        result->output_operand_id = input.output_operand_id();
+      if (success)
+        result->axis = input.axis();
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
 bool StructTraits<::webnn::mojom::blink::Gemm::DataView, ::webnn::mojom::blink::GemmPtr>::Read(
     ::webnn::mojom::blink::Gemm::DataView input,
     ::webnn::mojom::blink::GemmPtr* output) {
@@ -2787,6 +4311,70 @@ bool StructTraits<::webnn::mojom::blink::Gemm::DataView, ::webnn::mojom::blink::
         result->a_transpose = input.a_transpose();
       if (success)
         result->b_transpose = input.b_transpose();
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::webnn::mojom::blink::LayerNormalization::DataView, ::webnn::mojom::blink::LayerNormalizationPtr>::Read(
+    ::webnn::mojom::blink::LayerNormalization::DataView input,
+    ::webnn::mojom::blink::LayerNormalizationPtr* output) {
+  bool success = true;
+  ::webnn::mojom::blink::LayerNormalizationPtr result(::webnn::mojom::blink::LayerNormalization::New());
+  
+      if (success)
+        result->input_operand_id = input.input_operand_id();
+      if (success)
+        result->output_operand_id = input.output_operand_id();
+      if (success) {
+        result->scale_operand_id = input.scale_operand_id();
+      }
+      if (success) {
+        result->bias_operand_id = input.bias_operand_id();
+      }
+      if (success && !input.ReadAxes(&result->axes))
+        success = false;
+      if (success)
+        result->epsilon = input.epsilon();
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::webnn::mojom::blink::LeakyRelu::DataView, ::webnn::mojom::blink::LeakyReluPtr>::Read(
+    ::webnn::mojom::blink::LeakyRelu::DataView input,
+    ::webnn::mojom::blink::LeakyReluPtr* output) {
+  bool success = true;
+  ::webnn::mojom::blink::LeakyReluPtr result(::webnn::mojom::blink::LeakyRelu::New());
+  
+      if (success)
+        result->input_operand_id = input.input_operand_id();
+      if (success)
+        result->output_operand_id = input.output_operand_id();
+      if (success)
+        result->alpha = input.alpha();
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::webnn::mojom::blink::Linear::DataView, ::webnn::mojom::blink::LinearPtr>::Read(
+    ::webnn::mojom::blink::Linear::DataView input,
+    ::webnn::mojom::blink::LinearPtr* output) {
+  bool success = true;
+  ::webnn::mojom::blink::LinearPtr result(::webnn::mojom::blink::Linear::New());
+  
+      if (success)
+        result->input_operand_id = input.input_operand_id();
+      if (success)
+        result->output_operand_id = input.output_operand_id();
+      if (success)
+        result->alpha = input.alpha();
+      if (success)
+        result->beta = input.beta();
   *output = std::move(result);
   return success;
 }
@@ -2875,6 +4463,24 @@ bool StructTraits<::webnn::mojom::blink::Softmax::DataView, ::webnn::mojom::blin
 
 
 // static
+bool StructTraits<::webnn::mojom::blink::Softplus::DataView, ::webnn::mojom::blink::SoftplusPtr>::Read(
+    ::webnn::mojom::blink::Softplus::DataView input,
+    ::webnn::mojom::blink::SoftplusPtr* output) {
+  bool success = true;
+  ::webnn::mojom::blink::SoftplusPtr result(::webnn::mojom::blink::Softplus::New());
+  
+      if (success)
+        result->input_operand_id = input.input_operand_id();
+      if (success)
+        result->output_operand_id = input.output_operand_id();
+      if (success)
+        result->steepness = input.steepness();
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
 bool StructTraits<::webnn::mojom::blink::Split::DataView, ::webnn::mojom::blink::SplitPtr>::Read(
     ::webnn::mojom::blink::Split::DataView input,
     ::webnn::mojom::blink::SplitPtr* output) {
@@ -2939,6 +4545,30 @@ bool StructTraits<::webnn::mojom::blink::Resample2d::DataView, ::webnn::mojom::b
         result->output_operand_id = input.output_operand_id();
       if (success && !input.ReadMode(&result->mode))
         success = false;
+      if (success && !input.ReadScales(&result->scales))
+        success = false;
+      if (success && !input.ReadAxes(&result->axes))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::webnn::mojom::blink::Where::DataView, ::webnn::mojom::blink::WherePtr>::Read(
+    ::webnn::mojom::blink::Where::DataView input,
+    ::webnn::mojom::blink::WherePtr* output) {
+  bool success = true;
+  ::webnn::mojom::blink::WherePtr result(::webnn::mojom::blink::Where::New());
+  
+      if (success)
+        result->condition_operand_id = input.condition_operand_id();
+      if (success)
+        result->true_value_operand_id = input.true_value_operand_id();
+      if (success)
+        result->false_value_operand_id = input.false_value_operand_id();
+      if (success)
+        result->output_operand_id = input.output_operand_id();
   *output = std::move(result);
   return success;
 }
@@ -3033,6 +4663,33 @@ bool UnionTraits<::webnn::mojom::blink::Activation::DataView, ::webnn::mojom::bl
           std::move(result_clamp));
       break;
     }
+    case Tag::kElu: {
+      ::webnn::mojom::blink::EluPtr result_elu;
+      if (!input.ReadElu(&result_elu))
+        return false;
+
+      *output = UnionType::NewElu(
+          std::move(result_elu));
+      break;
+    }
+    case Tag::kLeakyRelu: {
+      ::webnn::mojom::blink::LeakyReluPtr result_leaky_relu;
+      if (!input.ReadLeakyRelu(&result_leaky_relu))
+        return false;
+
+      *output = UnionType::NewLeakyRelu(
+          std::move(result_leaky_relu));
+      break;
+    }
+    case Tag::kLinear: {
+      ::webnn::mojom::blink::LinearPtr result_linear;
+      if (!input.ReadLinear(&result_linear))
+        return false;
+
+      *output = UnionType::NewLinear(
+          std::move(result_linear));
+      break;
+    }
     case Tag::kRelu: {
       ::webnn::mojom::blink::ReluPtr result_relu;
       if (!input.ReadRelu(&result_relu))
@@ -3060,6 +4717,15 @@ bool UnionTraits<::webnn::mojom::blink::Activation::DataView, ::webnn::mojom::bl
           std::move(result_softmax));
       break;
     }
+    case Tag::kSoftplus: {
+      ::webnn::mojom::blink::SoftplusPtr result_softplus;
+      if (!input.ReadSoftplus(&result_softplus))
+        return false;
+
+      *output = UnionType::NewSoftplus(
+          std::move(result_softplus));
+      break;
+    }
     case Tag::kTanh: {
       ::webnn::mojom::blink::TanhPtr result_tanh;
       if (!input.ReadTanh(&result_tanh))
@@ -3084,6 +4750,24 @@ bool UnionTraits<::webnn::mojom::blink::Operation::DataView, ::webnn::mojom::bli
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
+    case Tag::kArgMinMax: {
+      ::webnn::mojom::blink::ArgMinMaxPtr result_arg_min_max;
+      if (!input.ReadArgMinMax(&result_arg_min_max))
+        return false;
+
+      *output = UnionType::NewArgMinMax(
+          std::move(result_arg_min_max));
+      break;
+    }
+    case Tag::kBatchNormalization: {
+      ::webnn::mojom::blink::BatchNormalizationPtr result_batch_normalization;
+      if (!input.ReadBatchNormalization(&result_batch_normalization))
+        return false;
+
+      *output = UnionType::NewBatchNormalization(
+          std::move(result_batch_normalization));
+      break;
+    }
     case Tag::kClamp: {
       ::webnn::mojom::blink::ClampPtr result_clamp;
       if (!input.ReadClamp(&result_clamp))
@@ -3120,6 +4804,42 @@ bool UnionTraits<::webnn::mojom::blink::Operation::DataView, ::webnn::mojom::bli
           std::move(result_element_wise_binary));
       break;
     }
+    case Tag::kElu: {
+      ::webnn::mojom::blink::EluPtr result_elu;
+      if (!input.ReadElu(&result_elu))
+        return false;
+
+      *output = UnionType::NewElu(
+          std::move(result_elu));
+      break;
+    }
+    case Tag::kElementWiseUnary: {
+      ::webnn::mojom::blink::ElementWiseUnaryPtr result_element_wise_unary;
+      if (!input.ReadElementWiseUnary(&result_element_wise_unary))
+        return false;
+
+      *output = UnionType::NewElementWiseUnary(
+          std::move(result_element_wise_unary));
+      break;
+    }
+    case Tag::kExpand: {
+      ::webnn::mojom::blink::ExpandPtr result_expand;
+      if (!input.ReadExpand(&result_expand))
+        return false;
+
+      *output = UnionType::NewExpand(
+          std::move(result_expand));
+      break;
+    }
+    case Tag::kGather: {
+      ::webnn::mojom::blink::GatherPtr result_gather;
+      if (!input.ReadGather(&result_gather))
+        return false;
+
+      *output = UnionType::NewGather(
+          std::move(result_gather));
+      break;
+    }
     case Tag::kGemm: {
       ::webnn::mojom::blink::GemmPtr result_gemm;
       if (!input.ReadGemm(&result_gemm))
@@ -3127,6 +4847,51 @@ bool UnionTraits<::webnn::mojom::blink::Operation::DataView, ::webnn::mojom::bli
 
       *output = UnionType::NewGemm(
           std::move(result_gemm));
+      break;
+    }
+    case Tag::kLayerNormalization: {
+      ::webnn::mojom::blink::LayerNormalizationPtr result_layer_normalization;
+      if (!input.ReadLayerNormalization(&result_layer_normalization))
+        return false;
+
+      *output = UnionType::NewLayerNormalization(
+          std::move(result_layer_normalization));
+      break;
+    }
+    case Tag::kInstanceNormalization: {
+      ::webnn::mojom::blink::InstanceNormalizationPtr result_instance_normalization;
+      if (!input.ReadInstanceNormalization(&result_instance_normalization))
+        return false;
+
+      *output = UnionType::NewInstanceNormalization(
+          std::move(result_instance_normalization));
+      break;
+    }
+    case Tag::kLeakyRelu: {
+      ::webnn::mojom::blink::LeakyReluPtr result_leaky_relu;
+      if (!input.ReadLeakyRelu(&result_leaky_relu))
+        return false;
+
+      *output = UnionType::NewLeakyRelu(
+          std::move(result_leaky_relu));
+      break;
+    }
+    case Tag::kLinear: {
+      ::webnn::mojom::blink::LinearPtr result_linear;
+      if (!input.ReadLinear(&result_linear))
+        return false;
+
+      *output = UnionType::NewLinear(
+          std::move(result_linear));
+      break;
+    }
+    case Tag::kMatmul: {
+      ::webnn::mojom::blink::MatmulPtr result_matmul;
+      if (!input.ReadMatmul(&result_matmul))
+        return false;
+
+      *output = UnionType::NewMatmul(
+          std::move(result_matmul));
       break;
     }
     case Tag::kPad: {
@@ -3154,6 +4919,15 @@ bool UnionTraits<::webnn::mojom::blink::Operation::DataView, ::webnn::mojom::bli
 
       *output = UnionType::NewPrelu(
           std::move(result_prelu));
+      break;
+    }
+    case Tag::kReduce: {
+      ::webnn::mojom::blink::ReducePtr result_reduce;
+      if (!input.ReadReduce(&result_reduce))
+        return false;
+
+      *output = UnionType::NewReduce(
+          std::move(result_reduce));
       break;
     }
     case Tag::kRelu: {
@@ -3210,6 +4984,15 @@ bool UnionTraits<::webnn::mojom::blink::Operation::DataView, ::webnn::mojom::bli
           std::move(result_softmax));
       break;
     }
+    case Tag::kSoftplus: {
+      ::webnn::mojom::blink::SoftplusPtr result_softplus;
+      if (!input.ReadSoftplus(&result_softplus))
+        return false;
+
+      *output = UnionType::NewSoftplus(
+          std::move(result_softplus));
+      break;
+    }
     case Tag::kSplit: {
       ::webnn::mojom::blink::SplitPtr result_split;
       if (!input.ReadSplit(&result_split))
@@ -3235,6 +5018,15 @@ bool UnionTraits<::webnn::mojom::blink::Operation::DataView, ::webnn::mojom::bli
 
       *output = UnionType::NewTranspose(
           std::move(result_transpose));
+      break;
+    }
+    case Tag::kWhere: {
+      ::webnn::mojom::blink::WherePtr result_where;
+      if (!input.ReadWhere(&result_where))
+        return false;
+
+      *output = UnionType::NewWhere(
+          std::move(result_where));
       break;
     }
     default:
@@ -3263,17 +5055,17 @@ WebNNGraphAsyncWaiter::WebNNGraphAsyncWaiter(
 WebNNGraphAsyncWaiter::~WebNNGraphAsyncWaiter() = default;
 
 void WebNNGraphAsyncWaiter::Compute(
-    WTF::HashMap<WTF::String, ::mojo_base::BigBuffer> named_inputs, ComputeResult* out_result, absl::optional<WTF::HashMap<WTF::String, ::mojo_base::BigBuffer>>* out_named_outputs) {
+    WTF::HashMap<WTF::String, ::mojo_base::BigBuffer> named_inputs, ComputeResult* out_result, std::optional<WTF::HashMap<WTF::String, ::mojo_base::BigBuffer>>* out_named_outputs) {
   base::RunLoop loop;
   proxy_->Compute(std::move(named_inputs),
       base::BindOnce(
           [](base::RunLoop* loop,
              ComputeResult* out_result
 ,
-             absl::optional<WTF::HashMap<WTF::String, ::mojo_base::BigBuffer>>* out_named_outputs
+             std::optional<WTF::HashMap<WTF::String, ::mojo_base::BigBuffer>>* out_named_outputs
 ,
              ComputeResult result,
-             absl::optional<WTF::HashMap<WTF::String, ::mojo_base::BigBuffer>> named_outputs) {*out_result = std::move(result);*out_named_outputs = std::move(named_outputs);
+             std::optional<WTF::HashMap<WTF::String, ::mojo_base::BigBuffer>> named_outputs) {*out_result = std::move(result);*out_named_outputs = std::move(named_outputs);
             loop->Quit();
           },
           &loop,

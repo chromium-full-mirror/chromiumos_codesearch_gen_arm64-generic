@@ -32,6 +32,7 @@
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
+#include "mojo/public/cpp/bindings/urgent_message_scope.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
@@ -68,16 +69,16 @@ ParsedHeaders::ParsedHeaders(
     const ::network::CrossOriginEmbedderPolicy& cross_origin_embedder_policy_in,
     const ::network::CrossOriginOpenerPolicy& cross_origin_opener_policy_in,
     OriginAgentClusterValue origin_agent_cluster_in,
-    absl::optional<std::vector<::network::mojom::WebClientHintsType>> accept_ch_in,
-    absl::optional<std::vector<::network::mojom::WebClientHintsType>> critical_ch_in,
+    std::optional<std::vector<::network::mojom::WebClientHintsType>> accept_ch_in,
+    std::optional<std::vector<::network::mojom::WebClientHintsType>> critical_ch_in,
     bool client_hints_ignored_due_to_clear_site_data_header_in,
     ::network::mojom::XFrameOptionsValue xfo_in,
     std::vector<::network::mojom::LinkHeaderPtr> link_headers_in,
     ::network::mojom::TimingAllowOriginPtr timing_allow_origin_in,
     std::vector<::network::mojom::LoadingMode> supports_loading_mode_in,
-    const absl::optional<base::flat_map<std::string, std::string>>& reporting_endpoints_in,
-    absl::optional<std::vector<::network::mojom::VariantsHeaderPtr>> variants_headers_in,
-    absl::optional<std::vector<std::string>> content_language_in,
+    const std::optional<base::flat_map<std::string, std::string>>& reporting_endpoints_in,
+    std::optional<std::vector<::network::mojom::VariantsHeaderPtr>> variants_headers_in,
+    std::optional<std::vector<std::string>> content_language_in,
     ::network::mojom::NoVarySearchWithParseErrorPtr no_vary_search_with_parse_error_in,
     bool observe_browsing_topics_in)
     : content_security_policy(std::move(content_security_policy_in)),
@@ -152,7 +153,7 @@ void ParsedHeaders::WriteIntoTrace(
     dict.AddItem(
       "accept_ch"), this->accept_ch,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<::network::mojom::WebClientHintsType>>&>"
+      "<value of type const std::optional<std::vector<::network::mojom::WebClientHintsType>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -161,7 +162,7 @@ void ParsedHeaders::WriteIntoTrace(
     dict.AddItem(
       "critical_ch"), this->critical_ch,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<::network::mojom::WebClientHintsType>>&>"
+      "<value of type const std::optional<std::vector<::network::mojom::WebClientHintsType>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -215,7 +216,7 @@ void ParsedHeaders::WriteIntoTrace(
     dict.AddItem(
       "reporting_endpoints"), this->reporting_endpoints,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<base::flat_map<std::string, std::string>>&>"
+      "<value of type const std::optional<base::flat_map<std::string, std::string>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -224,7 +225,7 @@ void ParsedHeaders::WriteIntoTrace(
     dict.AddItem(
       "variants_headers"), this->variants_headers,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type absl::optional<std::vector<::network::mojom::VariantsHeaderPtr>>>"
+      "<value of type std::optional<std::vector<::network::mojom::VariantsHeaderPtr>>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -233,7 +234,7 @@ void ParsedHeaders::WriteIntoTrace(
     dict.AddItem(
       "content_language"), this->content_language,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::vector<std::string>>&>"
+      "<value of type const std::optional<std::vector<std::string>>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

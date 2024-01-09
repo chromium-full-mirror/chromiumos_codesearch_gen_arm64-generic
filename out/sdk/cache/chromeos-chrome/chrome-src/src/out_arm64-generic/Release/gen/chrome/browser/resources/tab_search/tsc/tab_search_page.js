@@ -18,7 +18,7 @@ import { CrSearchFieldMixin } from 'chrome://resources/cr_elements/cr_search_fie
 import { assert } from 'chrome://resources/js/assert.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { MetricsReporterImpl } from 'chrome://resources/js/metrics_reporter/metrics_reporter.js';
-import { listenOnce } from 'chrome://resources/js/util_ts.js';
+import { listenOnce } from 'chrome://resources/js/util.js';
 import { IronA11yAnnouncer } from 'chrome://resources/polymer/v3_0/iron-a11y-announcer/iron-a11y-announcer.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { fuzzySearch } from './fuzzy_search.js';
@@ -102,6 +102,11 @@ export class TabSearchPageElement extends TabSearchSearchFieldBase {
             recentlyClosedDefaultItemDisplayCount_: {
                 type: Number,
                 value: () => loadTimeData.getValue('recentlyClosedDefaultItemDisplayCount'),
+            },
+            tabOrganizationEnabled: {
+                type: Boolean,
+                reflectToAttribute: true,
+                value: () => loadTimeData.getBoolean('tabOrganizationEnabled'),
             },
         };
     }

@@ -208,31 +208,31 @@ class CrosLogicalCpuInfoDataView {
       : data_(data) {}
 
   bool is_null() const { return !data_; }
-  absl::optional<uint32_t> core_id() const {
+  std::optional<uint32_t> core_id() const {
 
     return data_->core_id_$flag
         ? absl::make_optional(data_->core_id_$value)
         : absl::nullopt;
   }
-  absl::optional<uint64_t> idle_time_ms() const {
+  std::optional<uint64_t> idle_time_ms() const {
 
     return data_->idle_time_ms_$flag
         ? absl::make_optional(data_->idle_time_ms_$value)
         : absl::nullopt;
   }
-  absl::optional<uint32_t> max_clock_speed_khz() const {
+  std::optional<uint32_t> max_clock_speed_khz() const {
 
     return data_->max_clock_speed_khz_$flag
         ? absl::make_optional(data_->max_clock_speed_khz_$value)
         : absl::nullopt;
   }
-  absl::optional<uint32_t> scaling_current_frequency_khz() const {
+  std::optional<uint32_t> scaling_current_frequency_khz() const {
 
     return data_->scaling_current_frequency_khz_$flag
         ? absl::make_optional(data_->scaling_current_frequency_khz_$value)
         : absl::nullopt;
   }
-  absl::optional<uint32_t> scaling_max_frequency_khz() const {
+  std::optional<uint32_t> scaling_max_frequency_khz() const {
 
     return data_->scaling_max_frequency_khz_$flag
         ? absl::make_optional(data_->scaling_max_frequency_khz_$value)

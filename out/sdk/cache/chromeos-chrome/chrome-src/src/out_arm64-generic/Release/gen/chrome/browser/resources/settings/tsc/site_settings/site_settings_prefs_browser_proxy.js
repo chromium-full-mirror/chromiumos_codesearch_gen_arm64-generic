@@ -51,9 +51,6 @@ export class SiteSettingsPrefsBrowserProxyImpl {
     getCategoryList(origin) {
         return sendWithPromise('getCategoryList', origin);
     }
-    getCookieSettingDescription() {
-        return sendWithPromise('getCookieSettingDescription');
-    }
     getRecentSitePermissions(numSources) {
         return sendWithPromise('getRecentSitePermissions', numSources);
     }

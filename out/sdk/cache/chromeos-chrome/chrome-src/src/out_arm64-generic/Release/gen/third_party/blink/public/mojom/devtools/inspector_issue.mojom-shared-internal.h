@@ -375,6 +375,8 @@ struct FederatedAuthRequestResult_Data {
       case 31:
       case 32:
       case 33:
+      case 34:
+      case 35:
         return true;
     }
     return false;

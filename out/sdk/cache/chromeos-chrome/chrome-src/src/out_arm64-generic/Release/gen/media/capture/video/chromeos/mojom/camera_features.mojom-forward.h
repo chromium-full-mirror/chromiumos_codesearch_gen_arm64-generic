@@ -7,7 +7,7 @@
 #ifndef MEDIA_CAPTURE_VIDEO_CHROMEOS_MOJOM_CAMERA_FEATURES_MOJOM_FORWARD_H_
 #define MEDIA_CAPTURE_VIDEO_CHROMEOS_MOJOM_CAMERA_FEATURES_MOJOM_FORWARD_H_
 
-
+#include <stdint.h>
 
 #include "mojo/public/cpp/bindings/struct_forward.h"
 
@@ -25,6 +25,8 @@ namespace cros::mojom {
 class PortraitModeConfigDataView;
 
 class Camera3StreamEffectDataView;
+
+enum class PortraitModeSegResult : int32_t;
 class PortraitModeConfig;
 using PortraitModeConfigPtr = mojo::InlinedStructPtr<PortraitModeConfig>;
 

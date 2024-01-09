@@ -62,7 +62,6 @@ export class OsSettingsPowerwashDialogElement extends PolymerElement {
     }
     connectedCallback() {
         super.connectedCallback();
-        this.osResetBrowserProxy_.onPowerwashDialogShow();
         this.$.dialog.showModal();
     }
     onCancelClick_() {

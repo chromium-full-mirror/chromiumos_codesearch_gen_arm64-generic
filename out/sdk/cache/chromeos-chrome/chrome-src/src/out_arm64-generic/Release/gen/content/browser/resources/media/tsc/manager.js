@@ -1,7 +1,7 @@
 // Copyright 2013 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import { $ } from 'chrome://resources/js/util_ts.js';
+import { $ } from 'chrome://resources/js/util.js';
 import { PlayerInfo } from './player_info.js';
 import { objectForEach } from './util.js';
 /**
@@ -17,9 +17,9 @@ export class Manager {
         this.audioInfo_ = {};
         this.audioComponents_ = [];
         this.clientRenderer_ = clientRenderer;
-        var copyAllPlayerButton = $('copy-all-player-button');
-        var copyAllAudioButton = $('copy-all-audio-button');
-        var hidePlayersButton = $('hide-players-button');
+        const copyAllPlayerButton = $('copy-all-player-button');
+        const copyAllAudioButton = $('copy-all-audio-button');
+        const hidePlayersButton = $('hide-players-button');
         // In tests we may not have these buttons.
         if (copyAllPlayerButton) {
             copyAllPlayerButton.onclick = function () {
@@ -73,7 +73,7 @@ export class Manager {
             this.audioComponents_[componentType][componentId] = componentData;
         }
         else {
-            for (var key in componentData) {
+            for (const key in componentData) {
                 this.audioComponents_[componentType][componentId][key] =
                     componentData[key];
             }
@@ -108,7 +108,7 @@ export class Manager {
      * @param id The ID of the player to remove.
      */
     removePlayer(id) {
-        var playerRemoved = this.players_[id];
+        const playerRemoved = this.players_[id];
         delete this.players_[id];
         this.clientRenderer_.playerRemoved(this.players_, playerRemoved);
     }
@@ -151,10 +151,10 @@ export class Manager {
          * formatDict:
          *   {'resolution':'1280x720', 'fps': '30.00', "storage: "CPU" }
          */
-        var parts = format.split(', ');
-        var formatDict = {};
-        for (var i in parts) {
-            var kv = parts[i].split(': ');
+        const parts = format.split(', ');
+        const formatDict = {};
+        for (const i in parts) {
+            let kv = parts[i].split(': ');
             if (kv.length === 2) {
                 if (kv[0] === 'pixel format') {
                     // The camera does not actually output I420,
@@ -176,8 +176,8 @@ export class Manager {
     }
     updateVideoCaptureCapabilities(videoCaptureCapabilities) {
         // Parse the video formats to be structured for the table.
-        for (var i in videoCaptureCapabilities) {
-            for (var j in videoCaptureCapabilities[i]['formats']) {
+        for (const i in videoCaptureCapabilities) {
+            for (const j in videoCaptureCapabilities[i]['formats']) {
                 videoCaptureCapabilities[i]['formats'][j] =
                     this.parseVideoCaptureFormat_(videoCaptureCapabilities[i]['formats'][j]);
             }
@@ -185,7 +185,7 @@ export class Manager {
                 videoCaptureCapabilities[i]['controlSupport'].join(' ') || 'N/A';
         }
         // The keys of each device to be shown in order of appearance.
-        var videoCaptureDeviceKeys = ['name', 'formats', 'captureApi', 'controlSupport', 'id'];
+        const videoCaptureDeviceKeys = ['name', 'formats', 'captureApi', 'controlSupport', 'id'];
         this.clientRenderer_.redrawVideoCaptureCapabilities(videoCaptureCapabilities, videoCaptureDeviceKeys);
     }
 }

@@ -69,11 +69,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, PushMessageData>::value,
     "PushMessageData inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&PushMessageData::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "PushMessageData is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -95,7 +90,8 @@ v8::Local<v8::Object> v8_receiver = info.This();
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-PushMessageData* blink_receiver = V8PushMessageData::ToWrappableUnsafe(v8_receiver);
+v8::Isolate* isolate = info.GetIsolate();
+PushMessageData* blink_receiver = V8PushMessageData::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->arrayBuffer();
 if (!ToV8Traits<DOMArrayBuffer>::ToV8(script_state, return_value).ToLocal(&v8_return_value)) {
   return;
@@ -114,8 +110,9 @@ BLINK_BINDINGS_TRACE_EVENT("PushMessageData.blob");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-PushMessageData* blink_receiver = V8PushMessageData::ToWrappableUnsafe(v8_receiver);
+PushMessageData* blink_receiver = V8PushMessageData::ToWrappableUnsafe(isolate, v8_receiver);
 auto&& return_value = blink_receiver->blob();
 bindings::V8SetReturnValue(info, return_value, blink_receiver);
 }
@@ -131,12 +128,12 @@ BLINK_BINDINGS_TRACE_EVENT("PushMessageData.json");
 
 
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Object> v8_receiver = info.This();
-PushMessageData* blink_receiver = V8PushMessageData::ToWrappableUnsafe(v8_receiver);
+PushMessageData* blink_receiver = V8PushMessageData::ToWrappableUnsafe(isolate, v8_receiver);
 v8::Local<v8::Context> receiver_context = v8_receiver->GetCreationContextChecked();
 ScriptState* receiver_script_state = ScriptState::From(receiver_context);
 ScriptState* script_state = receiver_script_state;
-v8::Isolate* isolate = info.GetIsolate();
 const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
 const char* const class_like_name = "PushMessageData";
 const char* const property_name = "json";
@@ -159,10 +156,10 @@ BLINK_BINDINGS_TRACE_EVENT("PushMessageData.text");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-PushMessageData* blink_receiver = V8PushMessageData::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->text();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+PushMessageData* blink_receiver = V8PushMessageData::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->text();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 

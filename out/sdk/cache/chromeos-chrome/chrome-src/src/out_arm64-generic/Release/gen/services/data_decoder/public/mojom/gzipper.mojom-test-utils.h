@@ -29,17 +29,17 @@ class  GzipperAsyncWaiter {
 
   ~GzipperAsyncWaiter();
   void Deflate(
-      ::mojo_base::BigBuffer data, absl::optional<::mojo_base::BigBuffer>* out_deflated_data);
-  absl::optional<::mojo_base::BigBuffer> Deflate(::mojo_base::BigBuffer data);
+      ::mojo_base::BigBuffer data, std::optional<::mojo_base::BigBuffer>* out_deflated_data);
+  std::optional<::mojo_base::BigBuffer> Deflate(::mojo_base::BigBuffer data);
   void Inflate(
-      ::mojo_base::BigBuffer data, uint64_t max_uncompressed_size, absl::optional<::mojo_base::BigBuffer>* out_inflated_data);
-  absl::optional<::mojo_base::BigBuffer> Inflate(::mojo_base::BigBuffer data, uint64_t max_uncompressed_size);
+      ::mojo_base::BigBuffer data, uint64_t max_uncompressed_size, std::optional<::mojo_base::BigBuffer>* out_inflated_data);
+  std::optional<::mojo_base::BigBuffer> Inflate(::mojo_base::BigBuffer data, uint64_t max_uncompressed_size);
   void Compress(
-      ::mojo_base::BigBuffer data, absl::optional<::mojo_base::BigBuffer>* out_compressed_data);
-  absl::optional<::mojo_base::BigBuffer> Compress(::mojo_base::BigBuffer data);
+      ::mojo_base::BigBuffer data, std::optional<::mojo_base::BigBuffer>* out_compressed_data);
+  std::optional<::mojo_base::BigBuffer> Compress(::mojo_base::BigBuffer data);
   void Uncompress(
-      ::mojo_base::BigBuffer compressed_data, absl::optional<::mojo_base::BigBuffer>* out_data);
-  absl::optional<::mojo_base::BigBuffer> Uncompress(::mojo_base::BigBuffer compressed_data);
+      ::mojo_base::BigBuffer compressed_data, std::optional<::mojo_base::BigBuffer>* out_data);
+  std::optional<::mojo_base::BigBuffer> Uncompress(::mojo_base::BigBuffer compressed_data);
 
  private:
   Gzipper* const proxy_;

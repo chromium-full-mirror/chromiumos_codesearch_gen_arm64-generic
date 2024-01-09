@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -99,8 +100,8 @@ struct FileInfo {
   ~FileInfo();
   FileInfo(const FileInfo&) = delete;
   FileInfo& operator=(const FileInfo&) = delete;
-  FileInfo(FileInfo&& rhs);
-  FileInfo& operator=(FileInfo&& rhs);
+  FileInfo(FileInfo&& rhs) noexcept;
+  FileInfo& operator=(FileInfo&& rhs) noexcept;
 
   // Populates a FileInfo object from a base::Value& instance. Returns whether
   // |out| was successfully populated.
@@ -113,14 +114,11 @@ struct FileInfo {
   // Creates a deep copy of FileInfo.
   FileInfo Clone() const;
 
-  // Creates a FileInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<FileInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a FileInfo object from a base::Value::Dict, or nullopt on failure.
-  static absl::optional<FileInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<FileInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a FileInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<FileInfo> FromValue(const base::Value& value);
+  static std::optional<FileInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisFileInfo object.
@@ -135,8 +133,8 @@ struct FileInfo {
     ~FileEntry();
     FileEntry(const FileEntry&) = delete;
     FileEntry& operator=(const FileEntry&) = delete;
-    FileEntry(FileEntry&& rhs);
-    FileEntry& operator=(FileEntry&& rhs);
+    FileEntry(FileEntry&& rhs) noexcept;
+    FileEntry& operator=(FileEntry&& rhs) noexcept;
 
     // Populates a FileEntry object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -150,10 +148,10 @@ struct FileInfo {
     FileEntry Clone() const;
 
     // Creates a FileEntry object from a base::Value::Dict, or nullopt on failure.
-    static absl::optional<FileEntry> FromValue(const base::Value::Dict& value);
+    static std::optional<FileEntry> FromValue(const base::Value::Dict& value);
 
     // Creates a FileEntry object from a base::Value, or nullopt on failure.
-    static absl::optional<FileEntry> FromValue(const base::Value& value);
+    static std::optional<FileEntry> FromValue(const base::Value& value);
 
     // Returns a new base::Value::Dict representing the serialized form of
     // thisFileEntry object.
@@ -191,8 +189,8 @@ struct FileStatusInfo {
   ~FileStatusInfo();
   FileStatusInfo(const FileStatusInfo&) = delete;
   FileStatusInfo& operator=(const FileStatusInfo&) = delete;
-  FileStatusInfo(FileStatusInfo&& rhs);
-  FileStatusInfo& operator=(FileStatusInfo&& rhs);
+  FileStatusInfo(FileStatusInfo&& rhs) noexcept;
+  FileStatusInfo& operator=(FileStatusInfo&& rhs) noexcept;
 
   // Populates a FileStatusInfo object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -205,15 +203,12 @@ struct FileStatusInfo {
   // Creates a deep copy of FileStatusInfo.
   FileStatusInfo Clone() const;
 
-  // Creates a FileStatusInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<FileStatusInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a FileStatusInfo object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<FileStatusInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<FileStatusInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a FileStatusInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<FileStatusInfo> FromValue(const base::Value& value);
+  static std::optional<FileStatusInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisFileStatusInfo object.
@@ -225,8 +220,8 @@ struct FileStatusInfo {
     ~FileEntry();
     FileEntry(const FileEntry&) = delete;
     FileEntry& operator=(const FileEntry&) = delete;
-    FileEntry(FileEntry&& rhs);
-    FileEntry& operator=(FileEntry&& rhs);
+    FileEntry(FileEntry&& rhs) noexcept;
+    FileEntry& operator=(FileEntry&& rhs) noexcept;
 
     // Populates a FileEntry object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -240,10 +235,10 @@ struct FileStatusInfo {
     FileEntry Clone() const;
 
     // Creates a FileEntry object from a base::Value::Dict, or nullopt on failure.
-    static absl::optional<FileEntry> FromValue(const base::Value::Dict& value);
+    static std::optional<FileEntry> FromValue(const base::Value::Dict& value);
 
     // Creates a FileEntry object from a base::Value, or nullopt on failure.
-    static absl::optional<FileEntry> FromValue(const base::Value& value);
+    static std::optional<FileEntry> FromValue(const base::Value& value);
 
     // Returns a new base::Value::Dict representing the serialized form of
     // thisFileEntry object.
@@ -262,7 +257,7 @@ struct FileStatusInfo {
 
   // Optional error that is only returned if there was a problem retrieving the
   // FileStatus for the given file.
-  absl::optional<std::string> error;
+  std::optional<std::string> error;
 
 };
 
@@ -271,8 +266,8 @@ struct StorageInfo {
   ~StorageInfo();
   StorageInfo(const StorageInfo&) = delete;
   StorageInfo& operator=(const StorageInfo&) = delete;
-  StorageInfo(StorageInfo&& rhs);
-  StorageInfo& operator=(StorageInfo&& rhs);
+  StorageInfo(StorageInfo&& rhs) noexcept;
+  StorageInfo& operator=(StorageInfo&& rhs) noexcept;
 
   // Populates a StorageInfo object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -285,15 +280,12 @@ struct StorageInfo {
   // Creates a deep copy of StorageInfo.
   StorageInfo Clone() const;
 
-  // Creates a StorageInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<StorageInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a StorageInfo object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<StorageInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<StorageInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a StorageInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<StorageInfo> FromValue(const base::Value& value);
+  static std::optional<StorageInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisStorageInfo object.
@@ -310,8 +302,8 @@ struct ServiceInfo {
   ~ServiceInfo();
   ServiceInfo(const ServiceInfo&) = delete;
   ServiceInfo& operator=(const ServiceInfo&) = delete;
-  ServiceInfo(ServiceInfo&& rhs);
-  ServiceInfo& operator=(ServiceInfo&& rhs);
+  ServiceInfo(ServiceInfo&& rhs) noexcept;
+  ServiceInfo& operator=(ServiceInfo&& rhs) noexcept;
 
   // Populates a ServiceInfo object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
@@ -324,15 +316,12 @@ struct ServiceInfo {
   // Creates a deep copy of ServiceInfo.
   ServiceInfo Clone() const;
 
-  // Creates a ServiceInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ServiceInfo> FromValueDeprecated(const base::Value& value);
-
   // Creates a ServiceInfo object from a base::Value::Dict, or nullopt on
   // failure.
-  static absl::optional<ServiceInfo> FromValue(const base::Value::Dict& value);
+  static std::optional<ServiceInfo> FromValue(const base::Value::Dict& value);
 
   // Creates a ServiceInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<ServiceInfo> FromValue(const base::Value& value);
+  static std::optional<ServiceInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisServiceInfo object.
@@ -358,8 +347,8 @@ struct FileSystem {
   ~FileSystem();
   FileSystem(const FileSystem&) = delete;
   FileSystem& operator=(const FileSystem&) = delete;
-  FileSystem(FileSystem&& rhs);
-  FileSystem& operator=(FileSystem&& rhs);
+  FileSystem(FileSystem&& rhs) noexcept;
+  FileSystem& operator=(FileSystem&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisFileSystem object.
@@ -377,11 +366,11 @@ base::Value::List Create(const FileSystem& file_system);
 namespace SetConflictResolutionPolicy {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   ConflictResolutionPolicy policy;
@@ -410,11 +399,11 @@ base::Value::List Create(const ConflictResolutionPolicy& policy);
 namespace GetUsageAndQuota {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   struct FileSystem {
@@ -422,8 +411,8 @@ struct Params {
     ~FileSystem();
     FileSystem(const FileSystem&) = delete;
     FileSystem& operator=(const FileSystem&) = delete;
-    FileSystem(FileSystem&& rhs);
-    FileSystem& operator=(FileSystem&& rhs);
+    FileSystem(FileSystem&& rhs) noexcept;
+    FileSystem& operator=(FileSystem&& rhs) noexcept;
 
     // Populates a FileSystem object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -438,10 +427,10 @@ struct Params {
 
     // Creates a FileSystem object from a base::Value::Dict, or nullopt on
     // failure.
-    static absl::optional<FileSystem> FromValue(const base::Value::Dict& value);
+    static std::optional<FileSystem> FromValue(const base::Value::Dict& value);
 
     // Creates a FileSystem object from a base::Value, or nullopt on failure.
-    static absl::optional<FileSystem> FromValue(const base::Value& value);
+    static std::optional<FileSystem> FromValue(const base::Value& value);
 
     base::Value::Dict additional_properties;
   };
@@ -464,11 +453,11 @@ base::Value::List Create(const StorageInfo& info);
 namespace GetFileStatus {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   struct FileEntry {
@@ -476,8 +465,8 @@ struct Params {
     ~FileEntry();
     FileEntry(const FileEntry&) = delete;
     FileEntry& operator=(const FileEntry&) = delete;
-    FileEntry(FileEntry&& rhs);
-    FileEntry& operator=(FileEntry&& rhs);
+    FileEntry(FileEntry&& rhs) noexcept;
+    FileEntry& operator=(FileEntry&& rhs) noexcept;
 
     // Populates a FileEntry object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -491,10 +480,10 @@ struct Params {
     FileEntry Clone() const;
 
     // Creates a FileEntry object from a base::Value::Dict, or nullopt on failure.
-    static absl::optional<FileEntry> FromValue(const base::Value::Dict& value);
+    static std::optional<FileEntry> FromValue(const base::Value::Dict& value);
 
     // Creates a FileEntry object from a base::Value, or nullopt on failure.
-    static absl::optional<FileEntry> FromValue(const base::Value& value);
+    static std::optional<FileEntry> FromValue(const base::Value& value);
 
     base::Value::Dict additional_properties;
   };
@@ -517,11 +506,11 @@ base::Value::List Create(const FileStatus& status);
 namespace GetFileStatuses {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   struct FileEntriesType {
@@ -529,8 +518,8 @@ struct Params {
     ~FileEntriesType();
     FileEntriesType(const FileEntriesType&) = delete;
     FileEntriesType& operator=(const FileEntriesType&) = delete;
-    FileEntriesType(FileEntriesType&& rhs);
-    FileEntriesType& operator=(FileEntriesType&& rhs);
+    FileEntriesType(FileEntriesType&& rhs) noexcept;
+    FileEntriesType& operator=(FileEntriesType&& rhs) noexcept;
 
     // Populates a FileEntriesType object from a base::Value& instance. Returns
     // whether |out| was successfully populated.
@@ -545,10 +534,10 @@ struct Params {
 
     // Creates a FileEntriesType object from a base::Value::Dict, or nullopt on
     // failure.
-    static absl::optional<FileEntriesType> FromValue(const base::Value::Dict& value);
+    static std::optional<FileEntriesType> FromValue(const base::Value::Dict& value);
 
     // Creates a FileEntriesType object from a base::Value, or nullopt on failure.
-    static absl::optional<FileEntriesType> FromValue(const base::Value& value);
+    static std::optional<FileEntriesType> FromValue(const base::Value& value);
 
     base::Value::Dict additional_properties;
   };

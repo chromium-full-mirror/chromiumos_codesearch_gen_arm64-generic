@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/device/public/mojom/serial.mojom-features.h"
 #include "services/device/public/mojom/serial.mojom-shared.h"
 #include "services/device/public/mojom/serial.mojom-forward.h"
 #include "device/bluetooth/public/mojom/uuid.mojom.h"
@@ -887,9 +888,9 @@ class  SerialPortInfo {
       bool has_vendor_id,
       uint16_t product_id,
       bool has_product_id,
-      const absl::optional<::device::BluetoothUUID>& bluetooth_service_class_id,
-      const absl::optional<std::string>& display_name,
-      const absl::optional<std::string>& serial_number);
+      const std::optional<::device::BluetoothUUID>& bluetooth_service_class_id,
+      const std::optional<std::string>& display_name,
+      const std::optional<std::string>& serial_number);
 
 
   ~SerialPortInfo();
@@ -981,11 +982,11 @@ class  SerialPortInfo {
   
   bool has_product_id;
   
-  absl::optional<::device::BluetoothUUID> bluetooth_service_class_id;
+  std::optional<::device::BluetoothUUID> bluetooth_service_class_id;
   
-  absl::optional<std::string> display_name;
+  std::optional<std::string> display_name;
   
-  absl::optional<std::string> serial_number;
+  std::optional<std::string> serial_number;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

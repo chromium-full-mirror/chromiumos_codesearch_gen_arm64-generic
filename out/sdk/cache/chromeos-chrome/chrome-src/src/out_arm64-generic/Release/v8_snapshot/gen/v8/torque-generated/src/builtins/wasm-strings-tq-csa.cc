@@ -66,6 +66,7 @@
 #include "src/objects/turboshaft-types.h"
 #include "src/torque/runtime-support.h"
 #include "src/wasm/wasm-linkage.h"
+#include "src/codegen/code-stub-assembler-inl.h"
 // Required Builtins:
 #include "torque-generated/src/builtins/wasm-strings-tq-csa.h"
 #include "torque-generated/src/builtins/array-join-tq-csa.h"
@@ -94,6 +95,94 @@ void Trap_0(compiler::CodeAssemblerState* state_, TNode<Context> p_context, Mess
     tmp0 = CodeStubAssembler(state_).SmiConstant(p_error);
     CodeStubAssembler(state_).CallRuntime(Runtime::kThrowWasmError, p_context, tmp0);
     CodeStubAssembler(state_).Unreachable();
+  }
+}
+
+TF_BUILTIN(WebAssemblyStringCast, CodeStubAssembler) {
+  compiler::CodeAssemblerState* state_ = state();  compiler::CodeAssembler ca_(state());
+  TNode<Word32T> argc = UncheckedParameter<Word32T>(Descriptor::kJSActualArgumentsCount);
+  TNode<IntPtrT> arguments_length(ChangeInt32ToIntPtr(UncheckedCast<Int32T>(argc)));
+  TNode<RawPtrT> arguments_frame = UncheckedCast<RawPtrT>(LoadFramePointer());
+  TorqueStructArguments torque_arguments(GetFrameArguments(arguments_frame, arguments_length, FrameArgumentsArgcType::kCountIncludesReceiver));
+  CodeStubArguments arguments(this, torque_arguments);
+  TNode<NativeContext> parameter0 = UncheckedParameter<NativeContext>(Descriptor::kContext);
+  USE(parameter0);
+  compiler::CodeAssemblerParameterizedLabel<> block0(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block6(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block5(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+    ca_.Goto(&block0);
+
+  TNode<IntPtrT> tmp0;
+  TNode<Object> tmp1;
+  TNode<String> tmp2;
+  if (block0.is_used()) {
+    ca_.Bind(&block0);
+    tmp0 = FromConstexpr_intptr_constexpr_IntegerLiteral_0(state_, IntegerLiteral(false, 0x0ull));
+    tmp1 = CodeStubAssembler(state_).GetArgumentValue(TorqueStructArguments{TNode<RawPtrT>{torque_arguments.frame}, TNode<RawPtrT>{torque_arguments.base}, TNode<IntPtrT>{torque_arguments.length}, TNode<IntPtrT>{torque_arguments.actual_count}}, TNode<IntPtrT>{tmp0});
+    compiler::CodeAssemblerLabel label3(&ca_);
+    tmp2 = Cast_String_1(state_, TNode<Context>{parameter0}, TNode<Object>{tmp1}, &label3);
+    ca_.Goto(&block5);
+    if (label3.is_used()) {
+      ca_.Bind(&label3);
+      ca_.Goto(&block6);
+    }
+  }
+
+  if (block6.is_used()) {
+    ca_.Bind(&block6);
+    Trap_0(state_, TNode<Context>{parameter0}, MessageTemplate::kWasmTrapIllegalCast);
+  }
+
+  if (block5.is_used()) {
+    ca_.Bind(&block5);
+    arguments.PopAndReturn(tmp2);
+  }
+}
+
+TF_BUILTIN(WebAssemblyStringTest, CodeStubAssembler) {
+  compiler::CodeAssemblerState* state_ = state();  compiler::CodeAssembler ca_(state());
+  TNode<Word32T> argc = UncheckedParameter<Word32T>(Descriptor::kJSActualArgumentsCount);
+  TNode<IntPtrT> arguments_length(ChangeInt32ToIntPtr(UncheckedCast<Int32T>(argc)));
+  TNode<RawPtrT> arguments_frame = UncheckedCast<RawPtrT>(LoadFramePointer());
+  TorqueStructArguments torque_arguments(GetFrameArguments(arguments_frame, arguments_length, FrameArgumentsArgcType::kCountIncludesReceiver));
+  CodeStubArguments arguments(this, torque_arguments);
+  TNode<NativeContext> parameter0 = UncheckedParameter<NativeContext>(Descriptor::kContext);
+  USE(parameter0);
+  compiler::CodeAssemblerParameterizedLabel<> block0(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block1(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block2(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<Smi> block3(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+    ca_.Goto(&block0);
+
+  TNode<IntPtrT> tmp0;
+  TNode<Object> tmp1;
+  TNode<BoolT> tmp2;
+  if (block0.is_used()) {
+    ca_.Bind(&block0);
+    tmp0 = FromConstexpr_intptr_constexpr_IntegerLiteral_0(state_, IntegerLiteral(false, 0x0ull));
+    tmp1 = CodeStubAssembler(state_).GetArgumentValue(TorqueStructArguments{TNode<RawPtrT>{torque_arguments.frame}, TNode<RawPtrT>{torque_arguments.base}, TNode<IntPtrT>{torque_arguments.length}, TNode<IntPtrT>{torque_arguments.actual_count}}, TNode<IntPtrT>{tmp0});
+    tmp2 = Is_String_JSAny_0(state_, TNode<Context>{parameter0}, TNode<Object>{tmp1});
+    ca_.Branch(tmp2, &block1, std::vector<compiler::Node*>{}, &block2, std::vector<compiler::Node*>{});
+  }
+
+  TNode<Smi> tmp3;
+  if (block1.is_used()) {
+    ca_.Bind(&block1);
+    tmp3 = SmiConstant_0(state_, IntegerLiteral(false, 0x1ull));
+    ca_.Goto(&block3, tmp3);
+  }
+
+  TNode<Smi> tmp4;
+  if (block2.is_used()) {
+    ca_.Bind(&block2);
+    tmp4 = SmiConstant_0(state_, IntegerLiteral(false, 0x0ull));
+    ca_.Goto(&block3, tmp4);
+  }
+
+  TNode<Smi> phi_bb3_5;
+  if (block3.is_used()) {
+    ca_.Bind(&block3, &phi_bb3_5);
+    arguments.PopAndReturn(phi_bb3_5);
   }
 }
 
@@ -136,7 +225,7 @@ TF_BUILTIN(WebAssemblyStringFromWtf16Array, CodeStubAssembler) {
     tmp9 = CodeStubAssembler(state_).GetArgumentValue(TorqueStructArguments{TNode<RawPtrT>{torque_arguments.frame}, TNode<RawPtrT>{torque_arguments.base}, TNode<IntPtrT>{torque_arguments.length}, TNode<IntPtrT>{torque_arguments.actual_count}}, TNode<IntPtrT>{tmp8});
     tmp10 = ToInteger_Inline_0(state_, TNode<Context>{parameter0}, TNode<Object>{tmp9});
     tmp11 = CodeStubAssembler(state_).ChangeNumberToUint32(TNode<Number>{tmp10});
-    tmp12 = ca_.CallStub<String>(Builtins::CallableFor(ca_.isolate(), Builtin::kWasmStringNewWtf16Array), TNode<Object>(), tmp3, tmp7, tmp11);
+    tmp12 = ca_.CallBuiltin<String>(Builtin::kWasmStringNewWtf16Array, TNode<Object>(), tmp3, tmp7, tmp11);
     arguments.PopAndReturn(tmp12);
   }
 }
@@ -182,7 +271,7 @@ TF_BUILTIN(WebAssemblyStringFromWtf8Array, CodeStubAssembler) {
     tmp10 = ToInteger_Inline_0(state_, TNode<Context>{parameter0}, TNode<Object>{tmp9});
     tmp11 = CodeStubAssembler(state_).ChangeNumberToUint32(TNode<Number>{tmp10});
     tmp12 = CodeStubAssembler(state_).SmiConstant(unibrow::Utf8Variant::kWtf8);
-    tmp13 = ca_.CallStub<PrimitiveHeapObject>(Builtins::CallableFor(ca_.isolate(), Builtin::kWasmStringNewWtf8Array), TNode<Object>(), tmp7, tmp11, tmp3, tmp12);
+    tmp13 = ca_.CallBuiltin<PrimitiveHeapObject>(Builtin::kWasmStringNewWtf8Array, TNode<Object>(), tmp7, tmp11, tmp3, tmp12);
     arguments.PopAndReturn(tmp13);
   }
 }
@@ -242,7 +331,7 @@ TF_BUILTIN(WebAssemblyStringToWtf16Array, CodeStubAssembler) {
     tmp9 = CodeStubAssembler(state_).GetArgumentValue(TorqueStructArguments{TNode<RawPtrT>{torque_arguments.frame}, TNode<RawPtrT>{torque_arguments.base}, TNode<IntPtrT>{torque_arguments.length}, TNode<IntPtrT>{torque_arguments.actual_count}}, TNode<IntPtrT>{tmp8});
     tmp10 = ToInteger_Inline_0(state_, TNode<Context>{parameter0}, TNode<Object>{tmp9});
     tmp11 = CodeStubAssembler(state_).ChangeNumberToUint32(TNode<Number>{tmp10});
-    tmp12 = ca_.CallStub<Uint32T>(Builtins::CallableFor(ca_.isolate(), Builtin::kWasmStringEncodeWtf16Array), TNode<Object>(), tmp2, tmp7, tmp11);
+    tmp12 = ca_.CallBuiltin<Uint32T>(Builtin::kWasmStringEncodeWtf16Array, TNode<Object>(), tmp2, tmp7, tmp11);
     tmp13 = Convert_Smi_uint32_0(state_, TNode<Uint32T>{tmp12});
     arguments.PopAndReturn(tmp13);
   }
@@ -589,7 +678,7 @@ TF_BUILTIN(WebAssemblyStringConcat, CodeStubAssembler) {
   TNode<String> tmp8;
   if (block9.is_used()) {
     ca_.Bind(&block9);
-    tmp8 = ca_.CallStub<String>(Builtins::CallableFor(ca_.isolate(), Builtin::kStringAdd_CheckNone), parameter0, tmp2, tmp6);
+    tmp8 = ca_.CallBuiltin<String>(Builtin::kStringAdd_CheckNone, parameter0, tmp2, tmp6);
     arguments.PopAndReturn(tmp8);
   }
 
@@ -653,7 +742,7 @@ TF_BUILTIN(WebAssemblyStringSubstring, CodeStubAssembler) {
     tmp9 = CodeStubAssembler(state_).GetArgumentValue(TorqueStructArguments{TNode<RawPtrT>{torque_arguments.frame}, TNode<RawPtrT>{torque_arguments.base}, TNode<IntPtrT>{torque_arguments.length}, TNode<IntPtrT>{torque_arguments.actual_count}}, TNode<IntPtrT>{tmp8});
     tmp10 = ToInteger_Inline_0(state_, TNode<Context>{parameter0}, TNode<Object>{tmp9});
     tmp11 = CodeStubAssembler(state_).ChangeNumberToUint32(TNode<Number>{tmp10});
-    tmp12 = ca_.CallStub<String>(Builtins::CallableFor(ca_.isolate(), Builtin::kWasmStringViewWtf16Slice), TNode<Object>(), tmp2, tmp7, tmp11);
+    tmp12 = ca_.CallBuiltin<String>(Builtin::kWasmStringViewWtf16Slice, TNode<Object>(), tmp2, tmp7, tmp11);
     arguments.PopAndReturn(tmp12);
   }
 }
@@ -844,7 +933,7 @@ TF_BUILTIN(WebAssemblyStringEquals, CodeStubAssembler) {
     ca_.Bind(&block26);
     tmp27 = kNoContext_0(state_);
     tmp28 = CodeStubAssembler(state_).LoadStringLengthAsWord(TNode<String>{tmp12});
-    tmp29 = ca_.CallStub<Boolean>(Builtins::CallableFor(ca_.isolate(), Builtin::kStringEqual), tmp27, tmp12, tmp17, tmp28);
+    tmp29 = ca_.CallBuiltin<Boolean>(Builtin::kStringEqual, tmp27, tmp12, tmp17, tmp28);
     tmp30 = True_0(state_);
     tmp31 = CodeStubAssembler(state_).TaggedEqual(TNode<HeapObject>{tmp29}, TNode<HeapObject>{tmp30});
     ca_.Branch(tmp31, &block27, std::vector<compiler::Node*>{}, &block28, std::vector<compiler::Node*>{});
@@ -932,7 +1021,7 @@ TF_BUILTIN(WebAssemblyStringCompare, CodeStubAssembler) {
   TNode<Smi> tmp8;
   if (block9.is_used()) {
     ca_.Bind(&block9);
-    tmp8 = ca_.CallStub<Smi>(Builtins::CallableFor(ca_.isolate(), Builtin::kStringCompare), TNode<Object>(), tmp2, tmp6);
+    tmp8 = ca_.CallBuiltin<Smi>(Builtin::kStringCompare, TNode<Object>(), tmp2, tmp6);
     arguments.PopAndReturn(tmp8);
   }
 
@@ -942,7 +1031,54 @@ TF_BUILTIN(WebAssemblyStringCompare, CodeStubAssembler) {
   }
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/wasm-strings.tq?l=88&c=12
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/wasm-strings.tq?l=23&c=10
+TNode<BoolT> Is_String_JSAny_0(compiler::CodeAssemblerState* state_, TNode<Context> p_context, TNode<Object> p_o) {
+  compiler::CodeAssembler ca_(state_);
+  compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
+  compiler::CodeAssemblerParameterizedLabel<> block0(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block5(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block4(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<BoolT> block1(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block6(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+    ca_.Goto(&block0);
+
+  TNode<String> tmp0;
+  if (block0.is_used()) {
+    ca_.Bind(&block0);
+    compiler::CodeAssemblerLabel label1(&ca_);
+    tmp0 = Cast_String_1(state_, TNode<Context>{p_context}, TNode<Object>{p_o}, &label1);
+    ca_.Goto(&block4);
+    if (label1.is_used()) {
+      ca_.Bind(&label1);
+      ca_.Goto(&block5);
+    }
+  }
+
+  TNode<BoolT> tmp2;
+  if (block5.is_used()) {
+    ca_.Bind(&block5);
+    tmp2 = FromConstexpr_bool_constexpr_bool_0(state_, false);
+    ca_.Goto(&block1, tmp2);
+  }
+
+  TNode<BoolT> tmp3;
+  if (block4.is_used()) {
+    ca_.Bind(&block4);
+    tmp3 = FromConstexpr_bool_constexpr_bool_0(state_, true);
+    ca_.Goto(&block1, tmp3);
+  }
+
+  TNode<BoolT> phi_bb1_2;
+  if (block1.is_used()) {
+    ca_.Bind(&block1, &phi_bb1_2);
+    ca_.Goto(&block6);
+  }
+
+    ca_.Bind(&block6);
+  return TNode<BoolT>{phi_bb1_2};
+}
+
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/wasm-strings.tq?l=102&c=12
 TNode<Smi> SmiTag_char16_0(compiler::CodeAssemblerState* state_, TNode<Uint16T> p_value) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);

@@ -35,11 +35,10 @@ class  NetworkServiceInterceptorForTesting : public NetworkService {
   void SetEncryptionKey(const std::string& encryption_key) override;
   void OnMemoryPressure(::base::MemoryPressureListener::MemoryPressureLevel memory_pressure_level) override;
   void OnPeerToPeerConnectionsCountChange(uint32_t count) override;
-  void SetEnvironment(std::vector<EnvironmentVariablePtr> environment) override;
   void SetTrustTokenKeyCommitments(const std::string& raw_commitments, SetTrustTokenKeyCommitmentsCallback callback) override;
   void ClearSCTAuditingCache() override;
   void ConfigureSCTAuditing(SCTAuditingConfigurationPtr configuration) override;
-  void UpdateCtLogList(std::vector<::network::mojom::CTLogInfoPtr> log_list, ::base::Time update_time, UpdateCtLogListCallback callback) override;
+  void UpdateCtLogList(std::vector<::network::mojom::CTLogInfoPtr> log_list, UpdateCtLogListCallback callback) override;
   void UpdateCtKnownPopularSCTs(const std::vector<std::vector<uint8_t>>& sct_hashes, UpdateCtKnownPopularSCTsCallback callback) override;
   void SetCtEnforcementEnabled(bool enabled, SetCtEnforcementEnabledCallback callback) override;
   void UpdateKeyPinsList(::network::mojom::PinListPtr pin_list, ::base::Time update_time) override;
@@ -50,6 +49,7 @@ class  NetworkServiceInterceptorForTesting : public NetworkService {
   void ParseHeaders(const ::GURL& url, const ::scoped_refptr<::net::HttpResponseHeaders>& headers, ParseHeadersCallback callback) override;
   void EnableDataUseUpdates(bool enable) override;
   void SetIPv6ReachabilityOverride(bool reachability_override) override;
+  void SetCookieEncryptionProvider(::mojo::PendingRemote<::network::mojom::CookieEncryptionProvider> provider) override;
 };
 class  NetworkServiceAsyncWaiter {
  public:
@@ -60,13 +60,13 @@ class  NetworkServiceAsyncWaiter {
 
   ~NetworkServiceAsyncWaiter();
   void GetNetworkList(
-      uint32_t policy, absl::optional<std::vector<::net::NetworkInterface>>* out_networks);
-  absl::optional<std::vector<::net::NetworkInterface>> GetNetworkList(uint32_t policy);
+      uint32_t policy, std::optional<std::vector<::net::NetworkInterface>>* out_networks);
+  std::optional<std::vector<::net::NetworkInterface>> GetNetworkList(uint32_t policy);
   void SetTrustTokenKeyCommitments(
       const std::string& raw_commitments);
   
   void UpdateCtLogList(
-      std::vector<::network::mojom::CTLogInfoPtr> log_list, ::base::Time update_time);
+      std::vector<::network::mojom::CTLogInfoPtr> log_list);
   
   void UpdateCtKnownPopularSCTs(
       const std::vector<std::vector<uint8_t>>& sct_hashes);

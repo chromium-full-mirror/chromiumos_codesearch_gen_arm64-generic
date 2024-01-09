@@ -21,6 +21,63 @@
 namespace mojom {
 
 namespace internal {
+// static
+bool IwaDevModeLocation_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context,
+    bool inlined) {
+  if (!data) {
+    DCHECK(!inlined);
+    return true;
+  }
+
+  // If it is inlined, the alignment is already enforced by its enclosing
+  // object. We don't have to validate that.
+  DCHECK(!inlined || mojo::internal::IsAligned(data));
+
+  if (!inlined &&
+      !mojo::internal::ValidateNonInlinedUnionHeaderAndClaimMemory(
+          data, validation_context)) {
+    return false;
+  }
+
+  const IwaDevModeLocation_Data* object = static_cast<const IwaDevModeLocation_Data*>(data);
+
+  if (inlined && object->is_null())
+    return true;
+
+  switch (object->tag) {
+
+    case IwaDevModeLocation_Tag::kProxyOrigin: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_proxy_origin, 1, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_proxy_origin, validation_context))
+        return false;
+      return true;
+    }
+    case IwaDevModeLocation_Tag::kBundlePath: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_bundle_path, 2, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_bundle_path, validation_context))
+        return false;
+      return true;
+    }
+    default: {
+
+      ReportValidationError(
+          validation_context,
+          mojo::internal::VALIDATION_ERROR_UNKNOWN_UNION_TAG,
+          "unknown tag in IwaDevModeLocation");
+      return false;
+    }
+  }
+}
 
 
 // static
@@ -58,20 +115,20 @@ InstallIsolatedWebAppResult_Data::InstallIsolatedWebAppResult_Data()
 
 
 // static
-bool IwaDevProxyAppInfo_Data::Validate(
+bool IwaDevModeAppInfo_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 40, validation_context)) {
+          data, 48, validation_context)) {
     return false;
   }
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const IwaDevProxyAppInfo_Data* object =
-      static_cast<const IwaDevProxyAppInfo_Data*>(data);
+  [[maybe_unused]] const IwaDevModeAppInfo_Data* object =
+      static_cast<const IwaDevModeAppInfo_Data*>(data);
 
   if (!mojo::internal::ValidatePointerNonNullable(
           object->app_id, 1, validation_context)) {
@@ -95,11 +152,11 @@ bool IwaDevProxyAppInfo_Data::Validate(
     return false;
   }
 
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->proxy_origin, 3, validation_context)) {
+  if (!mojo::internal::ValidateInlinedUnionNonNullable(
+          object->location, 3, validation_context)) {
     return false;
   }
-  if (!mojo::internal::ValidateStruct(object->proxy_origin, validation_context))
+  if (!mojo::internal::ValidateInlinedUnion(object->location, validation_context))
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
@@ -116,7 +173,7 @@ bool IwaDevProxyAppInfo_Data::Validate(
   return true;
 }
 
-IwaDevProxyAppInfo_Data::IwaDevProxyAppInfo_Data()
+IwaDevModeAppInfo_Data::IwaDevModeAppInfo_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -291,120 +348,6 @@ WebAppInternalsHandler_SelectFileAndInstallIsolatedWebAppFromDevBundle_ResponseP
 
 
 // static
-bool WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_Params_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 8, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_Params_Data* object =
-      static_cast<const WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_Params_Data*>(data);
-
-  return true;
-}
-
-WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_Params_Data::WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_Params_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ResponseParams_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ResponseParams_Data* object =
-      static_cast<const WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ResponseParams_Data*>(data);
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->result, 1, validation_context)) {
-    return false;
-  }
-  constexpr const mojo::internal::ContainerValidateParams& result_validate_params =
-      mojo::internal::GetArrayValidator<0, false, nullptr>();
-  if (!mojo::internal::ValidateContainer(object->result, validation_context,
-                                         &result_validate_params)) {
-    return false;
-  }
-
-  return true;
-}
-
-WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ResponseParams_Data::WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ResponseParams_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool WebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_Params_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 8, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const WebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_Params_Data* object =
-      static_cast<const WebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_Params_Data*>(data);
-
-  return true;
-}
-
-WebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_Params_Data::WebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_Params_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool WebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_ResponseParams_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const WebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_ResponseParams_Data* object =
-      static_cast<const WebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_ResponseParams_Data*>(data);
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->apps, 1, validation_context)) {
-    return false;
-  }
-  constexpr const mojo::internal::ContainerValidateParams& apps_validate_params =
-      mojo::internal::GetArrayValidator<0, false, nullptr>();
-  if (!mojo::internal::ValidateContainer(object->apps, validation_context,
-                                         &apps_validate_params)) {
-    return false;
-  }
-
-  return true;
-}
-
-WebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_ResponseParams_Data::WebAppInternalsHandler_GetIsolatedWebAppDevModeProxyAppInfo_ResponseParams_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
 bool WebAppInternalsHandler_UpdateDevProxyIsolatedWebApp_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -469,6 +412,188 @@ bool WebAppInternalsHandler_UpdateDevProxyIsolatedWebApp_ResponseParams_Data::Va
 }
 
 WebAppInternalsHandler_UpdateDevProxyIsolatedWebApp_ResponseParams_Data::WebAppInternalsHandler_UpdateDevProxyIsolatedWebApp_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_Params_Data* object =
+      static_cast<const WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->app_id, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& app_id_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->app_id, validation_context,
+                                         &app_id_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_Params_Data::WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_ResponseParams_Data* object =
+      static_cast<const WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_ResponseParams_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->result, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& result_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->result, validation_context,
+                                         &result_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_ResponseParams_Data::WebAppInternalsHandler_SelectFileAndUpdateIsolatedWebAppFromDevBundle_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_Params_Data* object =
+      static_cast<const WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_Params_Data*>(data);
+
+  return true;
+}
+
+WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_Params_Data::WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ResponseParams_Data* object =
+      static_cast<const WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ResponseParams_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->result, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& result_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->result, validation_context,
+                                         &result_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ResponseParams_Data::WebAppInternalsHandler_SearchForIsolatedWebAppUpdates_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_Params_Data* object =
+      static_cast<const WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_Params_Data*>(data);
+
+  return true;
+}
+
+WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_Params_Data::WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_ResponseParams_Data* object =
+      static_cast<const WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_ResponseParams_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->apps, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& apps_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->apps, validation_context,
+                                         &apps_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_ResponseParams_Data::WebAppInternalsHandler_GetIsolatedWebAppDevModeAppInfo_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
 }  // namespace internal

@@ -42,21 +42,19 @@ export class GuestViewPendingReceiver {
 export class GuestViewInterface {
   
   /**
-   * @param { !number } routingId
    * @param { !boolean } success
    */
 
-  readyToCreateMimeHandlerView(routingId, success) {}
+  readyToCreateMimeHandlerView(success) {}
   
   /**
-   * @param { !number } routingId
    * @param { !string } scriptId
    * @return {!Promise<{
         allowed: !boolean,
    *  }>}
    */
 
-  canExecuteContentScript(routingId, scriptId) {}
+  canExecuteContentScript(scriptId) {}
 }
 
 /**
@@ -84,26 +82,22 @@ export class GuestViewRemote {
 
   
   /**
-   * @param { !number } routingId
    * @param { !boolean } success
    */
 
   readyToCreateMimeHandlerView(
-      routingId,
       success) {
     this.proxy.sendMessage(
         0,
         GuestView_ReadyToCreateMimeHandlerView_ParamsSpec.$,
         null,
         [
-          routingId,
           success
         ]);
   }
 
   
   /**
-   * @param { !number } routingId
    * @param { !string } scriptId
    * @return {!Promise<{
         allowed: !boolean,
@@ -111,14 +105,12 @@ export class GuestViewRemote {
    */
 
   canExecuteContentScript(
-      routingId,
       scriptId) {
     return this.proxy.sendMessage(
         1,
         GuestView_CanExecuteContentScript_ParamsSpec.$,
         GuestView_CanExecuteContentScript_ResponseParamsSpec.$,
         [
-          routingId,
           scriptId
         ]);
   }
@@ -582,15 +574,7 @@ mojo.internal.Struct(
     'GuestView_ReadyToCreateMimeHandlerView_Params',
     [
       mojo.internal.StructField(
-        'routingId', 0,
-        0,
-        mojo.internal.Int32,
-        0,
-        false /* nullable */,
-        0,
-      ),
-      mojo.internal.StructField(
-        'success', 4,
+        'success', 0,
         0,
         mojo.internal.Bool,
         false,
@@ -607,8 +591,6 @@ mojo.internal.Struct(
  */
 export class GuestView_ReadyToCreateMimeHandlerView_Params {
   constructor() {
-    /** @type { !number } */
-    this.routingId;
     /** @type { !boolean } */
     this.success;
   }
@@ -621,15 +603,7 @@ mojo.internal.Struct(
     'GuestView_CanExecuteContentScript_Params',
     [
       mojo.internal.StructField(
-        'routingId', 0,
-        0,
-        mojo.internal.Int32,
-        0,
-        false /* nullable */,
-        0,
-      ),
-      mojo.internal.StructField(
-        'scriptId', 8,
+        'scriptId', 0,
         0,
         mojo.internal.String,
         null,
@@ -637,7 +611,7 @@ mojo.internal.Struct(
         0,
       ),
     ],
-    [[0, 24],]);
+    [[0, 16],]);
 
 
 
@@ -646,8 +620,6 @@ mojo.internal.Struct(
  */
 export class GuestView_CanExecuteContentScript_Params {
   constructor() {
-    /** @type { !number } */
-    this.routingId;
     /** @type { !string } */
     this.scriptId;
   }

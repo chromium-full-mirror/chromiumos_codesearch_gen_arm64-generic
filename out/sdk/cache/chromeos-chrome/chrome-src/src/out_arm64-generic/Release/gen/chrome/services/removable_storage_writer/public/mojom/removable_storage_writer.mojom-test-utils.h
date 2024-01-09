@@ -35,7 +35,7 @@ class  RemovableStorageWriterAsyncWaiter {
 class  RemovableStorageWriterClientInterceptorForTesting : public RemovableStorageWriterClient {
   virtual RemovableStorageWriterClient* GetForwardingInterface() = 0;
   void Progress(int64_t progress) override;
-  void Complete(const absl::optional<std::string>& error) override;
+  void Complete(const std::optional<std::string>& error) override;
 };
 class  RemovableStorageWriterClientAsyncWaiter {
  public:

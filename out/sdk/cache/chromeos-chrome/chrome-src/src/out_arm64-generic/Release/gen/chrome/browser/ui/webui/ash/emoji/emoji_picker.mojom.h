@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "chrome/browser/ui/webui/ash/emoji/emoji_picker.mojom-features.h"
 #include "chrome/browser/ui/webui/ash/emoji/emoji_picker.mojom-shared.h"
 #include "chrome/browser/ui/webui/ash/emoji/emoji_picker.mojom-forward.h"
 #include "url/mojom/url.mojom.h"
@@ -190,12 +191,12 @@ class PageHandler
 
   using GetFeaturedGifsCallback = base::OnceCallback<void(Status, TenorGifResponsePtr)>;
   
-  virtual void GetFeaturedGifs(const absl::optional<std::string>& pos, GetFeaturedGifsCallback callback) = 0;
+  virtual void GetFeaturedGifs(const std::optional<std::string>& pos, GetFeaturedGifsCallback callback) = 0;
 
 
   using SearchGifsCallback = base::OnceCallback<void(Status, TenorGifResponsePtr)>;
   
-  virtual void SearchGifs(const std::string& query, const absl::optional<std::string>& pos, SearchGifsCallback callback) = 0;
+  virtual void SearchGifs(const std::string& query, const std::optional<std::string>& pos, SearchGifsCallback callback) = 0;
 
 
   using GetGifsByIdsCallback = base::OnceCallback<void(Status, std::vector<GifResponsePtr>)>;
@@ -242,9 +243,9 @@ class  PageHandlerProxy
   
   void GetCategories(GetCategoriesCallback callback) final;
   
-  void GetFeaturedGifs(const absl::optional<std::string>& pos, GetFeaturedGifsCallback callback) final;
+  void GetFeaturedGifs(const std::optional<std::string>& pos, GetFeaturedGifsCallback callback) final;
   
-  void SearchGifs(const std::string& query, const absl::optional<std::string>& pos, SearchGifsCallback callback) final;
+  void SearchGifs(const std::string& query, const std::optional<std::string>& pos, SearchGifsCallback callback) final;
   
   void GetGifsByIds(const std::vector<std::string>& ids, GetGifsByIdsCallback callback) final;
   

@@ -8,6 +8,7 @@
 #define THIRD_PARTY_BLINK_PUBLIC_MOJOM_PAGE_BROWSING_CONTEXT_GROUP_INFO_MOJOM_FEATURES_H_
 
 #include "base/feature_list.h"
+#include "mojo/public/cpp/bindings/runtime_features.h"
 #include "base/component_export.h"
 
 

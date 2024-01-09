@@ -1056,8 +1056,16 @@ mojo.internal.Struct(
         false, /* nullable */
         0 /* minVersion */,
       ),
+      mojo.internal.StructField(
+        'headers', 32,
+        0,
+        mojo.internal.Map(mojo.internal.String, mojo.internal.String, false),
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
     ],
-    [[0, 40],]);
+    [[0, 48],]);
 
 
 
@@ -1078,6 +1086,8 @@ media.mojom.MediaUrlParams = class {
     this.allowCredentials;
     /** @export { !boolean } */
     this.isHls;
+    /** @export { !Object<!string, !string> } */
+    this.headers;
   }
 };
 

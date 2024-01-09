@@ -61,6 +61,11 @@ static const struct wl_message zcr_ui_controls_v1_requests[] = {
 	{ "send_mouse_move", "ii?ou", ui_controls_unstable_v1_types + 4 },
 	{ "send_mouse_button", "uuuu", ui_controls_unstable_v1_types + 0 },
 	{ "send_touch", "uuii?ou", ui_controls_unstable_v1_types + 8 },
+	{ "set_display_info_id", "3uu", ui_controls_unstable_v1_types + 0 },
+	{ "set_display_info_size", "3uu", ui_controls_unstable_v1_types + 0 },
+	{ "set_display_info_device_scale_factor", "3u", ui_controls_unstable_v1_types + 0 },
+	{ "display_info_done", "3", ui_controls_unstable_v1_types + 0 },
+	{ "display_info_list_done", "3u", ui_controls_unstable_v1_types + 0 },
 };
 
 static const struct wl_message zcr_ui_controls_v1_events[] = {
@@ -68,8 +73,8 @@ static const struct wl_message zcr_ui_controls_v1_events[] = {
 };
 
 WL_PRIVATE const struct wl_interface zcr_ui_controls_v1_interface = {
-	"zcr_ui_controls_v1", 2,
-	4, zcr_ui_controls_v1_requests,
+	"zcr_ui_controls_v1", 3,
+	9, zcr_ui_controls_v1_requests,
 	1, zcr_ui_controls_v1_events,
 };
 

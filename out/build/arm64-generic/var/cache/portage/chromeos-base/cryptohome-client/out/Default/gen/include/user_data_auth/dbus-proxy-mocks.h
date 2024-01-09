@@ -103,6 +103,21 @@ class UserDataAuthInterfaceProxyMock : public UserDataAuthInterfaceProxyInterfac
               (override));
 
   MOCK_METHOD(bool,
+              GetRecoverableKeyStores,
+              (const user_data_auth::GetRecoverableKeyStoresRequest& /*in_request*/,
+               user_data_auth::GetRecoverableKeyStoresReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              GetRecoverableKeyStoresAsync,
+              (const user_data_auth::GetRecoverableKeyStoresRequest& /*in_request*/,
+               base::OnceCallback<void(const user_data_auth::GetRecoverableKeyStoresReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
               GetHibernateSecret,
               (const user_data_auth::GetHibernateSecretRequest& /*in_request*/,
                user_data_auth::GetHibernateSecretReply* /*out_reply*/,
@@ -640,6 +655,56 @@ class UserDataAuthInterfaceProxyMock : public UserDataAuthInterfaceProxyInterfac
   MOCK_METHOD(void,
               DoRegisterAuthenticateAuthFactorCompletedSignalHandler,
               (const base::RepeatingCallback<void(const user_data_auth::AuthenticateAuthFactorCompleted&)>& /*signal_callback*/,
+               dbus::ObjectProxy::OnConnectedCallback* /*on_connected_callback*/));
+
+  void RegisterAuthFactorAddedSignalHandler(
+    const base::RepeatingCallback<void(const user_data_auth::AuthFactorAdded&)>& signal_callback,
+    dbus::ObjectProxy::OnConnectedCallback on_connected_callback) override {
+    DoRegisterAuthFactorAddedSignalHandler(signal_callback, &on_connected_callback);
+  }
+  MOCK_METHOD(void,
+              DoRegisterAuthFactorAddedSignalHandler,
+              (const base::RepeatingCallback<void(const user_data_auth::AuthFactorAdded&)>& /*signal_callback*/,
+               dbus::ObjectProxy::OnConnectedCallback* /*on_connected_callback*/));
+
+  void RegisterAuthFactorRemovedSignalHandler(
+    const base::RepeatingCallback<void(const user_data_auth::AuthFactorRemoved&)>& signal_callback,
+    dbus::ObjectProxy::OnConnectedCallback on_connected_callback) override {
+    DoRegisterAuthFactorRemovedSignalHandler(signal_callback, &on_connected_callback);
+  }
+  MOCK_METHOD(void,
+              DoRegisterAuthFactorRemovedSignalHandler,
+              (const base::RepeatingCallback<void(const user_data_auth::AuthFactorRemoved&)>& /*signal_callback*/,
+               dbus::ObjectProxy::OnConnectedCallback* /*on_connected_callback*/));
+
+  void RegisterAuthFactorUpdatedSignalHandler(
+    const base::RepeatingCallback<void(const user_data_auth::AuthFactorUpdated&)>& signal_callback,
+    dbus::ObjectProxy::OnConnectedCallback on_connected_callback) override {
+    DoRegisterAuthFactorUpdatedSignalHandler(signal_callback, &on_connected_callback);
+  }
+  MOCK_METHOD(void,
+              DoRegisterAuthFactorUpdatedSignalHandler,
+              (const base::RepeatingCallback<void(const user_data_auth::AuthFactorUpdated&)>& /*signal_callback*/,
+               dbus::ObjectProxy::OnConnectedCallback* /*on_connected_callback*/));
+
+  void RegisterAuthSessionExpiringSignalHandler(
+    const base::RepeatingCallback<void(const user_data_auth::AuthSessionExpiring&)>& signal_callback,
+    dbus::ObjectProxy::OnConnectedCallback on_connected_callback) override {
+    DoRegisterAuthSessionExpiringSignalHandler(signal_callback, &on_connected_callback);
+  }
+  MOCK_METHOD(void,
+              DoRegisterAuthSessionExpiringSignalHandler,
+              (const base::RepeatingCallback<void(const user_data_auth::AuthSessionExpiring&)>& /*signal_callback*/,
+               dbus::ObjectProxy::OnConnectedCallback* /*on_connected_callback*/));
+
+  void RegisterEvictedKeyRestoredSignalHandler(
+    const base::RepeatingCallback<void(const user_data_auth::EvictedKeyRestored&)>& signal_callback,
+    dbus::ObjectProxy::OnConnectedCallback on_connected_callback) override {
+    DoRegisterEvictedKeyRestoredSignalHandler(signal_callback, &on_connected_callback);
+  }
+  MOCK_METHOD(void,
+              DoRegisterEvictedKeyRestoredSignalHandler,
+              (const base::RepeatingCallback<void(const user_data_auth::EvictedKeyRestored&)>& /*signal_callback*/,
                dbus::ObjectProxy::OnConnectedCallback* /*on_connected_callback*/));
 
   MOCK_METHOD(const dbus::ObjectPath&, GetObjectPath, (), (const, override));

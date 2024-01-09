@@ -103,6 +103,12 @@
     mojo.internal.loadMojomIfNecessary(
         'services/network/public/mojom/request_priority.mojom', 'request_priority.mojom.js');
   }
+  var service_worker_router_info$ =
+      mojo.internal.exposeNamespace('network.mojom');
+  if (mojo.config.autoLoadMojomDeps) {
+    mojo.internal.loadMojomIfNecessary(
+        'services/network/public/mojom/service_worker_router_info.mojom', 'service_worker_router_info.mojom.js');
+  }
   var trust_tokens$ =
       mojo.internal.exposeNamespace('network.mojom');
   if (mojo.config.autoLoadMojomDeps) {
@@ -283,6 +289,7 @@
     this.alpnNegotiatedProtocol = null;
     this.alternateProtocolUsage = 0;
     this.serviceWorkerResponseSource = 0;
+    this.serviceWorkerRouterInfo = null;
     this.sslInfo = null;
     this.remoteEndpoint = null;
   };
@@ -300,7 +307,7 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 96}
+      {version: 0, numBytes: 104}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
@@ -360,14 +367,20 @@
         return err;
 
 
+    // validate URLResponseHeadDevToolsInfo.serviceWorkerRouterInfo
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 72, service_worker_router_info$.ServiceWorkerRouterInfo, true);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
     // validate URLResponseHeadDevToolsInfo.sslInfo
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 72, network_param$.SSLInfo, true);
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 80, network_param$.SSLInfo, true);
     if (err !== validator.validationError.NONE)
         return err;
 
 
     // validate URLResponseHeadDevToolsInfo.remoteEndpoint
-    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 80, ip_endpoint$.IPEndPoint, false);
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 88, ip_endpoint$.IPEndPoint, false);
     if (err !== validator.validationError.NONE)
         return err;
 
@@ -375,7 +388,7 @@
     return validator.validationError.NONE;
   };
 
-  URLResponseHeadDevToolsInfo.encodedSize = codec.kStructHeaderSize + 88;
+  URLResponseHeadDevToolsInfo.encodedSize = codec.kStructHeaderSize + 96;
 
   URLResponseHeadDevToolsInfo.decode = function(decoder) {
     var packed;
@@ -410,6 +423,8 @@
         decoder.decodeStruct(new codec.Enum(alternate_protocol_usage$.AlternateProtocolUsage));
     val.serviceWorkerResponseSource =
         decoder.decodeStruct(new codec.Enum(fetch_api$.FetchResponseSource));
+    val.serviceWorkerRouterInfo =
+        decoder.decodeStructPointer(service_worker_router_info$.ServiceWorkerRouterInfo);
     val.sslInfo =
         decoder.decodeStructPointer(network_param$.SSLInfo);
     val.remoteEndpoint =
@@ -440,6 +455,7 @@
     encoder.encodeStruct(codec.String, val.alpnNegotiatedProtocol);
     encoder.encodeStruct(codec.Int32, val.alternateProtocolUsage);
     encoder.encodeStruct(codec.Int32, val.serviceWorkerResponseSource);
+    encoder.encodeStructPointer(service_worker_router_info$.ServiceWorkerRouterInfo, val.serviceWorkerRouterInfo);
     encoder.encodeStructPointer(network_param$.SSLInfo, val.sslInfo);
     encoder.encodeStructPointer(ip_endpoint$.IPEndPoint, val.remoteEndpoint);
   };

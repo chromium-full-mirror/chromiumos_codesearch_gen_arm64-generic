@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "components/web_package/mojom/web_bundle_parser.mojom-features.h"
 #include "components/web_package/mojom/web_bundle_parser.mojom-shared.h"
 #include "components/web_package/mojom/web_bundle_parser.mojom-forward.h"
 #include "mojo/public/mojom/base/read_only_file.mojom.h"
@@ -87,7 +88,7 @@ class WebBundleParserFactory
   virtual ~WebBundleParserFactory() = default;
 
   
-  virtual void GetParserForDataSource(::mojo::PendingReceiver<WebBundleParser> receiver, const absl::optional<::GURL>& base_url, ::mojo::PendingRemote<BundleDataSource> data_source) = 0;
+  virtual void GetParserForDataSource(::mojo::PendingReceiver<WebBundleParser> receiver, const std::optional<::GURL>& base_url, ::mojo::PendingRemote<BundleDataSource> data_source) = 0;
 
   
   virtual void BindFileDataSource(::mojo::PendingReceiver<BundleDataSource> data_source, ::base::File file) = 0;
@@ -155,7 +156,7 @@ class WebBundleParser
 
   using ParseMetadataCallback = base::OnceCallback<void(BundleMetadataPtr, BundleMetadataParseErrorPtr)>;
   
-  virtual void ParseMetadata(absl::optional<uint64_t> offset, ParseMetadataCallback callback) = 0;
+  virtual void ParseMetadata(std::optional<uint64_t> offset, ParseMetadataCallback callback) = 0;
 
 
   using ParseResponseCallback = base::OnceCallback<void(BundleResponsePtr, BundleResponseParseErrorPtr)>;
@@ -223,7 +224,7 @@ class BundleDataSource
   virtual ~BundleDataSource() = default;
 
 
-  using ReadCallback = base::OnceCallback<void(const absl::optional<std::vector<uint8_t>>&)>;
+  using ReadCallback = base::OnceCallback<void(const std::optional<std::vector<uint8_t>>&)>;
   
   virtual void Read(uint64_t offset, uint64_t length, ReadCallback callback) = 0;
 
@@ -252,7 +253,7 @@ class  WebBundleParserFactoryProxy
 
   explicit WebBundleParserFactoryProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void GetParserForDataSource(::mojo::PendingReceiver<WebBundleParser> receiver, const absl::optional<::GURL>& base_url, ::mojo::PendingRemote<BundleDataSource> data_source) final;
+  void GetParserForDataSource(::mojo::PendingReceiver<WebBundleParser> receiver, const std::optional<::GURL>& base_url, ::mojo::PendingRemote<BundleDataSource> data_source) final;
   
   void BindFileDataSource(::mojo::PendingReceiver<BundleDataSource> data_source, ::base::File file) final;
 
@@ -271,7 +272,7 @@ class  WebBundleParserProxy
   
   void ParseIntegrityBlock(ParseIntegrityBlockCallback callback) final;
   
-  void ParseMetadata(absl::optional<uint64_t> offset, ParseMetadataCallback callback) final;
+  void ParseMetadata(std::optional<uint64_t> offset, ParseMetadataCallback callback) final;
   
   void ParseResponse(uint64_t response_offset, uint64_t response_length, ParseResponseCallback callback) final;
   
@@ -1638,7 +1639,7 @@ class  BundleMetadata {
 
   BundleMetadata(
       BundleFormatVersion version,
-      const absl::optional<::GURL>& primary_url,
+      const std::optional<::GURL>& primary_url,
       base::flat_map<::GURL, BundleResponseLocationPtr> requests);
 
 BundleMetadata(const BundleMetadata&) = delete;
@@ -1721,7 +1722,7 @@ BundleMetadata& operator=(const BundleMetadata&) = delete;
   
   BundleFormatVersion version;
   
-  absl::optional<::GURL> primary_url;
+  std::optional<::GURL> primary_url;
   
   base::flat_map<::GURL, BundleResponseLocationPtr> requests;
 

@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "third_party/blink/public/mojom/conversions/conversions.mojom-features.h"
 #include "third_party/blink/public/mojom/conversions/conversions.mojom-shared.h"
 #include "third_party/blink/public/mojom/conversions/conversions.mojom-forward.h"
 #include "components/attribution_reporting/registration_eligibility.mojom-forward.h"
@@ -75,6 +76,7 @@ class BLINK_COMMON_EXPORT AttributionHost
   enum MethodMinVersions : uint32_t {
     kRegisterDataHostMinVersion = 0,
     kRegisterNavigationDataHostMinVersion = 0,
+    kNotifyNavigationWithBackgroundRegistrationsWillStartMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -86,6 +88,9 @@ class BLINK_COMMON_EXPORT AttributionHost
   struct RegisterNavigationDataHost_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
+  struct NotifyNavigationWithBackgroundRegistrationsWillStart_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~AttributionHost() = default;
 
@@ -94,6 +99,9 @@ class BLINK_COMMON_EXPORT AttributionHost
 
   
   virtual void RegisterNavigationDataHost(::mojo::PendingReceiver<::blink::mojom::AttributionDataHost> data_host, const ::blink::AttributionSrcToken& attribution_src_token) = 0;
+
+  
+  virtual void NotifyNavigationWithBackgroundRegistrationsWillStart(const ::blink::AttributionSrcToken& attribution_src_token, uint32_t expected_registrations) = 0;
 };
 
 
@@ -108,6 +116,8 @@ class BLINK_COMMON_EXPORT AttributionHostProxy
   void RegisterDataHost(::mojo::PendingReceiver<::blink::mojom::AttributionDataHost> data_host, ::attribution_reporting::mojom::RegistrationEligibility registration_eligibility) final;
   
   void RegisterNavigationDataHost(::mojo::PendingReceiver<::blink::mojom::AttributionDataHost> data_host, const ::blink::AttributionSrcToken& attribution_src_token) final;
+  
+  void NotifyNavigationWithBackgroundRegistrationsWillStart(const ::blink::AttributionSrcToken& attribution_src_token, uint32_t expected_registrations) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

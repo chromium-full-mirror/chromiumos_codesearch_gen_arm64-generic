@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/resource_coordinator/public/mojom/memory_instrumentation/memory_instrumentation.mojom-features.h"
 #include "services/resource_coordinator/public/mojom/memory_instrumentation/memory_instrumentation.mojom-shared.h"
 #include "services/resource_coordinator/public/mojom/memory_instrumentation/memory_instrumentation.mojom-forward.h"
 #include "mojo/public/mojom/base/big_string.mojom.h"
@@ -1119,17 +1120,17 @@ class COMPONENT_EXPORT(RESOURCE_COORDINATOR_PUBLIC_MOJOM) RawAllocatorDumpEntryV
   // Construct an instance holding |value_uint64|.
   static RawAllocatorDumpEntryValuePtr
   NewValueUint64(
-      uint64_t value_uint64) {
+      uint64_t value) {
     auto result = RawAllocatorDumpEntryValuePtr(absl::in_place);
-    result->set_value_uint64(std::move(value_uint64));
+    result->set_value_uint64(std::move(value));
     return result;
   }
   // Construct an instance holding |value_string|.
   static RawAllocatorDumpEntryValuePtr
   NewValueString(
-      const std::string& value_string) {
+      const std::string& value) {
     auto result = RawAllocatorDumpEntryValuePtr(absl::in_place);
-    result->set_value_string(std::move(value_string));
+    result->set_value_string(std::move(value));
     return result;
   }
 
@@ -2518,7 +2519,7 @@ class COMPONENT_EXPORT(RESOURCE_COORDINATOR_PUBLIC_MOJOM) ProcessMemoryDump {
       OSMemDumpPtr os_dump,
       base::flat_map<std::string, AllocatorMemDumpPtr> chrome_allocator_dumps,
       ::base::ProcessId pid,
-      const absl::optional<std::string>& service_name);
+      const std::optional<std::string>& service_name);
 
 ProcessMemoryDump(const ProcessMemoryDump&) = delete;
 ProcessMemoryDump& operator=(const ProcessMemoryDump&) = delete;
@@ -2606,7 +2607,7 @@ ProcessMemoryDump& operator=(const ProcessMemoryDump&) = delete;
   
   ::base::ProcessId pid;
   
-  absl::optional<std::string> service_name;
+  std::optional<std::string> service_name;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

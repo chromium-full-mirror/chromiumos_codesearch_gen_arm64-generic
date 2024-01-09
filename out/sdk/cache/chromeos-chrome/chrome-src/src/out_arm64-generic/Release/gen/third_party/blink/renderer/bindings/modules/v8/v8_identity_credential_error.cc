@@ -71,11 +71,6 @@ static_assert(
     !std::is_base_of<ActiveScriptWrappableBase, IdentityCredentialError>::value,
     "IdentityCredentialError inherits from ActiveScriptWrappable<> without "
     "[ActiveScriptWrappable] extended attribute.");
-static_assert(
-    std::is_same<decltype(&IdentityCredentialError::HasPendingActivity),
-                 decltype(&ScriptWrappable::HasPendingActivity)>::value,
-    "IdentityCredentialError is overriding hasPendingActivity() without "
-    "[ActiveScriptWrappable] extended attribute.");
 
 namespace  {
 
@@ -88,10 +83,10 @@ BLINK_BINDINGS_TRACE_EVENT("IdentityCredentialError.code.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-IdentityCredentialError* blink_receiver = V8IdentityCredentialError::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->code();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+IdentityCredentialError* blink_receiver = V8IdentityCredentialError::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->code();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 
@@ -103,10 +98,10 @@ BLINK_BINDINGS_TRACE_EVENT("IdentityCredentialError.url.get");
 
 
 
-v8::Local<v8::Object> v8_receiver = info.This();
-IdentityCredentialError* blink_receiver = V8IdentityCredentialError::ToWrappableUnsafe(v8_receiver);
-auto&& return_value = blink_receiver->url();
 v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+IdentityCredentialError* blink_receiver = V8IdentityCredentialError::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->url();
 bindings::V8SetReturnValue(info, return_value, isolate, bindings::V8ReturnValue::kNonNullable);
 }
 

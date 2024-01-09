@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/extensions/api/passwords_private.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -36,13 +37,13 @@ namespace passwords_private {
 
 const char* ToString(PlaintextReason enum_param) {
   switch (enum_param) {
-    case PLAINTEXT_REASON_VIEW:
+    case PlaintextReason::kView:
       return "VIEW";
-    case PLAINTEXT_REASON_COPY:
+    case PlaintextReason::kCopy:
       return "COPY";
-    case PLAINTEXT_REASON_EDIT:
+    case PlaintextReason::kEdit:
       return "EDIT";
-    case PLAINTEXT_REASON_NONE:
+    case PlaintextReason::kNone:
       return "";
   }
   NOTREACHED();
@@ -51,12 +52,12 @@ const char* ToString(PlaintextReason enum_param) {
 
 PlaintextReason ParsePlaintextReason(base::StringPiece enum_string) {
   if (enum_string == "VIEW")
-    return PLAINTEXT_REASON_VIEW;
+    return PlaintextReason::kView;
   if (enum_string == "COPY")
-    return PLAINTEXT_REASON_COPY;
+    return PlaintextReason::kCopy;
   if (enum_string == "EDIT")
-    return PLAINTEXT_REASON_EDIT;
-  return PLAINTEXT_REASON_NONE;
+    return PlaintextReason::kEdit;
+  return PlaintextReason::kNone;
 }
 
 std::u16string GetPlaintextReasonParseError(base::StringPiece enum_string) {
@@ -66,17 +67,17 @@ std::u16string GetPlaintextReasonParseError(base::StringPiece enum_string) {
 
 const char* ToString(ExportProgressStatus enum_param) {
   switch (enum_param) {
-    case EXPORT_PROGRESS_STATUS_NOT_STARTED:
+    case ExportProgressStatus::kNotStarted:
       return "NOT_STARTED";
-    case EXPORT_PROGRESS_STATUS_IN_PROGRESS:
+    case ExportProgressStatus::kInProgress:
       return "IN_PROGRESS";
-    case EXPORT_PROGRESS_STATUS_SUCCEEDED:
+    case ExportProgressStatus::kSucceeded:
       return "SUCCEEDED";
-    case EXPORT_PROGRESS_STATUS_FAILED_CANCELLED:
+    case ExportProgressStatus::kFailedCancelled:
       return "FAILED_CANCELLED";
-    case EXPORT_PROGRESS_STATUS_FAILED_WRITE_FAILED:
+    case ExportProgressStatus::kFailedWriteFailed:
       return "FAILED_WRITE_FAILED";
-    case EXPORT_PROGRESS_STATUS_NONE:
+    case ExportProgressStatus::kNone:
       return "";
   }
   NOTREACHED();
@@ -85,16 +86,16 @@ const char* ToString(ExportProgressStatus enum_param) {
 
 ExportProgressStatus ParseExportProgressStatus(base::StringPiece enum_string) {
   if (enum_string == "NOT_STARTED")
-    return EXPORT_PROGRESS_STATUS_NOT_STARTED;
+    return ExportProgressStatus::kNotStarted;
   if (enum_string == "IN_PROGRESS")
-    return EXPORT_PROGRESS_STATUS_IN_PROGRESS;
+    return ExportProgressStatus::kInProgress;
   if (enum_string == "SUCCEEDED")
-    return EXPORT_PROGRESS_STATUS_SUCCEEDED;
+    return ExportProgressStatus::kSucceeded;
   if (enum_string == "FAILED_CANCELLED")
-    return EXPORT_PROGRESS_STATUS_FAILED_CANCELLED;
+    return ExportProgressStatus::kFailedCancelled;
   if (enum_string == "FAILED_WRITE_FAILED")
-    return EXPORT_PROGRESS_STATUS_FAILED_WRITE_FAILED;
-  return EXPORT_PROGRESS_STATUS_NONE;
+    return ExportProgressStatus::kFailedWriteFailed;
+  return ExportProgressStatus::kNone;
 }
 
 std::u16string GetExportProgressStatusParseError(base::StringPiece enum_string) {
@@ -104,15 +105,15 @@ std::u16string GetExportProgressStatusParseError(base::StringPiece enum_string) 
 
 const char* ToString(CompromiseType enum_param) {
   switch (enum_param) {
-    case COMPROMISE_TYPE_LEAKED:
+    case CompromiseType::kLeaked:
       return "LEAKED";
-    case COMPROMISE_TYPE_PHISHED:
+    case CompromiseType::kPhished:
       return "PHISHED";
-    case COMPROMISE_TYPE_REUSED:
+    case CompromiseType::kReused:
       return "REUSED";
-    case COMPROMISE_TYPE_WEAK:
+    case CompromiseType::kWeak:
       return "WEAK";
-    case COMPROMISE_TYPE_NONE:
+    case CompromiseType::kNone:
       return "";
   }
   NOTREACHED();
@@ -121,14 +122,14 @@ const char* ToString(CompromiseType enum_param) {
 
 CompromiseType ParseCompromiseType(base::StringPiece enum_string) {
   if (enum_string == "LEAKED")
-    return COMPROMISE_TYPE_LEAKED;
+    return CompromiseType::kLeaked;
   if (enum_string == "PHISHED")
-    return COMPROMISE_TYPE_PHISHED;
+    return CompromiseType::kPhished;
   if (enum_string == "REUSED")
-    return COMPROMISE_TYPE_REUSED;
+    return CompromiseType::kReused;
   if (enum_string == "WEAK")
-    return COMPROMISE_TYPE_WEAK;
-  return COMPROMISE_TYPE_NONE;
+    return CompromiseType::kWeak;
+  return CompromiseType::kNone;
 }
 
 std::u16string GetCompromiseTypeParseError(base::StringPiece enum_string) {
@@ -138,13 +139,13 @@ std::u16string GetCompromiseTypeParseError(base::StringPiece enum_string) {
 
 const char* ToString(PasswordStoreSet enum_param) {
   switch (enum_param) {
-    case PASSWORD_STORE_SET_DEVICE:
+    case PasswordStoreSet::kDevice:
       return "DEVICE";
-    case PASSWORD_STORE_SET_ACCOUNT:
+    case PasswordStoreSet::kAccount:
       return "ACCOUNT";
-    case PASSWORD_STORE_SET_DEVICE_AND_ACCOUNT:
+    case PasswordStoreSet::kDeviceAndAccount:
       return "DEVICE_AND_ACCOUNT";
-    case PASSWORD_STORE_SET_NONE:
+    case PasswordStoreSet::kNone:
       return "";
   }
   NOTREACHED();
@@ -153,12 +154,12 @@ const char* ToString(PasswordStoreSet enum_param) {
 
 PasswordStoreSet ParsePasswordStoreSet(base::StringPiece enum_string) {
   if (enum_string == "DEVICE")
-    return PASSWORD_STORE_SET_DEVICE;
+    return PasswordStoreSet::kDevice;
   if (enum_string == "ACCOUNT")
-    return PASSWORD_STORE_SET_ACCOUNT;
+    return PasswordStoreSet::kAccount;
   if (enum_string == "DEVICE_AND_ACCOUNT")
-    return PASSWORD_STORE_SET_DEVICE_AND_ACCOUNT;
-  return PASSWORD_STORE_SET_NONE;
+    return PasswordStoreSet::kDeviceAndAccount;
+  return PasswordStoreSet::kNone;
 }
 
 std::u16string GetPasswordStoreSetParseError(base::StringPiece enum_string) {
@@ -168,23 +169,23 @@ std::u16string GetPasswordStoreSetParseError(base::StringPiece enum_string) {
 
 const char* ToString(PasswordCheckState enum_param) {
   switch (enum_param) {
-    case PASSWORD_CHECK_STATE_IDLE:
+    case PasswordCheckState::kIdle:
       return "IDLE";
-    case PASSWORD_CHECK_STATE_RUNNING:
+    case PasswordCheckState::kRunning:
       return "RUNNING";
-    case PASSWORD_CHECK_STATE_CANCELED:
+    case PasswordCheckState::kCanceled:
       return "CANCELED";
-    case PASSWORD_CHECK_STATE_OFFLINE:
+    case PasswordCheckState::kOffline:
       return "OFFLINE";
-    case PASSWORD_CHECK_STATE_SIGNED_OUT:
+    case PasswordCheckState::kSignedOut:
       return "SIGNED_OUT";
-    case PASSWORD_CHECK_STATE_NO_PASSWORDS:
+    case PasswordCheckState::kNoPasswords:
       return "NO_PASSWORDS";
-    case PASSWORD_CHECK_STATE_QUOTA_LIMIT:
+    case PasswordCheckState::kQuotaLimit:
       return "QUOTA_LIMIT";
-    case PASSWORD_CHECK_STATE_OTHER_ERROR:
+    case PasswordCheckState::kOtherError:
       return "OTHER_ERROR";
-    case PASSWORD_CHECK_STATE_NONE:
+    case PasswordCheckState::kNone:
       return "";
   }
   NOTREACHED();
@@ -193,22 +194,22 @@ const char* ToString(PasswordCheckState enum_param) {
 
 PasswordCheckState ParsePasswordCheckState(base::StringPiece enum_string) {
   if (enum_string == "IDLE")
-    return PASSWORD_CHECK_STATE_IDLE;
+    return PasswordCheckState::kIdle;
   if (enum_string == "RUNNING")
-    return PASSWORD_CHECK_STATE_RUNNING;
+    return PasswordCheckState::kRunning;
   if (enum_string == "CANCELED")
-    return PASSWORD_CHECK_STATE_CANCELED;
+    return PasswordCheckState::kCanceled;
   if (enum_string == "OFFLINE")
-    return PASSWORD_CHECK_STATE_OFFLINE;
+    return PasswordCheckState::kOffline;
   if (enum_string == "SIGNED_OUT")
-    return PASSWORD_CHECK_STATE_SIGNED_OUT;
+    return PasswordCheckState::kSignedOut;
   if (enum_string == "NO_PASSWORDS")
-    return PASSWORD_CHECK_STATE_NO_PASSWORDS;
+    return PasswordCheckState::kNoPasswords;
   if (enum_string == "QUOTA_LIMIT")
-    return PASSWORD_CHECK_STATE_QUOTA_LIMIT;
+    return PasswordCheckState::kQuotaLimit;
   if (enum_string == "OTHER_ERROR")
-    return PASSWORD_CHECK_STATE_OTHER_ERROR;
-  return PASSWORD_CHECK_STATE_NONE;
+    return PasswordCheckState::kOtherError;
+  return PasswordCheckState::kNone;
 }
 
 std::u16string GetPasswordCheckStateParseError(base::StringPiece enum_string) {
@@ -218,25 +219,25 @@ std::u16string GetPasswordCheckStateParseError(base::StringPiece enum_string) {
 
 const char* ToString(ImportResultsStatus enum_param) {
   switch (enum_param) {
-    case IMPORT_RESULTS_STATUS_UNKNOWN_ERROR:
+    case ImportResultsStatus::kUnknownError:
       return "UNKNOWN_ERROR";
-    case IMPORT_RESULTS_STATUS_SUCCESS:
+    case ImportResultsStatus::kSuccess:
       return "SUCCESS";
-    case IMPORT_RESULTS_STATUS_IO_ERROR:
+    case ImportResultsStatus::kIoError:
       return "IO_ERROR";
-    case IMPORT_RESULTS_STATUS_BAD_FORMAT:
+    case ImportResultsStatus::kBadFormat:
       return "BAD_FORMAT";
-    case IMPORT_RESULTS_STATUS_DISMISSED:
+    case ImportResultsStatus::kDismissed:
       return "DISMISSED";
-    case IMPORT_RESULTS_STATUS_MAX_FILE_SIZE:
+    case ImportResultsStatus::kMaxFileSize:
       return "MAX_FILE_SIZE";
-    case IMPORT_RESULTS_STATUS_IMPORT_ALREADY_ACTIVE:
+    case ImportResultsStatus::kImportAlreadyActive:
       return "IMPORT_ALREADY_ACTIVE";
-    case IMPORT_RESULTS_STATUS_NUM_PASSWORDS_EXCEEDED:
+    case ImportResultsStatus::kNumPasswordsExceeded:
       return "NUM_PASSWORDS_EXCEEDED";
-    case IMPORT_RESULTS_STATUS_CONFLICTS:
+    case ImportResultsStatus::kConflicts:
       return "CONFLICTS";
-    case IMPORT_RESULTS_STATUS_NONE:
+    case ImportResultsStatus::kNone:
       return "";
   }
   NOTREACHED();
@@ -245,24 +246,24 @@ const char* ToString(ImportResultsStatus enum_param) {
 
 ImportResultsStatus ParseImportResultsStatus(base::StringPiece enum_string) {
   if (enum_string == "UNKNOWN_ERROR")
-    return IMPORT_RESULTS_STATUS_UNKNOWN_ERROR;
+    return ImportResultsStatus::kUnknownError;
   if (enum_string == "SUCCESS")
-    return IMPORT_RESULTS_STATUS_SUCCESS;
+    return ImportResultsStatus::kSuccess;
   if (enum_string == "IO_ERROR")
-    return IMPORT_RESULTS_STATUS_IO_ERROR;
+    return ImportResultsStatus::kIoError;
   if (enum_string == "BAD_FORMAT")
-    return IMPORT_RESULTS_STATUS_BAD_FORMAT;
+    return ImportResultsStatus::kBadFormat;
   if (enum_string == "DISMISSED")
-    return IMPORT_RESULTS_STATUS_DISMISSED;
+    return ImportResultsStatus::kDismissed;
   if (enum_string == "MAX_FILE_SIZE")
-    return IMPORT_RESULTS_STATUS_MAX_FILE_SIZE;
+    return ImportResultsStatus::kMaxFileSize;
   if (enum_string == "IMPORT_ALREADY_ACTIVE")
-    return IMPORT_RESULTS_STATUS_IMPORT_ALREADY_ACTIVE;
+    return ImportResultsStatus::kImportAlreadyActive;
   if (enum_string == "NUM_PASSWORDS_EXCEEDED")
-    return IMPORT_RESULTS_STATUS_NUM_PASSWORDS_EXCEEDED;
+    return ImportResultsStatus::kNumPasswordsExceeded;
   if (enum_string == "CONFLICTS")
-    return IMPORT_RESULTS_STATUS_CONFLICTS;
-  return IMPORT_RESULTS_STATUS_NONE;
+    return ImportResultsStatus::kConflicts;
+  return ImportResultsStatus::kNone;
 }
 
 std::u16string GetImportResultsStatusParseError(base::StringPiece enum_string) {
@@ -272,33 +273,33 @@ std::u16string GetImportResultsStatusParseError(base::StringPiece enum_string) {
 
 const char* ToString(ImportEntryStatus enum_param) {
   switch (enum_param) {
-    case IMPORT_ENTRY_STATUS_UNKNOWN_ERROR:
+    case ImportEntryStatus::kUnknownError:
       return "UNKNOWN_ERROR";
-    case IMPORT_ENTRY_STATUS_MISSING_PASSWORD:
+    case ImportEntryStatus::kMissingPassword:
       return "MISSING_PASSWORD";
-    case IMPORT_ENTRY_STATUS_MISSING_URL:
+    case ImportEntryStatus::kMissingUrl:
       return "MISSING_URL";
-    case IMPORT_ENTRY_STATUS_INVALID_URL:
+    case ImportEntryStatus::kInvalidUrl:
       return "INVALID_URL";
-    case IMPORT_ENTRY_STATUS_NON_ASCII_URL:
+    case ImportEntryStatus::kNonAsciiUrl:
       return "NON_ASCII_URL";
-    case IMPORT_ENTRY_STATUS_LONG_URL:
+    case ImportEntryStatus::kLongUrl:
       return "LONG_URL";
-    case IMPORT_ENTRY_STATUS_LONG_PASSWORD:
+    case ImportEntryStatus::kLongPassword:
       return "LONG_PASSWORD";
-    case IMPORT_ENTRY_STATUS_LONG_USERNAME:
+    case ImportEntryStatus::kLongUsername:
       return "LONG_USERNAME";
-    case IMPORT_ENTRY_STATUS_CONFLICT_PROFILE:
+    case ImportEntryStatus::kConflictProfile:
       return "CONFLICT_PROFILE";
-    case IMPORT_ENTRY_STATUS_CONFLICT_ACCOUNT:
+    case ImportEntryStatus::kConflictAccount:
       return "CONFLICT_ACCOUNT";
-    case IMPORT_ENTRY_STATUS_LONG_NOTE:
+    case ImportEntryStatus::kLongNote:
       return "LONG_NOTE";
-    case IMPORT_ENTRY_STATUS_LONG_CONCATENATED_NOTE:
+    case ImportEntryStatus::kLongConcatenatedNote:
       return "LONG_CONCATENATED_NOTE";
-    case IMPORT_ENTRY_STATUS_VALID:
+    case ImportEntryStatus::kValid:
       return "VALID";
-    case IMPORT_ENTRY_STATUS_NONE:
+    case ImportEntryStatus::kNone:
       return "";
   }
   NOTREACHED();
@@ -307,32 +308,32 @@ const char* ToString(ImportEntryStatus enum_param) {
 
 ImportEntryStatus ParseImportEntryStatus(base::StringPiece enum_string) {
   if (enum_string == "UNKNOWN_ERROR")
-    return IMPORT_ENTRY_STATUS_UNKNOWN_ERROR;
+    return ImportEntryStatus::kUnknownError;
   if (enum_string == "MISSING_PASSWORD")
-    return IMPORT_ENTRY_STATUS_MISSING_PASSWORD;
+    return ImportEntryStatus::kMissingPassword;
   if (enum_string == "MISSING_URL")
-    return IMPORT_ENTRY_STATUS_MISSING_URL;
+    return ImportEntryStatus::kMissingUrl;
   if (enum_string == "INVALID_URL")
-    return IMPORT_ENTRY_STATUS_INVALID_URL;
+    return ImportEntryStatus::kInvalidUrl;
   if (enum_string == "NON_ASCII_URL")
-    return IMPORT_ENTRY_STATUS_NON_ASCII_URL;
+    return ImportEntryStatus::kNonAsciiUrl;
   if (enum_string == "LONG_URL")
-    return IMPORT_ENTRY_STATUS_LONG_URL;
+    return ImportEntryStatus::kLongUrl;
   if (enum_string == "LONG_PASSWORD")
-    return IMPORT_ENTRY_STATUS_LONG_PASSWORD;
+    return ImportEntryStatus::kLongPassword;
   if (enum_string == "LONG_USERNAME")
-    return IMPORT_ENTRY_STATUS_LONG_USERNAME;
+    return ImportEntryStatus::kLongUsername;
   if (enum_string == "CONFLICT_PROFILE")
-    return IMPORT_ENTRY_STATUS_CONFLICT_PROFILE;
+    return ImportEntryStatus::kConflictProfile;
   if (enum_string == "CONFLICT_ACCOUNT")
-    return IMPORT_ENTRY_STATUS_CONFLICT_ACCOUNT;
+    return ImportEntryStatus::kConflictAccount;
   if (enum_string == "LONG_NOTE")
-    return IMPORT_ENTRY_STATUS_LONG_NOTE;
+    return ImportEntryStatus::kLongNote;
   if (enum_string == "LONG_CONCATENATED_NOTE")
-    return IMPORT_ENTRY_STATUS_LONG_CONCATENATED_NOTE;
+    return ImportEntryStatus::kLongConcatenatedNote;
   if (enum_string == "VALID")
-    return IMPORT_ENTRY_STATUS_VALID;
-  return IMPORT_ENTRY_STATUS_NONE;
+    return ImportEntryStatus::kValid;
+  return ImportEntryStatus::kNone;
 }
 
 std::u16string GetImportEntryStatusParseError(base::StringPiece enum_string) {
@@ -342,13 +343,13 @@ std::u16string GetImportEntryStatusParseError(base::StringPiece enum_string) {
 
 const char* ToString(FamilyFetchStatus enum_param) {
   switch (enum_param) {
-    case FAMILY_FETCH_STATUS_UNKNOWN_ERROR:
+    case FamilyFetchStatus::kUnknownError:
       return "UNKNOWN_ERROR";
-    case FAMILY_FETCH_STATUS_NO_MEMBERS:
+    case FamilyFetchStatus::kNoMembers:
       return "NO_MEMBERS";
-    case FAMILY_FETCH_STATUS_SUCCESS:
+    case FamilyFetchStatus::kSuccess:
       return "SUCCESS";
-    case FAMILY_FETCH_STATUS_NONE:
+    case FamilyFetchStatus::kNone:
       return "";
   }
   NOTREACHED();
@@ -357,12 +358,12 @@ const char* ToString(FamilyFetchStatus enum_param) {
 
 FamilyFetchStatus ParseFamilyFetchStatus(base::StringPiece enum_string) {
   if (enum_string == "UNKNOWN_ERROR")
-    return FAMILY_FETCH_STATUS_UNKNOWN_ERROR;
+    return FamilyFetchStatus::kUnknownError;
   if (enum_string == "NO_MEMBERS")
-    return FAMILY_FETCH_STATUS_NO_MEMBERS;
+    return FamilyFetchStatus::kNoMembers;
   if (enum_string == "SUCCESS")
-    return FAMILY_FETCH_STATUS_SUCCESS;
-  return FAMILY_FETCH_STATUS_NONE;
+    return FamilyFetchStatus::kSuccess;
+  return FamilyFetchStatus::kNone;
 }
 
 std::u16string GetFamilyFetchStatusParseError(base::StringPiece enum_string) {
@@ -374,8 +375,8 @@ PublicKey::PublicKey()
 : version(0) {}
 
 PublicKey::~PublicKey() = default;
-PublicKey::PublicKey(PublicKey&& rhs) = default;
-PublicKey& PublicKey::operator=(PublicKey&& rhs) = default;
+PublicKey::PublicKey(PublicKey&& rhs) noexcept = default;
+PublicKey& PublicKey::operator=(PublicKey&& rhs) noexcept = default;
 PublicKey PublicKey::Clone() const {
   PublicKey out;
   out.value = value;
@@ -423,34 +424,21 @@ bool PublicKey::Populate(
 }
 
 // static
-std::unique_ptr<PublicKey> PublicKey::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<PublicKey>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<PublicKey> PublicKey::FromValue(const base::Value::Dict& value) {
+  PublicKey out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<PublicKey> PublicKey::FromValue(const base::Value::Dict& value) {
+std::optional<PublicKey> PublicKey::FromValue(const base::Value& value) {
   PublicKey out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<PublicKey> PublicKey::FromValue(const base::Value& value) {
-  PublicKey out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -471,8 +459,8 @@ RecipientInfo::RecipientInfo()
 : is_eligible(false) {}
 
 RecipientInfo::~RecipientInfo() = default;
-RecipientInfo::RecipientInfo(RecipientInfo&& rhs) = default;
-RecipientInfo& RecipientInfo::operator=(RecipientInfo&& rhs) = default;
+RecipientInfo::RecipientInfo(RecipientInfo&& rhs) noexcept = default;
+RecipientInfo& RecipientInfo::operator=(RecipientInfo&& rhs) noexcept = default;
 RecipientInfo RecipientInfo::Clone() const {
   RecipientInfo out;
   out.user_id = user_id;
@@ -577,34 +565,21 @@ bool RecipientInfo::Populate(
 }
 
 // static
-std::unique_ptr<RecipientInfo> RecipientInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<RecipientInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<RecipientInfo> RecipientInfo::FromValue(const base::Value::Dict& value) {
+  RecipientInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<RecipientInfo> RecipientInfo::FromValue(const base::Value::Dict& value) {
+std::optional<RecipientInfo> RecipientInfo::FromValue(const base::Value& value) {
   RecipientInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<RecipientInfo> RecipientInfo::FromValue(const base::Value& value) {
-  RecipientInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -635,8 +610,8 @@ FamilyFetchResults::FamilyFetchResults()
 : status() {}
 
 FamilyFetchResults::~FamilyFetchResults() = default;
-FamilyFetchResults::FamilyFetchResults(FamilyFetchResults&& rhs) = default;
-FamilyFetchResults& FamilyFetchResults::operator=(FamilyFetchResults&& rhs) = default;
+FamilyFetchResults::FamilyFetchResults(FamilyFetchResults&& rhs) noexcept = default;
+FamilyFetchResults& FamilyFetchResults::operator=(FamilyFetchResults&& rhs) noexcept = default;
 FamilyFetchResults FamilyFetchResults::Clone() const {
   FamilyFetchResults out;
   out.status = status;
@@ -693,34 +668,21 @@ bool FamilyFetchResults::Populate(
 }
 
 // static
-std::unique_ptr<FamilyFetchResults> FamilyFetchResults::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<FamilyFetchResults>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<FamilyFetchResults> FamilyFetchResults::FromValue(const base::Value::Dict& value) {
+  FamilyFetchResults out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<FamilyFetchResults> FamilyFetchResults::FromValue(const base::Value::Dict& value) {
+std::optional<FamilyFetchResults> FamilyFetchResults::FromValue(const base::Value& value) {
   FamilyFetchResults out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<FamilyFetchResults> FamilyFetchResults::FromValue(const base::Value& value) {
-  FamilyFetchResults out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -742,8 +704,8 @@ ImportEntry::ImportEntry()
 id(0) {}
 
 ImportEntry::~ImportEntry() = default;
-ImportEntry::ImportEntry(ImportEntry&& rhs) = default;
-ImportEntry& ImportEntry::operator=(ImportEntry&& rhs) = default;
+ImportEntry::ImportEntry(ImportEntry&& rhs) noexcept = default;
+ImportEntry& ImportEntry::operator=(ImportEntry&& rhs) noexcept = default;
 ImportEntry ImportEntry::Clone() const {
   ImportEntry out;
   out.status = status;
@@ -833,34 +795,21 @@ bool ImportEntry::Populate(
 }
 
 // static
-std::unique_ptr<ImportEntry> ImportEntry::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ImportEntry>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ImportEntry> ImportEntry::FromValue(const base::Value::Dict& value) {
+  ImportEntry out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ImportEntry> ImportEntry::FromValue(const base::Value::Dict& value) {
+std::optional<ImportEntry> ImportEntry::FromValue(const base::Value& value) {
   ImportEntry out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ImportEntry> ImportEntry::FromValue(const base::Value& value) {
-  ImportEntry out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -888,8 +837,8 @@ ImportResults::ImportResults()
 number_imported(0) {}
 
 ImportResults::~ImportResults() = default;
-ImportResults::ImportResults(ImportResults&& rhs) = default;
-ImportResults& ImportResults::operator=(ImportResults&& rhs) = default;
+ImportResults::ImportResults(ImportResults&& rhs) noexcept = default;
+ImportResults& ImportResults::operator=(ImportResults&& rhs) noexcept = default;
 ImportResults ImportResults::Clone() const {
   ImportResults out;
   out.status = status;
@@ -972,34 +921,21 @@ bool ImportResults::Populate(
 }
 
 // static
-std::unique_ptr<ImportResults> ImportResults::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ImportResults>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ImportResults> ImportResults::FromValue(const base::Value::Dict& value) {
+  ImportResults out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ImportResults> ImportResults::FromValue(const base::Value::Dict& value) {
+std::optional<ImportResults> ImportResults::FromValue(const base::Value& value) {
   ImportResults out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ImportResults> ImportResults::FromValue(const base::Value& value) {
-  ImportResults out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1024,8 +960,8 @@ UrlCollection::UrlCollection()
  {}
 
 UrlCollection::~UrlCollection() = default;
-UrlCollection::UrlCollection(UrlCollection&& rhs) = default;
-UrlCollection& UrlCollection::operator=(UrlCollection&& rhs) = default;
+UrlCollection::UrlCollection(UrlCollection&& rhs) noexcept = default;
+UrlCollection& UrlCollection::operator=(UrlCollection&& rhs) noexcept = default;
 UrlCollection UrlCollection::Clone() const {
   UrlCollection out;
   out.signon_realm = signon_realm;
@@ -1086,34 +1022,21 @@ bool UrlCollection::Populate(
 }
 
 // static
-std::unique_ptr<UrlCollection> UrlCollection::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<UrlCollection>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<UrlCollection> UrlCollection::FromValue(const base::Value::Dict& value) {
+  UrlCollection out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<UrlCollection> UrlCollection::FromValue(const base::Value::Dict& value) {
+std::optional<UrlCollection> UrlCollection::FromValue(const base::Value& value) {
   UrlCollection out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<UrlCollection> UrlCollection::FromValue(const base::Value& value) {
-  UrlCollection out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1137,8 +1060,8 @@ CompromisedInfo::CompromisedInfo()
 is_muted(false) {}
 
 CompromisedInfo::~CompromisedInfo() = default;
-CompromisedInfo::CompromisedInfo(CompromisedInfo&& rhs) = default;
-CompromisedInfo& CompromisedInfo::operator=(CompromisedInfo&& rhs) = default;
+CompromisedInfo::CompromisedInfo(CompromisedInfo&& rhs) noexcept = default;
+CompromisedInfo& CompromisedInfo::operator=(CompromisedInfo&& rhs) noexcept = default;
 CompromisedInfo CompromisedInfo::Clone() const {
   CompromisedInfo out;
   out.compromise_time = compromise_time;
@@ -1224,34 +1147,21 @@ bool CompromisedInfo::Populate(
 }
 
 // static
-std::unique_ptr<CompromisedInfo> CompromisedInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<CompromisedInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<CompromisedInfo> CompromisedInfo::FromValue(const base::Value::Dict& value) {
+  CompromisedInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<CompromisedInfo> CompromisedInfo::FromValue(const base::Value::Dict& value) {
+std::optional<CompromisedInfo> CompromisedInfo::FromValue(const base::Value& value) {
   CompromisedInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<CompromisedInfo> CompromisedInfo::FromValue(const base::Value& value) {
-  CompromisedInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1282,8 +1192,8 @@ DomainInfo::DomainInfo()
  {}
 
 DomainInfo::~DomainInfo() = default;
-DomainInfo::DomainInfo(DomainInfo&& rhs) = default;
-DomainInfo& DomainInfo::operator=(DomainInfo&& rhs) = default;
+DomainInfo::DomainInfo(DomainInfo&& rhs) noexcept = default;
+DomainInfo& DomainInfo::operator=(DomainInfo&& rhs) noexcept = default;
 DomainInfo DomainInfo::Clone() const {
   DomainInfo out;
   out.name = name;
@@ -1344,34 +1254,21 @@ bool DomainInfo::Populate(
 }
 
 // static
-std::unique_ptr<DomainInfo> DomainInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<DomainInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<DomainInfo> DomainInfo::FromValue(const base::Value::Dict& value) {
+  DomainInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<DomainInfo> DomainInfo::FromValue(const base::Value::Dict& value) {
+std::optional<DomainInfo> DomainInfo::FromValue(const base::Value& value) {
   DomainInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<DomainInfo> DomainInfo::FromValue(const base::Value& value) {
-  DomainInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1396,8 +1293,8 @@ stored_in(),
 is_passkey(false) {}
 
 PasswordUiEntry::~PasswordUiEntry() = default;
-PasswordUiEntry::PasswordUiEntry(PasswordUiEntry&& rhs) = default;
-PasswordUiEntry& PasswordUiEntry::operator=(PasswordUiEntry&& rhs) = default;
+PasswordUiEntry::PasswordUiEntry(PasswordUiEntry&& rhs) noexcept = default;
+PasswordUiEntry& PasswordUiEntry::operator=(PasswordUiEntry&& rhs) noexcept = default;
 PasswordUiEntry PasswordUiEntry::Clone() const {
   PasswordUiEntry out;
   out.affiliated_domains.reserve(affiliated_domains.size());
@@ -1454,7 +1351,7 @@ bool PasswordUiEntry::Populate(
     {
       auto* temp = (*display_name_value).GetIfString();
       if (!temp) {
-        out.display_name = absl::nullopt;
+        out.display_name = std::nullopt;
         return false;
       }
       out.display_name = *temp;
@@ -1466,7 +1363,7 @@ bool PasswordUiEntry::Populate(
     {
       auto* temp = (*password_value).GetIfString();
       if (!temp) {
-        out.password = absl::nullopt;
+        out.password = std::nullopt;
         return false;
       }
       out.password = *temp;
@@ -1478,7 +1375,7 @@ bool PasswordUiEntry::Populate(
     {
       auto* temp = (*federation_text_value).GetIfString();
       if (!temp) {
-        out.federation_text = absl::nullopt;
+        out.federation_text = std::nullopt;
         return false;
       }
       out.federation_text = *temp;
@@ -1529,7 +1426,7 @@ bool PasswordUiEntry::Populate(
     {
       auto* temp = (*note_value).GetIfString();
       if (!temp) {
-        out.note = absl::nullopt;
+        out.note = std::nullopt;
         return false;
       }
       out.note = *temp;
@@ -1541,7 +1438,7 @@ bool PasswordUiEntry::Populate(
     {
       auto* temp = (*change_password_url_value).GetIfString();
       if (!temp) {
-        out.change_password_url = absl::nullopt;
+        out.change_password_url = std::nullopt;
         return false;
       }
       out.change_password_url = *temp;
@@ -1576,34 +1473,21 @@ bool PasswordUiEntry::Populate(
 }
 
 // static
-std::unique_ptr<PasswordUiEntry> PasswordUiEntry::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<PasswordUiEntry>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<PasswordUiEntry> PasswordUiEntry::FromValue(const base::Value::Dict& value) {
+  PasswordUiEntry out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<PasswordUiEntry> PasswordUiEntry::FromValue(const base::Value::Dict& value) {
+std::optional<PasswordUiEntry> PasswordUiEntry::FromValue(const base::Value& value) {
   PasswordUiEntry out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<PasswordUiEntry> PasswordUiEntry::FromValue(const base::Value& value) {
-  PasswordUiEntry out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1654,8 +1538,8 @@ CredentialGroup::CredentialGroup()
  {}
 
 CredentialGroup::~CredentialGroup() = default;
-CredentialGroup::CredentialGroup(CredentialGroup&& rhs) = default;
-CredentialGroup& CredentialGroup::operator=(CredentialGroup&& rhs) = default;
+CredentialGroup::CredentialGroup(CredentialGroup&& rhs) noexcept = default;
+CredentialGroup& CredentialGroup::operator=(CredentialGroup&& rhs) noexcept = default;
 CredentialGroup CredentialGroup::Clone() const {
   CredentialGroup out;
   out.name = name;
@@ -1722,34 +1606,21 @@ bool CredentialGroup::Populate(
 }
 
 // static
-std::unique_ptr<CredentialGroup> CredentialGroup::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<CredentialGroup>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<CredentialGroup> CredentialGroup::FromValue(const base::Value::Dict& value) {
+  CredentialGroup out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<CredentialGroup> CredentialGroup::FromValue(const base::Value::Dict& value) {
+std::optional<CredentialGroup> CredentialGroup::FromValue(const base::Value& value) {
   CredentialGroup out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<CredentialGroup> CredentialGroup::FromValue(const base::Value& value) {
-  CredentialGroup out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1772,8 +1643,8 @@ ExceptionEntry::ExceptionEntry()
 : id(0) {}
 
 ExceptionEntry::~ExceptionEntry() = default;
-ExceptionEntry::ExceptionEntry(ExceptionEntry&& rhs) = default;
-ExceptionEntry& ExceptionEntry::operator=(ExceptionEntry&& rhs) = default;
+ExceptionEntry::ExceptionEntry(ExceptionEntry&& rhs) noexcept = default;
+ExceptionEntry& ExceptionEntry::operator=(ExceptionEntry&& rhs) noexcept = default;
 ExceptionEntry ExceptionEntry::Clone() const {
   ExceptionEntry out;
   out.urls = urls.Clone();
@@ -1822,34 +1693,21 @@ bool ExceptionEntry::Populate(
 }
 
 // static
-std::unique_ptr<ExceptionEntry> ExceptionEntry::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ExceptionEntry>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ExceptionEntry> ExceptionEntry::FromValue(const base::Value::Dict& value) {
+  ExceptionEntry out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ExceptionEntry> ExceptionEntry::FromValue(const base::Value::Dict& value) {
+std::optional<ExceptionEntry> ExceptionEntry::FromValue(const base::Value& value) {
   ExceptionEntry out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ExceptionEntry> ExceptionEntry::FromValue(const base::Value& value) {
-  ExceptionEntry out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1870,8 +1728,8 @@ PasswordExportProgress::PasswordExportProgress()
 : status() {}
 
 PasswordExportProgress::~PasswordExportProgress() = default;
-PasswordExportProgress::PasswordExportProgress(PasswordExportProgress&& rhs) = default;
-PasswordExportProgress& PasswordExportProgress::operator=(PasswordExportProgress&& rhs) = default;
+PasswordExportProgress::PasswordExportProgress(PasswordExportProgress&& rhs) noexcept = default;
+PasswordExportProgress& PasswordExportProgress::operator=(PasswordExportProgress&& rhs) noexcept = default;
 PasswordExportProgress PasswordExportProgress::Clone() const {
   PasswordExportProgress out;
   out.status = status;
@@ -1903,7 +1761,7 @@ bool PasswordExportProgress::Populate(
     {
       auto* temp = (*file_path_value).GetIfString();
       if (!temp) {
-        out.file_path = absl::nullopt;
+        out.file_path = std::nullopt;
         return false;
       }
       out.file_path = *temp;
@@ -1915,7 +1773,7 @@ bool PasswordExportProgress::Populate(
     {
       auto* temp = (*folder_name_value).GetIfString();
       if (!temp) {
-        out.folder_name = absl::nullopt;
+        out.folder_name = std::nullopt;
         return false;
       }
       out.folder_name = *temp;
@@ -1935,34 +1793,21 @@ bool PasswordExportProgress::Populate(
 }
 
 // static
-std::unique_ptr<PasswordExportProgress> PasswordExportProgress::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<PasswordExportProgress>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<PasswordExportProgress> PasswordExportProgress::FromValue(const base::Value::Dict& value) {
+  PasswordExportProgress out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<PasswordExportProgress> PasswordExportProgress::FromValue(const base::Value::Dict& value) {
+std::optional<PasswordExportProgress> PasswordExportProgress::FromValue(const base::Value& value) {
   PasswordExportProgress out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<PasswordExportProgress> PasswordExportProgress::FromValue(const base::Value& value) {
-  PasswordExportProgress out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1989,8 +1834,8 @@ PasswordCheckStatus::PasswordCheckStatus()
 : state() {}
 
 PasswordCheckStatus::~PasswordCheckStatus() = default;
-PasswordCheckStatus::PasswordCheckStatus(PasswordCheckStatus&& rhs) = default;
-PasswordCheckStatus& PasswordCheckStatus::operator=(PasswordCheckStatus&& rhs) = default;
+PasswordCheckStatus::PasswordCheckStatus(PasswordCheckStatus&& rhs) noexcept = default;
+PasswordCheckStatus& PasswordCheckStatus::operator=(PasswordCheckStatus&& rhs) noexcept = default;
 PasswordCheckStatus PasswordCheckStatus::Clone() const {
   PasswordCheckStatus out;
   out.state = state;
@@ -2024,7 +1869,7 @@ bool PasswordCheckStatus::Populate(
     {
       auto temp = (*total_number_of_passwords_value).GetIfInt();
       if (!temp.has_value()) {
-        out.total_number_of_passwords = absl::nullopt;
+        out.total_number_of_passwords = std::nullopt;
         return false;
       }
       out.total_number_of_passwords = *temp;
@@ -2036,7 +1881,7 @@ bool PasswordCheckStatus::Populate(
     {
       auto temp = (*already_processed_value).GetIfInt();
       if (!temp.has_value()) {
-        out.already_processed = absl::nullopt;
+        out.already_processed = std::nullopt;
         return false;
       }
       out.already_processed = *temp;
@@ -2048,7 +1893,7 @@ bool PasswordCheckStatus::Populate(
     {
       auto temp = (*remaining_in_queue_value).GetIfInt();
       if (!temp.has_value()) {
-        out.remaining_in_queue = absl::nullopt;
+        out.remaining_in_queue = std::nullopt;
         return false;
       }
       out.remaining_in_queue = *temp;
@@ -2060,7 +1905,7 @@ bool PasswordCheckStatus::Populate(
     {
       auto* temp = (*elapsed_time_since_last_check_value).GetIfString();
       if (!temp) {
-        out.elapsed_time_since_last_check = absl::nullopt;
+        out.elapsed_time_since_last_check = std::nullopt;
         return false;
       }
       out.elapsed_time_since_last_check = *temp;
@@ -2080,34 +1925,21 @@ bool PasswordCheckStatus::Populate(
 }
 
 // static
-std::unique_ptr<PasswordCheckStatus> PasswordCheckStatus::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<PasswordCheckStatus>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<PasswordCheckStatus> PasswordCheckStatus::FromValue(const base::Value::Dict& value) {
+  PasswordCheckStatus out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<PasswordCheckStatus> PasswordCheckStatus::FromValue(const base::Value::Dict& value) {
+std::optional<PasswordCheckStatus> PasswordCheckStatus::FromValue(const base::Value& value) {
   PasswordCheckStatus out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<PasswordCheckStatus> PasswordCheckStatus::FromValue(const base::Value& value) {
-  PasswordCheckStatus out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2142,8 +1974,8 @@ AddPasswordOptions::AddPasswordOptions()
 : use_account_store(false) {}
 
 AddPasswordOptions::~AddPasswordOptions() = default;
-AddPasswordOptions::AddPasswordOptions(AddPasswordOptions&& rhs) = default;
-AddPasswordOptions& AddPasswordOptions::operator=(AddPasswordOptions&& rhs) = default;
+AddPasswordOptions::AddPasswordOptions(AddPasswordOptions&& rhs) noexcept = default;
+AddPasswordOptions& AddPasswordOptions::operator=(AddPasswordOptions&& rhs) noexcept = default;
 AddPasswordOptions AddPasswordOptions::Clone() const {
   AddPasswordOptions out;
   out.url = url;
@@ -2230,34 +2062,21 @@ bool AddPasswordOptions::Populate(
 }
 
 // static
-std::unique_ptr<AddPasswordOptions> AddPasswordOptions::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<AddPasswordOptions>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<AddPasswordOptions> AddPasswordOptions::FromValue(const base::Value::Dict& value) {
+  AddPasswordOptions out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<AddPasswordOptions> AddPasswordOptions::FromValue(const base::Value::Dict& value) {
+std::optional<AddPasswordOptions> AddPasswordOptions::FromValue(const base::Value& value) {
   AddPasswordOptions out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<AddPasswordOptions> AddPasswordOptions::FromValue(const base::Value& value) {
-  AddPasswordOptions out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2284,8 +2103,8 @@ PasswordUiEntryList::PasswordUiEntryList()
  {}
 
 PasswordUiEntryList::~PasswordUiEntryList() = default;
-PasswordUiEntryList::PasswordUiEntryList(PasswordUiEntryList&& rhs) = default;
-PasswordUiEntryList& PasswordUiEntryList::operator=(PasswordUiEntryList&& rhs) = default;
+PasswordUiEntryList::PasswordUiEntryList(PasswordUiEntryList&& rhs) noexcept = default;
+PasswordUiEntryList& PasswordUiEntryList::operator=(PasswordUiEntryList&& rhs) noexcept = default;
 PasswordUiEntryList PasswordUiEntryList::Clone() const {
   PasswordUiEntryList out;
   out.entries.reserve(entries.size());
@@ -2326,34 +2145,21 @@ bool PasswordUiEntryList::Populate(
 }
 
 // static
-std::unique_ptr<PasswordUiEntryList> PasswordUiEntryList::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<PasswordUiEntryList>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<PasswordUiEntryList> PasswordUiEntryList::FromValue(const base::Value::Dict& value) {
+  PasswordUiEntryList out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<PasswordUiEntryList> PasswordUiEntryList::FromValue(const base::Value::Dict& value) {
+std::optional<PasswordUiEntryList> PasswordUiEntryList::FromValue(const base::Value& value) {
   PasswordUiEntryList out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<PasswordUiEntryList> PasswordUiEntryList::FromValue(const base::Value& value) {
-  PasswordUiEntryList out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -2381,13 +2187,13 @@ namespace ChangeCredential {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2396,15 +2202,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& credential_value = args[0];
     {
       if (!credential_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!PasswordUiEntry::Populate(credential_value.GetDict(), params.credential)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2422,13 +2228,13 @@ namespace RemoveCredential {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2438,13 +2244,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = id_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -2453,16 +2259,16 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       const std::string* password_store_set_as_string = from_stores_value.GetIfString();
       if (!password_store_set_as_string) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.from_stores = ParsePasswordStoreSet(*password_store_set_as_string);
       if (params.from_stores == PasswordStoreSet()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2475,13 +2281,13 @@ namespace RemovePasswordException {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2491,13 +2297,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = id_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2514,13 +2320,13 @@ namespace RequestPlaintextPassword {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2530,13 +2336,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = id_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -2545,16 +2351,16 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       const std::string* plaintext_reason_as_string = reason_value.GetIfString();
       if (!plaintext_reason_as_string) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.reason = ParsePlaintextReason(*plaintext_reason_as_string);
       if (params.reason == PlaintextReason()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2574,13 +2380,13 @@ namespace RequestCredentialsDetails {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2589,17 +2395,17 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& ids_value = args[0];
     {
       if (!ids_value.is_list()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         if (!json_schema_compiler::util::PopulateArrayFromList(ids_value.GetList(), params.ids)) {
-          return absl::nullopt;
+          return std::nullopt;
         }
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2652,13 +2458,13 @@ namespace MovePasswordsToAccount {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2667,17 +2473,17 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& ids_value = args[0];
     {
       if (!ids_value.is_list()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         if (!json_schema_compiler::util::PopulateArrayFromList(ids_value.GetList(), params.ids)) {
-          return absl::nullopt;
+          return std::nullopt;
         }
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2701,13 +2507,13 @@ namespace SharePassword {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2717,13 +2523,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = id_value.GetIfInt();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.id = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   if (1 < args.size() &&
@@ -2731,17 +2537,17 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& recipients_value = args[1];
     {
       if (!recipients_value.is_list()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         if (!json_schema_compiler::util::PopulateArrayFromList(recipients_value.GetList(), params.recipients)) {
-          return absl::nullopt;
+          return std::nullopt;
         }
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2759,13 +2565,13 @@ namespace ImportPasswords {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2775,16 +2581,16 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       const std::string* password_store_set_as_string = to_store_value.GetIfString();
       if (!password_store_set_as_string) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.to_store = ParsePasswordStoreSet(*password_store_set_as_string);
       if (params.to_store == PasswordStoreSet()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2804,13 +2610,13 @@ namespace ContinueImport {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2819,17 +2625,17 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& selected_ids_value = args[0];
     {
       if (!selected_ids_value.is_list()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       else {
         if (!json_schema_compiler::util::PopulateArrayFromList(selected_ids_value.GetList(), params.selected_ids)) {
-          return absl::nullopt;
+          return std::nullopt;
         }
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2849,13 +2655,13 @@ namespace ResetImporter {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2865,13 +2671,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = delete_file_value.GetIfBool();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.delete_file = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2920,13 +2726,13 @@ namespace OptInForAccountStorage {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2936,13 +2742,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = opt_in_value.GetIfBool();
       if (!temp.has_value()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.opt_in = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -2977,13 +2783,13 @@ namespace MuteInsecureCredential {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -2992,15 +2798,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& credential_value = args[0];
     {
       if (!credential_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!PasswordUiEntry::Populate(credential_value.GetDict(), params.credential)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -3018,13 +2824,13 @@ namespace UnmuteInsecureCredential {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -3033,15 +2839,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& credential_value = args[0];
     {
       if (!credential_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!PasswordUiEntry::Populate(credential_value.GetDict(), params.credential)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -3090,13 +2896,13 @@ namespace GetUrlCollection {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -3106,13 +2912,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = url_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.url = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -3132,13 +2938,13 @@ namespace AddPassword {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -3147,15 +2953,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& options_value = args[0];
     {
       if (!options_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!AddPasswordOptions::Populate(options_value.GetDict(), params.options)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -3190,13 +2996,13 @@ namespace ShowExportedFileInShell {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -3206,13 +3012,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = file_path_value.GetIfString();
       if (!temp) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       params.file_path = *temp;
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;

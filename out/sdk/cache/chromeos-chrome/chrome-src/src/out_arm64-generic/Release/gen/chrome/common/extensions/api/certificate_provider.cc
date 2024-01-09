@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,7 @@
 #include "chrome/common/extensions/api/certificate_provider.h"
 
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -36,23 +37,23 @@ namespace certificate_provider {
 
 const char* ToString(Algorithm enum_param) {
   switch (enum_param) {
-    case ALGORITHM_RSASSA_PKCS1_V1_5_MD5_SHA1:
+    case Algorithm::kRsassaPkcs1V1_5Md5Sha1:
       return "RSASSA_PKCS1_v1_5_MD5_SHA1";
-    case ALGORITHM_RSASSA_PKCS1_V1_5_SHA1:
+    case Algorithm::kRsassaPkcs1V1_5Sha1:
       return "RSASSA_PKCS1_v1_5_SHA1";
-    case ALGORITHM_RSASSA_PKCS1_V1_5_SHA256:
+    case Algorithm::kRsassaPkcs1V1_5Sha256:
       return "RSASSA_PKCS1_v1_5_SHA256";
-    case ALGORITHM_RSASSA_PKCS1_V1_5_SHA384:
+    case Algorithm::kRsassaPkcs1V1_5Sha384:
       return "RSASSA_PKCS1_v1_5_SHA384";
-    case ALGORITHM_RSASSA_PKCS1_V1_5_SHA512:
+    case Algorithm::kRsassaPkcs1V1_5Sha512:
       return "RSASSA_PKCS1_v1_5_SHA512";
-    case ALGORITHM_RSASSA_PSS_SHA256:
+    case Algorithm::kRsassaPssSha256:
       return "RSASSA_PSS_SHA256";
-    case ALGORITHM_RSASSA_PSS_SHA384:
+    case Algorithm::kRsassaPssSha384:
       return "RSASSA_PSS_SHA384";
-    case ALGORITHM_RSASSA_PSS_SHA512:
+    case Algorithm::kRsassaPssSha512:
       return "RSASSA_PSS_SHA512";
-    case ALGORITHM_NONE:
+    case Algorithm::kNone:
       return "";
   }
   NOTREACHED();
@@ -61,22 +62,22 @@ const char* ToString(Algorithm enum_param) {
 
 Algorithm ParseAlgorithm(base::StringPiece enum_string) {
   if (enum_string == "RSASSA_PKCS1_v1_5_MD5_SHA1")
-    return ALGORITHM_RSASSA_PKCS1_V1_5_MD5_SHA1;
+    return Algorithm::kRsassaPkcs1V1_5Md5Sha1;
   if (enum_string == "RSASSA_PKCS1_v1_5_SHA1")
-    return ALGORITHM_RSASSA_PKCS1_V1_5_SHA1;
+    return Algorithm::kRsassaPkcs1V1_5Sha1;
   if (enum_string == "RSASSA_PKCS1_v1_5_SHA256")
-    return ALGORITHM_RSASSA_PKCS1_V1_5_SHA256;
+    return Algorithm::kRsassaPkcs1V1_5Sha256;
   if (enum_string == "RSASSA_PKCS1_v1_5_SHA384")
-    return ALGORITHM_RSASSA_PKCS1_V1_5_SHA384;
+    return Algorithm::kRsassaPkcs1V1_5Sha384;
   if (enum_string == "RSASSA_PKCS1_v1_5_SHA512")
-    return ALGORITHM_RSASSA_PKCS1_V1_5_SHA512;
+    return Algorithm::kRsassaPkcs1V1_5Sha512;
   if (enum_string == "RSASSA_PSS_SHA256")
-    return ALGORITHM_RSASSA_PSS_SHA256;
+    return Algorithm::kRsassaPssSha256;
   if (enum_string == "RSASSA_PSS_SHA384")
-    return ALGORITHM_RSASSA_PSS_SHA384;
+    return Algorithm::kRsassaPssSha384;
   if (enum_string == "RSASSA_PSS_SHA512")
-    return ALGORITHM_RSASSA_PSS_SHA512;
-  return ALGORITHM_NONE;
+    return Algorithm::kRsassaPssSha512;
+  return Algorithm::kNone;
 }
 
 std::u16string GetAlgorithmParseError(base::StringPiece enum_string) {
@@ -86,9 +87,9 @@ std::u16string GetAlgorithmParseError(base::StringPiece enum_string) {
 
 const char* ToString(Error enum_param) {
   switch (enum_param) {
-    case ERROR_GENERAL_ERROR:
+    case Error::kGeneralError:
       return "GENERAL_ERROR";
-    case ERROR_NONE:
+    case Error::kNone:
       return "";
   }
   NOTREACHED();
@@ -97,8 +98,8 @@ const char* ToString(Error enum_param) {
 
 Error ParseError(base::StringPiece enum_string) {
   if (enum_string == "GENERAL_ERROR")
-    return ERROR_GENERAL_ERROR;
-  return ERROR_NONE;
+    return Error::kGeneralError;
+  return Error::kNone;
 }
 
 std::u16string GetErrorParseError(base::StringPiece enum_string) {
@@ -110,8 +111,8 @@ ClientCertificateInfo::ClientCertificateInfo()
  {}
 
 ClientCertificateInfo::~ClientCertificateInfo() = default;
-ClientCertificateInfo::ClientCertificateInfo(ClientCertificateInfo&& rhs) = default;
-ClientCertificateInfo& ClientCertificateInfo::operator=(ClientCertificateInfo&& rhs) = default;
+ClientCertificateInfo::ClientCertificateInfo(ClientCertificateInfo&& rhs) noexcept = default;
+ClientCertificateInfo& ClientCertificateInfo::operator=(ClientCertificateInfo&& rhs) noexcept = default;
 ClientCertificateInfo ClientCertificateInfo::Clone() const {
   ClientCertificateInfo out;
   out.certificate_chain = certificate_chain;
@@ -174,34 +175,21 @@ bool ClientCertificateInfo::Populate(
 }
 
 // static
-std::unique_ptr<ClientCertificateInfo> ClientCertificateInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ClientCertificateInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ClientCertificateInfo> ClientCertificateInfo::FromValue(const base::Value::Dict& value) {
+  ClientCertificateInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ClientCertificateInfo> ClientCertificateInfo::FromValue(const base::Value::Dict& value) {
+std::optional<ClientCertificateInfo> ClientCertificateInfo::FromValue(const base::Value& value) {
   ClientCertificateInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ClientCertificateInfo> ClientCertificateInfo::FromValue(const base::Value& value) {
-  ClientCertificateInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -228,8 +216,8 @@ SetCertificatesDetails::SetCertificatesDetails()
 : error() {}
 
 SetCertificatesDetails::~SetCertificatesDetails() = default;
-SetCertificatesDetails::SetCertificatesDetails(SetCertificatesDetails&& rhs) = default;
-SetCertificatesDetails& SetCertificatesDetails::operator=(SetCertificatesDetails&& rhs) = default;
+SetCertificatesDetails::SetCertificatesDetails(SetCertificatesDetails&& rhs) noexcept = default;
+SetCertificatesDetails& SetCertificatesDetails::operator=(SetCertificatesDetails&& rhs) noexcept = default;
 SetCertificatesDetails SetCertificatesDetails::Clone() const {
   SetCertificatesDetails out;
   out.certificates_request_id = certificates_request_id;
@@ -250,7 +238,7 @@ bool SetCertificatesDetails::Populate(
     {
       auto temp = (*certificates_request_id_value).GetIfInt();
       if (!temp.has_value()) {
-        out.certificates_request_id = absl::nullopt;
+        out.certificates_request_id = std::nullopt;
         return false;
       }
       out.certificates_request_id = *temp;
@@ -301,34 +289,21 @@ bool SetCertificatesDetails::Populate(
 }
 
 // static
-std::unique_ptr<SetCertificatesDetails> SetCertificatesDetails::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<SetCertificatesDetails>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<SetCertificatesDetails> SetCertificatesDetails::FromValue(const base::Value::Dict& value) {
+  SetCertificatesDetails out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<SetCertificatesDetails> SetCertificatesDetails::FromValue(const base::Value::Dict& value) {
+std::optional<SetCertificatesDetails> SetCertificatesDetails::FromValue(const base::Value& value) {
   SetCertificatesDetails out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<SetCertificatesDetails> SetCertificatesDetails::FromValue(const base::Value& value) {
-  SetCertificatesDetails out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -355,8 +330,8 @@ CertificatesUpdateRequest::CertificatesUpdateRequest()
 : certificates_request_id(0) {}
 
 CertificatesUpdateRequest::~CertificatesUpdateRequest() = default;
-CertificatesUpdateRequest::CertificatesUpdateRequest(CertificatesUpdateRequest&& rhs) = default;
-CertificatesUpdateRequest& CertificatesUpdateRequest::operator=(CertificatesUpdateRequest&& rhs) = default;
+CertificatesUpdateRequest::CertificatesUpdateRequest(CertificatesUpdateRequest&& rhs) noexcept = default;
+CertificatesUpdateRequest& CertificatesUpdateRequest::operator=(CertificatesUpdateRequest&& rhs) noexcept = default;
 CertificatesUpdateRequest CertificatesUpdateRequest::Clone() const {
   CertificatesUpdateRequest out;
   out.certificates_request_id = certificates_request_id;
@@ -391,34 +366,21 @@ bool CertificatesUpdateRequest::Populate(
 }
 
 // static
-std::unique_ptr<CertificatesUpdateRequest> CertificatesUpdateRequest::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<CertificatesUpdateRequest>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<CertificatesUpdateRequest> CertificatesUpdateRequest::FromValue(const base::Value::Dict& value) {
+  CertificatesUpdateRequest out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<CertificatesUpdateRequest> CertificatesUpdateRequest::FromValue(const base::Value::Dict& value) {
+std::optional<CertificatesUpdateRequest> CertificatesUpdateRequest::FromValue(const base::Value& value) {
   CertificatesUpdateRequest out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<CertificatesUpdateRequest> CertificatesUpdateRequest::FromValue(const base::Value& value) {
-  CertificatesUpdateRequest out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -438,8 +400,8 @@ SignatureRequest::SignatureRequest()
 algorithm() {}
 
 SignatureRequest::~SignatureRequest() = default;
-SignatureRequest::SignatureRequest(SignatureRequest&& rhs) = default;
-SignatureRequest& SignatureRequest::operator=(SignatureRequest&& rhs) = default;
+SignatureRequest::SignatureRequest(SignatureRequest&& rhs) noexcept = default;
+SignatureRequest& SignatureRequest::operator=(SignatureRequest&& rhs) noexcept = default;
 SignatureRequest SignatureRequest::Clone() const {
   SignatureRequest out;
   out.sign_request_id = sign_request_id;
@@ -518,34 +480,21 @@ bool SignatureRequest::Populate(
 }
 
 // static
-std::unique_ptr<SignatureRequest> SignatureRequest::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<SignatureRequest>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<SignatureRequest> SignatureRequest::FromValue(const base::Value::Dict& value) {
+  SignatureRequest out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<SignatureRequest> SignatureRequest::FromValue(const base::Value::Dict& value) {
+std::optional<SignatureRequest> SignatureRequest::FromValue(const base::Value& value) {
   SignatureRequest out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<SignatureRequest> SignatureRequest::FromValue(const base::Value& value) {
-  SignatureRequest out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -571,8 +520,8 @@ ReportSignatureDetails::ReportSignatureDetails()
 error() {}
 
 ReportSignatureDetails::~ReportSignatureDetails() = default;
-ReportSignatureDetails::ReportSignatureDetails(ReportSignatureDetails&& rhs) = default;
-ReportSignatureDetails& ReportSignatureDetails::operator=(ReportSignatureDetails&& rhs) = default;
+ReportSignatureDetails::ReportSignatureDetails(ReportSignatureDetails&& rhs) noexcept = default;
+ReportSignatureDetails& ReportSignatureDetails::operator=(ReportSignatureDetails&& rhs) noexcept = default;
 ReportSignatureDetails ReportSignatureDetails::Clone() const {
   ReportSignatureDetails out;
   out.sign_request_id = sign_request_id;
@@ -638,34 +587,21 @@ bool ReportSignatureDetails::Populate(
 }
 
 // static
-std::unique_ptr<ReportSignatureDetails> ReportSignatureDetails::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<ReportSignatureDetails>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<ReportSignatureDetails> ReportSignatureDetails::FromValue(const base::Value::Dict& value) {
+  ReportSignatureDetails out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<ReportSignatureDetails> ReportSignatureDetails::FromValue(const base::Value::Dict& value) {
+std::optional<ReportSignatureDetails> ReportSignatureDetails::FromValue(const base::Value& value) {
   ReportSignatureDetails out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<ReportSignatureDetails> ReportSignatureDetails::FromValue(const base::Value& value) {
-  ReportSignatureDetails out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -690,17 +626,17 @@ base::Value::Dict ReportSignatureDetails::ToValue() const {
 
 const char* ToString(Hash enum_param) {
   switch (enum_param) {
-    case HASH_MD5_SHA1:
+    case Hash::kMd5Sha1:
       return "MD5_SHA1";
-    case HASH_SHA1:
+    case Hash::kSha1:
       return "SHA1";
-    case HASH_SHA256:
+    case Hash::kSha256:
       return "SHA256";
-    case HASH_SHA384:
+    case Hash::kSha384:
       return "SHA384";
-    case HASH_SHA512:
+    case Hash::kSha512:
       return "SHA512";
-    case HASH_NONE:
+    case Hash::kNone:
       return "";
   }
   NOTREACHED();
@@ -709,16 +645,16 @@ const char* ToString(Hash enum_param) {
 
 Hash ParseHash(base::StringPiece enum_string) {
   if (enum_string == "MD5_SHA1")
-    return HASH_MD5_SHA1;
+    return Hash::kMd5Sha1;
   if (enum_string == "SHA1")
-    return HASH_SHA1;
+    return Hash::kSha1;
   if (enum_string == "SHA256")
-    return HASH_SHA256;
+    return Hash::kSha256;
   if (enum_string == "SHA384")
-    return HASH_SHA384;
+    return Hash::kSha384;
   if (enum_string == "SHA512")
-    return HASH_SHA512;
-  return HASH_NONE;
+    return Hash::kSha512;
+  return Hash::kNone;
 }
 
 std::u16string GetHashParseError(base::StringPiece enum_string) {
@@ -728,11 +664,11 @@ std::u16string GetHashParseError(base::StringPiece enum_string) {
 
 const char* ToString(PinRequestType enum_param) {
   switch (enum_param) {
-    case PIN_REQUEST_TYPE_PIN:
+    case PinRequestType::kPin:
       return "PIN";
-    case PIN_REQUEST_TYPE_PUK:
+    case PinRequestType::kPuk:
       return "PUK";
-    case PIN_REQUEST_TYPE_NONE:
+    case PinRequestType::kNone:
       return "";
   }
   NOTREACHED();
@@ -741,10 +677,10 @@ const char* ToString(PinRequestType enum_param) {
 
 PinRequestType ParsePinRequestType(base::StringPiece enum_string) {
   if (enum_string == "PIN")
-    return PIN_REQUEST_TYPE_PIN;
+    return PinRequestType::kPin;
   if (enum_string == "PUK")
-    return PIN_REQUEST_TYPE_PUK;
-  return PIN_REQUEST_TYPE_NONE;
+    return PinRequestType::kPuk;
+  return PinRequestType::kNone;
 }
 
 std::u16string GetPinRequestTypeParseError(base::StringPiece enum_string) {
@@ -754,15 +690,15 @@ std::u16string GetPinRequestTypeParseError(base::StringPiece enum_string) {
 
 const char* ToString(PinRequestErrorType enum_param) {
   switch (enum_param) {
-    case PIN_REQUEST_ERROR_TYPE_INVALID_PIN:
+    case PinRequestErrorType::kInvalidPin:
       return "INVALID_PIN";
-    case PIN_REQUEST_ERROR_TYPE_INVALID_PUK:
+    case PinRequestErrorType::kInvalidPuk:
       return "INVALID_PUK";
-    case PIN_REQUEST_ERROR_TYPE_MAX_ATTEMPTS_EXCEEDED:
+    case PinRequestErrorType::kMaxAttemptsExceeded:
       return "MAX_ATTEMPTS_EXCEEDED";
-    case PIN_REQUEST_ERROR_TYPE_UNKNOWN_ERROR:
+    case PinRequestErrorType::kUnknownError:
       return "UNKNOWN_ERROR";
-    case PIN_REQUEST_ERROR_TYPE_NONE:
+    case PinRequestErrorType::kNone:
       return "";
   }
   NOTREACHED();
@@ -771,14 +707,14 @@ const char* ToString(PinRequestErrorType enum_param) {
 
 PinRequestErrorType ParsePinRequestErrorType(base::StringPiece enum_string) {
   if (enum_string == "INVALID_PIN")
-    return PIN_REQUEST_ERROR_TYPE_INVALID_PIN;
+    return PinRequestErrorType::kInvalidPin;
   if (enum_string == "INVALID_PUK")
-    return PIN_REQUEST_ERROR_TYPE_INVALID_PUK;
+    return PinRequestErrorType::kInvalidPuk;
   if (enum_string == "MAX_ATTEMPTS_EXCEEDED")
-    return PIN_REQUEST_ERROR_TYPE_MAX_ATTEMPTS_EXCEEDED;
+    return PinRequestErrorType::kMaxAttemptsExceeded;
   if (enum_string == "UNKNOWN_ERROR")
-    return PIN_REQUEST_ERROR_TYPE_UNKNOWN_ERROR;
-  return PIN_REQUEST_ERROR_TYPE_NONE;
+    return PinRequestErrorType::kUnknownError;
+  return PinRequestErrorType::kNone;
 }
 
 std::u16string GetPinRequestErrorTypeParseError(base::StringPiece enum_string) {
@@ -790,8 +726,8 @@ CertificateInfo::CertificateInfo()
  {}
 
 CertificateInfo::~CertificateInfo() = default;
-CertificateInfo::CertificateInfo(CertificateInfo&& rhs) = default;
-CertificateInfo& CertificateInfo::operator=(CertificateInfo&& rhs) = default;
+CertificateInfo::CertificateInfo(CertificateInfo&& rhs) noexcept = default;
+CertificateInfo& CertificateInfo::operator=(CertificateInfo&& rhs) noexcept = default;
 CertificateInfo CertificateInfo::Clone() const {
   CertificateInfo out;
   out.certificate = certificate;
@@ -852,34 +788,21 @@ bool CertificateInfo::Populate(
 }
 
 // static
-std::unique_ptr<CertificateInfo> CertificateInfo::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<CertificateInfo>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<CertificateInfo> CertificateInfo::FromValue(const base::Value::Dict& value) {
+  CertificateInfo out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<CertificateInfo> CertificateInfo::FromValue(const base::Value::Dict& value) {
+std::optional<CertificateInfo> CertificateInfo::FromValue(const base::Value& value) {
   CertificateInfo out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<CertificateInfo> CertificateInfo::FromValue(const base::Value& value) {
-  CertificateInfo out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -907,8 +830,8 @@ SignRequest::SignRequest()
 hash() {}
 
 SignRequest::~SignRequest() = default;
-SignRequest::SignRequest(SignRequest&& rhs) = default;
-SignRequest& SignRequest::operator=(SignRequest&& rhs) = default;
+SignRequest::SignRequest(SignRequest&& rhs) noexcept = default;
+SignRequest& SignRequest::operator=(SignRequest&& rhs) noexcept = default;
 SignRequest SignRequest::Clone() const {
   SignRequest out;
   out.sign_request_id = sign_request_id;
@@ -987,34 +910,21 @@ bool SignRequest::Populate(
 }
 
 // static
-std::unique_ptr<SignRequest> SignRequest::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<SignRequest>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<SignRequest> SignRequest::FromValue(const base::Value::Dict& value) {
+  SignRequest out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<SignRequest> SignRequest::FromValue(const base::Value::Dict& value) {
+std::optional<SignRequest> SignRequest::FromValue(const base::Value& value) {
   SignRequest out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<SignRequest> SignRequest::FromValue(const base::Value& value) {
-  SignRequest out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1041,8 +951,8 @@ request_type(),
 error_type() {}
 
 RequestPinDetails::~RequestPinDetails() = default;
-RequestPinDetails::RequestPinDetails(RequestPinDetails&& rhs) = default;
-RequestPinDetails& RequestPinDetails::operator=(RequestPinDetails&& rhs) = default;
+RequestPinDetails::RequestPinDetails(RequestPinDetails&& rhs) noexcept = default;
+RequestPinDetails& RequestPinDetails::operator=(RequestPinDetails&& rhs) noexcept = default;
 RequestPinDetails RequestPinDetails::Clone() const {
   RequestPinDetails out;
   out.sign_request_id = sign_request_id;
@@ -1106,7 +1016,7 @@ bool RequestPinDetails::Populate(
     {
       auto temp = (*attempts_left_value).GetIfInt();
       if (!temp.has_value()) {
-        out.attempts_left = absl::nullopt;
+        out.attempts_left = std::nullopt;
         return false;
       }
       out.attempts_left = *temp;
@@ -1126,34 +1036,21 @@ bool RequestPinDetails::Populate(
 }
 
 // static
-std::unique_ptr<RequestPinDetails> RequestPinDetails::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<RequestPinDetails>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<RequestPinDetails> RequestPinDetails::FromValue(const base::Value::Dict& value) {
+  RequestPinDetails out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<RequestPinDetails> RequestPinDetails::FromValue(const base::Value::Dict& value) {
+std::optional<RequestPinDetails> RequestPinDetails::FromValue(const base::Value& value) {
   RequestPinDetails out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<RequestPinDetails> RequestPinDetails::FromValue(const base::Value& value) {
-  RequestPinDetails out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1185,8 +1082,8 @@ StopPinRequestDetails::StopPinRequestDetails()
 error_type() {}
 
 StopPinRequestDetails::~StopPinRequestDetails() = default;
-StopPinRequestDetails::StopPinRequestDetails(StopPinRequestDetails&& rhs) = default;
-StopPinRequestDetails& StopPinRequestDetails::operator=(StopPinRequestDetails&& rhs) = default;
+StopPinRequestDetails::StopPinRequestDetails(StopPinRequestDetails&& rhs) noexcept = default;
+StopPinRequestDetails& StopPinRequestDetails::operator=(StopPinRequestDetails&& rhs) noexcept = default;
 StopPinRequestDetails StopPinRequestDetails::Clone() const {
   StopPinRequestDetails out;
   out.sign_request_id = sign_request_id;
@@ -1239,34 +1136,21 @@ bool StopPinRequestDetails::Populate(
 }
 
 // static
-std::unique_ptr<StopPinRequestDetails> StopPinRequestDetails::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<StopPinRequestDetails>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<StopPinRequestDetails> StopPinRequestDetails::FromValue(const base::Value::Dict& value) {
+  StopPinRequestDetails out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<StopPinRequestDetails> StopPinRequestDetails::FromValue(const base::Value::Dict& value) {
+std::optional<StopPinRequestDetails> StopPinRequestDetails::FromValue(const base::Value& value) {
   StopPinRequestDetails out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<StopPinRequestDetails> StopPinRequestDetails::FromValue(const base::Value& value) {
-  StopPinRequestDetails out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1289,8 +1173,8 @@ PinResponseDetails::PinResponseDetails()
  {}
 
 PinResponseDetails::~PinResponseDetails() = default;
-PinResponseDetails::PinResponseDetails(PinResponseDetails&& rhs) = default;
-PinResponseDetails& PinResponseDetails::operator=(PinResponseDetails&& rhs) = default;
+PinResponseDetails::PinResponseDetails(PinResponseDetails&& rhs) noexcept = default;
+PinResponseDetails& PinResponseDetails::operator=(PinResponseDetails&& rhs) noexcept = default;
 PinResponseDetails PinResponseDetails::Clone() const {
   PinResponseDetails out;
   out.user_input = user_input;
@@ -1305,7 +1189,7 @@ bool PinResponseDetails::Populate(
     {
       auto* temp = (*user_input_value).GetIfString();
       if (!temp) {
-        out.user_input = absl::nullopt;
+        out.user_input = std::nullopt;
         return false;
       }
       out.user_input = *temp;
@@ -1325,34 +1209,21 @@ bool PinResponseDetails::Populate(
 }
 
 // static
-std::unique_ptr<PinResponseDetails> PinResponseDetails::FromValueDeprecated(const base::Value& value) {
-  auto out = std::make_unique<PinResponseDetails>();
-  if (!value.is_dict()) {
-    return nullptr;
-  }
-  bool result = Populate(value.GetDict(), *out);
+std::optional<PinResponseDetails> PinResponseDetails::FromValue(const base::Value::Dict& value) {
+  PinResponseDetails out;
+  bool result = Populate(value, out);
   if (!result) {
-    return nullptr;
+    return std::nullopt;
   }
   return out;
 }
 
 // static
-absl::optional<PinResponseDetails> PinResponseDetails::FromValue(const base::Value::Dict& value) {
+std::optional<PinResponseDetails> PinResponseDetails::FromValue(const base::Value& value) {
   PinResponseDetails out;
   bool result = Populate(value, out);
   if (!result) {
-    return absl::nullopt;
-  }
-  return out;
-}
-
-// static
-absl::optional<PinResponseDetails> PinResponseDetails::FromValue(const base::Value& value) {
-  PinResponseDetails out;
-  bool result = Populate(value, out);
-  if (!result) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   return out;
 }
@@ -1378,13 +1249,13 @@ namespace RequestPin {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1393,15 +1264,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& details_value = args[0];
     {
       if (!details_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!RequestPinDetails::Populate(details_value.GetDict(), params.details)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1421,13 +1292,13 @@ namespace StopPinRequest {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1436,15 +1307,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& details_value = args[0];
     {
       if (!details_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!StopPinRequestDetails::Populate(details_value.GetDict(), params.details)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1462,13 +1333,13 @@ namespace SetCertificates {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1477,15 +1348,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& details_value = args[0];
     {
       if (!details_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!SetCertificatesDetails::Populate(details_value.GetDict(), params.details)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;
@@ -1503,13 +1374,13 @@ namespace ReportSignature {
 
 Params::Params() = default;
 Params::~Params() = default;
-Params::Params(Params&& rhs) = default;
-Params& Params::operator=(Params&& rhs) = default;
+Params::Params(Params&& rhs) noexcept = default;
+Params& Params::operator=(Params&& rhs) noexcept = default;
 
 // static
-absl::optional<Params> Params::Create(const base::Value::List& args) {
+std::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
-    return absl::nullopt;
+    return std::nullopt;
   }
   Params params;
 
@@ -1518,15 +1389,15 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     const base::Value& details_value = args[0];
     {
       if (!details_value.is_dict()) {
-        return absl::nullopt;
+        return std::nullopt;
       }
       if (!ReportSignatureDetails::Populate(details_value.GetDict(), params.details)) {
-        return absl::nullopt;
+        return std::nullopt;
       }
     }
   }
   else {
-    return absl::nullopt;
+    return std::nullopt;
   }
 
   return params;

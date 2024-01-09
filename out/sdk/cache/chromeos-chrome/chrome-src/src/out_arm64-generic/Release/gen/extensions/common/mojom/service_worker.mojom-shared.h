@@ -24,6 +24,7 @@
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
 #include "extensions/common/mojom/service_worker.mojom-shared-internal.h"
+#include "extensions/common/mojom/message_port.mojom-shared.h"
 #include "extensions/common/mojom/permission_set.mojom-shared.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
 #include "mojo/public/cpp/system/data_pipe.h"

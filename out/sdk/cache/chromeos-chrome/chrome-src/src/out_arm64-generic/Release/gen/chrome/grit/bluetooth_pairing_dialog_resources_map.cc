@@ -10,7 +10,8 @@
 
 const webui::ResourcePath kBluetoothPairingDialogResources[] = {
   {"bluetooth_pairing_dialog_container.html", IDR_BLUETOOTH_PAIRING_DIALOG_BLUETOOTH_PAIRING_DIALOG_CONTAINER_HTML},
-  {"bluetooth_pairing_dialog.js", IDR_BLUETOOTH_PAIRING_DIALOG_BLUETOOTH_PAIRING_DIALOG_ROLLUP_JS},
+  {"bluetooth_pairing_dialog.js", IDR_BLUETOOTH_PAIRING_DIALOG_BLUETOOTH_PAIRING_DIALOG_JS},
+  {"bluetooth_pairing_dialog.html.js", IDR_BLUETOOTH_PAIRING_DIALOG_BLUETOOTH_PAIRING_DIALOG_HTML_JS},
 };
 
 const size_t kBluetoothPairingDialogResourcesSize = std::size(kBluetoothPairingDialogResources);

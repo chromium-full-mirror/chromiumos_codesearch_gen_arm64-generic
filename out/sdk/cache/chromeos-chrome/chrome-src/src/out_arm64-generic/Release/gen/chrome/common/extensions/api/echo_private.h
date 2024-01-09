@@ -1,4 +1,4 @@
-// Copyright 2023 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,6 +14,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -30,11 +31,11 @@ namespace echo_private {
 namespace SetOfferInfo {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The offer info.
@@ -43,8 +44,8 @@ struct Params {
     ~OfferInfo();
     OfferInfo(const OfferInfo&) = delete;
     OfferInfo& operator=(const OfferInfo&) = delete;
-    OfferInfo(OfferInfo&& rhs);
-    OfferInfo& operator=(OfferInfo&& rhs);
+    OfferInfo(OfferInfo&& rhs) noexcept;
+    OfferInfo& operator=(OfferInfo&& rhs) noexcept;
 
     // Populates a OfferInfo object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
@@ -58,10 +59,10 @@ struct Params {
     OfferInfo Clone() const;
 
     // Creates a OfferInfo object from a base::Value::Dict, or nullopt on failure.
-    static absl::optional<OfferInfo> FromValue(const base::Value::Dict& value);
+    static std::optional<OfferInfo> FromValue(const base::Value::Dict& value);
 
     // Creates a OfferInfo object from a base::Value, or nullopt on failure.
-    static absl::optional<OfferInfo> FromValue(const base::Value& value);
+    static std::optional<OfferInfo> FromValue(const base::Value& value);
 
     base::Value::Dict additional_properties;
   };
@@ -83,11 +84,11 @@ struct Params {
 namespace GetOfferInfo {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // The service id of the offer eligibility check.
@@ -107,8 +108,8 @@ struct Result {
   ~Result();
   Result(const Result&) = delete;
   Result& operator=(const Result&) = delete;
-  Result(Result&& rhs);
-  Result& operator=(Result&& rhs);
+  Result(Result&& rhs) noexcept;
+  Result& operator=(Result&& rhs) noexcept;
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisResult object.
@@ -128,11 +129,11 @@ base::Value::List Create(const Result& result);
 namespace GetRegistrationCode {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Type of coupon code requested to be read (coupon or group).
@@ -164,11 +165,11 @@ base::Value::List Create(const std::string& result);
 namespace GetUserConsent {
 
 struct Params {
-  static absl::optional<Params> Create(const base::Value::List& args);
+  static std::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
-  Params(Params&& rhs);
-  Params& operator=(Params&& rhs);
+  Params(Params&& rhs) noexcept;
+  Params& operator=(Params&& rhs) noexcept;
   ~Params();
 
   // Information about the service requesting user consent.
@@ -177,8 +178,8 @@ struct Params {
     ~ConsentRequester();
     ConsentRequester(const ConsentRequester&) = delete;
     ConsentRequester& operator=(const ConsentRequester&) = delete;
-    ConsentRequester(ConsentRequester&& rhs);
-    ConsentRequester& operator=(ConsentRequester&& rhs);
+    ConsentRequester(ConsentRequester&& rhs) noexcept;
+    ConsentRequester& operator=(ConsentRequester&& rhs) noexcept;
 
     // Populates a ConsentRequester object from a base::Value& instance. Returns
     // whether |out| was successfully populated.
@@ -193,11 +194,11 @@ struct Params {
 
     // Creates a ConsentRequester object from a base::Value::Dict, or nullopt on
     // failure.
-    static absl::optional<ConsentRequester> FromValue(const base::Value::Dict& value);
+    static std::optional<ConsentRequester> FromValue(const base::Value::Dict& value);
 
     // Creates a ConsentRequester object from a base::Value, or nullopt on
     // failure.
-    static absl::optional<ConsentRequester> FromValue(const base::Value& value);
+    static std::optional<ConsentRequester> FromValue(const base::Value& value);
 
     // User friendly name of the service that is requesting the consent.
     std::string service_name;
@@ -209,7 +210,7 @@ struct Params {
     // used to determine with which tab to associate the user consent request
     // dialog. If the user consent was requested from an app window, the tab ID
     // should not be set.
-    absl::optional<int> tab_id;
+    std::optional<int> tab_id;
 
   };
 

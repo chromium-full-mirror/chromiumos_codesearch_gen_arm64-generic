@@ -4,7 +4,7 @@
 /**
  * @fileoverview Interfaces for the Files app Entry Types.
  */
-import { VolumeManagerCommon } from '../common/js/volume_manager_types.js';
+import { RootType, VolumeType } from '../common/js/volume_manager_types.js';
 /**
  * FilesAppEntry represents a single Entry (file, folder or root) in the Files
  * app. Previously, we used the Entry type directly, but this limits the code to
@@ -13,83 +13,72 @@ import { VolumeManagerCommon } from '../common/js/volume_manager_types.js';
  * See also FilesAppDirEntry for a folder-like interface.
  *
  * TODO(lucmult): Replace uses of Entry with FilesAppEntry implementations.
- *
- * @interface
  */
 export class FilesAppEntry {
-    constructor() {
-        /**
-         * @public @type {boolean} true if this entry represents a Directory-like
-         * entry, as in have sub-entries and implements {createReader} method. This
-         * attribute is defined on Entry.
-         */
-        this.isDirectory = false;
-        /**
-         * @public @type {boolean} true if this entry represents a File-like entry.
-         * Implementations of FilesAppEntry are expected to have this as |true|.
-         * Whereas implementations of FilesAppDirEntry are expected to have this as
-         * |false|.
-         * This attribute is defined on Entry.
-         */
-        this.isFile = true;
-        /**
-         * @public @type {string} absolute path from the file system's root to the
-         * entry. It can also be thought of as a path which is relative to the root
-         * directory, prepended with a "/" character.
-         * This attribute is defined on Entry.
-         */
-        this.fullPath = '';
-        /**
-         * @public @type {string} the name of the entry (the final part of the path,
-         * after the last.
-         * This attribute is defined on Entry.
-         */
-        this.name = '';
-        /**
-         * @public @type {string} the class name for this class. It's workaround for
-         * the fact that an instance created on foreground page and sent to
-         * background page can't be checked with "instanceof".
-         */
-        this.type_name = 'FilesAppEntry';
-        /** @type {VolumeManagerCommon.RootType|null} */
-        this.rootType = null;
-        /**
-         * @type {?FileSystem}
-         */
-        this.filesystem = null;
+    constructor(rootType = null) {
+        this.rootType = rootType;
     }
     /**
-     * @param {(function(DirectoryEntry)|function(FilesAppDirEntry))=} success
-     *     callback.
-     * @param {function(Error)=} error callback.
-     * This method is defined on Entry.
+     * @returns the class name of this object. It's a workaround for the fact that
+     * an instance created in the foreground page and sent to the background page
+     * can't be checked with `instanceof`.
      */
-    // @ts-ignore: error TS6133: 'error' is declared but its value is never read.
-    getParent(success, error) { }
+    get typeName() {
+        return 'FilesAppEntry';
+    }
     /**
-     * @return {string} used to compare entries. It should return an unique
-     * identifier for such entry, usually prefixed with it's root type like:
-     * "fake-entry://unique/path/to/entry".
-     * This method is defined on Entry.
+     * This attribute is defined on Entry.
+     * @return true if this entry represents a Directory-like entry, as
+     * in have sub-entries and implements {createReader} method.
      */
-    toURL() {
+    get isDirectory() {
+        return false;
+    }
+    /**
+     * This attribute is defined on Entry.
+     * @return true if this entry represents a File-like entry.
+     * Implementations of FilesAppEntry are expected to have this as true.
+     * Whereas implementations of FilesAppDirEntry are expected to have this as
+     * false.
+     */
+    get isFile() {
+        return true;
+    }
+    get filesystem() {
+        return null;
+    }
+    /**
+     * This attribute is defined on Entry.
+     * @return absolute path from the file system's root to the entry. It can also
+     * be thought of as a path which is relative to the root directory, prepended
+     * with a "/" character.
+     */
+    get fullPath() {
         return '';
     }
     /**
-     * Return metadata via |success| callback. Relevant metadata are
-     * "modificationTime" and "contentMimeType".
-     * @param {function({modificationTime: Date, size: number}): void} _success
-     *     callback to be called with the result metadata.
-     * @param {function(FileError)=} _error callback to be called in case of error
-     *     or ignored if no error happened.
+     * This attribute is defined on Entry.
+     * @return the name of the entry (the final part of the path, after the last.
      */
-    getMetadata(_success, _error) { }
+    get name() {
+        return '';
+    }
+    /** This method is defined on Entry. */
+    getParent(_success, error) {
+        if (error) {
+            setTimeout(error, 0, new Error('Not implemented'));
+        }
+    }
+    /** Gets metadata, such as "modificationTime" and "contentMimeType". */
+    getMetadata(_success, error) {
+        if (error) {
+            setTimeout(error, 0, new Error('Not implemented'));
+        }
+    }
     /**
      * Returns true if this entry object has a native representation such as Entry
      * or DirectoryEntry, this means it can interact with VolumeManager.
-     * @return {boolean}
      */
-    // @ts-ignore: error TS2378: A 'get' accessor must return a value.
     get isNativeType() {
         return false;
     }
@@ -97,33 +86,25 @@ export class FilesAppEntry {
      * Returns a FileSystemEntry if this instance has one, returns null if it
      * doesn't have or the entry hasn't been resolved yet. It's used to unwrap a
      * FilesAppEntry to be able to send to FileSystem API or fileManagerPrivate.
-     * @return {?Entry}
      */
     getNativeEntry() {
         return null;
     }
-    /**
-     * @param {!DirectoryEntry|!FilesAppDirEntry} newParent
-     * @param {string=} newName
-     * @param {(function(Entry)|function(FilesAppEntry))=} success
-     * @param {function(FileError)=} error
-     */
-    // @ts-ignore: error TS6133: 'error' is declared but its value is never read.
-    copyTo(newParent, newName, success, error) { }
-    /**
-     * @param {!DirectoryEntry|!FilesAppDirEntry} newParent
-     * @param {string} newName
-     * @param {(function(Entry)|function(FilesAppEntry))=} success
-     * @param {function(FileError)=} error
-     */
-    // @ts-ignore: error TS6133: 'error' is declared but its value is never read.
-    moveTo(newParent, newName, success, error) { }
-    /**
-     * @param {function(Entry):void|function(FilesAppEntry):void} success
-     * @param {function(FileError)=} error
-     */
-    // @ts-ignore: error TS6133: 'error' is declared but its value is never read.
-    remove(success, error) { }
+    copyTo(_newParent, _newName, _success, error) {
+        if (error) {
+            setTimeout(error, 0, new Error('Not implemented'));
+        }
+    }
+    moveTo(_newParent, _newName, _success, error) {
+        if (error) {
+            setTimeout(error, 0, new Error('Not implemented'));
+        }
+    }
+    remove(_success, error) {
+        if (error) {
+            setTimeout(error, 0, new Error('Not implemented'));
+        }
+    }
 }
 /**
  * Interface with minimal API shared among different types of FilesAppDirEntry
@@ -135,124 +116,86 @@ export class FilesAppEntry {
  * folder, which is basically the method createReader.
  * As in FilesAppEntry, FilesAppDirEntry should be interchangeable with Entry
  * and DirectoryEntry.
- *
- * @interface
  */
 export class FilesAppDirEntry extends FilesAppEntry {
-    constructor() {
-        super();
-        /**
-         * @public @type {boolean} true if this entry represents a Directory-like
-         * entry, as in have sub-entries and implements {createReader} method.
-         * Implementations of FilesAppEntry are expected to have this as |true|.
-         * This attribute is defined on Entry.
-         */
-        this.isDirectory = true;
-        this.type_name = 'FilesAppDirEntry';
+    get typeName() {
+        return 'FilesAppDirEntry';
+    }
+    get isDirectory() {
+        return true;
+    }
+    get isFile() {
+        return false;
     }
     /**
-     * @return {!DirectoryReader} Returns a reader compatible with
-     * DirectoryEntry.createReader (from Web Standards) that reads the children of
-     * this instance.
+     * @return Returns a reader compatible with DirectoryEntry.createReader (from
+     * Web Standards) that reads the children of this instance.
+     *
      * This method is defined on DirectoryEntry.
      */
     createReader() {
-        return /** @type {DirectoryReader} */ ({});
+        return {};
     }
-    /**
-     * @param {string} path
-     * @param {!FileSystemFlags=} options
-     * @param {(function(!FileEntry)|function(!FilesAppEntry))=} success
-     * @param {function(!DOMError):void=} error
-     */
-    // @ts-ignore: error TS6133: 'error' is declared but its value is never read.
-    getFile(path, options, success, error) { }
-    /**
-     * @param {string} path
-     * @param {!FileSystemFlags=} options
-     * @param {(function(!DirectoryEntry):void|function(!FilesAppDirEntry):void)=}
-     *     success
-     * @param {function(!DOMError)=} error
-     */
-    // @ts-ignore: error TS6133: 'error' is declared but its value is never read.
-    getDirectory(path, options, success, error) { }
-    /**
-     * @param {function():void} success
-     * @param {function(!Error)=} error
-     */
-    // @ts-ignore: error TS6133: 'error' is declared but its value is never read.
-    removeRecursively(success, error) { }
+    getFile(_path, _options, _success, error) {
+        if (error) {
+            setTimeout(error, 0, new Error('Not implemented'));
+        }
+    }
+    getDirectory(_path, _options, _success, error) {
+        if (error) {
+            setTimeout(error, 0, new Error('Not implemented'));
+        }
+    }
+    removeRecursively(_success, error) {
+        if (error) {
+            setTimeout(error, 0, new Error('Not implemented'));
+        }
+    }
 }
 /**
  * FakeEntry is used for entries that used only for UI, that weren't generated
  * by FileSystem API, like Drive, Downloads or Provided.
- *
- * @interface
  */
 export class FakeEntry extends FilesAppDirEntry {
     /**
-     * @param {string} label Translated text to be displayed to user.
-     * @param {!VolumeManagerCommon.RootType} rootType Root type of this entry.
-     * @param {chrome.fileManagerPrivate.SourceRestriction=} opt_sourceRestriction
-     *    used on Recents to filter the source of recent files/directories.
-     * @param {chrome.fileManagerPrivate.FileCategory=} opt_fileCategory
-     *    used on Recents to filter recent files by their file types.
+     * @param label Translated text to be displayed to user.
+     * @param rootType Root type of this entry. Used on Recents to filter the
+     *    source of recent files/directories. Used on Recents to filter recent
+     *    files by their file types.
+     * @param sourceRestriction Used to communicate restrictions about sources to
+     *   chrome.fileManagerPrivate.getRecentFiles API.
+     * @param fileCategory Used to communicate category filter to
+     *   chrome.fileManagerPrivate.getRecentFiles API.
      */
-    // @ts-ignore: error TS6133: 'opt_fileCategory' is declared but its value is
-    // never read.
-    constructor(label, rootType, opt_sourceRestriction, opt_fileCategory) {
-        super();
+    constructor(label, rootType, sourceRestriction, fileCategory) {
+        super(rootType);
+        this.label = label;
+        this.sourceRestriction = sourceRestriction;
+        this.fileCategory = fileCategory;
         /**
-         * @type {string} label: Label to be used when displaying to user, it
-         *      should be already translated.
-         */
-        this.label;
-        /** @type {string} Name for this volume. */
-        this.name;
-        /** @type {!VolumeManagerCommon.RootType} */
-        this.rootType;
-        /** @type {boolean} true FakeEntry are always directory-like. */
-        this.isDirectory = true;
-        /** @type {boolean} false FakeEntry are always directory-like. */
-        this.isFile = false;
-        /**
-         * @type {boolean} false FakeEntry can be disabled if it represents the
-         * placeholder of the real volume.
+         * FakeEntry can be disabled if it represents the placeholder of the real
+         * volume.
          */
         this.disabled = false;
-        /**
-         * @type {chrome.fileManagerPrivate.SourceRestriction|undefined} It's used
-         * to communicate restrictions about sources to
-         * chrome.fileManagerPrivate.getRecentFiles API.
-         */
-        this.sourceRestriction;
-        /**
-         * @type {chrome.fileManagerPrivate.FileCategory|undefined} It's used to
-         * communicate category filter to chrome.fileManagerPrivate.getRecentFiles
-         * API.
-         */
-        this.fileCategory;
-        /**
-         * @type {string} the class name for this class. It's workaround for the
-         * fact that an instance created on foreground page and sent to background
-         * page can't be checked with "instanceof".
-         */
-        this.type_name = 'FakeEntry';
     }
-    /**
-     * String used to determine the icon.
-     * @return {string}
-     */
-    // @ts-ignore: error TS2378: A 'get' accessor must return a value.
+    get typeName() {
+        return 'FakeEntry';
+    }
+    get isDirectory() {
+        return true;
+    }
+    get isFile() {
+        return false;
+    }
+    /** String used to determine the icon. */
     get iconName() {
         return '';
     }
     /**
-     * FakeEntry can be a placeholder for the real volume, if so this field will
-     * be the volume type of the volume it represents.
-     * @return {VolumeManagerCommon.VolumeType|null}
+     * FakeEntry can be a placeholder for the real volume, if so
+     * this field will be the volume type of the volume it
+     * represents.
      */
-    // @ts-ignore: error TS2378: A 'get' accessor must return a value.
     get volumeType() {
         return null;
     }

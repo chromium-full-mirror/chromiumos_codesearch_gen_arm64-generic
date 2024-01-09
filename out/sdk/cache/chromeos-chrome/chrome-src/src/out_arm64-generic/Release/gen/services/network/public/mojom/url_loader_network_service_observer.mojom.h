@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "third_party/abseil-cpp/absl/types/optional.h"
+#include <optional>
 #include "mojo/public/cpp/bindings/clone_traits.h"
 #include "mojo/public/cpp/bindings/equals_traits.h"
 #include "mojo/public/cpp/bindings/lib/serialization.h"
@@ -23,6 +23,7 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
+#include "services/network/public/mojom/url_loader_network_service_observer.mojom-features.h"
 #include "services/network/public/mojom/url_loader_network_service_observer.mojom-shared.h"
 #include "services/network/public/mojom/url_loader_network_service_observer.mojom-forward.h"
 #include "mojo/public/mojom/base/string16.mojom.h"
@@ -196,7 +197,7 @@ class AuthChallengeResponder
   virtual ~AuthChallengeResponder() = default;
 
   
-  virtual void OnAuthCredentials(const absl::optional<::net::AuthCredentials>& credentials) = 0;
+  virtual void OnAuthCredentials(const std::optional<::net::AuthCredentials>& credentials) = 0;
 };
 
 class URLLoaderNetworkServiceObserverProxy;
@@ -279,20 +280,20 @@ class URLLoaderNetworkServiceObserver
   virtual void OnSSLCertificateError(const ::GURL& url, int32_t net_error, const ::net::SSLInfo& ssl_info, bool fatal, OnSSLCertificateErrorCallback callback) = 0;
 
   
-  virtual void OnCertificateRequested(const absl::optional<::base::UnguessableToken>& window_id, const ::scoped_refptr<::net::SSLCertRequestInfo>& cert_info, ::mojo::PendingRemote<ClientCertificateResponder> cert_responder) = 0;
+  virtual void OnCertificateRequested(const std::optional<::base::UnguessableToken>& window_id, const ::scoped_refptr<::net::SSLCertRequestInfo>& cert_info, ::mojo::PendingRemote<ClientCertificateResponder> cert_responder) = 0;
 
   
-  virtual void OnAuthRequired(const absl::optional<::base::UnguessableToken>& window_id, uint32_t request_id, const ::GURL& url, bool first_auth_attempt, const ::net::AuthChallengeInfo& auth_info, const ::scoped_refptr<::net::HttpResponseHeaders>& head_headers, ::mojo::PendingRemote<AuthChallengeResponder> auth_challenge_responder) = 0;
+  virtual void OnAuthRequired(const std::optional<::base::UnguessableToken>& window_id, uint32_t request_id, const ::GURL& url, bool first_auth_attempt, const ::net::AuthChallengeInfo& auth_info, const ::scoped_refptr<::net::HttpResponseHeaders>& head_headers, ::mojo::PendingRemote<AuthChallengeResponder> auth_challenge_responder) = 0;
 
 
   using OnPrivateNetworkAccessPermissionRequiredCallback = base::OnceCallback<void(bool)>;
   
-  virtual void OnPrivateNetworkAccessPermissionRequired(const ::GURL& url, const ::net::IPAddress& ip_address, const absl::optional<std::string>& private_network_device_id, const absl::optional<std::string>& private_network_device_name, OnPrivateNetworkAccessPermissionRequiredCallback callback) = 0;
+  virtual void OnPrivateNetworkAccessPermissionRequired(const ::GURL& url, const ::net::IPAddress& ip_address, const std::optional<std::string>& private_network_device_id, const std::optional<std::string>& private_network_device_name, OnPrivateNetworkAccessPermissionRequiredCallback callback) = 0;
 
 
   using OnClearSiteDataCallback = base::OnceCallback<void()>;
   
-  virtual void OnClearSiteData(const ::GURL& url, const std::string& header_value, int32_t load_flags, const absl::optional<::net::CookiePartitionKey>& cookie_partition_key, bool partitioned_state_allowed_only, OnClearSiteDataCallback callback) = 0;
+  virtual void OnClearSiteData(const ::GURL& url, const std::string& header_value, int32_t load_flags, const std::optional<::net::CookiePartitionKey>& cookie_partition_key, bool partitioned_state_allowed_only, OnClearSiteDataCallback callback) = 0;
 
 
   using OnLoadingStateUpdateCallback = base::OnceCallback<void()>;
@@ -354,7 +355,7 @@ class  AuthChallengeResponderProxy
 
   explicit AuthChallengeResponderProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void OnAuthCredentials(const absl::optional<::net::AuthCredentials>& credentials) final;
+  void OnAuthCredentials(const std::optional<::net::AuthCredentials>& credentials) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -371,13 +372,13 @@ class  URLLoaderNetworkServiceObserverProxy
   
   void OnSSLCertificateError(const ::GURL& url, int32_t net_error, const ::net::SSLInfo& ssl_info, bool fatal, OnSSLCertificateErrorCallback callback) final;
   
-  void OnCertificateRequested(const absl::optional<::base::UnguessableToken>& window_id, const ::scoped_refptr<::net::SSLCertRequestInfo>& cert_info, ::mojo::PendingRemote<ClientCertificateResponder> cert_responder) final;
+  void OnCertificateRequested(const std::optional<::base::UnguessableToken>& window_id, const ::scoped_refptr<::net::SSLCertRequestInfo>& cert_info, ::mojo::PendingRemote<ClientCertificateResponder> cert_responder) final;
   
-  void OnAuthRequired(const absl::optional<::base::UnguessableToken>& window_id, uint32_t request_id, const ::GURL& url, bool first_auth_attempt, const ::net::AuthChallengeInfo& auth_info, const ::scoped_refptr<::net::HttpResponseHeaders>& head_headers, ::mojo::PendingRemote<AuthChallengeResponder> auth_challenge_responder) final;
+  void OnAuthRequired(const std::optional<::base::UnguessableToken>& window_id, uint32_t request_id, const ::GURL& url, bool first_auth_attempt, const ::net::AuthChallengeInfo& auth_info, const ::scoped_refptr<::net::HttpResponseHeaders>& head_headers, ::mojo::PendingRemote<AuthChallengeResponder> auth_challenge_responder) final;
   
-  void OnPrivateNetworkAccessPermissionRequired(const ::GURL& url, const ::net::IPAddress& ip_address, const absl::optional<std::string>& private_network_device_id, const absl::optional<std::string>& private_network_device_name, OnPrivateNetworkAccessPermissionRequiredCallback callback) final;
+  void OnPrivateNetworkAccessPermissionRequired(const ::GURL& url, const ::net::IPAddress& ip_address, const std::optional<std::string>& private_network_device_id, const std::optional<std::string>& private_network_device_name, OnPrivateNetworkAccessPermissionRequiredCallback callback) final;
   
-  void OnClearSiteData(const ::GURL& url, const std::string& header_value, int32_t load_flags, const absl::optional<::net::CookiePartitionKey>& cookie_partition_key, bool partitioned_state_allowed_only, OnClearSiteDataCallback callback) final;
+  void OnClearSiteData(const ::GURL& url, const std::string& header_value, int32_t load_flags, const std::optional<::net::CookiePartitionKey>& cookie_partition_key, bool partitioned_state_allowed_only, OnClearSiteDataCallback callback) final;
   
   void OnLoadingStateUpdate(LoadInfoPtr info, OnLoadingStateUpdateCallback callback) final;
   
@@ -612,8 +613,8 @@ class  SharedStorageOperation {
 
   SharedStorageOperation(
       SharedStorageOperationType type,
-      const absl::optional<std::string>& key,
-      const absl::optional<std::string>& value,
+      const std::optional<std::string>& key,
+      const std::optional<std::string>& value,
       ::network::mojom::OptionalBool ignore_if_present);
 
 
@@ -694,9 +695,9 @@ class  SharedStorageOperation {
   
   SharedStorageOperationType type;
   
-  absl::optional<std::string> key;
+  std::optional<std::string> key;
   
-  absl::optional<std::string> value;
+  std::optional<std::string> value;
   
   ::network::mojom::OptionalBool ignore_if_present;
 

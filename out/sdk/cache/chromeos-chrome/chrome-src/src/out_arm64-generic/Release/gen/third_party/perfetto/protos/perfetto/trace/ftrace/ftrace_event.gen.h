@@ -16,6 +16,8 @@ namespace perfetto {
 namespace protos {
 namespace gen {
 class FtraceEvent;
+class GpuWorkPeriodFtraceEvent;
+class SchedSwitchWithCtrsFtraceEvent;
 class BinderReturnFtraceEvent;
 class BinderCommandFtraceEvent;
 class SamsungTracingMarkWriteFtraceEvent;
@@ -965,6 +967,8 @@ class PERFETTO_EXPORT_COMPONENT FtraceEvent : public ::protozero::CppMessageObj 
     kSamsungTracingMarkWriteFieldNumber = 484,
     kBinderCommandFieldNumber = 485,
     kBinderReturnFieldNumber = 486,
+    kSchedSwitchWithCtrsFieldNumber = 487,
+    kGpuWorkPeriodFieldNumber = 488,
   };
 
   FtraceEvent();
@@ -2853,6 +2857,14 @@ class PERFETTO_EXPORT_COMPONENT FtraceEvent : public ::protozero::CppMessageObj 
   const BinderReturnFtraceEvent& binder_return() const { return *binder_return_; }
   BinderReturnFtraceEvent* mutable_binder_return() { _has_field_.set(486); return binder_return_.get(); }
 
+  bool has_sched_switch_with_ctrs() const { return _has_field_[487]; }
+  const SchedSwitchWithCtrsFtraceEvent& sched_switch_with_ctrs() const { return *sched_switch_with_ctrs_; }
+  SchedSwitchWithCtrsFtraceEvent* mutable_sched_switch_with_ctrs() { _has_field_.set(487); return sched_switch_with_ctrs_.get(); }
+
+  bool has_gpu_work_period() const { return _has_field_[488]; }
+  const GpuWorkPeriodFtraceEvent& gpu_work_period() const { return *gpu_work_period_; }
+  GpuWorkPeriodFtraceEvent* mutable_gpu_work_period() { _has_field_.set(488); return gpu_work_period_.get(); }
+
  private:
   uint64_t timestamp_{};
   uint32_t pid_{};
@@ -3322,12 +3334,14 @@ class PERFETTO_EXPORT_COMPONENT FtraceEvent : public ::protozero::CppMessageObj 
   ::protozero::CopyablePtr<SamsungTracingMarkWriteFtraceEvent> samsung_tracing_mark_write_;
   ::protozero::CopyablePtr<BinderCommandFtraceEvent> binder_command_;
   ::protozero::CopyablePtr<BinderReturnFtraceEvent> binder_return_;
+  ::protozero::CopyablePtr<SchedSwitchWithCtrsFtraceEvent> sched_switch_with_ctrs_;
+  ::protozero::CopyablePtr<GpuWorkPeriodFtraceEvent> gpu_work_period_;
 
   // Allows to preserve unknown protobuf fields for compatibility
   // with future versions of .proto files.
   std::string unknown_fields_;
 
-  std::bitset<487> _has_field_{};
+  std::bitset<489> _has_field_{};
 };
 
 }  // namespace perfetto

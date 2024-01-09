@@ -40,6 +40,7 @@ export var Setting;
     Setting[Setting["kWifiHidden"] = 29] = "kWifiHidden";
     Setting[Setting["kHotspotOnOff"] = 30] = "kHotspotOnOff";
     Setting[Setting["kHotspotAutoDisabled"] = 31] = "kHotspotAutoDisabled";
+    Setting[Setting["kCellularAddApn"] = 32] = "kCellularAddApn";
     Setting[Setting["kBluetoothOnOff"] = 100] = "kBluetoothOnOff";
     Setting[Setting["kBluetoothPairDevice"] = 103] = "kBluetoothPairDevice";
     Setting[Setting["kBluetoothUnpairDevice"] = 104] = "kBluetoothUnpairDevice";

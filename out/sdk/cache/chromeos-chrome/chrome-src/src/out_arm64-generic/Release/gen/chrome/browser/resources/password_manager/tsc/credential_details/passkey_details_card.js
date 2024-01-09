@@ -60,5 +60,20 @@ export class PasskeyDetailsCardElement extends PasskeyDetailsCardElementBase {
         this.showEditPasskeyDialog_ = false;
         PasswordManagerImpl.getInstance().extendAuthValidity();
     }
+    getAriaLabelForPasswordCard_() {
+        return !this.passkey.username ?
+            this.i18n('passkeyDetailsCardNoUsernameAriaLabel') :
+            this.i18n('passkeyDetailsCardAriaLabel', this.passkey.username);
+    }
+    getAriaLabelForEditButton_() {
+        return !this.passkey.username ?
+            this.i18n('passkeyDetailsCardEditButtonNoUsernameAriaLabel') :
+            this.i18n('passkeyDetailsCardEditButtonAriaLabel', this.passkey.username);
+    }
+    getAriaLabelForDeleteButton_() {
+        return !this.passkey.username ?
+            this.i18n('passkeyDetailsCardDeleteButtonNoUsernameAriaLabel') :
+            this.i18n('passkeyDetailsCardDeleteButtonAriaLabel', this.passkey.username);
+    }
 }
 customElements.define(PasskeyDetailsCardElement.is, PasskeyDetailsCardElement);

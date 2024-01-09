@@ -24,6 +24,7 @@ class  LocalFrameInterceptorForTesting : public LocalFrame {
   void ExecuteCode(ExecuteCodeParamsPtr param, ExecuteCodeCallback callback) override;
   void ExecuteDeclarativeScript(int32_t tab_id, const std::string& extension_id, const std::string& script_id, const ::GURL& url) override;
   void UpdateBrowserWindowId(int32_t window_id) override;
+  void DispatchOnConnect(const ::extensions::PortId& port_id, ::extensions::mojom::ChannelType channel_type, const std::string& channel_name, ::extensions::mojom::TabConnectionInfoPtr tab_info, ::extensions::mojom::ExternalConnectionInfoPtr external_connection_info, ::mojo::PendingAssociatedReceiver<::extensions::mojom::MessagePort> port, ::mojo::PendingAssociatedRemote<::extensions::mojom::MessagePortHost> port_host, DispatchOnConnectCallback callback) override;
 };
 class  LocalFrameAsyncWaiter {
  public:
@@ -34,8 +35,11 @@ class  LocalFrameAsyncWaiter {
 
   ~LocalFrameAsyncWaiter();
   void ExecuteCode(
-      ExecuteCodeParamsPtr param, std::string* out_error, ::GURL* out_url, absl::optional<::base::Value>* out_result);
+      ExecuteCodeParamsPtr param, std::string* out_error, ::GURL* out_url, std::optional<::base::Value>* out_result);
   
+  void DispatchOnConnect(
+      const ::extensions::PortId& port_id, ::extensions::mojom::ChannelType channel_type, const std::string& channel_name, ::extensions::mojom::TabConnectionInfoPtr tab_info, ::extensions::mojom::ExternalConnectionInfoPtr external_connection_info, ::mojo::PendingAssociatedReceiver<::extensions::mojom::MessagePort> port, ::mojo::PendingAssociatedRemote<::extensions::mojom::MessagePortHost> port_host, bool* out_success);
+  bool DispatchOnConnect(const ::extensions::PortId& port_id, ::extensions::mojom::ChannelType channel_type, const std::string& channel_name, ::extensions::mojom::TabConnectionInfoPtr tab_info, ::extensions::mojom::ExternalConnectionInfoPtr external_connection_info, ::mojo::PendingAssociatedReceiver<::extensions::mojom::MessagePort> port, ::mojo::PendingAssociatedRemote<::extensions::mojom::MessagePortHost> port_host);
 
  private:
   LocalFrame* const proxy_;
@@ -55,6 +59,9 @@ class  LocalFrameHostInterceptorForTesting : public LocalFrameHost {
   void DecrementLazyKeepaliveCount() override;
   void UpdateDraggableRegions(std::vector<DraggableRegionPtr> regions) override;
   void AppWindowReady() override;
+  void OpenChannelToExtension(::extensions::mojom::ExternalConnectionInfoPtr info, ::extensions::mojom::ChannelType channel_type, const std::string& channel_name, const ::extensions::PortId& port_id, ::mojo::PendingAssociatedRemote<::extensions::mojom::MessagePort> port, ::mojo::PendingAssociatedReceiver<::extensions::mojom::MessagePortHost> port_host) override;
+  void OpenChannelToNativeApp(const std::string& native_app_name, const ::extensions::PortId& port_id, ::mojo::PendingAssociatedRemote<::extensions::mojom::MessagePort> port, ::mojo::PendingAssociatedReceiver<::extensions::mojom::MessagePortHost> port_host) override;
+  void OpenChannelToTab(int32_t tab_id, int32_t frame_id, const std::optional<std::string>& document_id, ::extensions::mojom::ChannelType channel_type, const std::string& channel_name, const ::extensions::PortId& port_id, ::mojo::PendingAssociatedRemote<::extensions::mojom::MessagePort> port, ::mojo::PendingAssociatedReceiver<::extensions::mojom::MessagePortHost> port_host) override;
 };
 class  LocalFrameHostAsyncWaiter {
  public:

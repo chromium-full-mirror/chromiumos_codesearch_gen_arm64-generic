@@ -337,6 +337,7 @@ class  Delegate_GetConnectedExternalDisplayConnectors_Params_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::Array_Data<uint32_t>> last_known_connectors;
 
  private:
   friend class mojo::internal::MessageFragment<Delegate_GetConnectedExternalDisplayConnectors_Params_Data>;
@@ -344,7 +345,7 @@ class  Delegate_GetConnectedExternalDisplayConnectors_Params_Data {
   Delegate_GetConnectedExternalDisplayConnectors_Params_Data();
   ~Delegate_GetConnectedExternalDisplayConnectors_Params_Data() = delete;
 };
-static_assert(sizeof(Delegate_GetConnectedExternalDisplayConnectors_Params_Data) == 8,
+static_assert(sizeof(Delegate_GetConnectedExternalDisplayConnectors_Params_Data) == 16,
               "Bad sizeof(Delegate_GetConnectedExternalDisplayConnectors_Params_Data)");
 class  Delegate_GetConnectedExternalDisplayConnectors_ResponseParams_Data {
  public:
@@ -622,6 +623,173 @@ class  Delegate_SetAllFanAutoControl_ResponseParams_Data {
 };
 static_assert(sizeof(Delegate_SetAllFanAutoControl_ResponseParams_Data) == 16,
               "Bad sizeof(Delegate_SetAllFanAutoControl_ResponseParams_Data)");
+class  Delegate_GetEcThermalSensors_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<Delegate_GetEcThermalSensors_Params_Data>;
+
+  Delegate_GetEcThermalSensors_Params_Data();
+  ~Delegate_GetEcThermalSensors_Params_Data() = delete;
+};
+static_assert(sizeof(Delegate_GetEcThermalSensors_Params_Data) == 8,
+              "Bad sizeof(Delegate_GetEcThermalSensors_Params_Data)");
+class  Delegate_GetEcThermalSensors_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::ThermalSensorInfo_Data>>> thermal_sensors;
+  mojo::internal::Pointer<mojo::internal::String_Data> err;
+
+ private:
+  friend class mojo::internal::MessageFragment<Delegate_GetEcThermalSensors_ResponseParams_Data>;
+
+  Delegate_GetEcThermalSensors_ResponseParams_Data();
+  ~Delegate_GetEcThermalSensors_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(Delegate_GetEcThermalSensors_ResponseParams_Data) == 24,
+              "Bad sizeof(Delegate_GetEcThermalSensors_ResponseParams_Data)");
+class  Delegate_GetTouchpadDevices_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<Delegate_GetTouchpadDevices_Params_Data>;
+
+  Delegate_GetTouchpadDevices_Params_Data();
+  ~Delegate_GetTouchpadDevices_Params_Data() = delete;
+};
+static_assert(sizeof(Delegate_GetTouchpadDevices_Params_Data) == 8,
+              "Bad sizeof(Delegate_GetTouchpadDevices_Params_Data)");
+class  Delegate_GetTouchpadDevices_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::TouchpadDevice_Data>>> devices;
+  mojo::internal::Pointer<mojo::internal::String_Data> err;
+
+ private:
+  friend class mojo::internal::MessageFragment<Delegate_GetTouchpadDevices_ResponseParams_Data>;
+
+  Delegate_GetTouchpadDevices_ResponseParams_Data();
+  ~Delegate_GetTouchpadDevices_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(Delegate_GetTouchpadDevices_ResponseParams_Data) == 24,
+              "Bad sizeof(Delegate_GetTouchpadDevices_ResponseParams_Data)");
+class  Delegate_GetSmartBatteryManufactureDate_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t i2c_port;
+  uint8_t padfinal_[7];
+
+ private:
+  friend class mojo::internal::MessageFragment<Delegate_GetSmartBatteryManufactureDate_Params_Data>;
+
+  Delegate_GetSmartBatteryManufactureDate_Params_Data();
+  ~Delegate_GetSmartBatteryManufactureDate_Params_Data() = delete;
+};
+static_assert(sizeof(Delegate_GetSmartBatteryManufactureDate_Params_Data) == 16,
+              "Bad sizeof(Delegate_GetSmartBatteryManufactureDate_Params_Data)");
+class  Delegate_GetSmartBatteryManufactureDate_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t manufacture_date_$flag : 1;
+  uint8_t pad0_[3];
+  uint32_t manufacture_date_$value;
+
+ private:
+  friend class mojo::internal::MessageFragment<Delegate_GetSmartBatteryManufactureDate_ResponseParams_Data>;
+
+  Delegate_GetSmartBatteryManufactureDate_ResponseParams_Data();
+  ~Delegate_GetSmartBatteryManufactureDate_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(Delegate_GetSmartBatteryManufactureDate_ResponseParams_Data) == 16,
+              "Bad sizeof(Delegate_GetSmartBatteryManufactureDate_ResponseParams_Data)");
+class  Delegate_GetSmartBatteryTemperature_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t i2c_port;
+  uint8_t padfinal_[7];
+
+ private:
+  friend class mojo::internal::MessageFragment<Delegate_GetSmartBatteryTemperature_Params_Data>;
+
+  Delegate_GetSmartBatteryTemperature_Params_Data();
+  ~Delegate_GetSmartBatteryTemperature_Params_Data() = delete;
+};
+static_assert(sizeof(Delegate_GetSmartBatteryTemperature_Params_Data) == 16,
+              "Bad sizeof(Delegate_GetSmartBatteryTemperature_Params_Data)");
+class  Delegate_GetSmartBatteryTemperature_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t temperature_$flag : 1;
+  uint8_t pad0_[3];
+  uint32_t temperature_$value;
+
+ private:
+  friend class mojo::internal::MessageFragment<Delegate_GetSmartBatteryTemperature_ResponseParams_Data>;
+
+  Delegate_GetSmartBatteryTemperature_ResponseParams_Data();
+  ~Delegate_GetSmartBatteryTemperature_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(Delegate_GetSmartBatteryTemperature_ResponseParams_Data) == 16,
+              "Bad sizeof(Delegate_GetSmartBatteryTemperature_ResponseParams_Data)");
+class  Delegate_RunUrandom_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::ash::cros_healthd::external::mojo_base::mojom::internal::TimeDelta_Data> exec_duration;
+
+ private:
+  friend class mojo::internal::MessageFragment<Delegate_RunUrandom_Params_Data>;
+
+  Delegate_RunUrandom_Params_Data();
+  ~Delegate_RunUrandom_Params_Data() = delete;
+};
+static_assert(sizeof(Delegate_RunUrandom_Params_Data) == 16,
+              "Bad sizeof(Delegate_RunUrandom_Params_Data)");
+class  Delegate_RunUrandom_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t passed : 1;
+  uint8_t padfinal_[7];
+
+ private:
+  friend class mojo::internal::MessageFragment<Delegate_RunUrandom_ResponseParams_Data>;
+
+  Delegate_RunUrandom_ResponseParams_Data();
+  ~Delegate_RunUrandom_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(Delegate_RunUrandom_ResponseParams_Data) == 16,
+              "Bad sizeof(Delegate_RunUrandom_ResponseParams_Data)");
 
 }  // namespace internal
 
@@ -1081,7 +1249,7 @@ class Delegate_GetLidAngle_ResponseParamsDataView {
       : data_(data) {}
 
   bool is_null() const { return !data_; }
-  absl::optional<uint16_t> lid_angle() const {
+  std::optional<uint16_t> lid_angle() const {
 
     return data_->lid_angle_$flag
         ? absl::make_optional(data_->lid_angle_$value)
@@ -1160,11 +1328,32 @@ class Delegate_GetConnectedExternalDisplayConnectors_ParamsDataView {
   Delegate_GetConnectedExternalDisplayConnectors_ParamsDataView(
       internal::Delegate_GetConnectedExternalDisplayConnectors_Params_Data* data,
       mojo::Message* message)
-      : data_(data) {}
+      : data_(data), message_(message) {}
 
   bool is_null() const { return !data_; }
+  inline void GetLastKnownConnectorsDataView(
+      mojo::ArrayDataView<uint32_t>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadLastKnownConnectors(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::ArrayDataView<uint32_t>, UserType>(),
+    "Attempting to read the optional `last_known_connectors` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadLastKnownConnectors` instead "
+    "of `ReadLastKnownConnectors if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->last_known_connectors.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<uint32_t>>(
+        pointer, output, message_);
+  }
  private:
   internal::Delegate_GetConnectedExternalDisplayConnectors_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
 };
 
 
@@ -1627,6 +1816,250 @@ static_assert(
 };
 
 
+class Delegate_GetEcThermalSensors_ParamsDataView {
+ public:
+  Delegate_GetEcThermalSensors_ParamsDataView() = default;
+
+  Delegate_GetEcThermalSensors_ParamsDataView(
+      internal::Delegate_GetEcThermalSensors_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::Delegate_GetEcThermalSensors_Params_Data* data_ = nullptr;
+};
+
+
+class Delegate_GetEcThermalSensors_ResponseParamsDataView {
+ public:
+  Delegate_GetEcThermalSensors_ResponseParamsDataView() = default;
+
+  Delegate_GetEcThermalSensors_ResponseParamsDataView(
+      internal::Delegate_GetEcThermalSensors_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetThermalSensorsDataView(
+      mojo::ArrayDataView<::ash::cros_healthd::mojom::ThermalSensorInfoDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadThermalSensors(UserType* output) {
+    
+    auto* pointer = data_->thermal_sensors.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::ThermalSensorInfoDataView>>(
+        pointer, output, message_);
+  }
+  inline void GetErrDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadErr(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::StringDataView, UserType>(),
+    "Attempting to read the optional `err` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadErr` instead "
+    "of `ReadErr if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->err.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::Delegate_GetEcThermalSensors_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class Delegate_GetTouchpadDevices_ParamsDataView {
+ public:
+  Delegate_GetTouchpadDevices_ParamsDataView() = default;
+
+  Delegate_GetTouchpadDevices_ParamsDataView(
+      internal::Delegate_GetTouchpadDevices_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::Delegate_GetTouchpadDevices_Params_Data* data_ = nullptr;
+};
+
+
+class Delegate_GetTouchpadDevices_ResponseParamsDataView {
+ public:
+  Delegate_GetTouchpadDevices_ResponseParamsDataView() = default;
+
+  Delegate_GetTouchpadDevices_ResponseParamsDataView(
+      internal::Delegate_GetTouchpadDevices_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetDevicesDataView(
+      mojo::ArrayDataView<::ash::cros_healthd::mojom::TouchpadDeviceDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadDevices(UserType* output) {
+    
+    auto* pointer = data_->devices.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::TouchpadDeviceDataView>>(
+        pointer, output, message_);
+  }
+  inline void GetErrDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadErr(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::StringDataView, UserType>(),
+    "Attempting to read the optional `err` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadErr` instead "
+    "of `ReadErr if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->err.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::Delegate_GetTouchpadDevices_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class Delegate_GetSmartBatteryManufactureDate_ParamsDataView {
+ public:
+  Delegate_GetSmartBatteryManufactureDate_ParamsDataView() = default;
+
+  Delegate_GetSmartBatteryManufactureDate_ParamsDataView(
+      internal::Delegate_GetSmartBatteryManufactureDate_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  uint8_t i2c_port() const {
+    return data_->i2c_port;
+  }
+ private:
+  internal::Delegate_GetSmartBatteryManufactureDate_Params_Data* data_ = nullptr;
+};
+
+
+class Delegate_GetSmartBatteryManufactureDate_ResponseParamsDataView {
+ public:
+  Delegate_GetSmartBatteryManufactureDate_ResponseParamsDataView() = default;
+
+  Delegate_GetSmartBatteryManufactureDate_ResponseParamsDataView(
+      internal::Delegate_GetSmartBatteryManufactureDate_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  std::optional<uint32_t> manufacture_date() const {
+
+    return data_->manufacture_date_$flag
+        ? absl::make_optional(data_->manufacture_date_$value)
+        : absl::nullopt;
+  }
+ private:
+  internal::Delegate_GetSmartBatteryManufactureDate_ResponseParams_Data* data_ = nullptr;
+};
+
+
+class Delegate_GetSmartBatteryTemperature_ParamsDataView {
+ public:
+  Delegate_GetSmartBatteryTemperature_ParamsDataView() = default;
+
+  Delegate_GetSmartBatteryTemperature_ParamsDataView(
+      internal::Delegate_GetSmartBatteryTemperature_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  uint8_t i2c_port() const {
+    return data_->i2c_port;
+  }
+ private:
+  internal::Delegate_GetSmartBatteryTemperature_Params_Data* data_ = nullptr;
+};
+
+
+class Delegate_GetSmartBatteryTemperature_ResponseParamsDataView {
+ public:
+  Delegate_GetSmartBatteryTemperature_ResponseParamsDataView() = default;
+
+  Delegate_GetSmartBatteryTemperature_ResponseParamsDataView(
+      internal::Delegate_GetSmartBatteryTemperature_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  std::optional<uint32_t> temperature() const {
+
+    return data_->temperature_$flag
+        ? absl::make_optional(data_->temperature_$value)
+        : absl::nullopt;
+  }
+ private:
+  internal::Delegate_GetSmartBatteryTemperature_ResponseParams_Data* data_ = nullptr;
+};
+
+
+class Delegate_RunUrandom_ParamsDataView {
+ public:
+  Delegate_RunUrandom_ParamsDataView() = default;
+
+  Delegate_RunUrandom_ParamsDataView(
+      internal::Delegate_RunUrandom_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetExecDurationDataView(
+      ::ash::cros_healthd::external::mojo_base::mojom::TimeDeltaDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadExecDuration(UserType* output) {
+    
+    auto* pointer = data_->exec_duration.Get();
+    return mojo::internal::Deserialize<::ash::cros_healthd::external::mojo_base::mojom::TimeDeltaDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::Delegate_RunUrandom_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class Delegate_RunUrandom_ResponseParamsDataView {
+ public:
+  Delegate_RunUrandom_ResponseParamsDataView() = default;
+
+  Delegate_RunUrandom_ResponseParamsDataView(
+      internal::Delegate_RunUrandom_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  bool passed() const {
+    return data_->passed;
+  }
+ private:
+  internal::Delegate_RunUrandom_ResponseParams_Data* data_ = nullptr;
+};
+
+
 
 inline void Delegate_GetFingerprintFrame_ResponseParamsDataView::GetResultDataView(
     ::ash::cros_healthd::mojom::FingerprintFrameResultDataView* output) {
@@ -1709,6 +2142,11 @@ inline void Delegate_GetPsr_ResponseParamsDataView::GetErrDataView(
 }
 
 
+inline void Delegate_GetConnectedExternalDisplayConnectors_ParamsDataView::GetLastKnownConnectorsDataView(
+    mojo::ArrayDataView<uint32_t>* output) {
+  auto pointer = data_->last_known_connectors.Get();
+  *output = mojo::ArrayDataView<uint32_t>(pointer, message_);
+}
 
 
 inline void Delegate_GetConnectedExternalDisplayConnectors_ResponseParamsDataView::GetConnectorsDataView(
@@ -1798,6 +2236,51 @@ inline void Delegate_SetAllFanAutoControl_ResponseParamsDataView::GetErrDataView
   auto pointer = data_->err.Get();
   *output = mojo::StringDataView(pointer, message_);
 }
+
+
+
+
+inline void Delegate_GetEcThermalSensors_ResponseParamsDataView::GetThermalSensorsDataView(
+    mojo::ArrayDataView<::ash::cros_healthd::mojom::ThermalSensorInfoDataView>* output) {
+  auto pointer = data_->thermal_sensors.Get();
+  *output = mojo::ArrayDataView<::ash::cros_healthd::mojom::ThermalSensorInfoDataView>(pointer, message_);
+}
+inline void Delegate_GetEcThermalSensors_ResponseParamsDataView::GetErrDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->err.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
+
+
+inline void Delegate_GetTouchpadDevices_ResponseParamsDataView::GetDevicesDataView(
+    mojo::ArrayDataView<::ash::cros_healthd::mojom::TouchpadDeviceDataView>* output) {
+  auto pointer = data_->devices.Get();
+  *output = mojo::ArrayDataView<::ash::cros_healthd::mojom::TouchpadDeviceDataView>(pointer, message_);
+}
+inline void Delegate_GetTouchpadDevices_ResponseParamsDataView::GetErrDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->err.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
+
+
+
+
+
+
+
+
+inline void Delegate_RunUrandom_ParamsDataView::GetExecDurationDataView(
+    ::ash::cros_healthd::external::mojo_base::mojom::TimeDeltaDataView* output) {
+  auto pointer = data_->exec_duration.Get();
+  *output = ::ash::cros_healthd::external::mojo_base::mojom::TimeDeltaDataView(pointer, message_);
+}
+
+
 
 
 

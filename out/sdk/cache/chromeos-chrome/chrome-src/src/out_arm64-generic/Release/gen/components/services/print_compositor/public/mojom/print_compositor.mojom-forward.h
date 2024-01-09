@@ -23,6 +23,8 @@
 namespace printing::mojom {
 
 enum class PrintCompositor_Status : int32_t;
+
+enum class PrintCompositor_DocumentType : int32_t;
 class PrintCompositor;
 
 

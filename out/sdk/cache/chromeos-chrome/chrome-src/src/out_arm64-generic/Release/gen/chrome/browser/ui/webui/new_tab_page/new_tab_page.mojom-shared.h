@@ -195,13 +195,31 @@ enum class NtpBackgroundImageSource : int32_t {
   kThirdPartyTheme = 3,
   
   kUploadedImage = 4,
+  
+  kWallpaperSearch = 5,
   kMinValue = 0,
-  kMaxValue = 4,
+  kMaxValue = 5,
 };
 
  std::ostream& operator<<(std::ostream& os, NtpBackgroundImageSource value);
 inline bool IsKnownEnumValue(NtpBackgroundImageSource value) {
   return internal::NtpBackgroundImageSource_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+
+
+enum class IphFeature : int32_t {
+  
+  kCustomizeChrome = 0,
+  
+  kCustomizeModules = 1,
+  kMinValue = 0,
+  kMaxValue = 1,
+};
+
+ std::ostream& operator<<(std::ostream& os, IphFeature value);
+inline bool IsKnownEnumValue(IphFeature value) {
+  return internal::IphFeature_Data::IsKnownValue(
       static_cast<int32_t>(value));
 }
 
@@ -676,6 +694,9 @@ class ThemeDataView {
     auto* pointer = data_->background_color.Get();
     return mojo::internal::Deserialize<::skia::mojom::SkColorDataView>(
         pointer, output, message_);
+  }
+  bool is_baseline() const {
+    return data_->is_baseline;
   }
   bool is_custom_background() const {
     return data_->is_custom_background;
@@ -1421,6 +1442,10 @@ struct hash<::new_tab_page::mojom::NtpBackgroundImageSource>
     : public mojo::internal::EnumHashImpl<::new_tab_page::mojom::NtpBackgroundImageSource> {};
 
 template <>
+struct hash<::new_tab_page::mojom::IphFeature>
+    : public mojo::internal::EnumHashImpl<::new_tab_page::mojom::IphFeature> {};
+
+template <>
 struct hash<::new_tab_page::mojom::DoodleImageType>
     : public mojo::internal::EnumHashImpl<::new_tab_page::mojom::DoodleImageType> {};
 
@@ -1459,6 +1484,26 @@ struct Serializer<::new_tab_page::mojom::NtpBackgroundImageSource, MaybeConstUse
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
         static_cast<::new_tab_page::mojom::NtpBackgroundImageSource>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::new_tab_page::mojom::IphFeature, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::new_tab_page::mojom::IphFeature, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::new_tab_page::mojom::IphFeature>(input)), output);
   }
 };
 
@@ -1867,6 +1912,7 @@ struct Serializer<::new_tab_page::mojom::ThemeDataView, MaybeConstUserType> {
         fragment->background_color.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null background_color in Theme struct");
+    fragment->is_baseline = Traits::is_baseline(input);
     fragment->is_custom_background = Traits::is_custom_background(input);
     fragment->daily_refresh_enabled = Traits::daily_refresh_enabled(input);
     fragment->is_dark = Traits::is_dark(input);
@@ -2929,6 +2975,15 @@ namespace perfetto {
 template <>
 struct  TraceFormatTraits<::new_tab_page::mojom::NtpBackgroundImageSource> {
  static void WriteIntoTrace(perfetto::TracedValue context, ::new_tab_page::mojom::NtpBackgroundImageSource value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::new_tab_page::mojom::IphFeature> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::new_tab_page::mojom::IphFeature value);
 };
 
 } // namespace perfetto
