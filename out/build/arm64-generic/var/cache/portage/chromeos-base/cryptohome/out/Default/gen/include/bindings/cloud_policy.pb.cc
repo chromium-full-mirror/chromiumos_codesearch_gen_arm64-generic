@@ -119,9 +119,9 @@ PROTOBUF_CONSTEXPR CloudPolicySubProto1::CloudPolicySubProto1(
   , /*decltype(_impl_.feedbacksurveysenabled_)*/nullptr
   , /*decltype(_impl_.deskapidesksaveandshareenabled_)*/nullptr
   , /*decltype(_impl_.oopprintdriversallowed_)*/nullptr
-  , /*decltype(_impl_.taborganizationallowed_)*/nullptr
-  , /*decltype(_impl_.composeallowed_)*/nullptr
-  , /*decltype(_impl_.wallpapersearchallowed_)*/nullptr
+  , /*decltype(_impl_.taborganizersettings_)*/nullptr
+  , /*decltype(_impl_.helpmewritesettings_)*/nullptr
+  , /*decltype(_impl_.createthemessettings_)*/nullptr
   , /*decltype(_impl_.alwaysonvpnpreconnecturlallowlist_)*/nullptr} {}
 struct CloudPolicySubProto1DefaultTypeInternal {
   PROTOBUF_CONSTEXPR CloudPolicySubProto1DefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
@@ -786,17 +786,17 @@ class CloudPolicySubProto1::_Internal {
   static void set_has_mandatoryextensionsforincognitonavigation(HasBits* has_bits) {
     (*has_bits)[0] |= 134217728u;
   }
-  static const ::enterprise_management::IntegerPolicyProto& composeallowed(const CloudPolicySubProto1* msg);
-  static void set_has_composeallowed(HasBits* has_bits) {
+  static const ::enterprise_management::IntegerPolicyProto& createthemessettings(const CloudPolicySubProto1* msg);
+  static void set_has_createthemessettings(HasBits* has_bits) {
+    (*has_bits)[3] |= 16u;
+  }
+  static const ::enterprise_management::IntegerPolicyProto& helpmewritesettings(const CloudPolicySubProto1* msg);
+  static void set_has_helpmewritesettings(HasBits* has_bits) {
     (*has_bits)[3] |= 8u;
   }
-  static const ::enterprise_management::IntegerPolicyProto& taborganizationallowed(const CloudPolicySubProto1* msg);
-  static void set_has_taborganizationallowed(HasBits* has_bits) {
+  static const ::enterprise_management::IntegerPolicyProto& taborganizersettings(const CloudPolicySubProto1* msg);
+  static void set_has_taborganizersettings(HasBits* has_bits) {
     (*has_bits)[3] |= 4u;
-  }
-  static const ::enterprise_management::IntegerPolicyProto& wallpapersearchallowed(const CloudPolicySubProto1* msg);
-  static void set_has_wallpapersearchallowed(HasBits* has_bits) {
-    (*has_bits)[3] |= 16u;
   }
   static const ::enterprise_management::BooleanPolicyProto& showcastsessionsstartedbyotherdevices(const CloudPolicySubProto1* msg);
   static void set_has_showcastsessionsstartedbyotherdevices(HasBits* has_bits) {
@@ -1197,16 +1197,16 @@ CloudPolicySubProto1::_Internal::mandatoryextensionsforincognitonavigation(const
   return *msg->_impl_.mandatoryextensionsforincognitonavigation_;
 }
 const ::enterprise_management::IntegerPolicyProto&
-CloudPolicySubProto1::_Internal::composeallowed(const CloudPolicySubProto1* msg) {
-  return *msg->_impl_.composeallowed_;
+CloudPolicySubProto1::_Internal::createthemessettings(const CloudPolicySubProto1* msg) {
+  return *msg->_impl_.createthemessettings_;
 }
 const ::enterprise_management::IntegerPolicyProto&
-CloudPolicySubProto1::_Internal::taborganizationallowed(const CloudPolicySubProto1* msg) {
-  return *msg->_impl_.taborganizationallowed_;
+CloudPolicySubProto1::_Internal::helpmewritesettings(const CloudPolicySubProto1* msg) {
+  return *msg->_impl_.helpmewritesettings_;
 }
 const ::enterprise_management::IntegerPolicyProto&
-CloudPolicySubProto1::_Internal::wallpapersearchallowed(const CloudPolicySubProto1* msg) {
-  return *msg->_impl_.wallpapersearchallowed_;
+CloudPolicySubProto1::_Internal::taborganizersettings(const CloudPolicySubProto1* msg) {
+  return *msg->_impl_.taborganizersettings_;
 }
 const ::enterprise_management::BooleanPolicyProto&
 CloudPolicySubProto1::_Internal::showcastsessionsstartedbyotherdevices(const CloudPolicySubProto1* msg) {
@@ -1604,17 +1604,17 @@ void CloudPolicySubProto1::clear_mandatoryextensionsforincognitonavigation() {
   if (_impl_.mandatoryextensionsforincognitonavigation_ != nullptr) _impl_.mandatoryextensionsforincognitonavigation_->Clear();
   _impl_._has_bits_[0] &= ~0x08000000u;
 }
-void CloudPolicySubProto1::clear_composeallowed() {
-  if (_impl_.composeallowed_ != nullptr) _impl_.composeallowed_->Clear();
+void CloudPolicySubProto1::clear_createthemessettings() {
+  if (_impl_.createthemessettings_ != nullptr) _impl_.createthemessettings_->Clear();
+  _impl_._has_bits_[3] &= ~0x00000010u;
+}
+void CloudPolicySubProto1::clear_helpmewritesettings() {
+  if (_impl_.helpmewritesettings_ != nullptr) _impl_.helpmewritesettings_->Clear();
   _impl_._has_bits_[3] &= ~0x00000008u;
 }
-void CloudPolicySubProto1::clear_taborganizationallowed() {
-  if (_impl_.taborganizationallowed_ != nullptr) _impl_.taborganizationallowed_->Clear();
+void CloudPolicySubProto1::clear_taborganizersettings() {
+  if (_impl_.taborganizersettings_ != nullptr) _impl_.taborganizersettings_->Clear();
   _impl_._has_bits_[3] &= ~0x00000004u;
-}
-void CloudPolicySubProto1::clear_wallpapersearchallowed() {
-  if (_impl_.wallpapersearchallowed_ != nullptr) _impl_.wallpapersearchallowed_->Clear();
-  _impl_._has_bits_[3] &= ~0x00000010u;
 }
 void CloudPolicySubProto1::clear_showcastsessionsstartedbyotherdevices() {
   if (_impl_.showcastsessionsstartedbyotherdevices_ != nullptr) _impl_.showcastsessionsstartedbyotherdevices_->Clear();
@@ -2025,9 +2025,9 @@ CloudPolicySubProto1::CloudPolicySubProto1(const CloudPolicySubProto1& from)
     , decltype(_impl_.feedbacksurveysenabled_){nullptr}
     , decltype(_impl_.deskapidesksaveandshareenabled_){nullptr}
     , decltype(_impl_.oopprintdriversallowed_){nullptr}
-    , decltype(_impl_.taborganizationallowed_){nullptr}
-    , decltype(_impl_.composeallowed_){nullptr}
-    , decltype(_impl_.wallpapersearchallowed_){nullptr}
+    , decltype(_impl_.taborganizersettings_){nullptr}
+    , decltype(_impl_.helpmewritesettings_){nullptr}
+    , decltype(_impl_.createthemessettings_){nullptr}
     , decltype(_impl_.alwaysonvpnpreconnecturlallowlist_){nullptr}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
@@ -2326,13 +2326,13 @@ CloudPolicySubProto1::CloudPolicySubProto1(const CloudPolicySubProto1& from)
     _this->_impl_.oopprintdriversallowed_ = new ::enterprise_management::BooleanPolicyProto(*from._impl_.oopprintdriversallowed_);
   }
   if ((from._impl_._has_bits_[3] & 0x00000004u) != 0) {
-    _this->_impl_.taborganizationallowed_ = new ::enterprise_management::IntegerPolicyProto(*from._impl_.taborganizationallowed_);
+    _this->_impl_.taborganizersettings_ = new ::enterprise_management::IntegerPolicyProto(*from._impl_.taborganizersettings_);
   }
   if ((from._impl_._has_bits_[3] & 0x00000008u) != 0) {
-    _this->_impl_.composeallowed_ = new ::enterprise_management::IntegerPolicyProto(*from._impl_.composeallowed_);
+    _this->_impl_.helpmewritesettings_ = new ::enterprise_management::IntegerPolicyProto(*from._impl_.helpmewritesettings_);
   }
   if ((from._impl_._has_bits_[3] & 0x00000010u) != 0) {
-    _this->_impl_.wallpapersearchallowed_ = new ::enterprise_management::IntegerPolicyProto(*from._impl_.wallpapersearchallowed_);
+    _this->_impl_.createthemessettings_ = new ::enterprise_management::IntegerPolicyProto(*from._impl_.createthemessettings_);
   }
   if ((from._impl_._has_bits_[3] & 0x00000020u) != 0) {
     _this->_impl_.alwaysonvpnpreconnecturlallowlist_ = new ::enterprise_management::StringListPolicyProto(*from._impl_.alwaysonvpnpreconnecturlallowlist_);
@@ -2443,9 +2443,9 @@ inline void CloudPolicySubProto1::SharedCtor(::_pb::Arena* arena) {
     , decltype(_impl_.feedbacksurveysenabled_){nullptr}
     , decltype(_impl_.deskapidesksaveandshareenabled_){nullptr}
     , decltype(_impl_.oopprintdriversallowed_){nullptr}
-    , decltype(_impl_.taborganizationallowed_){nullptr}
-    , decltype(_impl_.composeallowed_){nullptr}
-    , decltype(_impl_.wallpapersearchallowed_){nullptr}
+    , decltype(_impl_.taborganizersettings_){nullptr}
+    , decltype(_impl_.helpmewritesettings_){nullptr}
+    , decltype(_impl_.createthemessettings_){nullptr}
     , decltype(_impl_.alwaysonvpnpreconnecturlallowlist_){nullptr}
   };
 }
@@ -2559,9 +2559,9 @@ inline void CloudPolicySubProto1::SharedDtor() {
   if (this != internal_default_instance()) delete _impl_.feedbacksurveysenabled_;
   if (this != internal_default_instance()) delete _impl_.deskapidesksaveandshareenabled_;
   if (this != internal_default_instance()) delete _impl_.oopprintdriversallowed_;
-  if (this != internal_default_instance()) delete _impl_.taborganizationallowed_;
-  if (this != internal_default_instance()) delete _impl_.composeallowed_;
-  if (this != internal_default_instance()) delete _impl_.wallpapersearchallowed_;
+  if (this != internal_default_instance()) delete _impl_.taborganizersettings_;
+  if (this != internal_default_instance()) delete _impl_.helpmewritesettings_;
+  if (this != internal_default_instance()) delete _impl_.createthemessettings_;
   if (this != internal_default_instance()) delete _impl_.alwaysonvpnpreconnecturlallowlist_;
 }
 
@@ -2997,16 +2997,16 @@ void CloudPolicySubProto1::Clear() {
       _impl_.oopprintdriversallowed_->Clear();
     }
     if (cached_has_bits & 0x00000004u) {
-      ABSL_DCHECK(_impl_.taborganizationallowed_ != nullptr);
-      _impl_.taborganizationallowed_->Clear();
+      ABSL_DCHECK(_impl_.taborganizersettings_ != nullptr);
+      _impl_.taborganizersettings_->Clear();
     }
     if (cached_has_bits & 0x00000008u) {
-      ABSL_DCHECK(_impl_.composeallowed_ != nullptr);
-      _impl_.composeallowed_->Clear();
+      ABSL_DCHECK(_impl_.helpmewritesettings_ != nullptr);
+      _impl_.helpmewritesettings_->Clear();
     }
     if (cached_has_bits & 0x00000010u) {
-      ABSL_DCHECK(_impl_.wallpapersearchallowed_ != nullptr);
-      _impl_.wallpapersearchallowed_->Clear();
+      ABSL_DCHECK(_impl_.createthemessettings_ != nullptr);
+      _impl_.createthemessettings_->Clear();
     }
     if (cached_has_bits & 0x00000020u) {
       ABSL_DCHECK(_impl_.alwaysonvpnpreconnecturlallowlist_ != nullptr);
@@ -3905,28 +3905,28 @@ const char* CloudPolicySubProto1::_InternalParse(const char* ptr, ::_pbi::ParseC
           goto handle_unusual;
         }
         continue;
-      // optional .enterprise_management.IntegerPolicyProto TabOrganizationAllowed = 146;
+      // optional .enterprise_management.IntegerPolicyProto TabOrganizerSettings = 146;
       case 146:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 146)) {
-          ptr = ctx->ParseMessage(_internal_mutable_taborganizationallowed(), ptr);
+          ptr = ctx->ParseMessage(_internal_mutable_taborganizersettings(), ptr);
           CHK_(ptr);
         } else {
           goto handle_unusual;
         }
         continue;
-      // optional .enterprise_management.IntegerPolicyProto ComposeAllowed = 147;
+      // optional .enterprise_management.IntegerPolicyProto HelpMeWriteSettings = 147;
       case 147:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 154)) {
-          ptr = ctx->ParseMessage(_internal_mutable_composeallowed(), ptr);
+          ptr = ctx->ParseMessage(_internal_mutable_helpmewritesettings(), ptr);
           CHK_(ptr);
         } else {
           goto handle_unusual;
         }
         continue;
-      // optional .enterprise_management.IntegerPolicyProto WallpaperSearchAllowed = 148;
+      // optional .enterprise_management.IntegerPolicyProto CreateThemesSettings = 148;
       case 148:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 162)) {
-          ptr = ctx->ParseMessage(_internal_mutable_wallpapersearchallowed(), ptr);
+          ptr = ctx->ParseMessage(_internal_mutable_createthemessettings(), ptr);
           CHK_(ptr);
         } else {
           goto handle_unusual;
@@ -4660,25 +4660,25 @@ failure:
         _Internal::oopprintdriversallowed(this).GetCachedSize(), target, stream);
   }
 
-  // optional .enterprise_management.IntegerPolicyProto TabOrganizationAllowed = 146;
+  // optional .enterprise_management.IntegerPolicyProto TabOrganizerSettings = 146;
   if (cached_has_bits & 0x00000004u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(146, _Internal::taborganizationallowed(this),
-        _Internal::taborganizationallowed(this).GetCachedSize(), target, stream);
+      InternalWriteMessage(146, _Internal::taborganizersettings(this),
+        _Internal::taborganizersettings(this).GetCachedSize(), target, stream);
   }
 
-  // optional .enterprise_management.IntegerPolicyProto ComposeAllowed = 147;
+  // optional .enterprise_management.IntegerPolicyProto HelpMeWriteSettings = 147;
   if (cached_has_bits & 0x00000008u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(147, _Internal::composeallowed(this),
-        _Internal::composeallowed(this).GetCachedSize(), target, stream);
+      InternalWriteMessage(147, _Internal::helpmewritesettings(this),
+        _Internal::helpmewritesettings(this).GetCachedSize(), target, stream);
   }
 
-  // optional .enterprise_management.IntegerPolicyProto WallpaperSearchAllowed = 148;
+  // optional .enterprise_management.IntegerPolicyProto CreateThemesSettings = 148;
   if (cached_has_bits & 0x00000010u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(148, _Internal::wallpapersearchallowed(this),
-        _Internal::wallpapersearchallowed(this).GetCachedSize(), target, stream);
+      InternalWriteMessage(148, _Internal::createthemessettings(this),
+        _Internal::createthemessettings(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.StringListPolicyProto AlwaysOnVpnPreConnectUrlAllowlist = 150;
@@ -5419,25 +5419,25 @@ failure:
           *_impl_.oopprintdriversallowed_);
     }
 
-    // optional .enterprise_management.IntegerPolicyProto TabOrganizationAllowed = 146;
+    // optional .enterprise_management.IntegerPolicyProto TabOrganizerSettings = 146;
     if (cached_has_bits & 0x00000004u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *_impl_.taborganizationallowed_);
+          *_impl_.taborganizersettings_);
     }
 
-    // optional .enterprise_management.IntegerPolicyProto ComposeAllowed = 147;
+    // optional .enterprise_management.IntegerPolicyProto HelpMeWriteSettings = 147;
     if (cached_has_bits & 0x00000008u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *_impl_.composeallowed_);
+          *_impl_.helpmewritesettings_);
     }
 
-    // optional .enterprise_management.IntegerPolicyProto WallpaperSearchAllowed = 148;
+    // optional .enterprise_management.IntegerPolicyProto CreateThemesSettings = 148;
     if (cached_has_bits & 0x00000010u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *_impl_.wallpapersearchallowed_);
+          *_impl_.createthemessettings_);
     }
 
     // optional .enterprise_management.StringListPolicyProto AlwaysOnVpnPreConnectUrlAllowlist = 150;
@@ -5891,16 +5891,16 @@ void CloudPolicySubProto1::MergeFrom(const CloudPolicySubProto1& from) {
           from._internal_oopprintdriversallowed());
     }
     if (cached_has_bits & 0x00000004u) {
-      _this->_internal_mutable_taborganizationallowed()->::enterprise_management::IntegerPolicyProto::MergeFrom(
-          from._internal_taborganizationallowed());
+      _this->_internal_mutable_taborganizersettings()->::enterprise_management::IntegerPolicyProto::MergeFrom(
+          from._internal_taborganizersettings());
     }
     if (cached_has_bits & 0x00000008u) {
-      _this->_internal_mutable_composeallowed()->::enterprise_management::IntegerPolicyProto::MergeFrom(
-          from._internal_composeallowed());
+      _this->_internal_mutable_helpmewritesettings()->::enterprise_management::IntegerPolicyProto::MergeFrom(
+          from._internal_helpmewritesettings());
     }
     if (cached_has_bits & 0x00000010u) {
-      _this->_internal_mutable_wallpapersearchallowed()->::enterprise_management::IntegerPolicyProto::MergeFrom(
-          from._internal_wallpapersearchallowed());
+      _this->_internal_mutable_createthemessettings()->::enterprise_management::IntegerPolicyProto::MergeFrom(
+          from._internal_createthemessettings());
     }
     if (cached_has_bits & 0x00000020u) {
       _this->_internal_mutable_alwaysonvpnpreconnecturlallowlist()->::enterprise_management::StringListPolicyProto::MergeFrom(

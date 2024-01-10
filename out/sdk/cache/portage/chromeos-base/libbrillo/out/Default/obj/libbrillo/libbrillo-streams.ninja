@@ -1,29 +1,29 @@
 defines = -DNDEBUG -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -DUSE_DBUS=true -DUSE_RTTI_FOR_TYPE_TAGS=1 -DUSE_ENTERPRISE_ROLLBACK_REVEN=false
-include_dirs = -Igen/include -I../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2389/work/libbrillo-0.0.1 -I../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2389/work/libbrillo-0.0.1/libbrillo
+include_dirs = -Igen/include -I../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2390/work/libbrillo-0.0.1 -I../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2390/work/libbrillo-0.0.1/libbrillo
 cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -fPIC -I/usr/include/libchrome -Wno-unused-local-typedefs -DBASE_VER=1241304 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/perfetto -I/usr/include/nss -I/usr/include/nspr -I/usr/include/dbus-1.0 -I/usr/lib64/dbus-1.0/include -DPROTOBUF_USE_DLLS
 cflags_cc = -std=gnu++20 -DNDEBUG -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -O2 -pipe -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
 root_out_dir = .
 target_output_name = libbrillo-streams
 
-build obj/libbrillo/brillo/streams/libbrillo-streams.file_stream.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2389/work/libbrillo-0.0.1/libbrillo/brillo/streams/file_stream.cc
+build obj/libbrillo/brillo/streams/libbrillo-streams.file_stream.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2390/work/libbrillo-0.0.1/libbrillo/brillo/streams/file_stream.cc
   source_file_part = file_stream.cc
   source_name_part = file_stream
-build obj/libbrillo/brillo/streams/libbrillo-streams.input_stream_set.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2389/work/libbrillo-0.0.1/libbrillo/brillo/streams/input_stream_set.cc
+build obj/libbrillo/brillo/streams/libbrillo-streams.input_stream_set.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2390/work/libbrillo-0.0.1/libbrillo/brillo/streams/input_stream_set.cc
   source_file_part = input_stream_set.cc
   source_name_part = input_stream_set
-build obj/libbrillo/brillo/streams/libbrillo-streams.memory_containers.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2389/work/libbrillo-0.0.1/libbrillo/brillo/streams/memory_containers.cc
+build obj/libbrillo/brillo/streams/libbrillo-streams.memory_containers.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2390/work/libbrillo-0.0.1/libbrillo/brillo/streams/memory_containers.cc
   source_file_part = memory_containers.cc
   source_name_part = memory_containers
-build obj/libbrillo/brillo/streams/libbrillo-streams.memory_stream.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2389/work/libbrillo-0.0.1/libbrillo/brillo/streams/memory_stream.cc
+build obj/libbrillo/brillo/streams/libbrillo-streams.memory_stream.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2390/work/libbrillo-0.0.1/libbrillo/brillo/streams/memory_stream.cc
   source_file_part = memory_stream.cc
   source_name_part = memory_stream
-build obj/libbrillo/brillo/streams/libbrillo-streams.stream.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2389/work/libbrillo-0.0.1/libbrillo/brillo/streams/stream.cc
+build obj/libbrillo/brillo/streams/libbrillo-streams.stream.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2390/work/libbrillo-0.0.1/libbrillo/brillo/streams/stream.cc
   source_file_part = stream.cc
   source_name_part = stream
-build obj/libbrillo/brillo/streams/libbrillo-streams.stream_errors.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2389/work/libbrillo-0.0.1/libbrillo/brillo/streams/stream_errors.cc
+build obj/libbrillo/brillo/streams/libbrillo-streams.stream_errors.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2390/work/libbrillo-0.0.1/libbrillo/brillo/streams/stream_errors.cc
   source_file_part = stream_errors.cc
   source_name_part = stream_errors
-build obj/libbrillo/brillo/streams/libbrillo-streams.stream_utils.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2389/work/libbrillo-0.0.1/libbrillo/brillo/streams/stream_utils.cc
+build obj/libbrillo/brillo/streams/libbrillo-streams.stream_utils.o: cxx ../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2390/work/libbrillo-0.0.1/libbrillo/brillo/streams/stream_utils.cc
   source_file_part = stream_utils.cc
   source_name_part = stream_utils
 

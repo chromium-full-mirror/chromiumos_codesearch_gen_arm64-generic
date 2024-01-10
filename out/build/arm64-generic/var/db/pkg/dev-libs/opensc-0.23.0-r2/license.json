@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-libs", "name": "opensc", "version": "0.23.0", "revision": 2, "fullname": "dev-libs/opensc", "fullnamerev": "dev-libs/opensc-0.23.0-r2", "license_names": ["LGPL-2.1"], "license_text_scanned": [], "homepages": ["https://github.com/OpenSC/OpenSC/wiki"], "skip": false, "tainted": false, "ebuild_path": null}
